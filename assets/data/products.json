@@ -1,0 +1,282 @@
+[
+  {
+    "id": "cosrx",
+    "brand": "COSRX",
+    "name": "Salicylic Acid Daily Gentle Cleanser",
+    "size": "150 ml",
+    "category": "Face",
+    "step": "Cleanse",
+    "image": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2023/08/4167669000000143025-optimized.jpg?fit=680%2C680&quality=89&ssl=1",
+    "purpose": "Cleanse · clarify",
+    "usage": "Morning and evening",
+    "priority": "Essential",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/"
+    },
+    "secondary": {
+      "label": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/"
+    }
+  },
+  {
+    "id": "somebymi",
+    "brand": "SOME BY MI",
+    "name": "AHA·BHA·PHA 30 Days Miracle Toner",
+    "size": "150 ml",
+    "category": "Face",
+    "step": "Exfoliate",
+    "image": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2020/01/kxq1lqyk-1-optimized.png?quality=80&resize=411%2C442&ssl=1",
+    "purpose": "Exfoliate · refine",
+    "usage": "Evening, twice weekly",
+    "priority": "Controlled",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/some-by-mi-aha-bha-pha-30-days-miracle-toner/"
+    },
+    "secondary": {
+      "label": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/some-by-mi-30-days-miracle-toner-150ml/"
+    }
+  },
+  {
+    "id": "anua",
+    "brand": "ANUA",
+    "name": "Niacinamide 10% + TXA 4% Serum",
+    "size": "30 ml",
+    "category": "Face",
+    "step": "Treat",
+    "image": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/skdbvd-1-optimized.jpg?fit=425%2C425&quality=89&ssl=1",
+    "purpose": "Correct · brighten",
+    "usage": "Morning and most evenings",
+    "priority": "Essential",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/"
+    },
+    "secondary": {
+      "label": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/anua-niacinamide-10-txa-4-serum-30ml/"
+    }
+  },
+  {
+    "id": "wonder",
+    "brand": "FACE FACTS",
+    "name": "Wonder Cream Fragrance Free",
+    "size": "50 ml",
+    "category": "Face",
+    "step": "Moisturize",
+    "image": "https://peronabeauty.com/wp-content/uploads/2024/12/Screenshot-at--600x605.png",
+    "purpose": "Hydrate · comfort",
+    "usage": "Morning or barrier nights",
+    "priority": "Essential",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face-facts-wonder-cream-50ml-2/"
+    },
+    "secondary": {
+      "label": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/face-facts-wonder-cream-fragrance-free/"
+    }
+  },
+  {
+    "id": "bright",
+    "brand": "FACE FACTS",
+    "name": "Bright + Clear Face Cream",
+    "size": "75 ml",
+    "category": "Face",
+    "step": "Moisturize",
+    "image": "https://peronabeauty.com/wp-content/uploads/2024/08/face-facts_387858-600x600.jpg",
+    "purpose": "Even · soften",
+    "usage": "Standard evenings",
+    "priority": "Keep",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/face-facts-bright-clear-face-cream-75ml/"
+    },
+    "secondary": {
+      "label": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/face-facts-bright-clear-face-cream-75ml/"
+    }
+  },
+  {
+    "id": "blab",
+    "brand": "B.LAB",
+    "name": "Matcha Hydrating Real Sunscreen SPF50+ PA++++",
+    "size": "50 ml",
+    "category": "Face",
+    "step": "Protect",
+    "image": "https://peronabeauty.com/wp-content/uploads/2024/02/IMG-1630-600x600.jpg",
+    "purpose": "Shield · preserve",
+    "usage": "Every morning",
+    "priority": "Never skip",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/"
+    },
+    "secondary": {
+      "label": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/"
+    }
+  },
+  {
+    "id": "dove",
+    "brand": "DOVE",
+    "name": "Beauty Bar — Moroccan Argan Oil",
+    "size": "Variant pack",
+    "category": "Body",
+    "step": "Cleanse",
+    "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=90",
+    "purpose": "Cleanse · soften",
+    "usage": "Daily",
+    "priority": "Essential",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=dove+moroccan+argan+oil+beauty+bar&post_type=product"
+    },
+    "secondary": {
+      "label": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20argan%20oil"
+    }
+  },
+  {
+    "id": "deodorant",
+    "brand": "DOVE",
+    "name": "Go Fresh Cucumber & Green Tea Spray",
+    "size": "Aerosol",
+    "category": "Body",
+    "step": "Protect",
+    "image": "https://images.unsplash.com/photo-1619451334792-150fd785ee74?auto=format&fit=crop&w=1200&q=90",
+    "purpose": "Freshen · protect",
+    "usage": "Daily",
+    "priority": "Keep",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=dove+go+fresh+cucumber+green+tea+spray&post_type=product"
+    },
+    "secondary": {
+      "label": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20cucumber%20deodorant"
+    }
+  },
+  {
+    "id": "miracle",
+    "brand": "BEAUTIFUL YOU · MIRACLE",
+    "name": "Natural Hair Anti-Dandruff & Anti-Itch Shampoo",
+    "size": "400 ml",
+    "category": "Hair",
+    "step": "Cleanse",
+    "image": "https://www.agtplaza.com/cdn/shop/files/background-editor_output_7b61d159-dd7a-41f8-a083-ec9548d9bdf2.png?v=1735099870",
+    "purpose": "Cleanse · calm",
+    "usage": "Wash days",
+    "priority": "Essential",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=miracle+natural+hair+anti+dandruff+shampoo&post_type=product"
+    },
+    "secondary": {
+      "label": "AGT Plaza",
+      "url": "https://www.agtplaza.com/products/miracle-shampoo-natural-hair-anti-dandruff-anti-itch-with-castor-oil-400ml-ugm41a"
+    }
+  },
+  {
+    "id": "lush",
+    "brand": "LUSH HAIR",
+    "name": "Rinse Me Out Mentholated Conditioner",
+    "size": "370 ml",
+    "category": "Hair",
+    "step": "Condition",
+    "image": "https://nigeria.lushhairafrica.com/cdn/shop/files/26451_7ca2d10503cf413b262130540e2df7dd.png?v=1766145282&width=1600",
+    "purpose": "Condition · detangle",
+    "usage": "After shampoo",
+    "priority": "Keep",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=lush+hair+mentholated+conditioner&post_type=product"
+    },
+    "secondary": {
+      "label": "Lush Hair Nigeria",
+      "url": "https://nigeria.lushhairafrica.com/products/mentholated-conditioner-370ml"
+    }
+  },
+  {
+    "id": "mediana",
+    "brand": "MEDIANA",
+    "name": "Leave-In Conditioning Milk",
+    "size": "250 ml",
+    "category": "Hair",
+    "step": "Leave in",
+    "image": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/mediana-leave-in-conditioning-milk.webp",
+    "purpose": "Detangle · soften",
+    "usage": "After wash",
+    "priority": "Essential",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product"
+    },
+    "secondary": {
+      "label": "Slique Beauty",
+      "url": "https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/"
+    }
+  },
+  {
+    "id": "kuza",
+    "brand": "KUZA",
+    "name": "100% Indian Hemp Hair & Scalp Treatment",
+    "size": "8 oz / 226 g",
+    "category": "Hair",
+    "step": "Seal",
+    "image": "https://perfectpicturecosmetics.com/cdn/shop/files/20250510_1219_Hair_Treatment_Product_Display_remix_01jtx23f14fz4aft5nvz1cpvpt.png?v=1746879611&width=1600",
+    "purpose": "Treat · seal",
+    "usage": "Small amount as needed",
+    "priority": "Keep",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=kuza+indian+hemp+hair+scalp+treatment&post_type=product"
+    },
+    "secondary": {
+      "label": "Perfect Picture Cosmetics",
+      "url": "https://perfectpicturecosmetics.com/products/kuza-100-indian-hemp-hair-scalp-treatment-226g"
+    }
+  },
+  {
+    "id": "ogx",
+    "brand": "OGX",
+    "name": "Renewing + Argan Oil of Morocco Extra Penetrating Oil",
+    "size": "100 ml",
+    "category": "Hair",
+    "step": "Finish",
+    "image": "https://www.caretobeauty.com/on/demandware.static/-/Sites-master-catalog/default/dw13eb2662/images/large/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml.jpg",
+    "purpose": "Gloss · finish",
+    "usage": "Hair lengths and ends",
+    "priority": "Preferred",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=OGX+Renewing+Argan+Oil+of+Morocco&post_type=product"
+    },
+    "secondary": {
+      "label": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml/"
+    }
+  },
+  {
+    "id": "disaar",
+    "brand": "DISAAR",
+    "name": "Argan Oil Body Oil Gel",
+    "size": "Body oil gel",
+    "category": "Body",
+    "step": "Moisturize",
+    "image": "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=1200&q=90",
+    "purpose": "Moisturize · glow",
+    "usage": "After shower",
+    "priority": "Keep",
+    "primary": {
+      "label": "Beauty by Daz",
+      "url": "https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product"
+    },
+    "secondary": {
+      "label": "Choices Chi",
+      "url": "https://choiceschi.com/?s=disaar+argan+oil&post_type=product"
+    }
+  }
+]
