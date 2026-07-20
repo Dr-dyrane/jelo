@@ -7,29 +7,39 @@ import { SYSTEM_PROMPT } from '@/modules/consultation/system-prompt';
 
 export const maxDuration = 30;
 
+const requestSchema = z.object({ messages: z.array(z.custom<UIMessage>()).min(1).max(40) });
+
 export async function POST(request: Request) {
-  const { messages }: { messages: UIMessage[] } = await request.json();
+  const parsed = requestSchema.safeParse(await request.json());
+  if (!parsed.success) return Response.json({ error: 'Invalid consultation request.' }, { status: 400 });
 
   const result = streamText({
-    model: process.env.JELLOCARE_AI_MODEL ?? 'anthropic/claude-sonnet-4.5',
+    model: process.env.JELOCARE_AI_MODEL ?? 'anthropic/claude-sonnet-4.6',
     system: SYSTEM_PROMPT,
-    messages: await convertToModelMessages(messages),
+    messages: await convertToModelMessages(parsed.data.messages),
     stopWhen: stepCountIs(5),
     tools: {
       screenSafety: tool({
-        description: 'Screen symptoms for warning signs before product guidance.',
-        inputSchema: z.object({ symptoms: z.array(z.string()), durationDays: z.number().optional() }),
+        description: 'Screen the reported symptoms for warning signs before giving self-care guidance.',
+        inputSchema: z.object({ symptoms: z.array(z.string()).min(1), durationDays: z.number().nonnegative().optional() }),
         execute: async input => assessRedFlags(input),
       }),
       findProducts: tool({
-        description: 'Return catalogue products ranked for the structured concern.',
+        description: 'Find catalogue products that fit the structured concern. Never invent products.',
         inputSchema: z.object({
-          concerns: z.array(z.string()),
+          concerns: z.array(z.string()).min(1),
           skinType: z.string().optional(),
           sensitive: z.boolean().default(false),
           location: z.string().optional(),
         }),
-        execute: async input => rankProducts(products, input).slice(0, 4),
+        execute: async input => rankProducts(products, input).slice(0, 4).map(({ product, score, reasons }) => ({
+          slug: product.slug,
+          brand: product.brand,
+          name: product.name,
+          score,
+          reasons,
+          url: `/products/${product.slug}`,
+        })),
       }),
     },
   });
