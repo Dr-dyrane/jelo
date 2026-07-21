@@ -12,7 +12,6 @@ const concernCards = [
 ].filter(card => card.product);
 
 export default function HomePage() {
-  const heroProduct = products.find(product => product.step === 'Protect') ?? products[0];
   const storyProduct = products.find(product => product.concerns.includes('barrier')) ?? products[3] ?? products[0];
   const recommendations = products.filter(product => product.sensitiveFriendly).slice(0, 3);
   const editorsEdit = products.slice(0, 12);
@@ -21,27 +20,22 @@ export default function HomePage() {
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
+        <img className={styles.heroCampaign} src="/editorial/jelocare-hero-campaign.webp" alt="JeloCare summer skincare campaign featuring Jelo" />
+        <div className={styles.heroShade} />
         <div className={styles.heroCopy}>
           <p className={styles.kicker}>The JeloCare summer edit</p>
-          <h1>Skin, beautifully understood.</h1>
-          <p className={styles.heroDeck}>Discover formulas chosen for fit, evidence and the way real skin lives. Quietly guided by pharmacist-led intelligence.</p>
+          <h1>Your best skin starts with confidence.</h1>
+          <p className={styles.heroDeck}>Clinically guided care. Beautifully curated for the way real skin lives.</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/products">Explore the edit</Link>
-            <Link className={styles.secondary} href="/concerns">Shop by concern</Link>
+            <Link className={styles.primary} href="/products">Shop the edit</Link>
+            <Link className={styles.secondary} href="/concerns">Explore concerns</Link>
           </div>
         </div>
-        {heroProduct ? (
-          <div className={styles.heroVisual}>
-            <span className={styles.heroIssue}>01</span>
-            <div className={styles.heroProductStage}>
-              <img src={heroProduct.image} alt={`${heroProduct.brand} ${heroProduct.name}`} />
-            </div>
-            <div className={styles.heroCaption}>
-              <strong>{heroProduct.brand}</strong>
-              <span>{heroProduct.name}</span>
-            </div>
-          </div>
-        ) : null}
+        <div className={styles.heroEditorial}>
+          <small>Summer edit</small>
+          <strong>Restore.<br />Protect.<br />Glow.</strong>
+          <span>Barrier-supporting essentials for hydrated, healthy, radiant skin.</span>
+        </div>
       </section>
 
       <section className={styles.section}>
@@ -53,7 +47,7 @@ export default function HomePage() {
           {concernCards.map((card, index) => (
             <Link className={styles.category} href={`/products?q=${encodeURIComponent(card.query)}`} key={card.label}>
               <small>0{index + 1} · Curated edit</small>
-              <img src={card.product.image} alt="" />
+              <img src={card.product.image} alt={`${card.product.brand} ${card.product.name}`} />
               <div><span>{card.label}</span><p>{card.note}</p></div>
             </Link>
           ))}
@@ -81,15 +75,17 @@ export default function HomePage() {
       </section>
 
       <section className={styles.recommendation}>
-        <div>
+        <div className={styles.recommendationCopy}>
           <p className={styles.kicker}>A gentle place to begin</p>
           <h3>Three formulas for skin asking for less.</h3>
-          <p>Comfort-first picks selected from the catalogue for sensitive-friendly routines and uncomplicated daily use.</p>
+          <p>Comfort-first picks selected for sensitive-friendly routines and uncomplicated daily use.</p>
           <Link className={styles.primary} href="/products?q=sensitivity">Explore sensitive skin</Link>
         </div>
-        <div className={styles.recommendationProducts} aria-label="Sensitive skin recommendations">
-          {recommendations.map(product => (
+        <div className={styles.formulaList} aria-label="Sensitive skin recommendations">
+          {recommendations.map((product, index) => (
             <Link href={`/products/${product.slug}`} key={product.slug}>
+              <span className={styles.formulaNumber}>0{index + 1}</span>
+              <div className={styles.formulaText}><small>{product.brand}</small><strong>{product.name}</strong><em>{product.displayLine}</em></div>
               <img src={product.image} alt={`${product.brand} ${product.name}`} />
             </Link>
           ))}
