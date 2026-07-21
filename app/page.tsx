@@ -3,6 +3,8 @@ import { ProductRail } from '@/components/products/product-grid';
 import { products } from '@/data/catalogue';
 import styles from './home.module.css';
 
+const heroImage = 'https://www.cvs.com/bizcontent/merchandising/productimages/high_res/360600043744.jpg?im=Resize=(1000,1000),aspect=ignore';
+
 const editorialCutouts: Record<string, string> = {
   'b-lab-matcha-hydrating-real-sunscreen': 'https://beautybydaz.com/wp-content/uploads/2023/08/blab-spf.jpg',
   'cosrx-salicylic-acid-daily-gentle-cleanser': 'https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373',
@@ -21,7 +23,6 @@ const concernCards = [
 ].filter(card => card.product);
 
 export default function HomePage() {
-  const heroProduct = products.find(product => product.step === 'Protect') ?? products[0];
   const storyProduct = products.find(product => product.concerns.includes('barrier')) ?? products[3] ?? products[0];
   const recommendations = products.filter(product => product.sensitiveFriendly).slice(0, 3);
   const editorsEdit = products.slice(0, 12);
@@ -39,11 +40,9 @@ export default function HomePage() {
             <Link className={styles.secondary} href="/concerns">Shop by concern</Link>
           </div>
         </div>
-        {heroProduct ? (
-          <div className={styles.heroVisual}>
-            <img className={styles.heroProduct} src={cutoutFor(heroProduct.slug, heroProduct.image)} alt={`${heroProduct.brand} ${heroProduct.name}`} />
-          </div>
-        ) : null}
+        <div className={styles.heroVisual}>
+          <img className={styles.heroProduct} src={heroImage} alt="La Roche-Posay Cicaplast Baume B5" />
+        </div>
       </section>
 
       <section className={styles.section}>
