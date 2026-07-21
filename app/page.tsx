@@ -4,10 +4,10 @@ import { products } from '@/data/catalogue';
 import styles from './home.module.css';
 
 const editorialCutouts: Record<string, string> = {
-  'b-lab-matcha-hydrating-real-sunscreen': 'https://forever-glow.com/cdn/shop/files/ScreenShot2023-09-21at7.00.53PM.png?v=1695348720&width=1946',
-  'cosrx-salicylic-acid-daily-gentle-cleanser': 'https://www.medoget.com/cdn/shop/products/Cosrx_Salicylic_Acid_Daily_Gentle_Cleanser.png?v=1741604229&width=1030',
+  'b-lab-matcha-hydrating-real-sunscreen': 'https://beautybydaz.com/wp-content/uploads/2023/08/blab-spf.jpg',
+  'cosrx-salicylic-acid-daily-gentle-cleanser': 'https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373',
   'anua-niacinamide-10-txa-4-serum': 'https://anua-global.us/cdn/shop/files/niacinamide-10-txa-4-serum-for-brightening-and-dark-spots_7.png?v=1766096582&width=2000',
-  'face-facts-wonder-cream-fragrance-free': 'https://peronabeauty.com/wp-content/uploads/2024/12/Screenshot-at--600x605.png',
+  'face-facts-wonder-cream-fragrance-free': 'https://facefacts.me/cdn/shop/files/39163_150_fr1.png?v=1759159571&width=1080',
 };
 
 const cutoutFor = (slug: string, fallback: string) => editorialCutouts[slug] ?? fallback;
