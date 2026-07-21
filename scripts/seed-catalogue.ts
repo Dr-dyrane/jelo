@@ -126,12 +126,18 @@ try {
           ${imageStatus === 'verified' ? new Date() : null}
         )
         on conflict (product_id, kind) do update set
-          blob_url = excluded.blob_url,
-          source_url = excluded.source_url,
-          source_host = excluded.source_host,
+          blob_url = coalesce(product_images.blob_url, excluded.blob_url),
+          source_url = coalesce(excluded.source_url, product_images.source_url),
+          source_host = coalesce(excluded.source_host, product_images.source_host),
           alt_text = excluded.alt_text,
-          status = excluded.status,
-          verified_at = excluded.verified_at,
+          status = case
+            when product_images.blob_url is not null then 'verified'::asset_status
+            else excluded.status
+          end,
+          verified_at = case
+            when product_images.blob_url is not null then product_images.verified_at
+            else excluded.verified_at
+          end,
           updated_at = now()
       `;
 
@@ -169,7 +175,7 @@ try {
     }
   });
 
-  console.log(`Seeded ${catalogue.length} products into Neon.`);
+  console.log(`Seeded ${catalogue.length} products into Neon without replacing verified Blob assets.`);
 } finally {
   await sql.end();
 }
