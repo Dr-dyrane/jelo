@@ -20,7 +20,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <header className="site-header">
           <Link className="site-logo" href="/">JELOCARE</Link>
-          <nav aria-label="Primary navigation"><Link href="/products">Products</Link><Link href="/consult">Consult</Link></nav>
+          <nav aria-label="Primary navigation"><Link href="/concerns">Concerns</Link><Link href="/products">Products</Link><Link href="/consult">Consult</Link></nav>
         </header>
         {children}
         <footer className="site-footer"><span>JeloCare</span><span>Guidance, not diagnosis.</span></footer>

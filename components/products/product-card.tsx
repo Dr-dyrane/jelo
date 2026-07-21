@@ -1,19 +1,23 @@
 import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import type { Product } from '@/data/products';
+import { formatBaselinePrice } from '@/data/prices';
+import styles from './product-card.module.css';
 
 export function ProductCard({ product }: { product: Product }) {
+  const href = `/products/${product.slug}`;
   return (
-    <article className="product-card">
-      <Link className="product-visual" href={`/products/${product.slug}`}>
-        <span>{product.step}</span>
+    <article className={`${styles.card} product-card`}>
+      <Link className={`${styles.visual} product-visual`} href={href} aria-label={`${product.brand} ${product.name}`}>
+        <span className={styles.step}>{product.step}</span>
+        <span className={styles.price}>{formatBaselinePrice(product.slug)}</span>
         <img src={product.image} alt={`${product.brand} ${product.name}`} />
+        <span className={styles.reveal} aria-hidden="true"><ArrowUpRight size={20} strokeWidth={1.8} /></span>
       </Link>
-      <div className="product-copy">
+      <div className={`${styles.copy} product-copy`}>
         <p className="eyebrow">{product.brand}</p>
-        <h3><Link href={`/products/${product.slug}`}>{product.name}</Link></h3>
-        <p className="product-size">{product.size}</p>
-        <p className="product-line">{product.displayLine}</p>
-        <Link className="text-link" href={`/products/${product.slug}`}>View product →</Link>
+        <h3><Link href={href}>{product.name}</Link></h3>
+        <div className={styles.meta}><span>{product.size}</span><span>{product.displayLine}</span></div>
       </div>
     </article>
   );
