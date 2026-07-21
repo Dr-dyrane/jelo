@@ -15,7 +15,7 @@ try {
     missing_price: number;
     missing_currency: number;
     suspicious_ngn: number;
-    changed_last_30_days: number;
+    observed_last_30_days: number;
   }[]>`
     select
       count(*)::int as total,
@@ -24,11 +24,12 @@ try {
       count(*) filter (
         where currency_code = 'NGN' and (price_minor < 100 or price_minor > 5000000)
       )::int as suspicious_ngn,
-      count(distinct offer_id)::int filter (
+      (
+        select count(distinct offer_id)::int
+        from offer_price_history
         where observed_at >= now() - interval '30 days'
-      ) as changed_last_30_days
+      ) as observed_last_30_days
     from offers
-    left join offer_price_history on offer_price_history.offer_id = offers.id
   `;
 
   const recentChanges = await sql<{
