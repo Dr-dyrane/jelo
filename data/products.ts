@@ -32,7 +32,7 @@ const perona = (url: string, available = true): Offer => ({ retailer: 'Perona Be
 export const products: Product[] = [
   {
     slug: 'cosrx-salicylic-acid-daily-gentle-cleanser', brand: 'COSRX', name: 'Salicylic Acid Daily Gentle Cleanser', size: '150 ml', category: 'Face', step: 'Cleanse',
-    image: 'https://i0.wp.com/buybetter.ng/wp-content/uploads/2023/08/4167669000000143025-optimized.jpg?fit=680%2C680&quality=89&ssl=1', displayLine: 'Cleanse · clarify',
+    image: 'https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373', displayLine: 'Cleanse · clarify',
     bestFor: ['oily skin', 'blackheads', 'congestion'], concerns: ['acne', 'blackheads', 'whiteheads', 'pores'], skinTypes: ['oily', 'combination'], sensitiveFriendly: true,
     usage: 'Morning or evening. Reduce frequency if skin feels tight.', evidence: 'moderate',
     offers: [beautyByDaz('https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/'), careToBeauty('https://www.caretobeauty.com/ng/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/')]
@@ -73,16 +73,16 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/'), perona('https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/')]
   },
   {
-    slug: 'dove-moroccan-argan-oil-beauty-bar', brand: 'DOVE', name: 'Moroccan Argan Oil Beauty Bar', size: 'Variant pack', category: 'Body', step: 'Cleanse',
-    image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=90', displayLine: 'Cleanse · soften',
+    slug: 'dove-moroccan-argan-oil-beauty-bar', brand: 'DOVE', name: 'Dry Oil Beauty Bar with Moroccan Argan Oil', size: '6 pack', category: 'Body', step: 'Cleanse',
+    image: 'https://assets.unileversolutions.com/v1/946691.png', displayLine: 'Cleanse · soften',
     bestFor: ['daily cleansing', 'comfortable body skin'], concerns: ['body dryness'], skinTypes: ['all'], sensitiveFriendly: true,
     usage: 'Daily bath or shower.', evidence: 'moderate',
     offers: [beautyByDaz('https://beautybydaz.com/?s=dove+moroccan+argan+oil+beauty+bar&post_type=product'), careToBeauty('https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20argan%20oil')]
   },
   {
-    slug: 'dove-go-fresh-cucumber-green-tea-spray', brand: 'DOVE', name: 'Go Fresh Cucumber & Green Tea Spray', size: 'Aerosol', category: 'Body', step: 'Protect',
-    image: 'https://images.unsplash.com/photo-1619451334792-150fd785ee74?auto=format&fit=crop&w=1200&q=90', displayLine: 'Freshen · protect',
-    bestFor: ['daily freshness'], concerns: ['body odour', 'perspiration'], skinTypes: ['all'], sensitiveFriendly: true,
+    slug: 'dove-go-fresh-cucumber-green-tea-spray', brand: 'DOVE', name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea', size: '4 oz / 113 g', category: 'Body', step: 'Protect',
+    image: 'https://assets.unileversolutions.com/v1/130069295.png', displayLine: 'Freshen · protect',
+    bestFor: ['daily freshness', 'aluminum-free odor protection'], concerns: ['body odour', 'perspiration'], skinTypes: ['all'], sensitiveFriendly: true,
     usage: 'Use on clean, dry underarms.', evidence: 'moderate',
     offers: [beautyByDaz('https://beautybydaz.com/?s=dove+go+fresh+cucumber+green+tea+spray&post_type=product'), careToBeauty('https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20cucumber%20deodorant')]
   },
@@ -122,11 +122,11 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/?s=OGX+Renewing+Argan+Oil+of+Morocco&post_type=product', false), careToBeauty('https://www.caretobeauty.com/ng/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml/')]
   },
   {
-    slug: 'disaar-argan-oil-body-oil-gel', brand: 'DISAAR', name: 'Argan Oil Body Oil Gel', size: 'Body oil gel', category: 'Body', step: 'Moisturize',
-    image: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=1200&q=90', displayLine: 'Moisturize · glow',
+    slug: 'disaar-argan-oil-body-oil-gel', brand: 'DISAAR', name: 'Argan Oil Body Oil Gel', size: '200 ml', category: 'Body', step: 'Moisturize',
+    image: '/product-fallback.svg', displayLine: 'Moisturize · glow',
     bestFor: ['body moisture', 'after-shower glow'], concerns: ['body dryness'], skinTypes: ['body'], sensitiveFriendly: true,
     usage: 'Apply to damp body skin after showering.', evidence: 'emerging',
-    offers: [beautyByDaz('https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product', false), { retailer: 'Choices Chi', url: 'https://choiceschi.com/?s=disaar+argan+oil&post_type=product', trust: 72, available: true, location: ['NG'] }]
+    offers: [beautyByDaz('https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product', false), { retailer: 'Choices Chi', url: 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', trust: 72, available: true, location: ['NG'] }]
   }
 ];
 
