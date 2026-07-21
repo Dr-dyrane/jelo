@@ -16,130 +16,71 @@ export type PatientProfile = {
 };
 
 export type EvidenceRecord = {
-  id: string;
-  title: string;
-  source: string;
+  id: string; title: string; source: string;
   sourceType: 'guideline' | 'regulator' | 'systematic-review' | 'clinical-review' | 'consensus';
-  level: EvidenceLevel;
-  summary: string;
-  reviewedAt: string;
-  reviewStatus: 'reviewed' | 'needs-review';
+  level: EvidenceLevel; summary: string; reviewedAt: string; reviewStatus: 'reviewed' | 'needs-review';
 };
 
 export type IngredientKnowledge = {
-  id: string;
-  name: string;
-  aliases: string[];
+  id: string; name: string; aliases: string[];
   family: 'retinoid' | 'exfoliant' | 'antimicrobial' | 'brightening' | 'barrier' | 'hydrating' | 'sunscreen' | 'other';
-  evidence: EvidenceLevel;
-  concerns: string[];
-  allowedTimes: RoutineTime[];
-  pregnancy: SafetyStatus;
-  breastfeeding: SafetyStatus;
-  photosensitivity: 'none' | 'low' | 'moderate' | 'high';
-  irritationRisk: 'low' | 'moderate' | 'high';
+  evidence: EvidenceLevel; concerns: string[]; allowedTimes: RoutineTime[];
+  pregnancy: SafetyStatus; breastfeeding: SafetyStatus;
+  photosensitivity: 'none' | 'low' | 'moderate' | 'high'; irritationRisk: 'low' | 'moderate' | 'high';
 };
 
 export type ClinicalFinding = {
-  ruleId: string;
-  severity: Severity;
-  title: string;
-  explanation: string;
-  ingredientIds?: string[];
-  evidenceIds?: string[];
-  evidence?: EvidenceRecord[];
+  ruleId: string; severity: Severity; title: string; explanation: string;
+  ingredientIds?: string[]; evidenceIds?: string[]; evidence?: EvidenceRecord[];
   action: 'allow' | 'adjust' | 'avoid' | 'escalate';
 };
 
 export type BarrierAssessment = {
-  score: number;
-  state: 'stable' | 'watch' | 'stressed' | 'compromised';
-  confidence: 'low' | 'moderate' | 'high';
-  signals: string[];
-  recoveryPriority: 'routine' | 'elevated' | 'high';
-  recommendedRecoveryNights: number;
+  score: number; state: 'stable' | 'watch' | 'stressed' | 'compromised';
+  confidence: 'low' | 'moderate' | 'high'; signals: string[];
+  recoveryPriority: 'routine' | 'elevated' | 'high'; recommendedRecoveryNights: number;
 };
 
-export type DifferentialPattern = {
-  id: string;
-  label: string;
-  confidence: number;
-  supporting: string[];
-  opposing: string[];
-  missing: string[];
+export type DifferentialPattern = { id: string; label: string; confidence: number; supporting: string[]; opposing: string[]; missing: string[] };
+export type DifferentialAssessment = { primary?: DifferentialPattern; alternatives: DifferentialPattern[]; confidence: 'low' | 'moderate' | 'high'; questions: string[] };
+export type ReferralAssessment = { level: 'self-care' | 'pharmacist' | 'primary-care' | 'dermatology' | 'urgent' | 'emergency'; urgency: 'routine' | 'soon' | 'same-day' | 'immediate'; reasons: string[]; action: string };
+
+export type TreatmentGoal = {
+  horizon: 'now' | '2-weeks' | '6-weeks' | '12-weeks';
+  title: string; objective: string; successMarkers: string[];
 };
 
-export type DifferentialAssessment = {
-  primary?: DifferentialPattern;
-  alternatives: DifferentialPattern[];
-  confidence: 'low' | 'moderate' | 'high';
-  questions: string[];
-};
-
-export type ReferralAssessment = {
-  level: 'self-care' | 'pharmacist' | 'primary-care' | 'dermatology' | 'urgent' | 'emergency';
-  urgency: 'routine' | 'soon' | 'same-day' | 'immediate';
-  reasons: string[];
-  action: string;
+export type MonitoringPlan = {
+  expected: string[];
+  acceptableEffects: string[];
+  stopCriteria: string[];
+  escalationTriggers: string[];
+  checkpoints: { label: string; afterDays: number; review: string }[];
 };
 
 export type RoutineStep = {
-  time: Exclude<RoutineTime, 'any'>;
-  action: string;
-  rationale: string;
+  time: Exclude<RoutineTime, 'any'>; action: string; rationale: string;
   frequency: 'daily' | 'alternate-days' | '1-2x-weekly' | '2-3x-weekly' | '2x-weekly' | '3x-weekly';
 };
-
-export type RoutinePlan = {
-  morning: RoutineStep[];
-  evening: RoutineStep[];
-  weekly: RoutineStep[];
-  summary: string;
-  findings: ClinicalFinding[];
-};
+export type RoutinePlan = { morning: RoutineStep[]; evening: RoutineStep[]; weekly: RoutineStep[]; summary: string; findings: ClinicalFinding[] };
 
 export type ClinicalTimelineRecord = {
-  id: string;
-  schemaVersion: 1;
-  createdAt: string;
-  assessmentType: 'consultation';
-  concernSummary: string;
-  concerns: string[];
-  market: 'NG' | 'US';
-  barrier: BarrierAssessment;
-  activeLoad: ClinicalAssessment['activeLoad'];
-  findingRuleIds: string[];
-  blockedIngredientIds: string[];
-  detectedIngredientIds: string[];
-  routineSummary?: string;
-  recommendedProductSlugs: string[];
-  followUpAt: string;
+  id: string; schemaVersion: 1; createdAt: string; assessmentType: 'consultation'; concernSummary: string;
+  concerns: string[]; market: 'NG' | 'US'; barrier: BarrierAssessment; activeLoad: ClinicalAssessment['activeLoad'];
+  findingRuleIds: string[]; blockedIngredientIds: string[]; detectedIngredientIds: string[];
+  routineSummary?: string; recommendedProductSlugs: string[]; followUpAt: string;
 };
-
 export type TimelineInsight = {
   direction: 'first-assessment' | 'improving' | 'stable' | 'worsening' | 'mixed';
-  barrierDelta: number | null;
-  activeLoadDelta: number | null;
-  previousAssessmentAt?: string;
-  summary: string;
-  actions: string[];
-  confidence: 'low' | 'moderate' | 'high';
+  barrierDelta: number | null; activeLoadDelta: number | null; previousAssessmentAt?: string;
+  summary: string; actions: string[]; confidence: 'low' | 'moderate' | 'high';
 };
 
 export type ClinicalAssessment = {
-  detectedIngredients: IngredientKnowledge[];
-  findings: ClinicalFinding[];
-  evidence: EvidenceRecord[];
+  detectedIngredients: IngredientKnowledge[]; findings: ClinicalFinding[]; evidence: EvidenceRecord[];
   blockedIngredientIds: string[];
-  activeLoad: {
-    exfoliant: number;
-    retinoid: number;
-    antimicrobial: number;
-    total: number;
-  };
-  barrier: BarrierAssessment;
-  differential: DifferentialAssessment;
-  referral: ReferralAssessment;
-  profile?: PatientProfile;
-  routinePlan?: RoutinePlan;
+  activeLoad: { exfoliant: number; retinoid: number; antimicrobial: number; total: number };
+  barrier: BarrierAssessment; differential: DifferentialAssessment; referral: ReferralAssessment;
+  treatmentGoals: TreatmentGoal[]; monitoring: MonitoringPlan;
+  profile?: PatientProfile; routinePlan?: RoutinePlan;
 };
