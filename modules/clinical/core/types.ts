@@ -38,6 +38,21 @@ export type ClinicalFinding = {
   action: 'allow' | 'adjust' | 'avoid' | 'escalate';
 };
 
+export type RoutineStep = {
+  time: Exclude<RoutineTime, 'any'>;
+  action: string;
+  rationale: string;
+  frequency: 'daily' | 'alternate-days' | '1-2x-weekly' | '2-3x-weekly' | '2x-weekly';
+};
+
+export type RoutinePlan = {
+  morning: RoutineStep[];
+  evening: RoutineStep[];
+  weekly: RoutineStep[];
+  summary: string;
+  findings: ClinicalFinding[];
+};
+
 export type ClinicalAssessment = {
   detectedIngredients: IngredientKnowledge[];
   findings: ClinicalFinding[];
@@ -48,4 +63,6 @@ export type ClinicalAssessment = {
     antimicrobial: number;
     total: number;
   };
+  profile?: PatientProfile;
+  routinePlan?: RoutinePlan;
 };
