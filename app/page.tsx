@@ -37,7 +37,7 @@ export default function HomePage() {
           <p className={styles.heroDeck}>La Roche-Posay Cicaplast Baume B5. A soothing multi-purpose cream for dry, fragile and visibly stressed skin.</p>
           <div className={styles.actions}>
             <Link className={styles.primary} href="/products?q=barrier">Discover barrier care</Link>
-            <Link className={styles.secondary} href="/consult">Ask JeloCare</Link>
+            <Link className={styles.secondary} href="/consult" style={{ border: 0 }}>Ask JeloCare</Link>
           </div>
         </div>
 
@@ -45,20 +45,20 @@ export default function HomePage() {
           <div className={styles.heroAura} />
           <img className={styles.heroProduct} src={heroImage} alt="La Roche-Posay Cicaplast Baume B5 Soothing Therapeutic Multi-Purpose Cream, 1.35 oz" />
 
-          <div className={`${styles.glassCard} ${styles.glassTop}`}>
+          <div className={`${styles.glassCard} ${styles.glassTop}`} style={{ border: 0 }}>
             <span>01 · Barrier</span>
             <strong>Repair without the noise.</strong>
           </div>
 
-          <div className={`${styles.glassCard} ${styles.glassBottom}`}>
+          <div className={`${styles.glassCard} ${styles.glassBottom}`} style={{ border: 0 }}>
             <span>1.35 oz · Multi-purpose</span>
             <strong>Dry skin. Fragile skin. Everyday recovery.</strong>
           </div>
 
           <div className={styles.heroMeta}>
-            <span>Pharmacist edit</span>
-            <span>Soothing care</span>
-            <span>Barrier support</span>
+            <span style={{ border: 0 }}>Pharmacist edit</span>
+            <span style={{ border: 0 }}>Soothing care</span>
+            <span style={{ border: 0 }}>Barrier support</span>
           </div>
         </div>
       </section>
