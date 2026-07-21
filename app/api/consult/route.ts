@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { products } from '@/data/catalogue';
 import { baselinePrices, type Market } from '@/data/prices';
 import { assessRedFlags } from '@/modules/clinical/safety-gate';
+import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { rankProducts } from '@/modules/recommendations/product-ranker';
 
 export const maxDuration = 30;
@@ -13,7 +14,7 @@ const reportSchema = z.object({
   summary: z.string().max(420),
   pattern: z.string().max(260),
   routine: z.array(z.object({ time: z.enum(['Morning', 'Evening', 'Weekly', 'Any time']), action: z.string().max(180) })).max(6),
-  cautions: z.array(z.string().max(180)).max(4),
+  cautions: z.array(z.string().max(180)).max(6),
   productSlugs: z.array(z.string()).max(4),
   followUp: z.string().max(220),
 });
@@ -66,23 +67,27 @@ export async function POST(request: Request) {
   const { query, market } = parsed.data;
   const concerns = inferConcerns(query);
   const safety = assessRedFlags({ symptoms: [query] });
+  const clinical = assessClinicalRoutine(query, { concerns, market, sensitiveSkin: concerns.includes('sensitivity') });
   const ranked = rankProducts(products, { concerns, sensitive: concerns.includes('sensitivity'), location: market }).slice(0, 6);
   const candidates = ranked.map(result => {
     const product = products.find(item => item.slug === result.slug)!;
     return { slug: product.slug, brand: product.brand, name: product.name, step: product.step, bestFor: product.bestFor, concerns: product.concerns, usage: product.usage, sensitiveFriendly: product.sensitiveFriendly };
   });
 
+  const deterministicCautions = clinical.findings.map(finding => `${finding.title}: ${finding.explanation}`);
+
   try {
     const result = await generateText({
       model: process.env.JELOCARE_AI_MODEL ?? 'openai/gpt-5-mini',
       output: Output.object({ schema: reportSchema }),
-      maxOutputTokens: 700,
+      maxOutputTokens: 800,
       temperature: 0.2,
-      system: 'You are JeloCare, a pharmacist-led skincare guidance assistant. Give concise, cautious self-care guidance, not a diagnosis. Use only supplied catalogue slugs. Never invent products, prices, retailers, images or links. Prefer a simple routine over many actives. Clearly advise prompt in-person care for urgent, painful, infected or rapidly worsening symptoms. Return the exact requested structured object.',
-      prompt: `USER CONCERN:\n${query}\n\nINFERRED CONCERNS:\n${concerns.join(', ')}\n\nDETERMINISTIC SAFETY SCREEN:\n${JSON.stringify(safety)}\n\nALLOWED PRODUCT CANDIDATES:\n${JSON.stringify(candidates)}\n\nChoose at most four productSlugs only from the candidates. Avoid stacking irritating actives.`,
+      system: 'You are JeloCare, a pharmacist-led skincare guidance assistant. Give concise, cautious self-care guidance, not a diagnosis. Structured clinical findings are authoritative: never contradict, weaken or omit them. Use only supplied catalogue slugs. Never invent products, prices, retailers, images or links. Prefer a simple routine over many actives. Clearly advise prompt in-person care for urgent, painful, infected or rapidly worsening symptoms. Return the exact requested structured object.',
+      prompt: `USER CONCERN:\n${query}\n\nINFERRED CONCERNS:\n${concerns.join(', ')}\n\nDETERMINISTIC SAFETY SCREEN:\n${JSON.stringify(safety)}\n\nDETERMINISTIC CLINICAL ASSESSMENT:\n${JSON.stringify(clinical)}\n\nALLOWED PRODUCT CANDIDATES:\n${JSON.stringify(candidates)}\n\nChoose at most four productSlugs only from the candidates. Include every deterministic clinical finding in cautions. Never recommend an ingredient listed in blockedIngredientIds. Avoid stacking irritating actives.`,
     });
     const selected = result.output.productSlugs.map(slug => products.find(product => product.slug === slug)).filter((product): product is (typeof products)[number] => Boolean(product)).slice(0, 4);
-    return Response.json({ report: result.output, products: selected.map(product => publicProduct(product, market)), meta: { modelCalls: 1, market, concerns } });
+    const cautions = Array.from(new Set([...deterministicCautions, ...result.output.cautions])).slice(0, 6);
+    return Response.json({ report: { ...result.output, cautions }, products: selected.map(product => publicProduct(product, market)), meta: { modelCalls: 1, market, concerns, clinical } });
   } catch {
     const selected = ranked.slice(0, 3).map(item => products.find(product => product.slug === item.slug)).filter((product): product is (typeof products)[number] => Boolean(product));
     return Response.json({
@@ -91,12 +96,12 @@ export async function POST(request: Request) {
         summary: 'Your description fits a pattern that benefits from a gentle, consistent routine while you watch for worsening symptoms.',
         pattern: `The strongest catalogue matches are around ${concerns.join(', ')}. This is guidance, not a diagnosis.`,
         routine: [{ time: 'Morning', action: 'Use a gentle cleanse or rinse, moisturize, then apply sunscreen.' }, { time: 'Evening', action: 'Cleanse gently and introduce only one treatment product at a time.' }],
-        cautions: ['Stop any product that causes persistent burning, swelling or a rapidly worsening rash.'],
+        cautions: deterministicCautions.length ? deterministicCautions : ['Stop any product that causes persistent burning, swelling or a rapidly worsening rash.'],
         productSlugs: selected.map(product => product.slug),
         followUp: 'Reassess after two to four weeks, or seek in-person care sooner if the area becomes painful, infected or rapidly spreads.',
       },
       products: selected.map(product => publicProduct(product, market)),
-      meta: { modelCalls: 1, market, concerns, fallback: true },
+      meta: { modelCalls: 1, market, concerns, clinical, fallback: true },
     });
   }
 }
