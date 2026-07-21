@@ -5,7 +5,7 @@ import postgres from 'postgres';
 
 const MAX_SOURCE_BYTES = 12 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['image/avif', 'image/gif', 'image/jpeg', 'image/png', 'image/webp']);
-const manifestPath = resolve(process.cwd(), process.argv[2] ?? 'data/asset-imports.json');
+const manifestArgument = process.argv[2];
 const outputPath = resolve(process.cwd(), process.argv[3] ?? 'data/asset-import-results.json');
 const connectionString = process.env.DATABASE_URL_UNPOOLED
   ?? process.env.POSTGRES_URL_NON_POOLING
@@ -34,6 +34,42 @@ function extension(contentType) {
     'image/png': 'png',
     'image/webp': 'webp',
   })[contentType];
+}
+
+async function loadDatabaseManifest() {
+  const rows = await sql`
+    select
+      p.slug as product_slug,
+      b.slug as brand_slug,
+      pi.kind as role,
+      pi.source_url,
+      pi.alt_text
+    from product_images pi
+    join products p on p.id = pi.product_id
+    join brands b on b.id = p.brand_id
+    where pi.source_url is not null
+      and pi.source_url like 'https://%'
+      and (pi.blob_url is null or pi.status <> 'verified')
+    order by p.slug, pi.kind
+  `;
+
+  return rows.map(row => ({
+    productSlug: row.product_slug,
+    brandSlug: row.brand_slug,
+    role: row.role,
+    sourceUrl: row.source_url,
+    altText: row.alt_text,
+    overwrite: true,
+  }));
+}
+
+async function loadManifest() {
+  if (!manifestArgument) return loadDatabaseManifest();
+
+  const manifestPath = resolve(process.cwd(), manifestArgument);
+  const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+  if (!Array.isArray(manifest)) throw new Error('Asset import manifest must be a JSON array.');
+  return manifest;
 }
 
 async function persistAsset(item, imported) {
@@ -85,15 +121,29 @@ async function persistAsset(item, imported) {
   `;
 }
 
+async function markFailed(item, message) {
+  await sql`
+    update product_images pi
+    set status = 'failed', updated_at = now()
+    from products p
+    where pi.product_id = p.id
+      and p.slug = ${item.productSlug}
+      and pi.kind = ${item.role ?? 'packshot'}
+  `;
+
+  return { status: 'failed', slug: item.productSlug, sourceUrl: item.sourceUrl, error: message };
+}
+
 async function importAsset(item) {
   const source = new URL(item.sourceUrl);
   if (source.protocol !== 'https:') throw new Error('Only HTTPS sources are allowed.');
 
   const response = await fetch(source, {
     redirect: 'follow',
+    signal: AbortSignal.timeout(20_000),
     headers: {
       Accept: 'image/avif,image/webp,image/png,image/jpeg,image/gif;q=0.8,*/*;q=0.1',
-      'User-Agent': 'JeloCareAssetImporter/1.0',
+      'User-Agent': 'JeloCareAssetImporter/1.1',
     },
   });
 
@@ -101,6 +151,11 @@ async function importAsset(item) {
 
   const contentType = response.headers.get('content-type')?.split(';')[0]?.trim() ?? '';
   if (!ALLOWED_TYPES.has(contentType)) throw new Error(`Unsupported content type: ${contentType || 'unknown'}.`);
+
+  const declaredLength = Number(response.headers.get('content-length') ?? 0);
+  if (declaredLength > MAX_SOURCE_BYTES) {
+    throw new Error(`Image is larger than ${MAX_SOURCE_BYTES} bytes.`);
+  }
 
   const bytes = await response.arrayBuffer();
   if (bytes.byteLength === 0 || bytes.byteLength > MAX_SOURCE_BYTES) {
@@ -118,7 +173,7 @@ async function importAsset(item) {
     access: 'public',
     contentType,
     addRandomSuffix: false,
-    allowOverwrite: Boolean(item.overwrite),
+    allowOverwrite: item.overwrite !== false,
     cacheControlMaxAge: 31_536_000,
   });
 
@@ -136,11 +191,14 @@ async function importAsset(item) {
   return imported;
 }
 
-const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-if (!Array.isArray(manifest)) throw new Error('Asset import manifest must be a JSON array.');
-
 const results = [];
 try {
+  const manifest = await loadManifest();
+
+  if (manifest.length === 0) {
+    console.log('No pending catalogue images require Blob import.');
+  }
+
   for (const item of manifest) {
     try {
       const result = await importAsset(item);
@@ -149,7 +207,7 @@ try {
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.error(`✗ ${item.productSlug}: ${message}`);
-      results.push({ status: 'failed', slug: item.productSlug, sourceUrl: item.sourceUrl, error: message });
+      results.push(await markFailed(item, message));
     }
   }
 } finally {
