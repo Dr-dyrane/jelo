@@ -36,12 +36,8 @@ try {
     }
 
     const source = await readFile(path.join(migrationsDirectory, filename), 'utf8');
-
-    await sql.begin(async transaction => {
-      await transaction.unsafe(source);
-      await transaction`insert into schema_migrations (filename) values (${filename})`;
-    });
-
+    await sql.unsafe(source);
+    await sql`insert into schema_migrations (filename) values (${filename})`;
     console.log(`applied ${filename}`);
   }
 } finally {
