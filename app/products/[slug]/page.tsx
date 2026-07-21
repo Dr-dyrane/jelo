@@ -1,20 +1,21 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { products } from '@/data/catalogue';
+import { products as staticProducts } from '@/data/catalogue';
 import { concerns } from '@/data/knowledge';
 import { RetailerList } from '@/components/commerce/retailer-list';
 import { MarketPrice } from '@/components/products/market-price';
 import { ProductGrid } from '@/components/products/product-grid';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
 
 export function generateStaticParams() {
-  return products.map(product => ({ slug: product.slug }));
+  return staticProducts.map(product => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const product = products.find(item => item.slug === slug);
+  const product = await findCatalogueProduct(slug);
   if (!product) return {};
   const title = `${product.brand} ${product.name}`;
   const description = `${product.displayLine}. Best for ${product.bestFor.slice(0, 3).join(', ')}. Compare trusted places to buy.`;
@@ -23,7 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = products.find(item => item.slug === slug);
+  const [product, products] = await Promise.all([
+    findCatalogueProduct(slug),
+    listCatalogueProducts(),
+  ]);
   if (!product) notFound();
 
   const matchedConcerns = concerns.filter(concern =>
