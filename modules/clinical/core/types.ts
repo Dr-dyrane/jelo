@@ -60,6 +60,29 @@ export type BarrierAssessment = {
   recommendedRecoveryNights: number;
 };
 
+export type DifferentialPattern = {
+  id: string;
+  label: string;
+  confidence: number;
+  supporting: string[];
+  opposing: string[];
+  missing: string[];
+};
+
+export type DifferentialAssessment = {
+  primary?: DifferentialPattern;
+  alternatives: DifferentialPattern[];
+  confidence: 'low' | 'moderate' | 'high';
+  questions: string[];
+};
+
+export type ReferralAssessment = {
+  level: 'self-care' | 'pharmacist' | 'primary-care' | 'dermatology' | 'urgent' | 'emergency';
+  urgency: 'routine' | 'soon' | 'same-day' | 'immediate';
+  reasons: string[];
+  action: string;
+};
+
 export type RoutineStep = {
   time: Exclude<RoutineTime, 'any'>;
   action: string;
@@ -115,6 +138,8 @@ export type ClinicalAssessment = {
     total: number;
   };
   barrier: BarrierAssessment;
+  differential: DifferentialAssessment;
+  referral: ReferralAssessment;
   profile?: PatientProfile;
   routinePlan?: RoutinePlan;
 };
