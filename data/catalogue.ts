@@ -1,5 +1,7 @@
 import { products as coreProducts } from '@/data/products';
 import { expandedProducts } from '@/data/expanded-products';
 
-export const products = [...coreProducts, ...expandedProducts];
+const catalogueCandidates = [...coreProducts, ...expandedProducts];
+
+export const products = catalogueCandidates.filter(product => !product.image.startsWith('/product-fallback'));
 export const productBySlug = (slug: string) => products.find(product => product.slug === slug);
