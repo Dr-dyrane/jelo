@@ -2,10 +2,13 @@
 
 import { Search, X } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import styles from './site-header.module.css';
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +31,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isHome ? styles.homeHeader : ''}`}>
       <Link className={styles.logo} href="/">JELOCARE</Link>
       <nav className={styles.nav} aria-label="Primary navigation">
         <Link href="/concerns">Concerns</Link>
