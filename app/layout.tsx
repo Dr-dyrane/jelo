@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Italiana, Manrope } from 'next/font/google';
-import Link from 'next/link';
+import { SiteHeader } from '@/components/navigation/site-header';
 import './globals.css';
 import './platform.css';
 import './consult-report.css';
@@ -24,10 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body>
-        <header className="site-header">
-          <Link className="site-logo" href="/">JELOCARE</Link>
-          <nav aria-label="Primary navigation"><Link href="/concerns">Concerns</Link><Link href="/products">Products</Link><Link href="/consult">Consult</Link></nav>
-        </header>
+        <SiteHeader />
         {children}
         <footer className="site-footer"><span>JeloCare</span><span>Guidance, not diagnosis.</span></footer>
       </body>
