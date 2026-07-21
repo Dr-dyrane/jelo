@@ -15,6 +15,17 @@ export type PatientProfile = {
   market?: 'NG' | 'US';
 };
 
+export type EvidenceRecord = {
+  id: string;
+  title: string;
+  source: string;
+  sourceType: 'guideline' | 'regulator' | 'systematic-review' | 'clinical-review' | 'consensus';
+  level: EvidenceLevel;
+  summary: string;
+  reviewedAt: string;
+  reviewStatus: 'reviewed' | 'needs-review';
+};
+
 export type IngredientKnowledge = {
   id: string;
   name: string;
@@ -35,6 +46,8 @@ export type ClinicalFinding = {
   title: string;
   explanation: string;
   ingredientIds?: string[];
+  evidenceIds?: string[];
+  evidence?: EvidenceRecord[];
   action: 'allow' | 'adjust' | 'avoid' | 'escalate';
 };
 
@@ -56,6 +69,7 @@ export type RoutinePlan = {
 export type ClinicalAssessment = {
   detectedIngredients: IngredientKnowledge[];
   findings: ClinicalFinding[];
+  evidence: EvidenceRecord[];
   blockedIngredientIds: string[];
   activeLoad: {
     exfoliant: number;
