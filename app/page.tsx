@@ -3,7 +3,7 @@ import { ProductRail } from '@/components/products/product-grid';
 import { products } from '@/data/catalogue';
 import styles from './home.module.css';
 
-const heroImage = 'https://www.image2url.com/r2/default/images/1784611638526-af9ad33c-3a5b-47d5-8187-a6eff363967c.png';
+const heroImage = 'https://www.image2url.com/r2/default/images/1784614153127-04c468fa-5407-4e72-98cf-07e3b3f23e2c.png';
 
 const editorialCutouts: Record<string, string> = {
   'b-lab-matcha-hydrating-real-sunscreen': 'https://www.image2url.com/r2/default/images/1784612431050-059af417-11e1-431b-9915-8baf986029c2.png',
@@ -30,36 +30,28 @@ export default function HomePage() {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero}>
+      <section className={styles.hero} style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className={styles.heroShade} />
         <div className={styles.heroCopy}>
-          <p className={styles.kicker}>The barrier icon</p>
+          <p className={styles.heroKicker}>The barrier edit</p>
           <h1>Skin, beautifully understood.</h1>
-          <p className={styles.heroDeck}>La Roche-Posay Cicaplast Baume B5. A soothing multi-purpose cream for dry, fragile and visibly stressed skin.</p>
+          <p className={styles.heroDeck}>Pharmacist-curated skincare.</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/products?q=barrier">Discover barrier care</Link>
-            <Link className={styles.secondary} href="/consult" style={{ border: 0 }}>Ask JeloCare</Link>
+            <Link className={styles.primary} href="/products?q=barrier">Shop the edit</Link>
+            <Link className={styles.secondary} href="/consult">Ask JeloCare</Link>
           </div>
         </div>
 
-        <div className={styles.heroVisual}>
-          <div className={styles.heroAura} />
-          <img className={styles.heroProduct} src={heroImage} alt="La Roche-Posay Cicaplast Baume B5 Soothing Therapeutic Multi-Purpose Cream, 1.35 oz" />
+        <div className={`${styles.glassCard} ${styles.glassFeature}`}>
+          <span>La Roche-Posay</span>
+          <strong>Cicaplast Baume B5</strong>
+          <small>Barrier repair · Pharmacist pick</small>
+        </div>
 
-          <div className={`${styles.glassCard} ${styles.glassTop}`} style={{ border: 0 }}>
-            <span>01 · Barrier</span>
-            <strong>Repair without the noise.</strong>
-          </div>
-
-          <div className={`${styles.glassCard} ${styles.glassBottom}`} style={{ border: 0 }}>
-            <span>1.35 oz · Multi-purpose</span>
-            <strong>Dry skin. Fragile skin. Everyday recovery.</strong>
-          </div>
-
-          <div className={styles.heroMeta}>
-            <span style={{ border: 0 }}>Pharmacist edit</span>
-            <span style={{ border: 0 }}>Soothing care</span>
-            <span style={{ border: 0 }}>Barrier support</span>
-          </div>
+        <div className={styles.heroMeta}>
+          <span>Soothes</span>
+          <span>Repairs</span>
+          <span>Protects</span>
         </div>
       </section>
 
