@@ -123,7 +123,7 @@ export const products: Product[] = [
   },
   {
     slug: 'disaar-argan-oil-body-oil-gel', brand: 'DISAAR', name: 'Argan Oil Body Oil Gel', size: '200 ml', category: 'Body', step: 'Moisturize',
-    image: '/product-fallback.svg', displayLine: 'Moisturize · glow',
+    image: 'https://f.nooncdn.com/p/pzsku/ZC2459623F574AE4002E5Z/45/_/1706365707/fc876212-5afa-4768-a07c-fed911f3522f.jpg', displayLine: 'Moisturize · glow',
     bestFor: ['body moisture', 'after-shower glow'], concerns: ['body dryness'], skinTypes: ['body'], sensitiveFriendly: true,
     usage: 'Apply to damp body skin after showering.', evidence: 'emerging',
     offers: [beautyByDaz('https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product', false), { retailer: 'Choices Chi', url: 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', trust: 72, available: true, location: ['NG'] }]
