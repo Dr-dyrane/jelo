@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.221",
+    "@vercel/analytics": "2.0.1",
     "ai": "6.0.224",
     "lucide-react": "1.25.0",
     "next": "16.2.10",
@@ -21,7 +22,7 @@
   "devDependencies": {
     "@types/node": "24.10.1",
     "@types/react": "19.2.5",
-    "@types/react-dom": "19.2.3",
+    "@types/react-dom": "19.2.1",
     "eslint": "9.39.1",
     "eslint-config-next": "16.2.10",
     "typescript": "5.9.3"
