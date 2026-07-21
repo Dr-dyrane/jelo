@@ -126,16 +126,30 @@ try {
           ${imageStatus === 'verified' ? new Date() : null}
         )
         on conflict (product_id, kind) do update set
-          blob_url = coalesce(product_images.blob_url, excluded.blob_url),
-          source_url = coalesce(excluded.source_url, product_images.source_url),
-          source_host = coalesce(excluded.source_host, product_images.source_host),
+          blob_url = case
+            when product_images.status = 'verified' and product_images.blob_url is not null
+              then product_images.blob_url
+            else excluded.blob_url
+          end,
+          source_url = case
+            when product_images.status = 'verified' and product_images.blob_url is not null
+              then product_images.source_url
+            else excluded.source_url
+          end,
+          source_host = case
+            when product_images.status = 'verified' and product_images.blob_url is not null
+              then product_images.source_host
+            else excluded.source_host
+          end,
           alt_text = excluded.alt_text,
           status = case
-            when product_images.blob_url is not null then 'verified'::asset_status
+            when product_images.status = 'verified' and product_images.blob_url is not null
+              then product_images.status
             else excluded.status
           end,
           verified_at = case
-            when product_images.blob_url is not null then product_images.verified_at
+            when product_images.status = 'verified' and product_images.blob_url is not null
+              then product_images.verified_at
             else excluded.verified_at
           end,
           updated_at = now()
@@ -153,14 +167,19 @@ try {
         `;
 
         for (const market of offer.location) {
+          const inventoryStatus = offer.available ? 'in_stock' : 'out_of_stock';
           await tx`
             insert into offers (
               product_id, retailer_id, url, market_code, available,
-              price_minor, currency_code, checked_at
+              price_minor, currency_code, checked_at, inventory_status,
+              verification_method, verification_note, last_verified_at,
+              verification_expires_at
             ) values (
               ${savedProduct.id}, ${retailer.id}, ${offer.url}, ${market},
               ${offer.available}, ${offer.priceNgn ?? null},
-              ${offer.priceNgn == null ? null : 'NGN'}, now()
+              ${offer.priceNgn == null ? null : 'NGN'}, now(),
+              ${inventoryStatus}, 'import', 'Seeded from the curated catalogue.',
+              now(), now() + interval '7 days'
             )
             on conflict (product_id, retailer_id, market_code) do update set
               url = excluded.url,
@@ -168,6 +187,11 @@ try {
               price_minor = excluded.price_minor,
               currency_code = excluded.currency_code,
               checked_at = excluded.checked_at,
+              inventory_status = excluded.inventory_status,
+              verification_method = excluded.verification_method,
+              verification_note = excluded.verification_note,
+              last_verified_at = excluded.last_verified_at,
+              verification_expires_at = excluded.verification_expires_at,
               updated_at = now()
           `;
         }
@@ -175,7 +199,7 @@ try {
     }
   });
 
-  console.log(`Seeded ${catalogue.length} products into Neon without replacing verified Blob assets.`);
+  console.log(`Seeded ${catalogue.length} products into Neon.`);
 } finally {
   await sql.end();
 }
