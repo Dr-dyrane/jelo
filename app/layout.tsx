@@ -7,6 +7,7 @@ import './consult-report.css';
 import './evidence.css';
 import './barrier-report.css';
 import './timeline.css';
+import './trend-report.css';
 
 const display = Italiana({ weight: '400', subsets: ['latin'], variable: '--font-display' });
 const sans = Manrope({ subsets: ['latin'], variable: '--font-sans' });
