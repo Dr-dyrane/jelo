@@ -2,6 +2,7 @@ import { assessBarrier } from './barrier';
 import { assessDifferential } from './differential';
 import { evidenceForFindings } from './evidence';
 import { detectIngredients } from './ingredients';
+import { buildMonitoringPlan, buildTreatmentGoals } from './monitoring';
 import { assessReferral } from './referral';
 import { optimizeRoutine } from './routine';
 import { evaluateClinicalRules } from './rules';
@@ -38,6 +39,8 @@ export function assessClinicalRoutine(text: string, partialProfile: PatientProfi
   const barrier = assessBarrier(text, detectedIngredients, profile);
   const differential = assessDifferential(text, profile);
   const referral = assessReferral({ text, profile, barrier, findings, differential });
-  const base: ClinicalAssessment = { detectedIngredients, findings, evidence, blockedIngredientIds, activeLoad, barrier, differential, referral, profile };
+  const treatmentGoals = buildTreatmentGoals({ barrier, differential, referral });
+  const monitoring = buildMonitoringPlan({ barrier, differential, referral });
+  const base: ClinicalAssessment = { detectedIngredients, findings, evidence, blockedIngredientIds, activeLoad, barrier, differential, referral, treatmentGoals, monitoring, profile };
   return { ...base, routinePlan: optimizeRoutine(base, profile) };
 }
