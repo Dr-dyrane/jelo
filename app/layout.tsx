@@ -5,6 +5,7 @@ import './globals.css';
 import './platform.css';
 import './consult-report.css';
 import './evidence.css';
+import './barrier-report.css';
 
 const display = Italiana({ weight: '400', subsets: ['latin'], variable: '--font-display' });
 const sans = Manrope({ subsets: ['latin'], variable: '--font-sans' });
