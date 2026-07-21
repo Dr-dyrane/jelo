@@ -1,6 +1,7 @@
 'use client';
 
-import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { SlidersHorizontal, X } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import type { Product } from '@/data/products';
 import type { Market } from '@/data/prices';
@@ -13,13 +14,14 @@ const categories: Category[] = ['All', 'Face', 'Hair', 'Body'];
 const featuredConcerns = ['acne', 'dark spots', 'sensitivity', 'dryness', 'oiliness', 'dandruff', 'barrier'];
 
 export function CatalogueExplorer({ products }: { products: Product[] }) {
-  const [query, setQuery] = useState('');
+  const searchParams = useSearchParams();
   const [category, setCategory] = useState<Category>('All');
   const [concern, setConcern] = useState('');
   const [market, setMarket] = useState<Market>('NG');
+  const query = searchParams.get('q')?.trim() ?? '';
 
   const filtered = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
+    const normalized = query.toLowerCase();
     return products.filter(product => {
       const searchable = [product.brand, product.name, product.step, product.displayLine, ...product.bestFor, ...product.concerns, ...product.skinTypes].join(' ').toLowerCase();
       const matchesQuery = !normalized || searchable.includes(normalized);
@@ -31,16 +33,16 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
   }, [products, query, category, concern, market]);
 
   const hasFilters = Boolean(query || concern || category !== 'All');
-  const clearFilters = () => { setQuery(''); setCategory('All'); setConcern(''); };
+  const clearFilters = () => {
+    setCategory('All');
+    setConcern('');
+    if (query) window.history.replaceState(null, '', '/products');
+  };
 
   return (
     <section className={styles.explorer}>
       <div className={styles.commandBar}>
-        <label className={styles.search}>
-          <Search size={19} aria-hidden="true" />
-          <input value={query} onChange={event => setQuery(event.target.value)} placeholder="Search product, brand, ingredient or concern" aria-label="Search catalogue" />
-          {query ? <button type="button" onClick={() => setQuery('')} aria-label="Clear search"><X size={16}/></button> : null}
-        </label>
+        {query ? <div className={styles.queryChip}><span>Search</span><strong>{query}</strong><button type="button" onClick={() => window.location.assign('/products')} aria-label="Clear search"><X size={15}/></button></div> : <p className={styles.commandHint}>Use Search in the navbar to find a product, brand or concern.</p>}
         <div className={styles.market} aria-label="Shopping market">
           <button type="button" className={market === 'NG' ? styles.active : ''} onClick={() => setMarket('NG')}>Nigeria</button>
           <button type="button" className={market === 'US' ? styles.active : ''} onClick={() => setMarket('US')}>United States</button>
