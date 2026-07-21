@@ -7,6 +7,7 @@ import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { createTimelineRecord } from '@/modules/clinical/core/timeline';
 import { analyzeTimeline } from '@/modules/clinical/core/trends';
 import type { ClinicalTimelineRecord, RoutineStep } from '@/modules/clinical/core/types';
+import { clinicallyFilterProducts, type ClinicalProductDecision } from '@/modules/recommendations/clinical-product-filter';
 import { rankProducts } from '@/modules/recommendations/product-ranker';
 
 export const maxDuration = 30;
@@ -22,50 +23,17 @@ const patientProfileSchema = z.object({
 }).optional();
 
 const timelineRecordSchema = z.object({
-  id: z.string().max(80),
-  schemaVersion: z.literal(1),
-  createdAt: z.string().datetime(),
-  assessmentType: z.literal('consultation'),
-  concernSummary: z.string().max(240),
-  concerns: z.array(z.string().max(80)).max(12),
-  market: z.enum(['NG', 'US']),
+  id: z.string().max(80), schemaVersion: z.literal(1), createdAt: z.string().datetime(), assessmentType: z.literal('consultation'), concernSummary: z.string().max(240), concerns: z.array(z.string().max(80)).max(12), market: z.enum(['NG', 'US']),
   barrier: z.object({ score: z.number().min(0).max(100), state: z.enum(['stable', 'watch', 'stressed', 'compromised']), confidence: z.enum(['low', 'moderate', 'high']), signals: z.array(z.string().max(80)).max(20), recoveryPriority: z.enum(['routine', 'elevated', 'high']), recommendedRecoveryNights: z.number().int().min(0).max(7) }),
   activeLoad: z.object({ exfoliant: z.number().int().min(0).max(20), retinoid: z.number().int().min(0).max(20), antimicrobial: z.number().int().min(0).max(20), total: z.number().int().min(0).max(40) }),
-  findingRuleIds: z.array(z.string().max(120)).max(30),
-  blockedIngredientIds: z.array(z.string().max(120)).max(30),
-  detectedIngredientIds: z.array(z.string().max(120)).max(40),
-  routineSummary: z.string().max(300).optional(),
-  recommendedProductSlugs: z.array(z.string().max(120)).max(10),
-  followUpAt: z.string().datetime(),
+  findingRuleIds: z.array(z.string().max(120)).max(30), blockedIngredientIds: z.array(z.string().max(120)).max(30), detectedIngredientIds: z.array(z.string().max(120)).max(40), routineSummary: z.string().max(300).optional(), recommendedProductSlugs: z.array(z.string().max(120)).max(10), followUpAt: z.string().datetime(),
 });
 
-const requestSchema = z.object({
-  query: z.string().trim().min(5).max(1800),
-  market: z.enum(['NG', 'US']).default('NG'),
-  profile: patientProfileSchema,
-  priorTimeline: z.array(timelineRecordSchema).max(8).optional(),
-});
-
-const reportSchema = z.object({
-  title: z.string().max(80),
-  summary: z.string().max(420),
-  pattern: z.string().max(260),
-  routine: z.array(z.object({ time: z.enum(['Morning', 'Evening', 'Weekly', 'Any time']), action: z.string().max(180) })).max(8),
-  cautions: z.array(z.string().max(180)).max(6),
-  productSlugs: z.array(z.string()).max(4),
-  followUp: z.string().max(220),
-});
+const requestSchema = z.object({ query: z.string().trim().min(5).max(1800), market: z.enum(['NG', 'US']).default('NG'), profile: patientProfileSchema, priorTimeline: z.array(timelineRecordSchema).max(8).optional() });
+const reportSchema = z.object({ title: z.string().max(80), summary: z.string().max(420), pattern: z.string().max(260), routine: z.array(z.object({ time: z.enum(['Morning', 'Evening', 'Weekly', 'Any time']), action: z.string().max(180) })).max(8), cautions: z.array(z.string().max(180)).max(6), productSlugs: z.array(z.string()).max(4), followUp: z.string().max(220) });
 
 const concernLexicon: Record<string, string[]> = {
-  acne: ['acne', 'pimple', 'breakout', 'bumps', 'whitehead', 'blackhead'],
-  blackheads: ['blackhead', 'clogged', 'congestion'],
-  oiliness: ['oily', 'oiliness', 'greasy', 'shine'],
-  hyperpigmentation: ['dark mark', 'dark spot', 'pigmentation', 'uneven tone', 'melasma'],
-  sensitivity: ['sensitive', 'burning', 'stinging', 'irritated', 'redness'],
-  dryness: ['dry', 'flaky', 'scaly', 'tight'],
-  barrier: ['barrier', 'over-exfoliated', 'damaged skin'],
-  dandruff: ['dandruff', 'flaky scalp', 'itchy scalp'],
-  'dry hair': ['dry hair', 'brittle hair', 'frizz'],
+  acne: ['acne', 'pimple', 'breakout', 'bumps', 'whitehead', 'blackhead'], blackheads: ['blackhead', 'clogged', 'congestion'], oiliness: ['oily', 'oiliness', 'greasy', 'shine'], hyperpigmentation: ['dark mark', 'dark spot', 'pigmentation', 'uneven tone', 'melasma'], sensitivity: ['sensitive', 'burning', 'stinging', 'irritated', 'redness'], dryness: ['dry', 'flaky', 'scaly', 'tight'], barrier: ['barrier', 'over-exfoliated', 'damaged skin'], dandruff: ['dandruff', 'flaky scalp', 'itchy scalp'], 'dry hair': ['dry hair', 'brittle hair', 'frizz'],
 };
 
 function inferConcerns(query: string) {
@@ -80,16 +48,10 @@ function priceFor(slug: string, market: Market) {
   return price ? { amount: price.amount, currency: price.currency, retailer: price.retailer, market: price.market } : null;
 }
 
-function publicProduct(product: (typeof products)[number], market: Market) {
+function publicProduct(product: (typeof products)[number], market: Market, decision?: ClinicalProductDecision) {
   return {
-    slug: product.slug,
-    brand: product.brand,
-    name: product.name,
-    image: product.image,
-    size: product.size,
-    step: product.step,
-    displayLine: product.displayLine,
-    price: priceFor(product.slug, market),
+    slug: product.slug, brand: product.brand, name: product.name, image: product.image, size: product.size, step: product.step, displayLine: product.displayLine, price: priceFor(product.slug, market),
+    clinicalMatch: decision ? { reasons: decision.reasons, ingredientIds: decision.ingredientIds, score: decision.clinicalScore } : undefined,
     retailers: product.offers.filter(offer => offer.available && (offer.location.includes(market) || offer.location.includes('INTL'))).slice(0, 2).map(offer => ({ retailer: offer.retailer, href: `/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}` })),
   };
 }
@@ -113,44 +75,44 @@ export async function POST(request: Request) {
   const concerns = inferConcerns(query);
   const safety = assessRedFlags({ symptoms: [query] });
   const clinical = assessClinicalRoutine(query, { ...profile, concerns, market, sensitiveSkin: profile?.sensitiveSkin ?? concerns.includes('sensitivity') });
-  const ranked = rankProducts(products, { concerns, sensitive: clinical.profile?.sensitiveSkin ?? false, location: market }).slice(0, 6);
-  const candidates = ranked.map(result => {
-    const product = products.find(item => item.slug === result.slug)!;
-    return { slug: product.slug, brand: product.brand, name: product.name, step: product.step, bestFor: product.bestFor, concerns: product.concerns, usage: product.usage, sensitiveFriendly: product.sensitiveFriendly };
-  });
+  const ranked = rankProducts(products, { concerns, sensitive: clinical.profile?.sensitiveSkin ?? false, location: market });
+  const rankScore = new Map(ranked.map(item => [item.slug, item.score]));
+  const eligible = clinicallyFilterProducts(products, clinical, priorTimeline as ClinicalTimelineRecord[])
+    .filter(item => rankScore.has(item.product.slug))
+    .sort((a, b) => ((rankScore.get(b.product.slug) ?? 0) + b.decision.clinicalScore) - ((rankScore.get(a.product.slug) ?? 0) + a.decision.clinicalScore))
+    .slice(0, 8);
+  const eligibleBySlug = new Map(eligible.map(item => [item.product.slug, item]));
+  const candidates = eligible.map(({ product, decision }) => ({ slug: product.slug, brand: product.brand, name: product.name, step: product.step, bestFor: product.bestFor, concerns: product.concerns, usage: product.usage, sensitiveFriendly: product.sensitiveFriendly, clinicalReasons: decision.reasons, ingredientIds: decision.ingredientIds }));
 
   const deterministicCautions = clinical.findings.map(finding => `${finding.title}: ${finding.explanation}`);
   const optimizedRoutine = compactRoutine(clinical);
-  const publicClinical = { profile: clinical.profile, findings: clinical.findings, evidence: clinical.evidence, blockedIngredientIds: clinical.blockedIngredientIds, activeLoad: clinical.activeLoad, barrier: clinical.barrier, optimizedRoutine, routineSummary: clinical.routinePlan?.summary };
+  const publicClinical = { profile: clinical.profile, findings: clinical.findings, evidence: clinical.evidence, blockedIngredientIds: clinical.blockedIngredientIds, activeLoad: clinical.activeLoad, barrier: clinical.barrier, optimizedRoutine, routineSummary: clinical.routinePlan?.summary, eligibleProductCount: eligible.length };
 
   function timelinePayload(selectedSlugs: string[]) {
     const timeline = createTimelineRecord({ query, concerns, market, clinical, recommendedProductSlugs: selectedSlugs });
-    const timelineInsight = analyzeTimeline(priorTimeline as ClinicalTimelineRecord[], timeline);
-    return { timeline, timelineInsight };
+    return { timeline, timelineInsight: analyzeTimeline(priorTimeline as ClinicalTimelineRecord[], timeline) };
+  }
+
+  function selectedProducts(slugs: string[]) {
+    return Array.from(new Set(slugs)).map(slug => eligibleBySlug.get(slug)).filter((item): item is NonNullable<typeof item> => Boolean(item)).slice(0, 4);
   }
 
   try {
     const result = await generateText({
-      model: process.env.JELOCARE_AI_MODEL ?? 'openai/gpt-5-mini',
-      output: Output.object({ schema: reportSchema }),
-      maxOutputTokens: 800,
-      temperature: 0.2,
-      system: 'You are JeloCare, a pharmacist-led skincare guidance assistant. Give concise, cautious self-care guidance, not a diagnosis. Structured clinical findings, timeline trends and the optimized routine are authoritative: never contradict, weaken or omit them. Use only supplied catalogue slugs. Never invent products, prices, retailers, images or links. Clearly advise prompt in-person care for urgent, painful, infected or rapidly worsening symptoms. Return the exact requested structured object.',
-      prompt: `USER CONCERN:\n${query}\n\nPATIENT PROFILE:\n${JSON.stringify(clinical.profile)}\n\nINFERRED CONCERNS:\n${concerns.join(', ')}\n\nDETERMINISTIC SAFETY SCREEN:\n${JSON.stringify(safety)}\n\nDETERMINISTIC CLINICAL ASSESSMENT:\n${JSON.stringify(clinical)}\n\nALLOWED PRODUCT CANDIDATES:\n${JSON.stringify(candidates)}\n\nChoose at most four productSlugs only from the candidates. Include every deterministic clinical finding in cautions. Never recommend an ingredient listed in blockedIngredientIds. Keep the explanation aligned with the optimized routine.`,
+      model: process.env.JELOCARE_AI_MODEL ?? 'openai/gpt-5-mini', output: Output.object({ schema: reportSchema }), maxOutputTokens: 800, temperature: 0.2,
+      system: 'You are JeloCare, a pharmacist-led skincare guidance assistant. Give concise, cautious self-care guidance, not a diagnosis. Structured clinical findings, timeline trends, product eligibility and the optimized routine are authoritative: never contradict, weaken or omit them. Use only supplied catalogue slugs. Never invent products, prices, retailers, images or links. Clearly advise prompt in-person care for urgent, painful, infected or rapidly worsening symptoms. Return the exact requested structured object.',
+      prompt: `USER CONCERN:\n${query}\n\nPATIENT PROFILE:\n${JSON.stringify(clinical.profile)}\n\nINFERRED CONCERNS:\n${concerns.join(', ')}\n\nDETERMINISTIC SAFETY SCREEN:\n${JSON.stringify(safety)}\n\nDETERMINISTIC CLINICAL ASSESSMENT:\n${JSON.stringify(clinical)}\n\nCLINICALLY ELIGIBLE PRODUCT CANDIDATES:\n${JSON.stringify(candidates)}\n\nChoose at most four productSlugs only from the eligible candidates. Product eligibility is final. Include every deterministic clinical finding in cautions. Keep the explanation aligned with the optimized routine.`,
     });
-    const selected = result.output.productSlugs.map(slug => products.find(product => product.slug === slug)).filter((product): product is (typeof products)[number] => Boolean(product)).slice(0, 4);
-    const selectedSlugs = selected.map(product => product.slug);
+    const selected = selectedProducts(result.output.productSlugs);
+    const selectedSlugs = selected.map(item => item.product.slug);
     const cautions = Array.from(new Set([...deterministicCautions, ...result.output.cautions])).slice(0, 6);
-    return Response.json({ report: { ...result.output, cautions }, products: selected.map(product => publicProduct(product, market)), clinical: publicClinical, ...timelinePayload(selectedSlugs), meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1 } });
+    return Response.json({ report: { ...result.output, productSlugs: selectedSlugs, cautions }, products: selected.map(item => publicProduct(item.product, market, item.decision)), clinical: publicClinical, recommendationAudit: { candidateCount: candidates.length, selectedCount: selected.length, deterministic: true }, ...timelinePayload(selectedSlugs), meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1 } });
   } catch {
-    const selected = ranked.slice(0, 3).map(item => products.find(product => product.slug === item.slug)).filter((product): product is (typeof products)[number] => Boolean(product));
-    const selectedSlugs = selected.map(product => product.slug);
+    const selected = eligible.slice(0, 3);
+    const selectedSlugs = selected.map(item => item.product.slug);
     return Response.json({
       report: { title: 'A safer starting point', summary: clinical.routinePlan?.summary ?? 'Start with a simple, consistent routine and introduce one treatment at a time.', pattern: `The strongest catalogue matches are around ${concerns.join(', ')}. This is guidance, not a diagnosis.`, routine: optimizedRoutine.slice(0, 8).map(step => ({ time: step.time, action: step.action })), cautions: deterministicCautions.length ? deterministicCautions : ['Stop any product that causes persistent burning, swelling or a rapidly worsening rash.'], productSlugs: selectedSlugs, followUp: 'Reassess after two to four weeks, or seek in-person care sooner if the area becomes painful, infected or rapidly spreads.' },
-      products: selected.map(product => publicProduct(product, market)),
-      clinical: publicClinical,
-      ...timelinePayload(selectedSlugs),
-      meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1, fallback: true },
+      products: selected.map(item => publicProduct(item.product, market, item.decision)), clinical: publicClinical, recommendationAudit: { candidateCount: candidates.length, selectedCount: selected.length, deterministic: true }, ...timelinePayload(selectedSlugs), meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1, fallback: true },
     });
   }
 }
