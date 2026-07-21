@@ -6,9 +6,9 @@ import styles from './home.module.css';
 const heroImage = 'https://www.image2url.com/r2/default/images/1784611638526-af9ad33c-3a5b-47d5-8187-a6eff363967c.png';
 
 const editorialCutouts: Record<string, string> = {
-  'b-lab-matcha-hydrating-real-sunscreen': 'https://beautybydaz.com/wp-content/uploads/2023/08/blab-spf.jpg',
+  'b-lab-matcha-hydrating-real-sunscreen': 'https://www.image2url.com/r2/default/images/1784612431050-059af417-11e1-431b-9915-8baf986029c2.png',
   'cosrx-salicylic-acid-daily-gentle-cleanser': 'https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373',
-  'anua-niacinamide-10-txa-4-serum': 'https://anua-global.us/cdn/shop/files/niacinamide-10-txa-4-serum-for-brightening-and-dark-spots_7.png?v=1766096582&width=2000',
+  'anua-niacinamide-10-txa-4-serum': 'https://www.image2url.com/r2/default/images/1784612193616-00aef27b-d215-4449-b844-6de19aeab4ea.png',
   'face-facts-wonder-cream-fragrance-free': 'https://facefacts.me/cdn/shop/files/39163_150_fr1.png?v=1759159571&width=1080',
 };
 
