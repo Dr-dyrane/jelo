@@ -12,6 +12,7 @@
     "assets:audit": "tsx scripts/audit-catalogue-assets.ts",
     "assets:import": "node scripts/import-product-assets.mjs",
     "assets:sync": "tsx scripts/sync-catalogue-assets.ts",
+    "inventory:audit": "tsx scripts/audit-offer-inventory.ts",
     "db:migrate": "tsx scripts/migrate-database.ts",
     "db:seed": "tsx scripts/seed-catalogue.ts"
   },
