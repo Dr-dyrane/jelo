@@ -4,14 +4,16 @@ import { products } from '@/data/catalogue';
 import styles from './home.module.css';
 
 const concernCards = [
-  { label: 'Barrier repair', query: 'barrier', note: 'Comfort. Repair. Resilience.', tone: 'rose' },
-  { label: 'Clearer skin', query: 'acne', note: 'A calmer path to clarity.', tone: 'wine' },
-  { label: 'Even tone', query: 'hyperpigmentation', note: 'Brightening without the noise.', tone: 'sand' },
-  { label: 'Daily protection', query: 'sunscreen', note: 'The step that protects every other step.', tone: 'sun' },
-  { label: 'Sensitive skin', query: 'sensitivity', note: 'Less friction. More comfort.', tone: 'pearl' },
-];
+  { label: 'Barrier repair', query: 'barrier', note: 'Comfort. Repair. Resilience.', product: products.find(product => product.concerns.includes('barrier')) ?? products[0] },
+  { label: 'Clearer skin', query: 'acne', note: 'A calmer path to clarity.', product: products.find(product => product.concerns.includes('acne')) ?? products[1] },
+  { label: 'Even tone', query: 'hyperpigmentation', note: 'Brightening without the noise.', product: products.find(product => product.concerns.includes('hyperpigmentation')) ?? products[2] },
+  { label: 'Daily protection', query: 'sunscreen', note: 'The step that protects every other step.', product: products.find(product => product.step === 'Protect') ?? products[3] },
+  { label: 'Sensitive skin', query: 'sensitivity', note: 'Less friction. More comfort.', product: products.find(product => product.sensitiveFriendly) ?? products[4] },
+].filter(card => card.product);
 
 export default function HomePage() {
+  const heroProduct = products.find(product => product.step === 'Protect') ?? products[0];
+  const storyProduct = products.find(product => product.concerns.includes('barrier')) ?? products[3] ?? products[0];
   const recommendations = products.filter(product => product.sensitiveFriendly).slice(0, 3);
   const editorsEdit = products.slice(0, 12);
   const newAndNoteworthy = products.slice(12, 24).length ? products.slice(12, 24) : products.slice(0, 12);
@@ -28,18 +30,18 @@ export default function HomePage() {
             <Link className={styles.secondary} href="/concerns">Shop by concern</Link>
           </div>
         </div>
-        <div className={styles.heroVisual} aria-hidden="true">
-          <span className={styles.heroIssue}>01</span>
-          <div className={styles.heroPortrait}>
-            <div className={styles.heroHalo} />
-            <div className={styles.heroSilhouette} />
-            <span>THE SKIN ISSUE</span>
+        {heroProduct ? (
+          <div className={styles.heroVisual}>
+            <span className={styles.heroIssue}>01</span>
+            <div className={styles.heroProductStage}>
+              <img src={heroProduct.image} alt={`${heroProduct.brand} ${heroProduct.name}`} />
+            </div>
+            <div className={styles.heroCaption}>
+              <strong>{heroProduct.brand}</strong>
+              <span>{heroProduct.name}</span>
+            </div>
           </div>
-          <div className={styles.heroCaption}>
-            <strong>Summer, softened.</strong>
-            <span>Barrier-first care for heat, sun and long days.</span>
-          </div>
-        </div>
+        ) : null}
       </section>
 
       <section className={styles.section}>
@@ -49,27 +51,26 @@ export default function HomePage() {
         </div>
         <div className={styles.categoryGrid}>
           {concernCards.map((card, index) => (
-            <Link className={`${styles.category} ${styles[card.tone]}`} href={`/products?q=${encodeURIComponent(card.query)}`} key={card.label}>
+            <Link className={styles.category} href={`/products?q=${encodeURIComponent(card.query)}`} key={card.label}>
               <small>0{index + 1} · Curated edit</small>
-              <div className={styles.categoryArt} aria-hidden="true"><span /><span /></div>
+              <img src={card.product.image} alt="" />
               <div><span>{card.label}</span><p>{card.note}</p></div>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className={styles.story}>
-        <div className={styles.storyVisual} aria-hidden="true">
-          <div className={styles.storyDisc} />
-          <p>CARE<br />BEFORE<br />CORRECTION</p>
-        </div>
-        <div className={styles.storyCopy}>
-          <p className={styles.kicker}>This week&apos;s story</p>
-          <h2>The barrier recovery issue.</h2>
-          <p>A considered edit for skin that feels tight, reactive or simply tired. Start with comfort, then build back strength.</p>
-          <Link className={styles.storyLink} href="/products?q=barrier">Read the edit</Link>
-        </div>
-      </section>
+      {storyProduct ? (
+        <section className={styles.story}>
+          <div className={styles.storyVisual}><img src={storyProduct.image} alt={`${storyProduct.brand} ${storyProduct.name}`} /></div>
+          <div className={styles.storyCopy}>
+            <p className={styles.kicker}>This week&apos;s story</p>
+            <h2>The barrier recovery issue.</h2>
+            <p>A considered edit for skin that feels tight, reactive or simply tired. Start with comfort, then build back strength.</p>
+            <Link className={styles.storyLink} href="/products?q=barrier">Read the edit</Link>
+          </div>
+        </section>
+      ) : null}
 
       <section className={styles.railSection}>
         <div className={styles.sectionHeader}>
@@ -86,12 +87,10 @@ export default function HomePage() {
           <p>Comfort-first picks selected from the catalogue for sensitive-friendly routines and uncomplicated daily use.</p>
           <Link className={styles.primary} href="/products?q=sensitivity">Explore sensitive skin</Link>
         </div>
-        <div className={styles.recommendationIndex}>
-          {recommendations.map((product, index) => (
+        <div className={styles.recommendationProducts} aria-label="Sensitive skin recommendations">
+          {recommendations.map(product => (
             <Link href={`/products/${product.slug}`} key={product.slug}>
-              <small>0{index + 1}</small>
-              <strong>{product.brand}</strong>
-              <span>{product.name}</span>
+              <img src={product.image} alt={`${product.brand} ${product.name}`} />
             </Link>
           ))}
         </div>
