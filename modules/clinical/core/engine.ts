@@ -1,6 +1,8 @@
 import { assessBarrier } from './barrier';
+import { assessDifferential } from './differential';
 import { evidenceForFindings } from './evidence';
 import { detectIngredients } from './ingredients';
+import { assessReferral } from './referral';
 import { optimizeRoutine } from './routine';
 import { evaluateClinicalRules } from './rules';
 import type { ClinicalAssessment, PatientProfile } from './types';
@@ -34,6 +36,8 @@ export function assessClinicalRoutine(text: string, partialProfile: PatientProfi
 
   const blockedIngredientIds = Array.from(new Set(findings.filter(finding => finding.action === 'avoid').flatMap(finding => finding.ingredientIds ?? [])));
   const barrier = assessBarrier(text, detectedIngredients, profile);
-  const base: ClinicalAssessment = { detectedIngredients, findings, evidence, blockedIngredientIds, activeLoad, barrier, profile };
+  const differential = assessDifferential(text, profile);
+  const referral = assessReferral({ text, profile, barrier, findings, differential });
+  const base: ClinicalAssessment = { detectedIngredients, findings, evidence, blockedIngredientIds, activeLoad, barrier, differential, referral, profile };
   return { ...base, routinePlan: optimizeRoutine(base, profile) };
 }
