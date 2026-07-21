@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "assets:audit": "tsx scripts/audit-catalogue-assets.ts",
     "assets:import": "node scripts/import-product-assets.mjs",
     "db:migrate": "tsx scripts/migrate-database.ts",
     "db:seed": "tsx scripts/seed-catalogue.ts"
