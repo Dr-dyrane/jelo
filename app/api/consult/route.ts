@@ -103,6 +103,15 @@ export async function POST(request: Request) {
 
   const deterministicCautions = clinical.findings.map(finding => `${finding.title}: ${finding.explanation}`);
   const optimizedRoutine = compactRoutine(clinical);
+  const publicClinical = {
+    profile: clinical.profile,
+    findings: clinical.findings,
+    evidence: clinical.evidence,
+    blockedIngredientIds: clinical.blockedIngredientIds,
+    activeLoad: clinical.activeLoad,
+    optimizedRoutine,
+    routineSummary: clinical.routinePlan?.summary,
+  };
 
   try {
     const result = await generateText({
@@ -118,7 +127,7 @@ export async function POST(request: Request) {
     return Response.json({
       report: { ...result.output, cautions },
       products: selected.map(product => publicProduct(product, market)),
-      clinical: { profile: clinical.profile, findings: clinical.findings, blockedIngredientIds: clinical.blockedIngredientIds, activeLoad: clinical.activeLoad, optimizedRoutine, routineSummary: clinical.routinePlan?.summary },
+      clinical: publicClinical,
       meta: { modelCalls: 1, market, concerns },
     });
   } catch {
@@ -134,7 +143,7 @@ export async function POST(request: Request) {
         followUp: 'Reassess after two to four weeks, or seek in-person care sooner if the area becomes painful, infected or rapidly spreads.',
       },
       products: selected.map(product => publicProduct(product, market)),
-      clinical: { profile: clinical.profile, findings: clinical.findings, blockedIngredientIds: clinical.blockedIngredientIds, activeLoad: clinical.activeLoad, optimizedRoutine, routineSummary: clinical.routinePlan?.summary },
+      clinical: publicClinical,
       meta: { modelCalls: 1, market, concerns, fallback: true },
     });
   }
