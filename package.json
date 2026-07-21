@@ -13,6 +13,7 @@
     "assets:import": "node scripts/import-product-assets.mjs",
     "assets:sync": "tsx scripts/sync-catalogue-assets.ts",
     "inventory:audit": "tsx scripts/audit-offer-inventory.ts",
+    "inventory:prices": "tsx scripts/audit-offer-prices.ts",
     "inventory:queue": "tsx scripts/queue-inventory-refresh.ts",
     "inventory:work": "tsx scripts/process-inventory-refresh.ts",
     "db:migrate": "tsx scripts/migrate-database.ts",
