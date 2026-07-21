@@ -3,6 +3,7 @@ import { Italiana, Manrope } from 'next/font/google';
 import Link from 'next/link';
 import './globals.css';
 import './platform.css';
+import './consult-report.css';
 
 const display = Italiana({ weight: '400', subsets: ['latin'], variable: '--font-display' });
 const sans = Manrope({ subsets: ['latin'], variable: '--font-sans' });
