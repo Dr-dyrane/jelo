@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# local environment files
+.env
+.env.local
+.env.*.local
+
+# generated asset operation output
+data/asset-import-results.json
+
+# system files
+.DS_Store
