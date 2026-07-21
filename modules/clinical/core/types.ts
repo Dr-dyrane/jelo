@@ -93,6 +93,16 @@ export type ClinicalTimelineRecord = {
   followUpAt: string;
 };
 
+export type TimelineInsight = {
+  direction: 'first-assessment' | 'improving' | 'stable' | 'worsening' | 'mixed';
+  barrierDelta: number | null;
+  activeLoadDelta: number | null;
+  previousAssessmentAt?: string;
+  summary: string;
+  actions: string[];
+  confidence: 'low' | 'moderate' | 'high';
+};
+
 export type ClinicalAssessment = {
   detectedIngredients: IngredientKnowledge[];
   findings: ClinicalFinding[];
