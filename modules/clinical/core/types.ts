@@ -75,6 +75,24 @@ export type RoutinePlan = {
   findings: ClinicalFinding[];
 };
 
+export type ClinicalTimelineRecord = {
+  id: string;
+  schemaVersion: 1;
+  createdAt: string;
+  assessmentType: 'consultation';
+  concernSummary: string;
+  concerns: string[];
+  market: 'NG' | 'US';
+  barrier: BarrierAssessment;
+  activeLoad: ClinicalAssessment['activeLoad'];
+  findingRuleIds: string[];
+  blockedIngredientIds: string[];
+  detectedIngredientIds: string[];
+  routineSummary?: string;
+  recommendedProductSlugs: string[];
+  followUpAt: string;
+};
+
 export type ClinicalAssessment = {
   detectedIngredients: IngredientKnowledge[];
   findings: ClinicalFinding[];
