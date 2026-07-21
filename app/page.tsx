@@ -3,6 +3,15 @@ import { ProductRail } from '@/components/products/product-grid';
 import { products } from '@/data/catalogue';
 import styles from './home.module.css';
 
+const editorialCutouts: Record<string, string> = {
+  'b-lab-matcha-hydrating-real-sunscreen': 'https://forever-glow.com/cdn/shop/files/ScreenShot2023-09-21at7.00.53PM.png?v=1695348720&width=1946',
+  'cosrx-salicylic-acid-daily-gentle-cleanser': 'https://www.medoget.com/cdn/shop/products/Cosrx_Salicylic_Acid_Daily_Gentle_Cleanser.png?v=1741604229&width=1030',
+  'anua-niacinamide-10-txa-4-serum': 'https://anua-global.us/cdn/shop/files/niacinamide-10-txa-4-serum-for-brightening-and-dark-spots_7.png?v=1766096582&width=2000',
+  'face-facts-wonder-cream-fragrance-free': 'https://peronabeauty.com/wp-content/uploads/2024/12/Screenshot-at--600x605.png',
+};
+
+const cutoutFor = (slug: string, fallback: string) => editorialCutouts[slug] ?? fallback;
+
 const concernCards = [
   { label: 'Barrier repair', query: 'barrier', note: 'Comfort. Repair. Resilience.', product: products.find(product => product.concerns.includes('barrier')) ?? products[0] },
   { label: 'Clearer skin', query: 'acne', note: 'A calmer path to clarity.', product: products.find(product => product.concerns.includes('acne')) ?? products[1] },
@@ -34,7 +43,7 @@ export default function HomePage() {
           <div className={styles.heroVisual}>
             <span className={styles.heroIssue}>01</span>
             <div className={styles.heroProductStage}>
-              <img src={heroProduct.image} alt={`${heroProduct.brand} ${heroProduct.name}`} />
+              <img src={cutoutFor(heroProduct.slug, heroProduct.image)} alt={`${heroProduct.brand} ${heroProduct.name}`} />
             </div>
             <div className={styles.heroCaption}>
               <strong>{heroProduct.brand}</strong>
@@ -53,7 +62,7 @@ export default function HomePage() {
           {concernCards.map((card, index) => (
             <Link className={styles.category} href={`/products?q=${encodeURIComponent(card.query)}`} key={card.label}>
               <small>0{index + 1} · Curated edit</small>
-              <img src={card.product.image} alt={`${card.product.brand} ${card.product.name}`} />
+              <img src={cutoutFor(card.product.slug, card.product.image)} alt={`${card.product.brand} ${card.product.name}`} />
               <div><span>{card.label}</span><p>{card.note}</p></div>
             </Link>
           ))}
@@ -62,7 +71,7 @@ export default function HomePage() {
 
       {storyProduct ? (
         <section className={styles.story}>
-          <div className={styles.storyVisual}><img src={storyProduct.image} alt={`${storyProduct.brand} ${storyProduct.name}`} /></div>
+          <div className={styles.storyVisual}><img src={cutoutFor(storyProduct.slug, storyProduct.image)} alt={`${storyProduct.brand} ${storyProduct.name}`} /></div>
           <div className={styles.storyCopy}>
             <p className={styles.kicker}>This week&apos;s story</p>
             <h2>The barrier recovery issue.</h2>
@@ -92,7 +101,7 @@ export default function HomePage() {
             <Link href={`/products/${product.slug}`} key={product.slug}>
               <span className={styles.formulaNumber}>0{index + 1}</span>
               <div className={styles.formulaText}><small>{product.brand}</small><strong>{product.name}</strong><em>{product.displayLine}</em></div>
-              <img src={product.image} alt={`${product.brand} ${product.name}`} />
+              <img src={cutoutFor(product.slug, product.image)} alt={`${product.brand} ${product.name}`} />
             </Link>
           ))}
         </div>
