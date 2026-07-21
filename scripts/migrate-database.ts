@@ -13,8 +13,11 @@ if (!connectionString) {
 
 const sql = postgres(connectionString, { max: 1, prepare: false });
 const migrationsDirectory = path.join(process.cwd(), 'db', 'migrations');
+const migrationLockKey = 7_413_902_026;
 
 try {
+  await sql`select pg_advisory_lock(${migrationLockKey})`;
+
   await sql`
     create table if not exists schema_migrations (
       filename text primary key,
@@ -26,11 +29,15 @@ try {
     .filter(file => file.endsWith('.sql'))
     .sort();
 
-  const appliedRows = await sql<{ filename: string }[]>`select filename from schema_migrations`;
-  const applied = new Set(appliedRows.map(row => row.filename));
-
   for (const filename of files) {
-    if (applied.has(filename)) {
+    const [alreadyApplied] = await sql<{ filename: string }[]>`
+      select filename
+      from schema_migrations
+      where filename = ${filename}
+      limit 1
+    `;
+
+    if (alreadyApplied) {
       console.log(`skip ${filename}`);
       continue;
     }
@@ -41,5 +48,9 @@ try {
     console.log(`applied ${filename}`);
   }
 } finally {
-  await sql.end();
+  try {
+    await sql`select pg_advisory_unlock(${migrationLockKey})`;
+  } finally {
+    await sql.end();
+  }
 }
