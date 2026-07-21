@@ -77,16 +77,17 @@ export async function POST(request: Request) {
   const clinical = assessClinicalRoutine(query, { ...profile, concerns, market, sensitiveSkin: profile?.sensitiveSkin ?? concerns.includes('sensitivity') });
   const ranked = rankProducts(products, { concerns, sensitive: clinical.profile?.sensitiveSkin ?? false, location: market });
   const rankScore = new Map(ranked.map(item => [item.slug, item.score]));
-  const eligible = clinicallyFilterProducts(products, clinical, priorTimeline as ClinicalTimelineRecord[])
+  const allowProducts = !['urgent', 'emergency'].includes(clinical.referral.level);
+  const eligible = allowProducts ? clinicallyFilterProducts(products, clinical, priorTimeline as ClinicalTimelineRecord[])
     .filter(item => rankScore.has(item.product.slug))
     .sort((a, b) => ((rankScore.get(b.product.slug) ?? 0) + b.decision.clinicalScore) - ((rankScore.get(a.product.slug) ?? 0) + a.decision.clinicalScore))
-    .slice(0, 8);
+    .slice(0, 8) : [];
   const eligibleBySlug = new Map(eligible.map(item => [item.product.slug, item]));
   const candidates = eligible.map(({ product, decision }) => ({ slug: product.slug, brand: product.brand, name: product.name, step: product.step, bestFor: product.bestFor, concerns: product.concerns, usage: product.usage, sensitiveFriendly: product.sensitiveFriendly, clinicalReasons: decision.reasons, ingredientIds: decision.ingredientIds }));
 
-  const deterministicCautions = clinical.findings.map(finding => `${finding.title}: ${finding.explanation}`);
+  const deterministicCautions = [...clinical.findings.map(finding => `${finding.title}: ${finding.explanation}`), `${clinical.referral.level}: ${clinical.referral.action}`];
   const optimizedRoutine = compactRoutine(clinical);
-  const publicClinical = { profile: clinical.profile, findings: clinical.findings, evidence: clinical.evidence, blockedIngredientIds: clinical.blockedIngredientIds, activeLoad: clinical.activeLoad, barrier: clinical.barrier, optimizedRoutine, routineSummary: clinical.routinePlan?.summary, eligibleProductCount: eligible.length };
+  const publicClinical = { profile: clinical.profile, findings: clinical.findings, evidence: clinical.evidence, blockedIngredientIds: clinical.blockedIngredientIds, activeLoad: clinical.activeLoad, barrier: clinical.barrier, differential: clinical.differential, referral: clinical.referral, optimizedRoutine, routineSummary: clinical.routinePlan?.summary, eligibleProductCount: eligible.length };
 
   function timelinePayload(selectedSlugs: string[]) {
     const timeline = createTimelineRecord({ query, concerns, market, clinical, recommendedProductSlugs: selectedSlugs });
@@ -100,19 +101,20 @@ export async function POST(request: Request) {
   try {
     const result = await generateText({
       model: process.env.JELOCARE_AI_MODEL ?? 'openai/gpt-5-mini', output: Output.object({ schema: reportSchema }), maxOutputTokens: 800, temperature: 0.2,
-      system: 'You are JeloCare, a pharmacist-led skincare guidance assistant. Give concise, cautious self-care guidance, not a diagnosis. Structured clinical findings, timeline trends, product eligibility and the optimized routine are authoritative: never contradict, weaken or omit them. Use only supplied catalogue slugs. Never invent products, prices, retailers, images or links. Clearly advise prompt in-person care for urgent, painful, infected or rapidly worsening symptoms. Return the exact requested structured object.',
-      prompt: `USER CONCERN:\n${query}\n\nPATIENT PROFILE:\n${JSON.stringify(clinical.profile)}\n\nINFERRED CONCERNS:\n${concerns.join(', ')}\n\nDETERMINISTIC SAFETY SCREEN:\n${JSON.stringify(safety)}\n\nDETERMINISTIC CLINICAL ASSESSMENT:\n${JSON.stringify(clinical)}\n\nCLINICALLY ELIGIBLE PRODUCT CANDIDATES:\n${JSON.stringify(candidates)}\n\nChoose at most four productSlugs only from the eligible candidates. Product eligibility is final. Include every deterministic clinical finding in cautions. Keep the explanation aligned with the optimized routine.`,
+      system: 'You are JeloCare, a pharmacist-led skincare guidance assistant. Give concise, cautious self-care guidance, not a diagnosis. The deterministic differential, referral pathway, clinical findings, timeline trends, product eligibility and optimized routine are authoritative: never contradict, weaken or omit them. Use only supplied catalogue slugs. Never invent products, prices, retailers, images or links. If referral is urgent or emergency, recommend no products and prioritize the referral action. Return the exact requested structured object.',
+      prompt: `USER CONCERN:\n${query}\n\nPATIENT PROFILE:\n${JSON.stringify(clinical.profile)}\n\nINFERRED CONCERNS:\n${concerns.join(', ')}\n\nDETERMINISTIC SAFETY SCREEN:\n${JSON.stringify(safety)}\n\nDETERMINISTIC DIFFERENTIAL:\n${JSON.stringify(clinical.differential)}\n\nDETERMINISTIC REFERRAL:\n${JSON.stringify(clinical.referral)}\n\nDETERMINISTIC CLINICAL ASSESSMENT:\n${JSON.stringify(clinical)}\n\nCLINICALLY ELIGIBLE PRODUCT CANDIDATES:\n${JSON.stringify(candidates)}\n\nChoose at most four productSlugs only from the eligible candidates. Product eligibility and referral are final. Include every deterministic clinical finding and referral action in cautions. Keep the explanation aligned with the optimized routine.`,
     });
     const selected = selectedProducts(result.output.productSlugs);
     const selectedSlugs = selected.map(item => item.product.slug);
     const cautions = Array.from(new Set([...deterministicCautions, ...result.output.cautions])).slice(0, 6);
-    return Response.json({ report: { ...result.output, productSlugs: selectedSlugs, cautions }, products: selected.map(item => publicProduct(item.product, market, item.decision)), clinical: publicClinical, recommendationAudit: { candidateCount: candidates.length, selectedCount: selected.length, deterministic: true }, ...timelinePayload(selectedSlugs), meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1 } });
+    return Response.json({ report: { ...result.output, productSlugs: selectedSlugs, cautions }, products: selected.map(item => publicProduct(item.product, market, item.decision)), clinical: publicClinical, recommendationAudit: { candidateCount: candidates.length, selectedCount: selected.length, deterministic: true }, ...timelinePayload(selectedSlugs), meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 2 } });
   } catch {
     const selected = eligible.slice(0, 3);
     const selectedSlugs = selected.map(item => item.product.slug);
+    const urgent = ['urgent', 'emergency'].includes(clinical.referral.level);
     return Response.json({
-      report: { title: 'A safer starting point', summary: clinical.routinePlan?.summary ?? 'Start with a simple, consistent routine and introduce one treatment at a time.', pattern: `The strongest catalogue matches are around ${concerns.join(', ')}. This is guidance, not a diagnosis.`, routine: optimizedRoutine.slice(0, 8).map(step => ({ time: step.time, action: step.action })), cautions: deterministicCautions.length ? deterministicCautions : ['Stop any product that causes persistent burning, swelling or a rapidly worsening rash.'], productSlugs: selectedSlugs, followUp: 'Reassess after two to four weeks, or seek in-person care sooner if the area becomes painful, infected or rapidly spreads.' },
-      products: selected.map(item => publicProduct(item.product, market, item.decision)), clinical: publicClinical, recommendationAudit: { candidateCount: candidates.length, selectedCount: selected.length, deterministic: true }, ...timelinePayload(selectedSlugs), meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1, fallback: true },
+      report: { title: urgent ? 'In-person care comes first' : 'A safer starting point', summary: urgent ? clinical.referral.action : clinical.routinePlan?.summary ?? 'Start with a simple, consistent routine and introduce one treatment at a time.', pattern: clinical.differential.primary ? `${clinical.differential.primary.label} is the leading working pattern at ${clinical.differential.primary.confidence}% confidence. This is not a diagnosis.` : 'The description is not yet specific enough for a confident working pattern.', routine: urgent ? [] : optimizedRoutine.slice(0, 8).map(step => ({ time: step.time, action: step.action })), cautions: deterministicCautions.slice(0, 6), productSlugs: selectedSlugs, followUp: clinical.referral.action },
+      products: selected.map(item => publicProduct(item.product, market, item.decision)), clinical: publicClinical, recommendationAudit: { candidateCount: candidates.length, selectedCount: selected.length, deterministic: true }, ...timelinePayload(selectedSlugs), meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 2, fallback: true },
     });
   }
 }
