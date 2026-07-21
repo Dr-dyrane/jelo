@@ -4,6 +4,7 @@ import { products } from '@/data/catalogue';
 import { baselinePrices, type Market } from '@/data/prices';
 import { assessRedFlags } from '@/modules/clinical/safety-gate';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
+import { createTimelineRecord } from '@/modules/clinical/core/timeline';
 import type { RoutineStep } from '@/modules/clinical/core/types';
 import { rankProducts } from '@/modules/recommendations/product-ranker';
 
@@ -124,15 +125,18 @@ export async function POST(request: Request) {
       prompt: `USER CONCERN:\n${query}\n\nPATIENT PROFILE:\n${JSON.stringify(clinical.profile)}\n\nINFERRED CONCERNS:\n${concerns.join(', ')}\n\nDETERMINISTIC SAFETY SCREEN:\n${JSON.stringify(safety)}\n\nDETERMINISTIC CLINICAL ASSESSMENT:\n${JSON.stringify(clinical)}\n\nALLOWED PRODUCT CANDIDATES:\n${JSON.stringify(candidates)}\n\nChoose at most four productSlugs only from the candidates. Include every deterministic clinical finding in cautions. Never recommend an ingredient listed in blockedIngredientIds. Keep the explanation aligned with the optimized routine.`,
     });
     const selected = result.output.productSlugs.map(slug => products.find(product => product.slug === slug)).filter((product): product is (typeof products)[number] => Boolean(product)).slice(0, 4);
+    const selectedSlugs = selected.map(product => product.slug);
     const cautions = Array.from(new Set([...deterministicCautions, ...result.output.cautions])).slice(0, 6);
     return Response.json({
       report: { ...result.output, cautions },
       products: selected.map(product => publicProduct(product, market)),
       clinical: publicClinical,
-      meta: { modelCalls: 1, market, concerns },
+      timeline: createTimelineRecord({ query, concerns, market, clinical, recommendedProductSlugs: selectedSlugs }),
+      meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1 },
     });
   } catch {
     const selected = ranked.slice(0, 3).map(item => products.find(product => product.slug === item.slug)).filter((product): product is (typeof products)[number] => Boolean(product));
+    const selectedSlugs = selected.map(product => product.slug);
     return Response.json({
       report: {
         title: 'A safer starting point',
@@ -140,12 +144,13 @@ export async function POST(request: Request) {
         pattern: `The strongest catalogue matches are around ${concerns.join(', ')}. This is guidance, not a diagnosis.`,
         routine: optimizedRoutine.slice(0, 8).map(step => ({ time: step.time, action: step.action })),
         cautions: deterministicCautions.length ? deterministicCautions : ['Stop any product that causes persistent burning, swelling or a rapidly worsening rash.'],
-        productSlugs: selected.map(product => product.slug),
+        productSlugs: selectedSlugs,
         followUp: 'Reassess after two to four weeks, or seek in-person care sooner if the area becomes painful, infected or rapidly spreads.',
       },
       products: selected.map(product => publicProduct(product, market)),
       clinical: publicClinical,
-      meta: { modelCalls: 1, market, concerns, fallback: true },
+      timeline: createTimelineRecord({ query, concerns, market, clinical, recommendedProductSlugs: selectedSlugs }),
+      meta: { modelCalls: 1, market, concerns, clinicalSchemaVersion: 1, fallback: true },
     });
   }
 }
