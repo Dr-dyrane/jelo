@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { concerns, concernBySlug } from '@/data/knowledge';
-import { products } from '@/data/products';
+import { products } from '@/data/catalogue';
 import { ProductGrid } from '@/components/products/product-grid';
 import styles from '../concerns.module.css';
 
