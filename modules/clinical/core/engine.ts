@@ -1,4 +1,5 @@
 import { detectIngredients } from './ingredients';
+import { optimizeRoutine } from './routine';
 import { evaluateClinicalRules } from './rules';
 import type { ClinicalAssessment, PatientProfile } from './types';
 
@@ -14,7 +15,7 @@ export function inferProfileFromText(text: string, partial: PatientProfile = {})
 
 export function assessClinicalRoutine(text: string, partialProfile: PatientProfile = {}): ClinicalAssessment {
   const profile = inferProfileFromText(text, partialProfile);
-  const detectedIngredients = detectIngredients(text);
+  const detectedIngredients = detectIngredients([text, ...(profile.currentIngredients ?? [])].join(' '));
   const findings = evaluateClinicalRules(detectedIngredients, profile);
 
   const activeLoad = detectedIngredients.reduce(
@@ -29,5 +30,6 @@ export function assessClinicalRoutine(text: string, partialProfile: PatientProfi
   );
 
   const blockedIngredientIds = Array.from(new Set(findings.filter(finding => finding.action === 'avoid').flatMap(finding => finding.ingredientIds ?? [])));
-  return { detectedIngredients, findings, blockedIngredientIds, activeLoad };
+  const base: ClinicalAssessment = { detectedIngredients, findings, blockedIngredientIds, activeLoad, profile };
+  return { ...base, routinePlan: optimizeRoutine(base, profile) };
 }
