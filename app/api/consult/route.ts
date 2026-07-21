@@ -109,6 +109,7 @@ export async function POST(request: Request) {
     evidence: clinical.evidence,
     blockedIngredientIds: clinical.blockedIngredientIds,
     activeLoad: clinical.activeLoad,
+    barrier: clinical.barrier,
     optimizedRoutine,
     routineSummary: clinical.routinePlan?.summary,
   };
