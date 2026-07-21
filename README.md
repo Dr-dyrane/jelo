@@ -1,22 +1,54 @@
 # JeloCare
 
-JeloCare is a pharmacist-led skincare and haircare discovery platform.
+JeloCare is a pharmacist-led skincare and haircare discovery platform combining clinically grounded guidance with Nigerian-first retail intelligence.
 
 ## Product principles
 
 - Concern-led discovery
-- Price visible early
+- Price visible before retailer navigation
+- Nigerian retailers before international alternatives
 - Trust-first retailer ranking
 - Location-aware availability
+- Historical price and inventory evidence
 - AI guidance with deterministic safety rules
 - Guidance, not diagnosis
 - Editorial-first, clinically grounded presentation
 - Runtime independence from third-party product-image hosts
 
+## Core product pillars
+
+### Clinical intelligence
+
+JeloCare helps users understand products, ingredients, concerns, routines, contraindications and safe usage without presenting guidance as diagnosis.
+
+### Retail intelligence
+
+JeloCare helps users know where a product is sold in Nigeria, what each trusted retailer currently charges, whether it appears available and how fresh that evidence is before they leave the product page.
+
+Initial Nigerian retail references:
+
+- [Beauty by Daz](https://beautybydaz.com/)
+- [Lux Beauty NG](https://www.luxbeautyng.com/)
+- [Teeka4](https://teeka4.com/)
+
+The retail intelligence pipeline is:
+
+```text
+Products
+  -> Retailers
+  -> Offers
+  -> Inventory verification
+  -> Price history
+  -> Market summaries
+  -> AI purchasing context
+```
+
+See [docs/RETAIL_INTELLIGENCE.md](docs/RETAIL_INTELLIGENCE.md) for the product experience, ranking rules, reference retailers and implementation order.
+
 ## Platform foundation
 
 - **Vercel Blob** for canonical public catalogue and editorial assets
-- **Neon PostgreSQL** for durable catalogue and clinical data
+- **Neon PostgreSQL** for durable catalogue, retail and clinical data
 - **Vercel Edge Config** for runtime flags and campaign selection
 - **Upstash Redis** for cache, rate limiting and short-lived state
 - **Vercel AI Gateway** for consultation model routing
@@ -47,6 +79,17 @@ CATALOGUE_SOURCE=neon
 ```
 
 If Neon is unavailable, product listing and detail reads fall back to the verified static catalogue rather than failing the public experience.
+
+## Retail operations
+
+Queue stale offers, process retailer pages and audit inventory and price quality:
+
+```bash
+npm run inventory:queue
+npm run inventory:work
+npm run inventory:audit
+npm run inventory:prices
+```
 
 ## Asset operations
 
