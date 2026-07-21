@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { CatalogueExplorer } from '@/components/products/catalogue-explorer';
 import { products } from '@/data/catalogue';
 
@@ -9,9 +10,11 @@ export default function ProductsPage() {
       <header className="page-heading">
         <p className="eyebrow">The catalogue</p>
         <h1>Find what<br/>fits.</h1>
-        <p>Search by product, brand, concern or routine step. See only products with an available purchase route in your selected market.</p>
+        <p>Search from the navbar, then refine by category, concern or market.</p>
       </header>
-      <CatalogueExplorer products={products}/>
+      <Suspense fallback={<div aria-live="polite">Loading catalogue…</div>}>
+        <CatalogueExplorer products={products}/>
+      </Suspense>
     </main>
   );
 }
