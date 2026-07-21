@@ -3,7 +3,7 @@ import { ProductRail } from '@/components/products/product-grid';
 import { products } from '@/data/catalogue';
 import styles from './home.module.css';
 
-const heroImage = 'https://www.cvs.com/bizcontent/merchandising/productimages/high_res/360600043744.jpg?im=Resize=(1000,1000),aspect=ignore';
+const heroImage = 'https://www.image2url.com/r2/default/images/1784611638526-af9ad33c-3a5b-47d5-8187-a6eff363967c.png';
 
 const editorialCutouts: Record<string, string> = {
   'b-lab-matcha-hydrating-real-sunscreen': 'https://beautybydaz.com/wp-content/uploads/2023/08/blab-spf.jpg',
@@ -32,16 +32,34 @@ export default function HomePage() {
     <main className={styles.main}>
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className={styles.kicker}>The JeloCare summer edit</p>
+          <p className={styles.kicker}>The barrier icon</p>
           <h1>Skin, beautifully understood.</h1>
-          <p className={styles.heroDeck}>Discover formulas chosen for fit, evidence and the way real skin lives. Quietly guided by pharmacist-led intelligence.</p>
+          <p className={styles.heroDeck}>La Roche-Posay Cicaplast Baume B5. A soothing multi-purpose cream for dry, fragile and visibly stressed skin.</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/products">Explore the edit</Link>
-            <Link className={styles.secondary} href="/concerns">Shop by concern</Link>
+            <Link className={styles.primary} href="/products?q=barrier">Discover barrier care</Link>
+            <Link className={styles.secondary} href="/consult">Ask JeloCare</Link>
           </div>
         </div>
+
         <div className={styles.heroVisual}>
-          <img className={styles.heroProduct} src={heroImage} alt="La Roche-Posay Cicaplast Baume B5" />
+          <div className={styles.heroAura} />
+          <img className={styles.heroProduct} src={heroImage} alt="La Roche-Posay Cicaplast Baume B5 Soothing Therapeutic Multi-Purpose Cream, 1.35 oz" />
+
+          <div className={`${styles.glassCard} ${styles.glassTop}`}>
+            <span>01 · Barrier</span>
+            <strong>Repair without the noise.</strong>
+          </div>
+
+          <div className={`${styles.glassCard} ${styles.glassBottom}`}>
+            <span>1.35 oz · Multi-purpose</span>
+            <strong>Dry skin. Fragile skin. Everyday recovery.</strong>
+          </div>
+
+          <div className={styles.heroMeta}>
+            <span>Pharmacist edit</span>
+            <span>Soothing care</span>
+            <span>Barrier support</span>
+          </div>
         </div>
       </section>
 
