@@ -1,10 +1,12 @@
 import { Suspense } from 'react';
 import { CatalogueExplorer } from '@/components/products/catalogue-explorer';
-import { products } from '@/data/catalogue';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
 
 export const metadata = { title: 'Products' };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const products = await listCatalogueProducts();
+
   return (
     <main className="page-shell">
       <header className="page-heading">
