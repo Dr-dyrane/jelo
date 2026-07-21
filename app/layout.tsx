@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Italiana, Manrope } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { SiteHeader } from '@/components/navigation/site-header';
 import './globals.css';
 import './platform.css';
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteHeader />
         {children}
         <footer className="site-footer"><span>JeloCare</span><span>Guidance, not diagnosis.</span></footer>
+        <Analytics />
       </body>
     </html>
   );
