@@ -26,17 +26,29 @@ See [docs/INFRASTRUCTURE.md](docs/INFRASTRUCTURE.md) for environment variables, 
 
 ## Catalogue migration
 
-The application now reads products through `lib/catalogue/repository.ts`. The current adapter deliberately preserves the verified static catalogue while the Neon schema is introduced.
+The application reads products through `lib/catalogue/repository.ts`. It supports a Neon adapter while preserving the verified static catalogue as a production fallback.
 
-The first database migration is:
+Run the first schema migration with an unpooled Neon connection:
 
-```text
-db/migrations/0001_catalogue_foundation.sql
+```bash
+npm run db:migrate
 ```
 
-Do not switch production reads to Neon until the migration, seed data and image records have been verified against the static catalogue.
+Seed the current TypeScript catalogue into the normalized Neon tables:
 
-## Operations
+```bash
+npm run db:seed
+```
+
+Verify the database records and image audit before changing:
+
+```env
+CATALOGUE_SOURCE=neon
+```
+
+If Neon is unavailable, product listing and detail reads fall back to the verified static catalogue rather than failing the public experience.
+
+## Asset operations
 
 The browser-based product image audit is available at:
 
@@ -45,6 +57,14 @@ The browser-based product image audit is available at:
 ```
 
 It identifies explicit placeholders and third-party URLs that fail and fall back at runtime.
+
+The server-only Blob importer runs with:
+
+```bash
+npm run assets:import
+```
+
+It requires `BLOB_READ_WRITE_TOKEN` and never exposes that credential to browser code.
 
 ## Local development
 
