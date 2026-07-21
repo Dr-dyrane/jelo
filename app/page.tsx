@@ -41,14 +41,7 @@ export default function HomePage() {
         </div>
         {heroProduct ? (
           <div className={styles.heroVisual}>
-            <span className={styles.heroIssue}>01</span>
-            <div className={styles.heroProductStage}>
-              <img src={cutoutFor(heroProduct.slug, heroProduct.image)} alt={`${heroProduct.brand} ${heroProduct.name}`} />
-            </div>
-            <div className={styles.heroCaption}>
-              <strong>{heroProduct.brand}</strong>
-              <span>{heroProduct.name}</span>
-            </div>
+            <img className={styles.heroProduct} src={cutoutFor(heroProduct.slug, heroProduct.image)} alt={`${heroProduct.brand} ${heroProduct.name}`} />
           </div>
         ) : null}
       </section>
