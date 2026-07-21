@@ -12,6 +12,7 @@ const concernCards = [
 ].filter(card => card.product);
 
 export default function HomePage() {
+  const heroProduct = products.find(product => product.step === 'Protect') ?? products[0];
   const storyProduct = products.find(product => product.concerns.includes('barrier')) ?? products[3] ?? products[0];
   const recommendations = products.filter(product => product.sensitiveFriendly).slice(0, 3);
   const editorsEdit = products.slice(0, 12);
@@ -19,23 +20,28 @@ export default function HomePage() {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero} aria-labelledby="home-campaign-title">
-        <h1 id="home-campaign-title" className={styles.srOnly}>Your best skin starts with confidence.</h1>
-        <Link className={styles.heroCampaignLink} href="/products" aria-label="Explore the JeloCare summer edit">
-          <img className={styles.heroCampaign} src="/editorial/jelocare-hero-campaign.webp" alt="Jelo in the JeloCare summer skincare campaign" />
-        </Link>
-      </section>
-
-      <section className={styles.campaignBar} aria-label="Summer campaign actions">
-        <div>
+      <section className={styles.hero}>
+        <div className={styles.heroCopy}>
           <p className={styles.kicker}>The JeloCare summer edit</p>
-          <strong>Restore. Protect. Glow.</strong>
-          <span>Clinically guided care, beautifully curated.</span>
+          <h1>Skin, beautifully understood.</h1>
+          <p className={styles.heroDeck}>Discover formulas chosen for fit, evidence and the way real skin lives. Quietly guided by pharmacist-led intelligence.</p>
+          <div className={styles.actions}>
+            <Link className={styles.primary} href="/products">Explore the edit</Link>
+            <Link className={styles.secondary} href="/concerns">Shop by concern</Link>
+          </div>
         </div>
-        <div className={styles.campaignActions}>
-          <Link className={styles.primary} href="/products">Shop the edit</Link>
-          <Link className={styles.secondaryDark} href="/concerns">Explore concerns</Link>
-        </div>
+        {heroProduct ? (
+          <div className={styles.heroVisual}>
+            <span className={styles.heroIssue}>01</span>
+            <div className={styles.heroProductStage}>
+              <img src={heroProduct.image} alt={`${heroProduct.brand} ${heroProduct.name}`} />
+            </div>
+            <div className={styles.heroCaption}>
+              <strong>{heroProduct.brand}</strong>
+              <span>{heroProduct.name}</span>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <section className={styles.section}>
