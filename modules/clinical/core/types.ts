@@ -51,11 +51,20 @@ export type ClinicalFinding = {
   action: 'allow' | 'adjust' | 'avoid' | 'escalate';
 };
 
+export type BarrierAssessment = {
+  score: number;
+  state: 'stable' | 'watch' | 'stressed' | 'compromised';
+  confidence: 'low' | 'moderate' | 'high';
+  signals: string[];
+  recoveryPriority: 'routine' | 'elevated' | 'high';
+  recommendedRecoveryNights: number;
+};
+
 export type RoutineStep = {
   time: Exclude<RoutineTime, 'any'>;
   action: string;
   rationale: string;
-  frequency: 'daily' | 'alternate-days' | '1-2x-weekly' | '2-3x-weekly' | '2x-weekly';
+  frequency: 'daily' | 'alternate-days' | '1-2x-weekly' | '2-3x-weekly' | '2x-weekly' | '3x-weekly';
 };
 
 export type RoutinePlan = {
@@ -77,6 +86,7 @@ export type ClinicalAssessment = {
     antimicrobial: number;
     total: number;
   };
+  barrier: BarrierAssessment;
   profile?: PatientProfile;
   routinePlan?: RoutinePlan;
 };
