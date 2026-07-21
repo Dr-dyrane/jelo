@@ -19,22 +19,22 @@ export default function HomePage() {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero}>
-        <img className={styles.heroCampaign} src="/editorial/jelocare-hero-campaign.webp" alt="JeloCare summer skincare campaign featuring Jelo" />
-        <div className={styles.heroShade} />
-        <div className={styles.heroCopy}>
+      <section className={styles.hero} aria-labelledby="home-campaign-title">
+        <h1 id="home-campaign-title" className={styles.srOnly}>Your best skin starts with confidence.</h1>
+        <Link className={styles.heroCampaignLink} href="/products" aria-label="Explore the JeloCare summer edit">
+          <img className={styles.heroCampaign} src="/editorial/jelocare-hero-campaign.webp" alt="Jelo in the JeloCare summer skincare campaign" />
+        </Link>
+      </section>
+
+      <section className={styles.campaignBar} aria-label="Summer campaign actions">
+        <div>
           <p className={styles.kicker}>The JeloCare summer edit</p>
-          <h1>Your best skin starts with confidence.</h1>
-          <p className={styles.heroDeck}>Clinically guided care. Beautifully curated for the way real skin lives.</p>
-          <div className={styles.actions}>
-            <Link className={styles.primary} href="/products">Shop the edit</Link>
-            <Link className={styles.secondary} href="/concerns">Explore concerns</Link>
-          </div>
+          <strong>Restore. Protect. Glow.</strong>
+          <span>Clinically guided care, beautifully curated.</span>
         </div>
-        <div className={styles.heroEditorial}>
-          <small>Summer edit</small>
-          <strong>Restore.<br />Protect.<br />Glow.</strong>
-          <span>Barrier-supporting essentials for hydrated, healthy, radiant skin.</span>
+        <div className={styles.campaignActions}>
+          <Link className={styles.primary} href="/products">Shop the edit</Link>
+          <Link className={styles.secondaryDark} href="/concerns">Explore concerns</Link>
         </div>
       </section>
 
