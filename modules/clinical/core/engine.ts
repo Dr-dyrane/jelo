@@ -1,3 +1,4 @@
+import { assessBarrier } from './barrier';
 import { evidenceForFindings } from './evidence';
 import { detectIngredients } from './ingredients';
 import { optimizeRoutine } from './routine';
@@ -32,6 +33,7 @@ export function assessClinicalRoutine(text: string, partialProfile: PatientProfi
   );
 
   const blockedIngredientIds = Array.from(new Set(findings.filter(finding => finding.action === 'avoid').flatMap(finding => finding.ingredientIds ?? [])));
-  const base: ClinicalAssessment = { detectedIngredients, findings, evidence, blockedIngredientIds, activeLoad, profile };
+  const barrier = assessBarrier(text, detectedIngredients, profile);
+  const base: ClinicalAssessment = { detectedIngredients, findings, evidence, blockedIngredientIds, activeLoad, barrier, profile };
   return { ...base, routinePlan: optimizeRoutine(base, profile) };
 }
