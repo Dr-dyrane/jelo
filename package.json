@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "assets:import": "node scripts/import-product-assets.mjs"
+    "assets:import": "node scripts/import-product-assets.mjs",
+    "db:migrate": "tsx scripts/migrate-database.ts",
+    "db:seed": "tsx scripts/seed-catalogue.ts"
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.221",
@@ -17,6 +19,7 @@
     "ai": "6.0.224",
     "lucide-react": "1.25.0",
     "next": "16.2.10",
+    "postgres": "3.4.7",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "zod": "4.1.12"
@@ -27,6 +30,7 @@
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.1",
     "eslint-config-next": "16.2.10",
+    "tsx": "4.20.6",
     "typescript": "5.9.3"
   }
 }
