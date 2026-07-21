@@ -41,15 +41,29 @@ Provisioned variables:
 ```env
 BLOB_STORE_ID=
 BLOB_WEBHOOK_PUBLIC_KEY=
-```
-
-Server-side importing and uploading additionally requires:
-
-```env
 BLOB_READ_WRITE_TOKEN=
 ```
 
-The read/write token has not been provisioned yet. Do not add upload routes that fail open or expose this token to the browser.
+`BLOB_READ_WRITE_TOKEN` is server-only. It must never be included in client components, browser bundles, logs, form fields or public API responses.
+
+### Product asset import
+
+The first operator-only importer is:
+
+```bash
+npm run assets:import
+```
+
+It reads `data/asset-imports.json`, validates each HTTPS source, rejects non-image and oversized responses, uploads deterministic paths to public Blob storage, and writes `data/asset-import-results.json`.
+
+Load Vercel environment values before running locally:
+
+```bash
+vercel env pull .env.local
+npm run assets:import
+```
+
+The importer is deliberately a command-line operation. The public website has no authentication, so Blob write operations must not be exposed through a browser route yet. The shared implementation in `lib/assets/blob.ts` is server-only and can later power an authenticated Asset Manager.
 
 ## Neon PostgreSQL
 
@@ -117,8 +131,8 @@ The Vercel dashboard is authoritative for which environments receive each variab
 
 ## Next implementation stages
 
-1. Create the catalogue schema in Neon.
-2. Introduce database access behind a repository layer while preserving the static catalogue fallback.
-3. Provision `BLOB_READ_WRITE_TOKEN` before enabling server-side media imports.
-4. Import failing third-party product images into Blob and replace runtime hotlinks.
-5. Convert `/image-audit` into an authenticated operational asset manager when authentication is deliberately introduced.
+1. Run the first Blob import queue and replace failed catalogue hotlinks with returned Blob URLs.
+2. Apply and seed the Neon catalogue migration.
+3. Switch the catalogue repository from static fallback to Neon reads.
+4. Add image metadata persistence and completeness checks.
+5. Convert `/image-audit` into an authenticated operational Asset Manager when authentication is deliberately introduced.
