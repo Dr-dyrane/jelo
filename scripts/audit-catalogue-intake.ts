@@ -17,6 +17,7 @@ async function main() {
       stage: decision.stage,
       nextAction: decision.nextAction,
       freshExactOffers: decision.freshExactOffers.length,
+      excludedMarketObservations: decision.excludedMarketObservations.length,
       directoryListedOffers: decision.freshExactOffers.filter(offer => offer.retailerStatus === 'directory-listed').length,
       provisionalOffers: decision.freshExactOffers.filter(offer => offer.retailerStatus === 'provisional').length,
       blockers: decision.blockers,
@@ -33,6 +34,7 @@ async function main() {
       priority: item.priority,
       stage: item.stage,
       exactOffers: item.freshExactOffers,
+      excludedMarketObservations: item.excludedMarketObservations,
       next: item.nextAction,
     })));
   }

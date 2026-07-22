@@ -270,6 +270,7 @@ function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): Cata
       regulatoryStatus: 'matched',
       regulatoryEvidence: regulatoryEvidence(),
       brandAuthorizationEvidenceUrl: 'https://africa.cerave.com/en/find-your-nearest-store',
+      excludedObservations: [],
       exactOffers: [{
         retailer: 'Medplus',
         retailerStatus: 'directory-listed',

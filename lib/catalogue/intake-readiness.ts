@@ -18,9 +18,10 @@ import {
   type CataloguePublicationImageMimeType,
 } from './publication-image-policy';
 
-export const catalogueIntakeSchemaVersion = 5 as const;
+export const catalogueIntakeSchemaVersion = 6 as const;
 export const catalogueGenerationRecordSchemaVersion = 1 as const;
 export const catalogueIdentityExtractionSchemaVersion = 3 as const;
+export const catalogueMarketObservationSchemaVersion = 1 as const;
 
 export type CatalogueIntakePriority = 'essential' | 'important' | 'exploratory';
 export type CatalogueIntakeStage = 'identity' | 'care' | 'nigeria' | 'rights' | 'editorial' | 'approval-ready';
@@ -110,6 +111,66 @@ export type CatalogueIntakeOffer = {
   evidence?: ReviewedExactOfferEvidence;
 };
 
+export type CatalogueMarketObservationExclusionReason =
+  | 'retailer-identifier-only'
+  | 'retailer-identifier-conflicts-with-candidate'
+  | 'manufacturer-identifier-mismatch'
+  | 'package-barcode-missing'
+  | 'package-variant-conflict'
+  | 'retailer-provisional'
+  | 'listing-no-longer-current'
+  | 'marketplace-seller-unverified';
+
+type CatalogueMarketObservationTextField = {
+  value: string;
+  locator: string;
+  sourceText: string;
+};
+
+export type CatalogueMarketObservation = {
+  retailer: string;
+  retailerStatus: 'directory-listed' | 'provisional';
+  listingUrl: string;
+  observedAt: string;
+  observedTitle: string;
+  observedSize: string;
+  priceNgn: number;
+  stock: 'in-stock' | 'low-stock' | 'out-of-stock';
+  disposition: 'excluded-from-exact-comparison';
+  exclusionReasons: CatalogueMarketObservationExclusionReason[];
+  evidence: {
+    schemaVersion: typeof catalogueMarketObservationSchemaVersion;
+    method: 'reviewed-retailer-observation';
+    responseUrl: string;
+    responseSha256: string;
+    responseDigestScope: 'decoded-response-body';
+    responseMimeType: 'text/html';
+    responseByteSize: number;
+    retrievedAt: string;
+    fields: {
+      title: CatalogueMarketObservationTextField;
+      size: CatalogueMarketObservationTextField;
+      price: {
+        value: number;
+        currency: 'NGN';
+        locator: string;
+        sourceText: string;
+      };
+      stock: {
+        value: CatalogueMarketObservation['stock'];
+        locator: string;
+        sourceText: string;
+      };
+      retailerIdentifier?: CatalogueMarketObservationTextField & {
+        label: 'SKU' | 'EAN' | 'GTIN' | 'UPC';
+      };
+      packageVariantConflict?: CatalogueMarketObservationTextField;
+    };
+    reviewer: string;
+    reviewedAt: string;
+  };
+};
+
 export type CatalogueIntakeCandidate = {
   id: string;
   brand: string;
@@ -146,6 +207,7 @@ export type CatalogueIntakeCandidate = {
     tierAIdentityEvidenceUrl?: string;
     brandAuthorizationEvidenceUrl?: string;
     exactOffers: CatalogueIntakeOffer[];
+    excludedObservations: CatalogueMarketObservation[];
   };
   asset: {
     rightsStatus: 'unresolved' | 'documented';
@@ -233,6 +295,7 @@ export type CatalogueIntakeDecision = {
   nextAction: string;
   approvalDraftReady: boolean;
   freshExactOffers: CatalogueIntakeOffer[];
+  excludedMarketObservations: CatalogueMarketObservation[];
   nigeriaMarketRoute?: CatalogueNigeriaMarketRoute;
 };
 
@@ -640,6 +703,98 @@ function canonicalRetailerOffer(offer: CatalogueIntakeOffer) {
   } satisfies CatalogueIntakeOffer;
 }
 
+const marketObservationExclusionReasons: readonly CatalogueMarketObservationExclusionReason[] = [
+  'retailer-identifier-only',
+  'retailer-identifier-conflicts-with-candidate',
+  'manufacturer-identifier-mismatch',
+  'package-barcode-missing',
+  'package-variant-conflict',
+  'retailer-provisional',
+  'listing-no-longer-current',
+  'marketplace-seller-unverified',
+];
+
+function marketObservationValid(
+  candidate: CatalogueIntakeCandidate,
+  observation: CatalogueMarketObservation,
+  asOf: number,
+) {
+  const evidence = observation.evidence;
+  const observedAt = Date.parse(observation.observedAt);
+  const retrievedAt = Date.parse(evidence?.retrievedAt ?? '');
+  const reviewedAt = Date.parse(evidence?.reviewedAt ?? '');
+  const reasons = new Set(observation.exclusionReasons);
+  const retailer = nigeriaRetailers.find(item => normalized(item.name) === normalized(observation.retailer));
+  let listing: URL;
+  let homepage: URL;
+  try {
+    listing = new URL(observation.listingUrl);
+    homepage = new URL(retailer?.homepage ?? '');
+  } catch {
+    return false;
+  }
+  const host = (value: URL) => value.hostname.replace(/^www\./, '').toLowerCase();
+  if (
+    !retailer
+    || retailer.reviewStatus !== observation.retailerStatus
+    || listing.protocol !== 'https:'
+    || host(listing) !== host(homepage)
+    || observation.disposition !== 'excluded-from-exact-comparison'
+    || !observation.exclusionReasons.length
+    || reasons.size !== observation.exclusionReasons.length
+    || observation.exclusionReasons.some(reason => !marketObservationExclusionReasons.includes(reason))
+    || !Number.isFinite(observedAt)
+    || !Number.isFinite(retrievedAt)
+    || !Number.isFinite(reviewedAt)
+    || observedAt !== retrievedAt
+    || reviewedAt < retrievedAt
+    || reviewedAt > asOf + 5 * 60_000
+    || !Number.isFinite(observation.priceNgn)
+    || observation.priceNgn <= 0
+    || !['in-stock', 'low-stock', 'out-of-stock'].includes(observation.stock)
+    || evidence.schemaVersion !== catalogueMarketObservationSchemaVersion
+    || evidence.method !== 'reviewed-retailer-observation'
+    || !sameUrl(observation.listingUrl, evidence.responseUrl)
+    || evidence.responseDigestScope !== 'decoded-response-body'
+    || evidence.responseMimeType !== 'text/html'
+    || !hashPattern.test(evidence.responseSha256)
+    || !Number.isInteger(evidence.responseByteSize)
+    || evidence.responseByteSize <= 0
+    || !evidence.reviewer.trim()
+    || normalized(evidence.fields.title.value) !== normalized(observation.observedTitle)
+    || normalizedSize(evidence.fields.size.value) !== normalizedSize(observation.observedSize)
+    || evidence.fields.price.value !== observation.priceNgn
+    || evidence.fields.price.currency !== 'NGN'
+    || evidence.fields.stock.value !== observation.stock
+    || [
+      evidence.fields.title,
+      evidence.fields.size,
+      evidence.fields.price,
+      evidence.fields.stock,
+    ].some(field => !field.locator.trim() || !field.sourceText.trim())
+  ) return false;
+
+  const identifier = evidence.fields.retailerIdentifier;
+  if (identifier && (!identifier.value.trim() || !identifier.locator.trim() || !identifier.sourceText.trim())) return false;
+  if (reasons.has('retailer-identifier-only') && identifier?.label !== 'SKU') return false;
+  if (
+    reasons.has('retailer-identifier-conflicts-with-candidate')
+    && (identifier?.label !== 'SKU' || sameGtin(identifier.value, candidate.identity.gtin))
+  ) return false;
+  if (
+    reasons.has('manufacturer-identifier-mismatch')
+    && (
+      !identifier
+      || !['EAN', 'GTIN', 'UPC'].includes(identifier.label)
+      || !isValidGtin(identifier.value)
+      || sameGtin(identifier.value, candidate.identity.gtin)
+    )
+  ) return false;
+  if (reasons.has('package-variant-conflict') && !evidence.fields.packageVariantConflict?.sourceText.trim()) return false;
+  if (reasons.has('retailer-provisional') && observation.retailerStatus !== 'provisional') return false;
+  return true;
+}
+
 function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueIntakeOffer, asOf: number) {
   const observedAt = Date.parse(offer.observedAt);
   const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
@@ -782,7 +937,10 @@ function nigeriaBlockers(
     || regulatoryReviewedAt < identityCheckedAt
   ) blockers.push('nigeria-regulatory-evidence-missing');
   if (!offers.length) blockers.push('nigeria-exact-offer-missing');
-  if (candidate.nigeria.exactOffers.length > 0 && !offers.length) blockers.push('nigeria-offer-identity-unbound');
+  if (
+    (candidate.nigeria.exactOffers.length > 0 || candidate.nigeria.excludedObservations.length > 0)
+    && !offers.length
+  ) blockers.push('nigeria-offer-identity-unbound');
   if (!marketRoute) blockers.push('nigeria-market-route-insufficient');
   return blockers;
 }
@@ -908,6 +1066,9 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
     return match ? [match] : [];
   });
   const nigeriaMarketRoute = resolveNigeriaMarketRoute(candidate, freshExactOffers, asOf);
+  const excludedMarketObservations = candidate.nigeria.excludedObservations.filter(observation => (
+    marketObservationValid(candidate, observation, asOf)
+  ));
   const groups: Array<[Exclude<CatalogueIntakeStage, 'approval-ready'>, CatalogueIntakeBlocker[]]> = [
     ['identity', identityBlockers(candidate, asOf)],
     ['care', careBlockers(candidate, asOf)],
@@ -924,6 +1085,7 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
     nextAction: actionForStage[stage],
     approvalDraftReady: stage === 'approval-ready',
     freshExactOffers,
+    excludedMarketObservations,
     ...(nigeriaMarketRoute ? { nigeriaMarketRoute } : {}),
   };
 }
@@ -961,6 +1123,11 @@ export function auditCatalogueIntakeCandidates(
         throw new Error(`Catalogue intake ${candidate.id} has an invalid retailer status.`);
       }
     }
+    for (const observation of candidate.nigeria.excludedObservations) {
+      if (!marketObservationValid(candidate, observation, asOf)) {
+        throw new Error(`Catalogue intake ${candidate.id} has an invalid excluded market observation.`);
+      }
+    }
   }
   return candidates.map(candidate => evaluateCatalogueIntakeCandidate(candidate, asOf));
 }
@@ -981,6 +1148,11 @@ export function auditCatalogueIntakeManifest(manifest: CatalogueIntakeManifest, 
       candidate.nigeria.regulatoryEvidence?.reviewedAt,
       ...candidate.nigeria.exactOffers.map(offer => offer.observedAt),
       ...candidate.nigeria.exactOffers.flatMap(offer => [offer.evidence?.retrievedAt, offer.evidence?.reviewedAt]),
+      ...candidate.nigeria.excludedObservations.flatMap(observation => [
+        observation.observedAt,
+        observation.evidence.retrievedAt,
+        observation.evidence.reviewedAt,
+      ]),
       candidate.asset.sourceAssetRetrievedAt,
       candidate.asset.generationRecord?.generatedAt,
       candidate.asset.artReviewedAt,

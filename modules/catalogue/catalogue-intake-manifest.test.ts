@@ -13,10 +13,11 @@ import {
   catalogueGenerationRecordSha256,
   catalogueIdentityExtractionByteSize,
   catalogueIdentityExtractionSha256,
+  auditCatalogueIntakeCandidates,
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T20:41:00Z');
+const researchAsOf = Date.parse('2026-07-22T22:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 6);
@@ -26,6 +27,7 @@ test('the first deliberate intake cohort stays private and approval-blocked', ()
   assert.equal(catalogueIntakeCandidates.length, 6);
   assert.equal(catalogueIntakeDecisions.length, 6);
   assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 0);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 6);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
@@ -161,8 +163,12 @@ test('every cohort item cites real Nigerian pages and an explicit next action', 
   for (const decision of catalogueIntakeQueue) {
     const candidate = decision.candidate;
     assert.ok(candidate.demandEvidenceUrls.length > 0, candidate.id);
-    assert.ok(candidate.nigeria.exactOffers.length > 0, candidate.id);
+    assert.ok(candidate.nigeria.exactOffers.length + candidate.nigeria.excludedObservations.length > 0, candidate.id);
     assert.equal(candidate.nigeria.exactOffers.every(offer => new URL(offer.listingUrl).protocol === 'https:'), true, candidate.id);
+    assert.equal(candidate.nigeria.excludedObservations.every(observation => (
+      observation.disposition === 'excluded-from-exact-comparison'
+      && new URL(observation.listingUrl).protocol === 'https:'
+    )), true, candidate.id);
     assert.match(decision.nextAction, /\.$/);
   }
 });
@@ -171,16 +177,47 @@ test('provisional Slique evidence is retained but cannot become independent Tier
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-moisturising-cream-454g');
   assert.ok(candidate);
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Slique Beauty' && offer.retailerStatus === 'provisional'), true);
-  const slique = candidate.nigeria.exactOffers.find(offer => offer.retailer === 'Slique Beauty');
-  assert.equal(slique?.observedGtin, '2000000269764');
-  assert.equal(slique?.observedGtinBasis, 'explicit-ean');
-  assert.notEqual(slique?.observedGtin, candidate.identity.gtin);
+  assert.equal(candidate.nigeria.excludedObservations.some(observation => (
+    observation.retailer === 'Slique Beauty' && observation.retailerStatus === 'provisional'
+  )), true);
+  const slique = candidate.nigeria.excludedObservations.find(observation => observation.retailer === 'Slique Beauty');
+  assert.equal(slique?.evidence.fields.retailerIdentifier?.label, 'EAN');
+  assert.equal(slique?.evidence.fields.retailerIdentifier?.value, '2000000269764');
+  assert.notEqual(slique?.evidence.fields.retailerIdentifier?.value, candidate.identity.gtin);
+  assert.ok(slique?.exclusionReasons.includes('manufacturer-identifier-mismatch'));
   assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Konga Health'), false);
   assert.equal(decision.freshExactOffers.length, 0);
   assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'provisional').length, 0);
   assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'directory-listed').length, 0);
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
+});
+
+test('excluded market observations are durable evidence and never exact offers', () => {
+  const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
+  assert.equal(observations.length, 6);
+  assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
+    count + decision.freshExactOffers.length
+  ), 0), 1);
+  assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
+    count + decision.excludedMarketObservations.length
+  ), 0), observations.length);
+  for (const observation of observations) {
+    assert.match(observation.evidence.responseSha256, /^[0-9a-f]{64}$/);
+    assert.equal(observation.evidence.responseDigestScope, 'decoded-response-body');
+    assert.equal(observation.evidence.responseMimeType, 'text/html');
+    assert.ok(observation.exclusionReasons.length > 0);
+  }
+});
+
+test('a tampered excluded observation fails the private intake audit', () => {
+  const candidates = structuredClone(catalogueIntakeCandidates);
+  const candidate = candidates.find(item => item.nigeria.excludedObservations.length > 0);
+  assert.ok(candidate);
+  candidate.nigeria.excludedObservations[0].evidence.responseSha256 = 'not-a-hash';
+  assert.throws(
+    () => auditCatalogueIntakeCandidates(candidates, researchAsOf),
+    /invalid excluded market observation/,
+  );
 });
 
 test('the UK/EU SA cleanser keeps its 473 ml identity through a bounded care review', () => {

@@ -13,6 +13,9 @@ export const catalogueIntakeQueue = rankCatalogueIntake(catalogueIntakeDecisions
 export const catalogueIntakeExposure = {
   candidateCount: catalogueIntakeCandidates.length,
   approvalDraftReadyCount: catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length,
+  excludedMarketObservationCount: catalogueIntakeDecisions.reduce((count, decision) => (
+    count + decision.excludedMarketObservations.length
+  ), 0),
   publicProductCount: 0,
   policy: 'private-research-only',
 } as const;

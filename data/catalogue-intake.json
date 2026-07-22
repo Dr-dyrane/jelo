@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 5,
-  "updatedAt": "2026-07-22T20:40:15Z",
+  "schemaVersion": 6,
+  "updatedAt": "2026-07-22T21:58:30Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -93,28 +93,6 @@
         "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
         "exactOffers": [
           {
-            "retailer": "Teeka4",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://teeka4.com/shop/cerave-hydrating-cleanser-16-oz/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe Hydrating Cleanser (16 fl oz / 473 ml)",
-            "observedSize": "473 ml",
-            "retailerSku": "TK-0188",
-            "priceNgn": 15434,
-            "stock": "in-stock"
-          },
-          {
-            "retailer": "Konga Health",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://www.konga.com/product/cerave-hydrating-cleanser-for-normal-to-dry-skin-473ml-with-hyaluronic-acid-and-3-essential-ceramides-6138374",
-            "observedAt": "2026-07-22T14:24:00Z",
-            "observedTitle": "CeraVe Hydrating Cleanser for Normal to Dry Skin with Hyaluronic Acid and 3 Essential Ceramides",
-            "observedSize": "473 ml",
-            "retailerSku": "6138374",
-            "priceNgn": 16664,
-            "stock": "in-stock"
-          },
-          {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
@@ -188,48 +166,9 @@
               "reviewer": "JeloCare catalogue evidence review",
               "reviewedAt": "2026-07-22T20:40:15Z"
             }
-          },
-          {
-            "retailer": "Medplus",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://medplusnig.com/product/cerave-hydrating-cleanser-473ml-1gVKTp",
-            "observedAt": "2026-07-22T14:25:00Z",
-            "observedTitle": "CeraVe Hydrating Cleanser 473ml",
-            "observedSize": "473 ml",
-            "priceNgn": 19600,
-            "stock": "in-stock"
-          },
-          {
-            "retailer": "CSi Grocery",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-hydrating-cleanser/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe Hydrating Cleanser",
-            "observedSize": "16 fl oz / 473 ml",
-            "priceNgn": 19500,
-            "stock": "low-stock"
-          },
-          {
-            "retailer": "Perona Beauty",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://peronabeauty.com/product/cerave-hydrating-cleanser-uk-16oz/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe Hydrating Cleanser UK 16oz",
-            "observedSize": "16 oz",
-            "priceNgn": 19000,
-            "stock": "in-stock"
-          },
-          {
-            "retailer": "Lux Beauty",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://www.luxbeautyng.com/product/cerave-hydrating-cleanser-473ml/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe Hydrating Cleanser 473ml",
-            "observedSize": "473 ml",
-            "priceNgn": 15300,
-            "stock": "out-of-stock"
           }
-        ]
+        ],
+        "excludedObservations": []
       },
       "asset": {
         "rightsStatus": "documented",
@@ -363,60 +302,120 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
         "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
-        "exactOffers": [
+        "exactOffers": [],
+        "excludedObservations": [
           {
-            "retailer": "Nectar Beauty Hub",
+            "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
-            "observedAt": "2026-07-22T14:29:00Z",
-            "observedTitle": "CeraVe Moisturizing Cream for Dry to Very Dry Skin",
+            "listingUrl": "https://buybetter.ng/product/cerave-moisturizing-cream-with-hyaluronic-acid-and-ceramides-454g/",
+            "observedAt": "2026-07-22T21:57:35.781Z",
+            "observedTitle": "CERAVE Moisturizing Cream With Hyaluronic Acid And Ceramides 454g",
             "observedSize": "454 g",
-            "priceNgn": 22500,
-            "stock": "in-stock"
-          },
-          {
-            "retailer": "Medplus",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://medplusnig.com/product/cerave-moisturising-cream-454g-YDm3Kx",
-            "observedAt": "2026-07-22T14:29:00Z",
-            "observedTitle": "CeraVe Moisturising Cream 454g",
-            "observedSize": "454 g",
-            "priceNgn": 25200,
-            "stock": "in-stock"
-          },
-          {
-            "retailer": "Beauty by Daz",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://beautybydaz.com/shop/bath-body/creams-lotions/cerave-moisturising-cream-454g-16oz-uk/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe Moisturising Cream 454g / 16oz UK",
-            "observedSize": "454 g / 16 oz",
-            "priceNgn": 19850,
-            "stock": "in-stock"
+            "priceNgn": 20210,
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only",
+              "retailer-identifier-conflicts-with-candidate",
+              "package-barcode-missing"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://buybetter.ng/product/cerave-moisturizing-cream-with-hyaluronic-acid-and-ceramides-454g/",
+              "responseSha256": "53c13d77b044d0dc77cc24627640bd819ab1977d365f04e92040671ac92fee04",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 813178,
+              "retrievedAt": "2026-07-22T21:57:35.781Z",
+              "fields": {
+                "title": {
+                  "value": "CERAVE Moisturizing Cream With Hyaluronic Acid And Ceramides 454g",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "CERAVE Moisturizing Cream With Hyaluronic Acid And Ceramides 454g"
+                },
+                "size": {
+                  "value": "454 g",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "CERAVE Moisturizing Cream With Hyaluronic Acid And Ceramides 454g"
+                },
+                "price": {
+                  "value": 20210,
+                  "currency": "NGN",
+                  "locator": "HTML product summary price",
+                  "sourceText": "₦20,210.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML product summary stock count",
+                  "sourceText": "13 in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "3606000537439",
+                  "locator": "HTML product_meta SKU row",
+                  "sourceText": "SKU 3606000537439"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T21:58:30Z"
+            }
           },
           {
             "retailer": "Slique Beauty",
             "retailerStatus": "provisional",
             "listingUrl": "https://sliquebeautylimited.com/product/cerave-moisturising-cream-454g/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe Moisturising Cream 454g",
+            "observedAt": "2026-07-22T21:57:54.581Z",
+            "observedTitle": "CERAVE MOISTURISING CREAM 454G",
             "observedSize": "454 g",
-            "retailerSku": "3337875597388",
-            "observedGtin": "2000000269764",
-            "observedGtinBasis": "explicit-ean",
             "priceNgn": 29000,
-            "stock": "low-stock"
-          },
-          {
-            "retailer": "Teeka4",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://teeka4.com/shop/cerave-moisturizing-cream-for-dry-to-very-skin-16-oz/",
-            "observedAt": "2026-07-22T15:51:00Z",
-            "observedTitle": "CeraVe Moisturizing Cream for Dry to Very Dry Skin",
-            "observedSize": "16 oz / 454 g",
-            "retailerSku": "TK-0197",
-            "priceNgn": 20999,
-            "stock": "in-stock"
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "manufacturer-identifier-mismatch",
+              "retailer-provisional"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://sliquebeautylimited.com/product/cerave-moisturising-cream-454g/",
+              "responseSha256": "bb2c02d37a512c28bc38728d3a5608991319ffb703f5f763aa8cafbc9e5204ac",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 297607,
+              "retrievedAt": "2026-07-22T21:57:54.581Z",
+              "fields": {
+                "title": {
+                  "value": "CERAVE MOISTURISING CREAM 454G",
+                  "locator": "JSON-LD Product name",
+                  "sourceText": "CERAVE MOISTURISING CREAM 454G"
+                },
+                "size": {
+                  "value": "454 g",
+                  "locator": "JSON-LD Product name size suffix",
+                  "sourceText": "CERAVE MOISTURISING CREAM 454G"
+                },
+                "price": {
+                  "value": 29000,
+                  "currency": "NGN",
+                  "locator": "JSON-LD Offer price",
+                  "sourceText": "29000 NGN"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "JSON-LD Offer availability",
+                  "sourceText": "https://schema.org/InStock"
+                },
+                "retailerIdentifier": {
+                  "label": "EAN",
+                  "value": "2000000269764",
+                  "locator": "HTML product_meta EAN row",
+                  "sourceText": "EAN: 2000000269764"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T21:58:30Z"
+            }
           }
         ]
       },
@@ -514,27 +513,63 @@
       "nigeria": {
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
-        "exactOffers": [
+        "exactOffers": [],
+        "excludedObservations": [
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/eucerin-oil-control-dry-touch-sun-gel-cream-50ml/",
-            "observedAt": "2026-07-22T14:41:00Z",
-            "observedTitle": "Eucerin Oil Control Dry Touch Sun Gel-Cream",
+            "observedAt": "2026-07-22T21:57:41.143Z",
+            "observedTitle": "EUCERIN Oil Control (DRY TOUCH) Sun Gel Cream Ultra-light 50ml",
             "observedSize": "50 ml",
-            "retailerSku": "8850029013671",
             "priceNgn": 18770,
-            "stock": "in-stock"
-          },
-          {
-            "retailer": "Beauty by Daz",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+",
-            "observedSize": "50 ml",
-            "priceNgn": 18850,
-            "stock": "in-stock"
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only",
+              "package-barcode-missing"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://buybetter.ng/product/eucerin-oil-control-dry-touch-sun-gel-cream-50ml/",
+              "responseSha256": "b6ad57116e13d106bd86a11612322cafaee2e80cb8b2f64fc67966a80b9713bc",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 802332,
+              "retrievedAt": "2026-07-22T21:57:41.143Z",
+              "fields": {
+                "title": {
+                  "value": "EUCERIN Oil Control (DRY TOUCH) Sun Gel Cream Ultra-light 50ml",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "EUCERIN Oil Control (DRY TOUCH) Sun Gel Cream Ultra-light 50ml"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "EUCERIN Oil Control (DRY TOUCH) Sun Gel Cream Ultra-light 50ml"
+                },
+                "price": {
+                  "value": 18770,
+                  "currency": "NGN",
+                  "locator": "HTML product summary price",
+                  "sourceText": "₦18,770.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML product summary stock count",
+                  "sourceText": "21 in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "8850029013671",
+                  "locator": "HTML product_meta SKU row",
+                  "sourceText": "SKU 8850029013671"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T21:58:30Z"
+            }
           }
         ]
       },
@@ -629,17 +664,63 @@
       "nigeria": {
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
-        "exactOffers": [
+        "exactOffers": [],
+        "excludedObservations": [
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
-            "observedAt": "2026-07-22T15:32:25Z",
+            "observedAt": "2026-07-22T21:57:45.913Z",
             "observedTitle": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml",
             "observedSize": "250 ml",
-            "retailerSku": "6001051001606",
             "priceNgn": 25000,
-            "stock": "in-stock"
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only",
+              "package-barcode-missing"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
+              "responseSha256": "0a8f829234c4f77ee4b87760c44849133e847f9b37a2abb2f84c6b18bf1b4fab",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 813718,
+              "retrievedAt": "2026-07-22T21:57:45.913Z",
+              "fields": {
+                "title": {
+                  "value": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml"
+                },
+                "size": {
+                  "value": "250 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml"
+                },
+                "price": {
+                  "value": 25000,
+                  "currency": "NGN",
+                  "locator": "HTML product summary price",
+                  "sourceText": "₦25,000.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML product summary stock count",
+                  "sourceText": "9 in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "6001051001606",
+                  "locator": "HTML product_meta SKU row",
+                  "sourceText": "SKU 6001051001606"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T21:58:30Z"
+            }
           }
         ]
       },
@@ -750,16 +831,63 @@
       },
       "nigeria": {
         "regulatoryStatus": "pending",
-        "exactOffers": [
+        "exactOffers": [],
+        "excludedObservations": [
           {
             "retailer": "Beauty by Daz",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment",
+            "observedAt": "2026-07-22T21:57:53.365Z",
+            "observedTitle": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)",
             "observedSize": "5 fl oz / 150 ml",
             "priceNgn": 23850,
-            "stock": "in-stock"
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only",
+              "package-barcode-missing"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+              "responseSha256": "8523a5452d1a0992fea2fd75c4c492cb17bcbcbfd3e0a2d772726e192b2e59bb",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 271090,
+              "retrievedAt": "2026-07-22T21:57:53.365Z",
+              "fields": {
+                "title": {
+                  "value": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)",
+                  "locator": "JSON-LD Product name",
+                  "sourceText": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)"
+                },
+                "size": {
+                  "value": "5 fl oz / 150 ml",
+                  "locator": "JSON-LD Product name size suffix",
+                  "sourceText": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)"
+                },
+                "price": {
+                  "value": 23850,
+                  "currency": "NGN",
+                  "locator": "HTML product:price:amount metadata",
+                  "sourceText": "product:price:amount 23850 NGN"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML product:availability metadata",
+                  "sourceText": "product:availability instock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "CAFC",
+                  "locator": "HTML product:retailer_item_id metadata",
+                  "sourceText": "product:retailer_item_id CAFC"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T21:58:30Z"
+            }
           }
         ]
       },
@@ -852,16 +980,69 @@
       },
       "nigeria": {
         "regulatoryStatus": "pending",
-        "exactOffers": [
+        "exactOffers": [],
+        "excludedObservations": [
           {
-            "retailer": "Teeka4",
+            "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
-            "observedAt": "2026-07-22T10:30:00Z",
-            "observedTitle": "CeraVe SA Smoothing Cleanser for Dry Rough & Bumpy Skin",
-            "observedSize": "16 fl oz / 473 ml",
-            "priceNgn": 20900,
-            "stock": "in-stock"
+            "listingUrl": "https://buybetter.ng/product/cerave-sa-smoothing-cleanser-face-and-body-wash-with-salicylic-acid-for-dry-rough-amp-bumpy-skin-473ml/",
+            "observedAt": "2026-07-22T21:57:51.412Z",
+            "observedTitle": "CERAVE SA Smoothing Cleanser 473ml",
+            "observedSize": "473 ml",
+            "priceNgn": 20748,
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only",
+              "package-barcode-missing",
+              "package-variant-conflict"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://buybetter.ng/product/cerave-sa-smoothing-cleanser-face-and-body-wash-with-salicylic-acid-for-dry-rough-amp-bumpy-skin-473ml/",
+              "responseSha256": "3a24815753c971613ed075a120a31c300cf6b7b0209655bb34da4736d5fc6241",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 828474,
+              "retrievedAt": "2026-07-22T21:57:51.412Z",
+              "fields": {
+                "title": {
+                  "value": "CERAVE SA Smoothing Cleanser 473ml",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "CERAVE SA Smoothing Cleanser 473ml"
+                },
+                "size": {
+                  "value": "473 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "CERAVE SA Smoothing Cleanser 473ml"
+                },
+                "price": {
+                  "value": 20748,
+                  "currency": "NGN",
+                  "locator": "HTML product summary price",
+                  "sourceText": "₦20,748.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML product summary stock count",
+                  "sourceText": "14 in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "3337875795456",
+                  "locator": "HTML product_meta SKU row",
+                  "sourceText": "SKU 3337875795456"
+                },
+                "packageVariantConflict": {
+                  "value": "236 ml gallery image on a 473 ml listing",
+                  "locator": "HTML product gallery image alt text",
+                  "sourceText": "Cerave SA Smoothing Cleanser 236ml"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T21:58:30Z"
+            }
           }
         ]
       },
