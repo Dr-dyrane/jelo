@@ -1,4 +1,4 @@
-.catalogueState { scroll-margin-top: 5rem; }
+.catalogueState { scroll-margin-top: 10.75rem; }
 .catalogueState :global(#catalogue-results-heading:focus) {
   outline: 0;
   text-decoration: underline;
@@ -56,6 +56,10 @@
 @media (max-width: 760px) {
   .filterFeedback { align-items: flex-start; flex-wrap: wrap; }
   .filterChips { width: calc(100% - 2rem); }
+}
+
+@media (max-width: 640px) {
+  .catalogueState { scroll-margin-top: 5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -47,6 +47,13 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
     .flatMap(review => review.approvedUses.flatMap(use => use.concernSlugs ?? [])));
   const productConcerns = concerns.filter(concern => approvedConcernSlugs.has(concern.slug));
   const companies = matchingCompanies(facets.brands, companyQuery, selectedBrand);
+  const sourceOptions = ([
+    ['all', `All · ${facets.reviewed + facets.community}`, facets.reviewed + facets.community],
+    ['reviewed', `JeloCare profiles · ${facets.reviewed}`, facets.reviewed],
+    ['supportive', `Supportive use · ${facets.supportive}`, facets.supportive],
+    ['community', `Community · ${facets.community}`, facets.community],
+  ] as const).filter(([value, , count]) => value === 'all' || count > 0 || filters.review === value);
+  const categoryOptions = facets.categories.filter(({ value, count }) => count > 0 || filters.category === value);
 
   function openSheet() {
     formRef.current?.reset();
@@ -139,12 +146,7 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
             <fieldset>
               <legend>Source</legend>
               <div className={styles.options}>
-                {([
-                  ['all', `All · ${facets.reviewed + facets.community}`],
-                  ['reviewed', `JeloCare profiles · ${facets.reviewed}`],
-                  ['supportive', `Supportive use · ${facets.supportive}`],
-                  ['community', `Community · ${facets.community}`],
-                ] as const).map(([value, label]) => <label key={value}><input type="radio" name="review" value={value} defaultChecked={filters.review === value}/><span>{label}</span></label>)}
+                {sourceOptions.map(([value, label]) => <label key={value}><input type="radio" name="review" value={value} defaultChecked={filters.review === value}/><span>{label}</span></label>)}
               </div>
             </fieldset>
 
@@ -152,7 +154,7 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
               <legend>Category</legend>
               <div className={styles.options}>
                 <label><input type="radio" name="category" value="All" defaultChecked={filters.category === 'All'}/><span>All</span></label>
-                {facets.categories.map(({ value, count }: { value: ExternalCatalogueCategory; count: number }) => <label key={value}><input type="radio" name="category" value={value} defaultChecked={filters.category === value}/><span>{value} · {count}</span></label>)}
+                {categoryOptions.map(({ value, count }: { value: ExternalCatalogueCategory; count: number }) => <label key={value}><input type="radio" name="category" value={value} defaultChecked={filters.category === value}/><span>{value} · {count}</span></label>)}
               </div>
             </fieldset>
 

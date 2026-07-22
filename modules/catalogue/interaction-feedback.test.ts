@@ -14,6 +14,7 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   const concerns = await readFile(path.join(root, 'components/concerns/concern-selector.tsx'), 'utf8');
   const concernsPage = await readFile(path.join(root, 'app/concerns/page.tsx'), 'utf8');
   const concernGuide = await readFile(path.join(root, 'app/concerns/[slug]/page.tsx'), 'utf8');
+  const catalogueStyles = await readFile(path.join(root, 'app/products/products.module.css'), 'utf8');
   const catalogueMotion = await readFile(path.join(root, 'app/products/catalogue-feedback.module.css'), 'utf8');
   const concernMotion = await readFile(path.join(root, 'components/concerns/concern-feedback.module.css'), 'utf8');
 
@@ -32,10 +33,15 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(search, /role="status" aria-live="polite"/);
   assert.match(search, /recordCatalogueTransition/);
   assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*position: fixed/);
+  assert.match(searchStyles, /\.shell\s*\{[\s\S]*position: sticky;[\s\S]*top: 5\.35rem;/);
+  assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*\.shell\s*\{[\s\S]*position: relative;[\s\S]*top: auto;/);
   assert.match(searchStyles, /scrollbar-width: none/);
+  assert.match(catalogueStyles, /^\.page\{overflow:clip;/);
   assert.doesNotMatch(search, /[😀-🙏]/u);
   assert.equal((sheet.match(/<dialog/g) ?? []).length, 1);
   assert.doesNotMatch(sheet, /datalist|companyLogo|avatar/i);
+  assert.match(sheet, /count > 0 \|\| filters\.category === value/);
+  assert.match(sheet, /count > 0 \|\| filters\.review === value/);
   assert.match(sheet, /Search companies/);
   assert.match(concerns, /role="status" aria-live="polite"/);
   assert.match(concerns, /Last change undone/);
