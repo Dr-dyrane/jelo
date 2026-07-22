@@ -15,10 +15,10 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T18:41:00Z');
+const researchAsOf = Date.parse('2026-07-22T18:51:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 5);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 6);
 });
 
 test('the first deliberate intake cohort stays private and approval-blocked', () => {
@@ -28,9 +28,36 @@ test('the first deliberate intake cohort stays private and approval-blocked', ()
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 5);
+});
+
+test('the acne wash identity binds the official page and revisioned exact-pack image', () => {
+  const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-acne-foaming-cream-wash-10-150ml');
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '3606000604520');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '150 ml');
+  const extraction = candidate.identity.officialEvidence?.canonicalExtraction;
+  assert.ok(extraction);
+  assert.equal(extraction.supplementalResponses?.length, 1);
+  assert.equal(extraction.supplementalResponses?.[0].role, 'official-pack-image');
+  assert.equal(extraction.supplementalResponses?.[0].responseMimeType, 'image/jpeg');
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'care');
+  assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+  assert.ok(decision.blockers.includes('care-review-missing'));
+
+  const tampered = structuredClone(candidate);
+  const tamperedExtraction = tampered.identity.officialEvidence!.canonicalExtraction;
+  tamperedExtraction.supplementalResponses![0].responseSha256 = 'x'.repeat(64);
+  tampered.identity.officialEvidence!.snapshotSha256 = catalogueIdentityExtractionSha256(tamperedExtraction);
+  tampered.identity.officialEvidence!.snapshotByteSize = catalogueIdentityExtractionByteSize(tamperedExtraction);
+  assert.equal(
+    evaluateCatalogueIntakeCandidate(tampered, researchAsOf).blockers.includes('identity-official-evidence-invalid'),
+    true,
+  );
 });
 
 test('independent care evidence advances an exact manufacturer identity without bypassing regulation', () => {

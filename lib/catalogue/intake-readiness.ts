@@ -50,6 +50,15 @@ export type CatalogueOfficialIdentityExtraction = {
   sourceResponseSha256: string;
   sourceResponseMimeType: Exclude<CatalogueIdentityEvidenceMimeType, 'application/json'>;
   sourceResponseByteSize: number;
+  supplementalResponses?: Array<{
+    role: 'official-pack-image';
+    sourceUrl: string;
+    responseUrl: string;
+    retrievedAt: string;
+    responseSha256: string;
+    responseMimeType: 'image/avif' | 'image/jpeg' | 'image/png' | 'image/webp';
+    responseByteSize: number;
+  }>;
   method: 'reviewed-exact-identity-field-extraction';
   reviewer: string;
   reviewedAt: string;
@@ -392,14 +401,50 @@ function identityExtractionFieldValid(value: unknown): value is { value: string;
     && field.sourceText.trim().length >= 3;
 }
 
+function supplementalIdentityResponsesValid(
+  candidate: CatalogueIntakeCandidate,
+  extraction: CatalogueOfficialIdentityExtraction,
+  asOf: number,
+) {
+  const responses = extraction.supplementalResponses;
+  if (responses === undefined) return true;
+  if (!Array.isArray(responses) || responses.length < 1 || responses.length > 4) return false;
+
+  const sourceUrls = new Set<string>();
+  for (const response of responses) {
+    if (
+      !response
+      || response.role !== 'official-pack-image'
+      || !validHttps(response.sourceUrl)
+      || !sameUrl(response.sourceUrl, response.responseUrl)
+      || !reviewedOfficialIdentitySource(candidate, response.sourceUrl)
+      || !validPastDate(response.retrievedAt, asOf)
+      || Date.parse(response.retrievedAt) > Date.parse(extraction.reviewedAt)
+      || !hashPattern.test(response.responseSha256)
+      || !['image/avif', 'image/jpeg', 'image/png', 'image/webp'].includes(response.responseMimeType)
+      || !Number.isSafeInteger(response.responseByteSize)
+      || response.responseByteSize <= 0
+    ) return false;
+    sourceUrls.add(new URL(response.sourceUrl).href);
+  }
+  return sourceUrls.size === responses.length;
+}
+
 function sourceTextContainsExactGtin(sourceText: string, gtin: string) {
   const escaped = gtin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp(`(?:^|\\D)${escaped}(?:\\D|$)`).test(sourceText);
 }
 
-function extractionNamesExplicitGtin(field: { locator: string; sourceText: string }) {
+function extractionNamesExplicitManufacturerIdentifier(field: { value: string; locator: string; sourceText: string }) {
   const explicitLabel = /(?:^|[^a-z0-9])(?:gtin(?:-?1[234])?|ean(?:-?13)?s?|upc(?:-?[ae])?)(?:[^a-z0-9]|$)/i;
-  return explicitLabel.test(field.locator) || explicitLabel.test(field.sourceText);
+  if (explicitLabel.test(field.locator) || explicitLabel.test(field.sourceText)) return true;
+
+  // Some reviewed manufacturer pages publish their EAN-shaped identifier as
+  // the same SKU and MPN. Requiring both labels keeps a lone retailer SKU or
+  // generic product ID from being promoted to canonical identity evidence.
+  const escapedValue = field.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?:^|[^a-z0-9])sku[^\\n;]{0,40}${escapedValue}(?:\\D|$)`, 'i').test(field.sourceText)
+    && new RegExp(`(?:^|[^a-z0-9])mpn[^\\n;]{0,40}${escapedValue}(?:\\D|$)`, 'i').test(field.sourceText);
 }
 
 function sourceTextContainsExactSize(sourceText: string, size: string) {
@@ -474,7 +519,7 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
     && identityExtractionFieldValid(extraction.fields.gtin)
     && identityExtractionFieldValid(extraction.fields.variant)
     && identityExtractionFieldValid(extraction.fields.size)
-    && extractionNamesExplicitGtin(extraction.fields.gtin)
+    && extractionNamesExplicitManufacturerIdentifier(extraction.fields.gtin)
     && typeof extraction.sourceUrl === 'string'
     && typeof extraction.responseUrl === 'string'
     && extraction.responseDigestScope === 'decoded-response-body'
@@ -493,6 +538,7 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
     && rawIdentityEvidenceMimeTypes.includes(extraction.sourceResponseMimeType)
     && Number.isSafeInteger(extraction.sourceResponseByteSize)
     && extraction.sourceResponseByteSize > 0
+    && supplementalIdentityResponsesValid(candidate, extraction, asOf)
     && typeof extraction.reviewer === 'string'
     && extraction.reviewer.trim().length >= 2
     && typeof extraction.reviewedAt === 'string'

@@ -586,6 +586,17 @@ test('canonical identity extraction rejects token collisions and non-raw respons
         },
       },
     },
+    {
+      ...extraction,
+      fields: {
+        ...extraction.fields,
+        gtin: {
+          ...extraction.fields.gtin,
+          locator: 'Product JSON-LD sku',
+          sourceText: `sku: ${extraction.fields.gtin.value}`,
+        },
+      },
+    },
   ];
 
   for (const canonicalExtraction of invalidExtractions) {
