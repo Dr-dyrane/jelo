@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { products } from '@/data/catalogue';
+import { reviewedProductRecords } from '@/data/catalogue';
 import {
   assessCatalogueQuality,
   catalogueApprovalScope,
@@ -138,7 +138,7 @@ test('quality scoring is deterministic and source-agnostic', () => {
 });
 
 test('the same audit surfaces reviewed-product formula, evidence, Nigeria and rights gaps without changing publication state', () => {
-  const product = products.find(item => item.slug === 'anua-niacinamide-10-txa-4-serum')!;
+  const product = reviewedProductRecords.find(item => item.slug === 'anua-niacinamide-10-txa-4-serum')!;
   const audit = auditReviewedProductQuality(product);
 
   assert.equal(audit.productSlug, product.slug);

@@ -8,11 +8,12 @@ import { InventoryFilterSheet } from '@/components/products/inventory-filter-she
 import { InventoryPagination } from '@/components/products/inventory-pagination';
 import { ProductRail } from '@/components/products/product-grid';
 import { editorialAsset } from '@/data/editorial';
+import { externalProducts } from '@/data/external-catalogue';
 import { concerns } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
 import type { ReviewedProduct } from '@/data/products';
 import { matchingCatalogueConcerns } from '@/lib/catalogue/catalogue-interactions';
-import { inventoryCategories, queryInventory } from '@/lib/catalogue/inventory-repository';
+import { queryInventory } from '@/lib/catalogue/inventory-repository';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
 import { hasVerifiedNigeriaOffer } from '@/modules/commerce/home-merchandising';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
@@ -141,10 +142,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         </div>
       </div>
       <div className={styles.browseRail}>
-        {browse === 'category' ? inventoryCategories.map(category => {
-          const count = result.facets.categories.find(facet => facet.value === category)?.count ?? 0;
-          return <Link className={result.filters.category === category ? styles.selected : ''} href={href(params, { category: result.filters.category === category ? null : category, concern: null, step: null }, 'all-products')} key={category}><span>{category}</span><small>{count} products</small></Link>;
-        }) : null}
+        {browse === 'category' ? result.facets.categories.filter(({ count }) => count > 0).map(({ value: category, count }) => <Link className={result.filters.category === category ? styles.selected : ''} href={href(params, { category: result.filters.category === category ? null : category, concern: null, step: null }, 'all-products')} key={category}><span>{category}</span><small>{count} {count === 1 ? 'product' : 'products'}</small></Link>) : null}
         {browse === 'concern' ? approvedConcerns.map(concern => <Link className={result.filters.concern === concern.slug ? styles.selected : ''} href={href(params, { concern: result.filters.concern === concern.slug ? null : concern.slug, category: null, step: null, review: 'supportive' }, 'all-products')} key={concern.slug}><span>{concern.name}</span><small>{concern.area}</small></Link>) : null}
       </div>
       {browse === 'concern' ? <p className={styles.reviewNote}>Only approved supportive uses appear here.</p> : null}
@@ -152,12 +150,12 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
 
     <section className={styles.stories} aria-label="Care stories">
       <article><div className={styles.storyImage}><SafeEditorialImage asset={allSkinAsset} alt={allSkinAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Every skin</p><h2>No one palette.</h2><Link href="/concerns">Explore concerns <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
-      <article><div className={styles.storyImage}><SafeEditorialImage asset={scalpAsset} alt={scalpAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Hair & scalp</p><h2>Start at the root.</h2><Link href={href(params, { category: 'Hair & scalp', browse: 'category' }, 'all-products')}>Browse hair care <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
+      <article><div className={styles.storyImage}><SafeEditorialImage asset={scalpAsset} alt={scalpAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Hair & scalp</p><h2>Start at the root.</h2><Link href="/concerns/dandruff-itchy-scalp">Read the scalp guide <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
       <article><div className={styles.storyImage}><SafeEditorialImage asset={ageAsset} alt={ageAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Simple care</p><h2>Made for change.</h2><Link href="/consult">Ask JeloCare <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
     </section>
 
     <DiscoveryRail eyebrow="Observed in Nigeria" title="Prices seen here." products={nigeriaReady} market={market} href={href(params, { review: 'reviewed' })}/>
-    <DiscoveryRail eyebrow="Supportive use" title="Two reviewed uses." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' })}/>
+    <DiscoveryRail eyebrow="Supportive use" title="Supportive care." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' })}/>
     <DiscoveryRail eyebrow="Face care" title="Browse the category." products={faceCare} market={market} href={href(params, { review: 'reviewed', category: 'Face care', browse: 'category' })}/>
     <DiscoveryRail eyebrow="Hair & scalp" title="Browse the category." products={hairAndScalp} market={market} href={href(params, { review: 'reviewed', category: 'Hair & scalp', browse: 'category' })}/></> : null}
 
@@ -176,8 +174,12 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     </section>
 
     <aside className={styles.sourceNote}>
-      <div><p className={styles.kicker}>Two catalogue sources</p><h2>Know what you see.</h2></div>
-      <div><p><strong>JeloCare profiles</strong> are browse records with visible care status.</p><p><strong>Supportive use</strong> is a separate, stricter review.</p><a href="https://world.openbeautyfacts.org/data" target="_blank" rel="noreferrer">Open Beauty Facts · ODbL / CC BY-SA <ArrowRight size={15} aria-hidden="true"/></a></div>
+      <div><p className={styles.kicker}>{externalProducts.length ? 'Two catalogue sources' : 'Catalogue context'}</p><h2>Know what you see.</h2></div>
+      <div>
+        <p>Profiles show products and prices.</p>
+        <p>Supportive use adds a care review.</p>
+        {externalProducts.length ? <a href="https://world.openbeautyfacts.org/data" target="_blank" rel="noreferrer">Open Beauty Facts · ODbL / CC BY-SA <ArrowRight size={15} aria-hidden="true"/></a> : null}
+      </div>
     </aside>
   </main>;
 }

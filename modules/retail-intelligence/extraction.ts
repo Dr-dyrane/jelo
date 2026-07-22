@@ -99,9 +99,23 @@ function quantitativeSize(value: unknown): string | undefined {
   return undefined;
 }
 
-function structuredProductSize(product?: JsonObject) {
+function explicitlyNetWeight(value: unknown) {
+  if (typeof value === 'string') {
+    return /\bnet\s+(?:content|weight|quantity)\b/i.test(value) ? quantitativeSize(value) : undefined;
+  }
+  const object = asObject(value);
+  if (!object) return undefined;
+  const semanticLabel = [object.name, object.description, object.propertyID]
+    .filter((candidate): candidate is string => typeof candidate === 'string')
+    .join(' ')
+    .toLowerCase();
+  if (!/\bnet\s+(?:content|weight|quantity)\b/.test(semanticLabel)) return undefined;
+  return quantitativeSize(object);
+}
+
+function explicitStructuredProductSize(product?: JsonObject) {
   if (!product) return undefined;
-  for (const candidate of [product.size, product.weight, product.netContent]) {
+  for (const candidate of [product.netContent, product.size]) {
     const extracted = quantitativeSize(candidate);
     if (extracted) return extracted;
   }
@@ -109,10 +123,15 @@ function structuredProductSize(product?: JsonObject) {
   for (const property of valuesDeep(product.additionalProperty).map(asObject)) {
     if (!property) continue;
     const name = typeof property.name === 'string' ? property.name.toLowerCase() : '';
-    if (!/\b(?:size|weight|volume|net content)\b/.test(name)) continue;
+    if (!/\b(?:size|volume|net\s+(?:content|weight|volume|quantity))\b/.test(name)) continue;
     const extracted = quantitativeSize(property.valueReference ?? property.value);
     if (extracted) return extracted;
   }
+}
+
+function semanticallyNetProductWeight(product?: JsonObject) {
+  if (!product) return undefined;
+  return quantitativeSize(product.netWeight) ?? explicitlyNetWeight(product.weight);
 }
 
 function attributes(tag: string) {
@@ -254,9 +273,18 @@ function extractDocument(input: { url: URL; html: string }, config?: ExtractionC
 
   const title = productTitle(input.html, structured?.product);
   if (title) evidence.push('Product title');
-  const structuredSize = structuredProductSize(structured?.product);
-  const observedSize = structuredSize ?? (title ? sizeText(title) : undefined);
-  if (observedSize) evidence.push(structuredSize ? 'JSON-LD Product size' : 'Product title size');
+  const structuredSize = explicitStructuredProductSize(structured?.product);
+  const titleSize = title ? sizeText(title) : undefined;
+  const netWeight = semanticallyNetProductWeight(structured?.product);
+  const observedSize = structuredSize ?? titleSize ?? netWeight;
+  const observedSizeEvidence = structuredSize
+    ? 'JSON-LD Product size'
+    : titleSize
+      ? 'Product title size'
+      : netWeight
+        ? 'JSON-LD Product size'
+        : undefined;
+  if (observedSizeEvidence) evidence.push(observedSizeEvidence);
   const canonical = canonicalUrl(input.html, input.url);
   if (canonical) evidence.push('Canonical product URL');
 

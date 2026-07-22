@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-22T11:30:00Z",
+  "candidates": [
+    {
+      "id": "cerave-hydrating-cleanser-473ml",
+      "brand": "CeraVe",
+      "name": "Hydrating Cleanser",
+      "variant": "CeraVe Hydrating Cleanser",
+      "size": "473 ml",
+      "category": "Face care",
+      "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, backed by several exact Nigerian listings.",
+      "priority": "essential",
+      "gapIds": [
+        "gentle-cleanse-dry-skin",
+        "barrier-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://teeka4.com/shop/cerave-hydrating-cleanser-16-oz/",
+        "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-hydrating-cleanser/",
+        "https://peronabeauty.com/product/cerave-hydrating-cleanser-uk-16oz/",
+        "https://www.luxbeautyng.com/product/cerave-hydrating-cleanser-473ml/"
+      ],
+      "identity": {
+        "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+        "checkedAt": "2026-07-22T10:20:00Z",
+        "basis": "official-brand"
+      },
+      "care": {
+        "status": "pending",
+        "evidenceUrls": [
+          "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser"
+        ]
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/cerave-hydrating-cleanser-16-oz/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Hydrating Cleanser (16 fl oz / 473 ml)",
+            "observedSize": "473 ml",
+            "priceNgn": 15434,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "CSi Grocery",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-hydrating-cleanser/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Hydrating Cleanser",
+            "observedSize": "16 fl oz / 473 ml",
+            "priceNgn": 19500,
+            "stock": "low-stock"
+          },
+          {
+            "retailer": "Perona Beauty",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://peronabeauty.com/product/cerave-hydrating-cleanser-uk-16oz/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Hydrating Cleanser UK 16oz",
+            "observedSize": "16 oz",
+            "priceNgn": 19000,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "Lux Beauty",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.luxbeautyng.com/product/cerave-hydrating-cleanser-473ml/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Hydrating Cleanser 473ml",
+            "observedSize": "473 ml",
+            "priceNgn": 15300,
+            "stock": "out-of-stock"
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    },
+    {
+      "id": "cerave-moisturising-cream-454g",
+      "brand": "CeraVe",
+      "name": "Moisturising Cream",
+      "variant": "CeraVe Moisturising Cream",
+      "size": "454 g",
+      "category": "Body care",
+      "reason": "A high-utility face-and-body moisturiser candidate for dryness and barrier-support coverage.",
+      "priority": "essential",
+      "gapIds": [
+        "body-dryness",
+        "barrier-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://beautybydaz.com/shop/bath-body/creams-lotions/cerave-moisturising-cream-454g-16oz-uk/",
+        "https://sliquebeautylimited.com/product/cerave-moisturising-cream-454g/",
+        "https://teeka4.com/shop/cerave-moisturizing-cream-for-dry-to-very-skin-16-oz/"
+      ],
+      "identity": {
+        "officialProductUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+        "checkedAt": "2026-07-22T10:20:00Z",
+        "basis": "official-brand"
+      },
+      "care": {
+        "status": "pending",
+        "evidenceUrls": [
+          "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream"
+        ]
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [
+          {
+            "retailer": "Beauty by Daz",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://beautybydaz.com/shop/bath-body/creams-lotions/cerave-moisturising-cream-454g-16oz-uk/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Moisturising Cream 454g / 16oz UK",
+            "observedSize": "454 g / 16 oz",
+            "priceNgn": 19850,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/cerave-moisturising-cream-454g/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Moisturising Cream 454g",
+            "observedSize": "454 g",
+            "priceNgn": 29000,
+            "stock": "low-stock"
+          },
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/cerave-moisturizing-cream-for-dry-to-very-skin-16-oz/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Moisturizing Cream for Dry to Very Dry Skin",
+            "observedSize": "16 oz / 454 g",
+            "priceNgn": 19499,
+            "stock": "out-of-stock"
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    },
+    {
+      "id": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+      "brand": "Eucerin",
+      "name": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
+      "variant": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF 50+",
+      "size": "50 ml",
+      "category": "Face care",
+      "reason": "A daily high-protection sunscreen candidate for oily-skin and pigmentation-prevention coverage.",
+      "priority": "essential",
+      "gapIds": [
+        "daily-sun-protection",
+        "oily-skin-sunscreen",
+        "pigmentation-prevention"
+      ],
+      "demandEvidenceUrls": [
+        "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/"
+      ],
+      "identity": {
+        "officialProductUrl": "https://www.eucerin.co.uk/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+        "checkedAt": "2026-07-22T10:20:00Z",
+        "basis": "official-brand"
+      },
+      "care": {
+        "status": "pending",
+        "evidenceUrls": [
+          "https://www.eucerin.co.uk/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus"
+        ]
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [
+          {
+            "retailer": "Beauty by Daz",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+",
+            "observedSize": "50 ml",
+            "priceNgn": 18850,
+            "stock": "in-stock"
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    },
+    {
+      "id": "cerave-acne-foaming-cream-wash-10-150ml",
+      "brand": "CeraVe",
+      "name": "Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+      "variant": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+      "size": "150 ml",
+      "category": "Face care",
+      "reason": "A strong acne-wash candidate for inflammatory facial and body-breakout coverage, pending safety review.",
+      "priority": "important",
+      "gapIds": [
+        "inflammatory-acne-wash",
+        "body-acne-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/"
+      ],
+      "identity": {
+        "officialProductUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+        "checkedAt": "2026-07-22T10:20:00Z",
+        "basis": "official-brand"
+      },
+      "care": {
+        "status": "pending",
+        "evidenceUrls": [
+          "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash"
+        ]
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [
+          {
+            "retailer": "Beauty by Daz",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment",
+            "observedSize": "5 fl oz / 150 ml",
+            "priceNgn": 23850,
+            "stock": "in-stock"
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    },
+    {
+      "id": "cerave-sa-smoothing-cleanser-473ml",
+      "brand": "CeraVe",
+      "name": "SA Smoothing Cleanser",
+      "variant": "CeraVe SA Smoothing Cleanser",
+      "size": "473 ml",
+      "category": "Face care",
+      "reason": "A rough-and-bumpy-skin candidate held at identity because the official Africa page shows 236 ml while the Nigerian listing shows 473 ml.",
+      "priority": "important",
+      "gapIds": [
+        "rough-bumpy-skin",
+        "keratosis-pilaris-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/"
+      ],
+      "identity": {
+        "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/sa-smoothing-cleanser",
+        "checkedAt": "2026-07-22T10:20:00Z"
+      },
+      "care": {
+        "status": "pending",
+        "evidenceUrls": [
+          "https://africa.cerave.com/en/our-products/cleansers/sa-smoothing-cleanser"
+        ]
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
+            "observedAt": "2026-07-22T10:30:00Z",
+            "observedTitle": "CeraVe SA Smoothing Cleanser for Dry Rough & Bumpy Skin",
+            "observedSize": "16 fl oz / 473 ml",
+            "priceNgn": 20900,
+            "stock": "in-stock"
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    }
+  ]
+}

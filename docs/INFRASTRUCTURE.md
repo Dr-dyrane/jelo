@@ -65,20 +65,24 @@ npm run assets:import
 
 The importer is deliberately a command-line operation. The public website has no authentication, so Blob write operations must not be exposed through a browser route yet. The shared implementation in `lib/assets/blob.ts` is server-only and can later power an authenticated Asset Manager.
 
-The checked-in product manifest records the canonical Blob URL, original source, MIME type, byte size, dimensions, alpha state and SHA-256 hash for every published product. Verify the remote binaries and refresh that metadata with:
+The checked-in product manifest records the canonical Blob URL, original source, MIME type, byte size, dimensions, alpha state and SHA-256 hash for every product source. `data/product-display-approvals.ts` separately binds each public shelf image to its exact brand, name, size, source URL, reviewed hash, source/art reviews, and peach/pink/dark checks. It also records the current legacy set's reuse rights as unverified; display approval is not a licence. Verify the remote binaries and refresh their metadata with:
 
 ```bash
 npm run assets:verify
 npm run assets:verify -- --write
 ```
 
-Production builds apply the metadata to durable `product_images` and `editorial_assets` rows after database migrations. Homepage editorial media is resolved from the checked-in manifest rather than duplicated URLs. Generated transparent assets remain editorial props; they are never presented as branded product packshots. Their checked-in generated files are runtime fallbacks for the matching editorial Blob, while a neutral JeloCare placeholder remains the last resort for a failed product packshot.
+Production builds apply the metadata to durable `product_images` and `editorial_assets` rows after database migrations. Homepage editorial media is resolved from the checked-in manifest rather than duplicated URLs. Generated imagery may provide editorial scenery or props, but never a redrawn branded package. Product background isolation must preserve official source pixels and pass full-resolution identity review. Checked-in generated editorial files remain runtime fallbacks for the matching editorial Blob, while the neutral JeloCare placeholder is used only after a published product image fails to load.
+
+When `CATALOGUE_SOURCE=neon`, `p.is_published` is only the database-side gate. Every returned row is intersected with the checked-in, hash-approved static catalogue; the approved identity and Blob image replace persisted display fields. Persisted offers flow through only when the row identity and observed retailer title/size match that approved SKU; `/go` resolves through the same reconciled record. A database row cannot publish an opaque, stale, rights-held, or otherwise unapproved image.
 
 CI runs `npm run assets:verify` against every product and editorial Blob. `/image-audit` independently probes all canonical binaries plus every generated editorial fallback in a real browser.
 
-### Community catalogue packshots
+### Legacy community catalogue packshots
 
-The Open Beauty Facts image job is deliberately review-gated:
+The fixed-count Open Beauty Facts image job is frozen as a legacy research pipeline. It must not be used to add or publish new products. New work begins in `data/catalogue-intake.json` and is inspected with `npm run catalogue:intake:audit`.
+
+The commands below document how existing private artifacts were produced and validated:
 
 ```bash
 python -m venv .cache/rembg-venv
@@ -91,11 +95,11 @@ npm run catalogue:packshots:select
 
 `select` refuses an incomplete preparation run or a candidate/audit mismatch. The July 2026 schema-v1 preparation already in flight is compatible only after every current candidate resolves to an audit or recorded failure; the selector then recomputes source, identity and output hashes instead of trusting an early manifest. It prioritises source-photo-validated records within each eligibility tier, excludes quarantine and explicit rejects, and binds the resulting release to the candidate manifest, candidate metadata, source snapshot, complete audit, identity, source preview, output and pipeline provenance.
 
-An operator must inspect product identity, the full source view, the cutout and its edges for every selected item. `select` writes larger contact sheets, a zoomable `review.html`, and `review-template.json`. Rejected barcodes go in `.cache/catalogue-packshot-decisions.json`; rerunning `select` fills those slots from the reserve. Final decisions use schema 2, name the exact `releaseSha256`, reviewer and review time, and contain one approval signature per selected barcode. A global checkbox without all 977 matching signatures is not publishable.
+An operator must inspect product identity, the full source view, the cutout and its edges for every selected item. `select` writes larger contact sheets, a zoomable `review.html`, and `review-template.json`. Rejected barcodes go in `.cache/catalogue-packshot-decisions.json`; rerunning `select` fills those slots from the reserve. Final decisions use schema 2, name the exact `releaseSha256`, reviewer and review time, and contain one approval signature per selected barcode. A global checkbox is never publication approval.
 
-`npm run catalogue:packshots:validate` then rechecks the complete release binding, all 977 source-preview/output hashes, byte counts, dimensions and alpha channels without contacting Blob.
+`npm run catalogue:packshots:validate` rechecks the legacy release binding, source-preview/output hashes, byte counts, dimensions and alpha channels without contacting Blob. Successful validation still leaves every cutout private.
 
-After review:
+The historical upload and seed commands below are retained for provenance only. Do not run them for new catalogue work:
 
 ```bash
 vercel env pull .cache/vercel-production.env --environment=production
@@ -103,7 +107,7 @@ node --env-file=.cache/vercel-production.env --import tsx scripts/publish-catalo
 node --env-file=.cache/vercel-production.env --import tsx scripts/seed-external-catalogue.ts
 ```
 
-Publishing preflights all 977 records before the first upload, writes deterministic content-addressed Blob paths, reconstructs the manifest from the current reviewed selection, and refuses stale resumable progress. Before seeding, run `npm run catalogue:packshots:manifest:validate`; after upload, `npm run catalogue:packshots:remote:verify` checks every canonical Blob by bytes, SHA-256, dimensions, format and visible alpha.
+The legacy publisher preflights the fixed release before any upload, writes deterministic content-addressed Blob paths, reconstructs the manifest from its reviewed selection, and refuses stale resumable progress. This technical integrity check does not satisfy the per-SKU publication gate.
 
 The seed refuses legacy mirrors or partial review metadata before opening a database connection. Its transaction supersedes the prior release, activates one immutable release record, writes all product-level source/review/processing provenance, and compares exact database barcode/image/release membership before commit.
 
@@ -173,7 +177,8 @@ The Vercel dashboard is authoritative for which environments receive each variab
 
 ## Current state and next stage
 
-- The 23 JeloCare-reviewed products and editorial assets use canonical Blob URLs with automated checks.
-- The community catalogue remains on its legacy mirror until the identity-bound 977-packshot release passes preparation, per-item review, publication, remote verification and transactional activation.
-- `/image-audit` covers reviewed products and editorial assets. Community release verification is the dedicated manifest/remote gate above; a paged browser audit can be added without sending 977 records to one client view.
+- The 23 reviewed source records are mapped to canonical Blob metadata or an explicit rights hold. Only the transparent, identity-safe, at-least-1,000-pixel, identity-and-hash-approved subset enters public shelves. Reuse rights for the legacy visible subset remain explicitly unverified and should move to permissioned media as evidence is obtained.
+- The checked-in Open Beauty Facts set remains a private legacy research pool. It is not waiting for bulk publication.
+- New exact SKUs remain in the deliberate intake queue until every identity, care, Nigeria, rights and editorial gate passes; approval drafting is still separate from publication.
+- `/image-audit` covers reviewed products and editorial assets. Legacy community artifacts remain outside that public audit until individually approved.
 - The next media stage is an authenticated Asset Manager with controlled imports and review history; public Blob write routes remain prohibited until authentication is deliberately introduced.

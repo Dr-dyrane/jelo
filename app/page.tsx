@@ -55,13 +55,24 @@ export default async function HomePage() {
   const products = orderByCuratedSlugs(liveCatalogue, curatedCatalogue.map(product => product.slug));
   const supportiveProducts = orderByCuratedSlugs(eligibleProducts, curatedCatalogue.map(product => product.slug));
   const editorsEdit = products.slice(0, 12);
-  const newAndNoteworthy = products.slice(12, 24).length ? products.slice(12, 24) : products.slice(0, 12);
+  const newAndNoteworthy = products.slice(12, 24);
   const sourceChecked = products.filter(product => product.verifiedIngredientIds?.length);
   const faceCare = products.filter(product => product.category === 'Face');
   const kBeauty = products.filter(product => ['COSRX', 'ANUA', 'SOME BY MI', 'B.LAB'].includes(product.brand));
   const nigeriaReady = products.filter(hasVerifiedNigeriaOffer);
   const hairCare = products.filter(product => product.category === 'Hair');
   const bodyCare = products.filter(product => product.category === 'Body');
+  const heroCategories = [
+    faceCare.length ? 'Face' : null,
+    hairCare.length ? 'Hair' : null,
+    bodyCare.length ? 'Body' : null,
+  ].filter((label): label is string => Boolean(label));
+  const catalogueSignals = [
+    faceCare.length ? 'Face care' : null,
+    hairCare.length ? 'Hair & scalp' : null,
+    bodyCare.length ? 'Body care' : null,
+    products.some(product => /\bspf\b/i.test(product.name)) ? 'Daily SPF' : null,
+  ].filter((label): label is string => Boolean(label));
 
   return (
     <main className={styles.main}>
@@ -84,9 +95,7 @@ export default async function HomePage() {
         </div>
 
         <div className={`${styles.heroMeta} ${editorialStyles.heroMeta}`}>
-          <span>Face</span>
-          <span>Hair</span>
-          <span>Body</span>
+          {heroCategories.map(category => <span key={category}>{category}</span>)}
         </div>
       </section>
 
@@ -124,10 +133,7 @@ export default async function HomePage() {
           </div>
         </div>
         <div className="signal-list">
-          <span>Face care</span>
-          <span>Hair &amp; scalp</span>
-          <span>Body care</span>
-          <span>Daily SPF</span>
+          {catalogueSignals.map(signal => <span key={signal}>{signal}</span>)}
         </div>
       </section>
 
@@ -173,7 +179,7 @@ export default async function HomePage() {
       <section className={styles.recommendation}>
         <div className={styles.recommendationCopy}>
           <p className={styles.kicker}>Supportive use</p>
-          <h3>Two reviewed uses.</h3>
+          <h3>Supportive care.</h3>
           <Link className={styles.primary} href="/products?review=supportive">View supportive products</Link>
         </div>
         <div className={`${styles.formulaList} ${editorialStyles.formulaList}`} aria-label="Reviewed supportive products">

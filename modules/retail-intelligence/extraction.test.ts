@@ -96,12 +96,60 @@ test('extracts actual product size from structured data', () => {
   assert.ok(result.extraction.evidence.includes('JSON-LD Product size'));
 });
 
-test('extracts a structured quantitative weight with its unit', () => {
+test('does not treat generic structured weight as observed product size', () => {
   const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Cleanser","weight":{"@type":"QuantitativeValue","value":226,"unitCode":"GRM"}}</script>';
+  const result = extractRetailerPage({ url: new URL('https://luxbeautyng.com/product/example/'), html });
+
+  assert.equal(result.extraction.productSize, undefined);
+  assert.ok(!result.extraction.evidence.includes('JSON-LD Product size'));
+});
+
+test('prefers a measurable product title over generic structured shipping weight', () => {
+  const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Cleanser 150 ml","weight":{"@type":"QuantitativeValue","value":0.6,"unitCode":"KGM"}}</script>';
+  const result = extractRetailerPage({ url: new URL('https://beautybydaz.com/shop/example/'), html });
+
+  assert.equal(result.extraction.productSize, '150 ml');
+  assert.ok(result.extraction.evidence.includes('Product title size'));
+  assert.ok(!result.extraction.evidence.includes('JSON-LD Product size'));
+});
+
+test('accepts structured weight only when it explicitly describes net product content', () => {
+  const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Cleanser","weight":{"@type":"QuantitativeValue","name":"Net weight","value":226,"unitCode":"GRM"}}</script>';
   const result = extractRetailerPage({ url: new URL('https://luxbeautyng.com/product/example/'), html });
 
   assert.equal(result.extraction.productSize, '226 g');
   assert.ok(result.extraction.evidence.includes('JSON-LD Product size'));
+});
+
+test('keeps a title measurement ahead of an explicitly labelled but conflicting weight', () => {
+  const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Sunscreen 50 ml","weight":{"@type":"QuantitativeValue","name":"Net weight","value":0.6,"unitCode":"KGM"}}</script>';
+  const result = extractRetailerPage({ url: new URL('https://beautybydaz.com/shop/example/'), html });
+
+  assert.equal(result.extraction.productSize, '50 ml');
+  assert.ok(result.extraction.evidence.includes('Product title size'));
+});
+
+test('accepts an explicitly named netWeight field', () => {
+  const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Balm","netWeight":{"@type":"QuantitativeValue","value":40,"unitCode":"GRM"}}</script>';
+  const result = extractRetailerPage({ url: new URL('https://luxbeautyng.com/product/example/'), html });
+
+  assert.equal(result.extraction.productSize, '40 g');
+  assert.ok(result.extraction.evidence.includes('JSON-LD Product size'));
+});
+
+test('accepts an additional property explicitly labelled net weight', () => {
+  const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Cleanser","additionalProperty":{"@type":"PropertyValue","name":"Net Weight","value":"454 g"}}</script>';
+  const result = extractRetailerPage({ url: new URL('https://beautybydaz.com/shop/example/'), html });
+
+  assert.equal(result.extraction.productSize, '454 g');
+  assert.ok(result.extraction.evidence.includes('JSON-LD Product size'));
+});
+
+test('ignores an additional property labelled only weight', () => {
+  const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Cleanser","additionalProperty":{"@type":"PropertyValue","name":"Weight","value":"0.5 kg"}}</script>';
+  const result = extractRetailerPage({ url: new URL('https://beautybydaz.com/shop/example/'), html });
+
+  assert.equal(result.extraction.productSize, undefined);
 });
 
 test('falls back to a measurable size in the observed product title', () => {

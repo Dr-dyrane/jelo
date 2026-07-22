@@ -1,14 +1,22 @@
 {
   "cosrx-salicylic-acid-daily-gentle-cleanser": {
     "sourceUrl": "https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser/packshot.jpg",
-    "contentType": "image/jpeg",
-    "byteSize": 136766,
-    "importedAt": "2026-07-22T00:50:32.089Z",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 164146,
+    "importedAt": "2026-07-22T11:57:54.000Z",
     "width": 1000,
-    "height": 1650,
+    "height": 1000,
     "hasAlpha": true,
-    "contentHash": "90f4b59cf1367cffc262f6ea50f0313bd86c70fe41220737cf73dd191375b4de"
+    "contentHash": "0944847bfbcf0a8d57fed34a05c6f76a2fe79e1876e2833e326e49d75cf0519b",
+    "derivation": {
+      "kind": "source-preserving-trim-and-centre",
+      "tool": "Sharp",
+      "localPath": "/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser-transparent-v2.png",
+      "sourceCompared": true,
+      "reviewer": "Codex visual audit",
+      "reviewedAt": "2026-07-22T11:57:54.000Z"
+    }
   },
   "some-by-mi-aha-bha-pha-miracle-toner": {
     "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2020/01/kxq1lqyk-1-optimized.png?quality=80&resize=411%2C442&ssl=1",
@@ -22,26 +30,42 @@
     "contentHash": "a364e3969ec6e9d3afa20845c7990db3cb5d8465f659b2ce47ed85b01c943397"
   },
   "anua-niacinamide-10-txa-4-serum": {
-    "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/skdbvd-1-optimized.jpg?fit=425%2C425&quality=89&ssl=1",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-niacinamide-10-txa-4-serum/packshot.webp",
-    "contentType": "image/webp",
-    "byteSize": 8260,
-    "importedAt": "2026-07-22T00:50:37.034Z",
-    "width": 425,
-    "height": 425,
-    "hasAlpha": false,
-    "contentHash": "bc96e8500866824c2e4ab10ffeb9f4ff29f9ea4a0737d7892a628240f4f5497d"
+    "sourceUrl": "https://anua.com/cdn/shop/files/anua-global-ampoule-serum-niacinamide-10-txa-4-serum-for-brightening-and-dark-spots-1239193722.jpg?v=1779177130&width=2000",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-niacinamide-10-txa-4-serum/packshot-v3.png",
+    "contentType": "image/png",
+    "byteSize": 363821,
+    "importedAt": "2026-07-22T12:18:36.000Z",
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "225e3a52fd9b2f4a092a3c8b970e608d13246e0e2187677fb71b1f2350e4b669",
+    "derivation": {
+      "kind": "source-pixel-isolation",
+      "tool": "IS-Net alpha extraction plus deterministic matte refinement",
+      "localPath": "/products/anua/anua-niacinamide-10-txa-4-serum-transparent-v3.png",
+      "sourceCompared": true,
+      "reviewer": "Codex visual audit",
+      "reviewedAt": "2026-07-22T12:18:36.000Z"
+    }
   },
   "face-facts-wonder-cream-fragrance-free": {
-    "sourceUrl": "https://peronabeauty.com/wp-content/uploads/2024/12/Screenshot-at--600x605.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/face-facts-wonder-cream-fragrance-free/packshot.webp",
-    "contentType": "image/webp",
-    "byteSize": 76664,
-    "importedAt": "2026-07-22T00:50:38.587Z",
-    "width": 600,
-    "height": 605,
-    "hasAlpha": false,
-    "contentHash": "08a5f7d5fada2f6c0214d3cec54a1cd5fa253c827188643d775fc069c138cf81"
+    "sourceUrl": "https://facefacts.me/cdn/shop/files/39163_150_fr1.png?v=1759159571",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/face-facts-wonder-cream-fragrance-free/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 875463,
+    "importedAt": "2026-07-22T12:34:11.000Z",
+    "width": 1200,
+    "height": 1200,
+    "hasAlpha": true,
+    "contentHash": "c4feb7aa3ed19996e9be53147a7a550b697ee65ee5b5d8b58fed1936f5a347b9",
+    "derivation": {
+      "kind": "source-pixel-isolation",
+      "tool": "IS-Net alpha extraction, deterministic matte refinement, and LittleCMS sRGB conversion",
+      "localPath": "/products/face-facts/face-facts-wonder-cream-fragrance-free-transparent-v2.png",
+      "sourceCompared": true,
+      "reviewer": "Codex visual audit",
+      "reviewedAt": "2026-07-22T12:34:11.000Z"
+    }
   },
   "face-facts-bright-clear-face-cream": {
     "sourceUrl": "https://peronabeauty.com/wp-content/uploads/2024/08/face-facts_387858-600x600.jpg",

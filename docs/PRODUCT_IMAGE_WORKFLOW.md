@@ -4,6 +4,8 @@ Updated: 2026-07-22
 
 Product imagery is approved one exact SKU at a time. Speed and catalogue size never lower the visual bar.
 
+This is the complete target workflow for new intake. The current legacy static subset has source and art display reviews but no encoded reuse licence; `data/product-display-approvals.ts` records that limitation as `rightsStatus: not-verified`. Display approval must never be described as permission.
+
 ## 1. Lock the product first
 
 Do not make an image for a loose product name. The intake record must identify the exact brand, line, formula or version, active strength where relevant, size, pack count, package type, market and GTIN when available.
@@ -25,9 +27,13 @@ An unresolved identity, rights or regulatory field keeps the product private.
 
 Use an owned, licensed or explicitly permitted original photograph when it already meets the art direction. Preserve the photograph; crop and colour correction must not change the pack.
 
+### Transparent source-pixel packshot
+
+An official or licensed package image may be isolated onto a transparent canvas when the process preserves the source package pixels. The final asset must be centred, retain the full pack, and have a clean alpha edge on peach, pink, and dark review surfaces. Remove studio rectangles, matte spill, chroma fringe, and broad feathering without redrawing the label, material, colour, geometry, claims, or size. Record the identity master, transformation, hash, colour profile, and source comparison.
+
 ### Styled composite
 
-An exact, source-verified package may be separated from its background and placed into a photographed or generated set. Background removal is an intermediate production step, never the finished aesthetic.
+An exact, source-verified package may be separated from its background and placed into a photographed or generated set. The isolated package remains identity evidence; the surrounding scene may add atmosphere but cannot change the product.
 
 The final composite must preserve the package silhouette, label, spelling, claims, colour, variant, size and cap or pump. Add realistic contact shadow, reflected light and surface interaction so the result reads as photography rather than a floating cutout.
 
@@ -58,7 +64,7 @@ Keep a non-destructive master and generate derivatives from it.
 - Record dimensions, MIME type, byte size, SHA-256 and crop relationship.
 - Store a source preview beside the final preview for review; never expose working files publicly.
 
-## 5. Two-person gate
+## 5. Two-review gate
 
 ### Identity review
 
@@ -68,10 +74,10 @@ Compare the final image against the identity set at full resolution. Confirm the
 
 Confirm that the final image is magazine-ready at desktop and mobile sizes: clean composition, intentional colour, realistic light, complete package, strong card-scale recognition and no extraction or generation artefacts.
 
-Both reviews are required. A score cannot override either gate.
+Both reviews are required. A score cannot override either gate. `data/product-display-approvals.ts` binds the approved brand, name, size, source URL, final bytes, source reviewer, art reviewer, and review times; changing any identity or image field keeps the file private until both checks are repeated.
 
 ## 6. Release rule
 
 Preview the approved asset in the real home rail, inventory card and product hero before release. Publish only after responsive browser review and remote-byte verification. If the image or product record changes, both approvals expire.
 
-Raw bulk imports, automated cutouts and generated drafts remain private research assets. They are not a public catalogue.
+Raw bulk imports, unreviewed automated extractions and generated drafts remain private research assets. A polished source-pixel isolation may publish only after the identity, edge, colour-profile, responsive, and remote-byte checks above.

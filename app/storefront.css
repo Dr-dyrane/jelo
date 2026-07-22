@@ -86,6 +86,8 @@
   scrollbar-width: none;
 }
 
+.product-rail::-webkit-scrollbar { display: none; }
+
 .product-rail > * {
   min-width: 0;
   scroll-snap-align: start;

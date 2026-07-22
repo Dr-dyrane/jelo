@@ -6,25 +6,11 @@
   background: #f8ece7;
 }
 
-.product-visual::after,
-.product-visual-large::after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  left: 27%;
-  bottom: 9%;
-  width: 46%;
-  height: 4%;
-  border-radius: 50%;
-  background: rgba(94, 50, 48, .12);
-  filter: blur(15px);
-}
-
 .product-visual img,
 .product-visual-large img {
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 18px 22px rgba(72, 40, 38, .11));
+  filter: drop-shadow(0 12px 18px rgba(72, 40, 38, .07));
 }
 
 .product-visual > span {

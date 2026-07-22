@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { products } from '@/data/catalogue';
+import { reviewedProductRecords } from '@/data/catalogue';
 import productAssets from '@/data/product-assets.json';
 import type { Offer } from '@/data/products';
 import {
@@ -215,7 +215,7 @@ test('regulator and brand authorization claims require their specific evidence s
 });
 
 test('Slique remains provisional and link-only with a complete dated Mediana observation', () => {
-  const mediana = products.find(product => product.slug === 'mediana-leave-in-conditioning-milk');
+  const mediana = reviewedProductRecords.find(product => product.slug === 'mediana-leave-in-conditioning-milk');
   assert.ok(mediana);
   const offer = mediana.offers.find(item => item.retailer === 'Slique Beauty');
 

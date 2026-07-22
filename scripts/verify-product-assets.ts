@@ -30,6 +30,33 @@ const manifestPath = path.resolve(process.cwd(), 'data/product-assets.json');
 const editorialManifestPath = path.resolve(process.cwd(), 'data/editorial-assets.json');
 const write = process.argv.includes('--write');
 
+async function transparentCanvasMetrics(bytes: Buffer) {
+  const { data, info } = await sharp(bytes)
+    .ensureAlpha()
+    .resize(256, 256, { fit: 'fill', kernel: sharp.kernel.nearest })
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  let transparentPixels = 0;
+  let edgePixels = 0;
+  let opaqueEdgePixels = 0;
+
+  for (let y = 0; y < info.height; y += 1) {
+    for (let x = 0; x < info.width; x += 1) {
+      const alpha = data[(y * info.width + x) * info.channels + 3] ?? 255;
+      if (alpha <= 16) transparentPixels += 1;
+      if (x === 0 || y === 0 || x === info.width - 1 || y === info.height - 1) {
+        edgePixels += 1;
+        if (alpha >= 245) opaqueEdgePixels += 1;
+      }
+    }
+  }
+
+  return {
+    transparentFraction: transparentPixels / (info.width * info.height),
+    opaqueEdgeFraction: opaqueEdgePixels / edgePixels,
+  };
+}
+
 async function inspect(slug: string, record: AssetRecord) {
   const response = await fetch(record.blobUrl, {
     signal: AbortSignal.timeout(20_000),
@@ -42,6 +69,17 @@ async function inspect(slug: string, record: AssetRecord) {
   if (!bytes.length) throw new Error(`${slug}: Blob is empty`);
   const metadata = await sharp(bytes).metadata();
   if (!metadata.width || !metadata.height) throw new Error(`${slug}: dimensions are unavailable`);
+  const displayReady = record.hasAlpha === true && Math.min(record.width ?? 0, record.height ?? 0) >= 1_000;
+  if (displayReady) {
+    if (!metadata.hasAlpha) throw new Error(`${slug}: public packshot lost its alpha channel`);
+    const canvas = await transparentCanvasMetrics(bytes);
+    if (canvas.transparentFraction < 0.12) {
+      throw new Error(`${slug}: public packshot has too little transparent canvas (${canvas.transparentFraction.toFixed(3)})`);
+    }
+    if (canvas.opaqueEdgeFraction > 0.01) {
+      throw new Error(`${slug}: public packshot touches an opaque canvas edge (${canvas.opaqueEdgeFraction.toFixed(3)})`);
+    }
+  }
 
   return {
     ...record,

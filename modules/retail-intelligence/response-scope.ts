@@ -1,6 +1,12 @@
 const ignoredTitleWords = new Set([
   'and', 'for', 'with', 'the', 'from', 'skin', 'hair', 'face', 'new', 'version', 'pack',
+  'to', 'of', 'in', 'on', 'by', 'or', 'at',
 ]);
+
+const equivalentTitleTokens: Record<string, string> = {
+  moisturiser: 'moisturizer',
+  moisturising: 'moisturizing',
+};
 
 function hostKey(url: URL) {
   return url.hostname.toLowerCase().replace(/^www\./, '');
@@ -21,15 +27,17 @@ function titleTokens(value: string) {
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/([a-z])(\d)/g, '$1 $2')
+    .replace(/(\d)([a-z])/g, '$1 $2')
     .split(' ')
-    .filter(token => token.length >= 3 && !ignoredTitleWords.has(token))));
+    .map(token => equivalentTitleTokens[token] ?? token)
+    .filter(token => (token.length >= 2 || /^\d+$/.test(token)) && !ignoredTitleWords.has(token))));
 }
 
 function titleMatches(expected: string, observed: string) {
   const expectedTokens = titleTokens(expected);
   const observedTokens = new Set(titleTokens(observed));
-  const overlap = expectedTokens.filter(token => observedTokens.has(token)).length;
-  return overlap >= Math.min(2, expectedTokens.length);
+  return expectedTokens.length > 0 && expectedTokens.every(token => observedTokens.has(token));
 }
 
 type Measurement = { dimension: 'mass' | 'volume'; baseValue: number };

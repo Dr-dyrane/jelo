@@ -147,7 +147,7 @@
 }
 
 .options input:focus-visible + span { outline: 2px solid #6b3b35; outline-offset: 2px; }
-.sectionHint { margin: -.25rem 0 .7rem; color: #85736d; font-size: .65rem; }
+.sectionHint { margin: -.25rem 0 .7rem; color: #67524c; font-size: .65rem; }
 .selectGrid { display: grid; gap: .55rem; }
 .companyField {
   min-height: 4rem;
@@ -192,7 +192,7 @@
 }
 .selectField select:focus-visible,
 .selectField input:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
-.selectField small { grid-column: 2; color: #8c7972; font-size: .58rem; }
+.selectField small { grid-column: 2; color: #67524c; font-size: .58rem; }
 .sheet .companyHeader { align-items: center; }
 .companyHeader > div { flex: 1; }
 .companySearch {
@@ -226,8 +226,8 @@
 .companyList > button:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
 .companyList span { min-width: 0; display: grid; gap: .2rem; }
 .companyList strong { overflow: hidden; font-size: .72rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
-.companyList small { color: #85736d; font-size: .6rem; }
-.companyEmpty { margin: auto 0; color: #85736d; font-size: .72rem; text-align: center; }
+.companyList small { color: #67524c; font-size: .6rem; }
+.companyEmpty { margin: auto 0; color: #67524c; font-size: .72rem; text-align: center; }
 .sheet footer {
   position: sticky;
   bottom: 0;

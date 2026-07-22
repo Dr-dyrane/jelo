@@ -62,10 +62,12 @@ Brand/company filtering uses the product brand as the accurate current entity. P
 
 The catalogue keeps candidate count, public approval, and recommendation eligibility separate:
 
-- 23 `reviewed` records remain browsable;
-- 2 records currently pass the explicit supportive-care gate for direct guidance;
+- 23 reviewed source records remain in the research set;
+- public shelves are derived only from records whose canonical packshot is transparent, at least 1,000 × 1,000, identity-safe, not under a rights hold, and approved by exact file hash after peach/pink/dark surface review;
+- 2 source records currently pass the explicit supportive-care gate for direct guidance, but they appear publicly only when they also pass the image gate;
 - 5 require pharmacist review and 16 remain guidance-ineligible pending better formula evidence;
-- 977 barcode-linked Open Beauty Facts records are a private candidate pool, not a publication target;
+- the checked-in barcode-linked Open Beauty Facts records are a frozen legacy research pool, not a target or intake queue;
+- new candidates enter the private per-SKU queue in `data/catalogue-intake.json` and advance only through explicit identity, care, Nigeria, rights, editorial, and approval-draft gates;
 - a community candidate becomes public only through an identity-bound approval in `data/external-product-approvals.json`;
 - approving a community record for discovery never makes it recommendation-eligible.
 
@@ -75,11 +77,15 @@ The Open Beauty Facts `qualityScore` only prioritizes private review after hard 
 
 Community publication requires a reviewed formula archetype and care tier plus Nigerian regulatory status. `pending` stays private. Market evidence must be either Tier-A identity evidence with two independent fresh exact Nigerian offers, or brand-confirmed Nigerian authorization with one fresh exact offer. Open Beauty Facts data, ingredients, or photography alone can never satisfy these gates.
 
-Public image approval requires documented rights, intact packaging, exact label/variant/size, catalogue fit, and a magazine-ready final image. An untouched licensed photograph, official brand asset, or owned editorial photograph may pass. A generated or composited scene may also pass when the source package identity is exact, packaging is not invented, label/variant/size are unchanged, and a reviewer compares source and final output. Raw background-extracted cutouts remain private production inputs.
+Provisional seller observations may help a reviewer understand availability and price spread, but they do not count as either of the two independent Tier-A retailers. The intake audit keeps that distinction machine-readable.
 
-Approvals bind the barcode, source snapshot, raw candidate fingerprint, final image hash, reviewer, timestamp, rights source, and final-image attestations. Any candidate or image change invalidates the approval.
+The current static subset has a display approval, not a reuse licence. Each record binds exact brand/name/size, source URL, final hash, source review, art review, and peach/pink/dark checks, while explicitly recording `rightsStatus: not-verified`. Known prohibitions are withheld; permission provenance remains open and must not be implied in the UI or docs.
 
-The same deterministic audit dimensions—identity, formula completeness, evidence level, exact Nigerian listing, image rights, and final presentation—can be applied to the 23 reviewed products. Publication quality and direct-care eligibility remain separate gates.
+New intake image approval requires documented rights, intact packaging, exact label/variant/size, catalogue fit, and a magazine-ready final image. An untouched licensed photograph, permitted official brand asset, owned editorial photograph, or polished transparent isolation may pass. Background removal must retain source package pixels; it cannot redraw the label, colour, materials, geometry, claims, or size. Generated or composited scenery may pass only when the package itself remains source-faithful and a reviewer compares source and final output. Unreviewed extraction output remains private.
+
+New intake approvals bind the barcode, source snapshot, raw candidate fingerprint, final image hash, reviewer, timestamp, rights source, and final-image attestations. Any candidate or image change invalidates the approval.
+
+The same deterministic audit dimensions—identity, formula completeness, evidence level, exact Nigerian listing, image rights, and final presentation—apply to all 23 reviewed source records. Publication quality and direct-care eligibility remain separate gates.
 
 Open Beauty Facts asks bulk reusers to use the nightly export instead of repeated search calls. The ingestion job therefore streams the official JSONL export. The database is ODbL 1.0, individual contents use the Database Contents License, and product photos use CC BY-SA 3.0. Attribution and source links remain visible in the product catalogue.
 
@@ -87,7 +93,7 @@ Open Beauty Facts asks bulk reusers to use the nightly export instead of repeate
 
 - no fabricated products, prices, ratings, reviews, ingredients, or diagnoses;
 - no count target or automated quality score can publish a candidate;
-- no raw background-removed cutout can become final public imagery;
+- no unreviewed background-removal output can become final public imagery;
 - no imported product is labelled evidence-led or sensitive-friendly without a JeloCare review;
 - no remote source price is treated as current without a fresh exact-product check;
 - no client-side rendering of all 1,000 records;

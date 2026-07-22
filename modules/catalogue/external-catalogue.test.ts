@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { products } from '@/data/catalogue';
+import { products, reviewedProductRecords } from '@/data/catalogue';
 import {
   externalCatalogueApprovals,
   externalCatalogueCandidates,
@@ -15,13 +15,14 @@ const hash = /^[0-9a-f]{64}$/;
 const blobHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 
 test('keeps the bulk manifest private and exposes only explicitly approved records', () => {
-  assert.equal(products.length, 23);
+  assert.equal(reviewedProductRecords.length, 23);
+  assert.ok(products.length < reviewedProductRecords.length);
   assert.equal(externalCatalogueCandidates.length, 977);
   assert.equal(externalProducts.length, externalCatalogueApprovals.approvals.length);
   assert.equal(externalCatalogueExposure.approvedCount, externalProducts.length);
   assert.equal(externalCatalogueExposure.privateCandidateCount, externalCatalogueCandidates.length - externalProducts.length);
   assert.equal(externalCatalogueExposure.policy, 'explicit-approval-only');
-  assert.equal(externalCatalogueMetadata.reviewedCount, products.length);
+  assert.equal(externalCatalogueMetadata.reviewedCount, reviewedProductRecords.length);
 });
 
 test('every private community candidate remains traceable, unique, and clinically ineligible', () => {

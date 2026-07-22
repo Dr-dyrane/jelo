@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { products } from '@/data/catalogue';
+import { reviewedProductRecords } from '@/data/catalogue';
 import { concernBySlug } from '@/data/knowledge';
 import { productMatchesConcern } from './product-matching';
 
 function product(slug: string) {
-  const match = products.find(item => item.slug === slug);
+  const match = reviewedProductRecords.find(item => item.slug === slug);
   assert.ok(match, `Missing product fixture: ${slug}`);
   return match;
 }

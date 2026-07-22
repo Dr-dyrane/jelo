@@ -12,6 +12,8 @@ This made availability in the source dataset—and the need to fill a count—ac
 
 `data/external-products.json` is a checked-in, publication-gated research artifact. It is visible in the public repository but never enters the public catalogue by itself. Runtime inventory imports only `externalProducts`, the approved subset produced by `gateExternalCatalogue` and `data/external-product-approvals.json`.
 
+This full publication gate governs new intake and community records. The smaller legacy static catalogue has a separate display-quality approval in `data/product-display-approvals.ts`; those records explicitly say `rightsStatus: not-verified` and must not be represented as licensed. A known reuse prohibition still causes an immediate hold.
+
 The gate is fail-closed:
 
 1. Hard gates run before scoring. Score and demand can order only records that already pass.
@@ -19,13 +21,23 @@ The gate is fail-closed:
 3. A reviewer records a formula archetype and care tier from an evidence URL. Open Beauty Facts ingredients alone are insufficient.
 4. Nigerian regulatory status must be matched or explicitly documented as not required. `pending` remains private.
 5. Market evidence must use one of two routes: Tier-A identity evidence plus two independent fresh exact Nigerian offers, or brand-confirmed Nigerian authorization plus one fresh exact offer.
-6. Final packaging must be intact, source-faithful, magazine-ready, and manually compared with the source.
-7. Untouched licensed photography, official brand media, owned editorial photography, or an identity-verified styled composite may pass.
+6. Final packaging must be intact, source-faithful, magazine-ready, genuinely transparent, at least 1,000 × 1,000, and manually compared with the source on peach, pink, and dark surfaces. An opaque white canvas, studio canvas, or hidden semi-transparent photo plane cannot enter a public product shelf. The display approval is bound to the final file hash.
+7. Untouched licensed photography, permitted official brand media, owned editorial photography, or an identity-verified styled composite may pass.
 8. For a styled composite, packaging cannot be invented and label, variant, and size must remain unchanged.
-9. A raw automated cutout cannot pass. Background removal may create a private production input, but approval must point to a different finished editorial composite.
+9. Unreviewed automated output cannot pass. A polished transparent isolation may pass only when it retains the official source pixels, contains no redraw or chroma fringe, and a reviewer compares the full-resolution source and final image. Generation may create non-identity scenery, never the branded package.
 10. Any source identity, evidence, market observation, or final-image change invalidates approval.
 
-The initial approval manifest is intentionally empty. This preserves all 977 records without presenting source availability, attractive imagery, or a high automated score as a finished public catalogue.
+## Deliberate intake queue
+
+New research starts in `data/catalogue-intake.json`, one exact SKU at a time. Run `npm run catalogue:intake:audit` to see the ordered private queue, current gate and next action. The queue is research-only: importing it does not add products to either public catalogue source and even an `approval-ready` result means only that an identity-bound approval can be drafted.
+
+Each candidate must explain the coverage gap, cite demand evidence, lock the exact identity and measured size, complete a care review, record Nigerian regulatory and listing evidence, document image rights, and finish a manually checked editorial image. A candidate stops at its earliest incomplete gate.
+
+Provisional retailers may remain as dated price and stock observations. They do not count toward the Tier-A route requiring two independent directory-listed Nigerian retailers on distinct hosts. They can support the separate brand-authorization route only when the brand authorization itself is documented.
+
+The count-first Open Beauty Facts importer, mirror, selector and cutout release remain frozen legacy research tools. They may preserve prior research artifacts, but they are not an intake or publication path for new products.
+
+The initial approval manifest is intentionally empty. This preserves the legacy research pool without presenting source availability, attractive imagery, or a high automated score as a finished public catalogue.
 
 ## Shared audit dimensions
 

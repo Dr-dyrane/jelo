@@ -32,6 +32,28 @@ test('rejects canonical, title, size and currency mismatches', () => {
   assert.throws(() => assertRetailerResponseScope({ ...valid, currencyCode: 'USD' }), /currency/);
 });
 
+test('rejects a same-brand same-size sibling variant', () => {
+  assert.throws(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'CeraVe Foaming Facial Cleanser',
+    expectedSize: '355 ml',
+    observedTitle: 'CeraVe Hydrating Facial Cleanser 355 ml',
+    observedSize: '355 ml',
+  }), /title/);
+  assert.throws(() => assertRetailerResponseScope({
+    ...valid,
+    observedTitle: 'PanOxyl Acne Foaming Wash 4% Benzoyl Peroxide 156g',
+  }), /title/);
+});
+
+test('normalizes compact SPF tokens and UK or US moisturiser spelling', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'Example Moisturising Face Fluid UV SPF 30',
+    observedTitle: 'Example Moisturizing Fluid UV SPF30 156g',
+  }));
+});
+
 test('fails closed when observed title or size evidence is missing', () => {
   assert.throws(() => assertRetailerResponseScope({ ...valid, observedTitle: undefined }), /title evidence is missing/);
   assert.throws(() => assertRetailerResponseScope({ ...valid, observedSize: undefined }), /size evidence is missing/);

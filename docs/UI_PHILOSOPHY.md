@@ -42,7 +42,7 @@ Every click that changes state must make the change understandable.
 
 ## Product truth
 
-- Product imagery uses a real, traceable packshot with the complete pack visible. Prefer transparent, centred, display-ready assets.
+- Public product imagery uses a real, traceable packshot with the complete pack visible. It must have a genuinely transparent background, remain centred, be at least 1,000 × 1,000, and have a hash-bound peach/pink/dark surface approval; opaque studio canvases, hidden pale planes, undersized images, and placeholders stay private.
 - Background removal may isolate source pixels; it must not redraw packaging, labels, claims, sizes, or ingredients.
 - Poor, clipped, mismatched, or untraceable product images are quarantined, not polished into false evidence.
 - Company names remain quiet text labels. Do not add decorative brand badges or mixed-quality logo marks.

@@ -1,10 +1,12 @@
 import { ProductImageAudit } from '@/components/products/product-image-audit';
-import { products } from '@/data/catalogue';
 import { editorialAssets } from '@/data/editorial';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
 
 export const metadata = { title: 'Image audit' };
 
-export default function ImageAuditPage() {
+export default async function ImageAuditPage() {
+  const products = await listCatalogueProducts();
+
   return (
     <main className="page-shell">
       <header className="page-heading">

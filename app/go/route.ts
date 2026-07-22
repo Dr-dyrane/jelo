@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
-import { products } from '@/data/catalogue';
 import { retailerSearchUrl } from '@/data/retailers';
+import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { buildAttributedUrl } from '@/modules/commerce/redirect-attribution';
 
-export function GET(request: Request) {
+export async function GET(request: Request) {
   const current = new URL(request.url);
   const productSlug = current.searchParams.get('product');
   const retailerName = current.searchParams.get('retailer');
-  const product = products.find(item => item.slug === productSlug);
+  const product = productSlug ? await findCatalogueProduct(productSlug) : undefined;
   const offer = product?.offers.find(item => item.retailer === retailerName);
   if (!product) return NextResponse.redirect(new URL('/products', request.url));
   if (offer) return NextResponse.redirect(buildAttributedUrl(offer.url, { productSlug: product.slug, retailer: offer.retailer }), 307);

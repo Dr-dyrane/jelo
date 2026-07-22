@@ -4,8 +4,9 @@ import path from 'node:path';
 import test from 'node:test';
 import { products } from '@/data/catalogue';
 import { externalCatalogueCandidates, externalProducts } from '@/data/external-catalogue';
+import { getReviewedProductCare } from '@/data/product-care-review';
 import type { ReviewedProduct } from '@/data/products';
-import { queryInventoryRecords } from '@/lib/catalogue/inventory-query';
+import { inventoryCategories, queryInventoryRecords } from '@/lib/catalogue/inventory-query';
 
 function normalize(value: string) {
   return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -14,15 +15,25 @@ function normalize(value: string) {
 test('returns only reviewed products and deliberately approved community records', () => {
   const result = queryInventoryRecords(products);
   const publicTotal = products.length + externalProducts.length;
+  const supportiveTotal = products.filter(product => getReviewedProductCare(product.slug)?.careState === 'supportive_eligible').length;
   assert.equal(result.total, publicTotal);
   assert.equal(result.items.length, Math.min(24, publicTotal));
   assert.equal(result.page, 1);
   assert.equal(result.pageCount, Math.max(1, Math.ceil(publicTotal / 24)));
   assert.equal(result.facets.reviewed, products.length);
-  assert.equal(result.facets.supportive, 2);
+  assert.equal(result.facets.supportive, supportiveTotal);
   assert.equal(result.facets.community, externalProducts.length);
+  assert.deepEqual(result.facets.categories.map(facet => facet.value), inventoryCategories);
   assert.equal(result.facets.categories.reduce((sum, facet) => sum + facet.count, 0), publicTotal);
   assert.ok(result.items.slice(0, products.length).every(item => item.kind === 'reviewed'));
+});
+
+test('a selected zero-result category remains available for clear and undo', () => {
+  const result = queryInventoryRecords(products, { category: 'Hair & scalp', q: 'cerave' });
+  const selected = result.facets.categories.find(facet => facet.value === 'Hair & scalp');
+
+  assert.equal(result.filters.category, 'Hair & scalp');
+  assert.equal(selected?.count, 0);
 });
 
 test('a private candidate barcode cannot leak into public search', () => {
@@ -34,19 +45,19 @@ test('a private candidate barcode cannot leak into public search', () => {
 });
 
 test('normalizes punctuation without fuzzy clinical matching', () => {
-  const punctuation = queryInventoryRecords(products, { q: 'aha bha pha' });
-  assert.ok(punctuation.items.some(item => item.name.includes('AHA·BHA·PHA')));
+  const punctuation = queryInventoryRecords(products, { q: 'la roche posay spf 30' });
+  assert.ok(punctuation.items.some(item => item.name.includes('SPF 30')));
 
-  const joined = queryInventoryRecords(products, { q: 'bright clear' });
-  assert.ok(joined.items.some(item => item.name === 'Bright + Clear Face Cream'));
+  const joined = queryInventoryRecords(products, { q: 'la roche posay double repair matte' });
+  assert.ok(joined.items.some(item => item.name.includes('Double Repair Matte')));
 });
 
 test('indexes only manifest-approved supportive discovery terms', () => {
   const unreviewedClaim = queryInventoryRecords(products, { q: 'barrier', review: 'reviewed' });
   assert.equal(unreviewedClaim.total, 0);
 
-  const hydration = queryInventoryRecords(products, { q: 'dryness', review: 'reviewed' });
-  assert.deepEqual(hydration.items.map(item => item.id), ['reviewed:cosrx-advanced-snail-96-mucin-power-essence']);
+  const approvedUse = queryInventoryRecords(products, { q: 'oiliness', review: 'reviewed' });
+  assert.deepEqual(approvedUse.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
 
   const oiliness = queryInventoryRecords(products, { q: 'oiliness', review: 'reviewed' });
   assert.deepEqual(oiliness.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
@@ -69,18 +80,22 @@ test('concern browsing fails closed to explicit approved concern slugs', () => {
 
 test('supportive source filtering stays limited to reviewed eligible products', () => {
   const result = queryInventoryRecords(products, { review: 'supportive' });
-  assert.deepEqual(result.items.map(item => item.id), [
-    'reviewed:cerave-foaming-facial-cleanser',
-    'reviewed:cosrx-advanced-snail-96-mucin-power-essence',
-  ]);
+  const expected = products
+    .filter(product => getReviewedProductCare(product.slug)?.careState === 'supportive_eligible')
+    .map(product => `reviewed:${product.slug}`);
+  assert.deepEqual(result.items.map(item => item.id), expected);
   assert.ok(result.items.every(item => item.kind === 'reviewed' && item.careState === 'supportive_eligible'));
 });
 
 test('browse surfaces separate neutral records from supportive use', async () => {
-  const [home, productsPage, productCard] = await Promise.all([
+  const [home, productsPage, productCard, inventoryCard, productExperience, storefront, filterStyles] = await Promise.all([
     readFile(path.join(process.cwd(), 'app/page.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/products/page.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/product-card.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'components/products/inventory-card.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'app/product-experience.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'app/storefront.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'components/products/inventory-filter-sheet.module.css'), 'utf8'),
   ]);
 
   assert.doesNotMatch(home, /product\.(?:bestFor|concerns|skinTypes|sensitiveFriendly|step|displayLine)/);
@@ -88,11 +103,25 @@ test('browse surfaces separate neutral records from supportive use', async () =>
   assert.match(home, /Key ingredients/);
   assert.match(home, /A partial view/);
   assert.match(home, /review=supportive/);
-  assert.match(productsPage, /JeloCare profiles<\/strong> are browse records with visible care status/);
-  assert.match(productsPage, /Supportive use<\/strong> is a separate, stricter review/);
+  assert.match(home, /const newAndNoteworthy = products\.slice\(12, 24\);/);
+  assert.doesNotMatch(home, /slice\(12, 24\)\.length/);
+  assert.match(home, /hairCare\.length \? 'Hair & scalp' : null/);
+  assert.match(productsPage, /Profiles show products and prices/);
+  assert.match(productsPage, /Supportive use adds a care review/);
   assert.match(productsPage, /review: 'supportive'/);
+  assert.doesNotMatch(productsPage, /inventoryCategories\.map/);
+  assert.match(productsPage, /\/concerns\/dandruff-itchy-scalp/);
+  assert.match(productsPage, /externalProducts\.length \? 'Two catalogue sources' : 'Catalogue context'/);
+  assert.match(productsPage, /externalProducts\.length \? <a href="https:\/\/world\.openbeautyfacts\.org\/data"/);
   assert.doesNotMatch(productsPage, /product\.(?:bestFor|concerns|skinTypes|sensitiveFriendly|step|displayLine)/);
   assert.doesNotMatch(productCard, /\{product\.(?:step|displayLine)\}/);
+  assert.doesNotMatch(productCard, /styles\.(?:step|price|reveal)/);
+  assert.doesNotMatch(inventoryCard, /styles\.(?:status|price)/);
+  assert.equal(productCard.match(/<Link\b/g)?.length, 1);
+  assert.equal(inventoryCard.match(/<Link\b/g)?.length, 1);
+  assert.doesNotMatch(productExperience, /\.product-visual(?:::\w+|[\s\S]{0,40})::after/);
+  assert.match(storefront, /\.product-rail::\-webkit-scrollbar\s*\{\s*display:\s*none/);
+  assert.doesNotMatch(filterStyles, /#(?:85736d|8c7972)/i);
 });
 
 test('applies combined facets and clamps invalid pages', () => {

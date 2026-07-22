@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { products } from '@/data/catalogue';
+import { reviewedProductRecords } from '@/data/catalogue';
 import { verifiedRetailOffers } from '@/data/retail-offers';
 import { nigeriaRetailers } from '@/data/retailers';
 import { hasCompletePriceObservation, hasListingEvidence } from './offer-evidence';
@@ -28,7 +28,7 @@ test('verified Nigerian observations use exact secure product pages', () => {
 });
 
 test('at least fifteen catalogue products have reliable exact Nigerian price evidence', () => {
-  const priced = products.filter(product => product.offers.some(offer =>
+  const priced = reviewedProductRecords.filter(product => product.offers.some(offer =>
     offer.location.includes('NG')
     && offer.match === 'exact'
     && typeof offer.priceNgn === 'number'
@@ -75,7 +75,7 @@ test('the inconsistent B.LAB Matcha listing is not published as an exact offer',
 });
 
 test('Ghana-priced routes never appear as Nigerian offers', () => {
-  const kuza = products.find(product => product.slug === 'kuza-indian-hemp-hair-scalp-treatment');
+  const kuza = reviewedProductRecords.find(product => product.slug === 'kuza-indian-hemp-hair-scalp-treatment');
   const perfectPicture = kuza?.offers.find(offer => offer.retailer === 'Perfect Picture Cosmetics');
 
   assert.ok(perfectPicture);
