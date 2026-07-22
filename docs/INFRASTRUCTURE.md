@@ -76,7 +76,7 @@ Production builds apply the metadata to durable `product_images` and `editorial_
 
 When `CATALOGUE_SOURCE=neon`, `p.is_published` is only the database-side gate. Every returned row is intersected with the checked-in, hash-approved static catalogue; the approved identity and Blob image replace persisted display fields. Persisted offers flow through only when the row identity and observed retailer title/size match that approved SKU; `/go` resolves through the same reconciled record. A database row cannot publish an opaque, stale, rights-held, or otherwise unapproved image.
 
-CI runs `npm run assets:verify` against every product and editorial Blob. `/image-audit` independently probes all canonical binaries plus every generated editorial fallback in a real browser.
+CI runs `npm run assets:verify` against every product and editorial Blob. `/image-audit` independently probes every canonical binary and editorial fallback, then shows each public packshot on peach, pink, and dark surfaces.
 
 ### Legacy community catalogue packshots
 

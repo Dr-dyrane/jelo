@@ -19,6 +19,12 @@ type AuditTarget = {
 };
 type Row = AuditTarget & { status: Status; fallbackStatus?: Status; host: string; sourceType: 'local' | 'remote' };
 
+const reviewSurfaces = [
+  { name: 'peach', color: 'var(--product-peach)' },
+  { name: 'pink', color: 'var(--product-pink)' },
+  { name: 'dark', color: 'var(--product-dark)' },
+] as const;
+
 function imageHost(src: string) {
   if (src.startsWith('/')) return 'local';
   try {
@@ -174,9 +180,13 @@ export function ProductImageAudit({ products, editorialAssets }: { products: Pro
 
       <div style={{ display: 'grid', gap: '1rem' }}>
         {visible.length === 0 ? <p>No products match this view.</p> : visible.map(product => (
-          <article key={product.key} style={{ display: 'grid', gridTemplateColumns: '88px minmax(0,1fr)', gap: '1rem', alignItems: 'center', padding: '1rem', borderRadius: '1.25rem', background: 'rgba(255,255,255,.52)' }}>
-            <img src={product.status === 'failed' ? product.fallback : product.image} alt="" width={88} height={88} style={{ width: 88, height: 88, objectFit: 'contain', borderRadius: '1rem', background: '#fffaf6' }} />
-            <div style={{ minWidth: 0 }}>
+          <article key={product.key} style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', padding: '1rem', borderRadius: '1.25rem', background: 'rgba(255,255,255,.52)' }}>
+            {product.kind === 'product' ? <div role="group" aria-label="Packshot surface checks" style={{ display: 'flex', gap: '.4rem', overflowX: 'auto', scrollbarWidth: 'none' }}>
+              {reviewSurfaces.map(surface => <span role="img" aria-label={`${surface.name} surface`} title={surface.name} key={surface.name} style={{ width: 76, height: 88, flex: '0 0 76px', display: 'grid', placeItems: 'center', borderRadius: '.9rem', background: surface.color }}>
+                <img src={product.status === 'failed' ? product.fallback : product.image} alt="" width={68} height={80} style={{ width: 68, height: 80, objectFit: 'contain' }} />
+              </span>)}
+            </div> : <img src={product.status === 'failed' ? product.fallback : product.image} alt="" width={88} height={88} style={{ width: 88, height: 88, objectFit: 'cover', borderRadius: '1rem', background: '#f4d4c5' }} />}
+            <div style={{ minWidth: 0, flex: '1 1 18rem' }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.5rem', alignItems: 'baseline' }}>
                 <strong>{product.brand} · {product.name}</strong>
                 <span style={{ fontSize: '.68rem', textTransform: 'uppercase', letterSpacing: '.08em', opacity: .62 }}>{product.status}</span>

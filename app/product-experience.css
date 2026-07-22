@@ -1,9 +1,16 @@
+:root {
+  --product-peach: #f1d3cc;
+  --product-pink: #edcbd3;
+  --product-blush: #f3d8ca;
+  --product-dark: #392825;
+}
+
 .product-visual,
 .product-visual-large {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: #f8ece7;
+  background: var(--product-peach);
 }
 
 .product-visual img,
