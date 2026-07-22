@@ -83,7 +83,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <a href="mailto:hello@dyrane.tech?subject=JeloCare%20affiliate%20partnership">Affiliate enquiries</a>
           </div>
           <div className="footer-legal">
-            <span>Some links pay us. They never change our advice.</span>
             <span>© {new Date().getFullYear()} Dyrane · Guidance, not diagnosis.</span>
           </div>
         </footer>

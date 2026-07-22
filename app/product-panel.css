@@ -156,8 +156,6 @@
 .product-panel-buy .retailer-list { margin-top: 0; }
 .product-panel-buy .retailer-panel,
 .product-panel-buy .retailer-list { min-width: 0; width: 100%; }
-.product-panel-buy .affiliate-note { margin-bottom: 0; }
-
 .product-panel-stores { display: grid; gap: .5rem; }
 .product-panel-stores a {
   min-height: 4.4rem;

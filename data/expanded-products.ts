@@ -13,7 +13,7 @@ export const expandedProducts: Product[] = [
   },
   {
     slug: 'cerave-blemish-control-cleanser', brand: 'CeraVe', name: 'Blemish Control Cleanser', size: '236 ml', category: 'Face', step: 'Cleanse',
-    image: 'https://africa.cerave.com/fr/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/French/Product/Blemish-control-cleanser/Blemish-Control-Cleanser-8oz-Front-new.png', displayLine: 'Unclog · smooth',
+    image: 'https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/Blemish-control-cleanser/Blemish-Control-Cleanser.png', displayLine: 'Unclog · smooth',
     bestFor: ['blemish-prone skin', 'blackheads', 'congestion'], concerns: ['acne', 'blackheads', 'whiteheads', 'pores'], skinTypes: ['oily', 'combination'], sensitiveFriendly: false,
     usage: 'Begin once daily or every other day; reduce if dry or irritated.', evidence: 'high',
     offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/cerave-blemish-control-cleanser-236ml/'), usOffer('Amazon US', 'https://www.amazon.com/s?k=CeraVe+Blemish+Control+Cleanser')]
@@ -27,7 +27,7 @@ export const expandedProducts: Product[] = [
   },
   {
     slug: 'la-roche-posay-anthelios-uvmune-400-oil-control-fluid', brand: 'La Roche-Posay', name: 'Anthelios UVMune 400 Oil Control Fluid SPF50+', size: '50 ml', category: 'Face', step: 'Protect',
-    image: 'https://media.meds.se/meds/images/image-png-2026-02-16-071704690/550/550/fill/c/3337875917568-1-png.png', displayLine: 'Protect · mattify',
+    image: 'https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95', displayLine: 'Protect · mattify',
     bestFor: ['oily skin', 'high UVA protection', 'pigmentation prevention'], concerns: ['oiliness', 'hyperpigmentation', 'dark spots', 'sensitivity'], skinTypes: ['oily', 'combination', 'sensitive'], sensitiveFriendly: true,
     usage: 'Apply generously every morning and reapply with sun exposure.', evidence: 'high',
     offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50/'), usOffer('Amazon US', 'https://www.amazon.com/s?k=La+Roche-Posay+UVMune+400+Oil+Control')]
@@ -48,7 +48,7 @@ export const expandedProducts: Product[] = [
   },
   {
     slug: 'cosrx-advanced-snail-96-mucin-power-essence', brand: 'COSRX', name: 'Advanced Snail 96 Mucin Power Essence', size: '100 ml', category: 'Face', step: 'Essence',
-    image: 'https://www.cosrx.co.kr/shopimages/cosrx/0190000005463.jpg', displayLine: 'Hydrate · recover',
+    image: 'https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577', displayLine: 'Hydrate · recover',
     bestFor: ['dehydration', 'post-blemish recovery', 'barrier support'], concerns: ['dryness', 'barrier', 'sensitivity', 'dark spots'], skinTypes: ['all'], sensitiveFriendly: true,
     usage: 'Pat onto damp skin after cleansing and before moisturizer.', evidence: 'moderate',
     offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/cosrx-advanced-snail-96-mucin-power-essence-100ml/'), usOffer('Ulta Beauty', 'https://www.ulta.com/p/advanced-snail-96-mucin-power-essence-xlsImpprod15641052', 94, 20.9)]

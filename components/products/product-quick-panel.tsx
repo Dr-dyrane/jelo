@@ -80,7 +80,7 @@ export function ProductQuickPanel(props: ProductQuickPanelProps) {
     <>
       <div className="product-quick-actions" aria-label="Product actions">
         <button type="button" onClick={event => openPanel('buy', event.currentTarget)} aria-haspopup="dialog" aria-controls={dialogId} aria-expanded={open && tab === 'buy'}>
-          <ShoppingBag size={18} aria-hidden="true" /> Buy options
+          <ShoppingBag size={18} aria-hidden="true" /> Compare prices
         </button>
         <button type="button" onClick={event => openPanel('details', event.currentTarget)} aria-haspopup="dialog" aria-controls={dialogId} aria-expanded={open && tab === 'details'}>
           <Info size={18} aria-hidden="true" /> Details
@@ -111,7 +111,6 @@ export function ProductQuickPanel(props: ProductQuickPanelProps) {
           <div className="product-panel-body" tabIndex={0}>
             {tab === 'buy' ? <section className="product-panel-buy" role="tabpanel">
               <RetailerList offers={props.offers} productSlug={props.productSlug} priceTrends={props.priceTrends}/>
-              <p className="affiliate-note">Some links earn commission. Ranking stays independent.</p>
             </section> : null}
 
             {tab === 'stores' ? <section className="product-panel-stores" role="tabpanel">

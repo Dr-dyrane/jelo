@@ -7,7 +7,10 @@ import sharp from 'sharp';
 import intake from '@/data/foundational-packshot-intake.json';
 import isolations from '@/data/foundational-packshot-isolations.json';
 import productAssets from '@/data/product-assets.json';
-import { products } from '@/data/products';
+import { expandedProducts } from '@/data/expanded-products';
+import { products as coreProducts } from '@/data/products';
+
+const reviewedProducts = [...coreProducts, ...expandedProducts];
 
 test('foundational source-pixel isolations bind the source, runtime, output and ordered reviews', async () => {
   const ids = new Set<string>();
@@ -16,7 +19,7 @@ test('foundational source-pixel isolations bind the source, runtime, output and 
     ids.add(isolation.id);
 
     const candidate = intake.candidates.find(item => item.productSlug === isolation.productSlug);
-    const product = products.find(item => item.slug === isolation.productSlug);
+    const product = reviewedProducts.find(item => item.slug === isolation.productSlug);
     assert.ok(candidate, isolation.productSlug);
     assert.ok(product, isolation.productSlug);
     assert.equal(isolation.source.url, candidate.asset.sourceUrl);

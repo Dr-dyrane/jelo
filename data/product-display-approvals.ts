@@ -146,6 +146,30 @@ export const productDisplayApprovals = {
     contentHash: '4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d',
     reviewedAt: '2026-07-22T19:25:36Z',
   }),
+  'cerave-blemish-control-cleanser': approval({
+    brand: 'CeraVe',
+    name: 'Blemish Control Cleanser',
+    size: '236 ml',
+    sourceUrl: 'https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/Blemish-control-cleanser/Blemish-Control-Cleanser.png',
+    contentHash: 'dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e',
+    reviewedAt: '2026-07-22T19:56:31Z',
+  }),
+  'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': approval({
+    brand: 'La Roche-Posay',
+    name: 'Anthelios UVMune 400 Oil Control Fluid SPF50+',
+    size: '50 ml',
+    sourceUrl: 'https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95',
+    contentHash: '561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced',
+    reviewedAt: '2026-07-22T19:57:02Z',
+  }),
+  'cosrx-advanced-snail-96-mucin-power-essence': approval({
+    brand: 'COSRX',
+    name: 'Advanced Snail 96 Mucin Power Essence',
+    size: '100 ml',
+    sourceUrl: 'https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577',
+    contentHash: '4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84',
+    reviewedAt: '2026-07-22T19:56:32Z',
+  }),
 } as const satisfies Record<string, DisplayApproval>;
 
 export function isProductDisplayApproved(

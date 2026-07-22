@@ -28,5 +28,50 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d"
+  },
+  {
+    "id": "cerave-blemish-control-cleanser-v2",
+    "active": false,
+    "productSlug": "cerave-blemish-control-cleanser",
+    "sourceUrl": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/Blemish-control-cleanser/Blemish-Control-Cleanser.png",
+    "localPath": "/products/cerave/cerave-blemish-control-cleanser-transparent-v2.png",
+    "blobPath": "products/cerave/cerave-blemish-control-cleanser/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-blemish-control-cleanser/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 623767,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e"
+  },
+  {
+    "id": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid-v2",
+    "active": false,
+    "productSlug": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+    "sourceUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
+    "localPath": "/products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-transparent-v2.png",
+    "blobPath": "products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 589307,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced"
+  },
+  {
+    "id": "cosrx-advanced-snail-96-mucin-power-essence-v2",
+    "active": false,
+    "productSlug": "cosrx-advanced-snail-96-mucin-power-essence",
+    "sourceUrl": "https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577",
+    "localPath": "/products/cosrx/cosrx-advanced-snail-96-mucin-power-essence-transparent-v2.png",
+    "blobPath": "products/cosrx/cosrx-advanced-snail-96-mucin-power-essence/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-advanced-snail-96-mucin-power-essence/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 379099,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84"
   }
 ]

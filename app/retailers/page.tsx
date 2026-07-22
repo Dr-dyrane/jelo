@@ -80,7 +80,7 @@ export default function RetailersPage() {
         <div>
           <p className="eyebrow">Our promise</p>
           <h2>Advice first.</h2>
-          <p>Some links pay us. They never change the order. A listing never proves authenticity.</p>
+          <p>A listing never proves authenticity.</p>
         </div>
         <div className={styles.disclosureActions}>
           <Link href="/products">Browse products <ArrowUpRight size={17}/></Link>

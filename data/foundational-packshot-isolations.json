@@ -67,5 +67,139 @@
     },
     "rightsStatus": "not-verified",
     "publicationScope": "legacy-foundational-display"
+  },
+  {
+    "schemaVersion": 1,
+    "id": "cosrx-advanced-snail-96-mucin-power-essence-v2",
+    "productSlug": "cosrx-advanced-snail-96-mucin-power-essence",
+    "source": {
+      "url": "https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577",
+      "sha256": "22b8bbab660b7e97fab71abb3f04ef4cb2e0eaad03eb67ad8b307107327da0d4",
+      "byteSize": 26610,
+      "mimeType": "image/jpeg",
+      "width": 800,
+      "height": 1067,
+      "retrievedAt": "2026-07-22T19:48:45Z"
+    },
+    "identity": {
+      "gtin": "8809416470009",
+      "officialProductUrl": "https://www.cosrx.com/collections/snail-mucin/products/advanced-snail-96-mucin-power-essence"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05",
+      "sessionOptions": {
+        "intraOpNumThreads": 1,
+        "interOpNumThreads": 1,
+        "executionMode": "ORT_SEQUENTIAL",
+        "deterministicCompute": true,
+        "usePerSessionThreads": true
+      },
+      "packageRgbOrigin": "identity-master-source-pixels-only"
+    },
+    "audit": {
+      "sha256": "f77e2aefe45384e7b41935bba1702219b0d4ce9fe6f9baf741ec2b53dd73d10d",
+      "generatedAt": "2026-07-22T19:50:32Z",
+      "surfaceReviewSha256": "53fdeb12cc2eeb0013d60d6b1addd82634689f2132bf0cd8a69d5b5b5dace15a",
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false
+    },
+    "output": {
+      "localPath": "/products/cosrx/cosrx-advanced-snail-96-mucin-power-essence-transparent-v2.png",
+      "sha256": "4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84",
+      "byteSize": 379099,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-07-22T19:56:31Z",
+      "identityReviewer": "Codex source audit",
+      "artReviewedAt": "2026-07-22T19:56:32Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    },
+    "rightsStatus": "not-verified",
+    "publicationScope": "legacy-foundational-display"
+  },
+  {
+    "schemaVersion": 1,
+    "id": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid-v2",
+    "productSlug": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+    "source": {
+      "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
+      "sha256": "30f310d802c87d2a0c848ca9b932f7bcbd7564573509eb79811970e5f35ce7c9",
+      "byteSize": 144121,
+      "mimeType": "image/jpeg",
+      "width": 1356,
+      "height": 1356,
+      "retrievedAt": "2026-07-22T19:48:45Z"
+    },
+    "identity": {
+      "gtin": "3337875847292",
+      "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/LRP_930.html"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05",
+      "sessionOptions": {
+        "intraOpNumThreads": 1,
+        "interOpNumThreads": 1,
+        "executionMode": "ORT_SEQUENTIAL",
+        "deterministicCompute": true,
+        "usePerSessionThreads": true
+      },
+      "packageRgbOrigin": "identity-master-source-pixels-only"
+    },
+    "audit": {
+      "sha256": "e4e55b64a8f97e1d6564e19479a8ebd7c2398d02a98569828e207f586a794e6b",
+      "generatedAt": "2026-07-22T19:50:33Z",
+      "surfaceReviewSha256": "fc2be046e1b19a392edc38d8dd15742feb605dd8e656a117be40dedd61aced9f",
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false
+    },
+    "output": {
+      "localPath": "/products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-transparent-v2.png",
+      "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
+      "byteSize": 589307,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-07-22T19:57:01Z",
+      "identityReviewer": "Codex source audit",
+      "artReviewedAt": "2026-07-22T19:57:02Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    },
+    "rightsStatus": "not-verified",
+    "publicationScope": "legacy-foundational-display"
   }
 ]

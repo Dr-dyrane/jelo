@@ -5,12 +5,13 @@ import path from 'node:path';
 import test from 'node:test';
 import sharp from 'sharp';
 import promotions from '@/data/product-asset-promotions.json';
+import { expandedProducts } from '@/data/expanded-products';
 import { products as coreProducts } from '@/data/products';
 
 test('staged product promotions are exact local bytes bound to one reviewed product', async () => {
   const ids = new Set<string>();
   const slugs = new Set<string>();
-  const productBySlug = new Map(coreProducts.map(product => [product.slug, product]));
+  const productBySlug = new Map([...coreProducts, ...expandedProducts].map(product => [product.slug, product]));
 
   for (const promotion of promotions) {
     assert.equal(ids.has(promotion.id), false, promotion.id);
