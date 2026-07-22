@@ -85,6 +85,13 @@ test('serious expanded patterns surface their deterministic referral before clar
     'Smooth milky white patches with loss of skin colour and no scale.',
     'Thick plaques with silvery scale on my elbows and nail pits.',
     'An itchy ring-shaped patch with a raised spreading edge and central clearing.',
+    'Hair loss spreading from the crown with burning and tenderness; the scalp looks smooth and shiny.',
+    'Itchy firm bumps and raised scars on the back of my neck after a close haircut.',
+    'Lighter fine scaly patches on my chest that recur in hot humid weather.',
+    'Severe itching at night between my fingers and wrists, and other people at home are itchy.',
+    'A dark line under my toenail is growing wider.',
+    'A dark spot is changing shape and bleeding.',
+    'A sore on my foot keeps healing and returning.',
   ];
 
   for (const query of descriptions) {
@@ -96,6 +103,26 @@ test('serious expanded patterns surface their deterministic referral before clar
     assert.deepEqual(payload.products, [], query);
     assert.equal(payload.report.summary, payload.clinical.referral.action, query);
     assert.equal(payload.report.followUp, payload.clinical.referral.action, query);
+  }
+});
+
+test('named conditions stop model and product use even beside product-eligible acne', async () => {
+  const cases = [
+    ['I was diagnosed with scabies and have oily acne on my forehead.', 'pharmacist'],
+    ['I have tinea versicolor and oily acne pimples.', 'pharmacist'],
+    ['I have CCCA and oily acne pimples.', 'dermatology'],
+    ['I have central centrifugal cicatricial alopecia and oily acne.', 'dermatology'],
+    ['I have AKN plus oily acne.', 'dermatology'],
+    ['I have acne keloidalis nuchae plus oily acne.', 'dermatology'],
+  ] as const;
+
+  for (const [query, referralLevel] of cases) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+    assert.equal(payload.clinical.referral.level, referralLevel, query);
+    assert.equal(payload.meta.modelCalls, 0, query);
+    assert.equal(payload.meta.safetyInterrupt, true, query);
+    assert.deepEqual(payload.products, [], query);
   }
 });
 

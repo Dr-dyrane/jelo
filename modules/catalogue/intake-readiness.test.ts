@@ -41,9 +41,9 @@ function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): C
       regulatoryEvidenceUrl: 'https://regulator.example/products/4005808319695',
       brandAuthorizationEvidenceUrl: 'https://brand.example/nigeria/retailers',
       exactOffers: [{
-        retailer: 'Nigeria Store',
+        retailer: 'Beauty by Daz',
         retailerStatus: 'directory-listed',
-        listingUrl: 'https://store.example/products/example-barrier-lotion',
+        listingUrl: 'https://beautybydaz.com/products/example-barrier-lotion',
         observedAt: '2026-07-22T09:00:00Z',
         observedTitle: 'Example Barrier Lotion',
         observedSize: '13.5 fl oz / 400 ml',
@@ -125,9 +125,10 @@ test('a provisional observation cannot satisfy the independent Tier-A route', ()
   const base = completeCandidate();
   const secondOffer = {
     ...base.nigeria.exactOffers[0],
-    retailer: 'Provisional Store',
-    retailerStatus: 'provisional' as const,
-    listingUrl: 'https://provisional.example/products/example-barrier-lotion',
+    retailer: 'Slique Beauty',
+    // Deliberately forged: readiness must derive this from the registry.
+    retailerStatus: 'directory-listed' as const,
+    listingUrl: 'https://sliquebeautylimited.com/product/example-barrier-lotion',
   };
   const item: CatalogueIntakeCandidate = {
     ...base,
@@ -141,6 +142,7 @@ test('a provisional observation cannot satisfy the independent Tier-A route', ()
   const decision = evaluateCatalogueIntakeCandidate(item, asOf);
 
   assert.equal(decision.freshExactOffers.length, 2);
+  assert.equal(decision.freshExactOffers.find(offer => offer.retailer === 'Slique Beauty')?.retailerStatus, 'provisional');
   assert.equal(decision.stage, 'nigeria');
   assert.ok(decision.blockers.includes('nigeria-market-route-insufficient'));
 
@@ -148,10 +150,48 @@ test('a provisional observation cannot satisfy the independent Tier-A route', ()
     ...item,
     nigeria: {
       ...item.nigeria,
-      exactOffers: item.nigeria.exactOffers.map(offer => ({ ...offer, retailerStatus: 'directory-listed' })),
+      exactOffers: [
+        ...base.nigeria.exactOffers,
+        {
+          ...secondOffer,
+          retailer: 'Teeka4',
+          listingUrl: 'https://teeka4.com/shop/example-barrier-lotion',
+        },
+      ],
     },
   }, asOf);
   assert.equal(independentlyListed.stage, 'approval-ready');
+});
+
+test('unknown retailers and mismatched retailer hosts cannot become exact evidence', () => {
+  const base = completeCandidate();
+  const unknown: CatalogueIntakeCandidate = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({
+        ...offer,
+        retailer: 'Unregistered Store',
+      })),
+    },
+  };
+  const wrongHost: CatalogueIntakeCandidate = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({
+        ...offer,
+        listingUrl: 'https://unrelated.example/products/example-barrier-lotion',
+      })),
+    },
+  };
+
+  for (const item of [unknown, wrongHost]) {
+    const decision = evaluateCatalogueIntakeCandidate(item, asOf);
+    assert.equal(decision.stage, 'nigeria');
+    assert.equal(decision.freshExactOffers.length, 0);
+    assert.ok(decision.blockers.includes('nigeria-exact-offer-missing'));
+  }
 });
 
 test('a raw background-removed packshot cannot become the final image', () => {
@@ -214,4 +254,74 @@ test('the manifest rejects duplicate identities before review work starts', () =
   };
 
   assert.throws(() => auditCatalogueIntakeManifest(manifest, asOf), /Duplicate catalogue intake GTIN/);
+});
+
+test('the manifest rejects normalized duplicate identities before GTIN research', () => {
+  const first = completeCandidate({
+    identity: {},
+  });
+  const duplicate = completeCandidate({
+    id: 'duplicate-barrier-lotion',
+    brand: '  EXAMPLE  ',
+    name: 'Barrier-Lotion',
+    size: '400ml',
+    identity: {},
+  });
+  const manifest = {
+    schemaVersion: catalogueIntakeSchemaVersion,
+    updatedAt: '2026-07-22T10:00:00Z',
+    candidates: [first, duplicate],
+  };
+
+  assert.throws(() => auditCatalogueIntakeManifest(manifest, asOf), /Duplicate catalogue intake identity/);
+});
+
+test('distinct GTINs cannot hide the same normalized brand, name and size', () => {
+  const first = completeCandidate();
+  const duplicate = completeCandidate({
+    id: 'regional-barrier-lotion',
+    brand: 'EXAMPLE',
+    name: 'Barrier-Lotion',
+    size: '400ml',
+    identity: { ...first.identity, gtin: '0302994113002' },
+  });
+  const manifest = {
+    schemaVersion: catalogueIntakeSchemaVersion,
+    updatedAt: '2026-07-22T10:00:00Z',
+    candidates: [first, duplicate],
+  };
+
+  assert.throws(() => auditCatalogueIntakeManifest(manifest, asOf), /Duplicate catalogue intake identity/);
+});
+
+test('decimal formatting cannot hide the same normalized size', () => {
+  const first = completeCandidate({ size: '13.5 fl oz' });
+  const duplicate = completeCandidate({
+    id: 'decimal-barrier-lotion',
+    size: '13.50 fl oz',
+    identity: { ...first.identity, gtin: '0302994113002' },
+  });
+  const manifest = {
+    schemaVersion: catalogueIntakeSchemaVersion,
+    updatedAt: '2026-07-22T10:00:00Z',
+    candidates: [first, duplicate],
+  };
+
+  assert.throws(() => auditCatalogueIntakeManifest(manifest, asOf), /Duplicate catalogue intake identity/);
+});
+
+test('reordered dual-unit labels cannot hide the same normalized size', () => {
+  const first = completeCandidate({ size: '13.5 fl oz / 400 ml' });
+  const duplicate = completeCandidate({
+    id: 'reordered-size-barrier-lotion',
+    size: '400 ml / 13.50 fl oz',
+    identity: { ...first.identity, gtin: '0302994113002' },
+  });
+  const manifest = {
+    schemaVersion: catalogueIntakeSchemaVersion,
+    updatedAt: '2026-07-22T10:00:00Z',
+    candidates: [first, duplicate],
+  };
+
+  assert.throws(() => auditCatalogueIntakeManifest(manifest, asOf), /Duplicate catalogue intake identity/);
 });

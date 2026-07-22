@@ -1,4 +1,5 @@
 import { isValidGtin } from './gtin';
+import { nigeriaRetailers } from '@/data/retailers';
 import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
 
 export const catalogueIntakeSchemaVersion = 1 as const;
@@ -89,6 +90,7 @@ export type CatalogueIntakeBlocker =
   | 'asset-final-image-invalid'
   | 'asset-final-image-too-small'
   | 'asset-automated-cutout'
+  | 'asset-background-treatment-unresolved'
   | 'asset-packaging-not-intact'
   | 'asset-identity-qa-missing'
   | 'asset-not-magazine-ready';
@@ -128,7 +130,55 @@ function validPastDate(value: string | undefined, asOf: number) {
   return Number.isFinite(parsed) && parsed <= asOf + 5 * 60_000;
 }
 
-function offerMatches(candidate: CatalogueIntakeCandidate, offer: CatalogueIntakeOffer, asOf: number) {
+function normalized(value: string) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function normalizedSize(value: string) {
+  const measurementTokens: string[] = [];
+  const remainder = value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(
+      /\b(\d+(?:[.,]\d+)?)\s*(fl\.?\s*oz|ml|cl|l|mg|kg|g|oz|count|pcs?|pieces?|pack)\b/g,
+      (_match, rawAmount: string, rawUnit: string) => {
+        const amount = Number(rawAmount.replace(',', '.'));
+        const amountToken = Number.isFinite(amount) ? String(amount).replace('.', 'd') : rawAmount;
+        const unitToken = rawUnit.replace(/[^a-z]/g, '').replace(/^pieces?$/, 'pc').replace(/^pcs?$/, 'pc');
+        measurementTokens.push(`${amountToken}${unitToken}`);
+        return ' ';
+      },
+    );
+  return [...measurementTokens.sort(), normalized(remainder)].filter(Boolean).join(' ');
+}
+
+function normalizedIdentity(candidate: CatalogueIntakeCandidate) {
+  return [normalized(candidate.brand), normalized(candidate.name), normalizedSize(candidate.size)].join('|');
+}
+
+function canonicalRetailerOffer(offer: CatalogueIntakeOffer) {
+  const retailer = nigeriaRetailers.find(item => normalized(item.name) === normalized(offer.retailer));
+  if (!retailer) return undefined;
+
+  const listing = new URL(offer.listingUrl);
+  const homepage = new URL(retailer.homepage);
+  const host = (value: URL) => value.hostname.replace(/^www\./, '').toLowerCase();
+  if (host(listing) !== host(homepage)) return undefined;
+
+  return {
+    ...offer,
+    retailer: retailer.name,
+    retailerStatus: retailer.reviewStatus,
+  } satisfies CatalogueIntakeOffer;
+}
+
+function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueIntakeOffer, asOf: number) {
   const observedAt = Date.parse(offer.observedAt);
   if (
     !offer.retailer.trim()
@@ -138,22 +188,25 @@ function offerMatches(candidate: CatalogueIntakeCandidate, offer: CatalogueIntak
     || observedAt > asOf + 5 * 60_000
     || !Number.isFinite(offer.priceNgn)
     || offer.priceNgn <= 0
-  ) return false;
+  ) return undefined;
+
+  const canonicalOffer = canonicalRetailerOffer(offer);
+  if (!canonicalOffer) return undefined;
 
   try {
     assertRetailerResponseScope({
-      requestedUrl: offer.listingUrl,
-      responseUrl: offer.listingUrl,
+      requestedUrl: canonicalOffer.listingUrl,
+      responseUrl: canonicalOffer.listingUrl,
       expectedTitle: candidate.variant,
       expectedSize: candidate.size,
-      observedTitle: offer.observedTitle,
-      observedSize: offer.observedSize,
+      observedTitle: canonicalOffer.observedTitle,
+      observedSize: canonicalOffer.observedSize,
       marketCode: 'NG',
       currencyCode: 'NGN',
     });
-    return true;
+    return canonicalOffer;
   } catch {
-    return false;
+    return undefined;
   }
 }
 
@@ -209,6 +262,9 @@ function editorialBlockers(candidate: CatalogueIntakeCandidate): CatalogueIntake
   if (!candidate.asset.publicImageSha256 || !hashPattern.test(candidate.asset.publicImageSha256)) blockers.push('asset-final-image-invalid');
   if (!Number.isInteger(candidate.asset.width) || !Number.isInteger(candidate.asset.height) || (candidate.asset.width ?? 0) < 1_600 || (candidate.asset.height ?? 0) < 1_600) blockers.push('asset-final-image-too-small');
   if (candidate.asset.backgroundTreatment === 'automated-removal') blockers.push('asset-automated-cutout');
+  if (!['none', 'styled-composite', 'source-pixel-isolation'].includes(candidate.asset.backgroundTreatment ?? '')) {
+    blockers.push('asset-background-treatment-unresolved');
+  }
   if (candidate.asset.packaging !== 'intact') blockers.push('asset-packaging-not-intact');
   if (
     candidate.asset.labelVariantSizeUnchanged !== true
@@ -229,7 +285,10 @@ const actionForStage: Record<CatalogueIntakeStage, string> = {
 };
 
 export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandidate, asOf = Date.now()): CatalogueIntakeDecision {
-  const freshExactOffers = candidate.nigeria.exactOffers.filter(offer => offerMatches(candidate, offer, asOf));
+  const freshExactOffers = candidate.nigeria.exactOffers.flatMap(offer => {
+    const match = matchingOffer(candidate, offer, asOf);
+    return match ? [match] : [];
+  });
   const groups: Array<[Exclude<CatalogueIntakeStage, 'approval-ready'>, CatalogueIntakeBlocker[]]> = [
     ['identity', identityBlockers(candidate, asOf)],
     ['care', careBlockers(candidate, asOf)],
@@ -249,12 +308,14 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
   };
 }
 
-export function auditCatalogueIntakeManifest(manifest: CatalogueIntakeManifest, asOf = Date.now()) {
-  if (manifest.schemaVersion !== catalogueIntakeSchemaVersion) throw new Error('Unsupported catalogue intake schema.');
-  if (!validPastDate(manifest.updatedAt, asOf)) throw new Error('Catalogue intake timestamp is invalid or in the future.');
+export function auditCatalogueIntakeCandidates(
+  candidates: readonly CatalogueIntakeCandidate[],
+  asOf = Date.now(),
+) {
   const ids = new Set<string>();
   const gtins = new Set<string>();
-  for (const candidate of manifest.candidates) {
+  const identities = new Set<string>();
+  for (const candidate of candidates) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(candidate.id)) throw new Error(`Invalid catalogue intake id: ${candidate.id}`);
     if (ids.has(candidate.id)) throw new Error(`Duplicate catalogue intake id: ${candidate.id}`);
     ids.add(candidate.id);
@@ -262,6 +323,9 @@ export function auditCatalogueIntakeManifest(manifest: CatalogueIntakeManifest, 
       if (gtins.has(candidate.identity.gtin)) throw new Error(`Duplicate catalogue intake GTIN: ${candidate.identity.gtin}`);
       gtins.add(candidate.identity.gtin);
     }
+    const identity = normalizedIdentity(candidate);
+    if (identities.has(identity)) throw new Error(`Duplicate catalogue intake identity: ${candidate.brand} ${candidate.name} ${candidate.size}`);
+    identities.add(identity);
     if (!candidate.brand.trim() || !candidate.name.trim() || !candidate.variant.trim() || !candidate.reason.trim()) {
       throw new Error(`Catalogue intake ${candidate.id} is missing its deliberate research context.`);
     }
@@ -275,7 +339,13 @@ export function auditCatalogueIntakeManifest(manifest: CatalogueIntakeManifest, 
       }
     }
   }
-  return manifest.candidates.map(candidate => evaluateCatalogueIntakeCandidate(candidate, asOf));
+  return candidates.map(candidate => evaluateCatalogueIntakeCandidate(candidate, asOf));
+}
+
+export function auditCatalogueIntakeManifest(manifest: CatalogueIntakeManifest, asOf = Date.now()) {
+  if (manifest.schemaVersion !== catalogueIntakeSchemaVersion) throw new Error('Unsupported catalogue intake schema.');
+  if (!validPastDate(manifest.updatedAt, asOf)) throw new Error('Catalogue intake timestamp is invalid or in the future.');
+  return auditCatalogueIntakeCandidates(manifest.candidates, asOf);
 }
 
 export function rankCatalogueIntake(decisions: readonly CatalogueIntakeDecision[]) {

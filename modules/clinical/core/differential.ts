@@ -129,6 +129,20 @@ const rules: PatternRule[] = [
     missing: ['Does the patch have a raised or spreading edge?', 'Is the scalp, beard or nail involved?', 'Has anyone close to you or a pet had a similar rash?'],
   },
   {
+    id: 'tinea-versicolor-like', label: 'Light-or-dark scaly-patch pattern',
+    positives: [
+      { terms: ['tinea versicolor', 'pityriasis versicolor', 'lighter fine scaly patches', 'light scaly patches', 'dark scaly patches'], weight: 42, reason: 'Fine-scaled lighter or darker patches support this pattern.' },
+      { terms: ['fine scale', 'fine scaly', 'powdery scale'], weight: 20, reason: 'Fine surface scale helps distinguish this pattern from simple colour loss.' },
+      { terms: ['hot humid', 'warm humid', 'humid weather', 'returns in summer'], weight: 20, reason: 'Warm, humid recurrence supports this pattern.' },
+      { terms: ['chest', 'upper back', 'shoulders', 'neck'], weight: 8, reason: 'The reported distribution can fit this pattern.' },
+    ],
+    negatives: [
+      { terms: ['ring shaped', 'ring-shaped', 'central clearing'], weight: 22, reason: 'A ring with central clearing suggests a different fungal-rash pattern.' },
+      { terms: ['milky white', 'no scale'], weight: 18, reason: 'Complete colour loss without scale needs a different assessment.' },
+    ],
+    missing: ['Is there a fine surface scale?', 'Are patches lighter or darker than nearby skin?', 'Do they recur in warm, humid weather?'],
+  },
+  {
     id: 'pseudofolliculitis-like', label: 'Ingrown-hair or razor-bump pattern',
     positives: [
       { terms: ['ingrown hair', 'ingrown hairs', 'razor bumps', 'trapped hair'], weight: 44, reason: 'Ingrown hairs or razor bumps were directly described.' },
@@ -136,6 +150,17 @@ const rules: PatternRule[] = [
       { terms: ['curly hair', 'coarse hair'], weight: 8, reason: 'Curved or coarse hair can increase ingrown-hair risk.' },
     ],
     missing: ['Can you see a trapped or curved hair?', 'Did this begin after shaving or waxing?', 'Is there spreading warmth, severe pain or fever?'],
+  },
+  {
+    id: 'acne-keloidalis-nuchae-like', label: 'Back-of-neck bump pattern',
+    positives: [
+      { terms: ['acne keloidalis nuchae', 'akn'], weight: 52, reason: 'A named back-of-neck bump condition was reported and needs confirmation.' },
+      { terms: ['back of my neck', 'back of the neck', 'back of my scalp', 'back of the scalp', 'nape of my neck', 'nape of the neck'], weight: 26, reason: 'The back-of-neck or scalp location supports this pattern.' },
+      { terms: ['firm bumps', 'dome-shaped bumps', 'dome shaped bumps', 'raised scars', 'tufted hairs', 'tufted hair'], weight: 34, reason: 'Firm bumps, tufted hairs or raised scars support this pattern.' },
+      { terms: ['close haircut', 'close-cut', 'close cut', 'close shave', 'helmet friction', 'collar friction'], weight: 18, reason: 'Close cutting or repeated friction can accompany this pattern.' },
+    ],
+    negatives: [{ terms: ['beard line', 'bikini line', 'trapped hair'], weight: 18, reason: 'A visible trapped hair elsewhere supports an ingrown-hair pattern instead.' }],
+    missing: ['Are the bumps at the back of the neck or scalp?', 'Are there raised scars, pus or tufted hairs?', 'Do close cuts, collars or headwear worsen it?'],
   },
   {
     id: 'hidradenitis-like', label: 'Recurring deep-lump pattern',
@@ -174,6 +199,21 @@ const rules: PatternRule[] = [
     missing: ['Which styles place tension on the area?', 'Does styling hurt or cause bumps?', 'Is the skin smooth, shiny or scarred?'],
   },
   {
+    id: 'ccca-like', label: 'Crown hair-loss pattern',
+    positives: [
+      { terms: ['ccca', 'central centrifugal cicatricial alopecia'], weight: 52, reason: 'A named crown hair-loss condition was reported and needs confirmation.' },
+      { terms: ['hair loss spreading from the crown', 'hair loss at the crown', 'hair thinning at the crown', 'crown hair loss', 'centre of my scalp', 'center of my scalp'], weight: 46, reason: 'Hair loss beginning around the crown supports this pattern.' },
+      { terms: ['smooth shiny scalp', 'scalp looks smooth and shiny', 'shiny scalp'], weight: 28, reason: 'A smooth or shiny scalp can indicate scarring hair loss.' },
+      { terms: ['scalp burning', 'burning and tenderness', 'tender scalp', 'scalp tenderness', 'scalp stinging'], weight: 18, reason: 'Burning, stinging or tenderness can accompany this pattern.' },
+      { terms: ['breakage at the crown', 'crown breakage', 'breakage in the centre', 'breakage in the center'], weight: 16, reason: 'Central breakage may be an early sign.' },
+    ],
+    negatives: [
+      { terms: ['tight braids', 'hairline thinning', 'edges thinning'], weight: 18, reason: 'Tension and hairline loss support traction-related loss instead.' },
+      { terms: ['smooth bald patch', 'round bald patch'], weight: 18, reason: 'A discrete smooth patch can support another hair-loss pattern.' },
+    ],
+    missing: ['Did thinning begin at the crown and spread outward?', 'Is there burning, tenderness, itch or breakage?', 'Does the scalp look smooth or shiny?'],
+  },
+  {
     id: 'keratosis-pilaris-like', label: 'Rough follicular-bump pattern',
     positives: [
       { terms: ['rough tiny bumps', 'chicken skin', 'keratosis pilaris'], weight: 44, reason: 'Small rough follicular bumps support a keratosis-pilaris-like pattern.' },
@@ -190,6 +230,17 @@ const rules: PatternRule[] = [
       { terms: ['small raised spots', 'tiny itchy spots'], weight: 10, reason: 'Small itchy raised spots add support.' },
     ],
     missing: ['Did this begin after heat or heavy sweating?', 'Does cooling the skin help?', 'Is there fever, pain, pus or rapid spread?'],
+  },
+  {
+    id: 'scabies-like', label: 'Household night-itch pattern',
+    positives: [
+      { terms: ['scabies'], weight: 52, reason: 'A named contagious-itch condition was reported and needs confirmation.' },
+      { terms: ['itching at night', 'itch worse at night', 'night-time itch', 'nighttime itch', 'night itch'], weight: 40, reason: 'Itch that is worse at night supports this pattern.' },
+      { terms: ['between my fingers', 'between the fingers', 'finger webs', 'wrists', 'belt area'], weight: 18, reason: 'The reported distribution can fit this pattern.' },
+      { terms: ['other people at home are itchy', 'household is itchy', 'family is itchy', 'close contacts are itchy', 'others at home are itchy'], weight: 34, reason: 'Similar itch in close contacts raises concern for a contagious pattern.' },
+      { terms: ['itchy lines', 'skin burrows', 'burrows'], weight: 20, reason: 'Itchy lines or burrows add support.' },
+    ],
+    missing: ['Is the itch worse at night?', 'Are finger webs, wrists or the belt area affected?', 'Is anyone close to you also itching?'],
   },
 ];
 

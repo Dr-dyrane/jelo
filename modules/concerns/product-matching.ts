@@ -11,6 +11,7 @@ function areaMatches(product: ConcernProduct, concern: Concern) {
 }
 
 export function productMatchesConcern(product: ConcernProduct, concern: Concern) {
+  if (concern.kind === 'condition-pattern') return false;
   const review = getReviewedProductCare(product.slug);
   if (!review || review.careState !== 'supportive_eligible') return false;
   const approvedConcernSlugs = new Set(review.approvedUses.flatMap(use => use.concernSlugs ?? []));

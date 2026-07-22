@@ -138,7 +138,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <div className={styles.sectionHeading}>
         <div><p className={styles.kicker}>Browse</p><h2>Your way.</h2></div>
         <div className={styles.browseTabs} aria-label="Browse catalogue by">
-          {(['category', 'concern'] as const).map(mode => <Link className={browse === mode ? styles.active : ''} href={href(params, { browse: mode, category: null, concern: null, step: null }, 'browse')} key={mode}>{mode}</Link>)}
+          {(['category', 'concern'] as const).map(mode => <Link aria-current={browse === mode ? 'page' : undefined} className={browse === mode ? styles.active : ''} href={href(params, { browse: mode, category: null, concern: null, step: null }, 'browse')} key={mode}>{mode}</Link>)}
         </div>
       </div>
       <div className={styles.browseRail}>

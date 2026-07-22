@@ -35,6 +35,9 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Verify private publication dossiers
+        run: npm run catalogue:publication:verify
+
       - name: Verify canonical media
         run: npm run assets:verify
 

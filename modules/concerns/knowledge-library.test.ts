@@ -3,7 +3,7 @@ import test from 'node:test';
 import { concerns } from '@/data/knowledge';
 
 test('provides sourced concern guidance without turning condition patterns into product matches', () => {
-  assert.ok(concerns.length >= 19);
+  assert.ok(concerns.length >= 23);
   assert.equal(new Set(concerns.map(concern => concern.slug)).size, concerns.length);
 
   for (const concern of concerns) {
@@ -14,7 +14,10 @@ test('provides sourced concern guidance without turning condition patterns into 
     for (const source of concern.sources) {
       const url = new URL(source.url);
       assert.equal(url.protocol, 'https:');
-      assert.ok(url.hostname === 'www.aad.org' || url.hostname === 'www.nhs.uk', source.url);
+      assert.ok(
+        url.hostname === 'www.aad.org' || url.hostname === 'www.nhs.uk' || url.hostname === 'www.who.int',
+        source.url,
+      );
     }
     if (concern.kind === 'condition-pattern') {
       assert.deepEqual(concern.productTerms, [], `${concern.slug} must not drive product recommendations`);

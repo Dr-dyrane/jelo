@@ -11,6 +11,12 @@ import { rankProductsForConcerns } from '@/modules/concerns/product-matching';
 import styles from './concern-selector.module.css';
 import feedbackStyles from './concern-feedback.module.css';
 
+function matchedConcernNames(slugs: string[], concerns: Concern[]) {
+  return slugs
+    .map(slug => concerns.find(concern => concern.slug === slug)?.name)
+    .filter((name): name is string => Boolean(name));
+}
+
 export function ConcernSelector({ concerns, products, initialSelected }: { concerns: Concern[]; products: Product[]; initialSelected: string[] }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -91,7 +97,7 @@ export function ConcernSelector({ concerns, products, initialSelected }: { conce
 
         <p className={styles.resultCount}>{ranked.length} {ranked.length === 1 ? 'product' : 'products'} · {selected.length} selected</p>
         {ranked.length ? <div className={styles.productGrid}>{ranked.map(result => <div className={styles.productMatch} key={result.product.slug}>
-          <span>Matches {result.matchedConcernSlugs.length} of {selected.length}</span>
+          <span>Matches {matchedConcernNames(result.matchedConcernSlugs, concerns).join(' · ')}</span>
           <ProductCard product={result.product}/>
         </div>)}</div> : <p className={styles.empty}>No care-cleared product yet.</p>}
       </section> : null}

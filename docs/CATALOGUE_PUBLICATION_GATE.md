@@ -39,6 +39,18 @@ The count-first Open Beauty Facts importer, mirror, selector and cutout release 
 
 The initial approval manifest is intentionally empty. This preserves the legacy research pool without presenting source availability, attractive imagery, or a high automated score as a finished public catalogue.
 
+## Private publication dossiers
+
+`data/catalogue-publication-dossiers.json` is the source-agnostic handoff for a candidate that has cleared every intake gate. It is intentionally empty. `createCataloguePublicationDossier` binds the exact identity, official and demand sources, care review, registry-reconciled Nigerian observations, rights evidence, final image URL/hash/dimensions, reviewer and approval time into candidate and dossier fingerprints.
+
+The dossier remains a private, non-recommendation artifact. No public catalogue or inventory module imports it, and the current database schema cannot publish it. Any candidate, evidence, rights, image or approval change invalidates the stored fingerprints. Verify the checked-in structure offline with:
+
+```bash
+npm run catalogue:publication:verify
+```
+
+This verifier does not fetch or approve image bytes. Remote byte, alpha, edge and surface verification remains mandatory in a later publication boundary; a structurally valid dossier is never publication permission by itself.
+
 ## Shared audit dimensions
 
 The deterministic quality assessment works across community candidates and JeloCare-reviewed products:

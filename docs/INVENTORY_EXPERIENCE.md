@@ -8,6 +8,9 @@ Updated: 2026-07-22
 - [Apple accessories catalogue](https://www.apple.com/shop/accessories/all)
 - [Shop Explore](https://shop.app/categories)
 - [Shop Beauty](https://shop.app/categories/5/beauty)
+- [Shop customer search and discovery](https://help.shopify.com/en/manual/online-sales-channels/shop/customer-experience)
+- [Shop products and collections](https://help.shopify.com/en/manual/online-sales-channels/shop/manage-shop-store/products-and-collections)
+- [Shop product reviews](https://help.shopify.com/en/manual/online-sales-channels/shop/product-reviews)
 - [Open Beauty Facts data exports](https://world.openbeautyfacts.org/data)
 - [Open Beauty Facts API notes](https://openfoodfacts.github.io/documentation/docs/Product-Opener/api/tutorials/scanning-cosmetics-pet-food-and-other-products/)
 
@@ -16,6 +19,8 @@ Updated: 2026-07-22
 Apple makes one task dominant at a time. Search is prominent, browse modes are explicit, visual categories are easy to scan, and curated shelves come before the full catalogue. Service reassurance follows the products instead of interrupting discovery.
 
 Shop makes a large catalogue feel current. It uses compact visual category rails, human-led editorial collections, dense product signals, and repeated horizontal shelves instead of one endless grid.
+
+The live catalogue review on 2026-07-22 also set useful limits. Apple does not lead with a large filter system on its all-accessories page; clear taxonomy and short curated shelves do most of the work. Shop starts search with concrete suggestions and puts company, current price, meaningful discount, and purchase-linked review evidence on cards. JeloCare can borrow the discovery hierarchy, but not ratings, sale claims, or personalization signals it cannot independently verify.
 
 ## JeloCare direction
 
@@ -37,6 +42,8 @@ The page order is:
 5. curated reviewed-product shelves;
 6. paged all-products catalogue with a filter sheet;
 7. source, review, price, and affiliate disclosure.
+
+Current cards keep evidence compact: exact fresh comparable offers render as a lowest observed price plus the number of stores in that comparison. A single observation is not presented as a multi-store comparison. Search assistance and multi-select facets remain later work; they must stay auditable, hide zero-result choices, and never turn a condition pattern into product matching.
 
 ## Visual rules
 
@@ -70,6 +77,8 @@ The catalogue keeps candidate count, public approval, and recommendation eligibi
 - new candidates enter the private per-SKU queue in `data/catalogue-intake.json` and advance only through explicit identity, care, Nigeria, rights, editorial, and approval-draft gates;
 - a community candidate becomes public only through an identity-bound approval in `data/external-product-approvals.json`;
 - approving a community record for discovery never makes it recommendation-eligible.
+
+Current derived state is 23 reviewed research records, 10 display-approved public records, 977 frozen private bulk candidates, 5 deliberate per-SKU intake candidates, and 0 approval-ready intake candidates. The `publicCatalogueCount` value inside the frozen legacy bulk metadata describes the retired count-first release target; it is not current public inventory and must not be used in UI or operational reporting.
 
 Imported records must have a barcode, product name, brand, mapped beauty category, source record URL, source-hosted product image, and source update timestamp. They are deduplicated against reviewed records and each other.
 
