@@ -72,6 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <strong>Explore</strong>
             <Link href="/products">All products</Link>
             <Link href="/concerns">Browse concerns</Link>
+            <Link href="/contribute">Contribute</Link>
             <Link href="/consult">Ask JeloCare</Link>
             <Link href="/ingredients">Ingredient library</Link>
             <Link href="/retailers">Retailer guide</Link>

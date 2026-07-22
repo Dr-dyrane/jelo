@@ -42,10 +42,13 @@
     "catalogue:packshots:validate": "tsx scripts/publish-catalogue-packshots.ts --validate-only",
     "catalogue:packshots:publish": "tsx scripts/publish-catalogue-packshots.ts",
     "catalogue:packshots:manifest:validate": "tsx scripts/validate-external-packshot-manifest.ts",
-    "catalogue:packshots:remote:verify": "tsx scripts/validate-external-packshot-manifest.ts --remote"
+    "catalogue:packshots:remote:verify": "tsx scripts/validate-external-packshot-manifest.ts --remote",
+    "community:intake:purge": "tsx scripts/purge-community-intake-drafts.ts"
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.221",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "@vercel/analytics": "2.0.1",
     "@vercel/blob": "2.6.1",
     "ai": "6.0.224",

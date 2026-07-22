@@ -10,6 +10,7 @@ import styles from './site-header.module.css';
 const mobileLinks = [
   { href: '/concerns', label: 'Concerns', detail: 'Start with what you notice' },
   { href: '/products', label: 'Products', detail: 'Find what fits' },
+  { href: '/contribute', label: 'Contribute', detail: 'Add what you know' },
   { href: '/consult', label: 'Ask JeloCare', detail: 'Create a simple guide' },
 ];
 
@@ -87,6 +88,7 @@ export function SiteHeader() {
           <div className={styles.links} aria-hidden={open}>
             <Link href="/concerns">Concerns</Link>
             <Link href="/products">Products</Link>
+            <Link href="/contribute">Contribute</Link>
             <Link href="/consult">Consult</Link>
           </div>
 

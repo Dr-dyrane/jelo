@@ -1,6 +1,6 @@
 # ADR 0001: Defer trust, collections, community, and stock alerts
 
-- **Status:** Deferred option — documented, not accepted for implementation
+- **Status:** Deferred option — partially superseded by ADR 0002 for anonymous knowledge intake only
 - **Date:** 2026-07-22
 - **Decision horizon:** After the current catalogue, retail-intelligence, Ask Jelo, and clinical-safety work is complete and demonstrably strong
 - **Future reviewers:** Product, Product Design, Clinical Safety, Trust & Safety, Privacy, Retail Intelligence, Accessibility, and Engineering
