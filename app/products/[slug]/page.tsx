@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <h1>{product.name}</h1>
           <div className="product-title-meta"><span>{product.size}</span><span>{product.category}</span><span>{product.step}</span></div>
           <p className="product-line">{product.displayLine}</p>
-          <p className="product-page-price"><MarketPrice slug={product.slug} offers={product.offers} market="NG"/></p>
+          <p className="product-page-price"><MarketPrice offers={product.offers} market="NG"/></p>
           {matchedConcerns.length ? <div className="product-concern-links">{matchedConcerns.map(concern => <Link key={concern.slug} href={`/concerns/${concern.slug}`}>{concern.name}</Link>)}</div> : null}
           <dl className="facts">
             <div><dt>Best for</dt><dd>{product.bestFor.join(' · ')}</dd></div>

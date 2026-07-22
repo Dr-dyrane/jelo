@@ -27,10 +27,9 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
       const matchesQuery = !normalized || searchable.includes(normalized);
       const matchesCategory = category === 'All' || product.category === category;
       const matchesConcern = !concern || product.concerns.some(value => value.includes(concern) || concern.includes(value));
-      const matchesMarket = product.offers.some(offer => offer.available && (offer.location.includes(market) || offer.location.includes('INTL')));
-      return matchesQuery && matchesCategory && matchesConcern && matchesMarket;
+      return matchesQuery && matchesCategory && matchesConcern;
     });
-  }, [products, query, category, concern, market]);
+  }, [products, query, category, concern]);
 
   const hasFilters = Boolean(query || concern || category !== 'All');
   const clearFilters = () => {
@@ -61,7 +60,7 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
       </div>
 
       <div className={styles.resultLine}>
-        <p><strong>{filtered.length}</strong> {filtered.length === 1 ? 'product' : 'products'} available for {market === 'NG' ? 'Nigeria' : 'the United States'}</p>
+        <p><strong>{filtered.length}</strong> {filtered.length === 1 ? 'product' : 'products'} · {market === 'NG' ? 'Nigeria' : 'United States'} prices</p>
         {hasFilters ? <button type="button" onClick={clearFilters}>Clear filters</button> : null}
       </div>
 
@@ -69,8 +68,8 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
         <div className={styles.empty}>
           <p className="eyebrow">Nothing exact yet</p>
           <h2>Try a broader concern.</h2>
-          <p>Clear one filter or switch market to see the closest verified catalogue matches.</p>
-          <button type="button" onClick={clearFilters}>Show available products</button>
+          <p>Clear a filter to see the closest catalogue matches.</p>
+          <button type="button" onClick={clearFilters}>Show all products</button>
         </div>
       )}
     </section>

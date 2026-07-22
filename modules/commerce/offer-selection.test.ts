@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { products } from '@/data/catalogue';
 import type { Offer } from '@/data/products';
-import { formatBaselinePrice } from '@/data/prices';
 import { rankOffers } from '@/modules/commerce/offer-selection';
 
 test('Nigeria ranks an available exact offer above search and unavailable routes', () => {
@@ -30,8 +29,4 @@ test('known size mismatch is removed from the exact comparison', () => {
   assert.ok(product);
   assert.equal(product.offers.some(offer => offer.retailer === 'Care to Beauty'), false);
   assert.equal(product.offers.some(offer => offer.retailer === 'CSi Grocery' && offer.priceNgn === 27500), true);
-});
-
-test('a missing Nigerian price never falls through to a US price', () => {
-  assert.equal(formatBaselinePrice('the-ordinary-azelaic-acid-suspension-10', 'NG'), 'Live price');
 });

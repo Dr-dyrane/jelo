@@ -27,6 +27,11 @@ test('consult pricing never falls through to another market', () => {
   assert.equal(marketProductPrice(item, 'NG'), null);
 });
 
+test('consult pricing never falls back to a dated catalogue baseline', () => {
+  const item = product({ slug: 'some-by-mi-aha-bha-pha-miracle-toner' });
+  assert.equal(marketProductPrice(item, 'NG'), null);
+});
+
 test('recommendation links exclude search routes and unavailable offers', () => {
   const item = product({ offers: [
     { retailer: 'Search', url: 'https://example.com/search', trust: 100, available: true, match: 'search', location: ['NG'] },

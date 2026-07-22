@@ -1,4 +1,4 @@
-import { baselinePrices, type Market } from '@/data/prices';
+import type { Market } from '@/data/prices';
 import type { Offer, Product } from '@/data/products';
 import { rankOffers } from './offer-selection';
 
@@ -37,8 +37,7 @@ export function marketProductPrice(product: Product, market: Market): MarketProd
     };
   }
 
-  const baseline = baselinePrices[product.slug]?.[market];
-  return baseline ? { ...baseline } : null;
+  return null;
 }
 
 export function marketRetailerLinks(product: Product, market: Market, limit = 2) {
