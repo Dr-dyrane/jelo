@@ -17,9 +17,29 @@ const strokeWarningPatterns = [
 ];
 const seriousInfectionContext = /\b(?:skin|rash|swelling|cellulitis)\b/i;
 const seriousInfectionWarning = /\b(?:shaking|fast breathing|fast heartbeat|purple patches|confusion|disorient(?:ed|ation)|became confused|feel confused|suddenly confused|cold clammy skin|collapse|collapsed)\b/i;
+const namedSevereMedicineReaction = /\b(?:sjs|stevens[- ]johnson syndrome|toxic epidermal necrolysis)\b/i;
+const medicineMention = /\b(?:medicine|medication|drug|antibiotic|painkiller)\b/i;
+
+function hasSevereMedicineReactionWarning(text: string) {
+  if (namedSevereMedicineReaction.test(text)) return true;
+  if (!medicineMention.test(text)) return false;
+  if (!/\b(?:rash|skin|patch(?:es)?|blister(?:s|ed|ing)?|peel(?:s|ed|ing)?|sores?)\b/i.test(text)) return false;
+  const spreadingOrTarget = /\b(?:spreading|target[- ]like|circular[^.]{0,32}darker in the middle)\b/i.test(text);
+  const blistering = /\bblister(?:s|ed|ing)?\b/i.test(text) && !/\b(?:no|without)\b[^.;]{0,28}\bblister(?:s|ing)?\b/i.test(text);
+  const peeling = /\bpeel(?:s|ed|ing)?\b/i.test(text) && !/\b(?:no|without)\b[^.;]{0,28}\b(?:skin\s+)?peel(?:s|ing)?\b/i.test(text);
+  const mucosalSores = /\b(?:mouth|eye|throat|genital)\s+sores?\b/i.test(text)
+    && !/\b(?:no|without)\s+(?:mouth|eye|throat|genital)(?:\s+or\s+(?:mouth|eye|throat|genital))*\s+sores?\b/i.test(text);
+  return spreadingOrTarget || blistering || peeling || mucosalSores;
+}
 
 function hits(text: string, terms: string[]) {
-  return terms.filter(term => text.includes(term));
+  return terms.filter(term => {
+    if (!text.includes(term)) return false;
+    if (term === 'fever' && /\b(?:no|without|not having|do not have|don't have)\s+(?:a\s+)?fever\b/.test(text)) return false;
+    if (term === 'chills' && /\b(?:no|without|not having|do not have|don't have)\s+chills\b/.test(text)) return false;
+    if (term === 'skin peeling' && /\b(?:no|without)\b[^.;]{0,28}\bskin peeling\b/.test(text)) return false;
+    return true;
+  });
 }
 
 function changingLesionHits(text: string) {
@@ -46,6 +66,11 @@ export function assessReferral(input: {
   if (seriousInfectionContext.test(input.text) && seriousInfectionWarning.test(input.text)) return {
     level: 'emergency', urgency: 'immediate', reasons: ['A serious infection warning sign was reported with a skin change.'],
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
+  };
+
+  if (hasSevereMedicineReactionWarning(input.text)) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['A severe medicine-reaction warning pattern was reported.'],
+    action: 'Seek emergency hospital care now and bring every medicine you take. Do not rely on skincare self-treatment.',
   };
 
   const emergency = hits(normalized, emergencyTerms);
@@ -116,6 +141,40 @@ export function assessReferral(input: {
   if (primaryId === 'velvety-thickening-like') return {
     level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
     action: 'Arrange a medical review to assess the cause. Do not scrub or treat this as surface dirt.',
+  };
+
+  if (primaryId === 'severe-medicine-reaction-like') return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A rash beginning after a medicine was reported.'],
+    action: 'Contact a clinician or pharmacist promptly. Seek emergency hospital care now if the rash spreads, becomes painful, blisters or peels, or affects the mouth, eyes, throat or genitals.',
+  };
+
+  if (primaryId === 'tinea-capitis-like' || mentionsNamedPattern(normalized, /\b(?:tinea capitis|scalp ringworm)\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A scalp fungal-infection pattern was reported.'],
+    action: 'Arrange an in-person clinician review; scalp ringworm usually needs prescription treatment rather than a skin cream alone.',
+  };
+
+  if (primaryId === 'keloid-scar-like' || mentionsNamedPattern(normalized, /\bkeloid(?: scar)?\b/)) return {
+    level: 'dermatology', urgency: 'soon', reasons: ['A growing raised-scar pattern was reported.'],
+    action: 'Arrange a non-urgent dermatology or primary-care examination before choosing scar treatment.',
+  };
+
+  if (primaryId === 'mpox-like' || mentionsNamedPattern(normalized, /\b(?:mpox|monkeypox)\b/)) {
+    const higherRisk = input.profile.pregnant
+      || (typeof input.profile.age === 'number' && input.profile.age < 18)
+      || weakenedImmunity
+      || /\b(?:dehydrat(?:ed|ion)|eye|vision|breathing|confusion)\b/.test(normalized);
+    return higherRisk ? {
+      level: 'urgent', urgency: 'same-day', reasons: ['An infectious-lesion pattern and a higher-risk context were reported.'],
+      action: 'Arrange urgent in-person medical assessment today and avoid close contact until assessed.',
+    } : {
+      level: 'primary-care', urgency: 'soon', reasons: ['An infectious-lesion pattern was reported.'],
+      action: 'Contact a health service promptly for testing advice and avoid close contact or sharing personal items until assessed.',
+    };
+  }
+
+  if (primaryId === 'painless-ulcer-like' || mentionsNamedPattern(normalized, /\bburuli ulcer\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A painless swelling or enlarging-ulcer pattern was reported.'],
+    action: 'Arrange a prompt in-person medical examination; do not rely on cosmetic or over-the-counter skincare treatment.',
   };
 
   if (mentionsNamedPattern(normalized, /\b(?:ccca|central centrifugal cicatricial alopecia|akn|acne keloidalis nuchae)\b/)) return {

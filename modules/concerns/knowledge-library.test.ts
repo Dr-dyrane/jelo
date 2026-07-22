@@ -112,3 +112,52 @@ test('dark velvety skin routes underlying-cause review instead of pigmentation s
   }
   assert.doesNotMatch(guidance, /brighten|bleach|lighten|fade|whiten/i);
 });
+
+test('next condition guides preserve examination-first care and authoritative sources', () => {
+  const expected = [
+    {
+      slug: 'scalp-ringworm-pattern',
+      pattern: 'tinea-capitis-like',
+      sources: ['https://www.nhs.uk/conditions/ringworm/'],
+      terms: ['prescription treatment', 'in-person review'],
+    },
+    {
+      slug: 'keloid-scar-pattern',
+      pattern: 'keloid-scar-like',
+      sources: [
+        'https://www.aad.org/public/diseases/a-z/keloids-overview',
+        'https://www.aad.org/public/diseases/a-z/keloids-treatment',
+      ],
+      terms: ['examination', 'grows quickly'],
+    },
+    {
+      slug: 'mpox-pattern',
+      pattern: 'mpox-like',
+      sources: ['https://www.who.int/news-room/fact-sheets/detail/mpox'],
+      terms: ['avoid close contact', 'urgent medical care'],
+    },
+    {
+      slug: 'medicine-rash-warning-pattern',
+      pattern: 'severe-medicine-reaction-like',
+      sources: ['https://www.nhs.uk/conditions/stevens-johnson-syndrome/'],
+      terms: ['emergency hospital care now', 'after a medicine'],
+    },
+    {
+      slug: 'painless-ulcer-pattern',
+      pattern: 'painless-ulcer-like',
+      sources: ['https://www.who.int/en/news-room/fact-sheets/detail/buruli-ulcer-%28mycobacterium-ulcerans-infection%29'],
+      terms: ['in-person medical examination', 'rapid enlargement'],
+    },
+  ];
+
+  for (const item of expected) {
+    const concern = concerns.find(candidate => candidate.slug === item.slug);
+    assert.ok(concern, item.slug);
+    assert.equal(concern.kind, 'condition-pattern');
+    assert.deepEqual(concern.clinicalPatternIds, [item.pattern]);
+    assert.deepEqual(concern.productTerms, []);
+    assert.deepEqual(concern.sources.map(source => source.url), item.sources);
+    const copy = `${concern.summary} ${concern.escalation}`.toLowerCase();
+    for (const term of item.terms) assert.ok(copy.includes(term), `${item.slug} is missing ${term}`);
+  }
+});

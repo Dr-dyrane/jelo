@@ -23,6 +23,11 @@ const patternCases = [
   ['Pain and tingling came before clustered blisters on only one side of my body.', 'shingles-like'],
   ['A lighter patch has reduced feeling and numbness in the patch.', 'numb-patch-like'],
   ['Dark, thickened velvety skin on my neck does not scrub away.', 'velvety-thickening-like'],
+  ['A scaly scalp patch has broken hairs, black dots and patchy hair loss.', 'tinea-capitis-like'],
+  ['A firm raised scar grew beyond the edge of my old piercing.', 'keloid-scar-like'],
+  ['Firm painful lesions are blistering and I have swollen lymph nodes after close contact with mpox.', 'mpox-like'],
+  ['A spreading target-like rash appeared after starting a new medicine.', 'severe-medicine-reaction-like'],
+  ['A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.', 'painless-ulcer-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -50,6 +55,33 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('Pain and tingling came before clustered blisters on only one side of my body.').referral.level, 'pharmacist');
   assert.equal(assessClinicalRoutine('A lighter patch has reduced feeling and numbness in the patch.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('Dark, thickened velvety skin on my neck does not scrub away.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('A scaly scalp patch has broken hairs, black dots and patchy hair loss.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('A firm raised scar grew beyond the edge of my old piercing.').referral.level, 'dermatology');
+  assert.equal(assessClinicalRoutine('Firm painful lesions are blistering and I have swollen lymph nodes after close contact with mpox.').referral.level, 'urgent');
+  assert.equal(assessClinicalRoutine('A spreading target-like rash appeared after starting a new medicine.').referral.level, 'emergency');
+  assert.equal(assessClinicalRoutine('A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.').referral.level, 'primary-care');
+});
+
+test('medicine-reaction warnings are emergencies while negated fever does not inflate ulcer triage', () => {
+  const medicineRash = assessClinicalRoutine('A spreading target-like rash appeared after starting a new medicine.');
+  assert.equal(medicineRash.differential.primary?.id, 'severe-medicine-reaction-like');
+  assert.equal(medicineRash.referral.level, 'emergency');
+  assert.equal(medicineRash.referral.urgency, 'immediate');
+  assert.match(medicineRash.referral.action, /emergency hospital care now/i);
+
+  const painlessUlcer = assessClinicalRoutine('A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.');
+  assert.equal(painlessUlcer.differential.primary?.id, 'painless-ulcer-like');
+  assert.equal(painlessUlcer.referral.level, 'primary-care');
+  assert.equal(painlessUlcer.referral.urgency, 'soon');
+
+  for (const description of [
+    'A mild rash after starting a new medicine. No blisters and no peeling.',
+    'A mild rash after starting a new medicine without blisters or skin peeling.',
+  ]) {
+    const mildMedicineRash = assessClinicalRoutine(description);
+    assert.notEqual(mildMedicineRash.referral.level, 'emergency', description);
+    assert.equal(mildMedicineRash.referral.level, 'primary-care', description);
+  }
 });
 
 test('new guide-parity patterns preserve time-sensitive and higher-risk referral boundaries', () => {
@@ -109,6 +141,10 @@ test('named conditions interrupt even when ordinary acne ranks alongside them', 
     ['I have central centrifugal cicatricial alopecia and oily acne.', 'dermatology'],
     ['I have AKN plus oily acne.', 'dermatology'],
     ['I have acne keloidalis nuchae plus oily acne.', 'dermatology'],
+    ['I have tinea capitis plus oily acne.', 'primary-care'],
+    ['I have a keloid scar plus oily acne.', 'dermatology'],
+    ['I may have mpox plus oily acne.', 'primary-care'],
+    ['I was told this could be Buruli ulcer and I also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [description, level] of cases) {

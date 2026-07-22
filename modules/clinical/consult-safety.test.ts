@@ -79,6 +79,17 @@ test('a single localized blister or pustule does not overclaim a same-day emerge
   }
 });
 
+test('a mild medicine-linked rash stops product guidance without overclaiming an emergency', async () => {
+  const query = 'A mild rash after starting a new medicine. No blisters and no peeling.';
+  const response = await POST(request({ query, market: 'NG' }));
+  const payload = await response.json();
+  assert.equal(payload.clinical.differential.primary?.id, 'severe-medicine-reaction-like');
+  assert.equal(payload.clinical.referral.level, 'primary-care');
+  assert.equal(payload.meta.safetyLevel, 'clinician-review');
+  assert.equal(payload.meta.modelCalls, 0);
+  assert.deepEqual(payload.products, []);
+});
+
 test('published guide-parity patterns stop model and product guidance with deterministic care', async () => {
   const cases = [
     {
@@ -110,6 +121,36 @@ test('published guide-parity patterns stop model and product guidance with deter
       patternId: 'velvety-thickening-like',
       safetyLevel: 'clinician-review',
       action: /medical review/i,
+    },
+    {
+      query: 'A scaly scalp patch has broken hairs, black dots and patchy hair loss.',
+      patternId: 'tinea-capitis-like',
+      safetyLevel: 'clinician-review',
+      action: /prescription treatment/i,
+    },
+    {
+      query: 'A firm raised scar grew beyond the edge of my old piercing.',
+      patternId: 'keloid-scar-like',
+      safetyLevel: 'clinician-review',
+      action: /examination before choosing scar treatment/i,
+    },
+    {
+      query: 'Firm painful lesions are blistering and I have swollen lymph nodes after close contact with mpox.',
+      patternId: 'mpox-like',
+      safetyLevel: 'urgent',
+      action: /same-day/i,
+    },
+    {
+      query: 'A spreading target-like rash appeared after starting a new medicine.',
+      patternId: 'severe-medicine-reaction-like',
+      safetyLevel: 'emergency',
+      action: /emergency hospital care now/i,
+    },
+    {
+      query: 'A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.',
+      patternId: 'painless-ulcer-like',
+      safetyLevel: 'clinician-review',
+      action: /in-person medical examination/i,
     },
   ] as const;
 
@@ -161,6 +202,10 @@ test('named conditions stop model and product use even beside product-eligible a
     ['I have central centrifugal cicatricial alopecia and oily acne.', 'dermatology'],
     ['I have AKN plus oily acne.', 'dermatology'],
     ['I have acne keloidalis nuchae plus oily acne.', 'dermatology'],
+    ['I have tinea capitis plus oily acne.', 'primary-care'],
+    ['I have a keloid scar plus oily acne.', 'dermatology'],
+    ['I may have mpox plus oily acne.', 'primary-care'],
+    ['I was told this could be Buruli ulcer and I also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [query, referralLevel] of cases) {

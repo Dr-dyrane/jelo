@@ -27,7 +27,22 @@ const clinicianReviewPatterns = [
 export type SafetyInput = { symptoms: string[] };
 
 function matches(text: string, patterns: Array<{ pattern: RegExp; label: string }>) {
-  return patterns.filter(item => item.pattern.test(text)).map(item => item.label);
+  return patterns.filter(item => {
+    if (!item.pattern.test(text)) return false;
+    if (item.label === 'fever or chills') {
+      const hasFever = /\bfever\b/i.test(text) && !/\b(?:no|without|not having|do not have|don't have)\s+(?:a\s+)?fever\b/i.test(text);
+      const hasChills = /\bchills\b/i.test(text) && !/\b(?:no|without|not having|do not have|don't have)\s+chills\b/i.test(text);
+      return hasFever || hasChills;
+    }
+    if (item.label === 'blistering or skin peeling') {
+      const hasBlistering = /\b(?:blistering|widespread\s+blisters?|multiple\s+blisters?)\b/i.test(text)
+        && !/\b(?:no|without)\b[^.;]{0,28}\b(?:blistering|widespread\s+blisters?|multiple\s+blisters?)\b/i.test(text);
+      const hasPeeling = /\b(?:skin\s+(?:is\s+)?peeling|peeling\s+skin)\b/i.test(text)
+        && !/\b(?:no|without)\b[^.;]{0,28}\b(?:skin\s+(?:is\s+)?peeling|peeling\s+skin)\b/i.test(text);
+      return hasBlistering || hasPeeling;
+    }
+    return true;
+  }).map(item => item.label);
 }
 
 export function assessRedFlags(input: SafetyInput) {
@@ -89,9 +104,11 @@ export function assessConsultSafety(input: {
         ? 'clinician-review'
         : 'self-care-eligible';
 
-  const action = redFlags.level === 'emergency' || redFlags.level === 'urgent'
-    ? redFlags.instruction
-    : referralLevel === 'emergency' || referralLevel === 'urgent' || directedReferral
+  const action = referralLevel === 'emergency'
+    ? input.referral.action
+    : redFlags.level === 'emergency' || redFlags.level === 'urgent'
+      ? redFlags.instruction
+      : referralLevel === 'urgent' || directedReferral
       ? input.referral.action
       : unsupportedContext.length
         ? 'JeloCare does not check allergies or medicine interactions. Review these details with a pharmacist or clinician before choosing treatment products.'

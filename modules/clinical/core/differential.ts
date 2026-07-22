@@ -129,6 +129,22 @@ const rules: PatternRule[] = [
     missing: ['Does the patch have a raised or spreading edge?', 'Is the scalp, beard or nail involved?', 'Has anyone close to you or a pet had a similar rash?'],
   },
   {
+    id: 'tinea-capitis-like', label: 'Scalp fungal-infection pattern',
+    positives: [
+      { terms: ['tinea capitis', 'scalp ringworm', 'ringworm on my scalp', 'ringworm on the scalp'], weight: 56, reason: 'A named scalp fungal condition was reported and needs in-person confirmation.' },
+      { terms: ['scaly scalp with broken hairs', 'broken hairs and scale', 'black dots and scale', 'scalp scale and hair loss', 'scaly patchy hair loss'], weight: 48, reason: 'Scalp scale with broken hairs or hair loss supports this pattern.' },
+      { terms: ['scaly scalp patch', 'scalp scaling', 'crusted scalp patch'], weight: 30, reason: 'A scaly or crusted scalp patch adds support.' },
+      { terms: ['broken hairs', 'black dots'], weight: 26, reason: 'Broken hairs or black dots within a scalp patch add support.' },
+      { terms: ['patchy hair loss', 'patch of hair loss', 'bald patch'], weight: 18, reason: 'Patchy hair loss can occur when scalp hair is affected.' },
+      { terms: ['itchy scaly scalp', 'tender swollen scalp patch', 'boggy scalp swelling'], weight: 22, reason: 'Scalp itch, scale or a tender swollen patch adds support.' },
+    ],
+    negatives: [
+      { terms: ['smooth bald patch', 'no scale'], weight: 28, reason: 'A smooth patch without scale supports another hair-loss pathway.' },
+      { terms: ['tight braids', 'edges thinning'], weight: 20, reason: 'Tension at the hairline supports traction-related loss instead.' },
+    ],
+    missing: ['Is the exposed scalp scaly, crusted or swollen?', 'Are hairs broken or reduced to black dots?', 'Is anyone close to you or a pet affected?'],
+  },
+  {
     id: 'tinea-versicolor-like', label: 'Light-or-dark scaly-patch pattern',
     positives: [
       { terms: ['tinea versicolor', 'pityriasis versicolor', 'lighter fine scaly patches', 'light scaly patches', 'dark scaly patches'], weight: 42, reason: 'Fine-scaled lighter or darker patches support this pattern.' },
@@ -176,6 +192,40 @@ const rules: PatternRule[] = [
     missing: ['Did pain or tingling begin before the rash?', 'Are the blisters clustered on only one side?', 'Is the eye, nose, face, ear or breast involved?'],
   },
   {
+    id: 'mpox-like', label: 'Mpox-compatible lesion pattern',
+    positives: [
+      { terms: ['mpox', 'monkeypox'], weight: 58, reason: 'A named infectious condition was reported and needs testing and clinical confirmation.' },
+      { terms: ['firm painful lesions', 'painful firm lesions', 'painful lesions that blister', 'lesions became blisters', 'lesions that crust'], weight: 40, reason: 'Evolving firm or painful lesions support an infectious-lesion assessment.' },
+      { terms: ['swollen lymph nodes', 'swollen glands'], weight: 24, reason: 'Swollen lymph nodes can accompany this lesion pattern.' },
+      { terms: ['fever and body aches', 'fever and headache', 'headache and muscle aches', 'fever with low energy'], weight: 16, reason: 'Associated systemic symptoms add concern.' },
+      { terms: ['close contact with mpox', 'shared bedding with', 'shared towels with'], weight: 22, reason: 'Recent close contact or contaminated personal items can be relevant.' },
+    ],
+    negatives: [{ terms: ['one friction blister', 'one pimple', 'no other symptoms'], weight: 30, reason: 'One ordinary localized lesion without other symptoms is not specific.' }],
+    missing: ['Are lesions firm, painful or changing from bumps to blisters or crusts?', 'Are there swollen glands, fever, headache or body aches?', 'Has there been close contact with someone with a similar rash?'],
+  },
+  {
+    id: 'severe-medicine-reaction-like', label: 'Severe medicine-reaction warning pattern',
+    positives: [
+      { terms: ['sjs', 'stevens-johnson syndrome', 'stevens johnson syndrome', 'toxic epidermal necrolysis'], weight: 70, reason: 'A named medical emergency was reported.' },
+      { terms: ['rash after starting a new medicine', 'rash after a new medicine', 'rash after taking antibiotics', 'rash after taking a painkiller'], weight: 38, reason: 'A rash beginning after a medicine needs medicine-reaction assessment.' },
+      { terms: ['circular target-like patches', 'target-like rash', 'darker in the middle'], weight: 34, reason: 'Target-like circular patches can be a warning sign.' },
+      { terms: ['medicine rash with blisters', 'medicine rash with peeling', 'mouth sores after medicine', 'eye sores after medicine'], weight: 42, reason: 'Blistering, peeling or mucosal sores after a medicine are emergency warning signs.' },
+    ],
+    missing: ['Did this begin after starting a medicine?', 'Is the rash spreading, painful, blistering or peeling?', 'Are the mouth, eyes, throat or genitals sore or blistered?'],
+  },
+  {
+    id: 'painless-ulcer-like', label: 'Painless enlarging-ulcer pattern',
+    positives: [
+      { terms: ['buruli ulcer'], weight: 60, reason: 'A named ulcer-forming infection was reported and needs clinical confirmation.' },
+      { terms: ['painless swelling', 'painless firm patch', 'painless plaque'], weight: 38, reason: 'A painless swelling or firm patch can precede an ulcer.' },
+      { terms: ['painless ulcer', 'ulcer is painless', 'swelling became an ulcer', 'turned into an ulcer'], weight: 42, reason: 'A painless or evolving ulcer needs prompt in-person assessment.' },
+      { terms: ['getting larger', 'keeps enlarging', 'arm', 'leg', 'face'], weight: 10, reason: 'Enlargement or a typical exposed location adds support.' },
+      { terms: ['no fever', 'without fever'], weight: 8, reason: 'This pattern can begin without fever.' },
+    ],
+    negatives: [{ terms: ['very painful', 'hot and swollen'], weight: 30, reason: 'Marked pain, heat and swelling require an urgent infection pathway.' }],
+    missing: ['Did this begin as a painless swelling or firm patch?', 'Is there now an open ulcer, and is it enlarging?', 'Is movement limited or could a joint or bone be involved?'],
+  },
+  {
     id: 'numb-patch-like', label: 'Numb changed-colour patch pattern',
     positives: [
       { terms: ['leprosy', 'hansen disease', "hansen's disease"], weight: 56, reason: 'A named sensory-loss condition was reported and needs in-person confirmation.' },
@@ -209,6 +259,17 @@ const rules: PatternRule[] = [
       { terms: ['curly hair', 'coarse hair'], weight: 8, reason: 'Curved or coarse hair can increase ingrown-hair risk.' },
     ],
     missing: ['Can you see a trapped or curved hair?', 'Did this begin after shaving or waxing?', 'Is there spreading warmth, severe pain or fever?'],
+  },
+  {
+    id: 'keloid-scar-like', label: 'Growing raised-scar pattern',
+    positives: [
+      { terms: ['keloid', 'keloid scar'], weight: 56, reason: 'A named raised-scar condition was reported and needs confirmation.' },
+      { terms: ['raised scar grew beyond', 'scar growing beyond', 'growth beyond the wound', 'raised scar spreading'], weight: 48, reason: 'Scar tissue extending beyond the original injury supports this pattern.' },
+      { terms: ['raised scar after a piercing', 'raised scar after piercing', 'raised scar after a cut', 'raised scar after a burn', 'raised scar after acne'], weight: 16, reason: 'A preceding skin injury supports a scar-related pattern.' },
+      { terms: ['firm rubbery scar', 'itchy raised scar', 'painful raised scar'], weight: 22, reason: 'Firmness, itch or pain can accompany a raised scar.' },
+    ],
+    negatives: [{ terms: ['open wound', 'painless ulcer', 'pus'], weight: 24, reason: 'An open, ulcerated or draining lesion needs a different pathway.' }],
+    missing: ['Did the growth begin after an injury, acne spot or piercing?', 'Does it extend beyond the original wound?', 'Is it changing quickly, bleeding, ulcerated or limiting movement?'],
   },
   {
     id: 'acne-keloidalis-nuchae-like', label: 'Back-of-neck bump pattern',
