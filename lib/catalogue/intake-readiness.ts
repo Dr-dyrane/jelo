@@ -325,6 +325,7 @@ const packshotEligibleOrigins = [
   'owned-identity-verified-render',
 ] as const;
 const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
+  aquarich: ['www.aquarich.net'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   eucerin: ['www.eucerin-cewa.com'],
 };
@@ -337,6 +338,7 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
+  aquarich: ['www.aquarich.net'],
   cerave: [
     'africa.cerave.com',
     'www.cerave.com',

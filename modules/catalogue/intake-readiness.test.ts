@@ -111,6 +111,71 @@ function regulatoryEvidence(
   } as Extract<ReviewedRegulatoryEvidence, { status: 'matched' }>;
 }
 
+function packageRegistrationEvidence(
+  overrides: Partial<Extract<ReviewedRegulatoryEvidence, { matchBasis: 'package-registration-number' }>> = {},
+): Extract<ReviewedRegulatoryEvidence, { matchBasis: 'package-registration-number' }> {
+  const sourceText = 'NAFDAC registration A4-1234 · Product Example Barrier Lotion · Status Active';
+  const imageUrl = 'https://medplusnig.com/media/example-barrier-lotion-back-label.jpg';
+  return {
+    schemaVersion: catalogueRegulatoryEvidenceSchemaVersion,
+    authority: 'NAFDAC',
+    status: 'matched',
+    matchBasis: 'package-registration-number',
+    candidateGtin: '4005808319695',
+    registrationNumber: 'A4-1234',
+    registeredProductName: {
+      value: 'Example Barrier Lotion',
+      locator: 'NAPAMS verification result product name',
+      sourceText: 'Product Example Barrier Lotion',
+    },
+    packageResponse: {
+      role: 'package-regulatory-label-image',
+      listingUrl: 'https://medplusnig.com/product/example-barrier-lotion',
+      sourceUrl: imageUrl,
+      responseUrl: imageUrl,
+      responseSha256: '1'.repeat(64),
+      responseMimeType: 'image/jpeg',
+      responseByteSize: 248_100,
+      retrievedAt: '2026-07-22T09:00:00Z',
+      listingLocator: 'HTML product gallery back-label image',
+      listingSourceText: `<img src="${imageUrl}" alt="Example Barrier Lotion back label">`,
+      fields: {
+        gtin: {
+          label: 'EAN',
+          symbology: 'EAN-13',
+          value: '4005808319695',
+          locator: 'Back-label EAN-13 barcode decoded and visually reviewed',
+          sourceText: 'EAN-13 4005808319695',
+        },
+        registrationNumber: {
+          value: 'A4-1234',
+          locator: 'Back-label NAFDAC registration line',
+          sourceText: 'NAFDAC Reg. No. A4-1234',
+        },
+      },
+    },
+    registrationStatus: {
+      value: 'active',
+      locator: 'NAPAMS verification result status',
+      sourceText: 'Status Active',
+    },
+    sourceUrl: 'https://registration.nafdac.gov.ng/Home/VerifyProduct',
+    locator: 'NAPAMS product verification result for A4-1234',
+    sourceText,
+    sourceExcerptSha256: regulatoryEvidenceExcerptSha256(sourceText),
+    responseUrl: 'https://registration.nafdac.gov.ng/Home/VerifyProduct',
+    responseSha256: '2'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 38_200,
+    retrievedAt: '2026-07-22T09:10:00Z',
+    observedAt: '2026-07-22T09:10:00Z',
+    reviewedAt: '2026-07-22T09:20:00Z',
+    reviewer: 'Regulatory reviewer',
+    ...overrides,
+  };
+}
+
 function withExactOfferEvidence<T extends CatalogueIntakeOffer>(offer: T): T {
   const label = offer.observedGtinBasis === 'explicit-ean'
     ? 'EAN'
@@ -989,6 +1054,39 @@ test('regulatory clearance requires a hash-bound NAFDAC record for the candidate
     }, asOf);
     assert.equal(decision.stage, 'nigeria');
     assert.ok(decision.blockers.includes('nigeria-regulatory-evidence-missing'));
+  }
+});
+
+test('a cosmetics registration can bind an exact package GTIN and NAFDAC number to an active NAPAMS result', () => {
+  const base = completeCandidate();
+  const valid = packageRegistrationEvidence();
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: { ...base.nigeria, regulatoryEvidence: valid },
+  }, asOf);
+  assert.equal(decision.blockers.includes('nigeria-regulatory-evidence-missing'), false);
+
+  const wrongGtin = structuredClone(valid);
+  wrongGtin.packageResponse.fields.gtin.value = '0302994113002';
+  wrongGtin.packageResponse.fields.gtin.sourceText = 'EAN-13 0302994113002';
+  const wrongRegistration = structuredClone(valid);
+  wrongRegistration.packageResponse.fields.registrationNumber.value = 'A4-9999';
+  wrongRegistration.packageResponse.fields.registrationNumber.sourceText = 'NAFDAC Reg. No. A4-9999';
+  const detachedImage = structuredClone(valid);
+  detachedImage.packageResponse.sourceUrl = 'https://images.example/back-label.jpg';
+  detachedImage.packageResponse.responseUrl = detachedImage.packageResponse.sourceUrl;
+  detachedImage.packageResponse.listingSourceText = `<img src="${detachedImage.packageResponse.sourceUrl}">`;
+  const untrustedAuthority = packageRegistrationEvidence({
+    sourceUrl: 'https://registry.example/verify/A4-1234',
+    responseUrl: 'https://registry.example/verify/A4-1234',
+  });
+
+  for (const evidence of [wrongGtin, wrongRegistration, detachedImage, untrustedAuthority]) {
+    const invalid = evaluateCatalogueIntakeCandidate({
+      ...base,
+      nigeria: { ...base.nigeria, regulatoryEvidence: evidence },
+    }, asOf);
+    assert.ok(invalid.blockers.includes('nigeria-regulatory-evidence-missing'));
   }
 });
 

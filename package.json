@@ -32,6 +32,7 @@
     "catalogue:discovery:screen": "tsx scripts/screen-catalogue-discovery.ts",
     "catalogue:research:build": "tsx scripts/build-catalogue-research-queue.ts",
     "catalogue:research:verify": "tsx scripts/verify-catalogue-research-queue.ts",
+    "catalogue:pipeline:status": "tsx scripts/report-catalogue-pipeline.ts",
     "catalogue:intake:audit": "tsx scripts/audit-catalogue-intake.ts",
     "catalogue:publication:verify": "tsx scripts/verify-catalogue-publication-dossiers.ts",
     "catalogue:publication:releases:verify": "tsx scripts/verify-catalogue-publication-releases.ts",
@@ -46,7 +47,8 @@
     "catalogue:packshots:publish": "tsx scripts/publish-catalogue-packshots.ts",
     "catalogue:packshots:manifest:validate": "tsx scripts/validate-external-packshot-manifest.ts",
     "catalogue:packshots:remote:verify": "tsx scripts/validate-external-packshot-manifest.ts --remote",
-    "community:intake:purge": "tsx scripts/purge-community-intake-drafts.ts"
+    "community:intake:purge": "tsx scripts/purge-community-intake-drafts.ts",
+    "community:research:signals": "tsx scripts/report-community-research-signals.ts"
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.221",

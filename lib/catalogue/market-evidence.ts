@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { canonicalGtin, isValidGtin } from './gtin';
 
 export const catalogueExactOfferEvidenceSchemaVersion = 1 as const;
-export const catalogueRegulatoryEvidenceSchemaVersion = 1 as const;
+export const catalogueRegulatoryEvidenceSchemaVersion = 2 as const;
 
 export type ExactOfferGtinLabel = 'GTIN' | 'EAN' | 'UPC';
 export type ExactOfferGtinBasis = 'explicit-gtin' | 'explicit-ean' | 'explicit-upc';
@@ -25,6 +25,33 @@ export type ReviewedPackageBarcodeResponse = {
     value: string;
     locator: string;
     sourceText: string;
+  };
+};
+
+export type ReviewedPackageRegulatoryLabelResponse = {
+  role: 'package-regulatory-label-image';
+  listingUrl: string;
+  sourceUrl: string;
+  responseUrl: string;
+  responseSha256: string;
+  responseMimeType: MarketEvidenceImageMimeType;
+  responseByteSize: number;
+  retrievedAt: string;
+  listingLocator: string;
+  listingSourceText: string;
+  fields: {
+    gtin: {
+      label: ExactOfferGtinLabel;
+      symbology: 'EAN-13' | 'UPC-A';
+      value: string;
+      locator: string;
+      sourceText: string;
+    };
+    registrationNumber: {
+      value: string;
+      locator: string;
+      sourceText: string;
+    };
   };
 };
 
@@ -92,6 +119,28 @@ export type ReviewedRegulatoryEvidence = RegulatoryEvidenceBase & (
     };
   }
   | {
+    status: 'matched';
+    matchBasis: 'package-registration-number';
+    candidateGtin: string;
+    registrationNumber: string;
+    registeredProductName: {
+      value: string;
+      locator: string;
+      sourceText: string;
+    };
+    packageResponse: ReviewedPackageRegulatoryLabelResponse;
+    registrationStatus: {
+      value: 'active';
+      locator: string;
+      sourceText: string;
+    };
+    expiry?: {
+      value: string;
+      locator: string;
+      sourceText: string;
+    };
+  }
+  | {
     status: 'not-required';
     candidateGtin: string;
     subjectProductOrClass: string;
@@ -116,6 +165,7 @@ const regulatoryEvidenceMaxAgeMs = 90 * 86_400_000;
 const nafdacAuthorityHosts = new Set([
   'nafdac.gov.ng',
   'greenbook.nafdac.gov.ng',
+  'registration.nafdac.gov.ng',
 ]);
 
 function validHttps(value: unknown) {
@@ -245,6 +295,52 @@ function reviewedPackageBarcodeResponseValid(
   if (!expectedSymbology || response.barcode.symbology !== expectedSymbology) return false;
 
   const listingHost = new URL(listingUrl).hostname.replace(/^www\./, '').toLowerCase();
+  const sourceHost = new URL(response.sourceUrl).hostname.replace(/^www\./, '').toLowerCase();
+  const sourcePath = new URL(response.sourceUrl).pathname.toLowerCase();
+  return sourceHost === listingHost
+    || (sourceHost === 'i0.wp.com' && sourcePath.startsWith(`/${listingHost}/`));
+}
+
+function reviewedPackageRegulatoryLabelResponseValid(
+  response: ReviewedPackageRegulatoryLabelResponse,
+  candidateGtin: string,
+  registrationNumber: string,
+  reviewedAt: number,
+  asOf: number,
+) {
+  const gtin = response.fields?.gtin;
+  const registration = response.fields?.registrationNumber;
+  if (
+    response.role !== 'package-regulatory-label-image'
+    || !validHttps(response.listingUrl)
+    || !validHttps(response.sourceUrl)
+    || !sameUrl(response.responseUrl, response.sourceUrl)
+    || !hashPattern.test(response.responseSha256)
+    || !['image/jpeg', 'image/png', 'image/webp'].includes(response.responseMimeType)
+    || !Number.isSafeInteger(response.responseByteSize)
+    || response.responseByteSize <= 0
+    || typeof response.listingLocator !== 'string'
+    || response.listingLocator.trim().length < 8
+    || typeof response.listingSourceText !== 'string'
+    || !response.listingSourceText.includes(response.sourceUrl)
+    || !fieldShape(gtin)
+    || !fieldShape(registration)
+    || !isValidGtin(gtin.value as string)
+    || canonicalGtin(gtin.value as string) !== canonicalGtin(candidateGtin)
+    || !sourceTextContainsExactGtin(gtin.sourceText, candidateGtin)
+    || !sourceNamesLabel(gtin.sourceText, gtin.label)
+    || (gtin.label === 'EAN' && gtin.symbology !== 'EAN-13')
+    || (gtin.label === 'UPC' && gtin.symbology !== 'UPC-A')
+    || !['EAN', 'UPC'].includes(gtin.label)
+    || typeof registration.value !== 'string'
+    || registration.value !== registrationNumber
+    || !sourceTextContainsExactIdentifier(registration.sourceText, registrationNumber)
+    || !/(?:nafdac|registration|reg\.?\s*no)/i.test(registration.sourceText)
+  ) return false;
+
+  const retrievedAt = parsedPastDate(response.retrievedAt, asOf);
+  if (retrievedAt == null || retrievedAt > reviewedAt) return false;
+  const listingHost = new URL(response.listingUrl).hostname.replace(/^www\./, '').toLowerCase();
   const sourceHost = new URL(response.sourceUrl).hostname.replace(/^www\./, '').toLowerCase();
   const sourcePath = new URL(response.sourceUrl).pathname.toLowerCase();
   return sourceHost === listingHost
@@ -415,15 +511,32 @@ export function reviewedRegulatoryEvidenceValid(
         : expiryEvidence.value);
       if (!Number.isFinite(expiry) || expiry < asOf) return false;
     }
-    return evidence.matchBasis === 'manufacturer-gtin'
-      && isValidGtin(evidence.candidateGtin)
+    const identityMatches = isValidGtin(evidence.candidateGtin)
       && isValidGtin(candidateGtin ?? '')
-      && canonicalGtin(evidence.candidateGtin) === canonicalGtin(candidateGtin ?? '')
-      && sourceTextContainsExactGtin(evidence.sourceText, evidence.candidateGtin)
-      && sourceNamesLabel(evidence.sourceText, 'GTIN')
-      && typeof evidence.registrationNumber === 'string'
+      && canonicalGtin(evidence.candidateGtin) === canonicalGtin(candidateGtin ?? '');
+    const registrationMatches = typeof evidence.registrationNumber === 'string'
       && evidence.registrationNumber.trim().length >= 3
       && sourceTextContainsExactIdentifier(evidence.sourceText, evidence.registrationNumber);
+    if (!identityMatches || !registrationMatches) return false;
+    if (evidence.matchBasis === 'manufacturer-gtin') {
+      return sourceTextContainsExactGtin(evidence.sourceText, evidence.candidateGtin)
+        && sourceNamesLabel(evidence.sourceText, 'GTIN');
+    }
+    return evidence.matchBasis === 'package-registration-number'
+      && fieldShape(evidence.registeredProductName)
+      && typeof evidence.registeredProductName.value === 'string'
+      && evidence.registeredProductName.value.trim().length >= 3
+      && normalized(evidence.registeredProductName.sourceText).includes(
+        normalized(evidence.registeredProductName.value),
+      )
+      && normalized(evidence.sourceText).includes(normalized(evidence.registeredProductName.sourceText))
+      && reviewedPackageRegulatoryLabelResponseValid(
+        evidence.packageResponse,
+        evidence.candidateGtin,
+        evidence.registrationNumber,
+        reviewedAt!,
+        asOf,
+      );
   }
 
   return isValidGtin(evidence.candidateGtin)

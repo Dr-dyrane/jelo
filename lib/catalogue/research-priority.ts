@@ -96,20 +96,30 @@ const activePattern = /\b(adapalene|azelaic|benzoyl peroxide|ceramide|glycolic|l
 const claimReviewPattern = /\b(bleach|bleaching|intimate|lighten(?:ing)?|platinum white|tone white|white(?:n|ning)?|whitening)\b/i;
 const abrasivePattern = /\b(peel|scrub)\b/i;
 
+function reviewedCategoryHint(candidate: ScreenedDiscoveryCandidate): ScreenedDiscoveryCandidate['categoryHint'] {
+  if (
+    candidate.categoryHint === 'Body care'
+    && /\b(?:day|night|face|facial)\s+cream\b/i.test(candidate.title)
+    && !/\bbody\s+cream\b/i.test(candidate.title)
+  ) return 'Face care';
+  return candidate.categoryHint;
+}
+
 function laneFor(candidate: ScreenedDiscoveryCandidate): CatalogueResearchLane | undefined {
   const title = candidate.title;
-  if (!['Face care', 'Hair & scalp', 'Body care'].includes(candidate.categoryHint)) return undefined;
-  if (candidate.categoryHint === 'Hair & scalp') {
+  const category = reviewedCategoryHint(candidate);
+  if (!['Face care', 'Hair & scalp', 'Body care'].includes(category)) return undefined;
+  if (category === 'Hair & scalp') {
     return /\b(conditioner|hair (?:cream|mask|oil|serum|treatment)|scalp|shampoo)\b/i.test(title)
       ? 'hair-scalp'
       : undefined;
   }
   if (/\b(sun ?screen|sunblock|sun protection|spf\s*\d|sun gel|uv protection)\b/i.test(title)) return 'sun-protection';
   if (/\b(acne|adapalene|azelaic|benzoyl peroxide|blemish|salicylic)\b/i.test(title)) return 'acne-care';
-  if (candidate.categoryHint === 'Face care' && /\b(cleanser|cleansing|face wash|facial wash)\b/i.test(title)) return 'gentle-cleansing';
+  if (category === 'Face care' && /\b(cleanser|cleansing|face wash|facial wash)\b/i.test(title)) return 'gentle-cleansing';
   if (/\b(balm|body butter|cream|gel cream|lotion|moisturi[sz](?:er|ing)?)\b/i.test(title)) return 'moisture-barrier';
   if (/\b(alpha arbutin|dark spot|hyperpigment|niacinamide|tranexamic|txa|vitamin c)\b/i.test(title)) return 'pigment-support';
-  return candidate.categoryHint === 'Body care' ? 'body-care' : undefined;
+  return category === 'Body care' ? 'body-care' : undefined;
 }
 
 function normalized(value: string) {
@@ -242,7 +252,7 @@ export function buildCatalogueResearchQueue(
     title: entry.candidate.title,
     brandHint: entry.candidate.brandHint,
     size: entry.candidate.size,
-    categoryHint: entry.candidate.categoryHint,
+    categoryHint: reviewedCategoryHint(entry.candidate),
     lane: entry.lane,
     priorityScore: entry.priorityScore,
     retailerObservationCount: entry.candidate.retailerObservations.length,

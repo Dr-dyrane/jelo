@@ -113,6 +113,26 @@ test('deprioritizes high-risk claim language without discarding the evidence', (
   assert.ok((risky?.priorityScore ?? 0) < queue.items[0].priorityScore);
 });
 
+test('research review corrects a retailer-misclassified face cream without changing body cream', () => {
+  const faceCream = candidate({
+    discoveryId: '1'.repeat(24),
+    title: 'Garnier Vitamin C Brightening Day Cream 50 ml',
+    categoryHint: 'Body care',
+  });
+  const bodyCream = candidate({
+    discoveryId: '2'.repeat(24),
+    title: 'Example Ceramide Body Cream 500 ml',
+    categoryHint: 'Body care',
+    brandHint: 'Body Example',
+  });
+  const queue = buildCatalogueResearchQueue(snapshot([faceCream, bodyCream]), digest, 2);
+  const corrected = queue.items.find(item => item.discoveryId === faceCream.discoveryId);
+  const body = queue.items.find(item => item.discoveryId === bodyCream.discoveryId);
+  assert.equal(corrected?.categoryHint, 'Face care');
+  assert.equal(corrected?.lane, 'moisture-barrier');
+  assert.equal(body?.categoryHint, 'Body care');
+});
+
 test('known exact products do not consume another research slot', () => {
   const known = candidate({
     title: 'PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% 156g',

@@ -44,7 +44,8 @@ const exactNg = (
 
 export const verifiedRetailOffers: Record<string, Offer[]> = {
   'cosrx-salicylic-acid-daily-gentle-cleanser': [
-    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/', 96, 9850, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml'),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/', 100, 8500, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml'),
+    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/', 96, 9600, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml'),
   ],
   'some-by-mi-aha-bha-pha-miracle-toner': [
     exactNg('Teeka4', 'https://teeka4.com/shop/somebymi-aha-bha-pha-30days-miracle-toner-150ml-5oz/', 98, 13495, 'SOME BY MI AHA BHA PHA 30 Days Miracle Toner', '150 ml', { available: false }),
