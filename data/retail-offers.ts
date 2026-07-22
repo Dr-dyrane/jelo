@@ -51,6 +51,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Teeka4', 'https://teeka4.com/shop/somebymi-aha-bha-pha-30days-miracle-toner-150ml-5oz/', 98, 13495, 'SOME BY MI AHA BHA PHA 30 Days Miracle Toner', '150 ml', { available: false }),
   ],
   'anua-niacinamide-10-txa-4-serum': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/', 100, 18850, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml'),
     exactNg('Teeka4', 'https://teeka4.com/shop/anua-niacinamide-10-txa-4-serum-30ml/', 98, 18000, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml'),
     exactNg('Jumia', 'https://www.jumia.com.ng/anua-niacinamide-10-txa-4-serum-30ml-new-version-419517907.html', 62, 7999, 'ANUA Niacinamide 10% + TXA 4% Serum New Version', '30 ml', { sellerName: 'Smile Time', sellerScore: 92, priceComparison: 'exclude' }),
   ],

@@ -328,6 +328,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   aquarich: ['www.aquarich.net'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   eucerin: ['www.eucerin-cewa.com'],
+  garnier: ['www.garnier.co.uk'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'cerave-moisturising-cream-454g': [
@@ -345,6 +346,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
   eucerin: ['www.eucerin-cewa.com'],
+  garnier: ['www.garnier.co.uk'],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',

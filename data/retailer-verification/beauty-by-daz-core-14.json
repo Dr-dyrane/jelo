@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "retailer": "Beauty by Daz",
+  "retailerUrl": "https://beautybydaz.com/",
+  "observedAt": "2026-07-22T23:40:19Z",
+  "method": "rendered-browser-page-review",
+  "scope": "jelo-core-14",
+  "products": [
+    {
+      "slug": "cosrx-salicylic-acid-daily-gentle-cleanser",
+      "requestedUrl": "https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/",
+      "finalUrl": "https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/",
+      "observedTitle": "Cosrx Salicylic Acid Cleanser 150ml",
+      "priceNgn": 8500,
+      "stock": "in-stock",
+      "disposition": "verified-exact-offer",
+      "evidence": ["visible-title-size", "visible-price-stock", "structured-product-offer"]
+    },
+    {
+      "slug": "some-by-mi-aha-bha-pha-miracle-toner",
+      "requestedUrl": "https://beautybydaz.com/shop/face/some-by-mi-aha-bha-pha-30-days-miracle-toner/",
+      "finalUrl": "https://beautybydaz.com/shop/face/some-by-mi-aha-bha-pha-30-days-miracle-toner/",
+      "observedTitle": "Some by Mi AHA-BHA-PHA 30 Days Miracle Toner",
+      "priceNgn": 14500,
+      "stock": "out-of-stock",
+      "disposition": "withheld",
+      "reasons": ["catalogue-size-not-visible-on-rendered-page", "source-image-too-small-to-review-size"]
+    },
+    {
+      "slug": "anua-niacinamide-10-txa-4-serum",
+      "requestedUrl": "https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/",
+      "finalUrl": "https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/",
+      "observedTitle": "Anua Niacinamide 10% + Tranexamic Acid 4% Serum",
+      "priceNgn": 18850,
+      "stock": "in-stock",
+      "disposition": "verified-exact-offer",
+      "evidence": ["visible-variant", "visible-pack-label-30ml", "visible-price-stock", "structured-product-offer"]
+    },
+    {
+      "slug": "face-facts-wonder-cream-fragrance-free",
+      "requestedUrl": "https://beautybydaz.com/shop/face-facts-wonder-cream-50ml-2/",
+      "finalUrl": "https://beautybydaz.com/shop/face-facts-wonder-cream-50ml-2/",
+      "observedTitle": "Face Facts Wonder Cream 50ml",
+      "priceNgn": 8500,
+      "stock": "out-of-stock",
+      "disposition": "withheld",
+      "reasons": ["fragrance-free-variant-not-established", "rendered-pack-does-not-name-fragrance-free"]
+    },
+    {
+      "slug": "face-facts-bright-clear-face-cream",
+      "requestedUrl": "https://beautybydaz.com/shop/face/face-facts-bright-clear-face-cream-75ml/",
+      "finalUrl": "https://beautybydaz.com/shop/face/treatment/face-facts-bright-clear-face-cream-75ml/",
+      "observedTitle": "FaceFacts Bright + Clear Face Cream – 75ml",
+      "priceNgn": 7500,
+      "stock": "in-stock",
+      "disposition": "verified-exact-offer",
+      "evidence": ["visible-title-size", "visible-price-stock", "structured-product-offer"]
+    },
+    {
+      "slug": "b-lab-matcha-hydrating-real-sunscreen",
+      "requestedUrl": "https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/",
+      "finalUrl": "https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/",
+      "observedTitle": "B Lab Matcha Hydrating Real Sun Screen Spf50+ Pa++++",
+      "priceNgn": 9000,
+      "stock": "in-stock",
+      "disposition": "withheld",
+      "reasons": ["rendered-image-shows-different-perfect-balance-bamboo-sunscreen", "exact-package-conflict"]
+    },
+    {
+      "slug": "dove-moroccan-argan-oil-beauty-bar",
+      "requestedUrl": "https://beautybydaz.com/?s=dove+moroccan+argan+oil+beauty+bar&post_type=product",
+      "finalUrl": "https://beautybydaz.com/shop/bath-body/soaps/dove-nourishing-bar-4-bars/",
+      "observedTitle": "Dove Nourishing Bar (4 Bars)",
+      "stock": "unknown",
+      "disposition": "withheld",
+      "reasons": ["search-redirected-to-sibling-product", "variant-and-pack-count-conflict"]
+    },
+    {
+      "slug": "dove-go-fresh-cucumber-green-tea-spray",
+      "requestedUrl": "https://beautybydaz.com/?s=dove+go+fresh+cucumber+green+tea+spray&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=dove+go+fresh+cucumber+green+tea+spray&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-search-returned-no-products"]
+    },
+    {
+      "slug": "miracle-natural-hair-anti-dandruff-shampoo",
+      "requestedUrl": "https://beautybydaz.com/?s=miracle+natural+hair+anti+dandruff+shampoo&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=miracle+natural+hair+anti+dandruff+shampoo&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-search-returned-no-products"]
+    },
+    {
+      "slug": "lush-hair-mentholated-conditioner",
+      "requestedUrl": "https://beautybydaz.com/?s=lush+hair+mentholated+conditioner&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=lush+hair+mentholated+conditioner&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-search-returned-no-products"]
+    },
+    {
+      "slug": "mediana-leave-in-conditioning-milk",
+      "requestedUrl": "https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-search-returned-no-products"]
+    },
+    {
+      "slug": "kuza-indian-hemp-hair-scalp-treatment",
+      "requestedUrl": "https://beautybydaz.com/?s=kuza+indian+hemp+hair+scalp+treatment&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=kuza+indian+hemp+hair+scalp+treatment&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-search-returned-no-products"]
+    },
+    {
+      "slug": "ogx-renewing-argan-oil-of-morocco",
+      "requestedUrl": "https://beautybydaz.com/?s=OGX+Renewing+Argan+Oil+of+Morocco&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=OGX+Renewing+Argan+Oil+of+Morocco&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-search-returned-no-products"]
+    },
+    {
+      "slug": "disaar-argan-oil-body-oil-gel",
+      "requestedUrl": "https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-search-returned-no-products"]
+    }
+  ]
+}

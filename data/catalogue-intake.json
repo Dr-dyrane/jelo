@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "updatedAt": "2026-07-22T23:27:00Z",
+  "updatedAt": "2026-07-22T23:44:09Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -1532,6 +1532,222 @@
               },
               "reviewer": "JeloCare catalogue evidence review",
               "reviewedAt": "2026-07-22T23:10:00Z"
+            }
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    },
+    {
+      "id": "garnier-vitamin-c-brightening-day-cream-50ml",
+      "brand": "Garnier",
+      "name": "Vitamin C Brightening Day Cream",
+      "variant": "Vitamin C Brightening Day Cream",
+      "size": "50 ml",
+      "category": "Face care",
+      "reason": "Adds a widely observed daily face cream with an exact manufacturer GTIN and current Nigerian retailer evidence; treatment, regulatory, rights, and publication claims remain held.",
+      "priority": "important",
+      "gapIds": [
+        "daily-face-moisturiser",
+        "face-tone-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
+        "https://sliquebeautylimited.com/product/garnier-skinactive-vitamin-c-brightening-day-cream-50ml/"
+      ],
+      "identity": {
+        "gtin": "3600542453110",
+        "officialProductUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+        "checkedAt": "2026-07-22T23:43:08Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+          "observedGtin": "3600542453110",
+          "observedVariant": "Vitamin C Brightening Day Cream",
+          "observedSize": "50 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/garnier-vitamin-c-brightening-day-cream-50ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
+            "sourceUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+            "responseUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T23:41:59Z",
+            "fields": {
+              "gtin": {
+                "value": "3600542453110",
+                "locator": "HTML script[type=\"application/ld+json\"] Product.gtin13",
+                "sourceText": "\"gtin13\": \"3600542453110\""
+              },
+              "variant": {
+                "value": "Vitamin C Brightening Day Cream",
+                "locator": "HTML script[type=\"application/ld+json\"] Product.name",
+                "sourceText": "\"name\": \"Vitamin C Brightening Day Cream\""
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "HTML product size selector span and ecommerce dimension35",
+                "sourceText": "<span>50ml</span> · \"dimension35\":\"50ml\""
+              }
+            },
+            "sourceResponseSha256": "006d384239ae7b8b35d470d3d3d5c7fd352ab6b0b87bcd944ab5a654b0668feb",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 386049,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.garnier.co.uk/-/media/project/loreal/brand-sites/garnier/emea/uk/en-gb/prd-facecare/vitamin-c-day-cream/vitamin-c-day-cream-fop-min.png?rev=83e8b7ec9431482c8b04f357dd81c973",
+                "responseUrl": "https://www.garnier.co.uk/-/media/project/loreal/brand-sites/garnier/emea/uk/en-gb/prd-facecare/vitamin-c-day-cream/vitamin-c-day-cream-fop-min.png?rev=83e8b7ec9431482c8b04f357dd81c973",
+                "retrievedAt": "2026-07-22T23:41:59Z",
+                "responseSha256": "9f838b8262a9d3ca80d5b6a6c14bd64c6da1abae7a4fac3beeb4ee63d9352632",
+                "responseMimeType": "image/png",
+                "responseByteSize": 224947
+              }
+            ],
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T23:43:08Z"
+          },
+          "snapshotSha256": "0cc8dff0baaec65005fa29c60b4006f1966e7e5ea6368487e33cce0f0d6a322b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1774,
+          "retrievedAt": "2026-07-22T23:41:59Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on daily facial moisturising cream with glycerin, ascorbyl glucoside, niacinamide and fragrance, positioned by the manufacturer for cosmetic radiance",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday facial moisturising and a cosmetic radiant finish. It contains fragrance and alcohol and is not universally sensitive-friendly. It does not treat melasma, post-inflammatory marks, acne, eczema, or another skin condition, and it is not sunscreen; use separately verified broad-spectrum sun protection on exposed skin. Stop if burning, stinging, or persistent irritation develops.",
+        "manufacturerEvidenceUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-07-22T23:43:08Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
+            "observedAt": "2026-07-22T23:42:30Z",
+            "observedTitle": "GARNIER Vitamin C (Brightening) Day Cream 50ml",
+            "observedSize": "50 ml",
+            "priceNgn": 12728,
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
+              "responseSha256": "092efa0937466257975e038d44a1b8f735ebbee8a132fc93092d98590f8152b2",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 806813,
+              "retrievedAt": "2026-07-22T23:42:30Z",
+              "fields": {
+                "title": {
+                  "value": "GARNIER Vitamin C (Brightening) Day Cream 50ml",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "GARNIER Vitamin C (Brightening) Day Cream 50ml"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "GARNIER Vitamin C (Brightening) Day Cream 50ml"
+                },
+                "price": {
+                  "value": 12728,
+                  "currency": "NGN",
+                  "locator": "HTML p.price",
+                  "sourceText": "₦12,728.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML p.stock",
+                  "sourceText": "47 in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "3600542453110",
+                  "locator": "HTML .woobt-wrap[data-product-sku]",
+                  "sourceText": "SKU 3600542453110"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T23:43:30Z"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/garnier-skinactive-vitamin-c-brightening-day-cream-50ml/",
+            "observedAt": "2026-07-22T23:42:30Z",
+            "observedTitle": "GARNIER SKIN ACTIVE VITAMIN C BRIGHTENING DAY CREAM – 50ML",
+            "observedSize": "50 ml",
+            "priceNgn": 14500,
+            "stock": "low-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "manufacturer-identifier-mismatch",
+              "retailer-provisional"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://sliquebeautylimited.com/product/garnier-skinactive-vitamin-c-brightening-day-cream-50ml/",
+              "responseSha256": "d3319252e8904a556334338d9ba454f4b45bb1a8e4b1922e47e7b3455c7a7218",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 306354,
+              "retrievedAt": "2026-07-22T23:42:30Z",
+              "fields": {
+                "title": {
+                  "value": "GARNIER SKIN ACTIVE VITAMIN C BRIGHTENING DAY CREAM – 50ML",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "GARNIER SKIN ACTIVE VITAMIN C BRIGHTENING DAY CREAM – 50ML"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "HTML h1.product_title size token",
+                  "sourceText": "GARNIER SKIN ACTIVE VITAMIN C BRIGHTENING DAY CREAM – 50ML"
+                },
+                "price": {
+                  "value": 14500,
+                  "currency": "NGN",
+                  "locator": "HTML p.price",
+                  "sourceText": "₦14,500"
+                },
+                "stock": {
+                  "value": "low-stock",
+                  "locator": "HTML span.stock",
+                  "sourceText": "Only 3 left in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "EAN",
+                  "value": "2000000102788",
+                  "locator": "HTML product_meta EAN row",
+                  "sourceText": "EAN: 2000000102788"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T23:43:30Z"
             }
           }
         ]

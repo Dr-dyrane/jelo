@@ -38,6 +38,24 @@ test('at least fifteen catalogue products have reliable exact Nigerian price evi
   assert.ok(priced.length >= 15, `expected at least 15 priced products, received ${priced.length}`);
 });
 
+test('browser-verified Beauty by Daz prices serve exact original catalogue products', () => {
+  const expected = [
+    ['cosrx-salicylic-acid-daily-gentle-cleanser', 8_500, '150 ml'],
+    ['anua-niacinamide-10-txa-4-serum', 18_850, '30 ml'],
+    ['face-facts-bright-clear-face-cream', 7_500, '75 ml'],
+  ] as const;
+
+  for (const [slug, priceNgn, size] of expected) {
+    const offer = verifiedRetailOffers[slug]?.find(candidate => candidate.retailer === 'Beauty by Daz');
+    assert.ok(offer, slug);
+    assert.equal(offer.priceNgn, priceNgn, slug);
+    assert.equal(offer.available, true, slug);
+    assert.equal(offer.priceObservation?.size, size, slug);
+    assert.equal(offer.listingEvidence?.basis, 'retailer-page', slug);
+    assert.equal(new URL(offer.url).hostname, 'beautybydaz.com', slug);
+  }
+});
+
 test('every curated exact price carries listing, variant, size, stock, time and landed-cost evidence', () => {
   const priced = Object.values(verifiedRetailOffers).flat().filter(offer =>
     offer.match === 'exact'

@@ -101,6 +101,8 @@ Private catalogue intake is stricter than a runtime price observation. A qualify
 
 Slique Beauty is provisional and link-only. Its public catalogue may supply dated factual offer observations, but its images and descriptions are not reused. No regulator-number match or brand-authorization evidence is recorded.
 
+Beauty by Daz pages that reject automated fetches are reviewed in a rendered browser. The current original-14 audit lives in `data/retailer-verification/beauty-by-daz-core-14.json`: three exact current matches publish price and stock, while unresolved size or variant pages, a package-image conflict, a sibling redirect, and empty searches remain recorded but withheld. A store's historical presence in the original dossier is a research lead, not proof that it still lists the same product today.
+
 Claims should remain specific to the evidence available.
 
 ## Retailer extraction
