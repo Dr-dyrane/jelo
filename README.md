@@ -43,7 +43,7 @@ Products
   -> AI purchasing context
 ```
 
-See [docs/RETAIL_INTELLIGENCE.md](docs/RETAIL_INTELLIGENCE.md) for the product experience, ranking rules, reference retailers and implementation order.
+See [docs/RETAIL_INTELLIGENCE.md](docs/RETAIL_INTELLIGENCE.md) for the product experience and ranking rules, and [docs/NIGERIA_RETAILERS.md](docs/NIGERIA_RETAILERS.md) for the reviewed store set and exact-match policy.
 
 ## Platform foundation
 
@@ -125,6 +125,8 @@ vercel env pull
 ## Validation
 
 ```bash
+npm run lint
 npm run typecheck
+npm test
 npm run build
 ```

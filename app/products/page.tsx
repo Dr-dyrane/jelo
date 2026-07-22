@@ -12,7 +12,7 @@ export default async function ProductsPage() {
       <header className="page-heading">
         <p className="eyebrow">The catalogue</p>
         <h1>Find what<br/>fits.</h1>
-        <p>Search from the navbar, then refine by category, concern or market.</p>
+        <p>Search products. Compare stores.</p>
       </header>
       <Suspense fallback={<div aria-live="polite">Loading catalogue…</div>}>
         <CatalogueExplorer products={products}/>

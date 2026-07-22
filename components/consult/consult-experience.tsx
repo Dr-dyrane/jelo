@@ -43,7 +43,13 @@ export function ConsultExperience() {
   const [error, setError] = useState('');
   const market = useMemo(() => inferMarket(), []);
 
-  useEffect(() => { try { setTimeline(JSON.parse(window.localStorage.getItem(timelineKey) ?? '[]')); } catch { setTimeline([]); } }, []);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      try { setTimeline(JSON.parse(window.localStorage.getItem(timelineKey) ?? '[]')); }
+      catch { setTimeline([]); }
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   async function submit(text: string) {
     const query = text.trim();

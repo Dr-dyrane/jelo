@@ -24,7 +24,7 @@ export function inferMarket(): Market {
 
 export function formatBaselinePrice(slug: string, preferred: Market = 'NG') {
   const entry = baselinePrices[slug];
-  const price = entry?.[preferred] ?? entry?.NG ?? entry?.US;
+  const price = entry?.[preferred];
   if (!price) return 'Live price';
   return new Intl.NumberFormat(price.currency === 'NGN' ? 'en-NG' : 'en-US', { style: 'currency', currency: price.currency, maximumFractionDigits: price.currency === 'NGN' ? 0 : 2 }).format(price.amount);
 }

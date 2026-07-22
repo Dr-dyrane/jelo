@@ -2,6 +2,7 @@ import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import postgres from 'postgres';
 
+async function main() {
 const connectionString = process.env.DATABASE_URL_UNPOOLED
   ?? process.env.POSTGRES_URL_NON_POOLING
   ?? process.env.DATABASE_URL
@@ -93,3 +94,9 @@ try {
 } finally {
   await sql.end();
 }
+}
+
+main().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});

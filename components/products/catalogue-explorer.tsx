@@ -42,7 +42,7 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
   return (
     <section className={styles.explorer}>
       <div className={styles.commandBar}>
-        {query ? <div className={styles.queryChip}><span>Search</span><strong>{query}</strong><button type="button" onClick={() => window.location.assign('/products')} aria-label="Clear search"><X size={15}/></button></div> : <p className={styles.commandHint}>Use Search in the navbar to find a product, brand or concern.</p>}
+        {query ? <div className={styles.queryChip}><span>Search</span><strong>{query}</strong><button type="button" onClick={() => window.location.assign('/products')} aria-label="Clear search"><X size={15}/></button></div> : <p className={styles.commandHint}>Product, brand or concern.</p>}
         <div className={styles.market} aria-label="Shopping market">
           <button type="button" className={market === 'NG' ? styles.active : ''} onClick={() => setMarket('NG')}>Nigeria</button>
           <button type="button" className={market === 'US' ? styles.active : ''} onClick={() => setMarket('US')}>United States</button>
@@ -65,7 +65,7 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
         {hasFilters ? <button type="button" onClick={clearFilters}>Clear filters</button> : null}
       </div>
 
-      {filtered.length ? <ProductGrid products={filtered}/> : (
+      {filtered.length ? <ProductGrid products={filtered} market={market}/> : (
         <div className={styles.empty}>
           <p className="eyebrow">Nothing exact yet</p>
           <h2>Try a broader concern.</h2>

@@ -42,5 +42,5 @@ export function assessClinicalRoutine(text: string, partialProfile: PatientProfi
   const treatmentGoals = buildTreatmentGoals({ barrier, differential, referral });
   const monitoring = buildMonitoringPlan({ barrier, differential, referral });
   const base: ClinicalAssessment = { detectedIngredients, findings, evidence, blockedIngredientIds, activeLoad, barrier, differential, referral, treatmentGoals, monitoring, profile };
-  return { ...base, routinePlan: optimizeRoutine(base, profile) };
+  return { ...base, routinePlan: optimizeRoutine(base) };
 }

@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable @next/next/no-img-element -- This audit intentionally observes native image load and error events for arbitrary runtime URLs. */
+
 import { useMemo, useState } from 'react';
 import type { Product } from '@/data/products';
 

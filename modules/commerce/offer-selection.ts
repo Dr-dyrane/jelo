@@ -11,6 +11,14 @@ export function rankOffers(offers: Offer[], country: string): RankedOffer[] {
       const reasons: string[] = [];
       let score = offer.trust;
 
+      if (offer.match === 'search') {
+        score -= 50;
+        reasons.push('Search route only');
+      } else {
+        score += 12;
+        reasons.push('Exact product route');
+      }
+
       if (offer.location.includes(country)) {
         score += 20;
         reasons.push('Available for your location');
@@ -29,8 +37,10 @@ export function rankOffers(offers: Offer[], country: string): RankedOffer[] {
         reasons.push('Stock needs confirmation');
       }
 
-      if (offer.priceNgn) {
-        score += Math.max(0, 16 - offer.priceNgn / 10000);
+      const marketPrice = country === 'US' ? offer.priceUsd : offer.priceNgn;
+      if (marketPrice) {
+        const priceWeight = country === 'US' ? marketPrice / 10 : marketPrice / 10000;
+        score += Math.max(0, 16 - priceWeight);
         reasons.push('Price considered');
       }
 

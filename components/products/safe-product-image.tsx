@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable @next/next/no-img-element -- Native onError fallback is required for retailer-hosted catalogue images. */
+
 import { useState } from 'react';
 
 type Props = {

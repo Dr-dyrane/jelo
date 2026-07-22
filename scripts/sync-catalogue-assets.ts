@@ -21,6 +21,7 @@ function run(command: string, args: string[], tolerateFailure = false) {
   });
 }
 
+async function main() {
 console.log('\nJeloCare catalogue asset inventory — before sync\n');
 await run('npm', ['run', 'assets:audit']);
 
@@ -36,3 +37,9 @@ if (importExitCode !== 0) {
 } else {
   console.log('\nAsset sync complete. All importable catalogue images are recorded in Blob and Neon.');
 }
+}
+
+main().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});

@@ -9,14 +9,26 @@ import styles from './site-header.module.css';
 export function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === '/';
-  const [open, setOpen] = useState(false);
+  const [openPathname, setOpenPathname] = useState<string | null>(null);
+  const open = openPathname === pathname;
+  const [scrolled, setScrolled] = useState(false);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    let frame = 0;
+    const update = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => setScrolled(window.scrollY > 48));
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', update);
+    };
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -24,19 +36,19 @@ export function SiteHeader() {
       const isTyping = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.isContentEditable;
 
       if (event.key === 'Escape') {
-        setOpen(false);
+        setOpenPathname(null);
         return;
       }
 
       if ((!isTyping && event.key === '/') || ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k')) {
         event.preventDefault();
-        setOpen(true);
+        setOpenPathname(pathname);
       }
     };
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -44,7 +56,7 @@ export function SiteHeader() {
     inputRef.current?.focus();
 
     const onPointerDown = (event: PointerEvent) => {
-      if (!searchRef.current?.contains(event.target as Node)) setOpen(false);
+      if (!searchRef.current?.contains(event.target as Node)) setOpenPathname(null);
     };
 
     window.addEventListener('pointerdown', onPointerDown);
@@ -59,7 +71,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className={`${styles.header} ${isHome ? styles.homeHeader : ''} ${open ? styles.searchOpen : ''}`}>
+    <header className={`${styles.header} ${isHome && !scrolled ? styles.homeHeader : ''} ${open ? styles.searchOpen : ''}`}>
       <Link className={styles.logo} href="/">JELOCARE</Link>
 
       <nav className={styles.nav} aria-label="Primary navigation">
@@ -80,12 +92,12 @@ export function SiteHeader() {
                 placeholder="Search products, brands or concerns"
                 aria-label="Search products, brands or concerns"
               />
-              <button className={styles.closeSearch} type="button" onClick={() => setOpen(false)} aria-label="Close search">
+              <button className={styles.closeSearch} type="button" onClick={() => setOpenPathname(null)} aria-label="Close search">
                 <X size={17} />
               </button>
             </>
           ) : (
-            <button className={styles.searchTrigger} type="button" onClick={() => setOpen(true)} aria-label="Open search" aria-expanded="false">
+            <button className={styles.searchTrigger} type="button" onClick={() => setOpenPathname(pathname)} aria-label="Open search" aria-expanded="false">
               <Search size={18} />
               <span>Search</span>
             </button>

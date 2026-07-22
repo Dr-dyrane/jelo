@@ -1,0 +1,74 @@
+[
+  {
+    "id": "barrier-edit-hero",
+    "role": "homepage-hero",
+    "localPath": "/editorial/jelocare-hero-campaign.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/barrier-edit/jelocare-hero-campaign.webp",
+    "altText": "Black woman with luminous skin in warm editorial light",
+    "mimeType": "image/webp",
+    "width": 1920,
+    "height": 1080,
+    "byteSize": 102364,
+    "transparent": false
+  },
+  {
+    "id": "barrier-care-cutout",
+    "role": "concern-cutout",
+    "localPath": "/editorial/cutouts/barrier-care.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/concern-edits/barrier-care.png",
+    "altText": "Blush airless skincare pump bottle",
+    "mimeType": "image/png",
+    "width": 544,
+    "height": 664,
+    "byteSize": 95372,
+    "transparent": true
+  },
+  {
+    "id": "clearer-skin-cutout",
+    "role": "concern-cutout",
+    "localPath": "/editorial/cutouts/clearer-skin.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/concern-edits/clearer-skin.png",
+    "altText": "Pale aqua cleanser tube",
+    "mimeType": "image/png",
+    "width": 544,
+    "height": 664,
+    "byteSize": 177487,
+    "transparent": true
+  },
+  {
+    "id": "even-tone-cutout",
+    "role": "concern-cutout",
+    "localPath": "/editorial/cutouts/even-tone.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/concern-edits/even-tone.png",
+    "altText": "Amber glass serum dropper bottle",
+    "mimeType": "image/png",
+    "width": 544,
+    "height": 664,
+    "byteSize": 116244,
+    "transparent": true
+  },
+  {
+    "id": "daily-protection-cutout",
+    "role": "concern-cutout",
+    "localPath": "/editorial/cutouts/daily-protection.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/concern-edits/daily-protection.png",
+    "altText": "Ivory sunscreen tube",
+    "mimeType": "image/png",
+    "width": 544,
+    "height": 664,
+    "byteSize": 121481,
+    "transparent": true
+  },
+  {
+    "id": "sensitive-skin-cutout",
+    "role": "concern-cutout",
+    "localPath": "/editorial/cutouts/sensitive-skin.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/concern-edits/sensitive-skin.png",
+    "altText": "Frosted moisturizer jar",
+    "mimeType": "image/png",
+    "width": 544,
+    "height": 664,
+    "byteSize": 140587,
+    "transparent": true
+  }
+]

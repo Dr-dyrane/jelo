@@ -10,7 +10,8 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'nigeria.lushhairafrica.com' },
       { protocol: 'https', hostname: 'sliquebeautylimited.com' },
       { protocol: 'https', hostname: 'perfectpicturecosmetics.com' },
-      { protocol: 'https', hostname: 'www.caretobeauty.com' }
+      { protocol: 'https', hostname: 'www.caretobeauty.com' },
+      { protocol: 'https', hostname: 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com' }
     ]
   }
 };

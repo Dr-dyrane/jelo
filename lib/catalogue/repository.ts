@@ -30,6 +30,9 @@ type ProductRow = {
     trust: number;
     available: boolean;
     priceNgn?: number;
+    priceUsd?: number;
+    checkedAt?: string;
+    match?: Offer['match'];
     location: string[];
   }> | null;
 };
@@ -100,7 +103,10 @@ async function queryProducts(slug?: string) {
           'url', grouped.url,
           'trust', r.trust_score,
           'available', grouped.available,
-          'priceNgn', grouped.price_minor,
+          'priceNgn', grouped.price_ngn,
+          'priceUsd', grouped.price_usd,
+          'checkedAt', grouped.checked_at,
+          'match', grouped.match_kind,
           'location', grouped.locations
         ) order by r.trust_score desc)
         from (
@@ -108,8 +114,11 @@ async function queryProducts(slug?: string) {
             o.retailer_id,
             min(o.url) as url,
             bool_or(o.available) as available,
-            max(o.price_minor) as price_minor,
-            jsonb_agg(o.market_code order by o.market_code) as locations
+            min(o.price_minor) filter (where o.currency_code = 'NGN') as price_ngn,
+            (min(o.price_minor) filter (where o.currency_code = 'USD'))::numeric / 100 as price_usd,
+            max(o.checked_at) as checked_at,
+            case when bool_and(o.match_kind = 'search') then 'search' else 'exact' end as match_kind,
+            jsonb_agg(distinct o.market_code order by o.market_code) as locations
           from offers o
           where o.product_id = p.id
           group by o.retailer_id

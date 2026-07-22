@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import type { Product } from '@/data/products';
+import type { Market } from '@/data/prices';
 import { MarketPrice } from './market-price';
 import { SafeProductImage } from './safe-product-image';
 import styles from './product-card.module.css';
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, market = 'NG' }: { product: Product; market?: Market }) {
   const href = `/products/${product.slug}`;
   return (
     <article className={`${styles.card} product-card`}>
       <Link className={`${styles.visual} product-visual`} href={href} aria-label={`${product.brand} ${product.name}`}>
         <span className={styles.step}>{product.step}</span>
-        <span className={styles.price}><MarketPrice slug={product.slug} /></span>
+        <span className={styles.price}><MarketPrice slug={product.slug} offers={product.offers} market={market} /></span>
         <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
         <span className={styles.reveal} aria-hidden="true"><ArrowUpRight size={20} strokeWidth={1.9} /></span>
       </Link>

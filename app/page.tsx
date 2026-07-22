@@ -1,32 +1,54 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ProductRail } from '@/components/products/product-grid';
+import { SafeProductImage } from '@/components/products/safe-product-image';
 import { products } from '@/data/catalogue';
+import { marketSignals } from '@/data/market-signals';
+import type { Product } from '@/data/products';
 import styles from './home.module.css';
 
-const heroImage = 'https://www.image2url.com/r2/default/images/1784614153127-04c468fa-5407-4e72-98cf-07e3b3f23e2c.png';
-
-const editorialCutouts: Record<string, string> = {
-  'b-lab-matcha-hydrating-real-sunscreen': 'https://www.image2url.com/r2/default/images/1784612431050-059af417-11e1-431b-9915-8baf986029c2.png',
-  'cosrx-salicylic-acid-daily-gentle-cleanser': 'https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373',
-  'anua-niacinamide-10-txa-4-serum': 'https://www.image2url.com/r2/default/images/1784612193616-00aef27b-d215-4449-b844-6de19aeab4ea.png',
-  'face-facts-wonder-cream-fragrance-free': 'https://facefacts.me/cdn/shop/files/39163_150_fr1.png?v=1759159571&width=1080',
-};
-
-const cutoutFor = (slug: string, fallback: string) => editorialCutouts[slug] ?? fallback;
+const editorialBase = 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial';
+const heroImage = `${editorialBase}/barrier-edit/jelocare-hero-campaign.webp`;
 
 const concernCards = [
-  { label: 'Barrier repair', query: 'barrier', note: 'Comfort. Repair. Resilience.', product: products.find(product => product.concerns.includes('barrier')) ?? products[0] },
-  { label: 'Clearer skin', query: 'acne', note: 'A calmer path to clarity.', product: products.find(product => product.concerns.includes('acne')) ?? products[1] },
-  { label: 'Even tone', query: 'hyperpigmentation', note: 'Brightening without the noise.', product: products.find(product => product.concerns.includes('hyperpigmentation')) ?? products[2] },
-  { label: 'Daily protection', query: 'sunscreen', note: 'The step that protects every other step.', product: products.find(product => product.step === 'Protect') ?? products[3] },
-  { label: 'Sensitive skin', query: 'sensitivity', note: 'Less friction. More comfort.', product: products.find(product => product.sensitiveFriendly) ?? products[4] },
-].filter(card => card.product);
+  { label: 'Barrier care', query: 'barrier', image: `${editorialBase}/concern-edits/barrier-care.png`, alt: 'Blush airless skincare pump bottle' },
+  { label: 'Clear skin', query: 'acne', image: `${editorialBase}/concern-edits/clearer-skin.png`, alt: 'Pale aqua cleanser tube' },
+  { label: 'Even tone', query: 'hyperpigmentation', image: `${editorialBase}/concern-edits/even-tone.png`, alt: 'Amber glass serum dropper bottle' },
+  { label: 'Daily SPF', query: 'sunscreen', image: `${editorialBase}/concern-edits/daily-protection.png`, alt: 'Ivory sunscreen tube' },
+  { label: 'Sensitive skin', query: 'sensitivity', image: `${editorialBase}/concern-edits/sensitive-skin.png`, alt: 'Frosted moisturizer jar' },
+];
+
+function DiscoveryRail({ kicker, title, products: railProducts, href = '/products' }: {
+  kicker: string;
+  title: string;
+  products: Product[];
+  href?: string;
+}) {
+  if (!railProducts.length) return null;
+
+  return (
+    <section className={styles.railSection}>
+      <div className={styles.sectionHeader}>
+        <div><p className={styles.kicker}>{kicker}</p><h2>{title}</h2></div>
+        <Link href={href}>View all →</Link>
+      </div>
+      <ProductRail products={railProducts} />
+    </section>
+  );
+}
 
 export default function HomePage() {
-  const storyProduct = products.find(product => product.concerns.includes('barrier')) ?? products[3] ?? products[0];
   const recommendations = products.filter(product => product.sensitiveFriendly).slice(0, 3);
   const editorsEdit = products.slice(0, 12);
   const newAndNoteworthy = products.slice(12, 24).length ? products.slice(12, 24) : products.slice(0, 12);
+  const evidenceLed = products.filter(product => product.evidence === 'high');
+  const acneCare = products.filter(product => product.concerns.some(concern => ['acne', 'blackheads', 'whiteheads', 'breakouts', 'body acne'].includes(concern)));
+  const toneAndProtection = products.filter(product => product.step === 'Protect' || product.concerns.some(concern => ['hyperpigmentation', 'dark spots'].includes(concern)));
+  const barrierCare = products.filter(product => product.concerns.some(concern => ['barrier', 'dryness', 'sensitivity'].includes(concern)));
+  const kBeauty = products.filter(product => ['COSRX', 'ANUA', 'SOME BY MI', 'B.LAB'].includes(product.brand));
+  const nigeriaReady = products.filter(product => product.offers.some(offer => offer.available && (offer.location.includes('NG') || offer.location.includes('INTL'))));
+  const hairCare = products.filter(product => product.category === 'Hair');
+  const bodyCare = products.filter(product => product.category === 'Body');
 
   return (
     <main className={styles.main}>
@@ -37,15 +59,15 @@ export default function HomePage() {
           <h1>Skin, beautifully understood.</h1>
           <p className={styles.heroDeck}>Pharmacist-curated skincare.</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/products?q=barrier">Shop the edit</Link>
+            <Link className={styles.primary} href="/products?q=barrier">Explore the edit</Link>
             <Link className={styles.secondary} href="/consult">Ask JeloCare</Link>
           </div>
         </div>
 
         <div className={`${styles.glassCard} ${styles.glassFeature}`}>
-          <span>La Roche-Posay</span>
-          <strong>Cicaplast Baume B5</strong>
-          <small>Barrier repair · Pharmacist pick</small>
+          <span>JeloCare</span>
+          <strong>Barrier care.</strong>
+          <small>Comfort first</small>
         </div>
 
         <div className={styles.heroMeta}>
@@ -57,71 +79,145 @@ export default function HomePage() {
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div><p className={styles.kicker}>Find your chapter</p><h2>Shop by concern.</h2></div>
+          <div><p className={styles.kicker}>Find your chapter</p><h2>Choose a concern.</h2></div>
           <Link href="/concerns">View all concerns →</Link>
         </div>
         <div className={styles.categoryGrid}>
           {concernCards.map((card, index) => (
             <Link className={styles.category} href={`/products?q=${encodeURIComponent(card.query)}`} key={card.label}>
-              <small>0{index + 1} · Curated edit</small>
-              <img src={cutoutFor(card.product.slug, card.product.image)} alt={`${card.product.brand} ${card.product.name}`} />
-              <div><span>{card.label}</span><p>{card.note}</p></div>
+              <small>0{index + 1}</small>
+              <Image src={card.image} alt={card.alt} width={544} height={664} sizes="(max-width: 700px) 70vw, (max-width: 1000px) 30vw, 18vw" loading={index === 0 ? 'eager' : 'lazy'} />
+              <div><span>{card.label}</span></div>
             </Link>
           ))}
         </div>
       </section>
 
-      {storyProduct ? (
-        <section className={styles.story}>
-          <div className={styles.storyVisual}><img src={cutoutFor(storyProduct.slug, storyProduct.image)} alt={`${storyProduct.brand} ${storyProduct.name}`} /></div>
-          <div className={styles.storyCopy}>
-            <p className={styles.kicker}>This week&apos;s story</p>
-            <h2>The barrier recovery issue.</h2>
-            <p>A considered edit for skin that feels tight, reactive or simply tired. Start with comfort, then build back strength.</p>
-            <Link className={styles.storyLink} href="/products?q=barrier">Read the edit</Link>
-          </div>
-        </section>
-      ) : null}
-
-      <section className={styles.railSection}>
-        <div className={styles.sectionHeader}>
-          <div><p className={styles.kicker}>The editor&apos;s shelf</p><h2>Worth knowing.</h2></div>
-          <Link href="/products">See the full collection →</Link>
+      <section className={`${styles.story} editorial-story`}>
+        <div className={`${styles.storyVisual} editorial-story-visual`}><Image src={`${editorialBase}/concern-edits/barrier-care.png`} alt="Blush airless pump bottle representing barrier care" width={544} height={664} sizes="(max-width: 1000px) 92vw, 46vw" /></div>
+        <div className={`${styles.storyCopy} editorial-story-copy`}>
+          <p className={styles.kicker}>This week&apos;s story</p>
+          <h2>Back to comfort.</h2>
+          <Link className={styles.storyLink} href="/products?q=barrier">Explore barrier care</Link>
         </div>
-        <ProductRail products={editorsEdit} />
       </section>
+
+      <section className="discovery-intro">
+        <div>
+          <p className="eyebrow">The JeloCare edit</p>
+          <h2>What&apos;s good now.</h2>
+          <div className="market-sources" aria-label="Retail signals reviewed">
+            {marketSignals.sources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>)}
+          </div>
+        </div>
+        <div className="signal-list">
+          <span>Pharmacy care</span>
+          <span>Clear skin</span>
+          <span>Deep hydration</span>
+          <span>Daily SPF</span>
+        </div>
+      </section>
+
+      <DiscoveryRail
+        kicker="Our shelf"
+        title="Worth a look."
+        products={editorsEdit}
+      />
+
+      <DiscoveryRail
+        kicker="Pharmacist picks"
+        title="Tried and trusted."
+        products={evidenceLed}
+      />
+
+      <DiscoveryRail
+        kicker="Clear skin"
+        title="Keep it simple."
+        products={acneCare}
+        href="/products?q=acne"
+      />
+
+      <section className="evidence-banner">
+        <div className="evidence-banner-copy">
+          <p className="eyebrow">Every morning</p>
+          <h2>Protect your progress.</h2>
+          <ul className="evidence-points">
+            <li>Prioritize SPF 30 or higher</li>
+            <li>Look for broad-spectrum protection</li>
+            <li>Reapply when sun exposure continues</li>
+          </ul>
+          <Link className={styles.primary} href="/products?q=sunscreen">Explore SPF</Link>
+        </div>
+        <Image src={`${editorialBase}/concern-edits/daily-protection.png`} alt="Ivory sunscreen tube" width={544} height={664} sizes="(max-width: 900px) 80vw, 34vw" />
+      </section>
+
+      <DiscoveryRail
+        kicker="Tone care"
+        title="Protect. Then even."
+        products={toneAndProtection}
+        href="/products?q=hyperpigmentation"
+      />
+
+      <DiscoveryRail
+        kicker="Comfort first"
+        title="Barrier care."
+        products={barrierCare}
+        href="/products?q=barrier"
+      />
+
+      <DiscoveryRail
+        kicker="K-beauty"
+        title="The hydration edit."
+        products={kBeauty}
+      />
 
       <section className={styles.recommendation}>
         <div className={styles.recommendationCopy}>
           <p className={styles.kicker}>A gentle place to begin</p>
-          <h3>Three formulas for skin asking for less.</h3>
-          <p>Comfort-first picks selected for sensitive-friendly routines and uncomplicated daily use.</p>
-          <Link className={styles.primary} href="/products?q=sensitivity">Explore sensitive skin</Link>
+          <h3>Three gentle starts.</h3>
+          <Link className={styles.primary} href="/products?q=sensitivity">Explore sensitive care</Link>
         </div>
         <div className={styles.formulaList} aria-label="Sensitive skin recommendations">
           {recommendations.map((product, index) => (
             <Link href={`/products/${product.slug}`} key={product.slug}>
               <span className={styles.formulaNumber}>0{index + 1}</span>
               <div className={styles.formulaText}><small>{product.brand}</small><strong>{product.name}</strong><em>{product.displayLine}</em></div>
-              <img src={cutoutFor(product.slug, product.image)} alt={`${product.brand} ${product.name}`} />
+              <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
             </Link>
           ))}
         </div>
       </section>
 
-      <section className={styles.railSection}>
-        <div className={styles.sectionHeader}>
-          <div><p className={styles.kicker}>New and noteworthy</p><h2>Fresh on the shelf.</h2></div>
-          <Link href="/products">Browse everything →</Link>
-        </div>
-        <ProductRail products={newAndNoteworthy} />
-      </section>
+      <DiscoveryRail
+        kicker="Near you"
+        title="Nigeria-ready."
+        products={nigeriaReady}
+      />
+
+      <DiscoveryRail
+        kicker="Hair care"
+        title="Scalp to ends."
+        products={hairCare}
+        href="/products?q=hair"
+      />
+
+      <DiscoveryRail
+        kicker="Body care"
+        title="Every day."
+        products={bodyCare}
+        href="/products?q=body"
+      />
+
+      <DiscoveryRail
+        kicker="Just in"
+        title="New on JeloCare."
+        products={newAndNoteworthy}
+      />
 
       <section className={styles.consult}>
         <p className={styles.kicker}>Personal guidance</p>
-        <h2>Not sure where to begin?</h2>
-        <p>Meet JeloCare&apos;s skin consultation: thoughtful guidance, clear routines and product recommendations shaped around what your skin is telling you.</p>
-        <Link className={styles.consultLink} href="/consult">Start a skin consultation</Link>
+        <h2>Find your routine.</h2>
+        <Link className={styles.consultLink} href="/consult">Start</Link>
       </section>
     </main>
   );

@@ -1,7 +1,7 @@
 import postgres from 'postgres';
-import { products as coreProducts } from '../data/products';
-import { expandedProducts } from '../data/expanded-products';
+import { products as catalogue } from '../data/catalogue';
 
+async function main() {
 const connectionString = process.env.DATABASE_URL_UNPOOLED
   ?? process.env.POSTGRES_URL_NON_POOLING
   ?? process.env.DATABASE_URL
@@ -12,8 +12,6 @@ if (!connectionString) {
 }
 
 const sql = postgres(connectionString, { max: 1, prepare: false });
-const catalogue = [...coreProducts, ...expandedProducts];
-
 const slugify = (value: string) => value
   .toLowerCase()
   .normalize('NFKD')
@@ -168,18 +166,29 @@ try {
 
         for (const market of offer.location) {
           const inventoryStatus = offer.available ? 'in_stock' : 'out_of_stock';
+          const priceMinor = market === 'NG' && offer.priceNgn != null
+            ? offer.priceNgn
+            : market === 'US' && offer.priceUsd != null
+              ? Math.round(offer.priceUsd * 100)
+              : null;
+          const currencyCode = market === 'NG' && offer.priceNgn != null
+            ? 'NGN'
+            : market === 'US' && offer.priceUsd != null
+              ? 'USD'
+              : null;
+          const checkedAt = offer.checkedAt ? new Date(`${offer.checkedAt}T12:00:00Z`) : new Date();
           await tx`
             insert into offers (
               product_id, retailer_id, url, market_code, available,
               price_minor, currency_code, checked_at, inventory_status,
               verification_method, verification_note, last_verified_at,
-              verification_expires_at
+              verification_expires_at, match_kind
             ) values (
               ${savedProduct.id}, ${retailer.id}, ${offer.url}, ${market},
-              ${offer.available}, ${offer.priceNgn ?? null},
-              ${offer.priceNgn == null ? null : 'NGN'}, now(),
+              ${offer.available}, ${priceMinor},
+              ${currencyCode}, ${checkedAt},
               ${inventoryStatus}, 'import', 'Seeded from the curated catalogue.',
-              now(), now() + interval '7 days'
+              ${checkedAt}, ${checkedAt}::timestamptz + interval '7 days', ${offer.match ?? 'exact'}
             )
             on conflict (product_id, retailer_id, market_code) do update set
               url = excluded.url,
@@ -192,6 +201,7 @@ try {
               verification_note = excluded.verification_note,
               last_verified_at = excluded.last_verified_at,
               verification_expires_at = excluded.verification_expires_at,
+              match_kind = excluded.match_kind,
               updated_at = now()
           `;
         }
@@ -203,3 +213,9 @@ try {
 } finally {
   await sql.end();
 }
+}
+
+main().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});

@@ -4,6 +4,9 @@ export type Offer = {
   trust: number;
   available: boolean;
   priceNgn?: number;
+  priceUsd?: number;
+  checkedAt?: string;
+  match?: 'exact' | 'search';
   location: string[];
 };
 
@@ -116,7 +119,7 @@ export const products: Product[] = [
   },
   {
     slug: 'ogx-renewing-argan-oil-of-morocco', brand: 'OGX', name: 'Renewing + Argan Oil of Morocco Extra Penetrating Oil', size: '100 ml', category: 'Hair', step: 'Finish',
-    image: 'https://www.caretobeauty.com/on/demandware.static/-/Sites-master-catalog/default/dw13eb2662/images/large/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml.jpg', displayLine: 'Gloss · finish',
+    image: 'https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp', displayLine: 'Gloss · finish',
     bestFor: ['shine', 'dry lengths and ends'], concerns: ['dry hair', 'frizz'], skinTypes: ['hair'], sensitiveFriendly: true,
     usage: 'Use a few drops through lengths and ends.', evidence: 'moderate',
     offers: [beautyByDaz('https://beautybydaz.com/?s=OGX+Renewing+Argan+Oil+of+Morocco&post_type=product', false), careToBeauty('https://www.caretobeauty.com/ng/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml/')]

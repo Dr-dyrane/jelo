@@ -1,10 +1,10 @@
-import type { ClinicalAssessment, ClinicalFinding, PatientProfile, RoutinePlan, RoutineStep } from './types';
+import type { ClinicalAssessment, ClinicalFinding, RoutinePlan, RoutineStep } from './types';
 
 function step(time: RoutineStep['time'], action: string, rationale: string, frequency: RoutineStep['frequency'] = 'daily'): RoutineStep {
   return { time, action, rationale, frequency };
 }
 
-export function optimizeRoutine(assessment: ClinicalAssessment, profile: PatientProfile): RoutinePlan {
+export function optimizeRoutine(assessment: ClinicalAssessment): RoutinePlan {
   const ids = new Set(assessment.detectedIngredients.map(item => item.id));
   const findings: ClinicalFinding[] = [...assessment.findings];
   const barrierFirst = assessment.barrier.state === 'stressed' || assessment.barrier.state === 'compromised';

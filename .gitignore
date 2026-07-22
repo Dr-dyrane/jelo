@@ -4,6 +4,7 @@ node_modules/
 # Next.js
 .next/
 out/
+*.tsbuildinfo
 
 # local environment files
 .env
@@ -15,3 +16,6 @@ data/asset-import-results.json
 
 # system files
 .DS_Store
+
+# Vercel project linkage and pulled environments
+.vercel/
