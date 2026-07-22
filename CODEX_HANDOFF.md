@@ -611,7 +611,7 @@ Grow toward 100-150 high-quality products only after these gates are automated.
 1. `CATALOGUE_SOURCE=neon` still has a static fallback. Preserve intentional behavior and log fallback without leaking sensitive details.
 2. Retailer-page extraction now has structured adapters for Beauty by Daz, Lux Beauty NG, Teeka4, Perona Beauty and Care to Beauty. Keep expanding fixtures and adapters before treating unknown hosts as high-confidence live intelligence.
 3. Price units are named `price_minor`, while Nigerian static models use `priceNgn`. Verify whether NGN is stored as whole naira or kobo and standardize semantics before adding financial calculations.
-4. The catalogue query groups offers and currently selects `max(o.price_minor)`. Review whether this is a correctness bug for displayed lowest price.
+4. The catalogue query now selects the lowest stored price per currency. Keep this invariant covered when adding delivered-price or market-history calculations.
 5. Authentication is not yet an approved public product surface. Do not add login gates casually.
 6. Clinical tables are not permission to publish unsupported medical claims. Review status and sources matter.
 7. Build-time production migrations increase deployment coupling. Keep them safe, locked, fast, and observable; consider a separate release migration job only if the current model becomes unreliable.

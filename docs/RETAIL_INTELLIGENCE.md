@@ -76,6 +76,8 @@ For every supported product, JeloCare should eventually compute:
 - savings versus the current market median;
 - confidence score.
 
+The product page now computes the current best price, typical price, highest price, stores compared, in-stock count, savings versus typical, latest check and a deterministic confidence score from exact same-market offers. Seven- and 30-day movement remain dependent on the durable price-history projection.
+
 ## Safety and trust
 
 Retailer inclusion is not an authenticity guarantee. JeloCare should distinguish:
