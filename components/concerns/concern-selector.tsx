@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ArrowUpRight, Check, Plus, RotateCcw } from 'lucide-react';
-import { useMemo } from 'react';
+import { startTransition, useMemo, useOptimistic } from 'react';
 import type { Concern } from '@/data/knowledge';
 import type { Product } from '@/data/products';
 import { ProductCard } from '@/components/products/product-card';
@@ -19,10 +19,11 @@ export function ConcernSelector({ concerns, products }: { concerns: Concern[]; p
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const valid = useMemo(() => new Set(concerns.map(concern => concern.slug)), [concerns]);
-  const selected = useMemo(
+  const selectedFromUrl = useMemo(
     () => selectedFromQuery(searchParams.get('concerns'), valid),
     [searchParams, valid],
   );
+  const [selected, setSelected] = useOptimistic(selectedFromUrl);
 
   const ranked = useMemo(
     () => rankProductsForConcerns(products, concerns, selected),
@@ -34,7 +35,10 @@ export function ConcernSelector({ concerns, products }: { concerns: Concern[]; p
     if (next.length) query.set('concerns', next.join(','));
     else query.delete('concerns');
     const suffix = query.toString();
-    router.replace(suffix ? `${pathname}?${suffix}` : pathname, { scroll: false });
+    startTransition(() => {
+      setSelected(next);
+      router.replace(suffix ? `${pathname}?${suffix}` : pathname, { scroll: false });
+    });
   }
 
   function toggle(slug: string) {
