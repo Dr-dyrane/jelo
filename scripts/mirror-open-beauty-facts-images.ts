@@ -90,7 +90,7 @@ async function mirror(candidate: Candidate, sourceSnapshotSha256: string): Promi
     signal: AbortSignal.timeout(25_000),
     headers: {
       Accept: 'image/avif,image/webp,image/png,image/jpeg,image/gif;q=0.8,*/*;q=0.1',
-      'User-Agent': 'JeloCareCatalogueMirror/1.0 (hello@dyrane.tech)',
+      'User-Agent': 'JeloCareCatalogueMirror/1.0 (hello@jelocare.com)',
     },
   });
   if (!response.ok) throw new Error(`source returned ${response.status}`);

@@ -291,7 +291,7 @@ async function downloadSnapshot(force: boolean) {
   }
 
   const response = await fetch(SOURCE_URL, {
-    headers: { 'User-Agent': 'JeloCareCatalogueImporter/1.0 (hello@dyrane.tech)' },
+    headers: { 'User-Agent': 'JeloCareCatalogueImporter/1.0 (hello@jelocare.com)' },
     signal: AbortSignal.timeout(180_000),
   });
   if (!response.ok || !response.body) throw new Error(`Open Beauty Facts export returned ${response.status}.`);

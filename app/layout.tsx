@@ -79,9 +79,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </div>
           <div className="footer-group">
             <strong>Connect</strong>
-            <a href="mailto:hello@dyrane.tech">hello@dyrane.tech</a>
-            <a href="mailto:hello@dyrane.tech?subject=JeloCare%20retail%20partnership">Retail partnerships</a>
-            <a href="mailto:hello@dyrane.tech?subject=JeloCare%20affiliate%20partnership">Affiliate enquiries</a>
+            <a href="mailto:hello@jelocare.com">hello@jelocare.com</a>
+            <a href="mailto:hello@jelocare.com?subject=JeloCare%20retail%20partnership">Retail partnerships</a>
+            <a href="mailto:hello@jelocare.com?subject=JeloCare%20affiliate%20partnership">Affiliate enquiries</a>
           </div>
           <div className="footer-legal">
             <span>© {new Date().getFullYear()} Dyrane · Guidance, not diagnosis.</span>

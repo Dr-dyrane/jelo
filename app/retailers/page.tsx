@@ -84,7 +84,7 @@ export default function RetailersPage() {
         </div>
         <div className={styles.disclosureActions}>
           <Link href="/products">Browse products <ArrowUpRight size={17}/></Link>
-          <a href="mailto:hello@dyrane.tech?subject=JeloCare%20retail%20partnership">Retail partnerships</a>
+          <a href="mailto:hello@jelocare.com?subject=JeloCare%20retail%20partnership">Retail partnerships</a>
         </div>
       </section>
     </main>

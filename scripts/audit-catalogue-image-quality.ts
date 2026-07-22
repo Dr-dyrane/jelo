@@ -111,7 +111,7 @@ async function fetchImage(target: AuditTarget) {
     signal: AbortSignal.timeout(30_000),
     headers: {
       Accept: 'image/avif,image/webp,image/png,image/jpeg,*/*;q=0.1',
-      'User-Agent': 'JeloCareImageAudit/1.0 (hello@dyrane.tech)',
+      'User-Agent': 'JeloCareImageAudit/1.0 (hello@jelocare.com)',
     },
   });
   if (!response.ok) throw new Error(`image returned ${response.status}`);
