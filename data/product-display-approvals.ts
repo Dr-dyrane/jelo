@@ -102,9 +102,9 @@ export const productDisplayApprovals = {
     brand: 'The Ordinary',
     name: 'Azelaic Acid Suspension 10%',
     size: '30 ml',
-    sourceUrl: 'https://media.ulta.com/i/ulta/2551154?fmt=auto&qlt=90&wid=1200',
-    contentHash: '6218f671f9c468ef603234b5edf21cabdd3a35ddded5b145d750f4dce7e84ec2',
-    reviewedAt: '2026-07-22T12:34:11.000Z',
+    sourceUrl: 'https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit',
+    contentHash: 'c5403d6e8e094b8a8c4cffd681c31edefad65fa3350854bf623f726048739e79',
+    reviewedAt: '2026-07-22T20:09:49Z',
   }),
   'la-roche-posay-toleriane-double-repair-spf30': approval({
     brand: 'La Roche-Posay',

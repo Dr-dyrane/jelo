@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-22T19:48:45Z",
+  "updatedAt": "2026-07-22T20:09:49Z",
   "candidates": [
     {
       "id": "ogx-renewing-argan-oil-of-morocco",
@@ -27,6 +27,32 @@
         "sourceAssetHeight": 1080,
         "sourceAssetMimeType": "image/webp",
         "sourceAssetRetrievedAt": "2026-07-22T19:23:52Z"
+      }
+    },
+    {
+      "id": "the-ordinary-azelaic-acid-suspension-10",
+      "productSlug": "the-ordinary-azelaic-acid-suspension-10",
+      "brand": "The Ordinary",
+      "name": "Azelaic Acid Suspension 10%",
+      "variant": "Azelaic Acid Suspension 10%",
+      "size": "30 ml",
+      "identity": {
+        "gtin": "769915190588",
+        "gtinEvidenceUrl": "https://barcodeindex.com/upc/769915190588/",
+        "manufacturerSku": "rdn-azelaic-acid-suspension-10pct-30ml",
+        "officialProductUrl": "https://theordinary.com/en-us/azelaic-acid-suspension-10-exfoliator-100407.html?dwvar_100407_size=30ml&quantity=1",
+        "officialFrontImageUrl": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit",
+        "reviewedAt": "2026-07-22T20:09:49Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "asset": {
+        "sourceUrl": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit",
+        "sourceAssetSha256": "c5403d6e8e094b8a8c4cffd681c31edefad65fa3350854bf623f726048739e79",
+        "sourceAssetByteSize": 266162,
+        "sourceAssetWidth": 1200,
+        "sourceAssetHeight": 1200,
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetRetrievedAt": "2026-07-22T20:09:49Z"
       }
     },
     {

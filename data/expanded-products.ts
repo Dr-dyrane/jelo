@@ -20,7 +20,7 @@ export const expandedProducts: Product[] = [
   },
   {
     slug: 'the-ordinary-azelaic-acid-suspension-10', brand: 'The Ordinary', name: 'Azelaic Acid Suspension 10%', size: '30 ml', category: 'Face', step: 'Treat',
-    image: 'https://media.ulta.com/i/ulta/2551154?fmt=auto&qlt=90&wid=1200', displayLine: 'Clarify · even',
+    image: 'https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit', displayLine: 'Clarify · even',
     bestFor: ['post-acne marks', 'redness', 'uneven texture'], concerns: ['acne', 'hyperpigmentation', 'dark spots', 'redness', 'texture'], skinTypes: ['oily', 'combination', 'normal'], sensitiveFriendly: true,
     usage: 'Apply a small amount in the evening; separate from strong acids and retinoids when introducing.', evidence: 'high',
     offers: [ngOffer('Beauty by Daz', 'https://beautybydaz.com/?s=the+ordinary+azelaic+acid&post_type=product', 88), usOffer('Ulta Beauty', 'https://www.ulta.com/p/azelaic-acid-suspension-10-cream-redness-blemish-prone-skin-pimprod2007104', 94, 12.2)]

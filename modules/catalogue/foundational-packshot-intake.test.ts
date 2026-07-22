@@ -34,6 +34,18 @@ test('foundational packshot intake binds an exact reviewed product to official s
     assert.equal(validGtin(candidate.identity.gtin), true);
     assert.equal(new URL(candidate.identity.officialProductUrl).protocol, 'https:');
     assert.equal(new URL(candidate.identity.officialFrontImageUrl).protocol, 'https:');
+    const gtinEvidenceUrl = 'gtinEvidenceUrl' in candidate.identity
+      ? candidate.identity.gtinEvidenceUrl
+      : undefined;
+    if (typeof gtinEvidenceUrl === 'string') {
+      assert.equal(new URL(gtinEvidenceUrl).protocol, 'https:');
+    }
+    const manufacturerSku = 'manufacturerSku' in candidate.identity
+      ? candidate.identity.manufacturerSku
+      : undefined;
+    if (typeof manufacturerSku === 'string') {
+      assert.ok(manufacturerSku.trim().length > 0);
+    }
     const officialIdentifierUrl = 'officialIdentifierUrl' in candidate.identity
       ? candidate.identity.officialIdentifierUrl
       : undefined;
