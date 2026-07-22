@@ -88,6 +88,19 @@ Retailer inclusion is not an authenticity guarantee. JeloCare should distinguish
 
 Claims should remain specific to the evidence available.
 
+## Retailer extraction
+
+The refresh worker selects a retailer adapter by canonical hostname. Beauty by Daz, Lux Beauty NG, Teeka4, Perona Beauty and Care to Beauty are registered first.
+
+Extraction order is conservative:
+
+1. JSON-LD `Product` and `Offer` data;
+2. product price metadata;
+3. a product-scoped WooCommerce stock marker;
+4. unknown when no reliable product evidence exists.
+
+Page-wide purchase copy is not stock evidence. Every refresh records the adapter, confidence, evidence labels, observed product title and same-origin canonical URL. High-confidence observations remain fresh longer than incomplete ones.
+
 ## Implementation order
 
 1. Register canonical retailer records.

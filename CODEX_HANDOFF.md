@@ -609,7 +609,7 @@ Grow toward 100-150 high-quality products only after these gates are automated.
 ## Known architectural cautions
 
 1. `CATALOGUE_SOURCE=neon` still has a static fallback. Preserve intentional behavior and log fallback without leaking sensitive details.
-2. Current retailer-page extraction is deliberately conservative but generic. It needs adapters before being treated as high-confidence live intelligence.
+2. Retailer-page extraction now has structured adapters for Beauty by Daz, Lux Beauty NG, Teeka4, Perona Beauty and Care to Beauty. Keep expanding fixtures and adapters before treating unknown hosts as high-confidence live intelligence.
 3. Price units are named `price_minor`, while Nigerian static models use `priceNgn`. Verify whether NGN is stored as whole naira or kobo and standardize semantics before adding financial calculations.
 4. The catalogue query groups offers and currently selects `max(o.price_minor)`. Review whether this is a correctness bug for displayed lowest price.
 5. Authentication is not yet an approved public product surface. Do not add login gates casually.

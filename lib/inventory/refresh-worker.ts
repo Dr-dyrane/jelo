@@ -1,14 +1,13 @@
 import 'server-only';
 
 import { getPostgresClient } from '@/lib/db/postgres';
+import { extractRetailerPage, type InventoryStatus, type RetailerExtraction } from '@/modules/retail-intelligence/extraction';
 
 const REQUEST_TIMEOUT_MS = 12_000;
 const MAX_RESPONSE_BYTES = 1_500_000;
 const MAX_ATTEMPTS = 5;
 
-type InventoryStatus = 'in_stock' | 'out_of_stock' | 'unknown';
-type ObservedPrice = { priceMinor: number; currencyCode: string };
-type RetailerObservation = { inventoryStatus: InventoryStatus; price: ObservedPrice | null };
+type RetailerObservation = RetailerExtraction & { adapterKey: string };
 
 export type InventoryRefreshResult = {
   jobId: string;
@@ -26,73 +25,6 @@ type ClaimedJob = {
   attempt_count: number;
   url: string;
 };
-
-const OUT_OF_STOCK_PATTERNS = [
-  /out\s+of\s+stock/i,
-  /sold\s+out/i,
-  /currently\s+unavailable/i,
-  /not\s+available/i,
-  /notify\s+me\s+when\s+available/i,
-];
-
-const IN_STOCK_PATTERNS = [
-  /add\s+to\s+(cart|bag|basket)/i,
-  /buy\s+now/i,
-  /in\s+stock/i,
-  /available\s+now/i,
-];
-
-function detectInventoryStatus(html: string): InventoryStatus {
-  if (OUT_OF_STOCK_PATTERNS.some(pattern => pattern.test(html))) return 'out_of_stock';
-  if (IN_STOCK_PATTERNS.some(pattern => pattern.test(html))) return 'in_stock';
-  return 'unknown';
-}
-
-function normalizePrice(rawPrice: string, rawCurrency?: string): ObservedPrice | null {
-  const value = Number(rawPrice.replace(/[^0-9.,]/g, '').replace(/,/g, ''));
-  if (!Number.isFinite(value) || value <= 0) return null;
-
-  const currency = rawCurrency?.toUpperCase()
-    ?? (rawPrice.includes('₦') ? 'NGN'
-      : rawPrice.includes('£') ? 'GBP'
-        : rawPrice.includes('€') ? 'EUR'
-          : rawPrice.includes('$') ? 'USD'
-            : undefined);
-
-  if (!currency || !/^[A-Z]{3}$/.test(currency)) return null;
-
-  // Existing JeloCare NGN offers store whole Naira in price_minor. Preserve that
-  // convention until the planned money-model migration; other currencies use cents.
-  const priceMinor = currency === 'NGN' ? Math.round(value) : Math.round(value * 100);
-  return { priceMinor, currencyCode: currency };
-}
-
-function extractPrice(html: string): ObservedPrice | null {
-  const metaPatterns = [
-    /<meta[^>]+property=["']product:price:amount["'][^>]+content=["']([^"']+)["'][^>]*>/i,
-    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']product:price:amount["'][^>]*>/i,
-    /<meta[^>]+itemprop=["']price["'][^>]+content=["']([^"']+)["'][^>]*>/i,
-  ];
-  const currencyMatch = html.match(/<meta[^>]+(?:property|itemprop)=["'](?:product:price:currency|priceCurrency)["'][^>]+content=["']([A-Za-z]{3})["'][^>]*>/i)
-    ?? html.match(/["']priceCurrency["']\s*:\s*["']([A-Za-z]{3})["']/i);
-
-  for (const pattern of metaPatterns) {
-    const amount = html.match(pattern)?.[1];
-    if (amount) {
-      const normalized = normalizePrice(amount, currencyMatch?.[1]);
-      if (normalized) return normalized;
-    }
-  }
-
-  const jsonPrice = html.match(/["']price["']\s*:\s*["']?([0-9][0-9.,]*)["']?/i)?.[1];
-  if (jsonPrice) {
-    const normalized = normalizePrice(jsonPrice, currencyMatch?.[1]);
-    if (normalized) return normalized;
-  }
-
-  const visiblePrice = html.match(/(?:₦|NGN\s*|£|€|\$)\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?/i)?.[0];
-  return visiblePrice ? normalizePrice(visiblePrice) : null;
-}
 
 async function claimJob(): Promise<ClaimedJob | undefined> {
   const sql = getPostgresClient();
@@ -138,7 +70,8 @@ async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
     if (declaredLength > MAX_RESPONSE_BYTES) throw new Error('Retailer page is too large to inspect safely.');
     const html = await response.text();
     if (Buffer.byteLength(html, 'utf8') > MAX_RESPONSE_BYTES) throw new Error('Retailer page exceeded the inspection size limit.');
-    return { inventoryStatus: detectInventoryStatus(html), price: extractPrice(html) };
+    const result = extractRetailerPage({ url: new URL(response.url || url), html });
+    return { ...result.extraction, adapterKey: result.adapterKey };
   } finally {
     clearTimeout(timeout);
   }
@@ -146,27 +79,41 @@ async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
 
 async function completeJob(job: ClaimedJob, observation: RetailerObservation) {
   const sql = getPostgresClient();
-  const available = observation.inventoryStatus === 'in_stock';
-  const validity = observation.inventoryStatus === 'unknown' ? '1 day' : '7 days';
+  const available = observation.inventoryStatus === 'in_stock' || observation.inventoryStatus === 'low_stock';
+  const validity = observation.inventoryStatus === 'unknown' || observation.confidence < 60
+    ? '1 day'
+    : observation.confidence < 85
+      ? '3 days'
+      : '7 days';
+  const verificationNote = observation.inventoryStatus === 'unknown'
+    ? 'No product-scoped stock evidence found on the retailer page.'
+    : observation.confidence < 60
+      ? 'Retailer-page extraction has low confidence.'
+      : null;
 
   await sql.begin(async transaction => {
     await transaction`
       update offers
       set inventory_status = ${observation.inventoryStatus},
           available = ${available},
-          price_minor = coalesce(${observation.price?.priceMinor ?? null}, price_minor),
-          currency_code = coalesce(${observation.price?.currencyCode ?? null}, currency_code),
+          price_minor = coalesce(${observation.priceMinor}, price_minor),
+          currency_code = coalesce(${observation.currencyCode}, currency_code),
           verification_method = 'retailer_page',
-          verification_note = ${observation.inventoryStatus === 'unknown' ? 'No reliable stock marker found on retailer page.' : null},
+          verification_note = ${verificationNote},
+          extraction_confidence = ${observation.confidence},
+          extraction_evidence = ${sql.json(observation.evidence)},
+          extraction_adapter = ${observation.adapterKey},
+          observed_title = ${observation.productTitle ?? null},
+          canonical_url = ${observation.canonicalUrl ?? null},
           last_verified_at = now(), verification_expires_at = now() + ${validity}::interval,
           checked_at = now(), updated_at = now()
       where id = ${job.offer_id}
     `;
 
-    if (observation.price) {
+    if (observation.priceMinor != null && observation.currencyCode) {
       await transaction`
         insert into offer_price_history (offer_id, price_minor, currency_code, observed_at, source)
-        values (${job.offer_id}, ${observation.price.priceMinor}, ${observation.price.currencyCode}, now(), 'retailer_page')
+        values (${job.offer_id}, ${observation.priceMinor}, ${observation.currencyCode}, now(), 'retailer_page')
       `;
     }
 
@@ -205,8 +152,8 @@ export async function processNextInventoryRefreshJob(): Promise<InventoryRefresh
       offerId: job.offer_id,
       status: 'completed',
       inventoryStatus: observation.inventoryStatus,
-      priceMinor: observation.price?.priceMinor,
-      currencyCode: observation.price?.currencyCode,
+      priceMinor: observation.priceMinor ?? undefined,
+      currencyCode: observation.currencyCode ?? undefined,
     };
   } catch (error) {
     const message = await failJob(job, error);

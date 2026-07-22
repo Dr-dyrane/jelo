@@ -17,6 +17,11 @@ export type InventoryOffer = {
   lastVerifiedAt: Date | null;
   verificationExpiresAt: Date | null;
   freshness: InventoryFreshness;
+  extractionConfidence: number | null;
+  extractionEvidence: string[];
+  extractionAdapter: string | null;
+  observedTitle: string | null;
+  canonicalUrl: string | null;
 };
 
 type InventoryOfferRow = {
@@ -32,6 +37,11 @@ type InventoryOfferRow = {
   last_verified_at: Date | null;
   verification_expires_at: Date | null;
   freshness: InventoryFreshness;
+  extraction_confidence: number | null;
+  extraction_evidence: string[];
+  extraction_adapter: string | null;
+  observed_title: string | null;
+  canonical_url: string | null;
 };
 
 function mapOffer(row: InventoryOfferRow): InventoryOffer {
@@ -48,6 +58,11 @@ function mapOffer(row: InventoryOfferRow): InventoryOffer {
     lastVerifiedAt: row.last_verified_at,
     verificationExpiresAt: row.verification_expires_at,
     freshness: row.freshness,
+    extractionConfidence: row.extraction_confidence,
+    extractionEvidence: row.extraction_evidence,
+    extractionAdapter: row.extraction_adapter,
+    observedTitle: row.observed_title,
+    canonicalUrl: row.canonical_url,
   };
 }
 
@@ -69,6 +84,11 @@ export async function listInventoryOffers(options: { staleOnly?: boolean; limit?
       o.currency_code,
       o.last_verified_at,
       o.verification_expires_at,
+      o.extraction_confidence,
+      o.extraction_evidence,
+      o.extraction_adapter,
+      o.observed_title,
+      o.canonical_url,
       case
         when o.last_verified_at is null or o.verification_expires_at is null then 'unknown'
         when o.verification_expires_at <= now() then 'stale'
