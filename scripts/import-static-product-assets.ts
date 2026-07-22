@@ -56,13 +56,20 @@ function putBlob(file: string, pathname: string) {
 
 async function main() {
   const force = process.argv.includes('--force');
+  const requestedSlug = process.argv.find(argument => argument.startsWith('--slug='))?.slice('--slug='.length);
   const catalogue = [...coreProducts, ...expandedProducts];
+  const targets = requestedSlug
+    ? catalogue.filter(product => product.slug === requestedSlug)
+    : catalogue;
+  if (requestedSlug && targets.length !== 1) {
+    throw new Error(`Unknown or duplicate product slug: ${requestedSlug}`);
+  }
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<string, AssetRecord>;
   const stagingDirectory = await mkdtemp(path.join(tmpdir(), 'jelocare-product-assets-'));
   const failures: Array<{ slug: string; error: string }> = [];
 
   try {
-    for (const product of catalogue) {
+    for (const product of targets) {
       if (!force && manifest[product.slug]?.blobUrl) {
         console.log(`↷ ${product.slug} already has a canonical Blob asset.`);
         continue;
@@ -114,7 +121,7 @@ async function main() {
     await rm(stagingDirectory, { recursive: true, force: true });
   }
 
-  console.log(`Canonical product assets: ${Object.keys(manifest).length}/${catalogue.length}.`);
+  console.log(`Canonical product assets: ${Object.keys(manifest).length}/${catalogue.length}. Processed ${targets.length} target${targets.length === 1 ? '' : 's'}.`);
   if (failures.length) {
     console.error(JSON.stringify(failures, null, 2));
     process.exitCode = 1;

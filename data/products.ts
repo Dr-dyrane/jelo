@@ -67,7 +67,7 @@ export const products: Product[] = [
   },
   {
     slug: 'some-by-mi-aha-bha-pha-miracle-toner', brand: 'SOME BY MI', name: 'AHA·BHA·PHA 30 Days Miracle Toner', size: '150 ml', category: 'Face', step: 'Exfoliate',
-    image: 'https://i0.wp.com/buybetter.ng/wp-content/uploads/2020/01/kxq1lqyk-1-optimized.png?quality=80&resize=411%2C442&ssl=1', displayLine: 'Exfoliate · refine',
+    image: 'https://somebymicosmetics.com/media/0f/8b/8f/1747123769/somebymi-aha-bha-pha-miracle-toner.png?ts=1747123769', displayLine: 'Exfoliate · refine',
     bestFor: ['blackheads', 'texture', 'congestion'], concerns: ['blackheads', 'whiteheads', 'pores', 'texture'], skinTypes: ['oily', 'combination'], sensitiveFriendly: false,
     usage: 'Evening. Begin twice weekly.', evidence: 'moderate',
     offers: [beautyByDaz('https://beautybydaz.com/shop/face/some-by-mi-aha-bha-pha-30-days-miracle-toner/'), careToBeauty('https://www.caretobeauty.com/ng/some-by-mi-30-days-miracle-toner-150ml/')]

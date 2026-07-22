@@ -14,6 +14,7 @@
     "assets:audit": "tsx scripts/audit-catalogue-assets.ts",
     "assets:import": "node scripts/import-product-assets.mjs",
     "assets:static-import": "tsx scripts/import-static-product-assets.ts",
+    "assets:promote:staged": "tsx scripts/promote-staged-product-assets.ts",
     "assets:verify": "tsx scripts/verify-product-assets.ts",
     "assets:product:seed": "tsx scripts/seed-product-asset-metadata.ts",
     "assets:editorial:seed": "tsx scripts/seed-editorial-assets.ts",

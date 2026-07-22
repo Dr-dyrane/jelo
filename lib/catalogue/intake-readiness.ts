@@ -286,6 +286,7 @@ const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
   'https://www.nhs.uk/tests-and-treatments/emollients/',
   'https://www.nhs.uk/conditions/keratosis-pilaris/',
+  'https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/',
   'https://pubmed.ncbi.nlm.nih.gov/34596890/',
 ]);
 

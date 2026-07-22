@@ -101,4 +101,6 @@ Both reviews are required. A score cannot override either gate. `data/product-di
 
 Preview the approved asset in the real home rail, inventory card and product hero before release. Publish only after responsive browser review and remote-byte verification. If the image or product record changes, both approvals expire.
 
+When an exact official packshot already has genuine transparency, preserve those bytes in `public/products/` and bind them in `data/product-asset-promotions.json`. Production promotes only active, locally hash-verified entries to their declared deterministic Blob paths. The promotion is a two-phase release: first upload and remotely verify the bytes; only a later checked-in manifest and display approval may expose them. A production upload never approves or publishes a product by itself.
+
 Raw bulk imports, automated extraction output, generated drafts, and operator audits remain private research or preparation assets. A source-pixel isolation becomes eligible for approval and dossier generation only after its checked-in typed isolation record binds the full preparation provenance and reviewer chronology described above; publication still requires every release check.

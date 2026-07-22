@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "updatedAt": "2026-07-22T18:50:00Z",
+  "updatedAt": "2026-07-22T19:00:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -636,10 +636,19 @@
         }
       },
       "care": {
-        "status": "pending",
+        "status": "reviewed",
+        "formulaArchetype": "rinse-off 10% benzoyl peroxide acne wash",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only, not a diagnosis or personal treatment plan. Ten-percent benzoyl peroxide can irritate skin and bleach fabrics; follow the label, reduce frequency if irritation develops, and seek professional care for painful, scarring, widespread, or persistent acne.",
+        "manufacturerEvidenceUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/",
         "evidenceUrls": [
-          "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash"
-        ]
+          "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+          "https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/"
+        ],
+        "reviewedAt": "2026-07-22T19:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
       },
       "nigeria": {
         "regulatoryStatus": "pending",
