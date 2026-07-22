@@ -23,11 +23,30 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'cosrx-salicylic-acid-daily-gentle-cleanser': [
     exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/', 96, 9850),
   ],
+  'some-by-mi-aha-bha-pha-miracle-toner': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/somebymi-aha-bha-pha-30days-miracle-toner-150ml-5oz/', 98, 13495, false),
+  ],
   'anua-niacinamide-10-txa-4-serum': [
     exactNg('Teeka4', 'https://teeka4.com/shop/anua-niacinamide-10-txa-4-serum-30ml/', 98, 18000),
   ],
   'face-facts-wonder-cream-fragrance-free': [
     exactNg('Teeka4', 'https://teeka4.com/shop/face-facts-wonder-cream-fragrance-free-50ml-copy/', 98, 7700),
+  ],
+  'face-facts-bright-clear-face-cream': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/treatment/face-facts-bright-clear-face-cream-75ml/', 100, 7500),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/face-facts-bright-clear-face-cream-75ml/', 86, 7750),
+  ],
+  'b-lab-matcha-hydrating-real-sunscreen': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/', 100, 9000),
+  ],
+  'miracle-natural-hair-anti-dandruff-shampoo': [
+    exactNg('AGT Plaza', 'https://www.agtplaza.com/products/miracle-shampoo-natural-hair-anti-dandruff-anti-itch-with-castor-oil-400ml-ugm41a', 78, 1695),
+  ],
+  'lush-hair-mentholated-conditioner': [
+    exactNg('Lush Hair Nigeria', 'https://nigeria.lushhairafrica.com/products/mentholated-conditioner-370ml', 98, 1687),
+  ],
+  'disaar-argan-oil-body-oil-gel': [
+    exactNg('Jumia', 'https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html', 62, 4500),
   ],
   'cerave-foaming-facial-cleanser': [
     exactNg('CSi Grocery', 'https://www.csigrocery.com/shop/skin-care/face/facial-cleansers/cerave-foaming-facial/', 90, 27500),

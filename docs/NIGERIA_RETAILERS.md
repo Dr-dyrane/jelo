@@ -21,6 +21,7 @@ The runtime registry is `data/retailers.ts`. The initial reviewed set is:
 
 - Beauty by Daz — <https://beautybydaz.com/>
 - Teeka4 — <https://teeka4.com/>
+- Lush Hair Nigeria — <https://nigeria.lushhairafrica.com/>
 - Lux Beauty — <https://www.luxbeautyng.com/>
 - MakeupAlleyNG — <https://makeupalleyng.com/>
 - CSi Grocery — <https://www.csigrocery.com/skincare/>
@@ -30,8 +31,11 @@ The runtime registry is `data/retailers.ts`. The initial reviewed set is:
 - Perona Beauty — <https://peronabeauty.com/>
 - Allure Beauty — <https://allure.com.ng/>
 - BabesQuarters — <https://babesquarters.ng/>
+- AGT Plaza — <https://www.agtplaza.com/>
+- Slique Beauty — <https://sliquebeautylimited.com/>
+- Choices Beauty — <https://choiceschi.com/>
 - Jumia Nigeria — <https://www.jumia.com.ng/>
 
 ## Initial exact observations
 
-The dated source records live in `data/retail-offers.ts`. This first pass covers nine catalogue products across Teeka4, Lux Beauty, Beauty by Daz and CSi Grocery. Each observation stores the exact retailer URL, price, stock state and check date. Search pages are not promoted into exact offers.
+The dated source records live in `data/retail-offers.ts`. The current pass covers 15 catalogue products across direct Nigerian retailers and seller-dependent marketplaces. Each observation stores the exact retailer URL, price, stock state and check date. Search pages are not promoted into exact offers, and non-Nigerian stores are excluded from Nigeria results.

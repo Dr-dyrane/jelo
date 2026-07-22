@@ -10,7 +10,7 @@ export function orderByCuratedSlugs<T extends { slug: string }>(items: T[], cura
   });
 }
 
-export function hasVerifiedNigeriaOffer(product: Pick<Product, 'offers'>, now: number | Date = Date.now()) {
+export function hasVerifiedNigeriaOfferAt(product: Pick<Product, 'offers'>, now: number | Date) {
   return product.offers.some(offer =>
     offer.match !== 'search'
     && offer.available
@@ -19,4 +19,8 @@ export function hasVerifiedNigeriaOffer(product: Pick<Product, 'offers'>, now: n
     && offer.priceNgn > 0
     && isOfferFresh(offer, now),
   );
+}
+
+export function hasVerifiedNigeriaOffer(product: Pick<Product, 'offers'>) {
+  return hasVerifiedNigeriaOfferAt(product, Date.now());
 }

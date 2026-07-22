@@ -117,7 +117,7 @@ export const products: Product[] = [
     image: 'https://perfectpicturecosmetics.com/cdn/shop/files/20250510_1219_Hair_Treatment_Product_Display_remix_01jtx23f14fz4aft5nvz1cpvpt.png?v=1746879611&width=1600', displayLine: 'Treat · seal',
     bestFor: ['hair moisture', 'scalp treatment'], concerns: ['dry hair', 'dry scalp'], skinTypes: ['hair'], sensitiveFriendly: true,
     usage: 'Use a small amount as needed.', evidence: 'emerging',
-    offers: [beautyByDaz('https://beautybydaz.com/?s=kuza+indian+hemp+hair+scalp+treatment&post_type=product', false), { retailer: 'Perfect Picture Cosmetics', url: 'https://perfectpicturecosmetics.com/products/kuza-100-indian-hemp-hair-scalp-treatment-226g', trust: 76, available: true, location: ['NG'] }]
+    offers: [beautyByDaz('https://beautybydaz.com/?s=kuza+indian+hemp+hair+scalp+treatment&post_type=product', false), { retailer: 'Perfect Picture Cosmetics', url: 'https://perfectpicturecosmetics.com/products/kuza-100-indian-hemp-hair-scalp-treatment-226g', trust: 76, available: true, location: ['GH'] }]
   },
   {
     slug: 'ogx-renewing-argan-oil-of-morocco', brand: 'OGX', name: 'Renewing + Argan Oil of Morocco Extra Penetrating Oil', size: '100 ml', category: 'Hair', step: 'Finish',
@@ -131,7 +131,7 @@ export const products: Product[] = [
     image: 'https://f.nooncdn.com/p/pzsku/ZC2459623F574AE4002E5Z/45/_/1706365707/fc876212-5afa-4768-a07c-fed911f3522f.jpg', displayLine: 'Moisturize · glow',
     bestFor: ['body moisture', 'after-shower glow'], concerns: ['body dryness'], skinTypes: ['body'], sensitiveFriendly: true,
     usage: 'Apply to damp body skin after showering.', evidence: 'emerging',
-    offers: [beautyByDaz('https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product', false), { retailer: 'Choices Chi', url: 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', trust: 72, available: true, location: ['NG'] }]
+    offers: [beautyByDaz('https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product', false), { retailer: 'Choices Beauty', url: 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', trust: 72, available: true, location: ['NG'] }]
   }
 ];
 
