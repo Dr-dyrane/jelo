@@ -51,6 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Link href="/concerns">Shop by concern</Link>
             <Link href="/consult">Ask JeloCare</Link>
             <Link href="/ingredients">Ingredient library</Link>
+            <Link href="/retailers">Retailer guide</Link>
           </div>
           <div className="footer-group">
             <strong>Connect</strong>

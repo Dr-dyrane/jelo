@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: 'https://jelocare.com', lastModified: now, changeFrequency: 'weekly', priority: 1 },
     { url: 'https://jelocare.com/products', lastModified: now, changeFrequency: 'daily', priority: 0.9 },
     { url: 'https://jelocare.com/ingredients', lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: 'https://jelocare.com/retailers', lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: 'https://jelocare.com/concerns', lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: 'https://jelocare.com/consult', lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     ...concerns.map(concern => ({ url: `https://jelocare.com/concerns/${concern.slug}`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.75 })),

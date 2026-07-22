@@ -168,7 +168,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <p className="eyebrow">Where to buy</p>
           <h2>Best options.</h2>
           <p>Stock. Trust. Value.</p>
-          <p className="affiliate-note">Some links earn commission. It never changes the order.</p>
+          <p className="affiliate-note">Some links earn commission. <Link href="/retailers">How ranking works.</Link></p>
         </div>
         <div className="retailer-stack">
           <RetailerList offers={product.offers} productSlug={product.slug} priceTrends={priceTrends}/>
