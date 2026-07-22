@@ -6,6 +6,7 @@ import test from 'node:test';
 import sharp from 'sharp';
 import intake from '@/data/foundational-packshot-intake.json';
 import isolations from '@/data/foundational-packshot-isolations.json';
+import productAssets from '@/data/product-assets.json';
 import { products } from '@/data/products';
 
 test('foundational source-pixel isolations bind the source, runtime, output and ordered reviews', async () => {
@@ -41,6 +42,22 @@ test('foundational source-pixel isolations bind the source, runtime, output and 
     assert.equal(isolation.review.magazineReady, true);
     assert.equal(isolation.rightsStatus, 'not-verified');
     assert.equal(isolation.publicationScope, 'legacy-foundational-display');
+
+    const canonical = productAssets[isolation.productSlug as keyof typeof productAssets];
+    assert.ok(canonical, isolation.productSlug);
+    assert.equal(canonical.sourceUrl, isolation.source.url);
+    assert.equal(canonical.contentHash, isolation.output.sha256);
+    assert.equal('derivation' in canonical, true);
+    if (!('derivation' in canonical)) throw new Error(`${isolation.productSlug}: missing derivation`);
+    const derivation = canonical.derivation as typeof canonical.derivation & {
+      sourceAssetSha256?: string;
+      auditSha256?: string;
+      isolationRecordId?: string;
+    };
+    assert.equal(derivation.kind, 'source-pixel-isolation');
+    assert.equal(derivation.sourceAssetSha256, isolation.source.sha256);
+    assert.equal(derivation.auditSha256, isolation.audit.sha256);
+    assert.equal(derivation.isolationRecordId, isolation.id);
 
     const file = path.join(process.cwd(), 'public', isolation.output.localPath.replace(/^\//, ''));
     const bytes = await readFile(file);

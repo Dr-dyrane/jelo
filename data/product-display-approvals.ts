@@ -138,6 +138,14 @@ export const productDisplayApprovals = {
     contentHash: 'c4feb7aa3ed19996e9be53147a7a550b697ee65ee5b5d8b58fed1936f5a347b9',
     reviewedAt: '2026-07-22T12:34:11.000Z',
   }),
+  'ogx-renewing-argan-oil-of-morocco': approval({
+    brand: 'OGX',
+    name: 'Renewing + Argan Oil of Morocco Extra Penetrating Oil',
+    size: '100 ml',
+    sourceUrl: 'https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp',
+    contentHash: '4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d',
+    reviewedAt: '2026-07-22T19:25:36Z',
+  }),
 } as const satisfies Record<string, DisplayApproval>;
 
 export function isProductDisplayApproved(
