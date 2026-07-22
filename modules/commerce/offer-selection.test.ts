@@ -18,10 +18,10 @@ test('Nigeria ranks an available exact offer above search and unavailable routes
 test('verified Nigerian product matches carry price and check date', () => {
   const product = products.find(item => item.slug === 'panoxyl-acne-foaming-wash-10-benzoyl-peroxide');
   assert.ok(product);
-  const teeka = product.offers.find(offer => offer.retailer === 'Teeka4');
+  const slique = product.offers.find(offer => offer.retailer === 'Slique Beauty');
   assert.deepEqual(
-    { priceNgn: teeka?.priceNgn, checkedAt: teeka?.checkedAt, match: teeka?.match, available: teeka?.available },
-    { priceNgn: 13300, checkedAt: '2026-07-22', match: 'exact', available: false },
+    { priceNgn: slique?.priceNgn, checkedAt: slique?.checkedAt, match: slique?.match, available: slique?.available },
+    { priceNgn: 19300, checkedAt: '2026-07-22T14:44:09Z', match: 'exact', available: true },
   );
 });
 

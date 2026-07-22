@@ -1,11 +1,58 @@
-import { isValidGtin } from './gtin';
+import { createHash } from 'node:crypto';
+import { canonicalGtin, isValidGtin } from './gtin';
 import { nigeriaRetailers } from '@/data/retailers';
 import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
+import {
+  assertCataloguePublicationImageLocation,
+  cataloguePublicationImageMaxBytes,
+  cataloguePublicationImageMaxSide,
+  cataloguePublicationImageMinSide,
+  isCataloguePublicationImageMimeType,
+  type CataloguePublicationImageMimeType,
+} from './publication-image-policy';
 
-export const catalogueIntakeSchemaVersion = 1 as const;
+export const catalogueIntakeSchemaVersion = 2 as const;
+export const catalogueGenerationRecordSchemaVersion = 1 as const;
 
 export type CatalogueIntakePriority = 'essential' | 'important' | 'exploratory';
 export type CatalogueIntakeStage = 'identity' | 'care' | 'nigeria' | 'rights' | 'editorial' | 'approval-ready';
+export type CatalogueSourceAssetMimeType = 'image/avif' | 'image/jpeg' | 'image/png' | 'image/webp';
+export type CatalogueIdentityEvidenceMimeType =
+  | 'application/json'
+  | 'application/pdf'
+  | 'image/avif'
+  | 'image/jpeg'
+  | 'image/png'
+  | 'image/webp'
+  | 'text/html';
+
+export type CatalogueOfficialIdentityEvidence = {
+  url: string;
+  observedGtin: string;
+  observedVariant: string;
+  observedSize: string;
+  snapshotSha256: string;
+  snapshotMimeType: CatalogueIdentityEvidenceMimeType;
+  snapshotByteSize: number;
+  retrievedAt: string;
+};
+
+export type CatalogueGenerationRecordContent = {
+  schemaVersion: typeof catalogueGenerationRecordSchemaVersion;
+  provider: string;
+  model: string;
+  prompt: string;
+  inputs: Array<{
+    url: string;
+    sha256: string;
+  }>;
+  outputSha256: string;
+  generatedAt: string;
+};
+
+export type CatalogueGenerationRecord = CatalogueGenerationRecordContent & {
+  recordSha256: string;
+};
 
 export type CatalogueIntakeOffer = {
   retailer: string;
@@ -14,6 +61,8 @@ export type CatalogueIntakeOffer = {
   observedAt: string;
   observedTitle: string;
   observedSize: string;
+  observedGtin?: string;
+  retailerSku?: string;
   priceNgn: number;
   stock: 'in-stock' | 'low-stock' | 'out-of-stock';
 };
@@ -34,6 +83,7 @@ export type CatalogueIntakeCandidate = {
     officialProductUrl?: string;
     checkedAt?: string;
     basis?: 'official-brand';
+    officialEvidence?: CatalogueOfficialIdentityEvidence;
   };
   care: {
     status: 'pending' | 'reviewed';
@@ -51,18 +101,40 @@ export type CatalogueIntakeCandidate = {
   };
   asset: {
     rightsStatus: 'unresolved' | 'documented';
-    origin?: 'licensed-original-photograph' | 'official-brand-media' | 'owned-editorial-photograph' | 'identity-verified-styled-composite';
+    origin?:
+      | 'licensed-original-photograph'
+      | 'official-brand-media'
+      | 'owned-editorial-photograph'
+      | 'owned-identity-verified-render';
+    role?: 'packshot';
     rightsUrl?: string;
     sourceUrl?: string;
+    sourceAssetSha256?: string;
+    sourceAssetMimeType?: CatalogueSourceAssetMimeType;
+    sourceAssetByteSize?: number;
+    sourceAssetWidth?: number;
+    sourceAssetHeight?: number;
+    sourceAssetRetrievedAt?: string;
+    generationRecord?: CatalogueGenerationRecord;
     publicImageUrl?: string;
     publicImageSha256?: string;
+    publicImageMimeType?: CataloguePublicationImageMimeType;
+    publicImageByteSize?: number;
     width?: number;
     height?: number;
     packaging?: 'intact' | 'clipped' | 'unknown';
-    backgroundTreatment?: 'none' | 'styled-composite' | 'source-pixel-isolation' | 'automated-removal' | 'unknown';
+    backgroundTreatment?:
+      | 'none'
+      | 'styled-composite'
+      | 'source-pixel-isolation'
+      | 'identity-verified-render'
+      | 'automated-removal'
+      | 'unknown';
     labelVariantSizeUnchanged?: boolean;
     packagingInvented?: boolean;
     manualSourceOutputQa?: boolean;
+    artReviewedAt?: string;
+    artReviewer?: string;
     presentationQuality?: 'magazine-ready' | 'ordinary' | 'unknown';
   };
 };
@@ -76,6 +148,7 @@ export type CatalogueIntakeManifest = {
 export type CatalogueIntakeBlocker =
   | 'identity-gtin-missing-or-invalid'
   | 'identity-official-source-missing'
+  | 'identity-official-evidence-invalid'
   | 'identity-check-missing-or-future'
   | 'identity-size-not-measurable'
   | 'care-review-missing'
@@ -83,11 +156,18 @@ export type CatalogueIntakeBlocker =
   | 'nigeria-regulatory-pending'
   | 'nigeria-regulatory-evidence-missing'
   | 'nigeria-exact-offer-missing'
+  | 'nigeria-offer-identity-unbound'
   | 'nigeria-market-route-insufficient'
   | 'asset-rights-missing'
+  | 'asset-origin-ineligible'
   | 'asset-rights-source-missing'
+  | 'asset-source-snapshot-invalid'
+  | 'asset-generation-record-missing'
+  | 'asset-review-chronology-invalid'
+  | 'asset-final-image-role-invalid'
   | 'asset-final-image-missing'
   | 'asset-final-image-invalid'
+  | 'asset-final-image-untrusted-location'
   | 'asset-final-image-too-small'
   | 'asset-automated-cutout'
   | 'asset-background-treatment-unresolved'
@@ -115,6 +195,42 @@ const stageProgress: Record<CatalogueIntakeStage, number> = {
   editorial: 4,
   'approval-ready': 5,
 };
+const identityEvidenceMimeTypes: readonly CatalogueIdentityEvidenceMimeType[] = [
+  'application/json',
+  'application/pdf',
+  'image/avif',
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'text/html',
+];
+const packshotEligibleOrigins = [
+  'licensed-original-photograph',
+  'official-brand-media',
+  'owned-editorial-photograph',
+  'owned-identity-verified-render',
+] as const;
+
+function stableJson(value: unknown): string {
+  if (value === null || typeof value !== 'object') {
+    const serialized = JSON.stringify(value);
+    if (serialized === undefined) throw new Error('Generation record contains a non-serializable value.');
+    return serialized;
+  }
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(',')}]`;
+  const record = value as Record<string, unknown>;
+  return `{${Object.keys(record)
+    .filter(key => record[key] !== undefined)
+    .sort()
+    .map(key => `${JSON.stringify(key)}:${stableJson(record[key])}`)
+    .join(',')}}`;
+}
+
+export function catalogueGenerationRecordSha256(record: CatalogueGenerationRecordContent) {
+  return createHash('sha256')
+    .update(`jelocare-catalogue-generation-record-v1\n${stableJson(record)}`)
+    .digest('hex');
+}
 
 function validHttps(value: string | undefined) {
   if (!value) return false;
@@ -128,6 +244,16 @@ function validHttps(value: string | undefined) {
 function validPastDate(value: string | undefined, asOf: number) {
   const parsed = Date.parse(value ?? '');
   return Number.isFinite(parsed) && parsed <= asOf + 5 * 60_000;
+}
+
+function sameGtin(left: string | undefined, right: string | undefined) {
+  return Boolean(
+    left
+    && right
+    && isValidGtin(left)
+    && isValidGtin(right)
+    && canonicalGtin(left) === canonicalGtin(right),
+  );
 }
 
 function normalized(value: string) {
@@ -162,6 +288,102 @@ function normalizedIdentity(candidate: CatalogueIntakeCandidate) {
   return [normalized(candidate.brand), normalized(candidate.name), normalizedSize(candidate.size)].join('|');
 }
 
+function sameUrl(left: string | undefined, right: string | undefined) {
+  if (!validHttps(left) || !validHttps(right)) return false;
+  return new URL(left ?? '').href === new URL(right ?? '').href;
+}
+
+function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf: number) {
+  const evidence = candidate.identity.officialEvidence;
+  const checkedAt = Date.parse(candidate.identity.checkedAt ?? '');
+  const retrievedAt = Date.parse(evidence?.retrievedAt ?? '');
+  return Boolean(
+    evidence
+    && typeof evidence.url === 'string'
+    && typeof evidence.observedGtin === 'string'
+    && typeof evidence.observedVariant === 'string'
+    && typeof evidence.observedSize === 'string'
+    && typeof evidence.snapshotSha256 === 'string'
+    && typeof evidence.snapshotMimeType === 'string'
+    && typeof evidence.snapshotByteSize === 'number'
+    && typeof evidence.retrievedAt === 'string'
+    && sameUrl(evidence.url, candidate.identity.officialProductUrl)
+    && sameGtin(evidence.observedGtin, candidate.identity.gtin)
+    && normalized(evidence.observedVariant) === normalized(candidate.variant)
+    && normalizedSize(evidence.observedSize) === normalizedSize(candidate.size)
+    && hashPattern.test(evidence.snapshotSha256)
+    && identityEvidenceMimeTypes.includes(evidence.snapshotMimeType)
+    && Number.isSafeInteger(evidence.snapshotByteSize)
+    && evidence.snapshotByteSize > 0
+    && validPastDate(evidence.retrievedAt, asOf)
+    && Number.isFinite(checkedAt)
+    && retrievedAt <= checkedAt
+  );
+}
+
+function generationRecordContent(record: CatalogueGenerationRecord): CatalogueGenerationRecordContent {
+  return {
+    schemaVersion: record.schemaVersion,
+    provider: record.provider,
+    model: record.model,
+    prompt: record.prompt,
+    inputs: record.inputs.map(input => ({ ...input })),
+    outputSha256: record.outputSha256,
+    generatedAt: record.generatedAt,
+  };
+}
+
+function generationRecordValid(candidate: CatalogueIntakeCandidate, asOf: number) {
+  const record = candidate.asset.generationRecord;
+  if (
+    !record
+    || record.schemaVersion !== catalogueGenerationRecordSchemaVersion
+    || typeof record.provider !== 'string'
+    || !record.provider.trim()
+    || typeof record.model !== 'string'
+    || !record.model.trim()
+    || typeof record.prompt !== 'string'
+    || !record.prompt.trim()
+    || !Array.isArray(record.inputs)
+    || !record.inputs.length
+    || typeof record.outputSha256 !== 'string'
+    || !hashPattern.test(record.outputSha256)
+    || typeof record.recordSha256 !== 'string'
+    || !hashPattern.test(record.recordSha256)
+    || typeof record.generatedAt !== 'string'
+    || !validPastDate(record.generatedAt, asOf)
+  ) return false;
+
+  const inputKeys = new Set<string>();
+  for (const input of record.inputs) {
+    if (
+      !input
+      || typeof input.url !== 'string'
+      || !validHttps(input.url)
+      || typeof input.sha256 !== 'string'
+      || !hashPattern.test(input.sha256)
+    ) return false;
+    inputKeys.add(`${input.url}\n${input.sha256}`);
+  }
+  if (inputKeys.size !== record.inputs.length) return false;
+  if (
+    !candidate.asset.sourceUrl
+    || !candidate.asset.sourceAssetSha256
+    || !record.inputs.some(input => (
+      input.url === candidate.asset.sourceUrl
+      && input.sha256 === candidate.asset.sourceAssetSha256
+    ))
+    || record.inputs.some(input => input.sha256 === record.outputSha256)
+    || record.outputSha256 !== candidate.asset.publicImageSha256
+  ) return false;
+
+  const sourceRetrievedAt = Date.parse(candidate.asset.sourceAssetRetrievedAt ?? '');
+  const generatedAt = Date.parse(record.generatedAt);
+  if (!Number.isFinite(sourceRetrievedAt) || generatedAt < sourceRetrievedAt) return false;
+
+  return catalogueGenerationRecordSha256(generationRecordContent(record)) === record.recordSha256;
+}
+
 function canonicalRetailerOffer(offer: CatalogueIntakeOffer) {
   const retailer = nigeriaRetailers.find(item => normalized(item.name) === normalized(offer.retailer));
   if (!retailer) return undefined;
@@ -183,6 +405,7 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
   if (
     !offer.retailer.trim()
     || !validHttps(offer.listingUrl)
+    || !sameGtin(offer.observedGtin, candidate.identity.gtin)
     || !Number.isFinite(observedAt)
     || observedAt < asOf - 7 * 86_400_000
     || observedAt > asOf + 5 * 60_000
@@ -215,6 +438,7 @@ function identityBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Ca
   if (!candidate.identity.gtin || !isValidGtin(candidate.identity.gtin)) blockers.push('identity-gtin-missing-or-invalid');
   if (candidate.identity.basis !== 'official-brand' || !validHttps(candidate.identity.officialProductUrl)) blockers.push('identity-official-source-missing');
   if (!validPastDate(candidate.identity.checkedAt, asOf)) blockers.push('identity-check-missing-or-future');
+  if (!officialIdentityEvidenceValid(candidate, asOf)) blockers.push('identity-official-evidence-invalid');
   if (!measurableSize.test(candidate.size)) blockers.push('identity-size-not-measurable');
   return blockers;
 }
@@ -239,6 +463,10 @@ function nigeriaBlockers(candidate: CatalogueIntakeCandidate, offers: CatalogueI
     || !validHttps(candidate.nigeria.regulatoryEvidenceUrl)
   ) blockers.push('nigeria-regulatory-evidence-missing');
   if (!offers.length) blockers.push('nigeria-exact-offer-missing');
+  if (
+    candidate.nigeria.exactOffers.length > 0
+    && !candidate.nigeria.exactOffers.some(offer => sameGtin(offer.observedGtin, candidate.identity.gtin))
+  ) blockers.push('nigeria-offer-identity-unbound');
 
   const independentOffers = offers.filter(offer => offer.retailerStatus === 'directory-listed');
   const retailers = new Set(independentOffers.map(offer => offer.retailer.trim().toLowerCase()));
@@ -249,34 +477,105 @@ function nigeriaBlockers(candidate: CatalogueIntakeCandidate, offers: CatalogueI
   return blockers;
 }
 
-function rightsBlockers(candidate: CatalogueIntakeCandidate): CatalogueIntakeBlocker[] {
+function rightsBlockers(candidate: CatalogueIntakeCandidate, asOf: number): CatalogueIntakeBlocker[] {
   const blockers: CatalogueIntakeBlocker[] = [];
   if (candidate.asset.rightsStatus !== 'documented' || !candidate.asset.origin) blockers.push('asset-rights-missing');
-  if (!validHttps(candidate.asset.rightsUrl) || !validHttps(candidate.asset.sourceUrl)) blockers.push('asset-rights-source-missing');
+  if (
+    candidate.asset.origin
+    && !packshotEligibleOrigins.includes(candidate.asset.origin as typeof packshotEligibleOrigins[number])
+  ) blockers.push('asset-origin-ineligible');
+  if (
+    candidate.asset.origin !== 'owned-identity-verified-render'
+    && !validHttps(candidate.asset.rightsUrl)
+  ) blockers.push('asset-rights-source-missing');
+  if (
+    !validHttps(candidate.asset.sourceUrl)
+    || !candidate.asset.sourceAssetSha256
+    || !hashPattern.test(candidate.asset.sourceAssetSha256)
+    || !['image/avif', 'image/jpeg', 'image/png', 'image/webp'].includes(candidate.asset.sourceAssetMimeType ?? '')
+    || !Number.isInteger(candidate.asset.sourceAssetByteSize)
+    || (candidate.asset.sourceAssetByteSize ?? 0) <= 0
+    || !Number.isInteger(candidate.asset.sourceAssetWidth)
+    || !Number.isInteger(candidate.asset.sourceAssetHeight)
+    || (candidate.asset.sourceAssetWidth ?? 0) <= 0
+    || (candidate.asset.sourceAssetHeight ?? 0) <= 0
+    || !validPastDate(candidate.asset.sourceAssetRetrievedAt, asOf)
+  ) blockers.push('asset-source-snapshot-invalid');
+  if (
+    candidate.asset.origin === 'owned-identity-verified-render'
+    && !generationRecordValid(candidate, asOf)
+  ) blockers.push('asset-generation-record-missing');
+  if (
+    candidate.asset.origin !== 'owned-identity-verified-render'
+    && candidate.asset.generationRecord
+  ) blockers.push('asset-generation-record-missing');
   return blockers;
 }
 
-function editorialBlockers(candidate: CatalogueIntakeCandidate): CatalogueIntakeBlocker[] {
+function editorialBlockers(candidate: CatalogueIntakeCandidate, asOf: number): CatalogueIntakeBlocker[] {
   const blockers: CatalogueIntakeBlocker[] = [];
+  if (candidate.asset.role !== 'packshot') blockers.push('asset-final-image-role-invalid');
   if (!validHttps(candidate.asset.publicImageUrl)) blockers.push('asset-final-image-missing');
-  if (!candidate.asset.publicImageSha256 || !hashPattern.test(candidate.asset.publicImageSha256)) blockers.push('asset-final-image-invalid');
-  if (!Number.isInteger(candidate.asset.width) || !Number.isInteger(candidate.asset.height) || (candidate.asset.width ?? 0) < 1_600 || (candidate.asset.height ?? 0) < 1_600) blockers.push('asset-final-image-too-small');
+  const validMimeType = isCataloguePublicationImageMimeType(candidate.asset.publicImageMimeType);
+  if (
+    !candidate.asset.publicImageSha256
+    || !hashPattern.test(candidate.asset.publicImageSha256)
+    || !validMimeType
+    || !Number.isInteger(candidate.asset.publicImageByteSize)
+    || (candidate.asset.publicImageByteSize ?? 0) <= 0
+    || (candidate.asset.publicImageByteSize ?? 0) > cataloguePublicationImageMaxBytes
+  ) blockers.push('asset-final-image-invalid');
+  if (
+    !Number.isInteger(candidate.asset.width)
+    || !Number.isInteger(candidate.asset.height)
+    || Math.min(candidate.asset.width ?? 0, candidate.asset.height ?? 0) < cataloguePublicationImageMinSide
+    || Math.max(candidate.asset.width ?? 0, candidate.asset.height ?? 0) > cataloguePublicationImageMaxSide
+  ) blockers.push('asset-final-image-too-small');
+  if (validHttps(candidate.asset.publicImageUrl) && validMimeType) {
+    try {
+      assertCataloguePublicationImageLocation(
+        candidate.id,
+        candidate.asset.publicImageUrl ?? '',
+        candidate.asset.publicImageMimeType as CataloguePublicationImageMimeType,
+        candidate.asset.publicImageSha256 ?? '',
+      );
+    } catch {
+      blockers.push('asset-final-image-untrusted-location');
+    }
+  }
   if (candidate.asset.backgroundTreatment === 'automated-removal') blockers.push('asset-automated-cutout');
-  if (!['none', 'styled-composite', 'source-pixel-isolation'].includes(candidate.asset.backgroundTreatment ?? '')) {
+  if (!['none', 'source-pixel-isolation', 'identity-verified-render'].includes(candidate.asset.backgroundTreatment ?? '')) {
     blockers.push('asset-background-treatment-unresolved');
   }
   if (candidate.asset.packaging !== 'intact') blockers.push('asset-packaging-not-intact');
+  const sourceRetrievedAt = Date.parse(candidate.asset.sourceAssetRetrievedAt ?? '');
+  const generatedAt = Date.parse(candidate.asset.generationRecord?.generatedAt ?? '');
+  const artReviewedAt = Date.parse(candidate.asset.artReviewedAt ?? '');
+  if (
+    (Number.isFinite(sourceRetrievedAt) && Number.isFinite(artReviewedAt) && artReviewedAt < sourceRetrievedAt)
+    || (
+      candidate.asset.origin === 'owned-identity-verified-render'
+      && Number.isFinite(generatedAt)
+      && Number.isFinite(artReviewedAt)
+      && artReviewedAt < generatedAt
+    )
+  ) blockers.push('asset-review-chronology-invalid');
   if (
     candidate.asset.labelVariantSizeUnchanged !== true
     || candidate.asset.packagingInvented !== false
     || candidate.asset.manualSourceOutputQa !== true
+    || !candidate.asset.artReviewer?.trim()
+    || !validPastDate(candidate.asset.artReviewedAt, asOf)
+    || (candidate.asset.origin === 'owned-identity-verified-render'
+      ? candidate.asset.backgroundTreatment !== 'identity-verified-render'
+      : candidate.asset.backgroundTreatment === 'identity-verified-render')
   ) blockers.push('asset-identity-qa-missing');
   if (candidate.asset.presentationQuality !== 'magazine-ready') blockers.push('asset-not-magazine-ready');
   return blockers;
 }
 
 const actionForStage: Record<CatalogueIntakeStage, string> = {
-  identity: 'Lock the exact GTIN, size and official product source.',
+  identity: 'Lock the exact manufacturer GTIN, variant and size to a hashed official-source snapshot.',
   care: 'Review the formula role and advisory boundaries from primary evidence.',
   nigeria: 'Verify regulation and fresh exact Nigerian product pages.',
   rights: 'Document permission or another valid image-rights basis.',
@@ -293,8 +592,8 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
     ['identity', identityBlockers(candidate, asOf)],
     ['care', careBlockers(candidate, asOf)],
     ['nigeria', nigeriaBlockers(candidate, freshExactOffers)],
-    ['rights', rightsBlockers(candidate)],
-    ['editorial', editorialBlockers(candidate)],
+    ['rights', rightsBlockers(candidate, asOf)],
+    ['editorial', editorialBlockers(candidate, asOf)],
   ];
   const blockers = groups.flatMap(([, values]) => values);
   const stage = groups.find(([, values]) => values.length)?.[0] ?? 'approval-ready';
@@ -320,8 +619,11 @@ export function auditCatalogueIntakeCandidates(
     if (ids.has(candidate.id)) throw new Error(`Duplicate catalogue intake id: ${candidate.id}`);
     ids.add(candidate.id);
     if (candidate.identity.gtin) {
-      if (gtins.has(candidate.identity.gtin)) throw new Error(`Duplicate catalogue intake GTIN: ${candidate.identity.gtin}`);
-      gtins.add(candidate.identity.gtin);
+      const gtinKey = isValidGtin(candidate.identity.gtin)
+        ? canonicalGtin(candidate.identity.gtin)
+        : candidate.identity.gtin;
+      if (gtins.has(gtinKey)) throw new Error(`Duplicate catalogue intake GTIN: ${candidate.identity.gtin}`);
+      gtins.add(gtinKey);
     }
     const identity = normalizedIdentity(candidate);
     if (identities.has(identity)) throw new Error(`Duplicate catalogue intake identity: ${candidate.brand} ${candidate.name} ${candidate.size}`);

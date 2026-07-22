@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "updatedAt": "2026-07-22T11:30:00Z",
+  "schemaVersion": 2,
+  "updatedAt": "2026-07-22T15:02:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -19,21 +19,29 @@
         "https://teeka4.com/shop/cerave-hydrating-cleanser-16-oz/",
         "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-hydrating-cleanser/",
         "https://peronabeauty.com/product/cerave-hydrating-cleanser-uk-16oz/",
-        "https://www.luxbeautyng.com/product/cerave-hydrating-cleanser-473ml/"
+        "https://www.luxbeautyng.com/product/cerave-hydrating-cleanser-473ml/",
+        "https://www.konga.com/product/cerave-hydrating-cleanser-for-normal-to-dry-skin-473ml-with-hyaluronic-acid-and-3-essential-ceramides-6138374",
+        "https://medplusnig.com/product/cerave-hydrating-cleanser-473ml-1gVKTp",
+        "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/"
       ],
       "identity": {
-        "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
-        "checkedAt": "2026-07-22T10:20:00Z",
+        "gtin": "3337875597333",
+        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/en/hydrating-cleanser/GB3337875597333.html",
+        "checkedAt": "2026-07-22T14:25:00Z",
         "basis": "official-brand"
       },
       "care": {
         "status": "pending",
+        "formulaArchetype": "Fragrance-free, soap-free, non-foaming rinse-off cleanser for normal-to-dry skin",
         "evidenceUrls": [
-          "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser"
+          "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
         ]
       },
       "nigeria": {
         "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dwfe074990/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
         "exactOffers": [
           {
             "retailer": "Teeka4",
@@ -43,6 +51,39 @@
             "observedTitle": "CeraVe Hydrating Cleanser (16 fl oz / 473 ml)",
             "observedSize": "473 ml",
             "priceNgn": 15434,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "Konga Health",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.konga.com/product/cerave-hydrating-cleanser-for-normal-to-dry-skin-473ml-with-hyaluronic-acid-and-3-essential-ceramides-6138374",
+            "observedAt": "2026-07-22T14:24:00Z",
+            "observedTitle": "CeraVe Hydrating Cleanser for Normal to Dry Skin with Hyaluronic Acid and 3 Essential Ceramides",
+            "observedSize": "473 ml",
+            "observedGtin": "3337875597333",
+            "priceNgn": 16664,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
+            "observedAt": "2026-07-22T14:31:54Z",
+            "observedTitle": "CeraVe Hydrating Cleanser Daily Face & Body Wash for Normal to Dry Skin",
+            "observedSize": "473 ml",
+            "observedGtin": "3337875597333",
+            "retailerSku": "3337875597333",
+            "priceNgn": 15265,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "Medplus",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://medplusnig.com/product/cerave-hydrating-cleanser-473ml-1gVKTp",
+            "observedAt": "2026-07-22T14:25:00Z",
+            "observedTitle": "CeraVe Hydrating Cleanser 473ml",
+            "observedSize": "473 ml",
+            "priceNgn": 19600,
             "stock": "in-stock"
           },
           {
@@ -100,22 +141,61 @@
       "demandEvidenceUrls": [
         "https://beautybydaz.com/shop/bath-body/creams-lotions/cerave-moisturising-cream-454g-16oz-uk/",
         "https://sliquebeautylimited.com/product/cerave-moisturising-cream-454g/",
-        "https://teeka4.com/shop/cerave-moisturizing-cream-for-dry-to-very-skin-16-oz/"
+        "https://teeka4.com/shop/cerave-moisturizing-cream-for-dry-to-very-skin-16-oz/",
+        "https://www.konga.com/product/cerave-moisturising-cream-for-dry-to-very-dry-skin-454g-with-hyaluronic-acid-and-3-essential-ceramides-6111001?cid=10163",
+        "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
+        "https://medplusnig.com/product/cerave-moisturising-cream-454g-YDm3Kx"
       ],
       "identity": {
-        "officialProductUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
-        "checkedAt": "2026-07-22T10:20:00Z",
+        "gtin": "3337875597388",
+        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/en/moisturising-cream-jar/GB3337875597388.html",
+        "checkedAt": "2026-07-22T14:29:00Z",
         "basis": "official-brand"
       },
       "care": {
         "status": "pending",
+        "formulaArchetype": "Fragrance-free face-and-body moisturising cream for dry-to-very-dry skin",
         "evidenceUrls": [
-          "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream"
+          "https://www.cerave.co.uk/skincare/moisturisers/moisturizing-cream"
         ]
       },
       "nigeria": {
         "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
         "exactOffers": [
+          {
+            "retailer": "Konga Health",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.konga.com/product/cerave-moisturising-cream-for-dry-to-very-dry-skin-454g-with-hyaluronic-acid-and-3-essential-ceramides-6111001?cid=10163",
+            "observedAt": "2026-07-22T14:29:00Z",
+            "observedTitle": "CeraVe Moisturising Cream for Dry to Very Dry Skin with Hyaluronic Acid and 3 Essential Ceramides",
+            "observedSize": "454 g",
+            "observedGtin": "3337875597388",
+            "priceNgn": 21705,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "Nectar Beauty Hub",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
+            "observedAt": "2026-07-22T14:29:00Z",
+            "observedTitle": "CeraVe Moisturizing Cream for Dry to Very Dry Skin",
+            "observedSize": "454 g",
+            "observedGtin": "3337875597388",
+            "priceNgn": 22500,
+            "stock": "in-stock"
+          },
+          {
+            "retailer": "Medplus",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://medplusnig.com/product/cerave-moisturising-cream-454g-YDm3Kx",
+            "observedAt": "2026-07-22T14:29:00Z",
+            "observedTitle": "CeraVe Moisturising Cream 454g",
+            "observedSize": "454 g",
+            "priceNgn": 25200,
+            "stock": "in-stock"
+          },
           {
             "retailer": "Beauty by Daz",
             "retailerStatus": "directory-listed",
@@ -159,7 +239,7 @@
       "id": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
       "brand": "Eucerin",
       "name": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
-      "variant": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF 50+",
+      "variant": "Eucerin Sun Oil Control Gel-Cream Dry Touch SPF 50+",
       "size": "50 ml",
       "category": "Face care",
       "reason": "A daily high-protection sunscreen candidate for oily-skin and pigmentation-prevention coverage.",
@@ -170,22 +250,51 @@
         "pigmentation-prevention"
       ],
       "demandEvidenceUrls": [
-        "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/"
+        "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+        "https://buybetter.ng/product/eucerin-oil-control-dry-touch-sun-gel-cream-50ml/",
+        "https://girlyessentials.com.ng/product/eucerin-oil-control-sun-gel-cream-dry-touch-spf50/",
+        "https://www.jumia.com.ng/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml-350932893.html"
       ],
       "identity": {
-        "officialProductUrl": "https://www.eucerin.co.uk/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
-        "checkedAt": "2026-07-22T10:20:00Z",
-        "basis": "official-brand"
+        "gtin": "8850029013671",
+        "officialProductUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+        "checkedAt": "2026-07-22T15:02:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+          "observedGtin": "8850029013671",
+          "observedVariant": "Eucerin Sun Oil Control Gel-Cream Dry Touch SPF 50+",
+          "observedSize": "50 ml",
+          "snapshotSha256": "3377773181ca4dafd5ada6cf8b7890cbac7fefcaa266bb632864741a3d53dcb2",
+          "snapshotMimeType": "text/html",
+          "snapshotByteSize": 308784,
+          "retrievedAt": "2026-07-22T15:01:51Z"
+        }
       },
       "care": {
         "status": "pending",
+        "formulaArchetype": "High-protection facial sunscreen gel-cream for oily and acne-prone skin",
         "evidenceUrls": [
-          "https://www.eucerin.co.uk/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus"
+          "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+          "https://www.eucerin.co.za/campaigns/nigeria-product-info"
         ]
       },
       "nigeria": {
         "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
         "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/eucerin-oil-control-dry-touch-sun-gel-cream-50ml/",
+            "observedAt": "2026-07-22T14:41:00Z",
+            "observedTitle": "Eucerin Oil Control Dry Touch Sun Gel-Cream",
+            "observedSize": "50 ml",
+            "observedGtin": "8850029013671",
+            "retailerSku": "8850029013671",
+            "priceNgn": 18770,
+            "stock": "in-stock"
+          },
           {
             "retailer": "Beauty by Daz",
             "retailerStatus": "directory-listed",

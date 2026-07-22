@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { reviewedProductRecords } from '@/data/catalogue';
-import { verifiedRetailOffers } from '@/data/retail-offers';
+import { mergeRetailOffers, verifiedRetailOffers } from '@/data/retail-offers';
 import { nigeriaRetailers } from '@/data/retailers';
 import { hasCompletePriceObservation, hasListingEvidence } from './offer-evidence';
 
@@ -72,6 +72,69 @@ test('featured marketplace offers retain visible seller evidence', () => {
 
 test('the inconsistent B.LAB Matcha listing is not published as an exact offer', () => {
   assert.equal(verifiedRetailOffers['b-lab-matcha-hydrating-real-sunscreen'], undefined);
+});
+
+test('PanOxyl publishes only the current GTIN-matched Slique observation', () => {
+  const slug = 'panoxyl-acne-foaming-wash-10-benzoyl-peroxide';
+  const offers = verifiedRetailOffers[slug];
+
+  assert.equal(offers.length, 1);
+  assert.deepEqual(
+    {
+      retailer: offers[0]?.retailer,
+      priceNgn: offers[0]?.priceNgn,
+      checkedAt: offers[0]?.checkedAt,
+      observedAt: offers[0]?.listingEvidence?.observedAt,
+      evidenceSource: offers[0]?.listingEvidence?.sourceUrl,
+      evidenceBasis: offers[0]?.listingEvidence?.basis,
+      variant: offers[0]?.priceObservation?.variant,
+      size: offers[0]?.priceObservation?.size,
+      stock: offers[0]?.priceObservation?.stock,
+    },
+    {
+      retailer: 'Slique Beauty',
+      priceNgn: 19300,
+      checkedAt: '2026-07-22T14:44:09Z',
+      observedAt: '2026-07-22T14:44:09Z',
+      evidenceSource: 'https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g',
+      evidenceBasis: 'retailer-api',
+      variant: 'PANOXYL ACNE FOAMING WASH BENZOYL PEROXIDE 10% MAXIMUM STRENGTH -156G',
+      size: '156 g',
+      stock: 'in-stock',
+    },
+  );
+  assert.equal(offers[0]?.brandAuthorizationEvidence, undefined);
+});
+
+test('stale PanOxyl Teeka and Lux routes cannot leak through base offers', () => {
+  const merged = mergeRetailOffers(
+    {
+      slug: 'panoxyl-acne-foaming-wash-10-benzoyl-peroxide',
+      name: 'Acne Foaming Wash 10% Benzoyl Peroxide',
+      size: '156 g',
+    },
+    [
+      {
+        retailer: 'Teeka4',
+        url: 'https://teeka4.com/shop/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength/',
+        trust: 98,
+        available: false,
+        priceNgn: 13300,
+        location: ['NG'],
+      },
+      {
+        retailer: 'Lux Beauty',
+        url: 'https://www.luxbeautyng.com/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-10/',
+        trust: 96,
+        available: true,
+        priceNgn: 17500,
+        location: ['NG'],
+      },
+    ],
+  );
+
+  assert.deepEqual(merged.map(offer => offer.retailer), ['Slique Beauty']);
+  assert.equal(merged[0]?.brandAuthorizationEvidence, undefined);
 });
 
 test('Ghana-priced routes never appear as Nigerian offers', () => {

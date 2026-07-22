@@ -111,14 +111,36 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/', 96, 12400, 'COSRX Advanced Snail 96 Mucin Power Essence', '100 ml'),
   ],
   'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': [
-    exactNg('Teeka4', 'https://teeka4.com/shop/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength/', 98, 13300, 'PanOxyl Acne Foaming Wash Benzoyl Peroxide 10% Maximum Strength', '156 g', { available: false }),
-    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-10/', 96, 17500, 'PanOxyl Acne Foaming Wash Benzoyl Peroxide 10%', '156 g'),
+    {
+      retailer: 'Slique Beauty',
+      url: 'https://sliquebeautylimited.com/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g/',
+      trust: 78,
+      available: true,
+      priceNgn: 19300,
+      checkedAt: '2026-07-22T14:44:09Z',
+      match: 'exact',
+      listingEvidence: {
+        observedAt: '2026-07-22T14:44:09Z',
+        sourceUrl: 'https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g',
+        basis: 'retailer-api',
+      },
+      priceObservation: {
+        observedAt: '2026-07-22T14:44:09Z',
+        variant: 'PANOXYL ACNE FOAMING WASH BENZOYL PEROXIDE 10% MAXIMUM STRENGTH -156G',
+        size: '156 g',
+        stock: 'in-stock',
+        landedCost: 'unknown',
+      },
+      location: ['NG'],
+    },
   ],
 };
 
 const excludedRetailers: Partial<Record<string, string[]>> = {
   // The old route is the 236 ml product, not this catalogue's 355 ml size.
   'cerave-foaming-facial-cleanser': ['Care to Beauty'],
+  // These listings lack a manufacturer-GTIN match for the exact 156 g pack.
+  'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': ['Teeka4', 'Lux Beauty'],
 };
 
 function isSearchRoute(url: string) {

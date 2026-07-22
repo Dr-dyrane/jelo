@@ -16,6 +16,7 @@ __pycache__/
 
 # generated asset operation output
 data/asset-import-results.json
+tmp/
 
 # system files
 .DS_Store

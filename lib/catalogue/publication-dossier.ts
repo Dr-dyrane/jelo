@@ -2,11 +2,15 @@ import { createHash } from 'node:crypto';
 import {
   auditCatalogueIntakeCandidates,
   evaluateCatalogueIntakeCandidate,
+  type CatalogueGenerationRecord,
   type CatalogueIntakeCandidate,
   type CatalogueIntakeOffer,
+  type CatalogueOfficialIdentityEvidence,
+  type CatalogueSourceAssetMimeType,
 } from './intake-readiness';
+import type { CataloguePublicationImageMimeType } from './publication-image-policy';
 
-export const cataloguePublicationDossierSchemaVersion = 1 as const;
+export const cataloguePublicationDossierSchemaVersion = 3 as const;
 export const cataloguePublicationApprovalScope = 'exact-identity-source-care-nigeria-rights-and-final-image' as const;
 export const cataloguePublicationExposure = 'private-only' as const;
 
@@ -35,6 +39,7 @@ export type CataloguePublicationDossier = {
   sourceEvidence: {
     basis: 'official-brand';
     officialProductUrl: string;
+    officialIdentity: CatalogueOfficialIdentityEvidence;
     checkedAt: string;
     demandEvidenceUrls: string[];
   };
@@ -55,20 +60,34 @@ export type CataloguePublicationDossier = {
   rights: {
     status: 'documented';
     origin: NonNullable<CatalogueIntakeCandidate['asset']['origin']>;
-    evidenceUrl: string;
-    sourceAssetUrl: string;
+    evidenceUrl?: string;
+    sourceAsset: {
+      url: string;
+      sha256: string;
+      mimeType: CatalogueSourceAssetMimeType;
+      byteSize: number;
+      width: number;
+      height: number;
+      retrievedAt: string;
+    };
+    generationRecord?: CatalogueGenerationRecord;
   };
   finalImage: {
+    role: 'packshot';
     url: string;
     sha256: string;
+    mimeType: CataloguePublicationImageMimeType;
+    byteSize: number;
     width: number;
     height: number;
     packaging: 'intact';
-    backgroundTreatment: 'none' | 'styled-composite' | 'source-pixel-isolation';
+    backgroundTreatment: 'none' | 'source-pixel-isolation' | 'identity-verified-render';
     labelVariantSizeUnchanged: true;
     packagingInvented: false;
     manualSourceOutputQa: true;
     presentationQuality: 'magazine-ready';
+    reviewedAt: string;
+    reviewer: string;
   };
   approval: CataloguePublicationApproval;
 };
@@ -118,7 +137,7 @@ function required<T>(value: T | null | undefined, label: string): T {
 }
 
 export function catalogueIntakeCandidateFingerprint(candidate: CatalogueIntakeCandidate) {
-  return fingerprint('jelocare-catalogue-intake-candidate-v1', candidate);
+  return fingerprint('jelocare-catalogue-intake-candidate-v3', candidate);
 }
 
 export function createCataloguePublicationDossier(
@@ -135,11 +154,44 @@ export function createCataloguePublicationDossier(
   if (approval.reviewer.trim().length < 2) throw new Error(`${candidate.id} approval reviewer is missing.`);
 
   const approvedAt = parsedDate(approval.approvedAt, `${candidate.id} approval timestamp`, asOf);
+  const officialIdentity = required(candidate.identity.officialEvidence, `${candidate.id} official identity evidence`);
   const identityCheckedAt = required(candidate.identity.checkedAt, `${candidate.id} identity timestamp`);
+  const identityEvidenceRetrievedAt = required(officialIdentity.retrievedAt, `${candidate.id} official identity retrieval timestamp`);
   const careReviewedAt = required(candidate.care.reviewedAt, `${candidate.id} care review timestamp`);
+  const sourceAssetRetrievedAt = required(candidate.asset.sourceAssetRetrievedAt, `${candidate.id} source asset retrieval timestamp`);
+  const artReviewedAt = required(candidate.asset.artReviewedAt, `${candidate.id} art review timestamp`);
+  const identityCheckedTimestamp = parsedDate(identityCheckedAt, `${candidate.id} identity timestamp`, asOf);
+  const identityEvidenceRetrievedTimestamp = parsedDate(
+    identityEvidenceRetrievedAt,
+    `${candidate.id} official identity retrieval timestamp`,
+    asOf,
+  );
+  const sourceAssetRetrievedTimestamp = parsedDate(
+    sourceAssetRetrievedAt,
+    `${candidate.id} source asset retrieval timestamp`,
+    asOf,
+  );
+  const artReviewedTimestamp = parsedDate(artReviewedAt, `${candidate.id} art review timestamp`, asOf);
+  if (identityEvidenceRetrievedTimestamp > identityCheckedTimestamp) {
+    throw new Error(`${candidate.id} identity review predates its official evidence snapshot.`);
+  }
+  if (sourceAssetRetrievedTimestamp > artReviewedTimestamp) {
+    throw new Error(`${candidate.id} art review predates its source asset retrieval.`);
+  }
+  const generatedTimestamp = candidate.asset.generationRecord
+    ? parsedDate(candidate.asset.generationRecord.generatedAt, `${candidate.id} generation timestamp`, asOf)
+    : undefined;
+  if (generatedTimestamp != null && (
+    generatedTimestamp < sourceAssetRetrievedTimestamp
+    || generatedTimestamp > artReviewedTimestamp
+  )) throw new Error(`${candidate.id} generation must follow source retrieval and precede art review.`);
   const evidenceTimes = [
-    parsedDate(identityCheckedAt, `${candidate.id} identity timestamp`, asOf),
+    identityCheckedTimestamp,
+    identityEvidenceRetrievedTimestamp,
     parsedDate(careReviewedAt, `${candidate.id} care review timestamp`, asOf),
+    sourceAssetRetrievedTimestamp,
+    artReviewedTimestamp,
+    ...(generatedTimestamp == null ? [] : [generatedTimestamp]),
     ...decision.freshExactOffers.map(offer => parsedDate(offer.observedAt, `${candidate.id} offer timestamp`, asOf)),
   ];
   if (approvedAt < Math.max(...evidenceTimes)) throw new Error(`${candidate.id} approval predates its bound evidence.`);
@@ -163,6 +215,16 @@ export function createCataloguePublicationDossier(
     sourceEvidence: {
       basis: required(candidate.identity.basis, `${candidate.id} identity basis`),
       officialProductUrl: required(candidate.identity.officialProductUrl, `${candidate.id} official source`),
+      officialIdentity: {
+        url: officialIdentity.url,
+        observedGtin: officialIdentity.observedGtin,
+        observedVariant: officialIdentity.observedVariant,
+        observedSize: officialIdentity.observedSize,
+        snapshotSha256: officialIdentity.snapshotSha256,
+        snapshotMimeType: officialIdentity.snapshotMimeType,
+        snapshotByteSize: officialIdentity.snapshotByteSize,
+        retrievedAt: identityEvidenceRetrievedAt,
+      },
       checkedAt: identityCheckedAt,
       demandEvidenceUrls: [...candidate.demandEvidenceUrls],
     },
@@ -183,20 +245,47 @@ export function createCataloguePublicationDossier(
     rights: {
       status: candidate.asset.rightsStatus as 'documented',
       origin: required(candidate.asset.origin, `${candidate.id} asset origin`),
-      evidenceUrl: required(candidate.asset.rightsUrl, `${candidate.id} rights evidence`),
-      sourceAssetUrl: required(candidate.asset.sourceUrl, `${candidate.id} source asset`),
+      ...(candidate.asset.rightsUrl ? { evidenceUrl: candidate.asset.rightsUrl } : {}),
+      sourceAsset: {
+        url: required(candidate.asset.sourceUrl, `${candidate.id} source asset`),
+        sha256: required(candidate.asset.sourceAssetSha256, `${candidate.id} source asset hash`),
+        mimeType: required(candidate.asset.sourceAssetMimeType, `${candidate.id} source asset MIME type`),
+        byteSize: required(candidate.asset.sourceAssetByteSize, `${candidate.id} source asset byte size`),
+        width: required(candidate.asset.sourceAssetWidth, `${candidate.id} source asset width`),
+        height: required(candidate.asset.sourceAssetHeight, `${candidate.id} source asset height`),
+        retrievedAt: sourceAssetRetrievedAt,
+      },
+      ...(candidate.asset.generationRecord
+        ? {
+          generationRecord: {
+            schemaVersion: candidate.asset.generationRecord.schemaVersion,
+            provider: candidate.asset.generationRecord.provider,
+            model: candidate.asset.generationRecord.model,
+            prompt: candidate.asset.generationRecord.prompt,
+            inputs: candidate.asset.generationRecord.inputs.map(input => ({ ...input })),
+            outputSha256: candidate.asset.generationRecord.outputSha256,
+            generatedAt: candidate.asset.generationRecord.generatedAt,
+            recordSha256: candidate.asset.generationRecord.recordSha256,
+          },
+        }
+        : {}),
     },
     finalImage: {
+      role: candidate.asset.role as 'packshot',
       url: required(candidate.asset.publicImageUrl, `${candidate.id} final image`),
       sha256: required(candidate.asset.publicImageSha256, `${candidate.id} final image hash`),
+      mimeType: required(candidate.asset.publicImageMimeType, `${candidate.id} final image MIME type`),
+      byteSize: required(candidate.asset.publicImageByteSize, `${candidate.id} final image byte size`),
       width: required(candidate.asset.width, `${candidate.id} final image width`),
       height: required(candidate.asset.height, `${candidate.id} final image height`),
       packaging: candidate.asset.packaging as 'intact',
-      backgroundTreatment: candidate.asset.backgroundTreatment as 'none' | 'styled-composite' | 'source-pixel-isolation',
+      backgroundTreatment: candidate.asset.backgroundTreatment as 'none' | 'source-pixel-isolation' | 'identity-verified-render',
       labelVariantSizeUnchanged: candidate.asset.labelVariantSizeUnchanged as true,
       packagingInvented: candidate.asset.packagingInvented as false,
       manualSourceOutputQa: candidate.asset.manualSourceOutputQa as true,
       presentationQuality: candidate.asset.presentationQuality as 'magazine-ready',
+      reviewedAt: artReviewedAt,
+      reviewer: required(candidate.asset.artReviewer, `${candidate.id} art reviewer`),
     },
     approval: {
       scope: approval.scope,
@@ -204,7 +293,7 @@ export function createCataloguePublicationDossier(
       approvedAt: approval.approvedAt,
     },
   };
-  const dossierFingerprint = fingerprint('jelocare-catalogue-publication-dossier-v1', payload);
+  const dossierFingerprint = fingerprint('jelocare-catalogue-publication-dossier-v3', payload);
   return deepFreeze({ ...payload, dossierFingerprint });
 }
 
@@ -237,6 +326,7 @@ export function verifyCataloguePublicationDossierManifest(
   const candidateById = new Map(candidates.map(candidate => [candidate.id, candidate]));
   const seenCandidates = new Set<string>();
   const seenFingerprints = new Set<string>();
+  const seenImageHashes = new Set<string>();
   const dossiers = source.dossiers.map((value, index) => {
     const stored = objectRecord(value, `Catalogue publication dossier ${index}`);
     if (typeof stored.candidateId !== 'string' || !stored.candidateId) throw new Error(`Catalogue publication dossier ${index} has no candidate ID.`);
@@ -258,6 +348,10 @@ export function verifyCataloguePublicationDossierManifest(
     if (seenFingerprints.has(stored.dossierFingerprint)) throw new Error(`Duplicate catalogue publication fingerprint: ${stored.dossierFingerprint}`);
     seenFingerprints.add(stored.dossierFingerprint);
     if (stableJson(stored) !== stableJson(expected)) throw new Error(`${candidateId} dossier content or fingerprint changed; approval is invalid.`);
+    if (seenImageHashes.has(expected.finalImage.sha256)) {
+      throw new Error(`${candidateId} reuses another catalogue publication image hash.`);
+    }
+    seenImageHashes.add(expected.finalImage.sha256);
     return expected;
   });
 

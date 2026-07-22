@@ -10,7 +10,7 @@ import { reviewedProductRecords } from '@/data/catalogue';
 import { externalProducts } from '@/data/external-catalogue';
 import { evaluateCatalogueIntakeCandidate } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T12:00:00Z');
+const researchAsOf = Date.parse('2026-07-22T15:05:00Z');
 
 test('the first deliberate intake cohort stays private and approval-blocked', () => {
   assert.equal(catalogueIntakeCandidates.length, 5);
@@ -19,7 +19,35 @@ test('the first deliberate intake cohort stays private and approval-blocked', ()
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
-  assert.equal(catalogueIntakeDecisions.every(decision => decision.stage === 'identity'), true);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 4);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 1);
+});
+
+test('a hashed exact manufacturer identity advances without bypassing care or regulation', () => {
+  const candidate = catalogueIntakeCandidates.find(item => item.id === 'eucerin-oil-control-sun-gel-cream-spf50-50ml');
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '8850029013671');
+  assert.match(candidate.identity.officialProductUrl ?? '', /eucerin-cewa\.com/);
+  assert.equal(candidate.identity.officialEvidence?.observedGtin, '8850029013671');
+  assert.match(candidate.identity.officialEvidence?.snapshotSha256 ?? '', /^[0-9a-f]{64}$/);
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'care');
+  assert.equal(decision.blockers.includes('identity-gtin-missing-or-invalid'), false);
+  assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+  assert.ok(decision.blockers.includes('care-review-missing'));
+  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+});
+
+test('GTIN-backed CeraVe offers remain visible while inaccessible official snapshots hold identity', () => {
+  for (const id of ['cerave-hydrating-cleanser-473ml', 'cerave-moisturising-cream-454g']) {
+    const candidate = catalogueIntakeCandidates.find(item => item.id === id);
+    assert.ok(candidate);
+    const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+    assert.equal(decision.stage, 'identity');
+    assert.equal(decision.freshExactOffers.length, 2);
+    assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
+  }
 });
 
 test('every cohort item cites real Nigerian pages and an explicit next action', () => {
@@ -36,8 +64,9 @@ test('provisional Slique evidence is retained but cannot become independent Tier
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-moisturising-cream-454g');
   assert.ok(candidate);
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(decision.freshExactOffers.length, 3);
-  assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'provisional').length, 1);
+  assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Slique Beauty' && offer.retailerStatus === 'provisional'), true);
+  assert.equal(decision.freshExactOffers.length, 2);
+  assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'provisional').length, 0);
   assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'directory-listed').length, 2);
 });
 
