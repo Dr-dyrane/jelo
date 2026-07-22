@@ -6,6 +6,7 @@ import { ingredientSeeds, verifiedProductIngredients } from '@/data/product-ingr
 export const metadata: Metadata = {
   title: 'Ingredients',
   description: 'Source-checked ingredients in the JeloCare catalogue.',
+  alternates: { canonical: '/ingredients' },
 };
 
 const ingredientCards: IngredientCard[] = ingredientSeeds.map(ingredient => ({

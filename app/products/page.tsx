@@ -2,7 +2,8 @@ import { Suspense } from 'react';
 import { CatalogueExplorer } from '@/components/products/catalogue-explorer';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
 
-export const metadata = { title: 'Products' };
+export const revalidate = 3600;
+export const metadata = { title: 'Products', alternates: { canonical: '/products' } };
 
 export default async function ProductsPage() {
   const products = await listCatalogueProducts();
