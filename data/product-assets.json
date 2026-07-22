@@ -101,15 +101,26 @@
     "contentHash": "4a1f7378a4a7a89fd685da21df393906ea9a3315dbef29ae82c0af829aec0856"
   },
   "dove-go-fresh-cucumber-green-tea-spray": {
-    "sourceUrl": "https://assets.unileversolutions.com/v1/130069295.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot.avif",
-    "contentType": "image/avif",
-    "byteSize": 38961,
-    "importedAt": "2026-07-22T00:50:50.308Z",
-    "width": 2880,
-    "height": 2880,
+    "sourceUrl": "https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 555544,
+    "importedAt": "2026-07-22T21:02:02Z",
+    "width": 2000,
+    "height": 2000,
     "hasAlpha": true,
-    "contentHash": "eb019e9f826aa1fc6a5d5a7252ce7e2269b2f97f1127bcc337a0698465926325"
+    "contentHash": "4dd67b9a6a446bf25738b38e6b10264d98ae84ce8169f5d589548c2b41ebb487",
+    "derivation": {
+      "kind": "source-pixel-isolation",
+      "tool": "exact-sku-source-pixel-isolation-v3",
+      "localPath": "/products/dove/dove-go-fresh-cucumber-green-tea-spray-transparent-v2.png",
+      "sourceAssetSha256": "87c29f858d6935e40c52c7747544efad9b9b519df646c9646bf35e31a08a2fc5",
+      "auditSha256": "56050d817f578ecd872e9bbecc8fc26f2207a866adf7f8efe0f5484741360347",
+      "isolationRecordId": "dove-go-fresh-cucumber-green-tea-spray-v2",
+      "sourceCompared": true,
+      "reviewer": "Codex visual audit",
+      "reviewedAt": "2026-07-22T21:02:01Z"
+    }
   },
   "miracle-natural-hair-anti-dandruff-shampoo": {
     "sourceUrl": "https://www.agtplaza.com/cdn/shop/files/background-editor_output_7b61d159-dd7a-41f8-a083-ec9548d9bdf2.png?v=1735099870",

@@ -109,7 +109,7 @@ export const products: Product[] = [
   },
   {
     slug: 'dove-go-fresh-cucumber-green-tea-spray', brand: 'DOVE', name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea', size: '4 oz / 113 g', category: 'Body', step: 'Protect',
-    image: 'https://assets.unileversolutions.com/v1/130069295.png', displayLine: 'Freshen · protect',
+    image: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600', displayLine: 'Freshen · protect',
     bestFor: ['daily freshness', 'aluminum-free odor protection'], concerns: ['body odour', 'perspiration'], skinTypes: ['all'], sensitiveFriendly: true,
     usage: 'Use on clean, dry underarms.', evidence: 'moderate',
     offers: [beautyByDaz('https://beautybydaz.com/?s=dove+go+fresh+cucumber+green+tea+spray&post_type=product'), careToBeauty('https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20cucumber%20deodorant')]

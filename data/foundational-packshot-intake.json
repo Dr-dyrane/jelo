@@ -104,6 +104,31 @@
         "sourceAssetMimeType": "image/jpeg",
         "sourceAssetRetrievedAt": "2026-07-22T19:48:45Z"
       }
+    },
+    {
+      "id": "dove-go-fresh-cucumber-green-tea-spray",
+      "productSlug": "dove-go-fresh-cucumber-green-tea-spray",
+      "brand": "DOVE",
+      "name": "Aluminum Free Deodorant Spray Cucumber & Green Tea",
+      "variant": "0% Aluminum Deodorant Spray Cucumber & Green Tea",
+      "size": "4 oz / 113 g",
+      "identity": {
+        "gtin": "00079400482280",
+        "officialProductUrl": "https://www.dove.com/us/en/p/dove-0-aluminum-deodorant-spray-cucumber-green-tea.html/00079400482280",
+        "officialIdentifierUrl": "https://www.dove.com/us/en/p/dove-0-aluminum-deodorant-spray-cucumber-green-tea.html/00079400482280",
+        "officialFrontImageUrl": "https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600",
+        "reviewedAt": "2026-07-22T20:57:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "asset": {
+        "sourceUrl": "https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600",
+        "sourceAssetSha256": "87c29f858d6935e40c52c7747544efad9b9b519df646c9646bf35e31a08a2fc5",
+        "sourceAssetByteSize": 115286,
+        "sourceAssetWidth": 1600,
+        "sourceAssetHeight": 1600,
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetRetrievedAt": "2026-07-22T20:56:00Z"
+      }
     }
   ]
 }

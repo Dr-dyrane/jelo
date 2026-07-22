@@ -86,9 +86,9 @@ export const productDisplayApprovals = {
     brand: 'DOVE',
     name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea',
     size: '4 oz / 113 g',
-    sourceUrl: 'https://assets.unileversolutions.com/v1/130069295.png',
-    contentHash: 'eb019e9f826aa1fc6a5d5a7252ce7e2269b2f97f1127bcc337a0698465926325',
-    reviewedAt: '2026-07-22T12:34:11.000Z',
+    sourceUrl: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600',
+    contentHash: '4dd67b9a6a446bf25738b38e6b10264d98ae84ce8169f5d589548c2b41ebb487',
+    reviewedAt: '2026-07-22T21:02:01.000Z',
   }),
   'cerave-foaming-facial-cleanser': approval({
     brand: 'CeraVe',
