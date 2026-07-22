@@ -16,17 +16,24 @@ function run(command: string, args: string[]) {
   });
 }
 
-const isVercelProduction = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production';
-const migrationsDisabled = process.env.SKIP_DATABASE_MIGRATIONS === '1';
+async function main() {
+  const isVercelProduction = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production';
+  const migrationsDisabled = process.env.SKIP_DATABASE_MIGRATIONS === '1';
 
-if (isVercelProduction && !migrationsDisabled) {
-  console.log('Production deployment detected. Applying pending database migrations.');
-  await run('npm', ['run', 'db:migrate']);
-} else {
-  const reason = migrationsDisabled
-    ? 'SKIP_DATABASE_MIGRATIONS=1'
-    : 'not a Vercel production deployment';
-  console.log(`Skipping database migrations: ${reason}.`);
+  if (isVercelProduction && !migrationsDisabled) {
+    console.log('Production deployment detected. Applying pending database migrations.');
+    await run('npm', ['run', 'db:migrate']);
+  } else {
+    const reason = migrationsDisabled
+      ? 'SKIP_DATABASE_MIGRATIONS=1'
+      : 'not a Vercel production deployment';
+    console.log(`Skipping database migrations: ${reason}.`);
+  }
+
+  await run('next', ['build']);
 }
 
-await run('next', ['build']);
+main().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
