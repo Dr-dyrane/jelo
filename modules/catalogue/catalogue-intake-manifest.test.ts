@@ -15,10 +15,10 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T17:05:00Z');
+const researchAsOf = Date.parse('2026-07-22T18:10:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 4);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 5);
 });
 
 test('the first deliberate intake cohort stays private and approval-blocked', () => {
@@ -28,7 +28,8 @@ test('the first deliberate intake cohort stays private and approval-blocked', ()
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 4);
 });
 
@@ -112,11 +113,16 @@ test('provisional Slique evidence is retained but cannot become independent Tier
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
-test('the regional SA cleanser size mismatch remains visibly held at identity', () => {
+test('the UK/EU SA cleanser locks 473 ml without merging regional variants', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-sa-smoothing-cleanser-473ml');
   assert.ok(candidate);
-  assert.equal(candidate.identity.basis, undefined);
-  assert.match(candidate.reason, /236 ml.*473 ml/);
+  assert.equal(candidate.identity.gtin, '3337875795456');
+  assert.equal(candidate.identity.basis, 'official-brand');
+  assert.match(candidate.reason, /473 ml UK\/EU.*236 ml Africa.*8 fl oz US/);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'care');
+  assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+  assert.ok(decision.blockers.includes('care-review-missing'));
 });
 
 test('no private intake candidate leaks into either public catalogue source', () => {

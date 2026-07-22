@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "updatedAt": "2026-07-22T17:05:00Z",
+  "updatedAt": "2026-07-22T18:10:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -615,7 +615,7 @@
       "variant": "CeraVe SA Smoothing Cleanser",
       "size": "473 ml",
       "category": "Face care",
-      "reason": "A rough-and-bumpy-skin candidate held at identity because the official Africa page shows 236 ml while the Nigerian listing shows 473 ml.",
+      "reason": "A rough-and-bumpy-skin candidate with its 473 ml UK/EU identity locked separately from the 236 ml Africa and 8 fl oz US variants.",
       "priority": "important",
       "gapIds": [
         "rough-bumpy-skin",
@@ -625,8 +625,53 @@
         "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/"
       ],
       "identity": {
-        "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/sa-smoothing-cleanser",
-        "checkedAt": "2026-07-22T10:20:00Z"
+        "gtin": "3337875795456",
+        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "checkedAt": "2026-07-22T18:10:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+          "observedGtin": "3337875795456",
+          "observedVariant": "CeraVe SA Smoothing Cleanser",
+          "observedSize": "473 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cerave-sa-smoothing-cleanser-473ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "cerave-sa-smoothing-cleanser-473ml",
+            "sourceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+            "responseUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T18:09:07Z",
+            "fields": {
+              "gtin": {
+                "value": "3337875795456",
+                "locator": "PDF page 3 of 4, #5 Shelf 1 UPC row",
+                "sourceText": "3337875795456 CeraVe smoothing cleanser 473ml 1 5"
+              },
+              "variant": {
+                "value": "CeraVe SA Smoothing Cleanser",
+                "locator": "PDF page 3 of 4, #5 Shelf 1 planogram, leftmost pump pack label",
+                "sourceText": "CeraVe SA Smoothing Cleanser"
+              },
+              "size": {
+                "value": "473 ml",
+                "locator": "PDF page 3 of 4, #5 Shelf 1 Name column",
+                "sourceText": "CeraVe smoothing cleanser 473ml"
+              }
+            },
+            "sourceResponseSha256": "83d107915c0531680c78ff7dc8aecbb49cd659ef050b14a244b0ce29982ba836",
+            "sourceResponseMimeType": "application/pdf",
+            "sourceResponseByteSize": 2135857,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T18:10:00Z"
+          },
+          "snapshotSha256": "169c7cf1b04d383024e1fa8eba5a8752f12a94914b417b88ec3b2310093bdc3f",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1313,
+          "retrievedAt": "2026-07-22T18:09:07Z"
+        }
       },
       "care": {
         "status": "pending",
