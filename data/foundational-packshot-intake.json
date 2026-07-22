@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-22T19:23:52Z",
+  "candidates": [
+    {
+      "id": "ogx-renewing-argan-oil-of-morocco",
+      "productSlug": "ogx-renewing-argan-oil-of-morocco",
+      "brand": "OGX",
+      "name": "Renewing + Argan Oil of Morocco Extra Penetrating Oil",
+      "variant": "Renewing + Argan Oil of Morocco Extra Penetrating Oil",
+      "size": "100 ml",
+      "identity": {
+        "gtin": "022796916167",
+        "officialProductUrl": "https://www.ogxbeauty.com/products/renewing-argan-oil-of-morocco-extra-penetrating-oil-3-3oz",
+        "officialFrontImageUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp",
+        "officialBackImageUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/7uNGxOp6D8bhVDAzUgmk6n/5816b58956549fdb59aea4eca84fbf1b/AOM_extra_strength_oil_BOP.webp",
+        "officialBackImageSha256": "ca8ad28abc37d3e4047257ee4d8ea36b4c16fd5edad24b73d1d3533b38c807ee",
+        "officialBackImageByteSize": 91426,
+        "reviewedAt": "2026-07-22T19:23:52Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "asset": {
+        "sourceUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp",
+        "sourceAssetSha256": "46138a70ee8f98749024e45c597a8daaffe528e4b4f6a0756ad5fbe19bce754a",
+        "sourceAssetByteSize": 82682,
+        "sourceAssetWidth": 1080,
+        "sourceAssetHeight": 1080,
+        "sourceAssetMimeType": "image/webp",
+        "sourceAssetRetrievedAt": "2026-07-22T19:23:52Z"
+      }
+    }
+  ]
+}

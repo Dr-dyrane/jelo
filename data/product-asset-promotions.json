@@ -13,5 +13,20 @@
     "height": 1600,
     "hasAlpha": true,
     "contentHash": "d392e6f06ab8c2718a3ab43cb83cc37237a555b5ced2c6e7dfcf553b4e3bfcaf"
+  },
+  {
+    "id": "ogx-renewing-argan-oil-of-morocco-v2",
+    "active": true,
+    "productSlug": "ogx-renewing-argan-oil-of-morocco",
+    "sourceUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp",
+    "localPath": "/products/ogx/ogx-renewing-argan-oil-of-morocco-transparent-v2.png",
+    "blobPath": "products/ogx/ogx-renewing-argan-oil-of-morocco/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/ogx/ogx-renewing-argan-oil-of-morocco/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 1406757,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d"
   }
 ]

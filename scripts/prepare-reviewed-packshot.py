@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Prepare one exact-SKU source-pixel packshot for private human review.
 
-The source must already be recorded in ``data/catalogue-intake.json``. The
+The source must already be recorded in a checked-in intake manifest. New
+catalogue candidates use ``data/catalogue-intake.json``; foundational products
+may use ``data/foundational-packshot-intake.json`` through ``--intake``. The
 script refuses a source whose bytes do not match that record, uses the removal
 model only to create an alpha mask, and keeps the source RGB pixels as the
 package image. Output is private review material, never publication approval.

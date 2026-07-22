@@ -44,6 +44,28 @@ npm run catalogue:packshot:prepare-reviewed -- \
   --source <downloaded-identity-master>
 ```
 
+Foundational products already present in the reviewed catalogue use the same
+operator and gates with the checked-in
+`data/foundational-packshot-intake.json` source manifest:
+
+```bash
+npm run catalogue:packshot:prepare-reviewed -- \
+  --candidate-id <foundational-product-slug> \
+  --intake data/foundational-packshot-intake.json \
+  --source <downloaded-identity-master>
+```
+
+The alternate manifest changes only where the exact product and source hash
+are locked. It does not weaken the runtime, source-pixel, identity, art, rights,
+remote-byte, or publication gates.
+
+Approved foundational isolations are recorded in
+`data/foundational-packshot-isolations.json`. Each record binds the official
+identity source, source bytes, GTIN evidence, deterministic runtime and model,
+private audit hash, final local bytes, and causally ordered identity and art
+reviews. These legacy display records retain `rightsStatus: not-verified`; they
+must never be represented as reuse permission.
+
 Recreate that exact directory if it predates the current lock. Do not reuse the legacy `.cache/rembg-venv` or install unrelated packages into the reviewed operator environment.
 
 The operator requires the dedicated hash-locked Python 3.12 CPU runtime. It reads at most 20 MB from the source once, then binds the hash check, image decode, inference input, and identity-master copy to that exact byte buffer. Pixel area is rejected from the decoded header before EXIF transpose or full decode. The model supplies only an alpha mask; package RGB data remains from the identity master. ONNX Runtime receives explicit `SessionOptions`: one intra-op thread, one inter-op thread, sequential execution, deterministic compute, and per-session thread pools. These settings are constructed and verified inside the operator, so direct Python execution and changes to `OMP_NUM_THREADS` wrappers cannot alter the audited contract. The 2,000 × 2,000 review master embeds sRGB and the audit records Python, platform, architecture, runtime-lock hash, dependency versions, model hash, CPU provider, and effective session options. Removed mask components and area are recorded; a meaningful loss is flagged for review and a loss above 5% stops the run.
