@@ -99,7 +99,7 @@ The browser-based product image audit is available at:
 /image-audit
 ```
 
-It identifies explicit placeholders and third-party URLs that fail and fall back at runtime.
+It verifies all canonical product and homepage editorial images in the browser, including the generated local fallback for each editorial asset.
 
 The server-only Blob importer runs with:
 
@@ -130,3 +130,5 @@ npm run typecheck
 npm test
 npm run build
 ```
+
+`npm run assets:verify` is also enforced in CI. It fetches every canonical Blob binary, checks recorded metadata and confirms that generated cutouts retain visible transparency.

@@ -1,5 +1,6 @@
 import { ProductImageAudit } from '@/components/products/product-image-audit';
 import { products } from '@/data/catalogue';
+import { editorialAssets } from '@/data/editorial';
 
 export const metadata = { title: 'Image audit' };
 
@@ -9,9 +10,9 @@ export default function ImageAuditPage() {
       <header className="page-heading">
         <p className="eyebrow">Catalogue operations</p>
         <h1>Image<br/>audit.</h1>
-        <p>This page loads every catalogue image in the browser and exposes remote failures and explicit placeholders.</p>
+        <p>Every product and homepage image. Canonical first. Local fallback ready.</p>
       </header>
-      <ProductImageAudit products={products} />
+      <ProductImageAudit products={products} editorialAssets={editorialAssets} />
     </main>
   );
 }

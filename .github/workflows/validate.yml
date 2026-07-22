@@ -35,6 +35,9 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Verify canonical media
+        run: npm run assets:verify
+
       - name: Build
         run: npm run build
         env:

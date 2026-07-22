@@ -1,9 +1,10 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import { ProductRail } from '@/components/products/product-grid';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { products as curatedCatalogue } from '@/data/catalogue';
+import { editorialAsset } from '@/data/editorial';
 import { marketSignals } from '@/data/market-signals';
 import type { Product } from '@/data/products';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
@@ -12,16 +13,18 @@ import styles from './home.module.css';
 
 export const revalidate = 3600;
 
-const editorialBase = 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial';
-const heroImage = `${editorialBase}/barrier-edit/jelocare-hero-campaign.webp`;
+const heroAsset = editorialAsset('barrier-edit-hero');
 
 const concernCards = [
-  { label: 'Barrier care', query: 'barrier', image: `${editorialBase}/concern-edits/barrier-care.png`, alt: 'Blush airless skincare pump bottle' },
-  { label: 'Clear skin', query: 'acne', image: `${editorialBase}/concern-edits/clearer-skin.png`, alt: 'Pale aqua cleanser tube' },
-  { label: 'Even tone', query: 'hyperpigmentation', image: `${editorialBase}/concern-edits/even-tone.png`, alt: 'Amber glass serum dropper bottle' },
-  { label: 'Daily SPF', query: 'sunscreen', image: `${editorialBase}/concern-edits/daily-protection.png`, alt: 'Ivory sunscreen tube' },
-  { label: 'Sensitive skin', query: 'sensitivity', image: `${editorialBase}/concern-edits/sensitive-skin.png`, alt: 'Frosted moisturizer jar' },
+  { label: 'Barrier care', query: 'barrier', asset: editorialAsset('barrier-care-cutout') },
+  { label: 'Clear skin', query: 'acne', asset: editorialAsset('clearer-skin-cutout') },
+  { label: 'Even tone', query: 'hyperpigmentation', asset: editorialAsset('even-tone-cutout') },
+  { label: 'Daily SPF', query: 'sunscreen', asset: editorialAsset('daily-protection-cutout') },
+  { label: 'Sensitive skin', query: 'sensitivity', asset: editorialAsset('sensitive-skin-cutout') },
 ];
+
+const barrierAsset = editorialAsset('barrier-care-cutout');
+const protectionAsset = editorialAsset('daily-protection-cutout');
 
 function DiscoveryRail({ kicker, title, products: railProducts, href = '/products' }: {
   kicker: string;
@@ -59,7 +62,7 @@ export default async function HomePage() {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero} style={{ backgroundImage: `url(${heroImage})` }}>
+      <section className={styles.hero} style={{ backgroundImage: `url("${heroAsset.blobUrl}"), url("${heroAsset.localPath}")` }}>
         <div className={styles.heroShade} />
         <div className={styles.heroCopy}>
           <p className={styles.heroKicker}>The barrier edit</p>
@@ -93,7 +96,7 @@ export default async function HomePage() {
           {concernCards.map((card, index) => (
             <Link className={styles.category} href={`/products?q=${encodeURIComponent(card.query)}`} key={card.label}>
               <small>0{index + 1}</small>
-              <Image src={card.image} alt={card.alt} width={544} height={664} sizes="(max-width: 700px) 70vw, (max-width: 1000px) 30vw, 18vw" loading={index === 0 ? 'eager' : 'lazy'} />
+              <SafeEditorialImage asset={card.asset} alt={card.asset.altText} sizes="(max-width: 700px) 70vw, (max-width: 1000px) 30vw, 18vw" loading={index === 0 ? 'eager' : 'lazy'} />
               <div><span>{card.label}</span></div>
             </Link>
           ))}
@@ -101,7 +104,7 @@ export default async function HomePage() {
       </section>
 
       <section className={`${styles.story} editorial-story`}>
-        <div className={`${styles.storyVisual} editorial-story-visual`}><Image src={`${editorialBase}/concern-edits/barrier-care.png`} alt="Blush airless pump bottle representing barrier care" width={544} height={664} sizes="(max-width: 1000px) 92vw, 46vw" /></div>
+        <div className={`${styles.storyVisual} editorial-story-visual`}><SafeEditorialImage asset={barrierAsset} alt={barrierAsset.altText} sizes="(max-width: 1000px) 92vw, 46vw" /></div>
         <div className={`${styles.storyCopy} editorial-story-copy`}>
           <p className={styles.kicker}>This week&apos;s story</p>
           <h2>Back to comfort.</h2>
@@ -155,7 +158,7 @@ export default async function HomePage() {
           </ul>
           <Link className={styles.primary} href="/products?q=sunscreen">Explore SPF</Link>
         </div>
-        <Image src={`${editorialBase}/concern-edits/daily-protection.png`} alt="Ivory sunscreen tube" width={544} height={664} sizes="(max-width: 900px) 80vw, 34vw" />
+        <SafeEditorialImage asset={protectionAsset} alt={protectionAsset.altText} sizes="(max-width: 900px) 80vw, 34vw" />
       </section>
 
       <DiscoveryRail

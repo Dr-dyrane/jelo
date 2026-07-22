@@ -72,7 +72,9 @@ npm run assets:verify
 npm run assets:verify -- --write
 ```
 
-Production builds apply the metadata to the durable `product_images` rows after database migrations. Generated transparent assets remain editorial props; they are never presented as branded product packshots. A neutral JeloCare placeholder is the last-resort browser fallback if a canonical packshot cannot load.
+Production builds apply the metadata to durable `product_images` and `editorial_assets` rows after database migrations. Homepage editorial media is resolved from the checked-in manifest rather than duplicated URLs. Generated transparent assets remain editorial props; they are never presented as branded product packshots. Their checked-in generated files are runtime fallbacks for the matching editorial Blob, while a neutral JeloCare placeholder remains the last resort for a failed product packshot.
+
+CI runs `npm run assets:verify` against every product and editorial Blob. `/image-audit` independently probes all canonical binaries plus every generated editorial fallback in a real browser.
 
 ## Neon PostgreSQL
 
