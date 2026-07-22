@@ -9,6 +9,7 @@ import { MarketPrice } from '@/components/products/market-price';
 import { ProductGrid } from '@/components/products/product-grid';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
+import { listProductIngredientsSafe } from '@/lib/clinical/ingredients';
 import { getProductPriceTrends } from '@/lib/inventory/price-trends';
 
 const evidenceCopy = {
@@ -52,10 +53,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [product, products, priceTrends] = await Promise.all([
+  const [product, products, priceTrends, productIngredients] = await Promise.all([
     findCatalogueProduct(slug),
     listCatalogueProducts(),
     getProductPriceTrends(slug),
+    listProductIngredientsSafe(slug),
   ]);
   if (!product) notFound();
 
@@ -121,6 +123,23 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <h3>What we know</h3>
             <p>{evidenceCopy[product.evidence]}</p>
           </article>
+        </div>
+      </section>
+
+      <section className={`ingredient-disclosure ${productIngredients.length ? '' : 'ingredient-disclosure-pending'}`}>
+        <div>
+          <p className="eyebrow">Formula</p>
+          <h2>{productIngredients.length ? 'Key ingredients.' : 'Review pending.'}</h2>
+        </div>
+        <div className="ingredient-disclosure-content">
+          {productIngredients.length ? <div className="ingredient-chips">
+            {productIngredients.slice(0, 8).map(ingredient => {
+              const concentration = ingredient.concentrationPercent == null ? '' : `${ingredient.concentrationPercent}% `;
+              const label = `${concentration}${ingredient.commonName ?? ingredient.inciName}`;
+              return ingredient.sourceUrl ? <a key={ingredient.id} href={ingredient.sourceUrl} target="_blank" rel="noreferrer">{label} ↗</a> : <span key={ingredient.id}>{label}</span>;
+            })}
+          </div> : null}
+          <p>{productIngredients.length ? 'Key ingredients only. Check your pack.' : 'Check the pack before use.'}</p>
         </div>
       </section>
 

@@ -82,6 +82,31 @@
   background: linear-gradient(135deg, #f4d4c5, #fbf3ed);
 }
 
+.ingredient-disclosure {
+  padding: 7vw 5vw;
+  display: grid;
+  grid-template-columns: minmax(14rem, .72fr) minmax(0, 1.28fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 247, 242, .95), rgba(242, 193, 185, .42));
+}
+
+.ingredient-disclosure h2 {
+  margin: .8rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-weight: 400;
+  line-height: .84;
+}
+
+.ingredient-disclosure-content > p { margin: 1rem 0 0; color: var(--muted); font-size: .72rem; }
+.ingredient-chips { display: flex; flex-wrap: wrap; gap: .65rem; }
+.ingredient-chips a,
+.ingredient-chips span { padding: .8rem 1rem; border-radius: 999px; background: rgba(255, 255, 255, .72); font-size: .78rem; }
+.ingredient-chips a { transition: transform .2s ease, background .2s ease; }
+.ingredient-chips a:hover { transform: translateY(-2px); background: #fff; }
+.ingredient-disclosure-pending { background: rgba(255, 255, 255, .42); }
+
 .routine-steps {
   display: grid;
   gap: .7rem;
@@ -193,11 +218,13 @@
 @media (max-width: 900px) {
   .decision-grid { grid-template-columns: 1fr; }
   .decision-card { min-height: 17rem; }
+  .ingredient-disclosure,
   .routine-placement { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
   .product-decision-guide,
+  .ingredient-disclosure,
   .routine-placement { padding: 5rem 1rem; }
   .decision-card { padding: 1.5rem; min-height: 15rem; }
   .routine-placement { gap: 2rem; }
