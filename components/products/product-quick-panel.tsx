@@ -23,7 +23,7 @@ type ProductQuickPanelProps = {
 };
 
 const tabs: Array<{ id: PanelTab; label: string }> = [
-  { id: 'buy', label: 'Buy' },
+  { id: 'buy', label: 'Prices' },
   { id: 'stores', label: 'Search' },
   { id: 'details', label: 'Details' },
 ];
@@ -80,7 +80,7 @@ export function ProductQuickPanel(props: ProductQuickPanelProps) {
     <>
       <div className="product-quick-actions" aria-label="Product actions">
         <button type="button" onClick={event => openPanel('buy', event.currentTarget)} aria-haspopup="dialog" aria-controls={dialogId} aria-expanded={open && tab === 'buy'}>
-          <ShoppingBag size={18} aria-hidden="true" /> Compare prices
+          <ShoppingBag size={18} aria-hidden="true" /> See prices
         </button>
         <button type="button" onClick={event => openPanel('details', event.currentTarget)} aria-haspopup="dialog" aria-controls={dialogId} aria-expanded={open && tab === 'details'}>
           <Info size={18} aria-hidden="true" /> Details
