@@ -16,7 +16,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T20:26:00Z');
+const researchAsOf = Date.parse('2026-07-22T20:41:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 6);
@@ -80,23 +80,34 @@ test('independent care evidence advances an exact manufacturer identity without 
   assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
 });
 
-test('official CeraVe snapshots advance identity and care without trusting retailer SKU fields', () => {
+test('official CeraVe snapshots advance identity and care without treating retailer SKUs as GTIN evidence', () => {
   for (const id of ['cerave-hydrating-cleanser-473ml', 'cerave-moisturising-cream-454g']) {
     const candidate = catalogueIntakeCandidates.find(item => item.id === id);
     assert.ok(candidate);
     const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
     assert.equal(decision.stage, 'nigeria');
-    assert.equal(decision.freshExactOffers.length, 0);
     assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
     assert.equal(decision.blockers.includes('care-review-missing'), false);
     assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-    assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
     const extraction = candidate.identity.officialEvidence?.canonicalExtraction;
     assert.ok(extraction);
     assert.equal(candidate.identity.officialEvidence?.snapshotSha256, catalogueIdentityExtractionSha256(extraction));
     assert.equal(candidate.identity.officialEvidence?.snapshotByteSize, catalogueIdentityExtractionByteSize(extraction));
   }
+  const cleanser = catalogueIntakeCandidates.find(item => item.id === 'cerave-hydrating-cleanser-473ml');
+  assert.ok(cleanser);
+  const cleanserDecision = evaluateCatalogueIntakeCandidate(cleanser, researchAsOf);
+  assert.equal(cleanserDecision.freshExactOffers.length, 1);
+  assert.equal(cleanserDecision.freshExactOffers[0].retailer, 'BuyBetter');
+  assert.equal(cleanserDecision.nigeriaMarketRoute, 'brand-authorized');
+  assert.equal(cleanserDecision.blockers.includes('nigeria-offer-identity-unbound'), false);
+  assert.ok(cleanserDecision.blockers.includes('nigeria-regulatory-pending'));
+
   const cream = catalogueIntakeCandidates.find(item => item.id === 'cerave-moisturising-cream-454g');
+  assert.ok(cream);
+  const creamDecision = evaluateCatalogueIntakeCandidate(cream, researchAsOf);
+  assert.equal(creamDecision.freshExactOffers.length, 0);
+  assert.ok(creamDecision.blockers.includes('nigeria-offer-identity-unbound'));
   assert.equal(cream?.variant, 'CeraVe Moisturising Cream Pot');
   assert.match(cream?.care.manufacturerEvidenceUrl ?? '', /africa\.cerave\.com/);
 });

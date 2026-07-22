@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "updatedAt": "2026-07-22T20:25:34Z",
+  "updatedAt": "2026-07-22T20:40:15Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -9,7 +9,7 @@
       "variant": "CeraVe Hydrating Cleanser",
       "size": "473 ml",
       "category": "Face care",
-      "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, with an official EAN and several Nigerian listing observations held behind the regulatory and identity-bound offer gates.",
+      "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, with an official EAN and one brand-authorized Nigerian offer now bound to the printed package barcode; publication remains held for product-specific NAFDAC evidence.",
       "priority": "essential",
       "gapIds": [
         "gentle-cleanse-dry-skin",
@@ -90,7 +90,6 @@
       },
       "nigeria": {
         "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
         "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
         "exactOffers": [
           {
@@ -119,12 +118,76 @@
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
-            "observedAt": "2026-07-22T14:31:54Z",
-            "observedTitle": "CeraVe Hydrating Cleanser Daily Face & Body Wash for Normal to Dry Skin",
+            "observedAt": "2026-07-22T20:38:29Z",
+            "observedTitle": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML",
             "observedSize": "473 ml",
+            "observedGtin": "3337875597333",
+            "observedGtinBasis": "explicit-ean",
             "retailerSku": "3337875597333",
             "priceNgn": 15265,
-            "stock": "in-stock"
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
+              "responseUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
+              "responseSha256": "b0d401904bdbaedc26c9a75bffd1d289998c8550a121d7a1bdceeeddc9aa6dcd",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 829395,
+              "retrievedAt": "2026-07-22T20:38:29Z",
+              "fields": {
+                "gtin": {
+                  "label": "EAN",
+                  "value": "3337875597333",
+                  "locator": "Product gallery back-label barcode at lower right",
+                  "sourceText": "EAN-13 barcode 3337875597333",
+                  "responseRole": "package-barcode-image"
+                },
+                "title": {
+                  "value": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML"
+                },
+                "size": {
+                  "value": "473 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML"
+                },
+                "price": {
+                  "value": 15265,
+                  "currency": "NGN",
+                  "locator": "HTML product summary price",
+                  "sourceText": "₦ 15,265.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML product summary stock count",
+                  "sourceText": "5 in stock"
+                }
+              },
+              "supplementalResponses": [
+                {
+                  "role": "package-barcode-image",
+                  "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
+                  "responseUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
+                  "responseSha256": "b3f15c92259eb814c7111b02026d95bcca14885219ab299c6e5cfcc6cd4a94c9",
+                  "responseMimeType": "image/png",
+                  "responseByteSize": 239216,
+                  "retrievedAt": "2026-07-22T20:38:29Z",
+                  "listingLocator": "HTML product gallery image src",
+                  "listingSourceText": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
+                  "barcode": {
+                    "symbology": "EAN-13",
+                    "value": "3337875597333",
+                    "locator": "Printed barcode at lower-right of back label",
+                    "sourceText": "EAN-13 barcode 3337875597333"
+                  }
+                }
+              ],
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T20:40:15Z"
+            }
           },
           {
             "retailer": "Medplus",

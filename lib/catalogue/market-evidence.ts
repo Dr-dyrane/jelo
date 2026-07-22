@@ -8,6 +8,25 @@ export type ExactOfferGtinLabel = 'GTIN' | 'EAN' | 'UPC';
 export type ExactOfferGtinBasis = 'explicit-gtin' | 'explicit-ean' | 'explicit-upc';
 export type ExactOfferStock = 'in-stock' | 'low-stock' | 'out-of-stock';
 export type MarketEvidenceMimeType = 'application/json' | 'text/html';
+export type MarketEvidenceImageMimeType = 'image/jpeg' | 'image/png' | 'image/webp';
+
+export type ReviewedPackageBarcodeResponse = {
+  role: 'package-barcode-image';
+  sourceUrl: string;
+  responseUrl: string;
+  responseSha256: string;
+  responseMimeType: MarketEvidenceImageMimeType;
+  responseByteSize: number;
+  retrievedAt: string;
+  listingLocator: string;
+  listingSourceText: string;
+  barcode: {
+    symbology: 'EAN-13' | 'UPC-A';
+    value: string;
+    locator: string;
+    sourceText: string;
+  };
+};
 
 export type ReviewedExactOfferEvidence = {
   schemaVersion: typeof catalogueExactOfferEvidenceSchemaVersion;
@@ -25,12 +44,14 @@ export type ReviewedExactOfferEvidence = {
       value: string;
       locator: string;
       sourceText: string;
+      responseRole?: 'listing-response' | 'package-barcode-image';
     };
     title: { value: string; locator: string; sourceText: string };
     size: { value: string; locator: string; sourceText: string };
     price: { value: number; currency: 'NGN'; locator: string; sourceText: string };
     stock: { value: ExactOfferStock; locator: string; sourceText: string };
   };
+  supplementalResponses?: ReviewedPackageBarcodeResponse[];
   reviewer: string;
   reviewedAt: string;
 };
@@ -181,9 +202,53 @@ function expectedLabel(basis: ExactOfferGtinBasis | undefined): ExactOfferGtinLa
 
 function stockSourceMatches(sourceText: string, stock: ExactOfferStock) {
   const value = normalized(sourceText).replace(/^availability\s+/, '');
-  if (stock === 'in-stock') return /^(?:in stock|available|available now)$/.test(value);
+  if (stock === 'in-stock') return /^(?:in stock|\d+ in stock|available|available now)$/.test(value);
   if (stock === 'low-stock') return /^(?:low stock|only \d+ left|few left)$/.test(value);
   return /^(?:out of stock|sold out|unavailable)$/.test(value);
+}
+
+function reviewedPackageBarcodeResponseValid(
+  response: ReviewedPackageBarcodeResponse,
+  listingUrl: string,
+  expectedGtin: string,
+  expectedLabel: ExactOfferGtinLabel,
+  reviewedAt: number,
+  asOf: number,
+) {
+  if (
+    response.role !== 'package-barcode-image'
+    || !validHttps(response.sourceUrl)
+    || !sameUrl(response.responseUrl, response.sourceUrl)
+    || !hashPattern.test(response.responseSha256)
+    || !['image/jpeg', 'image/png', 'image/webp'].includes(response.responseMimeType)
+    || !Number.isSafeInteger(response.responseByteSize)
+    || response.responseByteSize <= 0
+    || typeof response.listingLocator !== 'string'
+    || response.listingLocator.trim().length < 8
+    || typeof response.listingSourceText !== 'string'
+    || !response.listingSourceText.includes(response.sourceUrl)
+    || typeof response.barcode?.locator !== 'string'
+    || response.barcode.locator.trim().length < 8
+    || typeof response.barcode.sourceText !== 'string'
+    || !sourceTextContainsExactGtin(response.barcode.sourceText, expectedGtin)
+    || response.barcode.value !== expectedGtin
+  ) return false;
+
+  const retrievedAt = parsedPastDate(response.retrievedAt, asOf);
+  if (retrievedAt == null || retrievedAt > reviewedAt) return false;
+
+  const expectedSymbology = expectedLabel === 'EAN'
+    ? 'EAN-13'
+    : expectedLabel === 'UPC'
+      ? 'UPC-A'
+      : undefined;
+  if (!expectedSymbology || response.barcode.symbology !== expectedSymbology) return false;
+
+  const listingHost = new URL(listingUrl).hostname.replace(/^www\./, '').toLowerCase();
+  const sourceHost = new URL(response.sourceUrl).hostname.replace(/^www\./, '').toLowerCase();
+  const sourcePath = new URL(response.sourceUrl).pathname.toLowerCase();
+  return sourceHost === listingHost
+    || (sourceHost === 'i0.wp.com' && sourcePath.startsWith(`/${listingHost}/`));
 }
 
 function activeRegistrationSourceMatches(sourceText: string) {
@@ -241,6 +306,19 @@ export function reviewedExactOfferEvidenceValid(
   ) return false;
 
   const label = expectedLabel(offer.observedGtinBasis);
+  const gtinResponseRole = fields.gtin.responseRole ?? 'listing-response';
+  const packageBarcodeValid = gtinResponseRole === 'package-barcode-image'
+    && label != null
+    && Array.isArray(evidence.supplementalResponses)
+    && evidence.supplementalResponses.length === 1
+    && reviewedPackageBarcodeResponseValid(
+      evidence.supplementalResponses[0],
+      offer.listingUrl,
+      fields.gtin.value,
+      label,
+      reviewedAt!,
+      asOf,
+    );
   return Boolean(
     label
     && fields.gtin.label === label
@@ -252,6 +330,7 @@ export function reviewedExactOfferEvidenceValid(
     && canonicalGtin(fields.gtin.value) === canonicalGtin(candidateGtin ?? '')
     && sourceTextContainsExactGtin(fields.gtin.sourceText, fields.gtin.value)
     && sourceNamesLabel(fields.gtin.sourceText, label)
+    && (gtinResponseRole === 'listing-response' || packageBarcodeValid)
     && typeof fields.title.value === 'string'
     && normalized(fields.title.value) === normalized(offer.observedTitle)
     && normalized(fields.title.sourceText).includes(normalized(fields.title.value))

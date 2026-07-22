@@ -8,6 +8,8 @@ The product page should answer three questions before a shopper leaves JeloCare:
 2. What price, variant, size and stock state did JeloCare observe, and when?
 3. What is known about the listing, seller identity, regulator record and brand authorization?
 
+An exact identifier may come from a retailer's product-gallery back label when the image response is hash-bound to that listing and the printed EAN/UPC is reviewed against the manufacturer identity. A retailer `SKU` field never becomes manufacturer evidence merely because its digits match.
+
 ## Launch reference retailers
 
 | Retailer | Reference URL | Market | Role |

@@ -835,6 +835,103 @@ test('a retailer SKU label cannot be relabelled as manufacturer GTIN evidence', 
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
+test('a retailer gallery back label can bind an exact offer to the printed package EAN', () => {
+  const base = completeCandidate();
+  const listingUrl = 'https://buybetter.ng/product/example-barrier-lotion';
+  const barcodeImageUrl = 'https://i0.wp.com/buybetter.ng/wp-content/uploads/example-barrier-lotion-back.png';
+  const offer: CatalogueIntakeOffer = {
+    retailer: 'BuyBetter',
+    retailerStatus: 'directory-listed',
+    listingUrl,
+    observedAt: '2026-07-22T09:00:00Z',
+    observedTitle: 'Example Barrier Lotion',
+    observedSize: '13.5 fl oz / 400 ml',
+    observedGtin: base.identity.gtin,
+    observedGtinBasis: 'explicit-ean',
+    retailerSku: base.identity.gtin,
+    priceNgn: 12_500,
+    stock: 'in-stock',
+    evidence: exactOfferEvidence({
+      listingUrl,
+      responseUrl: listingUrl,
+      fields: {
+        gtin: {
+          label: 'EAN',
+          value: base.identity.gtin!,
+          locator: 'Product gallery back-label barcode',
+          sourceText: `EAN-13 barcode ${base.identity.gtin}`,
+          responseRole: 'package-barcode-image',
+        },
+        title: {
+          value: 'Example Barrier Lotion',
+          locator: 'HTML h1 product title',
+          sourceText: 'Example Barrier Lotion',
+        },
+        size: {
+          value: '13.5 fl oz / 400 ml',
+          locator: 'HTML h1 product title',
+          sourceText: 'Example Barrier Lotion 13.5 fl oz / 400 ml',
+        },
+        price: {
+          value: 12_500,
+          currency: 'NGN',
+          locator: 'HTML product price amount',
+          sourceText: '₦12,500.00',
+        },
+        stock: {
+          value: 'in-stock',
+          locator: 'HTML product stock count',
+          sourceText: '5 in stock',
+        },
+      },
+      supplementalResponses: [{
+        role: 'package-barcode-image',
+        sourceUrl: barcodeImageUrl,
+        responseUrl: barcodeImageUrl,
+        responseSha256: 'c'.repeat(64),
+        responseMimeType: 'image/png',
+        responseByteSize: 239_216,
+        retrievedAt: '2026-07-22T09:00:00Z',
+        listingLocator: 'HTML product gallery image src',
+        listingSourceText: barcodeImageUrl,
+        barcode: {
+          symbology: 'EAN-13',
+          value: base.identity.gtin!,
+          locator: 'Printed barcode at lower-right of back label',
+          sourceText: `EAN-13 barcode ${base.identity.gtin}`,
+        },
+      }],
+    }),
+  };
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: { ...base.nigeria, exactOffers: [offer] },
+  }, asOf);
+
+  assert.equal(decision.freshExactOffers.length, 1);
+  assert.equal(decision.nigeriaMarketRoute, 'brand-authorized');
+  assert.equal(decision.stage, 'approval-ready');
+
+  const tampered = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: [{
+        ...offer,
+        evidence: {
+          ...offer.evidence!,
+          supplementalResponses: offer.evidence!.supplementalResponses!.map(response => ({
+            ...response,
+            responseSha256: 'not-a-hash',
+          })),
+        },
+      }],
+    },
+  }, asOf);
+  assert.equal(tampered.freshExactOffers.length, 0);
+  assert.ok(tampered.blockers.includes('nigeria-offer-identity-unbound'));
+});
+
 test('regulatory clearance requires a hash-bound NAFDAC record for the candidate GTIN', () => {
   const base = completeCandidate();
   const active = regulatoryEvidence();
