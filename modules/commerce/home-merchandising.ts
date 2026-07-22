@@ -1,4 +1,5 @@
 import type { Product } from '@/data/products';
+import { isOfferFresh } from './offer-freshness';
 
 export function orderByCuratedSlugs<T extends { slug: string }>(items: T[], curatedSlugs: string[]) {
   const position = new Map(curatedSlugs.map((slug, index) => [slug, index]));
@@ -9,12 +10,13 @@ export function orderByCuratedSlugs<T extends { slug: string }>(items: T[], cura
   });
 }
 
-export function hasVerifiedNigeriaOffer(product: Pick<Product, 'offers'>) {
+export function hasVerifiedNigeriaOffer(product: Pick<Product, 'offers'>, now: number | Date = Date.now()) {
   return product.offers.some(offer =>
     offer.match !== 'search'
     && offer.available
     && (offer.location.includes('NG') || offer.location.includes('INTL'))
     && typeof offer.priceNgn === 'number'
-    && offer.priceNgn > 0,
+    && offer.priceNgn > 0
+    && isOfferFresh(offer, now),
   );
 }

@@ -26,11 +26,13 @@ test('appends new live products without dropping them', () => {
 });
 
 test('Nigeria-ready requires an available exact priced offer', () => {
-  const offer = { retailer: 'Store', url: 'https://store.example/product', trust: 90, available: true, priceNgn: 10_000, match: 'exact' as const, location: ['NG'] };
+  const now = new Date('2026-07-22T12:00:00Z');
+  const offer = { retailer: 'Store', url: 'https://store.example/product', trust: 90, available: true, priceNgn: 10_000, checkedAt: '2026-07-22', match: 'exact' as const, location: ['NG'] };
 
-  assert.equal(hasVerifiedNigeriaOffer({ offers: [offer] }), true);
-  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, match: 'search' }] }), false);
-  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, available: false }] }), false);
-  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, priceNgn: undefined }] }), false);
-  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, location: ['US'] }] }), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [offer] }, now), true);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, match: 'search' }] }, now), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, available: false }] }, now), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, priceNgn: undefined }] }, now), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, location: ['US'] }] }, now), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, checkedAt: '2026-07-14' }] }, now), false);
 });

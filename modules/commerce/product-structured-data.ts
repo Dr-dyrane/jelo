@@ -1,17 +1,19 @@
 import type { Offer, Product } from '@/data/products';
+import { isOfferFresh } from './offer-freshness';
 
 const siteUrl = 'https://jelocare.com';
 
-function nigeriaOffer(offer: Offer) {
+function nigeriaOffer(offer: Offer, now: number | Date) {
   return offer.match !== 'search'
     && offer.available
     && (offer.location.includes('NG') || offer.location.includes('INTL'))
     && typeof offer.priceNgn === 'number'
-    && offer.priceNgn > 0;
+    && offer.priceNgn > 0
+    && isOfferFresh(offer, now);
 }
 
-export function productStructuredData(product: Product) {
-  const offers = product.offers.filter(nigeriaOffer);
+export function productStructuredData(product: Product, now: number | Date = Date.now()) {
+  const offers = product.offers.filter(offer => nigeriaOffer(offer, now));
   if (!offers.length) return null;
 
   const prices = offers.map(offer => offer.priceNgn!);

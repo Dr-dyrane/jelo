@@ -6,6 +6,7 @@ import type { Offer } from '@/data/products';
 import type { Market } from '@/data/prices';
 import { rankOffers } from '@/modules/commerce/rank-offers';
 import { summarizeMarket } from '@/modules/commerce/market-summary';
+import { isOfferFresh } from '@/modules/commerce/offer-freshness';
 import type { ProductPriceTrends } from '@/modules/commerce/price-trends';
 
 const formatNaira = new Intl.NumberFormat('en-NG', {
@@ -68,18 +69,19 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
       </div> : null}
       <div className="retailer-list">
         {visible.length ? visible.map((offer, index) => {
-          const price = market === 'NG' ? offer.priceNgn : offer.priceUsd;
+          const fresh = isOfferFresh(offer);
+          const price = fresh ? market === 'NG' ? offer.priceNgn : offer.priceUsd : undefined;
           const checked = shortDate(offer.checkedAt);
           return (
           <a
             key={`${offer.retailer}-${offer.url}`}
-            className={`retailer-row ${offer.available ? '' : 'retailer-row-unavailable'}`}
+            className={`retailer-row ${offer.available && fresh ? '' : 'retailer-row-unavailable'}`}
             href={`/go?product=${encodeURIComponent(productSlug)}&retailer=${encodeURIComponent(offer.retailer)}`}
           >
             <span className="retailer-rank">{String(index + 1).padStart(2, '0')}</span>
             <span>
               <strong>{offer.retailer}</strong>
-              <small>{offer.available ? 'In stock' : 'Out of stock'}{checked ? ` · Checked ${checked}` : ''}</small>
+              <small>{!fresh ? 'Check stock' : offer.available ? 'In stock' : 'Out of stock'}{checked ? ` · Checked ${checked}` : ''}</small>
             </span>
             <span className="retailer-price">
               <strong>{price ? formatAmount(price, market) : 'Check price'}</strong>

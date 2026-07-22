@@ -10,9 +10,10 @@ const offers: Offer[] = [
   { retailer: 'Search', url: 'https://example.com/search', trust: 100, available: true, match: 'search', priceNgn: 8_000, checkedAt: '2026-07-21', location: ['NG'] },
   { retailer: 'US', url: 'https://example.com/us', trust: 100, available: true, match: 'exact', priceUsd: 13.49, checkedAt: '2026-07-21', location: ['US'] },
 ];
+const now = new Date('2026-07-22T12:00:00Z');
 
 test('summarizes available exact prices in one market', () => {
-  const summary = summarizeMarket(offers, 'NG');
+  const summary = summarizeMarket(offers, 'NG', now);
 
   assert.equal(summary.lowestPrice, 14_500);
   assert.equal(summary.typicalPrice, 16_000);
@@ -25,7 +26,7 @@ test('summarizes available exact prices in one market', () => {
 });
 
 test('does not include search, unavailable or cross-market prices in the comparison', () => {
-  const summary = summarizeMarket(offers, 'US');
+  const summary = summarizeMarket(offers, 'US', now);
 
   assert.equal(summary.lowestPrice, 13.49);
   assert.equal(summary.typicalPrice, 13.49);
@@ -35,9 +36,16 @@ test('does not include search, unavailable or cross-market prices in the compari
 });
 
 test('returns an explicit empty summary when no exact offer serves the market', () => {
-  const summary = summarizeMarket([], 'NG');
+  const summary = summarizeMarket([], 'NG', now);
 
   assert.equal(summary.lowestPrice, null);
   assert.equal(summary.retailerCount, 0);
   assert.equal(summary.confidence, 0);
+});
+
+test('removes stale observations from every current market claim', () => {
+  const summary = summarizeMarket(offers, 'NG', new Date('2026-07-30T12:00:00Z'));
+  assert.equal(summary.retailerCount, 0);
+  assert.equal(summary.lowestPrice, null);
+  assert.equal(summary.inStockCount, 0);
 });

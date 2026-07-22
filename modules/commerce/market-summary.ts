@@ -1,5 +1,6 @@
 import type { Market } from '@/data/prices';
 import type { Offer } from '@/data/products';
+import { isOfferFresh } from './offer-freshness';
 
 export type MarketSummary = {
   market: Market;
@@ -29,8 +30,8 @@ function median(values: number[], market: Market) {
   return market === 'NG' ? Math.round(value) : Number(value.toFixed(2));
 }
 
-export function summarizeMarket(offers: Offer[], market: Market): MarketSummary {
-  const exact = offers.filter(offer => offer.match !== 'search' && servesMarket(offer, market));
+export function summarizeMarket(offers: Offer[], market: Market, now: number | Date = Date.now()): MarketSummary {
+  const exact = offers.filter(offer => offer.match !== 'search' && servesMarket(offer, market) && isOfferFresh(offer, now));
   const inStock = exact.filter(offer => offer.available);
   const priced = inStock
     .map(offer => ({ offer, price: marketPrice(offer, market) }))

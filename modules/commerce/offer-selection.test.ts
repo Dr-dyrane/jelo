@@ -5,13 +5,14 @@ import type { Offer } from '@/data/products';
 import { rankOffers } from '@/modules/commerce/offer-selection';
 
 test('Nigeria ranks an available exact offer above search and unavailable routes', () => {
+  const now = new Date('2026-07-22T12:00:00Z');
   const offers: Offer[] = [
-    { retailer: 'Search only', url: 'https://example.com/search', trust: 100, available: true, match: 'search', location: ['NG'] },
-    { retailer: 'Unavailable', url: 'https://example.com/out', trust: 100, available: false, match: 'exact', priceNgn: 9000, location: ['NG'] },
-    { retailer: 'Exact', url: 'https://example.com/exact', trust: 90, available: true, match: 'exact', priceNgn: 12000, location: ['NG'] },
+    { retailer: 'Search only', url: 'https://example.com/search', trust: 100, available: true, match: 'search', checkedAt: '2026-07-22', location: ['NG'] },
+    { retailer: 'Unavailable', url: 'https://example.com/out', trust: 100, available: false, match: 'exact', priceNgn: 9000, checkedAt: '2026-07-22', location: ['NG'] },
+    { retailer: 'Exact', url: 'https://example.com/exact', trust: 90, available: true, match: 'exact', priceNgn: 12000, checkedAt: '2026-07-22', location: ['NG'] },
   ];
 
-  assert.equal(rankOffers(offers, 'NG')[0].retailer, 'Exact');
+  assert.equal(rankOffers(offers, 'NG', now)[0].retailer, 'Exact');
 });
 
 test('verified Nigerian product matches carry price and check date', () => {

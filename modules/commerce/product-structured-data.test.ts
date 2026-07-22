@@ -26,9 +26,10 @@ const product: Product = {
     { retailer: 'US Store', url: 'https://us.example/product', trust: 90, available: true, priceUsd: 20, match: 'exact', location: ['US'] },
   ],
 };
+const now = new Date('2026-07-22T12:00:00Z');
 
 test('builds an aggregate only from available exact Nigerian prices', () => {
-  const data = productStructuredData(product);
+  const data = productStructuredData(product, now);
 
   assert.ok(data);
   assert.equal(data.offers.lowPrice, 10_000);
@@ -39,7 +40,11 @@ test('builds an aggregate only from available exact Nigerian prices', () => {
 });
 
 test('omits product markup when no verified Nigerian price is visible', () => {
-  assert.equal(productStructuredData({ ...product, offers: product.offers.slice(2) }), null);
+  assert.equal(productStructuredData({ ...product, offers: product.offers.slice(2) }, now), null);
+});
+
+test('omits stale prices from search markup', () => {
+  assert.equal(productStructuredData(product, new Date('2026-07-30T12:00:00Z')), null);
 });
 
 test('escapes markup-breaking characters in JSON-LD', () => {

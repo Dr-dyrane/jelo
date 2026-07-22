@@ -1,6 +1,7 @@
 import type { Market } from '@/data/prices';
 import type { Offer, Product } from '@/data/products';
 import { rankOffers } from './offer-selection';
+import { isOfferFresh } from './offer-freshness';
 
 export type MarketProductPrice = {
   amount: number;
@@ -14,16 +15,17 @@ function servesMarket(offer: Offer, market: Market) {
   return offer.location.includes(market) || offer.location.includes('INTL');
 }
 
-export function exactAvailableOffers(offers: Offer[], market: Market) {
-  return rankOffers(offers, market).filter(offer =>
+export function exactAvailableOffers(offers: Offer[], market: Market, now: number | Date = Date.now()) {
+  return rankOffers(offers, market, now).filter(offer =>
     offer.match !== 'search'
     && offer.available
-    && servesMarket(offer, market),
+    && servesMarket(offer, market)
+    && isOfferFresh(offer, now)
   );
 }
 
-export function marketProductPrice(product: Product, market: Market): MarketProductPrice | null {
-  const pricedOffer = exactAvailableOffers(product.offers, market).find(offer =>
+export function marketProductPrice(product: Product, market: Market, now: number | Date = Date.now()): MarketProductPrice | null {
+  const pricedOffer = exactAvailableOffers(product.offers, market, now).find(offer =>
     market === 'NG' ? offer.priceNgn != null : offer.priceUsd != null,
   );
 
@@ -40,8 +42,8 @@ export function marketProductPrice(product: Product, market: Market): MarketProd
   return null;
 }
 
-export function marketRetailerLinks(product: Product, market: Market, limit = 2) {
-  return exactAvailableOffers(product.offers, market).slice(0, limit).map(offer => ({
+export function marketRetailerLinks(product: Product, market: Market, limit = 2, now: number | Date = Date.now()) {
+  return exactAvailableOffers(product.offers, market, now).slice(0, limit).map(offer => ({
     retailer: offer.retailer,
     href: `/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}`,
   }));
