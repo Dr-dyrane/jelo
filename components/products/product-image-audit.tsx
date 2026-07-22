@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element -- This audit intentionally observes native image load and error events for arbitrary runtime URLs. */
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Product } from '@/data/products';
 
 type Status = 'checking' | 'ok' | 'failed' | 'placeholder';
@@ -27,6 +27,35 @@ export function ProductImageAudit({ products }: { products: Product[] }) {
   const [filter, setFilter] = useState<Filter>('needs-source');
   const [query, setQuery] = useState('');
   const [attempt, setAttempt] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    const probes: HTMLImageElement[] = [];
+
+    for (const product of products) {
+      if (isPlaceholder(product.image)) continue;
+      const probe = new window.Image();
+      probes.push(probe);
+      probe.referrerPolicy = 'no-referrer';
+      probe.onload = () => {
+        if (!active) return;
+        setStatuses(current => current[product.slug] === 'ok' ? current : ({ ...current, [product.slug]: 'ok' }));
+      };
+      probe.onerror = () => {
+        if (!active) return;
+        setStatuses(current => current[product.slug] === 'failed' ? current : ({ ...current, [product.slug]: 'failed' }));
+      };
+      probe.src = product.image;
+    }
+
+    return () => {
+      active = false;
+      for (const probe of probes) {
+        probe.onload = null;
+        probe.onerror = null;
+      }
+    };
+  }, [attempt, products]);
 
   const rows = useMemo<Row[]>(() => products.map(product => ({
     ...product,
@@ -121,21 +150,6 @@ export function ProductImageAudit({ products }: { products: Product[] }) {
         ))}
       </div>
 
-      <div key={attempt} aria-hidden="true" style={{ position: 'fixed', width: 1, height: 1, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
-        {products.map(product => {
-          if (isPlaceholder(product.image)) return null;
-          return (
-            <img
-              key={`${product.slug}-${attempt}`}
-              src={product.image}
-              alt=""
-              referrerPolicy="no-referrer"
-              onLoad={() => setStatuses(current => current[product.slug] === 'ok' ? current : ({ ...current, [product.slug]: 'ok' }))}
-              onError={() => setStatuses(current => current[product.slug] === 'failed' ? current : ({ ...current, [product.slug]: 'failed' }))}
-            />
-          );
-        })}
-      </div>
     </section>
   );
 }
