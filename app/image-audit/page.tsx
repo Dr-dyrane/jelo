@@ -1,12 +1,9 @@
 import { ProductImageAudit } from '@/components/products/product-image-audit';
-import { expandedProducts } from '@/data/expanded-products';
-import { products as coreProducts } from '@/data/products';
+import { products } from '@/data/catalogue';
 
 export const metadata = { title: 'Image audit' };
 
 export default function ImageAuditPage() {
-  const products = [...coreProducts, ...expandedProducts];
-
   return (
     <main className="page-shell">
       <header className="page-heading">
