@@ -9,6 +9,7 @@ const valid = {
   expectedTitle: 'PanOxyl Acne Foaming Wash 10% Benzoyl Peroxide',
   expectedSize: '156 g',
   observedTitle: 'PanOxyl Acne Foaming Wash 10% Benzoyl Peroxide 156g',
+  observedSize: '156g',
   marketCode: 'NG',
   currencyCode: 'NGN',
 };
@@ -27,6 +28,32 @@ test('rejects a product URL that redirects to a category page', () => {
 test('rejects canonical, title, size and currency mismatches', () => {
   assert.throws(() => assertRetailerResponseScope({ ...valid, canonicalUrl: 'https://jumia.com.ng/face-cleansers/' }), /canonical URL/);
   assert.throws(() => assertRetailerResponseScope({ ...valid, observedTitle: 'CeraVe Acne Control Cleanser 156g' }), /title/);
-  assert.throws(() => assertRetailerResponseScope({ ...valid, observedTitle: 'PanOxyl Acne Foaming Wash 100ml' }), /size/);
+  assert.throws(() => assertRetailerResponseScope({ ...valid, observedSize: '100 ml' }), /size/);
   assert.throws(() => assertRetailerResponseScope({ ...valid, currencyCode: 'USD' }), /currency/);
+});
+
+test('fails closed when observed title or size evidence is missing', () => {
+  assert.throws(() => assertRetailerResponseScope({ ...valid, observedTitle: undefined }), /title evidence is missing/);
+  assert.throws(() => assertRetailerResponseScope({ ...valid, observedSize: undefined }), /size evidence is missing/);
+  assert.throws(() => assertRetailerResponseScope({ ...valid, observedSize: 'large bottle' }), /not measurable/);
+});
+
+test('accepts equivalent metric and imperial size evidence', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedSize: '50 ml',
+    observedSize: '1.7 fl oz',
+  }));
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedSize: '8 oz / 226 g',
+    observedSize: '226 g',
+  }));
+});
+
+test('fails closed when the catalogue size is not measurable', () => {
+  assert.throws(
+    () => assertRetailerResponseScope({ ...valid, expectedSize: 'Variant pack' }),
+    /cannot be verified/,
+  );
 });

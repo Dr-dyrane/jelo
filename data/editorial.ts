@@ -2,7 +2,7 @@ import manifest from './editorial-assets.json';
 
 export type EditorialAsset = {
   id: string;
-  role: 'homepage-hero' | 'concern-cutout';
+  role: 'homepage-hero' | 'homepage-story' | 'concern-cutout' | 'catalogue-hero' | 'catalogue-story';
   localPath: string;
   blobUrl: string;
   altText: string;
@@ -11,6 +11,8 @@ export type EditorialAsset = {
   height: number;
   byteSize: number;
   transparent: boolean;
+  sourceKind?: 'generated' | 'licensed' | 'owned';
+  contentHash?: string;
 };
 
 export const editorialAssets = manifest as EditorialAsset[];

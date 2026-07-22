@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import test from 'node:test';
+
+test('catalogue and concern filters acknowledge changes and stay reversible', async () => {
+  const root = process.cwd();
+  const catalogue = await readFile(path.join(root, 'app/products/page.tsx'), 'utf8');
+  const feedback = await readFile(path.join(root, 'components/products/filter-feedback-actions.tsx'), 'utf8');
+  const tracker = await readFile(path.join(root, 'components/products/catalogue-transition-tracker.tsx'), 'utf8');
+  const sheet = await readFile(path.join(root, 'components/products/inventory-filter-sheet.tsx'), 'utf8');
+  const concerns = await readFile(path.join(root, 'components/concerns/concern-selector.tsx'), 'utf8');
+  const catalogueMotion = await readFile(path.join(root, 'app/products/catalogue-feedback.module.css'), 'utf8');
+  const concernMotion = await readFile(path.join(root, 'components/concerns/concern-feedback.module.css'), 'utf8');
+
+  assert.match(feedback, /role="status" aria-live="polite"/);
+  assert.match(feedback, /catalogueTransitionMessage/);
+  assert.match(feedback, /data-catalogue-transition-kind="undo"/);
+  assert.match(tracker, /sessionStorage/);
+  assert.match(catalogue, /CatalogueTransitionTracker/);
+  assert.match(catalogue, /!hasActiveIntent/);
+  assert.match(catalogue, /matchingCatalogueConcerns/);
+  assert.match(catalogue, /#all-products/);
+  assert.equal((sheet.match(/<dialog/g) ?? []).length, 1);
+  assert.doesNotMatch(sheet, /datalist|companyLogo|avatar/i);
+  assert.match(sheet, /Search companies/);
+  assert.match(concerns, /role="status" aria-live="polite"/);
+  assert.match(concerns, /Last change undone/);
+  assert.match(concerns, /View matches/);
+  assert.match(concerns, /Selections cleared/);
+  assert.match(catalogueMotion, /prefers-reduced-motion/);
+  assert.match(concernMotion, /prefers-reduced-motion/);
+});

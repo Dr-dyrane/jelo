@@ -1,0 +1,84 @@
+.consult-report .report-pattern {
+  background: linear-gradient(145deg, #f7ddd4, #f2c8c2);
+  color: var(--ink);
+}
+
+.consult-report .report-pattern .eyebrow { color: var(--wine); }
+.consult-report .report-pattern > p:last-of-type { color: #614f49; }
+.consult-report .report-pattern .concern-chips span { background: rgba(255, 253, 249, .7); }
+.caution-panel p { color: var(--ink); }
+
+.consult-interrupt {
+  max-width: 52rem;
+  margin: 2rem auto 0;
+  padding: clamp(2rem, 6vw, 5rem);
+  border-radius: 2.8rem;
+  background: linear-gradient(145deg, var(--paper), #f7ddd4);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.consult-interrupt-care { background: linear-gradient(145deg, #fff8f4, #f2c8c2); }
+
+.interrupt-icon {
+  width: 3.8rem;
+  height: 3.8rem;
+  margin: 0 auto 1.2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(107, 59, 53, .1);
+  color: var(--wine);
+}
+
+.consult-interrupt h2 {
+  margin: 1rem 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(3.4rem, 8vw, 7rem);
+  font-weight: 400;
+  line-height: .86;
+  letter-spacing: -.04em;
+}
+
+.interrupt-summary {
+  max-width: 38rem;
+  margin: 0 auto;
+  color: #614f49;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.interrupt-next {
+  max-width: 38rem;
+  margin: 2rem auto 0;
+  padding: 1.2rem 1.3rem;
+  border-radius: 1.4rem;
+  background: rgba(255, 253, 249, .78);
+  text-align: left;
+}
+
+.interrupt-next span {
+  color: var(--wine);
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.interrupt-next p { margin: .45rem 0 0; line-height: 1.6; }
+.interrupt-actions { margin-top: 1.4rem; }
+.interrupt-actions button {
+  min-height: 2.8rem;
+  padding: .75rem 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+}
+
+.consult-interrupt > small {
+  display: block;
+  margin-top: 1rem;
+  color: #614f49;
+  font-size: .72rem;
+}

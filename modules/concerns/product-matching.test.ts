@@ -1,23 +1,32 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { concerns } from '@/data/knowledge';
-import { productMatchesConcern, rankProductsForConcerns } from './product-matching';
+import { products } from '@/data/catalogue';
+import { concernBySlug } from '@/data/knowledge';
+import { productMatchesConcern } from './product-matching';
 
-test('never maps body dryness into the facial barrier concern', () => {
-  const barrier = concerns.find(concern => concern.slug === 'sensitive-barrier')!;
-  assert.equal(productMatchesConcern({ slug: 'body-oil', category: 'Body', concerns: ['body dryness'] }, barrier), false);
-  assert.equal(productMatchesConcern({ slug: 'face-cream', category: 'Face', concerns: ['dryness', 'barrier'] }, barrier), true);
+function product(slug: string) {
+  const match = products.find(item => item.slug === slug);
+  assert.ok(match, `Missing product fixture: ${slug}`);
+  return match;
+}
+
+function concern(slug: string) {
+  const match = concernBySlug(slug);
+  assert.ok(match, `Missing concern fixture: ${slug}`);
+  return match;
+}
+
+test('concern matching uses approved supportive uses, not catalogue concern prose', () => {
+  const cleanser = product('cerave-foaming-facial-cleanser');
+  assert.equal(cleanser.concerns.includes('acne'), true);
+  assert.equal(productMatchesConcern(cleanser, concern('acne-breakouts')), false);
+  assert.equal(productMatchesConcern(cleanser, concern('oily-congested-skin')), true);
+
+  const snail = product('cosrx-advanced-snail-96-mucin-power-essence');
+  assert.equal(productMatchesConcern(snail, concern('sensitive-barrier')), false);
 });
 
-test('matches any selected concern and ranks broader coverage first', () => {
-  const ranked = rankProductsForConcerns([
-    { slug: 'tone-only', category: 'Face' as const, concerns: ['dark spots'] },
-    { slug: 'both', category: 'Face' as const, concerns: ['dark spots', 'oiliness'] },
-    { slug: 'hair', category: 'Hair' as const, concerns: ['dry hair'] },
-  ], concerns, ['dark-spots', 'oily-congested-skin']);
-
-  assert.deepEqual(ranked.map(result => [result.product.slug, result.matchedConcernSlugs.length]), [
-    ['both', 2],
-    ['tone-only', 1],
-  ]);
+test('pharmacist-review products never enter direct concern matches', () => {
+  const cleanser = product('cerave-blemish-control-cleanser');
+  assert.equal(productMatchesConcern(cleanser, concern('acne-breakouts')), false);
 });

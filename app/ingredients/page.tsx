@@ -42,7 +42,7 @@ export default function IngredientsPage() {
         <p>{ingredientCards.length} ingredients. {productCount} source-checked products.</p>
       </header>
       <IngredientExplorer ingredients={ingredientCards}/>
-      <p className="ingredient-library-note">Key ingredients only. Formulas can change. Check your pack.</p>
+      <p className="ingredient-library-note">Key ingredients only. Formulas change. Check your pack.</p>
     </main>
   );
 }

@@ -21,6 +21,7 @@ export type InventoryOffer = {
   extractionEvidence: string[];
   extractionAdapter: string | null;
   observedTitle: string | null;
+  observedSize: string | null;
   canonicalUrl: string | null;
 };
 
@@ -41,6 +42,7 @@ type InventoryOfferRow = {
   extraction_evidence: string[];
   extraction_adapter: string | null;
   observed_title: string | null;
+  observed_size: string | null;
   canonical_url: string | null;
 };
 
@@ -62,6 +64,7 @@ function mapOffer(row: InventoryOfferRow): InventoryOffer {
     extractionEvidence: row.extraction_evidence,
     extractionAdapter: row.extraction_adapter,
     observedTitle: row.observed_title,
+    observedSize: row.observed_size,
     canonicalUrl: row.canonical_url,
   };
 }
@@ -88,6 +91,7 @@ export async function listInventoryOffers(options: { staleOnly?: boolean; limit?
       o.extraction_evidence,
       o.extraction_adapter,
       o.observed_title,
+      o.observed_size,
       o.canonical_url,
       case
         when o.last_verified_at is null or o.verification_expires_at is null then 'unknown'

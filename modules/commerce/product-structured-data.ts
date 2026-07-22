@@ -1,5 +1,6 @@
 import type { Offer, Product } from '@/data/products';
 import { isOfferFresh } from './offer-freshness';
+import { comparableMarketPrice, hasListingEvidence } from './offer-evidence';
 
 const siteUrl = 'https://jelocare.com';
 
@@ -7,8 +8,8 @@ function nigeriaOffer(offer: Offer, now: number | Date) {
   return offer.match !== 'search'
     && offer.available
     && (offer.location.includes('NG') || offer.location.includes('INTL'))
-    && typeof offer.priceNgn === 'number'
-    && offer.priceNgn > 0
+    && hasListingEvidence(offer)
+    && comparableMarketPrice(offer, 'NG', now) != null
     && isOfferFresh(offer, now);
 }
 
@@ -26,7 +27,7 @@ export function productStructuredData(product: Product, now: number | Date = Dat
     url,
     name: product.name,
     image: [product.image],
-    description: `${product.displayLine}. Best for ${product.bestFor.slice(0, 3).join(', ')}.`,
+    description: `${product.brand} ${product.name}, ${product.size}. Product profile with observed Nigerian store listings.`,
     category: product.category,
     size: product.size,
     brand: {

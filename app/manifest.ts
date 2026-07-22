@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'JeloCare',
     short_name: 'JeloCare',
-    description: 'Pharmacist-led skincare guidance and product discovery.',
+    description: 'Skin education and product discovery.',
     start_url: '/',
     display: 'standalone',
     background_color: '#fff8f3',

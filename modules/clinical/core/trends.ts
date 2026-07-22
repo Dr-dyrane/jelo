@@ -39,10 +39,10 @@ export function analyzeTimeline(previous: ClinicalTimelineRecord[], current: Cli
   if (current.blockedIngredientIds.length > prior.blockedIngredientIds.length) actions.push('New safety restrictions were triggered and should override the previous routine.');
 
   const summaryByDirection: Record<Exclude<TimelineInsight['direction'], 'first-assessment'>, string> = {
-    improving: `Barrier score improved by ${barrierDelta} points across ${daysApart} day${daysApart === 1 ? '' : 's'} without a higher active load.`,
-    worsening: `Barrier score changed by ${barrierDelta} points and the current assessment needs a more conservative recovery plan.`,
+    improving: `Reported barrier signals improved across ${daysApart} day${daysApart === 1 ? '' : 's'} without a higher active load.`,
+    worsening: 'Reported barrier signals worsened and the current guide needs a more conservative recovery plan.',
     mixed: `Some measures improved while treatment load or tolerance moved in the opposite direction.`,
-    stable: `The assessment remains broadly stable, with a ${barrierDelta >= 0 ? '+' : ''}${barrierDelta}-point barrier change.`,
+    stable: 'The reported barrier signals remain broadly stable.',
   };
 
   return {

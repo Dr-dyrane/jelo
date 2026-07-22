@@ -11,7 +11,7 @@ const catalogueCandidates = [...coreProducts, ...expandedProducts].map(product =
   ...product,
   image: canonicalAssets[product.slug]?.blobUrl ?? product.image,
   verifiedIngredientIds: verifiedActiveIngredientIds(product.slug),
-  offers: mergeRetailOffers(product.slug, product.offers),
+  offers: mergeRetailOffers(product, product.offers),
 }));
 
 export const products = catalogueCandidates.filter(product => !product.image.startsWith('/product-fallback'));

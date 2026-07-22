@@ -5,13 +5,16 @@ JeloCare is a product information and routing layer. It does not manufacture, re
 ## Display rules
 
 - Nigeria is the default market. United States is secondary.
-- Show a price only after the retailer page matches brand, product, strength and size.
+- Show a price only after the retailer page or API record matches brand, product, variant, strength and size.
 - Send exact matches to the exact product page.
 - Keep retailer search links separate from priced offers.
-- Show stock and the last checked date beside a verified price.
+- Show stock, observation timestamp and landed-cost caveat beside an observed price.
 - Keep unavailable exact matches visible after available options.
 - Treat marketplace results as seller-dependent and rank them below direct retailers.
-- Never infer authenticity from price alone or promise authenticity on a retailer's behalf.
+- A checked listing, seller identity, regulator-number match and brand authorization are separate evidence records.
+- A visible seller name or rating is not a seller-identity check.
+- Record brand authorization only from a dated brand-controlled source.
+- Never infer physical authenticity from any listing, price, rating or registration record.
 - Refresh exact prices within seven days. A stale observation may remain in history but should not be presented as current.
 - Preserve offer IDs during catalogue seeds so price history remains continuous.
 
@@ -32,10 +35,10 @@ The runtime registry is `data/retailers.ts`. The initial reviewed set is:
 - Allure Beauty — <https://allure.com.ng/>
 - BabesQuarters — <https://babesquarters.ng/>
 - AGT Plaza — <https://www.agtplaza.com/>
-- Slique Beauty — <https://sliquebeautylimited.com/>
+- Slique Beauty — <https://sliquebeautylimited.com/> — provisional, link-only; no asset reuse, regulator match or brand-authorization evidence
 - Choices Beauty — <https://choiceschi.com/>
 - Jumia Nigeria — <https://www.jumia.com.ng/>
 
 ## Initial exact observations
 
-The dated source records live in `data/retail-offers.ts`. The current pass covers 16 catalogue products across direct Nigerian retailers and seller-dependent marketplaces. Each observation stores the exact retailer URL, price, stock state and check date. Marketplace offers also retain the visible seller name, seller score and quantity when available. Search pages are not promoted into exact offers, and non-Nigerian stores are excluded from Nigeria results.
+The dated source records live in `data/retail-offers.ts`. Each current observation stores the exact retailer URL, observed price, variant, size, stock state, timestamp and whether landed cost is known. Marketplace offers may retain a visible seller name, score and quantity, but those fields do not become identity evidence. Search pages are not promoted into exact offers, and non-Nigerian stores are excluded from Nigeria results.

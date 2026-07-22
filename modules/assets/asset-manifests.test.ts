@@ -6,11 +6,12 @@ import sharp from 'sharp';
 import { products } from '@/data/catalogue';
 import editorialAssets from '@/data/editorial-assets.json';
 import productAssets from '@/data/product-assets.json';
+import { withheldProductAssets } from '@/data/withheld-product-assets';
 
 const assetHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 const allowedTypes = new Set(['image/avif', 'image/jpeg', 'image/png', 'image/webp']);
 
-test('every published product resolves to one complete canonical Blob record', () => {
+test('every product resolves to a canonical Blob or an explicit rights-based hold', () => {
   const manifest = productAssets as Record<string, {
     sourceUrl: string;
     blobUrl: string;
@@ -22,9 +23,22 @@ test('every published product resolves to one complete canonical Blob record', (
     contentHash: string;
   }>;
 
-  assert.deepEqual(Object.keys(manifest).sort(), products.map(product => product.slug).sort());
+  assert.deepEqual(
+    [...Object.keys(manifest), ...Object.keys(withheldProductAssets)].sort(),
+    products.map(product => product.slug).sort(),
+  );
   for (const product of products) {
     const asset = manifest[product.slug];
+    const withheld = withheldProductAssets[product.slug as keyof typeof withheldProductAssets];
+    if (withheld) {
+      assert.equal(asset, undefined);
+      assert.equal(product.image, withheld.fallbackUrl);
+      assert.equal(withheld.reason, 'source-terms-prohibit-reuse');
+      assert.equal(new URL(withheld.policyUrl).protocol, 'https:');
+      assert.ok(!Number.isNaN(Date.parse(withheld.reviewedAt)));
+      continue;
+    }
+    assert.ok(asset);
     const url = new URL(asset.blobUrl);
     assert.equal(url.hostname, assetHost);
     assert.match(url.pathname, new RegExp(`/products/[^/]+/${product.slug}/packshot\\.(?:avif|jpg|png|webp)$`));

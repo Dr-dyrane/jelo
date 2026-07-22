@@ -1,5 +1,5 @@
 import type { Product } from '@/data/products';
-import { isOfferFresh } from './offer-freshness';
+import { comparableMarketPrice, hasListingEvidence } from './offer-evidence';
 
 export function orderByCuratedSlugs<T extends { slug: string }>(items: T[], curatedSlugs: string[]) {
   const position = new Map(curatedSlugs.map((slug, index) => [slug, index]));
@@ -15,9 +15,8 @@ export function hasVerifiedNigeriaOfferAt(product: Pick<Product, 'offers'>, now:
     offer.match !== 'search'
     && offer.available
     && (offer.location.includes('NG') || offer.location.includes('INTL'))
-    && typeof offer.priceNgn === 'number'
-    && offer.priceNgn > 0
-    && isOfferFresh(offer, now),
+    && hasListingEvidence(offer)
+    && comparableMarketPrice(offer, 'NG', now) != null,
   );
 }
 

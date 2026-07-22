@@ -6,6 +6,6 @@ export function ProductGrid({ products, market = 'NG' }: { products: Product[]; 
   return <div className="product-grid">{products.map(product => <ProductCard key={product.slug} product={product} market={market} />)}</div>;
 }
 
-export function ProductRail({ products }: { products: Product[] }) {
-  return <div className="product-rail">{products.map(product => <ProductCard key={product.slug} product={product} market="NG" />)}</div>;
+export function ProductRail({ products, market = 'NG' }: { products: Product[]; market?: Market }) {
+  return <div className="product-rail">{products.map(product => <ProductCard key={product.slug} product={product} market={market} />)}</div>;
 }

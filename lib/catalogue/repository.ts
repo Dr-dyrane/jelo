@@ -1,13 +1,20 @@
 import 'server-only';
 
 import { products as staticProducts } from '@/data/catalogue';
+import { getReviewedProductCare } from '@/data/product-care-review';
 import type { Offer, Product } from '@/data/products';
-import { getPostgresClient } from '@/lib/db/postgres';
+import { getPostgresClient, hasPostgresConfig } from '@/lib/db/postgres';
+import {
+  materializePersistedOfferEvidence,
+  type PersistedOfferEvidence,
+} from '@/modules/commerce/offer-evidence';
 
 export type CatalogueRepository = {
   listPublished(): Promise<Product[]>;
   findBySlug(slug: string): Promise<Product | undefined>;
 };
+
+type PersistedProductOffer = Offer & PersistedOfferEvidence;
 
 type ProductRow = {
   slug: string;
@@ -25,22 +32,7 @@ type ProductRow = {
   concerns: string[] | null;
   skin_types: string[] | null;
   ingredient_ids: string[] | null;
-  offers: Array<{
-    retailer: string;
-    url: string;
-    trust: number;
-    available: boolean;
-    priceNgn?: number;
-    priceUsd?: number;
-    checkedAt?: string;
-    expiresAt?: string;
-    match?: Offer['match'];
-    inventoryQuantity?: number;
-    sellerName?: string;
-    sellerScore?: number;
-    officialStore?: boolean;
-    location: string[];
-  }> | null;
+  offers: PersistedProductOffer[] | null;
 };
 
 const staticRepository: CatalogueRepository = {
@@ -69,7 +61,25 @@ function mapRow(row: ProductRow): Product {
     usage: row.usage,
     evidence: row.evidence,
     verifiedIngredientIds: row.ingredient_ids ?? [],
-    offers: (row.offers ?? []) as Offer[],
+    offers: (row.offers ?? []).map(persistedOffer => {
+      const {
+        verificationMethod,
+        lastVerifiedAt,
+        inventoryStatus,
+        observedTitle,
+        observedSize,
+        canonicalUrl,
+        ...offer
+      } = persistedOffer;
+      return materializePersistedOfferEvidence(row, offer, {
+        verificationMethod,
+        lastVerifiedAt,
+        inventoryStatus,
+        observedTitle,
+        observedSize,
+        canonicalUrl,
+      });
+    }),
   };
 }
 
@@ -122,6 +132,12 @@ async function queryProducts(slug?: string) {
           'priceUsd', case when grouped.market_code = 'US' and grouped.currency_code = 'USD' then grouped.price_minor::numeric / 100 end,
           'checkedAt', grouped.checked_at,
           'expiresAt', grouped.verification_expires_at,
+          'verificationMethod', grouped.verification_method,
+          'lastVerifiedAt', grouped.last_verified_at,
+          'inventoryStatus', grouped.inventory_status,
+          'observedTitle', grouped.observed_title,
+          'observedSize', grouped.observed_size,
+          'canonicalUrl', grouped.canonical_url,
           'match', grouped.match_kind,
           'inventoryQuantity', grouped.inventory_quantity,
           'sellerName', grouped.seller_name,
@@ -142,6 +158,12 @@ async function queryProducts(slug?: string) {
             max(o.seller_score) as seller_score,
             bool_or(o.official_store) as official_store,
             max(o.checked_at) as checked_at,
+            max(o.verification_method::text) as verification_method,
+            max(o.last_verified_at) as last_verified_at,
+            max(o.inventory_status::text) as inventory_status,
+            max(o.observed_title) as observed_title,
+            max(o.observed_size) as observed_size,
+            max(o.canonical_url) as canonical_url,
             min(o.verification_expires_at) as verification_expires_at,
             case when bool_and(o.match_kind = 'search') then 'search' else 'exact' end as match_kind
           from offers o
@@ -172,7 +194,7 @@ const neonRepository: CatalogueRepository = {
 };
 
 function shouldUseNeon() {
-  return process.env.CATALOGUE_SOURCE === 'neon';
+  return process.env.CATALOGUE_SOURCE === 'neon' && hasPostgresConfig();
 }
 
 export function getCatalogueRepository(): CatalogueRepository {
@@ -188,6 +210,16 @@ export async function listCatalogueProducts() {
     console.error('Neon catalogue unavailable; using verified static fallback.', error);
     return staticRepository.listPublished();
   }
+}
+
+/**
+ * The sole catalogue access point for clinical matching and recommendations.
+ * External/community records live in a separate repository and can never enter
+ * this return type without an explicit JeloCare review.
+ */
+export async function listRecommendationEligibleProducts() {
+  const products = await listCatalogueProducts();
+  return products.filter(product => getReviewedProductCare(product.slug)?.careState === 'supportive_eligible');
 }
 
 export async function findCatalogueProduct(slug: string) {

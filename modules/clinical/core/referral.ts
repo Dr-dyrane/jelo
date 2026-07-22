@@ -1,7 +1,7 @@
 import type { BarrierAssessment, ClinicalFinding, DifferentialAssessment, PatientProfile, ReferralAssessment } from './types';
 
 const emergencyTerms = ['trouble breathing', 'difficulty breathing', 'swollen tongue', 'swollen throat', 'fainting', 'anaphylaxis'];
-const urgentTerms = ['rapidly spreading', 'severe pain', 'eye swelling', 'face swelling', 'blistering', 'skin peeling', 'fever', 'pus', 'infected', 'painful rash'];
+const urgentTerms = ['rapidly spreading', 'severe pain', 'eye swelling', 'face swelling', 'blistering', 'skin peeling', 'fever', 'infected', 'painful rash', 'eye pain', 'blurred vision', 'light sensitivity', 'red eye', 'hot and swollen', 'chills'];
 const specialistTerms = ['scarring', 'deep cyst', 'nodules', 'persistent redness', 'visible veins', 'recurrent rash', 'months', 'not improving'];
 
 function hits(text: string, terms: string[]) {
@@ -35,9 +35,21 @@ export function assessReferral(input: {
 
   const specialist = hits(normalized, specialistTerms);
   const primaryId = input.differential.primary?.id;
-  if (specialist.length || ['rosacea', 'folliculitis'].includes(primaryId ?? '')) return {
+  const specialistPatterns = ['rosacea', 'folliculitis', 'psoriasis-like', 'hidradenitis-like', 'vitiligo-like', 'alopecia-areata-like', 'traction-alopecia-like'];
+  const scalpFungalPattern = primaryId === 'tinea-corporis-like' && /\b(scalp|beard|nail)\b/.test(normalized);
+  if (specialist.length || specialistPatterns.includes(primaryId ?? '') || scalpFungalPattern) return {
     level: 'dermatology', urgency: 'soon', reasons: specialist.length ? specialist.map(term => `Reported ${term}.`) : [`The leading pattern is ${input.differential.primary?.label}.`],
     action: 'Arrange a non-urgent dermatology or primary-care review for diagnostic confirmation and treatment planning.',
+  };
+
+  if (primaryId === 'atopic-dermatitis-like') return {
+    level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
+    action: 'Arrange a clinician or pharmacist review to confirm the pattern and choose treatment safely.',
+  };
+
+  if (['allergic-contact-dermatitis-like', 'tinea-corporis-like'].includes(primaryId ?? '')) return {
+    level: 'pharmacist', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
+    action: 'Ask a pharmacist or clinician to confirm the pattern before choosing treatment.',
   };
 
   if (input.profile.pregnant || input.profile.breastfeeding || input.findings.some(item => item.action === 'avoid')) return {

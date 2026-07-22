@@ -43,7 +43,7 @@ export function optimizeRoutine(assessment: ClinicalAssessment): RoutinePlan {
 
   if (assessment.barrier.recommendedRecoveryNights > 0) {
     const frequency = assessment.barrier.recommendedRecoveryNights >= 3 ? '3x-weekly' : assessment.barrier.recommendedRecoveryNights === 2 ? '2x-weekly' : '1-2x-weekly';
-    weekly.push(step('weekly', `Keep at least ${assessment.barrier.recommendedRecoveryNights} recovery night${assessment.barrier.recommendedRecoveryNights > 1 ? 's' : ''} with cleanser and moisturizer only.`, 'The barrier score indicates that deliberate recovery time should outrank additional actives.', frequency));
+    weekly.push(step('weekly', `Keep at least ${assessment.barrier.recommendedRecoveryNights} recovery night${assessment.barrier.recommendedRecoveryNights > 1 ? 's' : ''} with cleanser and moisturizer only.`, 'The reported irritation signals suggest that recovery should outrank additional actives.', frequency));
   } else if (assessment.activeLoad.total >= 3) {
     weekly.push(step('weekly', 'Keep at least two recovery nights with cleanser and moisturizer only.', 'Your detected active load is high enough to justify deliberate recovery time.', '2x-weekly'));
   }

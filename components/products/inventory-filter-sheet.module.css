@@ -1,0 +1,265 @@
+.trigger {
+  position: relative;
+  min-height: 2.8rem;
+  padding: .7rem .9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 253, 249, .82);
+  color: #3b2926;
+  box-shadow: 0 12px 32px rgba(85, 51, 44, .09);
+  backdrop-filter: blur(20px) saturate(130%);
+  cursor: pointer;
+}
+
+.activeCount {
+  min-width: 1.35rem;
+  height: 1.35rem;
+  padding: 0 .3rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #eebfc4;
+  color: #422a27;
+  font-size: .6rem;
+  font-weight: 600;
+}
+
+.dialog {
+  width: min(31rem, calc(100vw - 1.5rem));
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.dialog::backdrop {
+  background: rgba(43, 28, 25, .34);
+  backdrop-filter: blur(8px);
+}
+
+.dialog[data-fallback-modal="true"] {
+  width: 100vw;
+  background: rgba(43, 28, 25, .34);
+  backdrop-filter: blur(8px);
+}
+
+.dialog[data-fallback-modal="true"] .sheet {
+  width: min(31rem, calc(100vw - 1.5rem));
+  margin-left: auto;
+}
+
+.sheet {
+  height: 100%;
+  padding: 1.3rem 1.3rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  border-radius: 2rem 0 0 2rem;
+  background: #fff9f5;
+  box-shadow: -24px 0 80px rgba(64, 38, 33, .18);
+}
+
+.view {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.view[hidden] { display: none; }
+
+.sheet header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sheet header small {
+  color: #82534e;
+  font-size: .62rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.sheet h2 {
+  margin: .35rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: .9;
+}
+
+.sheet header p {
+  margin: .55rem 0 0;
+  color: #78655f;
+  font-size: .7rem;
+}
+
+.sheet header button {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #f3e4de;
+  color: #382724;
+  cursor: pointer;
+}
+
+.sheet fieldset { margin: 0; padding: 0; border: 0; }
+.sheet legend {
+  margin-bottom: .7rem;
+  color: #705b55;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.options label { cursor: pointer; }
+.options input { position: absolute; opacity: 0; pointer-events: none; }
+.options span {
+  min-height: 3.1rem;
+  padding: .75rem .8rem;
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
+  background: #f4e8e3;
+  color: #675a55;
+  font-size: .7rem;
+  line-height: 1.3;
+}
+
+.options input:checked + span {
+  background: #f0c6ca;
+  color: #3b2523;
+  box-shadow: 0 10px 24px rgba(112, 71, 61, .1);
+}
+
+.options input:focus-visible + span { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.sectionHint { margin: -.25rem 0 .7rem; color: #85736d; font-size: .65rem; }
+.selectGrid { display: grid; gap: .55rem; }
+.companyField {
+  min-height: 4rem;
+  padding: .8rem .85rem;
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .7rem;
+  border: 0;
+  border-radius: 1rem;
+  background: #f4e8e3;
+  color: #675a55;
+  text-align: left;
+  cursor: pointer;
+}
+.companyField > span { font-size: .67rem; }
+.companyField strong { min-width: 0; overflow: hidden; color: #382724; font-size: .7rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
+.companyField:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.selectField {
+  padding: .8rem .85rem;
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr);
+  align-items: center;
+  gap: .35rem .7rem;
+  border-radius: 1rem;
+  background: #f4e8e3;
+  color: #675a55;
+}
+.selectField > span { font-size: .67rem; }
+.selectField select,
+.selectField input {
+  width: 100%;
+  min-width: 0;
+  padding: .55rem 2rem .55rem .7rem;
+  border: 0;
+  border-radius: .75rem;
+  outline: 0;
+  background: rgba(255, 253, 249, .8);
+  color: #382724;
+  font: inherit;
+  font-size: .7rem;
+}
+.selectField select:focus-visible,
+.selectField input:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.selectField small { grid-column: 2; color: #8c7972; font-size: .58rem; }
+.sheet .companyHeader { align-items: center; }
+.companyHeader > div { flex: 1; }
+.companySearch {
+  min-height: 3.3rem;
+  padding: .65rem .85rem;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  border-radius: 1rem;
+  background: #f4e8e3;
+  color: #705b55;
+}
+.companySearch:focus-within { box-shadow: 0 0 0 2px #6b3b35; }
+.companySearch input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #382724; font: inherit; font-size: .78rem; }
+.companyList { display: grid; gap: .45rem; }
+.companyList > button {
+  min-height: 3.7rem;
+  padding: .72rem .85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 0;
+  border-radius: 1rem;
+  background: #f4e8e3;
+  color: #4f3935;
+  text-align: left;
+  cursor: pointer;
+}
+.companyList > button.companySelected { background: #f0c6ca; color: #3b2523; }
+.companyList > button:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.companyList span { min-width: 0; display: grid; gap: .2rem; }
+.companyList strong { overflow: hidden; font-size: .72rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
+.companyList small { color: #85736d; font-size: .6rem; }
+.companyEmpty { margin: auto 0; color: #85736d; font-size: .72rem; text-align: center; }
+.sheet footer {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: linear-gradient(180deg, transparent, #fff9f5 28%);
+}
+
+.sheet footer a { padding: .8rem; color: #684a45; font-size: .75rem; }
+.sheet footer button {
+  padding: .9rem 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: #2d211f;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .dialog { width: 100%; height: min(82svh, 46rem); margin: auto 0 0; }
+  .dialog[data-fallback-modal="true"] { height: 100dvh; }
+  .dialog[data-fallback-modal="true"] .sheet { width: 100%; height: min(82svh, 46rem); margin: auto 0 0; }
+  .sheet { border-radius: 2rem 2rem 0 0; }
+  .options { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .trigger { background: #fffdf9; backdrop-filter: none; }
+  .dialog::backdrop,
+  .dialog[data-fallback-modal="true"] { background: rgba(43, 28, 25, .58); backdrop-filter: none; }
+}

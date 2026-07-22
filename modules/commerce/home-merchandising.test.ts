@@ -27,20 +27,31 @@ test('appends new live products without dropping them', () => {
 
 test('Nigeria-ready requires an available exact priced offer', () => {
   const now = new Date('2026-07-22T12:00:00Z');
-  const offer = { retailer: 'Store', url: 'https://store.example/product', trust: 90, available: true, priceNgn: 10_000, checkedAt: '2026-07-22', match: 'exact' as const, location: ['NG'] };
+  const offer = {
+    retailer: 'Store', url: 'https://store.example/product', trust: 90, available: true, priceNgn: 10_000, checkedAt: '2026-07-22', match: 'exact' as const, location: ['NG'],
+    listingEvidence: { observedAt: '2026-07-22', sourceUrl: 'https://store.example/product', basis: 'retailer-page' as const },
+    priceObservation: { observedAt: '2026-07-22', variant: 'Product', size: '30 ml', stock: 'in-stock' as const, landedCost: 'unknown' as const },
+  };
 
   assert.equal(hasVerifiedNigeriaOfferAt({ offers: [offer] }, now), true);
   assert.equal(hasVerifiedNigeriaOfferAt({ offers: [{ ...offer, match: 'search' }] }, now), false);
   assert.equal(hasVerifiedNigeriaOfferAt({ offers: [{ ...offer, available: false }] }, now), false);
   assert.equal(hasVerifiedNigeriaOfferAt({ offers: [{ ...offer, priceNgn: undefined }] }, now), false);
   assert.equal(hasVerifiedNigeriaOfferAt({ offers: [{ ...offer, location: ['US'] }] }, now), false);
-  assert.equal(hasVerifiedNigeriaOfferAt({ offers: [{ ...offer, checkedAt: '2026-07-14' }] }, now), false);
+  assert.equal(hasVerifiedNigeriaOfferAt({ offers: [{
+    ...offer,
+    priceObservation: { ...offer.priceObservation!, observedAt: '2026-07-14T00:00:00Z' },
+  }] }, now), false);
 });
 
 test('works safely as an Array.filter callback', () => {
   const checkedAt = new Date().toISOString().slice(0, 10);
   const product = {
-    offers: [{ retailer: 'Store', url: 'https://store.example/product', trust: 90, available: true, priceNgn: 10_000, checkedAt, match: 'exact' as const, location: ['NG'] }],
+    offers: [{
+      retailer: 'Store', url: 'https://store.example/product', trust: 90, available: true, priceNgn: 10_000, checkedAt, match: 'exact' as const, location: ['NG'],
+      listingEvidence: { observedAt: checkedAt, sourceUrl: 'https://store.example/product', basis: 'retailer-page' as const },
+      priceObservation: { observedAt: checkedAt, variant: 'Product', size: '30 ml', stock: 'in-stock' as const, landedCost: 'unknown' as const },
+    }],
   };
 
   assert.deepEqual([product].filter(hasVerifiedNigeriaOffer), [product]);

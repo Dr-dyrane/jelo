@@ -5,8 +5,8 @@ JeloCare is building a Nigerian-first skincare retail intelligence layer.
 The product page should answer three questions before a shopper leaves JeloCare:
 
 1. Who currently sells this product in Nigeria?
-2. What is the visible price at each trusted retailer?
-3. Which option is the strongest combination of availability, trust and value?
+2. What price, variant, size and stock state did JeloCare observe, and when?
+3. What is known about the listing, seller identity, regulator record and brand authorization?
 
 ## Launch reference retailers
 
@@ -25,17 +25,17 @@ Nigeria is the default market on product pages. International options remain ava
 Each retailer row should show, before navigation:
 
 - retailer name;
-- current price when verified;
-- availability state;
-- verification freshness;
-- trust or quality context;
+- observed price, variant and size;
+- observed stock state and timestamp;
+- whether delivery or other landed costs are known;
+- listing, seller, regulator and brand-authorization evidence as separate facts;
 - a clear outbound purchase action.
 
 A shopper should not have to open several retailer pages merely to discover the price.
 
 ## Search experience
 
-Product queries show up to three fresh exact offers for the selected market beside each matching product. Store, price and check date are visible before a shopper opens the product or retailer page. Search-only retailer routes and expired observations never appear in this comparison.
+Product queries show up to three fresh exact offers for the selected market beside each matching product. Store, observed price and observation date are visible before a shopper opens the product or retailer page. Search-only retailer routes, expired observations and price fields without complete observation evidence never appear in this comparison.
 
 ## Ranking
 
@@ -43,9 +43,9 @@ Nigerian offers are ranked using:
 
 1. verified availability;
 2. verification freshness;
-3. retailer trust;
-4. delivered value;
-5. current price;
+3. listing evidence;
+4. retailer source status;
+5. observed price for the exact variant;
 6. data completeness.
 
 A missing price must be labelled as pending verification rather than represented as zero or silently omitted.
@@ -68,29 +68,34 @@ Current prices live on offers. Historical observations live in `offer_price_hist
 
 ## Market summaries
 
-For every supported product, JeloCare should eventually compute:
+For every supported product, JeloCare may compute across the stores actually compared:
 
-- lowest verified Nigerian price;
-- typical Nigerian price;
+- lowest observed Nigerian price;
+- median observed price when at least two stores qualify;
 - highest current price;
 - retailer count;
 - in-stock retailer count;
 - last verified time;
 - 7-day and 30-day movement;
-- savings versus the current market median;
+- difference from the compared set's median;
 - confidence score.
 
-The product page computes the current best price, typical price, highest price, stores compared, in-stock count, savings versus typical, latest check and a deterministic confidence score from exact same-market offers. Seven- and 30-day movement compares the same offers at both ends of the window. It stays hidden unless the current observation is fresh and an appropriately dated anchor exists.
+One qualifying store is labelled `Observed`, never `Best`, `Fair` or `Typical`. Two or more qualifying stores may be labelled `Lowest observed` and `Median`, always scoped to the compared set. Delivery can change the total unless a landed-cost observation explicitly says it is included. Seven- and 30-day movement compares the same offers at both ends of the window and stays hidden unless the current observation is fresh and an appropriately dated anchor exists.
 
 ## Safety and trust
 
-Retailer inclusion is not an authenticity guarantee. JeloCare should distinguish:
+Retailer inclusion is not an authenticity guarantee. The runtime model keeps these dimensions separate:
 
-- verified retailer identity;
-- recently verified product availability;
-- observed price;
-- authenticity evidence;
-- user or pharmacist review.
+- `listingEvidence`: exact page or API record checked, with source and timestamp;
+- `sellerIdentityEvidence`: seller identity checked, with its own source and timestamp;
+- `retailerEvidence.identity`: self-published or independently checked retailer identity;
+- `retailerEvidence.regulatorMatch`: authority, registration number and independent-register source;
+- `brandAuthorizationEvidence`: brand-specific authorization from a brand source;
+- `priceObservation`: timestamp, variant, size, stock state and landed-cost status.
+
+Missing evidence stays missing. A seller name, rating, `officialStore` label, regulator registration or retailer claim cannot be promoted into another evidence dimension. None of these fields proves the physical item received by a shopper is authentic.
+
+Slique Beauty is provisional and link-only. Its public catalogue may supply dated factual offer observations, but its images and descriptions are not reused. No regulator-number match or brand-authorization evidence is recorded.
 
 Claims should remain specific to the evidence available.
 
@@ -116,6 +121,6 @@ Production queues and checks a bounded set of exact offers once each day, starti
 3. Extract structured prices and availability.
 4. Preserve every price observation.
 5. Show Nigerian prices on the product page before navigation.
-6. Add freshness and confidence labels.
+6. Add observation freshness, variant, stock and landed-cost labels.
 7. Compute market summaries and price trends.
 8. Ground Pulse responses in the same structured data.

@@ -1,6 +1,6 @@
 # JeloCare
 
-JeloCare is a pharmacist-led skincare and haircare discovery platform combining clinically grounded guidance with Nigerian-first retail intelligence.
+JeloCare is a skincare and haircare education platform combining cautious guidance with Nigerian-first retail intelligence.
 
 ## Product principles
 
@@ -23,7 +23,7 @@ JeloCare helps users understand products, ingredients, concerns, routines, contr
 
 ### Retail intelligence
 
-JeloCare helps users know where a product is sold in Nigeria, what each trusted retailer currently charges, whether it appears available and how fresh that evidence is before they leave the product page.
+JeloCare shows where an exact product listing was checked in Nigeria, the price and stock state observed there, and when that observation was made. It keeps seller identity, regulator records, brand authorization and physical authenticity as separate questions.
 
 Initial Nigerian retail references:
 

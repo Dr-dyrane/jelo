@@ -14,4 +14,4 @@ Retailer copy and product-name inference are not accepted as formula sources. So
 
 The first source-checked mappings cover Anua Niacinamide 10% + TXA 4%, CeraVe Blemish Control Cleanser, CeraVe Foaming Facial Cleanser, COSRX Snail 96 Essence, Nizoral A-D, PanOxyl 10% Foaming Wash and The Ordinary Azelaic Acid 10%.
 
-Verified active IDs feed the deterministic clinical filter. Unmapped products continue to use conservative text detection, never a fabricated ingredient list.
+Verified active IDs feed the deterministic clinical filter. Products without an explicit care review and verified ingredient evidence remain ineligible for direct guidance; catalogue names, concerns, retailer copy and other free text never supply formula evidence.

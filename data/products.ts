@@ -1,3 +1,11 @@
+import type {
+  BrandAuthorizationEvidence,
+  EvidenceReference,
+  PriceObservation,
+  RetailerEvidence,
+  SellerIdentityEvidence,
+} from '@/data/retail-evidence';
+
 export type Offer = {
   retailer: string;
   url: string;
@@ -11,7 +19,15 @@ export type Offer = {
   inventoryQuantity?: number;
   sellerName?: string;
   sellerScore?: number;
+  /** @deprecated A label is not authorization evidence. Use brandAuthorizationEvidence. */
   officialStore?: boolean;
+  listingEvidence?: EvidenceReference;
+  sellerIdentityEvidence?: SellerIdentityEvidence;
+  brandAuthorizationEvidence?: BrandAuthorizationEvidence;
+  priceObservation?: PriceObservation;
+  /** Excludes an observed price from lowest-price and comparison claims without hiding the listing. */
+  priceComparison?: 'include' | 'exclude';
+  retailerEvidence?: RetailerEvidence;
   location: string[];
 };
 
@@ -33,6 +49,9 @@ export type Product = {
   verifiedIngredientIds?: string[];
   offers: Offer[];
 };
+
+/** Products whose suitability fields were explicitly reviewed by JeloCare. */
+export type ReviewedProduct = Product;
 
 const beautyByDaz = (url: string, available = true): Offer => ({ retailer: 'Beauty by Daz', url, trust: 100, available, location: ['NG'] });
 const careToBeauty = (url: string): Offer => ({ retailer: 'Care to Beauty', url, trust: 92, available: true, location: ['NG', 'INTL'] });
@@ -111,7 +130,7 @@ export const products: Product[] = [
   },
   {
     slug: 'mediana-leave-in-conditioning-milk', brand: 'MEDIANA', name: 'Leave-In Conditioning Milk', size: '250 ml', category: 'Hair', step: 'Leave in',
-    image: 'https://sliquebeautylimited.com/wp-content/uploads/2024/06/mediana-leave-in-conditioning-milk.webp', displayLine: 'Detangle · soften',
+    image: '/product-placeholder.svg', displayLine: 'Detangle · soften',
     bestFor: ['leave-in moisture', 'detangling'], concerns: ['dry hair', 'tangles'], skinTypes: ['hair'], sensitiveFriendly: true,
     usage: 'Apply to damp hair after washing.', evidence: 'emerging',
     offers: [beautyByDaz('https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product', false), { retailer: 'Slique Beauty', url: 'https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/', trust: 78, available: true, location: ['NG'] }]

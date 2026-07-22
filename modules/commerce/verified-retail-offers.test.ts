@@ -3,6 +3,7 @@ import test from 'node:test';
 import { products } from '@/data/catalogue';
 import { verifiedRetailOffers } from '@/data/retail-offers';
 import { nigeriaRetailers } from '@/data/retailers';
+import { hasCompletePriceObservation, hasListingEvidence } from './offer-evidence';
 
 const searchRouteMarkers = ['?s=', '&s=', '/search?', '/catalog/?q=', '/catalogsearch/'];
 
@@ -26,7 +27,7 @@ test('verified Nigerian observations use exact secure product pages', () => {
   }
 });
 
-test('at least sixteen catalogue products have an exact Nigerian price', () => {
+test('at least fifteen catalogue products have reliable exact Nigerian price evidence', () => {
   const priced = products.filter(product => product.offers.some(offer =>
     offer.location.includes('NG')
     && offer.match === 'exact'
@@ -34,7 +35,19 @@ test('at least sixteen catalogue products have an exact Nigerian price', () => {
     && offer.priceNgn > 0,
   ));
 
-  assert.ok(priced.length >= 16, `expected at least 16 priced products, received ${priced.length}`);
+  assert.ok(priced.length >= 15, `expected at least 15 priced products, received ${priced.length}`);
+});
+
+test('every curated exact price carries listing, variant, size, stock, time and landed-cost evidence', () => {
+  const priced = Object.values(verifiedRetailOffers).flat().filter(offer =>
+    offer.match === 'exact'
+    && (typeof offer.priceNgn === 'number' || typeof offer.priceUsd === 'number'));
+
+  assert.ok(priced.length > 0);
+  for (const offer of priced) {
+    assert.equal(hasListingEvidence(offer), true, `${offer.retailer} listing evidence`);
+    assert.equal(hasCompletePriceObservation(offer), true, `${offer.retailer} price observation`);
+  }
 });
 
 test('featured marketplace offers retain visible seller evidence', () => {
@@ -43,12 +56,22 @@ test('featured marketplace offers retain visible seller evidence', () => {
 
   assert.deepEqual(
     { seller: mediana?.sellerName, score: mediana?.sellerScore, quantity: mediana?.inventoryQuantity },
-    { seller: 'Jeto', score: 88, quantity: 6 },
+    { seller: 'Jeto', score: 88, quantity: 4 },
   );
   assert.deepEqual(
-    { seller: anua?.sellerName, score: anua?.sellerScore },
-    { seller: 'Smile Time', score: 92 },
+    { seller: anua?.sellerName, score: anua?.sellerScore, priceComparison: anua?.priceComparison },
+    { seller: 'Smile Time', score: 92, priceComparison: 'exclude' },
   );
+
+  const disaar = verifiedRetailOffers['disaar-argan-oil-body-oil-gel']?.find(offer => offer.retailer === 'Jumia');
+  assert.deepEqual(
+    { seller: disaar?.sellerName, score: disaar?.sellerScore, stock: disaar?.priceObservation?.stock },
+    { seller: 'Christodel Global Services', score: 88, stock: 'low-stock' },
+  );
+});
+
+test('the inconsistent B.LAB Matcha listing is not published as an exact offer', () => {
+  assert.equal(verifiedRetailOffers['b-lab-matcha-hydrating-real-sunscreen'], undefined);
 });
 
 test('Ghana-priced routes never appear as Nigerian offers', () => {

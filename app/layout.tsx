@@ -7,6 +7,7 @@ import './globals.css';
 import './platform.css';
 import './consult-report.css';
 import './consult-sheet.css';
+import './ask-jelo-safety.css';
 import './evidence.css';
 import './barrier-report.css';
 import './timeline.css';
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://jelocare.com'),
   applicationName: 'JeloCare',
   title: { default: 'JeloCare — Understand your skin', template: '%s · JeloCare' },
-  description: 'Pharmacist-led skin guidance and trusted product discovery.',
+  description: 'Skin education and clear product discovery.',
   manifest: '/manifest.webmanifest',
   appleWebApp: { capable: true, statusBarStyle: 'default', title: 'JeloCare' },
   formatDetection: { telephone: false },
@@ -47,12 +48,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <footer className="site-footer">
           <div className="footer-brand">
             <strong>JeloCare</strong>
-            <p>Pharmacist-led care. By Dyrane.</p>
+            <p>Clear skin education. By Dyrane.</p>
           </div>
           <div className="footer-group">
             <strong>Explore</strong>
             <Link href="/products">All products</Link>
-            <Link href="/concerns">Shop by concern</Link>
+            <Link href="/concerns">Browse concerns</Link>
             <Link href="/consult">Ask JeloCare</Link>
             <Link href="/ingredients">Ingredient library</Link>
             <Link href="/retailers">Retailer guide</Link>

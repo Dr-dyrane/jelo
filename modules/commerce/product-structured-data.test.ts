@@ -27,6 +27,21 @@ const product: Product = {
   ],
 };
 const now = new Date('2026-07-22T12:00:00Z');
+product.offers = product.offers.map(offer => {
+  if (offer.match === 'search' || !offer.checkedAt) return offer;
+  const hasPrice = offer.priceNgn != null || offer.priceUsd != null;
+  return {
+    ...offer,
+    listingEvidence: { observedAt: offer.checkedAt, sourceUrl: offer.url, basis: 'retailer-page' },
+    priceObservation: hasPrice ? {
+      observedAt: offer.checkedAt,
+      variant: product.name,
+      size: product.size,
+      stock: offer.available ? 'in-stock' : 'out-of-stock',
+      landedCost: 'unknown',
+    } : undefined,
+  };
+});
 
 test('builds an aggregate only from available exact Nigerian prices', () => {
   const data = productStructuredData(product, now);

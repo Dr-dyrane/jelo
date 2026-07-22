@@ -120,6 +120,7 @@ async function completeJob(job: ClaimedJob, observation: RetailerObservation) {
           extraction_evidence = ${sql.json(observation.evidence)},
           extraction_adapter = ${observation.adapterKey},
           observed_title = ${observation.productTitle ?? null},
+          observed_size = ${observation.productSize ?? null},
           canonical_url = ${observation.canonicalUrl ?? null},
           last_verified_at = now(), verification_expires_at = now() + ${validity}::interval,
           checked_at = now(), updated_at = now()
@@ -169,6 +170,7 @@ export async function processNextInventoryRefreshJob(): Promise<InventoryRefresh
       expectedTitle: `${job.brand_name} ${job.product_name}`,
       expectedSize: job.product_size,
       observedTitle: observation.productTitle,
+      observedSize: observation.productSize,
       marketCode: job.market_code,
       currencyCode: observation.currencyCode,
     });

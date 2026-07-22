@@ -6,9 +6,27 @@ import { marketProductPrice, marketRetailerLinks } from './market-product';
 const now = new Date('2026-07-22T12:00:00Z');
 
 function product(overrides: Partial<Product> = {}): Product {
-  return {
+  const result: Product = {
     slug: 'test-product', brand: 'Test', name: 'Product', size: '30 ml', category: 'Face', step: 'Treat', image: '/test.png', displayLine: 'Treat', bestFor: [], concerns: [], skinTypes: [], sensitiveFriendly: true, usage: 'Use.', evidence: 'moderate', offers: [],
     ...overrides,
+  };
+  return {
+    ...result,
+    offers: result.offers.map(offer => {
+      if (offer.match === 'search' || !offer.checkedAt) return offer;
+      const hasPrice = offer.priceNgn != null || offer.priceUsd != null;
+      return {
+        ...offer,
+        listingEvidence: { observedAt: offer.checkedAt, sourceUrl: offer.url, basis: 'retailer-page' as const },
+        priceObservation: hasPrice ? {
+          observedAt: offer.checkedAt,
+          variant: result.name,
+          size: result.size,
+          stock: offer.available ? 'in-stock' as const : 'out-of-stock' as const,
+          landedCost: 'unknown' as const,
+        } : undefined,
+      };
+    }),
   };
 }
 
@@ -18,7 +36,16 @@ test('consult pricing uses an available exact offer in the requested market', ()
     { retailer: 'US exact', url: 'https://example.com/us', trust: 100, available: true, match: 'exact', priceUsd: 10, checkedAt: '2026-07-22', location: ['US'] },
   ] });
 
-  assert.deepEqual(marketProductPrice(item, 'NG', now), { amount: 12_500, currency: 'NGN', retailer: 'NG exact', market: 'NG', checkedAt: '2026-07-22' });
+  assert.deepEqual(marketProductPrice(item, 'NG', now), {
+    amount: 12_500,
+    currency: 'NGN',
+    retailer: 'NG exact',
+    market: 'NG',
+    checkedAt: '2026-07-22',
+    observedSize: '30 ml',
+    observedVariant: 'Product',
+    landedCostCaveat: 'Delivery may change total',
+  });
 });
 
 test('consult pricing never falls through to another market', () => {

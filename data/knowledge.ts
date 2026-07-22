@@ -1,21 +1,193 @@
+export type ConcernSource = { title: string; url: string };
+
 export type Concern = {
   slug: string;
   name: string;
   area: 'Face' | 'Scalp' | 'Hair' | 'Body';
+  kind: 'concern' | 'condition-pattern';
   summary: string;
   signals: string[];
   ingredients: string[];
   productTerms: string[];
   escalation: string;
+  sources: ConcernSource[];
+  reviewedAt: string;
 };
 
+const reviewedAt = '2026-07-22';
+
 export const concerns: Concern[] = [
-  { slug: 'acne-breakouts', name: 'Acne & breakouts', area: 'Face', summary: 'For blackheads, inflamed spots and recurring breakouts.', signals: ['blackheads', 'whiteheads', 'inflamed spots', 'oiliness'], ingredients: ['salicylic acid', 'azelaic acid', 'niacinamide'], productTerms: ['acne', 'blackheads', 'whiteheads', 'oiliness'], escalation: 'Seek clinical review for painful nodules, scarring, sudden severe acne or treatment-resistant disease.' },
-  { slug: 'dark-spots', name: 'Dark spots', area: 'Face', summary: 'Care for post-acne marks and uneven tone.', signals: ['post-acne marks', 'uneven tone', 'melasma-like patches'], ingredients: ['tranexamic acid', 'niacinamide', 'azelaic acid', 'sunscreen'], productTerms: ['hyperpigmentation', 'dark spots'], escalation: 'Rapidly changing, irregular or bleeding pigmented lesions need in-person assessment.' },
-  { slug: 'sensitive-barrier', name: 'Sensitive skin & barrier', area: 'Face', summary: 'Calm irritation. Rebuild comfort. Add actives slowly.', signals: ['stinging', 'tightness', 'flaking', 'reactivity'], ingredients: ['ceramides', 'panthenol', 'centella', 'glycerin'], productTerms: ['sensitivity', 'dryness', 'barrier'], escalation: 'Facial swelling, blistering, breathing difficulty or widespread rash requires urgent care.' },
-  { slug: 'oily-congested-skin', name: 'Oily & congested skin', area: 'Face', summary: 'Manage shine and congestion without stripping skin.', signals: ['shine', 'enlarged pores', 'blackheads', 'rough texture'], ingredients: ['salicylic acid', 'niacinamide', 'lightweight sunscreen'], productTerms: ['oiliness', 'pores', 'blackheads', 'texture'], escalation: 'Persistent inflamed acne or scarring should be reviewed professionally.' },
-  { slug: 'dandruff-itchy-scalp', name: 'Dandruff & itchy scalp', area: 'Scalp', summary: 'For flakes, itch and buildup.', signals: ['flakes', 'itch', 'greasy scale', 'scalp discomfort'], ingredients: ['anti-dandruff cleansing', 'gentle conditioning'], productTerms: ['dandruff', 'itch', 'dry scalp'], escalation: 'Hair loss, thick plaques, pus, pain or spreading rash needs clinical assessment.' },
-  { slug: 'dry-frizzy-hair', name: 'Dry & frizzy hair', area: 'Hair', summary: 'Moisture and detangling for dry, frizzy hair.', signals: ['roughness', 'tangles', 'breakage', 'frizz'], ingredients: ['conditioning agents', 'argan oil', 'leave-in moisture'], productTerms: ['dry hair', 'tangles', 'frizz'], escalation: 'Sudden breakage or patchy hair loss should be assessed.' }
+  {
+    slug: 'acne-breakouts', name: 'Acne & breakouts', area: 'Face', kind: 'concern',
+    summary: 'Blackheads, spots and recurring breakouts.',
+    signals: ['blackheads', 'whiteheads', 'inflamed spots', 'oiliness'],
+    ingredients: ['salicylic acid', 'azelaic acid', 'benzoyl peroxide', 'adapalene with clinical guidance'],
+    productTerms: ['acne', 'blackheads', 'whiteheads', 'oiliness'],
+    escalation: 'Get clinical help for deep pain, nodules, scarring, sudden severe acne or acne that is not improving.',
+    sources: [{ title: 'American Academy of Dermatology · Acne', url: 'https://www.aad.org/public/diseases/acne' }], reviewedAt,
+  },
+  {
+    slug: 'dark-spots', name: 'Dark spots', area: 'Face', kind: 'concern',
+    summary: 'Flat marks left after acne or irritation.',
+    signals: ['post-acne marks', 'uneven tone', 'flat colour change'],
+    ingredients: ['daily sunscreen', 'azelaic acid', 'niacinamide', 'tranexamic acid'],
+    productTerms: ['hyperpigmentation', 'dark spots'],
+    escalation: 'A changing, irregular, raised or bleeding mark needs in-person assessment.',
+    sources: [{ title: 'American Academy of Dermatology · Dark spots', url: 'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots' }], reviewedAt,
+  },
+  {
+    slug: 'sensitive-barrier', name: 'Sensitive skin & barrier', area: 'Face', kind: 'concern',
+    summary: 'Stinging, tightness, flaking or reactivity.',
+    signals: ['stinging', 'tightness', 'flaking', 'reactivity'],
+    ingredients: ['glycerin', 'ceramides', 'panthenol', 'fragrance-free moisturizer'],
+    productTerms: ['sensitivity', 'dryness', 'barrier'],
+    escalation: 'Facial swelling, blistering, breathing difficulty or a fast-spreading rash needs urgent care.',
+    sources: [{ title: 'NHS · Contact dermatitis', url: 'https://www.nhs.uk/conditions/contact-dermatitis/' }], reviewedAt,
+  },
+  {
+    slug: 'oily-congested-skin', name: 'Oily & congested skin', area: 'Face', kind: 'concern',
+    summary: 'Shine, clogged pores and uneven texture.',
+    signals: ['shine', 'visible pores', 'blackheads', 'rough texture'],
+    ingredients: ['salicylic acid', 'niacinamide', 'light moisturizer', 'daily sunscreen'],
+    productTerms: ['oiliness', 'pores', 'blackheads', 'texture'],
+    escalation: 'Persistent inflamed acne, pain or scarring should be reviewed professionally.',
+    sources: [{ title: 'American Academy of Dermatology · Acne', url: 'https://www.aad.org/public/diseases/acne' }], reviewedAt,
+  },
+  {
+    slug: 'dandruff-itchy-scalp', name: 'Dandruff & itchy scalp', area: 'Scalp', kind: 'concern',
+    summary: 'Flakes, itch and recurring scalp scale.',
+    signals: ['flakes', 'itch', 'greasy scale', 'scalp discomfort'],
+    ingredients: ['anti-dandruff shampoo', 'gentle cleansing', 'simple conditioning'],
+    productTerms: ['dandruff', 'itch', 'dry scalp'],
+    escalation: 'Hair loss, thick plaques, pus, pain or a spreading rash needs clinical assessment.',
+    sources: [{ title: 'American Academy of Dermatology · Seborrheic dermatitis', url: 'https://www.aad.org/public/diseases/a-z/seborrheic-dermatitis-overview' }], reviewedAt,
+  },
+  {
+    slug: 'dry-frizzy-hair', name: 'Dry & frizzy hair', area: 'Hair', kind: 'concern',
+    summary: 'Roughness, tangles, breakage and frizz.',
+    signals: ['roughness', 'tangles', 'breakage', 'frizz'],
+    ingredients: ['conditioning agents', 'leave-in moisture', 'light oils on lengths'],
+    productTerms: ['dry hair', 'tangles', 'frizz'],
+    escalation: 'Sudden shedding, patchy loss, scalp pain or scarring needs assessment.',
+    sources: [{ title: 'American Academy of Dermatology · Hair and scalp care', url: 'https://www.aad.org/public/everyday-care/hair-scalp-care' }], reviewedAt,
+  },
+  {
+    slug: 'atopic-eczema-pattern', name: 'Eczema-like dryness', area: 'Body', kind: 'condition-pattern',
+    summary: 'Very itchy, dry, cracked or inflamed skin.',
+    signals: ['intense itch', 'dry patches', 'cracking', 'recurrent flares'],
+    ingredients: ['bland emollient', 'soap substitute', 'clinician-directed treatment'],
+    productTerms: [],
+    escalation: 'Pain, warmth, pus, leaking fluid, crusting, fever or a sudden worsening needs urgent medical advice.',
+    sources: [{ title: 'NHS · Atopic eczema', url: 'https://www.nhs.uk/conditions/atopic-eczema/' }], reviewedAt,
+  },
+  {
+    slug: 'contact-dermatitis-pattern', name: 'Contact dermatitis-like rash', area: 'Body', kind: 'condition-pattern',
+    summary: 'A rash after contact with a product or material.',
+    signals: ['itch', 'burning', 'stinging', 'cracks or blisters'],
+    ingredients: ['stop the suspected trigger', 'bland emollient', 'pharmacist or clinician review'],
+    productTerms: [],
+    escalation: 'Rapid worsening, discharge, increasing pain, fever or feeling unwell needs immediate medical advice.',
+    sources: [{ title: 'NHS · Contact dermatitis symptoms', url: 'https://www.nhs.uk/conditions/contact-dermatitis/symptoms/' }], reviewedAt,
+  },
+  {
+    slug: 'rosacea-pattern', name: 'Rosacea-like redness', area: 'Face', kind: 'condition-pattern',
+    summary: 'Flushing, persistent colour change or facial stinging.',
+    signals: ['flushing', 'persistent redness', 'visible vessels', 'burning or stinging'],
+    ingredients: ['gentle skincare', 'daily SPF 30+', 'trigger tracking', 'clinician-directed treatment'],
+    productTerms: [],
+    escalation: 'Eye pain, blurred vision, light sensitivity, a red eye or a gritty eye needs urgent assessment.',
+    sources: [{ title: 'NHS · Rosacea', url: 'https://www.nhs.uk/conditions/rosacea/' }], reviewedAt,
+  },
+  {
+    slug: 'melasma-pattern', name: 'Melasma-like patches', area: 'Face', kind: 'condition-pattern',
+    summary: 'Flat, often symmetrical facial patches.',
+    signals: ['symmetrical patches', 'cheeks or forehead', 'upper lip', 'sun or hormonal link'],
+    ingredients: ['daily broad-spectrum sunscreen', 'visible-light protection', 'dermatology review'],
+    productTerms: [],
+    escalation: 'New or uncertain pigmentation should be examined before treatment, especially if it changes.',
+    sources: [{ title: 'American Academy of Dermatology · Melasma', url: 'https://www.aad.org/public/diseases/a-z/melasma-overview' }], reviewedAt,
+  },
+  {
+    slug: 'psoriasis-pattern', name: 'Psoriasis-like plaques', area: 'Body', kind: 'condition-pattern',
+    summary: 'Thick, scaly patches that may itch or feel sore.',
+    signals: ['well-defined plaques', 'scale', 'itch or soreness', 'nail changes'],
+    ingredients: ['emollient', 'clinician-directed treatment'],
+    productTerms: [],
+    escalation: 'A widespread flare, fever, severe pain or painful swollen joints needs prompt medical review.',
+    sources: [{ title: 'NHS · Psoriasis', url: 'https://www.nhs.uk/conditions/psoriasis/' }], reviewedAt,
+  },
+  {
+    slug: 'keratosis-pilaris-pattern', name: 'Rough follicular bumps', area: 'Body', kind: 'condition-pattern',
+    summary: 'Small rough bumps, often on arms or thighs.',
+    signals: ['tiny rough bumps', 'upper arms', 'thighs', 'dryness'],
+    ingredients: ['moisturizer', 'urea', 'lactic acid', 'gentle care'],
+    productTerms: [],
+    escalation: 'Pain, pus, rapid spread or uncertainty about the bumps needs assessment.',
+    sources: [{ title: 'American Academy of Dermatology · Keratosis pilaris', url: 'https://www.aad.org/public/diseases/a-z/keratosis-pilaris-overview' }], reviewedAt,
+  },
+  {
+    slug: 'ringworm-pattern', name: 'Ringworm-like rash', area: 'Body', kind: 'condition-pattern',
+    summary: 'A scaly, itchy rash that may form a ring.',
+    signals: ['ring-shaped patch', 'scale', 'itch', 'spreading edge'],
+    ingredients: ['pharmacist-selected antifungal treatment'],
+    productTerms: [],
+    escalation: 'Scalp involvement, a weakened immune system or no improvement after antifungal treatment needs a clinician.',
+    sources: [{ title: 'NHS · Ringworm', url: 'https://www.nhs.uk/conditions/ringworm/' }], reviewedAt,
+  },
+  {
+    slug: 'ingrown-hairs', name: 'Ingrown hairs & razor bumps', area: 'Body', kind: 'condition-pattern',
+    summary: 'Itchy bumps after shaving or hair removal.',
+    signals: ['raised itchy bumps', 'trapped hair', 'after shaving', 'coarse or curly hair'],
+    ingredients: ['shave with hair growth', 'fewer razor passes', 'cool compress', 'pharmacist advice'],
+    productTerms: [],
+    escalation: 'A very painful, hot or swollen area, fever, chills or feeling unwell needs medical review.',
+    sources: [{ title: 'NHS · Ingrown hairs', url: 'https://www.nhs.uk/conditions/ingrown-hairs/' }], reviewedAt,
+  },
+  {
+    slug: 'hidradenitis-pattern', name: 'Recurring deep lumps', area: 'Body', kind: 'condition-pattern',
+    summary: 'Painful lumps that return where skin touches skin.',
+    signals: ['deep tender lumps', 'armpit or groin', 'drainage', 'scars or tunnels'],
+    ingredients: ['gentle cleansing', 'early dermatology care'],
+    productTerms: [],
+    escalation: 'Recurring deep lumps, drainage, severe pain, infection or scarring needs early in-person care.',
+    sources: [{ title: 'American Academy of Dermatology · Hidradenitis suppurativa', url: 'https://www.aad.org/public/diseases/a-z/hidradenitis-suppurativa-symptoms' }], reviewedAt,
+  },
+  {
+    slug: 'vitiligo-pattern', name: 'Loss of skin colour', area: 'Body', kind: 'condition-pattern',
+    summary: 'Light or white patches that need accurate identification.',
+    signals: ['loss of colour', 'white or lighter patches', 'possible hair colour change'],
+    ingredients: ['sun protection', 'dermatology assessment'],
+    productTerms: [],
+    escalation: 'Different conditions can cause colour loss. Arrange an examination for an accurate diagnosis, especially if patches are spreading.',
+    sources: [{ title: 'American Academy of Dermatology · Vitiligo', url: 'https://www.aad.org/public/diseases/a-z/vitiligo-treatment' }], reviewedAt,
+  },
+  {
+    slug: 'patchy-hair-loss-pattern', name: 'Patchy or sudden hair loss', area: 'Hair', kind: 'condition-pattern',
+    summary: 'New patches, thinning or rapid shedding.',
+    signals: ['smooth bald patches', 'sudden shedding', 'widening part', 'eyebrow or eyelash loss'],
+    ingredients: ['early cause-finding', 'dermatology review'],
+    productTerms: [],
+    escalation: 'New patchy, sudden or scarring hair loss needs early assessment because causes and treatments differ.',
+    sources: [{ title: 'American Academy of Dermatology · Hair loss', url: 'https://www.aad.org/public/diseases/hair-loss/causes/fall-out' }], reviewedAt,
+  },
+  {
+    slug: 'traction-hair-loss-pattern', name: 'Tension-related hair loss', area: 'Hair', kind: 'condition-pattern',
+    summary: 'Hairline thinning linked to tight or painful styles.',
+    signals: ['painful tight style', 'broken hairs', 'hairline thinning', 'repeated pulling'],
+    ingredients: ['loosen the style', 'reduce repeated tension', 'early dermatology review'],
+    productTerms: [],
+    escalation: 'Persistent thinning, scalp pain, bumps, or smooth shiny areas need early care to reduce permanent loss risk.',
+    sources: [{ title: 'American Academy of Dermatology · Traction alopecia', url: 'https://www.aad.org/public/diseases/hair-loss/causes/hairstyles' }], reviewedAt,
+  },
+  {
+    slug: 'heat-rash-pattern', name: 'Heat rash', area: 'Body', kind: 'condition-pattern',
+    summary: 'Small prickly bumps after heavy sweating.',
+    signals: ['small raised spots', 'prickly itch', 'mild swelling', 'heat or sweat trigger'],
+    ingredients: ['cool the skin', 'loose cotton clothing', 'avoid perfumed products', 'pharmacist advice'],
+    productTerms: [],
+    escalation: 'Get medical advice if it does not improve after a few days or if a baby has a rash and you are worried.',
+    sources: [{ title: 'NHS · Heat rash', url: 'https://www.nhs.uk/conditions/heat-rash-prickly-heat/' }], reviewedAt,
+  },
 ];
 
 export const concernBySlug = (slug: string) => concerns.find(concern => concern.slug === slug);

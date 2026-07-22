@@ -42,7 +42,7 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
   return (
     <section className={styles.explorer}>
       <div className={styles.commandBar}>
-        {query ? <div className={styles.queryChip}><span>Search</span><strong>{query}</strong><button type="button" onClick={() => window.location.assign('/products')} aria-label="Clear search"><X size={15}/></button></div> : <p className={styles.commandHint}>Product, brand or concern.</p>}
+        {query ? <div className={styles.queryChip}><span>Search</span><strong>{query}</strong><button type="button" onClick={() => window.location.assign('/products')} aria-label="Clear search"><X size={15}/></button></div> : <p className={styles.commandHint}>Product, company or concern.</p>}
         <div className={styles.market} aria-label="Shopping market">
           <button type="button" className={market === 'NG' ? styles.active : ''} onClick={() => setMarket('NG')}>Nigeria</button>
           <button type="button" className={market === 'US' ? styles.active : ''} onClick={() => setMarket('US')}>United States</button>

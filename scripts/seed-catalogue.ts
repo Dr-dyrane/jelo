@@ -39,6 +39,12 @@ const sourceHost = (value: string) => {
     return null;
   }
 };
+const observationDate = (value?: string) => {
+  const normalized = value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00Z` : value;
+  const parsed = normalized ? new Date(normalized) : new Date();
+  if (Number.isNaN(parsed.getTime())) throw new Error(`Invalid offer observation timestamp: ${value}`);
+  return parsed;
+};
 const ingredientBySlug = new Map(ingredientSeeds.map(ingredient => [ingredient.slug, ingredient]));
 const assetBySlug = productAssets as Record<string, ProductAssetRecord>;
 
@@ -279,22 +285,36 @@ try {
             : market === 'US' && offer.priceUsd != null
               ? 'USD'
               : null;
-          const checkedAt = offer.checkedAt ? new Date(`${offer.checkedAt}T12:00:00Z`) : new Date();
+          const checkedAt = observationDate(offer.checkedAt);
+          const lastVerifiedAt = observationDate(offer.listingEvidence?.observedAt ?? offer.checkedAt);
+          const verificationMethod = offer.listingEvidence?.basis === 'retailer-api'
+            ? 'api'
+            : offer.listingEvidence?.basis === 'retailer-page'
+              ? 'retailer_page'
+              : 'import';
+          const verificationNote = verificationMethod === 'api'
+            ? 'Seeded from a dated retailer API observation.'
+            : verificationMethod === 'retailer_page'
+              ? 'Seeded from a dated retailer-page observation.'
+              : 'Seeded from the curated catalogue.';
           const [savedOffer] = await tx<{ id: string }[]>`
             insert into offers (
               product_id, retailer_id, url, market_code, available,
               price_minor, currency_code, checked_at, inventory_status,
               verification_method, verification_note, last_verified_at,
               verification_expires_at, match_kind, inventory_quantity,
-              seller_name, seller_score, official_store
+              seller_name, seller_score, official_store, observed_title,
+              observed_size, canonical_url
             ) values (
               ${savedProduct.id}, ${retailer.id}, ${offer.url}, ${market},
               ${offer.available}, ${priceMinor},
               ${currencyCode}, ${checkedAt},
-              ${inventoryStatus}, 'import', 'Seeded from the curated catalogue.',
-              ${checkedAt}, ${checkedAt}::timestamptz + interval '7 days', ${offer.match ?? 'exact'},
+              ${inventoryStatus}, ${verificationMethod}, ${verificationNote},
+              ${lastVerifiedAt}, ${lastVerifiedAt}::timestamptz + interval '7 days', ${offer.match ?? 'exact'},
               ${offer.inventoryQuantity ?? null}, ${offer.sellerName ?? null},
-              ${offer.sellerScore ?? null}, ${offer.officialStore ?? false}
+              ${offer.sellerScore ?? null}, ${offer.officialStore ?? false},
+              ${offer.priceObservation?.variant ?? null},
+              ${offer.priceObservation?.size ?? null}, ${offer.url}
             )
             on conflict (product_id, retailer_id, market_code) do update set
               url = excluded.url,
@@ -312,6 +332,9 @@ try {
               seller_name = excluded.seller_name,
               seller_score = excluded.seller_score,
               official_store = excluded.official_store,
+              observed_title = case when offers.verification_method in ('retailer_page', 'api') then offers.observed_title else excluded.observed_title end,
+              observed_size = case when offers.verification_method in ('retailer_page', 'api') then offers.observed_size else excluded.observed_size end,
+              canonical_url = case when offers.verification_method in ('retailer_page', 'api') then offers.canonical_url else excluded.canonical_url end,
               updated_at = now()
             returning id
           `;
@@ -321,7 +344,7 @@ try {
               insert into offer_price_history (
                 offer_id, price_minor, currency_code, observed_at, source
               ) values (
-                ${savedOffer.id}, ${priceMinor}, ${currencyCode}, ${checkedAt}, 'import'
+                ${savedOffer.id}, ${priceMinor}, ${currencyCode}, ${lastVerifiedAt}, ${verificationMethod}
               )
               on conflict do nothing
             `;

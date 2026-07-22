@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight, BadgeCheck, Clock3, ShieldCheck } from 'lucide-react';
 import { nigeriaRetailers } from '@/data/retailers';
+import { hasRegulatorMatch } from '@/modules/commerce/offer-evidence';
 import styles from './retailers.module.css';
 
 export const metadata: Metadata = {
@@ -13,9 +14,9 @@ export const metadata: Metadata = {
 const directCount = nigeriaRetailers.filter(store => store.kind === 'retailer').length;
 
 const standards = [
-  { icon: BadgeCheck, title: 'Exact', copy: 'Product. Strength. Size.' },
-  { icon: Clock3, title: 'Current', copy: 'Fresh checks only.' },
-  { icon: ShieldCheck, title: 'Independent', copy: 'Commission never sets rank.' },
+  { icon: BadgeCheck, title: 'Matched', copy: 'Product. Variant. Size.' },
+  { icon: Clock3, title: 'Observed', copy: 'Price. Stock. Time.' },
+  { icon: ShieldCheck, title: 'Separate', copy: 'Listing is not authenticity.' },
 ];
 
 export default function RetailersPage() {
@@ -54,15 +55,21 @@ export default function RetailersPage() {
       <section className={styles.directory}>
         <div className={styles.sectionHeading}>
           <p className="eyebrow">Nigeria</p>
-          <h2>Reviewed<br/>sources.</h2>
+          <h2>Reference<br/>sources.</h2>
         </div>
         <div className={styles.storeGrid}>
           {nigeriaRetailers.map((store, index) => (
             <a href={store.homepage} target="_blank" rel="noreferrer" key={store.name}>
               <span className={styles.storeNumber}>{String(index + 1).padStart(2, '0')}</span>
-              <span className={styles.storeKind}>{store.kind === 'marketplace' ? 'Marketplace' : 'Direct retailer'}</span>
+              <span className={styles.storeKind}>{store.reviewStatus === 'provisional' ? 'Provisional source' : store.kind === 'marketplace' ? 'Marketplace' : 'Direct retailer'}</span>
               <strong>{store.name}</strong>
-              <small>{store.kind === 'marketplace' ? 'Seller checks apply.' : 'Product pages checked directly.'}</small>
+              <small>{hasRegulatorMatch({ reviewStatus: store.reviewStatus, contentUse: store.contentUse, identity: store.identityEvidence, regulatorMatch: store.regulatorMatchEvidence })
+                ? 'Regulator number matched to an independent register.'
+                : store.identityEvidence
+                  ? 'Self-published contact details observed. No regulator match.'
+                  : store.kind === 'marketplace'
+                    ? 'Seller identity is checked per offer when evidence exists.'
+                    : 'No identity or regulator match recorded.'}</small>
               <ArrowUpRight size={18}/>
             </a>
           ))}
@@ -73,10 +80,10 @@ export default function RetailersPage() {
         <div>
           <p className="eyebrow">Our promise</p>
           <h2>Advice first.</h2>
-          <p>Some links pay us. They never change the order.</p>
+          <p>Some links pay us. They never change the order. A listing never proves authenticity.</p>
         </div>
         <div className={styles.disclosureActions}>
-          <Link href="/products">Compare products <ArrowUpRight size={17}/></Link>
+          <Link href="/products">Browse products <ArrowUpRight size={17}/></Link>
           <a href="mailto:hello@dyrane.tech?subject=JeloCare%20retail%20partnership">Retail partnerships</a>
         </div>
       </section>

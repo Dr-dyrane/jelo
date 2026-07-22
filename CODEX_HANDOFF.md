@@ -21,7 +21,7 @@ Do not stop after writing a plan. Do not repeatedly ask for permission to contin
 ```text
 Repository: Dr-dyrane/jelo
 Branch: main
-Framework: Next.js 16.2.10
+Framework: Next.js 16.2.11
 Language: TypeScript 5.9
 Runtime/build: Vercel
 Database: Neon PostgreSQL
@@ -122,7 +122,7 @@ Preview and local builds should skip production migrations unless deliberately i
 
 ## Product definition
 
-JeloCare is a pharmacist-led skincare and haircare intelligence platform.
+JeloCare is a skincare and haircare education and product-intelligence platform.
 
 It is not primarily:
 
@@ -147,7 +147,20 @@ The product should answer:
 2. Why is it appropriate, including safety and evidence?
 3. Where can the user buy it in Nigeria at the best recently verified price?
 
-Guidance must remain educational and pharmacist-curated, not diagnostic.
+Guidance must remain educational and evidence-gated, not diagnostic. Do not describe the whole catalogue or platform as pharmacist-curated.
+
+## Current deliberate catalogue rule (2026-07-22)
+
+Do not resume count-first expansion.
+
+- The 977 Open Beauty Facts records in `data/external-products.json` are checked-in research candidates, gated out of the public catalogue.
+- `data/external-product-approvals.json` is intentionally empty. Public external products require an explicit identity-, care-, market-, rights-, and asset-bound approval.
+- The 23 JeloCare browse profiles remain visible, but clinical matching is separate: 2 are `supportive_eligible`, 5 require pharmacist review, and 16 have insufficient data.
+- Search and concern filters may use only manifest-approved supportive-use terms for care matching. Marketing prose is not clinical evidence.
+- Product imagery is approved one exact SKU at a time. Background removal is an intermediate input; a raw cutout is never the final public aesthetic. Generation may create people, light, props, and sets, but never redraw branded packaging.
+- Retailer price evidence must contain the retailer-observed title and size. Catalogue expectations cannot manufacture those fields. Marketplace observations may remain visible while being excluded from lowest-price comparisons.
+
+Read `docs/CATALOGUE_PUBLICATION_GATE.md`, `docs/PRODUCT_IMAGE_WORKFLOW.md`, `docs/INGREDIENT_REVIEW.md`, and `data/product-care-review.ts` before catalogue or recommendation work.
 
 ---
 

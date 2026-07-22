@@ -4,7 +4,7 @@ import { Layers3 } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { concerns, concernBySlug } from '@/data/knowledge';
 import { ProductRail } from '@/components/products/product-grid';
-import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
 export const revalidate = 3600;
@@ -28,16 +28,17 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const concern = concernBySlug(slug);
   if (!concern) notFound();
-  const products = await listCatalogueProducts();
+  const products = await listRecommendationEligibleProducts();
   const matches = products.filter(product => productMatchesConcern(product, concern));
 
   return <main className="page-shell">
-    <header className="page-heading"><p className="eyebrow">{concern.area}</p><h1>{concern.name}</h1><p>{concern.summary}</p><Link className="concern-combine" href={`/concerns?concerns=${concern.slug}`}><Layers3 size={16} aria-hidden="true"/> Add another concern</Link></header>
+    <header className="page-heading"><p className="eyebrow">{concern.area} · {concern.kind === 'condition-pattern' ? 'Pattern guide' : 'Concern guide'}</p><h1>{concern.name}</h1><p>{concern.summary} Guidance, not a diagnosis.</p><Link className="concern-combine" href={`/concerns?concerns=${concern.slug}`}><Layers3 size={16} aria-hidden="true"/> Add another concern</Link></header>
     <section className="concern-detail-grid">
       <div className="concern-detail-panel"><p className="eyebrow">What it looks like</p><h2>Signs</h2><div className="concern-detail-chips">{concern.signals.map(item => <span key={item}>{item}</span>)}</div></div>
       <div className="concern-detail-panel"><p className="eyebrow">What may help</p><h2>Options</h2><div className="concern-detail-chips">{concern.ingredients.map(item => <span key={item}>{item}</span>)}</div></div>
       <div className="concern-detail-panel concern-help-panel"><p className="eyebrow">When to get help</p><h2>Pause here</h2><p className="concern-alert">{concern.escalation}</p></div>
     </section>
-    <section className="concern-matches"><p className="eyebrow">Products</p><div className="section-heading"><h2>For this concern.</h2></div><ProductRail products={matches}/></section>
+    <section className="concern-sources"><div><p className="eyebrow">Links checked {concern.reviewedAt}</p><h2>Sources.</h2></div><div>{concern.sources.map(source => <a href={source.url} target="_blank" rel="noreferrer" key={source.url}>{source.title}</a>)}</div></section>
+    <section className="concern-matches"><p className="eyebrow">Products</p><div className="section-heading"><h2>{matches.length ? 'Catalogue matches.' : 'Care first.'}</h2></div>{matches.length ? <ProductRail products={matches}/> : <p className="concern-no-match">No product shortlist for this pattern. Use the care path above.</p>}</section>
   </main>;
 }

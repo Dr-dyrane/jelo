@@ -5,6 +5,7 @@ export type RetailerExtraction = {
   priceMinor: number | null;
   currencyCode: string | null;
   productTitle?: string;
+  productSize?: string;
   canonicalUrl?: string;
   evidence: string[];
   confidence: number;
@@ -25,6 +26,17 @@ type ExtractionConfig = {
 };
 
 const PRICE_KEYS = ['price', 'lowPrice'] as const;
+const PRODUCT_SIZE_PATTERN = /\b\d+(?:[.,]\d+)?\s*(?:(?:fl(?:uid)?\.?\s*)?oz\.?|millilit(?:er|re)s?|ml|centilit(?:er|re)s?|cl|lit(?:er|re)s?|l|milligrams?|mg|kilograms?|kg|grams?|g)\b/gi;
+const STRUCTURED_UNIT_CODES: Record<string, string> = {
+  CLT: 'cl',
+  GRM: 'g',
+  KGM: 'kg',
+  LTR: 'l',
+  MGM: 'mg',
+  MLT: 'ml',
+  ONZ: 'oz',
+  OZA: 'fl oz',
+};
 
 function asObject(value: unknown): JsonObject | undefined {
   return value != null && typeof value === 'object' && !Array.isArray(value)
@@ -55,6 +67,52 @@ function decodeHtml(value: string) {
 
 function stripTags(value: string) {
   return decodeHtml(value.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '));
+}
+
+function sizeText(value: string) {
+  const matches = stripTags(value).match(PRODUCT_SIZE_PATTERN);
+  return matches?.map(match => match.replace(/\s+/g, ' ').trim()).join(' / ');
+}
+
+function quantitativeSize(value: unknown): string | undefined {
+  if (typeof value === 'string') return sizeText(value);
+  if (Array.isArray(value)) {
+    for (const candidate of value) {
+      const extracted = quantitativeSize(candidate);
+      if (extracted) return extracted;
+    }
+    return undefined;
+  }
+
+  const object = asObject(value);
+  if (!object) return undefined;
+  const amount = typeof object.value === 'number' || typeof object.value === 'string'
+    ? String(object.value).trim()
+    : undefined;
+  const rawUnit = typeof object.unitText === 'string'
+    ? object.unitText.trim()
+    : typeof object.unitCode === 'string'
+      ? (STRUCTURED_UNIT_CODES[object.unitCode.toUpperCase()] ?? object.unitCode.trim())
+      : undefined;
+  if (amount && rawUnit) return sizeText(`${amount} ${rawUnit}`);
+
+  return undefined;
+}
+
+function structuredProductSize(product?: JsonObject) {
+  if (!product) return undefined;
+  for (const candidate of [product.size, product.weight, product.netContent]) {
+    const extracted = quantitativeSize(candidate);
+    if (extracted) return extracted;
+  }
+
+  for (const property of valuesDeep(product.additionalProperty).map(asObject)) {
+    if (!property) continue;
+    const name = typeof property.name === 'string' ? property.name.toLowerCase() : '';
+    if (!/\b(?:size|weight|volume|net content)\b/.test(name)) continue;
+    const extracted = quantitativeSize(property.valueReference ?? property.value);
+    if (extracted) return extracted;
+  }
 }
 
 function attributes(tag: string) {
@@ -196,6 +254,9 @@ function extractDocument(input: { url: URL; html: string }, config?: ExtractionC
 
   const title = productTitle(input.html, structured?.product);
   if (title) evidence.push('Product title');
+  const structuredSize = structuredProductSize(structured?.product);
+  const observedSize = structuredSize ?? (title ? sizeText(title) : undefined);
+  if (observedSize) evidence.push(structuredSize ? 'JSON-LD Product size' : 'Product title size');
   const canonical = canonicalUrl(input.html, input.url);
   if (canonical) evidence.push('Canonical product URL');
 
@@ -204,6 +265,7 @@ function extractDocument(input: { url: URL; html: string }, config?: ExtractionC
   if (priceMinor != null) confidence += evidence.includes('JSON-LD Offer price') ? 25 : 18;
   if (inventoryStatus !== 'unknown') confidence += evidence.includes('JSON-LD Offer availability') ? 35 : 25;
   if (title) confidence += 5;
+  if (observedSize) confidence += 5;
   if (canonical) confidence += 5;
   if (priceMinor != null && inventoryStatus !== 'unknown') confidence += 5;
 
@@ -212,6 +274,7 @@ function extractDocument(input: { url: URL; html: string }, config?: ExtractionC
     priceMinor,
     currencyCode,
     productTitle: title,
+    productSize: observedSize,
     canonicalUrl: canonical,
     evidence,
     confidence: Math.min(confidence, 100),

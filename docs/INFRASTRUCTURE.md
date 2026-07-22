@@ -26,7 +26,7 @@ This document is the source of truth for provisioned platform services, environm
 
 Store purpose: public JeloCare catalogue and editorial assets.
 
-Expected paths:
+Expected Blob paths:
 
 ```text
 products/{brand-slug}/{product-slug}/packshot.webp
@@ -75,6 +75,37 @@ npm run assets:verify -- --write
 Production builds apply the metadata to durable `product_images` and `editorial_assets` rows after database migrations. Homepage editorial media is resolved from the checked-in manifest rather than duplicated URLs. Generated transparent assets remain editorial props; they are never presented as branded product packshots. Their checked-in generated files are runtime fallbacks for the matching editorial Blob, while a neutral JeloCare placeholder remains the last resort for a failed product packshot.
 
 CI runs `npm run assets:verify` against every product and editorial Blob. `/image-audit` independently probes all canonical binaries plus every generated editorial fallback in a real browser.
+
+### Community catalogue packshots
+
+The Open Beauty Facts image job is deliberately review-gated:
+
+```bash
+python -m venv .cache/rembg-venv
+.cache/rembg-venv/bin/pip install -r scripts/requirements-packshots.txt
+npm run catalogue:packshots:prepare
+npm run catalogue:packshots:select
+```
+
+`prepare` never generates or redraws package content. It limits treatment to alpha extraction, trimming, resampling, centring and WebP encoding on a transparent 1,000 × 1,000 canvas. Schema-v2 runs bind each output to the exact candidate, source preview, model weights, dependency versions and execution provider. Safe resume requires that complete fingerprint plus unchanged source/output hashes.
+
+`select` refuses an incomplete preparation run or a candidate/audit mismatch. The July 2026 schema-v1 preparation already in flight is compatible only after every current candidate resolves to an audit or recorded failure; the selector then recomputes source, identity and output hashes instead of trusting an early manifest. It prioritises source-photo-validated records within each eligibility tier, excludes quarantine and explicit rejects, and binds the resulting release to the candidate manifest, candidate metadata, source snapshot, complete audit, identity, source preview, output and pipeline provenance.
+
+An operator must inspect product identity, the full source view, the cutout and its edges for every selected item. `select` writes larger contact sheets, a zoomable `review.html`, and `review-template.json`. Rejected barcodes go in `.cache/catalogue-packshot-decisions.json`; rerunning `select` fills those slots from the reserve. Final decisions use schema 2, name the exact `releaseSha256`, reviewer and review time, and contain one approval signature per selected barcode. A global checkbox without all 977 matching signatures is not publishable.
+
+`npm run catalogue:packshots:validate` then rechecks the complete release binding, all 977 source-preview/output hashes, byte counts, dimensions and alpha channels without contacting Blob.
+
+After review:
+
+```bash
+vercel env pull .cache/vercel-production.env --environment=production
+node --env-file=.cache/vercel-production.env --import tsx scripts/publish-catalogue-packshots.ts
+node --env-file=.cache/vercel-production.env --import tsx scripts/seed-external-catalogue.ts
+```
+
+Publishing preflights all 977 records before the first upload, writes deterministic content-addressed Blob paths, reconstructs the manifest from the current reviewed selection, and refuses stale resumable progress. Before seeding, run `npm run catalogue:packshots:manifest:validate`; after upload, `npm run catalogue:packshots:remote:verify` checks every canonical Blob by bytes, SHA-256, dimensions, format and visible alpha.
+
+The seed refuses legacy mirrors or partial review metadata before opening a database connection. Its transaction supersedes the prior release, activates one immutable release record, writes all product-level source/review/processing provenance, and compares exact database barcode/image/release membership before commit.
 
 ## Neon PostgreSQL
 
@@ -142,7 +173,7 @@ The Vercel dashboard is authoritative for which environments receive each variab
 
 ## Current state and next stage
 
-- All published packshots use canonical Vercel Blob URLs in both the static fallback and Neon catalogue.
-- Product and generated editorial assets have durable metadata records and automated completeness checks.
-- `/image-audit` verifies every rendered packshot in a real browser.
+- The 23 JeloCare-reviewed products and editorial assets use canonical Blob URLs with automated checks.
+- The community catalogue remains on its legacy mirror until the identity-bound 977-packshot release passes preparation, per-item review, publication, remote verification and transactional activation.
+- `/image-audit` covers reviewed products and editorial assets. Community release verification is the dedicated manifest/remote gate above; a paged browser audit can be added without sending 977 records to one client view.
 - The next media stage is an authenticated Asset Manager with controlled imports and review history; public Blob write routes remain prohibited until authentication is deliberately introduced.

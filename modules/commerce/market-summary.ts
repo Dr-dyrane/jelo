@@ -1,6 +1,7 @@
 import type { Market } from '@/data/prices';
 import type { Offer } from '@/data/products';
 import { isOfferFresh } from './offer-freshness';
+import { comparableMarketPrice, hasListingEvidence } from './offer-evidence';
 
 export type MarketSummary = {
   market: Market;
@@ -13,14 +14,11 @@ export type MarketSummary = {
   savingsVsTypical: number | null;
   lastCheckedAt: string | null;
   confidence: number;
+  priceBasis: 'none' | 'single-source' | 'multi-source';
 };
 
 function servesMarket(offer: Offer, market: Market) {
   return offer.location.includes(market) || offer.location.includes('INTL');
-}
-
-function marketPrice(offer: Offer, market: Market) {
-  return market === 'NG' ? offer.priceNgn : offer.priceUsd;
 }
 
 function median(values: number[], market: Market) {
@@ -31,18 +29,22 @@ function median(values: number[], market: Market) {
 }
 
 export function summarizeMarket(offers: Offer[], market: Market, now: number | Date = Date.now()): MarketSummary {
-  const exact = offers.filter(offer => offer.match !== 'search' && servesMarket(offer, market) && isOfferFresh(offer, now));
+  const exact = offers.filter(offer => offer.match !== 'search'
+    && servesMarket(offer, market)
+    && hasListingEvidence(offer)
+    && isOfferFresh(offer, now));
   const inStock = exact.filter(offer => offer.available);
   const priced = inStock
-    .map(offer => ({ offer, price: marketPrice(offer, market) }))
-    .filter((entry): entry is { offer: Offer; price: number } => entry.price != null && entry.price > 0)
+    .map(offer => ({ offer, price: comparableMarketPrice(offer, market, now) }))
+    .filter((entry): entry is { offer: Offer; price: number } => entry.price != null)
     .sort((a, b) => a.price - b.price);
   const values = priced.map(entry => entry.price);
   const lowestPrice = values[0] ?? null;
-  const typicalPrice = median(values, market);
-  const highestPrice = values.at(-1) ?? null;
+  const priceBasis = values.length === 0 ? 'none' : values.length === 1 ? 'single-source' : 'multi-source';
+  const typicalPrice = priceBasis === 'multi-source' ? median(values, market) : null;
+  const highestPrice = priceBasis === 'multi-source' ? values.at(-1) ?? null : null;
   const checked = exact
-    .map(offer => offer.checkedAt)
+    .map(offer => offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt)
     .filter((value): value is string => Boolean(value))
     .sort((a, b) => Date.parse(b) - Date.parse(a));
   const averageTrust = exact.length
@@ -67,5 +69,6 @@ export function summarizeMarket(offers: Offer[], market: Market, now: number | D
       : null,
     lastCheckedAt: checked[0] ?? null,
     confidence: Math.min(confidence, 100),
+    priceBasis,
   };
 }

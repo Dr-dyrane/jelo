@@ -12,6 +12,20 @@
     "transparent": false
   },
   {
+    "id": "morning-care-lagos",
+    "role": "homepage-story",
+    "localPath": "/editorial/people/morning-care-lagos-v1.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/people/morning-care-lagos-v1.webp",
+    "altText": "Two Nigerian friends sharing a quiet morning skincare moment in warm peach light",
+    "mimeType": "image/webp",
+    "width": 1760,
+    "height": 880,
+    "byteSize": 128620,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "d076cf981b769b6d4facf0312145ea6332a8861602cd431aaec6e3c938812d3a"
+  },
+  {
     "id": "barrier-care-cutout",
     "role": "concern-cutout",
     "localPath": "/editorial/cutouts/barrier-care.png",
@@ -70,5 +84,61 @@
     "height": 664,
     "byteSize": 140587,
     "transparent": true
+  },
+  {
+    "id": "catalogue-hero",
+    "role": "catalogue-hero",
+    "localPath": "/editorial/catalogue/catalogue-hero.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/catalogue/catalogue-hero.webp",
+    "altText": "Woman with short natural hair touching her cheek against a peach backdrop",
+    "mimeType": "image/webp",
+    "width": 1600,
+    "height": 900,
+    "byteSize": 72196,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "497d5af91ae817ae94732eb87a9b1a80f52ec0e61147283ee795813a935f20d4"
+  },
+  {
+    "id": "catalogue-scalp-story",
+    "role": "catalogue-story",
+    "localPath": "/editorial/catalogue/scalp-care.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/catalogue/scalp-care.webp",
+    "altText": "Man with natural hair touching his scalp in soft peach light",
+    "mimeType": "image/webp",
+    "width": 1200,
+    "height": 900,
+    "byteSize": 71518,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "81c75381d7afa1b2da3ab164a91492100a737e25279c3f521d3fe738ba7fda79"
+  },
+  {
+    "id": "catalogue-age-story",
+    "role": "catalogue-story",
+    "localPath": "/editorial/catalogue/age-positive-care.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/catalogue/age-positive-care.webp",
+    "altText": "Older woman with silver braids touching her cheek in soft peach light",
+    "mimeType": "image/webp",
+    "width": 1200,
+    "height": 900,
+    "byteSize": 72632,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "366baf3fa17573d658af833e50dbe4e256bc5f0f7ea3b6bf3cbfadf8afab14ea"
+  },
+  {
+    "id": "catalogue-all-skin-story",
+    "role": "catalogue-story",
+    "localPath": "/editorial/catalogue/all-skin.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/catalogue/all-skin.webp",
+    "altText": "Person with short natural curls and varied skin pigmentation in soft pink light",
+    "mimeType": "image/webp",
+    "width": 1200,
+    "height": 900,
+    "byteSize": 51834,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "76ceee9b6d9693c3e4c7e19706e5e725ed85e12e40c68fd3bc5a35f03e34f9b5"
   }
 ]

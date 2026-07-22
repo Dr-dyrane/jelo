@@ -1,0 +1,129 @@
+.hero {
+  color: var(--ink);
+  background-position: center;
+}
+
+.heroShade {
+  background: linear-gradient(90deg, rgba(255, 248, 244, .96) 0%, rgba(255, 244, 240, .74) 37%, rgba(255, 244, 240, .08) 67%, rgba(255, 244, 240, .12) 100%);
+}
+
+.hero h1 {
+  color: var(--ink);
+}
+
+.heroKicker {
+  color: var(--wine);
+}
+
+.heroDeck {
+  color: rgba(45, 33, 31, .72);
+}
+
+.hero .heroPrimary {
+  background: var(--ink);
+  color: #fff;
+}
+
+.hero .heroSecondary {
+  background: rgba(255, 253, 249, .58);
+  color: var(--ink);
+}
+
+.heroFeature {
+  background: rgba(255, 250, 247, .58);
+  color: var(--ink);
+}
+
+.heroFeature span,
+.heroFeature small {
+  color: rgba(45, 33, 31, .62);
+}
+
+.heroMeta span {
+  background: rgba(255, 253, 249, .5);
+  color: rgba(45, 33, 31, .72);
+}
+
+.story {
+  grid-template-columns: 1.18fr .82fr;
+  background: linear-gradient(145deg, #f9eee9, #f3dce2);
+  color: var(--ink);
+}
+
+.visual {
+  min-height: 42rem;
+  display: block;
+  background: #edc9c0;
+}
+
+.visual::after {
+  display: none;
+}
+
+.visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  mix-blend-mode: normal;
+  filter: none;
+  transform: scale(1.002);
+  transition: transform .5s ease;
+}
+
+.story:hover .visual img {
+  transform: scale(1.018);
+}
+
+.copy p:not(:first-child) {
+  color: var(--muted);
+}
+
+.link {
+  background: var(--ink);
+  color: #fff;
+}
+
+.formulaList {
+  gap: .55rem;
+}
+
+.formulaList > a {
+  padding: 1rem;
+  border-bottom: 0;
+  border-radius: 1.35rem;
+  background: rgba(255, 253, 249, .52);
+}
+
+@media (max-width: 1000px) {
+  .story {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    background-position: 66% center;
+  }
+
+  .heroShade {
+    background: linear-gradient(180deg, rgba(255, 246, 242, .06) 0%, rgba(255, 246, 242, .08) 42%, rgba(255, 242, 238, .96) 100%);
+  }
+
+  .visual {
+    min-height: 25rem;
+  }
+
+  .visual img {
+    height: 100%;
+    object-position: 62% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual img,
+  .story:hover .visual img {
+    transform: none;
+    transition: none;
+  }
+}

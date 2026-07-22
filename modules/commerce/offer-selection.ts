@@ -1,5 +1,11 @@
 import type { Offer } from '@/data/products';
 import { isOfferFresh } from './offer-freshness';
+import {
+  comparableMarketPrice,
+  hasBrandAuthorizationEvidence,
+  hasListingEvidence,
+  hasSellerIdentityEvidence,
+} from './offer-evidence';
 
 export type RankedOffer = Offer & {
   score: number;
@@ -13,13 +19,24 @@ export function rankOffers(offers: Offer[], country: string, now: number | Date 
       let score = offer.trust;
       const fresh = isOfferFresh(offer, now);
 
+      if (offer.retailerEvidence?.reviewStatus === 'provisional') {
+        score -= 20;
+        reasons.push('Provisional source');
+      }
+
       if (offer.match === 'search') {
         score -= 50;
         reasons.push('Search route only');
-      } else {
+      } else if (hasListingEvidence(offer)) {
         score += 12;
-        reasons.push('Exact product route');
+        reasons.push('Exact listing checked');
+      } else {
+        score -= 10;
+        reasons.push('Listing not checked');
       }
+
+      if (hasSellerIdentityEvidence(offer)) reasons.push('Seller identity checked');
+      if (hasBrandAuthorizationEvidence(offer)) reasons.push('Brand authorization evidenced');
 
       if (offer.location.includes(country)) {
         score += 20;
@@ -42,8 +59,10 @@ export function rankOffers(offers: Offer[], country: string, now: number | Date 
         reasons.push('Stock needs confirmation');
       }
 
-      const marketPrice = country === 'US' ? offer.priceUsd : offer.priceNgn;
-      if (marketPrice && fresh) {
+      const marketPrice = country === 'US'
+        ? comparableMarketPrice(offer, 'US', now)
+        : comparableMarketPrice(offer, 'NG', now);
+      if (marketPrice != null && fresh) {
         const priceWeight = country === 'US' ? marketPrice / 10 : marketPrice / 10000;
         score += Math.max(0, 16 - priceWeight);
         reasons.push('Price considered');

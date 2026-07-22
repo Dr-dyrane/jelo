@@ -1,0 +1,42 @@
+{
+  "source": "Open Beauty Facts",
+  "sourcePage": "https://world.openbeautyfacts.org/data",
+  "sourceSnapshotUrl": "https://static.openbeautyfacts.org/data/openbeautyfacts-products.jsonl.gz",
+  "sourceSnapshotFilename": "openbeautyfacts-products.jsonl.gz",
+  "sourceSnapshotSha256": "908aa9b48ea04cf5f81833fe3e63076010e5dac9ec1827a3962284238edeb5de",
+  "sourceRetrievedAt": "2026-07-22T05:08:40.753Z",
+  "requestedPublishedCount": 977,
+  "reserveCount": 180,
+  "scannedCount": 67161,
+  "acceptedCount": 3706,
+  "candidateCount": 1157,
+  "rejected": {
+    "barcode": 1669,
+    "completion-state": 1104,
+    "front-image": 6092,
+    "identity": 32181,
+    "quality-state": 5,
+    "quantity": 12751,
+    "stale": 1055,
+    "taxonomy": 8598
+  },
+  "databaseLicense": "ODbL 1.0",
+  "contentLicense": "Database Contents License 1.0",
+  "imageLicense": "CC BY-SA 3.0",
+  "reviewedCount": 23,
+  "communitySourcedCount": 977,
+  "publicCatalogueCount": 1000,
+  "mirroredImageCount": 977,
+  "mirrorFailureCount": 26,
+  "sourcePhotoValidatedCount": 223,
+  "sourceIngredientsCompleteCount": 965,
+  "categoryCounts": {
+    "Body care": 327,
+    "Face care": 142,
+    "Fragrance": 30,
+    "Hair & scalp": 252,
+    "Makeup": 41,
+    "Personal care": 185
+  },
+  "generatedAt": "2026-07-22T05:11:42.054Z"
+}

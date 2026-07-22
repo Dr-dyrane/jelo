@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import type { Market } from '@/data/prices';
 import type { Offer, Product } from '@/data/products';
+import { landedCostCaveat, observedMarketPrice } from '@/modules/commerce/offer-evidence';
 import { currentPricedOfferCount, searchResultOffers } from '@/modules/commerce/search-result-offers';
 import { SafeProductImage } from './safe-product-image';
 import styles from './product-search-results.module.css';
@@ -12,9 +13,9 @@ const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN
 const dollars = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
 
 function price(offer: Offer, market: Market) {
-  const amount = market === 'NG' ? offer.priceNgn : offer.priceUsd;
   if (!offer.available) return 'Out of stock';
-  if (typeof amount !== 'number' || amount <= 0) return 'Check price';
+  const amount = observedMarketPrice(offer, market);
+  if (amount == null) return 'Check price';
   return market === 'NG' ? naira.format(amount) : dollars.format(amount);
 }
 
@@ -55,10 +56,10 @@ export function ProductSearchResults({ products, market }: { products: Product[]
                 <strong>{priced ? `${priced} ${priced === 1 ? 'price' : 'prices'}` : offers.length ? `${offers.length} ${offers.length === 1 ? 'store' : 'stores'}` : 'No current offers'}</strong>
               </div>
               {offers.length ? <div className={styles.offerList}>{offers.map(offer => {
-                const checkedAt = checked(offer.checkedAt);
+                const checkedAt = checked(offer.priceObservation?.observedAt ?? offer.checkedAt);
                 return (
                   <a href={`/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}`} key={`${offer.retailer}-${offer.url}`}>
-                    <span><strong>{offer.retailer}</strong><small>{checkedAt ? `Checked ${checkedAt}` : 'Current check'}</small></span>
+                    <span><strong>{offer.retailer}</strong><small>{checkedAt ? `Observed ${checkedAt} · ${landedCostCaveat(offer)}` : 'Check listing'}</small>{offer.priceComparison === 'exclude' ? <small>Marketplace price · not compared</small> : null}</span>
                     <span className={styles.offerPrice}>{price(offer, market)}<ArrowUpRight size={15}/></span>
                   </a>
                 );

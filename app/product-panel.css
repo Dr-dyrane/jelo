@@ -44,6 +44,21 @@
   backdrop-filter: blur(12px) saturate(115%);
 }
 
+.product-panel-dialog[data-fallback-modal="true"] {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 1000;
+}
+
+.product-panel-dialog[data-fallback-modal="true"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(45, 33, 31, .3);
+  backdrop-filter: blur(12px) saturate(115%);
+}
+
 .product-panel-dialog[open] { animation: product-panel-in .26s cubic-bezier(.2, .75, .25, 1); }
 
 .product-panel-frame {
@@ -143,16 +158,17 @@
 .product-panel-buy .retailer-list { min-width: 0; width: 100%; }
 .product-panel-buy .affiliate-note { margin-bottom: 0; }
 
-.product-panel-stores { display: grid; }
+.product-panel-stores { display: grid; gap: .5rem; }
 .product-panel-stores a {
   min-height: 4.4rem;
-  padding: .9rem .2rem;
+  padding: .9rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  border-radius: 1.15rem;
+  background: rgba(255, 253, 249, .58);
 }
-.product-panel-stores a + a { box-shadow: inset 0 1px rgba(107, 59, 53, .09); }
 .product-panel-stores a > svg { color: var(--wine); }
 .product-panel-stores strong,
 .product-panel-stores small { display: block; }
@@ -165,9 +181,8 @@
 .product-panel-chips { margin-top: .85rem; display: flex; flex-wrap: wrap; gap: .5rem; }
 .product-panel-chips span,
 .product-panel-chips a { padding: .62rem .78rem; display: inline-flex; align-items: center; gap: .3rem; border-radius: 999px; background: rgba(255, 253, 249, .76); font-size: .7rem; }
-.product-panel-routine { margin-top: .6rem; display: grid; }
-.product-panel-routine > div { min-height: 4.6rem; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: .8rem; align-items: center; }
-.product-panel-routine > div + div { box-shadow: inset 0 1px rgba(107, 59, 53, .09); }
+.product-panel-routine { margin-top: .75rem; display: grid; gap: .5rem; }
+.product-panel-routine > div { min-height: 4.6rem; padding: .75rem .9rem; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: .8rem; align-items: center; border-radius: 1.1rem; background: rgba(255, 253, 249, .5); }
 .product-panel-routine > div > span { font-family: var(--font-display), serif; font-size: 1.7rem; color: var(--rose); }
 .product-panel-routine p { margin: 0; }
 .product-panel-routine strong,

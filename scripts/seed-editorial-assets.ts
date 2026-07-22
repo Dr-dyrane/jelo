@@ -13,6 +13,8 @@ type EditorialAsset = {
   height: number;
   byteSize: number;
   transparent: boolean;
+  sourceKind?: 'generated' | 'licensed' | 'owned';
+  contentHash?: string;
 };
 
 async function main() {
@@ -35,7 +37,7 @@ async function main() {
         ) values (
           ${asset.id}, ${asset.role}, ${asset.blobUrl}, ${asset.localPath},
           ${asset.altText}, ${asset.mimeType}, ${asset.width}, ${asset.height},
-          ${asset.byteSize}, ${asset.transparent}, 'generated', 'verified', now()
+          ${asset.byteSize}, ${asset.transparent}, ${asset.sourceKind ?? 'generated'}, 'verified', now()
         )
         on conflict (id) do update set
           role = excluded.role,

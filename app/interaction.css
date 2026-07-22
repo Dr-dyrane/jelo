@@ -17,18 +17,13 @@ body,
   gap: .35rem;
 }
 
-.profile-disclosure[open] summary,
-.profile-disclosure[open] .profile-grid {
-  width: min(34rem, calc(100vw - 2rem));
-}
-
 body { font-weight: 400; }
 .eyebrow { font-weight: 600; }
 .text-link,
 .section-heading .text-link { font-weight: 600; }
 .product-visual > span { font-weight: 600 !important; }
 .retailer-row strong,
-.profile-disclosure summary,
+.profile-trigger,
 .profile-grid label { font-weight: 600; }
 .prompt-row button { font-weight: 400; }
 .consult-form button { font-weight: 500; }

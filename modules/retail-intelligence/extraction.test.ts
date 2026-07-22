@@ -2,11 +2,19 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { extractRetailerPage } from './extraction';
 
-function productPage(options: { price?: string; currency?: string; availability?: string; stockClass?: string; stockText?: string } = {}) {
+function productPage(options: {
+  price?: string;
+  currency?: string;
+  availability?: string;
+  stockClass?: string;
+  stockText?: string;
+  name?: string;
+  size?: string;
+} = {}) {
   const offer = options.price ? `"offers":{"@type":"Offer","price":"${options.price}","priceCurrency":"${options.currency ?? 'NGN'}"${options.availability ? `,"availability":"https://schema.org/${options.availability}"` : ''}}` : '';
   return `<!doctype html><html><head>
     <link rel="canonical" href="https://teeka4.com/shop/example/?utm_source=test">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Example Serum"${offer ? `,${offer}` : ''}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"${options.name ?? 'Example Serum'}"${options.size ? `,"size":"${options.size}"` : ''}${offer ? `,${offer}` : ''}}</script>
   </head><body>
     ${options.stockClass ? `<p class="stock ${options.stockClass}">${options.stockText ?? ''}</p>` : ''}
   </body></html>`;
@@ -76,4 +84,41 @@ test('reads a nested unit price specification', () => {
 
   assert.equal(result.extraction.priceMinor, 17_500);
   assert.equal(result.extraction.currencyCode, 'NGN');
+});
+
+test('extracts actual product size from structured data', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://teeka4.com/shop/example/'),
+    html: productPage({ name: 'Example Serum', size: '30 ml' }),
+  });
+
+  assert.equal(result.extraction.productSize, '30 ml');
+  assert.ok(result.extraction.evidence.includes('JSON-LD Product size'));
+});
+
+test('extracts a structured quantitative weight with its unit', () => {
+  const html = '<script type="application/ld+json">{"@type":"Product","name":"Example Cleanser","weight":{"@type":"QuantitativeValue","value":226,"unitCode":"GRM"}}</script>';
+  const result = extractRetailerPage({ url: new URL('https://luxbeautyng.com/product/example/'), html });
+
+  assert.equal(result.extraction.productSize, '226 g');
+  assert.ok(result.extraction.evidence.includes('JSON-LD Product size'));
+});
+
+test('falls back to a measurable size in the observed product title', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://teeka4.com/shop/example/'),
+    html: productPage({ name: 'Example Serum 1.7 fl oz / 50 ml' }),
+  });
+
+  assert.equal(result.extraction.productSize, '1.7 fl oz / 50 ml');
+  assert.ok(result.extraction.evidence.includes('Product title size'));
+});
+
+test('does not manufacture a product size when the retailer omits it', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://teeka4.com/shop/example/'),
+    html: productPage({ name: 'Example Serum' }),
+  });
+
+  assert.equal(result.extraction.productSize, undefined);
 });

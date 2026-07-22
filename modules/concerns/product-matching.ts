@@ -1,7 +1,8 @@
 import type { Concern } from '@/data/knowledge';
 import type { Product } from '@/data/products';
+import { getReviewedProductCare } from '@/data/product-care-review';
 
-export type ConcernProduct = Pick<Product, 'slug' | 'category' | 'concerns'>;
+export type ConcernProduct = Pick<Product, 'slug' | 'category'>;
 
 function areaMatches(product: ConcernProduct, concern: Concern) {
   if (concern.area === 'Face') return product.category === 'Face';
@@ -10,8 +11,10 @@ function areaMatches(product: ConcernProduct, concern: Concern) {
 }
 
 export function productMatchesConcern(product: ConcernProduct, concern: Concern) {
-  return areaMatches(product, concern)
-    && concern.productTerms.some(term => product.concerns.includes(term));
+  const review = getReviewedProductCare(product.slug);
+  if (!review || review.careState !== 'supportive_eligible') return false;
+  const approvedConcernSlugs = new Set(review.approvedUses.flatMap(use => use.concernSlugs ?? []));
+  return areaMatches(product, concern) && approvedConcernSlugs.has(concern.slug);
 }
 
 export function rankProductsForConcerns<T extends ConcernProduct>(products: T[], allConcerns: Concern[], selectedSlugs: string[]) {

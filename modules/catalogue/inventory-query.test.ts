@@ -1,0 +1,181 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import test from 'node:test';
+import { products } from '@/data/catalogue';
+import { externalCatalogueCandidates, externalProducts } from '@/data/external-catalogue';
+import type { ReviewedProduct } from '@/data/products';
+import { queryInventoryRecords } from '@/lib/catalogue/inventory-query';
+
+function normalize(value: string) {
+  return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+test('returns only reviewed products and deliberately approved community records', () => {
+  const result = queryInventoryRecords(products);
+  const publicTotal = products.length + externalProducts.length;
+  assert.equal(result.total, publicTotal);
+  assert.equal(result.items.length, Math.min(24, publicTotal));
+  assert.equal(result.page, 1);
+  assert.equal(result.pageCount, Math.max(1, Math.ceil(publicTotal / 24)));
+  assert.equal(result.facets.reviewed, products.length);
+  assert.equal(result.facets.supportive, 2);
+  assert.equal(result.facets.community, externalProducts.length);
+  assert.equal(result.facets.categories.reduce((sum, facet) => sum + facet.count, 0), publicTotal);
+  assert.ok(result.items.slice(0, products.length).every(item => item.kind === 'reviewed'));
+});
+
+test('a private candidate barcode cannot leak into public search', () => {
+  const approved = new Set(externalProducts.map(product => product.barcode));
+  const privateCandidate = externalCatalogueCandidates.find(candidate => !approved.has(candidate.barcode));
+  assert.ok(privateCandidate);
+  const result = queryInventoryRecords(products, { q: privateCandidate.barcode });
+  assert.equal(result.total, 0);
+});
+
+test('normalizes punctuation without fuzzy clinical matching', () => {
+  const punctuation = queryInventoryRecords(products, { q: 'aha bha pha' });
+  assert.ok(punctuation.items.some(item => item.name.includes('AHA·BHA·PHA')));
+
+  const joined = queryInventoryRecords(products, { q: 'bright clear' });
+  assert.ok(joined.items.some(item => item.name === 'Bright + Clear Face Cream'));
+});
+
+test('indexes only manifest-approved supportive discovery terms', () => {
+  const unreviewedClaim = queryInventoryRecords(products, { q: 'barrier', review: 'reviewed' });
+  assert.equal(unreviewedClaim.total, 0);
+
+  const hydration = queryInventoryRecords(products, { q: 'dryness', review: 'reviewed' });
+  assert.deepEqual(hydration.items.map(item => item.id), ['reviewed:cosrx-advanced-snail-96-mucin-power-essence']);
+
+  const oiliness = queryInventoryRecords(products, { q: 'oiliness', review: 'reviewed' });
+  assert.deepEqual(oiliness.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
+});
+
+test('concern browsing fails closed to explicit approved concern slugs', () => {
+  const concern = queryInventoryRecords(products, { concern: 'acne-breakouts' });
+  assert.equal(concern.total, 0);
+
+  const approvedConcern = queryInventoryRecords(products, { concern: 'oily-congested-skin' });
+  assert.deepEqual(approvedConcern.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
+
+  const conditionPattern = queryInventoryRecords(products, { concern: 'hidradenitis-pattern' });
+  assert.equal(conditionPattern.total, 0);
+
+  const routine = queryInventoryRecords(products, { step: 'Protect' });
+  assert.equal(routine.total, products.length + externalProducts.length);
+  assert.equal(routine.filters.step, '');
+});
+
+test('supportive source filtering stays limited to reviewed eligible products', () => {
+  const result = queryInventoryRecords(products, { review: 'supportive' });
+  assert.deepEqual(result.items.map(item => item.id), [
+    'reviewed:cerave-foaming-facial-cleanser',
+    'reviewed:cosrx-advanced-snail-96-mucin-power-essence',
+  ]);
+  assert.ok(result.items.every(item => item.kind === 'reviewed' && item.careState === 'supportive_eligible'));
+});
+
+test('browse surfaces separate neutral records from supportive use', async () => {
+  const [home, productsPage, productCard] = await Promise.all([
+    readFile(path.join(process.cwd(), 'app/page.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'app/products/page.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'components/products/product-card.tsx'), 'utf8'),
+  ]);
+
+  assert.doesNotMatch(home, /product\.(?:bestFor|concerns|skinTypes|sensitiveFriendly|step|displayLine)/);
+  assert.match(home, /listRecommendationEligibleProducts/);
+  assert.match(home, /Key ingredients/);
+  assert.match(home, /A partial view/);
+  assert.match(home, /review=supportive/);
+  assert.match(productsPage, /JeloCare profiles<\/strong> are browse records with visible care status/);
+  assert.match(productsPage, /Supportive use<\/strong> is a separate, stricter review/);
+  assert.match(productsPage, /review: 'supportive'/);
+  assert.doesNotMatch(productsPage, /product\.(?:bestFor|concerns|skinTypes|sensitiveFriendly|step|displayLine)/);
+  assert.doesNotMatch(productCard, /\{product\.(?:step|displayLine)\}/);
+});
+
+test('applies combined facets and clamps invalid pages', () => {
+  const bodyCommunity = queryInventoryRecords(products, { category: 'Body care', review: 'community', page: '2' });
+  const approvedBody = externalProducts.filter(product => product.category === 'Body care').length;
+  assert.equal(bodyCommunity.total, approvedBody);
+  assert.equal(bodyCommunity.page, Math.min(2, Math.max(1, Math.ceil(approvedBody / 24))));
+  assert.ok(bodyCommunity.items.every(item => item.kind === 'community' && item.category === 'Body care'));
+
+  assert.equal(queryInventoryRecords(products, { page: 'not-a-page' }).page, 1);
+  const last = queryInventoryRecords(products, { page: '9999' });
+  assert.equal(last.page, last.pageCount);
+  const expectedLastPage = (products.length + externalProducts.length) % 24 || Math.min(24, products.length + externalProducts.length);
+  assert.equal(last.items.length, expectedLastPage);
+});
+
+test('filters by an exact normalized brand and exposes company facets', () => {
+  const result = queryInventoryRecords(products, { brand: 'cerave' });
+  assert.ok(result.total > 0);
+  assert.ok(result.items.every(item => normalize(item.brand) === 'cerave'));
+  assert.equal(result.filters.brand, 'CeraVe');
+  assert.ok(result.facets.brands.some(facet => facet.value === 'CeraVe' && facet.count >= result.total));
+
+  const missing = queryInventoryRecords(products, { brand: 'not a real brand' });
+  assert.equal(missing.total, products.length + externalProducts.length);
+  assert.equal(missing.filters.brand, '');
+});
+
+test('ignores unknown shared concern and routine filters instead of hiding records', () => {
+  const concern = queryInventoryRecords(products, { concern: 'not-a-real-concern' });
+  assert.equal(concern.total, products.length + externalProducts.length);
+  assert.equal(concern.filters.concern, '');
+
+  const routine = queryInventoryRecords(products, { step: 'not-a-real-step' });
+  assert.equal(routine.total, products.length + externalProducts.length);
+  assert.equal(routine.filters.step, '');
+});
+
+test('uses only fresh exact offers for market and price filters', () => {
+  const base = products[0] as ReviewedProduct;
+  const today = new Date().toISOString();
+  const fixture = (slug: string, offers: ReviewedProduct['offers'], observedAt = today): ReviewedProduct => ({
+    ...base,
+    slug,
+    brand: 'Price Test',
+    name: slug,
+    offers: offers.map(offer => ({
+      ...offer,
+      listingEvidence: { observedAt, sourceUrl: offer.url, basis: 'retailer-page' },
+      priceObservation: {
+        observedAt,
+        variant: `${slug} observed listing`,
+        size: base.size,
+        stock: offer.available ? 'in-stock' : 'out-of-stock',
+        landedCost: 'unknown',
+      },
+    })),
+  });
+  const exactNg = fixture('fresh-ng', [{
+    retailer: 'Exact NG', url: 'https://example.com/exact-ng', trust: 90, available: true,
+    priceNgn: 9_500, checkedAt: today, match: 'exact', location: ['NG'],
+  }]);
+  const searchNg = fixture('search-ng', [{
+    retailer: 'Search NG', url: 'https://example.com/search-ng', trust: 90, available: true,
+    priceNgn: 8_000, checkedAt: today, match: 'search', location: ['NG'],
+  }]);
+  const staleNg = fixture('stale-ng', [{
+    retailer: 'Stale NG', url: 'https://example.com/stale-ng', trust: 90, available: true,
+    priceNgn: 7_000, checkedAt: '2020-01-01', match: 'exact', location: ['NG'],
+  }], '2020-01-01T00:00:00.000Z');
+  const exactUs = fixture('fresh-us', [{
+    retailer: 'Exact US', url: 'https://example.com/exact-us', trust: 90, available: true,
+    priceUsd: 20, checkedAt: today, match: 'exact', location: ['US'],
+  }]);
+  const fixtures = [exactNg, searchNg, staleNg, exactUs];
+
+  const ng = queryInventoryRecords(fixtures, { review: 'reviewed', availability: 'priced', market: 'NG' });
+  assert.deepEqual(ng.items.map(item => item.id), ['reviewed:fresh-ng']);
+  assert.equal(ng.facets.priced, 1);
+  assert.equal(queryInventoryRecords(fixtures, { review: 'reviewed', price: 'low', market: 'NG' }).total, 1);
+  assert.equal(queryInventoryRecords(fixtures, { review: 'reviewed', price: 'mid', market: 'NG' }).total, 0);
+
+  const us = queryInventoryRecords(fixtures, { review: 'reviewed', availability: 'priced', price: 'mid', market: 'US' });
+  assert.deepEqual(us.items.map(item => item.id), ['reviewed:fresh-us']);
+  assert.equal(us.facets.priced, 1);
+});

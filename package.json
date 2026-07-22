@@ -24,7 +24,17 @@
     "inventory:queue": "tsx scripts/queue-inventory-refresh.ts",
     "inventory:work": "tsx scripts/process-inventory-refresh.ts",
     "db:migrate": "tsx scripts/migrate-database.ts",
-    "db:seed": "tsx scripts/seed-catalogue.ts"
+    "db:seed": "tsx scripts/seed-catalogue.ts",
+    "db:seed:external": "tsx scripts/seed-external-catalogue.ts",
+    "catalogue:source": "tsx scripts/import-open-beauty-facts.ts",
+    "catalogue:mirror": "tsx scripts/mirror-open-beauty-facts-images.ts",
+    "catalogue:images:audit": "tsx scripts/audit-catalogue-image-quality.ts",
+    "catalogue:packshots:prepare": "OMP_NUM_THREADS=1 U2NET_HOME=.cache/rembg-models .cache/rembg-venv/bin/python scripts/prepare-catalogue-packshots.py --output .cache/catalogue-packshots --model isnet-general-use --provider cpu --workers 8 --resume",
+    "catalogue:packshots:select": ".cache/rembg-venv/bin/python scripts/select-catalogue-packshots.py",
+    "catalogue:packshots:validate": "tsx scripts/publish-catalogue-packshots.ts --validate-only",
+    "catalogue:packshots:publish": "tsx scripts/publish-catalogue-packshots.ts",
+    "catalogue:packshots:manifest:validate": "tsx scripts/validate-external-packshot-manifest.ts",
+    "catalogue:packshots:remote:verify": "tsx scripts/validate-external-packshot-manifest.ts --remote"
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.221",

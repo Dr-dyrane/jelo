@@ -6,24 +6,26 @@ import { SafeProductImage } from '@/components/products/safe-product-image';
 import { products as curatedCatalogue } from '@/data/catalogue';
 import { editorialAsset } from '@/data/editorial';
 import { marketSignals } from '@/data/market-signals';
+import { getReviewedProductCare } from '@/data/product-care-review';
 import type { Product } from '@/data/products';
-import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
 import { hasVerifiedNigeriaOffer, orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
 import styles from './home.module.css';
+import editorialStyles from './home-editorial.module.css';
 
 export const revalidate = 3600;
 
-const heroAsset = editorialAsset('barrier-edit-hero');
+const heroAsset = editorialAsset('morning-care-lagos');
 
 const concernCards = [
-  { label: 'Barrier care', query: 'barrier', asset: editorialAsset('barrier-care-cutout') },
-  { label: 'Clear skin', query: 'acne', asset: editorialAsset('clearer-skin-cutout') },
-  { label: 'Even tone', query: 'hyperpigmentation', asset: editorialAsset('even-tone-cutout') },
-  { label: 'Daily SPF', query: 'sunscreen', asset: editorialAsset('daily-protection-cutout') },
-  { label: 'Sensitive skin', query: 'sensitivity', asset: editorialAsset('sensitive-skin-cutout') },
+  { label: 'Barrier guide', href: '/concerns/sensitive-barrier', asset: editorialAsset('barrier-care-cutout') },
+  { label: 'Breakout guide', href: '/concerns/acne-breakouts', asset: editorialAsset('clearer-skin-cutout') },
+  { label: 'Dark spot guide', href: '/concerns/dark-spots', asset: editorialAsset('even-tone-cutout') },
+  { label: 'Scalp guide', href: '/concerns/dandruff-itchy-scalp', asset: editorialAsset('daily-protection-cutout') },
+  { label: 'Hair guide', href: '/concerns/dry-frizzy-hair', asset: editorialAsset('sensitive-skin-cutout') },
 ];
 
-const barrierAsset = editorialAsset('barrier-care-cutout');
+const storyAsset = editorialAsset('catalogue-all-skin-story');
 const protectionAsset = editorialAsset('daily-protection-cutout');
 
 function DiscoveryRail({ kicker, title, products: railProducts, href = '/products' }: {
@@ -46,15 +48,16 @@ function DiscoveryRail({ kicker, title, products: railProducts, href = '/product
 }
 
 export default async function HomePage() {
-  const liveCatalogue = await listCatalogueProducts();
+  const [liveCatalogue, eligibleProducts] = await Promise.all([
+    listCatalogueProducts(),
+    listRecommendationEligibleProducts(),
+  ]);
   const products = orderByCuratedSlugs(liveCatalogue, curatedCatalogue.map(product => product.slug));
-  const recommendations = products.filter(product => product.sensitiveFriendly).slice(0, 3);
+  const supportiveProducts = orderByCuratedSlugs(eligibleProducts, curatedCatalogue.map(product => product.slug));
   const editorsEdit = products.slice(0, 12);
   const newAndNoteworthy = products.slice(12, 24).length ? products.slice(12, 24) : products.slice(0, 12);
-  const evidenceLed = products.filter(product => product.evidence === 'high');
-  const acneCare = products.filter(product => product.concerns.some(concern => ['acne', 'blackheads', 'whiteheads', 'breakouts', 'body acne'].includes(concern)));
-  const toneAndProtection = products.filter(product => product.step === 'Protect' || product.concerns.some(concern => ['hyperpigmentation', 'dark spots'].includes(concern)));
-  const barrierCare = products.filter(product => product.concerns.some(concern => ['barrier', 'dryness', 'sensitivity'].includes(concern)));
+  const sourceChecked = products.filter(product => product.verifiedIngredientIds?.length);
+  const faceCare = products.filter(product => product.category === 'Face');
   const kBeauty = products.filter(product => ['COSRX', 'ANUA', 'SOME BY MI', 'B.LAB'].includes(product.brand));
   const nigeriaReady = products.filter(hasVerifiedNigeriaOffer);
   const hairCare = products.filter(product => product.category === 'Hair');
@@ -62,28 +65,28 @@ export default async function HomePage() {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero} style={{ backgroundImage: `url("${heroAsset.blobUrl}"), url("${heroAsset.localPath}")` }}>
-        <div className={styles.heroShade} />
+      <section className={`${styles.hero} ${editorialStyles.hero}`} style={{ backgroundImage: `url("${heroAsset.blobUrl}"), url("${heroAsset.localPath}")` }}>
+        <div className={`${styles.heroShade} ${editorialStyles.heroShade}`} />
         <div className={styles.heroCopy}>
-          <p className={styles.heroKicker}>The barrier edit</p>
+          <p className={`${styles.heroKicker} ${editorialStyles.heroKicker}`}>JeloCare</p>
           <h1>Skin, beautifully understood.</h1>
-          <p className={styles.heroDeck}>Pharmacist-curated skincare.</p>
+          <p className={`${styles.heroDeck} ${editorialStyles.heroDeck}`}>Products. Prices. Clear context.</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/products?q=barrier">Explore the edit</Link>
-            <Link className={styles.secondary} href="/consult">Ask JeloCare</Link>
+            <Link className={`${styles.primary} ${editorialStyles.heroPrimary}`} href="/products">Browse products</Link>
+            <Link className={`${styles.secondary} ${editorialStyles.heroSecondary}`} href="/consult">Ask JeloCare</Link>
           </div>
         </div>
 
-        <div className={`${styles.glassCard} ${styles.glassFeature}`}>
+        <div className={`${styles.glassCard} ${styles.glassFeature} ${editorialStyles.heroFeature}`}>
           <span>JeloCare</span>
-          <strong>Barrier care.</strong>
-          <small>Comfort first</small>
+          <strong>For every skin.</strong>
+          <small>Clear context</small>
         </div>
 
-        <div className={styles.heroMeta}>
-          <span>Soothes</span>
-          <span>Repairs</span>
-          <span>Protects</span>
+        <div className={`${styles.heroMeta} ${editorialStyles.heroMeta}`}>
+          <span>Face</span>
+          <span>Hair</span>
+          <span>Body</span>
         </div>
       </section>
 
@@ -94,7 +97,7 @@ export default async function HomePage() {
         </div>
         <div className={styles.categoryGrid}>
           {concernCards.map((card, index) => (
-            <Link className={styles.category} href={`/products?q=${encodeURIComponent(card.query)}`} key={card.label}>
+            <Link className={styles.category} href={card.href} key={card.label}>
               <small>0{index + 1}</small>
               <SafeEditorialImage asset={card.asset} alt={card.asset.altText} sizes="(max-width: 700px) 70vw, (max-width: 1000px) 30vw, 18vw" loading={index === 0 ? 'eager' : 'lazy'} />
               <div><span>{card.label}</span></div>
@@ -103,48 +106,48 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={`${styles.story} editorial-story`}>
-        <div className={`${styles.storyVisual} editorial-story-visual`}><SafeEditorialImage asset={barrierAsset} alt={barrierAsset.altText} sizes="(max-width: 1000px) 92vw, 46vw" /></div>
-        <div className={`${styles.storyCopy} editorial-story-copy`}>
-          <p className={styles.kicker}>This week&apos;s story</p>
-          <h2>Back to comfort.</h2>
-          <Link className={styles.storyLink} href="/products?q=barrier">Explore barrier care</Link>
+      <section className={`${styles.story} ${editorialStyles.story} editorial-story`}>
+        <div className={`${styles.storyVisual} ${editorialStyles.visual} editorial-story-visual`}><SafeEditorialImage asset={storyAsset} alt={storyAsset.altText} sizes="(max-width: 1000px) 92vw, 58vw" /></div>
+        <div className={`${styles.storyCopy} ${editorialStyles.copy} editorial-story-copy`}>
+          <p className={styles.kicker}>Every skin</p>
+          <h2>No one palette.</h2>
+          <Link className={`${styles.storyLink} ${editorialStyles.link}`} href="/concerns">Explore concerns</Link>
         </div>
       </section>
 
       <section className="discovery-intro">
         <div>
-          <p className="eyebrow">The JeloCare edit</p>
-          <h2>What&apos;s good now.</h2>
-          <div className="market-sources" aria-label="Nigeria stores checked">
+          <p className="eyebrow">The catalogue</p>
+          <h2>Products and prices.</h2>
+          <div className="market-sources" aria-label="Nigeria stores observed">
             {marketSignals.sources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} <ArrowUpRight size={14} aria-hidden="true" /></a>)}
           </div>
         </div>
         <div className="signal-list">
-          <span>Pharmacy care</span>
-          <span>Clear skin</span>
-          <span>Deep hydration</span>
+          <span>Face care</span>
+          <span>Hair &amp; scalp</span>
+          <span>Body care</span>
           <span>Daily SPF</span>
         </div>
       </section>
 
       <DiscoveryRail
-        kicker="Our shelf"
-        title="Worth a look."
+        kicker="Catalogue"
+        title="Browse profiles."
         products={editorsEdit}
       />
 
       <DiscoveryRail
-        kicker="Pharmacist picks"
-        title="Tried and trusted."
-        products={evidenceLed}
+        kicker="Key ingredients"
+        title="A partial view."
+        products={sourceChecked}
       />
 
       <DiscoveryRail
-        kicker="Clear skin"
-        title="Keep it simple."
-        products={acneCare}
-        href="/products?q=acne"
+        kicker="Face care"
+        title="Browse the category."
+        products={faceCare}
+        href="/products?category=Face+care"
       />
 
       <section className="evidence-banner">
@@ -156,42 +159,28 @@ export default async function HomePage() {
             <li>Look for broad-spectrum protection</li>
             <li>Reapply when sun exposure continues</li>
           </ul>
-          <Link className={styles.primary} href="/products?q=sunscreen">Explore SPF</Link>
+          <Link className={styles.primary} href="/concerns/dark-spots">Read the guide</Link>
         </div>
         <SafeEditorialImage asset={protectionAsset} alt={protectionAsset.altText} sizes="(max-width: 900px) 80vw, 34vw" />
       </section>
 
       <DiscoveryRail
-        kicker="Tone care"
-        title="Protect. Then even."
-        products={toneAndProtection}
-        href="/products?q=hyperpigmentation"
-      />
-
-      <DiscoveryRail
-        kicker="Comfort first"
-        title="Barrier care."
-        products={barrierCare}
-        href="/products?q=barrier"
-      />
-
-      <DiscoveryRail
         kicker="K-beauty"
-        title="The hydration edit."
+        title="Browse the brands."
         products={kBeauty}
       />
 
       <section className={styles.recommendation}>
         <div className={styles.recommendationCopy}>
-          <p className={styles.kicker}>A gentle place to begin</p>
-          <h3>Three gentle starts.</h3>
-          <Link className={styles.primary} href="/products?q=sensitivity">Explore sensitive care</Link>
+          <p className={styles.kicker}>Supportive use</p>
+          <h3>Two reviewed uses.</h3>
+          <Link className={styles.primary} href="/products?review=supportive">View supportive products</Link>
         </div>
-        <div className={styles.formulaList} aria-label="Sensitive skin recommendations">
-          {recommendations.map((product, index) => (
+        <div className={`${styles.formulaList} ${editorialStyles.formulaList}`} aria-label="Reviewed supportive products">
+          {supportiveProducts.map((product, index) => (
             <Link href={`/products/${product.slug}`} key={product.slug}>
               <span className={styles.formulaNumber}>0{index + 1}</span>
-              <div className={styles.formulaText}><small>{product.brand}</small><strong>{product.name}</strong><em>{product.displayLine}</em></div>
+              <div className={styles.formulaText}><small>{product.brand}</small><strong>{product.name}</strong><em>{getReviewedProductCare(product.slug)?.approvedUses.map(use => use.label).join(' · ')}</em></div>
               <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
             </Link>
           ))}
@@ -199,28 +188,28 @@ export default async function HomePage() {
       </section>
 
       <DiscoveryRail
-        kicker="Checked in Nigeria"
-        title="Priced here."
+        kicker="Observed in Nigeria"
+        title="Prices seen here."
         products={nigeriaReady}
       />
 
       <DiscoveryRail
         kicker="Hair care"
-        title="Scalp to ends."
+        title="Browse the category."
         products={hairCare}
-        href="/products?q=hair"
+        href="/products?category=Hair+%26+scalp"
       />
 
       <DiscoveryRail
         kicker="Body care"
-        title="Every day."
+        title="Browse the category."
         products={bodyCare}
-        href="/products?q=body"
+        href="/products?category=Body+care"
       />
 
       <DiscoveryRail
-        kicker="Just in"
-        title="New on JeloCare."
+        kicker="More profiles"
+        title="Keep browsing."
         products={newAndNoteworthy}
       />
 
