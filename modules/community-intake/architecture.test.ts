@@ -20,6 +20,7 @@ test('community intake stays separated from canonical data and public media', as
   assert.doesNotMatch(repository, /@vercel\/blob|put\(/);
   assert.match(security, /httpOnly|contributionCookieName/);
   assert.match(security, /createHmac/);
+  assert.match(page, /Tell us about one product/);
   assert.match(page, /No account/);
   assert.match(selector, /role="combobox"/);
   assert.match(selector, /role="listbox"/);

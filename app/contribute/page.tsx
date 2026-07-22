@@ -12,8 +12,8 @@ import styles from './contribute.module.css';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Contribute',
-  description: 'Help build Nigeria’s skincare library. Anonymous and usually under a minute.',
+  title: 'Share skincare',
+  description: 'Tell us about one product. Anonymous and usually under a minute.',
   alternates: { canonical: '/contribute' },
 };
 
@@ -52,9 +52,9 @@ export default async function ContributePage() {
     <section className={styles.hero}>
       <div className={styles.heroCopy}>
         <p>Community library</p>
-        <h1>Help build Nigeria’s skincare library.</h1>
-        <span>Share what you know. No account.</span>
-        <div className={styles.trust} aria-label="Contribution promises">
+        <h1>Tell us about one product.</h1>
+        <span>Share what you use. No account.</span>
+        <div className={styles.trust} aria-label="What to expect">
           <div><ShieldCheck size={18} aria-hidden="true" /><span><strong>Anonymous</strong><small>No account</small></span></div>
           <div><Timer size={18} aria-hidden="true" /><span><strong>About a minute</strong><small>One question at a time</small></span></div>
           <div><Heart size={18} aria-hidden="true" /><span><strong>Useful</strong><small>Reviewed before use</small></span></div>
@@ -68,7 +68,7 @@ export default async function ContributePage() {
     <ContributionExperience purposes={purposes} products={products} brands={brands} retailers={retailers}/>
 
     <section className={styles.boundary}>
-      <p>Every contribution starts as community reported.</p>
+      <p>Every note starts as community reported.</p>
       <h2>People share. JeloCare checks.</h2>
     </section>
   </main>;

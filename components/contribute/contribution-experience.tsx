@@ -302,11 +302,11 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     window.localStorage.removeItem(localDraftKey);
   }
 
-  if (!hydrated) return <div className={styles.loading} aria-label="Loading contribution">Loading…</div>;
+  if (!hydrated) return <div className={styles.loading} aria-label="Loading">Loading…</div>;
 
   if (complete) return <section className={styles.complete} aria-labelledby="contribution-complete-title">
     <span><Check size={28} aria-hidden="true" /></span>
-    <p>Contribution received</p>
+    <p>Shared with JeloCare</p>
     <h2 id="contribution-complete-title">Thank you.</h2>
     <p>Your note is private until it is reviewed.</p>
     <div><button type="button" onClick={startAnother}><RotateCcw size={16} aria-hidden="true" /> Add another</button><Link href="/products">Browse products</Link></div>
@@ -352,7 +352,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     <div className={styles.actions}>
       {stepIndex > 0 ? <button type="button" className={styles.back} onClick={previousStep}><ArrowLeft size={16} aria-hidden="true" /> Back</button> : <span />}
       {currentStep === 'review'
-        ? <button type="button" className={styles.primary} onClick={submit} disabled={submitting}>{submitting ? 'Sending…' : 'Send contribution'} <ArrowRight size={16} aria-hidden="true" /></button>
+        ? <button type="button" className={styles.primary} onClick={submit} disabled={submitting}>{submitting ? 'Sharing…' : 'Share with JeloCare'} <ArrowRight size={16} aria-hidden="true" /></button>
         : <button type="button" className={styles.primary} onClick={nextStep} disabled={!canContinue()}>Continue <ArrowRight size={16} aria-hidden="true" /></button>}
     </div>
   </section>;

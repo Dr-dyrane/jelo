@@ -56,9 +56,9 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(concernGuide, /condition-pattern[\s\S]*Browse concerns/);
   assert.match(productPanel, /Find a store/);
   assert.doesNotMatch(productPanel, /Buy options|See prices/);
-  assert.match(navigation, /href="\/contribute"[^>]*>Contribute/);
-  assert.match(navigation, /label: 'Contribute', detail: 'Add what you know'/);
-  assert.match(layout, /href="\/contribute">Contribute/);
+  assert.match(navigation, /href="\/contribute"[^>]*>Share skincare/);
+  assert.match(navigation, /label: 'Share skincare', detail: 'Tell us what you use'/);
+  assert.match(layout, /href="\/contribute">Share skincare/);
   assert.match(catalogueMotion, /prefers-reduced-motion/);
   assert.match(concernMotion, /prefers-reduced-motion/);
 });

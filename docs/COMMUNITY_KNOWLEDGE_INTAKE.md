@@ -2,6 +2,8 @@
 
 Route: `/contribute`
 
+Public label: **Share skincare**. The internal feature name remains Community Knowledge Intake.
+
 The intake collects anonymous, community-reported product, routine and retailer knowledge. It is a moderation input—not a publishing path.
 
 ## Experience
