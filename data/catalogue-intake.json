@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "updatedAt": "2026-07-22T18:10:00Z",
+  "updatedAt": "2026-07-22T18:40:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -674,10 +674,19 @@
         }
       },
       "care": {
-        "status": "pending",
+        "status": "reviewed",
+        "formulaArchetype": "Fragrance-free salicylic-acid rinse-off cleanser with gluconolactone, ceramides and hyaluronic acid for rough and bumpy face or body skin",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports gentle cleansing and exfoliation for rough, bumpy face or body skin. It does not diagnose or treat keratosis pilaris, acne, or another condition; avoid harsh scrubbing, stop if irritated, and ask a pharmacist or clinician about inflamed, itchy, painful, or persistent skin.",
+        "manufacturerEvidenceUrl": "https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/conditions/keratosis-pilaris/",
         "evidenceUrls": [
-          "https://africa.cerave.com/en/our-products/cleansers/sa-smoothing-cleanser"
-        ]
+          "https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser",
+          "https://www.nhs.uk/conditions/keratosis-pilaris/"
+        ],
+        "reviewedAt": "2026-07-22T18:40:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
         "regulatoryStatus": "pending",

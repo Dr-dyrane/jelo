@@ -15,7 +15,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T18:10:00Z');
+const researchAsOf = Date.parse('2026-07-22T18:41:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 5);
@@ -29,8 +29,8 @@ test('the first deliberate intake cohort stays private and approval-blocked', ()
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 1);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 4);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 5);
 });
 
 test('independent care evidence advances an exact manufacturer identity without bypassing regulation', () => {
@@ -113,16 +113,21 @@ test('provisional Slique evidence is retained but cannot become independent Tier
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
-test('the UK/EU SA cleanser locks 473 ml without merging regional variants', () => {
+test('the UK/EU SA cleanser keeps its 473 ml identity through a bounded care review', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-sa-smoothing-cleanser-473ml');
   assert.ok(candidate);
   assert.equal(candidate.identity.gtin, '3337875795456');
   assert.equal(candidate.identity.basis, 'official-brand');
   assert.match(candidate.reason, /473 ml UK\/EU.*236 ml Africa.*8 fl oz US/);
+  assert.equal(candidate.care.careTier, 'targeted-care');
+  assert.equal(candidate.care.manufacturerEvidenceUrl, 'https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser');
+  assert.equal(candidate.care.independentClinicalGuidanceUrl, 'https://www.nhs.uk/conditions/keratosis-pilaris/');
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(decision.stage, 'care');
+  assert.equal(decision.stage, 'nigeria');
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
-  assert.ok(decision.blockers.includes('care-review-missing'));
+  assert.equal(decision.blockers.includes('care-review-missing'), false);
+  assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
+  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
 });
 
 test('no private intake candidate leaks into either public catalogue source', () => {

@@ -253,12 +253,15 @@ const packshotEligibleOrigins = [
   'owned-identity-verified-render',
 ] as const;
 const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
-  cerave: ['africa.cerave.com', 'www.cerave.com'],
+  cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   eucerin: ['www.eucerin-cewa.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'cerave-moisturising-cream-454g': [
     'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+  ],
+  'cerave-sa-smoothing-cleanser-473ml': [
+    'https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser',
   ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
@@ -273,6 +276,7 @@ const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
   'https://www.nhs.uk/tests-and-treatments/emollients/',
+  'https://www.nhs.uk/conditions/keratosis-pilaris/',
   'https://pubmed.ncbi.nlm.nih.gov/34596890/',
 ]);
 
