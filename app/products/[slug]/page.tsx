@@ -11,6 +11,7 @@ import { SafeProductImage } from '@/components/products/safe-product-image';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
 import { listProductIngredientsSafe } from '@/lib/clinical/ingredients';
 import { getProductPriceTrends } from '@/lib/inventory/price-trends';
+import { productStructuredData, serializeJsonLd } from '@/modules/commerce/product-structured-data';
 
 const evidenceCopy = {
   high: 'Well supported. Results vary.',
@@ -48,7 +49,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!product) return {};
   const title = `${product.brand} ${product.name}`;
   const description = `${product.displayLine}. Best for ${product.bestFor.slice(0, 3).join(', ')}. Compare trusted places to buy.`;
-  return { title, description, openGraph: { title, description, images: [product.image] } };
+  const url = `/products/${product.slug}`;
+  return { title, description, alternates: { canonical: url }, openGraph: { title, description, url, images: [product.image] } };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -79,9 +81,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     .slice(0, 3)
     .map(result => result.item);
   const routine = routinePlacement(product.category, product.step);
+  const structuredData = productStructuredData(product);
 
   return (
-    <main className="product-page">
+    <>
+      {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}/> : null}
+      <main className="product-page">
       <section className="product-hero">
         <div className="product-visual-large"><SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`}/></div>
         <div className="product-story">
@@ -171,7 +176,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {related.length ? <section className="related-products"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>Related care.</h2></div><Link className="text-link" href="/products">Browse all →</Link></div><ProductGrid products={related}/></section> : null}
-    </main>
+        {related.length ? <section className="related-products"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>Related care.</h2></div><Link className="text-link" href="/products">Browse all →</Link></div><ProductGrid products={related}/></section> : null}
+      </main>
+    </>
   );
 }
