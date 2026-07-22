@@ -4,160 +4,252 @@
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser/packshot.jpg",
     "contentType": "image/jpeg",
     "byteSize": 136766,
-    "importedAt": "2026-07-22T00:50:32.089Z"
+    "importedAt": "2026-07-22T00:50:32.089Z",
+    "width": 1000,
+    "height": 1650,
+    "hasAlpha": true,
+    "contentHash": "90f4b59cf1367cffc262f6ea50f0313bd86c70fe41220737cf73dd191375b4de"
   },
   "some-by-mi-aha-bha-pha-miracle-toner": {
     "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2020/01/kxq1lqyk-1-optimized.png?quality=80&resize=411%2C442&ssl=1",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/some-by-mi/some-by-mi-aha-bha-pha-miracle-toner/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 8020,
-    "importedAt": "2026-07-22T00:50:34.928Z"
+    "importedAt": "2026-07-22T00:50:34.928Z",
+    "width": 411,
+    "height": 442,
+    "hasAlpha": false,
+    "contentHash": "a364e3969ec6e9d3afa20845c7990db3cb5d8465f659b2ce47ed85b01c943397"
   },
   "anua-niacinamide-10-txa-4-serum": {
     "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/skdbvd-1-optimized.jpg?fit=425%2C425&quality=89&ssl=1",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-niacinamide-10-txa-4-serum/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 8260,
-    "importedAt": "2026-07-22T00:50:37.034Z"
+    "importedAt": "2026-07-22T00:50:37.034Z",
+    "width": 425,
+    "height": 425,
+    "hasAlpha": false,
+    "contentHash": "bc96e8500866824c2e4ab10ffeb9f4ff29f9ea4a0737d7892a628240f4f5497d"
   },
   "face-facts-wonder-cream-fragrance-free": {
     "sourceUrl": "https://peronabeauty.com/wp-content/uploads/2024/12/Screenshot-at--600x605.png",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/face-facts-wonder-cream-fragrance-free/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 76664,
-    "importedAt": "2026-07-22T00:50:38.587Z"
+    "importedAt": "2026-07-22T00:50:38.587Z",
+    "width": 600,
+    "height": 605,
+    "hasAlpha": false,
+    "contentHash": "08a5f7d5fada2f6c0214d3cec54a1cd5fa253c827188643d775fc069c138cf81"
   },
   "face-facts-bright-clear-face-cream": {
     "sourceUrl": "https://peronabeauty.com/wp-content/uploads/2024/08/face-facts_387858-600x600.jpg",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/face-facts-bright-clear-face-cream/packshot.jpg",
     "contentType": "image/jpeg",
     "byteSize": 24338,
-    "importedAt": "2026-07-22T00:50:40.648Z"
+    "importedAt": "2026-07-22T00:50:40.648Z",
+    "width": 600,
+    "height": 600,
+    "hasAlpha": false,
+    "contentHash": "cf9615b17ddd61a66902e20ee1827bb40946c594ae36ae32214216c6e583476b"
   },
   "b-lab-matcha-hydrating-real-sunscreen": {
     "sourceUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/IMG-1630-600x600.jpg",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot.jpg",
     "contentType": "image/jpeg",
     "byteSize": 9526,
-    "importedAt": "2026-07-22T00:50:42.970Z"
+    "importedAt": "2026-07-22T00:50:42.970Z",
+    "width": 600,
+    "height": 600,
+    "hasAlpha": false,
+    "contentHash": "d433504e3d5102318b2a289f5453e89b685788a74b2cf7fb7ce38f576212789c"
   },
   "dove-moroccan-argan-oil-beauty-bar": {
     "sourceUrl": "https://assets.unileversolutions.com/v1/946691.png",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-moroccan-argan-oil-beauty-bar/packshot.avif",
     "contentType": "image/avif",
     "byteSize": 76722,
-    "importedAt": "2026-07-22T00:50:46.314Z"
+    "importedAt": "2026-07-22T00:50:46.314Z",
+    "width": 2880,
+    "height": 2880,
+    "hasAlpha": true,
+    "contentHash": "4a1f7378a4a7a89fd685da21df393906ea9a3315dbef29ae82c0af829aec0856"
   },
   "dove-go-fresh-cucumber-green-tea-spray": {
     "sourceUrl": "https://assets.unileversolutions.com/v1/130069295.png",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot.avif",
     "contentType": "image/avif",
     "byteSize": 38961,
-    "importedAt": "2026-07-22T00:50:50.308Z"
+    "importedAt": "2026-07-22T00:50:50.308Z",
+    "width": 2880,
+    "height": 2880,
+    "hasAlpha": true,
+    "contentHash": "eb019e9f826aa1fc6a5d5a7252ce7e2269b2f97f1127bcc337a0698465926325"
   },
   "miracle-natural-hair-anti-dandruff-shampoo": {
     "sourceUrl": "https://www.agtplaza.com/cdn/shop/files/background-editor_output_7b61d159-dd7a-41f8-a083-ec9548d9bdf2.png?v=1735099870",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/beautiful-you-miracle/miracle-natural-hair-anti-dandruff-shampoo/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 30494,
-    "importedAt": "2026-07-22T00:50:54.091Z"
+    "importedAt": "2026-07-22T00:50:54.091Z",
+    "width": 841,
+    "height": 1246,
+    "hasAlpha": false,
+    "contentHash": "551069e0bc4205ee60113899f256d08081f2be9717ce25be46200b07cd762b14"
   },
   "lush-hair-mentholated-conditioner": {
     "sourceUrl": "https://nigeria.lushhairafrica.com/cdn/shop/files/26451_7ca2d10503cf413b262130540e2df7dd.png?v=1766145282&width=1600",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/lush-hair/lush-hair-mentholated-conditioner/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 16296,
-    "importedAt": "2026-07-22T00:50:57.320Z"
+    "importedAt": "2026-07-22T00:50:57.320Z",
+    "width": 600,
+    "height": 778,
+    "hasAlpha": false,
+    "contentHash": "67e069f615b600686e94bf51332ddbacbef080120ed2ffb1ed94639635563e27"
   },
   "mediana-leave-in-conditioning-milk": {
     "sourceUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/mediana-leave-in-conditioning-milk.webp",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 15294,
-    "importedAt": "2026-07-22T00:51:00.279Z"
+    "importedAt": "2026-07-22T00:51:00.279Z",
+    "width": 600,
+    "height": 600,
+    "hasAlpha": false,
+    "contentHash": "58dc7505b7ccf5bcc32c824fe848982295eab52f2ad723adaa02e562dda59c2f"
   },
   "kuza-indian-hemp-hair-scalp-treatment": {
     "sourceUrl": "https://perfectpicturecosmetics.com/cdn/shop/files/20250510_1219_Hair_Treatment_Product_Display_remix_01jtx23f14fz4aft5nvz1cpvpt.png?v=1746879611&width=1600",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/kuza/kuza-indian-hemp-hair-scalp-treatment/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 67150,
-    "importedAt": "2026-07-22T00:51:05.444Z"
+    "importedAt": "2026-07-22T00:51:05.444Z",
+    "width": 1024,
+    "height": 1024,
+    "hasAlpha": false,
+    "contentHash": "d14f9bd2d3132c35f5359bcbef25046bc3d6220063defa2273093210aef7c8ce"
   },
   "disaar-argan-oil-body-oil-gel": {
     "sourceUrl": "https://f.nooncdn.com/p/pzsku/ZC2459623F574AE4002E5Z/45/_/1706365707/fc876212-5afa-4768-a07c-fed911f3522f.jpg",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/disaar/disaar-argan-oil-body-oil-gel/packshot.avif",
     "contentType": "image/avif",
     "byteSize": 43347,
-    "importedAt": "2026-07-22T00:51:08.742Z"
+    "importedAt": "2026-07-22T00:51:08.742Z",
+    "width": 1110,
+    "height": 1514,
+    "hasAlpha": false,
+    "contentHash": "39a6980b5c4660f99c81bee0ce281f87d8827017121dc2465944d2e19ae791fa"
   },
   "cerave-foaming-facial-cleanser": {
     "sourceUrl": "https://media.ulta.com/i/ulta/2254420?fmt=auto&qlt=90&wid=1200",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-foaming-facial-cleanser/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 89216,
-    "importedAt": "2026-07-22T00:51:10.738Z"
+    "importedAt": "2026-07-22T00:51:10.738Z",
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "5b2afb052acf0fd9b11e93e065b64763fcde0ebd1912e51dd0e300321818320c"
   },
   "the-ordinary-azelaic-acid-suspension-10": {
     "sourceUrl": "https://media.ulta.com/i/ulta/2551154?fmt=auto&qlt=90&wid=1200",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/the-ordinary/the-ordinary-azelaic-acid-suspension-10/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 78644,
-    "importedAt": "2026-07-22T00:51:12.740Z"
+    "importedAt": "2026-07-22T00:51:12.740Z",
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "6218f671f9c468ef603234b5edf21cabdd3a35ddded5b145d750f4dce7e84ec2"
   },
   "la-roche-posay-toleriane-double-repair-spf30": {
     "sourceUrl": "https://media.ulta.com/i/ulta/2503390?fmt=auto&qlt=90&wid=1200",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-spf30/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 98798,
-    "importedAt": "2026-07-22T00:51:15.181Z"
+    "importedAt": "2026-07-22T00:51:15.181Z",
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "95e3135c3509632122187ac3cdf162da986a65d782cb9a1c92b17a24f3a63c67"
   },
   "la-roche-posay-toleriane-double-repair-matte": {
     "sourceUrl": "https://media.ulta.com/i/ulta/2591830?fmt=auto&qlt=90&wid=1200",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 84864,
-    "importedAt": "2026-07-22T00:51:18.671Z"
+    "importedAt": "2026-07-22T00:51:18.671Z",
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "186689f9a63c9a0872454e3b18f82b688dffa6f06337f23e689ef6577645126e"
   },
   "ogx-renewing-argan-oil-of-morocco": {
     "sourceUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/ogx/ogx-renewing-argan-oil-of-morocco/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 82682,
-    "importedAt": "2026-07-22T00:53:56.966Z"
+    "importedAt": "2026-07-22T00:53:56.966Z",
+    "width": 1080,
+    "height": 1080,
+    "hasAlpha": false,
+    "contentHash": "46138a70ee8f98749024e45c597a8daaffe528e4b4f6a0756ad5fbe19bce754a"
   },
   "cerave-blemish-control-cleanser": {
     "sourceUrl": "https://africa.cerave.com/fr/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/French/Product/Blemish-control-cleanser/Blemish-Control-Cleanser-8oz-Front-new.png",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-blemish-control-cleanser/packshot.png",
     "contentType": "image/png",
     "byteSize": 77092,
-    "importedAt": "2026-07-22T00:54:00.000Z"
+    "importedAt": "2026-07-22T00:54:00.000Z",
+    "width": 400,
+    "height": 400,
+    "hasAlpha": true,
+    "contentHash": "9922a0fe74d48e7fdfed7837e3843c4b09dd84e6095fa034302a8771f50e4fc6"
   },
   "la-roche-posay-anthelios-uvmune-400-oil-control-fluid": {
     "sourceUrl": "https://media.meds.se/meds/images/image-png-2026-02-16-071704690/550/550/fill/c/3337875917568-1-png.png",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 9162,
-    "importedAt": "2026-07-22T00:54:01.495Z"
+    "importedAt": "2026-07-22T00:54:01.495Z",
+    "width": 550,
+    "height": 550,
+    "hasAlpha": false,
+    "contentHash": "d1117c826f5b70ad450cb1ac8c67b23abac90e58b38722ee367fb92575de528a"
   },
   "cosrx-advanced-snail-96-mucin-power-essence": {
     "sourceUrl": "https://www.cosrx.co.kr/shopimages/cosrx/0190000005463.jpg",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-advanced-snail-96-mucin-power-essence/packshot.jpg",
     "contentType": "image/jpeg",
     "byteSize": 29365,
-    "importedAt": "2026-07-22T00:54:03.526Z"
+    "importedAt": "2026-07-22T00:54:03.526Z",
+    "width": 272,
+    "height": 450,
+    "hasAlpha": true,
+    "contentHash": "db5421a0e03fe55122a52729916746eaccb2c28e1d93ae6f1256397599af50b8"
   },
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": {
     "sourceUrl": "https://panoxyl.com/wp-content/uploads/2023/06/PanOxyl_Acne-Foaming-Wash_Front_5.5oz-Tube_SILO_wide.webp",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/panoxyl/panoxyl-acne-foaming-wash-10-benzoyl-peroxide/packshot.webp",
     "contentType": "image/webp",
     "byteSize": 269374,
-    "importedAt": "2026-07-22T00:54:05.433Z"
+    "importedAt": "2026-07-22T00:54:05.433Z",
+    "width": 1200,
+    "height": 1200,
+    "hasAlpha": true,
+    "contentHash": "9754b77a86ad86d492e921c2c9c36842a668600c417e9af98125de57e9980ed1"
   },
   "nizoral-ad-ketoconazole-shampoo": {
     "sourceUrl": "https://cdn.onbuy.com/product/9c7eef22ae1f4d1a84ec5108d23ebd06/500-500/pf2k76p.jpg",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nizoral/nizoral-ad-ketoconazole-shampoo/packshot.jpg",
     "contentType": "image/jpeg",
     "byteSize": 28894,
-    "importedAt": "2026-07-22T00:54:07.140Z"
+    "importedAt": "2026-07-22T00:54:07.140Z",
+    "width": 500,
+    "height": 500,
+    "hasAlpha": false,
+    "contentHash": "c804b4c3c3d0fd205f9b5f53c9c4d31f24f45f0145c10f5e89b489b333bbebb0"
   }
 }

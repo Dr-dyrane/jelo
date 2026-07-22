@@ -1,6 +1,18 @@
 import postgres from 'postgres';
 import { products as catalogue } from '../data/catalogue';
+import productAssets from '../data/product-assets.json';
 import { ingredientSeeds, verifiedProductIngredients } from '../data/product-ingredients';
+
+type ProductAssetRecord = {
+  sourceUrl: string;
+  blobUrl: string;
+  contentType: string;
+  byteSize: number;
+  width: number;
+  height: number;
+  hasAlpha: boolean;
+  contentHash: string;
+};
 
 async function main() {
 const connectionString = process.env.DATABASE_URL_UNPOOLED
@@ -28,6 +40,7 @@ const sourceHost = (value: string) => {
   }
 };
 const ingredientBySlug = new Map(ingredientSeeds.map(ingredient => [ingredient.slug, ingredient]));
+const assetBySlug = productAssets as Record<string, ProductAssetRecord>;
 
 try {
   await sql.begin(async tx => {
@@ -42,8 +55,12 @@ try {
         returning id
       `;
 
-      const isPlaceholder = product.image.startsWith('/product-fallback')
-        || product.image.startsWith('/product-placeholder');
+      const productAsset = assetBySlug[product.slug];
+      const imageUrl = productAsset?.blobUrl ?? product.image;
+      const imageSourceUrl = productAsset?.sourceUrl
+        ?? (product.image.includes('vercel-storage.com') ? null : product.image);
+      const isPlaceholder = imageUrl.startsWith('/product-fallback')
+        || imageUrl.startsWith('/product-placeholder');
 
       const [savedProduct] = await tx<{ id: string }[]>`
         insert into products (
@@ -123,19 +140,27 @@ try {
 
       const imageStatus = isPlaceholder
         ? 'failed'
-        : product.image.includes('vercel-storage.com')
+        : imageUrl.includes('vercel-storage.com')
           ? 'verified'
           : 'pending';
 
       await tx`
         insert into product_images (
-          product_id, kind, blob_url, source_url, source_host, alt_text, status, verified_at
+          product_id, kind, blob_url, source_url, source_host, alt_text,
+          mime_type, width, height, byte_size, has_alpha, content_hash,
+          status, verified_at
         ) values (
           ${savedProduct.id}, 'packshot',
-          ${product.image.includes('vercel-storage.com') ? product.image : null},
-          ${product.image.includes('vercel-storage.com') ? null : product.image},
-          ${sourceHost(product.image)},
+          ${imageUrl.includes('vercel-storage.com') ? imageUrl : null},
+          ${imageSourceUrl},
+          ${imageSourceUrl ? sourceHost(imageSourceUrl) : null},
           ${`${product.brand} ${product.name}`},
+          ${productAsset?.contentType ?? null},
+          ${productAsset?.width ?? null},
+          ${productAsset?.height ?? null},
+          ${productAsset?.byteSize ?? null},
+          ${productAsset?.hasAlpha ?? null},
+          ${productAsset?.contentHash ?? null},
           ${imageStatus},
           ${imageStatus === 'verified' ? new Date() : null}
         )
@@ -149,16 +174,22 @@ try {
           source_url = case
             when product_images.status = 'verified'
               and product_images.blob_url like '%vercel-storage.com/%'
-              then product_images.source_url
+              then coalesce(excluded.source_url, product_images.source_url)
             else excluded.source_url
           end,
           source_host = case
             when product_images.status = 'verified'
               and product_images.blob_url like '%vercel-storage.com/%'
-              then product_images.source_host
+              then coalesce(excluded.source_host, product_images.source_host)
             else excluded.source_host
           end,
           alt_text = excluded.alt_text,
+          mime_type = coalesce(excluded.mime_type, product_images.mime_type),
+          width = coalesce(excluded.width, product_images.width),
+          height = coalesce(excluded.height, product_images.height),
+          byte_size = coalesce(excluded.byte_size, product_images.byte_size),
+          has_alpha = coalesce(excluded.has_alpha, product_images.has_alpha),
+          content_hash = coalesce(excluded.content_hash, product_images.content_hash),
           status = case
             when product_images.status = 'verified'
               and product_images.blob_url like '%vercel-storage.com/%'
@@ -166,6 +197,9 @@ try {
             else excluded.status
           end,
           verified_at = case
+            when excluded.content_hash is not null
+              and product_images.content_hash is distinct from excluded.content_hash
+              then now()
             when product_images.status = 'verified'
               and product_images.blob_url like '%vercel-storage.com/%'
               then product_images.verified_at

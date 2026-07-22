@@ -26,6 +26,10 @@ type AssetRow = {
   source_host: string | null;
   mime_type: string | null;
   byte_size: number | null;
+  width: number | null;
+  height: number | null;
+  has_alpha: boolean | null;
+  content_hash: string | null;
   verified_at: string | null;
 };
 
@@ -42,6 +46,10 @@ try {
       pi.source_host,
       pi.mime_type,
       pi.byte_size,
+      pi.width,
+      pi.height,
+      pi.has_alpha,
+      pi.content_hash,
       pi.verified_at
     from products p
     join brands b on b.id = p.brand_id
@@ -68,8 +76,13 @@ try {
     sourceHost: row.source_host,
     mimeType: row.mime_type,
     byteSize: row.byte_size == null ? null : Number(row.byte_size),
+    width: row.width,
+    height: row.height,
+    hasAlpha: row.has_alpha,
+    contentHash: row.content_hash,
     verifiedAt: row.verified_at,
     needsImport: !row.blob_url && Boolean(row.source_url?.startsWith('https://')),
+    metadataComplete: Boolean(row.mime_type && row.byte_size && row.width && row.height && row.content_hash),
   }));
 
   const summary = normalized.reduce<Record<string, number>>((counts, asset) => {
@@ -77,8 +90,9 @@ try {
     counts[asset.status] = (counts[asset.status] ?? 0) + 1;
     if (asset.needsImport) counts.importable += 1;
     if (!asset.blobUrl && !asset.sourceUrl) counts.missing += 1;
+    if (!asset.metadataComplete) counts.incompleteMetadata += 1;
     return counts;
-  }, { total: 0, verified: 0, pending: 0, failed: 0, retired: 0, importable: 0, missing: 0 });
+  }, { total: 0, verified: 0, pending: 0, failed: 0, retired: 0, importable: 0, missing: 0, incompleteMetadata: 0 });
 
   const payload = {
     generatedAt: new Date().toISOString(),

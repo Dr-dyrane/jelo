@@ -14,6 +14,8 @@
     "assets:audit": "tsx scripts/audit-catalogue-assets.ts",
     "assets:import": "node scripts/import-product-assets.mjs",
     "assets:static-import": "tsx scripts/import-static-product-assets.ts",
+    "assets:verify": "tsx scripts/verify-product-assets.ts",
+    "assets:product:seed": "tsx scripts/seed-product-asset-metadata.ts",
     "assets:editorial:seed": "tsx scripts/seed-editorial-assets.ts",
     "assets:sync": "tsx scripts/sync-catalogue-assets.ts",
     "clinical:audit": "tsx scripts/audit-ingredient-knowledge.ts",
@@ -30,7 +32,7 @@
     "@vercel/blob": "2.6.1",
     "ai": "6.0.224",
     "lucide-react": "1.25.0",
-    "next": "16.2.10",
+    "next": "16.2.11",
     "postgres": "3.4.7",
     "react": "19.2.1",
     "react-dom": "19.2.1",
@@ -41,8 +43,13 @@
     "@types/react": "19.2.5",
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.1",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "16.2.11",
+    "sharp": "0.35.3",
     "tsx": "4.20.6",
     "typescript": "5.9.3"
+  },
+  "overrides": {
+    "postcss": "8.5.21",
+    "sharp": "0.35.3"
   }
 }

@@ -65,6 +65,15 @@ npm run assets:import
 
 The importer is deliberately a command-line operation. The public website has no authentication, so Blob write operations must not be exposed through a browser route yet. The shared implementation in `lib/assets/blob.ts` is server-only and can later power an authenticated Asset Manager.
 
+The checked-in product manifest records the canonical Blob URL, original source, MIME type, byte size, dimensions, alpha state and SHA-256 hash for every published product. Verify the remote binaries and refresh that metadata with:
+
+```bash
+npm run assets:verify
+npm run assets:verify -- --write
+```
+
+Production builds apply the metadata to the durable `product_images` rows after database migrations. Generated transparent assets remain editorial props; they are never presented as branded product packshots. A neutral JeloCare placeholder is the last-resort browser fallback if a canonical packshot cannot load.
+
 ## Neon PostgreSQL
 
 Preferred application variables:
@@ -129,10 +138,9 @@ Every Redis-backed feature must work correctly after cache eviction.
 
 The Vercel dashboard is authoritative for which environments receive each variable. Production and Preview are currently the primary connected environments for Neon. Developers running locally should use `vercel env pull` or explicitly provision Development values.
 
-## Next implementation stages
+## Current state and next stage
 
-1. Run the first Blob import queue and replace failed catalogue hotlinks with returned Blob URLs.
-2. Apply and seed the Neon catalogue migration.
-3. Switch the catalogue repository from static fallback to Neon reads.
-4. Add image metadata persistence and completeness checks.
-5. Convert `/image-audit` into an authenticated operational Asset Manager when authentication is deliberately introduced.
+- All published packshots use canonical Vercel Blob URLs in both the static fallback and Neon catalogue.
+- Product and generated editorial assets have durable metadata records and automated completeness checks.
+- `/image-audit` verifies every rendered packshot in a real browser.
+- The next media stage is an authenticated Asset Manager with controlled imports and review history; public Blob write routes remain prohibited until authentication is deliberately introduced.

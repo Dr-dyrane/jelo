@@ -26,8 +26,9 @@ async function main() {
     if (process.env.SEED_CATALOGUE_ON_BUILD === '1') {
       console.log('One-time catalogue seed requested for this production build.');
       await run('npm', ['run', 'db:seed']);
-      await run('npm', ['run', 'assets:editorial:seed']);
     }
+    await run('npm', ['run', 'assets:product:seed']);
+    await run('npm', ['run', 'assets:editorial:seed']);
   } else {
     const reason = migrationsDisabled
       ? 'SKIP_DATABASE_MIGRATIONS=1'

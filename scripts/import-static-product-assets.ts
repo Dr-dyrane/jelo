@@ -1,7 +1,9 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
+import sharp from 'sharp';
 import { products as coreProducts } from '../data/products';
 import { expandedProducts } from '../data/expanded-products';
 
@@ -20,6 +22,10 @@ type AssetRecord = {
   blobUrl: string;
   contentType: string;
   byteSize: number;
+  width: number;
+  height: number;
+  hasAlpha: boolean;
+  contentHash: string;
   importedAt: string;
 };
 
@@ -76,6 +82,8 @@ async function main() {
         if (!allowedTypes.has(contentType)) throw new Error(`unsupported content type ${contentType || 'unknown'}`);
         const bytes = Buffer.from(await response.arrayBuffer());
         if (!bytes.length || bytes.length > 12 * 1024 * 1024) throw new Error('source image is empty or exceeds 12 MB');
+        const metadata = await sharp(bytes).metadata();
+        if (!metadata.width || !metadata.height) throw new Error('source image dimensions are unavailable');
 
         const extension = extensions[contentType];
         const stagedFile = path.join(stagingDirectory, `${product.slug}.${extension}`);
@@ -88,6 +96,10 @@ async function main() {
           blobUrl,
           contentType,
           byteSize: bytes.length,
+          width: metadata.width,
+          height: metadata.height,
+          hasAlpha: metadata.hasAlpha,
+          contentHash: createHash('sha256').update(bytes).digest('hex'),
           importedAt: new Date().toISOString(),
         };
         await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
