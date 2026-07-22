@@ -24,14 +24,32 @@ const display = Italiana({ weight: '400', subsets: ['latin'], variable: '--font-
 const sans = Manrope({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://jelocare.com'),
+  metadataBase: new URL('https://www.jelocare.com'),
   applicationName: 'JeloCare',
   title: { default: 'JeloCare — Understand your skin', template: '%s · JeloCare' },
   description: 'Skin education and clear product discovery.',
   manifest: '/manifest.webmanifest',
   appleWebApp: { capable: true, statusBarStyle: 'default', title: 'JeloCare' },
   formatDetection: { telephone: false },
-  openGraph: { title: 'JeloCare', description: 'Understand your skin. Find what fits.', url: 'https://jelocare.com', siteName: 'JeloCare', type: 'website' },
+  openGraph: {
+    title: 'JeloCare',
+    description: 'Understand your skin. Find what fits.',
+    url: 'https://www.jelocare.com',
+    siteName: 'JeloCare',
+    type: 'website',
+    images: [{
+      url: '/social/jelocare-open-graph-v1.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'JeloCare — Know before you buy.',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'JeloCare',
+    description: 'Understand your skin. Find what fits.',
+    images: ['/social/jelocare-open-graph-v1.jpg'],
+  },
 };
 
 export const viewport: Viewport = {
