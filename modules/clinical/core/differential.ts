@@ -143,6 +143,65 @@ const rules: PatternRule[] = [
     missing: ['Is there a fine surface scale?', 'Are patches lighter or darker than nearby skin?', 'Do they recur in warm, humid weather?'],
   },
   {
+    id: 'cellulitis-like', label: 'Hot, painful swelling pattern',
+    positives: [
+      { terms: ['cellulitis'], weight: 56, reason: 'A named skin infection was reported and needs urgent confirmation.' },
+      { terms: ['hot and swollen', 'warm and swollen', 'painful swelling', 'warmth and swelling'], weight: 48, reason: 'Pain, heat and swelling together require an urgent infection assessment.' },
+      { terms: ['spreading colour change', 'spreading color change', 'skin is tender', 'skin feels tender'], weight: 18, reason: 'Tenderness or a spreading colour change adds concern without relying on redness.' },
+      { terms: ['feeling unwell', 'flu-like symptoms', 'swollen painful glands'], weight: 18, reason: 'Feeling unwell alongside skin changes increases concern.' },
+    ],
+    negatives: [{ terms: ['not painful', 'not warm', 'not swollen'], weight: 28, reason: 'The absence of pain, heat or swelling makes this urgent pattern less specific.' }],
+    missing: ['Is the area painful, hot and swollen?', 'Is it spreading or blistering?', 'Do you feel feverish, shaky, dizzy or confused?'],
+  },
+  {
+    id: 'impetigo-like', label: 'Crusted spreading-sore pattern',
+    positives: [
+      { terms: ['impetigo'], weight: 56, reason: 'A named contagious skin infection was reported and needs confirmation.' },
+      { terms: ['golden-brown crust', 'golden brown crust', 'dark crusts', 'crusty golden-brown patches'], weight: 46, reason: 'Golden-brown or dark crusts after a sore or blister support this pattern.' },
+      { terms: ['sores burst', 'blisters burst', 'oozing sores', 'spreading crusts'], weight: 28, reason: 'Bursting, oozing or spreading sores add support.' },
+      { terms: ['around my nose', 'around the nose', 'around my mouth', 'around the mouth', 'on my hands'], weight: 10, reason: 'The reported location can fit this pattern.' },
+    ],
+    negatives: [{ terms: ['one small pustule', 'one pimple', 'not spreading'], weight: 30, reason: 'One localized spot without spread is less specific for this pattern.' }],
+    missing: ['Did sores or blisters burst before the crust appeared?', 'Are the crusts spreading or oozing?', 'Is this affecting a baby, the breast while breastfeeding, or someone with weakened immunity?'],
+  },
+  {
+    id: 'shingles-like', label: 'One-sided painful-blister pattern',
+    positives: [
+      { terms: ['shingles'], weight: 56, reason: 'A named painful blistering condition was reported and needs prompt confirmation.' },
+      { terms: ['clustered blisters', 'cluster of blisters', 'blisters in a cluster', 'blisters in a band', 'band of blisters', 'stripe of blisters'], weight: 34, reason: 'A cluster or band of blisters supports this pattern.' },
+      { terms: ['one-sided', 'one sided', 'on one side', 'one side of my body', 'one side of the body', 'one side of my face', 'only on one side'], weight: 28, reason: 'A one-sided distribution adds support.' },
+      { terms: ['pain and tingling', 'pain or tingling', 'tingling before the rash', 'pain before the rash'], weight: 22, reason: 'Pain or tingling before a rash is compatible with this pattern.' },
+    ],
+    negatives: [{ terms: ['both sides', 'all over my body', 'where the product touched'], weight: 32, reason: 'A bilateral, widespread or contact-limited rash supports a different pathway.' }],
+    missing: ['Did pain or tingling begin before the rash?', 'Are the blisters clustered on only one side?', 'Is the eye, nose, face, ear or breast involved?'],
+  },
+  {
+    id: 'numb-patch-like', label: 'Numb changed-colour patch pattern',
+    positives: [
+      { terms: ['leprosy', 'hansen disease', "hansen's disease"], weight: 56, reason: 'A named sensory-loss condition was reported and needs in-person confirmation.' },
+      { terms: ['reduced feeling', 'loss of feeling', 'loss of sensation', 'reduced sensation'], weight: 42, reason: 'Reduced sensation in a skin patch requires an in-person examination.' },
+      { terms: ['numb skin patch', 'numb patch', 'numbness in the patch'], weight: 38, reason: 'Numbness within a patch supports this examination pathway.' },
+      { terms: ['lighter patch', 'changed-colour patch', 'changed-color patch', 'pale patch'], weight: 18, reason: 'A changed-colour patch adds support when sensation is also reduced.' },
+      { terms: ['new weakness', 'nerve weakness'], weight: 20, reason: 'New weakness may indicate nerve involvement and should not be assessed through skincare.' },
+    ],
+    negatives: [
+      { terms: ['no numbness', 'normal feeling', 'normal sensation'], weight: 48, reason: 'Normal sensation points away from a sensory-loss pattern.' },
+      { terms: ['fine scale', 'itchy patch'], weight: 16, reason: 'Scale or prominent itch can support a different skin pattern.' },
+    ],
+    missing: ['Is feeling reduced inside the patch?', 'Is the patch lighter or otherwise changed in colour?', 'Is there new weakness, sudden one-sided weakness or speech trouble?'],
+  },
+  {
+    id: 'velvety-thickening-like', label: 'Dark velvety-thickening pattern',
+    positives: [
+      { terms: ['acanthosis nigricans'], weight: 56, reason: 'A named skin thickening was reported and its cause needs medical review.' },
+      { terms: ['dark thickened velvety', 'dark velvety skin', 'thick velvety skin', 'velvety texture'], weight: 48, reason: 'Dark, thickened skin with a velvet-like feel supports this review pathway.' },
+      { terms: ['does not scrub away', "doesn't scrub away", 'cannot scrub away', "can't scrub away"], weight: 28, reason: 'Skin change that does not scrub away should not be treated as surface dirt.' },
+      { terms: ['neck', 'armpit', 'armpits', 'groin', 'body folds'], weight: 8, reason: 'The reported skin-fold location can fit this pattern.' },
+    ],
+    negatives: [{ terms: ['flat mark', 'after acne', 'post acne'], weight: 28, reason: 'A flat mark after inflammation supports a different pigmentation pattern.' }],
+    missing: ['Does the area feel thicker or velvety?', 'Is it on the neck, armpit or another body fold?', 'Is this new or changing, or did it begin after a medicine change?'],
+  },
+  {
     id: 'pseudofolliculitis-like', label: 'Ingrown-hair or razor-bump pattern',
     positives: [
       { terms: ['ingrown hair', 'ingrown hairs', 'razor bumps', 'trapped hair'], weight: 44, reason: 'Ingrown hairs or razor bumps were directly described.' },
@@ -243,6 +302,8 @@ const rules: PatternRule[] = [
     missing: ['Is the itch worse at night?', 'Are finger webs, wrists or the belt area affected?', 'Is anyone close to you also itching?'],
   },
 ];
+
+export const differentialPatternIds = rules.map(rule => rule.id);
 
 function includesAny(text: string, terms: string[]) {
   return terms.some(term => text.includes(term));

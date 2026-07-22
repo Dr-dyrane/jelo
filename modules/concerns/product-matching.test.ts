@@ -37,6 +37,7 @@ test('condition patterns cannot match products even if an approved slug is reuse
   const adversarialPattern = {
     ...approvedConcern,
     kind: 'condition-pattern' as const,
+    clinicalPatternIds: ['adversarial-test-pattern'],
     productTerms: [],
   };
 

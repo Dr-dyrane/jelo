@@ -10,6 +10,13 @@ const changingLesionPatterns = [
   { pattern: /\b(?:sore|ulcer|wound)\b.{0,80}\b(?:does(?:\s+not|n't)|will\s+not|won't|not)\s+heal\b/i, reason: 'A sore that is not healing was reported.' },
   { pattern: /\b(?:sore|ulcer|wound)\b.{0,80}\bheal(?:s|ed|ing)?\b.{0,32}\b(?:return(?:s|ed|ing)?|come(?:s)?\s+back|recur(?:s|red|ring)?)\b/i, reason: 'A sore that heals and returns was reported.' },
 ];
+const strokeWarningPatterns = [
+  /\bsudden(?:ly)?\b.{0,40}\b(?:one-sided|one sided)\b.{0,40}\bweakness\b/i,
+  /\bsudden(?:ly)?\b.{0,60}\b(?:face drooping|slurred speech|speech trouble|difficulty speaking)\b/i,
+  /\b(?:face drooping|slurred speech|speech trouble|difficulty speaking)\b.{0,40}\b(?:began|started|came on)\s+sudden(?:ly)?\b/i,
+];
+const seriousInfectionContext = /\b(?:skin|rash|swelling|cellulitis)\b/i;
+const seriousInfectionWarning = /\b(?:shaking|fast breathing|fast heartbeat|purple patches|confusion|disorient(?:ed|ation)|became confused|feel confused|suddenly confused|cold clammy skin|collapse|collapsed)\b/i;
 
 function hits(text: string, terms: string[]) {
   return terms.filter(term => text.includes(term));
@@ -31,6 +38,16 @@ export function assessReferral(input: {
   differential: DifferentialAssessment;
 }): ReferralAssessment {
   const normalized = input.text.toLowerCase();
+  if (strokeWarningPatterns.some(pattern => pattern.test(input.text))) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['Sudden weakness or speech trouble was reported.'],
+    action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
+  };
+
+  if (seriousInfectionContext.test(input.text) && seriousInfectionWarning.test(input.text)) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['A serious infection warning sign was reported with a skin change.'],
+    action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
+  };
+
   const emergency = hits(normalized, emergencyTerms);
   if (emergency.length) return {
     level: 'emergency', urgency: 'immediate', reasons: emergency.map(term => `Reported ${term}.`),
@@ -47,6 +64,58 @@ export function assessReferral(input: {
   if (changingLesion.length) return {
     level: 'dermatology', urgency: 'soon', reasons: changingLesion,
     action: 'Arrange a prompt in-person skin examination. Do not rely on skincare products for this change.',
+  };
+
+  const primaryId = input.differential.primary?.id;
+  const weakenedImmunity = /\b(?:immunocompromised|weakened immune|suppressed immune|chemotherapy)\b/.test(normalized);
+
+  if (primaryId === 'cellulitis-like') return {
+    level: 'urgent', urgency: 'same-day', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
+    action: 'Arrange same-day in-person medical assessment.',
+  };
+
+  if (primaryId === 'shingles-like') {
+    const higherRisk = (
+      input.profile.pregnant
+      || (input.profile.breastfeeding && /\bbreast\b/.test(normalized))
+      || (typeof input.profile.age === 'number' && input.profile.age < 18)
+      || weakenedImmunity
+      || /\b(?:eye|nose|vision|sight)\b/.test(normalized)
+    );
+    return higherRisk ? {
+      level: 'urgent', urgency: 'same-day', reasons: [`The leading pattern is ${input.differential.primary?.label}.`, 'A higher-risk context was reported.'],
+      action: 'Arrange urgent in-person medical assessment today.',
+    } : {
+      level: 'pharmacist', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
+      action: 'Ask a pharmacist or clinician promptly, ideally within 3 days of the rash appearing.',
+    };
+  }
+
+  if (primaryId === 'impetigo-like') {
+    const higherRisk = (
+      (typeof input.profile.age === 'number' && input.profile.age < 1)
+      || /\b(?:baby under 1|baby under one|infant under 1|infant under one)\b/.test(normalized)
+      || (input.profile.breastfeeding && /\bbreast\b/.test(normalized))
+      || weakenedImmunity
+      || /\b(?:came back|recurred|worse after treatment|worsening after treatment)\b/.test(normalized)
+    );
+    return higherRisk ? {
+      level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`, 'A higher-risk context was reported.'],
+      action: 'Arrange clinician review before choosing treatment.',
+    } : {
+      level: 'pharmacist', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
+      action: 'Ask a pharmacist or clinician to confirm the pattern before choosing treatment.',
+    };
+  }
+
+  if (primaryId === 'numb-patch-like') return {
+    level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
+    action: 'Arrange a prompt in-person examination. Do not test the patch with heat or sharp objects.',
+  };
+
+  if (primaryId === 'velvety-thickening-like') return {
+    level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
+    action: 'Arrange a medical review to assess the cause. Do not scrub or treat this as surface dirt.',
   };
 
   if (mentionsNamedPattern(normalized, /\b(?:ccca|central centrifugal cicatricial alopecia|akn|acne keloidalis nuchae)\b/)) return {
@@ -75,7 +144,6 @@ export function assessReferral(input: {
   };
 
   const specialist = hits(normalized, specialistTerms);
-  const primaryId = input.differential.primary?.id;
   if (primaryId === 'scabies-like' && higherRiskScabiesContext) return {
     level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`, 'The reported context needs clinician review.'],
     action: 'Arrange clinician review before choosing treatment, and seek care sooner if infection or rapid worsening develops.',

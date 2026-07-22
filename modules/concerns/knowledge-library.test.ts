@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { concerns } from '@/data/knowledge';
+import { differentialPatternIds } from '@/modules/clinical/core/differential';
 
 test('provides sourced concern guidance without turning condition patterns into product matches', () => {
   assert.ok(concerns.length >= 26);
@@ -21,6 +22,22 @@ test('provides sourced concern guidance without turning condition patterns into 
     }
     if (concern.kind === 'condition-pattern') {
       assert.deepEqual(concern.productTerms, [], `${concern.slug} must not drive product recommendations`);
+    }
+  }
+});
+
+test('every condition guide maps to a deterministic Ask Jelo pattern', () => {
+  const available = new Set(differentialPatternIds);
+
+  for (const concern of concerns) {
+    if (concern.kind === 'concern') {
+      assert.equal(concern.clinicalPatternIds, undefined, concern.slug);
+      continue;
+    }
+
+    assert.ok(concern.clinicalPatternIds.length > 0, `${concern.slug} needs a deterministic pattern`);
+    for (const patternId of concern.clinicalPatternIds) {
+      assert.ok(available.has(patternId), `${concern.slug} references missing pattern ${patternId}`);
     }
   }
 });

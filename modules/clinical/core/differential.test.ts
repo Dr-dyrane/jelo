@@ -18,6 +18,11 @@ const patternCases = [
   ['Severe itching at night between my fingers and wrists, and other people at home are itchy.', 'scabies-like'],
   ['Rough tiny bumps like chicken skin on my upper arms, not painful.', 'keratosis-pilaris-like'],
   ['Prickly bumps after sweating in hot weather.', 'miliaria-like'],
+  ['My skin is painful, hot and swollen with a spreading colour change.', 'cellulitis-like'],
+  ['Sores burst and left spreading golden-brown crusts around my mouth.', 'impetigo-like'],
+  ['Pain and tingling came before clustered blisters on only one side of my body.', 'shingles-like'],
+  ['A lighter patch has reduced feeling and numbness in the patch.', 'numb-patch-like'],
+  ['Dark, thickened velvety skin on my neck does not scrub away.', 'velvety-thickening-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -40,6 +45,53 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('Severe itching at night between my fingers and wrists, and other people at home are itchy.').referral.level, 'pharmacist');
   assert.equal(assessClinicalRoutine('An itchy ring-shaped patch with a spreading edge on my scalp.').referral.level, 'dermatology');
   assert.equal(assessClinicalRoutine('Prickly bumps after sweating in hot weather.').referral.level, 'self-care');
+  assert.equal(assessClinicalRoutine('My skin is painful, hot and swollen.').referral.level, 'urgent');
+  assert.equal(assessClinicalRoutine('Sores burst and left spreading golden-brown crusts.').referral.level, 'pharmacist');
+  assert.equal(assessClinicalRoutine('Pain and tingling came before clustered blisters on only one side of my body.').referral.level, 'pharmacist');
+  assert.equal(assessClinicalRoutine('A lighter patch has reduced feeling and numbness in the patch.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('Dark, thickened velvety skin on my neck does not scrub away.').referral.level, 'primary-care');
+});
+
+test('new guide-parity patterns preserve time-sensitive and higher-risk referral boundaries', () => {
+  const naturalShinglesDescription = assessClinicalRoutine('Tingling followed by painful blisters in a band on one side of my face.');
+  assert.equal(naturalShinglesDescription.differential.primary?.id, 'shingles-like');
+  assert.equal(naturalShinglesDescription.referral.level, 'pharmacist');
+
+  const shingles = assessClinicalRoutine('Clustered blisters on one side of my nose after tingling.');
+  assert.equal(shingles.differential.primary?.id, 'shingles-like');
+  assert.equal(shingles.referral.level, 'urgent');
+  assert.equal(shingles.referral.urgency, 'same-day');
+
+  const infantImpetigo = assessClinicalRoutine('A baby under 1 has sores that burst and left golden-brown crusts.');
+  assert.equal(infantImpetigo.differential.primary?.id, 'impetigo-like');
+  assert.equal(infantImpetigo.referral.level, 'primary-care');
+  assert.equal(infantImpetigo.referral.urgency, 'soon');
+
+  const strokeWarning = assessClinicalRoutine('A numb skin patch with sudden one-sided weakness and speech trouble.');
+  assert.equal(strokeWarning.referral.level, 'emergency');
+  assert.equal(strokeWarning.referral.urgency, 'immediate');
+
+  const seriousInfection = assessClinicalRoutine('My skin swelling is hot and painful, and I became confused.');
+  assert.equal(seriousInfection.referral.level, 'emergency');
+  assert.equal(seriousInfection.referral.urgency, 'immediate');
+});
+
+test('new observational patterns do not swallow close alternatives', () => {
+  assert.equal(
+    assessClinicalRoutine('Very itchy blisters exactly where hair dye touched on both sides.').differential.primary?.id,
+    'allergic-contact-dermatitis-like',
+  );
+  assert.equal(
+    assessClinicalRoutine('Smooth milky white patches with normal sensation and no scale.').differential.primary?.id,
+    'vitiligo-like',
+  );
+  assert.equal(
+    assessClinicalRoutine('Flat dark marks after acne on my cheeks.').differential.primary?.id,
+    'post-inflammatory-hyperpigmentation',
+  );
+  assert.notEqual(assessClinicalRoutine('One pimple has a small pustule and is not spreading.').differential.primary?.id, 'impetigo-like');
+  assert.notEqual(assessClinicalRoutine('A small patch is swollen but not painful or warm.').differential.primary?.id, 'cellulitis-like');
+  assert.notEqual(assessClinicalRoutine('I am confused about which moisturizer to use for dry skin.').referral.level, 'emergency');
 });
 
 test('higher-risk scabies contexts require clinician review', () => {

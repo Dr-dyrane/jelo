@@ -1,10 +1,9 @@
 export type ConcernSource = { title: string; url: string };
 
-export type Concern = {
+type ConcernBase = {
   slug: string;
   name: string;
   area: 'Face' | 'Scalp' | 'Hair' | 'Body';
-  kind: 'concern' | 'condition-pattern';
   summary: string;
   signals: string[];
   ingredients: string[];
@@ -13,6 +12,11 @@ export type Concern = {
   sources: ConcernSource[];
   reviewedAt: string;
 };
+
+export type Concern = ConcernBase & (
+  | { kind: 'concern'; clinicalPatternIds?: never }
+  | { kind: 'condition-pattern'; clinicalPatternIds: string[] }
+);
 
 const reviewedAt = '2026-07-22';
 
@@ -72,7 +76,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Hair and scalp care', url: 'https://www.aad.org/public/everyday-care/hair-scalp-care' }], reviewedAt,
   },
   {
-    slug: 'atopic-eczema-pattern', name: 'Eczema-like dryness', area: 'Body', kind: 'condition-pattern',
+    slug: 'atopic-eczema-pattern', name: 'Eczema-like dryness', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['atopic-dermatitis-like'],
     summary: 'Very itchy, dry, cracked or inflamed skin.',
     signals: ['intense itch', 'dry patches', 'cracking', 'recurrent flares'],
     ingredients: ['bland emollient', 'soap substitute', 'clinician-directed treatment'],
@@ -81,7 +85,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Atopic eczema', url: 'https://www.nhs.uk/conditions/atopic-eczema/' }], reviewedAt,
   },
   {
-    slug: 'contact-dermatitis-pattern', name: 'Contact dermatitis-like rash', area: 'Body', kind: 'condition-pattern',
+    slug: 'contact-dermatitis-pattern', name: 'Contact dermatitis-like rash', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['irritant-contact-dermatitis', 'allergic-contact-dermatitis-like'],
     summary: 'A rash after contact with a product or material.',
     signals: ['itch', 'burning', 'stinging', 'cracks or blisters'],
     ingredients: ['stop the suspected trigger', 'bland emollient', 'pharmacist or clinician review'],
@@ -90,7 +94,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Contact dermatitis symptoms', url: 'https://www.nhs.uk/conditions/contact-dermatitis/symptoms/' }], reviewedAt,
   },
   {
-    slug: 'rosacea-pattern', name: 'Rosacea-like redness', area: 'Face', kind: 'condition-pattern',
+    slug: 'rosacea-pattern', name: 'Rosacea-like redness', area: 'Face', kind: 'condition-pattern', clinicalPatternIds: ['rosacea'],
     summary: 'Flushing, persistent colour change or facial stinging.',
     signals: ['flushing', 'persistent redness', 'visible vessels', 'burning or stinging'],
     ingredients: ['gentle skincare', 'daily SPF 30+', 'trigger tracking', 'clinician-directed treatment'],
@@ -99,7 +103,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Rosacea', url: 'https://www.nhs.uk/conditions/rosacea/' }], reviewedAt,
   },
   {
-    slug: 'melasma-pattern', name: 'Melasma-like patches', area: 'Face', kind: 'condition-pattern',
+    slug: 'melasma-pattern', name: 'Melasma-like patches', area: 'Face', kind: 'condition-pattern', clinicalPatternIds: ['melasma'],
     summary: 'Flat, often symmetrical facial patches.',
     signals: ['symmetrical patches', 'cheeks or forehead', 'upper lip', 'sun or hormonal link'],
     ingredients: ['daily broad-spectrum sunscreen', 'visible-light protection', 'dermatology review'],
@@ -108,7 +112,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Melasma', url: 'https://www.aad.org/public/diseases/a-z/melasma-overview' }], reviewedAt,
   },
   {
-    slug: 'psoriasis-pattern', name: 'Psoriasis-like plaques', area: 'Body', kind: 'condition-pattern',
+    slug: 'psoriasis-pattern', name: 'Psoriasis-like plaques', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['psoriasis-like'],
     summary: 'Thick, scaly patches that may itch or feel sore.',
     signals: ['well-defined plaques', 'scale', 'itch or soreness', 'nail changes'],
     ingredients: ['emollient', 'clinician-directed treatment'],
@@ -117,7 +121,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Psoriasis', url: 'https://www.nhs.uk/conditions/psoriasis/' }], reviewedAt,
   },
   {
-    slug: 'keratosis-pilaris-pattern', name: 'Rough follicular bumps', area: 'Body', kind: 'condition-pattern',
+    slug: 'keratosis-pilaris-pattern', name: 'Rough follicular bumps', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['keratosis-pilaris-like'],
     summary: 'Small rough bumps, often on arms or thighs.',
     signals: ['tiny rough bumps', 'upper arms', 'thighs', 'dryness'],
     ingredients: ['moisturizer', 'urea', 'lactic acid', 'gentle care'],
@@ -126,7 +130,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Keratosis pilaris', url: 'https://www.aad.org/public/diseases/a-z/keratosis-pilaris-overview' }], reviewedAt,
   },
   {
-    slug: 'ringworm-pattern', name: 'Ringworm-like rash', area: 'Body', kind: 'condition-pattern',
+    slug: 'ringworm-pattern', name: 'Ringworm-like rash', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['tinea-corporis-like'],
     summary: 'A scaly, itchy rash that may form a ring.',
     signals: ['ring-shaped patch', 'scale', 'itch', 'spreading edge'],
     ingredients: ['pharmacist-selected antifungal treatment'],
@@ -135,7 +139,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Ringworm', url: 'https://www.nhs.uk/conditions/ringworm/' }], reviewedAt,
   },
   {
-    slug: 'cellulitis-pattern', name: 'Hot, painful swelling', area: 'Body', kind: 'condition-pattern',
+    slug: 'cellulitis-pattern', name: 'Hot, painful swelling', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['cellulitis-like'],
     summary: 'Painful, hot and swollen skin that may spread or blister.',
     signals: ['pain or tenderness', 'warmth and swelling', 'spreading colour change', 'fever or feeling unwell'],
     ingredients: ['urgent same-day assessment', 'keep cuts and wounds clean', 'do not delay care for skincare'],
@@ -144,7 +148,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Cellulitis', url: 'https://www.nhs.uk/conditions/cellulitis/' }], reviewedAt,
   },
   {
-    slug: 'impetigo-pattern', name: 'Crusted spreading sores', area: 'Body', kind: 'condition-pattern',
+    slug: 'impetigo-pattern', name: 'Crusted spreading sores', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['impetigo-like'],
     summary: 'Sores or blisters that burst and leave spreading crusts.',
     signals: ['sores or blisters', 'golden-brown or dark crusts', 'oozing', 'often around the face or hands'],
     ingredients: ['pharmacist or clinician assessment', 'wash hands and avoid touching', 'do not share towels or bedding'],
@@ -153,7 +157,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Impetigo', url: 'https://www.nhs.uk/conditions/impetigo/' }], reviewedAt,
   },
   {
-    slug: 'shingles-pattern', name: 'One-sided painful blisters', area: 'Body', kind: 'condition-pattern',
+    slug: 'shingles-pattern', name: 'One-sided painful blisters', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['shingles-like'],
     summary: 'Pain or tingling followed by clustered blisters on one side.',
     signals: ['pain or tingling before the rash', 'clustered blisters', 'one-sided pattern', 'eye, face or ear involvement'],
     ingredients: ['seek medical advice promptly', 'keep the rash clean and dry', 'loose clothing or a cool compress'],
@@ -162,7 +166,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Shingles', url: 'https://www.nhs.uk/conditions/shingles/' }], reviewedAt,
   },
   {
-    slug: 'ingrown-hairs', name: 'Ingrown hairs & razor bumps', area: 'Body', kind: 'condition-pattern',
+    slug: 'ingrown-hairs', name: 'Ingrown hairs & razor bumps', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['pseudofolliculitis-like'],
     summary: 'Itchy bumps after shaving or hair removal.',
     signals: ['raised itchy bumps', 'trapped hair', 'after shaving', 'coarse or curly hair'],
     ingredients: ['shave with hair growth', 'fewer razor passes', 'cool compress', 'pharmacist advice'],
@@ -171,7 +175,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Ingrown hairs', url: 'https://www.nhs.uk/conditions/ingrown-hairs/' }], reviewedAt,
   },
   {
-    slug: 'hidradenitis-pattern', name: 'Recurring deep lumps', area: 'Body', kind: 'condition-pattern',
+    slug: 'hidradenitis-pattern', name: 'Recurring deep lumps', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['hidradenitis-like'],
     summary: 'Painful lumps that return where skin touches skin.',
     signals: ['deep tender lumps', 'armpit or groin', 'drainage', 'scars or tunnels'],
     ingredients: ['gentle cleansing', 'early dermatology care'],
@@ -180,7 +184,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Hidradenitis suppurativa', url: 'https://www.aad.org/public/diseases/a-z/hidradenitis-suppurativa-symptoms' }], reviewedAt,
   },
   {
-    slug: 'vitiligo-pattern', name: 'Loss of skin colour', area: 'Body', kind: 'condition-pattern',
+    slug: 'vitiligo-pattern', name: 'Loss of skin colour', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['vitiligo-like'],
     summary: 'Light or white patches that need accurate identification.',
     signals: ['loss of colour', 'white or lighter patches', 'possible hair colour change'],
     ingredients: ['sun protection', 'dermatology assessment'],
@@ -189,7 +193,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Vitiligo', url: 'https://www.aad.org/public/diseases/a-z/vitiligo-treatment' }], reviewedAt,
   },
   {
-    slug: 'leprosy-pattern', name: 'Numb skin patches', area: 'Body', kind: 'condition-pattern',
+    slug: 'leprosy-pattern', name: 'Numb skin patches', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['numb-patch-like'],
     summary: 'A lighter or changed-colour patch with reduced feeling or numbness.',
     signals: ['lighter or changed-colour skin patch', 'reduced feeling in the patch', 'numbness in the patch', 'new weakness linked to nerve involvement'],
     ingredients: ['prompt in-person assessment', 'clinician-directed treatment'],
@@ -201,7 +205,7 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
-    slug: 'patchy-hair-loss-pattern', name: 'Patchy or sudden hair loss', area: 'Hair', kind: 'condition-pattern',
+    slug: 'patchy-hair-loss-pattern', name: 'Patchy or sudden hair loss', area: 'Hair', kind: 'condition-pattern', clinicalPatternIds: ['alopecia-areata-like'],
     summary: 'New patches, thinning or rapid shedding.',
     signals: ['smooth bald patches', 'sudden shedding', 'widening part', 'eyebrow or eyelash loss'],
     ingredients: ['early cause-finding', 'dermatology review'],
@@ -210,7 +214,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Hair loss', url: 'https://www.aad.org/public/diseases/hair-loss/causes/fall-out' }], reviewedAt,
   },
   {
-    slug: 'traction-hair-loss-pattern', name: 'Tension-related hair loss', area: 'Hair', kind: 'condition-pattern',
+    slug: 'traction-hair-loss-pattern', name: 'Tension-related hair loss', area: 'Hair', kind: 'condition-pattern', clinicalPatternIds: ['traction-alopecia-like'],
     summary: 'Hairline thinning linked to tight or painful styles.',
     signals: ['painful tight style', 'broken hairs', 'hairline thinning', 'repeated pulling'],
     ingredients: ['loosen the style', 'reduce repeated tension', 'early dermatology review'],
@@ -219,7 +223,7 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Traction alopecia', url: 'https://www.aad.org/public/diseases/hair-loss/causes/hairstyles' }], reviewedAt,
   },
   {
-    slug: 'central-scalp-hair-loss-pattern', name: 'Crown hair loss', area: 'Hair', kind: 'condition-pattern',
+    slug: 'central-scalp-hair-loss-pattern', name: 'Crown hair loss', area: 'Hair', kind: 'condition-pattern', clinicalPatternIds: ['ccca-like'],
     summary: 'Thinning or breakage that starts around the crown.',
     signals: ['crown or centre thinning', 'outward spread', 'itch, burning or tenderness', 'smooth or shiny scalp'],
     ingredients: ['gentle hair care', 'avoid delaying assessment', 'early dermatology review'],
@@ -231,7 +235,7 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
-    slug: 'back-neck-bumps-pattern', name: 'Back-of-neck bumps', area: 'Scalp', kind: 'condition-pattern',
+    slug: 'back-neck-bumps-pattern', name: 'Back-of-neck bumps', area: 'Scalp', kind: 'condition-pattern', clinicalPatternIds: ['acne-keloidalis-nuchae-like'],
     summary: 'Firm itchy bumps or raised scars where the neck meets the scalp.',
     signals: ['back of neck or scalp', 'firm itchy bumps', 'close-cut or friction link', 'raised scars or tufted hairs'],
     ingredients: ['avoid close shaving and rubbing', 'gentle cleansing', 'early dermatology review'],
@@ -243,7 +247,7 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
-    slug: 'tinea-versicolor-pattern', name: 'Light or dark scaly patches', area: 'Body', kind: 'condition-pattern',
+    slug: 'tinea-versicolor-pattern', name: 'Light or dark scaly patches', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['tinea-versicolor-like'],
     summary: 'Fine-scaled patches that may return in warm, humid weather.',
     signals: ['lighter or darker patches', 'fine dry scale', 'chest, back or neck', 'warm-weather recurrence'],
     ingredients: ['pharmacist or clinician confirmation', 'antifungal care if confirmed', 'sun protection'],
@@ -256,7 +260,7 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
-    slug: 'scabies-pattern', name: 'Night-time household itch', area: 'Body', kind: 'condition-pattern',
+    slug: 'scabies-pattern', name: 'Night-time household itch', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['scabies-like'],
     summary: 'Intense night itch that may also affect close contacts.',
     signals: ['itch worse at night', 'finger webs or wrists', 'itchy lines or bumps', 'close contacts also itching'],
     ingredients: ['pharmacist or clinician confirmation', 'contact-aware care if confirmed', 'launder clothing and bedding'],
@@ -268,7 +272,7 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
-    slug: 'acanthosis-nigricans-pattern', name: 'Dark, velvety skin', area: 'Body', kind: 'condition-pattern',
+    slug: 'acanthosis-nigricans-pattern', name: 'Dark, velvety skin', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['velvety-thickening-like'],
     summary: 'Dark, thickened skin on the neck or body folds.',
     signals: ['velvety texture', 'thicker skin', 'neck, armpit or groin', 'does not scrub away'],
     ingredients: ['do not scrub the area', 'gentle skin care', 'medical review for the cause'],
@@ -280,7 +284,7 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
-    slug: 'heat-rash-pattern', name: 'Heat rash', area: 'Body', kind: 'condition-pattern',
+    slug: 'heat-rash-pattern', name: 'Heat rash', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['miliaria-like'],
     summary: 'Small prickly bumps after heavy sweating.',
     signals: ['small raised spots', 'prickly itch', 'mild swelling', 'heat or sweat trigger'],
     ingredients: ['cool the skin', 'loose cotton clothing', 'avoid perfumed products', 'pharmacist advice'],

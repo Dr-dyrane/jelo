@@ -79,6 +79,53 @@ test('a single localized blister or pustule does not overclaim a same-day emerge
   }
 });
 
+test('published guide-parity patterns stop model and product guidance with deterministic care', async () => {
+  const cases = [
+    {
+      query: 'My skin is painful, hot and swollen with a spreading colour change.',
+      patternId: 'cellulitis-like',
+      safetyLevel: 'urgent',
+      action: /same-day/i,
+    },
+    {
+      query: 'Sores burst and left spreading golden-brown crusts around my mouth.',
+      patternId: 'impetigo-like',
+      safetyLevel: 'clinician-review',
+      action: /pharmacist or clinician/i,
+    },
+    {
+      query: 'Tingling followed by painful blisters in a band on one side of my face.',
+      patternId: 'shingles-like',
+      safetyLevel: 'clinician-review',
+      action: /within 3 days/i,
+    },
+    {
+      query: 'A lighter patch has reduced feeling and numbness in the patch.',
+      patternId: 'numb-patch-like',
+      safetyLevel: 'clinician-review',
+      action: /in-person examination/i,
+    },
+    {
+      query: 'Dark, thickened velvety skin on my neck does not scrub away.',
+      patternId: 'velvety-thickening-like',
+      safetyLevel: 'clinician-review',
+      action: /medical review/i,
+    },
+  ] as const;
+
+  for (const expected of cases) {
+    const response = await POST(request({ query: expected.query, market: 'NG' }));
+    const payload = await response.json();
+    assert.equal(payload.clinical.differential.primary?.id, expected.patternId, expected.query);
+    assert.equal(payload.meta.modelCalls, 0, expected.query);
+    assert.equal(payload.meta.safetyInterrupt, true, expected.query);
+    assert.equal(payload.meta.safetyLevel, expected.safetyLevel, expected.query);
+    assert.deepEqual(payload.products, [], expected.query);
+    assert.match(payload.report.summary, expected.action, expected.query);
+    assert.doesNotMatch(payload.report.pattern, /you have|diagnos/i, expected.query);
+  }
+});
+
 test('serious expanded patterns surface their deterministic referral before clarification', async () => {
   const descriptions = [
     'Recurring deep lumps in my armpits with drainage, tunnels and repeated scars.',
