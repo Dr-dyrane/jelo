@@ -58,7 +58,7 @@ export function ConsultExperience() {
     const patient = profilePayload(profile);
     const priorTimeline = timeline.slice(0, 8);
     const fingerprint = JSON.stringify({ patient, history: priorTimeline.map(item => [item.id, item.barrier.score, item.activeLoad.total]) });
-    const cacheKey = `jelocare:consult:v8:${market}:${query.toLowerCase().replace(/\s+/g, ' ')}:${fingerprint}`;
+    const cacheKey = `jelocare:consult:v9:${market}:${query.toLowerCase().replace(/\s+/g, ' ')}:${fingerprint}`;
     const cached = window.localStorage.getItem(cacheKey);
     if (cached) { try { const parsed: Consultation = JSON.parse(cached); setResult(parsed); setTimeline(saveTimeline(parsed.timeline)); setInput(''); setBusy(false); return; } catch { window.localStorage.removeItem(cacheKey); } }
     try {

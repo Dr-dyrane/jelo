@@ -1,12 +1,13 @@
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { products } from '@/data/catalogue';
-import { baselinePrices, type Market } from '@/data/prices';
+import type { Market } from '@/data/prices';
 import { assessRedFlags } from '@/modules/clinical/safety-gate';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { createTimelineRecord } from '@/modules/clinical/core/timeline';
 import { analyzeTimeline } from '@/modules/clinical/core/trends';
 import type { ClinicalTimelineRecord, RoutineStep } from '@/modules/clinical/core/types';
+import { marketProductPrice, marketRetailerLinks } from '@/modules/commerce/market-product';
 import { clinicallyFilterProducts, type ClinicalProductDecision } from '@/modules/recommendations/clinical-product-filter';
 import { rankProducts } from '@/modules/recommendations/product-ranker';
 
@@ -42,17 +43,11 @@ function inferConcerns(query: string) {
   return hits.length ? hits : ['sensitivity', 'dryness', 'acne'];
 }
 
-function priceFor(slug: string, market: Market) {
-  const entry = baselinePrices[slug];
-  const price = entry?.[market] ?? entry?.NG ?? entry?.US;
-  return price ? { amount: price.amount, currency: price.currency, retailer: price.retailer, market: price.market } : null;
-}
-
 function publicProduct(product: (typeof products)[number], market: Market, decision?: ClinicalProductDecision) {
   return {
-    slug: product.slug, brand: product.brand, name: product.name, image: product.image, size: product.size, step: product.step, displayLine: product.displayLine, price: priceFor(product.slug, market),
+    slug: product.slug, brand: product.brand, name: product.name, image: product.image, size: product.size, step: product.step, displayLine: product.displayLine, price: marketProductPrice(product, market),
     clinicalMatch: decision ? { reasons: decision.reasons, ingredientIds: decision.ingredientIds, score: decision.clinicalScore } : undefined,
-    retailers: product.offers.filter(offer => offer.available && (offer.location.includes(market) || offer.location.includes('INTL'))).slice(0, 2).map(offer => ({ retailer: offer.retailer, href: `/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}` })),
+    retailers: marketRetailerLinks(product, market),
   };
 }
 

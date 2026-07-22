@@ -1,0 +1,49 @@
+import { baselinePrices, type Market } from '@/data/prices';
+import type { Offer, Product } from '@/data/products';
+import { rankOffers } from './offer-selection';
+
+export type MarketProductPrice = {
+  amount: number;
+  currency: 'NGN' | 'USD';
+  retailer: string;
+  market: Market;
+  checkedAt?: string;
+};
+
+function servesMarket(offer: Offer, market: Market) {
+  return offer.location.includes(market) || offer.location.includes('INTL');
+}
+
+export function exactAvailableOffers(offers: Offer[], market: Market) {
+  return rankOffers(offers, market).filter(offer =>
+    offer.match !== 'search'
+    && offer.available
+    && servesMarket(offer, market),
+  );
+}
+
+export function marketProductPrice(product: Product, market: Market): MarketProductPrice | null {
+  const pricedOffer = exactAvailableOffers(product.offers, market).find(offer =>
+    market === 'NG' ? offer.priceNgn != null : offer.priceUsd != null,
+  );
+
+  if (pricedOffer) {
+    return {
+      amount: market === 'NG' ? pricedOffer.priceNgn! : pricedOffer.priceUsd!,
+      currency: market === 'NG' ? 'NGN' : 'USD',
+      retailer: pricedOffer.retailer,
+      market,
+      checkedAt: pricedOffer.checkedAt,
+    };
+  }
+
+  const baseline = baselinePrices[product.slug]?.[market];
+  return baseline ? { ...baseline } : null;
+}
+
+export function marketRetailerLinks(product: Product, market: Market, limit = 2) {
+  return exactAvailableOffers(product.offers, market).slice(0, limit).map(offer => ({
+    retailer: offer.retailer,
+    href: `/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}`,
+  }));
+}
