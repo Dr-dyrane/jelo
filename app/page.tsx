@@ -2,10 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ProductRail } from '@/components/products/product-grid';
 import { SafeProductImage } from '@/components/products/safe-product-image';
-import { products } from '@/data/catalogue';
+import { products as curatedCatalogue } from '@/data/catalogue';
 import { marketSignals } from '@/data/market-signals';
 import type { Product } from '@/data/products';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
 import styles from './home.module.css';
+
+export const revalidate = 3600;
 
 const editorialBase = 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial';
 const heroImage = `${editorialBase}/barrier-edit/jelocare-hero-campaign.webp`;
@@ -37,7 +41,9 @@ function DiscoveryRail({ kicker, title, products: railProducts, href = '/product
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const liveCatalogue = await listCatalogueProducts();
+  const products = orderByCuratedSlugs(liveCatalogue, curatedCatalogue.map(product => product.slug));
   const recommendations = products.filter(product => product.sensitiveFriendly).slice(0, 3);
   const editorsEdit = products.slice(0, 12);
   const newAndNoteworthy = products.slice(12, 24).length ? products.slice(12, 24) : products.slice(0, 12);
