@@ -4,6 +4,7 @@ import { createHash, createHmac, randomBytes } from 'node:crypto';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import type { NextRequest } from 'next/server';
+import { isAllowedCommunityRequest } from './request-origin';
 
 export const contributionCookieName = 'jelocare_contribution_edit';
 export const contributionCookieMaxAge = 60 * 60 * 24 * 30;
@@ -31,10 +32,7 @@ export function editSecretFromRequest(request: NextRequest, draftId: string) {
 }
 
 export function sameSiteRequest(request: NextRequest) {
-  const fetchSite = request.headers.get('sec-fetch-site');
-  if (fetchSite && !['same-origin', 'same-site', 'none'].includes(fetchSite)) return false;
-  const origin = request.headers.get('origin');
-  return !origin || origin === request.nextUrl.origin;
+  return isAllowedCommunityRequest(request.headers, request.nextUrl.origin);
 }
 
 export async function readBoundedJson(request: NextRequest) {

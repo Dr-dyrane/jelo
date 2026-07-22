@@ -34,6 +34,10 @@ Routine and store paths skip irrelevant questions. The page saves immediately on
 
 Custom values are explicitly marked and never mutate canonical data.
 
+This is a shared interaction primitive, not a universal replacement for every field in JeloCare. Use it where people choose from open or evolving vocabularies such as products, brands, retailers and concerns. Price, dates, free text and other constrained data keep controls suited to their data type. Domain-specific validation, ranking and data providers stay outside the visual primitive.
+
+AI may propose related terms later, but a person must confirm the suggestion and moderation must approve any canonical alias or clinical relationship. Search behavior never learns directly from an unreviewed submission.
+
 ## Persistence
 
 API:

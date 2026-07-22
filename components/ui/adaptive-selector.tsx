@@ -73,6 +73,7 @@ export function AdaptiveSelector({
   const exactMatch = options.some(option => normalizeCommunityValue(option.label) === normalizeCommunityValue(query));
   const canAdd = allowCustom && query.trim().length >= 2 && !exactMatch;
   const resultCount = options.length + (canAdd ? 1 : 0);
+  const resolvedActiveIndex = resultCount ? Math.min(activeIndex, resultCount - 1) : 0;
 
   function choose(next: AdaptiveValue, inputMode: InputMode) {
     const selected = value.some(item => item.id === next.id);
@@ -103,14 +104,14 @@ export function AdaptiveSelector({
     if (!resultCount) return;
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      setActiveIndex(current => (current + 1) % resultCount);
+      setActiveIndex((resolvedActiveIndex + 1) % resultCount);
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      setActiveIndex(current => (current - 1 + resultCount) % resultCount);
+      setActiveIndex((resolvedActiveIndex - 1 + resultCount) % resultCount);
     } else if (event.key === 'Enter') {
       event.preventDefault();
-      if (activeIndex < options.length) {
-        const option = options[activeIndex];
+      if (resolvedActiveIndex < options.length) {
+        const option = options[resolvedActiveIndex];
         choose({ id: option.id, label: option.label, source: 'canonical' }, query ? 'search' : 'tap');
       } else if (canAdd) addCustom();
     } else if (event.key === 'Escape') {
@@ -156,7 +157,7 @@ export function AdaptiveSelector({
           aria-autocomplete="list"
           aria-controls={listId}
           aria-expanded="true"
-          aria-activedescendant={resultCount ? `${listId}-${activeIndex}` : undefined}
+          aria-activedescendant={resultCount ? `${listId}-${resolvedActiveIndex}` : undefined}
           aria-describedby={statusId}
           placeholder="Search or add"
           autoComplete="off"
@@ -172,7 +173,7 @@ export function AdaptiveSelector({
             type="button"
             role="option"
             aria-selected={selected}
-            data-active={activeIndex === index}
+            data-active={resolvedActiveIndex === index}
             onClick={() => choose({ id: option.id, label: option.label, source: 'canonical' }, query ? 'search' : 'tap')}
           >
             <span><strong>{option.label}</strong>{option.detail ? <small>{option.detail}</small> : null}</span>
@@ -184,7 +185,7 @@ export function AdaptiveSelector({
           type="button"
           role="option"
           aria-selected="false"
-          data-active={activeIndex === options.length}
+          data-active={resolvedActiveIndex === options.length}
           className={styles.addOption}
           onClick={addCustom}
         >

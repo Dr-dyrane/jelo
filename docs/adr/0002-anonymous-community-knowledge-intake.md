@@ -15,6 +15,8 @@ The existing catalogue, clinical graph and retail records are reviewed systems. 
 
 Ship `/contribute` as an account-free, mobile-first intake with one question at a time. One adaptive selector supports suggested values, live filtering, canonical selection, multiple selection and custom values. Product, routine and store journeys share that component and skip irrelevant questions.
 
+The selector is a reusable interaction primitive for open or evolving vocabularies, not a mandate to replace every input across JeloCare. Domain adapters own their data providers, ranking, validation and moderation rules. Constrained values such as price and date retain purpose-built native controls. Any future AI mapping is a reviewable suggestion; it does not teach canonical search or create a clinical relationship automatically.
+
 The system stores:
 
 - mutable anonymous drafts with a 30-day expiry;

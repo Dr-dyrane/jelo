@@ -26,4 +26,6 @@ test('community intake stays separated from canonical data and public media', as
   assert.match(selector, /role="listbox"/);
   assert.match(selector, /aria-activedescendant/);
   assert.match(adr, /does not accept photos or receipts/);
+  assert.match(adr, /not a mandate to replace every input/);
+  assert.match(adr, /does not teach canonical search/);
 });

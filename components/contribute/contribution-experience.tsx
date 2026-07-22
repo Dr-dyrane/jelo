@@ -122,6 +122,16 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     });
   }, [stepIndex]);
 
+  const persistLocalDraft = useCallback((snapshot: ContributionDraft) => {
+    window.localStorage.setItem(localDraftKey, JSON.stringify({
+      draft: snapshot,
+      hasKind: true,
+      draftId: draftIdRef.current,
+      revision: revisionRef.current,
+      submitKey: submitKeyRef.current,
+    }));
+  }, []);
+
   useEffect(() => {
     if (!hydrated || lastStepRef.current === currentStep) return;
     lastStepRef.current = currentStep;
@@ -159,6 +169,9 @@ export function ContributionExperience({ purposes, products, brands, retailers }
       setSaveState('device');
       return;
     }
+    // The remote capability changes outside React state. Persist it immediately so
+    // a reload between draft creation and the next answer resumes this draft.
+    persistLocalDraft(snapshot);
 
     async function requestSave(revision: number) {
       return fetch(`/api/contribute/drafts/${draftId}`, {
@@ -181,22 +194,22 @@ export function ContributionExperience({ purposes, products, brands, retailers }
       }
       const data = await response.json() as { revision: number };
       revisionRef.current = data.revision;
+      persistLocalDraft(snapshot);
       setSaveState('saved');
     } catch {
       setSaveState('error');
     }
-  }, [ensureRemoteDraft]);
+  }, [ensureRemoteDraft, persistLocalDraft]);
 
   useEffect(() => {
     if (!hydrated || !hasKind || complete) return;
-    const storedDraft = { draft, hasKind, draftId: draftIdRef.current, revision: revisionRef.current, submitKey: submitKeyRef.current };
-    window.localStorage.setItem(localDraftKey, JSON.stringify(storedDraft));
+    persistLocalDraft(draft);
     const timer = window.setTimeout(() => {
       const events = pendingEventsRef.current.splice(0, 50);
       saveQueueRef.current = saveQueueRef.current.then(() => saveSnapshot(draft, events));
     }, 650);
     return () => window.clearTimeout(timer);
-  }, [complete, draft, hasKind, hydrated, saveSnapshot]);
+  }, [complete, draft, hasKind, hydrated, persistLocalDraft, saveSnapshot]);
 
   function replaceDraft(next: ContributionDraft) {
     setDraft({ ...next, currentStep: Math.min(stepIndex + 1, 9) });
