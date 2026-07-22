@@ -1,5 +1,6 @@
 import postgres from 'postgres';
 import { products as catalogue } from '../data/catalogue';
+import { ingredientSeeds, verifiedProductIngredients } from '../data/product-ingredients';
 
 async function main() {
 const connectionString = process.env.DATABASE_URL_UNPOOLED
@@ -26,6 +27,7 @@ const sourceHost = (value: string) => {
     return null;
   }
 };
+const ingredientBySlug = new Map(ingredientSeeds.map(ingredient => [ingredient.slug, ingredient]));
 
 try {
   await sql.begin(async tx => {
@@ -172,6 +174,54 @@ try {
           updated_at = now()
       `;
 
+      for (const productIngredient of verifiedProductIngredients[product.slug] ?? []) {
+        const ingredient = ingredientBySlug.get(productIngredient.ingredientSlug);
+        if (!ingredient) throw new Error(`Missing ingredient seed for ${productIngredient.ingredientSlug}.`);
+
+        const [savedIngredient] = await tx<{ id: string }[]>`
+          insert into ingredients (
+            slug, inci_name, display_name, common_name, summary, evidence_grade,
+            sensitive_skin_status, pharmacist_reviewed
+          ) values (
+            ${ingredient.slug}, ${ingredient.inciName}, ${ingredient.commonName},
+            ${ingredient.commonName}, ${ingredient.summary}, ${ingredient.evidenceGrade},
+            ${ingredient.sensitiveSkinStatus}, false
+          )
+          on conflict (slug) do update set
+            inci_name = case when ingredients.pharmacist_reviewed then ingredients.inci_name else excluded.inci_name end,
+            display_name = case when ingredients.pharmacist_reviewed then ingredients.display_name else excluded.display_name end,
+            common_name = case when ingredients.pharmacist_reviewed then ingredients.common_name else excluded.common_name end,
+            summary = case when ingredients.pharmacist_reviewed then ingredients.summary else excluded.summary end,
+            evidence_grade = case when ingredients.pharmacist_reviewed then ingredients.evidence_grade else excluded.evidence_grade end,
+            sensitive_skin_status = case when ingredients.pharmacist_reviewed then ingredients.sensitive_skin_status else excluded.sensitive_skin_status end,
+            updated_at = now()
+          returning id
+        `;
+
+        await tx`
+          insert into product_ingredients (
+            product_id, ingredient_id, concentration_text, is_key, position,
+            concentration_percent, is_active, source, source_url, verified_at
+          ) values (
+            ${savedProduct.id}, ${savedIngredient.id},
+            ${productIngredient.concentrationPercent == null ? null : `${productIngredient.concentrationPercent}%`},
+            true, ${productIngredient.position}, ${productIngredient.concentrationPercent ?? null},
+            ${productIngredient.isActive}, 'official_brand', ${productIngredient.sourceUrl},
+            ${new Date(`${productIngredient.verifiedAt}T12:00:00Z`)}
+          )
+          on conflict (product_id, ingredient_id) do update set
+            concentration_text = excluded.concentration_text,
+            is_key = excluded.is_key,
+            position = excluded.position,
+            concentration_percent = excluded.concentration_percent,
+            is_active = excluded.is_active,
+            source = excluded.source,
+            source_url = excluded.source_url,
+            verified_at = excluded.verified_at,
+            updated_at = now()
+        `;
+      }
+
       for (const offer of product.offers) {
         const retailerSlug = slugify(offer.retailer);
         const [retailer] = await tx<{ id: string }[]>`
@@ -211,15 +261,15 @@ try {
             )
             on conflict (product_id, retailer_id, market_code) do update set
               url = excluded.url,
-              available = excluded.available,
-              price_minor = excluded.price_minor,
-              currency_code = excluded.currency_code,
-              checked_at = excluded.checked_at,
-              inventory_status = excluded.inventory_status,
-              verification_method = excluded.verification_method,
-              verification_note = excluded.verification_note,
-              last_verified_at = excluded.last_verified_at,
-              verification_expires_at = excluded.verification_expires_at,
+              available = case when offers.verification_method in ('retailer_page', 'api') then offers.available else excluded.available end,
+              price_minor = case when offers.verification_method in ('retailer_page', 'api') then offers.price_minor else excluded.price_minor end,
+              currency_code = case when offers.verification_method in ('retailer_page', 'api') then offers.currency_code else excluded.currency_code end,
+              checked_at = case when offers.verification_method in ('retailer_page', 'api') then offers.checked_at else excluded.checked_at end,
+              inventory_status = case when offers.verification_method in ('retailer_page', 'api') then offers.inventory_status else excluded.inventory_status end,
+              verification_method = case when offers.verification_method in ('retailer_page', 'api') then offers.verification_method else excluded.verification_method end,
+              verification_note = case when offers.verification_method in ('retailer_page', 'api') then offers.verification_note else excluded.verification_note end,
+              last_verified_at = case when offers.verification_method in ('retailer_page', 'api') then offers.last_verified_at else excluded.last_verified_at end,
+              verification_expires_at = case when offers.verification_method in ('retailer_page', 'api') then offers.verification_expires_at else excluded.verification_expires_at end,
               match_kind = excluded.match_kind,
               updated_at = now()
             returning id

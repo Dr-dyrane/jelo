@@ -13,7 +13,9 @@ const sql = postgres(connectionString, { max: 1, prepare: false });
 try {
   const [summary] = await sql<{
     ingredients: number;
+    published_products: number;
     linked_products: number;
+    products_without_verified_ingredients: number;
     active_links: number;
     unreviewed_ingredients: number;
     unknown_pregnancy_status: number;
@@ -22,7 +24,17 @@ try {
   }[]>`
     select
       (select count(*)::int from ingredients) as ingredients,
+      (select count(*)::int from products where is_published) as published_products,
       (select count(distinct product_id)::int from product_ingredients) as linked_products,
+      (
+        select count(*)::int
+        from products p
+        where p.is_published
+          and not exists (
+            select 1 from product_ingredients pi
+            where pi.product_id = p.id and pi.verified_at is not null
+          )
+      ) as products_without_verified_ingredients,
       (select count(*)::int from product_ingredients where is_active) as active_links,
       (select count(*)::int from ingredients where not pharmacist_reviewed) as unreviewed_ingredients,
       (select count(*)::int from ingredients where pregnancy_status = 'unknown') as unknown_pregnancy_status,

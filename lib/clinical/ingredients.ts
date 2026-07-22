@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { getPostgresClient } from '@/lib/db/postgres';
+import { getPostgresClient, hasPostgresConfig } from '@/lib/db/postgres';
 
 export type EvidenceGrade = 'high' | 'moderate' | 'emerging' | 'insufficient';
 export type SafetyStatus = 'generally_safe' | 'use_with_caution' | 'avoid' | 'unknown';
@@ -83,6 +83,8 @@ export async function listIngredientsForProduct(productSlug: string) {
     position: number | null;
     concentration_percent: string | null;
     is_active: boolean;
+    source: string | null;
+    source_url: string | null;
     verified_at: Date | null;
   })[]>`
     select
@@ -101,6 +103,8 @@ export async function listIngredientsForProduct(productSlug: string) {
       pi.position,
       pi.concentration_percent,
       pi.is_active,
+      pi.source,
+      pi.source_url,
       pi.verified_at
     from product_ingredients pi
     join ingredients i on i.id = pi.ingredient_id
@@ -114,8 +118,20 @@ export async function listIngredientsForProduct(productSlug: string) {
     position: row.position,
     concentrationPercent: row.concentration_percent === null ? null : Number(row.concentration_percent),
     isActive: row.is_active,
+    source: row.source,
+    sourceUrl: row.source_url,
     verifiedAt: row.verified_at,
   }));
+}
+
+export async function listProductIngredientsSafe(productSlug: string) {
+  if (!hasPostgresConfig()) return [];
+  try {
+    return await listIngredientsForProduct(productSlug);
+  } catch (error) {
+    console.error(`Ingredient disclosure unavailable for ${productSlug}; showing pending state.`, error);
+    return [];
+  }
 }
 
 export async function listIngredientRelations(ingredientId: string) {
