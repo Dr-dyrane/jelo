@@ -103,6 +103,8 @@ Extraction order is conservative:
 
 Page-wide purchase copy is not stock evidence. Every refresh records the adapter, confidence, evidence labels, observed product title and same-origin canonical URL. High-confidence observations remain fresh longer than incomplete ones.
 
+Production queues and checks a bounded set of stale exact offers once each day. The cron route is bearer-authenticated, ignores store-search URLs and uses the existing locked job queue so overlapping requests cannot claim the same offer.
+
 ## Implementation order
 
 1. Register canonical retailer records.
