@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "updatedAt": "2026-07-22T15:02:00Z",
+  "schemaVersion": 3,
+  "updatedAt": "2026-07-22T15:41:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -60,7 +60,7 @@
             "observedAt": "2026-07-22T14:24:00Z",
             "observedTitle": "CeraVe Hydrating Cleanser for Normal to Dry Skin with Hyaluronic Acid and 3 Essential Ceramides",
             "observedSize": "473 ml",
-            "observedGtin": "3337875597333",
+            "retailerSku": "6138374",
             "priceNgn": 16664,
             "stock": "in-stock"
           },
@@ -71,7 +71,6 @@
             "observedAt": "2026-07-22T14:31:54Z",
             "observedTitle": "CeraVe Hydrating Cleanser Daily Face & Body Wash for Normal to Dry Skin",
             "observedSize": "473 ml",
-            "observedGtin": "3337875597333",
             "retailerSku": "3337875597333",
             "priceNgn": 15265,
             "stock": "in-stock"
@@ -171,7 +170,7 @@
             "observedAt": "2026-07-22T14:29:00Z",
             "observedTitle": "CeraVe Moisturising Cream for Dry to Very Dry Skin with Hyaluronic Acid and 3 Essential Ceramides",
             "observedSize": "454 g",
-            "observedGtin": "3337875597388",
+            "retailerSku": "6111001",
             "priceNgn": 21705,
             "stock": "in-stock"
           },
@@ -182,7 +181,6 @@
             "observedAt": "2026-07-22T14:29:00Z",
             "observedTitle": "CeraVe Moisturizing Cream for Dry to Very Dry Skin",
             "observedSize": "454 g",
-            "observedGtin": "3337875597388",
             "priceNgn": 22500,
             "stock": "in-stock"
           },
@@ -272,12 +270,19 @@
         }
       },
       "care": {
-        "status": "pending",
-        "formulaArchetype": "High-protection facial sunscreen gel-cream for oily and acne-prone skin",
+        "status": "reviewed",
+        "formulaArchetype": "Non-tinted SPF 50+ facial sunscreen gel-cream for oily and acne-prone skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports daily sun protection. It is not an acne treatment, a diagnosis, or a substitute for shade, protective clothing, and clinician-directed care.",
+        "manufacturerEvidenceUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
         "evidenceUrls": [
           "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
-          "https://www.eucerin.co.za/campaigns/nigeria-product-info"
-        ]
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-07-22T15:20:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
         "regulatoryStatus": "pending",
@@ -290,7 +295,6 @@
             "observedAt": "2026-07-22T14:41:00Z",
             "observedTitle": "Eucerin Oil Control Dry Touch Sun Gel-Cream",
             "observedSize": "50 ml",
-            "observedGtin": "8850029013671",
             "retailerSku": "8850029013671",
             "priceNgn": 18770,
             "stock": "in-stock"
@@ -309,6 +313,85 @@
       },
       "asset": {
         "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    },
+    {
+      "id": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
+      "brand": "Eucerin",
+      "name": "UreaRepair PLUS 10% Urea Body Lotion",
+      "variant": "UreaRepair PLUS 10% Urea Body Lotion",
+      "size": "250 ml",
+      "category": "Body care",
+      "reason": "A deliberate body-care candidate for very dry, rough adult skin, with exact regional identity evidence and a current Nigerian listing held behind the market gate.",
+      "priority": "essential",
+      "gapIds": [
+        "very-dry-body-skin",
+        "rough-skin-support",
+        "adult-urea-moisturiser"
+      ],
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/"
+      ],
+      "identity": {
+        "gtin": "6001051001606",
+        "officialProductUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
+        "checkedAt": "2026-07-22T15:41:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
+          "observedGtin": "6001051001606",
+          "observedVariant": "UreaRepair PLUS 10% Urea Body Lotion",
+          "observedSize": "250 ml",
+          "snapshotSha256": "0c0d96071c70cb80aa5a25f04ccc2f95a485bed070b4afb369d8a2cbe0bab774",
+          "snapshotMimeType": "text/html",
+          "snapshotByteSize": 262476,
+          "retrievedAt": "2026-07-22T15:40:23Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "10% urea leave-on body lotion with ceramide and natural moisturising factors for very dry, rough adult skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports moisturising very dry, rough adult body skin. It is not a diagnosis or a substitute for clinician-directed care when skin is painful, cracked, infected, or not improving.",
+        "manufacturerEvidenceUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
+        "independentClinicalGuidanceUrl": "https://pubmed.ncbi.nlm.nih.gov/34596890/",
+        "evidenceUrls": [
+          "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
+          "https://pubmed.ncbi.nlm.nih.gov/34596890/"
+        ],
+        "reviewedAt": "2026-07-22T15:41:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
+            "observedAt": "2026-07-22T15:32:25Z",
+            "observedTitle": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml",
+            "observedSize": "250 ml",
+            "retailerSku": "6001051001606",
+            "priceNgn": 25000,
+            "stock": "in-stock"
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "sourceUrl": "https://images-1.eucerin.com/~/media/eucerin%20relaunch%20media/media-center-items/7/c/e/bf749151745141938f43850481298579-screen.jpg",
+        "sourceAssetSha256": "1f119d2467f25b9d6cb4820282b91bcf91fa1e0186cb681033fa6c9184257229",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 29095,
+        "sourceAssetWidth": 725,
+        "sourceAssetHeight": 1200,
+        "sourceAssetRetrievedAt": "2026-07-22T15:40:51Z",
         "packaging": "unknown",
         "backgroundTreatment": "unknown",
         "presentationQuality": "unknown"

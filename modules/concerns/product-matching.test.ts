@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { reviewedProductRecords } from '@/data/catalogue';
-import { concernBySlug } from '@/data/knowledge';
+import { concernBySlug, concerns } from '@/data/knowledge';
 import { productMatchesConcern } from './product-matching';
 
 function product(slug: string) {
@@ -44,12 +44,7 @@ test('condition patterns cannot match products even if an approved slug is reuse
 });
 
 test('every published condition pattern is product-ineligible', () => {
-  const conditionPatterns = [
-    concern('central-scalp-hair-loss-pattern'),
-    concern('back-neck-bumps-pattern'),
-    concern('tinea-versicolor-pattern'),
-    concern('scabies-pattern'),
-  ];
+  const conditionPatterns = concerns.filter(item => item.kind === 'condition-pattern');
 
   for (const pattern of conditionPatterns) {
     for (const candidate of reviewedProductRecords) {

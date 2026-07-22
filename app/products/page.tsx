@@ -1,6 +1,8 @@
-import { ArrowRight, Search } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
+import { CatalogueSearch } from '@/components/products/catalogue-search';
+import type { CatalogueSearchSuggestion } from '@/components/products/catalogue-search-suggestions';
 import { InventoryCard } from '@/components/products/inventory-card';
 import { CatalogueTransitionTracker } from '@/components/products/catalogue-transition-tracker';
 import { CatalogueFilterFeedback } from '@/components/products/filter-feedback-actions';
@@ -56,6 +58,18 @@ function href(params: SearchParams, updates: Record<string, string | null>, anch
   return anchor ? `${base}#${anchor}` : base;
 }
 
+function inventoryShortcutHref(market: Market, key: 'brand' | 'category', value: string) {
+  const query = new URLSearchParams({ [key]: value });
+  if (market === 'US') query.set('market', 'US');
+  return `/products?${query.toString()}#all-products`;
+}
+
+function inventoryCategory(product: ReviewedProduct) {
+  if (product.category === 'Hair') return 'Hair & scalp';
+  if (product.category === 'Body') return 'Body care';
+  return 'Face care';
+}
+
 function DiscoveryRail({ eyebrow, title, products, market, href: railHref }: { eyebrow: string; title: string; products: ReviewedProduct[]; market: Market; href: string }) {
   if (!products.length) return null;
   return <section className={styles.shelf}>
@@ -89,6 +103,53 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   const faceCare = reviewedProducts.filter(product => product.category === 'Face');
   const hairAndScalp = reviewedProducts.filter(product => product.category === 'Hair');
   const approvedConcerns = concerns.filter(concern => supportiveProducts.some(product => productMatchesConcern(product, concern)));
+  const publicSearchRecords = [
+    ...reviewedProducts.map(product => ({ brand: product.brand, category: inventoryCategory(product) })),
+    ...externalProducts.map(product => ({ brand: product.brand, category: product.category })),
+  ];
+  const companyIndex = new Map<string, { label: string; count: number }>();
+  const categoryIndex = new Map<string, number>();
+  for (const record of publicSearchRecords) {
+    const companyKey = record.brand.toLocaleLowerCase();
+    const company = companyIndex.get(companyKey);
+    if (company) company.count += 1;
+    else companyIndex.set(companyKey, { label: record.brand, count: 1 });
+    categoryIndex.set(record.category, (categoryIndex.get(record.category) ?? 0) + 1);
+  }
+  const searchSuggestions: CatalogueSearchSuggestion[] = [
+    ...[...categoryIndex.entries()]
+      .filter(([, count]) => count > 0)
+      .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+      .map(([label, count]) => ({
+        kind: 'category' as const,
+        label,
+        detail: `${count} ${count === 1 ? 'product' : 'products'}`,
+        href: inventoryShortcutHref(market, 'category', label),
+      })),
+    ...approvedConcerns.slice(0, 6).map(concern => ({
+      kind: 'guide' as const,
+      label: concern.name,
+      detail: 'Concern guide',
+      href: `/concerns/${concern.slug}`,
+      keywords: concern.productTerms,
+    })),
+    ...[...companyIndex.values()]
+      .sort((left, right) => right.count - left.count || left.label.localeCompare(right.label))
+      .slice(0, 40)
+      .map(company => ({
+        kind: 'company' as const,
+        label: company.label,
+        detail: `${company.count} ${company.count === 1 ? 'product' : 'products'}`,
+        href: inventoryShortcutHref(market, 'brand', company.label),
+      })),
+    ...reviewedProducts.slice(0, 24).map(product => ({
+      kind: 'product' as const,
+      label: product.name,
+      detail: product.brand,
+      href: `/products/${product.slug}`,
+      keywords: [product.size],
+    })),
+  ];
   const paginationParams = queryFrom(params);
   const currentSuffix = paginationParams.toString();
   const currentHref = currentSuffix ? `/products?${currentSuffix}` : '/products';
@@ -122,17 +183,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <div className={styles.heroImage}><SafeEditorialImage asset={heroAsset} alt={heroAsset.altText} priority sizes="(max-width: 760px) 100vw, 58vw"/></div>
     </section>
 
-    <form className={styles.searchBar} action="/products#all-products" method="get" role="search">
-      <Search size={21} strokeWidth={1.7} aria-hidden="true"/>
-      <label className="sr-only" htmlFor="catalogue-search">Search the catalogue</label>
-      <input id="catalogue-search" name="q" defaultValue={result.filters.q} placeholder="Product, company or barcode" autoComplete="off"/>
-      <input type="hidden" name="market" value={market}/>
-      <button type="submit">Search</button>
-      <div className={styles.market} aria-label="Shopping market">
-        <Link aria-current={market === 'NG' ? 'true' : undefined} className={market === 'NG' ? styles.active : ''} href={href(params, { market: 'NG' }, 'all-products')}>Nigeria</Link>
-        <Link aria-current={market === 'US' ? 'true' : undefined} className={market === 'US' ? styles.active : ''} href={href(params, { market: 'US' }, 'all-products')}>US</Link>
-      </div>
-    </form>
+    <CatalogueSearch key={`${market}:${result.filters.q}`} defaultValue={result.filters.q} market={market} suggestions={searchSuggestions}/>
 
     {!hasActiveIntent ? <><section className={styles.browse} id="browse">
       <div className={styles.sectionHeading}>

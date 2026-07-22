@@ -9,6 +9,8 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   const feedback = await readFile(path.join(root, 'components/products/filter-feedback-actions.tsx'), 'utf8');
   const tracker = await readFile(path.join(root, 'components/products/catalogue-transition-tracker.tsx'), 'utf8');
   const sheet = await readFile(path.join(root, 'components/products/inventory-filter-sheet.tsx'), 'utf8');
+  const search = await readFile(path.join(root, 'components/products/catalogue-search.tsx'), 'utf8');
+  const searchStyles = await readFile(path.join(root, 'components/products/catalogue-search.module.css'), 'utf8');
   const concerns = await readFile(path.join(root, 'components/concerns/concern-selector.tsx'), 'utf8');
   const catalogueMotion = await readFile(path.join(root, 'app/products/catalogue-feedback.module.css'), 'utf8');
   const concernMotion = await readFile(path.join(root, 'components/concerns/concern-feedback.module.css'), 'utf8');
@@ -21,6 +23,15 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(catalogue, /!hasActiveIntent/);
   assert.match(catalogue, /matchingCatalogueConcerns/);
   assert.match(catalogue, /#all-products/);
+  assert.match(catalogue, /CatalogueSearch/);
+  assert.match(search, /role="combobox"/);
+  assert.match(search, /aria-activedescendant/);
+  assert.match(search, /role="listbox"/);
+  assert.match(search, /role="status" aria-live="polite"/);
+  assert.match(search, /recordCatalogueTransition/);
+  assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*position: fixed/);
+  assert.match(searchStyles, /scrollbar-width: none/);
+  assert.doesNotMatch(search, /[😀-🙏]/u);
   assert.equal((sheet.match(/<dialog/g) ?? []).length, 1);
   assert.doesNotMatch(sheet, /datalist|companyLogo|avatar/i);
   assert.match(sheet, /Search companies/);

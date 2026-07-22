@@ -74,7 +74,15 @@ function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): Cata
     care: {
       status: 'reviewed',
       formulaArchetype: 'Daily bland emollient',
-      evidenceUrls: ['https://brand.example/products/barrier-lotion'],
+      careTier: 'daily-care',
+      reviewScope: 'catalogue-supportive-care',
+      advisoryBoundary: 'Supports routine moisturising only; it does not diagnose or treat a medical condition.',
+      manufacturerEvidenceUrl: 'https://brand.example/products/barrier-lotion',
+      independentClinicalGuidanceUrl: 'https://clinical.example/guidance/emollients',
+      evidenceUrls: [
+        'https://brand.example/products/barrier-lotion',
+        'https://clinical.example/guidance/emollients',
+      ],
       reviewedAt: '2026-07-22T08:30:00Z',
       reviewer: 'Care reviewer',
     },
@@ -90,6 +98,7 @@ function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): Cata
         observedTitle: 'Example Barrier Lotion',
         observedSize: '13.5 fl oz / 400 ml',
         observedGtin: '4005808319695',
+        observedGtinBasis: 'explicit-gtin',
         retailerSku: 'BYD-LOCAL-991',
         priceNgn: 12_500,
         stock: 'in-stock',
@@ -162,6 +171,10 @@ test('an approval-ready exact SKU compiles into one immutable source-agnostic pr
   assert.equal(dossier.sourceEvidence.officialProductUrl, candidate.identity.officialProductUrl);
   assert.deepEqual(dossier.sourceEvidence.officialIdentity, candidate.identity.officialEvidence);
   assert.equal(dossier.care.formulaArchetype, candidate.care.formulaArchetype);
+  assert.equal(dossier.care.careTier, 'daily-care');
+  assert.equal(dossier.care.reviewScope, 'catalogue-supportive-care');
+  assert.equal(dossier.care.advisoryBoundary, candidate.care.advisoryBoundary);
+  assert.equal(dossier.care.independentClinicalGuidanceUrl, candidate.care.independentClinicalGuidanceUrl);
   assert.equal(dossier.nigeria.exactOffers[0]?.retailer, 'Beauty by Daz');
   assert.equal(dossier.rights.evidenceUrl, candidate.asset.rightsUrl);
   assert.deepEqual(dossier.rights.sourceAsset, {
@@ -383,6 +396,14 @@ test('the verifier rejects one final image reused across different candidate ide
         observedVariant: 'Example Gentle Cleanser',
         snapshotSha256: 'e'.repeat(64),
       },
+    },
+    care: {
+      ...first.care,
+      manufacturerEvidenceUrl: 'https://brand.example/products/gentle-cleanser',
+      evidenceUrls: [
+        'https://brand.example/products/gentle-cleanser',
+        first.care.independentClinicalGuidanceUrl!,
+      ],
     },
     nigeria: {
       ...first.nigeria,

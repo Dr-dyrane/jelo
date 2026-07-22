@@ -66,7 +66,15 @@ function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): C
     care: {
       status: 'reviewed',
       formulaArchetype: 'Daily bland emollient',
-      evidenceUrls: ['https://brand.example/products/barrier-lotion'],
+      careTier: 'daily-care',
+      reviewScope: 'catalogue-supportive-care',
+      advisoryBoundary: 'Supports routine moisturising only; it does not diagnose or treat a medical condition.',
+      manufacturerEvidenceUrl: 'https://brand.example/products/barrier-lotion',
+      independentClinicalGuidanceUrl: 'https://clinical.example/guidance/emollients',
+      evidenceUrls: [
+        'https://brand.example/products/barrier-lotion',
+        'https://clinical.example/guidance/emollients',
+      ],
       reviewedAt: '2026-07-22T08:30:00Z',
       reviewer: 'Care reviewer',
     },
@@ -82,6 +90,7 @@ function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): C
         observedTitle: 'Example Barrier Lotion',
         observedSize: '13.5 fl oz / 400 ml',
         observedGtin: '4005808319695',
+        observedGtinBasis: 'explicit-gtin',
         retailerSku: 'BYD-LOCAL-991',
         priceNgn: 12_500,
         stock: 'in-stock',
@@ -141,6 +150,32 @@ test('care review remains a distinct gate after identity is locked', () => {
 
   assert.equal(decision.stage, 'care');
   assert.ok(decision.blockers.includes('care-evidence-missing'));
+});
+
+test('a manufacturer page alone cannot satisfy the independent care review gate', () => {
+  const base = completeCandidate();
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: {
+      ...base.care,
+      independentClinicalGuidanceUrl: base.care.manufacturerEvidenceUrl,
+      evidenceUrls: [base.care.manufacturerEvidenceUrl!],
+    },
+  }, asOf);
+
+  assert.equal(decision.stage, 'care');
+  assert.ok(decision.blockers.includes('care-independent-guidance-missing'));
+});
+
+test('a reviewed care record states its advisory boundary', () => {
+  const base = completeCandidate();
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: { ...base.care, advisoryBoundary: 'Too short' },
+  }, asOf);
+
+  assert.equal(decision.stage, 'care');
+  assert.ok(decision.blockers.includes('care-advisory-boundary-missing'));
 });
 
 test('official identity approval is bound to exact observed identity and immutable retrieval metadata', () => {
@@ -217,6 +252,25 @@ test('retailer SKU metadata cannot substitute for the observed manufacturer GTIN
     assert.equal(decision.freshExactOffers.length, 0);
     assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
   }
+});
+
+test('matching digits do not count when the retailer labels them only as SKU', () => {
+  const base = completeCandidate();
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({
+        ...offer,
+        observedGtinBasis: undefined,
+        retailerSku: offer.observedGtin,
+      })),
+    },
+  }, asOf);
+
+  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.freshExactOffers.length, 0);
+  assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
 test('a provisional observation cannot satisfy the independent Tier-A route', () => {

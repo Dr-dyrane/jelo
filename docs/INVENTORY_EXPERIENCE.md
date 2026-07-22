@@ -78,7 +78,7 @@ The catalogue keeps candidate count, public approval, and recommendation eligibi
 - a community candidate becomes public only through an identity-bound approval in `data/external-product-approvals.json`;
 - approving a community record for discovery never makes it recommendation-eligible.
 
-Current derived state is 23 reviewed research records, 10 display-approved public records, 977 frozen private bulk candidates, 5 deliberate per-SKU intake candidates, and 0 approval-ready intake candidates. The `publicCatalogueCount` value inside the frozen legacy bulk metadata describes the retired count-first release target; it is not current public inventory and must not be used in UI or operational reporting.
+Current derived state is 23 reviewed research records, 10 display-approved public records, 977 frozen private bulk candidates, 6 deliberate per-SKU intake candidates, and 0 approval-ready intake candidates. The `publicCatalogueCount` value inside the frozen legacy bulk metadata describes the retired count-first release target; it is not current public inventory and must not be used in UI or operational reporting.
 
 Imported records must have a barcode, product name, brand, mapped beauty category, source record URL, source-hosted product image, and source update timestamp. They are deduplicated against reviewed records and each other.
 

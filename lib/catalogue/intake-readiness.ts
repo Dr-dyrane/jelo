@@ -11,7 +11,7 @@ import {
   type CataloguePublicationImageMimeType,
 } from './publication-image-policy';
 
-export const catalogueIntakeSchemaVersion = 2 as const;
+export const catalogueIntakeSchemaVersion = 3 as const;
 export const catalogueGenerationRecordSchemaVersion = 1 as const;
 
 export type CatalogueIntakePriority = 'essential' | 'important' | 'exploratory';
@@ -62,6 +62,7 @@ export type CatalogueIntakeOffer = {
   observedTitle: string;
   observedSize: string;
   observedGtin?: string;
+  observedGtinBasis?: 'explicit-gtin' | 'explicit-ean' | 'explicit-upc';
   retailerSku?: string;
   priceNgn: number;
   stock: 'in-stock' | 'low-stock' | 'out-of-stock';
@@ -88,6 +89,11 @@ export type CatalogueIntakeCandidate = {
   care: {
     status: 'pending' | 'reviewed';
     formulaArchetype?: string;
+    careTier?: 'daily-care' | 'targeted-care' | 'professional-referral';
+    reviewScope?: 'catalogue-supportive-care';
+    advisoryBoundary?: string;
+    manufacturerEvidenceUrl?: string;
+    independentClinicalGuidanceUrl?: string;
     evidenceUrls: string[];
     reviewedAt?: string;
     reviewer?: string;
@@ -153,6 +159,8 @@ export type CatalogueIntakeBlocker =
   | 'identity-size-not-measurable'
   | 'care-review-missing'
   | 'care-evidence-missing'
+  | 'care-independent-guidance-missing'
+  | 'care-advisory-boundary-missing'
   | 'nigeria-regulatory-pending'
   | 'nigeria-regulatory-evidence-missing'
   | 'nigeria-exact-offer-missing'
@@ -406,6 +414,7 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
     !offer.retailer.trim()
     || !validHttps(offer.listingUrl)
     || !sameGtin(offer.observedGtin, candidate.identity.gtin)
+    || !['explicit-gtin', 'explicit-ean', 'explicit-upc'].includes(offer.observedGtinBasis ?? '')
     || !Number.isFinite(observedAt)
     || observedAt < asOf - 7 * 86_400_000
     || observedAt > asOf + 5 * 60_000
@@ -445,13 +454,36 @@ function identityBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Ca
 
 function careBlockers(candidate: CatalogueIntakeCandidate, asOf: number): CatalogueIntakeBlocker[] {
   const blockers: CatalogueIntakeBlocker[] = [];
+  const manufacturerEvidenceUrl = candidate.care.manufacturerEvidenceUrl;
+  const independentClinicalGuidanceUrl = candidate.care.independentClinicalGuidanceUrl;
   if (
     candidate.care.status !== 'reviewed'
     || !candidate.care.formulaArchetype?.trim()
+    || !['daily-care', 'targeted-care', 'professional-referral'].includes(candidate.care.careTier ?? '')
+    || candidate.care.reviewScope !== 'catalogue-supportive-care'
     || !candidate.care.reviewer?.trim()
     || !validPastDate(candidate.care.reviewedAt, asOf)
   ) blockers.push('care-review-missing');
   if (!candidate.care.evidenceUrls.length || candidate.care.evidenceUrls.some(url => !validHttps(url))) blockers.push('care-evidence-missing');
+  if (!candidate.care.advisoryBoundary?.trim() || candidate.care.advisoryBoundary.trim().length < 24) {
+    blockers.push('care-advisory-boundary-missing');
+  }
+  try {
+    const manufacturer = new URL(manufacturerEvidenceUrl ?? '');
+    const official = new URL(candidate.identity.officialProductUrl ?? '');
+    const clinical = new URL(independentClinicalGuidanceUrl ?? '');
+    const evidence = new Set(candidate.care.evidenceUrls.map(url => new URL(url).href));
+    if (
+      manufacturer.protocol !== 'https:'
+      || clinical.protocol !== 'https:'
+      || manufacturer.href !== official.href
+      || manufacturer.hostname === clinical.hostname
+      || !evidence.has(manufacturer.href)
+      || !evidence.has(clinical.href)
+    ) blockers.push('care-independent-guidance-missing');
+  } catch {
+    blockers.push('care-independent-guidance-missing');
+  }
   return blockers;
 }
 
@@ -465,7 +497,10 @@ function nigeriaBlockers(candidate: CatalogueIntakeCandidate, offers: CatalogueI
   if (!offers.length) blockers.push('nigeria-exact-offer-missing');
   if (
     candidate.nigeria.exactOffers.length > 0
-    && !candidate.nigeria.exactOffers.some(offer => sameGtin(offer.observedGtin, candidate.identity.gtin))
+    && !candidate.nigeria.exactOffers.some(offer => (
+      sameGtin(offer.observedGtin, candidate.identity.gtin)
+      && ['explicit-gtin', 'explicit-ean', 'explicit-upc'].includes(offer.observedGtinBasis ?? '')
+    ))
   ) blockers.push('nigeria-offer-identity-unbound');
 
   const independentOffers = offers.filter(offer => offer.retailerStatus === 'directory-listed');

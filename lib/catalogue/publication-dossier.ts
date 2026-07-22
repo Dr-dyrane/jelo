@@ -10,7 +10,7 @@ import {
 } from './intake-readiness';
 import type { CataloguePublicationImageMimeType } from './publication-image-policy';
 
-export const cataloguePublicationDossierSchemaVersion = 3 as const;
+export const cataloguePublicationDossierSchemaVersion = 4 as const;
 export const cataloguePublicationApprovalScope = 'exact-identity-source-care-nigeria-rights-and-final-image' as const;
 export const cataloguePublicationExposure = 'private-only' as const;
 
@@ -46,6 +46,11 @@ export type CataloguePublicationDossier = {
   care: {
     status: 'reviewed';
     formulaArchetype: string;
+    careTier: 'daily-care' | 'targeted-care' | 'professional-referral';
+    reviewScope: 'catalogue-supportive-care';
+    advisoryBoundary: string;
+    manufacturerEvidenceUrl: string;
+    independentClinicalGuidanceUrl: string;
     evidenceUrls: string[];
     reviewedAt: string;
     reviewer: string;
@@ -137,7 +142,7 @@ function required<T>(value: T | null | undefined, label: string): T {
 }
 
 export function catalogueIntakeCandidateFingerprint(candidate: CatalogueIntakeCandidate) {
-  return fingerprint('jelocare-catalogue-intake-candidate-v3', candidate);
+  return fingerprint('jelocare-catalogue-intake-candidate-v4', candidate);
 }
 
 export function createCataloguePublicationDossier(
@@ -231,6 +236,17 @@ export function createCataloguePublicationDossier(
     care: {
       status: candidate.care.status as 'reviewed',
       formulaArchetype: required(candidate.care.formulaArchetype, `${candidate.id} formula archetype`),
+      careTier: required(candidate.care.careTier, `${candidate.id} care tier`),
+      reviewScope: required(candidate.care.reviewScope, `${candidate.id} care review scope`),
+      advisoryBoundary: required(candidate.care.advisoryBoundary, `${candidate.id} advisory boundary`),
+      manufacturerEvidenceUrl: required(
+        candidate.care.manufacturerEvidenceUrl,
+        `${candidate.id} manufacturer care evidence`,
+      ),
+      independentClinicalGuidanceUrl: required(
+        candidate.care.independentClinicalGuidanceUrl,
+        `${candidate.id} independent clinical guidance`,
+      ),
       evidenceUrls: [...candidate.care.evidenceUrls],
       reviewedAt: careReviewedAt,
       reviewer: required(candidate.care.reviewer, `${candidate.id} care reviewer`),
