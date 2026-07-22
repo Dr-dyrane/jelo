@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "updatedAt": "2026-07-22T19:00:00Z",
+  "updatedAt": "2026-07-22T20:25:34Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -169,10 +169,45 @@
         ]
       },
       "asset": {
-        "rightsStatus": "unresolved",
-        "packaging": "unknown",
-        "backgroundTreatment": "unknown",
-        "presentationQuality": "unknown"
+        "rightsStatus": "documented",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "sourceUrl": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/hydrating-cleanser-latest/hydrating-cleanser-473ml/hydrating-cleanser-473ml-1-lg.jpg?rev=-1",
+        "sourceAssetSha256": "9ecacf208787d6f61c7044de43cda34e34a21196e64cd9779214d6d2620b803a",
+        "sourceAssetByteSize": 30456,
+        "sourceAssetWidth": 700,
+        "sourceAssetHeight": 875,
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetRetrievedAt": "2026-07-22T20:19:41Z",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation",
+          "model": "gpt-image-2",
+          "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue product packshot\nInput image: edit target — exact official CeraVe Hydrating Cleanser 473 ml EU bilingual pump bottle.\nPrimary request: Change only the white studio background to a perfectly flat solid #ff00ff chroma-key background for later removal. Preserve the exact photographed bottle, the complete white pump and nozzle, bottle proportions, green cap, every label word, logo, typography, colors, shadows within the package, 16 FL OZ / 473 ml size line, and all original source details exactly. Do not redraw, rewrite, retouch, relight, or reinterpret the package.\nComposition: one centered full bottle, generous even padding, no clipping.\nBackground: uniform #ff00ff only; no gradient, texture, floor, cast shadow, reflection, or halo.\nConstraints: exact package identity and pixels must remain unchanged; full pump must be visible; no extra objects; no watermark.\nAvoid: missing pump, altered label, invented text, changed cap, white background, borders, scenery.",
+          "inputs": [
+            {
+              "url": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/hydrating-cleanser-latest/hydrating-cleanser-473ml/hydrating-cleanser-473ml-1-lg.jpg?rev=-1",
+              "sha256": "9ecacf208787d6f61c7044de43cda34e34a21196e64cd9779214d6d2620b803a"
+            }
+          ],
+          "outputSha256": "7928f54978129907360231dbfbbbb4f8b930b3c22271b66537a702386e2e1ac6",
+          "generatedAt": "2026-07-22T20:23:00Z",
+          "recordSha256": "222052bbb05ea4bb70cd31e46fbbea13cdf8fcf6f2bc88bea7c8f3df9dd99fe5"
+        },
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-hydrating-cleanser-473ml/packshot-v1-7928f54978129907.png",
+        "publicImageSha256": "7928f54978129907360231dbfbbbb4f8b930b3c22271b66537a702386e2e1ac6",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1084250,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-07-22T20:25:34Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
       }
     },
     {

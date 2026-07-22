@@ -10,12 +10,13 @@ import { reviewedProductRecords } from '@/data/catalogue';
 import { externalProducts } from '@/data/external-catalogue';
 import { verifyCatalogueIdentityEvidenceArtifacts } from '@/lib/catalogue/identity-evidence-artifact';
 import {
+  catalogueGenerationRecordSha256,
   catalogueIdentityExtractionByteSize,
   catalogueIdentityExtractionSha256,
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T19:01:00Z');
+const researchAsOf = Date.parse('2026-07-22T20:26:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 6);
@@ -98,6 +99,35 @@ test('official CeraVe snapshots advance identity and care without trusting retai
   const cream = catalogueIntakeCandidates.find(item => item.id === 'cerave-moisturising-cream-454g');
   assert.equal(cream?.variant, 'CeraVe Moisturising Cream Pot');
   assert.match(cream?.care.manufacturerEvidenceUrl ?? '', /africa\.cerave\.com/);
+});
+
+test('the hydrating cleanser keeps a hash-bound reviewed render private behind the Nigeria gate', () => {
+  const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-hydrating-cleanser-473ml');
+  assert.ok(candidate);
+  assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
+  assert.equal(candidate.asset.publicImageSha256, '7928f54978129907360231dbfbbbb4f8b930b3c22271b66537a702386e2e1ac6');
+  assert.equal(candidate.asset.width, 2000);
+  assert.equal(candidate.asset.height, 2000);
+  assert.equal(candidate.asset.packaging, 'intact');
+  assert.equal(candidate.asset.labelVariantSizeUnchanged, true);
+  assert.equal(candidate.asset.manualSourceOutputQa, true);
+  assert.equal(candidate.asset.presentationQuality, 'magazine-ready');
+
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...content } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
+  assert.equal(generation.inputs.some(input => (
+    input.url === candidate.asset.sourceUrl
+    && input.sha256 === candidate.asset.sourceAssetSha256
+  )), true);
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.blockers.includes('asset-generation-record-missing'), false);
+  assert.equal(decision.blockers.includes('asset-final-image-invalid'), false);
+  assert.equal(decision.blockers.includes('asset-final-image-too-small'), false);
+  assert.equal(decision.blockers.includes('asset-identity-qa-missing'), false);
 });
 
 test('the UreaRepair dossier advances through identity and care without trusting a retailer SKU', () => {
