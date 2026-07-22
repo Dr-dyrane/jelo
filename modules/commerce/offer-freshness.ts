@@ -7,11 +7,18 @@ function utcDay(value: Date) {
   return Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate());
 }
 
-export function isOfferFresh(offer: Pick<Offer, 'checkedAt'>, now: number | Date = Date.now()) {
+export function isOfferFresh(offer: Pick<Offer, 'checkedAt' | 'expiresAt'>, now: number | Date = Date.now()) {
   if (!offer.checkedAt) return false;
   const checked = new Date(offer.checkedAt);
   const current = typeof now === 'number' ? new Date(now) : now;
   if (Number.isNaN(checked.getTime()) || Number.isNaN(current.getTime())) return false;
+  if (checked.getTime() > current.getTime()) return false;
+
+  if (offer.expiresAt) {
+    const expires = new Date(offer.expiresAt);
+    if (Number.isNaN(expires.getTime()) || expires.getTime() <= current.getTime()) return false;
+  }
+
   const ageDays = (utcDay(current) - utcDay(checked)) / dayMs;
   return ageDays >= 0 && ageDays <= OFFER_FRESH_DAYS;
 }

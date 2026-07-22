@@ -14,6 +14,7 @@ const requestedLimit = Number.parseInt(process.argv[2] ?? '100', 10);
 const limit = Number.isFinite(requestedLimit)
   ? Math.min(Math.max(requestedLimit, 1), 500)
   : 100;
+const lookaheadHours = 24;
 
 const sql = postgres(connectionString, { max: 1, prepare: false });
 
@@ -29,9 +30,13 @@ try {
       select o.id
       from offers o
       where
-        o.last_verified_at is null
-        or o.verification_expires_at is null
-        or o.verification_expires_at <= now()
+        o.match_kind = 'exact'
+        and o.url ~* '^https://'
+        and (
+          o.last_verified_at is null
+          or o.verification_expires_at is null
+          or o.verification_expires_at <= now() + (${lookaheadHours} * interval '1 hour')
+        )
       order by o.verification_expires_at asc nulls first, o.updated_at asc
       limit ${limit}
     ), inserted as (

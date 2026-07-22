@@ -6,6 +6,7 @@ export type Offer = {
   priceNgn?: number;
   priceUsd?: number;
   checkedAt?: string;
+  expiresAt?: string;
   match?: 'exact' | 'search';
   location: string[];
 };

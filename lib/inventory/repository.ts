@@ -117,9 +117,10 @@ export async function listInventoryOffers(options: { staleOnly?: boolean; limit?
   return rows.map(mapOffer);
 }
 
-export async function enqueueStaleInventoryOffers(limit = 100) {
+export async function enqueueDueInventoryOffers(limit = 100, lookaheadHours = 24) {
   const sql = getPostgresClient();
   const safeLimit = Math.min(Math.max(limit, 1), 500);
+  const safeLookaheadHours = Math.min(Math.max(lookaheadHours, 0), 168);
 
   const rows = await sql<{ id: string }[]>`
     with candidates as (
@@ -131,7 +132,7 @@ export async function enqueueStaleInventoryOffers(limit = 100) {
         and (
           o.last_verified_at is null
           or o.verification_expires_at is null
-          or o.verification_expires_at <= now()
+          or o.verification_expires_at <= now() + (${safeLookaheadHours} * interval '1 hour')
         )
       order by o.verification_expires_at asc nulls first, o.updated_at asc
       limit ${safeLimit}
