@@ -6,6 +6,7 @@ import { SiteHeader } from '@/components/navigation/site-header';
 import './globals.css';
 import './platform.css';
 import './consult-report.css';
+import './consult-sheet.css';
 import './evidence.css';
 import './barrier-report.css';
 import './timeline.css';
@@ -13,7 +14,10 @@ import './trend-report.css';
 import './recommendation-audit.css';
 import './storefront.css';
 import './product-experience.css';
+import './product-panel.css';
+import './concern-detail.css';
 import './trust.css';
+import './interaction.css';
 
 const display = Italiana({ weight: '400', subsets: ['latin'], variable: '--font-display' });
 const sans = Manrope({ subsets: ['latin'], variable: '--font-sans' });

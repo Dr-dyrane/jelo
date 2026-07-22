@@ -63,6 +63,9 @@
 
 .market-sources a {
   padding: .55rem .75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .28rem;
   border-radius: 999px;
   background: rgba(255, 253, 249, .56);
   color: var(--wine);
@@ -80,8 +83,7 @@
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scroll-snap-type: inline mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(107, 59, 53, .25) transparent;
+  scrollbar-width: none;
 }
 
 .product-rail > * {
@@ -133,10 +135,14 @@
 }
 
 .evidence-points li::before {
-  content: "✓";
+  content: "";
+  width: .4rem;
+  height: .4rem;
   margin-right: .65rem;
-  color: var(--wine);
-  font-weight: 800;
+  display: inline-block;
+  border-radius: 50%;
+  background: var(--wine);
+  vertical-align: .08em;
 }
 
 @media (max-width: 900px) {

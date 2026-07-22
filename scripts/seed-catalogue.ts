@@ -285,13 +285,16 @@ try {
               product_id, retailer_id, url, market_code, available,
               price_minor, currency_code, checked_at, inventory_status,
               verification_method, verification_note, last_verified_at,
-              verification_expires_at, match_kind
+              verification_expires_at, match_kind, inventory_quantity,
+              seller_name, seller_score, official_store
             ) values (
               ${savedProduct.id}, ${retailer.id}, ${offer.url}, ${market},
               ${offer.available}, ${priceMinor},
               ${currencyCode}, ${checkedAt},
               ${inventoryStatus}, 'import', 'Seeded from the curated catalogue.',
-              ${checkedAt}, ${checkedAt}::timestamptz + interval '7 days', ${offer.match ?? 'exact'}
+              ${checkedAt}, ${checkedAt}::timestamptz + interval '7 days', ${offer.match ?? 'exact'},
+              ${offer.inventoryQuantity ?? null}, ${offer.sellerName ?? null},
+              ${offer.sellerScore ?? null}, ${offer.officialStore ?? false}
             )
             on conflict (product_id, retailer_id, market_code) do update set
               url = excluded.url,
@@ -305,6 +308,10 @@ try {
               last_verified_at = case when offers.verification_method in ('retailer_page', 'api') then offers.last_verified_at else excluded.last_verified_at end,
               verification_expires_at = case when offers.verification_method in ('retailer_page', 'api') then offers.verification_expires_at else excluded.verification_expires_at end,
               match_kind = excluded.match_kind,
+              inventory_quantity = excluded.inventory_quantity,
+              seller_name = excluded.seller_name,
+              seller_score = excluded.seller_score,
+              official_store = excluded.official_store,
               updated_at = now()
             returning id
           `;

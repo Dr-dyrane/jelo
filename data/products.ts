@@ -8,6 +8,10 @@ export type Offer = {
   checkedAt?: string;
   expiresAt?: string;
   match?: 'exact' | 'search';
+  inventoryQuantity?: number;
+  sellerName?: string;
+  sellerScore?: number;
+  officialStore?: boolean;
   location: string[];
 };
 

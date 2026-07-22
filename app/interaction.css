@@ -1,0 +1,34 @@
+html,
+body,
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.profile-disclosure[open] summary,
+.profile-disclosure[open] .profile-grid {
+  width: min(34rem, calc(100vw - 2rem));
+}
+
+body { font-weight: 400; }
+.eyebrow { font-weight: 600; }
+.text-link,
+.section-heading .text-link { font-weight: 600; }
+.product-visual > span { font-weight: 600 !important; }
+.retailer-row strong,
+.profile-disclosure summary,
+.profile-grid label { font-weight: 600; }
+.prompt-row button { font-weight: 400; }
+.consult-form button { font-weight: 500; }

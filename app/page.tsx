@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { ProductRail } from '@/components/products/product-grid';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { products as curatedCatalogue } from '@/data/catalogue';
@@ -34,7 +35,7 @@ function DiscoveryRail({ kicker, title, products: railProducts, href = '/product
     <section className={styles.railSection}>
       <div className={styles.sectionHeader}>
         <div><p className={styles.kicker}>{kicker}</p><h2>{title}</h2></div>
-        <Link href={href}>View all →</Link>
+        <Link className="text-link" href={href}>View all <ArrowRight size={16} aria-hidden="true" /></Link>
       </div>
       <ProductRail products={railProducts} />
     </section>
@@ -86,7 +87,7 @@ export default async function HomePage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div><p className={styles.kicker}>Find your chapter</p><h2>Choose a concern.</h2></div>
-          <Link href="/concerns">View all concerns →</Link>
+          <Link className="text-link" href="/concerns">View all concerns <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         <div className={styles.categoryGrid}>
           {concernCards.map((card, index) => (
@@ -113,7 +114,7 @@ export default async function HomePage() {
           <p className="eyebrow">The JeloCare edit</p>
           <h2>What&apos;s good now.</h2>
           <div className="market-sources" aria-label="Nigeria stores checked">
-            {marketSignals.sources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>)}
+            {marketSignals.sources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} <ArrowUpRight size={14} aria-hidden="true" /></a>)}
           </div>
         </div>
         <div className="signal-list">

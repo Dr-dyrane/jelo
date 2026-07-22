@@ -26,7 +26,7 @@ test('verified Nigerian observations use exact secure product pages', () => {
   }
 });
 
-test('at least fifteen catalogue products have an exact Nigerian price', () => {
+test('at least sixteen catalogue products have an exact Nigerian price', () => {
   const priced = products.filter(product => product.offers.some(offer =>
     offer.location.includes('NG')
     && offer.match === 'exact'
@@ -34,7 +34,21 @@ test('at least fifteen catalogue products have an exact Nigerian price', () => {
     && offer.priceNgn > 0,
   ));
 
-  assert.ok(priced.length >= 15, `expected at least 15 priced products, received ${priced.length}`);
+  assert.ok(priced.length >= 16, `expected at least 16 priced products, received ${priced.length}`);
+});
+
+test('featured marketplace offers retain visible seller evidence', () => {
+  const mediana = verifiedRetailOffers['mediana-leave-in-conditioning-milk']?.find(offer => offer.retailer === 'Jumia');
+  const anua = verifiedRetailOffers['anua-niacinamide-10-txa-4-serum']?.find(offer => offer.retailer === 'Jumia');
+
+  assert.deepEqual(
+    { seller: mediana?.sellerName, score: mediana?.sellerScore, quantity: mediana?.inventoryQuantity },
+    { seller: 'Jeto', score: 88, quantity: 6 },
+  );
+  assert.deepEqual(
+    { seller: anua?.sellerName, score: anua?.sellerScore },
+    { seller: 'Smile Time', score: 92 },
+  );
 });
 
 test('Ghana-priced routes never appear as Nigerian offers', () => {

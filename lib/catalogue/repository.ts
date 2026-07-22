@@ -35,6 +35,10 @@ type ProductRow = {
     checkedAt?: string;
     expiresAt?: string;
     match?: Offer['match'];
+    inventoryQuantity?: number;
+    sellerName?: string;
+    sellerScore?: number;
+    officialStore?: boolean;
     location: string[];
   }> | null;
 };
@@ -114,27 +118,35 @@ async function queryProducts(slug?: string) {
           'url', grouped.url,
           'trust', r.trust_score,
           'available', grouped.available,
-          'priceNgn', grouped.price_ngn,
-          'priceUsd', grouped.price_usd,
+          'priceNgn', case when grouped.market_code = 'NG' and grouped.currency_code = 'NGN' then grouped.price_minor end,
+          'priceUsd', case when grouped.market_code = 'US' and grouped.currency_code = 'USD' then grouped.price_minor::numeric / 100 end,
           'checkedAt', grouped.checked_at,
           'expiresAt', grouped.verification_expires_at,
           'match', grouped.match_kind,
-          'location', grouped.locations
-        ) order by r.trust_score desc)
+          'inventoryQuantity', grouped.inventory_quantity,
+          'sellerName', grouped.seller_name,
+          'sellerScore', grouped.seller_score,
+          'officialStore', grouped.official_store,
+          'location', jsonb_build_array(grouped.market_code)
+        ) order by r.trust_score desc, grouped.market_code)
         from (
           select
             o.retailer_id,
+            o.market_code,
             min(o.url) as url,
             bool_or(o.available) as available,
-            min(o.price_minor) filter (where o.currency_code = 'NGN') as price_ngn,
-            (min(o.price_minor) filter (where o.currency_code = 'USD'))::numeric / 100 as price_usd,
+            min(o.price_minor) as price_minor,
+            min(o.currency_code) as currency_code,
+            max(o.inventory_quantity) as inventory_quantity,
+            max(o.seller_name) as seller_name,
+            max(o.seller_score) as seller_score,
+            bool_or(o.official_store) as official_store,
             max(o.checked_at) as checked_at,
             min(o.verification_expires_at) as verification_expires_at,
-            case when bool_and(o.match_kind = 'search') then 'search' else 'exact' end as match_kind,
-            jsonb_agg(distinct o.market_code order by o.market_code) as locations
+            case when bool_and(o.match_kind = 'search') then 'search' else 'exact' end as match_kind
           from offers o
           where o.product_id = p.id
-          group by o.retailer_id
+          group by o.retailer_id, o.market_code
         ) grouped
         join retailers r on r.id = grouped.retailer_id
       ), '[]'::jsonb) as offers

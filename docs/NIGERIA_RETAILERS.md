@@ -38,4 +38,4 @@ The runtime registry is `data/retailers.ts`. The initial reviewed set is:
 
 ## Initial exact observations
 
-The dated source records live in `data/retail-offers.ts`. The current pass covers 15 catalogue products across direct Nigerian retailers and seller-dependent marketplaces. Each observation stores the exact retailer URL, price, stock state and check date. Search pages are not promoted into exact offers, and non-Nigerian stores are excluded from Nigeria results.
+The dated source records live in `data/retail-offers.ts`. The current pass covers 16 catalogue products across direct Nigerian retailers and seller-dependent marketplaces. Each observation stores the exact retailer URL, price, stock state and check date. Marketplace offers also retain the visible seller name, seller score and quantity when available. Search pages are not promoted into exact offers, and non-Nigerian stores are excluded from Nigeria results.

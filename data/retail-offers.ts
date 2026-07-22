@@ -28,6 +28,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'anua-niacinamide-10-txa-4-serum': [
     exactNg('Teeka4', 'https://teeka4.com/shop/anua-niacinamide-10-txa-4-serum-30ml/', 98, 18000),
+    { ...exactNg('Jumia', 'https://www.jumia.com.ng/anua-niacinamide-10-txa-4-serum-30ml-new-version-419517907.html', 62, 7999), sellerName: 'Smile Time', sellerScore: 92 },
   ],
   'face-facts-wonder-cream-fragrance-free': [
     exactNg('Teeka4', 'https://teeka4.com/shop/face-facts-wonder-cream-fragrance-free-50ml-copy/', 98, 7700),
@@ -45,6 +46,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'lush-hair-mentholated-conditioner': [
     exactNg('Lush Hair Nigeria', 'https://nigeria.lushhairafrica.com/products/mentholated-conditioner-370ml', 98, 1687),
   ],
+  'mediana-leave-in-conditioning-milk': [
+    { ...exactNg('Jumia', 'https://www.jumia.com.ng/mediana-leave-in-conditioning-milk-250ml-215118251.html', 62, 2084), inventoryQuantity: 6, sellerName: 'Jeto', sellerScore: 88 },
+  ],
   'disaar-argan-oil-body-oil-gel': [
     exactNg('Jumia', 'https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html', 62, 4500),
   ],
@@ -58,14 +62,14 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/oils-serum/the-ordinary-azelaic-acid/', 100, 10500, false),
   ],
   'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': [
-    exactNg('Teeka4', 'https://teeka4.com/shop/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50for-oily-blemish-prone-skin-50ml-1-7oz/', 98, 23500),
+    exactNg('Teeka4', 'https://teeka4.com/shop/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50for-oily-blemish-prone-skin-50ml-1-7oz/', 98, 23500, false),
   ],
   'cosrx-advanced-snail-96-mucin-power-essence': [
-    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/treatment/cosrx-advanced-snail-96-mucin-power-essence/', 100, 13999),
-    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/', 96, 12400, false),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/treatment/cosrx-advanced-snail-96-mucin-power-essence/', 100, 12500, false),
+    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/', 96, 12400),
   ],
   'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': [
-    exactNg('Teeka4', 'https://teeka4.com/shop/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-without-pack/', 98, 14500),
+    exactNg('Teeka4', 'https://teeka4.com/shop/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-without-pack/', 98, 13300, false),
     exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-10/', 96, 17500),
   ],
 };

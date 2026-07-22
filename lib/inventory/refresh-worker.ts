@@ -2,12 +2,13 @@ import 'server-only';
 
 import { getPostgresClient } from '@/lib/db/postgres';
 import { extractRetailerPage, type InventoryStatus, type RetailerExtraction } from '@/modules/retail-intelligence/extraction';
+import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
 
 const REQUEST_TIMEOUT_MS = 12_000;
 const MAX_RESPONSE_BYTES = 1_500_000;
 const MAX_ATTEMPTS = 5;
 
-type RetailerObservation = RetailerExtraction & { adapterKey: string };
+type RetailerObservation = RetailerExtraction & { adapterKey: string; responseUrl: string };
 
 export type InventoryRefreshResult = {
   jobId: string;
@@ -24,6 +25,10 @@ type ClaimedJob = {
   offer_id: string;
   attempt_count: number;
   url: string;
+  market_code: string;
+  product_name: string;
+  product_size: string;
+  brand_name: string;
 };
 
 async function claimJob(): Promise<ClaimedJob | undefined> {
@@ -44,9 +49,19 @@ async function claimJob(): Promise<ClaimedJob | undefined> {
       where j.id = candidate.id
       returning j.id, j.offer_id, j.attempt_count
     )
-    select claimed.id as job_id, claimed.offer_id, claimed.attempt_count, o.url
+    select
+      claimed.id as job_id,
+      claimed.offer_id,
+      claimed.attempt_count,
+      o.url,
+      o.market_code,
+      p.name as product_name,
+      p.size as product_size,
+      b.name as brand_name
     from claimed
     join offers o on o.id = claimed.offer_id
+    join products p on p.id = o.product_id
+    join brands b on b.id = p.brand_id
   `;
   return job;
 }
@@ -70,8 +85,9 @@ async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
     if (declaredLength > MAX_RESPONSE_BYTES) throw new Error('Retailer page is too large to inspect safely.');
     const html = await response.text();
     if (Buffer.byteLength(html, 'utf8') > MAX_RESPONSE_BYTES) throw new Error('Retailer page exceeded the inspection size limit.');
-    const result = extractRetailerPage({ url: new URL(response.url || url), html });
-    return { ...result.extraction, adapterKey: result.adapterKey };
+    const responseUrl = response.url || url;
+    const result = extractRetailerPage({ url: new URL(responseUrl), html });
+    return { ...result.extraction, adapterKey: result.adapterKey, responseUrl };
   } finally {
     clearTimeout(timeout);
   }
@@ -96,8 +112,8 @@ async function completeJob(job: ClaimedJob, observation: RetailerObservation) {
       update offers
       set inventory_status = ${observation.inventoryStatus},
           available = ${available},
-          price_minor = coalesce(${observation.priceMinor}, price_minor),
-          currency_code = coalesce(${observation.currencyCode}, currency_code),
+          price_minor = ${observation.priceMinor},
+          currency_code = ${observation.currencyCode},
           verification_method = 'retailer_page',
           verification_note = ${verificationNote},
           extraction_confidence = ${observation.confidence},
@@ -146,6 +162,16 @@ export async function processNextInventoryRefreshJob(): Promise<InventoryRefresh
   if (!job) return undefined;
   try {
     const observation = await fetchRetailerPage(job.url);
+    assertRetailerResponseScope({
+      requestedUrl: job.url,
+      responseUrl: observation.responseUrl,
+      canonicalUrl: observation.canonicalUrl,
+      expectedTitle: `${job.brand_name} ${job.product_name}`,
+      expectedSize: job.product_size,
+      observedTitle: observation.productTitle,
+      marketCode: job.market_code,
+      currencyCode: observation.currencyCode,
+    });
     await completeJob(job, observation);
     return {
       jobId: job.job_id,

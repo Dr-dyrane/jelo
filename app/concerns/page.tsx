@@ -1,15 +1,16 @@
-import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { Suspense } from 'react';
+import { ConcernSelector } from '@/components/concerns/concern-selector';
 import { concerns } from '@/data/knowledge';
-import styles from './concerns.module.css';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
 
-export default function ConcernsPage() {
+export const revalidate = 3600;
+
+export default async function ConcernsPage() {
+  const products = await listCatalogueProducts();
   return <main className="page-shell">
-    <header className="page-heading"><p className="eyebrow">Start here</p><h1>Skin and hair concerns.</h1><p>Choose what you want to improve.</p></header>
-    <section className={styles.grid}>
-      {concerns.map(concern => <Link className={styles.card} href={`/concerns/${concern.slug}`} key={concern.slug}>
-        <div><p className="eyebrow">Concern</p><h2>{concern.name}</h2><p>{concern.summary}</p></div><ArrowUpRight size={22} strokeWidth={1.6}/>
-      </Link>)}
-    </section>
+    <header className="page-heading"><p className="eyebrow">Start here</p><h1>What do you notice?</h1><p>Choose one. Or a few.</p></header>
+    <Suspense fallback={<p className="sr-only">Loading concern selector</p>}>
+      <ConcernSelector concerns={concerns} products={products}/>
+    </Suspense>
   </main>;
 }

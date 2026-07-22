@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { products as staticProducts } from '@/data/catalogue';
 import { concerns } from '@/data/knowledge';
-import { RetailerList } from '@/components/commerce/retailer-list';
-import { StoreSearches } from '@/components/commerce/store-searches';
 import { MarketPrice } from '@/components/products/market-price';
 import { ProductGrid } from '@/components/products/product-grid';
+import { ProductQuickPanel } from '@/components/products/product-quick-panel';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
 import { listProductIngredientsSafe } from '@/lib/clinical/ingredients';
 import { getProductPriceTrends } from '@/lib/inventory/price-trends';
 import { productStructuredData, serializeJsonLd } from '@/modules/commerce/product-structured-data';
+import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
 const evidenceCopy = {
   high: 'Well supported. Results vary.',
@@ -63,9 +64,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   ]);
   if (!product) notFound();
 
-  const matchedConcerns = concerns.filter(concern =>
-    product.concerns.some(value => concern.productTerms.some(term => value.includes(term) || term.includes(value))),
-  );
+  const matchedConcerns = concerns.filter(concern => productMatchesConcern(product, concern));
 
   const related = products
     .filter(item => item.slug !== product.slug)
@@ -81,6 +80,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     .slice(0, 3)
     .map(result => result.item);
   const routine = routinePlacement(product.category, product.step);
+  const panelIngredients = productIngredients.slice(0, 8).map(ingredient => {
+    const concentration = ingredient.concentrationPercent == null ? '' : `${ingredient.concentrationPercent}% `;
+    return {
+      id: ingredient.id,
+      label: `${concentration}${ingredient.commonName ?? ingredient.inciName}`,
+      sourceUrl: ingredient.sourceUrl ?? undefined,
+    };
+  });
   const structuredData = productStructuredData(product);
 
   return (
@@ -95,88 +102,28 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="product-title-meta"><span>{product.size}</span><span>{product.category}</span><span>{product.step}</span></div>
           <p className="product-line">{product.displayLine}</p>
           <p className="product-page-price"><MarketPrice offers={product.offers} market="NG"/></p>
+          <ProductQuickPanel
+            productSlug={product.slug}
+            productName={product.name}
+            offers={product.offers}
+            priceTrends={priceTrends}
+            bestFor={product.bestFor}
+            usage={product.usage}
+            evidence={evidenceCopy[product.evidence]}
+            caution={product.sensitiveFriendly ? 'Introduce one change at a time.' : 'Patch test. Start slowly.'}
+            ingredients={panelIngredients}
+            routine={routine}
+          />
           {matchedConcerns.length ? <div className="product-concern-links">{matchedConcerns.map(concern => <Link key={concern.slug} href={`/concerns/${concern.slug}`}>{concern.name}</Link>)}</div> : null}
           <dl className="facts">
             <div><dt>Best for</dt><dd>{product.bestFor.join(' · ')}</dd></div>
             <div><dt>Use</dt><dd>{product.usage}</dd></div>
-            <div><dt>Skin / hair type</dt><dd>{product.skinTypes.join(' · ')}</dd></div>
-            <div><dt>Sensitive-friendly</dt><dd>{product.sensitiveFriendly ? 'Generally suitable when introduced carefully' : 'Patch test and introduce slowly'}</dd></div>
-            <div><dt>Evidence</dt><dd>{product.evidence}</dd></div>
+            <div><dt>Care note</dt><dd>{product.sensitiveFriendly ? 'Introduce one change at a time.' : 'Patch test. Start slowly.'}</dd></div>
           </dl>
         </div>
       </section>
 
-      <section className="product-decision-guide">
-        <div className="product-decision-heading">
-          <p className="eyebrow">At a glance</p>
-          <h2>Right for you?</h2>
-        </div>
-        <div className="decision-grid">
-          <article className="decision-card">
-            <small>01</small>
-            <h3>Best for</h3>
-            <ul>{product.bestFor.map(item => <li key={item}>{item}</li>)}</ul>
-          </article>
-          <article className="decision-card">
-            <small>02</small>
-            <h3>How to use</h3>
-            <p>{product.usage}</p>
-            {!product.sensitiveFriendly ? <p>Patch test. Add one new active at a time.</p> : null}
-          </article>
-          <article className="decision-card">
-            <small>03</small>
-            <h3>What we know</h3>
-            <p>{evidenceCopy[product.evidence]}</p>
-          </article>
-        </div>
-      </section>
-
-      <section className={`ingredient-disclosure ${productIngredients.length ? '' : 'ingredient-disclosure-pending'}`}>
-        <div>
-          <p className="eyebrow">Formula</p>
-          <h2>{productIngredients.length ? 'Key ingredients.' : 'Review pending.'}</h2>
-        </div>
-        <div className="ingredient-disclosure-content">
-          {productIngredients.length ? <div className="ingredient-chips">
-            {productIngredients.slice(0, 8).map(ingredient => {
-              const concentration = ingredient.concentrationPercent == null ? '' : `${ingredient.concentrationPercent}% `;
-              const label = `${concentration}${ingredient.commonName ?? ingredient.inciName}`;
-              return ingredient.sourceUrl ? <a key={ingredient.id} href={ingredient.sourceUrl} target="_blank" rel="noreferrer">{label} ↗</a> : <span key={ingredient.id}>{label}</span>;
-            })}
-          </div> : null}
-          <p>{productIngredients.length ? 'Key ingredients only. Check your pack.' : 'Check the pack before use.'}</p>
-        </div>
-      </section>
-
-      <section className="routine-placement">
-        <div>
-          <p className="eyebrow">Your routine</p>
-          <h2>Where it fits.</h2>
-        </div>
-        <div className="routine-steps" aria-label={`${product.name} routine placement`}>
-          {routine.map((item, index) => (
-            <div className={`routine-step ${index === 1 ? 'active' : ''}`} key={`${item.title}-${index}`}>
-              <span>0{index + 1}</span>
-              <div><strong>{item.title}</strong><small>{item.detail}</small></div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="buy-section">
-        <div>
-          <p className="eyebrow">Where to buy</p>
-          <h2>Best options.</h2>
-          <p>Stock. Trust. Value.</p>
-          <p className="affiliate-note">Some links earn commission. <Link href="/retailers">How ranking works.</Link></p>
-        </div>
-        <div className="retailer-stack">
-          <RetailerList offers={product.offers} productSlug={product.slug} priceTrends={priceTrends}/>
-          <StoreSearches productSlug={product.slug} exactRetailers={product.offers.filter(offer => offer.match !== 'search').map(offer => offer.retailer)}/>
-        </div>
-      </section>
-
-        {related.length ? <section className="related-products"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>Related care.</h2></div><Link className="text-link" href="/products">Browse all →</Link></div><ProductGrid products={related}/></section> : null}
+        {related.length ? <section className="related-products"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>Related care.</h2></div><Link className="text-link" href="/products">Browse all <ArrowRight size={16} aria-hidden="true" /></Link></div><ProductGrid products={related}/></section> : null}
       </main>
     </>
   );

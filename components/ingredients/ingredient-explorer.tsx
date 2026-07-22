@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, X } from 'lucide-react';
+import { ArrowUpRight, Search, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import styles from './ingredient-explorer.module.css';
 
@@ -82,7 +82,7 @@ export function IngredientExplorer({ ingredients }: { ingredients: IngredientCar
                 <span>{product.brand}</span>
                 <strong>{concentration(product.concentrationPercent, product.name)}{product.name}</strong>
               </Link>
-              <a href={product.sourceUrl} target="_blank" rel="noreferrer">Source ↗</a>
+              <a href={product.sourceUrl} target="_blank" rel="noreferrer">Source <ArrowUpRight size={14} aria-hidden="true" /></a>
             </div>)}
           </div>
         </article>)}

@@ -21,7 +21,7 @@ test('verified Nigerian product matches carry price and check date', () => {
   const teeka = product.offers.find(offer => offer.retailer === 'Teeka4');
   assert.deepEqual(
     { priceNgn: teeka?.priceNgn, checkedAt: teeka?.checkedAt, match: teeka?.match, available: teeka?.available },
-    { priceNgn: 14500, checkedAt: '2026-07-21', match: 'exact', available: true },
+    { priceNgn: 13300, checkedAt: '2026-07-21', match: 'exact', available: false },
   );
 });
 

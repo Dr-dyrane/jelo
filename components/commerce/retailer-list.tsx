@@ -36,7 +36,7 @@ function movementLabel(trends: ProductPriceTrends | undefined, market: Market) {
   const majorAmount = Math.abs(movement.amountMinor) / (market === 'US' ? 100 : 1);
   return {
     direction: movement.direction,
-    copy: `${movement.direction === 'down' ? '↓' : '↑'} ${formatAmount(majorAmount, market)} · ${movement.days}d`,
+    copy: `${movement.direction === 'down' ? 'Down' : 'Up'} ${formatAmount(majorAmount, market)} · ${movement.days}d`,
   };
 }
 
@@ -72,6 +72,9 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
           const fresh = isOfferFresh(offer);
           const price = fresh ? market === 'NG' ? offer.priceNgn : offer.priceUsd : undefined;
           const checked = shortDate(offer.checkedAt);
+          const stock = !fresh ? 'Check stock' : offer.available
+            ? offer.inventoryQuantity ? `${offer.inventoryQuantity} left` : 'In stock'
+            : 'Out of stock';
           return (
           <a
             key={`${offer.retailer}-${offer.url}`}
@@ -81,7 +84,8 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
             <span className="retailer-rank">{String(index + 1).padStart(2, '0')}</span>
             <span>
               <strong>{offer.retailer}</strong>
-              <small>{!fresh ? 'Check stock' : offer.available ? 'In stock' : 'Out of stock'}{checked ? ` · Checked ${checked}` : ''}</small>
+              <small>{stock}{checked ? ` · Checked ${checked}` : ''}</small>
+              {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}</small> : null}
             </span>
             <span className="retailer-price">
               <strong>{price ? formatAmount(price, market) : 'Check price'}</strong>
