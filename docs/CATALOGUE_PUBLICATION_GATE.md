@@ -57,13 +57,25 @@ The initial approval manifest is intentionally empty. This preserves the legacy 
 
 ## Private publication dossiers
 
-`data/catalogue-publication-dossiers.json` is the source-agnostic handoff for a candidate that has cleared every intake gate. It is intentionally empty. `createCataloguePublicationDossier` binds the exact identity and its official snapshot, demand sources, care review, typed NAFDAC record, complete exact-offer evidence, current seller-authorization snapshot when used, immutable source-asset bytes, permission or the complete hashed generation record, final packshot URL/hash/type/bytes/dimensions, reviewer and causally ordered approval time into candidate and dossier fingerprints. A retailer-registry authorization change invalidates an existing dossier.
+`data/catalogue-publication-dossiers.json` is the source-agnostic handoff for a candidate that has cleared every intake gate. It is currently empty. `createCataloguePublicationDossier` binds the exact identity and its official snapshot, demand sources, care review, typed NAFDAC record, complete exact-offer evidence, current seller-authorization snapshot when used, immutable source-asset bytes, permission or the complete hashed generation record, final packshot URL/hash/type/bytes/dimensions, reviewer and causally ordered approval time into candidate and dossier fingerprints. A retailer-registry authorization change invalidates an existing dossier.
 
-The dossier remains a private, non-recommendation artifact. No public catalogue or inventory module imports it, and the current database schema cannot publish it. Any candidate, evidence, rights, image or approval change invalidates the stored fingerprints. Verify the checked-in structure offline with:
+The dossier remains a private, non-recommendation artifact. No dossier publishes itself. Any candidate, evidence, rights, image or approval change invalidates the stored fingerprints. Verify the checked-in structure offline with:
 
 ```bash
 npm run catalogue:publication:verify
 ```
+
+## Explicit release boundary
+
+`data/catalogue-publication-releases.json` is the only handoff from a verified private dossier to the public catalogue. A release binds the current dossier fingerprint, mapped public category, concise routine step and display line, manufacturer-sourced usage directions, presentation reviewer, publication reviewer and causally ordered timestamps into a separate immutable release fingerprint.
+
+The release verifier always re-verifies the candidate and dossier first. A missing dossier, stale regulatory or offer evidence, candidate or image change, unsupported category, unreviewed usage source, changed presentation or publication chronology fails closed. Dossier identity, final image and exact Nigerian offers are materialized directly; they cannot be rewritten by the release record. Suitability arrays remain empty, `sensitiveFriendly` remains false and `recommendationEligible` remains false until a separate clinical recommendation review exists.
+
+```bash
+npm run catalogue:publication:releases:verify
+```
+
+The public repository consumes only the verified materialized release output. A release can appear from the checked-in source of truth before its optional database projection exists; if the projection exists, only exact identity-bound persisted offer evidence may enhance it. This avoids a deployment dead end without allowing arbitrary database rows or private dossiers to bypass release approval.
 
 The structural verifier does not fetch or approve image bytes. The separate networked verifier accepts only a content-addressed, versioned exact-candidate path on JeloCare's controlled Vercel Blob host, refuses redirects, caps response bytes, and checks the response type, byte size, SHA-256, decoded format and dimensions, animation, genuine alpha, subject padding, edge contact, centring, and background behavior on peach, pink, and dark. The uploader must use `allowOverwrite: false`; changing bytes requires a new versioned, hash-addressed path.
 
@@ -71,7 +83,7 @@ The structural verifier does not fetch or approve image bytes. The separate netw
 npm run catalogue:publication:images:verify
 ```
 
-CI runs both checks. A structurally valid dossier or a passing remote image remains private evidence, never publication permission by itself. Full-resolution manual comparison still owns label, variant, size, packaging fidelity, chroma-fringe, and visual-quality judgment; automated pixels cannot establish those facts.
+CI runs the dossier, release and remote-image checks. A structurally valid dossier or a passing remote image remains private evidence, never publication permission by itself. Full-resolution manual comparison still owns label, variant, size, packaging fidelity, chroma-fringe, and visual-quality judgment; automated pixels cannot establish those facts.
 
 ## Shared audit dimensions
 

@@ -23,7 +23,7 @@ async function main() {
     }, null, 2));
   } else {
     console.log(`Verified ${report.dossierCount} immutable private publication dossiers.`);
-    console.log('Published 0 products. Publication remains a separate, unimplemented boundary.');
+    console.log('Dossiers remain private until an explicit verified release binds their presentation and publication approval.');
   }
 }
 

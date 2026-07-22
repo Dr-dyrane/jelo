@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { products as staticProducts } from '@/data/catalogue';
 import { concerns } from '@/data/knowledge';
 import { getReviewedProductCare } from '@/data/product-care-review';
+import { isPublishedIntakeProduct } from '@/data/published-intake-products';
 import { MarketPrice } from '@/components/products/market-price';
 import { ProductGrid } from '@/components/products/product-grid';
 import { ProductQuickPanel } from '@/components/products/product-quick-panel';
@@ -42,16 +43,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!product) notFound();
 
   const careReview = getReviewedProductCare(product.slug);
+  const catalogueVerified = isPublishedIntakeProduct(product.slug);
   const careStatus = careReview?.careState === 'supportive_eligible'
     ? 'Supportive use'
     : careReview?.careState === 'pharmacist_review'
       ? 'Pharmacist review'
-      : 'Formula review pending';
+      : catalogueVerified ? 'Product information verified' : 'Formula review pending';
   const careNote = careReview?.careState === 'supportive_eligible'
     ? careReview.approvedUses.map(use => use.label).join(' · ')
     : careReview?.careState === 'pharmacist_review'
       ? 'Check with a pharmacist first.'
-      : 'More formula evidence needed.';
+      : catalogueVerified ? 'Suitability review pending.' : 'More formula evidence needed.';
 
   const matchedConcerns = concerns.filter(concern => productMatchesConcern(product, concern));
 

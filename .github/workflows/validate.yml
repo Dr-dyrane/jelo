@@ -38,6 +38,9 @@ jobs:
       - name: Verify private publication dossiers
         run: npm run catalogue:publication:verify
 
+      - name: Verify explicit catalogue releases
+        run: npm run catalogue:publication:releases:verify
+
       - name: Verify private publication image bytes
         run: npm run catalogue:publication:images:verify
 

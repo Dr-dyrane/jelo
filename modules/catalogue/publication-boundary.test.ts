@@ -3,7 +3,10 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import type { Product } from '@/data/products';
-import { reconcilePublishedCatalogue } from '@/lib/catalogue/publication-boundary';
+import {
+  mergeDossierReleasedCatalogue,
+  reconcilePublishedCatalogue,
+} from '@/lib/catalogue/publication-boundary';
 
 function product(slug: string, overrides: Partial<Product> = {}): Product {
   return {
@@ -109,6 +112,32 @@ test('duplicate persisted image rows cannot duplicate a public product', () => {
   const result = reconcilePublishedCatalogue([product('approved'), product('approved')], [approved]);
 
   assert.equal(result.length, 1);
+});
+
+test('an explicit dossier release remains public before its database projection exists', () => {
+  const persisted = [product('legacy')];
+  const released = product('dossier-release', {
+    brand: 'Dossier brand',
+    image: 'https://assets.example/dossier-release/packshot-v1-hash.png',
+    offers: [exactOffer()],
+  });
+
+  const all = mergeDossierReleasedCatalogue(persisted, [released]);
+  assert.deepEqual(all.map(item => item.slug), ['legacy', 'dossier-release']);
+  assert.equal(all[1].brand, 'Dossier brand');
+
+  const scoped = mergeDossierReleasedCatalogue([], [released], 'dossier-release');
+  assert.deepEqual(scoped, [released]);
+  assert.deepEqual(mergeDossierReleasedCatalogue([], [released], 'another-product'), []);
+});
+
+test('a projected dossier release appears once and keeps reconciled database offers', () => {
+  const projected = product('dossier-release', { offers: [exactOffer()] });
+  const released = product('dossier-release');
+  const result = mergeDossierReleasedCatalogue([projected], [released]);
+
+  assert.equal(result.length, 1);
+  assert.equal(result[0].offers[0]?.retailer, 'Live');
 });
 
 test('outbound redirects resolve through the same reconciled catalogue', async () => {

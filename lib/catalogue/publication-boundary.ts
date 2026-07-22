@@ -55,3 +55,20 @@ export function reconcilePublishedCatalogue(
     }];
   });
 }
+
+/**
+ * An explicit checked-in release is already bound to a verified dossier and is
+ * therefore allowed to appear before its optional database projection exists.
+ * Legacy/static products keep the older database-intersection behavior.
+ */
+export function mergeDossierReleasedCatalogue(
+  reconciledProducts: readonly Product[],
+  dossierReleasedProducts: readonly Product[],
+  slug?: string,
+) {
+  const seen = new Set(reconciledProducts.map(product => product.slug));
+  const additions = dossierReleasedProducts.filter(product => (
+    (!slug || product.slug === slug) && !seen.has(product.slug)
+  ));
+  return [...reconciledProducts, ...additions];
+}

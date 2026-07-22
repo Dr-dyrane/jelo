@@ -2,8 +2,12 @@ import 'server-only';
 
 import { products as staticProducts } from '@/data/catalogue';
 import { getReviewedProductCare } from '@/data/product-care-review';
+import { publishedIntakeProducts } from '@/data/published-intake-products';
 import type { Offer, Product } from '@/data/products';
-import { reconcilePublishedCatalogue } from '@/lib/catalogue/publication-boundary';
+import {
+  mergeDossierReleasedCatalogue,
+  reconcilePublishedCatalogue,
+} from '@/lib/catalogue/publication-boundary';
 import { getPostgresClient, hasPostgresConfig } from '@/lib/db/postgres';
 import {
   materializePersistedOfferEvidence,
@@ -181,7 +185,11 @@ async function queryProducts(slug?: string) {
     order by b.name, p.name
   `;
 
-  return reconcilePublishedCatalogue(rows.map(mapRow), staticProducts);
+  return mergeDossierReleasedCatalogue(
+    reconcilePublishedCatalogue(rows.map(mapRow), staticProducts),
+    publishedIntakeProducts,
+    slug,
+  );
 }
 
 const neonRepository: CatalogueRepository = {

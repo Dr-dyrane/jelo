@@ -32,6 +32,7 @@
     "catalogue:discovery:screen": "tsx scripts/screen-catalogue-discovery.ts",
     "catalogue:intake:audit": "tsx scripts/audit-catalogue-intake.ts",
     "catalogue:publication:verify": "tsx scripts/verify-catalogue-publication-dossiers.ts",
+    "catalogue:publication:releases:verify": "tsx scripts/verify-catalogue-publication-releases.ts",
     "catalogue:publication:images:verify": "tsx scripts/verify-catalogue-publication-images.ts",
     "catalogue:mirror": "tsx scripts/mirror-open-beauty-facts-images.ts",
     "catalogue:images:audit": "tsx scripts/audit-catalogue-image-quality.ts",

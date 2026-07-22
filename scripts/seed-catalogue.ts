@@ -1,5 +1,6 @@
 import postgres from 'postgres';
 import { products as catalogue } from '../data/catalogue';
+import { isPublishedIntakeProduct } from '../data/published-intake-products';
 import productAssets from '../data/product-assets.json';
 import { ingredientSeeds, verifiedProductIngredients } from '../data/product-ingredients';
 
@@ -75,7 +76,8 @@ try {
         ) values (
           ${brand.id}, ${product.slug}, ${product.name}, ${product.size},
           ${product.category}, ${product.step}, ${product.displayLine}, ${product.usage},
-          ${product.evidence}, ${product.sensitiveFriendly}, ${!isPlaceholder}, 'static-v1'
+          ${product.evidence}, ${product.sensitiveFriendly}, ${!isPlaceholder},
+          ${isPublishedIntakeProduct(product.slug) ? 'published-intake-v1' : 'static-v1'}
         )
         on conflict (slug) do update set
           brand_id = excluded.brand_id,

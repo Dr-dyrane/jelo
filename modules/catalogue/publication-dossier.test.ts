@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import emptyManifest from '@/data/catalogue-publication-dossiers.json';
+import emptyReleaseManifest from '@/data/catalogue-publication-releases.json';
 import {
   catalogueGenerationRecordSchemaVersion,
   catalogueGenerationRecordSha256,
@@ -25,6 +26,15 @@ import {
   type CataloguePublicationDossierManifest,
 } from '@/lib/catalogue/publication-dossier';
 import {
+  cataloguePublicationReleaseApprovalScope,
+  cataloguePublicationReleaseExposure,
+  cataloguePublicationReleaseSchemaVersion,
+  createCataloguePublicationRelease,
+  verifyCataloguePublicationReleaseManifest,
+  type CataloguePublicationPresentation,
+  type CataloguePublicationReleaseApproval,
+} from '@/lib/catalogue/publication-release';
+import {
   catalogueExactOfferEvidenceSchemaVersion,
   catalogueRegulatoryEvidenceSchemaVersion,
   regulatoryEvidenceExcerptSha256,
@@ -32,6 +42,9 @@ import {
   type ReviewedRegulatoryEvidence,
 } from '@/lib/catalogue/market-evidence';
 import { nigeriaRetailers } from '@/data/retailers';
+import { getReviewedProductCare } from '@/data/product-care-review';
+import { evaluateProductClinically } from '@/modules/recommendations/clinical-product-filter';
+import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 
 const asOf = Date.parse('2026-07-22T17:05:00Z');
 const finalHash = 'a'.repeat(64);
@@ -322,6 +335,30 @@ function approval(overrides: Partial<CataloguePublicationApproval> = {}): Catalo
     scope: cataloguePublicationApprovalScope,
     reviewer: 'Publication reviewer',
     approvedAt: '2026-07-22T16:00:00Z',
+    ...overrides,
+  };
+}
+
+function presentation(overrides: Partial<CataloguePublicationPresentation> = {}): CataloguePublicationPresentation {
+  return {
+    category: 'Body',
+    routineStep: 'Moisturize',
+    displayLine: 'Moisturize · support',
+    usage: 'Apply according to the reviewed manufacturer directions on the package.',
+    manufacturerDirectionsUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+    reviewer: 'Presentation reviewer',
+    reviewedAt: '2026-07-22T16:10:00Z',
+    ...overrides,
+  };
+}
+
+function releaseApproval(
+  overrides: Partial<CataloguePublicationReleaseApproval> = {},
+): CataloguePublicationReleaseApproval {
+  return {
+    scope: cataloguePublicationReleaseApprovalScope,
+    reviewer: 'Release reviewer',
+    publishedAt: '2026-07-22T16:20:00Z',
     ...overrides,
   };
 }
@@ -701,6 +738,172 @@ test('the verifier rejects one final image reused across different candidate ide
       dossiers,
     }, asOf),
     /reuses another catalogue publication image hash/,
+  );
+});
+
+test('the checked-in release manifest is empty and cannot publish a dossier implicitly', () => {
+  const candidate = readyCandidate();
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+  const report = verifyCataloguePublicationReleaseManifest([candidate], {
+    schemaVersion: cataloguePublicationDossierSchemaVersion,
+    exposure: cataloguePublicationExposure,
+    dossiers: [dossier],
+  }, emptyReleaseManifest, asOf);
+
+  assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
+  assert.equal(report.exposure, cataloguePublicationReleaseExposure);
+  assert.equal(report.releaseCount, 0);
+  assert.deepEqual(report.products, []);
+});
+
+test('an explicit release materializes identity, image and exact offers only from its verified dossier', () => {
+  const candidate = readyCandidate();
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+  const release = createCataloguePublicationRelease(dossier, presentation(), releaseApproval(), asOf);
+  const report = verifyCataloguePublicationReleaseManifest([candidate], {
+    schemaVersion: cataloguePublicationDossierSchemaVersion,
+    exposure: cataloguePublicationExposure,
+    dossiers: [dossier],
+  }, {
+    schemaVersion: cataloguePublicationReleaseSchemaVersion,
+    exposure: cataloguePublicationReleaseExposure,
+    releases: [release],
+  }, asOf);
+
+  assert.equal(report.releaseCount, 1);
+  assert.equal(report.releases[0].recommendationEligible, false);
+  assert.deepEqual(report.products[0], {
+    slug: candidate.id,
+    brand: candidate.brand,
+    name: candidate.name,
+    size: candidate.size,
+    category: 'Body',
+    step: 'Moisturize',
+    image: candidate.asset.publicImageUrl,
+    displayLine: 'Moisturize · support',
+    bestFor: [],
+    concerns: [],
+    skinTypes: [],
+    sensitiveFriendly: false,
+    usage: 'Apply according to the reviewed manufacturer directions on the package.',
+    evidence: 'emerging',
+    verifiedIngredientIds: [],
+    offers: [{
+      retailer: 'Medplus',
+      url: candidate.nigeria.exactOffers[0].listingUrl,
+      trust: 97,
+      available: true,
+      priceNgn: 12_500,
+      checkedAt: candidate.nigeria.exactOffers[0].observedAt,
+      match: 'exact',
+      listingEvidence: {
+        observedAt: candidate.nigeria.exactOffers[0].observedAt,
+        sourceUrl: candidate.nigeria.exactOffers[0].listingUrl,
+        basis: 'retailer-page',
+      },
+      priceObservation: {
+        observedAt: candidate.nigeria.exactOffers[0].observedAt,
+        variant: candidate.nigeria.exactOffers[0].observedTitle,
+        size: candidate.nigeria.exactOffers[0].observedSize,
+        stock: 'in-stock',
+        landedCost: 'unknown',
+      },
+      priceComparison: 'include',
+      location: ['NG'],
+    }],
+  });
+  assert.equal(getReviewedProductCare(report.products[0].slug), undefined);
+  assert.equal(
+    evaluateProductClinically(
+      report.products[0],
+      assessClinicalRoutine('My skin feels dry.', { concerns: ['dryness'] }),
+    ).eligible,
+    false,
+  );
+});
+
+test('a release without its verified dossier fails closed', () => {
+  const candidate = readyCandidate();
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+  const release = createCataloguePublicationRelease(dossier, presentation(), releaseApproval(), asOf);
+
+  assert.throws(
+    () => verifyCataloguePublicationReleaseManifest([candidate], emptyManifest, {
+      schemaVersion: cataloguePublicationReleaseSchemaVersion,
+      exposure: cataloguePublicationReleaseExposure,
+      releases: [release],
+    }, asOf),
+    /has no current verified publication dossier/,
+  );
+});
+
+test('release content, chronology, category and manufacturer usage evidence are immutable and fail closed', () => {
+  const candidate = readyCandidate();
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+  const release = createCataloguePublicationRelease(dossier, presentation(), releaseApproval(), asOf);
+  const dossierManifest = {
+    schemaVersion: cataloguePublicationDossierSchemaVersion,
+    exposure: cataloguePublicationExposure,
+    dossiers: [dossier],
+  };
+
+  assert.throws(
+    () => verifyCataloguePublicationReleaseManifest([candidate], dossierManifest, {
+      schemaVersion: cataloguePublicationReleaseSchemaVersion,
+      exposure: cataloguePublicationReleaseExposure,
+      releases: [{ ...release, presentation: { ...release.presentation, usage: 'Changed after approval.' } }],
+    }, asOf),
+    /release content or fingerprint changed/,
+  );
+  assert.throws(
+    () => createCataloguePublicationRelease(dossier, presentation({ category: 'Face' }), releaseApproval(), asOf),
+    /category does not match/,
+  );
+  assert.throws(
+    () => createCataloguePublicationRelease(dossier, presentation({
+      manufacturerDirectionsUrl: 'https://retailer.example/unreviewed-directions',
+    }), releaseApproval(), asOf),
+    /not bound to reviewed manufacturer evidence/,
+  );
+  assert.throws(
+    () => createCataloguePublicationRelease(dossier, presentation(), releaseApproval({
+      publishedAt: '2026-07-22T16:05:00Z',
+    }), asOf),
+    /publication predates its presentation review/,
+  );
+});
+
+test('candidate, image and evidence freshness changes invalidate an existing release', () => {
+  const candidate = readyCandidate();
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+  const release = createCataloguePublicationRelease(dossier, presentation(), releaseApproval(), asOf);
+  const dossierManifest = {
+    schemaVersion: cataloguePublicationDossierSchemaVersion,
+    exposure: cataloguePublicationExposure,
+    dossiers: [dossier],
+  };
+  const releaseManifest = {
+    schemaVersion: cataloguePublicationReleaseSchemaVersion,
+    exposure: cataloguePublicationReleaseExposure,
+    releases: [release],
+  };
+  const changedImage = {
+    ...candidate,
+    asset: { ...candidate.asset, publicImageSha256: 'c'.repeat(64) },
+  };
+
+  assert.throws(
+    () => verifyCataloguePublicationReleaseManifest([changedImage], dossierManifest, releaseManifest, asOf),
+    /candidate fingerprint changed/,
+  );
+  assert.throws(
+    () => verifyCataloguePublicationReleaseManifest(
+      [candidate],
+      dossierManifest,
+      releaseManifest,
+      asOf + 91 * 24 * 60 * 60 * 1000,
+    ),
+    /not approval-ready|regulatory|fresh/i,
   );
 });
 
