@@ -49,6 +49,17 @@ async function main() {
       await sql`insert into schema_migrations (filename) values (${filename})`;
       console.log(`applied ${filename}`);
     }
+  } catch (error) {
+    // Migration files are self-transactional. PostgreSQL keeps the connection in
+    // an aborted transaction after a failed statement, so roll it back before
+    // releasing the advisory lock and preserve the original migration error.
+    try {
+      await sql.unsafe('rollback');
+    } catch {
+      // The connection may not have entered a transaction. The original error is
+      // more useful than a best-effort rollback failure.
+    }
+    throw error;
   } finally {
     try {
       await sql`select pg_advisory_unlock(${migrationLockKey})`;

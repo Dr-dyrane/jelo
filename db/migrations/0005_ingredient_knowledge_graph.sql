@@ -4,23 +4,21 @@ create type clinical_evidence_grade as enum ('high', 'moderate', 'emerging', 'in
 create type ingredient_safety_status as enum ('generally_safe', 'use_with_caution', 'avoid', 'unknown');
 create type ingredient_relation_type as enum ('compatible', 'complementary', 'redundant', 'irritation_risk', 'avoid_together');
 
-create table ingredients (
-  id uuid primary key default gen_random_uuid(),
-  slug text not null unique,
-  inci_name text not null,
-  common_name text,
-  summary text,
-  evidence_grade clinical_evidence_grade not null default 'insufficient',
-  pregnancy_status ingredient_safety_status not null default 'unknown',
-  nursing_status ingredient_safety_status not null default 'unknown',
-  sensitive_skin_status ingredient_safety_status not null default 'unknown',
-  comedogenic_rating smallint check (comedogenic_rating between 0 and 5),
-  requires_sun_protection boolean not null default false,
-  pharmacist_reviewed boolean not null default false,
-  reviewed_at timestamptz,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
+alter table ingredients
+  add column common_name text,
+  add column evidence_grade clinical_evidence_grade not null default 'insufficient',
+  add column pregnancy_status ingredient_safety_status not null default 'unknown',
+  add column nursing_status ingredient_safety_status not null default 'unknown',
+  add column sensitive_skin_status ingredient_safety_status not null default 'unknown',
+  add column comedogenic_rating smallint check (comedogenic_rating between 0 and 5),
+  add column requires_sun_protection boolean not null default false,
+  add column pharmacist_reviewed boolean not null default false,
+  add column reviewed_at timestamptz,
+  add column updated_at timestamptz not null default now();
+
+update ingredients
+set common_name = display_name
+where common_name is null;
 
 create table ingredient_synonyms (
   id uuid primary key default gen_random_uuid(),
@@ -44,22 +42,22 @@ create table ingredient_concerns (
   primary key (ingredient_id, concern_slug)
 );
 
-create table product_ingredients (
-  product_id uuid not null references products(id) on delete cascade,
-  ingredient_id uuid not null references ingredients(id) on delete restrict,
-  position integer check (position is null or position > 0),
-  concentration_percent numeric(6,3) check (
+alter table product_ingredients
+  add column position integer check (position is null or position > 0),
+  add column concentration_percent numeric(6,3) check (
     concentration_percent is null
     or (concentration_percent >= 0 and concentration_percent <= 100)
   ),
-  is_active boolean not null default false,
-  source text,
-  source_url text,
-  verified_at timestamptz,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now(),
-  primary key (product_id, ingredient_id)
-);
+  add column is_active boolean not null default false,
+  add column source text,
+  add column source_url text,
+  add column verified_at timestamptz,
+  add column created_at timestamptz not null default now(),
+  add column updated_at timestamptz not null default now();
+
+update product_ingredients
+set is_active = is_key
+where is_key;
 
 create table ingredient_relations (
   ingredient_id uuid not null references ingredients(id) on delete cascade,
