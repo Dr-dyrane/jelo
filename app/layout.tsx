@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { Italiana, Manrope } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
@@ -20,9 +20,18 @@ const sans = Manrope({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://jelocare.com'),
+  applicationName: 'JeloCare',
   title: { default: 'JeloCare — Understand your skin', template: '%s · JeloCare' },
   description: 'Pharmacist-led skin guidance and trusted product discovery.',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: { capable: true, statusBarStyle: 'default', title: 'JeloCare' },
+  formatDetection: { telephone: false },
   openGraph: { title: 'JeloCare', description: 'Understand your skin. Find what fits.', url: 'https://jelocare.com', siteName: 'JeloCare', type: 'website' },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#f29c85',
+  colorScheme: 'light',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
