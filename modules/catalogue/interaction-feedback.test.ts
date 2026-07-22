@@ -12,6 +12,8 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   const search = await readFile(path.join(root, 'components/products/catalogue-search.tsx'), 'utf8');
   const searchStyles = await readFile(path.join(root, 'components/products/catalogue-search.module.css'), 'utf8');
   const concerns = await readFile(path.join(root, 'components/concerns/concern-selector.tsx'), 'utf8');
+  const concernsPage = await readFile(path.join(root, 'app/concerns/page.tsx'), 'utf8');
+  const concernGuide = await readFile(path.join(root, 'app/concerns/[slug]/page.tsx'), 'utf8');
   const catalogueMotion = await readFile(path.join(root, 'app/products/catalogue-feedback.module.css'), 'utf8');
   const concernMotion = await readFile(path.join(root, 'components/concerns/concern-feedback.module.css'), 'utf8');
 
@@ -39,6 +41,10 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(concerns, /Last change undone/);
   assert.match(concerns, /View matches/);
   assert.match(concerns, /Selections cleared/);
+  assert.match(concerns, /!isProductMatchConcern\(concern\)/);
+  assert.match(concerns, /guideCardLink/);
+  assert.match(concernsPage, /filter\(isProductMatchConcern\)/);
+  assert.match(concernGuide, /condition-pattern[\s\S]*Browse concerns/);
   assert.match(catalogueMotion, /prefers-reduced-motion/);
   assert.match(concernMotion, /prefers-reduced-motion/);
 });

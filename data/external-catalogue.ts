@@ -107,9 +107,9 @@ export type ExternalCatalogueMetadata = {
   generatedAt: string;
 };
 
-// The checked-in bulk manifest is a publication-gated candidate pool. Public inventory
-// receives only records bound to a deliberate approval and an untouched,
-// rights-documented photograph or official brand asset.
+// The checked-in bulk manifest is frozen legacy research. Its approval manifest must
+// remain empty, and the gate rejects every non-empty manifest. New work migrates to
+// the private exact-SKU intake dossier instead of publishing this candidate pool.
 export const externalCatalogueCandidates = manifest as unknown as ExternalCatalogueCandidate[];
 export const externalCatalogueApprovals = approvals as ExternalCatalogueApprovalManifest;
 export const externalCatalogueGate = gateExternalCatalogue(externalCatalogueCandidates, externalCatalogueApprovals);
@@ -119,5 +119,5 @@ export const externalCatalogueExposure = {
   candidateCount: externalCatalogueCandidates.length,
   approvedCount: externalCatalogueGate.approvedCount,
   privateCandidateCount: externalCatalogueGate.privateCandidateCount,
-  policy: 'explicit-approval-only',
+  policy: 'legacy-private-disabled',
 } as const;

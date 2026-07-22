@@ -4,17 +4,211 @@ import {
   auditCatalogueIntakeManifest,
   catalogueGenerationRecordSchemaVersion,
   catalogueGenerationRecordSha256,
+  catalogueIdentityExtractionByteSize,
+  catalogueIdentityExtractionSchemaVersion,
+  catalogueIdentityExtractionSha256,
   catalogueIntakeSchemaVersion,
   evaluateCatalogueIntakeCandidate,
   rankCatalogueIntake,
   type CatalogueGenerationRecord,
   type CatalogueGenerationRecordContent,
   type CatalogueIntakeCandidate,
+  type CatalogueIntakeOffer,
+  type CatalogueOfficialIdentityEvidence,
 } from '@/lib/catalogue/intake-readiness';
+import {
+  catalogueExactOfferEvidenceSchemaVersion,
+  catalogueRegulatoryEvidenceSchemaVersion,
+  regulatoryEvidenceExcerptSha256,
+  type ReviewedExactOfferEvidence,
+  type ReviewedRegulatoryEvidence,
+} from '@/lib/catalogue/market-evidence';
 
-const asOf = Date.parse('2026-07-22T12:00:00Z');
+const asOf = Date.parse('2026-07-22T17:05:00Z');
 const hash = 'a'.repeat(64);
 const sourceHash = 'b'.repeat(64);
+
+function exactOfferEvidence(
+  overrides: Partial<ReviewedExactOfferEvidence> = {},
+): ReviewedExactOfferEvidence {
+  const listingUrl = overrides.listingUrl ?? 'https://medplusnig.com/product/example-barrier-lotion';
+  return {
+    schemaVersion: catalogueExactOfferEvidenceSchemaVersion,
+    method: 'reviewed-exact-offer-field-extraction',
+    listingUrl,
+    responseUrl: listingUrl,
+    responseSha256: 'e'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 31_500,
+    retrievedAt: '2026-07-22T09:00:00Z',
+    fields: {
+      gtin: {
+        label: 'GTIN',
+        value: '4005808319695',
+        locator: 'HTML product metadata GTIN row',
+        sourceText: 'GTIN 4005808319695',
+      },
+      title: {
+        value: 'Example Barrier Lotion',
+        locator: 'HTML h1 product title',
+        sourceText: 'Example Barrier Lotion',
+      },
+      size: {
+        value: '13.5 fl oz / 400 ml',
+        locator: 'HTML product size selection',
+        sourceText: '13.5 fl oz / 400 ml',
+      },
+      price: {
+        value: 12_500,
+        currency: 'NGN',
+        locator: 'HTML product price amount',
+        sourceText: 'NGN 12,500',
+      },
+      stock: {
+        value: 'in-stock',
+        locator: 'HTML availability status',
+        sourceText: 'In stock',
+      },
+    },
+    reviewer: 'Market reviewer',
+    reviewedAt: '2026-07-22T09:05:00Z',
+    ...overrides,
+  };
+}
+
+function regulatoryEvidence(
+  gtin = '4005808319695',
+  overrides: Partial<ReviewedRegulatoryEvidence> = {},
+): Extract<ReviewedRegulatoryEvidence, { status: 'matched' }> {
+  const sourceText = `GTIN ${gtin} · NAFDAC registration A4-1234 · Status Active`;
+  return {
+    schemaVersion: catalogueRegulatoryEvidenceSchemaVersion,
+    authority: 'NAFDAC',
+    status: 'matched',
+    matchBasis: 'manufacturer-gtin',
+    candidateGtin: gtin,
+    registrationNumber: 'A4-1234',
+    registrationStatus: {
+      value: 'active',
+      locator: 'NAFDAC Greenbook registration status row',
+      sourceText: 'Status Active',
+    },
+    sourceUrl: `https://greenbook.nafdac.gov.ng/products/${gtin}`,
+    locator: 'NAFDAC Greenbook product detail GTIN row',
+    sourceText,
+    sourceExcerptSha256: regulatoryEvidenceExcerptSha256(sourceText),
+    responseUrl: `https://greenbook.nafdac.gov.ng/products/${gtin}`,
+    responseSha256: 'f'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 24_000,
+    retrievedAt: '2026-07-22T09:10:00Z',
+    observedAt: '2026-07-22T09:10:00Z',
+    reviewedAt: '2026-07-22T09:20:00Z',
+    reviewer: 'Regulatory reviewer',
+    ...overrides,
+  } as Extract<ReviewedRegulatoryEvidence, { status: 'matched' }>;
+}
+
+function withExactOfferEvidence<T extends CatalogueIntakeOffer>(offer: T): T {
+  const label = offer.observedGtinBasis === 'explicit-ean'
+    ? 'EAN'
+    : offer.observedGtinBasis === 'explicit-upc'
+      ? 'UPC'
+      : 'GTIN';
+  return {
+    ...offer,
+    evidence: exactOfferEvidence({
+      listingUrl: offer.listingUrl,
+      responseUrl: offer.listingUrl,
+      retrievedAt: offer.observedAt,
+      fields: {
+        gtin: {
+          label,
+          value: offer.observedGtin!,
+          locator: `HTML product metadata ${label} row`,
+          sourceText: `${label} ${offer.observedGtin}`,
+        },
+        title: {
+          value: offer.observedTitle,
+          locator: 'HTML h1 product title',
+          sourceText: offer.observedTitle,
+        },
+        size: {
+          value: offer.observedSize,
+          locator: 'HTML product size selection',
+          sourceText: offer.observedSize,
+        },
+        price: {
+          value: offer.priceNgn,
+          currency: 'NGN',
+          locator: 'HTML product price amount',
+          sourceText: `NGN ${offer.priceNgn.toLocaleString('en-NG')}`,
+        },
+        stock: {
+          value: offer.stock,
+          locator: 'HTML availability status',
+          sourceText: offer.stock.replaceAll('-', ' '),
+        },
+      },
+    }),
+  };
+}
+
+function identityEvidence(
+  overrides: Partial<Pick<CatalogueOfficialIdentityEvidence, 'url' | 'observedGtin' | 'observedVariant' | 'observedSize' | 'retrievedAt'>> = {},
+  candidateId = 'example-barrier-lotion',
+): CatalogueOfficialIdentityEvidence {
+  const fields = {
+    url: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+    observedGtin: '4005808319695',
+    observedVariant: 'Example Barrier Lotion',
+    observedSize: '400 ml',
+    retrievedAt: '2026-07-22T07:55:00Z',
+    ...overrides,
+  };
+  const canonicalExtraction = {
+    schemaVersion: catalogueIdentityExtractionSchemaVersion,
+    candidateId,
+    sourceUrl: fields.url,
+    responseUrl: fields.url,
+    responseDigestScope: 'decoded-response-body' as const,
+    retrievedAt: fields.retrievedAt,
+    fields: {
+      gtin: {
+        value: fields.observedGtin,
+        locator: 'HTML [data-gtin] attribute',
+        sourceText: `GTIN ${fields.observedGtin}`,
+      },
+      variant: {
+        value: fields.observedVariant,
+        locator: 'HTML h1[itemprop=name]',
+        sourceText: fields.observedVariant,
+      },
+      size: {
+        value: fields.observedSize,
+        locator: 'HTML [data-size] attribute',
+        sourceText: fields.observedSize,
+      },
+    },
+    sourceResponseSha256: 'd'.repeat(64),
+    sourceResponseMimeType: 'text/html' as const,
+    sourceResponseByteSize: 42_000,
+    method: 'reviewed-exact-identity-field-extraction' as const,
+    reviewer: 'Identity reviewer',
+    reviewedAt: '2026-07-22T07:58:00Z',
+  };
+  return {
+    ...fields,
+    snapshotKind: 'canonical-extraction',
+    snapshotPath: `data/catalogue-identity-evidence/${candidateId}.json`,
+    canonicalExtraction,
+    snapshotSha256: catalogueIdentityExtractionSha256(canonicalExtraction),
+    snapshotMimeType: 'application/json',
+    snapshotByteSize: catalogueIdentityExtractionByteSize(canonicalExtraction),
+  };
+}
 
 function generationRecord(
   overrides: Partial<CatalogueGenerationRecordContent> = {},
@@ -35,10 +229,22 @@ function generationRecord(
   return { ...content, recordSha256: catalogueGenerationRecordSha256(content) };
 }
 
+function withCanonicalExtraction(
+  evidence: CatalogueOfficialIdentityEvidence,
+  canonicalExtraction: CatalogueOfficialIdentityEvidence['canonicalExtraction'],
+): CatalogueOfficialIdentityEvidence {
+  return {
+    ...evidence,
+    canonicalExtraction,
+    snapshotSha256: catalogueIdentityExtractionSha256(canonicalExtraction),
+    snapshotByteSize: catalogueIdentityExtractionByteSize(canonicalExtraction),
+  };
+}
+
 function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): CatalogueIntakeCandidate {
   const base: CatalogueIntakeCandidate = {
     id: 'example-barrier-lotion',
-    brand: 'Example',
+    brand: 'CeraVe',
     name: 'Barrier Lotion',
     variant: 'Example Barrier Lotion',
     size: '400 ml',
@@ -49,19 +255,10 @@ function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): C
     demandEvidenceUrls: ['https://research.example/demand/example'],
     identity: {
       gtin: '4005808319695',
-      officialProductUrl: 'https://brand.example/products/barrier-lotion',
+      officialProductUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
       checkedAt: '2026-07-22T08:00:00Z',
       basis: 'official-brand',
-      officialEvidence: {
-        url: 'https://brand.example/products/barrier-lotion',
-        observedGtin: '4005808319695',
-        observedVariant: 'Example Barrier Lotion',
-        observedSize: '400 ml',
-        snapshotSha256: 'd'.repeat(64),
-        snapshotMimeType: 'text/html',
-        snapshotByteSize: 42_000,
-        retrievedAt: '2026-07-22T07:55:00Z',
-      },
+      officialEvidence: identityEvidence(),
     },
     care: {
       status: 'reviewed',
@@ -69,23 +266,23 @@ function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): C
       careTier: 'daily-care',
       reviewScope: 'catalogue-supportive-care',
       advisoryBoundary: 'Supports routine moisturising only; it does not diagnose or treat a medical condition.',
-      manufacturerEvidenceUrl: 'https://brand.example/products/barrier-lotion',
-      independentClinicalGuidanceUrl: 'https://clinical.example/guidance/emollients',
+      manufacturerEvidenceUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+      independentClinicalGuidanceUrl: 'https://www.nhs.uk/tests-and-treatments/emollients/',
       evidenceUrls: [
-        'https://brand.example/products/barrier-lotion',
-        'https://clinical.example/guidance/emollients',
+        'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+        'https://www.nhs.uk/tests-and-treatments/emollients/',
       ],
       reviewedAt: '2026-07-22T08:30:00Z',
       reviewer: 'Care reviewer',
     },
     nigeria: {
       regulatoryStatus: 'matched',
-      regulatoryEvidenceUrl: 'https://regulator.example/products/4005808319695',
-      brandAuthorizationEvidenceUrl: 'https://brand.example/nigeria/retailers',
+      regulatoryEvidence: regulatoryEvidence(),
+      brandAuthorizationEvidenceUrl: 'https://africa.cerave.com/en/find-your-nearest-store',
       exactOffers: [{
-        retailer: 'Beauty by Daz',
+        retailer: 'Medplus',
         retailerStatus: 'directory-listed',
-        listingUrl: 'https://beautybydaz.com/products/example-barrier-lotion',
+        listingUrl: 'https://medplusnig.com/product/example-barrier-lotion',
         observedAt: '2026-07-22T09:00:00Z',
         observedTitle: 'Example Barrier Lotion',
         observedSize: '13.5 fl oz / 400 ml',
@@ -94,6 +291,7 @@ function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): C
         retailerSku: 'BYD-LOCAL-991',
         priceNgn: 12_500,
         stock: 'in-stock',
+        evidence: exactOfferEvidence(),
       }],
     },
     asset: {
@@ -115,7 +313,7 @@ function completeCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): C
       width: 1_800,
       height: 2_000,
       packaging: 'intact',
-      backgroundTreatment: 'source-pixel-isolation',
+      backgroundTreatment: 'none',
       labelVariantSizeUnchanged: true,
       packagingInvented: false,
       manualSourceOutputQa: true,
@@ -167,6 +365,82 @@ test('a manufacturer page alone cannot satisfy the independent care review gate'
   assert.ok(decision.blockers.includes('care-independent-guidance-missing'));
 });
 
+test('an arbitrary different HTTPS host cannot impersonate reviewed clinical guidance', () => {
+  const base = completeCandidate();
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: {
+      ...base.care,
+      independentClinicalGuidanceUrl: 'https://attacker.example/advice',
+      evidenceUrls: [base.care.manufacturerEvidenceUrl!, 'https://attacker.example/advice'],
+    },
+  }, asOf);
+
+  assert.equal(decision.stage, 'care');
+  assert.ok(decision.blockers.includes('care-independent-guidance-missing'));
+});
+
+test('care evidence cannot substitute a sibling same-brand product page or unrelated host', () => {
+  const base = completeCandidate();
+  const sameBrand = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: {
+      ...base.care,
+      manufacturerEvidenceUrl: 'https://www.cerave.com/skincare/moisturizers/moisturizing-cream',
+      evidenceUrls: [
+        'https://www.cerave.com/skincare/moisturizers/moisturizing-cream',
+        base.care.independentClinicalGuidanceUrl!,
+      ],
+    },
+  }, asOf);
+  const unrelated = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: {
+      ...base.care,
+      manufacturerEvidenceUrl: 'https://unrelated-brand.test/products/barrier-lotion',
+      evidenceUrls: [
+        'https://unrelated-brand.test/products/barrier-lotion',
+        base.care.independentClinicalGuidanceUrl!,
+      ],
+    },
+  }, asOf);
+
+  assert.equal(sameBrand.stage, 'care');
+  assert.ok(sameBrand.blockers.includes('care-independent-guidance-missing'));
+  assert.equal(unrelated.stage, 'care');
+  assert.ok(unrelated.blockers.includes('care-independent-guidance-missing'));
+});
+
+test('reviewed official care hosts are exact and reject brand-shaped spoof subdomains', () => {
+  const base = completeCandidate({ brand: 'CeraVe' });
+  const official = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: {
+      ...base.care,
+      manufacturerEvidenceUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+      evidenceUrls: [
+        'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+        base.care.independentClinicalGuidanceUrl!,
+      ],
+    },
+  }, asOf);
+  const spoof = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: {
+      ...base.care,
+      manufacturerEvidenceUrl: 'https://cerave.attacker.example/products/moisturising-cream',
+      evidenceUrls: [
+        'https://cerave.attacker.example/products/moisturising-cream',
+        base.care.independentClinicalGuidanceUrl!,
+      ],
+    },
+  }, asOf);
+
+  assert.equal(official.blockers.includes('care-independent-guidance-missing'), false);
+  assert.equal(spoof.stage, 'care');
+  assert.ok(spoof.blockers.includes('care-independent-guidance-missing'));
+});
+
 test('a reviewed care record states its advisory boundary', () => {
   const base = completeCandidate();
   const decision = evaluateCatalogueIntakeCandidate({
@@ -178,6 +452,49 @@ test('a reviewed care record states its advisory boundary', () => {
   assert.ok(decision.blockers.includes('care-advisory-boundary-missing'));
 });
 
+test('each SKU gate preserves identity then care, market review and art-review chronology', () => {
+  const base = completeCandidate();
+  const careBeforeIdentity = evaluateCatalogueIntakeCandidate({
+    ...base,
+    care: { ...base.care, reviewedAt: '2026-07-22T07:59:00Z' },
+  }, asOf);
+  assert.equal(careBeforeIdentity.stage, 'care');
+  assert.ok(careBeforeIdentity.blockers.includes('care-review-missing'));
+
+  const regulatoryBeforeIdentity = evaluateCatalogueIntakeCandidate({
+    ...base,
+    identity: { ...base.identity, checkedAt: '2026-07-22T09:10:00Z' },
+    care: { ...base.care, reviewedAt: '2026-07-22T09:15:00Z' },
+    nigeria: {
+      ...base.nigeria,
+      regulatoryEvidence: regulatoryEvidence(undefined, {
+        retrievedAt: '2026-07-22T08:50:00Z',
+        observedAt: '2026-07-22T08:50:00Z',
+        reviewedAt: '2026-07-22T09:00:00Z',
+      }),
+    },
+  }, asOf);
+  assert.equal(regulatoryBeforeIdentity.stage, 'nigeria');
+  assert.ok(regulatoryBeforeIdentity.blockers.includes('nigeria-regulatory-evidence-missing'));
+
+  const offerBeforeIdentity = evaluateCatalogueIntakeCandidate({
+    ...base,
+    identity: { ...base.identity, checkedAt: '2026-07-22T09:06:00Z' },
+    care: { ...base.care, reviewedAt: '2026-07-22T09:07:00Z' },
+  }, asOf);
+  assert.equal(offerBeforeIdentity.stage, 'nigeria');
+  assert.equal(offerBeforeIdentity.freshExactOffers.length, 0);
+
+  const artBeforeIdentity = evaluateCatalogueIntakeCandidate({
+    ...base,
+    identity: { ...base.identity, checkedAt: '2026-07-22T09:00:00Z' },
+    care: { ...base.care, reviewedAt: '2026-07-22T09:01:00Z' },
+    asset: { ...base.asset, artReviewedAt: '2026-07-22T08:59:00Z' },
+  }, asOf);
+  assert.equal(artBeforeIdentity.stage, 'editorial');
+  assert.ok(artBeforeIdentity.blockers.includes('asset-review-chronology-invalid'));
+});
+
 test('official identity approval is bound to exact observed identity and immutable retrieval metadata', () => {
   const base = completeCandidate();
   const invalidEvidence = [
@@ -186,6 +503,13 @@ test('official identity approval is bound to exact observed identity and immutab
     { ...base.identity.officialEvidence!, observedVariant: 'Example Repair Cream' },
     { ...base.identity.officialEvidence!, observedSize: '200 ml' },
     { ...base.identity.officialEvidence!, snapshotSha256: 'not-a-hash' },
+    {
+      ...base.identity.officialEvidence!,
+      canonicalExtraction: {
+        ...base.identity.officialEvidence!.canonicalExtraction,
+        sourceResponseSha256: 'not-a-hash',
+      },
+    },
     { ...base.identity.officialEvidence!, retrievedAt: '2026-07-22T08:05:00Z' },
   ];
 
@@ -207,6 +531,133 @@ test('official identity approval is bound to exact observed identity and immutab
   }, asOf);
   assert.equal(changedUrl.stage, 'identity');
   assert.ok(changedUrl.blockers.includes('identity-official-evidence-invalid'));
+
+  const attackerEvidence = identityEvidence({
+    url: 'https://attacker.example/fake-cerave',
+  });
+  const internallyConsistentAttacker = evaluateCatalogueIntakeCandidate({
+    ...base,
+    identity: {
+      ...base.identity,
+      officialProductUrl: attackerEvidence.url,
+      officialEvidence: attackerEvidence,
+    },
+  }, asOf);
+  assert.equal(internallyConsistentAttacker.stage, 'identity');
+  assert.ok(internallyConsistentAttacker.blockers.includes('identity-official-evidence-invalid'));
+});
+
+test('canonical identity extraction rejects token collisions and non-raw response MIME types', () => {
+  const base = completeCandidate();
+  const evidence = base.identity.officialEvidence!;
+  const extraction = evidence.canonicalExtraction;
+  const invalidExtractions: CatalogueOfficialIdentityEvidence['canonicalExtraction'][] = [
+    {
+      ...extraction,
+      fields: {
+        ...extraction.fields,
+        gtin: { ...extraction.fields.gtin, sourceText: `GTIN 1${extraction.fields.gtin.value}` },
+      },
+    },
+    {
+      ...extraction,
+      sourceResponseMimeType: 'application/json' as never,
+    },
+    {
+      ...extraction,
+      responseUrl: 'https://attacker.example/redirected-response',
+    },
+    {
+      ...extraction,
+      responseDigestScope: 'compressed-wire-body' as never,
+    },
+    {
+      ...extraction,
+      responseUrl: undefined as never,
+    },
+    {
+      ...extraction,
+      fields: {
+        ...extraction.fields,
+        gtin: {
+          ...extraction.fields.gtin,
+          locator: 'HTML inline dataLayer productID',
+          sourceText: `productID: ${extraction.fields.gtin.value}`,
+        },
+      },
+    },
+  ];
+
+  for (const canonicalExtraction of invalidExtractions) {
+    const decision = evaluateCatalogueIntakeCandidate({
+      ...base,
+      identity: {
+        ...base.identity,
+        officialEvidence: withCanonicalExtraction(evidence, canonicalExtraction),
+      },
+    }, asOf);
+    assert.equal(decision.stage, 'identity');
+    assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
+  }
+
+  const sizeEvidence = identityEvidence({ observedSize: '250 ml' });
+  const sizeCollisionExtraction = {
+    ...sizeEvidence.canonicalExtraction,
+    fields: {
+      ...sizeEvidence.canonicalExtraction.fields,
+      size: { ...sizeEvidence.canonicalExtraction.fields.size, sourceText: '1250 ml' },
+    },
+  };
+  const sizeCollision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    size: '250 ml',
+    identity: {
+      ...base.identity,
+      officialEvidence: withCanonicalExtraction(sizeEvidence, sizeCollisionExtraction),
+    },
+  }, asOf);
+  assert.equal(sizeCollision.stage, 'identity');
+  assert.ok(sizeCollision.blockers.includes('identity-official-evidence-invalid'));
+});
+
+test('malformed canonical identity extraction shapes become blockers instead of exceptions', () => {
+  const base = completeCandidate();
+  const evidence = base.identity.officialEvidence!;
+  const extraction = evidence.canonicalExtraction;
+  const malformedExtractions = [
+    { ...extraction, fields: null },
+    {
+      ...extraction,
+      fields: {
+        ...extraction.fields,
+        gtin: { ...extraction.fields.gtin, sourceText: undefined },
+      },
+    },
+    {
+      ...extraction,
+      fields: {
+        ...extraction.fields,
+        size: { ...extraction.fields.size, value: 400 },
+      },
+    },
+  ];
+
+  for (const malformed of malformedExtractions) {
+    const officialEvidence = withCanonicalExtraction(
+      evidence,
+      malformed as unknown as CatalogueOfficialIdentityEvidence['canonicalExtraction'],
+    );
+    assert.doesNotThrow(() => evaluateCatalogueIntakeCandidate({
+      ...base,
+      identity: { ...base.identity, officialEvidence },
+    }, asOf));
+    const decision = evaluateCatalogueIntakeCandidate({
+      ...base,
+      identity: { ...base.identity, officialEvidence },
+    }, asOf);
+    assert.equal(decision.stage, 'identity');
+    assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
+  }
 });
 
 test('only fresh Nigerian title, size and manufacturer-GTIN evidence advances the market gate', () => {
@@ -273,21 +724,234 @@ test('matching digits do not count when the retailer labels them only as SKU', (
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
+test('bare or tampered Nigerian offers cannot qualify as reviewed exact evidence', () => {
+  const base = completeCandidate();
+  const original = base.nigeria.exactOffers[0];
+  const invalidOffers: CatalogueIntakeOffer[] = [
+    { ...original, evidence: undefined },
+    { ...original, evidence: { ...original.evidence!, responseSha256: 'not-a-hash' } },
+    { ...original, evidence: { ...original.evidence!, responseUrl: 'https://medplusnig.com/product/another-item' } },
+    { ...original, evidence: { ...original.evidence!, reviewedAt: '2026-07-22T08:59:00Z' } },
+    {
+      ...original,
+      evidence: {
+        ...original.evidence!,
+        fields: {
+          ...original.evidence!.fields,
+          price: { ...original.evidence!.fields.price, value: 12_501 },
+        },
+      },
+    },
+    {
+      ...original,
+      evidence: {
+        ...original.evidence!,
+        fields: {
+          ...original.evidence!.fields,
+          price: { ...original.evidence!.fields.price, sourceText: 'NGN 112,500' },
+        },
+      },
+    },
+    {
+      ...original,
+      evidence: {
+        ...original.evidence!,
+        fields: {
+          ...original.evidence!.fields,
+          stock: { ...original.evidence!.fields.stock, sourceText: 'Not in stock' },
+        },
+      },
+    },
+    {
+      ...original,
+      evidence: {
+        ...original.evidence!,
+        fields: {
+          ...original.evidence!.fields,
+          price: { ...original.evidence!.fields.price, sourceText: 'NGN 12,500.99' },
+        },
+      },
+    },
+    {
+      ...original,
+      evidence: {
+        ...original.evidence!,
+        fields: {
+          ...original.evidence!.fields,
+          price: { ...original.evidence!.fields.price, sourceText: 'USD 12,500 — NGN unavailable' },
+        },
+      },
+    },
+  ];
+
+  for (const offer of invalidOffers) {
+    const decision = evaluateCatalogueIntakeCandidate({
+      ...base,
+      nigeria: { ...base.nigeria, exactOffers: [offer] },
+    }, asOf);
+    assert.equal(decision.freshExactOffers.length, 0);
+    assert.ok(decision.blockers.includes('nigeria-exact-offer-missing'));
+    assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
+  }
+});
+
+test('a retailer SKU label cannot be relabelled as manufacturer GTIN evidence', () => {
+  const base = completeCandidate();
+  const offer = base.nigeria.exactOffers[0];
+  const evidence = offer.evidence!;
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: [{
+        ...offer,
+        evidence: {
+          ...evidence,
+          fields: {
+            ...evidence.fields,
+            gtin: {
+              ...evidence.fields.gtin,
+              locator: 'HTML retailer SKU row',
+              sourceText: `SKU ${offer.observedGtin}`,
+            },
+          },
+        },
+      }],
+    },
+  }, asOf);
+
+  assert.equal(decision.freshExactOffers.length, 0);
+  assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
+});
+
+test('regulatory clearance requires a hash-bound NAFDAC record for the candidate GTIN', () => {
+  const base = completeCandidate();
+  const active = regulatoryEvidence();
+  const revokedSourceText = active.sourceText.replace('Status Active', 'Status Revoked');
+  const expiredSourceText = `${active.sourceText} · Expiry 2026-07-21`;
+  const invalidEvidence: ReviewedRegulatoryEvidence[] = [
+    regulatoryEvidence(undefined, { sourceUrl: 'https://regulator.example/products/4005808319695' }),
+    regulatoryEvidence(undefined, { sourceExcerptSha256: 'f'.repeat(64) }),
+    regulatoryEvidence(undefined, { responseUrl: 'https://attacker.example/redirected-body' }),
+    regulatoryEvidence('0302994113002'),
+    regulatoryEvidence(undefined, { registrationNumber: 'A4-123' }),
+    regulatoryEvidence(undefined, { reviewedAt: '2026-07-22T09:00:00Z', observedAt: '2026-07-22T09:10:00Z' }),
+    regulatoryEvidence(undefined, {
+      retrievedAt: '2026-04-01T09:10:00Z',
+      observedAt: '2026-04-01T09:10:00Z',
+      reviewedAt: '2026-04-01T09:20:00Z',
+    }),
+    regulatoryEvidence(undefined, { sourceText: `${active.sourceText} tampered` }),
+    { ...active, registrationStatus: undefined as never },
+    {
+      ...active,
+      sourceText: revokedSourceText,
+      sourceExcerptSha256: regulatoryEvidenceExcerptSha256(revokedSourceText),
+      registrationStatus: {
+        ...active.registrationStatus,
+        sourceText: 'Status Revoked',
+      },
+    },
+    {
+      ...active,
+      registrationStatus: {
+        ...active.registrationStatus,
+        sourceText: 'Status Inactive',
+      },
+    },
+    {
+      ...active,
+      sourceText: expiredSourceText,
+      sourceExcerptSha256: regulatoryEvidenceExcerptSha256(expiredSourceText),
+      expiry: {
+        value: '2026-07-21',
+        locator: 'NAFDAC Greenbook registration expiry row',
+        sourceText: 'Expiry 2026-07-21',
+      },
+    },
+    { ...active, expiry: null as never },
+    { ...active, expiry: '' as never },
+  ];
+
+  for (const evidence of invalidEvidence) {
+    const decision = evaluateCatalogueIntakeCandidate({
+      ...base,
+      nigeria: { ...base.nigeria, regulatoryEvidence: evidence },
+    }, asOf);
+    assert.equal(decision.stage, 'nigeria');
+    assert.ok(decision.blockers.includes('nigeria-regulatory-evidence-missing'));
+  }
+});
+
+test('not-required regulatory clearance carries a reviewed rationale from NAFDAC', () => {
+  const base = completeCandidate();
+  const subjectProductOrClass = 'reviewed non-regulated product category';
+  const rationale = 'The reviewed NAFDAC scope excludes this exact non-regulated product category.';
+  const sourceText = `NAFDAC scope notice for ${subjectProductOrClass}: ${rationale}`;
+  const evidence: ReviewedRegulatoryEvidence = {
+    schemaVersion: catalogueRegulatoryEvidenceSchemaVersion,
+    authority: 'NAFDAC',
+    status: 'not-required',
+    candidateGtin: base.identity.gtin!,
+    subjectProductOrClass,
+    rationale,
+    sourceUrl: 'https://nafdac.gov.ng/resources/regulatory-scope/',
+    locator: 'NAFDAC scope notice category paragraph',
+    sourceText,
+    sourceExcerptSha256: regulatoryEvidenceExcerptSha256(sourceText),
+    responseUrl: 'https://nafdac.gov.ng/resources/regulatory-scope/',
+    responseSha256: 'f'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 24_000,
+    retrievedAt: '2026-07-22T09:10:00Z',
+    observedAt: '2026-07-22T09:10:00Z',
+    reviewedAt: '2026-07-22T09:20:00Z',
+    reviewer: 'Regulatory reviewer',
+  };
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      regulatoryStatus: 'not-required',
+      regulatoryEvidence: evidence,
+    },
+  }, asOf);
+
+  assert.equal(decision.blockers.includes('nigeria-regulatory-evidence-missing'), false);
+  assert.equal(decision.stage, 'approval-ready');
+
+  const unrelatedSourceText = 'NAFDAC publishes general agency contact information.';
+  const unrelated = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      regulatoryStatus: 'not-required',
+      regulatoryEvidence: {
+        ...evidence,
+        sourceText: unrelatedSourceText,
+        sourceExcerptSha256: regulatoryEvidenceExcerptSha256(unrelatedSourceText),
+      },
+    },
+  }, asOf);
+  assert.ok(unrelated.blockers.includes('nigeria-regulatory-evidence-missing'));
+});
+
 test('a provisional observation cannot satisfy the independent Tier-A route', () => {
   const base = completeCandidate();
-  const secondOffer = {
+  const secondOffer = withExactOfferEvidence({
     ...base.nigeria.exactOffers[0],
     retailer: 'Slique Beauty',
     // Deliberately forged: readiness must derive this from the registry.
     retailerStatus: 'directory-listed' as const,
     listingUrl: 'https://sliquebeautylimited.com/product/example-barrier-lotion',
-  };
+  });
   const item: CatalogueIntakeCandidate = {
     ...base,
     nigeria: {
       ...base.nigeria,
       brandAuthorizationEvidenceUrl: undefined,
-      tierAIdentityEvidenceUrl: 'https://identity.example/nigeria-retailers',
+      tierAIdentityEvidenceUrl: base.identity.officialProductUrl,
       exactOffers: [...base.nigeria.exactOffers, secondOffer],
     },
   };
@@ -304,11 +968,11 @@ test('a provisional observation cannot satisfy the independent Tier-A route', ()
       ...item.nigeria,
       exactOffers: [
         ...base.nigeria.exactOffers,
-        {
+        withExactOfferEvidence({
           ...secondOffer,
           retailer: 'Teeka4',
           listingUrl: 'https://teeka4.com/shop/example-barrier-lotion',
-        },
+        }),
       ],
     },
   }, asOf);
@@ -344,6 +1008,92 @@ test('unknown retailers and mismatched retailer hosts cannot become exact eviden
     assert.equal(decision.freshExactOffers.length, 0);
     assert.ok(decision.blockers.includes('nigeria-exact-offer-missing'));
   }
+});
+
+test('brand authorization advances only the seller named by that exact brand source', () => {
+  const base = completeCandidate();
+  const unboundSeller = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({
+        ...offer,
+        retailer: 'Beauty by Daz',
+        listingUrl: 'https://beautybydaz.com/product/example-barrier-lotion',
+      })),
+    },
+  }, asOf);
+  const wrongBrand = evaluateCatalogueIntakeCandidate({
+    ...base,
+    brand: 'Eucerin',
+    care: {
+      ...base.care,
+      manufacturerEvidenceUrl: 'https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion',
+      evidenceUrls: [
+        'https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion',
+        base.care.independentClinicalGuidanceUrl!,
+      ],
+    },
+  }, asOf);
+
+  assert.equal(unboundSeller.stage, 'nigeria');
+  assert.ok(unboundSeller.blockers.includes('nigeria-market-route-insufficient'));
+  assert.equal(wrongBrand.stage, 'identity');
+  assert.ok(wrongBrand.blockers.includes('identity-official-evidence-invalid'));
+  assert.ok(wrongBrand.blockers.includes('nigeria-market-route-insufficient'));
+});
+
+test('Nigeria evidence declares exactly one candidate-consistent market route', () => {
+  const base = completeCandidate();
+  const secondOffer = withExactOfferEvidence({
+    ...base.nigeria.exactOffers[0],
+    retailer: 'Teeka4',
+    listingUrl: 'https://teeka4.com/shop/example-barrier-lotion',
+  });
+  const tierA: CatalogueIntakeCandidate = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      brandAuthorizationEvidenceUrl: undefined,
+      tierAIdentityEvidenceUrl: base.identity.officialProductUrl,
+      exactOffers: [...base.nigeria.exactOffers, secondOffer],
+    },
+  };
+  const tierDecision = evaluateCatalogueIntakeCandidate(tierA, asOf);
+  assert.equal(tierDecision.stage, 'approval-ready');
+  assert.equal(tierDecision.nigeriaMarketRoute, 'tier-a');
+
+  const conflictingBrandClaim = evaluateCatalogueIntakeCandidate({
+    ...tierA,
+    nigeria: {
+      ...tierA.nigeria,
+      brandAuthorizationEvidenceUrl: base.nigeria.brandAuthorizationEvidenceUrl,
+    },
+  }, asOf);
+  assert.equal(conflictingBrandClaim.stage, 'nigeria');
+  assert.equal(conflictingBrandClaim.nigeriaMarketRoute, undefined);
+  assert.ok(conflictingBrandClaim.blockers.includes('nigeria-market-route-insufficient'));
+
+  const bogusTierClaim = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      tierAIdentityEvidenceUrl: 'https://attacker.example/fake-tier-a',
+    },
+  }, asOf);
+  assert.equal(bogusTierClaim.stage, 'nigeria');
+  assert.equal(bogusTierClaim.nigeriaMarketRoute, undefined);
+
+  const crossBrandAuthorization = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      brandAuthorizationEvidenceUrl: 'https://www.eucerin-cewa.com/where-to-buy',
+    },
+  }, asOf);
+  assert.equal(crossBrandAuthorization.stage, 'nigeria');
+  assert.equal(crossBrandAuthorization.nigeriaMarketRoute, undefined);
+  assert.ok(crossBrandAuthorization.blockers.includes('nigeria-market-route-insufficient'));
 });
 
 test('a raw background-removed packshot cannot become the final image', () => {
@@ -396,6 +1146,15 @@ test('source bytes are immutable evidence and owned generation replaces a reuse-
     },
   }, asOf);
   assert.equal(generated.stage, 'approval-ready');
+
+  for (const rightsUrl of ['javascript:alert(1)', 'https://brand.example/false-reuse-rights']) {
+    const falseRightsClaim = evaluateCatalogueIntakeCandidate({
+      ...generated.candidate,
+      asset: { ...generated.candidate.asset, rightsUrl },
+    }, asOf);
+    assert.equal(falseRightsClaim.stage, 'rights');
+    assert.ok(falseRightsClaim.blockers.includes('asset-rights-source-missing'));
+  }
 
   const missingGenerationRecord = evaluateCatalogueIntakeCandidate({
     ...generated.candidate,
@@ -494,7 +1253,7 @@ test('the primary catalogue image must be a transparent packshot role', () => {
   assert.ok(decision.blockers.includes('asset-final-image-role-invalid'));
 });
 
-test('a reviewed source-pixel isolation may advance without treating redraw as acceptable', () => {
+test('a reviewed source-pixel isolation remains private without a durable typed audit record', () => {
   const base = completeCandidate();
   const item: CatalogueIntakeCandidate = {
     ...base,
@@ -502,8 +1261,9 @@ test('a reviewed source-pixel isolation may advance without treating redraw as a
   };
   const decision = evaluateCatalogueIntakeCandidate(item, asOf);
 
-  assert.equal(decision.stage, 'approval-ready');
-  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.stage, 'rights');
+  assert.ok(decision.blockers.includes('asset-isolation-record-missing'));
+  assert.equal(decision.approvalDraftReady, false);
 });
 
 test('a fully bound candidate becomes ready only for an approval draft', () => {
@@ -528,15 +1288,17 @@ test('the review queue honors deliberate cohort priority without changing gate s
       ...exploratoryBase.identity,
       gtin: '0302994113002',
       officialEvidence: {
-        ...exploratoryBase.identity.officialEvidence!,
-        observedGtin: '0302994113002',
+        ...identityEvidence({ observedGtin: '0302994113002' }, 'exploratory-ready'),
       },
     },
     nigeria: {
       ...exploratoryBase.nigeria,
+      regulatoryEvidence: regulatoryEvidence('0302994113002'),
       exactOffers: exploratoryBase.nigeria.exactOffers.map(offer => ({
-        ...offer,
-        observedGtin: '0302994113002',
+        ...withExactOfferEvidence({
+          ...offer,
+          observedGtin: '0302994113002',
+        }),
       })),
     },
     asset: {
@@ -568,7 +1330,7 @@ test('the manifest rejects normalized duplicate identities before GTIN research'
   });
   const duplicate = completeCandidate({
     id: 'duplicate-barrier-lotion',
-    brand: '  EXAMPLE  ',
+    brand: '  CERAVE  ',
     name: 'Barrier-Lotion',
     size: '400ml',
     identity: {},
@@ -586,7 +1348,7 @@ test('distinct GTINs cannot hide the same normalized brand, name and size', () =
   const first = completeCandidate();
   const duplicate = completeCandidate({
     id: 'regional-barrier-lotion',
-    brand: 'EXAMPLE',
+    brand: 'CERAVE',
     name: 'Barrier-Lotion',
     size: '400ml',
     identity: { ...first.identity, gtin: '0302994113002' },
@@ -630,4 +1392,17 @@ test('reordered dual-unit labels cannot hide the same normalized size', () => {
   };
 
   assert.throws(() => auditCatalogueIntakeManifest(manifest, asOf), /Duplicate catalogue intake identity/);
+});
+
+test('the manifest timestamp cannot predate nested evidence or review activity', () => {
+  const manifest = {
+    schemaVersion: catalogueIntakeSchemaVersion,
+    updatedAt: '2026-07-22T09:14:59Z',
+    candidates: [completeCandidate()],
+  };
+
+  assert.throws(
+    () => auditCatalogueIntakeManifest(manifest, asOf),
+    /timestamp predates evidence or review activity for example-barrier-lotion/,
+  );
 });

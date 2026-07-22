@@ -1,8 +1,17 @@
 import { createHash } from 'node:crypto';
-import { isValidGtin } from './gtin';
+import { nigeriaRetailers } from '@/data/retailers';
+import { canonicalGtin, isValidGtin } from './gtin';
+import { reviewedBrandSellerEvidenceValid } from './brand-seller-evidence';
+import {
+  reviewedExactOfferEvidenceValid,
+  reviewedRegulatoryEvidenceValid,
+  type ReviewedExactOfferEvidence,
+  type ReviewedRegulatoryEvidence,
+} from './market-evidence';
 
 export const catalogueApprovalScope = 'identity-source-rights-packaging-and-catalogue-fit' as const;
 export const minimumCatalogueQualityScore = 55;
+export const externalCatalogueApprovalSchemaVersion = 3 as const;
 
 const hashPattern = /^[0-9a-f]{64}$/;
 const allowedAssetOrigins = new Set([
@@ -11,6 +20,10 @@ const allowedAssetOrigins = new Set([
   'owned-editorial-photograph',
   'identity-verified-styled-composite',
 ]);
+const reviewedBrandEvidenceHosts: Record<string, readonly string[]> = {
+  cerave: ['africa.cerave.com', 'www.cerave.com', 'uk.lorealdermatologicalbeautypartnershop.com'],
+  eucerin: ['www.eucerin-cewa.com'],
+};
 
 export type FormulaEvidence = 'complete' | 'partial' | 'missing' | 'unknown';
 export type ProductEvidence = 'high' | 'moderate' | 'emerging' | 'not-reviewed';
@@ -102,7 +115,7 @@ export type ExternalCatalogueApproval = {
   };
   nigeria: {
     regulatoryStatus: 'matched' | 'not-required' | 'pending';
-    regulatoryEvidenceUrl?: string;
+    regulatoryEvidence?: ReviewedRegulatoryEvidence;
     tierAIdentityEvidenceUrl?: string;
     brandAuthorizationEvidenceUrl?: string;
     exactOffers: Array<{
@@ -111,8 +124,11 @@ export type ExternalCatalogueApproval = {
       observedAt: string;
       variant: string;
       size: string;
+      observedGtin: string;
+      observedGtinBasis: 'explicit-gtin' | 'explicit-ean' | 'explicit-upc';
       priceNgn: number;
       stock: 'in-stock' | 'low-stock' | 'out-of-stock';
+      evidence?: ReviewedExactOfferEvidence;
     }>;
   };
   asset: {
@@ -134,7 +150,7 @@ export type ExternalCatalogueApproval = {
 };
 
 export type ExternalCatalogueApprovalManifest = {
-  schemaVersion: 1;
+  schemaVersion: typeof externalCatalogueApprovalSchemaVersion;
   approvals: ExternalCatalogueApproval[];
 };
 
@@ -178,6 +194,30 @@ function httpsUrl(value: string, hostname?: string) {
   } catch {
     return false;
   }
+}
+
+function sameUrl(left: string | undefined, right: string | undefined) {
+  if (!left || !right || !httpsUrl(left) || !httpsUrl(right)) return false;
+  return new URL(left).href === new URL(right).href;
+}
+
+function normalized(value: string) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function normalizedHost(value: string) {
+  return new URL(value).hostname.replace(/^www\./, '').toLowerCase();
+}
+
+function reviewedBrandEvidenceHost(brand: string, value: string | undefined) {
+  if (!value || !httpsUrl(value)) return false;
+  const brandKey = normalized(brand).replace(/\s/g, '');
+  return reviewedBrandEvidenceHosts[brandKey]?.includes(new URL(value).hostname.toLowerCase()) ?? false;
 }
 
 function stableJson(value: unknown): string {
@@ -264,13 +304,33 @@ function freshNigeriaOffers(candidate: ExternalCatalogueGateCandidate, approval:
       && httpsUrl(offer.listingUrl)
       && offer.variant.trim().localeCompare(candidate.name.trim(), undefined, { sensitivity: 'base' }) === 0
       && offer.size.trim().localeCompare(candidate.quantity.trim(), undefined, { sensitivity: 'base' }) === 0
+      && isValidGtin(offer.observedGtin)
+      && canonicalGtin(offer.observedGtin) === canonicalGtin(candidate.barcode)
+      && ['explicit-gtin', 'explicit-ean', 'explicit-upc'].includes(offer.observedGtinBasis)
       && Number.isFinite(offer.priceNgn)
       && offer.priceNgn > 0
       && ['in-stock', 'low-stock', 'out-of-stock'].includes(offer.stock)
       && Number.isFinite(observedAt)
       && observedAt >= cutoff
-      && observedAt <= asOf + 5 * 60_000;
+      && observedAt <= asOf + 5 * 60_000
+      && reviewedExactOfferEvidenceValid({
+        ...offer,
+        observedTitle: offer.variant,
+        observedSize: offer.size,
+      }, candidate.barcode, asOf);
   });
+}
+
+function directoryRetailerForOffer(
+  offer: ExternalCatalogueApproval['nigeria']['exactOffers'][number],
+) {
+  const retailer = nigeriaRetailers.find(item => normalized(item.name) === normalized(offer.retailer));
+  if (
+    !retailer
+    || retailer.reviewStatus !== 'directory-listed'
+    || normalizedHost(retailer.homepage) !== normalizedHost(offer.listingUrl)
+  ) return undefined;
+  return retailer;
 }
 
 function validApproval(approval: ExternalCatalogueApproval, asOf: number) {
@@ -311,6 +371,7 @@ function hardGateReason(
     || approval.sku.variant.trim().localeCompare(candidate.name.trim(), undefined, { sensitivity: 'base' }) !== 0
     || approval.sku.size.trim().localeCompare(candidate.quantity.trim(), undefined, { sensitivity: 'base' }) !== 0
     || !httpsUrl(approval.sku.evidenceUrl)
+    || !reviewedBrandEvidenceHost(candidate.brand, approval.sku.evidenceUrl)
   ) return 'exact-sku-not-approved';
 
   if (
@@ -324,21 +385,60 @@ function hardGateReason(
   if (approval.nigeria.regulatoryStatus === 'pending') return 'nigeria-regulatory-pending';
   if (
     !['matched', 'not-required'].includes(approval.nigeria.regulatoryStatus)
-    || !approval.nigeria.regulatoryEvidenceUrl
-    || !httpsUrl(approval.nigeria.regulatoryEvidenceUrl)
+    || !reviewedRegulatoryEvidenceValid(
+      approval.nigeria.regulatoryEvidence,
+      approval.nigeria.regulatoryStatus === 'not-required' ? 'not-required' : 'matched',
+      candidate.barcode,
+      asOf,
+    )
   ) return 'nigeria-regulatory-evidence-missing';
 
+  const regulatoryEvidence = approval.nigeria.regulatoryEvidence!;
+  const approvedAt = Date.parse(approval.approvedAt);
   const freshOffers = freshNigeriaOffers(candidate, approval, asOf);
-  const independentRetailers = new Set(freshOffers.map(offer => offer.retailer.trim().toLowerCase()));
-  const independentHosts = new Set(freshOffers.map(offer => new URL(offer.listingUrl).hostname.replace(/^www\./, '')));
-  const tierARoute = Boolean(approval.nigeria.tierAIdentityEvidenceUrl)
-    && httpsUrl(approval.nigeria.tierAIdentityEvidenceUrl!)
+  const causalEvidenceTimes = [
+    Date.parse(approval.careReview.reviewedAt),
+    Date.parse(regulatoryEvidence.retrievedAt),
+    Date.parse(regulatoryEvidence.observedAt),
+    Date.parse(regulatoryEvidence.reviewedAt),
+    ...freshOffers.flatMap(offer => [
+      Date.parse(offer.observedAt),
+      Date.parse(offer.evidence?.retrievedAt ?? ''),
+      Date.parse(offer.evidence?.reviewedAt ?? ''),
+    ]),
+  ];
+  if (
+    !Number.isFinite(approvedAt)
+    || causalEvidenceTimes.some(timestamp => !Number.isFinite(timestamp) || timestamp > approvedAt)
+  ) return 'invalid-approval';
+  const directoryOffers = freshOffers.flatMap(offer => {
+    const retailer = directoryRetailerForOffer(offer);
+    return retailer ? [{ offer, retailer }] : [];
+  });
+  const independentRetailers = new Set(directoryOffers.map(({ retailer }) => normalized(retailer.name)));
+  const independentHosts = new Set(directoryOffers.map(({ offer }) => normalizedHost(offer.listingUrl)));
+  const tierARoute = sameUrl(approval.nigeria.tierAIdentityEvidenceUrl, approval.sku.evidenceUrl)
     && independentRetailers.size >= 2
     && independentHosts.size >= 2;
-  const brandRoute = Boolean(approval.nigeria.brandAuthorizationEvidenceUrl)
-    && httpsUrl(approval.nigeria.brandAuthorizationEvidenceUrl!)
-    && independentRetailers.size >= 1;
-  if (!tierARoute && !brandRoute) return 'nigeria-market-evidence-insufficient';
+  const brandAuthorizationEvidenceUrl = approval.nigeria.brandAuthorizationEvidenceUrl;
+  const brandAuthorizedOffers = directoryOffers.filter(({ retailer }) => (
+    reviewedBrandSellerEvidenceValid(retailer, brandAuthorizationEvidenceUrl, asOf)
+  ));
+  const brandRoute = reviewedBrandEvidenceHost(candidate.brand, brandAuthorizationEvidenceUrl)
+    && reviewedBrandEvidenceHost(candidate.brand, approval.sku.evidenceUrl);
+  const sellerBoundBrandRoute = brandRoute && brandAuthorizedOffers.length >= 1;
+  if (
+    sellerBoundBrandRoute
+    && brandAuthorizedOffers.some(({ retailer }) => {
+      const evidence = retailer.identityEvidence;
+      return evidence?.basis === 'brand-source' && [
+        evidence.observedAt,
+        evidence.retrievedAt,
+        evidence.reviewedAt,
+      ].some(value => Date.parse(value) > approvedAt);
+    })
+  ) return 'invalid-approval';
+  if (!tierARoute && !sellerBoundBrandRoute) return 'nigeria-market-evidence-insufficient';
   return undefined;
 }
 
@@ -430,7 +530,12 @@ export function gateExternalCatalogue<T extends ExternalCatalogueGateCandidate>(
   manifest: ExternalCatalogueApprovalManifest,
   asOf = Date.now(),
 ) {
-  if (manifest.schemaVersion !== 1) throw new Error('Unsupported external catalogue approval schema.');
+  if (manifest.schemaVersion !== externalCatalogueApprovalSchemaVersion) {
+    throw new Error('Unsupported external catalogue approval schema.');
+  }
+  if (manifest.approvals.length > 0) {
+    throw new Error('External catalogue publication is disabled; move exact-SKU research through the private intake dossier gate.');
+  }
   const approvals = new Map<string, ExternalCatalogueApproval>();
   for (const approval of manifest.approvals) {
     if (approvals.has(approval.barcode)) throw new Error(`Duplicate catalogue approval for ${approval.barcode}.`);

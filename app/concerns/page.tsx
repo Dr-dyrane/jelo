@@ -1,6 +1,7 @@
 import { ConcernSelector } from '@/components/concerns/concern-selector';
 import { concerns } from '@/data/knowledge';
 import { listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
+import { isProductMatchConcern } from '@/modules/concerns/product-matching';
 
 export const revalidate = 3600;
 
@@ -9,7 +10,7 @@ type SearchParams = { concerns?: string | string[] };
 export default async function ConcernsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const products = await listRecommendationEligibleProducts();
-  const valid = new Set(concerns.map(concern => concern.slug));
+  const valid = new Set(concerns.filter(isProductMatchConcern).map(concern => concern.slug));
   const raw = Array.isArray(params.concerns) ? params.concerns[0] : params.concerns;
   const initialSelected = (raw ?? '').split(',').filter(slug => valid.has(slug));
   return <main className="page-shell">

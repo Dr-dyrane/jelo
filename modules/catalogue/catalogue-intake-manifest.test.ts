@@ -8,9 +8,18 @@ import {
 } from '@/data/catalogue-intake';
 import { reviewedProductRecords } from '@/data/catalogue';
 import { externalProducts } from '@/data/external-catalogue';
-import { evaluateCatalogueIntakeCandidate } from '@/lib/catalogue/intake-readiness';
+import { verifyCatalogueIdentityEvidenceArtifacts } from '@/lib/catalogue/identity-evidence-artifact';
+import {
+  catalogueIdentityExtractionByteSize,
+  catalogueIdentityExtractionSha256,
+  evaluateCatalogueIntakeCandidate,
+} from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T15:42:00Z');
+const researchAsOf = Date.parse('2026-07-22T17:05:00Z');
+
+test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 4);
+});
 
 test('the first deliberate intake cohort stays private and approval-blocked', () => {
   assert.equal(catalogueIntakeCandidates.length, 6);
@@ -19,8 +28,8 @@ test('the first deliberate intake cohort stays private and approval-blocked', ()
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 4);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 4);
 });
 
 test('independent care evidence advances an exact manufacturer identity without bypassing regulation', () => {
@@ -40,16 +49,25 @@ test('independent care evidence advances an exact manufacturer identity without 
   assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
 });
 
-test('GTIN-shaped retailer data cannot advance CeraVe while official snapshots hold identity', () => {
+test('official CeraVe snapshots advance identity and care without trusting retailer SKU fields', () => {
   for (const id of ['cerave-hydrating-cleanser-473ml', 'cerave-moisturising-cream-454g']) {
     const candidate = catalogueIntakeCandidates.find(item => item.id === id);
     assert.ok(candidate);
     const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-    assert.equal(decision.stage, 'identity');
+    assert.equal(decision.stage, 'nigeria');
     assert.equal(decision.freshExactOffers.length, 0);
-    assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
+    assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+    assert.equal(decision.blockers.includes('care-review-missing'), false);
+    assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
     assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
+    const extraction = candidate.identity.officialEvidence?.canonicalExtraction;
+    assert.ok(extraction);
+    assert.equal(candidate.identity.officialEvidence?.snapshotSha256, catalogueIdentityExtractionSha256(extraction));
+    assert.equal(candidate.identity.officialEvidence?.snapshotByteSize, catalogueIdentityExtractionByteSize(extraction));
   }
+  const cream = catalogueIntakeCandidates.find(item => item.id === 'cerave-moisturising-cream-454g');
+  assert.equal(cream?.variant, 'CeraVe Moisturising Cream Pot');
+  assert.match(cream?.care.manufacturerEvidenceUrl ?? '', /africa\.cerave\.com/);
 });
 
 test('the UreaRepair dossier advances through identity and care without trusting a retailer SKU', () => {
@@ -83,6 +101,11 @@ test('provisional Slique evidence is retained but cannot become independent Tier
   assert.ok(candidate);
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
   assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Slique Beauty' && offer.retailerStatus === 'provisional'), true);
+  const slique = candidate.nigeria.exactOffers.find(offer => offer.retailer === 'Slique Beauty');
+  assert.equal(slique?.observedGtin, '2000000269764');
+  assert.equal(slique?.observedGtinBasis, 'explicit-ean');
+  assert.notEqual(slique?.observedGtin, candidate.identity.gtin);
+  assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Konga Health'), false);
   assert.equal(decision.freshExactOffers.length, 0);
   assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'provisional').length, 0);
   assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'directory-listed').length, 0);

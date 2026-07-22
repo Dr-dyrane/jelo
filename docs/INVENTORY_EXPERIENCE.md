@@ -43,7 +43,7 @@ The page order is:
 6. paged all-products catalogue with a filter sheet;
 7. source, review, price, and affiliate disclosure.
 
-Current cards keep evidence compact: exact fresh comparable offers render as a lowest observed price plus the number of stores in that comparison. A single observation is not presented as a multi-store comparison. Search assistance and multi-select facets remain later work; they must stay auditable, hide zero-result choices, and never turn a condition pattern into product matching.
+Current cards keep evidence compact: exact fresh comparable offers render as a lowest observed price plus the number of stores in that comparison. A single observation is not presented as a multi-store comparison. Search assistance now provides reversible company and category suggestions with keyboard support; broader multi-select facets remain later work. Every facet must stay auditable, hide zero-result choices, and never turn a condition pattern into product matching.
 
 ## Visual rules
 
@@ -75,8 +75,8 @@ The catalogue keeps candidate count, public approval, and recommendation eligibi
 - 5 require pharmacist review and 16 remain guidance-ineligible pending better formula evidence;
 - the checked-in barcode-linked Open Beauty Facts records are a frozen legacy research pool, not a target or intake queue;
 - new candidates enter the private per-SKU queue in `data/catalogue-intake.json` and advance only through explicit identity, care, Nigeria, rights, editorial, and approval-draft gates;
-- a community candidate becomes public only through an identity-bound approval in `data/external-product-approvals.json`;
-- approving a community record for discovery never makes it recommendation-eligible.
+- `data/external-product-approvals.json` remains empty and every non-empty legacy manifest is rejected;
+- legacy community records cannot become public or recommendation-eligible through that retired path.
 
 Current derived state is 23 reviewed research records, 10 display-approved public records, 977 frozen private bulk candidates, 6 deliberate per-SKU intake candidates, and 0 approval-ready intake candidates. The `publicCatalogueCount` value inside the frozen legacy bulk metadata describes the retired count-first release target; it is not current public inventory and must not be used in UI or operational reporting.
 
@@ -84,7 +84,7 @@ Imported records must have a barcode, product name, brand, mapped beauty categor
 
 The Open Beauty Facts `qualityScore` only prioritizes private review after hard gates. It cannot compensate for missing exact-SKU identity, formula/care review, Nigerian regulatory evidence, or market evidence, and must never be described as product quality, evidence, Nigerian availability, or market demand.
 
-Community publication requires a reviewed formula archetype and care tier plus Nigerian regulatory status. `pending` stays private. Market evidence must be either Tier-A identity evidence with two independent fresh exact Nigerian offers, or brand-confirmed Nigerian authorization with one fresh exact offer. Open Beauty Facts data, ingredients, or photography alone can never satisfy these gates.
+New publication research uses the private per-SKU intake path, not the frozen community approval path. It requires candidate-scoped manufacturer care evidence, a fresh typed NAFDAC record, and either two independently reviewed exact Nigerian offer representations or one exact offer plus a reviewer-attributed brand-source seller authorization. `pending`, stale or bare observations stay private. Open Beauty Facts data, ingredients, photography or score can never satisfy these gates.
 
 Provisional seller observations may help a reviewer understand availability and price spread, but they do not count as either of the two independent Tier-A retailers. The intake audit keeps that distinction machine-readable.
 

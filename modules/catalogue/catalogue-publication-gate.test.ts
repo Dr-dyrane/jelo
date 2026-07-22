@@ -4,6 +4,7 @@ import { reviewedProductRecords } from '@/data/catalogue';
 import {
   assessCatalogueQuality,
   catalogueApprovalScope,
+  externalCatalogueApprovalSchemaVersion,
   evaluateExternalCatalogueCandidate,
   externalCandidateFingerprint,
   gateExternalCatalogue,
@@ -11,17 +12,107 @@ import {
   type ExternalCatalogueGateCandidate,
 } from '@/lib/catalogue/catalogue-publication-gate';
 import { auditReviewedProductQuality } from '@/lib/catalogue/reviewed-product-quality';
+import {
+  catalogueExactOfferEvidenceSchemaVersion,
+  catalogueRegulatoryEvidenceSchemaVersion,
+  regulatoryEvidenceExcerptSha256,
+  type ReviewedExactOfferEvidence,
+  type ReviewedRegulatoryEvidence,
+} from '@/lib/catalogue/market-evidence';
 
 const hashA = 'a'.repeat(64);
 const hashB = 'b'.repeat(64);
-const asOf = Date.parse('2026-07-22T12:00:00Z');
+const asOf = Date.parse('2026-07-22T17:05:00Z');
+
+type ExternalOffer = ExternalCatalogueApproval['nigeria']['exactOffers'][number];
+
+function withOfferEvidence<T extends ExternalOffer>(offer: T): T {
+  const label = offer.observedGtinBasis === 'explicit-ean'
+    ? 'EAN'
+    : offer.observedGtinBasis === 'explicit-upc'
+      ? 'UPC'
+      : 'GTIN';
+  const evidence: ReviewedExactOfferEvidence = {
+    schemaVersion: catalogueExactOfferEvidenceSchemaVersion,
+    method: 'reviewed-exact-offer-field-extraction',
+    listingUrl: offer.listingUrl,
+    responseUrl: offer.listingUrl,
+    responseSha256: 'e'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 31_500,
+    retrievedAt: offer.observedAt,
+    fields: {
+      gtin: {
+        label,
+        value: offer.observedGtin,
+        locator: `HTML product metadata ${label} row`,
+        sourceText: `${label} ${offer.observedGtin}`,
+      },
+      title: {
+        value: offer.variant,
+        locator: 'HTML h1 product title',
+        sourceText: offer.variant,
+      },
+      size: {
+        value: offer.size,
+        locator: 'HTML product size selection',
+        sourceText: offer.size,
+      },
+      price: {
+        value: offer.priceNgn,
+        currency: 'NGN',
+        locator: 'HTML product price amount',
+        sourceText: `NGN ${offer.priceNgn.toLocaleString('en-NG')}`,
+      },
+      stock: {
+        value: offer.stock,
+        locator: 'HTML availability status',
+        sourceText: offer.stock.replaceAll('-', ' '),
+      },
+    },
+    reviewer: 'Market reviewer',
+    reviewedAt: new Date(Date.parse(offer.observedAt) + 5 * 60_000).toISOString(),
+  };
+  return { ...offer, evidence };
+}
+
+function regulatoryEvidence(gtin: string): Extract<ReviewedRegulatoryEvidence, { status: 'matched' }> {
+  const sourceText = `GTIN ${gtin} · NAFDAC registration A4-1234 · Status Active`;
+  return {
+    schemaVersion: catalogueRegulatoryEvidenceSchemaVersion,
+    authority: 'NAFDAC',
+    status: 'matched',
+    matchBasis: 'manufacturer-gtin',
+    candidateGtin: gtin,
+    registrationNumber: 'A4-1234',
+    registrationStatus: {
+      value: 'active',
+      locator: 'NAFDAC Greenbook registration status row',
+      sourceText: 'Status Active',
+    },
+    sourceUrl: `https://greenbook.nafdac.gov.ng/products/${gtin}`,
+    locator: 'NAFDAC Greenbook product detail GTIN row',
+    sourceText,
+    sourceExcerptSha256: regulatoryEvidenceExcerptSha256(sourceText),
+    responseUrl: `https://greenbook.nafdac.gov.ng/products/${gtin}`,
+    responseSha256: 'f'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 24_000,
+    retrievedAt: '2026-07-22T09:10:00Z',
+    observedAt: '2026-07-22T09:10:00Z',
+    reviewedAt: '2026-07-22T09:20:00Z',
+    reviewer: 'Regulatory reviewer',
+  };
+}
 
 function candidate(overrides: Partial<ExternalCatalogueGateCandidate> = {}): ExternalCatalogueGateCandidate {
   return {
     source: 'open-beauty-facts',
     sourceProductId: '4005808319695',
     barcode: '4005808319695',
-    brand: 'Example',
+    brand: 'CeraVe',
     name: 'Example Lotion',
     quantity: '400 ml',
     category: 'Body care',
@@ -47,7 +138,7 @@ function approval(item: ExternalCatalogueGateCandidate, overrides: Partial<Exter
     candidateFingerprint: externalCandidateFingerprint(item),
     sourceSnapshotSha256: item.sourceSnapshotSha256,
     imageSha256: item.imageSha256,
-    approvedAt: '2026-07-22T10:00:00Z',
+    approvedAt: '2026-07-22T16:00:00Z',
     reviewer: 'Catalogue reviewer',
     scope: catalogueApprovalScope,
     catalogueFit: 'Recognizable product with a deliberate catalogue role.',
@@ -56,7 +147,7 @@ function approval(item: ExternalCatalogueGateCandidate, overrides: Partial<Exter
       barcode: item.barcode,
       variant: item.name,
       size: item.quantity,
-      evidenceUrl: item.sourceUrl,
+      evidenceUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
     },
     careReview: {
       formulaArchetype: 'Occlusive body moisturizer',
@@ -67,11 +158,11 @@ function approval(item: ExternalCatalogueGateCandidate, overrides: Partial<Exter
     },
     nigeria: {
       regulatoryStatus: 'matched',
-      regulatoryEvidenceUrl: 'https://regulator.example/products/4005808319695',
-      tierAIdentityEvidenceUrl: 'https://identity.example/products/4005808319695',
+      regulatoryEvidence: regulatoryEvidence(item.barcode),
+      tierAIdentityEvidenceUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
       exactOffers: [
-        { retailer: 'Store One', listingUrl: 'https://store-one.example/products/example', observedAt: '2026-07-22T08:00:00Z', variant: item.name, size: item.quantity, priceNgn: 8_500, stock: 'in-stock' },
-        { retailer: 'Store Two', listingUrl: 'https://store-two.example/products/example', observedAt: '2026-07-21T08:00:00Z', variant: item.name, size: item.quantity, priceNgn: 9_000, stock: 'low-stock' },
+        withOfferEvidence({ retailer: 'Beauty by Daz', listingUrl: 'https://beautybydaz.com/product/example', observedAt: '2026-07-22T08:00:00Z', variant: item.name, size: item.quantity, observedGtin: item.barcode, observedGtinBasis: 'explicit-gtin', priceNgn: 8_500, stock: 'in-stock' }),
+        withOfferEvidence({ retailer: 'Teeka4', listingUrl: 'https://teeka4.com/product/example', observedAt: '2026-07-21T08:00:00Z', variant: item.name, size: item.quantity, observedGtin: item.barcode, observedGtinBasis: 'explicit-ean', priceNgn: 9_000, stock: 'low-stock' }),
       ],
     },
     asset: {
@@ -156,7 +247,17 @@ test('bulk candidates stay private without a deliberate approval', () => {
 
   assert.equal(decision.status, 'private-candidate');
   assert.equal(decision.reason, 'missing-approval');
-  assert.equal(gateExternalCatalogue([item], { schemaVersion: 1, approvals: [] }, asOf).approvedCount, 0);
+  assert.equal(gateExternalCatalogue([item], {
+    schemaVersion: externalCatalogueApprovalSchemaVersion,
+    approvals: [],
+  }, asOf).approvedCount, 0);
+});
+
+test('the legacy approval schema fails closed after exact-offer evidence changed', () => {
+  assert.throws(
+    () => gateExternalCatalogue([candidate()], { schemaVersion: 1, approvals: [] } as never, asOf),
+    /Unsupported external catalogue approval schema/,
+  );
 });
 
 test('an identity-bound licensed original photograph can pass the public gate', () => {
@@ -210,19 +311,162 @@ test('regulatory pending status and insufficient Nigerian offers remain private'
 });
 
 test('brand-confirmed Nigerian authorization can support one fresh exact offer', () => {
-  const item = candidate();
+  const item = candidate({ brand: 'CeraVe' });
   const base = approval(item);
   const brandRoute: ExternalCatalogueApproval = {
     ...base,
+    sku: {
+      ...base.sku,
+      evidenceUrl: 'https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/catalogue.pdf',
+    },
     nigeria: {
       ...base.nigeria,
       tierAIdentityEvidenceUrl: undefined,
-      brandAuthorizationEvidenceUrl: 'https://brand.example/nigeria/authorized',
-      exactOffers: base.nigeria.exactOffers.slice(0, 1),
+      brandAuthorizationEvidenceUrl: 'https://africa.cerave.com/en/find-your-nearest-store',
+      exactOffers: [withOfferEvidence({
+        ...base.nigeria.exactOffers[0],
+        retailer: 'Medplus',
+        listingUrl: 'https://medplusnig.com/products/example',
+      })],
     },
   };
 
   assert.equal(evaluateExternalCatalogueCandidate(item, brandRoute, asOf).status, 'approved');
+});
+
+test('brand authorization is bound to both the official brand host and the named seller', () => {
+  const item = candidate({ brand: 'CeraVe' });
+  const base = approval(item);
+  const officialSku = {
+    ...base.sku,
+    evidenceUrl: 'https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/catalogue.pdf',
+  };
+  const medplusOffer = withOfferEvidence({
+    ...base.nigeria.exactOffers[0],
+    retailer: 'Medplus',
+    listingUrl: 'https://medplusnig.com/products/example',
+  });
+  const spoofedAuthorization: ExternalCatalogueApproval = {
+    ...base,
+    sku: officialSku,
+    nigeria: {
+      ...base.nigeria,
+      tierAIdentityEvidenceUrl: undefined,
+      brandAuthorizationEvidenceUrl: 'https://cerave.attacker.example/nigeria/authorized',
+      exactOffers: [medplusOffer],
+    },
+  };
+  const spoofedSkuSource: ExternalCatalogueApproval = {
+    ...base,
+    sku: {
+      ...officialSku,
+      evidenceUrl: 'https://attacker.example/fake-sku',
+    },
+    nigeria: {
+      ...base.nigeria,
+      tierAIdentityEvidenceUrl: undefined,
+      brandAuthorizationEvidenceUrl: 'https://africa.cerave.com/en/find-your-nearest-store',
+      exactOffers: [medplusOffer],
+    },
+  };
+  const unboundSeller: ExternalCatalogueApproval = {
+    ...base,
+    sku: officialSku,
+    nigeria: {
+      ...base.nigeria,
+      tierAIdentityEvidenceUrl: undefined,
+      brandAuthorizationEvidenceUrl: 'https://africa.cerave.com/en/find-your-nearest-store',
+      exactOffers: [base.nigeria.exactOffers[0]],
+    },
+  };
+
+  assert.equal(evaluateExternalCatalogueCandidate(item, spoofedAuthorization, asOf).reason, 'nigeria-market-evidence-insufficient');
+  assert.equal(evaluateExternalCatalogueCandidate(item, spoofedSkuSource, asOf).reason, 'exact-sku-not-approved');
+  assert.equal(evaluateExternalCatalogueCandidate(item, unboundSeller, asOf).reason, 'nigeria-market-evidence-insufficient');
+});
+
+test('Tier-A market evidence must reuse the exact SKU identity source', () => {
+  const item = candidate();
+  const base = approval(item);
+  const unbound: ExternalCatalogueApproval = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      tierAIdentityEvidenceUrl: 'https://identity.example/products/4005808319695',
+    },
+  };
+
+  assert.equal(evaluateExternalCatalogueCandidate(item, unbound, asOf).reason, 'nigeria-market-evidence-insufficient');
+});
+
+test('retailer identifiers and sibling GTINs never count as exact Nigerian offers', () => {
+  const item = candidate();
+  const base = approval(item);
+  const siblingGtin: ExternalCatalogueApproval = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({
+        ...offer,
+        observedGtin: '3337875597333',
+      })),
+    },
+  };
+  const retailerSku: ExternalCatalogueApproval = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({
+        ...offer,
+        observedGtinBasis: 'retailer-sku' as ExternalCatalogueApproval['nigeria']['exactOffers'][number]['observedGtinBasis'],
+      })),
+    },
+  };
+
+  assert.equal(evaluateExternalCatalogueCandidate(item, siblingGtin, asOf).reason, 'nigeria-market-evidence-insufficient');
+  assert.equal(evaluateExternalCatalogueCandidate(item, retailerSku, asOf).reason, 'nigeria-market-evidence-insufficient');
+});
+
+test('legacy exact offers require the same reviewed representation and explicit label evidence', () => {
+  const item = candidate();
+  const base = approval(item);
+  const bare: ExternalCatalogueApproval = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({ ...offer, evidence: undefined })),
+    },
+  };
+  const skuLabel: ExternalCatalogueApproval = {
+    ...base,
+    nigeria: {
+      ...base.nigeria,
+      exactOffers: base.nigeria.exactOffers.map(offer => ({
+        ...offer,
+        evidence: {
+          ...offer.evidence!,
+          fields: {
+            ...offer.evidence!.fields,
+            gtin: {
+              ...offer.evidence!.fields.gtin,
+              locator: 'HTML retailer SKU row',
+              sourceText: `SKU ${offer.observedGtin}`,
+            },
+          },
+        },
+      })),
+    },
+  };
+
+  assert.equal(evaluateExternalCatalogueCandidate(item, bare, asOf).reason, 'nigeria-market-evidence-insufficient');
+  assert.equal(evaluateExternalCatalogueCandidate(item, skuLabel, asOf).reason, 'nigeria-market-evidence-insufficient');
+});
+
+test('legacy approvals cannot predate bound market or regulatory evidence', () => {
+  const item = candidate();
+  const early = approval(item, { approvedAt: '2026-07-22T09:15:00Z' });
+
+  assert.equal(evaluateExternalCatalogueCandidate(item, early, asOf).reason, 'invalid-approval');
 });
 
 test('a raw automated cutout is never public even with an otherwise valid approval', () => {
@@ -233,7 +477,7 @@ test('a raw automated cutout is never public even with an otherwise valid approv
   assert.equal(decision.reason, 'automated-background-removal');
 });
 
-test('a background-extracted package can be a private input to a distinct final styled composite', () => {
+test('non-empty legacy approval manifests are hard-disabled', () => {
   const item = candidate({ imageTreatment: 'source-faithful-background-extraction' });
   const base = approval(item);
   const styled: ExternalCatalogueApproval = {
@@ -246,11 +490,11 @@ test('a background-extracted package can be a private input to a distinct final 
       publicImageSha256: hashB,
     },
   };
-  const gated = gateExternalCatalogue([item], { schemaVersion: 1, approvals: [styled] }, asOf);
-
-  assert.equal(gated.approvedCount, 1);
-  assert.equal(gated.approved[0]?.canonicalImageUrl, styled.asset.publicImageUrl);
-  assert.equal(gated.approved[0]?.imageSha256, styled.asset.publicImageSha256);
-  assert.equal(gated.approved[0]?.imageTreatment, 'identity-verified-styled-composite');
-  assert.equal(gated.approved[0]?.productionInputImageTreatment, 'source-faithful-background-extraction');
+  assert.throws(
+    () => gateExternalCatalogue([item], {
+      schemaVersion: externalCatalogueApprovalSchemaVersion,
+      approvals: [styled],
+    }, asOf),
+    /External catalogue publication is disabled/,
+  );
 });

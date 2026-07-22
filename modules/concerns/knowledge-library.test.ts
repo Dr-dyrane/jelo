@@ -55,3 +55,26 @@ test('infection warning guides preserve time-sensitive referral and stop product
     }
   }
 });
+
+test('numb skin patches stop product matching and route sensory loss to an examination', () => {
+  const concern = concerns.find(item => item.slug === 'leprosy-pattern');
+  assert.ok(concern);
+  assert.equal(concern.name, 'Numb skin patches');
+  assert.equal(concern.kind, 'condition-pattern');
+  assert.deepEqual(concern.productTerms, []);
+  assert.deepEqual(concern.sources.map(source => source.url), [
+    'https://www.who.int/en/news-room/fact-sheets/detail/leprosy',
+    'https://www.nhs.uk/conditions/stroke/symptoms/',
+  ]);
+  for (const term of ['reduced feeling', 'numbness', 'nerve', 'sudden one-sided', 'speech trouble', 'emergency care', 'permanent disability']) {
+    assert.ok(
+      `${concern.summary} ${concern.escalation}`.toLowerCase().includes(term),
+      `numb skin patches is missing ${term}`,
+    );
+  }
+  assert.doesNotMatch(
+    `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`,
+    /needle|sharp object|heat test/i,
+  );
+  assert.doesNotMatch(concern.signals.join(' '), /near the patch/i);
+});

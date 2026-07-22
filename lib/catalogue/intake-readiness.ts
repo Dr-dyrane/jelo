@@ -2,6 +2,13 @@ import { createHash } from 'node:crypto';
 import { canonicalGtin, isValidGtin } from './gtin';
 import { nigeriaRetailers } from '@/data/retailers';
 import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
+import { reviewedBrandSellerEvidenceValid } from './brand-seller-evidence';
+import {
+  reviewedExactOfferEvidenceValid,
+  reviewedRegulatoryEvidenceValid,
+  type ReviewedExactOfferEvidence,
+  type ReviewedRegulatoryEvidence,
+} from './market-evidence';
 import {
   assertCataloguePublicationImageLocation,
   cataloguePublicationImageMaxBytes,
@@ -11,11 +18,13 @@ import {
   type CataloguePublicationImageMimeType,
 } from './publication-image-policy';
 
-export const catalogueIntakeSchemaVersion = 3 as const;
+export const catalogueIntakeSchemaVersion = 5 as const;
 export const catalogueGenerationRecordSchemaVersion = 1 as const;
+export const catalogueIdentityExtractionSchemaVersion = 3 as const;
 
 export type CatalogueIntakePriority = 'essential' | 'important' | 'exploratory';
 export type CatalogueIntakeStage = 'identity' | 'care' | 'nigeria' | 'rights' | 'editorial' | 'approval-ready';
+export type CatalogueNigeriaMarketRoute = 'tier-a' | 'brand-authorized';
 export type CatalogueSourceAssetMimeType = 'image/avif' | 'image/jpeg' | 'image/png' | 'image/webp';
 export type CatalogueIdentityEvidenceMimeType =
   | 'application/json'
@@ -26,13 +35,36 @@ export type CatalogueIdentityEvidenceMimeType =
   | 'image/webp'
   | 'text/html';
 
+export type CatalogueOfficialIdentityExtraction = {
+  schemaVersion: typeof catalogueIdentityExtractionSchemaVersion;
+  candidateId: string;
+  sourceUrl: string;
+  responseUrl: string;
+  responseDigestScope: 'decoded-response-body';
+  retrievedAt: string;
+  fields: {
+    gtin: { value: string; locator: string; sourceText: string };
+    variant: { value: string; locator: string; sourceText: string };
+    size: { value: string; locator: string; sourceText: string };
+  };
+  sourceResponseSha256: string;
+  sourceResponseMimeType: Exclude<CatalogueIdentityEvidenceMimeType, 'application/json'>;
+  sourceResponseByteSize: number;
+  method: 'reviewed-exact-identity-field-extraction';
+  reviewer: string;
+  reviewedAt: string;
+};
+
 export type CatalogueOfficialIdentityEvidence = {
   url: string;
   observedGtin: string;
   observedVariant: string;
   observedSize: string;
+  snapshotKind: 'canonical-extraction';
+  snapshotPath: string;
+  canonicalExtraction: CatalogueOfficialIdentityExtraction;
   snapshotSha256: string;
-  snapshotMimeType: CatalogueIdentityEvidenceMimeType;
+  snapshotMimeType: 'application/json';
   snapshotByteSize: number;
   retrievedAt: string;
 };
@@ -66,6 +98,7 @@ export type CatalogueIntakeOffer = {
   retailerSku?: string;
   priceNgn: number;
   stock: 'in-stock' | 'low-stock' | 'out-of-stock';
+  evidence?: ReviewedExactOfferEvidence;
 };
 
 export type CatalogueIntakeCandidate = {
@@ -100,7 +133,7 @@ export type CatalogueIntakeCandidate = {
   };
   nigeria: {
     regulatoryStatus: 'pending' | 'matched' | 'not-required';
-    regulatoryEvidenceUrl?: string;
+    regulatoryEvidence?: ReviewedRegulatoryEvidence;
     tierAIdentityEvidenceUrl?: string;
     brandAuthorizationEvidenceUrl?: string;
     exactOffers: CatalogueIntakeOffer[];
@@ -170,6 +203,7 @@ export type CatalogueIntakeBlocker =
   | 'asset-origin-ineligible'
   | 'asset-rights-source-missing'
   | 'asset-source-snapshot-invalid'
+  | 'asset-isolation-record-missing'
   | 'asset-generation-record-missing'
   | 'asset-review-chronology-invalid'
   | 'asset-final-image-role-invalid'
@@ -190,6 +224,7 @@ export type CatalogueIntakeDecision = {
   nextAction: string;
   approvalDraftReady: boolean;
   freshExactOffers: CatalogueIntakeOffer[];
+  nigeriaMarketRoute?: CatalogueNigeriaMarketRoute;
 };
 
 const hashPattern = /^[0-9a-f]{64}$/;
@@ -203,8 +238,7 @@ const stageProgress: Record<CatalogueIntakeStage, number> = {
   editorial: 4,
   'approval-ready': 5,
 };
-const identityEvidenceMimeTypes: readonly CatalogueIdentityEvidenceMimeType[] = [
-  'application/json',
+const rawIdentityEvidenceMimeTypes: readonly Exclude<CatalogueIdentityEvidenceMimeType, 'application/json'>[] = [
   'application/pdf',
   'image/avif',
   'image/jpeg',
@@ -218,6 +252,29 @@ const packshotEligibleOrigins = [
   'owned-editorial-photograph',
   'owned-identity-verified-render',
 ] as const;
+const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
+  cerave: ['africa.cerave.com', 'www.cerave.com'],
+  eucerin: ['www.eucerin-cewa.com'],
+};
+const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
+  'cerave-moisturising-cream-454g': [
+    'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+  ],
+};
+const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
+  cerave: [
+    'africa.cerave.com',
+    'www.cerave.com',
+    'uk.lorealdermatologicalbeautypartnershop.com',
+  ],
+  eucerin: ['www.eucerin-cewa.com'],
+};
+const reviewedIndependentClinicalGuidanceUrls = new Set([
+  'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+  'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+  'https://www.nhs.uk/tests-and-treatments/emollients/',
+  'https://pubmed.ncbi.nlm.nih.gov/34596890/',
+]);
 
 function stableJson(value: unknown): string {
   if (value === null || typeof value !== 'object') {
@@ -232,6 +289,22 @@ function stableJson(value: unknown): string {
     .sort()
     .map(key => `${JSON.stringify(key)}:${stableJson(record[key])}`)
     .join(',')}}`;
+}
+
+export function catalogueIdentityExtractionCanonicalJson(extraction: CatalogueOfficialIdentityExtraction) {
+  return `${stableJson(extraction)}\n`;
+}
+
+function catalogueIdentityExtractionBytes(extraction: CatalogueOfficialIdentityExtraction) {
+  return Buffer.from(catalogueIdentityExtractionCanonicalJson(extraction), 'utf8');
+}
+
+export function catalogueIdentityExtractionSha256(extraction: CatalogueOfficialIdentityExtraction) {
+  return createHash('sha256').update(catalogueIdentityExtractionBytes(extraction)).digest('hex');
+}
+
+export function catalogueIdentityExtractionByteSize(extraction: CatalogueOfficialIdentityExtraction) {
+  return catalogueIdentityExtractionBytes(extraction).byteLength;
 }
 
 export function catalogueGenerationRecordSha256(record: CatalogueGenerationRecordContent) {
@@ -292,6 +365,45 @@ function normalizedSize(value: string) {
   return [...measurementTokens.sort(), normalized(remainder)].filter(Boolean).join(' ');
 }
 
+function measurementTokens(value: string) {
+  const tokens: string[] = [];
+  for (const match of value.toLowerCase().matchAll(
+    /\b(\d+(?:[.,]\d+)?)\s*(fl\.?\s*oz|ml|cl|l|mg|kg|g|oz|count|pcs?|pieces?|pack)\b/g,
+  )) {
+    const amount = Number(match[1].replace(',', '.'));
+    const amountToken = Number.isFinite(amount) ? String(amount).replace('.', 'd') : match[1];
+    const unitToken = match[2].replace(/[^a-z]/g, '').replace(/^pieces?$/, 'pc').replace(/^pcs?$/, 'pc');
+    tokens.push(`${amountToken}${unitToken}`);
+  }
+  return tokens;
+}
+
+function identityExtractionFieldValid(value: unknown): value is { value: string; locator: string; sourceText: string } {
+  if (!value || typeof value !== 'object') return false;
+  const field = value as Record<string, unknown>;
+  return typeof field.value === 'string'
+    && typeof field.locator === 'string'
+    && field.locator.trim().length >= 8
+    && typeof field.sourceText === 'string'
+    && field.sourceText.trim().length >= 3;
+}
+
+function sourceTextContainsExactGtin(sourceText: string, gtin: string) {
+  const escaped = gtin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?:^|\\D)${escaped}(?:\\D|$)`).test(sourceText);
+}
+
+function extractionNamesExplicitGtin(field: { locator: string; sourceText: string }) {
+  const explicitLabel = /(?:^|[^a-z0-9])(?:gtin(?:-?1[234])?|ean(?:-?13)?s?|upc(?:-?[ae])?)(?:[^a-z0-9]|$)/i;
+  return explicitLabel.test(field.locator) || explicitLabel.test(field.sourceText);
+}
+
+function sourceTextContainsExactSize(sourceText: string, size: string) {
+  const expected = measurementTokens(size);
+  const observed = new Set(measurementTokens(sourceText));
+  return expected.length > 0 && expected.every(token => observed.has(token));
+}
+
 function normalizedIdentity(candidate: CatalogueIntakeCandidate) {
   return [normalized(candidate.brand), normalized(candidate.name), normalizedSize(candidate.size)].join('|');
 }
@@ -301,8 +413,38 @@ function sameUrl(left: string | undefined, right: string | undefined) {
   return new URL(left ?? '').href === new URL(right ?? '').href;
 }
 
+function sameBrandOfficialCareSource(candidate: CatalogueIntakeCandidate, evidenceUrl: string | undefined) {
+  if (!validHttps(evidenceUrl)) return false;
+  const evidenceHost = new URL(evidenceUrl ?? '').hostname.toLowerCase();
+  const brandKey = normalized(candidate.brand).replace(/\s/g, '');
+  return reviewedOfficialCareHosts[brandKey]?.includes(evidenceHost) ?? false;
+}
+
+export function catalogueBrandAuthorizationSourceValid(
+  candidate: CatalogueIntakeCandidate,
+  evidenceUrl: string | undefined,
+) {
+  return validHttps(evidenceUrl)
+    && sameBrandOfficialCareSource(candidate, evidenceUrl)
+    && reviewedOfficialIdentitySource(candidate, candidate.identity.officialProductUrl);
+}
+
+function candidateScopedManufacturerCareSource(candidate: CatalogueIntakeCandidate, evidenceUrl: string | undefined) {
+  if (!sameBrandOfficialCareSource(candidate, evidenceUrl)) return false;
+  if (sameUrl(evidenceUrl, candidate.identity.officialProductUrl)) return true;
+  return reviewedCandidateManufacturerCareUrls[candidate.id]?.some(url => sameUrl(url, evidenceUrl)) ?? false;
+}
+
+function reviewedOfficialIdentitySource(candidate: CatalogueIntakeCandidate, evidenceUrl: string | undefined) {
+  if (!validHttps(evidenceUrl)) return false;
+  const evidenceHost = new URL(evidenceUrl ?? '').hostname.toLowerCase();
+  const brandKey = normalized(candidate.brand).replace(/\s/g, '');
+  return reviewedOfficialIdentityHosts[brandKey]?.includes(evidenceHost) ?? false;
+}
+
 function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf: number) {
   const evidence = candidate.identity.officialEvidence;
+  const extraction = evidence?.canonicalExtraction;
   const checkedAt = Date.parse(candidate.identity.checkedAt ?? '');
   const retrievedAt = Date.parse(evidence?.retrievedAt ?? '');
   return Boolean(
@@ -315,14 +457,53 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
     && typeof evidence.snapshotMimeType === 'string'
     && typeof evidence.snapshotByteSize === 'number'
     && typeof evidence.retrievedAt === 'string'
+    && reviewedOfficialIdentitySource(candidate, evidence.url)
+    && evidence.snapshotKind === 'canonical-extraction'
+    && evidence.snapshotPath === `data/catalogue-identity-evidence/${candidate.id}.json`
+    && evidence.snapshotMimeType === 'application/json'
+    && extraction
+    && extraction.schemaVersion === catalogueIdentityExtractionSchemaVersion
+    && typeof extraction.candidateId === 'string'
+    && extraction.candidateId === candidate.id
+    && extraction.method === 'reviewed-exact-identity-field-extraction'
+    && extraction.fields
+    && identityExtractionFieldValid(extraction.fields.gtin)
+    && identityExtractionFieldValid(extraction.fields.variant)
+    && identityExtractionFieldValid(extraction.fields.size)
+    && extractionNamesExplicitGtin(extraction.fields.gtin)
+    && typeof extraction.sourceUrl === 'string'
+    && typeof extraction.responseUrl === 'string'
+    && extraction.responseDigestScope === 'decoded-response-body'
+    && typeof extraction.retrievedAt === 'string'
+    && sameUrl(extraction.sourceUrl, evidence.url)
+    && sameUrl(extraction.responseUrl, extraction.sourceUrl)
+    && extraction.retrievedAt === evidence.retrievedAt
+    && sameGtin(extraction.fields.gtin.value, evidence.observedGtin)
+    && normalized(extraction.fields.variant.value) === normalized(evidence.observedVariant)
+    && normalizedSize(extraction.fields.size.value) === normalizedSize(evidence.observedSize)
+    && sourceTextContainsExactGtin(extraction.fields.gtin.sourceText, extraction.fields.gtin.value)
+    && normalized(extraction.fields.variant.sourceText).includes(normalized(extraction.fields.variant.value))
+    && sourceTextContainsExactSize(extraction.fields.size.sourceText, extraction.fields.size.value)
+    && typeof extraction.sourceResponseSha256 === 'string'
+    && hashPattern.test(extraction.sourceResponseSha256)
+    && rawIdentityEvidenceMimeTypes.includes(extraction.sourceResponseMimeType)
+    && Number.isSafeInteger(extraction.sourceResponseByteSize)
+    && extraction.sourceResponseByteSize > 0
+    && typeof extraction.reviewer === 'string'
+    && extraction.reviewer.trim().length >= 2
+    && typeof extraction.reviewedAt === 'string'
+    && validPastDate(extraction.reviewedAt, asOf)
+    && Date.parse(extraction.reviewedAt) >= Date.parse(extraction.retrievedAt)
+    && Date.parse(extraction.reviewedAt) <= checkedAt
     && sameUrl(evidence.url, candidate.identity.officialProductUrl)
     && sameGtin(evidence.observedGtin, candidate.identity.gtin)
     && normalized(evidence.observedVariant) === normalized(candidate.variant)
     && normalizedSize(evidence.observedSize) === normalizedSize(candidate.size)
     && hashPattern.test(evidence.snapshotSha256)
-    && identityEvidenceMimeTypes.includes(evidence.snapshotMimeType)
     && Number.isSafeInteger(evidence.snapshotByteSize)
     && evidence.snapshotByteSize > 0
+    && evidence.snapshotSha256 === catalogueIdentityExtractionSha256(extraction)
+    && evidence.snapshotByteSize === catalogueIdentityExtractionByteSize(extraction)
     && validPastDate(evidence.retrievedAt, asOf)
     && Number.isFinite(checkedAt)
     && retrievedAt <= checkedAt
@@ -410,6 +591,8 @@ function canonicalRetailerOffer(offer: CatalogueIntakeOffer) {
 
 function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueIntakeOffer, asOf: number) {
   const observedAt = Date.parse(offer.observedAt);
+  const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
+  const offerReviewedAt = Date.parse(offer.evidence?.reviewedAt ?? '');
   if (
     !offer.retailer.trim()
     || !validHttps(offer.listingUrl)
@@ -420,6 +603,10 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
     || observedAt > asOf + 5 * 60_000
     || !Number.isFinite(offer.priceNgn)
     || offer.priceNgn <= 0
+    || !reviewedExactOfferEvidenceValid(offer, candidate.identity.gtin, asOf)
+    || !Number.isFinite(identityCheckedAt)
+    || !Number.isFinite(offerReviewedAt)
+    || offerReviewedAt < identityCheckedAt
   ) return undefined;
 
   const canonicalOffer = canonicalRetailerOffer(offer);
@@ -456,6 +643,8 @@ function careBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Catalo
   const blockers: CatalogueIntakeBlocker[] = [];
   const manufacturerEvidenceUrl = candidate.care.manufacturerEvidenceUrl;
   const independentClinicalGuidanceUrl = candidate.care.independentClinicalGuidanceUrl;
+  const careReviewedAt = Date.parse(candidate.care.reviewedAt ?? '');
+  const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
   if (
     candidate.care.status !== 'reviewed'
     || !candidate.care.formulaArchetype?.trim()
@@ -463,6 +652,8 @@ function careBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Catalo
     || candidate.care.reviewScope !== 'catalogue-supportive-care'
     || !candidate.care.reviewer?.trim()
     || !validPastDate(candidate.care.reviewedAt, asOf)
+    || !Number.isFinite(identityCheckedAt)
+    || careReviewedAt < identityCheckedAt
   ) blockers.push('care-review-missing');
   if (!candidate.care.evidenceUrls.length || candidate.care.evidenceUrls.some(url => !validHttps(url))) blockers.push('care-evidence-missing');
   if (!candidate.care.advisoryBoundary?.trim() || candidate.care.advisoryBoundary.trim().length < 24) {
@@ -470,14 +661,14 @@ function careBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Catalo
   }
   try {
     const manufacturer = new URL(manufacturerEvidenceUrl ?? '');
-    const official = new URL(candidate.identity.officialProductUrl ?? '');
     const clinical = new URL(independentClinicalGuidanceUrl ?? '');
     const evidence = new Set(candidate.care.evidenceUrls.map(url => new URL(url).href));
     if (
       manufacturer.protocol !== 'https:'
       || clinical.protocol !== 'https:'
-      || manufacturer.href !== official.href
+      || !candidateScopedManufacturerCareSource(candidate, manufacturer.href)
       || manufacturer.hostname === clinical.hostname
+      || !reviewedIndependentClinicalGuidanceUrls.has(clinical.href)
       || !evidence.has(manufacturer.href)
       || !evidence.has(clinical.href)
     ) blockers.push('care-independent-guidance-missing');
@@ -487,28 +678,61 @@ function careBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Catalo
   return blockers;
 }
 
-function nigeriaBlockers(candidate: CatalogueIntakeCandidate, offers: CatalogueIntakeOffer[]) {
-  const blockers: CatalogueIntakeBlocker[] = [];
-  if (candidate.nigeria.regulatoryStatus === 'pending') blockers.push('nigeria-regulatory-pending');
-  if (
-    !['matched', 'not-required'].includes(candidate.nigeria.regulatoryStatus)
-    || !validHttps(candidate.nigeria.regulatoryEvidenceUrl)
-  ) blockers.push('nigeria-regulatory-evidence-missing');
-  if (!offers.length) blockers.push('nigeria-exact-offer-missing');
-  if (
-    candidate.nigeria.exactOffers.length > 0
-    && !candidate.nigeria.exactOffers.some(offer => (
-      sameGtin(offer.observedGtin, candidate.identity.gtin)
-      && ['explicit-gtin', 'explicit-ean', 'explicit-upc'].includes(offer.observedGtinBasis ?? '')
-    ))
-  ) blockers.push('nigeria-offer-identity-unbound');
-
+function resolveNigeriaMarketRoute(
+  candidate: CatalogueIntakeCandidate,
+  offers: CatalogueIntakeOffer[],
+  asOf: number,
+): CatalogueNigeriaMarketRoute | undefined {
+  const hasTierAClaim = candidate.nigeria.tierAIdentityEvidenceUrl !== undefined;
+  const hasBrandClaim = candidate.nigeria.brandAuthorizationEvidenceUrl !== undefined;
+  if (hasTierAClaim === hasBrandClaim) return undefined;
   const independentOffers = offers.filter(offer => offer.retailerStatus === 'directory-listed');
   const retailers = new Set(independentOffers.map(offer => offer.retailer.trim().toLowerCase()));
   const hosts = new Set(independentOffers.map(offer => new URL(offer.listingUrl).hostname.replace(/^www\./, '')));
-  const tierARoute = validHttps(candidate.nigeria.tierAIdentityEvidenceUrl) && retailers.size >= 2 && hosts.size >= 2;
-  const brandRoute = validHttps(candidate.nigeria.brandAuthorizationEvidenceUrl) && offers.length >= 1;
-  if (!tierARoute && !brandRoute) blockers.push('nigeria-market-route-insufficient');
+  const tierARoute = sameUrl(
+    candidate.nigeria.tierAIdentityEvidenceUrl,
+    candidate.identity.officialProductUrl,
+  ) && retailers.size >= 2 && hosts.size >= 2;
+  if (hasTierAClaim) return tierARoute ? 'tier-a' : undefined;
+  const brandAuthorizedOffers = independentOffers.filter(offer => {
+    const retailer = nigeriaRetailers.find(item => normalized(item.name) === normalized(offer.retailer));
+    return retailer
+      ? reviewedBrandSellerEvidenceValid(retailer, candidate.nigeria.brandAuthorizationEvidenceUrl, asOf)
+      : false;
+  });
+  const brandRoute = catalogueBrandAuthorizationSourceValid(
+    candidate,
+    candidate.nigeria.brandAuthorizationEvidenceUrl,
+  )
+    && brandAuthorizedOffers.length >= 1;
+  return brandRoute ? 'brand-authorized' : undefined;
+}
+
+function nigeriaBlockers(
+  candidate: CatalogueIntakeCandidate,
+  offers: CatalogueIntakeOffer[],
+  asOf: number,
+  marketRoute: CatalogueNigeriaMarketRoute | undefined,
+) {
+  const blockers: CatalogueIntakeBlocker[] = [];
+  const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
+  const regulatoryReviewedAt = Date.parse(candidate.nigeria.regulatoryEvidence?.reviewedAt ?? '');
+  if (candidate.nigeria.regulatoryStatus === 'pending') blockers.push('nigeria-regulatory-pending');
+  if (
+    !['matched', 'not-required'].includes(candidate.nigeria.regulatoryStatus)
+    || !reviewedRegulatoryEvidenceValid(
+      candidate.nigeria.regulatoryEvidence,
+      candidate.nigeria.regulatoryStatus === 'not-required' ? 'not-required' : 'matched',
+      candidate.identity.gtin,
+      asOf,
+    )
+    || !Number.isFinite(identityCheckedAt)
+    || !Number.isFinite(regulatoryReviewedAt)
+    || regulatoryReviewedAt < identityCheckedAt
+  ) blockers.push('nigeria-regulatory-evidence-missing');
+  if (!offers.length) blockers.push('nigeria-exact-offer-missing');
+  if (candidate.nigeria.exactOffers.length > 0 && !offers.length) blockers.push('nigeria-offer-identity-unbound');
+  if (!marketRoute) blockers.push('nigeria-market-route-insufficient');
   return blockers;
 }
 
@@ -524,6 +748,10 @@ function rightsBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Cata
     && !validHttps(candidate.asset.rightsUrl)
   ) blockers.push('asset-rights-source-missing');
   if (
+    candidate.asset.origin === 'owned-identity-verified-render'
+    && candidate.asset.rightsUrl !== undefined
+  ) blockers.push('asset-rights-source-missing');
+  if (
     !validHttps(candidate.asset.sourceUrl)
     || !candidate.asset.sourceAssetSha256
     || !hashPattern.test(candidate.asset.sourceAssetSha256)
@@ -536,6 +764,9 @@ function rightsBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Cata
     || (candidate.asset.sourceAssetHeight ?? 0) <= 0
     || !validPastDate(candidate.asset.sourceAssetRetrievedAt, asOf)
   ) blockers.push('asset-source-snapshot-invalid');
+  if (candidate.asset.backgroundTreatment === 'source-pixel-isolation') {
+    blockers.push('asset-isolation-record-missing');
+  }
   if (
     candidate.asset.origin === 'owned-identity-verified-render'
     && !generationRecordValid(candidate, asOf)
@@ -586,6 +817,7 @@ function editorialBlockers(candidate: CatalogueIntakeCandidate, asOf: number): C
   const sourceRetrievedAt = Date.parse(candidate.asset.sourceAssetRetrievedAt ?? '');
   const generatedAt = Date.parse(candidate.asset.generationRecord?.generatedAt ?? '');
   const artReviewedAt = Date.parse(candidate.asset.artReviewedAt ?? '');
+  const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
   if (
     (Number.isFinite(sourceRetrievedAt) && Number.isFinite(artReviewedAt) && artReviewedAt < sourceRetrievedAt)
     || (
@@ -594,6 +826,7 @@ function editorialBlockers(candidate: CatalogueIntakeCandidate, asOf: number): C
       && Number.isFinite(artReviewedAt)
       && artReviewedAt < generatedAt
     )
+    || (Number.isFinite(identityCheckedAt) && Number.isFinite(artReviewedAt) && artReviewedAt < identityCheckedAt)
   ) blockers.push('asset-review-chronology-invalid');
   if (
     candidate.asset.labelVariantSizeUnchanged !== true
@@ -610,7 +843,7 @@ function editorialBlockers(candidate: CatalogueIntakeCandidate, asOf: number): C
 }
 
 const actionForStage: Record<CatalogueIntakeStage, string> = {
-  identity: 'Lock the exact manufacturer GTIN, variant and size to a hashed official-source snapshot.',
+  identity: 'Lock the exact manufacturer GTIN, variant and size to a checked-in reviewed extraction and raw-response digest.',
   care: 'Review the formula role and advisory boundaries from primary evidence.',
   nigeria: 'Verify regulation and fresh exact Nigerian product pages.',
   rights: 'Document permission or another valid image-rights basis.',
@@ -623,10 +856,11 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
     const match = matchingOffer(candidate, offer, asOf);
     return match ? [match] : [];
   });
+  const nigeriaMarketRoute = resolveNigeriaMarketRoute(candidate, freshExactOffers, asOf);
   const groups: Array<[Exclude<CatalogueIntakeStage, 'approval-ready'>, CatalogueIntakeBlocker[]]> = [
     ['identity', identityBlockers(candidate, asOf)],
     ['care', careBlockers(candidate, asOf)],
-    ['nigeria', nigeriaBlockers(candidate, freshExactOffers)],
+    ['nigeria', nigeriaBlockers(candidate, freshExactOffers, asOf, nigeriaMarketRoute)],
     ['rights', rightsBlockers(candidate, asOf)],
     ['editorial', editorialBlockers(candidate, asOf)],
   ];
@@ -639,6 +873,7 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
     nextAction: actionForStage[stage],
     approvalDraftReady: stage === 'approval-ready',
     freshExactOffers,
+    ...(nigeriaMarketRoute ? { nigeriaMarketRoute } : {}),
   };
 }
 
@@ -682,6 +917,30 @@ export function auditCatalogueIntakeCandidates(
 export function auditCatalogueIntakeManifest(manifest: CatalogueIntakeManifest, asOf = Date.now()) {
   if (manifest.schemaVersion !== catalogueIntakeSchemaVersion) throw new Error('Unsupported catalogue intake schema.');
   if (!validPastDate(manifest.updatedAt, asOf)) throw new Error('Catalogue intake timestamp is invalid or in the future.');
+  const manifestUpdatedAt = Date.parse(manifest.updatedAt);
+  for (const candidate of manifest.candidates) {
+    const activityTimestamps = [
+      candidate.identity.checkedAt,
+      candidate.identity.officialEvidence?.retrievedAt,
+      candidate.identity.officialEvidence?.canonicalExtraction?.retrievedAt,
+      candidate.identity.officialEvidence?.canonicalExtraction?.reviewedAt,
+      candidate.care.reviewedAt,
+      candidate.nigeria.regulatoryEvidence?.retrievedAt,
+      candidate.nigeria.regulatoryEvidence?.observedAt,
+      candidate.nigeria.regulatoryEvidence?.reviewedAt,
+      ...candidate.nigeria.exactOffers.map(offer => offer.observedAt),
+      ...candidate.nigeria.exactOffers.flatMap(offer => [offer.evidence?.retrievedAt, offer.evidence?.reviewedAt]),
+      candidate.asset.sourceAssetRetrievedAt,
+      candidate.asset.generationRecord?.generatedAt,
+      candidate.asset.artReviewedAt,
+    ];
+    if (activityTimestamps.some(timestamp => {
+      const parsed = Date.parse(timestamp ?? '');
+      return Number.isFinite(parsed) && parsed > manifestUpdatedAt;
+    })) {
+      throw new Error(`Catalogue intake timestamp predates evidence or review activity for ${candidate.id}.`);
+    }
+  }
   return auditCatalogueIntakeCandidates(manifest.candidates, asOf);
 }
 

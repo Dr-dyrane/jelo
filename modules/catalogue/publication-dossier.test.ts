@@ -6,9 +6,14 @@ import emptyManifest from '@/data/catalogue-publication-dossiers.json';
 import {
   catalogueGenerationRecordSchemaVersion,
   catalogueGenerationRecordSha256,
+  catalogueIdentityExtractionByteSize,
+  catalogueIdentityExtractionSchemaVersion,
+  catalogueIdentityExtractionSha256,
   type CatalogueGenerationRecord,
   type CatalogueGenerationRecordContent,
   type CatalogueIntakeCandidate,
+  type CatalogueIntakeOffer,
+  type CatalogueOfficialIdentityEvidence,
 } from '@/lib/catalogue/intake-readiness';
 import {
   cataloguePublicationApprovalScope,
@@ -19,10 +24,194 @@ import {
   type CataloguePublicationApproval,
   type CataloguePublicationDossierManifest,
 } from '@/lib/catalogue/publication-dossier';
+import {
+  catalogueExactOfferEvidenceSchemaVersion,
+  catalogueRegulatoryEvidenceSchemaVersion,
+  regulatoryEvidenceExcerptSha256,
+  type ReviewedExactOfferEvidence,
+  type ReviewedRegulatoryEvidence,
+} from '@/lib/catalogue/market-evidence';
+import { nigeriaRetailers } from '@/data/retailers';
 
-const asOf = Date.parse('2026-07-22T12:00:00Z');
+const asOf = Date.parse('2026-07-22T17:05:00Z');
 const finalHash = 'a'.repeat(64);
 const sourceHash = 'b'.repeat(64);
+
+function exactOfferEvidence(): ReviewedExactOfferEvidence {
+  const listingUrl = 'https://medplusnig.com/product/example-barrier-lotion';
+  return {
+    schemaVersion: catalogueExactOfferEvidenceSchemaVersion,
+    method: 'reviewed-exact-offer-field-extraction',
+    listingUrl,
+    responseUrl: listingUrl,
+    responseSha256: 'e'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 31_500,
+    retrievedAt: '2026-07-22T09:00:00Z',
+    fields: {
+      gtin: {
+        label: 'GTIN',
+        value: '4005808319695',
+        locator: 'HTML product metadata GTIN row',
+        sourceText: 'GTIN 4005808319695',
+      },
+      title: {
+        value: 'Example Barrier Lotion',
+        locator: 'HTML h1 product title',
+        sourceText: 'Example Barrier Lotion',
+      },
+      size: {
+        value: '13.5 fl oz / 400 ml',
+        locator: 'HTML product size selection',
+        sourceText: '13.5 fl oz / 400 ml',
+      },
+      price: {
+        value: 12_500,
+        currency: 'NGN',
+        locator: 'HTML product price amount',
+        sourceText: 'NGN 12,500',
+      },
+      stock: {
+        value: 'in-stock',
+        locator: 'HTML availability status',
+        sourceText: 'In stock',
+      },
+    },
+    reviewer: 'Market reviewer',
+    reviewedAt: '2026-07-22T09:05:00Z',
+  };
+}
+
+function regulatoryEvidence(gtin = '4005808319695'): Extract<ReviewedRegulatoryEvidence, { status: 'matched' }> {
+  const sourceText = `GTIN ${gtin} · NAFDAC registration A4-1234 · Status Active`;
+  return {
+    schemaVersion: catalogueRegulatoryEvidenceSchemaVersion,
+    authority: 'NAFDAC',
+    status: 'matched',
+    matchBasis: 'manufacturer-gtin',
+    candidateGtin: gtin,
+    registrationNumber: 'A4-1234',
+    registrationStatus: {
+      value: 'active',
+      locator: 'NAFDAC Greenbook registration status row',
+      sourceText: 'Status Active',
+    },
+    sourceUrl: `https://greenbook.nafdac.gov.ng/products/${gtin}`,
+    locator: 'NAFDAC Greenbook product detail GTIN row',
+    sourceText,
+    sourceExcerptSha256: regulatoryEvidenceExcerptSha256(sourceText),
+    responseUrl: `https://greenbook.nafdac.gov.ng/products/${gtin}`,
+    responseSha256: 'f'.repeat(64),
+    responseDigestScope: 'decoded-response-body',
+    responseMimeType: 'text/html',
+    responseByteSize: 24_000,
+    retrievedAt: '2026-07-22T09:10:00Z',
+    observedAt: '2026-07-22T09:10:00Z',
+    reviewedAt: '2026-07-22T09:20:00Z',
+    reviewer: 'Regulatory reviewer',
+  };
+}
+
+function withExactOfferEvidence<T extends CatalogueIntakeOffer>(offer: T): T {
+  const label = offer.observedGtinBasis === 'explicit-ean'
+    ? 'EAN'
+    : offer.observedGtinBasis === 'explicit-upc'
+      ? 'UPC'
+      : 'GTIN';
+  return {
+    ...offer,
+    evidence: {
+      ...exactOfferEvidence(),
+      listingUrl: offer.listingUrl,
+      responseUrl: offer.listingUrl,
+      retrievedAt: offer.observedAt,
+      fields: {
+        gtin: {
+          label,
+          value: offer.observedGtin!,
+          locator: `HTML product metadata ${label} row`,
+          sourceText: `${label} ${offer.observedGtin}`,
+        },
+        title: {
+          value: offer.observedTitle,
+          locator: 'HTML h1 product title',
+          sourceText: offer.observedTitle,
+        },
+        size: {
+          value: offer.observedSize,
+          locator: 'HTML product size selection',
+          sourceText: offer.observedSize,
+        },
+        price: {
+          value: offer.priceNgn,
+          currency: 'NGN',
+          locator: 'HTML product price amount',
+          sourceText: `NGN ${offer.priceNgn.toLocaleString('en-NG')}`,
+        },
+        stock: {
+          value: offer.stock,
+          locator: 'HTML availability status',
+          sourceText: offer.stock.replaceAll('-', ' '),
+        },
+      },
+    },
+  };
+}
+
+function identityEvidence(
+  overrides: Partial<Pick<CatalogueOfficialIdentityEvidence, 'url' | 'observedGtin' | 'observedVariant' | 'observedSize' | 'retrievedAt'>> = {},
+  candidateId = 'example-barrier-lotion',
+): CatalogueOfficialIdentityEvidence {
+  const fields = {
+    url: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+    observedGtin: '4005808319695',
+    observedVariant: 'Example Barrier Lotion',
+    observedSize: '400 ml',
+    retrievedAt: '2026-07-22T07:55:00Z',
+    ...overrides,
+  };
+  const canonicalExtraction = {
+    schemaVersion: catalogueIdentityExtractionSchemaVersion,
+    candidateId,
+    sourceUrl: fields.url,
+    responseUrl: fields.url,
+    responseDigestScope: 'decoded-response-body' as const,
+    retrievedAt: fields.retrievedAt,
+    fields: {
+      gtin: {
+        value: fields.observedGtin,
+        locator: 'HTML [data-gtin] attribute',
+        sourceText: `GTIN ${fields.observedGtin}`,
+      },
+      variant: {
+        value: fields.observedVariant,
+        locator: 'HTML h1[itemprop=name]',
+        sourceText: fields.observedVariant,
+      },
+      size: {
+        value: fields.observedSize,
+        locator: 'HTML [data-size] attribute',
+        sourceText: fields.observedSize,
+      },
+    },
+    sourceResponseSha256: 'd'.repeat(64),
+    sourceResponseMimeType: 'text/html' as const,
+    sourceResponseByteSize: 42_000,
+    method: 'reviewed-exact-identity-field-extraction' as const,
+    reviewer: 'Identity reviewer',
+    reviewedAt: '2026-07-22T07:58:00Z',
+  };
+  return {
+    ...fields,
+    snapshotKind: 'canonical-extraction',
+    snapshotPath: `data/catalogue-identity-evidence/${candidateId}.json`,
+    canonicalExtraction,
+    snapshotSha256: catalogueIdentityExtractionSha256(canonicalExtraction),
+    snapshotMimeType: 'application/json',
+    snapshotByteSize: catalogueIdentityExtractionByteSize(canonicalExtraction),
+  };
+}
 
 function generationRecord(
   overrides: Partial<CatalogueGenerationRecordContent> = {},
@@ -46,7 +235,7 @@ function generationRecord(
 function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): CatalogueIntakeCandidate {
   const candidate: CatalogueIntakeCandidate = {
     id: 'example-barrier-lotion',
-    brand: 'Example',
+    brand: 'CeraVe',
     name: 'Barrier Lotion',
     variant: 'Example Barrier Lotion',
     size: '400 ml',
@@ -57,19 +246,10 @@ function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): Cata
     demandEvidenceUrls: ['https://research.example/demand/example'],
     identity: {
       gtin: '4005808319695',
-      officialProductUrl: 'https://brand.example/products/barrier-lotion',
+      officialProductUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
       checkedAt: '2026-07-22T08:00:00Z',
       basis: 'official-brand',
-      officialEvidence: {
-        url: 'https://brand.example/products/barrier-lotion',
-        observedGtin: '4005808319695',
-        observedVariant: 'Example Barrier Lotion',
-        observedSize: '400 ml',
-        snapshotSha256: 'd'.repeat(64),
-        snapshotMimeType: 'text/html',
-        snapshotByteSize: 42_000,
-        retrievedAt: '2026-07-22T07:55:00Z',
-      },
+      officialEvidence: identityEvidence(),
     },
     care: {
       status: 'reviewed',
@@ -77,23 +257,23 @@ function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): Cata
       careTier: 'daily-care',
       reviewScope: 'catalogue-supportive-care',
       advisoryBoundary: 'Supports routine moisturising only; it does not diagnose or treat a medical condition.',
-      manufacturerEvidenceUrl: 'https://brand.example/products/barrier-lotion',
-      independentClinicalGuidanceUrl: 'https://clinical.example/guidance/emollients',
+      manufacturerEvidenceUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+      independentClinicalGuidanceUrl: 'https://www.nhs.uk/tests-and-treatments/emollients/',
       evidenceUrls: [
-        'https://brand.example/products/barrier-lotion',
-        'https://clinical.example/guidance/emollients',
+        'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+        'https://www.nhs.uk/tests-and-treatments/emollients/',
       ],
       reviewedAt: '2026-07-22T08:30:00Z',
       reviewer: 'Care reviewer',
     },
     nigeria: {
       regulatoryStatus: 'matched',
-      regulatoryEvidenceUrl: 'https://regulator.example/products/4005808319695',
-      brandAuthorizationEvidenceUrl: 'https://brand.example/nigeria/retailers',
+      regulatoryEvidence: regulatoryEvidence(),
+      brandAuthorizationEvidenceUrl: 'https://africa.cerave.com/en/find-your-nearest-store',
       exactOffers: [{
-        retailer: 'Beauty by Daz',
+        retailer: 'Medplus',
         retailerStatus: 'directory-listed',
-        listingUrl: 'https://beautybydaz.com/products/example-barrier-lotion',
+        listingUrl: 'https://medplusnig.com/product/example-barrier-lotion',
         observedAt: '2026-07-22T09:00:00Z',
         observedTitle: 'Example Barrier Lotion',
         observedSize: '13.5 fl oz / 400 ml',
@@ -102,6 +282,7 @@ function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): Cata
         retailerSku: 'BYD-LOCAL-991',
         priceNgn: 12_500,
         stock: 'in-stock',
+        evidence: exactOfferEvidence(),
       }],
     },
     asset: {
@@ -123,7 +304,7 @@ function readyCandidate(overrides: Partial<CatalogueIntakeCandidate> = {}): Cata
       width: 1_800,
       height: 2_000,
       packaging: 'intact',
-      backgroundTreatment: 'source-pixel-isolation',
+      backgroundTreatment: 'none',
       labelVariantSizeUnchanged: true,
       packagingInvented: false,
       manualSourceOutputQa: true,
@@ -139,7 +320,7 @@ function approval(overrides: Partial<CataloguePublicationApproval> = {}): Catalo
   return {
     scope: cataloguePublicationApprovalScope,
     reviewer: 'Publication reviewer',
-    approvedAt: '2026-07-22T10:00:00Z',
+    approvedAt: '2026-07-22T16:00:00Z',
     ...overrides,
   };
 }
@@ -162,7 +343,7 @@ test('an approval-ready exact SKU compiles into one immutable source-agnostic pr
   assert.equal(dossier.recommendationEligible, false);
   assert.deepEqual(dossier.identity, {
     gtin: '4005808319695',
-    brand: 'Example',
+    brand: 'CeraVe',
     name: 'Barrier Lotion',
     variant: 'Example Barrier Lotion',
     size: '400 ml',
@@ -175,7 +356,12 @@ test('an approval-ready exact SKU compiles into one immutable source-agnostic pr
   assert.equal(dossier.care.reviewScope, 'catalogue-supportive-care');
   assert.equal(dossier.care.advisoryBoundary, candidate.care.advisoryBoundary);
   assert.equal(dossier.care.independentClinicalGuidanceUrl, candidate.care.independentClinicalGuidanceUrl);
-  assert.equal(dossier.nigeria.exactOffers[0]?.retailer, 'Beauty by Daz');
+  assert.equal(dossier.nigeria.exactOffers[0]?.retailer, 'Medplus');
+  assert.equal(dossier.nigeria.marketRoute, 'brand-authorized');
+  assert.equal(dossier.nigeria.exactOffers[0]?.evidence?.responseDigestScope, 'decoded-response-body');
+  assert.equal(dossier.nigeria.regulatoryEvidence.authority, 'NAFDAC');
+  assert.equal(dossier.nigeria.brandSellerAuthorizationEvidence[0]?.retailer, 'Medplus');
+  assert.equal(dossier.nigeria.brandSellerAuthorizationEvidence[0]?.evidence.subjectHost, 'medplusnig.com');
   assert.equal(dossier.rights.evidenceUrl, candidate.asset.rightsUrl);
   assert.deepEqual(dossier.rights.sourceAsset, {
     url: candidate.asset.sourceUrl,
@@ -222,6 +408,29 @@ test('an approval-ready exact SKU compiles into one immutable source-agnostic pr
   assert.equal(verifyCataloguePublicationDossierManifest([candidate], manifest, asOf).dossierCount, 1);
 });
 
+test('a Tier-A dossier omits brand authorization and bound seller evidence', () => {
+  const base = readyCandidate();
+  const secondOffer = withExactOfferEvidence({
+    ...base.nigeria.exactOffers[0],
+    retailer: 'Teeka4',
+    listingUrl: 'https://teeka4.com/shop/example-barrier-lotion',
+  });
+  const candidate = readyCandidate({
+    nigeria: {
+      ...base.nigeria,
+      brandAuthorizationEvidenceUrl: undefined,
+      tierAIdentityEvidenceUrl: base.identity.officialProductUrl,
+      exactOffers: [...base.nigeria.exactOffers, secondOffer],
+    },
+  });
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+
+  assert.equal(dossier.nigeria.marketRoute, 'tier-a');
+  assert.equal(dossier.nigeria.tierAIdentityEvidenceUrl, base.identity.officialProductUrl);
+  assert.equal(dossier.nigeria.brandAuthorizationEvidenceUrl, undefined);
+  assert.deepEqual(dossier.nigeria.brandSellerAuthorizationEvidence, []);
+});
+
 test('an owned identity-verified render records generation provenance without a reuse-rights URL', () => {
   const base = readyCandidate();
   const candidate = readyCandidate({
@@ -238,6 +447,14 @@ test('an owned identity-verified render records generation provenance without a 
   assert.equal(dossier.rights.evidenceUrl, undefined);
   assert.deepEqual(dossier.rights.generationRecord, candidate.asset.generationRecord);
   assert.equal(dossier.finalImage.backgroundTreatment, 'identity-verified-render');
+
+  assert.throws(
+    () => createCataloguePublicationDossier({
+      ...candidate,
+      asset: { ...candidate.asset, rightsUrl: 'javascript:alert(1)' },
+    }, approval(), asOf),
+    /not approval-ready.*asset-rights-source-missing/,
+  );
 });
 
 test('a dossier rejects tampered, self-referential or causally impossible generation records', () => {
@@ -350,6 +567,57 @@ test('an incomplete candidate or approval that predates evidence cannot produce 
     () => createCataloguePublicationDossier(candidate, approval({ approvedAt: '2026-07-22T08:45:00Z' }), asOf),
     /predates its bound evidence/,
   );
+  assert.throws(
+    () => createCataloguePublicationDossier(candidate, approval({ approvedAt: '2026-07-22T14:00:00Z' }), asOf),
+    /predates its bound evidence/,
+  );
+});
+
+test('a retailer-registry authorization change invalidates an existing dossier', () => {
+  const candidate = readyCandidate();
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+  const manifest: CataloguePublicationDossierManifest = {
+    schemaVersion: cataloguePublicationDossierSchemaVersion,
+    exposure: 'private-only',
+    dossiers: [dossier],
+  };
+  const retailer = nigeriaRetailers.find(item => item.name === 'Medplus');
+  assert.ok(retailer?.identityEvidence?.basis === 'brand-source');
+  const original = retailer.identityEvidence;
+  retailer.identityEvidence = {
+    ...original,
+    observedAt: '2026-07-22T14:32:00Z',
+    retrievedAt: '2026-07-22T14:32:00Z',
+    reviewedAt: '2026-07-22T14:35:00Z',
+  };
+  try {
+    assert.throws(
+      () => verifyCataloguePublicationDossierManifest([candidate], manifest, asOf),
+      /dossier content or fingerprint changed/,
+    );
+  } finally {
+    retailer.identityEvidence = original;
+  }
+});
+
+test('cross-brand retailer authorization cannot enter a candidate dossier', () => {
+  const candidate = readyCandidate();
+  const retailer = nigeriaRetailers.find(item => item.name === 'Medplus');
+  assert.ok(retailer?.identityEvidence?.basis === 'brand-source');
+  const original = retailer.identityEvidence;
+  retailer.identityEvidence = {
+    ...original,
+    sourceUrl: 'https://www.eucerin-cewa.com/where-to-buy',
+    responseUrl: 'https://www.eucerin-cewa.com/where-to-buy',
+  };
+  try {
+    assert.throws(
+      () => createCataloguePublicationDossier(candidate, approval(), asOf),
+      /not approval-ready.*nigeria-market-route-insufficient/,
+    );
+  } finally {
+    retailer.identityEvidence = original;
+  }
 });
 
 test('a dossier cannot bypass research context, coverage-gap or demand-evidence invariants', () => {
@@ -388,29 +656,29 @@ test('the verifier rejects one final image reused across different candidate ide
     identity: {
       ...first.identity,
       gtin: '0302994113002',
-      officialProductUrl: 'https://brand.example/products/gentle-cleanser',
+      officialProductUrl: 'https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser',
       officialEvidence: {
-        ...first.identity.officialEvidence!,
-        url: 'https://brand.example/products/gentle-cleanser',
-        observedGtin: '0302994113002',
-        observedVariant: 'Example Gentle Cleanser',
-        snapshotSha256: 'e'.repeat(64),
+        ...identityEvidence({
+          url: 'https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser',
+          observedGtin: '0302994113002',
+          observedVariant: 'Example Gentle Cleanser',
+        }, 'example-gentle-cleanser'),
       },
     },
     care: {
       ...first.care,
-      manufacturerEvidenceUrl: 'https://brand.example/products/gentle-cleanser',
+      manufacturerEvidenceUrl: 'https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser',
       evidenceUrls: [
-        'https://brand.example/products/gentle-cleanser',
+        'https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser',
         first.care.independentClinicalGuidanceUrl!,
       ],
     },
     nigeria: {
       ...first.nigeria,
-      regulatoryEvidenceUrl: 'https://regulator.example/products/0302994113002',
-      exactOffers: first.nigeria.exactOffers.map(offer => ({
+      regulatoryEvidence: regulatoryEvidence('0302994113002'),
+      exactOffers: first.nigeria.exactOffers.map(offer => withExactOfferEvidence({
         ...offer,
-        listingUrl: 'https://beautybydaz.com/products/example-gentle-cleanser',
+        listingUrl: 'https://medplusnig.com/product/example-gentle-cleanser',
         observedTitle: 'Example Gentle Cleanser',
         observedGtin: '0302994113002',
       })),

@@ -14,14 +14,15 @@ import { isValidGtin } from '@/lib/catalogue/gtin';
 const hash = /^[0-9a-f]{64}$/;
 const blobHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 
-test('keeps the bulk manifest private and exposes only explicitly approved records', () => {
+test('keeps the frozen bulk manifest private behind a hard-disabled legacy gate', () => {
   assert.equal(reviewedProductRecords.length, 23);
   assert.ok(products.length < reviewedProductRecords.length);
   assert.equal(externalCatalogueCandidates.length, 977);
-  assert.equal(externalProducts.length, externalCatalogueApprovals.approvals.length);
+  assert.equal(externalCatalogueApprovals.approvals.length, 0);
+  assert.equal(externalProducts.length, 0);
   assert.equal(externalCatalogueExposure.approvedCount, externalProducts.length);
   assert.equal(externalCatalogueExposure.privateCandidateCount, externalCatalogueCandidates.length - externalProducts.length);
-  assert.equal(externalCatalogueExposure.policy, 'explicit-approval-only');
+  assert.equal(externalCatalogueExposure.policy, 'legacy-private-disabled');
   assert.equal(externalCatalogueMetadata.reviewedCount, reviewedProductRecords.length);
 });
 

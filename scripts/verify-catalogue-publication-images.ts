@@ -1,9 +1,11 @@
 import manifest from '../data/catalogue-publication-dossiers.json';
 import { catalogueIntakeCandidates } from '../data/catalogue-intake';
+import { verifyCatalogueIdentityEvidenceArtifacts } from '../lib/catalogue/identity-evidence-artifact';
 import { verifyCataloguePublicationDossierManifest } from '../lib/catalogue/publication-dossier';
 import { verifyRemoteCataloguePublicationImage } from '../lib/catalogue/publication-image-verification';
 
 async function main() {
+  await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates);
   const structural = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, manifest);
   const verified = [];
   const concurrency = 2;

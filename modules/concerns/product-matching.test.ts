@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { reviewedProductRecords } from '@/data/catalogue';
 import { concernBySlug, concerns } from '@/data/knowledge';
-import { productMatchesConcern } from './product-matching';
+import { isProductMatchConcern, productMatchesConcern, rankProductsForConcerns } from './product-matching';
 
 function product(slug: string) {
   const match = reviewedProductRecords.find(item => item.slug === slug);
@@ -51,4 +51,18 @@ test('every published condition pattern is product-ineligible', () => {
       assert.equal(productMatchesConcern(candidate, pattern), false, `${pattern.slug} matched ${candidate.slug}`);
     }
   }
+});
+
+test('condition patterns never enter mixed concern ranking', () => {
+  const supportiveConcern = concern('oily-congested-skin');
+  const conditionPattern = concern('leprosy-pattern');
+  const cleanser = product('cerave-foaming-facial-cleanser');
+
+  assert.equal(isProductMatchConcern(supportiveConcern), true);
+  assert.equal(isProductMatchConcern(conditionPattern), false);
+  assert.deepEqual(
+    rankProductsForConcerns([cleanser], concerns, [supportiveConcern.slug, conditionPattern.slug]),
+    [{ product: cleanser, index: 0, matchedConcernSlugs: [supportiveConcern.slug] }],
+  );
+  assert.deepEqual(rankProductsForConcerns([cleanser], concerns, [conditionPattern.slug]), []);
 });

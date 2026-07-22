@@ -1,16 +1,24 @@
 import { createHash } from 'node:crypto';
 import {
   auditCatalogueIntakeCandidates,
+  catalogueBrandAuthorizationSourceValid,
   evaluateCatalogueIntakeCandidate,
   type CatalogueGenerationRecord,
   type CatalogueIntakeCandidate,
   type CatalogueIntakeOffer,
+  type CatalogueNigeriaMarketRoute,
   type CatalogueOfficialIdentityEvidence,
   type CatalogueSourceAssetMimeType,
 } from './intake-readiness';
+import { nigeriaRetailers } from '@/data/retailers';
+import {
+  reviewedBrandSellerEvidenceFor,
+  type ReviewedBrandSellerEvidence,
+} from './brand-seller-evidence';
+import type { ReviewedRegulatoryEvidence } from './market-evidence';
 import type { CataloguePublicationImageMimeType } from './publication-image-policy';
 
-export const cataloguePublicationDossierSchemaVersion = 4 as const;
+export const cataloguePublicationDossierSchemaVersion = 7 as const;
 export const cataloguePublicationApprovalScope = 'exact-identity-source-care-nigeria-rights-and-final-image' as const;
 export const cataloguePublicationExposure = 'private-only' as const;
 
@@ -56,11 +64,17 @@ export type CataloguePublicationDossier = {
     reviewer: string;
   };
   nigeria: {
+    marketRoute: CatalogueNigeriaMarketRoute;
     regulatoryStatus: 'matched' | 'not-required';
-    regulatoryEvidenceUrl: string;
+    regulatoryEvidence: ReviewedRegulatoryEvidence;
     tierAIdentityEvidenceUrl?: string;
     brandAuthorizationEvidenceUrl?: string;
     exactOffers: CatalogueIntakeOffer[];
+    brandSellerAuthorizationEvidence: Array<{
+      retailer: string;
+      listingHost: string;
+      evidence: ReviewedBrandSellerEvidence;
+    }>;
   };
   rights: {
     status: 'documented';
@@ -141,8 +155,63 @@ function required<T>(value: T | null | undefined, label: string): T {
   return value;
 }
 
+function normalized(value: string) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function boundBrandSellerEvidence(
+  candidate: CatalogueIntakeCandidate,
+  offers: readonly CatalogueIntakeOffer[],
+  marketRoute: CatalogueNigeriaMarketRoute,
+  asOf: number,
+) {
+  if (
+    marketRoute !== 'brand-authorized'
+    || candidate.nigeria.tierAIdentityEvidenceUrl !== undefined
+    || !catalogueBrandAuthorizationSourceValid(candidate, candidate.nigeria.brandAuthorizationEvidenceUrl)
+  ) return [];
+  return offers.flatMap(offer => {
+    const retailer = nigeriaRetailers.find(item => normalized(item.name) === normalized(offer.retailer));
+    if (!retailer) return [];
+    const evidence = reviewedBrandSellerEvidenceFor(
+      retailer,
+      candidate.nigeria.brandAuthorizationEvidenceUrl,
+      asOf,
+    );
+    if (!evidence) return [];
+    return [{
+      retailer: retailer.name,
+      listingHost: new URL(offer.listingUrl).hostname.replace(/^www\./, '').toLowerCase(),
+      evidence: {
+        observedAt: evidence.observedAt,
+        sourceUrl: evidence.sourceUrl,
+        basis: evidence.basis,
+        scope: evidence.scope,
+        subjectSeller: evidence.subjectSeller,
+        subjectHost: evidence.subjectHost,
+        locator: evidence.locator,
+        sourceText: evidence.sourceText,
+        sourceExcerptSha256: evidence.sourceExcerptSha256,
+        responseUrl: evidence.responseUrl,
+        responseSha256: evidence.responseSha256,
+        responseDigestScope: evidence.responseDigestScope,
+        responseMimeType: evidence.responseMimeType,
+        responseByteSize: evidence.responseByteSize,
+        retrievedAt: evidence.retrievedAt,
+        reviewer: evidence.reviewer,
+        reviewedAt: evidence.reviewedAt,
+      },
+    }];
+  });
+}
+
 export function catalogueIntakeCandidateFingerprint(candidate: CatalogueIntakeCandidate) {
-  return fingerprint('jelocare-catalogue-intake-candidate-v4', candidate);
+  return fingerprint('jelocare-catalogue-intake-candidate-v7', candidate);
 }
 
 export function createCataloguePublicationDossier(
@@ -177,6 +246,14 @@ export function createCataloguePublicationDossier(
     asOf,
   );
   const artReviewedTimestamp = parsedDate(artReviewedAt, `${candidate.id} art review timestamp`, asOf);
+  const regulatoryEvidence = required(candidate.nigeria.regulatoryEvidence, `${candidate.id} regulatory evidence`);
+  const nigeriaMarketRoute = required(decision.nigeriaMarketRoute, `${candidate.id} Nigeria market route`);
+  const brandSellerAuthorizationEvidence = boundBrandSellerEvidence(
+    candidate,
+    decision.freshExactOffers,
+    nigeriaMarketRoute,
+    asOf,
+  );
   if (identityEvidenceRetrievedTimestamp > identityCheckedTimestamp) {
     throw new Error(`${candidate.id} identity review predates its official evidence snapshot.`);
   }
@@ -194,10 +271,24 @@ export function createCataloguePublicationDossier(
     identityCheckedTimestamp,
     identityEvidenceRetrievedTimestamp,
     parsedDate(careReviewedAt, `${candidate.id} care review timestamp`, asOf),
+    parsedDate(regulatoryEvidence.retrievedAt, `${candidate.id} regulatory retrieval timestamp`, asOf),
+    parsedDate(regulatoryEvidence.observedAt, `${candidate.id} regulatory observation timestamp`, asOf),
+    parsedDate(regulatoryEvidence.reviewedAt, `${candidate.id} regulatory review timestamp`, asOf),
     sourceAssetRetrievedTimestamp,
     artReviewedTimestamp,
     ...(generatedTimestamp == null ? [] : [generatedTimestamp]),
-    ...decision.freshExactOffers.map(offer => parsedDate(offer.observedAt, `${candidate.id} offer timestamp`, asOf)),
+    ...decision.freshExactOffers.flatMap(offer => [
+      parsedDate(offer.observedAt, `${candidate.id} offer timestamp`, asOf),
+      parsedDate(required(offer.evidence?.retrievedAt, `${candidate.id} offer evidence retrieval timestamp`), `${candidate.id} offer evidence retrieval timestamp`, asOf),
+      parsedDate(required(offer.evidence?.reviewedAt, `${candidate.id} offer evidence review timestamp`), `${candidate.id} offer evidence review timestamp`, asOf),
+    ]),
+    ...brandSellerAuthorizationEvidence.map(item => (
+      parsedDate(item.evidence.observedAt, `${candidate.id} seller authorization observation timestamp`, asOf)
+    )),
+    ...brandSellerAuthorizationEvidence.flatMap(item => [
+      parsedDate(item.evidence.retrievedAt, `${candidate.id} seller authorization retrieval timestamp`, asOf),
+      parsedDate(item.evidence.reviewedAt, `${candidate.id} seller authorization review timestamp`, asOf),
+    ]),
   ];
   if (approvedAt < Math.max(...evidenceTimes)) throw new Error(`${candidate.id} approval predates its bound evidence.`);
 
@@ -225,6 +316,27 @@ export function createCataloguePublicationDossier(
         observedGtin: officialIdentity.observedGtin,
         observedVariant: officialIdentity.observedVariant,
         observedSize: officialIdentity.observedSize,
+        snapshotKind: officialIdentity.snapshotKind,
+        snapshotPath: officialIdentity.snapshotPath,
+        canonicalExtraction: {
+          schemaVersion: officialIdentity.canonicalExtraction.schemaVersion,
+          candidateId: officialIdentity.canonicalExtraction.candidateId,
+          sourceUrl: officialIdentity.canonicalExtraction.sourceUrl,
+          responseUrl: officialIdentity.canonicalExtraction.responseUrl,
+          responseDigestScope: officialIdentity.canonicalExtraction.responseDigestScope,
+          retrievedAt: officialIdentity.canonicalExtraction.retrievedAt,
+          fields: {
+            gtin: { ...officialIdentity.canonicalExtraction.fields.gtin },
+            variant: { ...officialIdentity.canonicalExtraction.fields.variant },
+            size: { ...officialIdentity.canonicalExtraction.fields.size },
+          },
+          sourceResponseSha256: officialIdentity.canonicalExtraction.sourceResponseSha256,
+          sourceResponseMimeType: officialIdentity.canonicalExtraction.sourceResponseMimeType,
+          sourceResponseByteSize: officialIdentity.canonicalExtraction.sourceResponseByteSize,
+          method: officialIdentity.canonicalExtraction.method,
+          reviewer: officialIdentity.canonicalExtraction.reviewer,
+          reviewedAt: officialIdentity.canonicalExtraction.reviewedAt,
+        },
         snapshotSha256: officialIdentity.snapshotSha256,
         snapshotMimeType: officialIdentity.snapshotMimeType,
         snapshotByteSize: officialIdentity.snapshotByteSize,
@@ -252,16 +364,26 @@ export function createCataloguePublicationDossier(
       reviewer: required(candidate.care.reviewer, `${candidate.id} care reviewer`),
     },
     nigeria: {
+      marketRoute: nigeriaMarketRoute,
       regulatoryStatus: candidate.nigeria.regulatoryStatus as 'matched' | 'not-required',
-      regulatoryEvidenceUrl: required(candidate.nigeria.regulatoryEvidenceUrl, `${candidate.id} regulatory evidence`),
-      ...(candidate.nigeria.tierAIdentityEvidenceUrl ? { tierAIdentityEvidenceUrl: candidate.nigeria.tierAIdentityEvidenceUrl } : {}),
-      ...(candidate.nigeria.brandAuthorizationEvidenceUrl ? { brandAuthorizationEvidenceUrl: candidate.nigeria.brandAuthorizationEvidenceUrl } : {}),
-      exactOffers: decision.freshExactOffers.map(offer => ({ ...offer })),
+      regulatoryEvidence: structuredClone(regulatoryEvidence),
+      ...(nigeriaMarketRoute === 'tier-a'
+        ? { tierAIdentityEvidenceUrl: required(candidate.nigeria.tierAIdentityEvidenceUrl, `${candidate.id} Tier-A evidence`) }
+        : {
+          brandAuthorizationEvidenceUrl: required(
+            candidate.nigeria.brandAuthorizationEvidenceUrl,
+            `${candidate.id} brand authorization evidence`,
+          ),
+        }),
+      exactOffers: decision.freshExactOffers.map(offer => structuredClone(offer)),
+      brandSellerAuthorizationEvidence,
     },
     rights: {
       status: candidate.asset.rightsStatus as 'documented',
       origin: required(candidate.asset.origin, `${candidate.id} asset origin`),
-      ...(candidate.asset.rightsUrl ? { evidenceUrl: candidate.asset.rightsUrl } : {}),
+      ...(candidate.asset.origin !== 'owned-identity-verified-render'
+        ? { evidenceUrl: required(candidate.asset.rightsUrl, `${candidate.id} rights evidence`) }
+        : {}),
       sourceAsset: {
         url: required(candidate.asset.sourceUrl, `${candidate.id} source asset`),
         sha256: required(candidate.asset.sourceAssetSha256, `${candidate.id} source asset hash`),
@@ -309,7 +431,7 @@ export function createCataloguePublicationDossier(
       approvedAt: approval.approvedAt,
     },
   };
-  const dossierFingerprint = fingerprint('jelocare-catalogue-publication-dossier-v3', payload);
+  const dossierFingerprint = fingerprint('jelocare-catalogue-publication-dossier-v7', payload);
   return deepFreeze({ ...payload, dossierFingerprint });
 }
 

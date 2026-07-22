@@ -95,6 +95,8 @@ Retailer inclusion is not an authenticity guarantee. The runtime model keeps the
 
 Missing evidence stays missing. A seller name, rating, `officialStore` label, regulator registration or retailer claim cannot be promoted into another evidence dimension. None of these fields proves the physical item received by a shopper is authentic.
 
+Private catalogue intake is stricter than a runtime price observation. A qualifying exact offer records the requested and final listing URL, SHA-256/MIME/byte size of the decoded response body, retrieval and reviewer timestamps, and field-level excerpts for the explicit manufacturer GTIN/EAN/UPC label, title, size, adjacent NGN price and controlled stock state. Regulatory evidence uses the same response binding on an exact NAFDAC host and expires after 90 days. Brand-source seller authorization records share one capture timestamp when they cite the same response digest; changing that registry evidence invalidates a bound dossier.
+
 Slique Beauty is provisional and link-only. Its public catalogue may supply dated factual offer observations, but its images and descriptions are not reused. No regulator-number match or brand-authorization evidence is recorded.
 
 Claims should remain specific to the evidence available.

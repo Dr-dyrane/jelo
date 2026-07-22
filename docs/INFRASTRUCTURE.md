@@ -78,15 +78,32 @@ When `CATALOGUE_SOURCE=neon`, `p.is_published` is only the database-side gate. E
 
 CI runs `npm run assets:verify` against every product and editorial Blob. `/image-audit` independently probes every canonical binary and editorial fallback, then shows each public packshot on peach, pink, and dark surfaces.
 
-### Legacy community catalogue packshots
+### Exact-SKU private review runtime
 
-The fixed-count Open Beauty Facts image job is frozen as a legacy research pipeline. It must not be used to add or publish new products. New work begins in `data/catalogue-intake.json` and is inspected with `npm run catalogue:intake:audit`.
-
-The commands below document how existing private artifacts were produced and validated:
+New exact-SKU work begins in `data/catalogue-intake.json` and is inspected with `npm run catalogue:intake:audit`. Build its dedicated environment at a path that is never shared with the frozen bulk pipeline:
 
 ```bash
-python -m venv .cache/rembg-venv
-.cache/rembg-venv/bin/pip install -r scripts/requirements-packshots.txt
+python3.12 -m venv .cache/reviewed-packshot-venv
+.cache/reviewed-packshot-venv/bin/python -m pip install \
+  --require-hashes \
+  -r scripts/requirements-packshots.lock.txt
+.cache/reviewed-packshot-venv/bin/python -m pip check
+npm run catalogue:packshot:tool:check
+```
+
+If that path already exists but was not created from the current lock, remove that specific virtual environment and recreate it; running `venv` over an existing directory does not remove old packages. Never remove or repurpose `.cache/rembg-venv`, which belongs to the historical bulk pipeline.
+
+`scripts/requirements-packshots.txt` contains the single direct production requirement, `rembg[cpu]==2.0.77`. Its checked-in transitive lock is compiled under Python 3.12 with hashes for every distribution. Do not install the direct input in an operator environment, add unrelated packages to the dedicated virtual environment, or reuse a development environment. The exact-SKU operator refuses a Python minor version, installed distribution set, distribution version, lock hash, CPU provider, or ONNX Runtime session contract that does not match the audited runtime. It constructs `SessionOptions` in code with one intra-op thread, one inter-op thread, sequential execution, deterministic compute, and per-session thread pools. `OMP_NUM_THREADS` and shell wrappers are not part of that contract. Python, platform, architecture, lock hash, dependency versions, provider, and the effective session options are recorded in every private run.
+
+CI builds that full runtime independently of the web job, installs it with `--require-hashes`, runs `pip check`, imports the production imaging stack, resolves `CPUExecutionProvider`, verifies the explicit session options without an npm environment wrapper, and exercises the operator tests. Changing Python, the provider, the session contract, the lock, or any locked dependency creates different provenance and requires a new review.
+
+### Legacy community catalogue packshots
+
+The fixed-count Open Beauty Facts image job is frozen as a legacy research pipeline. It must not be used to add or publish new products. Its existing `.cache/rembg-venv` remains separate from the exact-SKU operator.
+
+The commands below document how existing private artifacts were prepared and reviewed with that historical environment:
+
+```bash
 npm run catalogue:packshots:prepare
 npm run catalogue:packshots:select
 ```

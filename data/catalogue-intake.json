@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 3,
-  "updatedAt": "2026-07-22T15:41:00Z",
+  "schemaVersion": 5,
+  "updatedAt": "2026-07-22T17:05:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -9,7 +9,7 @@
       "variant": "CeraVe Hydrating Cleanser",
       "size": "473 ml",
       "category": "Face care",
-      "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, backed by several exact Nigerian listings.",
+      "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, with an official EAN and several Nigerian listing observations held behind the regulatory and identity-bound offer gates.",
       "priority": "essential",
       "gapIds": [
         "gentle-cleanse-dry-skin",
@@ -26,21 +26,71 @@
       ],
       "identity": {
         "gtin": "3337875597333",
-        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/en/hydrating-cleanser/GB3337875597333.html",
-        "checkedAt": "2026-07-22T14:25:00Z",
-        "basis": "official-brand"
+        "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+        "checkedAt": "2026-07-22T16:40:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+          "observedGtin": "3337875597333",
+          "observedVariant": "CeraVe Hydrating Cleanser",
+          "observedSize": "473 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cerave-hydrating-cleanser-473ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "cerave-hydrating-cleanser-473ml",
+            "sourceUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+            "responseUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T15:52:41Z",
+            "fields": {
+              "gtin": {
+                "value": "3337875597333",
+                "locator": "HTML input#prod_name data-eans, third position",
+                "sourceText": "3337875597333"
+              },
+              "variant": {
+                "value": "CeraVe Hydrating Cleanser",
+                "locator": "HTML h1.product-name[itemprop=name]",
+                "sourceText": "CeraVe Hydrating Cleanser"
+              },
+              "size": {
+                "value": "473 ml",
+                "locator": "HTML input#prod_name data-gtm-size, third position",
+                "sourceText": "473 ml"
+              }
+            },
+            "sourceResponseSha256": "9de776d0ac2f0a5fe48f6e74ca39539c8ebdc048a2b062751b6e279ce3e2a1ee",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 59460,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T16:40:00Z"
+          },
+          "snapshotSha256": "b8cab0fedb330b0fd891a504df3768c0f06f44070425b8d344319d625b0008e7",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 997,
+          "retrievedAt": "2026-07-22T15:52:41Z"
+        }
       },
       "care": {
-        "status": "pending",
+        "status": "reviewed",
         "formulaArchetype": "Fragrance-free, soap-free, non-foaming rinse-off cleanser for normal-to-dry skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports gentle daily cleansing for normal-to-dry skin. It does not diagnose or treat eczema, infection, allergy, or persistent dryness; ongoing pain, burning, stinging, cracking, or worsening needs clinical review.",
+        "manufacturerEvidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
         "evidenceUrls": [
           "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
           "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ]
+        ],
+        "reviewedAt": "2026-07-22T17:04:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
         "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dwfe074990/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "tierAIdentityEvidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
         "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
         "exactOffers": [
           {
@@ -50,6 +100,7 @@
             "observedAt": "2026-07-22T10:30:00Z",
             "observedTitle": "CeraVe Hydrating Cleanser (16 fl oz / 473 ml)",
             "observedSize": "473 ml",
+            "retailerSku": "TK-0188",
             "priceNgn": 15434,
             "stock": "in-stock"
           },
@@ -127,8 +178,8 @@
     {
       "id": "cerave-moisturising-cream-454g",
       "brand": "CeraVe",
-      "name": "Moisturising Cream",
-      "variant": "CeraVe Moisturising Cream",
+      "name": "Moisturising Cream Pot",
+      "variant": "CeraVe Moisturising Cream Pot",
       "size": "454 g",
       "category": "Body care",
       "reason": "A high-utility face-and-body moisturiser candidate for dryness and barrier-support coverage.",
@@ -147,33 +198,74 @@
       ],
       "identity": {
         "gtin": "3337875597388",
-        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/en/moisturising-cream-jar/GB3337875597388.html",
-        "checkedAt": "2026-07-22T14:29:00Z",
-        "basis": "official-brand"
+        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "checkedAt": "2026-07-22T16:40:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+          "observedGtin": "3337875597388",
+          "observedVariant": "CeraVe Moisturising Cream Pot",
+          "observedSize": "454 g",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cerave-moisturising-cream-454g.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "cerave-moisturising-cream-454g",
+            "sourceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+            "responseUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T15:49:02Z",
+            "fields": {
+              "gtin": {
+                "value": "3337875597388",
+                "locator": "PDF page 3 of 4, #4 Shelf 1 UPC row",
+                "sourceText": "3337875597388 | Cerave moisturising cream pot 454g | 1 | 2"
+              },
+              "variant": {
+                "value": "CeraVe Moisturising Cream Pot",
+                "locator": "PDF page 3 of 4, #4 Shelf 1 Name column",
+                "sourceText": "Cerave moisturising cream pot 454g"
+              },
+              "size": {
+                "value": "454 g",
+                "locator": "PDF page 3 of 4, #4 Shelf 1 Name column",
+                "sourceText": "Cerave moisturising cream pot 454g"
+              }
+            },
+            "sourceResponseSha256": "83d107915c0531680c78ff7dc8aecbb49cd659ef050b14a244b0ce29982ba836",
+            "sourceResponseMimeType": "application/pdf",
+            "sourceResponseByteSize": 2135857,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T16:40:00Z"
+          },
+          "snapshotSha256": "4130cfbdb41213510d789c9c8f02cafa4a88567d2a3d8a43664952f50188fb31",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1303,
+          "retrievedAt": "2026-07-22T15:49:02Z"
+        }
       },
       "care": {
-        "status": "pending",
-        "formulaArchetype": "Fragrance-free face-and-body moisturising cream for dry-to-very-dry skin",
+        "status": "reviewed",
+        "formulaArchetype": "Fragrance-free leave-on face-and-body moisturising cream with ceramides, hyaluronic acid and petrolatum for dry-to-very-dry skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday moisturising for dry-to-very-dry skin. It does not diagnose or treat an underlying condition; stop and ask a pharmacist or clinician about persistent burning, rash, painful cracks, infection, or symptoms that do not improve.",
+        "manufacturerEvidenceUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/tests-and-treatments/emollients/",
         "evidenceUrls": [
-          "https://www.cerave.co.uk/skincare/moisturisers/moisturizing-cream"
-        ]
+          "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+          "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+          "https://www.nhs.uk/tests-and-treatments/emollients/"
+        ],
+        "reviewedAt": "2026-07-22T17:04:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
         "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
         "exactOffers": [
-          {
-            "retailer": "Konga Health",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://www.konga.com/product/cerave-moisturising-cream-for-dry-to-very-dry-skin-454g-with-hyaluronic-acid-and-3-essential-ceramides-6111001?cid=10163",
-            "observedAt": "2026-07-22T14:29:00Z",
-            "observedTitle": "CeraVe Moisturising Cream for Dry to Very Dry Skin with Hyaluronic Acid and 3 Essential Ceramides",
-            "observedSize": "454 g",
-            "retailerSku": "6111001",
-            "priceNgn": 21705,
-            "stock": "in-stock"
-          },
           {
             "retailer": "Nectar Beauty Hub",
             "retailerStatus": "directory-listed",
@@ -211,6 +303,9 @@
             "observedAt": "2026-07-22T10:30:00Z",
             "observedTitle": "CeraVe Moisturising Cream 454g",
             "observedSize": "454 g",
+            "retailerSku": "3337875597388",
+            "observedGtin": "2000000269764",
+            "observedGtinBasis": "explicit-ean",
             "priceNgn": 29000,
             "stock": "low-stock"
           },
@@ -218,11 +313,12 @@
             "retailer": "Teeka4",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://teeka4.com/shop/cerave-moisturizing-cream-for-dry-to-very-skin-16-oz/",
-            "observedAt": "2026-07-22T10:30:00Z",
+            "observedAt": "2026-07-22T15:51:00Z",
             "observedTitle": "CeraVe Moisturizing Cream for Dry to Very Dry Skin",
             "observedSize": "16 oz / 454 g",
-            "priceNgn": 19499,
-            "stock": "out-of-stock"
+            "retailerSku": "TK-0197",
+            "priceNgn": 20999,
+            "stock": "in-stock"
           }
         ]
       },
@@ -237,7 +333,7 @@
       "id": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
       "brand": "Eucerin",
       "name": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
-      "variant": "Eucerin Sun Oil Control Gel-Cream Dry Touch SPF 50+",
+      "variant": "Eucerin Sun Oil Control Gel-Cream SPF 50+",
       "size": "50 ml",
       "category": "Face care",
       "reason": "A daily high-protection sunscreen candidate for oily-skin and pigmentation-prevention coverage.",
@@ -256,16 +352,49 @@
       "identity": {
         "gtin": "8850029013671",
         "officialProductUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
-        "checkedAt": "2026-07-22T15:02:00Z",
+        "checkedAt": "2026-07-22T17:03:25Z",
         "basis": "official-brand",
         "officialEvidence": {
           "url": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
           "observedGtin": "8850029013671",
-          "observedVariant": "Eucerin Sun Oil Control Gel-Cream Dry Touch SPF 50+",
+          "observedVariant": "Eucerin Sun Oil Control Gel-Cream SPF 50+",
           "observedSize": "50 ml",
-          "snapshotSha256": "3377773181ca4dafd5ada6cf8b7890cbac7fefcaa266bb632864741a3d53dcb2",
-          "snapshotMimeType": "text/html",
-          "snapshotByteSize": 308784,
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eucerin-oil-control-sun-gel-cream-spf50-50ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+            "sourceUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+            "responseUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T15:01:51Z",
+            "fields": {
+              "gtin": {
+                "value": "8850029013671",
+                "locator": "HTML Product JSON-LD gtin13",
+                "sourceText": "\"gtin13\":\"8850029013671\""
+              },
+              "variant": {
+                "value": "Eucerin Sun Oil Control Gel-Cream SPF 50+",
+                "locator": "HTML Buy Online component productName",
+                "sourceText": "Eucerin Sun Oil Control Gel-Cream SPF 50+"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "HTML .pdp-variant-section .size-value",
+                "sourceText": "SPF 50+, 50 ml"
+              }
+            },
+            "sourceResponseSha256": "3377773181ca4dafd5ada6cf8b7890cbac7fefcaa266bb632864741a3d53dcb2",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 308784,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T17:03:25Z"
+          },
+          "snapshotSha256": "e7f43e18de51d084062aab7b1479516314d2d528a70538670c478634d4c56045",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1069,
           "retrievedAt": "2026-07-22T15:01:51Z"
         }
       },
@@ -281,7 +410,7 @@
           "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
           "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
         ],
-        "reviewedAt": "2026-07-22T15:20:00Z",
+        "reviewedAt": "2026-07-22T17:04:00Z",
         "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
@@ -338,17 +467,50 @@
       "identity": {
         "gtin": "6001051001606",
         "officialProductUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
-        "checkedAt": "2026-07-22T15:41:00Z",
+        "checkedAt": "2026-07-22T17:03:25Z",
         "basis": "official-brand",
         "officialEvidence": {
           "url": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
           "observedGtin": "6001051001606",
           "observedVariant": "UreaRepair PLUS 10% Urea Body Lotion",
           "observedSize": "250 ml",
-          "snapshotSha256": "0c0d96071c70cb80aa5a25f04ccc2f95a485bed070b4afb369d8a2cbe0bab774",
-          "snapshotMimeType": "text/html",
-          "snapshotByteSize": 262476,
-          "retrievedAt": "2026-07-22T15:40:23Z"
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eucerin-urearepair-plus-10-urea-body-lotion-250ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
+            "sourceUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
+            "responseUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T17:02:31Z",
+            "fields": {
+              "gtin": {
+                "value": "6001051001606",
+                "locator": "HTML Product JSON-LD gtin13",
+                "sourceText": "\"gtin13\":\"6001051001606\""
+              },
+              "variant": {
+                "value": "UreaRepair PLUS 10% Urea Body Lotion",
+                "locator": "HTML Buy Online component productName",
+                "sourceText": "UreaRepair PLUS 10% Urea Body Lotion"
+              },
+              "size": {
+                "value": "250 ml",
+                "locator": "HTML .pdp-variant-section .size-value",
+                "sourceText": "250 ml"
+              }
+            },
+            "sourceResponseSha256": "0387fe32dfa9ab2b67b91ec4c066448248a3ac7adda7ec9e8f2b8cdd610a4375",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 262982,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T17:03:25Z"
+          },
+          "snapshotSha256": "ba688e8464db9639e28ec44abf3a2784c24d12dd1b45dd5f462f1a061c8be43a",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1065,
+          "retrievedAt": "2026-07-22T17:02:31Z"
         }
       },
       "care": {
@@ -363,7 +525,7 @@
           "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
           "https://pubmed.ncbi.nlm.nih.gov/34596890/"
         ],
-        "reviewedAt": "2026-07-22T15:41:00Z",
+        "reviewedAt": "2026-07-22T17:04:00Z",
         "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {

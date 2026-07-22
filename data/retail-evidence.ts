@@ -14,9 +14,31 @@ export type EvidenceReference = {
 export type RetailerReviewStatus = 'directory-listed' | 'provisional';
 export type ContentUsePolicy = 'link-only' | 'licensed';
 
-export type RetailerIdentityEvidence = EvidenceReference & {
+type RetailerIdentityEvidenceBase = Omit<EvidenceReference, 'basis'> & {
   scope: 'self-published' | 'independent';
 };
+
+export type RetailerIdentityEvidence =
+  | (RetailerIdentityEvidenceBase & {
+    basis: 'brand-source';
+    scope: 'independent';
+    subjectSeller: string;
+    subjectHost: string;
+    locator: string;
+    sourceText: string;
+    sourceExcerptSha256: string;
+    responseUrl: string;
+    responseSha256: string;
+    responseDigestScope: 'decoded-response-body';
+    responseMimeType: 'application/json' | 'text/html';
+    responseByteSize: number;
+    retrievedAt: string;
+    reviewer: string;
+    reviewedAt: string;
+  })
+  | (RetailerIdentityEvidenceBase & {
+    basis: Exclude<EvidenceBasis, 'brand-source'>;
+  });
 
 export type RegulatorMatchEvidence = EvidenceReference & {
   authority: string;

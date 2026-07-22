@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 24
           cache: npm
@@ -48,3 +48,60 @@ jobs:
         run: npm run build
         env:
           SKIP_DATABASE_MIGRATIONS: '1'
+
+  packshot-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Set up the locked Python runtime
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.13'
+
+      - name: Install the hash-locked CPU runtime
+        run: >-
+          python -m pip install
+          --disable-pip-version-check
+          --no-cache-dir
+          --require-hashes
+          -r scripts/requirements-packshots.lock.txt
+
+      - name: Check installed dependency compatibility
+        run: python -m pip check
+
+      - name: Verify production imports, lock, and CPU provider
+        run: |
+          python - <<'PY'
+          import importlib.util
+          import json
+          from pathlib import Path
+
+          import numpy
+          import onnxruntime
+          import rembg
+          import scipy
+          from PIL import Image
+
+          script = Path("scripts/prepare-reviewed-packshot.py")
+          spec = importlib.util.spec_from_file_location("prepare_reviewed_packshot", script)
+          if spec is None or spec.loader is None:
+              raise RuntimeError("could not import the packshot operator")
+          operator = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(operator)
+          runtime = operator.validate_runtime()
+          if runtime["executionProvider"] != "CPUExecutionProvider":
+              raise RuntimeError("CPUExecutionProvider was not selected")
+          expected_session_options = operator.expected_session_options_contract()
+          if runtime["sessionOptions"] != expected_session_options:
+              raise RuntimeError("deterministic ONNX Runtime session options were not bound")
+          print(json.dumps(runtime, indent=2))
+          PY
+
+      - name: Check exact-SKU packshot operator
+        run: |
+          python -m py_compile scripts/prepare-reviewed-packshot.py scripts/tests/test_prepare_reviewed_packshot.py
+          python -m unittest discover -s scripts/tests -p 'test_*.py' -v

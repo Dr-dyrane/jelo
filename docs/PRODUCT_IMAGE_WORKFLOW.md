@@ -31,6 +31,27 @@ Use an owned, licensed or explicitly permitted original photograph when it alrea
 
 An official or licensed package image may be isolated onto a transparent canvas when the process preserves the source package pixels. The final asset must be centred, retain the full pack, and have a clean alpha edge on peach, pink, and dark review surfaces. Remove studio rectangles, matte spill, chroma fringe, and broad feathering without redrawing the label, material, colour, geometry, claims, or size. Record the identity master, transformation, hash, colour profile, and source comparison.
 
+Create the isolated operator environment once, then prepare a single hash-locked intake source for private review:
+
+```bash
+python3.12 -m venv .cache/reviewed-packshot-venv
+.cache/reviewed-packshot-venv/bin/python -m pip install \
+  --require-hashes \
+  -r scripts/requirements-packshots.lock.txt
+.cache/reviewed-packshot-venv/bin/python -m pip check
+npm run catalogue:packshot:prepare-reviewed -- \
+  --candidate-id <exact-intake-id> \
+  --source <downloaded-identity-master>
+```
+
+Recreate that exact directory if it predates the current lock. Do not reuse the legacy `.cache/rembg-venv` or install unrelated packages into the reviewed operator environment.
+
+The operator requires the dedicated hash-locked Python 3.12 CPU runtime. It reads at most 20 MB from the source once, then binds the hash check, image decode, inference input, and identity-master copy to that exact byte buffer. Pixel area is rejected from the decoded header before EXIF transpose or full decode. The model supplies only an alpha mask; package RGB data remains from the identity master. ONNX Runtime receives explicit `SessionOptions`: one intra-op thread, one inter-op thread, sequential execution, deterministic compute, and per-session thread pools. These settings are constructed and verified inside the operator, so direct Python execution and changes to `OMP_NUM_THREADS` wrappers cannot alter the audited contract. The 2,000 × 2,000 review master embeds sRGB and the audit records Python, platform, architecture, runtime-lock hash, dependency versions, model hash, CPU provider, and effective session options. Removed mask components and area are recorded; a meaningful loss is flagged for review and a loss above 5% stops the run.
+
+Each attempt is written and reopened inside a temporary directory. Only a complete, hash-verified audit, identity master, PNG, and review sheet are renamed into an immutable versioned run; `latest.json` is then replaced atomically. A crash may leave a complete orphan run, but cannot pair new image bytes with an old audit. All output remains under `.cache/catalogue-reviewed-packshots/`; manual identity, edge, rights, market, and publication gates still apply. Run `npm run catalogue:packshot:tool:check` in the dedicated environment to exercise path, single-read byte binding, hash, MIME, dimensions, decompression limits, explicit inference threading, environment-wrapper independence, real source-pixel normalization, colour profile, component loss, audit binding, and atomic-pointer invariants. The end-to-end `process_source` test mocks only the model session and mask response; cleanup and normalization remain real.
+
+The operator and its audit are private preparation only; neither is an approval or publication dossier. An isolation cannot become approval-ready or enter dossier generation until a checked-in typed isolation record binds the exact source hash, output hash, pipeline version, model hash, runtime contract, audit hash, and ordered reviewer chronology. That record must still pass the independent identity, rights, edge, colour-profile, responsive, market, and publication gates.
+
 ### Styled composite
 
 An exact, source-verified package may be separated from its background and placed into a photographed or generated set. The isolated package remains identity evidence; the surrounding scene may add atmosphere but cannot change the product.
@@ -80,4 +101,4 @@ Both reviews are required. A score cannot override either gate. `data/product-di
 
 Preview the approved asset in the real home rail, inventory card and product hero before release. Publish only after responsive browser review and remote-byte verification. If the image or product record changes, both approvals expire.
 
-Raw bulk imports, unreviewed automated extractions and generated drafts remain private research assets. A polished source-pixel isolation may publish only after the identity, edge, colour-profile, responsive, and remote-byte checks above.
+Raw bulk imports, automated extraction output, generated drafts, and operator audits remain private research or preparation assets. A source-pixel isolation becomes eligible for approval and dossier generation only after its checked-in typed isolation record binds the full preparation provenance and reviewer chronology described above; publication still requires every release check.

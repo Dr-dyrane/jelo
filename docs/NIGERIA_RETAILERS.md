@@ -16,6 +16,7 @@ JeloCare is a product information and routing layer. It does not manufacture, re
 - Record brand authorization only from a dated brand-controlled source.
 - Never infer physical authenticity from any listing, price, rating or registration record.
 - Refresh exact prices within seven days. A stale observation may remain in history but should not be presented as current.
+- Re-observe catalogue regulatory evidence from NAFDAC within 90 days; stale matches and exemptions return to a private hold.
 - Preserve offer IDs during catalogue seeds so price history remains continuous.
 
 ## Reviewed Nigeria sources
@@ -42,3 +43,5 @@ The runtime registry is `data/retailers.ts`. The initial reviewed set is:
 ## Initial exact observations
 
 The dated source records live in `data/retail-offers.ts`. Each current observation stores the exact retailer URL, observed price, variant, size, stock state, timestamp and whether landed cost is known. Marketplace offers may retain a visible seller name, score and quantity, but those fields do not become identity evidence. Search pages are not promoted into exact offers, and non-Nigerian stores are excluded from Nigeria results.
+
+These runtime observations are not publication evidence by themselves. The private intake gate additionally requires a reviewer-attributed, digest-bound listing representation with explicit manufacturer-number, title, size, adjacent NGN price and stock locators. A brand-authorized one-offer route also binds the exact seller and host excerpt from the brand-controlled response.

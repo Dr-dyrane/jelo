@@ -34,7 +34,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
     : [];
 
   return <main className="page-shell">
-    <header className="page-heading"><p className="eyebrow">{concern.area} · {concern.kind === 'condition-pattern' ? 'Pattern guide' : 'Concern guide'}</p><h1>{concern.name}</h1><p>{concern.summary} Guidance, not a diagnosis.</p><Link className="concern-combine" href={`/concerns?concerns=${concern.slug}`}><Layers3 size={16} aria-hidden="true"/> Add another concern</Link></header>
+    <header className="page-heading"><p className="eyebrow">{concern.area} · {concern.kind === 'condition-pattern' ? 'Pattern guide' : 'Concern guide'}</p><h1>{concern.name}</h1><p>{concern.summary} Guidance, not a diagnosis.</p><Link className="concern-combine" href={concern.kind === 'concern' ? `/concerns?concerns=${concern.slug}` : '/concerns'}><Layers3 size={16} aria-hidden="true"/> {concern.kind === 'concern' ? 'Add another concern' : 'Browse concerns'}</Link></header>
     <section className="concern-detail-grid">
       <div className="concern-detail-panel"><p className="eyebrow">What it looks like</p><h2>Signs</h2><div className="concern-detail-chips">{concern.signals.map(item => <span key={item}>{item}</span>)}</div></div>
       <div className="concern-detail-panel"><p className="eyebrow">What may help</p><h2>Options</h2><div className="concern-detail-chips">{concern.ingredients.map(item => <span key={item}>{item}</span>)}</div></div>

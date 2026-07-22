@@ -1,1 +1,3 @@
+# Direct production requirement for the private exact-SKU packshot operator.
+# Compile this file with Python 3.12; install the generated lock in production.
 rembg[cpu]==2.0.77

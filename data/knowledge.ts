@@ -189,6 +189,18 @@ export const concerns: Concern[] = [
     sources: [{ title: 'American Academy of Dermatology · Vitiligo', url: 'https://www.aad.org/public/diseases/a-z/vitiligo-treatment' }], reviewedAt,
   },
   {
+    slug: 'leprosy-pattern', name: 'Numb skin patches', area: 'Body', kind: 'condition-pattern',
+    summary: 'A lighter or changed-colour patch with reduced feeling or numbness.',
+    signals: ['lighter or changed-colour skin patch', 'reduced feeling in the patch', 'numbness in the patch', 'new weakness linked to nerve involvement'],
+    ingredients: ['prompt in-person assessment', 'clinician-directed treatment'],
+    productTerms: [],
+    escalation: 'Arrange an in-person examination promptly for a lighter or changed-colour patch with reduced feeling or numbness, or new weakness that may involve a nerve. Sudden one-sided face, arm, or leg weakness or speech trouble needs emergency care. Early treatment can prevent permanent disability.',
+    sources: [
+      { title: 'World Health Organization · Leprosy', url: 'https://www.who.int/en/news-room/fact-sheets/detail/leprosy' },
+      { title: 'NHS · Symptoms of a stroke', url: 'https://www.nhs.uk/conditions/stroke/symptoms/' },
+    ], reviewedAt,
+  },
+  {
     slug: 'patchy-hair-loss-pattern', name: 'Patchy or sudden hair loss', area: 'Hair', kind: 'condition-pattern',
     summary: 'New patches, thinning or rapid shedding.',
     signals: ['smooth bald patches', 'sudden shedding', 'widening part', 'eyebrow or eyelash loss'],

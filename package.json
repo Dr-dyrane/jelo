@@ -33,6 +33,8 @@
     "catalogue:mirror": "tsx scripts/mirror-open-beauty-facts-images.ts",
     "catalogue:images:audit": "tsx scripts/audit-catalogue-image-quality.ts",
     "catalogue:packshots:prepare": "OMP_NUM_THREADS=1 U2NET_HOME=.cache/rembg-models .cache/rembg-venv/bin/python scripts/prepare-catalogue-packshots.py --output .cache/catalogue-packshots --model isnet-general-use --provider cpu --workers 8 --resume",
+    "catalogue:packshot:prepare-reviewed": "U2NET_HOME=.cache/rembg-models .cache/reviewed-packshot-venv/bin/python scripts/prepare-reviewed-packshot.py --provider cpu",
+    "catalogue:packshot:tool:check": ".cache/reviewed-packshot-venv/bin/python -m py_compile scripts/prepare-reviewed-packshot.py scripts/tests/test_prepare_reviewed_packshot.py && .cache/reviewed-packshot-venv/bin/python -m unittest discover -s scripts/tests -p 'test_*.py' -v",
     "catalogue:packshots:select": ".cache/rembg-venv/bin/python scripts/select-catalogue-packshots.py",
     "catalogue:packshots:validate": "tsx scripts/publish-catalogue-packshots.ts --validate-only",
     "catalogue:packshots:publish": "tsx scripts/publish-catalogue-packshots.ts",

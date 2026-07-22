@@ -7,7 +7,7 @@ import { startTransition, useMemo, useOptimistic, useRef, useState } from 'react
 import type { Concern } from '@/data/knowledge';
 import type { Product } from '@/data/products';
 import { ProductCard } from '@/components/products/product-card';
-import { rankProductsForConcerns } from '@/modules/concerns/product-matching';
+import { isProductMatchConcern, rankProductsForConcerns } from '@/modules/concerns/product-matching';
 import styles from './concern-selector.module.css';
 import feedbackStyles from './concern-feedback.module.css';
 
@@ -20,7 +20,15 @@ function matchedConcernNames(slugs: string[], concerns: Concern[]) {
 export function ConcernSelector({ concerns, products, initialSelected }: { concerns: Concern[]; products: Product[]; initialSelected: string[] }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [selected, setSelected] = useOptimistic(initialSelected);
+  const selectableSlugs = useMemo(
+    () => new Set(concerns.filter(isProductMatchConcern).map(concern => concern.slug)),
+    [concerns],
+  );
+  const safeInitialSelected = useMemo(
+    () => initialSelected.filter(slug => selectableSlugs.has(slug)),
+    [initialSelected, selectableSlugs],
+  );
+  const [selected, setSelected] = useOptimistic(safeInitialSelected);
   const [feedback, setFeedback] = useState<{ message: string; previous: string[] } | null>(null);
   const resultsRef = useRef<HTMLElement>(null);
 
@@ -30,12 +38,13 @@ export function ConcernSelector({ concerns, products, initialSelected }: { conce
   );
 
   function update(next: string[], message: string, previous = selected) {
+    const safeNext = next.filter(slug => selectableSlugs.has(slug));
     const query = new URLSearchParams(window.location.search);
-    if (next.length) query.set('concerns', next.join(','));
+    if (safeNext.length) query.set('concerns', safeNext.join(','));
     else query.delete('concerns');
     const suffix = query.toString();
     startTransition(() => {
-      setSelected(next);
+      setSelected(safeNext);
       setFeedback({ message, previous: [...previous] });
       router.replace(suffix ? `${pathname}?${suffix}` : pathname, { scroll: false });
     });
@@ -68,13 +77,23 @@ export function ConcernSelector({ concerns, products, initialSelected }: { conce
         <div className={styles.rail} aria-label="Select concerns">
           {concerns.map((concern, index) => {
             const active = selected.includes(concern.slug);
+            if (!isProductMatchConcern(concern)) {
+              return <article className={`${styles.card} ${styles.guideCard}`} key={concern.slug}>
+                <Link className={styles.guideCardLink} href={`/concerns/${concern.slug}`}>
+                  <span className={styles.cardTop}><small>{String(index + 1).padStart(2, '0')} · {concern.area} guide</small><span><ArrowUpRight size={17} aria-hidden="true" /></span></span>
+                  <strong>{concern.name}</strong>
+                  <p>{concern.summary}</p>
+                  <span className={styles.guideAction}>Read guide <ArrowUpRight size={14} aria-hidden="true" /></span>
+                </Link>
+              </article>;
+            }
             return <article className={`${styles.card} ${active ? styles.active : ''}`} key={concern.slug}>
               <button type="button" aria-pressed={active} onClick={() => toggle(concern.slug)}>
                 <span className={styles.cardTop}><small>{String(index + 1).padStart(2, '0')} · {concern.area}</small><span>{active ? <Check size={17} aria-hidden="true" /> : <Plus size={17} aria-hidden="true" />}</span></span>
                 <strong>{concern.name}</strong>
                 <p>{concern.summary}</p>
               </button>
-              <Link href={`/concerns/${concern.slug}`}>Guide <ArrowUpRight size={14} aria-hidden="true" /></Link>
+              <Link className={styles.cardGuideLink} href={`/concerns/${concern.slug}`}>Guide <ArrowUpRight size={14} aria-hidden="true" /></Link>
             </article>;
           })}
         </div>
