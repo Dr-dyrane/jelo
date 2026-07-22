@@ -27,7 +27,10 @@ export function evaluateProductClinically(
   timeline: ClinicalTimelineRecord[] = [],
 ): ClinicalProductDecision {
   const ingredients = detectIngredients(productText(product));
-  const ingredientIds = ingredients.map(item => item.id);
+  const ingredientIds = Array.from(new Set([
+    ...(product.verifiedIngredientIds ?? []),
+    ...ingredients.map(item => item.id),
+  ]));
   const blocked = ingredientIds.filter(id => clinical.blockedIngredientIds.includes(id));
   const exclusions: string[] = [];
   const reasons: string[] = [];

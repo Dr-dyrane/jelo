@@ -2,6 +2,7 @@ import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { products } from '@/data/catalogue';
 import type { Market } from '@/data/prices';
+import type { Product } from '@/data/products';
 import { assessRedFlags } from '@/modules/clinical/safety-gate';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { createTimelineRecord } from '@/modules/clinical/core/timeline';
@@ -43,7 +44,7 @@ function inferConcerns(query: string) {
   return hits.length ? hits : ['sensitivity', 'dryness', 'acne'];
 }
 
-function publicProduct(product: (typeof products)[number], market: Market, decision?: ClinicalProductDecision) {
+function publicProduct(product: Product, market: Market, decision?: ClinicalProductDecision) {
   return {
     slug: product.slug, brand: product.brand, name: product.name, image: product.image, size: product.size, step: product.step, displayLine: product.displayLine, price: marketProductPrice(product, market),
     clinicalMatch: decision ? { reasons: decision.reasons, ingredientIds: decision.ingredientIds, score: decision.clinicalScore } : undefined,

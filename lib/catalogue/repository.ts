@@ -24,6 +24,7 @@ type ProductRow = {
   best_for: string[] | null;
   concerns: string[] | null;
   skin_types: string[] | null;
+  ingredient_ids: string[] | null;
   offers: Array<{
     retailer: string;
     url: string;
@@ -62,6 +63,7 @@ function mapRow(row: ProductRow): Product {
     sensitiveFriendly: row.sensitive_friendly,
     usage: row.usage,
     evidence: row.evidence,
+    verifiedIngredientIds: row.ingredient_ids ?? [],
     offers: (row.offers ?? []) as Offer[],
   };
 }
@@ -97,6 +99,14 @@ async function queryProducts(slug?: string) {
         from product_skin_types pst
         where pst.product_id = p.id
       ), '[]'::jsonb) as skin_types,
+      coalesce((
+        select jsonb_agg(i.slug order by pi.position nulls last, i.slug)
+        from product_ingredients pi
+        join ingredients i on i.id = pi.ingredient_id
+        where pi.product_id = p.id
+          and pi.is_active = true
+          and pi.verified_at is not null
+      ), '[]'::jsonb) as ingredient_ids,
       coalesce((
         select jsonb_agg(jsonb_build_object(
           'retailer', r.name,

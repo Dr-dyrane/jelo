@@ -25,6 +25,7 @@ export type Product = {
   sensitiveFriendly: boolean;
   usage: string;
   evidence: 'high' | 'moderate' | 'emerging';
+  verifiedIngredientIds?: string[];
   offers: Offer[];
 };
 
