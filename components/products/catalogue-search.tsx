@@ -22,10 +22,11 @@ const kindLabels: Record<CatalogueSearchSuggestionKind, string> = {
 type Props = {
   defaultValue: string;
   market: 'NG' | 'US';
+  marketHrefs: Record<'NG' | 'US', string>;
   suggestions: CatalogueSearchSuggestion[];
 };
 
-export function CatalogueSearch({ defaultValue, market, suggestions }: Props) {
+export function CatalogueSearch({ defaultValue, market, marketHrefs, suggestions }: Props) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -133,8 +134,8 @@ export function CatalogueSearch({ defaultValue, market, suggestions }: Props) {
         <input type="hidden" name="market" value={market} />
         <button className={styles.submit} type="submit" aria-label="Search">Search</button>
         <div className={styles.market} aria-label="Shopping market">
-          <Link aria-current={market === 'NG' ? 'true' : undefined} className={market === 'NG' ? styles.active : ''} href="/products#all-products">Nigeria</Link>
-          <Link aria-current={market === 'US' ? 'true' : undefined} className={market === 'US' ? styles.active : ''} href="/products?market=US#all-products">US</Link>
+          <Link aria-current={market === 'NG' ? 'true' : undefined} className={market === 'NG' ? styles.active : ''} href={marketHrefs.NG}>Nigeria</Link>
+          <Link aria-current={market === 'US' ? 'true' : undefined} className={market === 'US' ? styles.active : ''} href={marketHrefs.US}>US</Link>
         </div>
       </form>
 

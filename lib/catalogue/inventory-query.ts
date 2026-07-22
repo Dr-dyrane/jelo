@@ -28,6 +28,7 @@ export type InventoryReviewedItem = {
   name: string;
   quantity: string;
   category: ExternalCatalogueCategory;
+  step: string;
   image: string;
   href: string;
   external: false;
@@ -116,6 +117,7 @@ function reviewedItem(product: ReviewedProduct): InventoryReviewedItem {
     name: product.name,
     quantity: product.size,
     category: categoryForReviewed(product.category),
+    step: product.step,
     image: product.image,
     href: `/products/${product.slug}`,
     external: false,
@@ -232,6 +234,7 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
   const review = validReview(input.review);
   const sort = validSort(input.sort);
   const concern = (input.concern ?? '').trim().slice(0, 80);
+  const step = (input.step ?? '').trim().slice(0, 40);
   const brand = (input.brand ?? '').trim().slice(0, 100);
   const availability = validAvailability(input.availability);
   const price = validPrice(input.price);
@@ -247,9 +250,12 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
     `reviewed:${product.slug}`,
     reviewedDiscoveryTerms(product),
   ]));
-  // Routine-step labels are browse metadata, not reviewed care evidence. They
-  // remain in the record for display compatibility but cannot filter results.
-  const selectedStep = '';
+  // Routine steps are neutral catalogue metadata from reviewed product records.
+  // They support browse structure only and never establish clinical suitability.
+  const normalizedStep = normalized(step);
+  const selectedStep = normalizedStep
+    ? reviewedProducts.find(product => normalized(product.step) === normalizedStep)?.step ?? ''
+    : '';
   const selectedBrand = normalizedBrand
     ? completeItems.find(item => normalized(item.brand) === normalizedBrand)?.brand ?? ''
     : '';
@@ -264,6 +270,7 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
       if (review === 'supportive' && (item.kind !== 'reviewed' || item.careState !== 'supportive_eligible')) return false;
     }
     if (!skip.has('category') && category !== 'All' && item.category !== category) return false;
+    if (!skip.has('step') && selectedStep && (item.kind !== 'reviewed' || normalized(item.step) !== normalized(selectedStep))) return false;
     if (!skip.has('brand') && selectedBrand && normalized(item.brand) !== normalized(selectedBrand)) return false;
     if (!queryMatches(item, q, reviewedSearchTerms.get(item.id))) return false;
 
@@ -330,7 +337,12 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
         count: completeItems.filter(item => item.category === value && itemMatches(item, ['category'])).length,
       })),
       brands: brandFacets(completeItems.filter(item => itemMatches(item, ['brand']))),
-      steps: [],
+      steps: [...new Set(reviewedProducts.map(product => product.step).filter(Boolean))]
+        .map(value => ({
+          value,
+          count: completeItems.filter(item => itemMatches(item, ['step']) && item.kind === 'reviewed' && normalized(item.step) === normalized(value)).length,
+        }))
+        .sort((left, right) => right.count - left.count || left.value.localeCompare(right.value)),
       reviewed: completeItems.filter(item => item.kind === 'reviewed' && itemMatches(item, ['review'])).length,
       supportive: completeItems.filter(item => item.kind === 'reviewed' && item.careState === 'supportive_eligible' && itemMatches(item, ['review'])).length,
       community: completeItems.filter(item => item.kind === 'community' && itemMatches(item, ['review'])).length,

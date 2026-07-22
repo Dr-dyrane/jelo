@@ -81,6 +81,15 @@ export function canonicalCatalogueLocation(value: string | URL) {
   return relativeLocation(url);
 }
 
+export function catalogueMarketHref(value: string | URL, market: 'NG' | 'US') {
+  const url = parseUrl(value);
+  if (!url || url.pathname !== '/products') return null;
+  url.searchParams.delete('page');
+  if (market === 'US') url.searchParams.set('market', 'US');
+  else url.searchParams.delete('market');
+  return `${relativeLocation(url)}#all-products`;
+}
+
 function filterSnapshot(url: URL) {
   const snapshot = new Map<CatalogueFilterKey, string>();
   for (const key of catalogueFilterKeys) {

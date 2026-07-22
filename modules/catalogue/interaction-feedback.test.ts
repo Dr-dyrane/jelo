@@ -30,11 +30,16 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(catalogue, /matchingCatalogueConcerns/);
   assert.match(catalogue, /#all-products/);
   assert.match(catalogue, /CatalogueSearch/);
+  assert.match(catalogue, /\['category', 'routine', 'concern'\]/);
+  assert.match(catalogue, /result\.facets\.steps/);
+  assert.match(catalogue, /marketHrefs=\{marketHrefs\}/);
   assert.match(search, /role="combobox"/);
   assert.match(search, /aria-activedescendant/);
   assert.match(search, /role="listbox"/);
   assert.match(search, /role="status" aria-live="polite"/);
   assert.match(search, /recordCatalogueTransition/);
+  assert.match(search, /href=\{marketHrefs\.NG\}/);
+  assert.match(search, /href=\{marketHrefs\.US\}/);
   assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*position: fixed/);
   assert.match(searchStyles, /\.shell\s*\{[\s\S]*position: sticky;[\s\S]*top: 5\.35rem;/);
   assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*\.shell\s*\{[\s\S]*position: relative;[\s\S]*top: auto;/);

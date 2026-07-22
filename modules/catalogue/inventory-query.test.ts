@@ -25,6 +25,7 @@ test('returns only reviewed products and deliberately approved community records
   assert.equal(result.facets.community, externalProducts.length);
   assert.deepEqual(result.facets.categories.map(facet => facet.value), inventoryCategories);
   assert.equal(result.facets.categories.reduce((sum, facet) => sum + facet.count, 0), publicTotal);
+  assert.equal(result.facets.steps.reduce((sum, facet) => sum + facet.count, 0), products.length);
   assert.ok(result.items.slice(0, products.length).every(item => item.kind === 'reviewed'));
 });
 
@@ -73,9 +74,12 @@ test('concern browsing fails closed to explicit approved concern slugs', () => {
   const conditionPattern = queryInventoryRecords(products, { concern: 'hidradenitis-pattern' });
   assert.equal(conditionPattern.total, 0);
 
-  const routine = queryInventoryRecords(products, { step: 'Protect' });
-  assert.equal(routine.total, products.length + externalProducts.length);
-  assert.equal(routine.filters.step, '');
+  const routine = queryInventoryRecords(products, { step: 'protect' });
+  const expectedRoutine = products.filter(product => product.step === 'Protect');
+  assert.equal(routine.total, expectedRoutine.length);
+  assert.equal(routine.filters.step, 'Protect');
+  assert.ok(routine.items.every(item => item.kind === 'reviewed' && item.step === 'Protect'));
+  assert.deepEqual(new Set(routine.items.map(item => item.id)), new Set(expectedRoutine.map(product => `reviewed:${product.slug}`)));
 });
 
 test('supportive source filtering stays limited to reviewed eligible products', () => {

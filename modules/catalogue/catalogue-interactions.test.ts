@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { concerns } from '@/data/knowledge';
 import {
+  catalogueMarketHref,
   catalogueTransitionMessage,
   createCatalogueTransition,
   diffCatalogueFilters,
@@ -9,6 +10,19 @@ import {
   matchingCompanies,
   parseCatalogueTransition,
 } from '@/lib/catalogue/catalogue-interactions';
+
+test('market links preserve catalogue intent and reset only pagination', () => {
+  const current = '/products?q=barrier&brand=CeraVe&category=Face+care&concern=sensitive-barrier&review=reviewed&sort=name&step=Treat&page=3';
+  assert.equal(
+    catalogueMarketHref(current, 'US'),
+    '/products?brand=CeraVe&category=Face+care&concern=sensitive-barrier&market=US&q=barrier&review=reviewed&sort=name&step=Treat#all-products',
+  );
+  assert.equal(
+    catalogueMarketHref(`${current}&market=US`, 'NG'),
+    '/products?brand=CeraVe&category=Face+care&concern=sensitive-barrier&q=barrier&review=reviewed&sort=name&step=Treat#all-products',
+  );
+  assert.equal(catalogueMarketHref('/concerns', 'US'), null);
+});
 
 test('catalogue transitions ignore browse and pagination but preserve filter changes', () => {
   assert.deepEqual(

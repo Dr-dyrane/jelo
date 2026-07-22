@@ -14,7 +14,7 @@ import { externalProducts } from '@/data/external-catalogue';
 import { concerns } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
 import type { ReviewedProduct } from '@/data/products';
-import { matchingCatalogueConcerns } from '@/lib/catalogue/catalogue-interactions';
+import { catalogueMarketHref, matchingCatalogueConcerns } from '@/lib/catalogue/catalogue-interactions';
 import { queryInventory } from '@/lib/catalogue/inventory-repository';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
 import { hasVerifiedNigeriaOffer } from '@/modules/commerce/home-merchandising';
@@ -81,7 +81,7 @@ function DiscoveryRail({ eyebrow, title, products, market, href: railHref }: { e
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const market: Market = value(params, 'market') === 'US' ? 'US' : 'NG';
-  const browse = ['concern', 'category'].includes(value(params, 'browse')) ? value(params, 'browse') : 'category';
+  const browse = ['concern', 'category', 'routine'].includes(value(params, 'browse')) ? value(params, 'browse') : 'category';
   const [result, reviewedProducts, supportiveProducts] = await Promise.all([
     queryInventory({
       q: value(params, 'q'),
@@ -153,6 +153,10 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   const paginationParams = queryFrom(params);
   const currentSuffix = paginationParams.toString();
   const currentHref = currentSuffix ? `/products?${currentSuffix}` : '/products';
+  const marketHrefs = {
+    NG: catalogueMarketHref(currentHref, 'NG') ?? '/products#all-products',
+    US: catalogueMarketHref(currentHref, 'US') ?? '/products?market=US#all-products',
+  };
   const clearHref = market === 'US' ? '/products?market=US#all-products' : '/products#all-products';
   const priceLabels = market === 'NG'
     ? { low: 'Under ₦10k', mid: '₦10k–₦25k', high: '₦25k+' }
@@ -183,17 +187,18 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <div className={styles.heroImage}><SafeEditorialImage asset={heroAsset} alt={heroAsset.altText} priority sizes="(max-width: 760px) 100vw, 58vw"/></div>
     </section>
 
-    <CatalogueSearch key={`${market}:${result.filters.q}`} defaultValue={result.filters.q} market={market} suggestions={searchSuggestions}/>
+    <CatalogueSearch key={`${market}:${result.filters.q}`} defaultValue={result.filters.q} market={market} marketHrefs={marketHrefs} suggestions={searchSuggestions}/>
 
     {!hasActiveIntent ? <><section className={styles.browse} id="browse">
       <div className={styles.sectionHeading}>
         <div><p className={styles.kicker}>Browse</p><h2>Your way.</h2></div>
         <div className={styles.browseTabs} aria-label="Browse catalogue by">
-          {(['category', 'concern'] as const).map(mode => <Link aria-current={browse === mode ? 'page' : undefined} className={browse === mode ? styles.active : ''} href={href(params, { browse: mode, category: null, concern: null, step: null }, 'browse')} key={mode}>{mode}</Link>)}
+          {(['category', 'routine', 'concern'] as const).map(mode => <Link aria-current={browse === mode ? 'page' : undefined} className={browse === mode ? styles.active : ''} href={href(params, { browse: mode, category: null, concern: null, step: null }, 'browse')} key={mode}>{mode}</Link>)}
         </div>
       </div>
       <div className={styles.browseRail}>
         {browse === 'category' ? result.facets.categories.filter(({ count }) => count > 0).map(({ value: category, count }) => <Link className={result.filters.category === category ? styles.selected : ''} href={href(params, { category: result.filters.category === category ? null : category, concern: null, step: null }, 'all-products')} key={category}><span>{category}</span><small>{count} {count === 1 ? 'product' : 'products'}</small></Link>) : null}
+        {browse === 'routine' ? result.facets.steps.filter(({ count }) => count > 0).map(({ value: step, count }) => <Link className={result.filters.step === step ? styles.selected : ''} href={href(params, { step: result.filters.step === step ? null : step, category: null, concern: null }, 'all-products')} key={step}><span>{step}</span><small>{count} {count === 1 ? 'product' : 'products'}</small></Link>) : null}
         {browse === 'concern' ? approvedConcerns.map(concern => <Link className={result.filters.concern === concern.slug ? styles.selected : ''} href={href(params, { concern: result.filters.concern === concern.slug ? null : concern.slug, category: null, step: null, review: 'supportive' }, 'all-products')} key={concern.slug}><span>{concern.name}</span><small>{concern.area}</small></Link>) : null}
       </div>
       {browse === 'concern' ? <p className={styles.reviewNote}>Only approved supportive uses appear here.</p> : null}
