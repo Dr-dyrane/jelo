@@ -19,15 +19,15 @@
     }
   },
   "some-by-mi-aha-bha-pha-miracle-toner": {
-    "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2020/01/kxq1lqyk-1-optimized.png?quality=80&resize=411%2C442&ssl=1",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/some-by-mi/some-by-mi-aha-bha-pha-miracle-toner/packshot.webp",
-    "contentType": "image/webp",
-    "byteSize": 8020,
-    "importedAt": "2026-07-22T00:50:34.928Z",
-    "width": 411,
-    "height": 442,
-    "hasAlpha": false,
-    "contentHash": "a364e3969ec6e9d3afa20845c7990db3cb5d8465f659b2ce47ed85b01c943397"
+    "sourceUrl": "https://somebymicosmetics.com/media/0f/8b/8f/1747123769/somebymi-aha-bha-pha-miracle-toner.png?ts=1747123769",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/some-by-mi/some-by-mi-aha-bha-pha-miracle-toner/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 107938,
+    "importedAt": "2026-07-22T19:10:38.000Z",
+    "width": 1200,
+    "height": 1600,
+    "hasAlpha": true,
+    "contentHash": "d392e6f06ab8c2718a3ab43cb83cc37237a555b5ced2c6e7dfcf553b4e3bfcaf"
   },
   "anua-niacinamide-10-txa-4-serum": {
     "sourceUrl": "https://anua.com/cdn/shop/files/anua-global-ampoule-serum-niacinamide-10-txa-4-serum-for-brightening-and-dark-spots-1239193722.jpg?v=1779177130&width=2000",

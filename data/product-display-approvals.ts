@@ -58,6 +58,14 @@ export const productDisplayApprovals = {
     contentHash: '0944847bfbcf0a8d57fed34a05c6f76a2fe79e1876e2833e326e49d75cf0519b',
     reviewedAt: '2026-07-22T12:34:11.000Z',
   }),
+  'some-by-mi-aha-bha-pha-miracle-toner': approval({
+    brand: 'SOME BY MI',
+    name: 'AHA·BHA·PHA 30 Days Miracle Toner',
+    size: '150 ml',
+    sourceUrl: 'https://somebymicosmetics.com/media/0f/8b/8f/1747123769/somebymi-aha-bha-pha-miracle-toner.png?ts=1747123769',
+    contentHash: 'd392e6f06ab8c2718a3ab43cb83cc37237a555b5ced2c6e7dfcf553b4e3bfcaf',
+    reviewedAt: '2026-07-22T19:11:30.000Z',
+  }),
   'anua-niacinamide-10-txa-4-serum': approval({
     brand: 'ANUA',
     name: 'Niacinamide 10% + TXA 4% Serum',
