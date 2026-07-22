@@ -6,7 +6,7 @@ import { products as curatedCatalogue } from '@/data/catalogue';
 import { marketSignals } from '@/data/market-signals';
 import type { Product } from '@/data/products';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
-import { orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
+import { hasVerifiedNigeriaOffer, orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
 import styles from './home.module.css';
 
 export const revalidate = 3600;
@@ -52,7 +52,7 @@ export default async function HomePage() {
   const toneAndProtection = products.filter(product => product.step === 'Protect' || product.concerns.some(concern => ['hyperpigmentation', 'dark spots'].includes(concern)));
   const barrierCare = products.filter(product => product.concerns.some(concern => ['barrier', 'dryness', 'sensitivity'].includes(concern)));
   const kBeauty = products.filter(product => ['COSRX', 'ANUA', 'SOME BY MI', 'B.LAB'].includes(product.brand));
-  const nigeriaReady = products.filter(product => product.offers.some(offer => offer.available && (offer.location.includes('NG') || offer.location.includes('INTL'))));
+  const nigeriaReady = products.filter(hasVerifiedNigeriaOffer);
   const hairCare = products.filter(product => product.category === 'Hair');
   const bodyCare = products.filter(product => product.category === 'Body');
 
@@ -112,7 +112,7 @@ export default async function HomePage() {
         <div>
           <p className="eyebrow">The JeloCare edit</p>
           <h2>What&apos;s good now.</h2>
-          <div className="market-sources" aria-label="Retail signals reviewed">
+          <div className="market-sources" aria-label="Nigeria stores checked">
             {marketSignals.sources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>)}
           </div>
         </div>
@@ -195,8 +195,8 @@ export default async function HomePage() {
       </section>
 
       <DiscoveryRail
-        kicker="Near you"
-        title="Nigeria-ready."
+        kicker="Checked in Nigeria"
+        title="Priced here."
         products={nigeriaReady}
       />
 

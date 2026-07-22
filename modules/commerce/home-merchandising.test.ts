@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { orderByCuratedSlugs } from './home-merchandising';
+import { hasVerifiedNigeriaOffer, orderByCuratedSlugs } from './home-merchandising';
 
 test('keeps live catalogue records in the curated homepage order', () => {
   const live = [
@@ -23,4 +23,14 @@ test('appends new live products without dropping them', () => {
   );
 
   assert.deepEqual(ordered.map(item => item.slug), ['known', 'new-a', 'new-z']);
+});
+
+test('Nigeria-ready requires an available exact priced offer', () => {
+  const offer = { retailer: 'Store', url: 'https://store.example/product', trust: 90, available: true, priceNgn: 10_000, match: 'exact' as const, location: ['NG'] };
+
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [offer] }), true);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, match: 'search' }] }), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, available: false }] }), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, priceNgn: undefined }] }), false);
+  assert.equal(hasVerifiedNigeriaOffer({ offers: [{ ...offer, location: ['US'] }] }), false);
 });
