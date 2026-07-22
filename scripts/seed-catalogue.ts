@@ -139,28 +139,33 @@ try {
         )
         on conflict (product_id, kind) do update set
           blob_url = case
-            when product_images.status = 'verified' and product_images.blob_url is not null
+            when product_images.status = 'verified'
+              and product_images.blob_url like '%vercel-storage.com/%'
               then product_images.blob_url
             else excluded.blob_url
           end,
           source_url = case
-            when product_images.status = 'verified' and product_images.blob_url is not null
+            when product_images.status = 'verified'
+              and product_images.blob_url like '%vercel-storage.com/%'
               then product_images.source_url
             else excluded.source_url
           end,
           source_host = case
-            when product_images.status = 'verified' and product_images.blob_url is not null
+            when product_images.status = 'verified'
+              and product_images.blob_url like '%vercel-storage.com/%'
               then product_images.source_host
             else excluded.source_host
           end,
           alt_text = excluded.alt_text,
           status = case
-            when product_images.status = 'verified' and product_images.blob_url is not null
+            when product_images.status = 'verified'
+              and product_images.blob_url like '%vercel-storage.com/%'
               then product_images.status
             else excluded.status
           end,
           verified_at = case
-            when product_images.status = 'verified' and product_images.blob_url is not null
+            when product_images.status = 'verified'
+              and product_images.blob_url like '%vercel-storage.com/%'
               then product_images.verified_at
             else excluded.verified_at
           end,
