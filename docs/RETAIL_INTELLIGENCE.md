@@ -33,6 +33,10 @@ Each retailer row should show, before navigation:
 
 A shopper should not have to open several retailer pages merely to discover the price.
 
+## Search experience
+
+Product queries show up to three fresh exact offers for the selected market beside each matching product. Store, price and check date are visible before a shopper opens the product or retailer page. Search-only retailer routes and expired observations never appear in this comparison.
+
 ## Ranking
 
 Nigerian offers are ranked using:

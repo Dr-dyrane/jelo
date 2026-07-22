@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import type { Product } from '@/data/products';
 import type { Market } from '@/data/prices';
 import { ProductGrid } from './product-grid';
+import { ProductSearchResults } from './product-search-results';
 import styles from './catalogue-explorer.module.css';
 
 type Category = 'All' | Product['category'];
@@ -64,7 +65,10 @@ export function CatalogueExplorer({ products }: { products: Product[] }) {
         {hasFilters ? <button type="button" onClick={clearFilters}>Clear filters</button> : null}
       </div>
 
-      {filtered.length ? <ProductGrid products={filtered} market={market}/> : (
+      {filtered.length ? query
+        ? <ProductSearchResults products={filtered} market={market}/>
+        : <ProductGrid products={filtered} market={market}/>
+      : (
         <div className={styles.empty}>
           <p className="eyebrow">Nothing exact yet</p>
           <h2>Try a broader concern.</h2>
