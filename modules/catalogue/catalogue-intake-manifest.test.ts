@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-22T22:00:00Z');
+const researchAsOf = Date.parse('2026-07-22T23:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 6);
@@ -108,8 +108,12 @@ test('official CeraVe snapshots advance identity and care without treating retai
   const cream = catalogueIntakeCandidates.find(item => item.id === 'cerave-moisturising-cream-454g');
   assert.ok(cream);
   const creamDecision = evaluateCatalogueIntakeCandidate(cream, researchAsOf);
-  assert.equal(creamDecision.freshExactOffers.length, 0);
-  assert.ok(creamDecision.blockers.includes('nigeria-offer-identity-unbound'));
+  assert.equal(creamDecision.freshExactOffers.length, 1);
+  assert.equal(creamDecision.freshExactOffers[0].retailer, 'Nectar Beauty Hub');
+  assert.equal(creamDecision.nigeriaMarketRoute, 'brand-authorized');
+  assert.equal(creamDecision.blockers.includes('nigeria-offer-identity-unbound'), false);
+  assert.ok(creamDecision.blockers.includes('nigeria-regulatory-pending'));
+  assert.ok(creamDecision.blockers.includes('asset-final-image-missing'));
   assert.equal(cream?.variant, 'CeraVe Moisturising Cream Pot');
   assert.match(cream?.care.manufacturerEvidenceUrl ?? '', /africa\.cerave\.com/);
 });
@@ -186,10 +190,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
   assert.notEqual(slique?.evidence.fields.retailerIdentifier?.value, candidate.identity.gtin);
   assert.ok(slique?.exclusionReasons.includes('manufacturer-identifier-mismatch'));
   assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Konga Health'), false);
-  assert.equal(decision.freshExactOffers.length, 0);
+  assert.equal(decision.freshExactOffers.length, 1);
   assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'provisional').length, 0);
-  assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'directory-listed').length, 0);
-  assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
+  assert.equal(decision.freshExactOffers.filter(offer => offer.retailerStatus === 'directory-listed').length, 1);
+  assert.equal(decision.blockers.includes('nigeria-offer-identity-unbound'), false);
 });
 
 test('excluded market observations are durable evidence and never exact offers', () => {
@@ -197,7 +201,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 6);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 1);
+  ), 0), 2);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

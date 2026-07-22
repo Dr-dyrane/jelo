@@ -54,6 +54,16 @@ test('normalizes compact SPF tokens and UK or US moisturiser spelling', () => {
   }));
 });
 
+test('treats a packaging-only pot descriptor as optional', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'CeraVe Moisturising Cream Pot',
+    expectedSize: '454 g',
+    observedTitle: 'CeraVe Moisturizing Cream For Dry To Very Dry Skin - 454g',
+    observedSize: '454 g',
+  }));
+});
+
 test('fails closed when observed title or size evidence is missing', () => {
   assert.throws(() => assertRetailerResponseScope({ ...valid, observedTitle: undefined }), /title evidence is missing/);
   assert.throws(() => assertRetailerResponseScope({ ...valid, observedSize: undefined }), /size evidence is missing/);

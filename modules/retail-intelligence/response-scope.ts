@@ -1,6 +1,6 @@
 const ignoredTitleWords = new Set([
   'and', 'for', 'with', 'the', 'from', 'skin', 'hair', 'face', 'new', 'version', 'pack',
-  'to', 'of', 'in', 'on', 'by', 'or', 'at',
+  'to', 'of', 'in', 'on', 'by', 'or', 'at', 'pot',
 ]);
 
 const equivalentTitleTokens: Record<string, string> = {

@@ -30,6 +30,8 @@
     "catalogue:source": "tsx scripts/import-open-beauty-facts.ts",
     "catalogue:discovery:audit": "tsx scripts/audit-catalogue-discovery.ts",
     "catalogue:discovery:screen": "tsx scripts/screen-catalogue-discovery.ts",
+    "catalogue:research:build": "tsx scripts/build-catalogue-research-queue.ts",
+    "catalogue:research:verify": "tsx scripts/verify-catalogue-research-queue.ts",
     "catalogue:intake:audit": "tsx scripts/audit-catalogue-intake.ts",
     "catalogue:publication:verify": "tsx scripts/verify-catalogue-publication-dossiers.ts",
     "catalogue:publication:releases:verify": "tsx scripts/verify-catalogue-publication-releases.ts",

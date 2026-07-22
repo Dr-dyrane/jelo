@@ -41,6 +41,18 @@ npm run catalogue:discovery:audit
 
 Only a deliberately selected lead is copied into `data/catalogue-intake.json`. The existing exact-SKU chronology starts there and remains unchanged.
 
+### Research priority queue
+
+`data/catalogue-research-queue.json` is a deterministic 48-item working set derived from the checked-in discovery snapshot. It ranks traceability and high-utility skincare lanes—sun protection, cleansing, moisture/barrier support, acne care, pigment support, hair/scalp and body care—while excluding makeup, fragrance, personal care, provisional-only observations and exact products already represented in the reviewed catalogue or deliberate intake.
+
+The queue keeps retailer numbers labelled as unverified identity leads. Claim-heavy whitening language, abrasive products, single-retailer observations and unavailable listings remain visible as cautions and are deprioritized rather than silently rewritten or presented as facts. A three-item-per-brand cap prevents one retailer brand taxonomy from consuming the whole review cohort. None of these rankings establish formula quality, authenticity, clinical suitability, regulatory status or publication approval.
+
+```bash
+npm run catalogue:research:verify
+```
+
+The verifier recomputes the queue from the exact discovery snapshot bytes and fails if its source digest, ordering, lane coverage or evidence projection changes outside the deterministic builder.
+
 ## Deliberate intake queue
 
 New research starts in `data/catalogue-intake.json`, one exact SKU at a time. Run `npm run catalogue:intake:audit` to see the ordered private queue, current gate and next action. The queue is research-only: importing it does not add products to either public catalogue source and even an `approval-ready` result means only that an identity-bound approval can be drafted.

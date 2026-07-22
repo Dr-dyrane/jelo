@@ -35,9 +35,9 @@ test('Slique is explicitly provisional without regulator evidence or content reu
 });
 
 test('brand authorization binds seller, host, response representation and reviewer chronology', () => {
-  const asOf = Date.parse('2026-07-22T17:04:00Z');
+  const asOf = Date.parse('2026-07-22T23:00:00Z');
   const sourceUrl = 'https://africa.cerave.com/en/find-your-nearest-store';
-  for (const name of ['Medplus', 'BuyBetter']) {
+  for (const name of ['Medplus', 'BuyBetter', 'Nectar Beauty Hub']) {
     const retailer = nigeriaRetailers.find(store => store.name === name);
     assert.ok(retailer);
     assert.equal(reviewedBrandSellerEvidenceValid(retailer, sourceUrl, asOf), true);
