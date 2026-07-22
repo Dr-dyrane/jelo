@@ -78,3 +78,20 @@ test('numb skin patches stop product matching and route sensory loss to an exami
   );
   assert.doesNotMatch(concern.signals.join(' '), /near the patch/i);
 });
+
+test('dark velvety skin routes underlying-cause review instead of pigmentation shopping', () => {
+  const concern = concerns.find(item => item.slug === 'acanthosis-nigricans-pattern');
+  assert.ok(concern);
+  assert.equal(concern.name, 'Dark, velvety skin');
+  assert.equal(concern.kind, 'condition-pattern');
+  assert.deepEqual(concern.productTerms, []);
+  assert.deepEqual(concern.sources.map(source => source.url), [
+    'https://www.aad.org/public/diseases/a-z/acanthosis-nigricans-overview',
+    'https://www.aad.org/public/diseases/a-z/acanthosis-nigricans-treatment',
+  ]);
+  const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+  for (const term of ['velvety', 'does not scrub away', 'medical review', 'prediabetes', 'skincare cannot confirm']) {
+    assert.ok(guidance.includes(term), `dark velvety skin is missing ${term}`);
+  }
+  assert.doesNotMatch(guidance, /brighten|bleach|lighten|fade|whiten/i);
+});

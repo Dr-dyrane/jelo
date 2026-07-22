@@ -268,6 +268,18 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
+    slug: 'acanthosis-nigricans-pattern', name: 'Dark, velvety skin', area: 'Body', kind: 'condition-pattern',
+    summary: 'Dark, thickened skin on the neck or body folds.',
+    signals: ['velvety texture', 'thicker skin', 'neck, armpit or groin', 'does not scrub away'],
+    ingredients: ['do not scrub the area', 'gentle skin care', 'medical review for the cause'],
+    productTerms: [],
+    escalation: 'Arrange a medical review for a new dark, thickened, velvety patch. It can be linked to prediabetes, diabetes, a medicine or another condition; skincare cannot confirm the cause.',
+    sources: [
+      { title: 'American Academy of Dermatology · Acanthosis nigricans', url: 'https://www.aad.org/public/diseases/a-z/acanthosis-nigricans-overview' },
+      { title: 'American Academy of Dermatology · Diagnosis and treatment', url: 'https://www.aad.org/public/diseases/a-z/acanthosis-nigricans-treatment' },
+    ], reviewedAt,
+  },
+  {
     slug: 'heat-rash-pattern', name: 'Heat rash', area: 'Body', kind: 'condition-pattern',
     summary: 'Small prickly bumps after heavy sweating.',
     signals: ['small raised spots', 'prickly itch', 'mild swelling', 'heat or sweat trigger'],
