@@ -71,7 +71,21 @@ try {
       await tx`delete from product_skin_types where product_id = ${savedProduct.id}`;
       await tx`delete from product_best_for where product_id = ${savedProduct.id}`;
       await tx`delete from product_concerns where product_id = ${savedProduct.id}`;
-      await tx`delete from offers where product_id = ${savedProduct.id}`;
+
+      // Keep offer ids stable so historical prices remain attached. Curated
+      // imports that disappear from the static set become hidden search routes;
+      // retailer-page and API observations are left untouched.
+      await tx`
+        update offers
+        set
+          available = false,
+          inventory_status = 'unknown',
+          match_kind = 'search',
+          verification_note = 'Not in the current curated offer set; retained for price history.',
+          updated_at = now()
+        where product_id = ${savedProduct.id}
+          and verification_method = 'import'
+      `;
 
       for (const skinType of product.skinTypes) {
         await tx`
@@ -177,7 +191,7 @@ try {
               ? 'USD'
               : null;
           const checkedAt = offer.checkedAt ? new Date(`${offer.checkedAt}T12:00:00Z`) : new Date();
-          await tx`
+          const [savedOffer] = await tx<{ id: string }[]>`
             insert into offers (
               product_id, retailer_id, url, market_code, available,
               price_minor, currency_code, checked_at, inventory_status,
@@ -203,7 +217,19 @@ try {
               verification_expires_at = excluded.verification_expires_at,
               match_kind = excluded.match_kind,
               updated_at = now()
+            returning id
           `;
+
+          if (priceMinor != null && currencyCode) {
+            await tx`
+              insert into offer_price_history (
+                offer_id, price_minor, currency_code, observed_at, source
+              ) values (
+                ${savedOffer.id}, ${priceMinor}, ${currencyCode}, ${checkedAt}, 'import'
+              )
+              on conflict do nothing
+            `;
+          }
         }
       }
     }

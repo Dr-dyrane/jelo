@@ -13,6 +13,7 @@ JeloCare is a product information and routing layer. It does not manufacture, re
 - Treat marketplace results as seller-dependent and rank them below direct retailers.
 - Never infer authenticity from price alone or promise authenticity on a retailer's behalf.
 - Refresh exact prices within seven days. A stale observation may remain in history but should not be presented as current.
+- Preserve offer IDs during catalogue seeds so price history remains continuous.
 
 ## Reviewed Nigeria sources
 
