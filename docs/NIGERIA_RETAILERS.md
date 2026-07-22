@@ -45,3 +45,9 @@ The runtime registry is `data/retailers.ts`. The initial reviewed set is:
 The dated source records live in `data/retail-offers.ts`. Each current observation stores the exact retailer URL, observed price, variant, size, stock state, timestamp and whether landed cost is known. Marketplace offers may retain a visible seller name, score and quantity, but those fields do not become identity evidence. Search pages are not promoted into exact offers, and non-Nigerian stores are excluded from Nigeria results.
 
 These runtime observations are not publication evidence by themselves. The private intake gate additionally requires a reviewer-attributed, digest-bound listing representation with explicit manufacturer-number, title, size, adjacent NGN price and stock locators. A brand-authorized one-offer route also binds the exact seller and host excerpt from the brand-controlled response.
+
+## Batch discovery inputs
+
+The private discovery screen currently reads public product API pages from BuyBetter, Lux Beauty and provisional Slique Beauty. It captured 3,794 Nigerian retailer records across 39 decoded JSON responses and selected 1,000 category-balanced leads with measurable sizes, positive NGN prices and exact product routes.
+
+This is a fast research index, not an exact-offer registry. WooCommerce `sku` values remain retailer fields even when they have a valid GTIN checksum; manufacturer identity must still come from a reviewed official source. API image URLs remain link-only leads, not permission to copy or publish them. Prices and stock become user-visible only through the separate exact runtime observation rules, and no discovery record can enter public catalogue code.

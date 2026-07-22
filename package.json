@@ -27,6 +27,8 @@
     "db:seed": "tsx scripts/seed-catalogue.ts",
     "db:seed:external": "tsx scripts/seed-external-catalogue.ts",
     "catalogue:source": "tsx scripts/import-open-beauty-facts.ts",
+    "catalogue:discovery:audit": "tsx scripts/audit-catalogue-discovery.ts",
+    "catalogue:discovery:screen": "tsx scripts/screen-catalogue-discovery.ts",
     "catalogue:intake:audit": "tsx scripts/audit-catalogue-intake.ts",
     "catalogue:publication:verify": "tsx scripts/verify-catalogue-publication-dossiers.ts",
     "catalogue:publication:images:verify": "tsx scripts/verify-catalogue-publication-images.ts",

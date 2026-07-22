@@ -27,6 +27,20 @@ The gate is fail-closed:
 9. Unreviewed automated output cannot pass. A transparent isolation or generated render needs full-resolution side-by-side review, clean edges on every product surface, and no altered label or chroma fringe; manual checks alone do not replace the missing durable isolation record.
 10. Any source identity, evidence, market observation, or final-image change invalidates approval.
 
+## Batch discovery screen
+
+Discovery is batched before dossier work. `npm run catalogue:discovery:screen -- --target=1000 --write=data/catalogue-discovery-screening.json` reads bounded WooCommerce Store API pages from reviewed Nigerian sources, binds every decoded JSON response to its final URL, retrieval time, SHA-256, MIME type and byte size, then rejects records without an exact product route, measurable size, positive NGN price or usable category. Selection is quality-first and category-balanced; it does not fill a category with weaker records merely to meet its target.
+
+The checked-in screen currently holds 1,000 private leads selected from 3,794 retailer records and 39 response captures. It records retailer price, stock, image URL and SKU fields only as discovery observations. A checksum-valid number in a retailer `sku` field is explicitly labelled `retailer-sku-is-not-manufacturer-identity`; it can prioritize official research but cannot satisfy identity, exact-offer, regulatory, rights, care or publication gates. Slique remains provisional and cannot gain Tier-A status through volume or duplication with another store.
+
+Run the offline integrity audit before using the batch:
+
+```bash
+npm run catalogue:discovery:audit
+```
+
+Only a deliberately selected lead is copied into `data/catalogue-intake.json`. The existing exact-SKU chronology starts there and remains unchanged.
+
 ## Deliberate intake queue
 
 New research starts in `data/catalogue-intake.json`, one exact SKU at a time. Run `npm run catalogue:intake:audit` to see the ordered private queue, current gate and next action. The queue is research-only: importing it does not add products to either public catalogue source and even an `approval-ready` result means only that an identity-bound approval can be drafted.

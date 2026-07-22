@@ -136,7 +136,7 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product', false), { retailer: 'Slique Beauty', url: 'https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/', trust: 78, available: true, location: ['NG'] }]
   },
   {
-    slug: 'kuza-indian-hemp-hair-scalp-treatment', brand: 'KUZA', name: '100% Indian Hemp Hair & Scalp Treatment', size: '8 oz / 226 g', category: 'Hair', step: 'Treat',
+    slug: 'kuza-indian-hemp-hair-scalp-treatment', brand: 'KUZA', name: '100% Indian Hemp Hair & Scalp Treatment', size: '8 oz / 226 g', category: 'Hair', step: 'Seal',
     image: 'https://perfectpicturecosmetics.com/cdn/shop/files/20250510_1219_Hair_Treatment_Product_Display_remix_01jtx23f14fz4aft5nvz1cpvpt.png?v=1746879611&width=1600', displayLine: 'Treat · seal',
     bestFor: ['hair moisture', 'scalp treatment'], concerns: ['dry hair', 'dry scalp'], skinTypes: ['hair'], sensitiveFriendly: true,
     usage: 'Use a small amount as needed.', evidence: 'emerging',

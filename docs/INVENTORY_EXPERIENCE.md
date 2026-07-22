@@ -69,16 +69,20 @@ Brand/company filtering uses the product brand as the accurate current entity. P
 
 The catalogue keeps candidate count, public approval, and recommendation eligibility separate:
 
+- JeloCare's original 14 products from `pages-v1-static` remain a protected core dossier in `data/jelo-core-products.ts`; their category and routine-step classifications cannot drift unnoticed;
 - 23 reviewed source records remain in the research set;
 - public shelves are derived only from records whose canonical packshot is transparent, at least 1,000 × 1,000, identity-safe, not under a rights hold, and approved by exact file hash after peach/pink/dark surface review;
 - 2 source records currently pass the explicit supportive-care gate for direct guidance, but they appear publicly only when they also pass the image gate;
 - 5 require pharmacist review and 16 remain guidance-ineligible pending better formula evidence;
 - the checked-in barcode-linked Open Beauty Facts records are a frozen legacy research pool, not a target or intake queue;
+- the Nigerian batch screen is a private discovery queue whose retailer SKU, price, stock and image fields remain unverified leads;
 - new candidates enter the private per-SKU queue in `data/catalogue-intake.json` and advance only through explicit identity, care, Nigeria, rights, editorial, and approval-draft gates;
 - `data/external-product-approvals.json` remains empty and every non-empty legacy manifest is rejected;
 - legacy community records cannot become public or recommendation-eligible through that retired path.
 
-Current derived state is 23 reviewed research records, 10 display-approved public records, 977 frozen private bulk candidates, 6 deliberate per-SKU intake candidates, and 0 approval-ready intake candidates. The `publicCatalogueCount` value inside the frozen legacy bulk metadata describes the retired count-first release target; it is not current public inventory and must not be used in UI or operational reporting.
+Current derived state is 23 reviewed research records, 10 display-approved public records, 977 frozen private bulk candidates, 1,000 screened Nigerian retailer leads, 6 deliberate per-SKU intake candidates, 5 canonical identity artifacts, and 0 approval-ready intake candidates. Four intake dossiers are at Nigerian evidence, one is at care review, and one remains at identity. The `publicCatalogueCount` value inside the frozen legacy bulk metadata describes the retired count-first release target; neither that value nor the discovery-lead count is current public inventory or suitable UI copy.
+
+The discovery batch is regenerated with `npm run catalogue:discovery:screen -- --target=1000 --write=data/catalogue-discovery-screening.json` and verified offline with `npm run catalogue:discovery:audit`. Its selection balances categories after hard preflight checks. It never upgrades a retailer SKU into a manufacturer GTIN, a product image URL into reuse permission, or a current listing into regulatory or clinical evidence.
 
 Imported records must have a barcode, product name, brand, mapped beauty category, source record URL, source-hosted product image, and source update timestamp. They are deduplicated against reviewed records and each other.
 
