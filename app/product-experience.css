@@ -143,7 +143,10 @@
 .market-summary span { display: grid; gap: .25rem; }
 .market-summary small { color: var(--muted); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; }
 .market-summary strong { font-family: var(--font-display), serif; font-size: 1.35rem; font-weight: 500; }
-.market-summary p { margin: 0 0 .2rem auto; color: var(--wine); font-size: .72rem; font-weight: 700; }
+.market-summary-notes { margin: 0 0 .2rem auto; display: grid; justify-items: end; gap: .22rem; color: var(--wine); font-size: .72rem; font-weight: 700; }
+.market-movement-down { color: #33704a; }
+.market-movement-up { color: #9a3d35; }
+.market-movement-flat { color: var(--muted); }
 
 .retailer-stack {
   min-width: min(100%, 38rem);
@@ -205,6 +208,6 @@
   .retailer-price { grid-column: 2; grid-row: 2; text-align: left; }
   .retailer-arrow { grid-column: 3; grid-row: 1 / 3; }
   .market-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-  .market-summary p { margin: 0; grid-column: 1 / -1; }
+  .market-summary-notes { margin: 0; grid-column: 1 / -1; justify-items: start; }
   .store-searches > div { grid-template-columns: 1fr; }
 }

@@ -6,6 +6,7 @@ import type { Offer } from '@/data/products';
 import type { Market } from '@/data/prices';
 import { rankOffers } from '@/modules/commerce/rank-offers';
 import { summarizeMarket } from '@/modules/commerce/market-summary';
+import type { ProductPriceTrends } from '@/modules/commerce/price-trends';
 
 const formatNaira = new Intl.NumberFormat('en-NG', {
   style: 'currency',
@@ -27,13 +28,25 @@ function formatAmount(value: number, market: Market) {
   return market === 'NG' ? formatNaira.format(value) : formatDollars.format(value);
 }
 
-export function RetailerList({ offers, productSlug }: { offers: Offer[]; productSlug: string }) {
+function movementLabel(trends: ProductPriceTrends | undefined, market: Market) {
+  const movement = trends?.[market]?.thirtyDay ?? trends?.[market]?.sevenDay;
+  if (!movement) return null;
+  if (movement.direction === 'flat') return { direction: 'flat', copy: `Steady · ${movement.days}d` };
+  const majorAmount = Math.abs(movement.amountMinor) / (market === 'US' ? 100 : 1);
+  return {
+    direction: movement.direction,
+    copy: `${movement.direction === 'down' ? '↓' : '↑'} ${formatAmount(majorAmount, market)} · ${movement.days}d`,
+  };
+}
+
+export function RetailerList({ offers, productSlug, priceTrends }: { offers: Offer[]; productSlug: string; priceTrends?: ProductPriceTrends }) {
   // Nigeria is deliberately the first product-page market. JeloCare should show
   // local buying intelligence before asking shoppers to consider international routes.
   const [market, setMarket] = useState<Market>('NG');
   const ranked = useMemo(() => rankOffers(offers, market), [offers, market]);
   const visible = ranked.filter(offer => offer.match !== 'search' && (offer.location.includes(market) || offer.location.includes('INTL')));
   const summary = useMemo(() => summarizeMarket(offers, market), [offers, market]);
+  const movement = movementLabel(priceTrends, market);
 
   return (
     <div className="retailer-panel">
@@ -48,7 +61,10 @@ export function RetailerList({ offers, productSlug }: { offers: Offer[]; product
         <span><small>Best</small><strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong></span>
         {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span><small>Typical</small><strong>{formatAmount(summary.typicalPrice, market)}</strong></span> : null}
         <span><small>Compared</small><strong>{summary.pricedRetailerCount} {summary.pricedRetailerCount === 1 ? 'store' : 'stores'}</strong></span>
-        {summary.savingsVsTypical ? <p>Save {formatAmount(summary.savingsVsTypical, market)}.</p> : null}
+        {summary.savingsVsTypical || movement ? <div className="market-summary-notes">
+          {summary.savingsVsTypical ? <span>Save {formatAmount(summary.savingsVsTypical, market)}.</span> : null}
+          {movement ? <span className={`market-movement-${movement.direction}`}>{movement.copy}</span> : null}
+        </div> : null}
       </div> : null}
       <div className="retailer-list">
         {visible.length ? visible.map((offer, index) => {

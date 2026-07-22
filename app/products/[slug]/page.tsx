@@ -9,12 +9,15 @@ import { MarketPrice } from '@/components/products/market-price';
 import { ProductGrid } from '@/components/products/product-grid';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
+import { getProductPriceTrends } from '@/lib/inventory/price-trends';
 
 const evidenceCopy = {
   high: 'Well supported. Results vary.',
   moderate: 'Good support. Results vary.',
   emerging: 'Promising. Still learning.',
 } as const;
+
+export const revalidate = 3600;
 
 function routinePlacement(category: 'Face' | 'Hair' | 'Body', step: string) {
   if (category === 'Hair') return [
@@ -49,9 +52,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [product, products] = await Promise.all([
+  const [product, products, priceTrends] = await Promise.all([
     findCatalogueProduct(slug),
     listCatalogueProducts(),
+    getProductPriceTrends(slug),
   ]);
   if (!product) notFound();
 
@@ -143,7 +147,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <p className="affiliate-note">Some links earn commission. It never changes the order.</p>
         </div>
         <div className="retailer-stack">
-          <RetailerList offers={product.offers} productSlug={product.slug}/>
+          <RetailerList offers={product.offers} productSlug={product.slug} priceTrends={priceTrends}/>
           <StoreSearches productSlug={product.slug} exactRetailers={product.offers.filter(offer => offer.match !== 'search').map(offer => offer.retailer)}/>
         </div>
       </section>
