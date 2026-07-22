@@ -2,7 +2,15 @@ import manifest from './editorial-assets.json';
 
 export type EditorialAsset = {
   id: string;
-  role: 'homepage-hero' | 'homepage-story' | 'concern-cutout' | 'catalogue-hero' | 'catalogue-story';
+  role:
+    | 'homepage-hero'
+    | 'homepage-story'
+    | 'concern-cutout'
+    | 'catalogue-hero'
+    | 'catalogue-story'
+    | 'consult-story'
+    | 'concerns-story'
+    | 'ingredient-story';
   localPath: string;
   blobUrl: string;
   altText: string;

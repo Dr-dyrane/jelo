@@ -140,5 +140,47 @@
     "transparent": false,
     "sourceKind": "generated",
     "contentHash": "76ceee9b6d9693c3e4c7e19706e5e725ed85e12e40c68fd3bc5a35f03e34f9b5"
+  },
+  {
+    "id": "consult-self-check-story",
+    "role": "consult-story",
+    "localPath": "/editorial/people/consult-self-check-v1.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/people/consult-self-check-v1.webp",
+    "altText": "Nigerian woman calmly looking at her skin in a mirror",
+    "mimeType": "image/webp",
+    "width": 1122,
+    "height": 1402,
+    "byteSize": 99360,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "98c5a2f6216d3ae8884c9774ff2eca5f002ed742a028da22a0b32ed29cd2837b"
+  },
+  {
+    "id": "concerns-together-story",
+    "role": "concerns-story",
+    "localPath": "/editorial/people/concerns-together-v1.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/people/concerns-together-v1.webp",
+    "altText": "Three Nigerian adults of different ages sharing a relaxed moment",
+    "mimeType": "image/webp",
+    "width": 1672,
+    "height": 941,
+    "byteSize": 127430,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "4af7cda4e6bd71ab86a0d23c58c96aa9449db6e8012c8d017d36d424f6a6f512"
+  },
+  {
+    "id": "ingredient-label-reader-story",
+    "role": "ingredient-story",
+    "localPath": "/editorial/people/ingredient-label-reader-v1.webp",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/editorial/people/ingredient-label-reader-v1.webp",
+    "altText": "Nigerian shopper reading the back of an unbranded skincare carton",
+    "mimeType": "image/webp",
+    "width": 1536,
+    "height": 1024,
+    "byteSize": 101518,
+    "transparent": false,
+    "sourceKind": "generated",
+    "contentHash": "eaba1c16bd7380d05209ecd9be870a00ac8c0c134f3538312c6af2a495c1ae6f"
   }
 ]
