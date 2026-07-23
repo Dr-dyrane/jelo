@@ -22,6 +22,7 @@ type InputMode = 'tap' | 'search' | 'type' | 'custom';
 type AdaptiveSelectorProps = {
   label: string;
   hint?: string;
+  selectionLabel?: string;
   mode: 'single' | 'multiple';
   value: AdaptiveValue[];
   suggestions: AdaptiveOption[];
@@ -42,6 +43,7 @@ function matches(option: AdaptiveOption, query: string) {
 export function AdaptiveSelector({
   label,
   hint,
+  selectionLabel = 'Added',
   mode,
   value,
   suggestions,
@@ -109,6 +111,15 @@ export function AdaptiveSelector({
     setRemoteOptions([]);
   }
 
+  function chooseOption(option: AdaptiveOption, inputMode: InputMode) {
+    const selected = value.find(item => item.id === option.id);
+    if (selected) {
+      if (searchable) editSelection(selected);
+      return;
+    }
+    choose({ id: option.id, label: option.label, source: 'canonical' }, inputMode);
+  }
+
   function removeSelection(item: AdaptiveValue) {
     onChange(removeAdaptiveSelection(value, item.id));
     onInteraction?.('tap', resultCount);
@@ -157,7 +168,7 @@ export function AdaptiveSelector({
       </div>
 
       {value.length ? <div className={styles.selectedBlock}>
-        <p>Selected</p>
+        <p>{editingId ? 'Editing' : selectionLabel}</p>
         <div className={styles.selected} aria-label={`Selected ${label}`}>
           {value.map(item => <span key={item.id} data-editing={editingId === item.id}>
             {searchable ? <button
@@ -186,7 +197,7 @@ export function AdaptiveSelector({
       </div> : null}
 
       {searchable ? <div className={styles.searchBox}>
-        <Search size={18} aria-hidden="true" />
+        {editingId ? <Pencil size={17} aria-hidden="true" /> : <Search size={18} aria-hidden="true" />}
         <input
           ref={inputRef}
           id={inputId}
@@ -227,8 +238,9 @@ export function AdaptiveSelector({
             type="button"
             role="option"
             aria-selected={selected}
+            aria-label={selected && searchable ? `Edit ${option.label}` : option.label}
             data-active={resolvedActiveIndex === index}
-            onClick={() => choose({ id: option.id, label: option.label, source: 'canonical' }, query ? 'search' : 'tap')}
+            onClick={() => chooseOption(option, query ? 'search' : 'tap')}
           >
             <span><strong>{option.label}</strong>{option.detail ? <small>{option.detail}</small> : null}</span>
             <span className={styles.optionMark}>{selected ? <Check size={16} aria-hidden="true" /> : null}</span>

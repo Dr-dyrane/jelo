@@ -18,7 +18,7 @@ export function applyAdaptiveSelection(
 
   if (mode === 'single') return [next];
   return current.some(item => item.id === next.id)
-    ? current.filter(item => item.id !== next.id)
+    ? current
     : [...current, next];
 }
 

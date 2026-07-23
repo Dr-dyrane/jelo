@@ -34,3 +34,10 @@ test('editing a single-select value replaces the previous value', () => {
 test('removal deletes only the explicit X target', () => {
   assert.deepEqual(removeAdaptiveSelection([acne, corrected], corrected.id), [acne]);
 });
+
+test('choosing an already selected value never removes it', () => {
+  assert.deepEqual(
+    applyAdaptiveSelection([acne, corrected], acne, 'multiple', null),
+    [acne, corrected],
+  );
+});

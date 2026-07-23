@@ -359,6 +359,7 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
       {currentStep === 'channels' ? <AdaptiveSelector
         label="How do customers buy from you?"
         hint="Choose every answer that fits."
+        selectionLabel="Ways to buy"
         mode="multiple"
         value={draft.channels}
         suggestions={channelOptions}
@@ -370,6 +371,7 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
         <AdaptiveSelector
           label="Where can customers find you?"
           hint="Your main location."
+          selectionLabel="Location added"
           mode="single"
           value={draft.state}
           suggestions={nigeriaStates}
@@ -416,6 +418,7 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
       {currentStep === 'brands' ? <AdaptiveSelector
         label="Which brands do you carry?"
         hint="Add a few now. You can expand this later."
+        selectionLabel="Brands added"
         mode="multiple"
         value={draft.brands}
         suggestions={brands}
@@ -426,6 +429,7 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
         <AdaptiveSelector
           label="How do you serve customers?"
           hint="Choose every answer that fits."
+          selectionLabel="Services added"
           mode="multiple"
           value={draft.services}
           suggestions={serviceOptions}
