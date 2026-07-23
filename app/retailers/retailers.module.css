@@ -34,8 +34,8 @@
   margin-top:2rem;
 }
 .partnershipIntro>div span{
-  min-height:7rem;
-  padding:1rem;
+  min-height:4.25rem;
+  padding:.8rem;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
@@ -49,13 +49,14 @@
   min-height:43rem;
   padding:clamp(1.35rem,4vw,3.1rem);
   display:grid;
-  grid-template-rows:auto auto 1fr auto auto;
+  grid-template-rows:auto 1fr auto auto;
   gap:1.2rem;
   border-radius:2.8rem;
   background:rgba(255,253,249,.72);
   box-shadow:0 35px 100px rgba(112,71,61,.11);
   backdrop-filter:blur(28px);
 }
+.partnershipProgressRow{position:relative}
 .partnershipProgress{
   height:.28rem;
   overflow:hidden;
@@ -69,12 +70,17 @@
   background:var(--wine);
   transition:width .28s ease;
 }
-.partnershipStatus{
-  justify-self:end;
-  margin:0;
-  color:var(--muted);
-  font-size:.68rem;
+.partnershipSaveStatus{
+  position:absolute;
+  top:calc(100% + .42rem);
+  right:0;
+  display:grid;
+  place-items:center;
+  color:var(--wine);
+  font-size:.62rem;
+  animation:partnership-save-confirm 1.6s ease both;
 }
+.partnershipSaveError{width:auto;color:var(--muted);animation:none}
 .partnershipQuestion{align-self:start;animation:partnership-question-in .28s ease}
 .textQuestion>p,.partnershipReview>p{
   margin:0;
@@ -243,9 +249,11 @@
 .partnershipComplete>p:last-of-type{color:var(--muted)}
 .partnershipComplete button{margin-top:1rem;background:var(--ink);color:#fff}
 @keyframes partnership-question-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes partnership-save-confirm{0%,100%{opacity:0}15%,72%{opacity:1}}
 @media(prefers-reduced-motion:reduce){
   .partnershipProgress span{transition:none}
   .partnershipQuestion{animation:none}
+  .partnershipSaveStatus{animation:none}
 }
 @media(max-width:900px){
   .partnership{grid-template-columns:1fr}
@@ -254,6 +262,7 @@
 @media(max-width:620px){
   .partnership{padding:5rem 1rem}
   .partnershipIntro h2{font-size:4.5rem}
+  .partnershipIntro>div span{min-height:3.5rem;padding:.65rem .75rem}
   .partnershipExperience{min-height:40rem;padding:1.25rem;border-radius:2rem}
   .inlineFields{grid-template-columns:1fr}
   .partnershipActions button{max-width:70%}

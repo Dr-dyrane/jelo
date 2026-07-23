@@ -23,7 +23,7 @@ type ContributionExperienceProps = {
 };
 
 type FlowStep = 'kind' | 'purposes' | 'products' | 'brand' | 'retailer' | 'purchase' | 'outcome' | 'review';
-type SaveState = 'device' | 'saving' | 'saved' | 'error';
+type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
 const localDraftKey = 'jelocare-community-intake-v1';
 const kindOptions: AdaptiveOption[] = [
@@ -77,7 +77,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
   const [hasKind, setHasKind] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
-  const [saveState, setSaveState] = useState<SaveState>('device');
+  const [saveState, setSaveState] = useState<SaveState>('idle');
   const [complete, setComplete] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -138,6 +138,14 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     recordEvent('step_viewed', null, null);
   }, [currentStep, hydrated, recordEvent]);
 
+  useEffect(() => {
+    if (saveState !== 'saved') return;
+    const timer = window.setTimeout(() => {
+      setSaveState(current => current === 'saved' ? 'idle' : current);
+    }, 1600);
+    return () => window.clearTimeout(timer);
+  }, [saveState]);
+
   const ensureRemoteDraft = useCallback(async (kind: ContributionKind) => {
     if (draftIdRef.current) return draftIdRef.current;
     if (createPromiseRef.current) return createPromiseRef.current;
@@ -166,7 +174,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     setSaveState('saving');
     const draftId = await ensureRemoteDraft(snapshot.kind);
     if (!draftId) {
-      setSaveState('device');
+      setSaveState('saved');
       return;
     }
     // The remote capability changes outside React state. Persist it immediately so
@@ -189,7 +197,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
         response = await requestSave(revisionRef.current);
       }
       if (!response.ok) {
-        setSaveState(response.status === 401 || response.status === 404 ? 'device' : 'error');
+        setSaveState(response.status === 401 || response.status === 404 ? 'saved' : 'error');
         return;
       }
       const data = await response.json() as { revision: number };
@@ -308,7 +316,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     setStepIndex(0);
     setComplete(false);
     setError('');
-    setSaveState('device');
+    setSaveState('idle');
     draftIdRef.current = null;
     revisionRef.current = 0;
     submitKeyRef.current = crypto.randomUUID();
@@ -331,9 +339,13 @@ export function ContributionExperience({ purposes, products, brands, retailers }
   const interaction = (mode: 'tap' | 'search' | 'type' | 'custom', count: number) => recordEvent('selection_changed', mode, count);
 
   return <section id="contribution-form" className={styles.experience} aria-labelledby="contribution-question">
-    <div className={styles.progress} aria-label={`${progress}% complete`}><span style={{ width: `${progress}%` }} /></div>
-    <div className={styles.saveStatus} role="status" aria-live="polite">
-      {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? 'Saved' : saveState === 'error' ? 'Not saved. We’ll retry.' : 'Saved on this device'}
+    <div className={styles.progressRow}>
+      <div className={styles.progress} aria-label={`${progress}% complete`}><span style={{ width: `${progress}%` }} /></div>
+      {saveState === 'saved' ? <span className={styles.saveStatus} role="status" aria-live="polite">
+        <Check size={16} aria-hidden="true" />
+        <span className="sr-only">Saved</span>
+      </span> : null}
+      {saveState === 'error' ? <span className={`${styles.saveStatus} ${styles.saveStatusError}`} role="status" aria-live="polite">Retrying…</span> : null}
     </div>
 
     <div className={styles.question} key={currentStep}>

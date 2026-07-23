@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowLeft, ArrowRight, Check, Mail, RotateCcw } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AdaptiveSelector, type AdaptiveOption } from '@/components/ui/adaptive-selector';
 import type { AdaptiveValue } from '@/lib/community-intake/schema';
 import {
@@ -12,7 +12,7 @@ import {
 import styles from '@/app/retailers/retailers.module.css';
 
 type FlowStep = 'store' | 'channels' | 'location' | 'contact' | 'online' | 'brands' | 'services' | 'review';
-type SaveState = 'device' | 'saving' | 'saved' | 'error';
+type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 type MailState = 'idle' | 'sending' | 'sent' | 'failed' | 'unavailable';
 
 const flow: FlowStep[] = ['store', 'channels', 'location', 'contact', 'online', 'brands', 'services', 'review'];
@@ -62,7 +62,7 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
   const [stepIndex, setStepIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [complete, setComplete] = useState(false);
-  const [saveState, setSaveState] = useState<SaveState>('device');
+  const [saveState, setSaveState] = useState<SaveState>('idle');
   const [mailState, setMailState] = useState<MailState>('idle');
   const [applicationId, setApplicationId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -177,6 +177,14 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
     }, 650);
     return () => window.clearTimeout(timer);
   }, [complete, draft, hydrated, persistLocal, saveSnapshot]);
+
+  useEffect(() => {
+    if (saveState !== 'saved') return;
+    const timer = window.setTimeout(() => {
+      setSaveState(current => current === 'saved' ? 'idle' : current);
+    }, 1600);
+    return () => window.clearTimeout(timer);
+  }, [saveState]);
 
   function patchDraft(patch: Partial<RetailerPartnershipDraft>) {
     setDraft(current => ({ ...current, ...patch, currentStep: Math.min(stepIndex + 1, 8) }));
@@ -307,7 +315,7 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
     setDraft(emptyRetailerPartnershipDraft());
     setStepIndex(0);
     setComplete(false);
-    setSaveState('device');
+    setSaveState('idle');
     setMailState('idle');
     setError('');
     applicationIdRef.current = null;
@@ -316,15 +324,6 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
     submitKeyRef.current = crypto.randomUUID();
     window.localStorage.removeItem(localKey);
   }
-
-  const statusCopy = useMemo(() => {
-    if (mailState === 'sending') return 'Sending private link…';
-    if (mailState === 'sent') return 'Private link sent';
-    if (saveState === 'saving') return 'Saving…';
-    if (saveState === 'saved') return 'Saved';
-    if (saveState === 'error') return 'Not saved. We’ll retry.';
-    return 'Nothing shared yet';
-  }, [mailState, saveState]);
 
   if (!hydrated) return <div className={styles.partnershipLoading}>Loading…</div>;
 
@@ -339,10 +338,16 @@ export function RetailerPartnershipExperience({ brands }: { brands: AdaptiveOpti
   const progress = Math.round((stepIndex / (flow.length - 1)) * 100);
 
   return <div className={styles.partnershipExperience}>
-    <div className={styles.partnershipProgress} aria-label={`${progress}% complete`}>
-      <span style={{ width: `${progress}%` }} />
+    <div className={styles.partnershipProgressRow}>
+      <div className={styles.partnershipProgress} aria-label={`${progress}% complete`}>
+        <span style={{ width: `${progress}%` }} />
+      </div>
+      {saveState === 'saved' ? <span className={styles.partnershipSaveStatus} role="status" aria-live="polite">
+        <Check size={16} aria-hidden="true" />
+        <span className="sr-only">Saved</span>
+      </span> : null}
+      {saveState === 'error' ? <span className={`${styles.partnershipSaveStatus} ${styles.partnershipSaveError}`} role="status" aria-live="polite">Retrying…</span> : null}
     </div>
-    <p className={styles.partnershipStatus} role="status" aria-live="polite">{statusCopy}</p>
 
     <div className={styles.partnershipQuestion} key={currentStep}>
       {currentStep === 'store' ? <div className={styles.textQuestion}>
