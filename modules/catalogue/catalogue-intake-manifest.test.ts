@@ -17,24 +17,24 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T01:17:00Z');
+const researchAsOf = Date.parse('2026-07-23T02:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 11);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
 });
 
 test('the first deliberate intake cohort stays private and approval-blocked', () => {
-  assert.equal(catalogueIntakeCandidates.length, 11);
-  assert.equal(catalogueIntakeDecisions.length, 11);
+  assert.equal(catalogueIntakeCandidates.length, 12);
+  assert.equal(catalogueIntakeDecisions.length, 12);
   assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 0);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 16);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 17);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 11);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 12);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -69,6 +69,40 @@ test('a bot-protected Dove page advances through a hash-bound browser DOM review
     evaluateCatalogueIntakeCandidate(tampered, researchAsOf).blockers.includes('identity-official-evidence-invalid'),
     true,
   );
+});
+
+test('the KeraCare 32 oz identity uses the manufacturer GTIN and keeps the conflicting Nigerian SKU out of comparison', () => {
+  const candidate = catalogueIntakeCandidates.find(item => item.id === 'keracare-dry-itchy-scalp-conditioner-950ml');
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '850068103058');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '32 oz');
+  const extraction = candidate.identity.officialEvidence?.canonicalExtraction;
+  assert.ok(extraction);
+  assert.equal(extraction.schemaVersion, 4);
+  assert.equal(extraction.method, 'reviewed-browser-dom-identity-field-extraction');
+  assert.match(extraction.fields.gtin.sourceText, /gtin12: 850068103058/);
+  assert.equal(candidate.care.careTier, 'targeted-care');
+  assert.equal(
+    candidate.care.independentClinicalGuidanceUrl,
+    'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',
+  );
+  assert.equal(candidate.nigeria.exactOffers.length, 0);
+  assert.equal(candidate.nigeria.excludedObservations.length, 1);
+  const observation = candidate.nigeria.excludedObservations[0];
+  assert.equal(observation.retailer, 'BuyBetter');
+  assert.equal(observation.observedSize, '950 ml');
+  assert.equal(observation.priceNgn, 38_485);
+  assert.equal(observation.evidence.fields.retailerIdentifier?.label, 'SKU');
+  assert.equal(observation.evidence.fields.retailerIdentifier?.value, '796708350195');
+  assert.ok(observation.exclusionReasons.includes('retailer-identifier-conflicts-with-candidate'));
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+  assert.equal(decision.blockers.includes('care-review-missing'), false);
+  assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
+  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
 test('the Balance toner advances on an official Shopify barcode without promoting retailer SKUs', () => {
@@ -321,7 +355,7 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 17);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
   ), 0), 2);

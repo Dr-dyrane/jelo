@@ -380,6 +380,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   garnier: ['www.garnier.co.uk'],
+  keracare: ['keracare.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -403,8 +404,10 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   garnier: ['www.garnier.co.uk'],
+  keracare: ['keracare.com'],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
+  'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',
   'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
