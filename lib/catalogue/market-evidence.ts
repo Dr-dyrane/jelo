@@ -276,7 +276,7 @@ function expectedLabel(basis: ExactOfferGtinBasis | undefined): ExactOfferGtinLa
 function stockSourceMatches(sourceText: string, stock: ExactOfferStock) {
   const value = normalized(sourceText).replace(/^availability\s+/, '');
   if (stock === 'in-stock') return /^(?:in stock(?:\s+(?:and\s+)?ready to ship)?|\d+ in stock|available|available now)$/.test(value);
-  if (stock === 'low-stock') return /^(?:low stock|only \d+ left|[1-5] in stock|\d+ units? left|few left)$/.test(value);
+  if (stock === 'low-stock') return /^(?:low stock|only \d+ left(?: in stock)?|[1-5] in stock|\d+ units? left|few left)$/.test(value);
   return /^(?:out of stock|sold out|unavailable)$/.test(value);
 }
 

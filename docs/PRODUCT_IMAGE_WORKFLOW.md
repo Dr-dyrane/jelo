@@ -23,6 +23,44 @@ An unresolved identity, rights or regulatory field keeps the product private.
 
 ## 2. Choose one visual route
 
+### Operator-supplied PNG quick lane
+
+An operator can provide a PNG directly. The minimum handoff is:
+
+- the PNG file;
+- the exact intake candidate ID;
+- the image source and reuse basis;
+- the official product or package reference used to confirm identity.
+
+If the PNG is already a complete, genuinely transparent official or licensed
+packshot, preserve its pixels, store the reviewed local file under
+`public/products/{brand}/{candidate-id}-transparent-v{n}.png`, and record its
+source hash, final hash, dimensions, MIME type and retrieval time in the
+candidate. Upload it only to a versioned, content-addressed product path.
+
+If the PNG has a background, pass it through the reviewed source-pixel operator
+below. If it was generated, retain the model, provider, full prompt, every input
+URL and hash, output hash and generation time. Generation provenance does not
+replace exact-package identity review or image rights.
+
+There is intentionally no anonymous drag-and-drop production uploader. Today an
+operator stages the reviewed file and metadata, then uses the server-only Blob
+path (`npm run assets:import` or the active
+`npm run assets:promote:staged` manifest flow). Production materializes approved
+metadata into Neon; operators do not write public product-image rows by hand.
+The upload remains private until the candidate, dossier, release and remote
+image gates all pass:
+
+```bash
+npm run catalogue:intake:audit
+npm run catalogue:publication:images:verify
+npm run assets:verify
+npm test
+```
+
+An authenticated Asset Manager may later make this a guided browser workflow.
+It must reuse these same gates rather than create a second publication path.
+
 ### Licensed photography
 
 Use an owned, licensed or explicitly permitted original photograph when it already meets the art direction. Preserve the photograph; crop and colour correction must not change the pack.

@@ -1375,6 +1375,10 @@ test('low-stock evidence accepts an explicit retailer count of five or fewer uni
   const decision = evaluateCatalogueIntakeCandidate(candidate, asOf);
   assert.equal(decision.freshExactOffers.length, 1);
   assert.equal(decision.blockers.includes('nigeria-offer-identity-unbound'), false);
+
+  offer.evidence.fields.stock.sourceText = 'Only 2 left in stock';
+  const onlyLeftDecision = evaluateCatalogueIntakeCandidate(candidate, asOf);
+  assert.equal(onlyLeftDecision.freshExactOffers.length, 1);
 });
 
 test('bare or tampered Nigerian offers cannot qualify as reviewed exact evidence', () => {

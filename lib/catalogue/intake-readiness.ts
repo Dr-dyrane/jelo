@@ -530,6 +530,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
   sheamoisture: ['www.sheamoisture.com'],
+  tresemme: ['www.tresemme.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -540,6 +541,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   ],
   'cerave-sa-smoothing-cleanser-473ml': [
     'https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser',
+  ],
+  'tresemme-keratin-smooth-weightless-conditioner-828ml': [
+    'https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738',
   ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
@@ -561,6 +565,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],
+  tresemme: ['www.tresemme.com', 'assets.unileversolutions.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
   'cerave-pm-facial-moisturising-lotion-52ml': [

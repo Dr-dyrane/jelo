@@ -649,6 +649,30 @@
         "publishedAt": "2026-07-23T19:42:00Z"
       },
       "releaseFingerprint": "6f87f998f7ab36e10ed9192915996d37c7b3c27d70ff5520fe260c57f30b3c27"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "tresemme-keratin-smooth-weightless-conditioner-828ml",
+      "dossierFingerprint": "2102c6b8dd27792450a6a1a4d0625edf44f1d521d7b9850249857c0f090e4f5b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Condition",
+        "displayLine": "Smooth, manageable hair · 828 ml",
+        "usage": "Work through wet hair after shampooing, then rinse well.",
+        "manufacturerDirectionsUrl": "https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T19:55:45Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T19:56:00Z"
+      },
+      "releaseFingerprint": "29b8a7bdf094cfec321d09d3180a2d8522634d63d45e3cd92c367a94a2405b86"
     }
   ]
 }

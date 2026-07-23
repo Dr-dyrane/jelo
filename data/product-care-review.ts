@@ -518,6 +518,21 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'tresemme-keratin-smooth-weightless-conditioner-828ml': {
+    productSlug: 'tresemme-keratin-smooth-weightless-conditioner-828ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'frizz-prone-hair-rinse-out-conditioning',
+      label: 'Rinse-out conditioning for frizz-prone hair',
+      concernIds: ['dry hair', 'frizz', 'damage', 'breakage'],
+      concernSlugs: ['dry-frizzy-hair'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738',
+      'https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips',
+    ],
+    reviewedAt: '2026-07-23',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
