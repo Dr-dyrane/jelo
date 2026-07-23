@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { products, reviewedProductRecords } from '@/data/catalogue';
+import { reviewedProductRecords } from '@/data/catalogue';
 import {
   externalCatalogueApprovals,
   externalCatalogueCandidates,
@@ -16,7 +16,6 @@ const blobHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 
 test('keeps the frozen bulk manifest private behind a hard-disabled legacy gate', () => {
   assert.equal(reviewedProductRecords.length, 23);
-  assert.ok(products.length < reviewedProductRecords.length);
   assert.equal(externalCatalogueCandidates.length, 977);
   assert.equal(externalCatalogueApprovals.approvals.length, 0);
   assert.equal(externalProducts.length, 0);

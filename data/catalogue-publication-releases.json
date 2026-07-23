@@ -169,6 +169,30 @@
         "publishedAt": "2026-07-23T05:07:30Z"
       },
       "releaseFingerprint": "2d8d26956ae25d0409a3e56d8f64547a94a0c4b19b8ab3b064bec7a4cd85d048"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
+      "dossierFingerprint": "0f4758c63cad7f874a7cbb658962497ebbbca7b7714aa723406cddd56b47339d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "10% benzoyl peroxide wash.",
+        "usage": "Use on wet skin, work into a foam, then rinse. Begin once daily and reduce use if dryness or peeling develops.",
+        "manufacturerDirectionsUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+        "reviewer": "JeloCare catalogue presentation review",
+        "reviewedAt": "2026-07-23T05:33:20Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue publication review",
+        "publishedAt": "2026-07-23T05:33:25Z"
+      },
+      "releaseFingerprint": "27ff24df5b57878b7ad8170cf4c1e7288da27c5cd50f7b38acbbcd6d3eea40bd"
     }
   ]
 }
