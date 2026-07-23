@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T03:00:00Z');
+const researchAsOf = Date.parse('2026-07-23T04:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
@@ -26,17 +26,17 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 12);
   assert.equal(catalogueIntakeDecisions.length, 12);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 2);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 3);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 17);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 3);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 10);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 9);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 3);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -214,7 +214,7 @@ test('the acne wash identity binds the official page and revisioned exact-pack i
   );
 });
 
-test('independent care evidence advances an exact manufacturer identity while retaining regulatory context', () => {
+test('the Eucerin sunscreen binds two exact Nigerian listings without relabelling retailer SKUs as GTINs', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'eucerin-oil-control-sun-gel-cream-spf50-50ml');
   assert.ok(candidate);
   assert.equal(candidate.identity.gtin, '8850029013671');
@@ -223,12 +223,31 @@ test('independent care evidence advances an exact manufacturer identity while re
   assert.match(candidate.identity.officialEvidence?.snapshotSha256 ?? '', /^[0-9a-f]{64}$/);
 
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.freshExactOffers.length, 2);
+  assert.deepEqual(
+    decision.freshExactOffers.map(offer => offer.retailer),
+    ['Beauty by Daz', 'Nectar Beauty Hub'],
+  );
+  assert.equal(decision.nigeriaMarketRoute, 'tier-a');
   assert.equal(decision.blockers.includes('identity-gtin-missing-or-invalid'), false);
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
+  assert.equal(decision.blockers.includes('nigeria-offer-identity-unbound'), false);
+  assert.equal(decision.blockers.includes('asset-final-image-missing'), false);
   assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
+  for (const offer of candidate.nigeria.exactOffers) {
+    assert.equal(offer.observedGtin, undefined);
+    assert.equal(offer.observedGtinBasis, 'exact-variant-and-size');
+    const evidence = offer.evidence;
+    assert.ok(evidence);
+    assert.equal(evidence.method, 'reviewed-browser-dom-exact-offer-field-extraction');
+    assert.equal(evidence.responseDigestScope, 'rendered-dom-outerhtml');
+    assert.equal(evidence.fields.gtin.responseRole, 'official-identity-correlation');
+    assert.equal(evidence.browserCapture?.documentReadyState, 'complete');
+  }
 });
 
 test('official CeraVe snapshots advance identity and care without treating retailer SKUs as GTIN evidence', () => {
@@ -364,7 +383,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 17);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 2);
+  ), 0), 4);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

@@ -49,6 +49,30 @@
         "publishedAt": "2026-07-23T02:37:00Z"
       },
       "releaseFingerprint": "81bf2b9299797a3a8f6d5bb050b5975e576f402fd723477fb6e6ed6d7387ee3a"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+      "dossierFingerprint": "d83055ca6ce1a726c1815aae9a4e11e98cf8100df27240d3b3351c9e3e4acdfa",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Daily high protection.",
+        "usage": "Apply generously before sun exposure and reapply often.",
+        "manufacturerDirectionsUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+        "reviewer": "JeloCare catalogue presentation review",
+        "reviewedAt": "2026-07-23T03:05:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue publication review",
+        "publishedAt": "2026-07-23T03:06:00Z"
+      },
+      "releaseFingerprint": "5d0a69985e4686ad0fa52b9fd2c9ea45d0ef28280a693462aff39fd7ceb95695"
     }
   ]
 }

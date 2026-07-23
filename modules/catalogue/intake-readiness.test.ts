@@ -801,6 +801,53 @@ test('matching digits do not count when the retailer labels them only as SKU', (
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
+test('an exact variant and size can bind a price without pretending a retailer SKU is a GTIN', () => {
+  const base = completeCandidate();
+  const original = base.nigeria.exactOffers[0];
+  const evidence = original.evidence!;
+  const exactVariantOffer: CatalogueIntakeOffer = {
+    ...original,
+    observedGtin: undefined,
+    observedGtinBasis: 'exact-variant-and-size',
+    retailerSku: 'internal-123',
+    evidence: {
+      ...evidence,
+      fields: {
+        ...evidence.fields,
+        gtin: {
+          label: 'GTIN',
+          value: base.identity.gtin!,
+          locator: 'Bound official catalogue identity snapshot',
+          sourceText: `Official catalogue identity GTIN ${base.identity.gtin}`,
+          responseRole: 'official-identity-correlation',
+        },
+      },
+    },
+  };
+
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: { ...base.nigeria, exactOffers: [exactVariantOffer] },
+  }, asOf);
+
+  assert.equal(decision.freshExactOffers.length, 1);
+  assert.equal(decision.freshExactOffers[0].observedGtin, undefined);
+  assert.equal(decision.freshExactOffers[0].retailerSku, 'internal-123');
+  assert.equal(decision.stage, 'approval-ready');
+
+  for (const invalid of [
+    { ...exactVariantOffer, observedTitle: 'Example Barrier Cream' },
+    { ...exactVariantOffer, observedSize: '200 ml' },
+    { ...exactVariantOffer, observedGtin: base.identity.gtin },
+  ]) {
+    const invalidDecision = evaluateCatalogueIntakeCandidate({
+      ...base,
+      nigeria: { ...base.nigeria, exactOffers: [invalid] },
+    }, asOf);
+    assert.equal(invalidDecision.freshExactOffers.length, 0);
+  }
+});
+
 test('bare or tampered Nigerian offers cannot qualify as reviewed exact evidence', () => {
   const base = completeCandidate();
   const original = base.nigeria.exactOffers[0];

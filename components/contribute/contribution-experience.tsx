@@ -321,7 +321,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     <span><Check size={28} aria-hidden="true" /></span>
     <p>Shared with JeloCare</p>
     <h2 id="contribution-complete-title">Thank you.</h2>
-    <p>Your note is private until it is reviewed.</p>
+    <p>Your note helps grow Nigeria’s skincare library.</p>
     <div><button type="button" onClick={startAnother}><RotateCcw size={16} aria-hidden="true" /> Add another</button><Link href="/products">Browse products</Link></div>
   </section>;
 
@@ -349,7 +349,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
       </div> : null}
       {currentStep === 'outcome' ? <AdaptiveSelector label="How was it?" hint="Your experience, not a medical claim." mode="single" value={outcomeValue} suggestions={outcomeOptions} allowCustom={false} onChange={values => patchDraft({ outcome: (values[0]?.id as ContributionDraft['outcome']) ?? null })} onInteraction={interaction}/> : null}
       {currentStep === 'review' ? <div className={styles.review}>
-        <div><p>Ready</p><h2 id="contribution-question">Share what you know.</h2><span>Community reported. Reviewed before use.</span></div>
+        <div><p>Ready</p><h2 id="contribution-question">Share what you know.</h2><span>Anonymous. Simple. Useful.</span></div>
         <dl>
           <div><dt>Adding</dt><dd>{kindOptions.find(option => option.id === draft.kind)?.label}</dd></div>
           <div><dt>For</dt><dd>{joined(draft.purposes)}</dd></div>

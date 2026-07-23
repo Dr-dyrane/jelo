@@ -121,7 +121,7 @@ export type CatalogueIntakeOffer = {
   observedTitle: string;
   observedSize: string;
   observedGtin?: string;
-  observedGtinBasis?: 'explicit-gtin' | 'explicit-ean' | 'explicit-upc';
+  observedGtinBasis?: 'explicit-gtin' | 'explicit-ean' | 'explicit-upc' | 'exact-variant-and-size';
   retailerSku?: string;
   priceNgn: number;
   stock: 'in-stock' | 'low-stock' | 'out-of-stock';
@@ -912,11 +912,18 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
   const observedAt = Date.parse(offer.observedAt);
   const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
   const offerReviewedAt = Date.parse(offer.evidence?.reviewedAt ?? '');
+  const exactVariantAndSize = offer.observedGtinBasis === 'exact-variant-and-size';
   if (
     !offer.retailer.trim()
     || !validHttps(offer.listingUrl)
-    || !sameGtin(offer.observedGtin, candidate.identity.gtin)
-    || !['explicit-gtin', 'explicit-ean', 'explicit-upc'].includes(offer.observedGtinBasis ?? '')
+    || (
+      exactVariantAndSize
+        ? offer.observedGtin != null
+        : !sameGtin(offer.observedGtin, candidate.identity.gtin)
+    )
+    || !['explicit-gtin', 'explicit-ean', 'explicit-upc', 'exact-variant-and-size'].includes(
+      offer.observedGtinBasis ?? '',
+    )
     || !Number.isFinite(observedAt)
     || observedAt < asOf - 7 * 86_400_000
     || observedAt > asOf + 5 * 60_000

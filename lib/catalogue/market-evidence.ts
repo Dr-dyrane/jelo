@@ -5,7 +5,11 @@ export const catalogueExactOfferEvidenceSchemaVersion = 1 as const;
 export const catalogueRegulatoryEvidenceSchemaVersion = 2 as const;
 
 export type ExactOfferGtinLabel = 'GTIN' | 'EAN' | 'UPC';
-export type ExactOfferGtinBasis = 'explicit-gtin' | 'explicit-ean' | 'explicit-upc';
+export type ExactOfferGtinBasis =
+  | 'explicit-gtin'
+  | 'explicit-ean'
+  | 'explicit-upc'
+  | 'exact-variant-and-size';
 export type ExactOfferStock = 'in-stock' | 'low-stock' | 'out-of-stock';
 export type MarketEvidenceMimeType = 'application/json' | 'text/html';
 export type MarketEvidenceImageMimeType = 'image/jpeg' | 'image/png' | 'image/webp';
@@ -57,21 +61,28 @@ export type ReviewedPackageRegulatoryLabelResponse = {
 
 export type ReviewedExactOfferEvidence = {
   schemaVersion: typeof catalogueExactOfferEvidenceSchemaVersion;
-  method: 'reviewed-exact-offer-field-extraction';
+  method:
+    | 'reviewed-exact-offer-field-extraction'
+    | 'reviewed-browser-dom-exact-offer-field-extraction';
   listingUrl: string;
   responseUrl: string;
   responseSha256: string;
-  responseDigestScope: 'decoded-response-body';
+  responseDigestScope: 'decoded-response-body' | 'rendered-dom-outerhtml';
   responseMimeType: MarketEvidenceMimeType;
   responseByteSize: number;
   retrievedAt: string;
+  browserCapture?: {
+    surface: 'Codex in-app browser';
+    documentReadyState: 'complete';
+    pageTitle: string;
+  };
   fields: {
     gtin: {
       label: ExactOfferGtinLabel;
       value: string;
       locator: string;
       sourceText: string;
-      responseRole?: 'listing-response' | 'package-barcode-image';
+      responseRole?: 'listing-response' | 'package-barcode-image' | 'official-identity-correlation';
     };
     title: { value: string; locator: string; sourceText: string };
     size: { value: string; locator: string; sourceText: string };
@@ -247,6 +258,7 @@ function expectedLabel(basis: ExactOfferGtinBasis | undefined): ExactOfferGtinLa
   if (basis === 'explicit-gtin') return 'GTIN';
   if (basis === 'explicit-ean') return 'EAN';
   if (basis === 'explicit-upc') return 'UPC';
+  if (basis === 'exact-variant-and-size') return 'GTIN';
   return undefined;
 }
 
@@ -369,13 +381,21 @@ export function reviewedExactOfferEvidenceValid(
   const evidence = offer.evidence;
   if (!evidence || typeof evidence !== 'object' || Array.isArray(evidence)) return false;
   const fields = evidence.fields;
+  const rawResponseEvidence = evidence.method === 'reviewed-exact-offer-field-extraction'
+    && evidence.responseDigestScope === 'decoded-response-body'
+    && evidence.browserCapture == null;
+  const browserResponseEvidence = evidence.method === 'reviewed-browser-dom-exact-offer-field-extraction'
+    && evidence.responseDigestScope === 'rendered-dom-outerhtml'
+    && evidence.responseMimeType === 'text/html'
+    && evidence.browserCapture?.surface === 'Codex in-app browser'
+    && evidence.browserCapture.documentReadyState === 'complete'
+    && evidence.browserCapture.pageTitle.trim().length >= 3;
   if (
     evidence.schemaVersion !== catalogueExactOfferEvidenceSchemaVersion
-    || evidence.method !== 'reviewed-exact-offer-field-extraction'
+    || (!rawResponseEvidence && !browserResponseEvidence)
     || !sameUrl(evidence.listingUrl, offer.listingUrl)
     || !sameUrl(evidence.responseUrl, offer.listingUrl)
     || !hashPattern.test(evidence.responseSha256)
-    || evidence.responseDigestScope !== 'decoded-response-body'
     || !['application/json', 'text/html'].includes(evidence.responseMimeType)
     || !Number.isSafeInteger(evidence.responseByteSize)
     || evidence.responseByteSize <= 0
@@ -403,6 +423,7 @@ export function reviewedExactOfferEvidenceValid(
 
   const label = expectedLabel(offer.observedGtinBasis);
   const gtinResponseRole = fields.gtin.responseRole ?? 'listing-response';
+  const exactVariantAndSize = offer.observedGtinBasis === 'exact-variant-and-size';
   const packageBarcodeValid = gtinResponseRole === 'package-barcode-image'
     && label != null
     && Array.isArray(evidence.supplementalResponses)
@@ -420,13 +441,23 @@ export function reviewedExactOfferEvidenceValid(
     && fields.gtin.label === label
     && typeof fields.gtin.value === 'string'
     && isValidGtin(fields.gtin.value)
-    && isValidGtin(offer.observedGtin ?? '')
     && isValidGtin(candidateGtin ?? '')
-    && canonicalGtin(fields.gtin.value) === canonicalGtin(offer.observedGtin ?? '')
     && canonicalGtin(fields.gtin.value) === canonicalGtin(candidateGtin ?? '')
     && sourceTextContainsExactGtin(fields.gtin.sourceText, fields.gtin.value)
     && sourceNamesLabel(fields.gtin.sourceText, label)
-    && (gtinResponseRole === 'listing-response' || packageBarcodeValid)
+    && (
+      exactVariantAndSize
+        ? (
+          offer.observedGtin == null
+          && gtinResponseRole === 'official-identity-correlation'
+          && /official\s+(?:catalogue\s+)?identity/i.test(fields.gtin.sourceText)
+        )
+        : (
+          isValidGtin(offer.observedGtin ?? '')
+          && canonicalGtin(fields.gtin.value) === canonicalGtin(offer.observedGtin ?? '')
+          && (gtinResponseRole === 'listing-response' || packageBarcodeValid)
+        )
+    )
     && typeof fields.title.value === 'string'
     && normalized(fields.title.value) === normalized(offer.observedTitle)
     && normalized(fields.title.sourceText).includes(normalized(fields.title.value))

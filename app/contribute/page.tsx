@@ -57,7 +57,7 @@ export default async function ContributePage() {
         <div className={styles.trust} aria-label="What to expect">
           <div><ShieldCheck size={18} aria-hidden="true" /><span><strong>Anonymous</strong><small>No account</small></span></div>
           <div><Timer size={18} aria-hidden="true" /><span><strong>About a minute</strong><small>One question at a time</small></span></div>
-          <div><Heart size={18} aria-hidden="true" /><span><strong>Useful</strong><small>Reviewed before use</small></span></div>
+          <div><Heart size={18} aria-hidden="true" /><span><strong>Helps others</strong><small>Adds to the library</small></span></div>
         </div>
       </div>
       <div className={styles.heroImage}>
@@ -68,8 +68,8 @@ export default async function ContributePage() {
     <ContributionExperience purposes={purposes} products={products} brands={brands} retailers={retailers}/>
 
     <section className={styles.boundary}>
-      <p>Every note starts as community reported.</p>
-      <h2>People share. JeloCare checks.</h2>
+      <p>Built together.</p>
+      <h2>One note can help someone choose.</h2>
     </section>
   </main>;
 }
