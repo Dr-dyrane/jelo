@@ -566,6 +566,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
     'https://sianwholesale.com/brands/face_facts?p=2',
     'https://www.ebay.co.uk/itm/406162080305',
   ],
+  'facefacts-ceramide-hydrating-gentle-cleanser-400ml': [
+    'https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/',
+    'https://www.ebay.co.uk/itm/277901941087',
+  ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',

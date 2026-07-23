@@ -57,6 +57,10 @@ test('normalizes punctuation without fuzzy clinical matching', () => {
     item.kind === 'reviewed'
     && item.slug === 'facefacts-ceramide-oil-control-foaming-cleanser-400ml'
   )));
+  assert.ok(joinedBrand.items.some(item => (
+    item.kind === 'reviewed'
+    && item.slug === 'facefacts-ceramide-hydrating-gentle-cleanser-400ml'
+  )));
 });
 
 test('indexes only manifest-approved supportive discovery terms', () => {

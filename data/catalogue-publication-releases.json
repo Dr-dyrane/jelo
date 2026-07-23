@@ -385,6 +385,30 @@
         "publishedAt": "2026-07-23T10:01:00Z"
       },
       "releaseFingerprint": "b4faf3e9d5ef289b247b0719071791a1599344aff69f245ac9394fd87fe5482e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "dossierFingerprint": "3238ddae88c3d6a5b91b3cdf38654f89d545c2a55aab59d1f02ec52c621f2a0a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Fragrance-free cleanser for dry skin.",
+        "usage": "Apply 2-3 pumps onto damp skin, massage gently, then rinse with warm water.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T10:42:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T10:42:45Z"
+      },
+      "releaseFingerprint": "107a9ed3af1c913fa69f91a903dae1dedd3713ae4a66d624e1f77740ec2fe806"
     }
   ]
 }

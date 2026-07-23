@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-07-23T09:58:00Z",
+  "updatedAt": "2026-07-23T10:30:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -5005,6 +5005,433 @@
         "packagingInvented": false,
         "manualSourceOutputQa": true,
         "artReviewedAt": "2026-07-23T09:58:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "brand": "FACE FACTS",
+      "brandAliases": [
+        "FACEFACTS"
+      ],
+      "name": "Ceramide Hydrating Gentle Cleanser",
+      "variant": "Ceramide Hydrating Gentle Cleanser",
+      "size": "400 ml",
+      "category": "Face care",
+      "reason": "Adds a fragrance-free large-format cleanser for dry or sensitive skin with exact manufacturer identity, two independent EAN corroborations, an identity-verified transparent packshot, and live Nigerian prices from Beauty by Daz, Teeka4 and 24Eleven. Retailer identifiers remain store metadata.",
+      "priority": "essential",
+      "gapIds": [
+        "dry-sensitive-skin-cleansing",
+        "large-format-face-cleanser",
+        "fragrance-free-cleansing"
+      ],
+      "demandEvidenceUrls": [
+        "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+        "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+        "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml"
+      ],
+      "identity": {
+        "gtin": "5031413928662",
+        "officialProductUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "checkedAt": "2026-07-23T10:29:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+        "officialEvidence": {
+          "url": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+          "observedGtin": "5031413928662",
+          "observedVariant": "Ceramide Hydrating Gentle Cleanser",
+          "observedSize": "400 ml",
+          "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/facefacts-ceramide-hydrating-gentle-cleanser-400ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 6,
+            "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+            "sourceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+            "responseUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+            "retrievedAt": "2026-07-23T10:17:30Z",
+            "fields": {
+              "gtin": {
+                "value": "5031413928662",
+                "locator": "identifierCorroborations[*].fields.gtin",
+                "sourceText": "EAN 5031413928662 is independently corroborated by Lami Fragrance and eBay UK; the visible manufacturer page does not publish an identifier."
+              },
+              "variant": {
+                "value": "Ceramide Hydrating Gentle Cleanser",
+                "locator": "Rendered accessibility tree product heading",
+                "sourceText": "Ceramide Hydrating Gentle Cleanser 400ml"
+              },
+              "size": {
+                "value": "400 ml",
+                "locator": "Rendered accessibility tree product heading and product details",
+                "sourceText": "Ceramide Hydrating Gentle Cleanser 400ml; 400ml"
+              },
+              "packageVersion": {
+                "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                "locator": "Official manufacturer product image",
+                "sourceText": "The current official image shows a white 400 ml pump bottle with the green Ceramide Hydrating Gentle Cleanser label.",
+                "evidenceUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080"
+              }
+            },
+            "sourceResponseSha256": "8ce7248da490f625845b7ea9c2de4ae867606614698ae458c1fec6efabf05aa8",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 4388,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+                "responseUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+                "retrievedAt": "2026-07-23T10:25:00Z",
+                "responseSha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 32103
+              }
+            ],
+            "responseDigestScope": "rendered-accessibility-tree",
+            "method": "reviewed-browser-accessibility-identity-with-independent-ean-corroboration",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Ceramide Hydrating Gentle Cleanser | Ideal for Dry & Sensitive Skin – FaceFacts"
+            },
+            "identifierCorroborations": [
+              {
+                "sourceUrl": "https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/",
+                "responseUrl": "https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/",
+                "retrievedAt": "2026-07-23T10:28:00Z",
+                "fields": {
+                  "gtin": {
+                    "value": "5031413928662",
+                    "locator": "Rendered accessibility product metadata field labelled GTIN",
+                    "sourceText": "GTIN: 5031413928662"
+                  },
+                  "variant": {
+                    "value": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml",
+                    "locator": "Rendered accessibility product heading",
+                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
+                  },
+                  "size": {
+                    "value": "400 ml",
+                    "locator": "Rendered accessibility product heading size",
+                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
+                  }
+                },
+                "sourceResponseSha256": "7bd49dfb526343299e5dbcc92718b49942a0e72f96091536d6e20bb3ed4a09b1",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 12120,
+                "responseDigestScope": "rendered-accessibility-tree",
+                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "Buy Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-23T10:29:00Z"
+              },
+              {
+                "sourceUrl": "https://www.ebay.co.uk/itm/277901941087",
+                "responseUrl": "https://www.ebay.co.uk/itm/277901941087",
+                "retrievedAt": "2026-07-23T10:22:30Z",
+                "fields": {
+                  "gtin": {
+                    "value": "5031413928662",
+                    "locator": "Rendered accessibility item-specific definition labelled EAN",
+                    "sourceText": "EAN 5031413928662"
+                  },
+                  "variant": {
+                    "value": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml",
+                    "locator": "Rendered accessibility page title",
+                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml | eBay UK"
+                  },
+                  "size": {
+                    "value": "400 ml",
+                    "locator": "Rendered accessibility item-specific Volume definition",
+                    "sourceText": "Volume 400 ml"
+                  }
+                },
+                "sourceResponseSha256": "6fb45e713ac214f320e689b10f8c217b522baf1aca13e000317c5ad43683a72f",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 28574,
+                "responseDigestScope": "rendered-accessibility-tree",
+                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml | eBay UK"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-23T10:26:00Z"
+              }
+            ],
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T10:29:00Z"
+          },
+          "snapshotSha256": "0ff17549a4a6c24dfaebab4c726d2c28395f61fd1f47194993b381cd2aa0024d",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 4818,
+          "retrievedAt": "2026-07-23T10:17:30Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Fragrance-free rinse-off gel cleanser with five ceramides, hyaluronic acid, glycerin and oat amino acids for dry or sensitive skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "This is a rinse-off cosmetic cleanser, not a treatment for eczema, dermatitis or another condition. Apply to damp skin, massage gently and rinse; reduce use if tightness or persistent irritation develops. Fragrance-free labelling and ceramide ingredients do not guarantee tolerance for every person. Cracked, painful, infected, widespread or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-07-23T10:30:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "exactOffers": [
+          {
+            "retailer": "Beauty by Daz",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+            "observedAt": "2026-07-23T10:19:30Z",
+            "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml",
+            "observedSize": "400 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+            "retailerSku": "363-1-byd",
+            "priceNgn": 6950,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseSha256": "4150b48dd96fa4f0d3b9cc05e73ed18464a9ff732b6a648bdd6a7dc0d857ff25",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 200066,
+              "retrievedAt": "2026-07-23T10:19:30Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Facefacts Ceramide Hydrating Gentle Cleanser - 400ml"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "5031413928662",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 5031413928662",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml"
+                },
+                "size": {
+                  "value": "400 ml",
+                  "locator": "Rendered h1 product heading size token",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml"
+                },
+                "packageVersion": {
+                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                  "locator": "Rendered primary product gallery image",
+                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
+                },
+                "price": {
+                  "value": 6950,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦6,950.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered stock status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T10:30:00Z"
+            }
+          },
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+            "observedAt": "2026-07-23T10:21:30Z",
+            "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
+            "observedSize": "400 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+            "retailerSku": "TK-0454",
+            "priceNgn": 7200,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseSha256": "43aafbb86434052e18c5b64ffc0268f151bcac09768a495b3876baa77e0098ca",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 200024,
+              "retrievedAt": "2026-07-23T10:21:30Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Shop for original Facefacts Ceramide Hydrating Gentle Cleanser 400ml in Lagos Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "5031413928662",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 5031413928662",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml"
+                },
+                "size": {
+                  "value": "400 ml",
+                  "locator": "Rendered h1 product heading size token",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml"
+                },
+                "packageVersion": {
+                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                  "locator": "Rendered primary product gallery image",
+                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
+                },
+                "price": {
+                  "value": 7200,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦7,200.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered stock status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T10:30:00Z"
+            }
+          },
+          {
+            "retailer": "24Eleven",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
+            "observedAt": "2026-07-23T10:20:30Z",
+            "observedTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml",
+            "observedSize": "400 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+            "retailerSku": "102232",
+            "priceNgn": 7300,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
+              "responseUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
+              "responseSha256": "8cd9c4fc24e3a921ac3b3bad090240f15983aa2598a6c0b1ebed5361cf5ed5b8",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 93437,
+              "retrievedAt": "2026-07-23T10:20:30Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml | 24eleven.ng - Best price in Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "5031413928662",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 5031413928662",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml"
+                },
+                "size": {
+                  "value": "400 ml",
+                  "locator": "Rendered h1 product heading size token",
+                  "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml"
+                },
+                "packageVersion": {
+                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                  "locator": "Rendered primary product image",
+                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
+                },
+                "price": {
+                  "value": 7300,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦7,300"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered Availability field",
+                  "sourceText": "Available"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T10:30:00Z"
+            }
+          }
+        ],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "sourceUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+        "sourceAssetSha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 32103,
+        "sourceAssetWidth": 1080,
+        "sourceAssetHeight": 1080,
+        "sourceAssetRetrievedAt": "2026-07-23T10:25:00Z",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and Lanczos resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the official Face Facts front-pack photograph and the exact product-identity reference.\nPrimary request: preserve and recreate the exact FACE FACTS Ceramide Skin Barrier Complex Hydrating Gentle Cleanser 400 ml pump bottle shown in Image 1, while replacing only the white background and floor/shadow with a perfectly flat solid chroma-magenta #ff00ff background.\nSubject: one complete opaque white rectangular pump bottle with rounded shoulders, fully visible white pump, and exact original proportions. Keep it perfectly front-facing, centered, upright, crisp, photorealistic, and catalogue-ready.\nText (verbatim, where visible): “facefacts.”; “CERAMIDE”; “SKIN BARRIER COMPLEX”; “Hydrating”; “Gentle Cleanser”; “5 CERAMIDES + HYALURONIC ACID + OATS”; “Dermatologically Tested”; “Fragrance Free”; “Deeply cleanses dry, sensitive skin and helps strengthen your protective moisture barrier”; “VEGAN”; “400 ml e / 13.53 fl.oz”.\nComposition/framing: square 2000 x 2000; full pump and full bottle base visible; generous even clear margin; product must not touch or approach any edge.\nLighting/mood: premium soft frontal studio light contained on the product only; enough edge definition to distinguish the white bottle.\nScene/backdrop: perfectly flat uniform #ff00ff only, no gradient, texture, vignette, floor plane, spill, lighting variation, reflection, cast shadow, or contact shadow.\nConstraints: preserve exact product identity, bottle geometry, green accent colour, typography layout, spelling, claims, and 400 ml size. Use no #ff00ff anywhere on the bottle. No carton, duplicate, props, hands, people, pedestal, watermark, detached text, clipping, altered label, invented badge, or new wording. Do not substitute the 200 ml bottle or the Ceramide Foaming/Oil Control variant.",
+          "inputs": [
+            {
+              "url": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+              "sha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61"
+            }
+          ],
+          "outputSha256": "aa9674bb9e17155a2d89b6258b8d750b6599b8aa42d0f389b6be0ca1702eaa5d",
+          "generatedAt": "2026-07-23T10:25:30Z",
+          "recordSha256": "4c365f6874c7a60770da27f18f9ea2a3af7f49928cadcce650f5ab37c7780e80"
+        },
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-ceramide-hydrating-gentle-cleanser-400ml/packshot-v1-aa9674bb9e17155a.png",
+        "publicImageSha256": "aa9674bb9e17155a2d89b6258b8d750b6599b8aa42d0f389b6be0ca1702eaa5d",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 714474,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-07-23T10:30:00Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }
