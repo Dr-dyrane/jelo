@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T04:00:00Z');
+const researchAsOf = Date.parse('2026-07-23T04:45:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
@@ -26,17 +26,17 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 12);
   assert.equal(catalogueIntakeDecisions.length, 12);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 5);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 15);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 6);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 14);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 5);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 6);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 7);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 6);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 5);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 6);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -91,7 +91,7 @@ test('a bot-protected Dove page advances through a hash-bound browser DOM review
   );
 });
 
-test('the KeraCare 32 oz identity uses the manufacturer GTIN and keeps the conflicting Nigerian SKU out of comparison', () => {
+test('the KeraCare 32 oz identity keeps retailer SKUs local while exact Nigerian offers bind by variant and size', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'keracare-dry-itchy-scalp-conditioner-950ml');
   assert.ok(candidate);
   assert.equal(candidate.identity.gtin, '850068103058');
@@ -106,23 +106,29 @@ test('the KeraCare 32 oz identity uses the manufacturer GTIN and keeps the confl
     candidate.care.independentClinicalGuidanceUrl,
     'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',
   );
-  assert.equal(candidate.nigeria.exactOffers.length, 0);
-  assert.equal(candidate.nigeria.excludedObservations.length, 1);
-  const observation = candidate.nigeria.excludedObservations[0];
-  assert.equal(observation.retailer, 'BuyBetter');
-  assert.equal(observation.observedSize, '950 ml');
-  assert.equal(observation.priceNgn, 38_485);
-  assert.equal(observation.evidence.fields.retailerIdentifier?.label, 'SKU');
-  assert.equal(observation.evidence.fields.retailerIdentifier?.value, '796708350195');
-  assert.ok(observation.exclusionReasons.includes('retailer-identifier-conflicts-with-candidate'));
+  assert.equal(candidate.nigeria.exactOffers.length, 2);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Ediths Essentials']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [38_485, 43_485]);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedSize === '950 ml'), true);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
+  assert.equal(candidate.nigeria.exactOffers[0].retailerSku, '796708350195');
+  assert.equal(candidate.nigeria.exactOffers[1].retailerSku, 'BBE600');
+  assert.equal(candidate.nigeria.exactOffers.every(offer => (
+    offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+  )), true);
+  assert.equal(candidate.nigeria.excludedObservations.length, 0);
+  assert.equal(candidate.asset.publicImageSha256, 'd37d0d5abab7580e7e4c094f4b848ef3250665ece05296769347cdb2cdf89652');
 
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.freshExactOffers.length, 2);
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
   assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
-  assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
+  assert.equal(decision.blockers.includes('nigeria-offer-identity-unbound'), false);
 });
 
 test('the Balance toner advances on an official Shopify barcode without promoting retailer SKUs', () => {
@@ -414,10 +420,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 14);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 8);
+  ), 0), 10);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

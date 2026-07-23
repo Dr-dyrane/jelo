@@ -240,6 +240,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Nigeria beauty retailer with brand pages and product listings.',
   },
   {
+    name: 'Ediths Essentials',
+    homepage: 'https://edithsessentials.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 82,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    identityEvidence: {
+      observedAt: '2026-07-23T04:27:00Z',
+      sourceUrl: 'https://edithsessentials.com/',
+      basis: 'self-published-contact',
+      scope: 'self-published',
+    },
+    searchUrl: query => `https://edithsessentials.com/search?q=${encodeURIComponent(query)}&type=product`,
+    note: 'Lekki retailer with a direct Shopify catalogue, Naira pricing, cart availability, street address and phone contact.',
+  },
+  {
     name: 'AGT Plaza',
     homepage: 'https://www.agtplaza.com/',
     market: 'NG',

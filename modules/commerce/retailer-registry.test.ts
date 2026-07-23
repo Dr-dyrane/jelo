@@ -34,6 +34,16 @@ test('Slique is explicitly provisional without regulator evidence or content reu
   assert.equal(slique.regulatorMatchEvidence, undefined);
 });
 
+test('Ediths Essentials is a self-published direct retailer, not a brand-authorized seller claim', () => {
+  const ediths = nigeriaRetailers.find(store => store.name === 'Ediths Essentials');
+  assert.ok(ediths);
+  assert.equal(ediths.reviewStatus, 'directory-listed');
+  assert.equal(ediths.kind, 'retailer');
+  assert.equal(ediths.identityEvidence?.basis, 'self-published-contact');
+  assert.equal(ediths.identityEvidence?.scope, 'self-published');
+  assert.equal(ediths.regulatorMatchEvidence, undefined);
+});
+
 test('brand authorization binds seller, host, response representation and reviewer chronology', () => {
   const asOf = Date.parse('2026-07-22T23:00:00Z');
   const sourceUrl = 'https://africa.cerave.com/en/find-your-nearest-store';
