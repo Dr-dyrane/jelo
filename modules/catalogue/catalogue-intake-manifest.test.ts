@@ -17,26 +17,26 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T08:00:00Z');
+const researchAsOf = Date.parse('2026-07-23T08:36:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 13);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 14);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 13);
-  assert.equal(catalogueIntakeDecisions.length, 13);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 13);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 10);
+  assert.equal(catalogueIntakeCandidates.length, 14);
+  assert.equal(catalogueIntakeDecisions.length, 14);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 14);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 11);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 13);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 14);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 13);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 14);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -219,6 +219,72 @@ test('the Balance niacinamide serum binds official identity, two exact Nigerian 
   assert.equal(decision.freshExactOffers.length, 2);
   assert.deepEqual(decision.blockers, []);
   assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
+});
+
+test('the original NINELESS dropper stays bound to two independent EAN sources and exact package-version offers', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'nineless-a-control-10-azelaic-acid-serum-30ml'
+  ));
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '8809875270073');
+  assert.equal(candidate.identity.packageVersion, 'Original green dropper bottle');
+  assert.equal(candidate.identity.officialEvidence?.observedPackageVersion, candidate.identity.packageVersion);
+  const extraction = candidate.identity.officialEvidence?.canonicalExtraction;
+  assert.ok(extraction);
+  assert.equal(extraction.schemaVersion, 5);
+  if (extraction.schemaVersion !== 5) return;
+  assert.equal(extraction.fields.manufacturerIdentifierStatus.value, 'not-published');
+  assert.match(extraction.fields.manufacturerIdentifierStatus.sourceText, /"barcode":null/);
+  assert.equal(extraction.identifierCorroborations.length, 2);
+  assert.deepEqual(
+    extraction.identifierCorroborations.map(item => item.fields.gtin.value),
+    ['8809875270073', '8809875270073'],
+  );
+  assert.equal(
+    new Set(extraction.identifierCorroborations.map(item => new URL(item.sourceUrl).hostname)).size,
+    2,
+  );
+  assert.match(candidate.care.advisoryBoundary ?? '', /formula and pack were later changed/i);
+  assert.match(candidate.care.advisoryBoundary ?? '', /must not be applied to this older stock/i);
+  assert.deepEqual(
+    candidate.nigeria.exactOffers.map(offer => offer.retailer),
+    ['Beauty by Daz', 'BuyBetter'],
+  );
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [12_500, 14_500]);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => (
+    offer.observedGtin === undefined
+    && offer.observedGtinBasis === 'exact-variant-and-size'
+    && offer.observedPackageVersion === candidate.identity.packageVersion
+    && offer.evidence?.fields.packageVersion?.value === candidate.identity.packageVersion
+  )), true);
+  assert.equal(candidate.nigeria.excludedObservations.length, 1);
+  assert.equal(candidate.nigeria.excludedObservations.some(observation => (
+    observation.retailer === 'Slique Beauty'
+    && observation.evidence.fields.retailerIdentifier?.label === 'EAN'
+    && observation.evidence.fields.retailerIdentifier.value === '2000000216256'
+    && observation.exclusionReasons.includes('manufacturer-identifier-mismatch')
+    && observation.exclusionReasons.includes('retailer-provisional')
+  )), true);
+  assert.equal(candidate.asset.publicImageSha256, 'd5141014189b67ba0d60045cfda6e7f29d21def48303bd4a2306b5d6be3db155');
+  assert.equal(candidate.asset.publicImageByteSize, 806_089);
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...generationContent } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.nigeriaMarketRoute, 'tier-a');
+  assert.equal(decision.freshExactOffers.length, 2);
+  assert.deepEqual(decision.blockers, []);
+
+  const mismatchedPackage = structuredClone(candidate);
+  mismatchedPackage.nigeria.exactOffers[0].observedPackageVersion = 'Renewed opaque pump bottle';
+  assert.equal(
+    evaluateCatalogueIntakeCandidate(mismatchedPackage, researchAsOf).freshExactOffers.length,
+    1,
+  );
 });
 
 test('the Garnier day cream binds its official GTIN to exact Nigerian offers and a reviewed render', () => {
@@ -537,10 +603,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 10);
+  assert.equal(observations.length, 11);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 24);
+  ), 0), 26);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

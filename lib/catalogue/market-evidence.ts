@@ -86,6 +86,7 @@ export type ReviewedExactOfferEvidence = {
     };
     title: { value: string; locator: string; sourceText: string };
     size: { value: string; locator: string; sourceText: string };
+    packageVersion?: { value: string; locator: string; sourceText: string };
     price: { value: number; currency: 'NGN'; locator: string; sourceText: string };
     stock: { value: ExactOfferStock; locator: string; sourceText: string };
   };
@@ -166,6 +167,7 @@ export type ExactOfferEvidenceSubject = {
   observedSize: string;
   observedGtin?: string;
   observedGtinBasis?: ExactOfferGtinBasis;
+  observedPackageVersion?: string;
   priceNgn: number;
   stock: ExactOfferStock;
   evidence?: ReviewedExactOfferEvidence;
@@ -406,6 +408,7 @@ export function reviewedExactOfferEvidenceValid(
     || !fieldShape(fields.size)
     || !fieldShape(fields.price)
     || !fieldShape(fields.stock)
+    || (fields.packageVersion != null && !fieldShape(fields.packageVersion))
     || typeof evidence.reviewer !== 'string'
     || evidence.reviewer.trim().length < 2
   ) return false;
@@ -464,6 +467,16 @@ export function reviewedExactOfferEvidenceValid(
     && typeof fields.size.value === 'string'
     && measurementTokens(fields.size.value).join('|') === measurementTokens(offer.observedSize).join('|')
     && sourceTextContainsExactSize(fields.size.sourceText, fields.size.value)
+    && (
+      offer.observedPackageVersion == null
+        ? fields.packageVersion == null
+        : (
+          fields.packageVersion != null
+          && typeof fields.packageVersion.value === 'string'
+          && normalized(fields.packageVersion.value) === normalized(offer.observedPackageVersion)
+          && normalized(fields.packageVersion.sourceText).includes(normalized(fields.packageVersion.value))
+        )
+    )
     && typeof fields.price.value === 'number'
     && fields.price.value === offer.priceNgn
     && fields.price.currency === 'NGN'

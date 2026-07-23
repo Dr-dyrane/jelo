@@ -4,6 +4,7 @@ import {
   auditCatalogueIntakeManifest,
   catalogueGenerationRecordSchemaVersion,
   catalogueGenerationRecordSha256,
+  catalogueCorroboratedIdentityExtractionSchemaVersion,
   catalogueIdentityExtractionByteSize,
   catalogueIdentityExtractionSchemaVersion,
   catalogueIdentityExtractionSha256,
@@ -272,6 +273,157 @@ function identityEvidence(
     snapshotSha256: catalogueIdentityExtractionSha256(canonicalExtraction),
     snapshotMimeType: 'application/json',
     snapshotByteSize: catalogueIdentityExtractionByteSize(canonicalExtraction),
+  };
+}
+
+function corroboratedIdentityEvidence(): CatalogueOfficialIdentityEvidence {
+  const candidateId = 'nineless-a-control-10-azelaic-acid-serum-30ml';
+  const officialUrl = 'https://ninelessshop.com/products/a-control-10-azelaic-acid-serum';
+  const packageEvidenceUrl = 'https://ninelessshop.com/cdn/shop/files/0.Renewal_c67199d4-aed7-4f95-8262-c3e7ed690dd5_1024x1024@2x.png?v=1781860295';
+  const observedGtin = '8809875270073';
+  const observedVariant = 'A-Control 10% Azelaic Acid Serum';
+  const observedSize = '30 ml';
+  const observedPackageVersion = 'Original green dropper bottle';
+  const retrievedAt = '2026-07-22T07:55:00Z';
+  const canonicalExtraction = {
+    schemaVersion: catalogueCorroboratedIdentityExtractionSchemaVersion,
+    candidateId,
+    sourceUrl: officialUrl,
+    responseUrl: officialUrl,
+    retrievedAt,
+    fields: {
+      gtin: {
+        value: observedGtin,
+        locator: 'identifierCorroborations[*].fields.gtin',
+        sourceText: `EAN ${observedGtin} corroborated by Happii and Qudo; the official manufacturer page does not publish a barcode.`,
+      },
+      variant: {
+        value: observedVariant,
+        locator: 'Official HTML product title',
+        sourceText: '[A-CONTROL] 10% Azelaic Acid Serum 30ml – NINELESS',
+      },
+      size: {
+        value: observedSize,
+        locator: 'Official HTML product title size',
+        sourceText: '[A-CONTROL] 10% Azelaic Acid Serum 30ml',
+      },
+      manufacturerIdentifierStatus: {
+        value: 'not-published' as const,
+        locator: 'Official Shopify product variant object',
+        sourceText: 'Official variant record: "sku":"","barcode":null',
+      },
+      packageVersion: {
+        value: observedPackageVersion,
+        locator: 'Official renewal comparison image, left package',
+        sourceText: 'Original A-CONTROL 10% Azelaic Acid Serum 30 ml green dropper bottle upgrades to a pump bottle.',
+        evidenceUrl: packageEvidenceUrl,
+      },
+    },
+    sourceResponseSha256: '1'.repeat(64),
+    sourceResponseMimeType: 'text/html' as const,
+    sourceResponseByteSize: 165_168,
+    supplementalResponses: [{
+      role: 'official-pack-image' as const,
+      sourceUrl: packageEvidenceUrl,
+      responseUrl: packageEvidenceUrl,
+      retrievedAt,
+      responseSha256: '2'.repeat(64),
+      responseMimeType: 'image/png' as const,
+      responseByteSize: 313_799,
+    }],
+    responseDigestScope: 'rendered-dom-outerhtml' as const,
+    method: 'reviewed-browser-dom-identity-with-independent-ean-corroboration' as const,
+    browserCapture: {
+      surface: 'Codex in-app browser' as const,
+      documentReadyState: 'complete' as const,
+      pageTitle: '[A-CONTROL] 10% Azelaic Acid Serum 30ml – NINELESS',
+    },
+    identifierCorroborations: [
+      {
+        sourceUrl: 'https://www.happii.dk/Ansigtspleje/Nineless-A-Control-10-Azelaic-Acid-Serum-30-ml/3353734',
+        responseUrl: 'https://www.happii.dk/Ansigtspleje/Nineless-A-Control-10-Azelaic-Acid-Serum-30-ml/3353734',
+        retrievedAt: '2026-07-22T07:56:00Z',
+        fields: {
+          gtin: {
+            value: observedGtin,
+            locator: 'Rendered HTML product specification row labelled Ean',
+            sourceText: `Ean ${observedGtin}`,
+          },
+          variant: {
+            value: 'Nineless A-Control 10% Azelaic Acid Serum 30 ml',
+            locator: 'Rendered HTML product h1',
+            sourceText: 'Nineless A-Control 10% Azelaic Acid Serum 30 ml',
+          },
+          size: {
+            value: observedSize,
+            locator: 'Rendered HTML product h1 size',
+            sourceText: 'Nineless A-Control 10% Azelaic Acid Serum 30 ml',
+          },
+        },
+        sourceResponseSha256: '3'.repeat(64),
+        sourceResponseMimeType: 'text/html' as const,
+        sourceResponseByteSize: 62_495,
+        responseDigestScope: 'rendered-dom-outerhtml' as const,
+        method: 'reviewed-browser-dom-independent-ean-corroboration' as const,
+        browserCapture: {
+          surface: 'Codex in-app browser' as const,
+          documentReadyState: 'complete' as const,
+          pageTitle: 'Nineless A-Control 10% Azelaic Acid Serum 30 ml | På lager | Billig',
+        },
+        reviewer: 'Identity reviewer',
+        reviewedAt: '2026-07-22T07:58:00Z',
+      },
+      {
+        sourceUrl: 'https://qudobeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/',
+        responseUrl: 'https://qudobeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/',
+        retrievedAt: '2026-07-22T07:56:00Z',
+        fields: {
+          gtin: {
+            value: observedGtin,
+            locator: 'Rendered HTML h2.qudo-ean',
+            sourceText: `EAN: ${observedGtin}`,
+          },
+          variant: {
+            value: 'NINE LESS A-Control 10% Azelaic Acid Serum 30ml',
+            locator: 'Rendered HTML h1.product_title',
+            sourceText: 'NINE LESS A-Control 10% Azelaic Acid Serum 30ml',
+          },
+          size: {
+            value: observedSize,
+            locator: 'Rendered HTML product title size',
+            sourceText: 'NINE LESS A-Control 10% Azelaic Acid Serum 30ml',
+          },
+        },
+        sourceResponseSha256: '4'.repeat(64),
+        sourceResponseMimeType: 'text/html' as const,
+        sourceResponseByteSize: 200_152,
+        responseDigestScope: 'rendered-dom-outerhtml' as const,
+        method: 'reviewed-browser-dom-independent-ean-corroboration' as const,
+        browserCapture: {
+          surface: 'Codex in-app browser' as const,
+          documentReadyState: 'complete' as const,
+          pageTitle: 'NINE LESS - a-Control 10% Azelaic Acid Serum - 30ml - Qudo Beauty',
+        },
+        reviewer: 'Identity reviewer',
+        reviewedAt: '2026-07-22T07:58:00Z',
+      },
+    ],
+    reviewer: 'Identity reviewer',
+    reviewedAt: '2026-07-22T07:59:00Z',
+  };
+  return {
+    url: officialUrl,
+    observedGtin,
+    observedVariant,
+    observedSize,
+    observedPackageVersion,
+    snapshotKind: 'canonical-extraction',
+    snapshotPath: `data/catalogue-identity-evidence/${candidateId}.json`,
+    canonicalExtraction,
+    snapshotSha256: catalogueIdentityExtractionSha256(canonicalExtraction),
+    snapshotMimeType: 'application/json',
+    snapshotByteSize: catalogueIdentityExtractionByteSize(canonicalExtraction),
+    retrievedAt,
   };
 }
 
@@ -613,10 +765,70 @@ test('official identity approval is bound to exact observed identity and immutab
   assert.ok(internallyConsistentAttacker.blockers.includes('identity-official-evidence-invalid'));
 });
 
+test('an unpublished manufacturer barcode requires two independent EAN sources and an exact official package version', () => {
+  const officialEvidence = corroboratedIdentityEvidence();
+  const candidate: CatalogueIntakeCandidate = {
+    ...completeCandidate(),
+    id: 'nineless-a-control-10-azelaic-acid-serum-30ml',
+    brand: 'NINELESS',
+    brandAliases: ['NINE LESS'],
+    name: 'A-Control 10% Azelaic Acid Serum',
+    variant: 'A-Control 10% Azelaic Acid Serum',
+    size: '30 ml',
+    identity: {
+      gtin: '8809875270073',
+      officialProductUrl: officialEvidence.url,
+      checkedAt: '2026-07-22T08:00:00Z',
+      basis: 'official-brand',
+      packageVersion: 'Original green dropper bottle',
+      officialEvidence,
+    },
+  };
+  const decision = evaluateCatalogueIntakeCandidate(candidate, asOf);
+  assert.equal(decision.stage, 'care');
+  assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+
+  const extraction = officialEvidence.canonicalExtraction;
+  assert.equal(extraction.schemaVersion, catalogueCorroboratedIdentityExtractionSchemaVersion);
+  if (extraction.schemaVersion !== catalogueCorroboratedIdentityExtractionSchemaVersion) return;
+  const duplicateSource = {
+    ...extraction,
+    identifierCorroborations: [
+      extraction.identifierCorroborations[0],
+      {
+        ...extraction.identifierCorroborations[1],
+        sourceUrl: extraction.identifierCorroborations[0].sourceUrl,
+        responseUrl: extraction.identifierCorroborations[0].responseUrl,
+      },
+    ],
+  };
+  const duplicateSourceDecision = evaluateCatalogueIntakeCandidate({
+    ...candidate,
+    identity: {
+      ...candidate.identity,
+      officialEvidence: withCanonicalExtraction(officialEvidence, duplicateSource),
+    },
+  }, asOf);
+  assert.equal(duplicateSourceDecision.stage, 'identity');
+  assert.ok(duplicateSourceDecision.blockers.includes('identity-official-evidence-invalid'));
+
+  const changedPackageDecision = evaluateCatalogueIntakeCandidate({
+    ...candidate,
+    identity: {
+      ...candidate.identity,
+      packageVersion: 'Renewed opaque pump bottle',
+    },
+  }, asOf);
+  assert.equal(changedPackageDecision.stage, 'identity');
+  assert.ok(changedPackageDecision.blockers.includes('identity-official-evidence-invalid'));
+});
+
 test('canonical identity extraction rejects token collisions and non-raw response MIME types', () => {
   const base = completeCandidate();
   const evidence = base.identity.officialEvidence!;
   const extraction = evidence.canonicalExtraction;
+  assert.equal(extraction.schemaVersion, catalogueIdentityExtractionSchemaVersion);
+  if (extraction.schemaVersion !== catalogueIdentityExtractionSchemaVersion) return;
   const invalidExtractions: CatalogueOfficialIdentityEvidence['canonicalExtraction'][] = [
     {
       ...extraction,
@@ -678,11 +890,14 @@ test('canonical identity extraction rejects token collisions and non-raw respons
   }
 
   const sizeEvidence = identityEvidence({ observedSize: '250 ml' });
+  const sizeExtraction = sizeEvidence.canonicalExtraction;
+  assert.equal(sizeExtraction.schemaVersion, catalogueIdentityExtractionSchemaVersion);
+  if (sizeExtraction.schemaVersion !== catalogueIdentityExtractionSchemaVersion) return;
   const sizeCollisionExtraction = {
-    ...sizeEvidence.canonicalExtraction,
+    ...sizeExtraction,
     fields: {
-      ...sizeEvidence.canonicalExtraction.fields,
-      size: { ...sizeEvidence.canonicalExtraction.fields.size, sourceText: '1250 ml' },
+      ...sizeExtraction.fields,
+      size: { ...sizeExtraction.fields.size, sourceText: '1250 ml' },
     },
   };
   const sizeCollision = evaluateCatalogueIntakeCandidate({
@@ -701,6 +916,8 @@ test('malformed canonical identity extraction shapes become blockers instead of 
   const base = completeCandidate();
   const evidence = base.identity.officialEvidence!;
   const extraction = evidence.canonicalExtraction;
+  assert.equal(extraction.schemaVersion, catalogueIdentityExtractionSchemaVersion);
+  if (extraction.schemaVersion !== catalogueIdentityExtractionSchemaVersion) return;
   const malformedExtractions = [
     { ...extraction, fields: null },
     {

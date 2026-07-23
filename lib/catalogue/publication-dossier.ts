@@ -45,6 +45,7 @@ export type CataloguePublicationDossier = {
     name: string;
     variant: string;
     size: string;
+    packageVersion?: string;
     category: CatalogueIntakeCandidate['category'];
   };
   sourceEvidence: {
@@ -136,6 +137,29 @@ function stableJson(value: unknown): string {
 function cloneOfficialIdentityExtraction(
   extraction: CatalogueOfficialIdentityExtraction,
 ): CatalogueOfficialIdentityExtraction {
+  if (extraction.schemaVersion === 5) {
+    return {
+      ...extraction,
+      fields: {
+        gtin: { ...extraction.fields.gtin },
+        variant: { ...extraction.fields.variant },
+        size: { ...extraction.fields.size },
+        manufacturerIdentifierStatus: { ...extraction.fields.manufacturerIdentifierStatus },
+        packageVersion: { ...extraction.fields.packageVersion },
+      },
+      supplementalResponses: extraction.supplementalResponses.map(response => ({ ...response })),
+      browserCapture: { ...extraction.browserCapture },
+      identifierCorroborations: extraction.identifierCorroborations.map(corroboration => ({
+        ...corroboration,
+        fields: {
+          gtin: { ...corroboration.fields.gtin },
+          variant: { ...corroboration.fields.variant },
+          size: { ...corroboration.fields.size },
+        },
+        browserCapture: { ...corroboration.browserCapture },
+      })),
+    };
+  }
   const fields = {
     gtin: { ...extraction.fields.gtin },
     variant: { ...extraction.fields.variant },
@@ -145,10 +169,19 @@ function cloneOfficialIdentityExtraction(
     return {
       ...extraction,
       fields,
+      ...(extraction.supplementalResponses
+        ? { supplementalResponses: extraction.supplementalResponses.map(response => ({ ...response })) }
+        : {}),
       browserCapture: { ...extraction.browserCapture },
     };
   }
-  return { ...extraction, fields };
+  return {
+    ...extraction,
+    fields,
+    ...(extraction.supplementalResponses
+      ? { supplementalResponses: extraction.supplementalResponses.map(response => ({ ...response })) }
+      : {}),
+  };
 }
 
 function fingerprint(domain: string, value: unknown) {
@@ -333,6 +366,9 @@ export function createCataloguePublicationDossier(
       name: candidate.name,
       variant: candidate.variant,
       size: candidate.size,
+      ...(candidate.identity.packageVersion
+        ? { packageVersion: candidate.identity.packageVersion }
+        : {}),
       category: candidate.category,
     },
     sourceEvidence: {
@@ -343,6 +379,9 @@ export function createCataloguePublicationDossier(
         observedGtin: officialIdentity.observedGtin,
         observedVariant: officialIdentity.observedVariant,
         observedSize: officialIdentity.observedSize,
+        ...(officialIdentity.observedPackageVersion
+          ? { observedPackageVersion: officialIdentity.observedPackageVersion }
+          : {}),
         snapshotKind: officialIdentity.snapshotKind,
         snapshotPath: officialIdentity.snapshotPath,
         canonicalExtraction: cloneOfficialIdentityExtraction(officialIdentity.canonicalExtraction),

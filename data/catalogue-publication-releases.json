@@ -313,6 +313,30 @@
         "publishedAt": "2026-07-23T08:00:30Z"
       },
       "releaseFingerprint": "7849bf1481bf553ff035b8aa1aa21a161f4814c7158a514ed9977e187485785f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
+      "dossierFingerprint": "317b2a03397b46a312dac6b1c5612d04a677b433b01cabdf2b9383853a5c93b5",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Original 10% azelaic-acid serum.",
+        "usage": "Follow the directions on your bottle. The brand has since renewed this formula.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T08:35:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T08:35:40Z"
+      },
+      "releaseFingerprint": "fd398c0ead8c66e27142c7dd92b07df1699884c86523f9a187881fa28dd81eed"
     }
   ]
 }

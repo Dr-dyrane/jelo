@@ -368,7 +368,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 13);
+  assert.equal(result.dossierCount, 14);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -429,6 +429,11 @@ test('the checked-in publication manifest contains the verified neutral referenc
   assert.deepEqual(result.dossiers[12].nigeria.exactOffers.map(offer => offer.priceNgn), [8_400, 10_700]);
   assert.equal(result.dossiers[12].nigeria.regulatoryStatus, 'pending');
   assert.equal(result.dossiers[12].rights.generationRecord?.outputSha256, result.dossiers[12].finalImage.sha256);
+  assert.equal(result.dossiers[13].candidateId, 'nineless-a-control-10-azelaic-acid-serum-30ml');
+  assert.equal(result.dossiers[13].identity.packageVersion, 'Original green dropper bottle');
+  assert.equal(result.dossiers[13].nigeria.marketRoute, 'tier-a');
+  assert.deepEqual(result.dossiers[13].nigeria.exactOffers.map(offer => offer.priceNgn), [12_500, 14_500]);
+  assert.equal(result.dossiers[13].rights.generationRecord?.outputSha256, result.dossiers[13].finalImage.sha256);
 });
 
 test('an approval-ready exact SKU compiles into one immutable source-agnostic private dossier', () => {
@@ -833,7 +838,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 13);
+  assert.equal(report.releaseCount, 14);
   assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
   assert.equal(report.products[0].offers[0].priceNgn, 15_265);
   assert.equal(report.products[1].slug, 'cerave-moisturising-cream-454g');
@@ -935,6 +940,13 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
   assert.equal(report.products[12].offers[1].retailer, 'CSi Grocery');
   assert.equal(report.products[12].offers[1].priceNgn, 10_700);
   assert.equal(report.products[12].offers[1].available, true);
+  assert.equal(report.products[13].slug, 'nineless-a-control-10-azelaic-acid-serum-30ml');
+  assert.equal(report.products[13].category, 'Face');
+  assert.equal(report.products[13].step, 'Treat');
+  assert.equal(report.products[13].offers[0].retailer, 'Beauty by Daz');
+  assert.equal(report.products[13].offers[0].priceNgn, 12_500);
+  assert.equal(report.products[13].offers[1].retailer, 'BuyBetter');
+  assert.equal(report.products[13].offers[1].priceNgn, 14_500);
 });
 
 test('an explicit release materializes identity, image and exact offers only from its verified dossier', () => {
