@@ -5,14 +5,20 @@ import path from 'node:path';
 import test from 'node:test';
 import sharp from 'sharp';
 import promotions from '@/data/product-asset-promotions.json';
+import repairs from '@/data/product-asset-repairs.json';
 import { expandedProducts } from '@/data/expanded-products';
 import { products as coreProducts } from '@/data/products';
-import { analysePackshotSilhouette, likelyTruncatedPackshot } from '@/lib/assets/packshot-silhouette';
+import {
+  analysePackshotSilhouette,
+  likelySlicedPackshotBase,
+  likelyTruncatedPackshot,
+} from '@/lib/assets/packshot-silhouette';
 
 test('staged product promotions are exact local bytes bound to one reviewed product', async () => {
   const ids = new Set<string>();
   const slugs = new Set<string>();
   const productBySlug = new Map([...coreProducts, ...expandedProducts].map(product => [product.slug, product]));
+  const repairIds = new Set(repairs.repairs.map(repair => repair.id));
 
   for (const promotion of promotions) {
     assert.equal(ids.has(promotion.id), false, promotion.id);
@@ -48,5 +54,12 @@ test('staged product promotions are exact local bytes bound to one reviewed prod
       false,
       `${promotion.id}: staged packshot has an inherited lower crop`,
     );
+    if (repairIds.has(promotion.id)) {
+      assert.equal(
+        likelySlicedPackshotBase(silhouette),
+        false,
+        `${promotion.id}: generated repair still has a sliced lower seam`,
+      );
+    }
   }
 });

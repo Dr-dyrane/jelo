@@ -148,6 +148,15 @@ test('next condition guides preserve examination-first care and authoritative so
       sources: ['https://www.who.int/en/news-room/fact-sheets/detail/buruli-ulcer-%28mycobacterium-ulcerans-infection%29'],
       terms: ['in-person medical examination', 'rapid enlargement'],
     },
+    {
+      slug: 'wart-like-ulcer-pattern',
+      pattern: 'infectious-papilloma-ulcer-like',
+      sources: [
+        'https://www.who.int/en/news-room/fact-sheets/detail/yaws',
+        'https://www.who.int/publications/i/item/9789292800024',
+      ],
+      terms: ['prompt in-person examination', 'avoid direct skin contact'],
+    },
   ];
 
   for (const item of expected) {

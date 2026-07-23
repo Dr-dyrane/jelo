@@ -214,6 +214,25 @@ const rules: PatternRule[] = [
     missing: ['Did this begin after starting a medicine?', 'Is the rash spreading, painful, blistering or peeling?', 'Are the mouth, eyes, throat or genitals sore or blistered?'],
   },
   {
+    id: 'infectious-papilloma-ulcer-like', label: 'Wart-like growth-to-ulcer warning pattern',
+    positives: [
+      { terms: ['yaws', 'framboesia'], weight: 68, reason: 'A named infectious skin condition was reported and needs clinical confirmation.' },
+      { terms: ['wart-like growth became an ulcer', 'wart like growth became an ulcer', 'wart-like bump turned into an ulcer', 'wart like bump turned into an ulcer', 'skin growth that ulcerated'], weight: 50, reason: 'A wart-like lesion progressing to an ulcer needs prompt examination.' },
+      { terms: ['multiple raised yellow lesions', 'several raised yellow skin lesions', 'many raised yellow lesions'], weight: 46, reason: 'Several raised yellow lesions support an infectious skin-lesion assessment.' },
+      { terms: ['child has a wart-like growth on the leg', 'child has a wart like growth on the leg', 'child has a wart-like growth on the arm', 'child has a wart like growth on the arm'], weight: 20, reason: 'A wart-like limb lesion in a child adds relevant context without establishing a diagnosis.' },
+      { terms: ['pain and swelling of long bones', 'painful swollen fingers with skin lesions', 'bone pain with multiple skin lesions'], weight: 28, reason: 'Bone or finger symptoms alongside skin lesions require clinical review.' },
+    ],
+    negatives: [
+      { terms: ['ring-shaped scaly patch', 'central clearing', 'raised spreading edge'], weight: 38, reason: 'A scaly ring with central clearing supports a fungal-rash pathway.' },
+      { terms: ['golden-brown crust', 'sores burst and crusted', 'spreading crusts'], weight: 38, reason: 'Bursting sores with characteristic crusting support the impetigo pathway.' },
+      { terms: ['painless swelling became an ulcer', 'painless ulcer keeps enlarging'], weight: 36, reason: 'A painless enlarging ulcer without a preceding wart-like growth needs the ulcer pathway.' },
+      { terms: ['firm painful lesions', 'swollen lymph nodes', 'close contact with mpox'], weight: 42, reason: 'Painful evolving lesions with swollen glands support the mpox pathway.' },
+      { terms: ['stable wart', 'wart has not changed', 'one ordinary wart'], weight: 34, reason: 'A stable ordinary wart without ulceration is not specific for this warning pattern.' },
+      { terms: ['painless foot mass with draining holes', 'discharge containing grains'], weight: 38, reason: 'A chronic draining mass requires a different deep-infection assessment.' },
+    ],
+    missing: ['Did it begin as a wart-like growth and then ulcerate?', 'Is it on an arm or leg, and are there several raised yellow lesions?', 'Is this affecting a child, or does anyone close have a similar lesion?', 'Is there finger or long-bone pain or swelling?', 'Is there fever, warmth, pus, severe pain or rapid worsening?'],
+  },
+  {
     id: 'painless-ulcer-like', label: 'Painless enlarging-ulcer pattern',
     positives: [
       { terms: ['buruli ulcer'], weight: 60, reason: 'A named ulcer-forming infection was reported and needs clinical confirmation.' },

@@ -11,6 +11,7 @@ export type PackshotSilhouetteMetrics = {
   bottomTerminalRunFraction: number;
   leftTerminalRunFraction: number;
   rightTerminalRunFraction: number;
+  bottomNearTerminalStrongEdgeRunFraction: number;
   maximumTerminalRunFraction: number;
 };
 
@@ -65,6 +66,33 @@ export async function analysePackshotSilhouette(
   const bottomTerminalRunFraction = longestRun(width, offset => visible(left + offset, bottom));
   const leftTerminalRunFraction = longestRun(height, offset => visible(left, top + offset));
   const rightTerminalRunFraction = longestRun(height, offset => visible(right, top + offset));
+  let bottomNearTerminalStrongEdgeRunFraction = 0;
+  const bottomReviewStart = Math.max(top + 1, Math.floor(bottom - height * 0.1));
+  for (let y = bottomReviewStart; y <= bottom; y += 1) {
+    let visiblePixels = 0;
+    for (let x = left; x <= right; x += 1) {
+      if (visible(x, y)) visiblePixels += 1;
+    }
+    // Only inspect rows that are still inside the broad package body. The
+    // natural antialiased curve at the terminal edge must remain valid.
+    if (visiblePixels / width < 0.85) continue;
+    const strongEdgeRun = longestRun(width, offset => {
+      const x = left + offset;
+      if (!visible(x, y) || !visible(x, y - 1)) return false;
+      const current = (y * info.width + x) * info.channels;
+      const previous = ((y - 1) * info.width + x) * info.channels;
+      const verticalDelta = (
+        Math.abs((data[current] ?? 0) - (data[previous] ?? 0))
+        + Math.abs((data[current + 1] ?? 0) - (data[previous + 1] ?? 0))
+        + Math.abs((data[current + 2] ?? 0) - (data[previous + 2] ?? 0))
+      ) / 3;
+      return verticalDelta >= 24;
+    });
+    bottomNearTerminalStrongEdgeRunFraction = Math.max(
+      bottomNearTerminalStrongEdgeRunFraction,
+      strongEdgeRun,
+    );
+  }
   return {
     left,
     top,
@@ -76,6 +104,7 @@ export async function analysePackshotSilhouette(
     bottomTerminalRunFraction,
     leftTerminalRunFraction,
     rightTerminalRunFraction,
+    bottomNearTerminalStrongEdgeRunFraction,
     // Tall bottles and tubes can legitimately have long straight side walls at
     // their left or right extrema. A full-width horizontal terminal edge is the
     // inherited-crop signature this gate is designed to catch.
@@ -85,4 +114,10 @@ export async function analysePackshotSilhouette(
 
 export const likelyTruncatedPackshot = (metrics: PackshotSilhouetteMetrics) => (
   metrics.bottomTerminalRunFraction >= 0.95
+);
+
+export const likelySlicedPackshotBase = (metrics: PackshotSilhouetteMetrics) => (
+  // A generated extension can technically round the alpha silhouette while
+  // leaving a long high-contrast seam that still reads as a sliced package.
+  metrics.bottomNearTerminalStrongEdgeRunFraction >= 0.28
 );

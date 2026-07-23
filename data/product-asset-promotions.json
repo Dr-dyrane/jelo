@@ -90,18 +90,18 @@
     "contentHash": "c5403d6e8e094b8a8c4cffd681c31edefad65fa3350854bf623f726048739e79"
   },
   {
-    "id": "dove-go-fresh-cucumber-green-tea-spray-v3",
+    "id": "dove-go-fresh-cucumber-green-tea-spray-v4",
     "active": false,
     "productSlug": "dove-go-fresh-cucumber-green-tea-spray",
     "sourceUrl": "https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600",
-    "localPath": "/products/dove/dove-go-fresh-cucumber-green-tea-spray-transparent-v3.png",
-    "blobPath": "products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v3.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v3.png",
+    "localPath": "/products/dove/dove-go-fresh-cucumber-green-tea-spray-transparent-v4.png",
+    "blobPath": "products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v4.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v4.png",
     "contentType": "image/png",
-    "byteSize": 1186091,
-    "width": 2000,
-    "height": 2000,
+    "byteSize": 506842,
+    "width": 1254,
+    "height": 1254,
     "hasAlpha": true,
-    "contentHash": "7a9122c005144cd9af9c4bed6d5d385e903463e5c4ffb944cffddc4ecbf5f204"
+    "contentHash": "8fd75d3c00f8208574f23cc0d9ab6a3b653e2916109d61aa7d00d61cfb89452e"
   }
 ]

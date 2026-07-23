@@ -7,6 +7,7 @@ import {
   type CatalogueIntakeCandidate,
   type CatalogueIntakeOffer,
   type CatalogueNigeriaMarketRoute,
+  type CatalogueOfficialIdentityExtraction,
   type CatalogueOfficialIdentityEvidence,
   type CatalogueSourceAssetMimeType,
 } from './intake-readiness';
@@ -128,6 +129,24 @@ function stableJson(value: unknown): string {
     .sort()
     .map(key => `${JSON.stringify(key)}:${stableJson(record[key])}`)
     .join(',')}}`;
+}
+
+function cloneOfficialIdentityExtraction(
+  extraction: CatalogueOfficialIdentityExtraction,
+): CatalogueOfficialIdentityExtraction {
+  const fields = {
+    gtin: { ...extraction.fields.gtin },
+    variant: { ...extraction.fields.variant },
+    size: { ...extraction.fields.size },
+  };
+  if (extraction.schemaVersion === 4) {
+    return {
+      ...extraction,
+      fields,
+      browserCapture: { ...extraction.browserCapture },
+    };
+  }
+  return { ...extraction, fields };
 }
 
 function fingerprint(domain: string, value: unknown) {
@@ -318,25 +337,7 @@ export function createCataloguePublicationDossier(
         observedSize: officialIdentity.observedSize,
         snapshotKind: officialIdentity.snapshotKind,
         snapshotPath: officialIdentity.snapshotPath,
-        canonicalExtraction: {
-          schemaVersion: officialIdentity.canonicalExtraction.schemaVersion,
-          candidateId: officialIdentity.canonicalExtraction.candidateId,
-          sourceUrl: officialIdentity.canonicalExtraction.sourceUrl,
-          responseUrl: officialIdentity.canonicalExtraction.responseUrl,
-          responseDigestScope: officialIdentity.canonicalExtraction.responseDigestScope,
-          retrievedAt: officialIdentity.canonicalExtraction.retrievedAt,
-          fields: {
-            gtin: { ...officialIdentity.canonicalExtraction.fields.gtin },
-            variant: { ...officialIdentity.canonicalExtraction.fields.variant },
-            size: { ...officialIdentity.canonicalExtraction.fields.size },
-          },
-          sourceResponseSha256: officialIdentity.canonicalExtraction.sourceResponseSha256,
-          sourceResponseMimeType: officialIdentity.canonicalExtraction.sourceResponseMimeType,
-          sourceResponseByteSize: officialIdentity.canonicalExtraction.sourceResponseByteSize,
-          method: officialIdentity.canonicalExtraction.method,
-          reviewer: officialIdentity.canonicalExtraction.reviewer,
-          reviewedAt: officialIdentity.canonicalExtraction.reviewedAt,
-        },
+        canonicalExtraction: cloneOfficialIdentityExtraction(officialIdentity.canonicalExtraction),
         snapshotSha256: officialIdentity.snapshotSha256,
         snapshotMimeType: officialIdentity.snapshotMimeType,
         snapshotByteSize: officialIdentity.snapshotByteSize,

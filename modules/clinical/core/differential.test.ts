@@ -30,6 +30,7 @@ const patternCases = [
   ['A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.', 'painless-ulcer-like'],
   ['Severe itching with firm lumps under my skin and my vision is getting worse.', 'onchocerciasis-like'],
   ['My leg has stayed swollen for months and the skin is becoming thick and hard.', 'chronic-lymphoedema-like'],
+  ['A child has a wart-like growth on the leg that became an ulcer.', 'infectious-papilloma-ulcer-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -64,6 +65,26 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('Severe itching with firm lumps under my skin.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('My leg has stayed swollen for months and the skin is becoming thick and hard.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('A child has a wart-like growth on the leg that became an ulcer.').referral.level, 'primary-care');
+});
+
+test('wart-like ulcer warnings stop skincare without swallowing nearby patterns', () => {
+  for (const description of [
+    'A child has a wart-like growth on the leg that became an ulcer.',
+    'A child has multiple raised yellow skin lesions after one wart-like growth.',
+    'I was told this could be yaws and I also have oily acne.',
+  ]) {
+    const assessment = assessClinicalRoutine(description);
+    assert.equal(assessment.differential.primary?.id, 'infectious-papilloma-ulcer-like', description);
+    assert.equal(assessment.referral.level, 'primary-care', description);
+    assert.equal(assessment.referral.urgency, 'soon', description);
+  }
+
+  assert.notEqual(assessClinicalRoutine('One stable ordinary wart has not changed.').differential.primary?.id, 'infectious-papilloma-ulcer-like');
+  assert.equal(assessClinicalRoutine('An itchy ring-shaped scaly patch has central clearing.').differential.primary?.id, 'tinea-corporis-like');
+  assert.equal(assessClinicalRoutine('Sores burst and left spreading golden-brown crusts.').differential.primary?.id, 'impetigo-like');
+  assert.equal(assessClinicalRoutine('A painless swelling became an ulcer and keeps enlarging.').differential.primary?.id, 'painless-ulcer-like');
+  assert.equal(assessClinicalRoutine('Firm painful lesions blistered with swollen glands after close contact with mpox.').differential.primary?.id, 'mpox-like');
 });
 
 test('persistent swelling stops skincare while acute clot and infection warnings keep priority', () => {
@@ -191,6 +212,7 @@ test('named conditions interrupt even when ordinary acne ranks alongside them', 
     ['I was told this could be Buruli ulcer and I also have oily acne.', 'primary-care'],
     ['I was told this could be river blindness and I also have oily acne.', 'primary-care'],
     ['I have lymphoedema and oily acne on my forehead.', 'primary-care'],
+    ['I was told this could be yaws and I also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [description, level] of cases) {

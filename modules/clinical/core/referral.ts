@@ -216,6 +216,11 @@ export function assessReferral(input: {
     };
   }
 
+  if (primaryId === 'infectious-papilloma-ulcer-like' || mentionsNamedPattern(normalized, /\b(?:yaws|framboesia)\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A wart-like growth-to-ulcer or named infectious skin pattern was reported.'],
+    action: 'Arrange a prompt in-person examination through a clinic or skin-NTD service. Avoid direct contact with the lesion, and do not use cosmetic treatment or start antibiotics without clinical direction.',
+  };
+
   if (primaryId === 'painless-ulcer-like' || mentionsNamedPattern(normalized, /\bburuli ulcer\b/)) return {
     level: 'primary-care', urgency: 'soon', reasons: ['A painless swelling or enlarging-ulcer pattern was reported.'],
     action: 'Arrange a prompt in-person medical examination; do not rely on cosmetic or over-the-counter skincare treatment.',

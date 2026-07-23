@@ -2,7 +2,14 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { analysePackshotSilhouette, likelyTruncatedPackshot } from '../lib/assets/packshot-silhouette';
+import repairs from '../data/product-asset-repairs.json';
+import {
+  analysePackshotSilhouette,
+  likelySlicedPackshotBase,
+  likelyTruncatedPackshot,
+} from '../lib/assets/packshot-silhouette';
+
+const repairedSlugs = new Set(repairs.repairs.map(repair => repair.productSlug));
 
 type AssetRecord = {
   sourceUrl: string;
@@ -83,6 +90,9 @@ async function inspect(slug: string, record: AssetRecord) {
     const silhouette = await analysePackshotSilhouette(bytes);
     if (likelyTruncatedPackshot(silhouette)) {
       throw new Error(`${slug}: public packshot has a full-width lower silhouette edge (${silhouette.bottomTerminalRunFraction.toFixed(3)}), indicating an inherited crop or incomplete package base.`);
+    }
+    if (repairedSlugs.has(slug) && likelySlicedPackshotBase(silhouette)) {
+      throw new Error(`${slug}: generated repair still has a long lower seam (${silhouette.bottomNearTerminalStrongEdgeRunFraction.toFixed(3)}), indicating a visibly sliced package base.`);
     }
   }
 

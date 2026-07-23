@@ -7,7 +7,11 @@ import sharp from 'sharp';
 import repairs from '@/data/product-asset-repairs.json';
 import productAssets from '@/data/product-assets.json';
 import { productDisplayApprovals } from '@/data/product-display-approvals';
-import { analysePackshotSilhouette, likelyTruncatedPackshot } from '@/lib/assets/packshot-silhouette';
+import {
+  analysePackshotSilhouette,
+  likelySlicedPackshotBase,
+  likelyTruncatedPackshot,
+} from '@/lib/assets/packshot-silhouette';
 
 test('generated packshot repairs bind identity, defective input, exact output and visual review', async () => {
   assert.equal(repairs.schemaVersion, 1);
@@ -49,6 +53,7 @@ test('generated packshot repairs bind identity, defective input, exact output an
     assert.equal(metadata.hasAlpha, true);
     assert.equal(statistics.isOpaque, false);
     assert.equal(likelyTruncatedPackshot(silhouette), false);
+    assert.equal(likelySlicedPackshotBase(silhouette), false);
     assert.equal(asset.contentHash, repair.output.sha256);
     assert.equal(asset.blobUrl, repair.output.blobUrl);
     assert.equal(derivation.repairRecordId, repair.id);
@@ -62,6 +67,10 @@ test('generated packshot repairs bind identity, defective input, exact output an
     }
     const clippedBytes = await readFile(path.join(process.cwd(), 'public', clippedInput.localPath.replace(/^\//, '')));
     assert.equal(createHash('sha256').update(clippedBytes).digest('hex'), clippedInput.sha256);
-    assert.equal(likelyTruncatedPackshot(await analysePackshotSilhouette(clippedBytes)), true);
+    const clippedSilhouette = await analysePackshotSilhouette(clippedBytes);
+    assert.equal(
+      likelyTruncatedPackshot(clippedSilhouette) || likelySlicedPackshotBase(clippedSilhouette),
+      true,
+    );
   }
 });

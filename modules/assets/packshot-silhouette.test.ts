@@ -3,7 +3,11 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import sharp from 'sharp';
-import { analysePackshotSilhouette, likelyTruncatedPackshot } from '@/lib/assets/packshot-silhouette';
+import {
+  analysePackshotSilhouette,
+  likelySlicedPackshotBase,
+  likelyTruncatedPackshot,
+} from '@/lib/assets/packshot-silhouette';
 
 test('a flat inherited crop is rejected even after transparent padding is added', async () => {
   const clipped = await sharp({
@@ -31,18 +35,26 @@ test('a completed rounded package base passes the terminal-edge gate', async () 
   assert.ok(metrics.bottomTerminalRunFraction < 0.5);
 });
 
-test('the Dove repair closes the exact clipping regression', async () => {
+test('the Dove repair closes the exact clipping and sliced-base regressions', async () => {
   const root = path.join(process.cwd(), 'public', 'products', 'dove');
-  const [clipped, repaired] = await Promise.all([
+  const [clipped, sliced, repaired] = await Promise.all([
     readFile(path.join(root, 'dove-go-fresh-cucumber-green-tea-spray-transparent-v2.png')),
     readFile(path.join(root, 'dove-go-fresh-cucumber-green-tea-spray-transparent-v3.png')),
+    readFile(path.join(root, 'dove-go-fresh-cucumber-green-tea-spray-transparent-v4.png')),
   ]);
-  const [before, after] = await Promise.all([
+  const [before, intermediate, after] = await Promise.all([
     analysePackshotSilhouette(clipped),
+    analysePackshotSilhouette(sliced),
     analysePackshotSilhouette(repaired),
   ]);
   assert.equal(before.bottomTerminalRunFraction, 1);
   assert.equal(likelyTruncatedPackshot(before), true);
+  assert.ok(intermediate.bottomTerminalRunFraction < 0.5);
+  assert.ok(intermediate.bottomNearTerminalStrongEdgeRunFraction >= 0.28);
+  assert.equal(likelyTruncatedPackshot(intermediate), false);
+  assert.equal(likelySlicedPackshotBase(intermediate), true);
   assert.equal(likelyTruncatedPackshot(after), false);
+  assert.equal(likelySlicedPackshotBase(after), false);
   assert.ok(after.bottomTerminalRunFraction < 0.5);
+  assert.ok(after.bottomNearTerminalStrongEdgeRunFraction < 0.28);
 });

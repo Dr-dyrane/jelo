@@ -4,9 +4,15 @@ import path from 'node:path';
 import { put } from '@vercel/blob';
 import sharp from 'sharp';
 import promotions from '../data/product-asset-promotions.json';
-import { analysePackshotSilhouette, likelyTruncatedPackshot } from '../lib/assets/packshot-silhouette';
+import repairs from '../data/product-asset-repairs.json';
+import {
+  analysePackshotSilhouette,
+  likelySlicedPackshotBase,
+  likelyTruncatedPackshot,
+} from '../lib/assets/packshot-silhouette';
 
 const assetHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
+const repairIds = new Set(repairs.repairs.map(repair => repair.id));
 
 type Promotion = {
   id: string;
@@ -67,6 +73,12 @@ async function verifiedBytes(promotion: Promotion) {
     throw new Error(
       `${promotion.id}: staged packshot has a full-width lower silhouette edge `
       + `(${silhouette.bottomTerminalRunFraction.toFixed(3)}); repair the inherited crop before upload`,
+    );
+  }
+  if (promotion.hasAlpha && repairIds.has(promotion.id) && likelySlicedPackshotBase(silhouette)) {
+    throw new Error(
+      `${promotion.id}: generated repair retains a long lower seam `
+      + `(${silhouette.bottomNearTerminalStrongEdgeRunFraction.toFixed(3)}); rebuild and visually review the base before upload`,
     );
   }
   return bytes;

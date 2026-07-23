@@ -332,6 +332,18 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Stevens-Johnson syndrome', url: 'https://www.nhs.uk/conditions/stevens-johnson-syndrome/' }], reviewedAt,
   },
   {
+    slug: 'wart-like-ulcer-pattern', name: 'Wart-like growth becoming an ulcer', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['infectious-papilloma-ulcer-like'],
+    summary: 'A wart-like growth that becomes an ulcer, or several raised yellow lesions, needs prompt examination.',
+    signals: ['wart-like growth, often on an arm or leg', 'growth that breaks down into an ulcer', 'several raised yellow lesions', 'finger or long-bone pain and swelling'],
+    ingredients: ['prompt in-person examination', 'avoid direct contact with the lesion', 'tell the clinician if close contacts have similar sores'],
+    productTerms: [],
+    escalation: 'Arrange a prompt in-person examination, especially for a child or when close contacts have similar lesions. Avoid direct skin contact with the lesion until assessed. Fever, severe pain, rapidly increasing swelling, warmth, pus or feeling unwell needs same-day care. Do not rely on wart removers, skincare products or self-started antibiotics.',
+    sources: [
+      { title: 'World Health Organization · Yaws', url: 'https://www.who.int/en/news-room/fact-sheets/detail/yaws' },
+      { title: 'World Health Organization · Integrated skin NTD guidance', url: 'https://www.who.int/publications/i/item/9789292800024' },
+    ], reviewedAt,
+  },
+  {
     slug: 'painless-ulcer-pattern', name: 'Painless swelling or ulcer', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['painless-ulcer-like'],
     summary: 'A painless swelling, firm patch or ulcer that enlarges.',
     signals: ['painless swelling or firm patch', 'an ulcer that enlarges', 'often on an arm, leg or face', 'may begin without fever'],

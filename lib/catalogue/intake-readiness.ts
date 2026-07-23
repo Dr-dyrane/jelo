@@ -18,9 +18,10 @@ import {
   type CataloguePublicationImageMimeType,
 } from './publication-image-policy';
 
-export const catalogueIntakeSchemaVersion = 7 as const;
+export const catalogueIntakeSchemaVersion = 8 as const;
 export const catalogueGenerationRecordSchemaVersion = 1 as const;
 export const catalogueIdentityExtractionSchemaVersion = 3 as const;
+export const catalogueBrowserIdentityExtractionSchemaVersion = 4 as const;
 export const catalogueMarketObservationSchemaVersion = 1 as const;
 export const catalogueRegulatorySearchObservationSchemaVersion = 1 as const;
 
@@ -38,12 +39,10 @@ export type CatalogueIdentityEvidenceMimeType =
   | 'text/html'
   | 'text/javascript';
 
-export type CatalogueOfficialIdentityExtraction = {
-  schemaVersion: typeof catalogueIdentityExtractionSchemaVersion;
+type CatalogueOfficialIdentityExtractionBase = {
   candidateId: string;
   sourceUrl: string;
   responseUrl: string;
-  responseDigestScope: 'decoded-response-body';
   retrievedAt: string;
   fields: {
     gtin: { value: string; locator: string; sourceText: string };
@@ -62,10 +61,27 @@ export type CatalogueOfficialIdentityExtraction = {
     responseMimeType: 'image/avif' | 'image/jpeg' | 'image/png' | 'image/webp';
     responseByteSize: number;
   }>;
-  method: 'reviewed-exact-identity-field-extraction';
   reviewer: string;
   reviewedAt: string;
 };
+
+export type CatalogueOfficialIdentityExtraction = CatalogueOfficialIdentityExtractionBase & (
+  | {
+    schemaVersion: typeof catalogueIdentityExtractionSchemaVersion;
+    responseDigestScope: 'decoded-response-body';
+    method: 'reviewed-exact-identity-field-extraction';
+  }
+  | {
+    schemaVersion: typeof catalogueBrowserIdentityExtractionSchemaVersion;
+    responseDigestScope: 'rendered-dom-outerhtml';
+    method: 'reviewed-browser-dom-identity-field-extraction';
+    browserCapture: {
+      surface: 'Codex in-app browser';
+      documentReadyState: 'complete';
+      pageTitle: string;
+    };
+  }
+);
 
 export type CatalogueOfficialIdentityEvidence = {
   url: string;
@@ -361,6 +377,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
+  dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   garnier: ['www.garnier.co.uk'],
 };
@@ -383,6 +400,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
     'www.cerave.com',
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
+  dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   garnier: ['www.garnier.co.uk'],
 };
@@ -640,6 +658,23 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
   const extraction = evidence?.canonicalExtraction;
   const checkedAt = Date.parse(candidate.identity.checkedAt ?? '');
   const retrievedAt = Date.parse(evidence?.retrievedAt ?? '');
+  const extractionRepresentationValid = extraction && (
+    (
+      extraction.schemaVersion === catalogueIdentityExtractionSchemaVersion
+      && extraction.method === 'reviewed-exact-identity-field-extraction'
+      && extraction.responseDigestScope === 'decoded-response-body'
+      && !('browserCapture' in extraction)
+    )
+    || (
+      extraction.schemaVersion === catalogueBrowserIdentityExtractionSchemaVersion
+      && extraction.method === 'reviewed-browser-dom-identity-field-extraction'
+      && extraction.responseDigestScope === 'rendered-dom-outerhtml'
+      && extraction.sourceResponseMimeType === 'text/html'
+      && extraction.browserCapture.surface === 'Codex in-app browser'
+      && extraction.browserCapture.documentReadyState === 'complete'
+      && extraction.browserCapture.pageTitle.trim().length >= 3
+    )
+  );
   return Boolean(
     evidence
     && typeof evidence.url === 'string'
@@ -655,10 +690,9 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
     && evidence.snapshotPath === `data/catalogue-identity-evidence/${candidate.id}.json`
     && evidence.snapshotMimeType === 'application/json'
     && extraction
-    && extraction.schemaVersion === catalogueIdentityExtractionSchemaVersion
+    && extractionRepresentationValid
     && typeof extraction.candidateId === 'string'
     && extraction.candidateId === candidate.id
-    && extraction.method === 'reviewed-exact-identity-field-extraction'
     && extraction.fields
     && identityExtractionFieldValid(extraction.fields.gtin)
     && identityExtractionFieldValid(extraction.fields.variant)
@@ -666,7 +700,6 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
     && extractionNamesExplicitManufacturerIdentifier(extraction.fields.gtin)
     && typeof extraction.sourceUrl === 'string'
     && typeof extraction.responseUrl === 'string'
-    && extraction.responseDigestScope === 'decoded-response-body'
     && typeof extraction.retrievedAt === 'string'
     && sameUrl(extraction.sourceUrl, evidence.url)
     && sameUrl(extraction.responseUrl, extraction.sourceUrl)
