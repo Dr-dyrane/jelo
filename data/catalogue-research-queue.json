@@ -754,33 +754,6 @@
     },
     {
       "rank": 28,
-      "discoveryId": "7903807e2e097371344a660a",
-      "title": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml",
-      "brandHint": "CERAVE",
-      "size": "150ml",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 156,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "03606000512238",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 29,
       "discoveryId": "f87e67c0fb61e9574f74ef21",
       "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
       "brandHint": "Garnier",
@@ -807,7 +780,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 29,
       "discoveryId": "f6fdad85c61090e67bea6ec9",
       "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
       "brandHint": "NINELESS",
@@ -834,7 +807,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 30,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -861,7 +834,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 31,
       "discoveryId": "005fe384576be5e38689857f",
       "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
       "brandHint": "Replenix",
@@ -872,6 +845,33 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "00358211113003",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 32,
+      "discoveryId": "cd29efd703d9f5ad9192bf01",
+      "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
+      "brandHint": "SKIN BY ZARON",
+      "size": "150ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 156,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "06908137011460",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

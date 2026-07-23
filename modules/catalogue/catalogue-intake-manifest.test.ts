@@ -17,26 +17,26 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T16:00:00Z');
+const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 22);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 23);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 22);
-  assert.equal(catalogueIntakeDecisions.length, 22);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 22);
+  assert.equal(catalogueIntakeCandidates.length, 23);
+  assert.equal(catalogueIntakeDecisions.length, 23);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 23);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 13);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 22);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 23);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 22);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 23);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -597,6 +597,35 @@ test('the acne wash binds its official identity, exact Nigerian offers and gener
   );
 });
 
+test('the 4% acne cleanser keeps exact size evidence, current availability and its own generated tube', () => {
+  const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-acne-foaming-cream-cleanser-4-150ml');
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '3606000512238');
+  assert.equal(candidate.identity.officialEvidence?.observedVariant, 'CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '150 ml');
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [24_000, 23_500]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['low-stock', 'out-of-stock']);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => (
+    offer.observedGtinBasis === 'exact-variant-and-size'
+    && offer.evidence?.method === 'reviewed-browser-accessibility-exact-offer-field-extraction'
+    && offer.evidence.fields.gtin.responseRole === 'official-identity-correlation'
+  )), true);
+  assert.equal(candidate.demandEvidenceUrls.some(url => new URL(url).hostname === 'beautybydaz.com'), true);
+  assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Beauty by Daz'), false);
+  assert.equal(candidate.asset.publicImageSha256, '0d11157551c6370db25cb976af5e61af7838008151ac3a257c9b1a51c1cf3bba');
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...generationContent } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.nigeriaMarketRoute, 'tier-a');
+  assert.deepEqual(decision.blockers, []);
+});
+
 test('the Eucerin sunscreen binds two exact Nigerian listings without relabelling retailer SKUs as GTINs', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'eucerin-oil-control-sun-gel-cream-spf50-50ml');
   assert.ok(candidate);
@@ -892,7 +921,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 13);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 43);
+  ), 0), 45);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

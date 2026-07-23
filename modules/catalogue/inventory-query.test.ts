@@ -83,6 +83,7 @@ test('concern browsing includes explicit reviewed references without turning the
   assert.deepEqual(concern.items.map(item => item.id), [
     'reviewed:balance-niacinamide-blemish-recovery-serum-30ml',
     'reviewed:balance-salicylic-acid-zinc-clarifying-toner-200ml',
+    'reviewed:cerave-acne-foaming-cream-cleanser-4-150ml',
     'reviewed:cerave-acne-foaming-cream-wash-10-150ml',
     'reviewed:cerave-blemish-control-cleanser',
     'reviewed:de-la-cruz-acne-treatment-10-sulfur-73-7g',
@@ -107,7 +108,7 @@ test('concern browsing includes explicit reviewed references without turning the
   assert.deepEqual(
     queryInventoryRecords(products).facets.concerns.map(facet => [facet.value, facet.total]),
     [
-      ['acne-breakouts', 8],
+      ['acne-breakouts', 9],
       ['dark-spots', 3],
       ['sensitive-barrier', 0],
       ['dry-dehydrated-skin', 3],

@@ -441,6 +441,21 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'cerave-acne-foaming-cream-cleanser-4-150ml': {
+    productSlug: 'cerave-acne-foaming-cream-cleanser-4-150ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'benzoyl-peroxide-4-cleanser-review',
+      label: '4% benzoyl-peroxide cleanser review',
+      concernIds: ['acne', 'blackheads', 'breakouts'],
+      concernSlugs: ['acne-breakouts'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.cerave.com/skincare/cleansers/acne-benzoyl-peroxide-cleanser',
+      'https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

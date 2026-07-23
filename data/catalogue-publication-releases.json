@@ -529,6 +529,30 @@
         "publishedAt": "2026-07-23T16:48:30Z"
       },
       "releaseFingerprint": "577e97d0b251eba7d1b06ffd0d6b41b099f7116470f9501035a11b342305e62f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
+      "dossierFingerprint": "a471ac7bff98c703b36ec1692f19a2da32e65028aa85c245b0648c0877680860",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "4% benzoyl peroxide cleanser · 150 ml",
+        "usage": "Apply a dime-size amount to damp skin, gently massage while avoiding the eye area, then rinse well. Reduce frequency if dryness or peeling develops.",
+        "manufacturerDirectionsUrl": "https://www.cerave.com/skincare/cleansers/acne-benzoyl-peroxide-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T17:13:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T17:14:00Z"
+      },
+      "releaseFingerprint": "1d0825eba7e3955cc9ed63282ff9193e9799f3810c4d4773c0c617c90c541aa4"
     }
   ]
 }
