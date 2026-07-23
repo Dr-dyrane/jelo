@@ -274,6 +274,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Lekki retailer with a direct Shopify catalogue, Naira pricing, cart availability, street address and phone contact.',
   },
   {
+    name: 'Kadimez Essentials',
+    homepage: 'https://kadimezessentials.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 82,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    identityEvidence: {
+      observedAt: '2026-07-23T07:29:00Z',
+      sourceUrl: 'https://kadimezessentials.com/contact/',
+      basis: 'self-published-contact',
+      scope: 'self-published',
+    },
+    searchUrl: wordpressSearch('https://kadimezessentials.com/'),
+    note: 'Festac Town retailer with a direct catalogue, visible Naira pricing, stock status, Lagos address, phone and domain email.',
+  },
+  {
     name: 'AGT Plaza',
     homepage: 'https://www.agtplaza.com/',
     market: 'NG',

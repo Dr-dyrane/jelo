@@ -54,6 +54,16 @@ test('24Eleven is a self-published direct retailer, not a brand-authorized selle
   assert.equal(retailer.regulatorMatchEvidence, undefined);
 });
 
+test('Kadimez Essentials is a self-published direct retailer, not a brand-authorized seller claim', () => {
+  const retailer = nigeriaRetailers.find(store => store.name === 'Kadimez Essentials');
+  assert.ok(retailer);
+  assert.equal(retailer.reviewStatus, 'directory-listed');
+  assert.equal(retailer.kind, 'retailer');
+  assert.equal(retailer.identityEvidence?.basis, 'self-published-contact');
+  assert.equal(retailer.identityEvidence?.scope, 'self-published');
+  assert.equal(retailer.regulatorMatchEvidence, undefined);
+});
+
 test('brand authorization binds seller, host, response representation and reviewer chronology', () => {
   const asOf = Date.parse('2026-07-22T23:00:00Z');
   const sourceUrl = 'https://africa.cerave.com/en/find-your-nearest-store';
