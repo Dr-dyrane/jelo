@@ -15,9 +15,14 @@ function areaMatches(product: ConcernProduct, concern: Concern) {
 }
 
 export function productMatchesConcern(product: ConcernProduct, concern: Concern) {
+  const review = getReviewedProductCare(product.slug);
+  return review?.careState === 'supportive_eligible' && productReferencesConcern(product, concern);
+}
+
+export function productReferencesConcern(product: ConcernProduct, concern: Concern) {
   if (!isProductMatchConcern(concern)) return false;
   const review = getReviewedProductCare(product.slug);
-  if (!review || review.careState !== 'supportive_eligible') return false;
+  if (!review || review.careState === 'insufficient_data') return false;
   const approvedConcernSlugs = new Set(review.approvedUses.flatMap(use => use.concernSlugs ?? []));
   return areaMatches(product, concern) && approvedConcernSlugs.has(concern.slug);
 }

@@ -8,7 +8,10 @@ import { getReviewedProductCare, type ProductCareState } from '@/data/product-ca
 import type { Market } from '@/data/prices';
 import type { Offer, ReviewedProduct } from '@/data/products';
 import { comparableMarketPrice } from '@/modules/commerce/offer-evidence';
-import { productMatchesConcern } from '@/modules/concerns/product-matching';
+import {
+  isProductMatchConcern,
+  productReferencesConcern,
+} from '@/modules/concerns/product-matching';
 
 export const inventoryPageSize = 24;
 export const inventoryCategories = externalCatalogueCategories;
@@ -91,6 +94,7 @@ export type InventoryResult = {
     categories: Array<{ value: ExternalCatalogueCategory; count: number }>;
     brands: Array<{ value: string; count: number }>;
     steps: Array<{ value: string; count: number }>;
+    concerns: Array<{ value: string; label: string; count: number; total: number }>;
     reviewed: number;
     supportive: number;
     community: number;
@@ -245,7 +249,7 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
   const availability = validAvailability(input.availability);
   const price = validPrice(input.price);
   const market = validMarket(input.market);
-  const selectedConcern = concernLibrary.find(item => item.slug === concern);
+  const selectedConcern = concernLibrary.find(item => item.slug === concern && isProductMatchConcern(item));
   const normalizedBrand = normalized(brand);
 
   const completeItems: InventoryItem[] = [
@@ -282,7 +286,7 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
 
     if (!skip.has('concern') && selectedConcern) {
       const product = reviewedById.get(item.id);
-      if (!product || !productMatchesConcern(product, selectedConcern)) return false;
+      if (!product || !productReferencesConcern(product, selectedConcern)) return false;
     }
     const freshPrice = lowestFreshPrice(item, market);
     if (!skip.has('availability') && availability === 'priced' && freshPrice == null) return false;
@@ -358,6 +362,20 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
           count: completeItems.filter(item => itemMatches(item, ['step']) && item.kind === 'reviewed' && normalized(item.step) === normalized(value)).length,
         }))
         .sort((left, right) => right.count - left.count || left.value.localeCompare(right.value)),
+      concerns: concernLibrary
+        .filter(isProductMatchConcern)
+        .map(value => {
+          const referenceItems = completeItems.filter(item => {
+            const product = reviewedById.get(item.id);
+            return Boolean(product && productReferencesConcern(product, value));
+          });
+          return {
+            value: value.slug,
+            label: value.name,
+            count: referenceItems.filter(item => itemMatches(item, ['concern'])).length,
+            total: referenceItems.length,
+          };
+        }),
       reviewed: completeItems.filter(item => item.kind === 'reviewed' && itemMatches(item, ['review'])).length,
       supportive: completeItems.filter(item => item.kind === 'reviewed' && item.careState === 'supportive_eligible' && itemMatches(item, ['review'])).length,
       community: completeItems.filter(item => item.kind === 'community' && itemMatches(item, ['review'])).length,

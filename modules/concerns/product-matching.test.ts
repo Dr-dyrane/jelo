@@ -2,7 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { reviewedProductRecords } from '@/data/catalogue';
 import { concernBySlug, concerns } from '@/data/knowledge';
-import { isProductMatchConcern, productMatchesConcern, rankProductsForConcerns } from './product-matching';
+import {
+  isProductMatchConcern,
+  productMatchesConcern,
+  productReferencesConcern,
+  rankProductsForConcerns,
+} from './product-matching';
 
 function product(slug: string) {
   const match = reviewedProductRecords.find(item => item.slug === slug);
@@ -29,6 +34,7 @@ test('concern matching uses approved supportive uses, not catalogue concern pros
 test('pharmacist-review products never enter direct concern matches', () => {
   const cleanser = product('cerave-blemish-control-cleanser');
   assert.equal(productMatchesConcern(cleanser, concern('acne-breakouts')), false);
+  assert.equal(productReferencesConcern(cleanser, concern('acne-breakouts')), true);
 });
 
 test('condition patterns cannot match products even if an approved slug is reused', () => {
@@ -42,6 +48,7 @@ test('condition patterns cannot match products even if an approved slug is reuse
   };
 
   assert.equal(productMatchesConcern(cleanser, adversarialPattern), false);
+  assert.equal(productReferencesConcern(cleanser, adversarialPattern), false);
 });
 
 test('every published condition pattern is product-ineligible', () => {

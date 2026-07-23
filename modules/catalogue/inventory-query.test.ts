@@ -74,15 +74,33 @@ test('indexes only manifest-approved supportive discovery terms', () => {
   assert.deepEqual(oiliness.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
 });
 
-test('concern browsing fails closed to explicit approved concern slugs', () => {
+test('concern browsing includes explicit reviewed references without turning them into direct recommendations', () => {
   const concern = queryInventoryRecords(products, { concern: 'acne-breakouts' });
-  assert.equal(concern.total, 0);
+  assert.deepEqual(concern.items.map(item => item.id), [
+    'reviewed:cerave-blemish-control-cleanser',
+    'reviewed:panoxyl-acne-foaming-wash-10-benzoyl-peroxide',
+    'reviewed:the-ordinary-azelaic-acid-suspension-10',
+  ]);
 
   const approvedConcern = queryInventoryRecords(products, { concern: 'oily-congested-skin' });
   assert.deepEqual(approvedConcern.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
 
   const conditionPattern = queryInventoryRecords(products, { concern: 'hidradenitis-pattern' });
-  assert.equal(conditionPattern.total, 0);
+  assert.equal(conditionPattern.filters.concern, '');
+  assert.equal(conditionPattern.total, products.length + externalProducts.length);
+
+  assert.deepEqual(
+    queryInventoryRecords(products).facets.concerns.map(facet => [facet.value, facet.total]),
+    [
+      ['acne-breakouts', 3],
+      ['dark-spots', 2],
+      ['sensitive-barrier', 0],
+      ['dry-dehydrated-skin', 1],
+      ['oily-congested-skin', 1],
+      ['dandruff-itchy-scalp', 0],
+      ['dry-frizzy-hair', 0],
+    ],
+  );
 
   const routine = queryInventoryRecords(products, { step: 'protect' });
   const expectedRoutine = products.filter(product => product.step === 'Protect');
@@ -102,13 +120,14 @@ test('supportive source filtering stays limited to reviewed eligible products', 
 });
 
 test('browse surfaces separate neutral records from supportive use', async () => {
-  const [home, productsPage, productCard, inventoryCard, productExperience, storefront, filterStyles] = await Promise.all([
+  const [home, productsPage, productCard, inventoryCard, productExperience, storefront, filterSheet, filterStyles] = await Promise.all([
     readFile(path.join(process.cwd(), 'app/page.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/products/page.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/product-card.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/inventory-card.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/product-experience.css'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/storefront.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'components/products/inventory-filter-sheet.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/inventory-filter-sheet.module.css'), 'utf8'),
   ]);
 
@@ -135,6 +154,9 @@ test('browse surfaces separate neutral records from supportive use', async () =>
   assert.equal(inventoryCard.match(/<Link\b/g)?.length, 1);
   assert.doesNotMatch(productExperience, /\.product-visual(?:::\w+|[\s\S]{0,40})::after/);
   assert.match(storefront, /\.product-rail::\-webkit-scrollbar\s*\{\s*display:\s*none/);
+  assert.doesNotMatch(filterSheet, /<select/);
+  assert.match(filterSheet, /Profiles, not treatment advice/);
+  assert.match(filterSheet, /All concern guides/);
   assert.doesNotMatch(filterStyles, /#(?:85736d|8c7972)/i);
 });
 

@@ -166,33 +166,6 @@
 .companyField > span { font-size: .67rem; }
 .companyField strong { min-width: 0; overflow: hidden; color: #382724; font-size: .7rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
 .companyField:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
-.selectField {
-  padding: .8rem .85rem;
-  display: grid;
-  grid-template-columns: 5.2rem minmax(0, 1fr);
-  align-items: center;
-  gap: .35rem .7rem;
-  border-radius: 1rem;
-  background: #f4e8e3;
-  color: #675a55;
-}
-.selectField > span { font-size: .67rem; }
-.selectField select,
-.selectField input {
-  width: 100%;
-  min-width: 0;
-  padding: .55rem 2rem .55rem .7rem;
-  border: 0;
-  border-radius: .75rem;
-  outline: 0;
-  background: rgba(255, 253, 249, .8);
-  color: #382724;
-  font: inherit;
-  font-size: .7rem;
-}
-.selectField select:focus-visible,
-.selectField input:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
-.selectField small { grid-column: 2; color: #67524c; font-size: .58rem; }
 .sheet .companyHeader { align-items: center; }
 .companyHeader > div { flex: 1; }
 .companySearch {
@@ -228,6 +201,33 @@
 .companyList strong { overflow: hidden; font-size: .72rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
 .companyList small { color: #67524c; font-size: .6rem; }
 .companyEmpty { margin: auto 0; color: #67524c; font-size: .72rem; text-align: center; }
+.concernNote { margin: -.8rem 0 0; color: #67524c; font-size: .66rem; }
+.guideOnly { display: grid; gap: .45rem; }
+.guideOnly > p {
+  margin: .35rem 0 .15rem;
+  color: #705b55;
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.guideOnly > a,
+.allGuides {
+  min-height: 3.35rem;
+  padding: .72rem .85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1rem;
+  background: rgba(244, 232, 227, .62);
+  color: #4f3935;
+  font-size: .7rem;
+  text-decoration: none;
+}
+.guideOnly > a:focus-visible,
+.allGuides:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.allGuides { margin-top: auto; background: transparent; color: #684a45; }
 .sheet footer {
   position: sticky;
   bottom: 0;

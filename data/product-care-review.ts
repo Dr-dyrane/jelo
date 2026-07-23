@@ -35,7 +35,7 @@ export const reviewedProductCareManifest = {
   'anua-niacinamide-10-txa-4-serum': {
     productSlug: 'anua-niacinamide-10-txa-4-serum',
     careState: 'pharmacist_review',
-    approvedUses: [{ id: 'tone-support-review', label: 'Tone-support review', concernIds: ['hyperpigmentation', 'dark spots'] }],
+    approvedUses: [{ id: 'tone-support-review', label: 'Tone-support review', concernIds: ['hyperpigmentation', 'dark spots'], concernSlugs: ['dark-spots'] }],
     evidenceSourceUrls: ['https://anua.com/products/niacinamide-10-txa-4-serum-2'], reviewedAt,
   },
   'face-facts-wonder-cream-fragrance-free': {
@@ -93,13 +93,13 @@ export const reviewedProductCareManifest = {
   'cerave-blemish-control-cleanser': {
     productSlug: 'cerave-blemish-control-cleanser',
     careState: 'pharmacist_review',
-    approvedUses: [{ id: 'blemish-cleansing-review', label: 'Blemish-cleansing review', concernIds: ['acne', 'blackheads', 'whiteheads'] }],
+    approvedUses: [{ id: 'blemish-cleansing-review', label: 'Blemish-cleansing review', concernIds: ['acne', 'blackheads', 'whiteheads'], concernSlugs: ['acne-breakouts'] }],
     evidenceSourceUrls: ['https://africa.cerave.com/our-products/cleansers/blemish-control-cleanser'], reviewedAt,
   },
   'the-ordinary-azelaic-acid-suspension-10': {
     productSlug: 'the-ordinary-azelaic-acid-suspension-10',
     careState: 'pharmacist_review',
-    approvedUses: [{ id: 'azelaic-acid-review', label: 'Azelaic-acid review', concernIds: ['acne', 'hyperpigmentation', 'dark spots', 'redness'] }],
+    approvedUses: [{ id: 'azelaic-acid-review', label: 'Azelaic-acid review', concernIds: ['acne', 'hyperpigmentation', 'dark spots', 'redness'], concernSlugs: ['acne-breakouts', 'dark-spots'] }],
     evidenceSourceUrls: ['https://theordinary.com/en-ca/azelaic-acid-suspension-10-exfoliator-100407.html'], reviewedAt,
   },
   'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': {
@@ -117,19 +117,19 @@ export const reviewedProductCareManifest = {
   'cosrx-advanced-snail-96-mucin-power-essence': {
     productSlug: 'cosrx-advanced-snail-96-mucin-power-essence',
     careState: 'supportive_eligible',
-    approvedUses: [{ id: 'hydration-conditioning', label: 'Hydration and skin conditioning', concernIds: ['dryness', 'dehydration'], concernSlugs: [] }],
+    approvedUses: [{ id: 'hydration-conditioning', label: 'Hydration and skin conditioning', concernIds: ['dryness', 'dehydration'], concernSlugs: ['dry-dehydrated-skin'] }],
     evidenceSourceUrls: ['https://www.cosrx.com/collections/award-winning/products/advanced-snail-96-mucin-power-essence'], reviewedAt,
   },
   'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': {
     productSlug: 'panoxyl-acne-foaming-wash-10-benzoyl-peroxide',
     careState: 'pharmacist_review',
-    approvedUses: [{ id: 'benzoyl-peroxide-wash-review', label: 'Benzoyl-peroxide wash review', concernIds: ['acne', 'body acne', 'breakouts'] }],
+    approvedUses: [{ id: 'benzoyl-peroxide-wash-review', label: 'Benzoyl-peroxide wash review', concernIds: ['acne', 'body acne', 'breakouts'], concernSlugs: ['acne-breakouts'] }],
     evidenceSourceUrls: ['https://panoxyl.com/acne-products/acne-foaming-wash-benzoyl-peroxide/'], reviewedAt,
   },
   'nizoral-ad-ketoconazole-shampoo': {
     productSlug: 'nizoral-ad-ketoconazole-shampoo',
     careState: 'pharmacist_review',
-    approvedUses: [{ id: 'antidandruff-shampoo-review', label: 'Medicated dandruff-shampoo review', concernIds: ['dandruff', 'itch', 'flaking', 'seborrheic dermatitis'] }],
+    approvedUses: [{ id: 'antidandruff-shampoo-review', label: 'Medicated dandruff-shampoo review', concernIds: ['dandruff', 'itch', 'flaking', 'seborrheic dermatitis'], concernSlugs: ['dandruff-itchy-scalp'] }],
     evidenceSourceUrls: ['https://nizoral.com/'], reviewedAt,
   },
 } as const satisfies Record<string, ReviewedProductCare>;

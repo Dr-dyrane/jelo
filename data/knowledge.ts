@@ -49,6 +49,16 @@ export const concerns: Concern[] = [
     sources: [{ title: 'NHS · Contact dermatitis', url: 'https://www.nhs.uk/conditions/contact-dermatitis/' }], reviewedAt,
   },
   {
+    slug: 'dry-dehydrated-skin', name: 'Dry & dehydrated skin', area: 'Face', kind: 'concern',
+    summary: 'Flaking, tightness or skin that feels short of moisture.',
+    signals: ['flaking', 'tightness', 'roughness', 'dry-feeling skin'],
+    ingredients: ['gentle cleanser', 'fragrance-free moisturizer', 'glycerin', 'petrolatum'],
+    productTerms: ['dryness', 'dehydration', 'hydration'],
+    escalation: 'Cracking, bleeding, persistent itch or dryness that does not improve needs clinical review.',
+    sources: [{ title: 'American Academy of Dermatology · Dry skin', url: 'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin' }],
+    reviewedAt: '2026-07-23',
+  },
+  {
     slug: 'oily-congested-skin', name: 'Oily & congested skin', area: 'Face', kind: 'concern',
     summary: 'Shine, clogged pores and uneven texture.',
     signals: ['shine', 'visible pores', 'blackheads', 'rough texture'],
