@@ -57,7 +57,7 @@ export default async function ContributePage() {
         <div className={styles.trust} aria-label="What to expect">
           <div><ShieldCheck size={18} aria-hidden="true" /><span><strong>Anonymous</strong><small>No account</small></span></div>
           <div><Timer size={18} aria-hidden="true" /><span><strong>About a minute</strong><small>One question at a time</small></span></div>
-          <div><Heart size={18} aria-hidden="true" /><span><strong>Helps others</strong><small>Builds the library</small></span></div>
+          <div><Heart size={18} aria-hidden="true" /><span><strong>Helps someone</strong><small>Every note counts</small></span></div>
         </div>
       </div>
       <div className={styles.heroImage}>

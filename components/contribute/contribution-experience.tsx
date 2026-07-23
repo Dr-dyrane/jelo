@@ -349,7 +349,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
       </div> : null}
       {currentStep === 'outcome' ? <AdaptiveSelector label="How was it?" hint="Your experience, not a medical claim." mode="single" value={outcomeValue} suggestions={outcomeOptions} allowCustom={false} onChange={values => patchDraft({ outcome: (values[0]?.id as ContributionDraft['outcome']) ?? null })} onInteraction={interaction}/> : null}
       {currentStep === 'review' ? <div className={styles.review}>
-        <div><p>Ready</p><h2 id="contribution-question">Share what you know.</h2><span>Anonymous. Simple. Useful.</span></div>
+        <div><p>Almost done</p><h2 id="contribution-question">Ready to share?</h2><span>Still anonymous.</span></div>
         <dl>
           <div><dt>Adding</dt><dd>{kindOptions.find(option => option.id === draft.kind)?.label}</dd></div>
           <div><dt>For</dt><dd>{joined(draft.purposes)}</dd></div>
