@@ -67,6 +67,8 @@ Every state-changing click answers immediately:
 
 Desktop secondary flows may use a side sheet. Mobile uses a bottom sheet. Modal behavior follows focus containment, Escape, safe dismissal, and focus restoration.
 
+Filled cards with icons read as controls. Implement them as buttons or links when useful; otherwise remove the control affordance. If the card introduces the primary task immediately below, it should scroll and focus that task. Reserve a compact desktop modal or mobile bottom sheet for useful secondary detail.
+
 ## Accessibility release check
 
 - Native control semantics first.

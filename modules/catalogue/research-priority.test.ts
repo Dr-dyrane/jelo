@@ -2,9 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
-import { products as coreProducts } from '@/data/products';
-import { expandedProducts } from '@/data/expanded-products';
-import { catalogueIntakeCandidates } from '@/data/catalogue-intake';
+import { catalogueResearchKnownIdentities } from '@/data/catalogue-research-identities';
 import type { CatalogueDiscoverySnapshot, ScreenedDiscoveryCandidate } from '@/lib/catalogue/discovery-screening';
 import {
   buildCatalogueResearchQueue,
@@ -147,22 +145,65 @@ test('known exact products do not consume another research slot', () => {
   assert.equal(queue.selectedCount, 0);
 });
 
+test('a retailer identity lead matching a verified manufacturer GTIN cannot re-enter research', () => {
+  const known = candidate({
+    title: 'Different retailer wording for a familiar product 500 ml',
+    brandHint: 'Retailer Wording',
+    size: '500 ml',
+    retailerGtinHint: '00011111040090',
+  });
+  const queue = buildCatalogueResearchQueue(snapshot([known]), digest, 1, [{
+    brand: 'Dove',
+    name: 'Melanin Even Tone Serum Body Wash',
+    size: '18.5 oz',
+    gtin: '00011111040090',
+  }]);
+  assert.equal(queue.selectedCount, 0);
+});
+
+test('a different retailer code cannot suppress a merely similar product', () => {
+  const similar = candidate({
+    title: 'Example Ceramide Lotion 355 ml',
+    brandHint: 'Example',
+    size: '355 ml',
+  });
+  const queue = buildCatalogueResearchQueue(snapshot([similar]), digest, 1, [{
+    brand: 'Example',
+    name: 'Ceramide Cream',
+    size: '453 g',
+    gtin: '00011111040090',
+  }]);
+  assert.equal(queue.selectedCount, 1);
+});
+
+test('reviewed retailer title and size aliases suppress known unit conversions', () => {
+  const known = candidate({
+    title: 'KERACARE Dry And Itchy Conditioner 950ml',
+    brandHint: 'KERACARE',
+    size: '950ml',
+    retailerGtinHint: '00796708350195',
+  });
+  const queue = buildCatalogueResearchQueue(snapshot([known]), digest, 1, [{
+    brand: 'KeraCare',
+    name: 'Dry & Itchy Conditioner',
+    nameAliases: ['KERACARE Dry And Itchy Conditioner 950ml'],
+    size: '32 oz',
+    sizeAliases: ['950 ml'],
+    gtin: '850068103058',
+  }]);
+  assert.equal(queue.selectedCount, 0);
+});
+
 test('the checked-in queue is an exact deterministic projection of the discovery evidence', async () => {
   const dataRoot = path.join(process.cwd(), 'data');
   const snapshotBytes = await readFile(path.join(dataRoot, 'catalogue-discovery-screening.json'));
   const stored = JSON.parse(await readFile(path.join(dataRoot, 'catalogue-research-queue.json'), 'utf8'));
   const currentSnapshot = JSON.parse(snapshotBytes.toString('utf8')) as CatalogueDiscoverySnapshot;
-  const knownIdentities = [...coreProducts, ...expandedProducts, ...catalogueIntakeCandidates].map(product => ({
-    brand: product.brand,
-    ...('brandAliases' in product && Array.isArray(product.brandAliases) ? { brandAliases: product.brandAliases } : {}),
-    name: product.name,
-    size: product.size,
-  }));
   const expected = buildCatalogueResearchQueue(
     currentSnapshot,
     catalogueResearchQueueDigest(snapshotBytes),
     48,
-    knownIdentities,
+    catalogueResearchKnownIdentities,
   );
   assert.deepEqual(stored, expected);
   assert.equal(expected.selectedCount, 48);
@@ -172,6 +213,12 @@ test('the checked-in queue is an exact deterministic projection of the discovery
   assert.equal(Math.max(...Array.from(new Set(expected.items.map(item => item.brandHint))).map(
     brand => expected.items.filter(item => item.brandHint === brand).length,
   )) <= 3, true);
+  const verifiedGtins = new Set(catalogueResearchKnownIdentities.flatMap(identity => (
+    identity.gtin ? [identity.gtin] : []
+  )));
+  assert.equal(expected.items.every(item => !item.identityLead || !verifiedGtins.has(item.identityLead)), true);
+  assert.equal(expected.items.some(item => item.title.includes('DOVE MELANIN EVEN TONE')), false);
+  assert.equal(expected.items.some(item => item.title.includes('KERACARE Dry And Itchy Conditioner')), false);
 });
 
 test('reviewed brand aliases stop retailer-shortened duplicates consuming research slots', () => {

@@ -620,8 +620,8 @@
     },
     {
       "rank": 23,
-      "discoveryId": "0052c84ff426e61395e65e05",
-      "title": "DOVE MELANIN EVEN TONE 5% Body Wash 547ml",
+      "discoveryId": "5a63a184f3c4ab6402f4a586",
+      "title": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
       "brandHint": "DOVE",
       "size": "547ml",
       "categoryHint": "Body care",
@@ -629,7 +629,7 @@
       "priorityScore": 158,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
-      "identityLead": "00011111040090",
+      "identityLead": "00011111055230",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -781,33 +781,6 @@
     },
     {
       "rank": 29,
-      "discoveryId": "aa9e6379c96b17853530fde3",
-      "title": "DE LA CRUZ Acne Treatment (With 10% Sulfur) Ointment 2.6 oz 73.7g",
-      "brandHint": "DE LA CRUZ",
-      "size": "2.6 oz / 73.7g",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 156,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "00024286150426",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 30,
       "discoveryId": "f87e67c0fb61e9574f74ef21",
       "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
       "brandHint": "Garnier",
@@ -834,7 +807,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 30,
       "discoveryId": "f6fdad85c61090e67bea6ec9",
       "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
       "brandHint": "NINELESS",
@@ -861,7 +834,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 31,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -872,6 +845,33 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "08809563103980",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 32,
+      "discoveryId": "005fe384576be5e38689857f",
+      "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
+      "brandHint": "Replenix",
+      "size": "200ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 156,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "00358211113003",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -1207,32 +1207,6 @@
     },
     {
       "rank": 45,
-      "discoveryId": "1638a58f76511eb4f91dfab4",
-      "title": "KERACARE Dry And Itchy Conditioner 950ml",
-      "brandHint": "KERACARE",
-      "size": "950ml",
-      "categoryHint": "Hair & scalp",
-      "lane": "hair-scalp",
-      "priorityScore": 134,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "00796708350195",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 46,
       "discoveryId": "409d46e2deb8d4a892997d7c",
       "title": "MEDICUBE -Soymint Scaling Shampoo 490ml",
       "brandHint": "MEDICUBE",
@@ -1258,7 +1232,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 47,
+      "rank": 46,
       "discoveryId": "7afa2f6eac15547f92afd336",
       "title": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
       "brandHint": "SALTAIR",
@@ -1284,7 +1258,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 48,
+      "rank": 47,
       "discoveryId": "434e6d0e45a3bea8326d0911",
       "title": "SEAPURI Scalpy Hair Serum 20ml",
       "brandHint": "SEAPURI",
@@ -1295,6 +1269,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "08809934860870",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 48,
+      "discoveryId": "0d0c86c4702f21c76f038404",
+      "title": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml",
+      "brandHint": "Shea Moisture",
+      "size": "13 oz / 384ml",
+      "categoryHint": "Hair & scalp",
+      "lane": "hair-scalp",
+      "priorityScore": 134,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "00764302215837",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

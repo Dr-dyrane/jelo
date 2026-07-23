@@ -63,11 +63,12 @@ export type ReviewedExactOfferEvidence = {
   schemaVersion: typeof catalogueExactOfferEvidenceSchemaVersion;
   method:
     | 'reviewed-exact-offer-field-extraction'
-    | 'reviewed-browser-dom-exact-offer-field-extraction';
+    | 'reviewed-browser-dom-exact-offer-field-extraction'
+    | 'reviewed-browser-accessibility-exact-offer-field-extraction';
   listingUrl: string;
   responseUrl: string;
   responseSha256: string;
-  responseDigestScope: 'decoded-response-body' | 'rendered-dom-outerhtml';
+  responseDigestScope: 'decoded-response-body' | 'rendered-dom-outerhtml' | 'rendered-accessibility-tree';
   responseMimeType: MarketEvidenceMimeType;
   responseByteSize: number;
   retrievedAt: string;
@@ -392,9 +393,17 @@ export function reviewedExactOfferEvidenceValid(
     && evidence.browserCapture?.surface === 'Codex in-app browser'
     && evidence.browserCapture.documentReadyState === 'complete'
     && evidence.browserCapture.pageTitle.trim().length >= 3;
+  const accessibleBrowserResponseEvidence = (
+    evidence.method === 'reviewed-browser-accessibility-exact-offer-field-extraction'
+    && evidence.responseDigestScope === 'rendered-accessibility-tree'
+    && evidence.responseMimeType === 'text/html'
+    && evidence.browserCapture?.surface === 'Codex in-app browser'
+    && evidence.browserCapture.documentReadyState === 'complete'
+    && evidence.browserCapture.pageTitle.trim().length >= 3
+  );
   if (
     evidence.schemaVersion !== catalogueExactOfferEvidenceSchemaVersion
-    || (!rawResponseEvidence && !browserResponseEvidence)
+    || (!rawResponseEvidence && !browserResponseEvidence && !accessibleBrowserResponseEvidence)
     || !sameUrl(evidence.listingUrl, offer.listingUrl)
     || !sameUrl(evidence.responseUrl, offer.listingUrl)
     || !hashPattern.test(evidence.responseSha256)

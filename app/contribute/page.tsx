@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { Heart, ShieldCheck, Timer } from 'lucide-react';
 import { ContributionExperience } from '@/components/contribute/contribution-experience';
+import { ContributionTrustSignals } from '@/components/contribute/contribution-trust-signals';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import type { AdaptiveOption } from '@/components/ui/adaptive-selector';
 import { concerns } from '@/data/knowledge';
@@ -54,11 +54,7 @@ export default async function ContributePage() {
         <p>Community library</p>
         <h1>Tell us about one product.</h1>
         <span>Share what you use. No account.</span>
-        <div className={styles.trust} aria-label="What to expect">
-          <div><ShieldCheck size={18} aria-hidden="true" /><span><strong>Anonymous</strong><small>No account</small></span></div>
-          <div><Timer size={18} aria-hidden="true" /><span><strong>About a minute</strong><small>One question at a time</small></span></div>
-          <div><Heart size={18} aria-hidden="true" /><span><strong>Helps someone choose</strong><small>Every note counts</small></span></div>
-        </div>
+        <ContributionTrustSignals />
       </div>
       <div className={styles.heroImage}>
         <SafeEditorialImage asset={heroAsset} alt={heroAsset.altText} priority sizes="(max-width: 760px) 100vw, 44vw" />

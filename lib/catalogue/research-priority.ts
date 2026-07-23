@@ -70,7 +70,16 @@ export type CatalogueResearchQueue = {
   items: CatalogueResearchQueueItem[];
 };
 
-export type KnownCatalogueIdentity = { brand: string; brandAliases?: string[]; name: string; size: string };
+export type KnownCatalogueIdentity = {
+  brand: string;
+  brandAliases?: string[];
+  name: string;
+  nameAliases?: string[];
+  size: string;
+  sizeAliases?: string[];
+  /** Verified manufacturer identity only. Retailer-local codes must never populate this field. */
+  gtin?: string;
+};
 
 const laneTargets: Record<CatalogueResearchLane, number> = {
   'sun-protection': 6,
@@ -132,15 +141,28 @@ function normalized(value: string) {
 }
 
 function alreadyKnown(candidate: ScreenedDiscoveryCandidate, identities: readonly KnownCatalogueIdentity[]) {
+  const retailerIdentityLead = candidate.retailerGtinHint?.replace(/\D/g, '');
+  if (
+    retailerIdentityLead
+    && identities.some(identity => identity.gtin?.replace(/\D/g, '') === retailerIdentityLead)
+  ) return true;
+
   const brand = normalized(candidate.brandHint);
   const title = normalized(candidate.title);
   const titleTokens = new Set(title.split(' '));
   const size = normalized(candidate.size).replace(/(\d)\s+(?=[a-z])/g, '$1');
-  return identities.some(identity => (
-    [identity.brand, ...(identity.brandAliases ?? [])].map(normalized).includes(brand)
-    && normalized(identity.name).split(' ').every(token => titleTokens.has(token))
-    && size.includes(normalized(identity.size).replace(/(\d)\s+(?=[a-z])/g, '$1'))
-  ));
+  return identities.some(identity => {
+    const brandMatches = [identity.brand, ...(identity.brandAliases ?? [])]
+      .map(normalized)
+      .includes(brand);
+    const nameMatches = [identity.name, ...(identity.nameAliases ?? [])]
+      .map(normalized)
+      .some(name => name.split(' ').every(token => titleTokens.has(token)));
+    const sizeMatches = [identity.size, ...(identity.sizeAliases ?? [])]
+      .map(value => normalized(value).replace(/(\d)\s+(?=[a-z])/g, '$1'))
+      .some(knownSize => size.includes(knownSize));
+    return brandMatches && nameMatches && sizeMatches;
+  });
 }
 
 function researchPriority(candidate: ScreenedDiscoveryCandidate) {

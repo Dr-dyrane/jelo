@@ -520,6 +520,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
+  delacruz: ['dlclabs.com'],
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
@@ -546,6 +547,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
     'www.cerave.com',
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
+  delacruz: ['dlclabs.com'],
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
@@ -576,6 +578,7 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
   ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
+  'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=4a1591e8-6135-4b22-b54c-5553c2dc0540',
   'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',
   'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
   'https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment',

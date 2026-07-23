@@ -23,6 +23,8 @@ Every click that changes state must make the change understandable.
 - Preserve keyboard focus and announce concise state changes through a dedicated polite status region.
 - Use subtle motion as orientation, never as the only feedback. Respect reduced-motion settings.
 - Do not turn an entire result grid into a live region.
+- If a surface looks tappable, it must be a real button or link. Otherwise make it visually quieter.
+- When a summary card sits directly above its primary task, activate it by moving and focusing the user on that task. Use focused detail only when the card reveals genuinely useful secondary information.
 
 ## Progressive disclosure
 

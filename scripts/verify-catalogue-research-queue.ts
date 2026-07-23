@@ -5,9 +5,7 @@ import {
   catalogueResearchQueueDigest,
 } from '@/lib/catalogue/research-priority';
 import type { CatalogueDiscoverySnapshot } from '@/lib/catalogue/discovery-screening';
-import { products as coreProducts } from '@/data/products';
-import { expandedProducts } from '@/data/expanded-products';
-import { catalogueIntakeCandidates } from '@/data/catalogue-intake';
+import { catalogueResearchKnownIdentities } from '@/data/catalogue-research-identities';
 
 async function main() {
   const dataRoot = path.join(process.cwd(), 'data');
@@ -15,13 +13,12 @@ async function main() {
   const queueBytes = await readFile(path.join(dataRoot, 'catalogue-research-queue.json'), 'utf8');
   const snapshot = JSON.parse(snapshotBytes.toString('utf8')) as CatalogueDiscoverySnapshot;
   const stored = JSON.parse(queueBytes) as unknown;
-  const knownIdentities = [...coreProducts, ...expandedProducts, ...catalogueIntakeCandidates].map(product => ({
-    brand: product.brand,
-    ...('brandAliases' in product && Array.isArray(product.brandAliases) ? { brandAliases: product.brandAliases } : {}),
-    name: product.name,
-    size: product.size,
-  }));
-  const expected = buildCatalogueResearchQueue(snapshot, catalogueResearchQueueDigest(snapshotBytes), 48, knownIdentities);
+  const expected = buildCatalogueResearchQueue(
+    snapshot,
+    catalogueResearchQueueDigest(snapshotBytes),
+    48,
+    catalogueResearchKnownIdentities,
+  );
   if (JSON.stringify(stored) !== JSON.stringify(expected)) {
     throw new Error('Catalogue research queue is stale or was edited outside the deterministic builder.');
   }

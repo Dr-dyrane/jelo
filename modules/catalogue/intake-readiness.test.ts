@@ -1314,6 +1314,53 @@ test('browser offer evidence recognizes explicit marketplace low-stock counts', 
   assert.equal(decision.freshExactOffers[0].stock, 'low-stock');
 });
 
+test('browser accessibility evidence qualifies anti-bot retailer pages without weakening field checks', () => {
+  const base = completeCandidate();
+  const original = base.nigeria.exactOffers[0];
+  const evidence = original.evidence!;
+  const accessibleOffer: CatalogueIntakeOffer = {
+    ...original,
+    observedGtin: undefined,
+    observedGtinBasis: 'exact-variant-and-size',
+    evidence: {
+      ...evidence,
+      method: 'reviewed-browser-accessibility-exact-offer-field-extraction',
+      responseDigestScope: 'rendered-accessibility-tree',
+      responseMimeType: 'text/html',
+      browserCapture: {
+        surface: 'Codex in-app browser',
+        documentReadyState: 'complete',
+        pageTitle: 'Example Barrier Lotion 400 ml',
+      },
+      fields: {
+        ...evidence.fields,
+        gtin: {
+          label: 'GTIN',
+          value: base.identity.gtin!,
+          locator: 'Bound official catalogue identity snapshot',
+          sourceText: `Official catalogue identity GTIN ${base.identity.gtin}`,
+          responseRole: 'official-identity-correlation',
+        },
+      },
+    },
+  };
+
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: { ...base.nigeria, exactOffers: [accessibleOffer] },
+  }, asOf);
+
+  assert.equal(decision.freshExactOffers.length, 1);
+  assert.equal(decision.stage, 'approval-ready');
+
+  accessibleOffer.evidence!.fields.price.sourceText = 'Price available after sign in';
+  const invalid = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: { ...base.nigeria, exactOffers: [accessibleOffer] },
+  }, asOf);
+  assert.equal(invalid.freshExactOffers.length, 0);
+});
+
 test('low-stock evidence accepts an explicit retailer count of five or fewer units', () => {
   const candidate = completeCandidate();
   const offer = candidate.nigeria.exactOffers[0];

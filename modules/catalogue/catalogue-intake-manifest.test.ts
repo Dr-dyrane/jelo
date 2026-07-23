@@ -17,26 +17,26 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T12:23:00Z');
+const researchAsOf = Date.parse('2026-07-23T13:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 18);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 19);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 18);
-  assert.equal(catalogueIntakeDecisions.length, 18);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 18);
+  assert.equal(catalogueIntakeCandidates.length, 19);
+  assert.equal(catalogueIntakeDecisions.length, 19);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 19);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 13);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 18);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 19);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 18);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 19);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -824,7 +824,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 13);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 35);
+  ), 0), 37);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
@@ -845,6 +845,42 @@ test('a tampered excluded observation fails the private intake audit', () => {
     () => auditCatalogueIntakeCandidates(candidates, researchAsOf),
     /invalid excluded market observation/,
   );
+});
+
+test('the De La Cruz sulfur jar binds its official identity, two current Nigerian offers and final render', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'de-la-cruz-acne-treatment-10-sulfur-73-7g'
+  ));
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '024286150426');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '2.6 oz / 73.7 g');
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['Beauty by Daz', 'BuyBetter']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [12_500, 17_738]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['in-stock', 'out-of-stock']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku), ['230-1-byd', '024286150426']);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => (
+    offer.observedGtinBasis === 'exact-variant-and-size'
+    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+  )), true);
+  assert.equal(
+    candidate.nigeria.exactOffers[0].evidence?.method,
+    'reviewed-browser-accessibility-exact-offer-field-extraction',
+  );
+  assert.equal(candidate.asset.publicImageSha256, '07f60271a771ad7e84784b0677bf48bbc1e790360711708e986100fb6d8b7955');
+  assert.equal(candidate.asset.publicImageByteSize, 3_844_784);
+  assert.equal(candidate.asset.width, 2000);
+  assert.equal(candidate.asset.height, 2000);
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...content } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.freshExactOffers.length, 2);
+  assert.deepEqual(decision.blockers, []);
 });
 
 test('the UK/EU SA cleanser binds its 473 ml identity to two exact Nigerian offers', () => {

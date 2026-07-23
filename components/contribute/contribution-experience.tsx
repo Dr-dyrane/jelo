@@ -317,7 +317,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
 
   if (!hydrated) return <div className={styles.loading} aria-label="Loading">Loading…</div>;
 
-  if (complete) return <section className={styles.complete} aria-labelledby="contribution-complete-title">
+  if (complete) return <section id="contribution-form" className={styles.complete} aria-labelledby="contribution-complete-title">
     <span><Check size={28} aria-hidden="true" /></span>
     <p>Shared with JeloCare</p>
     <h2 id="contribution-complete-title">Thank you.</h2>
@@ -330,7 +330,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
   const progress = flow.length > 1 ? Math.round((stepIndex / (flow.length - 1)) * 100) : 0;
   const interaction = (mode: 'tap' | 'search' | 'type' | 'custom', count: number) => recordEvent('selection_changed', mode, count);
 
-  return <section className={styles.experience} aria-labelledby="contribution-question">
+  return <section id="contribution-form" className={styles.experience} aria-labelledby="contribution-question">
     <div className={styles.progress} aria-label={`${progress}% complete`}><span style={{ width: `${progress}%` }} /></div>
     <div className={styles.saveStatus} role="status" aria-live="polite">
       {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? 'Saved' : saveState === 'error' ? 'Not saved. We’ll retry.' : 'Saved on this device'}
