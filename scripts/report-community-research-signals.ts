@@ -11,6 +11,17 @@ type PriceRow = {
   median_ngn: number;
 };
 type UnknownRow = { kind: string; value: string; occurrences: number; last_seen_at: Date };
+type ResearchTaskRow = {
+  task_kind: string;
+  entity_kind: string;
+  entity_ref: string;
+  entity_label: string;
+  entity_source: 'canonical' | 'custom';
+  priority_lane: 'community-first';
+  signal_count: number;
+  status: string;
+  last_seen_at: Date;
+};
 
 function connectionString() {
   const value = process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
@@ -47,7 +58,7 @@ async function readCommunityResearchSignals(limit = 25) {
         and contribution.retain_until > now()
       group by object_ref order by mentions desc, label limit ${limit}
     `;
-    const [products, retailers, purposes, prices, unknownValues] = await Promise.all([
+    const [products, retailers, purposes, prices, unknownValues, researchQueue] = await Promise.all([
       mentions('reported_product'),
       mentions('reported_retailer'),
       mentions('reported_for'),
@@ -78,6 +89,14 @@ async function readCommunityResearchSignals(limit = 25) {
         group by value.id, value.value_kind, value.raw_value
         order by occurrences desc, last_seen_at desc limit ${limit}
       `,
+      sql<ResearchTaskRow[]>`
+        select task_kind, entity_kind, entity_ref, entity_label, entity_source,
+               priority_lane, signal_count, status, last_seen_at
+        from community_research_tasks
+        where status <> 'dismissed'
+        order by priority_rank, signal_count desc, last_seen_at desc, entity_label
+        limit ${limit}
+      `,
     ]);
     return {
       generatedAt: new Date().toISOString(),
@@ -100,6 +119,17 @@ async function readCommunityResearchSignals(limit = 25) {
         kind: row.kind,
         value: row.value,
         occurrences: row.occurrences,
+        lastSeenAt: row.last_seen_at.toISOString(),
+      })),
+      researchQueue: researchQueue.map(row => ({
+        taskKind: row.task_kind,
+        entityKind: row.entity_kind,
+        entityRef: row.entity_ref,
+        entityLabel: row.entity_label,
+        entitySource: row.entity_source,
+        priorityLane: row.priority_lane,
+        signalCount: row.signal_count,
+        status: row.status,
         lastSeenAt: row.last_seen_at.toISOString(),
       })),
     };
@@ -128,6 +158,8 @@ async function main() {
   console.table(signals.purposes);
   console.log('Community-reported prices');
   console.table(signals.prices);
+  console.log('Community-first research queue');
+  console.table(signals.researchQueue);
   if (signals.unknownValues.length) {
     console.log('Pending vocabulary');
     console.table(signals.unknownValues);

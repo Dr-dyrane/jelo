@@ -50,13 +50,15 @@ The edit capability lives in an HttpOnly cookie. Saves use a monotonically incre
 
 Migration `0015_community_knowledge_intake.sql` keeps drafts, immutable contributions, custom-value moderation, events and community-reported graph edges separate from JeloCare-reviewed records.
 
+Migration `0017_community_first_research_queue.sql` makes the research priority durable. Every submitted product and retailer creates a private `community-first` task in the same transaction as the contribution. Existing retained, non-rejected submissions are backfilled. A custom product enters identity research; a product already in the public selector enters price-and-retailer refresh instead of creating a duplicate catalogue record. Repeated submissions add independent task mentions and increase the signal count without bypassing review.
+
 ## Metrics
 
 The system can derive completion, time-to-complete, repeat contributions, unknown values, retailers and products discovered. Input events record step, mode and result count. They do not store search queries.
 
 Run `npm run community:research:signals` in a server environment with a real database connection to produce the current retained, non-rejected research signals. Sensitive Vercel environment values are not available through a local environment pull; do not replace that boundary with a public reporting endpoint.
 
-The report ranks product, retailer and purpose mentions, summarizes community-reported Nigerian price observations, and exposes pending vocabulary for moderation. It does not expose contributor identity. A submission can raise a product or seller in the private research order, but it cannot verify authenticity, identity, price freshness, formula suitability, regulatory status, image rights or publication readiness. Repeated independent reports, photos and receipts can become stronger evidence only after the deferred quarantine and moderation systems exist.
+The report ranks product, retailer and purpose mentions, summarizes community-reported Nigerian price observations, exposes the `community-first` task order, and lists pending vocabulary for moderation. It does not expose contributor identity. Community tasks precede bulk retailer-discovery leads, but they cannot verify authenticity, identity, price freshness, formula suitability, regulatory status, image rights or publication readiness. Repeated independent reports, photos and receipts can become stronger evidence only after the deferred quarantine and moderation systems exist.
 
 Public contributor counts and trust labels must be derived from moderated, retained records—not drafted submissions or raw edge totals. Until the sample is meaningful, prefer a truthful qualitative invitation over a small vanity count. When counts are shown later, distinguish contributors, submissions and independently confirmed observations.
 

@@ -6,6 +6,7 @@ import test from 'node:test';
 test('community intake stays separated from canonical data and public media', async () => {
   const root = process.cwd();
   const migration = await readFile(path.join(root, 'db/migrations/0015_community_knowledge_intake.sql'), 'utf8');
+  const researchQueueMigration = await readFile(path.join(root, 'db/migrations/0017_community_first_research_queue.sql'), 'utf8');
   const repository = await readFile(path.join(root, 'lib/community-intake/repository.ts'), 'utf8');
   const security = await readFile(path.join(root, 'lib/community-intake/security.ts'), 'utf8');
   const page = await readFile(path.join(root, 'app/contribute/page.tsx'), 'utf8');
@@ -21,6 +22,11 @@ test('community intake stays separated from canonical data and public media', as
   assert.match(migration, /community_moderation_values/);
   assert.match(migration, /community_knowledge_edges/);
   assert.match(migration, /confidence_state text not null default 'community_reported'/);
+  assert.match(researchQueueMigration, /community_research_tasks/);
+  assert.match(researchQueueMigration, /priority_lane text not null default 'community-first'/);
+  assert.match(researchQueueMigration, /publication_status text not null default 'private-research-only'/);
+  assert.match(researchQueueMigration, /community_research_task_mentions/);
+  assert.match(researchQueueMigration, /jsonb_array_elements\(coalesce\(contribution\.payload -> 'products'/);
   assert.doesNotMatch(repository, /insert into (products|brands|retailers|offers|concerns|ingredients)/i);
   assert.doesNotMatch(repository, /@vercel\/blob|put\(/);
   assert.match(security, /httpOnly|contributionCookieName/);

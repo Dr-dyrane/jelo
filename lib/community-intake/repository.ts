@@ -2,6 +2,7 @@ import 'server-only';
 
 import { getPostgresClient } from '@/lib/db/postgres';
 import { communityKnowledgeEdges, unknownCommunityValues } from './moderation';
+import { communityResearchTasks } from './research-queue';
 import {
   emptyContributionDraft,
   finalContributionSchema,
@@ -135,6 +136,39 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
         )
         on conflict (contribution_id, subject_kind, subject_ref, predicate, object_kind, object_ref) do nothing
       `;
+    }
+
+    for (const task of communityResearchTasks(draft)) {
+      const [researchTask] = await transaction<{ id: string }[]>`
+        insert into community_research_tasks (
+          task_kind, entity_kind, entity_ref, entity_label, entity_source,
+          priority_lane, publication_status
+        ) values (
+          ${task.taskKind}, ${task.entityKind}, ${task.entityRef}, ${task.entityLabel}, ${task.entitySource},
+          ${task.priorityLane}, ${task.publicationStatus}
+        )
+        on conflict (task_kind, entity_ref) do update
+        set entity_label = excluded.entity_label,
+            entity_source = excluded.entity_source,
+            updated_at = now()
+        returning id
+      `;
+      const [mention] = await transaction<{ task_id: string }[]>`
+        insert into community_research_task_mentions (task_id, contribution_id, context)
+        values (${researchTask.id}, ${contribution.id}, ${transaction.json(task.context)})
+        on conflict (task_id, contribution_id) do nothing
+        returning task_id
+      `;
+      if (mention) {
+        await transaction`
+          update community_research_tasks
+          set signal_count = signal_count + 1,
+              last_seen_at = now(),
+              status = case when status = 'dismissed' then status else 'pending' end,
+              updated_at = now()
+          where id = ${researchTask.id}
+        `;
+      }
     }
 
     await transaction`
