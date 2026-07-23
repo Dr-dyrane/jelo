@@ -1,7 +1,11 @@
 'use client';
 
-import { Check, Plus, Search, X } from 'lucide-react';
+import { Check, Pencil, Plus, Search, X } from 'lucide-react';
 import { KeyboardEvent, useEffect, useId, useMemo, useRef, useState } from 'react';
+import {
+  applyAdaptiveSelection,
+  removeAdaptiveSelection,
+} from '@/lib/community-intake/adaptive-selection';
 import type { AdaptiveValue } from '@/lib/community-intake/schema';
 import { normalizeCommunityValue } from '@/lib/community-intake/schema';
 import styles from './adaptive-selector.module.css';
@@ -54,7 +58,15 @@ export function AdaptiveSelector({
   const [remoteOptions, setRemoteOptions] = useState<AdaptiveOption[]>([]);
   const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const recordedSearch = useRef(false);
+
+  useEffect(() => {
+    if (!editingId) return;
+    inputRef.current?.focus();
+    inputRef.current?.select();
+  }, [editingId]);
 
   useEffect(() => {
     if (!searchOptions || query.trim().length < 2) return;
@@ -78,15 +90,30 @@ export function AdaptiveSelector({
   const resolvedActiveIndex = resultCount ? Math.min(activeIndex, resultCount - 1) : 0;
 
   function choose(next: AdaptiveValue, inputMode: InputMode) {
-    const selected = value.some(item => item.id === next.id);
-    const updated = mode === 'single'
-      ? [next]
-      : selected
-        ? value.filter(item => item.id !== next.id)
-        : [...value, next];
+    const updated = applyAdaptiveSelection(value, next, mode, editingId);
     onChange(updated);
     onInteraction?.(inputMode, resultCount);
-    if (mode === 'single') {
+    if (mode === 'single' || editingId) {
+      setQuery('');
+      setActiveIndex(0);
+      setRemoteOptions([]);
+    }
+    setEditingId(null);
+  }
+
+  function editSelection(item: AdaptiveValue) {
+    if (!searchable) return;
+    setEditingId(item.id);
+    setQuery(item.label);
+    setActiveIndex(0);
+    setRemoteOptions([]);
+  }
+
+  function removeSelection(item: AdaptiveValue) {
+    onChange(removeAdaptiveSelection(value, item.id));
+    onInteraction?.('tap', resultCount);
+    if (editingId === item.id) {
+      setEditingId(null);
       setQuery('');
       setActiveIndex(0);
       setRemoteOptions([]);
@@ -118,6 +145,7 @@ export function AdaptiveSelector({
       } else if (canAdd) addCustom();
     } else if (event.key === 'Escape') {
       setQuery('');
+      setEditingId(null);
     }
   }
 
@@ -128,15 +156,39 @@ export function AdaptiveSelector({
         {hint ? <p>{hint}</p> : null}
       </div>
 
-      {value.length ? <div className={styles.selected} aria-label="Selected">
-        {value.map(item => <button key={item.id} type="button" onClick={() => choose(item, 'tap')}>
-          <Check size={14} aria-hidden="true" /> {item.label} <X size={13} aria-hidden="true" />
-        </button>)}
+      {value.length ? <div className={styles.selectedBlock}>
+        <p>Selected</p>
+        <div className={styles.selected} aria-label={`Selected ${label}`}>
+          {value.map(item => <span key={item.id} data-editing={editingId === item.id}>
+            {searchable ? <button
+              className={styles.selectedEdit}
+              type="button"
+              onClick={() => editSelection(item)}
+              aria-label={`Edit ${item.label}`}
+            >
+              <Check size={14} aria-hidden="true" />
+              <span>{item.label}</span>
+              <Pencil size={12} aria-hidden="true" />
+            </button> : <span className={styles.selectedLabel}>
+              <Check size={14} aria-hidden="true" />
+              <span>{item.label}</span>
+            </span>}
+            <button
+              className={styles.selectedRemove}
+              type="button"
+              onClick={() => removeSelection(item)}
+              aria-label={`Remove ${item.label}`}
+            >
+              <X size={14} aria-hidden="true" />
+            </button>
+          </span>)}
+        </div>
       </div> : null}
 
       {searchable ? <div className={styles.searchBox}>
         <Search size={18} aria-hidden="true" />
         <input
+          ref={inputRef}
           id={inputId}
           value={query}
           onChange={event => {
@@ -161,7 +213,7 @@ export function AdaptiveSelector({
           aria-expanded="true"
           aria-activedescendant={resultCount ? `${listId}-${resolvedActiveIndex}` : undefined}
           aria-describedby={statusId}
-          placeholder={allowCustom ? 'Search or add' : 'Search'}
+          placeholder={editingId ? 'Edit value' : allowCustom ? 'Search or add' : 'Search'}
           autoComplete="off"
         />
       </div> : null}
@@ -191,7 +243,8 @@ export function AdaptiveSelector({
           className={styles.addOption}
           onClick={addCustom}
         >
-          <Plus size={17} aria-hidden="true" /> <span>Add “{query.trim()}”</span>
+          {editingId ? <Pencil size={16} aria-hidden="true" /> : <Plus size={17} aria-hidden="true" />}
+          <span>{editingId ? 'Update' : 'Add'} “{query.trim()}”</span>
         </button> : null}
       </div>
 
