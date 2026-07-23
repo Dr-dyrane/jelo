@@ -22,6 +22,7 @@ export const catalogueGenerationRecordSchemaVersion = 1 as const;
 export const catalogueIdentityExtractionSchemaVersion = 3 as const;
 export const catalogueBrowserIdentityExtractionSchemaVersion = 4 as const;
 export const catalogueCorroboratedIdentityExtractionSchemaVersion = 5 as const;
+export const catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion = 6 as const;
 export const catalogueMarketObservationSchemaVersion = 1 as const;
 export const catalogueRegulatorySearchObservationSchemaVersion = 1 as const;
 
@@ -88,6 +89,29 @@ type CatalogueCorroboratedIdentifierExtraction = {
   reviewedAt: string;
 };
 
+type CatalogueAccessibleCorroboratedIdentifierExtraction = {
+  sourceUrl: string;
+  responseUrl: string;
+  retrievedAt: string;
+  fields: {
+    gtin: { value: string; locator: string; sourceText: string };
+    variant: { value: string; locator: string; sourceText: string };
+    size: { value: string; locator: string; sourceText: string };
+  };
+  sourceResponseSha256: string;
+  sourceResponseMimeType: 'text/html';
+  sourceResponseByteSize: number;
+  responseDigestScope: 'rendered-accessibility-tree';
+  method: 'reviewed-browser-accessibility-independent-ean-corroboration';
+  browserCapture: {
+    surface: 'Codex in-app browser';
+    documentReadyState: 'complete';
+    pageTitle: string;
+  };
+  reviewer: string;
+  reviewedAt: string;
+};
+
 export type CatalogueCorroboratedIdentityExtraction = {
   schemaVersion: typeof catalogueCorroboratedIdentityExtractionSchemaVersion;
   candidateId: string;
@@ -138,6 +162,51 @@ export type CatalogueCorroboratedIdentityExtraction = {
   reviewedAt: string;
 };
 
+export type CatalogueAccessibleCorroboratedIdentityExtraction = {
+  schemaVersion: typeof catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion;
+  candidateId: string;
+  sourceUrl: string;
+  responseUrl: string;
+  retrievedAt: string;
+  fields: {
+    gtin: {
+      value: string;
+      locator: string;
+      sourceText: string;
+    };
+    variant: { value: string; locator: string; sourceText: string };
+    size: { value: string; locator: string; sourceText: string };
+    packageVersion: {
+      value: string;
+      locator: string;
+      sourceText: string;
+      evidenceUrl: string;
+    };
+  };
+  sourceResponseSha256: string;
+  sourceResponseMimeType: 'text/html';
+  sourceResponseByteSize: number;
+  supplementalResponses: Array<{
+    role: 'official-pack-image';
+    sourceUrl: string;
+    responseUrl: string;
+    retrievedAt: string;
+    responseSha256: string;
+    responseMimeType: 'image/avif' | 'image/jpeg' | 'image/png' | 'image/webp';
+    responseByteSize: number;
+  }>;
+  responseDigestScope: 'rendered-accessibility-tree';
+  method: 'reviewed-browser-accessibility-identity-with-independent-ean-corroboration';
+  browserCapture: {
+    surface: 'Codex in-app browser';
+    documentReadyState: 'complete';
+    pageTitle: string;
+  };
+  identifierCorroborations: CatalogueAccessibleCorroboratedIdentifierExtraction[];
+  reviewer: string;
+  reviewedAt: string;
+};
+
 export type CatalogueOfficialIdentityExtraction = CatalogueOfficialIdentityExtractionBase & (
   | {
     schemaVersion: typeof catalogueIdentityExtractionSchemaVersion;
@@ -154,7 +223,7 @@ export type CatalogueOfficialIdentityExtraction = CatalogueOfficialIdentityExtra
       pageTitle: string;
     };
   }
-) | CatalogueCorroboratedIdentityExtraction;
+) | CatalogueCorroboratedIdentityExtraction | CatalogueAccessibleCorroboratedIdentityExtraction;
 
 export type CatalogueOfficialIdentityEvidence = {
   url: string;
@@ -487,12 +556,17 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
     'https://www.happii.dk/Ansigtspleje/Nineless-A-Control-10-Azelaic-Acid-Serum-30-ml/3353734',
     'https://qudobeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/',
   ],
+  'nineless-mela-pro-rice-txa-toner-200ml': [
+    'https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/',
+    'https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm',
+  ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',
   'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
   'https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment',
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+  'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
   'https://www.nhs.uk/tests-and-treatments/emollients/',
   'https://www.nhs.uk/conditions/keratosis-pilaris/',
@@ -883,6 +957,138 @@ function corroboratedIdentityEvidenceValid(
     && sourceHosts.size === extraction.identifierCorroborations.length;
 }
 
+function accessibleCorroboratedIdentityEvidenceValid(
+  candidate: CatalogueIntakeCandidate,
+  evidence: CatalogueOfficialIdentityEvidence,
+  extraction: CatalogueAccessibleCorroboratedIdentityExtraction,
+  asOf: number,
+) {
+  const checkedAt = Date.parse(candidate.identity.checkedAt ?? '');
+  const retrievedAt = Date.parse(evidence.retrievedAt);
+  const extractionReviewedAt = Date.parse(extraction.reviewedAt);
+  const packageVersion = candidate.identity.packageVersion;
+  const packageVersionField = extraction.fields.packageVersion;
+  const compositeGtin = extraction.fields.gtin;
+  const officialVariant = extraction.fields.variant;
+  const officialSize = extraction.fields.size;
+  const observedIdentityName = normalized(`${candidate.brand} ${candidate.name}`);
+  const officialFieldIdentity = normalized(`${candidate.brand} ${officialVariant.value}`);
+
+  if (
+    evidence.snapshotKind !== 'canonical-extraction'
+    || evidence.snapshotPath !== `data/catalogue-identity-evidence/${candidate.id}.json`
+    || evidence.snapshotMimeType !== 'application/json'
+    || !reviewedOfficialIdentitySource(candidate, evidence.url)
+    || !sameUrl(evidence.url, candidate.identity.officialProductUrl)
+    || !sameUrl(extraction.sourceUrl, evidence.url)
+    || !sameUrl(extraction.responseUrl, extraction.sourceUrl)
+    || extraction.candidateId !== candidate.id
+    || extraction.responseDigestScope !== 'rendered-accessibility-tree'
+    || extraction.method !== 'reviewed-browser-accessibility-identity-with-independent-ean-corroboration'
+    || extraction.sourceResponseMimeType !== 'text/html'
+    || !hashPattern.test(extraction.sourceResponseSha256)
+    || !Number.isSafeInteger(extraction.sourceResponseByteSize)
+    || extraction.sourceResponseByteSize <= 0
+    || extraction.browserCapture.surface !== 'Codex in-app browser'
+    || extraction.browserCapture.documentReadyState !== 'complete'
+    || extraction.browserCapture.pageTitle.trim().length < 3
+    || extraction.retrievedAt !== evidence.retrievedAt
+    || !validPastDate(extraction.retrievedAt, asOf)
+    || !validPastDate(extraction.reviewedAt, asOf)
+    || !Number.isFinite(checkedAt)
+    || !Number.isFinite(retrievedAt)
+    || !Number.isFinite(extractionReviewedAt)
+    || extractionReviewedAt < retrievedAt
+    || extractionReviewedAt > checkedAt
+    || !identityExtractionFieldValid(officialVariant)
+    || !identityExtractionFieldValid(officialSize)
+    || !identityExtractionFieldValid(compositeGtin)
+    || !identityExtractionFieldValid(packageVersionField)
+    || !extractionNamesExplicitManufacturerIdentifier(compositeGtin)
+    || !sameGtin(compositeGtin.value, evidence.observedGtin)
+    || !sourceTextContainsExactGtin(compositeGtin.sourceText, compositeGtin.value)
+    || officialFieldIdentity !== observedIdentityName
+    || !normalized(officialVariant.sourceText).includes(normalized(officialVariant.value))
+    || normalizedSize(officialSize.value) !== normalizedSize(candidate.size)
+    || !sourceTextContainsExactSize(officialSize.sourceText, officialSize.value)
+    || !packageVersion?.trim()
+    || normalized(packageVersionField.value) !== normalized(packageVersion)
+    || normalized(evidence.observedPackageVersion ?? '') !== normalized(packageVersion)
+    || !validHttps(packageVersionField.evidenceUrl)
+    || !sameGtin(evidence.observedGtin, candidate.identity.gtin)
+    || normalized(evidence.observedVariant) !== normalized(candidate.variant)
+    || normalizedSize(evidence.observedSize) !== normalizedSize(candidate.size)
+    || !hashPattern.test(evidence.snapshotSha256)
+    || !Number.isSafeInteger(evidence.snapshotByteSize)
+    || evidence.snapshotByteSize <= 0
+    || evidence.snapshotSha256 !== catalogueIdentityExtractionSha256(extraction)
+    || evidence.snapshotByteSize !== catalogueIdentityExtractionByteSize(extraction)
+    || !supplementalIdentityResponsesValid(candidate, extraction, asOf)
+    || !extraction.supplementalResponses.some(response => sameUrl(
+      response.sourceUrl,
+      packageVersionField.evidenceUrl,
+    ))
+    || typeof extraction.reviewer !== 'string'
+    || extraction.reviewer.trim().length < 2
+  ) return false;
+
+  if (
+    !Array.isArray(extraction.identifierCorroborations)
+    || extraction.identifierCorroborations.length < 2
+    || extraction.identifierCorroborations.length > 3
+  ) return false;
+
+  const sourceUrls = new Set<string>();
+  const sourceHosts = new Set<string>();
+  const corroboratedBrandNames = [candidate.brand, ...(candidate.brandAliases ?? [])].map(normalized);
+  const candidateNameTokens = normalized(candidate.name).split(' ').filter(token => token.length > 2);
+  for (const corroboration of extraction.identifierCorroborations) {
+    const corroborationRetrievedAt = Date.parse(corroboration.retrievedAt);
+    const corroborationReviewedAt = Date.parse(corroboration.reviewedAt);
+    const fields = corroboration.fields;
+    const corroborationVariant = normalized(fields.variant.value);
+    const corroborationVariantTokens = new Set(corroborationVariant.split(' '));
+    if (
+      !reviewedIdentifierCorroborationSource(candidate, corroboration.sourceUrl)
+      || !sameUrl(corroboration.sourceUrl, corroboration.responseUrl)
+      || corroboration.method !== 'reviewed-browser-accessibility-independent-ean-corroboration'
+      || corroboration.responseDigestScope !== 'rendered-accessibility-tree'
+      || corroboration.sourceResponseMimeType !== 'text/html'
+      || !hashPattern.test(corroboration.sourceResponseSha256)
+      || !Number.isSafeInteger(corroboration.sourceResponseByteSize)
+      || corroboration.sourceResponseByteSize <= 0
+      || corroboration.browserCapture.surface !== 'Codex in-app browser'
+      || corroboration.browserCapture.documentReadyState !== 'complete'
+      || corroboration.browserCapture.pageTitle.trim().length < 3
+      || !validPastDate(corroboration.retrievedAt, asOf)
+      || !validPastDate(corroboration.reviewedAt, asOf)
+      || !Number.isFinite(corroborationRetrievedAt)
+      || !Number.isFinite(corroborationReviewedAt)
+      || corroborationReviewedAt < corroborationRetrievedAt
+      || corroborationReviewedAt > checkedAt
+      || !identityExtractionFieldValid(fields.gtin)
+      || !identityExtractionFieldValid(fields.variant)
+      || !identityExtractionFieldValid(fields.size)
+      || !extractionNamesExplicitManufacturerIdentifier(fields.gtin)
+      || !sameGtin(fields.gtin.value, evidence.observedGtin)
+      || !sourceTextContainsExactGtin(fields.gtin.sourceText, fields.gtin.value)
+      || !corroboratedBrandNames.some(brand => corroborationVariant.includes(brand))
+      || !candidateNameTokens.every(token => corroborationVariantTokens.has(token))
+      || !normalized(fields.variant.sourceText).includes(corroborationVariant)
+      || normalizedSize(fields.size.value) !== normalizedSize(candidate.size)
+      || !sourceTextContainsExactSize(fields.size.sourceText, fields.size.value)
+      || typeof corroboration.reviewer !== 'string'
+      || corroboration.reviewer.trim().length < 2
+    ) return false;
+
+    const url = new URL(corroboration.sourceUrl);
+    sourceUrls.add(url.href);
+    sourceHosts.add(url.hostname.replace(/^www\./, '').toLowerCase());
+  }
+  return sourceUrls.size === extraction.identifierCorroborations.length
+    && sourceHosts.size === extraction.identifierCorroborations.length;
+}
+
 function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf: number) {
   const evidence = candidate.identity.officialEvidence;
   const extraction = evidence?.canonicalExtraction;
@@ -890,6 +1096,10 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
     evidence
     && extraction?.schemaVersion === catalogueCorroboratedIdentityExtractionSchemaVersion
   ) return corroboratedIdentityEvidenceValid(candidate, evidence, extraction, asOf);
+  if (
+    evidence
+    && extraction?.schemaVersion === catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion
+  ) return accessibleCorroboratedIdentityEvidenceValid(candidate, evidence, extraction, asOf);
 
   const checkedAt = Date.parse(candidate.identity.checkedAt ?? '');
   const retrievedAt = Date.parse(evidence?.retrievedAt ?? '');

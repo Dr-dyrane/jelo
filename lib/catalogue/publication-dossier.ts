@@ -137,6 +137,28 @@ function stableJson(value: unknown): string {
 function cloneOfficialIdentityExtraction(
   extraction: CatalogueOfficialIdentityExtraction,
 ): CatalogueOfficialIdentityExtraction {
+  if (extraction.schemaVersion === 6) {
+    return {
+      ...extraction,
+      fields: {
+        gtin: { ...extraction.fields.gtin },
+        variant: { ...extraction.fields.variant },
+        size: { ...extraction.fields.size },
+        packageVersion: { ...extraction.fields.packageVersion },
+      },
+      supplementalResponses: extraction.supplementalResponses.map(response => ({ ...response })),
+      browserCapture: { ...extraction.browserCapture },
+      identifierCorroborations: extraction.identifierCorroborations.map(corroboration => ({
+        ...corroboration,
+        fields: {
+          gtin: { ...corroboration.fields.gtin },
+          variant: { ...corroboration.fields.variant },
+          size: { ...corroboration.fields.size },
+        },
+        browserCapture: { ...corroboration.browserCapture },
+      })),
+    };
+  }
   if (extraction.schemaVersion === 5) {
     return {
       ...extraction,

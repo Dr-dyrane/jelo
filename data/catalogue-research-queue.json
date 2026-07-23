@@ -435,33 +435,6 @@
     },
     {
       "rank": 16,
-      "discoveryId": "85ff41cb1a6dc5faae89a00d",
-      "title": "NINELESS MELA-PRO Rice And TXA Toner 200ml",
-      "brandHint": "NINELESS",
-      "size": "200ml",
-      "categoryHint": "Face care",
-      "lane": "pigment-support",
-      "priorityScore": 176,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "08809875270172",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 17,
       "discoveryId": "c7e76dd320bb3c521744597c",
       "title": "NIU SKIN Glowing (Niacinamide, Vitamin C And AHA) Body Wash 800ml",
       "brandHint": "NIU SKIN",
@@ -488,7 +461,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "discoveryId": "41ed533ef6415b6cea8ea251",
       "title": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
       "brandHint": "SKIN BY ZARON",
@@ -515,7 +488,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 19,
+      "rank": 18,
       "discoveryId": "17bd496cb38c558d4e8a56f9",
       "title": "DR TEALS (Vitamin C And Citrus) Body Lotion with Essential oil 532ml",
       "brandHint": "DR",
@@ -526,6 +499,33 @@
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
       "identityLead": "00811068019237",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 19,
+      "discoveryId": "9a010c0186b1418272fce5bb",
+      "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
+      "brandHint": "ADVANCED",
+      "size": "52ml",
+      "categoryHint": "Face care",
+      "lane": "pigment-support",
+      "priorityScore": 171,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "00819265008016",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

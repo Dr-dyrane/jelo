@@ -337,6 +337,30 @@
         "publishedAt": "2026-07-23T08:35:40Z"
       },
       "releaseFingerprint": "fd398c0ead8c66e27142c7dd92b07df1699884c86523f9a187881fa28dd81eed"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+      "dossierFingerprint": "d18376dfcf715aca6768281eab9fdf519bb89cdb934af6335cccdd0b3577ecc0",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Tone",
+        "displayLine": "Original rice-and-TXA toner.",
+        "usage": "Shake well, then apply after cleansing. Check your bottle—the formula has changed.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T09:17:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T09:18:00Z"
+      },
+      "releaseFingerprint": "3a01f72bf4cd29ab81338da2416d6048077e0e442ba94d37d0c24f5dacabe382"
     }
   ]
 }

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   auditCatalogueIntakeManifest,
+  catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion,
   catalogueGenerationRecordSchemaVersion,
   catalogueGenerationRecordSha256,
   catalogueCorroboratedIdentityExtractionSchemaVersion,
@@ -427,6 +428,152 @@ function corroboratedIdentityEvidence(): CatalogueOfficialIdentityEvidence {
   };
 }
 
+function accessibleCorroboratedIdentityEvidence(): CatalogueOfficialIdentityEvidence {
+  const candidateId = 'nineless-mela-pro-rice-txa-toner-200ml';
+  const officialUrl = 'https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml';
+  const packageEvidenceUrl = 'https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738';
+  const observedGtin = '8809875270172';
+  const observedVariant = 'Mela-Pro Rice & TXA Toner';
+  const observedSize = '200 ml';
+  const observedPackageVersion = 'Original translucent bottle with orange cap';
+  const retrievedAt = '2026-07-22T07:55:00Z';
+  const canonicalExtraction = {
+    schemaVersion: catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion,
+    candidateId,
+    sourceUrl: officialUrl,
+    responseUrl: officialUrl,
+    retrievedAt,
+    fields: {
+      gtin: {
+        value: observedGtin,
+        locator: 'identifierCorroborations[*].fields.gtin',
+        sourceText: `EAN ${observedGtin} is independently corroborated by Qudo and Shop Apotheke.`,
+      },
+      variant: {
+        value: observedVariant,
+        locator: 'Rendered accessibility tree product heading',
+        sourceText: '[MELA-PRO] Rice & TXA Toner 200ml',
+      },
+      size: {
+        value: observedSize,
+        locator: 'Rendered accessibility tree product heading size',
+        sourceText: '[MELA-PRO] Rice & TXA Toner 200ml',
+      },
+      packageVersion: {
+        value: observedPackageVersion,
+        locator: 'Official renewal comparison image, original package',
+        sourceText: 'Original translucent MELA-PRO Rice & TXA Toner 200 ml bottle with orange cap upgrades to an opaque bottle.',
+        evidenceUrl: packageEvidenceUrl,
+      },
+    },
+    sourceResponseSha256: '5'.repeat(64),
+    sourceResponseMimeType: 'text/html' as const,
+    sourceResponseByteSize: 6_109,
+    supplementalResponses: [{
+      role: 'official-pack-image' as const,
+      sourceUrl: packageEvidenceUrl,
+      responseUrl: packageEvidenceUrl,
+      retrievedAt,
+      responseSha256: '6'.repeat(64),
+      responseMimeType: 'image/png' as const,
+      responseByteSize: 264_943,
+    }],
+    responseDigestScope: 'rendered-accessibility-tree' as const,
+    method: 'reviewed-browser-accessibility-identity-with-independent-ean-corroboration' as const,
+    browserCapture: {
+      surface: 'Codex in-app browser' as const,
+      documentReadyState: 'complete' as const,
+      pageTitle: '[MELA-PRO] Rice & TXA Toner 200ml – NINELESS',
+    },
+    identifierCorroborations: [
+      {
+        sourceUrl: 'https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/',
+        responseUrl: 'https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/',
+        retrievedAt: '2026-07-22T07:56:00Z',
+        fields: {
+          gtin: {
+            value: observedGtin,
+            locator: 'Rendered accessibility text labelled EAN',
+            sourceText: `EAN: ${observedGtin}`,
+          },
+          variant: {
+            value: 'NINE LESS Mela Pro Rice & TXA Toner 200ml',
+            locator: 'Rendered accessibility product heading',
+            sourceText: 'NINE LESS Mela Pro Rice & TXA Toner 200ml',
+          },
+          size: {
+            value: observedSize,
+            locator: 'Rendered accessibility product heading size',
+            sourceText: 'NINE LESS Mela Pro Rice & TXA Toner 200ml',
+          },
+        },
+        sourceResponseSha256: '7'.repeat(64),
+        sourceResponseMimeType: 'text/html' as const,
+        sourceResponseByteSize: 11_319,
+        responseDigestScope: 'rendered-accessibility-tree' as const,
+        method: 'reviewed-browser-accessibility-independent-ean-corroboration' as const,
+        browserCapture: {
+          surface: 'Codex in-app browser' as const,
+          documentReadyState: 'complete' as const,
+          pageTitle: 'NINE LESS - Mela Pro Rice & TXA Toner - 200ml - Qudo Beauty',
+        },
+        reviewer: 'Identity reviewer',
+        reviewedAt: '2026-07-22T07:58:00Z',
+      },
+      {
+        sourceUrl: 'https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm',
+        responseUrl: 'https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm',
+        retrievedAt: '2026-07-22T07:56:00Z',
+        fields: {
+          gtin: {
+            value: observedGtin,
+            locator: 'Rendered accessibility definition labelled EAN',
+            sourceText: `EAN ${observedGtin}`,
+          },
+          variant: {
+            value: 'NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml',
+            locator: 'Rendered accessibility product heading',
+            sourceText: 'NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml',
+          },
+          size: {
+            value: observedSize,
+            locator: 'Rendered accessibility product heading size',
+            sourceText: 'NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml',
+          },
+        },
+        sourceResponseSha256: '8'.repeat(64),
+        sourceResponseMimeType: 'text/html' as const,
+        sourceResponseByteSize: 26_488,
+        responseDigestScope: 'rendered-accessibility-tree' as const,
+        method: 'reviewed-browser-accessibility-independent-ean-corroboration' as const,
+        browserCapture: {
+          surface: 'Codex in-app browser' as const,
+          documentReadyState: 'complete' as const,
+          pageTitle: 'NINE LESS Mela-Pro Rice & TXA Toner 200 ml - Shop Apotheke',
+        },
+        reviewer: 'Identity reviewer',
+        reviewedAt: '2026-07-22T07:58:00Z',
+      },
+    ],
+    reviewer: 'Identity reviewer',
+    reviewedAt: '2026-07-22T07:59:00Z',
+  };
+  return {
+    url: officialUrl,
+    observedGtin,
+    observedVariant,
+    observedSize,
+    observedPackageVersion,
+    snapshotKind: 'canonical-extraction',
+    snapshotPath: `data/catalogue-identity-evidence/${candidateId}.json`,
+    canonicalExtraction,
+    snapshotSha256: catalogueIdentityExtractionSha256(canonicalExtraction),
+    snapshotMimeType: 'application/json',
+    snapshotByteSize: catalogueIdentityExtractionByteSize(canonicalExtraction),
+    retrievedAt,
+  };
+}
+
 function generationRecord(
   overrides: Partial<CatalogueGenerationRecordContent> = {},
 ): CatalogueGenerationRecord {
@@ -821,6 +968,62 @@ test('an unpublished manufacturer barcode requires two independent EAN sources a
   }, asOf);
   assert.equal(changedPackageDecision.stage, 'identity');
   assert.ok(changedPackageDecision.blockers.includes('identity-official-evidence-invalid'));
+});
+
+test('an accessibility-tree capture can corroborate an exact legacy package without inventing official identifier fields', () => {
+  const officialEvidence = accessibleCorroboratedIdentityEvidence();
+  const candidate: CatalogueIntakeCandidate = {
+    ...completeCandidate(),
+    id: 'nineless-mela-pro-rice-txa-toner-200ml',
+    brand: 'NINELESS',
+    brandAliases: ['NINE LESS'],
+    name: 'Mela-Pro Rice & TXA Toner',
+    variant: 'Mela-Pro Rice & TXA Toner',
+    size: '200 ml',
+    identity: {
+      gtin: '8809875270172',
+      officialProductUrl: officialEvidence.url,
+      checkedAt: '2026-07-22T08:00:00Z',
+      basis: 'official-brand',
+      packageVersion: 'Original translucent bottle with orange cap',
+      officialEvidence,
+    },
+  };
+  const decision = evaluateCatalogueIntakeCandidate(candidate, asOf);
+  assert.equal(decision.stage, 'care');
+  assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+
+  const extraction = officialEvidence.canonicalExtraction;
+  assert.equal(extraction.schemaVersion, catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion);
+  if (extraction.schemaVersion !== catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion) return;
+
+  const wrongRepresentation = {
+    ...extraction,
+    responseDigestScope: 'rendered-dom-outerhtml' as never,
+  };
+  const wrongRepresentationDecision = evaluateCatalogueIntakeCandidate({
+    ...candidate,
+    identity: {
+      ...candidate.identity,
+      officialEvidence: withCanonicalExtraction(officialEvidence, wrongRepresentation),
+    },
+  }, asOf);
+  assert.equal(wrongRepresentationDecision.stage, 'identity');
+  assert.ok(wrongRepresentationDecision.blockers.includes('identity-official-evidence-invalid'));
+
+  const missingPackageEvidence = {
+    ...extraction,
+    supplementalResponses: [],
+  };
+  const missingPackageDecision = evaluateCatalogueIntakeCandidate({
+    ...candidate,
+    identity: {
+      ...candidate.identity,
+      officialEvidence: withCanonicalExtraction(officialEvidence, missingPackageEvidence),
+    },
+  }, asOf);
+  assert.equal(missingPackageDecision.stage, 'identity');
+  assert.ok(missingPackageDecision.blockers.includes('identity-official-evidence-invalid'));
 });
 
 test('canonical identity extraction rejects token collisions and non-raw response MIME types', () => {

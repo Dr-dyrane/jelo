@@ -291,6 +291,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Festac Town retailer with a direct catalogue, visible Naira pricing, stock status, Lagos address, phone and domain email.',
   },
   {
+    name: 'Muna Cosmetics',
+    homepage: 'https://munacosmetics.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 82,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    identityEvidence: {
+      observedAt: '2026-07-23T08:55:00Z',
+      sourceUrl: 'https://munacosmetics.com/about-muna-cosmetics',
+      basis: 'self-published-contact',
+      scope: 'self-published',
+    },
+    searchUrl: query => `https://munacosmetics.com/index.php?route=product/search&search=${encodeURIComponent(query)}`,
+    note: 'Lagos retailer with a direct catalogue, visible Naira pricing, purchase controls and self-published address, phone and domain email.',
+  },
+  {
     name: 'AGT Plaza',
     homepage: 'https://www.agtplaza.com/',
     market: 'NG',
