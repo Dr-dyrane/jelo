@@ -15,6 +15,7 @@ body,
   display: inline-flex;
   align-items: center;
   gap: .35rem;
+  white-space: nowrap;
 }
 
 body { font-weight: 400; }
@@ -27,3 +28,9 @@ body { font-weight: 400; }
 .profile-grid label { font-weight: 600; }
 .prompt-row button { font-weight: 400; }
 .consult-form button { font-weight: 500; }
+
+@media (max-width: 620px) {
+  .text-link svg {
+    display: none;
+  }
+}

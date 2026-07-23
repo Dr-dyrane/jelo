@@ -73,7 +73,7 @@ function inventoryCategory(product: ReviewedProduct) {
 function DiscoveryRail({ eyebrow, title, products, market, href: railHref }: { eyebrow: string; title: string; products: ReviewedProduct[]; market: Market; href: string }) {
   if (!products.length) return null;
   return <section className={styles.shelf}>
-    <div className={styles.sectionHeading}><div><p>{eyebrow}</p><h2>{title}</h2></div><Link href={railHref}>View all <ArrowRight size={16} aria-hidden="true"/></Link></div>
+    <div className={styles.sectionHeading}><div><p>{eyebrow}</p><h2>{title}</h2></div><Link className="text-link" href={railHref}>View all <ArrowRight size={16} aria-hidden="true"/></Link></div>
     <ProductRail products={products.slice(0, 12)} market={market}/>
   </section>;
 }

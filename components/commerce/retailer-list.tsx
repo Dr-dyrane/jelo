@@ -17,7 +17,6 @@ import {
   hasBrandAuthorizationEvidence,
   hasListingEvidence,
   hasSellerIdentityEvidence,
-  landedCostCaveat,
   observedStockLabel,
   observedMarketPrice,
 } from '@/modules/commerce/offer-evidence';
@@ -46,11 +45,11 @@ function formatAmount(value: number, market: Market) {
 function movementLabel(trends: ProductPriceTrends | undefined, market: Market) {
   const movement = trends?.[market]?.thirtyDay ?? trends?.[market]?.sevenDay;
   if (!movement) return null;
-  if (movement.direction === 'flat') return { direction: 'flat', copy: `Steady · ${movement.days}d` };
+  if (movement.direction === 'flat') return { direction: 'flat', copy: 'Price steady' };
   const majorAmount = Math.abs(movement.amountMinor) / (market === 'US' ? 100 : 1);
   return {
     direction: movement.direction,
-    copy: `${movement.direction === 'down' ? 'Down' : 'Up'} ${formatAmount(majorAmount, market)} · ${movement.days}d`,
+    copy: `Price ${movement.direction === 'down' ? 'dropped' : 'rose'} ${formatAmount(majorAmount, market)}`,
   };
 }
 
@@ -114,9 +113,9 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
             <span className="retailer-rank">{String(index + 1).padStart(2, '0')}</span>
             <span>
               <strong>{offer.retailer}</strong>
-              <small>{stock}{checked ? ` · Checked ${checked}` : ''}</small>
+              <small>{stock}{checked ? ` · ${checked}` : ''}</small>
               {fulfilment ? <small>{fulfilment}</small> : null}
-              {offer.priceObservation ? <small>{offer.priceObservation.size} · {landedCostCaveat(offer)}</small> : null}
+              {offer.priceObservation ? <small>{offer.priceObservation.size}</small> : null}
               {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}{hasSellerIdentityEvidence(offer) ? '' : ' · Check seller'}</small> : null}
               {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Check with store</small> : null}
               {hasBrandAuthorizationEvidence(offer) ? <small>Listed by the brand</small> : null}
@@ -130,7 +129,7 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
           );
         }) : <div className="retailer-empty"><p>No exact offer yet.</p><button type="button" onClick={() => setMarket(market === 'NG' ? 'US' : 'NG')}>Try {market === 'NG' ? 'United States' : 'Nigeria'}</button></div>}
       </div>
-      <p className="retailer-disclosure">Prices can change. Delivery may cost more.</p>
+      <p className="retailer-disclosure">Prices can change. Delivery may cost extra.</p>
     </div>
   );
 }

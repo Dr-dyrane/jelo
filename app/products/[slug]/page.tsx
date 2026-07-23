@@ -106,7 +106,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-        {related.length ? <section className="related-products"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>More to browse.</h2></div><Link className="text-link" href="/products">Browse all <ArrowRight size={16} aria-hidden="true" /></Link></div><ProductGrid products={related}/></section> : null}
+        {related.length ? <section className="related-products"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>More to browse.</h2></div><Link className="text-link" href="/products">View all <ArrowRight size={16} aria-hidden="true" /></Link></div><ProductGrid products={related}/></section> : null}
       </main>
     </>
   );
