@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T05:34:00Z');
+const researchAsOf = Date.parse('2026-07-23T06:13:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
@@ -26,17 +26,17 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 12);
   assert.equal(catalogueIntakeDecisions.length, 12);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 8);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 9);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 12);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 8);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 9);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 4);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 3);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 8);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 9);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -446,7 +446,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 12);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 14);
+  ), 0), 16);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
@@ -469,7 +469,7 @@ test('a tampered excluded observation fails the private intake audit', () => {
   );
 });
 
-test('the UK/EU SA cleanser keeps its 473 ml identity through a bounded care review', () => {
+test('the UK/EU SA cleanser binds its 473 ml identity to two exact Nigerian offers', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-sa-smoothing-cleanser-473ml');
   assert.ok(candidate);
   assert.equal(candidate.identity.gtin, '3337875795456');
@@ -479,10 +479,21 @@ test('the UK/EU SA cleanser keeps its 473 ml identity through a bounded care rev
   assert.equal(candidate.care.manufacturerEvidenceUrl, 'https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser');
   assert.equal(candidate.care.independentClinicalGuidanceUrl, 'https://www.nhs.uk/conditions/keratosis-pilaris/');
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.nigeriaMarketRoute, 'tier-a');
+  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), ['Teeka4', '24Eleven']);
+  assert.deepEqual(decision.freshExactOffers.map(offer => offer.priceNgn), [20_900, 23_800]);
+  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailerSku), ['TK-0199', '1023539']);
+  assert.equal(decision.freshExactOffers.every(offer => offer.observedGtin === undefined), true);
+  assert.equal(decision.freshExactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
+  assert.equal(decision.freshExactOffers.every(offer => (
+    offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
+  )), true);
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
+  assert.equal(decision.blockers.includes('nigeria-market-route-insufficient'), false);
   assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
 });
 

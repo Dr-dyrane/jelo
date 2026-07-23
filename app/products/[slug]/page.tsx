@@ -48,7 +48,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     ? 'Supportive use'
     : careReview?.careState === 'pharmacist_review'
       ? 'Pharmacist review'
-      : catalogueVerified ? 'Product information verified' : 'Formula review pending';
+      : catalogueVerified ? null : 'Formula review pending';
   const careNote = careReview?.careState === 'supportive_eligible'
     ? careReview.approvedUses.map(use => use.label).join(' · ')
     : careReview?.careState === 'pharmacist_review'
@@ -90,7 +90,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <p className="eyebrow">{product.brand}</p>
           <h1>{product.name}</h1>
           <div className="product-title-meta"><span>{product.size}</span><span>{product.category}</span><span>{product.step}</span></div>
-          <p className="product-line">{careStatus}</p>
+          {careStatus ? <p className="product-line">{careStatus}</p> : null}
           <p className="product-page-price"><MarketPrice offers={product.offers} market="NG"/></p>
           <ProductQuickPanel
             productSlug={product.slug}

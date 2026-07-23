@@ -2068,6 +2068,280 @@
         "approvedAt": "2026-07-23T05:33:10Z"
       },
       "dossierFingerprint": "0f4758c63cad7f874a7cbb658962497ebbbca7b7714aa723406cddd56b47339d"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "cerave-sa-smoothing-cleanser-473ml",
+      "candidateFingerprint": "13435089ac8cae0d5e1a12e52bdf5a000b006dd5321a4b8efde8a724b1697508",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "3337875795456",
+        "brand": "CeraVe",
+        "name": "SA Smoothing Cleanser",
+        "variant": "CeraVe SA Smoothing Cleanser",
+        "size": "473 ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "officialIdentity": {
+          "url": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+          "observedGtin": "3337875795456",
+          "observedVariant": "CeraVe SA Smoothing Cleanser",
+          "observedSize": "473 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cerave-sa-smoothing-cleanser-473ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "cerave-sa-smoothing-cleanser-473ml",
+            "sourceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+            "responseUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T18:09:07Z",
+            "fields": {
+              "gtin": {
+                "value": "3337875795456",
+                "locator": "PDF page 3 of 4, #5 Shelf 1 UPC row",
+                "sourceText": "3337875795456 CeraVe smoothing cleanser 473ml 1 5"
+              },
+              "variant": {
+                "value": "CeraVe SA Smoothing Cleanser",
+                "locator": "PDF page 3 of 4, #5 Shelf 1 planogram, leftmost pump pack label",
+                "sourceText": "CeraVe SA Smoothing Cleanser"
+              },
+              "size": {
+                "value": "473 ml",
+                "locator": "PDF page 3 of 4, #5 Shelf 1 Name column",
+                "sourceText": "CeraVe smoothing cleanser 473ml"
+              }
+            },
+            "sourceResponseSha256": "83d107915c0531680c78ff7dc8aecbb49cd659ef050b14a244b0ce29982ba836",
+            "sourceResponseMimeType": "application/pdf",
+            "sourceResponseByteSize": 2135857,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T18:10:00Z"
+          },
+          "snapshotSha256": "169c7cf1b04d383024e1fa8eba5a8752f12a94914b417b88ec3b2310093bdc3f",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1313,
+          "retrievedAt": "2026-07-22T18:09:07Z"
+        },
+        "checkedAt": "2026-07-22T18:10:00Z",
+        "demandEvidenceUrls": [
+          "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Fragrance-free salicylic-acid rinse-off cleanser with gluconolactone, ceramides and hyaluronic acid for rough and bumpy face or body skin",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports gentle cleansing and exfoliation for rough, bumpy face or body skin. It does not diagnose or treat keratosis pilaris, acne, or another condition; avoid harsh scrubbing, stop if irritated, and ask a pharmacist or clinician about inflamed, itchy, painful, or persistent skin.",
+        "manufacturerEvidenceUrl": "https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/conditions/keratosis-pilaris/",
+        "evidenceUrls": [
+          "https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser",
+          "https://www.nhs.uk/conditions/keratosis-pilaris/"
+        ],
+        "reviewedAt": "2026-07-22T18:40:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "exactOffers": [
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
+            "observedAt": "2026-07-23T06:00:33.919Z",
+            "observedTitle": "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
+            "observedSize": "473 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "TK-0199",
+            "priceNgn": 20900,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
+              "responseUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
+              "responseSha256": "31e9be4c9a385bd26716c6db597efe43ff84566c831d39942429736c1173c43c",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 200024,
+              "retrievedAt": "2026-07-23T06:00:33.919Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Shop for original Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml in Lagos Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "3337875795456",
+                  "locator": "Bound official CeraVe 473 ml identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875795456",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
+                  "locator": "Rendered DOM h1 product heading",
+                  "sourceText": "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml"
+                },
+                "size": {
+                  "value": "473 ml",
+                  "locator": "Rendered DOM h1 size suffix",
+                  "sourceText": "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml"
+                },
+                "price": {
+                  "value": 20900,
+                  "currency": "NGN",
+                  "locator": "Rendered DOM product price",
+                  "sourceText": "₦20,900.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered DOM availability status",
+                  "sourceText": "IN STOCK"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "TK-0199",
+                  "locator": "Rendered DOM Additional Info",
+                  "sourceText": "TK-0199"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T06:02:00Z"
+            }
+          },
+          {
+            "retailer": "24Eleven",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
+            "observedAt": "2026-07-23T06:00:34.159Z",
+            "observedTitle": "Cerave SA Smoothing Cleanser - 473ml (16oz)",
+            "observedSize": "473 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "1023539",
+            "priceNgn": 23800,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
+              "responseUrl": "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
+              "responseSha256": "fbfac2057b8b76afb20f12d55cb898fa4ee7d047b1b4b803293a873e2068e605",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 93057,
+              "retrievedAt": "2026-07-23T06:00:34.159Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Cerave SA Smoothing Cleanser - 473ml (16oz) | 24eleven.ng - Best price in Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "3337875795456",
+                  "locator": "Bound official CeraVe 473 ml identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875795456",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Cerave SA Smoothing Cleanser - 473ml (16oz)",
+                  "locator": "Rendered DOM h1 page title",
+                  "sourceText": "Cerave SA Smoothing Cleanser - 473ml (16oz)"
+                },
+                "size": {
+                  "value": "473 ml",
+                  "locator": "Rendered DOM h1 size suffix",
+                  "sourceText": "Cerave SA Smoothing Cleanser - 473ml (16oz)"
+                },
+                "price": {
+                  "value": 23800,
+                  "currency": "NGN",
+                  "locator": "Rendered DOM final price",
+                  "sourceText": "₦23,800"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered DOM availability status",
+                  "sourceText": "Available"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "1023539",
+                  "locator": "Rendered DOM product metadata",
+                  "sourceText": "SKU 1023539"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T06:02:00Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/sa-smoothing-cleanser-236ml/sa-smoothing-cleanser-473ml-2-sm.jpg?rev=-1",
+          "sha256": "51e161b9a03856ef98fedfba2550b6ef6b6f64ec150174896ea2a088e6b6a535",
+          "mimeType": "image/jpeg",
+          "byteSize": 35211,
+          "width": 700,
+          "height": 700,
+          "retrievedAt": "2026-07-23T06:06:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot source\nPrimary request: Preserve the exact CeraVe SA Smoothing Cleanser 16 FL OZ / 473 ml pump bottle from the reference, including its bottle silhouette, proportions, pump shape, blue collar, cream bottle colour, bilingual front label, brand mark, typography, every visible word, and exact label layout. Change only the white background to a perfectly flat solid #00ff00 chroma-key background for local removal.\nInput image: official CeraVe UK 473 ml front pack image; edit target and identity reference.\nComposition: one centered, upright, full bottle with the pump and rounded bottom fully visible, generous even padding on every edge.\nConstraints: product identity and packaging must remain unchanged; no invented text; no relabelling; no cropped edges; no cast shadow; no contact shadow; no reflection; no floor plane; no extra objects; no watermark. Background must be one uniform #00ff00 with no gradient, texture, lighting variation, or green on the product.",
+          "inputs": [
+            {
+              "url": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/sa-smoothing-cleanser-236ml/sa-smoothing-cleanser-473ml-2-sm.jpg?rev=-1",
+              "sha256": "51e161b9a03856ef98fedfba2550b6ef6b6f64ec150174896ea2a088e6b6a535"
+            }
+          ],
+          "outputSha256": "94aeb6ddef6cff006c16abcb0150639758c59335df48b587a2993c0bb8a7d454",
+          "generatedAt": "2026-07-23T06:08:00Z",
+          "recordSha256": "221808e732f017e063dc7a214b8d77c8b1e315e0082c39bbccdcbd7b0b127dac"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-sa-smoothing-cleanser-473ml/packshot-v1-94aeb6ddef6cff00.png",
+        "sha256": "94aeb6ddef6cff006c16abcb0150639758c59335df48b587a2993c0bb8a7d454",
+        "mimeType": "image/png",
+        "byteSize": 1801366,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-23T06:11:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-07-23T06:14:00Z"
+      },
+      "dossierFingerprint": "51e922b18e9473d5be66240686443a3e52870cefa95f9a224ac6aeb3bcbcb135"
     }
   ]
 }
