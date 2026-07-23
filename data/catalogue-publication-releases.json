@@ -481,6 +481,30 @@
         "publishedAt": "2026-07-23T14:50:00Z"
       },
       "releaseFingerprint": "ea23642ebc2cdc540d18f0e1620bc1056237fca1ba4772dac49671a93760aa09"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dove-calming-moisture-body-wash-547ml",
+      "dossierFingerprint": "d9f86bce70041cb996b867616f5375bc37831ae407989c5f2f3b560173f73c6c",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Body wash with retinol and chamomile.",
+        "usage": "Lather over damp skin, rinse, then pat dry.",
+        "manufacturerDirectionsUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T15:33:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T15:34:00Z"
+      },
+      "releaseFingerprint": "bbf00d11be4120d4991e63931ff672a5a3910e00d99c01e66bfc4c0ab184768c"
     }
   ]
 }

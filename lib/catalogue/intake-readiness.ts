@@ -549,7 +549,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
   delacruz: ['dlclabs.com'],
-  dove: ['www.dove.com'],
+  dove: ['www.dove.com', 'assets.unileversolutions.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
   garnier: ['www.garnier.co.uk'],

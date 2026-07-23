@@ -368,7 +368,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 20);
+  assert.equal(result.dossierCount, 21);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -409,6 +409,10 @@ test('the checked-in publication manifest contains the verified neutral referenc
   assert.equal(result.dossiers[19].nigeria.marketRoute, 'tier-a');
   assert.deepEqual(result.dossiers[19].nigeria.exactOffers.map(offer => offer.priceNgn), [20_000, 21_200]);
   assert.equal(result.dossiers[19].rights.generationRecord?.outputSha256, result.dossiers[19].finalImage.sha256);
+  assert.equal(result.dossiers[20].candidateId, 'dove-calming-moisture-body-wash-547ml');
+  assert.equal(result.dossiers[20].nigeria.marketRoute, 'tier-a');
+  assert.deepEqual(result.dossiers[20].nigeria.exactOffers.map(offer => offer.priceNgn), [22_600, 17_800]);
+  assert.equal(result.dossiers[20].rights.generationRecord?.outputSha256, result.dossiers[20].finalImage.sha256);
   assert.equal(result.dossiers[8].candidateId, 'cerave-sa-smoothing-cleanser-473ml');
   assert.equal(result.dossiers[8].nigeria.marketRoute, 'tier-a');
   assert.equal(result.dossiers[8].nigeria.exactOffers.length, 2);
@@ -861,7 +865,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 20);
+  assert.equal(report.releaseCount, 21);
   assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
   assert.equal(report.products[0].offers[0].priceNgn, 15_265);
   assert.equal(report.products[1].slug, 'cerave-moisturising-cream-454g');
@@ -1024,6 +1028,15 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
   assert.equal(report.products[19].offers[1].retailer, 'Perona Beauty');
   assert.equal(report.products[19].offers[1].priceNgn, 21_200);
   assert.equal(report.products[19].offers[1].available, true);
+  assert.equal(report.products[20].slug, 'dove-calming-moisture-body-wash-547ml');
+  assert.equal(report.products[20].category, 'Body');
+  assert.equal(report.products[20].step, 'Cleanse');
+  assert.equal(report.products[20].offers[0].retailer, 'BuyBetter');
+  assert.equal(report.products[20].offers[0].priceNgn, 22_600);
+  assert.equal(report.products[20].offers[0].available, true);
+  assert.equal(report.products[20].offers[1].retailer, 'Teeka4');
+  assert.equal(report.products[20].offers[1].priceNgn, 17_800);
+  assert.equal(report.products[20].offers[1].available, false);
 });
 
 test('an explicit release materializes identity, image and exact offers only from its verified dossier', () => {
