@@ -59,6 +59,19 @@ export const concerns: Concern[] = [
     reviewedAt: '2026-07-23',
   },
   {
+    slug: 'dry-rough-body-skin', name: 'Dry & rough body skin', area: 'Body', kind: 'concern',
+    summary: 'Dry, rough or tight-feeling skin on the body.',
+    signals: ['dry patches', 'rough texture', 'tightness', 'flaking'],
+    ingredients: ['fragrance-free moisturizer', 'ceramides', 'urea', 'petrolatum'],
+    productTerms: ['body dryness', 'rough skin', 'very dry skin', 'body hydration'],
+    escalation: 'Cracking, bleeding, persistent itch, pain or dryness that does not improve needs clinical review.',
+    sources: [
+      { title: 'American Academy of Dermatology · Dry skin', url: 'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin' },
+      { title: 'NHS · Emollients', url: 'https://www.nhs.uk/tests-and-treatments/emollients/' },
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  {
     slug: 'oily-congested-skin', name: 'Oily & congested skin', area: 'Face', kind: 'concern',
     summary: 'Shine, clogged pores and uneven texture.',
     signals: ['shine', 'visible pores', 'blackheads', 'rough texture'],

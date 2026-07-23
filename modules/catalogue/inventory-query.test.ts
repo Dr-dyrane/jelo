@@ -68,22 +68,37 @@ test('indexes only manifest-approved supportive discovery terms', () => {
   assert.equal(unreviewedClaim.total, 0);
 
   const approvedUse = queryInventoryRecords(products, { q: 'oiliness', review: 'reviewed' });
-  assert.deepEqual(approvedUse.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
+  assert.deepEqual(approvedUse.items.map(item => item.id), [
+    'reviewed:cerave-foaming-facial-cleanser',
+    'reviewed:eucerin-oil-control-sun-gel-cream-spf50-50ml',
+    'reviewed:facefacts-ceramide-oil-control-foaming-cleanser-400ml',
+  ]);
 
   const oiliness = queryInventoryRecords(products, { q: 'oiliness', review: 'reviewed' });
-  assert.deepEqual(oiliness.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
+  assert.deepEqual(oiliness.items.map(item => item.id), approvedUse.items.map(item => item.id));
 });
 
 test('concern browsing includes explicit reviewed references without turning them into direct recommendations', () => {
   const concern = queryInventoryRecords(products, { concern: 'acne-breakouts' });
   assert.deepEqual(concern.items.map(item => item.id), [
+    'reviewed:balance-niacinamide-blemish-recovery-serum-30ml',
+    'reviewed:balance-salicylic-acid-zinc-clarifying-toner-200ml',
+    'reviewed:cerave-acne-foaming-cream-wash-10-150ml',
     'reviewed:cerave-blemish-control-cleanser',
+    'reviewed:de-la-cruz-acne-treatment-10-sulfur-73-7g',
+    'reviewed:nineless-a-control-10-azelaic-acid-serum-30ml',
     'reviewed:panoxyl-acne-foaming-wash-10-benzoyl-peroxide',
     'reviewed:the-ordinary-azelaic-acid-suspension-10',
   ]);
 
   const approvedConcern = queryInventoryRecords(products, { concern: 'oily-congested-skin' });
-  assert.deepEqual(approvedConcern.items.map(item => item.id), ['reviewed:cerave-foaming-facial-cleanser']);
+  assert.deepEqual(approvedConcern.items.map(item => item.id), [
+    'reviewed:balance-niacinamide-blemish-recovery-serum-30ml',
+    'reviewed:balance-salicylic-acid-zinc-clarifying-toner-200ml',
+    'reviewed:cerave-foaming-facial-cleanser',
+    'reviewed:eucerin-oil-control-sun-gel-cream-spf50-50ml',
+    'reviewed:facefacts-ceramide-oil-control-foaming-cleanser-400ml',
+  ]);
 
   const conditionPattern = queryInventoryRecords(products, { concern: 'hidradenitis-pattern' });
   assert.equal(conditionPattern.filters.concern, '');
@@ -92,12 +107,13 @@ test('concern browsing includes explicit reviewed references without turning the
   assert.deepEqual(
     queryInventoryRecords(products).facets.concerns.map(facet => [facet.value, facet.total]),
     [
-      ['acne-breakouts', 3],
-      ['dark-spots', 2],
+      ['acne-breakouts', 8],
+      ['dark-spots', 3],
       ['sensitive-barrier', 0],
-      ['dry-dehydrated-skin', 1],
-      ['oily-congested-skin', 1],
-      ['dandruff-itchy-scalp', 0],
+      ['dry-dehydrated-skin', 3],
+      ['dry-rough-body-skin', 3],
+      ['oily-congested-skin', 5],
+      ['dandruff-itchy-scalp', 1],
       ['dry-frizzy-hair', 0],
     ],
   );
@@ -115,7 +131,7 @@ test('supportive source filtering stays limited to reviewed eligible products', 
   const expected = products
     .filter(product => getReviewedProductCare(product.slug)?.careState === 'supportive_eligible')
     .map(product => `reviewed:${product.slug}`);
-  assert.deepEqual(result.items.map(item => item.id), expected);
+  assert.deepEqual(new Set(result.items.map(item => item.id)), new Set(expected));
   assert.ok(result.items.every(item => item.kind === 'reviewed' && item.careState === 'supportive_eligible'));
 });
 

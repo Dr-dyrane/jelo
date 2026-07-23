@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { expandedProducts } from '@/data/expanded-products';
-import { reviewedProductCareManifest } from '@/data/product-care-review';
+import { publishedIntakeProducts } from '@/data/published-intake-products';
+import {
+  publishedProductCareManifest,
+  reviewedProductCareManifest,
+} from '@/data/product-care-review';
 import { products as coreProducts, type Product } from '@/data/products';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { evaluateProductClinically } from './clinical-product-filter';
@@ -24,6 +28,18 @@ test('the care manifest covers all 23 products with the audited state counts', (
   assert.equal(states.filter(state => state === 'supportive_eligible').length, 2);
   assert.equal(states.filter(state => state === 'pharmacist_review').length, 5);
   assert.equal(states.filter(state => state === 'insufficient_data').length, 16);
+});
+
+test('every dossier-released product has an explicit post-publication care decision', () => {
+  const productSlugs = publishedIntakeProducts.map(item => item.slug).sort();
+  const reviewSlugs = Object.keys(publishedProductCareManifest).sort();
+  const states = Object.values(publishedProductCareManifest).map(review => review.careState);
+
+  assert.equal(productSlugs.length, 21);
+  assert.deepEqual(reviewSlugs, productSlugs);
+  assert.equal(states.filter(state => state === 'supportive_eligible').length, 7);
+  assert.equal(states.filter(state => state === 'pharmacist_review').length, 8);
+  assert.equal(states.filter(state => state === 'insufficient_data').length, 6);
 });
 
 test('unsupported text-derived active never qualifies or enters ingredient evidence', () => {

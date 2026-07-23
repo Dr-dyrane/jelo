@@ -19,9 +19,9 @@ export type ReviewedProductCare = {
 const reviewedAt = '2026-07-22';
 
 /**
- * The explicit clinical-care decision for every product in the 23-item reviewed
- * catalogue. Catalogue prose, retailer listings and product names must never
- * substitute for a record here.
+ * The explicit clinical-care decision for every product in the original
+ * 23-item reviewed catalogue. Catalogue prose, retailer listings and product
+ * names must never substitute for a record here.
  */
 export const reviewedProductCareManifest = {
   'cosrx-salicylic-acid-daily-gentle-cleanser': {
@@ -134,7 +134,304 @@ export const reviewedProductCareManifest = {
   },
 } as const satisfies Record<string, ReviewedProductCare>;
 
-const careBySlug = reviewedProductCareManifest as Record<string, ReviewedProductCare>;
+/**
+ * Publication is not care approval. These records are a separate, explicit
+ * handoff from immutable catalogue dossiers into concern browsing. A targeted
+ * product can be discoverable as reviewed context while remaining excluded
+ * from direct recommendations through `pharmacist_review`.
+ */
+export const publishedProductCareManifest = {
+  'cerave-hydrating-cleanser-473ml': {
+    productSlug: 'cerave-hydrating-cleanser-473ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'normal-dry-gentle-cleansing',
+      label: 'Gentle cleansing for normal-to-dry skin',
+      concernIds: ['dryness', 'dehydration', 'tightness'],
+      concernSlugs: ['dry-dehydrated-skin'],
+      skinTypes: ['normal', 'dry'],
+    }],
+    evidenceSourceUrls: [
+      'https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'cerave-moisturising-cream-454g': {
+    productSlug: 'cerave-moisturising-cream-454g',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-body-moisturising',
+      label: 'Moisturising dry-to-very-dry body skin',
+      concernIds: ['body dryness', 'rough skin', 'very dry skin'],
+      concernSlugs: ['dry-rough-body-skin'],
+      skinTypes: ['dry', 'very dry'],
+    }],
+    evidenceSourceUrls: [
+      'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+      'https://www.nhs.uk/tests-and-treatments/emollients/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'eucerin-oil-control-sun-gel-cream-spf50-50ml': {
+    productSlug: 'eucerin-oil-control-sun-gel-cream-spf50-50ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'oily-skin-sun-protection',
+      label: 'Daily sun protection for oily skin',
+      concernIds: ['oiliness', 'shine'],
+      concernSlugs: ['oily-congested-skin'],
+      skinTypes: ['oily', 'acne-prone'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus',
+      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'eucerin-urearepair-plus-10-urea-body-lotion-250ml': {
+    productSlug: 'eucerin-urearepair-plus-10-urea-body-lotion-250ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'very-dry-rough-body-moisturising',
+      label: 'Moisturising very dry, rough adult body skin',
+      concernIds: ['body dryness', 'rough skin', 'very dry skin'],
+      concernSlugs: ['dry-rough-body-skin'],
+      skinTypes: ['dry', 'very dry'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion',
+      'https://pubmed.ncbi.nlm.nih.gov/34596890/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'dove-melanin-even-tone-body-wash-18-5oz': {
+    productSlug: 'dove-melanin-even-tone-body-wash-18-5oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.dove.com/us/en/p/melanin-even-tone-body-wash.html/00011111040090-pdp-buynow',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'keracare-dry-itchy-scalp-conditioner-950ml': {
+    productSlug: 'keracare-dry-itchy-scalp-conditioner-950ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'medicated-dandruff-conditioner-review',
+      label: 'Medicated dandruff-conditioner review',
+      concernIds: ['dandruff', 'itch', 'flaking', 'seborrheic dermatitis'],
+      concernSlugs: ['dandruff-itchy-scalp'],
+    }],
+    evidenceSourceUrls: [
+      'https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner',
+      'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'balance-salicylic-acid-zinc-clarifying-toner-200ml': {
+    productSlug: 'balance-salicylic-acid-zinc-clarifying-toner-200ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'salicylic-acid-toner-review',
+      label: 'Salicylic-acid toner review',
+      concernIds: ['acne', 'blackheads', 'oiliness', 'clogged pores'],
+      concernSlugs: ['acne-breakouts', 'oily-congested-skin'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'cerave-acne-foaming-cream-wash-10-150ml': {
+    productSlug: 'cerave-acne-foaming-cream-wash-10-150ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'benzoyl-peroxide-wash-review',
+      label: 'Benzoyl-peroxide wash review',
+      concernIds: ['acne', 'inflamed spots', 'breakouts'],
+      concernSlugs: ['acne-breakouts'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash',
+      'https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'cerave-sa-smoothing-cleanser-473ml': {
+    productSlug: 'cerave-sa-smoothing-cleanser-473ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'salicylic-acid-rough-skin-review',
+      label: 'Salicylic-acid rough-skin review',
+      concernIds: ['rough skin', 'bumpy skin'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser',
+      'https://www.nhs.uk/conditions/keratosis-pilaris/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'garnier-vitamin-c-brightening-day-cream-50ml': {
+    productSlug: 'garnier-vitamin-c-brightening-day-cream-50ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'aqua-rich-ceramide-body-lotion-500ml': {
+    productSlug: 'aqua-rich-ceramide-body-lotion-500ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-body-daily-moisturising',
+      label: 'Daily moisturising for dry body skin',
+      concernIds: ['body dryness', 'rough skin'],
+      concernSlugs: ['dry-rough-body-skin'],
+      skinTypes: ['dry'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'aqua-rich-turmeric-vitamin-c-body-lotion-500ml': {
+    productSlug: 'aqua-rich-turmeric-vitamin-c-body-lotion-500ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'balance-niacinamide-blemish-recovery-serum-30ml': {
+    productSlug: 'balance-niacinamide-blemish-recovery-serum-30ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'high-strength-niacinamide-review',
+      label: 'High-strength niacinamide review',
+      concernIds: ['acne', 'blemishes', 'oiliness'],
+      concernSlugs: ['acne-breakouts', 'oily-congested-skin'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum',
+      'https://pubmed.ncbi.nlm.nih.gov/38722460/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'nineless-a-control-10-azelaic-acid-serum-30ml': {
+    productSlug: 'nineless-a-control-10-azelaic-acid-serum-30ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'azelaic-acid-serum-review',
+      label: 'Azelaic-acid serum review',
+      concernIds: ['acne', 'breakouts'],
+      concernSlugs: ['acne-breakouts'],
+    }],
+    evidenceSourceUrls: [
+      'https://ninelessshop.com/products/a-control-10-azelaic-acid-serum',
+      'https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'nineless-mela-pro-rice-txa-toner-200ml': {
+    productSlug: 'nineless-mela-pro-rice-txa-toner-200ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'tone-support-toner-review',
+      label: 'Tone-support toner review',
+      concernIds: ['hyperpigmentation', 'dark spots', 'post-acne marks'],
+      concernSlugs: ['dark-spots'],
+    }],
+    evidenceSourceUrls: [
+      'https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'facefacts-ceramide-oil-control-foaming-cleanser-400ml': {
+    productSlug: 'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'oily-skin-cleansing',
+      label: 'Daily cleansing for oily skin',
+      concernIds: ['oiliness', 'shine'],
+      concernSlugs: ['oily-congested-skin'],
+      skinTypes: ['oily'],
+    }],
+    evidenceSourceUrls: [
+      'https://facefacts.me/en-la/collections/ceramide/products/face-facts-ceramide-oil-control-foaming-cleanser-400ml',
+      'https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'facefacts-ceramide-hydrating-gentle-cleanser-400ml': {
+    productSlug: 'facefacts-ceramide-hydrating-gentle-cleanser-400ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-skin-gentle-cleansing',
+      label: 'Gentle cleansing for dry skin',
+      concernIds: ['dryness', 'tightness'],
+      concernSlugs: ['dry-dehydrated-skin'],
+      skinTypes: ['dry'],
+    }],
+    evidenceSourceUrls: [
+      'https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'facefacts-ceramide-foaming-cleanser-400ml': {
+    productSlug: 'facefacts-ceramide-foaming-cleanser-400ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://facefacts.me/en-la/collections/calm-comfort/products/ceramide-foaming-cleanser-400ml',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'de-la-cruz-acne-treatment-10-sulfur-73-7g': {
+    productSlug: 'de-la-cruz-acne-treatment-10-sulfur-73-7g',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'sulfur-acne-treatment-review',
+      label: 'Sulfur acne-treatment review',
+      concernIds: ['acne', 'breakouts'],
+      concernSlugs: ['acne-breakouts'],
+    }],
+    evidenceSourceUrls: [
+      'https://dlclabs.com/products/de-la-cruz-acne-treatment-maximum-strength-with-10-sulfur-2-6-oz-73-7-g',
+      'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=4a1591e8-6135-4b22-b54c-5553c2dc0540',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'olay-super-serum-body-wash-normal-skin-547ml': {
+    productSlug: 'olay-super-serum-body-wash-normal-skin-547ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.olay.com/products/olay-super-serum-body-wash-normal-skin?pswtb=true',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+  'dove-calming-moisture-body-wash-547ml': {
+    productSlug: 'dove-calming-moisture-body-wash-547ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437',
+    ],
+    reviewedAt: '2026-07-23',
+  },
+} as const satisfies Record<string, ReviewedProductCare>;
+
+const careBySlug = {
+  ...reviewedProductCareManifest,
+  ...publishedProductCareManifest,
+} as Record<string, ReviewedProductCare>;
 
 export function getReviewedProductCare(productSlug: string) {
   return careBySlug[productSlug];
