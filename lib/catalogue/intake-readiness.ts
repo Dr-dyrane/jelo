@@ -522,6 +522,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
+  facefacts: ['facefacts.me'],
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
   nineless: ['ninelessshop.com'],
@@ -547,6 +548,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   ],
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
+  facefacts: ['facefacts.me'],
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
   nineless: ['ninelessshop.com'],
@@ -559,6 +561,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
   'nineless-mela-pro-rice-txa-toner-200ml': [
     'https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/',
     'https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm',
+  ],
+  'facefacts-ceramide-oil-control-foaming-cleanser-400ml': [
+    'https://sianwholesale.com/brands/face_facts?p=2',
+    'https://www.ebay.co.uk/itm/406162080305',
   ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([

@@ -51,6 +51,12 @@ test('normalizes punctuation without fuzzy clinical matching', () => {
 
   const joined = queryInventoryRecords(products, { q: 'la roche posay double repair matte' });
   assert.ok(joined.items.some(item => item.name.includes('Double Repair Matte')));
+
+  const joinedBrand = queryInventoryRecords(products, { q: 'facefacts' });
+  assert.ok(joinedBrand.items.some(item => (
+    item.kind === 'reviewed'
+    && item.slug === 'facefacts-ceramide-oil-control-foaming-cleanser-400ml'
+  )));
 });
 
 test('indexes only manifest-approved supportive discovery terms', () => {

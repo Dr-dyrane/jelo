@@ -102,6 +102,10 @@ function normalized(value: string) {
   return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+function compactNormalized(value: string) {
+  return normalized(value).replace(/\s+/g, '');
+}
+
 function categoryForReviewed(category: ReviewedProduct['category']): ExternalCatalogueCategory {
   if (category === 'Hair') return 'Hair & scalp';
   if (category === 'Body') return 'Body care';
@@ -177,15 +181,17 @@ function pageNumber(value: string | number | undefined) {
 function queryMatches(item: InventoryItem, query: string, reviewedSearchTerms = '') {
   if (!query) return true;
   const tokens = normalized(query).split(' ').filter(Boolean);
-  const search = normalized([
+  const searchFields = [
     item.brand,
     item.name,
     item.quantity,
     item.category,
     item.kind === 'community' ? item.barcode : '',
     reviewedSearchTerms,
-  ].filter(Boolean).join(' '));
-  return tokens.every(token => search.includes(token));
+  ].filter(Boolean).map(normalized);
+  return tokens.every(token => searchFields.some(field => (
+    field.includes(token) || field.replace(/\s+/g, '').includes(token)
+  )));
 }
 
 function reviewedDiscoveryTerms(product: ReviewedProduct) {
@@ -295,8 +301,17 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
       return rightDate - leftDate || left.id.localeCompare(right.id);
     }
     if (normalizedQuery) {
-      const leftExact = left.kind === 'community' && left.barcode === q ? 3 : normalized(left.name) === normalizedQuery || normalized(left.brand) === normalizedQuery ? 2 : 0;
-      const rightExact = right.kind === 'community' && right.barcode === q ? 3 : normalized(right.name) === normalizedQuery || normalized(right.brand) === normalizedQuery ? 2 : 0;
+      const compactQuery = compactNormalized(q);
+      const leftExact = left.kind === 'community' && left.barcode === q
+        ? 3
+        : normalized(left.name) === normalizedQuery
+          || normalized(left.brand) === normalizedQuery
+          || compactNormalized(left.brand) === compactQuery ? 2 : 0;
+      const rightExact = right.kind === 'community' && right.barcode === q
+        ? 3
+        : normalized(right.name) === normalizedQuery
+          || normalized(right.brand) === normalizedQuery
+          || compactNormalized(right.brand) === compactQuery ? 2 : 0;
       if (leftExact !== rightExact) return rightExact - leftExact;
     }
     if (left.kind !== right.kind) return left.kind === 'reviewed' ? -1 : 1;

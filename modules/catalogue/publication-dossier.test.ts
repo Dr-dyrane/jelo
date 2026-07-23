@@ -368,7 +368,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 15);
+  assert.equal(result.dossierCount, 16);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -439,6 +439,10 @@ test('the checked-in publication manifest contains the verified neutral referenc
   assert.equal(result.dossiers[14].nigeria.marketRoute, 'tier-a');
   assert.deepEqual(result.dossiers[14].nigeria.exactOffers.map(offer => offer.priceNgn), [15_500, 19_000]);
   assert.equal(result.dossiers[14].rights.generationRecord?.outputSha256, result.dossiers[14].finalImage.sha256);
+  assert.equal(result.dossiers[15].candidateId, 'facefacts-ceramide-oil-control-foaming-cleanser-400ml');
+  assert.equal(result.dossiers[15].nigeria.marketRoute, 'tier-a');
+  assert.deepEqual(result.dossiers[15].nigeria.exactOffers.map(offer => offer.priceNgn), [6_880, 7_300]);
+  assert.equal(result.dossiers[15].rights.generationRecord?.outputSha256, result.dossiers[15].finalImage.sha256);
 });
 
 test('an approval-ready exact SKU compiles into one immutable source-agnostic private dossier', () => {
@@ -843,7 +847,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 15);
+  assert.equal(report.releaseCount, 16);
   assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
   assert.equal(report.products[0].offers[0].priceNgn, 15_265);
   assert.equal(report.products[1].slug, 'cerave-moisturising-cream-454g');
@@ -961,6 +965,15 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
   assert.equal(report.products[14].offers[1].retailer, 'Muna Cosmetics');
   assert.equal(report.products[14].offers[1].priceNgn, 19_000);
   assert.equal(report.products[14].offers[1].available, true);
+  assert.equal(report.products[15].slug, 'facefacts-ceramide-oil-control-foaming-cleanser-400ml');
+  assert.equal(report.products[15].category, 'Face');
+  assert.equal(report.products[15].step, 'Cleanse');
+  assert.equal(report.products[15].offers[0].retailer, 'BuyBetter');
+  assert.equal(report.products[15].offers[0].priceNgn, 6_880);
+  assert.equal(report.products[15].offers[0].available, true);
+  assert.equal(report.products[15].offers[1].retailer, '24Eleven');
+  assert.equal(report.products[15].offers[1].priceNgn, 7_300);
+  assert.equal(report.products[15].offers[1].available, true);
 });
 
 test('an explicit release materializes identity, image and exact offers only from its verified dossier', () => {
