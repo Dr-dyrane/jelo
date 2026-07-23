@@ -42,6 +42,19 @@ test('summarizes available exact prices in one market', () => {
   assert.equal(summary.priceBasis, 'multi-source');
 });
 
+test('uses the familiar arithmetic average for a multi-store comparison', () => {
+  const threePrices = ([
+    { retailer: 'One', url: 'https://example.com/one', trust: 100, available: true, match: 'exact', priceNgn: 10_000, checkedAt: '2026-07-21', location: ['NG'] },
+    { retailer: 'Two', url: 'https://example.com/two', trust: 100, available: true, match: 'exact', priceNgn: 11_000, checkedAt: '2026-07-21', location: ['NG'] },
+    { retailer: 'Three', url: 'https://example.com/three', trust: 100, available: true, match: 'exact', priceNgn: 18_000, checkedAt: '2026-07-21', location: ['NG'] },
+  ] as Offer[]).map(observed);
+
+  const summary = summarizeMarket(threePrices, 'NG', now);
+
+  assert.equal(summary.typicalPrice, 13_000);
+  assert.equal(summary.savingsVsTypical, 3_000);
+});
+
 test('does not include search, unavailable or cross-market prices in the comparison', () => {
   const summary = summarizeMarket(offers, 'US', now);
 

@@ -81,11 +81,11 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
         </div>
       </div>
       {summary.retailerCount ? <div className="market-summary" aria-label={`${market === 'NG' ? 'Nigeria' : 'United States'} market summary`}>
-        <span><small>{summary.priceBasis === 'multi-source' ? 'Lowest observed' : 'Observed'}</small><strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong></span>
-        {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span><small>Median</small><strong>{formatAmount(summary.typicalPrice, market)}</strong></span> : null}
-        <span><small>Compared</small><strong>{summary.pricedRetailerCount} {summary.pricedRetailerCount === 1 ? 'store' : 'stores'}</strong></span>
+        <span><small>{summary.priceBasis === 'multi-source' ? 'Best price' : 'Price'}</small><strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong></span>
+        {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span><small>Average</small><strong>{formatAmount(summary.typicalPrice, market)}</strong></span> : null}
+        <span><small>Stores</small><strong>{summary.pricedRetailerCount}</strong></span>
         {summary.savingsVsTypical || movement ? <div className="market-summary-notes">
-          {summary.savingsVsTypical ? <span>{formatAmount(summary.savingsVsTypical, market)} below this set&apos;s median.</span> : null}
+          {summary.savingsVsTypical ? <span>Save {formatAmount(summary.savingsVsTypical, market)}.</span> : null}
           {movement ? <span className={`market-movement-${movement.direction}`}>{movement.copy}</span> : null}
         </div> : null}
       </div> : null}
@@ -114,24 +114,23 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
             <span className="retailer-rank">{String(index + 1).padStart(2, '0')}</span>
             <span>
               <strong>{offer.retailer}</strong>
-              <small>{stock}{checked ? ` · Observed ${checked}` : ''}</small>
+              <small>{stock}{checked ? ` · Checked ${checked}` : ''}</small>
               {fulfilment ? <small>{fulfilment}</small> : null}
               {offer.priceObservation ? <small>{offer.priceObservation.size} · {landedCostCaveat(offer)}</small> : null}
-              {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''} · {hasSellerIdentityEvidence(offer) ? 'identity checked' : 'identity not checked'}</small> : null}
-              {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Provisional source · link only</small> : null}
-              {hasBrandAuthorizationEvidence(offer) ? <small>Brand authorization evidenced</small> : null}
+              {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}{hasSellerIdentityEvidence(offer) ? '' : ' · Check seller'}</small> : null}
+              {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Check with store</small> : null}
+              {hasBrandAuthorizationEvidence(offer) ? <small>Listed by the brand</small> : null}
             </span>
             <span className="retailer-price">
               <strong>{price != null ? formatAmount(price, market) : 'Check price'}</strong>
               <small>{offerActionLabel(offer)}</small>
-              {offer.priceComparison === 'exclude' ? <small>Not in comparison</small> : null}
             </span>
             <ArrowUpRight className="retailer-arrow" size={19}/>
           </a>
           );
         }) : <div className="retailer-empty"><p>No exact offer yet.</p><button type="button" onClick={() => setMarket(market === 'NG' ? 'US' : 'NG')}>Try {market === 'NG' ? 'United States' : 'Nigeria'}</button></div>}
       </div>
-      <p className="retailer-disclosure">Listings and prices are observations, not authenticity guarantees. Delivery can change the total.</p>
+      <p className="retailer-disclosure">Prices can change. Delivery may cost more.</p>
     </div>
   );
 }

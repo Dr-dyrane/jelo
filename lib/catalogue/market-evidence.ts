@@ -251,9 +251,17 @@ function fieldShape(value: unknown): value is { value: unknown; locator: string;
 }
 
 function priceSourceMatches(sourceText: string, priceNgn: number) {
-  if (!Number.isSafeInteger(priceNgn) || priceNgn <= 0) return false;
-  const plain = String(priceNgn);
-  const grouped = priceNgn.toLocaleString('en-US').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const minorUnits = priceNgn * 100;
+  if (
+    !Number.isFinite(priceNgn)
+    || priceNgn <= 0
+    || Math.abs(Math.round(minorUnits) - minorUnits) > Number.EPSILON * Math.max(1, Math.abs(minorUnits)) * 4
+  ) return false;
+  const plain = String(priceNgn).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const grouped = priceNgn.toLocaleString('en-US', {
+    minimumFractionDigits: Number.isInteger(priceNgn) ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp(`(?:\\bNGN\\b|₦)\\s*(?:${plain}|${grouped})(?:\\.00)?(?![\\d.,])`, 'i').test(sourceText);
 }
 
@@ -267,7 +275,7 @@ function expectedLabel(basis: ExactOfferGtinBasis | undefined): ExactOfferGtinLa
 
 function stockSourceMatches(sourceText: string, stock: ExactOfferStock) {
   const value = normalized(sourceText).replace(/^availability\s+/, '');
-  if (stock === 'in-stock') return /^(?:in stock|\d+ in stock|available|available now)$/.test(value);
+  if (stock === 'in-stock') return /^(?:in stock(?:\s+(?:and\s+)?ready to ship)?|\d+ in stock|available|available now)$/.test(value);
   if (stock === 'low-stock') return /^(?:low stock|only \d+ left|[1-5] in stock|\d+ units? left|few left)$/.test(value);
   return /^(?:out of stock|sold out|unavailable)$/.test(value);
 }

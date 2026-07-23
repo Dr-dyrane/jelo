@@ -21,10 +21,9 @@ function servesMarket(offer: Offer, market: Market) {
   return offer.location.includes(market) || offer.location.includes('INTL');
 }
 
-function median(values: number[], market: Market) {
+function average(values: number[], market: Market) {
   if (!values.length) return null;
-  const middle = Math.floor(values.length / 2);
-  const value = values.length % 2 ? values[middle] : (values[middle - 1] + values[middle]) / 2;
+  const value = values.reduce((total, price) => total + price, 0) / values.length;
   return market === 'NG' ? Math.round(value) : Number(value.toFixed(2));
 }
 
@@ -41,7 +40,7 @@ export function summarizeMarket(offers: Offer[], market: Market, now: number | D
   const values = priced.map(entry => entry.price);
   const lowestPrice = values[0] ?? null;
   const priceBasis = values.length === 0 ? 'none' : values.length === 1 ? 'single-source' : 'multi-source';
-  const typicalPrice = priceBasis === 'multi-source' ? median(values, market) : null;
+  const typicalPrice = priceBasis === 'multi-source' ? average(values, market) : null;
   const highestPrice = priceBasis === 'multi-source' ? values.at(-1) ?? null : null;
   const checked = exact
     .map(offer => offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt)

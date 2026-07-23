@@ -547,6 +547,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   cerave: [
     'africa.cerave.com',
     'www.cerave.com',
+    'www.cerave.co.uk',
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
   delacruz: ['dlclabs.com'],
@@ -560,6 +561,10 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
+  'cerave-pm-facial-moisturising-lotion-52ml': [
+    'https://www.superdrug.com/skin/face-skin-care/moisturising-lotions/cerave-pm-facial-moisturising-lotion-normal-to-dry-skin-52ml/p/774868',
+    'https://www.ebay.co.uk/p/11022362284',
+  ],
   'facefacts-vitamin-c-body-lotion-400ml': [
     'https://www.ebay.co.uk/itm/186887831738',
     'https://www.eapollowholesale.co.uk/face-facts-vitamin-c-body-lotion-400ml.html',
@@ -591,6 +596,7 @@ const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
   'https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment',
   'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+  'https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer',
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
   'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',

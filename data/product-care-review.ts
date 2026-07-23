@@ -173,6 +173,22 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'cerave-pm-facial-moisturising-lotion-52ml': {
+    productSlug: 'cerave-pm-facial-moisturising-lotion-52ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'sensitive-dry-evening-moisturising',
+      label: 'Evening moisturising for dry or sensitive-feeling skin',
+      concernIds: ['dryness', 'dehydration', 'sensitivity', 'tightness'],
+      concernSlugs: ['dry-dehydrated-skin', 'sensitive-barrier'],
+      skinTypes: ['normal', 'dry', 'sensitive'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.cerave.co.uk/skincare/moisturisers/pm-facial-moisturising-lotion',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer',
+    ],
+    reviewedAt: '2026-07-23',
+  },
   'eucerin-oil-control-sun-gel-cream-spf50-50ml': {
     productSlug: 'eucerin-oil-control-sun-gel-cream-spf50-50ml',
     careState: 'supportive_eligible',

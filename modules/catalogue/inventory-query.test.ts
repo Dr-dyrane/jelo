@@ -64,8 +64,10 @@ test('normalizes punctuation without fuzzy clinical matching', () => {
 });
 
 test('indexes only manifest-approved supportive discovery terms', () => {
-  const unreviewedClaim = queryInventoryRecords(products, { q: 'barrier', review: 'reviewed' });
-  assert.equal(unreviewedClaim.total, 0);
+  const barrier = queryInventoryRecords(products, { q: 'barrier', review: 'reviewed' });
+  assert.deepEqual(barrier.items.map(item => item.id), [
+    'reviewed:cerave-pm-facial-moisturising-lotion-52ml',
+  ]);
 
   const approvedUse = queryInventoryRecords(products, { q: 'oiliness', review: 'reviewed' });
   assert.deepEqual(approvedUse.items.map(item => item.id), [
@@ -110,8 +112,8 @@ test('concern browsing includes explicit reviewed references without turning the
     [
       ['acne-breakouts', 9],
       ['dark-spots', 3],
-      ['sensitive-barrier', 0],
-      ['dry-dehydrated-skin', 3],
+      ['sensitive-barrier', 1],
+      ['dry-dehydrated-skin', 4],
       ['dry-rough-body-skin', 4],
       ['oily-congested-skin', 5],
       ['dandruff-itchy-scalp', 1],
