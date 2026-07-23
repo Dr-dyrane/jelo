@@ -85,6 +85,8 @@ npm run catalogue:publication:verify
 
 The release verifier always re-verifies the candidate and dossier first. A missing dossier, stale offer evidence, candidate or image change, unsupported category, unreviewed usage source, changed presentation or publication chronology fails closed. Dossier identity, final image and exact Nigerian offers are materialized directly; they cannot be rewritten by the release record. Suitability arrays remain empty, `sensitiveFriendly` remains false and `recommendationEligible` remains false until a separate clinical recommendation review exists.
 
+`npm run catalogue:publication:release` removes manual JSON assembly from this boundary. It requires the exact candidate, public category, routine step, display line, manufacturer-bound directions URL, usage copy and ordered approval/review/publication timestamps. The command creates the dossier and release together, rejects existing candidate records, verifies both complete next-state manifests in memory, and writes only with `--write`.
+
 ```bash
 npm run catalogue:publication:releases:verify
 ```

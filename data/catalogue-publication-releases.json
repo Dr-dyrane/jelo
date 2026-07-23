@@ -241,6 +241,30 @@
         "publishedAt": "2026-07-23T06:40:00Z"
       },
       "releaseFingerprint": "86b086c2362132b7434c1ec11276e62f872552ddcdb743fe77651452ed7044fa"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "dossierFingerprint": "6561e48988f3452cde60c0ce05650285491109beb48f645058bc98b308f257e4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily moisture with ceramides.",
+        "usage": "Apply generously to clean, slightly damp body skin after bathing. Massage until absorbed and use daily.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T07:07:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T07:08:00Z"
+      },
+      "releaseFingerprint": "07eff03b6b7abb23e02a155a9d7dac3944728533aca1bca5f1cf7b65d10ea1cb"
     }
   ]
 }

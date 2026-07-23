@@ -35,6 +35,7 @@
     "catalogue:pipeline:status": "tsx scripts/report-catalogue-pipeline.ts",
     "catalogue:intake:audit": "tsx scripts/audit-catalogue-intake.ts",
     "catalogue:publication:verify": "tsx scripts/verify-catalogue-publication-dossiers.ts",
+    "catalogue:publication:release": "tsx scripts/release-catalogue-candidate.ts",
     "catalogue:publication:releases:verify": "tsx scripts/verify-catalogue-publication-releases.ts",
     "catalogue:publication:images:verify": "tsx scripts/verify-catalogue-publication-images.ts",
     "catalogue:mirror": "tsx scripts/mirror-open-beauty-facts-images.ts",

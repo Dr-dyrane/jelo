@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T06:41:00Z');
+const researchAsOf = Date.parse('2026-07-23T07:10:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
@@ -26,17 +26,17 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 12);
   assert.equal(catalogueIntakeDecisions.length, 12);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 10);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 11);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 11);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 10);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 10);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 11);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 10);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 11);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -206,30 +206,50 @@ test('the Garnier day cream binds its official GTIN to exact Nigerian offers and
   assert.equal(decision.blockers.includes('asset-final-image-invalid'), false);
 });
 
-test('the Aqua Rich identities and bounded daily-care reviews stop at Nigeria evidence', () => {
-  const expected = new Map([
-    ['aqua-rich-ceramide-body-lotion-500ml', '4897073187549'],
-    ['aqua-rich-turmeric-vitamin-c-body-lotion-500ml', '4897073186542'],
-  ]);
+test('the Aqua Rich ceramide lotion is release-ready while the turmeric variant stays at Nigeria evidence', () => {
+  const ceramide = catalogueIntakeCandidates.find(item => (
+    item.id === 'aqua-rich-ceramide-body-lotion-500ml'
+  ));
+  assert.ok(ceramide);
+  assert.equal(ceramide.name, 'Hydrate + Protect Body Lotion');
+  assert.equal(ceramide.identity.gtin, '4897073187549');
+  assert.equal(ceramide.identity.officialEvidence?.observedVariant, 'Aqua Rich Ceramide Body Lotion');
+  assert.equal(ceramide.identity.officialEvidence?.observedSize, '500 ml');
+  assert.deepEqual(ceramide.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'CSi Grocery']);
+  assert.deepEqual(ceramide.nigeria.exactOffers.map(offer => offer.priceNgn), [12_800, 13_000]);
+  assert.equal(ceramide.nigeria.exactOffers.every(offer => (
+    offer.observedGtinBasis === 'exact-variant-and-size'
+    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+  )), true);
+  assert.equal(ceramide.nigeria.excludedObservations.length, 1);
+  assert.equal(ceramide.asset.publicImageSha256, '9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324');
+  const generation = ceramide.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...generationContent } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  for (const [id, gtin] of expected) {
-    const candidate = catalogueIntakeCandidates.find(item => item.id === id);
-    assert.ok(candidate);
-    assert.equal(candidate.identity.gtin, gtin);
-    assert.match(candidate.identity.officialProductUrl ?? '', /^https:\/\/www\.aquarich\.net\/product\//);
-    assert.equal(candidate.identity.officialEvidence?.observedGtin, gtin);
-    assert.equal(candidate.identity.officialEvidence?.observedSize, '500 ml');
-    assert.equal(candidate.nigeria.exactOffers.length, 0);
-    assert.equal(candidate.nigeria.excludedObservations.length, 2);
+  const ceramideDecision = evaluateCatalogueIntakeCandidate(ceramide, researchAsOf);
+  assert.equal(ceramideDecision.stage, 'approval-ready');
+  assert.equal(ceramideDecision.approvalDraftReady, true);
+  assert.equal(ceramideDecision.freshExactOffers.length, 2);
+  assert.deepEqual(ceramideDecision.blockers, []);
+  assert.equal(ceramide.nigeria.regulatoryStatus, 'pending');
 
-    const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-    assert.equal(['nigeria', 'editorial', 'approval-ready'].includes(decision.stage), true);
-    assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
-    assert.equal(decision.blockers.includes('care-review-missing'), false);
-    assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-    assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
-    assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
-  }
+  const turmeric = catalogueIntakeCandidates.find(item => (
+    item.id === 'aqua-rich-turmeric-vitamin-c-body-lotion-500ml'
+  ));
+  assert.ok(turmeric);
+  assert.equal(turmeric.identity.gtin, '4897073186542');
+  assert.equal(turmeric.identity.officialEvidence?.observedSize, '500 ml');
+  assert.equal(turmeric.nigeria.exactOffers.length, 0);
+  assert.equal(turmeric.nigeria.excludedObservations.length, 2);
+  const turmericDecision = evaluateCatalogueIntakeCandidate(turmeric, researchAsOf);
+  assert.equal(turmericDecision.stage, 'nigeria');
+  assert.equal(turmericDecision.blockers.includes('identity-official-evidence-invalid'), false);
+  assert.equal(turmericDecision.blockers.includes('care-review-missing'), false);
+  assert.equal(turmericDecision.blockers.includes('care-independent-guidance-missing'), false);
+  assert.equal(turmericDecision.blockers.includes('nigeria-offer-identity-unbound'), true);
+  assert.equal(turmeric.nigeria.regulatoryStatus, 'pending');
 });
 
 test('the acne wash binds its official identity, exact Nigerian offers and generated packshot', () => {
@@ -456,10 +476,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 11);
+  assert.equal(observations.length, 10);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 18);
+  ), 0), 20);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
