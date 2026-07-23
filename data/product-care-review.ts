@@ -503,6 +503,21 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml': {
+    productSlug: 'sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-textured-hair-rinse-out-conditioning',
+      label: 'Rinse-out conditioning for dry or textured hair',
+      concernIds: ['dry hair', 'frizz', 'damage', 'breakage'],
+      concernSlugs: ['dry-frizzy-hair'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.sheamoisture.com/us/en/p/raw-shea-butter-deep-moisturizing-conditioner.html/00764302280217',
+      'https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips',
+    ],
+    reviewedAt: '2026-07-23',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

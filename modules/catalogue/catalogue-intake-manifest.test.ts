@@ -20,23 +20,23 @@ import {
 const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 26);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 27);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 26);
-  assert.equal(catalogueIntakeDecisions.length, 26);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 26);
+  assert.equal(catalogueIntakeCandidates.length, 27);
+  assert.equal(catalogueIntakeDecisions.length, 27);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 27);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 13);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 26);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 27);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 26);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 27);
 });
 
 test('the Cécred deep conditioner binds its exact full-size identity, two Nigerian prices and reviewed render', () => {
@@ -54,6 +54,27 @@ test('the Cécred deep conditioner binds its exact full-size identity, two Niger
   const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T19:06:00Z'));
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
+});
+
+test('the SheaMoisture conditioner binds its official GTIN, current Nigerian prices and reviewed render', () => {
+  const candidate = catalogueIntakeCandidates.find(
+    item => item.id === 'sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml',
+  );
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '00764302280217');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '13 fl oz / 384 ml');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.schemaVersion, 4);
+  assert.deepEqual(
+    candidate.nigeria.exactOffers.map(offer => offer.retailer),
+    ['BuyBetter', 'Perfect Trust Beauty', 'Jumia'],
+  );
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [13223, 14100, 35400]);
+  assert.equal(candidate.asset.publicImageSha256, 'db03465017f922f85ad0695d2991bb7f300f04f028e88965efe6fb21ef50a33f');
+  assert.equal(candidate.asset.backgroundTreatment, 'identity-verified-render');
+  assert.equal(candidate.asset.presentationQuality, 'magazine-ready');
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T19:42:00Z'));
+  assert.equal(decision.approvalDraftReady, true);
+  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), ['BuyBetter', 'Jumia']);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -962,7 +983,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 13);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 51);
+  ), 0), 53);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
