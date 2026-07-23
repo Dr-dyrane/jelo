@@ -528,6 +528,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   keracare: ['keracare.com'],
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
+  sheamoisture: ['www.sheamoisture.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -556,6 +557,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   keracare: ['keracare.com'],
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
+  sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
   'nineless-a-control-10-azelaic-acid-serum-30ml': [
@@ -588,6 +590,7 @@ const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
   'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+  'https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips',
   'https://www.nhs.uk/tests-and-treatments/emollients/',
   'https://www.nhs.uk/conditions/keratosis-pilaris/',
   'https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/',

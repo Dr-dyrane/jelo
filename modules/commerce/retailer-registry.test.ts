@@ -75,6 +75,20 @@ test('Muna Cosmetics is a self-published direct retailer, not a brand-authorized
   assert.equal(retailer.regulatorMatchEvidence, undefined);
 });
 
+test('Perfect Trust Beauty is a self-published direct retailer, not a brand-authorized seller claim', () => {
+  const retailer = nigeriaRetailers.find(store => store.name === 'Perfect Trust Beauty');
+  assert.ok(retailer);
+  assert.equal(retailer.reviewStatus, 'directory-listed');
+  assert.equal(retailer.kind, 'retailer');
+  assert.equal(
+    retailer.identityEvidence?.sourceUrl,
+    'https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml',
+  );
+  assert.equal(retailer.identityEvidence?.basis, 'self-published-contact');
+  assert.equal(retailer.identityEvidence?.scope, 'self-published');
+  assert.equal(retailer.regulatorMatchEvidence, undefined);
+});
+
 test('brand authorization binds seller, host, response representation and reviewer chronology', () => {
   const asOf = Date.parse('2026-07-22T23:00:00Z');
   const sourceUrl = 'https://africa.cerave.com/en/find-your-nearest-store';

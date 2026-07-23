@@ -308,6 +308,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Lagos retailer with a direct catalogue, visible Naira pricing, purchase controls and self-published address, phone and domain email.',
   },
   {
+    name: 'Perfect Trust Beauty',
+    homepage: 'https://perfecttrustbeauty.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 82,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    identityEvidence: {
+      observedAt: '2026-07-23T16:35:06Z',
+      sourceUrl: 'https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml',
+      basis: 'self-published-contact',
+      scope: 'self-published',
+    },
+    searchUrl: query => `https://perfecttrustbeauty.com/search?q=${encodeURIComponent(query)}&type=product`,
+    note: 'Direct Shopify catalogue with visible Naira pricing, stock counts, pickup availability and WhatsApp contact.',
+  },
+  {
     name: 'AGT Plaza',
     homepage: 'https://www.agtplaza.com/',
     market: 'NG',

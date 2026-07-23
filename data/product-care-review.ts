@@ -426,6 +426,21 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'sheamoisture-jamaican-black-castor-oil-shampoo-384ml': {
+    productSlug: 'sheamoisture-jamaican-black-castor-oil-shampoo-384ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-textured-hair-cleansing',
+      label: 'Routine cleansing for dry, textured or damaged hair',
+      concernIds: ['dry hair', 'frizz', 'damage', 'breakage'],
+      concernSlugs: ['dry-frizzy-hair'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837',
+      'https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips',
+    ],
+    reviewedAt: '2026-07-23',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

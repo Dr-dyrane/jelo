@@ -20,23 +20,23 @@ import {
 const researchAsOf = Date.parse('2026-07-23T16:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 21);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 22);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 21);
-  assert.equal(catalogueIntakeDecisions.length, 21);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 21);
+  assert.equal(catalogueIntakeCandidates.length, 22);
+  assert.equal(catalogueIntakeDecisions.length, 22);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 22);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 13);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 21);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 22);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 21);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 22);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -813,6 +813,47 @@ test('the Calming Moisture body wash binds the exact Dove identity, current Nige
   assert.deepEqual(decision.blockers, []);
 });
 
+test('the SheaMoisture shampoo binds official identity, two Nigerian prices and its reviewed transparent render', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'sheamoisture-jamaican-black-castor-oil-shampoo-384ml'
+  ));
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '00764302215837');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '13 oz');
+  assert.equal(
+    candidate.identity.officialEvidence?.canonicalExtraction?.method,
+    'reviewed-exact-identity-field-extraction',
+  );
+  assert.deepEqual(
+    candidate.nigeria.exactOffers.map(offer => offer.retailer),
+    ['BuyBetter', 'Perfect Trust Beauty'],
+  );
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [12_685, 13_300]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['in-stock', 'low-stock']);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
+  assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
+  assert.equal(
+    candidate.asset.publicImageSha256,
+    'a4b3e9dc07c29db0408fab3095e31826fd644075650587d201c0ddbc898b8be9',
+  );
+  assert.equal(candidate.asset.publicImageByteSize, 1_217_871);
+  assert.equal(candidate.asset.width, 2000);
+  assert.equal(candidate.asset.height, 2000);
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...content } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T17:00:00Z'));
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), [
+    'BuyBetter',
+    'Perfect Trust Beauty',
+  ]);
+  assert.deepEqual(decision.blockers, []);
+});
+
 test('every cohort item cites real Nigerian pages and an explicit next action', () => {
   for (const decision of catalogueIntakeQueue) {
     const candidate = decision.candidate;
@@ -851,7 +892,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 13);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 41);
+  ), 0), 43);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
