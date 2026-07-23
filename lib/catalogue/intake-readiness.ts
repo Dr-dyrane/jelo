@@ -560,6 +560,10 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
+  'facefacts-vitamin-c-body-lotion-400ml': [
+    'https://www.ebay.co.uk/itm/186887831738',
+    'https://www.eapollowholesale.co.uk/face-facts-vitamin-c-body-lotion-400ml.html',
+  ],
   'nineless-a-control-10-azelaic-acid-serum-30ml': [
     'https://www.happii.dk/Ansigtspleje/Nineless-A-Control-10-Azelaic-Acid-Serum-30-ml/3353734',
     'https://qudobeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/',

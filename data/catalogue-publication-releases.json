@@ -553,6 +553,30 @@
         "publishedAt": "2026-07-23T17:14:00Z"
       },
       "releaseFingerprint": "1d0825eba7e3955cc9ed63282ff9193e9799f3810c4d4773c0c617c90c541aa4"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-vitamin-c-body-lotion-400ml",
+      "dossierFingerprint": "d0c94c8cd0348827aa0e15205fb9b913429451eef6fe3d3c3f7f55fa4d15b556",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Vitamin C and betaine body lotion · 400 ml",
+        "usage": "Apply to dry skin and massage until fully absorbed. Do not rinse.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/vitamin-c/products/vitamin-c-body-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T18:00:05Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T18:00:10Z"
+      },
+      "releaseFingerprint": "a61bc30ef7d25cfbb35b9422b111663702bfccada7ead80326a262000f26b98f"
     }
   ]
 }

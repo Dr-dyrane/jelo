@@ -35,9 +35,9 @@ test('every dossier-released product has an explicit post-publication care decis
   const reviewSlugs = Object.keys(publishedProductCareManifest).sort();
   const states = Object.values(publishedProductCareManifest).map(review => review.careState);
 
-  assert.equal(productSlugs.length, 23);
+  assert.equal(productSlugs.length, 24);
   assert.deepEqual(reviewSlugs, productSlugs);
-  assert.equal(states.filter(state => state === 'supportive_eligible').length, 8);
+  assert.equal(states.filter(state => state === 'supportive_eligible').length, 9);
   assert.equal(states.filter(state => state === 'pharmacist_review').length, 9);
   assert.equal(states.filter(state => state === 'insufficient_data').length, 6);
 });

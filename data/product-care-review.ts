@@ -456,6 +456,22 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'facefacts-vitamin-c-body-lotion-400ml': {
+    productSlug: 'facefacts-vitamin-c-body-lotion-400ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-body-daily-moisturising',
+      label: 'Daily moisturising for dry body skin',
+      concernIds: ['body dryness', 'rough skin'],
+      concernSlugs: ['dry-rough-body-skin'],
+      skinTypes: ['dry'],
+    }],
+    evidenceSourceUrls: [
+      'https://facefacts.me/en-la/collections/vitamin-c/products/vitamin-c-body-lotion',
+      'https://www.nhs.uk/tests-and-treatments/emollients/',
+    ],
+    reviewedAt: '2026-07-23',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
