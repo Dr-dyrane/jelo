@@ -409,6 +409,30 @@
         "publishedAt": "2026-07-23T10:42:45Z"
       },
       "releaseFingerprint": "107a9ed3af1c913fa69f91a903dae1dedd3713ae4a66d624e1f77740ec2fe806"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
+      "dossierFingerprint": "75ec376cf2be44c4e8bcd5e0040a54d5ceb5e7fd36041db07de40c1457190eff",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Fragrance-free gel-to-foam cleanser.",
+        "usage": "Apply 2–3 pumps to damp skin, gently massage, then rinse with warm water.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/calm-comfort/products/ceramide-foaming-cleanser-400ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T12:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T12:22:00Z"
+      },
+      "releaseFingerprint": "16f5bee6d33e14805bcdca0bbd7492a597eaaf9f3b2f1ceea304f2f6ce44008c"
     }
   ]
 }

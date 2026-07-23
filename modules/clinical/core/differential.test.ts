@@ -238,13 +238,57 @@ test('named conditions interrupt even when ordinary acne ranks alongside them', 
     ['I was told this could be river blindness and I also have oily acne.', 'primary-care'],
     ['I have lymphoedema and oily acne on my forehead.', 'primary-care'],
     ['I was told this could be yaws and I also have oily acne.', 'primary-care'],
+    ['I was told this could be noma and I also have oily acne.', 'urgent'],
   ] as const;
 
   for (const [description, level] of cases) {
     const assessment = assessClinicalRoutine(description);
     assert.equal(assessment.referral.level, level, description);
-    assert.equal(assessment.referral.urgency, 'soon', description);
+    assert.equal(assessment.referral.urgency, level === 'urgent' ? 'same-day' : 'soon', description);
   }
+});
+
+test('rapid gum-to-face changes fail closed without swallowing close alternatives', () => {
+  const urgent = [
+    'A child has swollen gums and facial swelling that is getting worse quickly.',
+    'A gum sore is spreading into the cheek and the mouth tissue is turning dark.',
+    'I was told this could be noma and I also have oily acne.',
+  ];
+  for (const description of urgent) {
+    const assessment = assessClinicalRoutine(description);
+    assert.equal(assessment.differential.primary?.id, 'rapid-mouth-face-breakdown-like', description);
+    assert.equal(assessment.referral.level, 'urgent', description);
+    assert.equal(assessment.referral.urgency, 'same-day', description);
+  }
+
+  for (const description of [
+    'A gum sore is spreading into the face and the child cannot swallow.',
+    'My gum sore is spreading quickly into my cheek and my face is swelling. It is difficult to swallow.',
+  ]) {
+    const emergency = assessClinicalRoutine(description);
+    assert.equal(emergency.differential.primary?.id, 'rapid-mouth-face-breakdown-like', description);
+    assert.equal(emergency.referral.level, 'emergency', description);
+    assert.equal(emergency.referral.urgency, 'immediate', description);
+  }
+
+  for (const description of [
+    'My gums bleed a little when brushing.',
+    'I have one stable canker sore with no swelling.',
+    'One painful tooth has a small local gum swelling.',
+  ]) assert.notEqual(
+    assessClinicalRoutine(description).differential.primary?.id,
+    'rapid-mouth-face-breakdown-like',
+    description,
+  );
+
+  assert.equal(
+    assessClinicalRoutine('Golden-brown external sores with spreading crusts around the mouth.').differential.primary?.id,
+    'impetigo-like',
+  );
+  assert.equal(
+    assessClinicalRoutine('A target-like rash with mouth sores appeared after a new medicine.').differential.primary?.id,
+    'severe-medicine-reaction-like',
+  );
 });
 
 test('changing skin and nail warnings interrupt without naming a diagnosis', () => {

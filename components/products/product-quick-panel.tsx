@@ -18,6 +18,7 @@ type ProductQuickPanelProps = {
   offers: Offer[];
   priceTrends?: ProductPriceTrends;
   careNote: string;
+  usage: string;
   ingredients: Ingredient[];
   routine: RoutineStep[];
 };
@@ -122,7 +123,8 @@ export function ProductQuickPanel(props: ProductQuickPanelProps) {
 
             {tab === 'details' ? <section className="product-panel-details" role="tabpanel">
               <div className="product-panel-caution"><p className="eyebrow">Profile</p><p>{props.careNote}</p></div>
-              <div><p className="eyebrow">Key ingredients</p>{props.ingredients.length ? <div className="product-panel-chips">{props.ingredients.map(ingredient => ingredient.sourceUrl ? <a key={ingredient.id} href={ingredient.sourceUrl} target="_blank" rel="noreferrer">{ingredient.label}<ArrowUpRight size={13} aria-hidden="true" /></a> : <span key={ingredient.id}>{ingredient.label}</span>)}</div> : <p>Check the pack before use.</p>}</div>
+              {props.ingredients.length ? <div><p className="eyebrow">Key ingredients</p><div className="product-panel-chips">{props.ingredients.map(ingredient => ingredient.sourceUrl ? <a key={ingredient.id} href={ingredient.sourceUrl} target="_blank" rel="noreferrer">{ingredient.label}<ArrowUpRight size={13} aria-hidden="true" /></a> : <span key={ingredient.id}>{ingredient.label}</span>)}</div></div> : null}
+              <div><p className="eyebrow">How to use</p><p>{props.usage}</p></div>
               {props.routine.length ? <div><p className="eyebrow">Routine</p><div className="product-panel-routine">{props.routine.map((item, index) => <div key={`${item.title}-${index}`}><span>0{index + 1}</span><p><strong>{item.title}</strong><small>{item.detail}</small></p></div>)}</div></div> : null}
             </section> : null}
           </div>

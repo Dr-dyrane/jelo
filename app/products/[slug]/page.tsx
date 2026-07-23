@@ -53,7 +53,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     ? careReview.approvedUses.map(use => use.label).join(' · ')
     : careReview?.careState === 'pharmacist_review'
       ? 'Check with a pharmacist first.'
-      : catalogueVerified ? 'Suitability review pending.' : 'More formula evidence needed.';
+      : catalogueVerified ? product.displayLine : 'More formula evidence needed.';
 
   const matchedConcerns = concerns.filter(concern => productMatchesConcern(product, concern));
 
@@ -98,6 +98,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             offers={product.offers}
             priceTrends={priceTrends}
             careNote={careNote}
+            usage={product.usage}
             ingredients={panelIngredients}
             routine={routine}
           />

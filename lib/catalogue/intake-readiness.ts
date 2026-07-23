@@ -570,11 +570,16 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
     'https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/',
     'https://www.ebay.co.uk/itm/277901941087',
   ],
+  'facefacts-ceramide-foaming-cleanser-400ml': [
+    'https://lamifragrance.com/product/face-facts-ceramide-foaming-cleanser/',
+    'https://beautyfree.gr/en/gel-foam/38505-face-facts-ceramide-skin-barrier-complex-foaming-cleanser-400ml-5031413936636.html',
+  ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f',
   'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
   'https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment',
+  'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
   'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',

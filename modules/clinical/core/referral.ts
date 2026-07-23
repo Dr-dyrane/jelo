@@ -29,6 +29,9 @@ const seriousInfectionContext = /\b(?:skin|rash|swelling|cellulitis)\b/i;
 const seriousInfectionWarning = /\b(?:shaking|fast breathing|fast heartbeat|purple patches|confusion|disorient(?:ed|ation)|became confused|feel confused|suddenly confused|cold clammy skin|collapse|collapsed)\b/i;
 const namedSevereMedicineReaction = /\b(?:sjs|stevens[- ]johnson syndrome|toxic epidermal necrolysis)\b/i;
 const medicineMention = /\b(?:medicine|medication|drug|antibiotic|painkiller)\b/i;
+const rapidMouthFaceEmergency = /\b(?:gum|gums|mouth)\b.{0,120}\b(?:cheek|face|facial|tissue)\b/i;
+const cannotSwallowOrDrink = /\b(?:(?:cannot|can't|could not|couldn't|unable to)\s+(?:swallow|drink)|(?:difficulty|trouble)\s+(?:with\s+)?(?:swallowing|drinking)|(?:difficult|hard|very\s+hard)\s+to\s+(?:swallow|drink))\b/i;
+const severeMouthFaceDecline = /\b(?:confusion|confused|collapse|collapsed|severe weakness|very weak)\b/i;
 
 function hasSevereMedicineReactionWarning(text: string) {
   if (namedSevereMedicineReaction.test(text)) return true;
@@ -93,6 +96,14 @@ export function assessReferral(input: {
     action: 'Seek emergency hospital care now and bring every medicine you take. Do not rely on skincare self-treatment.',
   };
 
+  if (
+    rapidMouthFaceEmergency.test(input.text)
+    && (cannotSwallowOrDrink.test(input.text) || severeMouthFaceDecline.test(input.text))
+  ) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['A rapidly worsening mouth-and-face change with an emergency warning sign was reported.'],
+    action: 'Seek emergency hospital care now. Do not wait for skincare, mouthwash or home treatment to work.',
+  };
+
   const emergency = hits(normalized, emergencyTerms);
   if (emergency.length) return {
     level: 'emergency', urgency: 'immediate', reasons: emergency.map(term => `Reported ${term}.`),
@@ -107,6 +118,12 @@ export function assessReferral(input: {
     action: 'Arrange same-day in-person medical assessment for a serious cause. Do not rely on skincare self-treatment.',
   };
 
+  const primaryId = input.differential.primary?.id;
+  if (primaryId === 'rapid-mouth-face-breakdown-like' || mentionsNamedPattern(normalized, /\b(?:noma|cancrum oris|gangrenous stomatitis)\b/)) return {
+    level: 'urgent', urgency: 'same-day', reasons: ['A rapidly worsening gum-to-face warning pattern was reported.'],
+    action: 'Arrange urgent in-person medical assessment today. Do not wait for skincare, mouthwash or home treatment to work.',
+  };
+
   const urgent = hits(normalized, urgentTerms);
   if (urgent.length || input.findings.some(item => item.severity === 'urgent')) return {
     level: 'urgent', urgency: 'same-day', reasons: [...urgent.map(term => `Reported ${term}.`), ...input.findings.filter(item => item.severity === 'urgent').map(item => item.title)].slice(0, 5),
@@ -119,7 +136,6 @@ export function assessReferral(input: {
     action: 'Arrange a prompt in-person skin examination. Do not rely on skincare products for this change.',
   };
 
-  const primaryId = input.differential.primary?.id;
   const weakenedImmunity = /\b(?:immunocompromised|weakened immune|suppressed immune|chemotherapy)\b/.test(normalized);
 
   if (primaryId === 'onchocerciasis-like' || mentionsNamedPattern(normalized, /\b(?:onchocerciasis|river blindness)\b/)) {

@@ -389,6 +389,16 @@ export const concerns: Concern[] = [
       { title: 'NHS · Deep vein thrombosis', url: 'https://www.nhs.uk/conditions/deep-vein-thrombosis-dvt/' },
     ], reviewedAt,
   },
+  {
+    slug: 'rapid-gum-face-change-pattern', name: 'Fast-changing gum or face sore', area: 'Face', kind: 'condition-pattern', clinicalPatternIds: ['rapid-mouth-face-breakdown-like'],
+    summary: 'A gum sore with quickly increasing cheek or facial swelling needs urgent medical care.',
+    signals: ['painful or aggressively swollen gums', 'gum sore spreading toward the cheek or face', 'dark, damaged or breaking-down tissue in the mouth', 'difficulty eating, drinking, swallowing or speaking'],
+    ingredients: ['same-day medical assessment', 'mouth and facial examination', 'clinician-directed treatment and nutrition support'],
+    productTerms: [],
+    escalation: 'Get same-day medical care for a gum sore with quickly increasing cheek or facial swelling, dark or breaking-down tissue, or difficulty eating. Breathing or swallowing difficulty, inability to drink, confusion, collapse or severe weakness needs emergency care now. Do not wait for skincare, mouthwash or home treatment to work.',
+    sources: [{ title: 'World Health Organization · Noma', url: 'https://www.who.int/news-room/fact-sheets/detail/noma/' }],
+    reviewedAt: '2026-07-23',
+  },
 ];
 
 export const concernBySlug = (slug: string) => concerns.find(concern => concern.slug === slug);

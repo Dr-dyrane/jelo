@@ -1,8 +1,8 @@
 import type { PatientProfile, ReferralAssessment } from './core/types';
 
 const emergencyPatterns = [
-  { pattern: /\b(?:difficulty|trouble)\s+breathing\b|\bshort(?:ness)?\s+of\s+breath\b|\b(?:cannot|can't|cant|unable to|struggling to)\s+breathe\b/i, label: 'breathing difficulty' },
-  { pattern: /\b(?:difficulty|trouble)\s+swallowing\b|\b(?:cannot|can't|cant|unable to)\s+swallow\b/i, label: 'difficulty swallowing' },
+  { pattern: /\b(?:difficulty|trouble)\s+(?:with\s+)?breathing\b|\b(?:difficult|hard|very\s+hard)\s+to\s+breathe\b|\bshort(?:ness)?\s+of\s+breath\b|\b(?:cannot|can't|cant|unable to|struggling to)\s+breathe\b/i, label: 'breathing difficulty' },
+  { pattern: /\b(?:difficulty|trouble)\s+(?:with\s+)?swallowing\b|\b(?:difficult|hard|very\s+hard)\s+to\s+swallow\b|\b(?:cannot|can't|cant|unable to)\s+swallow\b/i, label: 'difficulty swallowing' },
   { pattern: /\b(?:swollen\s+(?:tongue|throat)|(?:tongue|throat)\s+(?:is\s+)?swollen|(?:tongue|throat)\s+swelling|swelling\s+(?:of|in)\s+(?:the\s+)?(?:tongue|throat))\b/i, label: 'tongue or throat swelling' },
   { pattern: /\b(?:fainting|fainted|passed out|anaphylaxis)\b/i, label: 'possible severe allergic reaction' },
 ];
@@ -106,10 +106,14 @@ export function assessConsultSafety(input: {
 
   const action = referralLevel === 'emergency'
     ? input.referral.action
-    : redFlags.level === 'emergency' || redFlags.level === 'urgent'
+    : redFlags.level === 'emergency'
       ? redFlags.instruction
-      : referralLevel === 'urgent' || directedReferral
+      : referralLevel === 'urgent'
       ? input.referral.action
+      : redFlags.level === 'urgent'
+        ? redFlags.instruction
+      : directedReferral
+        ? input.referral.action
       : unsupportedContext.length
         ? 'JeloCare does not check allergies or medicine interactions. Review these details with a pharmacist or clinician before choosing treatment products.'
         : redFlags.level === 'clinician-review'

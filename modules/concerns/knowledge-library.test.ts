@@ -225,3 +225,19 @@ test('persistent swelling with skin changes is examination-first and never produ
     assert.ok(guidance.includes(term), `persistent-swelling guide is missing ${term}`);
   }
 });
+
+test('rapid gum-to-face changes are urgent, non-diagnostic and never product-matched', () => {
+  const concern = concerns.find(item => item.slug === 'rapid-gum-face-change-pattern');
+  assert.ok(concern);
+  assert.equal(concern.kind, 'condition-pattern');
+  assert.deepEqual(concern.clinicalPatternIds, ['rapid-mouth-face-breakdown-like']);
+  assert.deepEqual(concern.productTerms, []);
+  assert.deepEqual(concern.sources.map(source => source.url), [
+    'https://www.who.int/news-room/fact-sheets/detail/noma/',
+  ]);
+  const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+  for (const term of ['same-day medical care', 'dark', 'breaking-down tissue', 'difficulty eating', 'emergency care now', 'do not wait for skincare']) {
+    assert.ok(guidance.includes(term), `rapid gum-to-face guide is missing ${term}`);
+  }
+  assert.doesNotMatch(guidance, /you have|diagnos|antibiotic|mouthwash treatment|isolate/i);
+});

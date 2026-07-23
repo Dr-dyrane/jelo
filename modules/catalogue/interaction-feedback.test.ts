@@ -60,6 +60,8 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(concernsPage, /filter\(isProductMatchConcern\)/);
   assert.match(concernGuide, /condition-pattern[\s\S]*Browse concerns/);
   assert.match(productPanel, /Find a store/);
+  assert.match(productPanel, /How to use/);
+  assert.doesNotMatch(productPanel, /Check the pack before use/);
   assert.doesNotMatch(productPanel, /Buy options|See prices/);
   assert.match(navigation, /href="\/contribute"[^>]*>Share skincare/);
   assert.match(navigation, /label: 'Share skincare', detail: 'Tell us what you use'/);

@@ -51,6 +51,7 @@ test('common emergency and urgent word orders fail closed with matching care cop
   const cases = [
     ['I am short of breath after applying this cream.', 'emergency', /emergency care now/i],
     ["I can't swallow after using this product.", 'emergency', /emergency care now/i],
+    ['It is difficult to swallow after using this product.', 'emergency', /emergency care now/i],
     ['My lips are swollen today.', 'urgent', /same-day/i],
     ['My eye is swollen and painful.', 'urgent', /same-day/i],
     ['My vision is suddenly blurred.', 'urgent', /same-day/i],
@@ -176,6 +177,12 @@ test('published guide-parity patterns stop model and product guidance with deter
       safetyLevel: 'clinician-review',
       action: /prompt in-person medical examination/i,
     },
+    {
+      query: 'A child has swollen gums and facial swelling that is getting worse quickly.',
+      patternId: 'rapid-mouth-face-breakdown-like',
+      safetyLevel: 'urgent',
+      action: /urgent in-person medical assessment today/i,
+    },
   ] as const;
 
   for (const expected of cases) {
@@ -234,6 +241,7 @@ test('named conditions stop model and product use even beside product-eligible a
     ['I have lymphoedema and oily acne on my forehead.', 'primary-care'],
     ['I was told this could be yaws and I also have oily acne.', 'primary-care'],
     ['I was told this could be mycetoma and I also have oily acne.', 'primary-care'],
+    ['I was told this could be noma and I also have oily acne.', 'urgent'],
   ] as const;
 
   for (const [query, referralLevel] of cases) {
@@ -243,6 +251,25 @@ test('named conditions stop model and product use even beside product-eligible a
     assert.equal(payload.meta.modelCalls, 0, query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
+  }
+});
+
+test('rapid mouth-to-face warning signs never reach AI or products', async () => {
+  const cases = [
+    ['A gum sore is spreading into the cheek and the mouth tissue is turning dark.', 'urgent'],
+    ['A gum sore is spreading into the face and the child cannot swallow.', 'emergency'],
+    ['My gum sore is spreading quickly into my cheek and my face is swelling. It is difficult to swallow.', 'emergency'],
+  ] as const;
+
+  for (const [query, level] of cases) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+    assert.equal(payload.clinical.differential.primary?.id, 'rapid-mouth-face-breakdown-like', query);
+    assert.equal(payload.meta.modelCalls, 0, query);
+    assert.equal(payload.meta.safetyInterrupt, true, query);
+    assert.equal(payload.meta.safetyLevel, level, query);
+    assert.deepEqual(payload.products, [], query);
+    assert.doesNotMatch(payload.report.pattern, /you have|diagnos/i, query);
   }
 });
 

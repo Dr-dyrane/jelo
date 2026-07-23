@@ -218,7 +218,7 @@
 
 .market-summary span { display: grid; gap: .25rem; }
 .market-summary small { color: var(--muted); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; }
-.market-summary strong { font-family: var(--font-display), serif; font-size: 1.35rem; font-weight: 500; }
+.market-summary strong { font-family: var(--font-sans), sans-serif; font-size: 1.35rem; font-weight: 500; letter-spacing: -.025em; }
 .market-summary-notes { margin: 0 0 .2rem auto; display: grid; justify-items: end; gap: .22rem; color: var(--wine); font-size: .72rem; font-weight: 700; }
 .retailer-channel-filter {
   margin: 0 0 .8rem;

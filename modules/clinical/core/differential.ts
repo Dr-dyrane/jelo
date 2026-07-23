@@ -419,6 +419,25 @@ const rules: PatternRule[] = [
     missing: ['How long has the swelling been present, and is it worsening?', 'Is one side or both sides affected?', 'Is the skin hard, thickened, folded, leaking or repeatedly infected?', 'Did pain, warmth, fever, chest pain or breathlessness begin with it?'],
   },
   {
+    id: 'rapid-mouth-face-breakdown-like', label: 'Rapid gum-to-face breakdown warning pattern',
+    positives: [
+      { terms: ['noma', 'cancrum oris', 'gangrenous stomatitis'], weight: 72, reason: 'A named rapidly progressive mouth-and-face condition was reported and needs urgent confirmation.' },
+      { terms: ['gum sore with rapidly increasing facial swelling', 'gum sore spreading into my cheek', 'gum sore is spreading into the cheek', 'gum sore spreading into the cheek', 'gum sore is spreading quickly into my cheek', 'gum sore is spreading quickly into the cheek', 'gum sore spreading quickly into the cheek', 'gum sore is spreading into the face', 'gum sore spreading into the face', 'gum sore is spreading quickly into the face', 'gum sore spreading quickly into the face', 'swollen gums and cheek swelling getting worse', 'swollen gums with rapidly worsening face swelling'], weight: 58, reason: 'Rapid progression from a gum lesion toward the face needs same-day medical care.' },
+      { terms: ['gum tissue turned black', 'black tissue in the mouth', 'mouth tissue is turning dark', 'dead tissue around the gums', 'mouth tissue is breaking down'], weight: 60, reason: 'Dark or breaking-down mouth tissue is a serious warning sign.' },
+      { terms: ['hole in the cheek after a gum sore', 'hole in the face after a mouth sore', 'gum sore destroyed part of the cheek'], weight: 70, reason: 'Visible facial tissue destruction requires urgent hospital assessment.' },
+      { terms: ['child cannot eat because of swollen gums and cheek', 'child has swollen gums and facial swelling', 'child has a gum sore spreading to the cheek'], weight: 54, reason: 'Rapid gum and facial changes in a child need urgent assessment.' },
+    ],
+    negatives: [
+      { terms: ['gums bleed a little when brushing', 'mild bleeding gums with no swelling', 'simple gingivitis'], weight: 40, reason: 'Mild stable gum bleeding without progression or swelling needs a different oral-health pathway.' },
+      { terms: ['one small canker sore', 'one stable mouth ulcer', 'mouth ulcer with no swelling'], weight: 38, reason: 'One stable ulcer without facial progression is not specific for this warning pattern.' },
+      { terms: ['golden-brown crust around the mouth', 'external sores with spreading crusts'], weight: 42, reason: 'External crusted sores support the impetigo pathway.' },
+      { terms: ['mouth sores after a new medicine', 'blistering and peeling after medicine', 'target-like rash with mouth sores'], weight: 64, reason: 'Medicine-linked mucosal sores require the severe medicine-reaction emergency pathway.' },
+      { terms: ['lips swollen after applying cream', 'face swelling immediately after a product'], weight: 48, reason: 'Immediate product-linked swelling requires the allergic-reaction pathway.' },
+      { terms: ['one painful tooth with local gum swelling', 'toothache with a small gum abscess'], weight: 34, reason: 'A localized dental problem needs urgent dental assessment rather than this pattern.' },
+    ],
+    missing: ['Did this start in the gums or elsewhere in the mouth?', 'How quickly are the swelling or tissue changes progressing?', 'Is the cheek or face swollen?', 'Is any tissue dark, damaged or breaking down?', 'Can the person eat, drink, swallow and breathe normally?', 'Is this affecting a young child or someone with weakened immunity?'],
+  },
+  {
     id: 'scabies-like', label: 'Household night-itch pattern',
     positives: [
       { terms: ['scabies'], weight: 52, reason: 'A named contagious-itch condition was reported and needs confirmation.' },
