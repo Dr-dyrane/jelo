@@ -97,6 +97,30 @@
         "publishedAt": "2026-07-23T03:32:45Z"
       },
       "releaseFingerprint": "1f982da704c3d5425a2f68f562fb8495e502cc75763f71b4510f06a517677fa0"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dove-melanin-even-tone-body-wash-18-5oz",
+      "dossierFingerprint": "4a6b827bb3daf5bf7436ae0c53142732534888516d91c721472c7bafa47e5188",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Daily body cleanse.",
+        "usage": "Massage over the body with your palms, a sponge or loofah, then rinse with warm water.",
+        "manufacturerDirectionsUrl": "https://www.dove.com/us/en/p/melanin-even-tone-body-wash.html/00011111040090-pdp-buynow",
+        "reviewer": "JeloCare catalogue presentation review",
+        "reviewedAt": "2026-07-23T04:05:15Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue publication review",
+        "publishedAt": "2026-07-23T04:05:30Z"
+      },
+      "releaseFingerprint": "16aa9604f8c9bc71690bfbdb33ef941d7015a23fae5fbe69093df8c512573b29"
     }
   ]
 }

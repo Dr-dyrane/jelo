@@ -60,7 +60,12 @@ function sizes(value: string): Measurement[] {
     else if (unit === 'mg' || unit.startsWith('milligram')) measurements.push({ dimension: 'mass', baseValue: amount / 1_000 });
     else if (unit === 'kg' || unit.startsWith('kilogram')) measurements.push({ dimension: 'mass', baseValue: amount * 1_000 });
     else if (unit === 'g' || unit.startsWith('gram')) measurements.push({ dimension: 'mass', baseValue: amount });
-    else if (unit === 'oz') measurements.push({ dimension: 'mass', baseValue: amount * 28.3495 });
+    else if (unit === 'oz') {
+      // Cosmetic labels often shorten fluid ounces to "oz". Preserve both
+      // interpretations and let the exact observed metric size disambiguate.
+      measurements.push({ dimension: 'mass', baseValue: amount * 28.3495 });
+      measurements.push({ dimension: 'volume', baseValue: amount * 29.5735 });
+    }
   }
   return measurements;
 }
@@ -76,6 +81,7 @@ export type RetailerResponseScope = {
   responseUrl: string;
   canonicalUrl?: string;
   expectedTitle: string;
+  expectedTitleAliases?: string[];
   expectedSize: string;
   observedTitle?: string;
   observedSize?: string;
@@ -100,7 +106,9 @@ export function assertRetailerResponseScope(input: RetailerResponseScope) {
   if (!input.observedTitle?.trim()) {
     throw new Error('Retailer product title evidence is missing.');
   }
-  if (!titleMatches(input.expectedTitle, input.observedTitle)) {
+  const acceptedTitles = [input.expectedTitle, ...(input.expectedTitleAliases ?? [])]
+    .filter((value, index, titles) => value.trim() && titles.indexOf(value) === index);
+  if (!acceptedTitles.some(title => titleMatches(title, input.observedTitle!))) {
     throw new Error('Retailer product title does not match the catalogue product.');
   }
 

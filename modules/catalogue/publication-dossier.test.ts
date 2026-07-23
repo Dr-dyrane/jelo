@@ -368,7 +368,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 4);
+  assert.equal(result.dossierCount, 5);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -383,6 +383,11 @@ test('the checked-in publication manifest contains the verified neutral referenc
   assert.equal(result.dossiers[3].nigeria.exactOffers.length, 2);
   assert.equal(result.dossiers[3].nigeria.regulatoryStatus, 'pending');
   assert.equal(result.dossiers[3].rights.generationRecord?.outputSha256, result.dossiers[3].finalImage.sha256);
+  assert.equal(result.dossiers[4].candidateId, 'dove-melanin-even-tone-body-wash-18-5oz');
+  assert.equal(result.dossiers[4].nigeria.marketRoute, 'tier-a');
+  assert.equal(result.dossiers[4].nigeria.exactOffers.length, 2);
+  assert.equal(result.dossiers[4].nigeria.regulatoryStatus, 'pending');
+  assert.equal(result.dossiers[4].rights.generationRecord?.outputSha256, result.dossiers[4].finalImage.sha256);
 });
 
 test('an approval-ready exact SKU compiles into one immutable source-agnostic private dossier', () => {
@@ -787,7 +792,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 4);
+  assert.equal(report.releaseCount, 5);
   assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
   assert.equal(report.products[0].offers[0].priceNgn, 15_265);
   assert.equal(report.products[1].slug, 'cerave-moisturising-cream-454g');
@@ -807,6 +812,15 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
   assert.equal(report.products[3].offers[1].retailer, 'Jumia');
   assert.equal(report.products[3].offers[1].priceNgn, 27_410);
   assert.equal(report.products[3].offers[1].available, true);
+  assert.equal(report.products[4].slug, 'dove-melanin-even-tone-body-wash-18-5oz');
+  assert.equal(report.products[4].category, 'Body');
+  assert.equal(report.products[4].step, 'Cleanse');
+  assert.equal(report.products[4].offers[0].retailer, 'BuyBetter');
+  assert.equal(report.products[4].offers[0].priceNgn, 22_600);
+  assert.equal(report.products[4].offers[0].available, true);
+  assert.equal(report.products[4].offers[1].retailer, 'Teeka4');
+  assert.equal(report.products[4].offers[1].priceNgn, 17_800);
+  assert.equal(report.products[4].offers[1].available, false);
 });
 
 test('an explicit release materializes identity, image and exact offers only from its verified dossier', () => {

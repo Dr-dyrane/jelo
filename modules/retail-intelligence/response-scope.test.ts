@@ -64,6 +64,32 @@ test('normalizes manufacturer camel-case when retailers separate the same produc
   }));
 });
 
+test('accepts a deliberately curated catalogue-name alias without weakening the official variant', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    requestedUrl: 'https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/',
+    responseUrl: 'https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/',
+    expectedTitle: 'Melanin Even Tone Serum Body Wash with Pro-Ceramide',
+    expectedTitleAliases: ['Melanin Even Tone 5% Body Wash'],
+    expectedSize: '18.5 oz',
+    observedTitle: 'DOVE MELANIN EVEN TONE 5% Body Wash 547ml',
+    observedSize: '547 ml',
+    marketCode: 'NG',
+    currencyCode: 'NGN',
+  }));
+
+  assert.throws(() => assertRetailerResponseScope({
+    requestedUrl: 'https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/',
+    responseUrl: 'https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/',
+    expectedTitle: 'Melanin Even Tone Serum Body Wash with Pro-Ceramide',
+    expectedTitleAliases: ['Melanin Even Tone 5% Body Wash'],
+    expectedSize: '18.5 oz',
+    observedTitle: 'DOVE MEN+CARE CLEAN COMFORT BODY WASH 547ml',
+    observedSize: '547 ml',
+    marketCode: 'NG',
+    currencyCode: 'NGN',
+  }), /title/);
+});
+
 test('treats a packaging-only pot descriptor as optional', () => {
   assert.doesNotThrow(() => assertRetailerResponseScope({
     ...valid,
@@ -90,6 +116,19 @@ test('accepts equivalent metric and imperial size evidence', () => {
     ...valid,
     expectedSize: '8 oz / 226 g',
     observedSize: '226 g',
+  }));
+});
+
+test('uses an exact metric volume to disambiguate a cosmetic label shortened to ounces', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    requestedUrl: 'https://shop.example/dove-body-wash',
+    responseUrl: 'https://shop.example/dove-body-wash',
+    expectedTitle: 'Melanin Even Tone 5% Body Wash',
+    expectedSize: '18.5 oz',
+    observedTitle: 'Dove Melanin Even Tone 5% Body Wash',
+    observedSize: '547 ml',
+    marketCode: 'NG',
+    currencyCode: 'NGN',
   }));
 });
 

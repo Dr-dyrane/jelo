@@ -894,6 +894,22 @@ test('browser offer evidence recognizes explicit marketplace low-stock counts', 
   assert.equal(decision.freshExactOffers[0].stock, 'low-stock');
 });
 
+test('low-stock evidence accepts an explicit retailer count of five or fewer units', () => {
+  const candidate = completeCandidate();
+  const offer = candidate.nigeria.exactOffers[0];
+  offer.stock = 'low-stock';
+  assert.ok(offer.evidence);
+  offer.evidence.fields.stock = {
+    value: 'low-stock',
+    locator: 'HTML product stock notice',
+    sourceText: '4 in stock',
+  };
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, asOf);
+  assert.equal(decision.freshExactOffers.length, 1);
+  assert.equal(decision.blockers.includes('nigeria-offer-identity-unbound'), false);
+});
+
 test('bare or tampered Nigerian offers cannot qualify as reviewed exact evidence', () => {
   const base = completeCandidate();
   const original = base.nigeria.exactOffers[0];

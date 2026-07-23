@@ -943,6 +943,9 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
       requestedUrl: canonicalOffer.listingUrl,
       responseUrl: canonicalOffer.listingUrl,
       expectedTitle: candidate.variant,
+      expectedTitleAliases: normalized(candidate.name) === normalized(candidate.variant)
+        ? []
+        : [candidate.name],
       expectedSize: candidate.size,
       observedTitle: canonicalOffer.observedTitle,
       observedSize: canonicalOffer.observedSize,
