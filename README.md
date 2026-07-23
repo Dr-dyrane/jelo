@@ -2,6 +2,8 @@
 
 JeloCare is a skincare and haircare education platform combining cautious guidance with Nigerian-first retail intelligence.
 
+The operating handbook starts at [docs/README.md](docs/README.md). It covers product direction, design, architecture, catalogue publication, Neon, environments, releases, incidents, and team handoff.
+
 ## Product principles
 
 - Concern-led discovery

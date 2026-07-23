@@ -35,6 +35,9 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Check documentation
+        run: npm run docs:check
+
       - name: Verify private publication dossiers
         run: npm run catalogue:publication:verify
 

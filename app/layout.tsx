@@ -80,7 +80,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <div className="footer-group">
             <strong>Connect</strong>
             <a href="mailto:hello@jelocare.com">hello@jelocare.com</a>
-            <a href="mailto:hello@jelocare.com?subject=JeloCare%20retail%20partnership">Retail partnerships</a>
+            <Link href="/retailers#list-your-store">Retail partnerships</Link>
             <a href="mailto:hello@jelocare.com?subject=JeloCare%20affiliate%20partnership">Affiliate enquiries</a>
           </div>
           <div className="footer-legal">

@@ -2,8 +2,14 @@
 
 import { ArrowUpRight, MapPin } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import type { Offer } from '@/data/products';
+import type { Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
+import {
+  offerActionLabel,
+  offerFulfilmentLabel,
+  offerOrderChannels,
+  orderChannelLabel,
+} from '@/modules/commerce/offer-channel';
 import { rankOffers } from '@/modules/commerce/rank-offers';
 import { summarizeMarket } from '@/modules/commerce/market-summary';
 import { isOfferFresh } from '@/modules/commerce/offer-freshness';
@@ -52,10 +58,16 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
   // Nigeria is deliberately the first product-page market. JeloCare should show
   // local buying intelligence before asking shoppers to consider international routes.
   const [market, setMarket] = useState<Market>('NG');
+  const [channel, setChannel] = useState<'all' | OrderChannel>('all');
   const ranked = useMemo(() => rankOffers(offers, market), [offers, market]);
   const visible = ranked.filter(offer => offer.match !== 'search'
     && hasListingEvidence(offer)
     && (offer.location.includes(market) || offer.location.includes('INTL')));
+  const channels = [...new Set(visible.flatMap(offerOrderChannels))];
+  const activeChannel = channel === 'all' || channels.includes(channel) ? channel : 'all';
+  const filtered = activeChannel === 'all'
+    ? visible
+    : visible.filter(offer => offerOrderChannels(offer).includes(activeChannel));
   const summary = useMemo(() => summarizeMarket(offers, market), [offers, market]);
   const movement = movementLabel(priceTrends, market);
 
@@ -77,12 +89,22 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
           {movement ? <span className={`market-movement-${movement.direction}`}>{movement.copy}</span> : null}
         </div> : null}
       </div> : null}
+      {channels.length > 1 ? <div className="retailer-channel-filter" role="group" aria-label="Order channel">
+        <button className={activeChannel === 'all' ? 'active' : ''} type="button" onClick={() => setChannel('all')}>All</button>
+        {channels.map(value => <button
+          className={activeChannel === value ? 'active' : ''}
+          key={value}
+          type="button"
+          onClick={() => setChannel(value)}
+        >{orderChannelLabel(value)}</button>)}
+      </div> : null}
       <div className="retailer-list">
-        {visible.length ? visible.map((offer, index) => {
+        {filtered.length ? filtered.map((offer, index) => {
           const fresh = isOfferFresh(offer);
           const price = observedMarketPrice(offer, market);
           const checked = shortDate(offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt ?? offer.checkedAt);
           const stock = observedStockLabel(offer, fresh);
+          const fulfilment = offerFulfilmentLabel(offer);
           return (
           <a
             key={`${offer.retailer}-${offer.url}`}
@@ -93,6 +115,7 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
             <span>
               <strong>{offer.retailer}</strong>
               <small>{stock}{checked ? ` · Observed ${checked}` : ''}</small>
+              {fulfilment ? <small>{fulfilment}</small> : null}
               {offer.priceObservation ? <small>{offer.priceObservation.size} · {landedCostCaveat(offer)}</small> : null}
               {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''} · {hasSellerIdentityEvidence(offer) ? 'identity checked' : 'identity not checked'}</small> : null}
               {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Provisional source · link only</small> : null}
@@ -100,9 +123,7 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
             </span>
             <span className="retailer-price">
               <strong>{price != null ? formatAmount(price, market) : 'Check price'}</strong>
-              <small>{price != null
-                ? offer.priceComparison === 'exclude' ? 'Marketplace price' : 'Observed price'
-                : 'Price not current'}</small>
+              <small>{offerActionLabel(offer)}</small>
               {offer.priceComparison === 'exclude' ? <small>Not in comparison</small> : null}
             </span>
             <ArrowUpRight className="retailer-arrow" size={19}/>

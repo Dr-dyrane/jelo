@@ -1,0 +1,205 @@
+# Catalogue operations
+
+Updated: 2026-07-23
+
+Release one exact product at a time. Discovery can run in parallel; evidence and publication cannot be assumed.
+
+## The pipeline
+
+```text
+Retailer discovery
+  -> deterministic research queue
+  -> deliberate per-SKU intake
+  -> identity and package evidence
+  -> bounded care review
+  -> exact Nigerian offer evidence
+  -> rights and image review
+  -> approval-ready candidate
+  -> private dossier
+  -> immutable release
+  -> public catalogue
+  -> production verification
+```
+
+The full rules are in [CATALOGUE_PUBLICATION_GATE.md](../CATALOGUE_PUBLICATION_GATE.md). The media standard is in [PRODUCT_IMAGE_WORKFLOW.md](../PRODUCT_IMAGE_WORKFLOW.md).
+
+## 1. Read the live state
+
+```bash
+npm run catalogue:pipeline:status
+npm run catalogue:intake:audit
+npm run catalogue:research:verify
+```
+
+Use the generated status, not a remembered count.
+
+## 2. Choose a candidate
+
+`data/catalogue-research-queue.json` is a deterministic projection. Do not hand-edit its status.
+
+Choose a candidate for:
+
+- clinical or routine usefulness;
+- recognizable demand or community signal;
+- exact identity traceability;
+- credible Nigerian availability;
+- a feasible exact-package image route;
+- category and concern coverage.
+
+The frozen Open Beauty Facts pool and retailer discovery leads are private research. They are not public catalogue products.
+
+## 3. Lock identity
+
+Record the exact brand, variant, size, package version, and manufacturer identifier.
+
+Preferred evidence order:
+
+1. official manufacturer identity;
+2. official structured product data;
+3. two independent identifier corroborations when the manufacturer does not publish the code;
+4. hash-bound reviewed browser DOM when direct retrieval is blocked.
+
+Retailer SKUs remain retailer-local. Never promote one into a manufacturer GTIN.
+
+Identity artifacts are checked against their declared bytes and hashes. Package revisions must stay distinct.
+
+## 4. Review care
+
+Care review establishes a narrow role, not a marketing claim.
+
+- Use official directions and formula evidence.
+- Add independent clinical guidance when the tier requires it.
+- Name the advisory boundary.
+- Do not infer formula from a title, retailer description, or package appearance.
+- NAFDAC status is useful context; pending status is not a publication blocker.
+- Keep neutral catalogue references out of clinical matching.
+
+## 5. Capture Nigerian offers
+
+An exact observation binds:
+
+- requested and final listing URL;
+- retailer and current status;
+- exact title, variant, size, and package version;
+- identifier basis;
+- NGN price;
+- controlled stock state;
+- retrieval and review timestamps;
+- response bytes, MIME type, digest, locators, and excerpts.
+
+Use the rendered browser for stores such as Beauty by Daz when automation is blocked. Search pages, sibling redirects, stale observations, package conflicts, and ambiguous sizes remain excluded evidence.
+
+Slique Beauty is provisional and link-only under the current policy. Do not reuse its images or descriptions.
+
+## 6. Produce the image
+
+The public asset must:
+
+- match the exact package;
+- preserve label, claims, size, geometry, and source pixels;
+- show the complete package;
+- use true transparency;
+- be at least 1,000 × 1,000;
+- pass peach, pink, and dark-surface review;
+- be bound by hash and public Blob metadata.
+
+Generation may create a faithful display render only when its provenance record is present. It must not redesign the package. A raw cutout is not automatically publication quality.
+
+Useful operators:
+
+```bash
+npm run catalogue:packshot:tool:check
+npm run catalogue:packshot:prepare-reviewed -- --help
+npm run catalogue:publication:images:verify
+npm run assets:verify
+```
+
+## 7. Update the deliberate intake
+
+The candidate lives in `data/catalogue-intake.json`. Keep its identity, care, Nigerian, rights, editorial, and asset fields internally consistent.
+
+Validate:
+
+```bash
+npm run catalogue:intake:audit
+npm test
+```
+
+An approval-ready result means the code gate found no blocker. It is not public yet.
+
+## 8. Create the dossier and release
+
+First run the release operator without `--write`. Supply explicit ISO timestamps and presentation copy.
+
+```bash
+npm run catalogue:publication:release -- \
+  --candidate <candidate-id> \
+  --approved-at <ISO-time> \
+  --presentation-reviewed-at <ISO-time> \
+  --published-at <ISO-time> \
+  --category <Face-or-Hair-or-Body> \
+  --routine-step <step> \
+  --display-line <short-line> \
+  --usage <bounded-directions> \
+  --directions-url <official-url>
+```
+
+The chronology must be:
+
+```text
+dossier approval <= presentation review <= publication
+```
+
+Review the fingerprints, then repeat with `--write`. The operator writes the dossier and release manifests atomically and rejects duplicates.
+
+Regenerate the research projection:
+
+```bash
+npm run catalogue:research:build -- --write
+npm run catalogue:research:verify
+```
+
+## 9. Run publication gates
+
+```bash
+npm run catalogue:publication:verify
+npm run catalogue:publication:releases:verify
+npm run catalogue:publication:images:verify
+npm run assets:verify
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+Also inspect:
+
+```bash
+npm run inventory:audit
+npm run inventory:prices
+```
+
+## 10. Verify the experience
+
+Check desktop and mobile:
+
+- product search returns the product;
+- shelves and filters remain coherent;
+- the exact packshot is complete and transparent;
+- the product page answers fit, why, and where;
+- retailer prices, sizes, stock, and freshness match evidence;
+- store sheets and outbound links work;
+- no console or network errors appear;
+- contrast, focus, reduced motion, and small-screen layout remain sound.
+
+After push, verify the exact production deployment and custom domain before calling the release complete.
+
+## Never do
+
+- Publish a discovery lead because its count is useful.
+- Use product-name inference as formula evidence.
+- Present a marketplace seller score as authenticity.
+- Treat a retailer SKU as the manufacturer barcode.
+- Repair a clipped or conflicting image into false evidence.
+- Edit a deterministic research projection by hand.
+- Remove a failing gate to release faster.

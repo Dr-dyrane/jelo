@@ -6,6 +6,9 @@ import type {
   SellerIdentityEvidence,
 } from '@/data/retail-evidence';
 
+export type OrderChannel = 'website' | 'whatsapp' | 'instagram' | 'facebook' | 'physical' | 'marketplace';
+export type FulfilmentMethod = 'delivery' | 'pickup' | 'walk-in';
+
 export type Offer = {
   retailer: string;
   url: string;
@@ -29,6 +32,9 @@ export type Offer = {
   priceComparison?: 'include' | 'exclude';
   retailerEvidence?: RetailerEvidence;
   location: string[];
+  orderChannels?: OrderChannel[];
+  fulfilment?: FulfilmentMethod[];
+  locationLabel?: string;
 };
 
 export type Product = {

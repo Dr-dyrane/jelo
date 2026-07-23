@@ -220,6 +220,30 @@
 .market-summary small { color: var(--muted); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; }
 .market-summary strong { font-family: var(--font-display), serif; font-size: 1.35rem; font-weight: 500; }
 .market-summary-notes { margin: 0 0 .2rem auto; display: grid; justify-items: end; gap: .22rem; color: var(--wine); font-size: .72rem; font-weight: 700; }
+.retailer-channel-filter {
+  margin: 0 0 .8rem;
+  padding: .25rem;
+  display: flex;
+  gap: .2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .48);
+}
+.retailer-channel-filter::-webkit-scrollbar { display: none; }
+.retailer-channel-filter button {
+  min-height: 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  padding: .55rem .8rem;
+  flex: 0 0 auto;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .72rem;
+  cursor: pointer;
+}
+.retailer-channel-filter button.active { background: var(--ink); color: #fff; }
 .retailer-disclosure { max-width: 35rem; margin: 1rem 0 0; color: var(--muted); font-size: .69rem; line-height: 1.55; }
 .market-movement-down { color: #33704a; }
 .market-movement-up { color: #9a3d35; }

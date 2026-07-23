@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight, BadgeCheck, Clock3, ShieldCheck } from 'lucide-react';
+import { RetailerPartnershipExperience } from '@/components/retailers/retailer-partnership-experience';
 import { nigeriaRetailers } from '@/data/retailers';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import { hasRegulatorMatch } from '@/modules/commerce/offer-evidence';
 import styles from './retailers.module.css';
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
-  title: 'Retailer guide',
-  description: 'The Nigerian beauty stores JeloCare checks, and what a current exact offer means.',
+  title: 'Retailers',
+  description: 'The Nigerian beauty stores JeloCare checks, plus a simple way for retailers to list their store.',
   alternates: { canonical: '/retailers' },
 };
 
@@ -19,7 +23,16 @@ const standards = [
   { icon: ShieldCheck, title: 'Separate', copy: 'Listing is not authenticity.' },
 ];
 
-export default function RetailersPage() {
+function brandId(value: string) {
+  return `brand:${value.normalize('NFKD').toLocaleLowerCase('en-NG').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+}
+
+export default async function RetailersPage() {
+  const catalogue = await listCatalogueProducts();
+  const brands = [...new Set(catalogue.map(product => product.brand))]
+    .sort((left, right) => left.localeCompare(right))
+    .map(label => ({ id: brandId(label), label }));
+
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -50,6 +63,19 @@ export default function RetailersPage() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className={styles.partnership} id="list-your-store">
+        <div className={styles.partnershipIntro}>
+          <p className="eyebrow">For stores</p>
+          <h2>Be easier<br/>to find.</h2>
+          <p>Physical or online. Start with the basics. Your private link keeps everything saved.</p>
+          <div>
+            <span><strong>One step</strong><small>at a time</small></span>
+            <span><strong>No website</strong><small>required</small></span>
+          </div>
+        </div>
+        <RetailerPartnershipExperience brands={brands} />
       </section>
 
       <section className={styles.directory}>
@@ -84,7 +110,7 @@ export default function RetailersPage() {
         </div>
         <div className={styles.disclosureActions}>
           <Link href="/products">Browse products <ArrowUpRight size={17}/></Link>
-          <a href="mailto:hello@jelocare.com?subject=JeloCare%20retail%20partnership">Retail partnerships</a>
+          <Link href="/retailers#list-your-store">List your store</Link>
         </div>
       </section>
     </main>
