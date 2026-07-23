@@ -156,3 +156,17 @@ export function landedCostCaveat(offer: Offer) {
   if (offer.priceObservation?.landedCost === 'excluded') return 'Delivery extra';
   return 'Delivery may change total';
 }
+
+export function observedStockLabel(offer: Offer, fresh: boolean) {
+  if (!fresh) return 'Check stock';
+  const observed = offer.priceObservation?.stock;
+  if (!offer.available || observed === 'out-of-stock') return 'Out of stock';
+  if (observed === 'unknown') return 'Check stock';
+  if (observed === 'low-stock') {
+    return offer.inventoryQuantity && offer.inventoryQuantity > 0
+      ? `${offer.inventoryQuantity} left`
+      : 'Low stock';
+  }
+  if (offer.inventoryQuantity && offer.inventoryQuantity > 0) return `${offer.inventoryQuantity} left`;
+  return 'In stock';
+}

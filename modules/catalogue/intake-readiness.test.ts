@@ -848,6 +848,52 @@ test('an exact variant and size can bind a price without pretending a retailer S
   }
 });
 
+test('browser offer evidence recognizes explicit marketplace low-stock counts', () => {
+  const base = completeCandidate();
+  const original = base.nigeria.exactOffers[0];
+  const evidence = original.evidence!;
+  const marketplaceOffer: CatalogueIntakeOffer = {
+    ...original,
+    observedGtin: undefined,
+    observedGtinBasis: 'exact-variant-and-size',
+    stock: 'low-stock',
+    evidence: {
+      ...evidence,
+      method: 'reviewed-browser-dom-exact-offer-field-extraction',
+      responseDigestScope: 'rendered-dom-outerhtml',
+      responseMimeType: 'text/html',
+      browserCapture: {
+        surface: 'Codex in-app browser',
+        documentReadyState: 'complete',
+        pageTitle: 'Example Barrier Lotion 400 ml',
+      },
+      fields: {
+        ...evidence.fields,
+        gtin: {
+          label: 'GTIN',
+          value: base.identity.gtin!,
+          locator: 'Bound official catalogue identity snapshot',
+          sourceText: `Official catalogue identity GTIN ${base.identity.gtin}`,
+          responseRole: 'official-identity-correlation',
+        },
+        stock: {
+          value: 'low-stock',
+          locator: 'Rendered DOM stock status',
+          sourceText: '2 units left',
+        },
+      },
+    },
+  };
+
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...base,
+    nigeria: { ...base.nigeria, exactOffers: [marketplaceOffer] },
+  }, asOf);
+
+  assert.equal(decision.freshExactOffers.length, 1);
+  assert.equal(decision.freshExactOffers[0].stock, 'low-stock');
+});
+
 test('bare or tampered Nigerian offers cannot qualify as reviewed exact evidence', () => {
   const base = completeCandidate();
   const original = base.nigeria.exactOffers[0];

@@ -12,6 +12,7 @@ import {
   hasListingEvidence,
   hasSellerIdentityEvidence,
   landedCostCaveat,
+  observedStockLabel,
   observedMarketPrice,
 } from '@/modules/commerce/offer-evidence';
 import type { ProductPriceTrends } from '@/modules/commerce/price-trends';
@@ -81,9 +82,7 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
           const fresh = isOfferFresh(offer);
           const price = observedMarketPrice(offer, market);
           const checked = shortDate(offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt ?? offer.checkedAt);
-          const stock = !fresh ? 'Check stock' : offer.available
-            ? offer.inventoryQuantity ? `${offer.inventoryQuantity} left` : 'In stock'
-            : 'Out of stock';
+          const stock = observedStockLabel(offer, fresh);
           return (
           <a
             key={`${offer.retailer}-${offer.url}`}

@@ -12,6 +12,7 @@ import {
   materializeOfferEvidence,
   materializePersistedOfferEvidence,
   comparableMarketPrice,
+  observedStockLabel,
   observedMarketPrice,
 } from './offer-evidence';
 
@@ -92,6 +93,29 @@ test('repository mapping promotes only retailer-page or API verification into li
   assert.equal(checked.priceObservation?.variant, 'Example 100 ml');
   assert.equal(checked.priceObservation?.size, '100 ml');
   assert.equal(observedMarketPrice(checked, 'NG', now), 2_000);
+});
+
+test('retailer UI preserves observed low-stock detail', () => {
+  const offer: Offer = {
+    retailer: 'Marketplace',
+    url: 'https://example.com/product',
+    trust: 80,
+    available: true,
+    priceNgn: 2_000,
+    match: 'exact',
+    priceObservation: {
+      observedAt: '2026-07-22T10:00:00Z',
+      variant: 'Example 100 ml',
+      size: '100 ml',
+      stock: 'low-stock',
+      landedCost: 'unknown',
+    },
+    location: ['NG'],
+  };
+
+  assert.equal(observedStockLabel(offer, true), 'Low stock');
+  assert.equal(observedStockLabel({ ...offer, inventoryQuantity: 2 }, true), '2 left');
+  assert.equal(observedStockLabel(offer, false), 'Check stock');
 });
 
 test('catalogue expectations never manufacture retailer listing or price evidence', () => {

@@ -1,5 +1,5 @@
 const ignoredTitleWords = new Set([
-  'and', 'for', 'with', 'the', 'from', 'skin', 'hair', 'face', 'new', 'version', 'pack',
+  'and', 'for', 'with', 'the', 'from', 'skin', 'hair', 'face', 'body', 'new', 'version', 'pack',
   'to', 'of', 'in', 'on', 'by', 'or', 'at', 'pot',
 ]);
 
@@ -23,6 +23,7 @@ function sameProductRoute(left: URL, right: URL) {
 
 function titleTokens(value: string) {
   return Array.from(new Set(value
+    .replace(/\burea(?=repair\b)/gi, 'urea ')
     .toLowerCase()
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')

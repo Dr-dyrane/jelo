@@ -54,6 +54,16 @@ test('normalizes compact SPF tokens and UK or US moisturiser spelling', () => {
   }));
 });
 
+test('normalizes manufacturer camel-case when retailers separate the same product name', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'Eucerin UreaRepair PLUS 10% Urea Body Lotion',
+    expectedSize: '250 ml',
+    observedTitle: 'EUCERIN Urea Repair Plus 10% Urea Lotion 250ml',
+    observedSize: '250 ml',
+  }));
+});
+
 test('treats a packaging-only pot descriptor as optional', () => {
   assert.doesNotThrow(() => assertRetailerResponseScope({
     ...valid,

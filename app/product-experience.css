@@ -42,6 +42,19 @@
     max-height: calc(100svh - 10rem);
     object-fit: contain;
   }
+
+  .product-story {
+    padding-block: clamp(2rem, 5vh, 4rem);
+  }
+
+  .product-story h1 {
+    margin-block: clamp(1rem, 2.5vh, 2rem);
+    font-size: clamp(3.8rem, min(7vw, 10vh), 7rem);
+  }
+
+  .product-story .product-line {
+    margin-block: clamp(.75rem, 1.8vh, 1.5rem);
+  }
 }
 
 .product-decision-guide {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-07-23T03:04:30Z",
+  "updatedAt": "2026-07-23T03:32:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -1305,68 +1305,134 @@
       "nigeria": {
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
-        "exactOffers": [],
-        "excludedObservations": [
+        "exactOffers": [
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
-            "observedAt": "2026-07-22T21:57:45.913Z",
+            "observedAt": "2026-07-23T03:19:34.319Z",
             "observedTitle": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml",
             "observedSize": "250 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "6001051001606",
             "priceNgn": 25000,
             "stock": "in-stock",
-            "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "retailer-identifier-only",
-              "package-barcode-missing"
-            ],
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-retailer-observation",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
               "responseUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
-              "responseSha256": "0a8f829234c4f77ee4b87760c44849133e847f9b37a2abb2f84c6b18bf1b4fab",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "89548fa5f5649bf85ca4f9dc8a2b0ecf477bb787cb5121e9cd8ae88dc5f1233a",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 813718,
-              "retrievedAt": "2026-07-22T21:57:45.913Z",
+              "responseByteSize": 200092,
+              "retrievedAt": "2026-07-23T03:19:34.319Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml – Buybetter"
+              },
               "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "6001051001606",
+                  "locator": "Bound official catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 6001051001606",
+                  "responseRole": "official-identity-correlation"
+                },
                 "title": {
                   "value": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml",
-                  "locator": "HTML h1.product_title",
+                  "locator": "Rendered DOM h1 product heading",
                   "sourceText": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml"
                 },
                 "size": {
                   "value": "250 ml",
-                  "locator": "HTML h1.product_title size suffix",
+                  "locator": "Rendered DOM h1 size suffix",
                   "sourceText": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml"
                 },
                 "price": {
                   "value": 25000,
                   "currency": "NGN",
-                  "locator": "HTML product summary price",
+                  "locator": "Rendered DOM product price",
                   "sourceText": "₦25,000.00 NG"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "HTML product summary stock count",
+                  "locator": "Rendered DOM stock status",
                   "sourceText": "9 in stock"
-                },
-                "retailerIdentifier": {
-                  "label": "SKU",
-                  "value": "6001051001606",
-                  "locator": "HTML product_meta SKU row",
-                  "sourceText": "SKU 6001051001606"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-22T21:58:30Z"
+              "reviewedAt": "2026-07-23T03:20:00Z"
+            }
+          },
+          {
+            "retailer": "Jumia",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.jumia.com.ng/eucerin-urearepair-plus-10-urea-body-lotion-very-dry-skin-250ml-350932892.html",
+            "observedAt": "2026-07-23T03:19:34.319Z",
+            "observedTitle": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml",
+            "observedSize": "250 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "EU270ST5GD9R5NAFAMZ",
+            "priceNgn": 27410,
+            "stock": "low-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.jumia.com.ng/eucerin-urearepair-plus-10-urea-body-lotion-very-dry-skin-250ml-350932892.html",
+              "responseUrl": "https://www.jumia.com.ng/eucerin-urearepair-plus-10-urea-body-lotion-very-dry-skin-250ml-350932892.html",
+              "responseSha256": "2c927e861d34fd72d5c996e3e13e7261b4b901b8442fdf569bcdd36921618e28",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 198173,
+              "retrievedAt": "2026-07-23T03:19:34.319Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "6001051001606",
+                  "locator": "Bound official catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 6001051001606",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml",
+                  "locator": "Rendered DOM h1 product heading",
+                  "sourceText": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml"
+                },
+                "size": {
+                  "value": "250 ml",
+                  "locator": "Rendered DOM h1 size suffix",
+                  "sourceText": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml"
+                },
+                "price": {
+                  "value": 27410,
+                  "currency": "NGN",
+                  "locator": "Rendered DOM current product price",
+                  "sourceText": "₦ 27,410"
+                },
+                "stock": {
+                  "value": "low-stock",
+                  "locator": "Rendered DOM stock status",
+                  "sourceText": "2 units left"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T03:20:00Z"
             }
           }
-        ]
+        ],
+        "excludedObservations": []
       },
       "asset": {
-        "rightsStatus": "unresolved",
+        "rightsStatus": "documented",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
         "sourceUrl": "https://images-1.eucerin.com/~/media/eucerin%20relaunch%20media/media-center-items/7/c/e/bf749151745141938f43850481298579-screen.jpg",
         "sourceAssetSha256": "1f119d2467f25b9d6cb4820282b91bcf91fa1e0186cb681033fa6c9184257229",
         "sourceAssetMimeType": "image/jpeg",
@@ -1374,9 +1440,35 @@
         "sourceAssetWidth": 725,
         "sourceAssetHeight": 1200,
         "sourceAssetRetrievedAt": "2026-07-22T15:40:51Z",
-        "packaging": "unknown",
-        "backgroundTreatment": "unknown",
-        "presentationQuality": "unknown"
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: product-mockup and precise-object-edit\nAsset type: JeloCare catalogue packshot source for background removal\nInput image: official Eucerin CEWA reference for the exact 250 ml UreaRepair PLUS 10% Urea Body Lotion bottle.\nPrimary request: create one faithful, centered, front-facing render of the complete tall white bottle with navy cap; preserve the Eucerin wordmark, UreaRepair name, Very Dry Rough Skin line, 10% Urea Intensive Moisturising Lotion name, Triple Moisturising Complex mark, 10% Urea + Ceramides + NMF line and 250 ml proportions.\nFinal background edit: change only the background to a perfectly uniform solid #ff00ff chroma magenta with no gradient, texture, floor, reflection, vignette, cast shadow or contact shadow. Keep generous padding and the full cap and base.\nConstraints: no extra objects, detached size caption, hands, scenery, border, watermark, duplicate bottle, invented claims, different package, different urea percentage or different size.",
+          "inputs": [
+            {
+              "url": "https://images-1.eucerin.com/~/media/eucerin%20relaunch%20media/media-center-items/7/c/e/bf749151745141938f43850481298579-screen.jpg",
+              "sha256": "1f119d2467f25b9d6cb4820282b91bcf91fa1e0186cb681033fa6c9184257229"
+            }
+          ],
+          "outputSha256": "e4e726394ef5bd5f36b5781828459ea9e5234c3e0a1b89c93931911701fbf6a6",
+          "generatedAt": "2026-07-23T03:29:00Z",
+          "recordSha256": "373c200a5e8dbb29401d74e7d5dd8b59ca580e688b2d780fb873008a2b30d7a4"
+        },
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eucerin/eucerin-urearepair-plus-10-urea-body-lotion-250ml/packshot-v1-e4e726394ef5bd5f.png",
+        "publicImageSha256": "e4e726394ef5bd5f36b5781828459ea9e5234c3e0a1b89c93931911701fbf6a6",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 822873,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-07-23T03:31:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
       }
     },
     {
