@@ -29,6 +29,7 @@ const patternCases = [
   ['A spreading target-like rash appeared after starting a new medicine.', 'severe-medicine-reaction-like'],
   ['A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.', 'painless-ulcer-like'],
   ['Severe itching with firm lumps under my skin and my vision is getting worse.', 'onchocerciasis-like'],
+  ['My leg has stayed swollen for months and the skin is becoming thick and hard.', 'chronic-lymphoedema-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -62,6 +63,31 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('A spreading target-like rash appeared after starting a new medicine.').referral.level, 'emergency');
   assert.equal(assessClinicalRoutine('A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('Severe itching with firm lumps under my skin.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('My leg has stayed swollen for months and the skin is becoming thick and hard.').referral.level, 'primary-care');
+});
+
+test('persistent swelling stops skincare while acute clot and infection warnings keep priority', () => {
+  const chronic = assessClinicalRoutine('My leg has stayed swollen for months and the skin is becoming thick and hard.');
+  assert.equal(chronic.differential.primary?.id, 'chronic-lymphoedema-like');
+  assert.equal(chronic.referral.level, 'primary-care');
+  assert.equal(chronic.referral.urgency, 'soon');
+
+  const named = assessClinicalRoutine('I was told this could be elephantiasis and one leg is very swollen.');
+  assert.equal(named.differential.primary?.id, 'chronic-lymphoedema-like');
+  assert.equal(named.referral.level, 'primary-care');
+
+  const acute = assessClinicalRoutine('Today my right leg suddenly became painful and swollen, and it feels warm.');
+  assert.equal(acute.referral.level, 'urgent');
+  assert.equal(acute.referral.urgency, 'same-day');
+
+  const emergency = assessClinicalRoutine('My leg is painful and swollen and I have chest pain.');
+  assert.equal(emergency.referral.level, 'emergency');
+  assert.equal(emergency.referral.urgency, 'immediate');
+
+  assert.equal(assessClinicalRoutine('My swollen leg is now hot, more painful and I feel shivery.').referral.level, 'urgent');
+  assert.equal(assessClinicalRoutine('Painful hot spreading swelling with fever.').differential.primary?.id, 'cellulitis-like');
+  assert.notEqual(assessClinicalRoutine('My ankles get puffy after standing but go down overnight.').differential.primary?.id, 'chronic-lymphoedema-like');
+  assert.notEqual(assessClinicalRoutine('A mosquito bit my leg yesterday.').differential.primary?.id, 'chronic-lymphoedema-like');
 });
 
 test('eye-and-skin warning patterns stop products without swallowing close alternatives', () => {
@@ -164,6 +190,7 @@ test('named conditions interrupt even when ordinary acne ranks alongside them', 
     ['I may have mpox plus oily acne.', 'primary-care'],
     ['I was told this could be Buruli ulcer and I also have oily acne.', 'primary-care'],
     ['I was told this could be river blindness and I also have oily acne.', 'primary-care'],
+    ['I have lymphoedema and oily acne on my forehead.', 'primary-care'],
   ] as const;
 
   for (const [description, level] of cases) {

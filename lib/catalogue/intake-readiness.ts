@@ -18,10 +18,11 @@ import {
   type CataloguePublicationImageMimeType,
 } from './publication-image-policy';
 
-export const catalogueIntakeSchemaVersion = 6 as const;
+export const catalogueIntakeSchemaVersion = 7 as const;
 export const catalogueGenerationRecordSchemaVersion = 1 as const;
 export const catalogueIdentityExtractionSchemaVersion = 3 as const;
 export const catalogueMarketObservationSchemaVersion = 1 as const;
+export const catalogueRegulatorySearchObservationSchemaVersion = 1 as const;
 
 export type CatalogueIntakePriority = 'essential' | 'important' | 'exploratory';
 export type CatalogueIntakeStage = 'identity' | 'care' | 'nigeria' | 'rights' | 'editorial' | 'approval-ready';
@@ -172,6 +173,32 @@ export type CatalogueMarketObservation = {
   };
 };
 
+export type CatalogueRegulatorySearchObservation = {
+  schemaVersion: typeof catalogueRegulatorySearchObservationSchemaVersion;
+  authority: 'NAFDAC';
+  method: 'reviewed-public-registry-search';
+  sourceUrl: string;
+  responseUrl: string;
+  responseDigestScope: 'decoded-response-body';
+  responseSha256: string;
+  responseMimeType: 'application/json';
+  responseByteSize: number;
+  retrievedAt: string;
+  query: {
+    field: 'product-name';
+    value: string;
+  };
+  result: {
+    recordsTotal: number;
+    recordsFiltered: 0;
+    dataCount: 0;
+  };
+  disposition: 'no-active-public-match';
+  caveat: string;
+  reviewer: string;
+  reviewedAt: string;
+};
+
 export type CatalogueIntakeCandidate = {
   id: string;
   brand: string;
@@ -206,6 +233,7 @@ export type CatalogueIntakeCandidate = {
   nigeria: {
     regulatoryStatus: 'pending' | 'matched' | 'not-required';
     regulatoryEvidence?: ReviewedRegulatoryEvidence;
+    regulatorySearches?: CatalogueRegulatorySearchObservation[];
     tierAIdentityEvidenceUrl?: string;
     brandAuthorizationEvidenceUrl?: string;
     exactOffers: CatalogueIntakeOffer[];
@@ -298,10 +326,12 @@ export type CatalogueIntakeDecision = {
   approvalDraftReady: boolean;
   freshExactOffers: CatalogueIntakeOffer[];
   excludedMarketObservations: CatalogueMarketObservation[];
+  unresolvedRegulatorySearches: CatalogueRegulatorySearchObservation[];
   nigeriaMarketRoute?: CatalogueNigeriaMarketRoute;
 };
 
 const hashPattern = /^[0-9a-f]{64}$/;
+const regulatorySearchMaxAgeMs = 90 * 24 * 60 * 60 * 1_000;
 const measurableSize = /\b\d+(?:[.,]\d+)?\s*(?:ml|cl|l|mg|g|kg|oz|fl\.?\s*oz|count|pcs?|pieces?|pack)\b/i;
 const priorityOrder: Record<CatalogueIntakePriority, number> = { essential: 0, important: 1, exploratory: 2 };
 const stageProgress: Record<CatalogueIntakeStage, number> = {
@@ -425,6 +455,43 @@ function sameGtin(left: string | undefined, right: string | undefined) {
     && isValidGtin(right)
     && canonicalGtin(left) === canonicalGtin(right),
   );
+}
+
+function regulatorySearchObservationValid(
+  candidate: CatalogueIntakeCandidate,
+  observation: CatalogueRegulatorySearchObservation,
+  asOf: number,
+) {
+  const retrievedAt = Date.parse(observation.retrievedAt);
+  const reviewedAt = Date.parse(observation.reviewedAt);
+  const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
+  const expectedQuery = normalized(`${candidate.brand} ${candidate.name}`);
+  const source = observation.sourceUrl === 'https://www.nafdac.emdex.ng/';
+  const response = observation.responseUrl === observation.sourceUrl;
+  return observation.schemaVersion === catalogueRegulatorySearchObservationSchemaVersion
+    && observation.authority === 'NAFDAC'
+    && observation.method === 'reviewed-public-registry-search'
+    && source
+    && response
+    && observation.responseDigestScope === 'decoded-response-body'
+    && hashPattern.test(observation.responseSha256)
+    && observation.responseMimeType === 'application/json'
+    && Number.isInteger(observation.responseByteSize)
+    && observation.responseByteSize > 0
+    && observation.query.field === 'product-name'
+    && normalized(observation.query.value) === expectedQuery
+    && Number.isInteger(observation.result.recordsTotal)
+    && observation.result.recordsTotal >= 0
+    && observation.result.recordsFiltered === 0
+    && observation.result.dataCount === 0
+    && observation.disposition === 'no-active-public-match'
+    && /not proof of non-registration/i.test(observation.caveat)
+    && observation.reviewer.trim().length > 0
+    && validPastDate(observation.retrievedAt, asOf)
+    && validPastDate(observation.reviewedAt, asOf)
+    && retrievedAt >= identityCheckedAt
+    && reviewedAt >= retrievedAt
+    && asOf - retrievedAt <= regulatorySearchMaxAgeMs;
 }
 
 function normalized(value: string) {
@@ -1082,6 +1149,9 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
   const excludedMarketObservations = candidate.nigeria.excludedObservations.filter(observation => (
     marketObservationValid(candidate, observation, asOf)
   ));
+  const unresolvedRegulatorySearches = (candidate.nigeria.regulatorySearches ?? []).filter(observation => (
+    regulatorySearchObservationValid(candidate, observation, asOf)
+  ));
   const groups: Array<[Exclude<CatalogueIntakeStage, 'approval-ready'>, CatalogueIntakeBlocker[]]> = [
     ['identity', identityBlockers(candidate, asOf)],
     ['care', careBlockers(candidate, asOf)],
@@ -1099,6 +1169,7 @@ export function evaluateCatalogueIntakeCandidate(candidate: CatalogueIntakeCandi
     approvalDraftReady: stage === 'approval-ready',
     freshExactOffers,
     excludedMarketObservations,
+    unresolvedRegulatorySearches,
     ...(nigeriaMarketRoute ? { nigeriaMarketRoute } : {}),
   };
 }
@@ -1141,6 +1212,14 @@ export function auditCatalogueIntakeCandidates(
         throw new Error(`Catalogue intake ${candidate.id} has an invalid excluded market observation.`);
       }
     }
+    for (const observation of candidate.nigeria.regulatorySearches ?? []) {
+      if (candidate.nigeria.regulatoryStatus !== 'pending') {
+        throw new Error(`Catalogue intake ${candidate.id} cannot retain an unresolved registry search after regulatory clearance.`);
+      }
+      if (!regulatorySearchObservationValid(candidate, observation, asOf)) {
+        throw new Error(`Catalogue intake ${candidate.id} has an invalid regulatory search observation.`);
+      }
+    }
   }
   return candidates.map(candidate => evaluateCatalogueIntakeCandidate(candidate, asOf));
 }
@@ -1159,6 +1238,10 @@ export function auditCatalogueIntakeManifest(manifest: CatalogueIntakeManifest, 
       candidate.nigeria.regulatoryEvidence?.retrievedAt,
       candidate.nigeria.regulatoryEvidence?.observedAt,
       candidate.nigeria.regulatoryEvidence?.reviewedAt,
+      ...((candidate.nigeria.regulatorySearches ?? []).flatMap(observation => [
+        observation.retrievedAt,
+        observation.reviewedAt,
+      ])),
       ...candidate.nigeria.exactOffers.map(offer => offer.observedAt),
       ...candidate.nigeria.exactOffers.flatMap(offer => [offer.evidence?.retrievedAt, offer.evidence?.reviewedAt]),
       ...candidate.nigeria.excludedObservations.flatMap(observation => [

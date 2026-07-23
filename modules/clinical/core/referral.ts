@@ -20,6 +20,11 @@ const suddenVisionLossPatterns = [
   /\bsudden(?:ly)?\b.{0,28}\b(?:vision|sight)\s+(?:loss|lost|gone)\b/i,
   /\bsudden inability to see\b/i,
 ];
+const swollenLimbEmergencyPatterns = [
+  /\b(?:leg|arm|limb)\b.{0,64}\b(?:pain|painful|swollen|swelling)\b.{0,96}\b(?:chest pain|shortness of breath|short of breath|breathless|coughing blood|collapse|collapsed)\b/i,
+  /\b(?:chest pain|shortness of breath|short of breath|breathless|coughing blood|collapse|collapsed)\b.{0,96}\b(?:leg|arm|limb)\b.{0,64}\b(?:pain|painful|swollen|swelling)\b/i,
+];
+const suddenOneSidedLimbSwelling = /\b(?:sudden(?:ly)?|new|today)\b.{0,64}\b(?:one|left|right)?\s*(?:leg|arm|limb)\b.{0,64}\b(?:swollen|swelling)\b/i;
 const seriousInfectionContext = /\b(?:skin|rash|swelling|cellulitis)\b/i;
 const seriousInfectionWarning = /\b(?:shaking|fast breathing|fast heartbeat|purple patches|confusion|disorient(?:ed|ation)|became confused|feel confused|suddenly confused|cold clammy skin|collapse|collapsed)\b/i;
 const namedSevereMedicineReaction = /\b(?:sjs|stevens[- ]johnson syndrome|toxic epidermal necrolysis)\b/i;
@@ -73,6 +78,11 @@ export function assessReferral(input: {
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
   };
 
+  if (swollenLimbEmergencyPatterns.some(pattern => pattern.test(input.text))) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['Limb pain or swelling with a breathing or chest warning sign was reported.'],
+    action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
+  };
+
   if (seriousInfectionContext.test(input.text) && seriousInfectionWarning.test(input.text)) return {
     level: 'emergency', urgency: 'immediate', reasons: ['A serious infection warning sign was reported with a skin change.'],
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
@@ -87,6 +97,14 @@ export function assessReferral(input: {
   if (emergency.length) return {
     level: 'emergency', urgency: 'immediate', reasons: emergency.map(term => `Reported ${term}.`),
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
+  };
+
+  if (
+    suddenOneSidedLimbSwelling.test(input.text)
+    && /\b(?:pain|painful|warm|hot|tender|darkened)\b/i.test(input.text)
+  ) return {
+    level: 'urgent', urgency: 'same-day', reasons: ['New one-sided limb swelling with pain, warmth or tenderness was reported.'],
+    action: 'Arrange same-day in-person medical assessment for a serious cause. Do not rely on skincare self-treatment.',
   };
 
   const urgent = hits(normalized, urgentTerms);
@@ -114,6 +132,11 @@ export function assessReferral(input: {
       action: 'Arrange a prompt in-person medical examination, including an eye assessment. Do not start treatment on your own.',
     };
   }
+
+  if (primaryId === 'chronic-lymphoedema-like' || mentionsNamedPattern(normalized, /\b(?:lymphatic filariasis|elephantiasis|lymphoedema|lymphedema)\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A persistent swelling-with-skin-change pattern was reported.'],
+    action: 'Arrange a prompt in-person medical assessment to identify the cause and plan continuing care. Do not rely on cosmetic products or start antiparasitic treatment on your own.',
+  };
 
   if (primaryId === 'cellulitis-like') return {
     level: 'urgent', urgency: 'same-day', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],

@@ -15,6 +15,7 @@ function decision(
     blockers,
     freshExactOffers: Array.from({ length: offerCount }, () => ({}) as never),
     excludedMarketObservations: [],
+    unresolvedRegulatorySearches: [],
     approvalDraftReady,
     nextAction: 'Continue evidence review.',
   };

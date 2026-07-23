@@ -43,3 +43,7 @@ Ask Jelo uses the observational label “Numb changed-colour patch pattern.” R
 ## Dark velvety thickening
 
 Reviewed 2026-07-22. Dark, thickened skin with a velvet-like feel that does not scrub away needs assessment for its cause rather than pigmentation shopping. Ask Jelo uses the observational label “Dark velvety-thickening pattern,” routes to medical review, and keeps products suppressed. Sources: [American Academy of Dermatology · Overview](https://www.aad.org/public/diseases/a-z/acanthosis-nigricans-overview) and [American Academy of Dermatology · Diagnosis and treatment](https://www.aad.org/public/diseases/a-z/acanthosis-nigricans-treatment).
+
+## Persistent limb swelling
+
+Reviewed 2026-07-22. Long-lasting arm or leg swelling with skin that feels hard, tight or thick needs an in-person assessment rather than a product shortlist. Ask Jelo uses the observational label “Persistent swelling with thickened skin,” keeps products suppressed and routes the person to primary care. A suddenly painful, warm or one-sided swollen limb routes to same-day care. Swelling with chest pain, breathlessness, coughing blood or collapse routes to emergency care. Sources: [World Health Organization · Lymphatic filariasis](https://www.who.int/news-room/fact-sheets/detail/lymphatic-filariasis), [NHS · Lymphoedema](https://www.nhs.uk/conditions/lymphoedema/) and [NHS · Deep vein thrombosis](https://www.nhs.uk/conditions/deep-vein-thrombosis-dvt/).

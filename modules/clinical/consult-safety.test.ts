@@ -158,6 +158,12 @@ test('published guide-parity patterns stop model and product guidance with deter
       safetyLevel: 'urgent',
       action: /same-day/i,
     },
+    {
+      query: 'My leg has stayed swollen for months and the skin is becoming thick and hard.',
+      patternId: 'chronic-lymphoedema-like',
+      safetyLevel: 'clinician-review',
+      action: /in-person medical assessment/i,
+    },
   ] as const;
 
   for (const expected of cases) {
@@ -213,6 +219,7 @@ test('named conditions stop model and product use even beside product-eligible a
     ['I may have mpox plus oily acne.', 'primary-care'],
     ['I was told this could be Buruli ulcer and I also have oily acne.', 'primary-care'],
     ['I was told this could be river blindness and I also have oily acne.', 'primary-care'],
+    ['I have lymphoedema and oily acne on my forehead.', 'primary-care'],
   ] as const;
 
   for (const [query, referralLevel] of cases) {

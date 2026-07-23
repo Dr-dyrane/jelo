@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 6,
-  "updatedAt": "2026-07-23T00:21:00Z",
+  "schemaVersion": 7,
+  "updatedAt": "2026-07-23T00:50:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -90,6 +90,33 @@
       },
       "nigeria": {
         "regulatoryStatus": "pending",
+        "regulatorySearches": [
+          {
+            "schemaVersion": 1,
+            "authority": "NAFDAC",
+            "method": "reviewed-public-registry-search",
+            "sourceUrl": "https://www.nafdac.emdex.ng/",
+            "responseUrl": "https://www.nafdac.emdex.ng/",
+            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "647d1e2757dbd6262092d6293f66ed2b70236cfb945e24bd0b35927e84031933",
+            "responseMimeType": "application/json",
+            "responseByteSize": 2911,
+            "retrievedAt": "2026-07-23T00:49:40Z",
+            "query": {
+              "field": "product-name",
+              "value": "CeraVe Hydrating Cleanser"
+            },
+            "result": {
+              "recordsTotal": 779,
+              "recordsFiltered": 0,
+              "dataCount": 0
+            },
+            "disposition": "no-active-public-match",
+            "caveat": "No active public product-name match was returned. This is not proof of non-registration; NAPAMS verification still requires a known NAFDAC registration or certificate number.",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T00:50:00Z"
+          }
+        ],
         "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
         "exactOffers": [
           {

@@ -177,3 +177,20 @@ test('severe itch with nodules or sight changes is examination-first and never p
     assert.ok(guidance.includes(term), `eye-and-skin warning guide is missing ${term}`);
   }
 });
+
+test('persistent swelling with skin changes is examination-first and never product-matched', () => {
+  const concern = concerns.find(item => item.slug === 'persistent-limb-swelling-pattern');
+  assert.ok(concern);
+  assert.equal(concern.kind, 'condition-pattern');
+  assert.deepEqual(concern.clinicalPatternIds, ['chronic-lymphoedema-like']);
+  assert.deepEqual(concern.productTerms, []);
+  assert.deepEqual(concern.sources.map(source => source.url), [
+    'https://www.who.int/news-room/fact-sheets/detail/lymphatic-filariasis',
+    'https://www.nhs.uk/conditions/lymphoedema/',
+    'https://www.nhs.uk/conditions/deep-vein-thrombosis-dvt/',
+  ]);
+  const guidance = `${concern.summary} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+  for (const term of ['in-person medical review', 'same-day care', 'chest pain', 'emergency care now', 'skincare cannot establish the cause']) {
+    assert.ok(guidance.includes(term), `persistent-swelling guide is missing ${term}`);
+  }
+});

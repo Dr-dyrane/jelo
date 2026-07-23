@@ -352,6 +352,19 @@ export const concerns: Concern[] = [
       { title: 'NHS · Vision loss', url: 'https://www.nhs.uk/conditions/vision-loss/' },
     ], reviewedAt,
   },
+  {
+    slug: 'persistent-limb-swelling-pattern', name: 'Persistent swelling with thickened skin', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['chronic-lymphoedema-like'],
+    summary: 'Long-lasting swelling of a limb or another body part, especially with hard, tight or thickened skin, needs an in-person examination.',
+    signals: ['swelling that persists or gradually increases', 'an arm, leg or another body part feeling heavy or enlarged', 'hard, tight or thickened skin', 'skin folds, repeated infections or fluid leakage'],
+    ingredients: ['prompt in-person cause-finding', 'gentle washing and careful drying', 'clinician-guided continuing swelling care'],
+    productTerms: [],
+    escalation: 'Arrange an in-person medical review for persistent swelling, hard or thickened skin, skin folds or fluid leakage. Get same-day care if swelling starts suddenly, affects one limb with pain or warmth, becomes rapidly worse, or comes with fever or shivering. Limb pain or swelling with chest pain, breathlessness, coughing blood or collapse needs emergency care now. Skincare cannot establish the cause.',
+    sources: [
+      { title: 'World Health Organization · Lymphatic filariasis', url: 'https://www.who.int/news-room/fact-sheets/detail/lymphatic-filariasis' },
+      { title: 'NHS · Lymphoedema', url: 'https://www.nhs.uk/conditions/lymphoedema/' },
+      { title: 'NHS · Deep vein thrombosis', url: 'https://www.nhs.uk/conditions/deep-vein-thrombosis-dvt/' },
+    ], reviewedAt,
+  },
 ];
 
 export const concernBySlug = (slug: string) => concerns.find(concern => concern.slug === slug);

@@ -16,6 +16,9 @@ export const catalogueIntakeExposure = {
   excludedMarketObservationCount: catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0),
+  unresolvedRegulatorySearchCount: catalogueIntakeDecisions.reduce((count, decision) => (
+    count + decision.unresolvedRegulatorySearches.length
+  ), 0),
   publicProductCount: 0,
   policy: 'private-research-only',
 } as const;

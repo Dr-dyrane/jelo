@@ -367,6 +367,21 @@ const rules: PatternRule[] = [
     missing: ['Is there blurred, reduced or worsening vision, eye pain, redness or light sensitivity?', 'Are there firm lumps under the skin or lasting skin changes?', 'Have you lived or worked near fast-flowing rivers with repeated biting-fly exposure?'],
   },
   {
+    id: 'chronic-lymphoedema-like', label: 'Persistent swelling-with-skin-change pattern',
+    positives: [
+      { terms: ['lymphatic filariasis', 'elephantiasis'], weight: 66, reason: 'A named condition associated with chronic tissue swelling was reported and needs clinical confirmation.' },
+      { terms: ['lymphoedema', 'lymphedema'], weight: 54, reason: 'A named chronic swelling condition was reported and needs cause-finding and continuing care.' },
+      { terms: ['persistent leg swelling with thickened skin', 'persistent arm swelling with thickened skin', 'long-term leg swelling with hard skin', 'long-term arm swelling with hard skin', 'leg has stayed swollen for months and the skin is becoming thick', 'arm has stayed swollen for months and the skin is becoming thick'], weight: 48, reason: 'Persistent swelling with progressive skin thickening needs an in-person assessment.' },
+      { terms: ['swollen limb with deep skin folds', 'swollen leg with hard tight skin', 'swollen arm with hard tight skin', 'fluid leaking through the swollen skin', 'repeated skin infections in the swollen limb'], weight: 46, reason: 'Skin changes or repeated infection alongside chronic swelling support a lymphatic-swelling assessment.' },
+    ],
+    negatives: [
+      { terms: ['swelling started today after an injury', 'temporary swelling after standing', 'goes down overnight'], weight: 28, reason: 'A short-lived or clearly injury-linked change is less specific for a chronic swelling pattern.' },
+      { terms: ['painful hot spreading swelling', 'hot and swollen with fever'], weight: 34, reason: 'Acute heat, pain or fever requires the infection pathway first.' },
+      { terms: ['swollen lips', 'swollen tongue', 'swollen throat'], weight: 44, reason: 'Face or airway swelling requires the allergic-reaction safety pathway.' },
+    ],
+    missing: ['How long has the swelling been present, and is it worsening?', 'Is one side or both sides affected?', 'Is the skin hard, thickened, folded, leaking or repeatedly infected?', 'Did pain, warmth, fever, chest pain or breathlessness begin with it?'],
+  },
+  {
     id: 'scabies-like', label: 'Household night-itch pattern',
     positives: [
       { terms: ['scabies'], weight: 52, reason: 'A named contagious-itch condition was reported and needs confirmation.' },

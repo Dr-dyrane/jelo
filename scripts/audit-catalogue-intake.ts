@@ -18,6 +18,7 @@ async function main() {
       nextAction: decision.nextAction,
       freshExactOffers: decision.freshExactOffers.length,
       excludedMarketObservations: decision.excludedMarketObservations.length,
+      unresolvedRegulatorySearches: decision.unresolvedRegulatorySearches.length,
       directoryListedOffers: decision.freshExactOffers.filter(offer => offer.retailerStatus === 'directory-listed').length,
       provisionalOffers: decision.freshExactOffers.filter(offer => offer.retailerStatus === 'provisional').length,
       blockers: decision.blockers,
@@ -35,6 +36,7 @@ async function main() {
       stage: item.stage,
       exactOffers: item.freshExactOffers,
       excludedMarketObservations: item.excludedMarketObservations,
+      unresolvedRegulatorySearches: item.unresolvedRegulatorySearches,
       next: item.nextAction,
     })));
   }

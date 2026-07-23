@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T00:22:00Z');
+const researchAsOf = Date.parse('2026-07-23T00:51:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 10);
@@ -28,6 +28,7 @@ test('the first deliberate intake cohort stays private and approval-blocked', ()
   assert.equal(catalogueIntakeDecisions.length, 10);
   assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 0);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 14);
+  assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
@@ -182,6 +183,16 @@ test('official CeraVe snapshots advance identity and care without treating retai
   assert.equal(cleanserDecision.nigeriaMarketRoute, 'brand-authorized');
   assert.equal(cleanserDecision.blockers.includes('nigeria-offer-identity-unbound'), false);
   assert.ok(cleanserDecision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(cleanserDecision.unresolvedRegulatorySearches.length, 1);
+  assert.equal(cleanserDecision.unresolvedRegulatorySearches[0].result.recordsFiltered, 0);
+  assert.match(cleanserDecision.unresolvedRegulatorySearches[0].caveat, /not proof of non-registration/i);
+
+  const tamperedSearch = structuredClone(cleanser);
+  tamperedSearch.nigeria.regulatorySearches![0].responseSha256 = 'x'.repeat(64);
+  assert.throws(
+    () => auditCatalogueIntakeCandidates([tamperedSearch], researchAsOf),
+    /invalid regulatory search observation/,
+  );
 
   const cream = catalogueIntakeCandidates.find(item => item.id === 'cerave-moisturising-cream-454g');
   assert.ok(cream);
