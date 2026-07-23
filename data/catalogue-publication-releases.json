@@ -673,6 +673,30 @@
         "publishedAt": "2026-07-23T19:56:00Z"
       },
       "releaseFingerprint": "29b8a7bdf094cfec321d09d3180a2d8522634d63d45e3cd92c367a94a2405b86"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dove-skin-replenish-serum-body-wash-547ml",
+      "dossierFingerprint": "45dd41315d1d8238b0259ef18bd8dc8cba727c098723713b4862f7fe934648e9",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Smoother-feeling body skin · 547 ml",
+        "usage": "Lather over wet body skin, rinse well, then moisturize.",
+        "manufacturerDirectionsUrl": "https://www.dove.com/us/en/p/skin-replenish-body-wash.html/00011111055230",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T20:22:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T20:23:00Z"
+      },
+      "releaseFingerprint": "bdc07b4b55a623fb9f6f9d7d3669d7b6e1cc48557de02eaf3d427283c6349084"
     }
   ]
 }

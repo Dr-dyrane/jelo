@@ -25,9 +25,21 @@ An unresolved identity, rights or regulatory field keeps the product private.
 
 ### Operator-supplied PNG quick lane
 
-An operator can provide a PNG directly. The minimum handoff is:
+For the founder or another contributor, the handoff is intentionally small:
 
 - the PNG file;
+- the exact product name or official product link;
+- the image source and reuse basis;
+- any note about the version or size if the package has several variants.
+
+That is enough. The catalogue operator resolves or creates the candidate ID,
+confirms the exact package against an official reference, checks transparency
+and framing, computes the hashes, prepares the candidate metadata, uploads the
+approved bytes and runs the publication gates. The person supplying the image
+does not need to know Blob, Neon or catalogue-manifest commands.
+
+An operator completing the intake must record:
+
 - the exact intake candidate ID;
 - the image source and reuse basis;
 - the official product or package reference used to confirm identity.

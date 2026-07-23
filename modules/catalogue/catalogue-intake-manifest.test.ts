@@ -20,23 +20,23 @@ import {
 const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 28);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 29);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 28);
-  assert.equal(catalogueIntakeDecisions.length, 28);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 28);
+  assert.equal(catalogueIntakeCandidates.length, 29);
+  assert.equal(catalogueIntakeDecisions.length, 29);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 29);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 13);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 28);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 29);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 28);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 29);
 });
 
 test('the Cécred deep conditioner binds its exact full-size identity, two Nigerian prices and reviewed render', () => {
@@ -97,6 +97,34 @@ test('the TRESemmé conditioner binds its official GTIN, three Nigerian prices a
   const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T19:59:57Z'));
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 3);
+});
+
+test('the Dove Skin Replenish wash binds its exact package, two Nigerian prices and reviewed transparent render', () => {
+  const candidate = catalogueIntakeCandidates.find(
+    item => item.id === 'dove-skin-replenish-serum-body-wash-547ml',
+  );
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '00011111055230');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '18.5 fl oz / 547 ml');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.schemaVersion, 4);
+  assert.deepEqual(
+    candidate.nigeria.exactOffers.map(offer => offer.retailer),
+    ['BuyBetter', 'Kadimez Essentials'],
+  );
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [22600, 24500]);
+  assert.equal(candidate.nigeria.exactOffers[0].stock, 'low-stock');
+  assert.equal(candidate.nigeria.exactOffers[1].stock, 'in-stock');
+  assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
+  assert.equal(candidate.asset.publicImageSha256, '9ffc53c3bf65ed9d5006fc7e50446ca9de1f816da7fec45ed4555305954ea2c9');
+  assert.equal(candidate.asset.backgroundTreatment, 'identity-verified-render');
+  assert.equal(candidate.asset.presentationQuality, 'magazine-ready');
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...generationContent } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T20:25:00Z'));
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.freshExactOffers.length, 2);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -1005,7 +1033,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 13);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 56);
+  ), 0), 58);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

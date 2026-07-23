@@ -568,32 +568,6 @@
     },
     {
       "rank": 21,
-      "discoveryId": "5a63a184f3c4ab6402f4a586",
-      "title": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
-      "brandHint": "DOVE",
-      "size": "547ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "00011111055230",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 22,
       "discoveryId": "07638932c92af511bdf56019",
       "title": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
       "brandHint": "Dr Teals",
@@ -619,7 +593,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 22,
       "discoveryId": "e3e002f6425926e8343cb8e9",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
       "brandHint": "EOS",
@@ -630,6 +604,32 @@
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
       "identityLead": "00840044714088",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 23,
+      "discoveryId": "af4cf984d6ae1296e4ffd1b0",
+      "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
+      "brandHint": "EOS",
+      "size": "16oz / 473ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 158,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "00840044714163",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

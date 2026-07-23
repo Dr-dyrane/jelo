@@ -533,6 +533,21 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'dove-skin-replenish-serum-body-wash-547ml': {
+    productSlug: 'dove-skin-replenish-serum-body-wash-547ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'rough-body-skin-cleansing',
+      label: 'Routine cleansing for rough-feeling body skin',
+      concernIds: ['rough skin', 'body dryness', 'texture'],
+      concernSlugs: ['dry-rough-body-skin'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.dove.com/us/en/p/skin-replenish-body-wash.html/00011111055230',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-07-23',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
