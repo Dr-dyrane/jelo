@@ -321,7 +321,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     <span><Check size={28} aria-hidden="true" /></span>
     <p>Shared with JeloCare</p>
     <h2 id="contribution-complete-title">Thank you.</h2>
-    <p>Your note helps grow Nigeria’s skincare library.</p>
+    <p>Your note helps someone choose.</p>
     <div><button type="button" onClick={startAnother}><RotateCcw size={16} aria-hidden="true" /> Add another</button><Link href="/products">Browse products</Link></div>
   </section>;
 
