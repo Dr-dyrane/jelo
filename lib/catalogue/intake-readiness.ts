@@ -412,6 +412,7 @@ const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://www.nhs.uk/conditions/keratosis-pilaris/',
   'https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/',
   'https://pubmed.ncbi.nlm.nih.gov/34596890/',
+  'https://pubmed.ncbi.nlm.nih.gov/38722460/',
 ]);
 
 function stableJson(value: unknown): string {
