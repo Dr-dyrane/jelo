@@ -4,6 +4,7 @@ import path from 'node:path';
 import { put } from '@vercel/blob';
 import sharp from 'sharp';
 import promotions from '../data/product-asset-promotions.json';
+import { analysePackshotSilhouette, likelyTruncatedPackshot } from '../lib/assets/packshot-silhouette';
 
 const assetHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 
@@ -44,7 +45,11 @@ async function verifiedBytes(promotion: Promotion) {
   }
 
   const bytes = await readFile(localAssetPath(promotion.localPath));
-  const [metadata, statistics] = await Promise.all([sharp(bytes).metadata(), sharp(bytes).stats()]);
+  const [metadata, statistics, silhouette] = await Promise.all([
+    sharp(bytes).metadata(),
+    sharp(bytes).stats(),
+    analysePackshotSilhouette(bytes),
+  ]);
   const digest = createHash('sha256').update(bytes).digest('hex');
   if (bytes.length !== promotion.byteSize || digest !== promotion.contentHash) {
     throw new Error(`${promotion.id}: staged bytes changed`);
@@ -57,6 +62,12 @@ async function verifiedBytes(promotion: Promotion) {
   ) throw new Error(`${promotion.id}: decoded image metadata changed`);
   if (promotion.hasAlpha && statistics.isOpaque) {
     throw new Error(`${promotion.id}: declared transparent asset is fully opaque`);
+  }
+  if (promotion.hasAlpha && likelyTruncatedPackshot(silhouette)) {
+    throw new Error(
+      `${promotion.id}: staged packshot has a full-width lower silhouette edge `
+      + `(${silhouette.bottomTerminalRunFraction.toFixed(3)}); repair the inherited crop before upload`,
+    );
   }
   return bytes;
 }

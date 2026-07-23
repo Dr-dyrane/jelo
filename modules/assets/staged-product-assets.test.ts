@@ -7,6 +7,7 @@ import sharp from 'sharp';
 import promotions from '@/data/product-asset-promotions.json';
 import { expandedProducts } from '@/data/expanded-products';
 import { products as coreProducts } from '@/data/products';
+import { analysePackshotSilhouette, likelyTruncatedPackshot } from '@/lib/assets/packshot-silhouette';
 
 test('staged product promotions are exact local bytes bound to one reviewed product', async () => {
   const ids = new Set<string>();
@@ -31,12 +32,21 @@ test('staged product promotions are exact local bytes bound to one reviewed prod
 
     const localFile = path.join(process.cwd(), 'public', promotion.localPath.replace(/^\//, ''));
     const bytes = await readFile(localFile);
-    const [metadata, statistics] = await Promise.all([sharp(bytes).metadata(), sharp(bytes).stats()]);
+    const [metadata, statistics, silhouette] = await Promise.all([
+      sharp(bytes).metadata(),
+      sharp(bytes).stats(),
+      analysePackshotSilhouette(bytes),
+    ]);
     assert.equal(bytes.length, promotion.byteSize);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), promotion.contentHash);
     assert.equal(metadata.width, promotion.width);
     assert.equal(metadata.height, promotion.height);
     assert.equal(metadata.hasAlpha, promotion.hasAlpha);
     assert.equal(statistics.isOpaque, false);
+    assert.equal(
+      likelyTruncatedPackshot(silhouette),
+      false,
+      `${promotion.id}: staged packshot has an inherited lower crop`,
+    );
   }
 });
