@@ -33,7 +33,15 @@ npm run catalogue:research:verify
 
 Use the generated status, not a remembered count.
 
+With a server database environment loaded, also read the community research order:
+
+```bash
+npm run community:research:signals
+```
+
 ## 2. Choose a candidate
+
+Pending `community-first` tasks precede the bulk discovery leads. They are durable community-reported signals described in [COMMUNITY_KNOWLEDGE_INTAKE.md](../COMMUNITY_KNOWLEDGE_INTAKE.md); they reorder research and satisfy no publication gate.
 
 `data/catalogue-research-queue.json` is a deterministic projection. Do not hand-edit its status.
 
