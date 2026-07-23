@@ -154,6 +154,7 @@ test('the checked-in queue is an exact deterministic projection of the discovery
   const currentSnapshot = JSON.parse(snapshotBytes.toString('utf8')) as CatalogueDiscoverySnapshot;
   const knownIdentities = [...coreProducts, ...expandedProducts, ...catalogueIntakeCandidates].map(product => ({
     brand: product.brand,
+    ...('brandAliases' in product && Array.isArray(product.brandAliases) ? { brandAliases: product.brandAliases } : {}),
     name: product.name,
     size: product.size,
   }));
@@ -171,4 +172,19 @@ test('the checked-in queue is an exact deterministic projection of the discovery
   assert.equal(Math.max(...Array.from(new Set(expected.items.map(item => item.brandHint))).map(
     brand => expected.items.filter(item => item.brandHint === brand).length,
   )) <= 3, true);
+});
+
+test('reviewed brand aliases stop retailer-shortened duplicates consuming research slots', () => {
+  const known = candidate({
+    title: 'BALANCE Salicylic Acid + Zinc Clarifying Toner 200 ml',
+    brandHint: 'BALANCE',
+    size: '200 ml',
+  });
+  const queue = buildCatalogueResearchQueue(snapshot([known]), digest, 1, [{
+    brand: 'Balance Active Formula',
+    brandAliases: ['Balance'],
+    name: 'Salicylic Acid + Zinc Clarifying Toner',
+    size: '200 ml',
+  }]);
+  assert.equal(queue.selectedCount, 0);
 });

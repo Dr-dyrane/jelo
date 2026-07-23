@@ -70,7 +70,7 @@ export type CatalogueResearchQueue = {
   items: CatalogueResearchQueueItem[];
 };
 
-export type KnownCatalogueIdentity = { brand: string; name: string; size: string };
+export type KnownCatalogueIdentity = { brand: string; brandAliases?: string[]; name: string; size: string };
 
 const laneTargets: Record<CatalogueResearchLane, number> = {
   'sun-protection': 6,
@@ -137,7 +137,7 @@ function alreadyKnown(candidate: ScreenedDiscoveryCandidate, identities: readonl
   const titleTokens = new Set(title.split(' '));
   const size = normalized(candidate.size).replace(/(\d)\s+(?=[a-z])/g, '$1');
   return identities.some(identity => (
-    normalized(identity.brand) === brand
+    [identity.brand, ...(identity.brandAliases ?? [])].map(normalized).includes(brand)
     && normalized(identity.name).split(' ').every(token => titleTokens.has(token))
     && size.includes(normalized(identity.size).replace(/(\d)\s+(?=[a-z])/g, '$1'))
   ));

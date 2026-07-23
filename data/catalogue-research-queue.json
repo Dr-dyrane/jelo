@@ -59,33 +59,6 @@
     },
     {
       "rank": 2,
-      "discoveryId": "57970682f2a2ac8e73a76803",
-      "title": "BALANCE Salicylic Acid + Zinc Clarifying Toner 7.039 oz 200ml",
-      "brandHint": "BALANCE",
-      "size": "7.039 oz / 200ml",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 186,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "05015833000351",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 3,
       "discoveryId": "cc355c9a9ced4fd40b0a1237",
       "title": "NINELESS A-CONTROL (10% Azelaic Acid) Serum 30ml",
       "brandHint": "NINELESS",
@@ -112,7 +85,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 4,
+      "rank": 3,
       "discoveryId": "138dd87819a57f6a7a3f68ca",
       "title": "DISAAR -Vitamin C Skin Brightening Body Lotion 480ml",
       "brandHint": "DISAAR",
@@ -139,7 +112,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 5,
+      "rank": 4,
       "discoveryId": "d67dbac2f6d48cf84f59a3a7",
       "title": "ESTELIN 5D Hyaluronic Acid (Vitamin C + Niacinamide) Moisturizing Toner 13.52 oz 400ml",
       "brandHint": "ESTELIN",
@@ -166,7 +139,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 6,
+      "rank": 5,
       "discoveryId": "a8e84b742d88d567a304c6f6",
       "title": "NIU SKIN Extra Plant Extracts More Luminous (With Alpha Arbutin, Niacinamide and Vitamin C) OUD WOOD Body Lotion 480ml",
       "brandHint": "NIU SKIN",
@@ -193,7 +166,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 7,
+      "rank": 6,
       "discoveryId": "5aa8e27696b33a24ccc3d594",
       "title": "NIU SKIN More Vitamin Extra Radiance (With Alpha Arbutin, Niacinamide And Vitamin C) Body Lotion NO.5 480ML",
       "brandHint": "NIU SKIN",
@@ -220,7 +193,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 8,
+      "rank": 7,
       "discoveryId": "f430a8f9c9f0648613b1ff80",
       "title": "PRO LAB LOTION SKIN TONE CORRECTOR ALPHA ARBUTIN + NIACINAMIDE BRIGHTENING BODY LOTION – 500ML",
       "brandHint": "PRO LAB",
@@ -247,7 +220,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 9,
+      "rank": 8,
       "discoveryId": "d54e619a7ab95a080c216402",
       "title": "PRO LAB Skin Barrier Repair Ceramide Body Lotion 500ml",
       "brandHint": "PRO LAB",
@@ -274,7 +247,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 10,
+      "rank": 9,
       "discoveryId": "d4a8089af679b0a894a715be",
       "title": "SKIN BY ZARON VITAMIN C (Brightening And Moisturizing) Body Lotion 500ml",
       "brandHint": "SKIN BY ZARON",
@@ -301,7 +274,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 11,
+      "rank": 10,
       "discoveryId": "0f6340275dfe1257901f0bf0",
       "title": "ESTELIN ALL IN ONE MULTI-DEFENSE Tinted Sunscreen SPF 70+++ 50g",
       "brandHint": "ESTELIN",
@@ -327,7 +300,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 12,
+      "rank": 11,
       "discoveryId": "73f96c6c3931cdc9b240b758",
       "title": "ESTELIN Ultra Light Hydrating Invisible Sunscreen SPF 50+++ 50g",
       "brandHint": "ESTELIN",
@@ -353,7 +326,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 13,
+      "rank": 12,
       "discoveryId": "42d848a791b771896158582c",
       "title": "FACEFACTS CERAMIDE FOAMING CLEANSER 400ML",
       "brandHint": "FACEFACTS",
@@ -380,7 +353,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 14,
+      "rank": 13,
       "discoveryId": "e97b02c874d431d93a34601d",
       "title": "FACEFACTS Ceramide Hydrating Gentle Cleanser 400ml",
       "brandHint": "FACEFACTS",
@@ -407,7 +380,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 15,
+      "rank": 14,
       "discoveryId": "882bb2bca63026ffadaabe18",
       "title": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "brandHint": "FACEFACTS",
@@ -434,7 +407,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 16,
+      "rank": 15,
       "discoveryId": "f8248dfef755c72bc5ba70a1",
       "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
       "brandHint": "AQUA RICH",
@@ -461,7 +434,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 17,
+      "rank": 16,
       "discoveryId": "e0574c12b77f4a4eafd63ed0",
       "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
       "brandHint": "AQUA RICH",
@@ -488,7 +461,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "discoveryId": "afc3e739a50618cbc48a6d2e",
       "title": "BEAUTY FORMULAS Glowing Serum 2% Vitamin C 30ml",
       "brandHint": "BEAUTY FORMULA",
@@ -515,7 +488,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 19,
+      "rank": 18,
       "discoveryId": "85ff41cb1a6dc5faae89a00d",
       "title": "NINELESS MELA-PRO Rice And TXA Toner 200ml",
       "brandHint": "NINELESS",
@@ -542,7 +515,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 20,
+      "rank": 19,
       "discoveryId": "c7e76dd320bb3c521744597c",
       "title": "NIU SKIN Glowing (Niacinamide, Vitamin C And AHA) Body Wash 800ml",
       "brandHint": "NIU SKIN",
@@ -569,7 +542,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 21,
+      "rank": 20,
       "discoveryId": "41ed533ef6415b6cea8ea251",
       "title": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
       "brandHint": "SKIN BY ZARON",
@@ -596,7 +569,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
+      "rank": 21,
       "discoveryId": "17bd496cb38c558d4e8a56f9",
       "title": "DR TEALS (Vitamin C And Citrus) Body Lotion with Essential oil 532ml",
       "brandHint": "DR",
@@ -623,7 +596,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 22,
       "discoveryId": "f1ebe655a947668241b4d240",
       "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -649,7 +622,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 24,
+      "rank": 23,
       "discoveryId": "4b13a12fadc04b34d8290d5b",
       "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "brandHint": "AQUA RICH",
@@ -675,7 +648,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 25,
+      "rank": 24,
       "discoveryId": "bf9ba6790a3343c9ef316925",
       "title": "ACWELL Licorice pH Balancing Cleansing Toner 150ml",
       "brandHint": "ACWELL",
@@ -701,7 +674,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 26,
+      "rank": 25,
       "discoveryId": "89c7891623cf8efa611f7057",
       "title": "OLAY SUPER SERUM BODY WASH 547ML - NORMAL SKIN",
       "brandHint": "OLAY",
@@ -727,7 +700,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 27,
+      "rank": 26,
       "discoveryId": "3d1fc594ae79e1f38b4b8260",
       "title": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
       "brandHint": "DOVE",
@@ -753,7 +726,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 28,
+      "rank": 27,
       "discoveryId": "0052c84ff426e61395e65e05",
       "title": "DOVE MELANIN EVEN TONE 5% Body Wash 547ml",
       "brandHint": "DOVE",
@@ -779,7 +752,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 29,
+      "rank": 28,
       "discoveryId": "5a63a184f3c4ab6402f4a586",
       "title": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
       "brandHint": "DOVE",
@@ -805,7 +778,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 29,
       "discoveryId": "f234692457fb9dcea6ab4000",
       "title": "NINELESS MELA-PRO Tranexamic Acid Sunscreen 100ml",
       "brandHint": "NINELESS",
@@ -832,7 +805,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 30,
       "discoveryId": "68dd71a67def9960124cd112",
       "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
       "brandHint": "ABIB",
@@ -859,7 +832,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 31,
       "discoveryId": "a8e9f195ed3dad2fa45a0209",
       "title": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml",
       "brandHint": "ANUA",
@@ -886,7 +859,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 33,
+      "rank": 32,
       "discoveryId": "4904b1d7b96c2c0886d65ad9",
       "title": "BIOBALANCE Super (BETA SOLUTION PURE SALICYLIC ACID 2% Serums 30ML",
       "brandHint": "BIOBALANCE",
@@ -913,7 +886,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 34,
+      "rank": 33,
       "discoveryId": "7903807e2e097371344a660a",
       "title": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml",
       "brandHint": "CERAVE",
@@ -940,7 +913,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 35,
+      "rank": 34,
       "discoveryId": "aa9e6379c96b17853530fde3",
       "title": "DE LA CRUZ Acne Treatment (With 10% Sulfur) Ointment 2.6 oz 73.7g",
       "brandHint": "DE LA CRUZ",
@@ -951,6 +924,33 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "00024286150426",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 35,
+      "discoveryId": "f87e67c0fb61e9574f74ef21",
+      "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
+      "brandHint": "Garnier",
+      "size": "23g",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 156,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "03600542368810",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

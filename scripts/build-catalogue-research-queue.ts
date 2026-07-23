@@ -17,6 +17,7 @@ async function main() {
   const snapshot = JSON.parse(sourceBytes.toString('utf8')) as CatalogueDiscoverySnapshot;
   const knownIdentities = [...coreProducts, ...expandedProducts, ...catalogueIntakeCandidates].map(product => ({
     brand: product.brand,
+    ...('brandAliases' in product && Array.isArray(product.brandAliases) ? { brandAliases: product.brandAliases } : {}),
     name: product.name,
     size: product.size,
   }));

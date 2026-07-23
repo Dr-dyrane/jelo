@@ -28,6 +28,7 @@ const patternCases = [
   ['Firm painful lesions are blistering and I have swollen lymph nodes after close contact with mpox.', 'mpox-like'],
   ['A spreading target-like rash appeared after starting a new medicine.', 'severe-medicine-reaction-like'],
   ['A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.', 'painless-ulcer-like'],
+  ['Severe itching with firm lumps under my skin and my vision is getting worse.', 'onchocerciasis-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -60,6 +61,23 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('Firm painful lesions are blistering and I have swollen lymph nodes after close contact with mpox.').referral.level, 'urgent');
   assert.equal(assessClinicalRoutine('A spreading target-like rash appeared after starting a new medicine.').referral.level, 'emergency');
   assert.equal(assessClinicalRoutine('A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('Severe itching with firm lumps under my skin.').referral.level, 'primary-care');
+});
+
+test('eye-and-skin warning patterns stop products without swallowing close alternatives', () => {
+  const symptoms = assessClinicalRoutine('Severe itching with lumps under my skin and my vision is getting worse.');
+  assert.equal(symptoms.differential.primary?.id, 'onchocerciasis-like');
+  assert.equal(symptoms.referral.level, 'urgent');
+  assert.equal(symptoms.referral.urgency, 'same-day');
+
+  const suddenSightLoss = assessClinicalRoutine('I suddenly cannot see from my left eye.');
+  assert.equal(suddenSightLoss.referral.level, 'emergency');
+  assert.equal(suddenSightLoss.referral.urgency, 'immediate');
+
+  assert.equal(assessClinicalRoutine('Severe itching at night and my household is itchy.').differential.primary?.id, 'scabies-like');
+  assert.equal(assessClinicalRoutine('Painful draining lumps and armpit tunnels.').differential.primary?.id, 'hidradenitis-like');
+  assert.equal(assessClinicalRoutine('Very itchy dry patches in my elbow folds.').differential.primary?.id, 'atopic-dermatitis-like');
+  assert.notEqual(assessClinicalRoutine('I live near a fast-flowing river.').differential.primary?.id, 'onchocerciasis-like');
 });
 
 test('medicine-reaction warnings are emergencies while negated fever does not inflate ulcer triage', () => {
@@ -145,6 +163,7 @@ test('named conditions interrupt even when ordinary acne ranks alongside them', 
     ['I have a keloid scar plus oily acne.', 'dermatology'],
     ['I may have mpox plus oily acne.', 'primary-care'],
     ['I was told this could be Buruli ulcer and I also have oily acne.', 'primary-care'],
+    ['I was told this could be river blindness and I also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [description, level] of cases) {

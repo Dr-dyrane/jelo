@@ -352,6 +352,21 @@ const rules: PatternRule[] = [
     missing: ['Did this begin after heat or heavy sweating?', 'Does cooling the skin help?', 'Is there fever, pain, pus or rapid spread?'],
   },
   {
+    id: 'onchocerciasis-like', label: 'Severe itch-with-nodule or eye-change warning pattern',
+    positives: [
+      { terms: ['onchocerciasis', 'river blindness'], weight: 64, reason: 'A named eye-and-skin infection was reported and needs clinical confirmation.' },
+      { terms: ['severe itching with lumps under my skin', 'severe itching with firm lumps under my skin', 'severe itch with lumps under the skin', 'severe itch with firm lumps under the skin', 'itchy rash with lumps under my skin', 'severe itchy skin with firm lumps'], weight: 46, reason: 'Severe itch with subcutaneous lumps needs an in-person eye-and-skin assessment.' },
+      { terms: ['severe itching and vision changes', 'itchy skin and blurred vision', 'itchy rash with worsening vision', 'itching with vision loss'], weight: 48, reason: 'Itching with sight changes requires prompt clinical assessment.' },
+      { terms: ['lumps under my skin and my vision is getting worse', 'skin nodules with blurred vision', 'firm lumps under the skin and reduced vision'], weight: 48, reason: 'Subcutaneous lumps with sight changes require prompt assessment.' },
+      { terms: ['repeated blackfly bites', 'live near a fast-flowing river', 'work near a fast-flowing river', 'riverine community'], weight: 8, reason: 'Repeated exposure near fast-flowing rivers adds context but is not diagnostic.' },
+    ],
+    negatives: [
+      { terms: ['itch worse at night', 'household is itchy', 'family is itchy'], weight: 34, reason: 'Night itch affecting close contacts supports a contagious household-itch pattern.' },
+      { terms: ['painful draining lumps', 'armpit tunnels', 'groin tunnels'], weight: 34, reason: 'Painful draining fold lesions support a hidradenitis-like pathway.' },
+    ],
+    missing: ['Is there blurred, reduced or worsening vision, eye pain, redness or light sensitivity?', 'Are there firm lumps under the skin or lasting skin changes?', 'Have you lived or worked near fast-flowing rivers with repeated biting-fly exposure?'],
+  },
+  {
     id: 'scabies-like', label: 'Household night-itch pattern',
     positives: [
       { terms: ['scabies'], weight: 52, reason: 'A named contagious-itch condition was reported and needs confirmation.' },

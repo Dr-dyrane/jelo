@@ -161,3 +161,19 @@ test('next condition guides preserve examination-first care and authoritative so
     for (const term of item.terms) assert.ok(copy.includes(term), `${item.slug} is missing ${term}`);
   }
 });
+
+test('severe itch with nodules or sight changes is examination-first and never product-matched', () => {
+  const concern = concerns.find(item => item.slug === 'severe-itch-eye-change-pattern');
+  assert.ok(concern);
+  assert.equal(concern.kind, 'condition-pattern');
+  assert.deepEqual(concern.clinicalPatternIds, ['onchocerciasis-like']);
+  assert.deepEqual(concern.productTerms, []);
+  assert.deepEqual(concern.sources.map(source => source.url), [
+    'https://www.who.int/news-room/fact-sheets/detail/onchocerciasis',
+    'https://www.nhs.uk/conditions/vision-loss/',
+  ]);
+  const guidance = `${concern.summary} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+  for (const term of ['in-person medical and eye assessment', 'same-day care', 'sudden loss of sight', 'emergency care', 'do not start ivermectin']) {
+    assert.ok(guidance.includes(term), `eye-and-skin warning guide is missing ${term}`);
+  }
+});

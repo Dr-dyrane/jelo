@@ -340,6 +340,18 @@ export const concerns: Concern[] = [
     escalation: 'Arrange an in-person medical examination promptly. Rapid enlargement, a deep or extensive wound, joint or bone involvement, pus, fever or new pain needs urgent care.',
     sources: [{ title: 'World Health Organization · Buruli ulcer', url: 'https://www.who.int/en/news-room/fact-sheets/detail/buruli-ulcer-%28mycobacterium-ulcerans-infection%29' }], reviewedAt,
   },
+  {
+    slug: 'severe-itch-eye-change-pattern', name: 'Severe itch with skin lumps or sight changes', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['onchocerciasis-like'],
+    summary: 'Severe persistent itch, lasting skin changes or firm lumps under the skin, especially with sight changes, needs an in-person examination.',
+    signals: ['severe persistent itching', 'firm lumps under the skin', 'lasting skin colour or texture changes', 'blurred, reduced or worsening vision'],
+    ingredients: ['prompt medical and eye assessment', 'follow clinician or local NTD programme advice', 'do not start ivermectin on your own'],
+    productTerms: [],
+    escalation: 'Arrange prompt in-person medical and eye assessment for severe persistent itch with firm lumps under the skin or sight changes. Get same-day care for worsening or blurred vision, eye pain, a red eye or light sensitivity. Sudden loss of sight needs emergency care. Do not start ivermectin on your own; follow a clinician or local NTD programme because treatment may need adjustment where other filarial infections coexist.',
+    sources: [
+      { title: 'World Health Organization · Onchocerciasis', url: 'https://www.who.int/news-room/fact-sheets/detail/onchocerciasis' },
+      { title: 'NHS · Vision loss', url: 'https://www.nhs.uk/conditions/vision-loss/' },
+    ], reviewedAt,
+  },
 ];
 
 export const concernBySlug = (slug: string) => concerns.find(concern => concern.slug === slug);

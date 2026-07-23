@@ -152,6 +152,12 @@ test('published guide-parity patterns stop model and product guidance with deter
       safetyLevel: 'clinician-review',
       action: /in-person medical examination/i,
     },
+    {
+      query: 'Severe itching with lumps under my skin and my vision is getting worse.',
+      patternId: 'onchocerciasis-like',
+      safetyLevel: 'urgent',
+      action: /same-day/i,
+    },
   ] as const;
 
   for (const expected of cases) {
@@ -206,6 +212,7 @@ test('named conditions stop model and product use even beside product-eligible a
     ['I have a keloid scar plus oily acne.', 'dermatology'],
     ['I may have mpox plus oily acne.', 'primary-care'],
     ['I was told this could be Buruli ulcer and I also have oily acne.', 'primary-care'],
+    ['I was told this could be river blindness and I also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [query, referralLevel] of cases) {
@@ -216,6 +223,18 @@ test('named conditions stop model and product use even beside product-eligible a
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
   }
+});
+
+test('sudden sight loss fails closed before model or product use', async () => {
+  const response = await POST(request({ query: 'I suddenly cannot see from my left eye.', market: 'NG' }));
+  const payload = await response.json();
+  assert.equal(payload.clinical.referral.level, 'emergency');
+  assert.equal(payload.clinical.referral.urgency, 'immediate');
+  assert.equal(payload.meta.safetyLevel, 'emergency');
+  assert.equal(payload.meta.modelCalls, 0);
+  assert.equal(payload.meta.safetyInterrupt, true);
+  assert.deepEqual(payload.products, []);
+  assert.match(payload.report.summary, /emergency care now/i);
 });
 
 test('pediatric prose and structured age fail closed before AI and products', async () => {

@@ -15,6 +15,11 @@ const strokeWarningPatterns = [
   /\bsudden(?:ly)?\b.{0,60}\b(?:face drooping|slurred speech|speech trouble|difficulty speaking)\b/i,
   /\b(?:face drooping|slurred speech|speech trouble|difficulty speaking)\b.{0,40}\b(?:began|started|came on)\s+sudden(?:ly)?\b/i,
 ];
+const suddenVisionLossPatterns = [
+  /\bsudden(?:ly)?\b.{0,28}\b(?:cannot|can't|could not|couldn't|unable to)\s+see\b/i,
+  /\bsudden(?:ly)?\b.{0,28}\b(?:vision|sight)\s+(?:loss|lost|gone)\b/i,
+  /\bsudden inability to see\b/i,
+];
 const seriousInfectionContext = /\b(?:skin|rash|swelling|cellulitis)\b/i;
 const seriousInfectionWarning = /\b(?:shaking|fast breathing|fast heartbeat|purple patches|confusion|disorient(?:ed|ation)|became confused|feel confused|suddenly confused|cold clammy skin|collapse|collapsed)\b/i;
 const namedSevereMedicineReaction = /\b(?:sjs|stevens[- ]johnson syndrome|toxic epidermal necrolysis)\b/i;
@@ -63,6 +68,11 @@ export function assessReferral(input: {
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
   };
 
+  if (suddenVisionLossPatterns.some(pattern => pattern.test(input.text))) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['Sudden loss of sight was reported.'],
+    action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
+  };
+
   if (seriousInfectionContext.test(input.text) && seriousInfectionWarning.test(input.text)) return {
     level: 'emergency', urgency: 'immediate', reasons: ['A serious infection warning sign was reported with a skin change.'],
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
@@ -93,6 +103,17 @@ export function assessReferral(input: {
 
   const primaryId = input.differential.primary?.id;
   const weakenedImmunity = /\b(?:immunocompromised|weakened immune|suppressed immune|chemotherapy)\b/.test(normalized);
+
+  if (primaryId === 'onchocerciasis-like' || mentionsNamedPattern(normalized, /\b(?:onchocerciasis|river blindness)\b/)) {
+    const eyeChange = /\b(?:(?:blurred|reduced|worsening|changing)\s+(?:vision|sight)|(?:vision|sight)(?:\s+is)?\s+(?:change|changes|changing|worsening|getting worse|reduced|blurred|loss)|eye pain|red eye|light sensitivity)\b/.test(normalized);
+    return eyeChange ? {
+      level: 'urgent', urgency: 'same-day', reasons: ['An eye-and-skin warning pattern with sight or eye changes was reported.'],
+      action: 'Arrange same-day in-person medical and eye assessment. Do not start treatment on your own.',
+    } : {
+      level: 'primary-care', urgency: 'soon', reasons: ['A severe itch-with-nodule or named eye-and-skin infection pattern was reported.'],
+      action: 'Arrange a prompt in-person medical examination, including an eye assessment. Do not start treatment on your own.',
+    };
+  }
 
   if (primaryId === 'cellulitis-like') return {
     level: 'urgent', urgency: 'same-day', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],

@@ -34,7 +34,8 @@ export type CatalogueIdentityEvidenceMimeType =
   | 'image/jpeg'
   | 'image/png'
   | 'image/webp'
-  | 'text/html';
+  | 'text/html'
+  | 'text/javascript';
 
 export type CatalogueOfficialIdentityExtraction = {
   schemaVersion: typeof catalogueIdentityExtractionSchemaVersion;
@@ -174,6 +175,7 @@ export type CatalogueMarketObservation = {
 export type CatalogueIntakeCandidate = {
   id: string;
   brand: string;
+  brandAliases?: string[];
   name: string;
   variant: string;
   size: string;
@@ -317,6 +319,7 @@ const rawIdentityEvidenceMimeTypes: readonly Exclude<CatalogueIdentityEvidenceMi
   'image/png',
   'image/webp',
   'text/html',
+  'text/javascript',
 ];
 const packshotEligibleOrigins = [
   'licensed-original-photograph',
@@ -326,11 +329,15 @@ const packshotEligibleOrigins = [
 ] as const;
 const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   aquarich: ['www.aquarich.net'],
+  balanceactiveformula: ['www.balanceactiveformula.com'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   eucerin: ['www.eucerin-cewa.com'],
   garnier: ['www.garnier.co.uk'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
+  'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
+    'https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml',
+  ],
   'cerave-moisturising-cream-454g': [
     'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
   ],
@@ -340,6 +347,7 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
   aquarich: ['www.aquarich.net'],
+  balanceactiveformula: ['www.balanceactiveformula.com'],
   cerave: [
     'africa.cerave.com',
     'www.cerave.com',
@@ -349,6 +357,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   garnier: ['www.garnier.co.uk'],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
+  'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
   'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
   'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
   'https://www.nhs.uk/tests-and-treatments/emollients/',
@@ -504,7 +513,7 @@ function sourceTextContainsExactGtin(sourceText: string, gtin: string) {
 }
 
 function extractionNamesExplicitManufacturerIdentifier(field: { value: string; locator: string; sourceText: string }) {
-  const explicitLabel = /(?:^|[^a-z0-9])(?:gtin(?:-?1[234])?|ean(?:-?13)?s?|upc(?:-?[ae])?)(?:[^a-z0-9]|$)/i;
+  const explicitLabel = /(?:^|[^a-z0-9])(?:barcode|gtin(?:-?1[234])?|ean(?:-?13)?s?|upc(?:-?[ae])?)(?:[^a-z0-9]|$)/i;
   if (explicitLabel.test(field.locator) || explicitLabel.test(field.sourceText)) return true;
 
   // Some reviewed manufacturer pages publish their EAN-shaped identifier as

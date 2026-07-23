@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "updatedAt": "2026-07-22T23:44:09Z",
+  "updatedAt": "2026-07-23T00:21:00Z",
   "candidates": [
     {
       "id": "cerave-hydrating-cleanser-473ml",
@@ -1748,6 +1748,214 @@
               },
               "reviewer": "JeloCare catalogue evidence review",
               "reviewedAt": "2026-07-22T23:43:30Z"
+            }
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "packaging": "unknown",
+        "backgroundTreatment": "unknown",
+        "presentationQuality": "unknown"
+      }
+    },
+    {
+      "id": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "brand": "Balance Active Formula",
+      "brandAliases": [
+        "Balance"
+      ],
+      "name": "Salicylic Acid + Zinc Clarifying Toner",
+      "variant": "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
+      "size": "200 ml",
+      "category": "Face care",
+      "reason": "Adds a current 2% salicylic-acid toner candidate with an exact official 200 ml manufacturer barcode. Two Nigerian listings are retained as price observations but excluded from exact comparison because one exposes the matching number only as a retailer SKU and the other publishes a conflicting EAN.",
+      "priority": "important",
+      "gapIds": [
+        "oily-acne-prone-face",
+        "leave-on-bha"
+      ],
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/balance-salicylic-acid-zinc-clarifying-toner-7-039-oz-200ml/",
+        "https://sliquebeautylimited.com/product/balance-salicylic-acid-zinc-toner-200ml/"
+      ],
+      "identity": {
+        "gtin": "5015833000351",
+        "officialProductUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml.js?audit=20260722T2339",
+        "checkedAt": "2026-07-23T00:21:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml.js?audit=20260722T2339",
+          "observedGtin": "5015833000351",
+          "observedVariant": "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
+          "observedSize": "200 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/balance-salicylic-acid-zinc-clarifying-toner-200ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+            "sourceUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml.js?audit=20260722T2339",
+            "responseUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml.js?audit=20260722T2339",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T23:39:17Z",
+            "fields": {
+              "gtin": {
+                "value": "5015833000351",
+                "locator": "Shopify product JSON variants[0].barcode",
+                "sourceText": "\"barcode\":\"5015833000351\""
+              },
+              "variant": {
+                "value": "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
+                "locator": "Shopify product JSON title",
+                "sourceText": "\"title\":\"Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml\""
+              },
+              "size": {
+                "value": "200 ml",
+                "locator": "Shopify product JSON title",
+                "sourceText": "\"title\":\"Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml\""
+              }
+            },
+            "sourceResponseSha256": "5f4b9cce8c12df2070bdb9145282527ba4024613b24ee3fee839d3eb7b562b28",
+            "sourceResponseMimeType": "text/javascript",
+            "sourceResponseByteSize": 5229,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T00:21:00Z"
+          },
+          "snapshotSha256": "f5eb511a00f4e096fc7c225afc35df7d1acdbc5296a51cbbda43210b79335e95",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1299,
+          "retrievedAt": "2026-07-22T23:39:17Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on clarifying toner positioned with 2% salicylic acid and zinc for pore exfoliation and oil control",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "The manufacturer confirms 2% salicylic acid and zinc, but the full ingredient list and directions were not available in the reviewed page. AAD guidance supports salicylic acid in some acne products but does not endorse this toner. Do not present it as treatment for nodules, cysts, infection, or unexplained rashes. Introduce cautiously, avoid combining several irritating exfoliants at once, stop if burning or persistent irritation develops, and seek clinical care for painful, scarring, widespread, or persistent acne.",
+        "manufacturerEvidenceUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-07-23T00:21:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/balance-salicylic-acid-zinc-clarifying-toner-7-039-oz-200ml/",
+            "observedAt": "2026-07-22T23:54:14Z",
+            "observedTitle": "BALANCE Salicylic Acid + Zinc Clarifying Toner 7.039 oz 200ml",
+            "observedSize": "200 ml",
+            "priceNgn": 8400,
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://buybetter.ng/product/balance-salicylic-acid-zinc-clarifying-toner-7-039-oz-200ml/",
+              "responseSha256": "101950c2d88b83422a16a458bb6b89d4df22d64da4156b09a2ef8dc5c7772b3f",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 800286,
+              "retrievedAt": "2026-07-22T23:54:14Z",
+              "fields": {
+                "title": {
+                  "value": "BALANCE Salicylic Acid + Zinc Clarifying Toner 7.039 oz 200ml",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "BALANCE Salicylic Acid + Zinc Clarifying Toner 7.039 oz 200ml"
+                },
+                "size": {
+                  "value": "200 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "BALANCE Salicylic Acid + Zinc Clarifying Toner 7.039 oz 200ml"
+                },
+                "price": {
+                  "value": 8400,
+                  "currency": "NGN",
+                  "locator": "HTML p.price",
+                  "sourceText": "₦8,400.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML p.stock",
+                  "sourceText": "6 in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "5015833000351",
+                  "locator": "HTML product_meta SKU row",
+                  "sourceText": "SKU 5015833000351"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T00:21:00Z"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/balance-salicylic-acid-zinc-toner-200ml/",
+            "observedAt": "2026-07-22T23:54:14Z",
+            "observedTitle": "BALANCE SALICYLIC ACID + ZINC TONER 200ML",
+            "observedSize": "200 ml",
+            "priceNgn": 10700,
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "manufacturer-identifier-mismatch",
+              "retailer-provisional"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://sliquebeautylimited.com/product/balance-salicylic-acid-zinc-toner-200ml/",
+              "responseSha256": "970cbc69d7ee58145753154967bfd36af63e5b86f8e3d7b8b24406722e00c03c",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 298445,
+              "retrievedAt": "2026-07-22T23:54:14Z",
+              "fields": {
+                "title": {
+                  "value": "BALANCE SALICYLIC ACID + ZINC TONER 200ML",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "BALANCE SALICYLIC ACID + ZINC TONER 200ML"
+                },
+                "size": {
+                  "value": "200 ml",
+                  "locator": "HTML h1.product_title size token",
+                  "sourceText": "BALANCE SALICYLIC ACID + ZINC TONER 200ML"
+                },
+                "price": {
+                  "value": 10700,
+                  "currency": "NGN",
+                  "locator": "HTML p.price",
+                  "sourceText": "₦10,700"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML span.stock",
+                  "sourceText": "Availability: In stock"
+                },
+                "retailerIdentifier": {
+                  "label": "EAN",
+                  "value": "2000000276601",
+                  "locator": "HTML product_meta EAN row",
+                  "sourceText": "EAN: 2000000276601"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T00:21:00Z"
             }
           }
         ]
