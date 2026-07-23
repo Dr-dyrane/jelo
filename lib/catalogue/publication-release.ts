@@ -3,11 +3,12 @@ import { nigeriaRetailers } from '@/data/retailers';
 import type { Offer, Product } from '@/data/products';
 import type { CatalogueIntakeCandidate } from './intake-readiness';
 import {
+  cataloguePublicationScope,
   verifyCataloguePublicationDossierManifest,
   type CataloguePublicationDossier,
 } from './publication-dossier';
 
-export const cataloguePublicationReleaseSchemaVersion = 1 as const;
+export const cataloguePublicationReleaseSchemaVersion = 2 as const;
 export const cataloguePublicationReleaseExposure = 'public-catalogue' as const;
 export const cataloguePublicationReleaseApprovalScope = 'exact-dossier-presentation-publication' as const;
 
@@ -33,6 +34,7 @@ export type CataloguePublicationRelease = {
   dossierFingerprint: string;
   releaseFingerprint: string;
   exposure: typeof cataloguePublicationReleaseExposure;
+  publicationScope: typeof cataloguePublicationScope;
   publicationStatus: 'published';
   recommendationEligible: false;
   presentation: CataloguePublicationPresentation;
@@ -60,7 +62,7 @@ function stableJson(value: unknown): string {
 
 function fingerprint(value: unknown) {
   return createHash('sha256')
-    .update(`jelocare-catalogue-publication-release-v1\n${stableJson(value)}`)
+    .update(`jelocare-catalogue-publication-release-v2\n${stableJson(value)}`)
     .digest('hex');
 }
 
@@ -164,6 +166,7 @@ export function createCataloguePublicationRelease(
     candidateId: dossier.candidateId,
     dossierFingerprint: dossier.dossierFingerprint,
     exposure: cataloguePublicationReleaseExposure,
+    publicationScope: cataloguePublicationScope,
     publicationStatus: 'published' as const,
     recommendationEligible: false as const,
     presentation: normalizedProductPresentation,

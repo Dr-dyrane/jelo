@@ -541,7 +541,7 @@ test('each SKU gate preserves identity then care, market review and art-review c
     },
   }, asOf);
   assert.equal(regulatoryBeforeIdentity.stage, 'nigeria');
-  assert.ok(regulatoryBeforeIdentity.blockers.includes('nigeria-regulatory-evidence-missing'));
+  assert.equal(regulatoryBeforeIdentity.freshExactOffers.length, 0);
 
   const offerBeforeIdentity = evaluateCatalogueIntakeCandidate({
     ...base,
@@ -998,7 +998,7 @@ test('a retailer gallery back label can bind an exact offer to the printed packa
   assert.ok(tampered.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
-test('regulatory clearance requires a hash-bound NAFDAC record for the candidate GTIN', () => {
+test('NAFDAC research remains informational even when its evidence is incomplete', () => {
   const base = completeCandidate();
   const active = regulatoryEvidence();
   const revokedSourceText = active.sourceText.replace('Status Active', 'Status Revoked');
@@ -1052,8 +1052,8 @@ test('regulatory clearance requires a hash-bound NAFDAC record for the candidate
       ...base,
       nigeria: { ...base.nigeria, regulatoryEvidence: evidence },
     }, asOf);
-    assert.equal(decision.stage, 'nigeria');
-    assert.ok(decision.blockers.includes('nigeria-regulatory-evidence-missing'));
+    assert.equal(decision.stage, 'approval-ready');
+    assert.equal(decision.approvalDraftReady, true);
   }
 });
 
@@ -1064,7 +1064,7 @@ test('a cosmetics registration can bind an exact package GTIN and NAFDAC number 
     ...base,
     nigeria: { ...base.nigeria, regulatoryEvidence: valid },
   }, asOf);
-  assert.equal(decision.blockers.includes('nigeria-regulatory-evidence-missing'), false);
+  assert.equal(decision.approvalDraftReady, true);
 
   const wrongGtin = structuredClone(valid);
   wrongGtin.packageResponse.fields.gtin.value = '0302994113002';
@@ -1086,7 +1086,7 @@ test('a cosmetics registration can bind an exact package GTIN and NAFDAC number 
       ...base,
       nigeria: { ...base.nigeria, regulatoryEvidence: evidence },
     }, asOf);
-    assert.ok(invalid.blockers.includes('nigeria-regulatory-evidence-missing'));
+    assert.equal(invalid.approvalDraftReady, true);
   }
 });
 
@@ -1125,7 +1125,7 @@ test('not-required regulatory clearance carries a reviewed rationale from NAFDAC
     },
   }, asOf);
 
-  assert.equal(decision.blockers.includes('nigeria-regulatory-evidence-missing'), false);
+  assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.stage, 'approval-ready');
 
   const unrelatedSourceText = 'NAFDAC publishes general agency contact information.';
@@ -1141,7 +1141,7 @@ test('not-required regulatory clearance carries a reviewed rationale from NAFDAC
       },
     },
   }, asOf);
-  assert.ok(unrelated.blockers.includes('nigeria-regulatory-evidence-missing'));
+  assert.equal(unrelated.approvalDraftReady, true);
 });
 
 test('a provisional observation cannot satisfy the independent Tier-A route', () => {

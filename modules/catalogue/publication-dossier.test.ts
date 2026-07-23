@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
-import emptyManifest from '@/data/catalogue-publication-dossiers.json';
-import emptyReleaseManifest from '@/data/catalogue-publication-releases.json';
+import checkedInManifest from '@/data/catalogue-publication-dossiers.json';
+import checkedInReleaseManifest from '@/data/catalogue-publication-releases.json';
+import { catalogueIntakeCandidates } from '@/data/catalogue-intake';
 import {
   catalogueGenerationRecordSchemaVersion,
   catalogueGenerationRecordSha256,
@@ -363,13 +364,14 @@ function releaseApproval(
   };
 }
 
-test('the checked-in publication manifest is empty, private and structurally valid', () => {
-  const result = verifyCataloguePublicationDossierManifest([], emptyManifest, asOf);
+test('the checked-in publication manifest contains the verified neutral reference dossier', () => {
+  const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 0);
+  assert.equal(result.dossierCount, 1);
   assert.equal(result.publicProductCount, 0);
-  assert.deepEqual(result.dossiers, []);
+  assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
+  assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
 });
 
 test('an approval-ready exact SKU compiles into one immutable source-agnostic private dossier', () => {
@@ -377,6 +379,7 @@ test('an approval-ready exact SKU compiles into one immutable source-agnostic pr
   const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
 
   assert.equal(dossier.exposure, 'private-only');
+  assert.equal(dossier.publicationScope, 'neutral-reference');
   assert.equal(dossier.publicationStatus, 'not-published');
   assert.equal(dossier.recommendationEligible, false);
   assert.deepEqual(dossier.identity, {
@@ -397,7 +400,7 @@ test('an approval-ready exact SKU compiles into one immutable source-agnostic pr
   assert.equal(dossier.nigeria.exactOffers[0]?.retailer, 'Medplus');
   assert.equal(dossier.nigeria.marketRoute, 'brand-authorized');
   assert.equal(dossier.nigeria.exactOffers[0]?.evidence?.responseDigestScope, 'decoded-response-body');
-  assert.equal(dossier.nigeria.regulatoryEvidence.authority, 'NAFDAC');
+  assert.equal(dossier.nigeria.regulatoryEvidence?.authority, 'NAFDAC');
   assert.equal(dossier.nigeria.brandSellerAuthorizationEvidence[0]?.retailer, 'Medplus');
   assert.equal(dossier.nigeria.brandSellerAuthorizationEvidence[0]?.evidence.subjectHost, 'medplusnig.com');
   assert.equal(dossier.rights.evidenceUrl, candidate.asset.rightsUrl);
@@ -444,6 +447,24 @@ test('an approval-ready exact SKU compiles into one immutable source-agnostic pr
     dossiers: [dossier],
   };
   assert.equal(verifyCataloguePublicationDossierManifest([candidate], manifest, asOf).dossierCount, 1);
+});
+
+test('a neutral reference can publish while Nigerian regulation remains explicitly pending', () => {
+  const base = readyCandidate();
+  const candidate = readyCandidate({
+    nigeria: {
+      ...base.nigeria,
+      regulatoryStatus: 'pending',
+      regulatoryEvidence: undefined,
+    },
+  });
+  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
+
+  assert.equal(dossier.publicationScope, 'neutral-reference');
+  assert.equal(dossier.recommendationEligible, false);
+  assert.equal(dossier.nigeria.regulatoryStatus, 'pending');
+  assert.equal(dossier.nigeria.regulatoryEvidence, undefined);
+  assert.equal(dossier.nigeria.exactOffers.length, 1);
 });
 
 test('a Tier-A dossier omits brand authorization and bound seller evidence', () => {
@@ -680,7 +701,11 @@ test('the verifier rejects duplicate candidate identities before accepting dossi
   });
 
   assert.throws(
-    () => verifyCataloguePublicationDossierManifest([candidate, duplicate], emptyManifest, asOf),
+    () => verifyCataloguePublicationDossierManifest([candidate, duplicate], {
+      schemaVersion: cataloguePublicationDossierSchemaVersion,
+      exposure: cataloguePublicationExposure,
+      dossiers: [],
+    }, asOf),
     /Duplicate catalogue intake identity/,
   );
 });
@@ -741,19 +766,19 @@ test('the verifier rejects one final image reused across different candidate ide
   );
 });
 
-test('the checked-in release manifest is empty and cannot publish a dossier implicitly', () => {
-  const candidate = readyCandidate();
-  const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
-  const report = verifyCataloguePublicationReleaseManifest([candidate], {
-    schemaVersion: cataloguePublicationDossierSchemaVersion,
-    exposure: cataloguePublicationExposure,
-    dossiers: [dossier],
-  }, emptyReleaseManifest, asOf);
+test('the checked-in release manifest explicitly publishes the verified neutral reference', () => {
+  const report = verifyCataloguePublicationReleaseManifest(
+    catalogueIntakeCandidates,
+    checkedInManifest,
+    checkedInReleaseManifest,
+    Date.now(),
+  );
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 0);
-  assert.deepEqual(report.products, []);
+  assert.equal(report.releaseCount, 1);
+  assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
+  assert.equal(report.products[0].offers[0].priceNgn, 15_265);
 });
 
 test('an explicit release materializes identity, image and exact offers only from its verified dossier', () => {
@@ -771,6 +796,7 @@ test('an explicit release materializes identity, image and exact offers only fro
   }, asOf);
 
   assert.equal(report.releaseCount, 1);
+  assert.equal(report.releases[0].publicationScope, 'neutral-reference');
   assert.equal(report.releases[0].recommendationEligible, false);
   assert.deepEqual(report.products[0], {
     slug: candidate.id,
@@ -828,7 +854,11 @@ test('a release without its verified dossier fails closed', () => {
   const release = createCataloguePublicationRelease(dossier, presentation(), releaseApproval(), asOf);
 
   assert.throws(
-    () => verifyCataloguePublicationReleaseManifest([candidate], emptyManifest, {
+    () => verifyCataloguePublicationReleaseManifest([candidate], {
+      schemaVersion: cataloguePublicationDossierSchemaVersion,
+      exposure: cataloguePublicationExposure,
+      dossiers: [],
+    }, {
       schemaVersion: cataloguePublicationReleaseSchemaVersion,
       exposure: cataloguePublicationReleaseExposure,
       releases: [release],

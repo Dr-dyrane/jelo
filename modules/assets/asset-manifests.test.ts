@@ -6,9 +6,11 @@ import sharp from 'sharp';
 import { products } from '@/data/catalogue';
 import { expandedProducts } from '@/data/expanded-products';
 import editorialAssets from '@/data/editorial-assets.json';
+import publicationDossiers from '@/data/catalogue-publication-dossiers.json';
 import { isProductDisplayApproved, productDisplayApprovals } from '@/data/product-display-approvals';
 import productAssets from '@/data/product-assets.json';
 import { products as coreProducts } from '@/data/products';
+import { publishedIntakeProducts } from '@/data/published-intake-products';
 import { withheldProductAssets } from '@/data/withheld-product-assets';
 
 const assetHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
@@ -41,7 +43,8 @@ test('only transparent canonical packshots enter public product surfaces', () =>
     assert.equal(publicSlugs.has(slug), displayReady, slug);
   }
 
-  assert.deepEqual([...publicSlugs].sort(), [...approvedSlugs].sort());
+  const releasedSlugs = new Set(publishedIntakeProducts.map(product => product.slug));
+  assert.deepEqual([...publicSlugs].sort(), [...approvedSlugs, ...releasedSlugs].sort());
   for (const [slug, approval] of Object.entries(productDisplayApprovals)) {
     const product = sourceBySlug.get(slug);
     assert.ok(product, slug);
@@ -60,18 +63,28 @@ test('only transparent canonical packshots enter public product surfaces', () =>
 
   for (const product of products) {
     const asset = manifest[product.slug];
-    assert.ok(asset);
-    const url = new URL(asset.blobUrl);
+    const releasedDossier = publicationDossiers.dossiers.find(dossier => dossier.candidateId === product.slug);
+    assert.ok(asset || releasedDossier, product.slug);
+    const imageUrl = asset?.blobUrl ?? releasedDossier!.finalImage.url;
+    const url = new URL(imageUrl);
     assert.equal(url.hostname, assetHost);
-    assert.match(url.pathname, new RegExp(`/products/[^/]+/${product.slug}/packshot(?:-v\\d+)?\\.(?:avif|jpg|png|webp)$`));
-    assert.equal(product.image, asset.blobUrl);
-    assert.equal(new URL(asset.sourceUrl).protocol, 'https:');
-    assert.ok(allowedTypes.has(asset.contentType));
-    assert.ok(asset.byteSize > 0);
-    assert.ok(asset.width > 0 && asset.height > 0);
-    assert.equal(asset.hasAlpha, true);
-    assert.ok(Math.min(asset.width, asset.height) >= 1000);
-    assert.match(asset.contentHash, /^[0-9a-f]{64}$/);
+    assert.equal(product.image, imageUrl);
+    if (asset) {
+      assert.match(url.pathname, new RegExp(`/products/[^/]+/${product.slug}/packshot(?:-v\\d+)?\\.(?:avif|jpg|png|webp)$`));
+      assert.equal(new URL(asset.sourceUrl).protocol, 'https:');
+      assert.ok(allowedTypes.has(asset.contentType));
+      assert.ok(asset.byteSize > 0);
+      assert.ok(asset.width > 0 && asset.height > 0);
+      assert.equal(asset.hasAlpha, true);
+      assert.ok(Math.min(asset.width, asset.height) >= 1000);
+      assert.match(asset.contentHash, /^[0-9a-f]{64}$/);
+    } else {
+      assert.match(url.pathname, new RegExp(`/products/[^/]+/${product.slug}/packshot-v\\d+-[0-9a-f]{16}\\.(?:png|webp)$`));
+      assert.ok(allowedTypes.has(releasedDossier!.finalImage.mimeType));
+      assert.ok(releasedDossier!.finalImage.byteSize > 0);
+      assert.ok(Math.min(releasedDossier!.finalImage.width, releasedDossier!.finalImage.height) >= 1600);
+      assert.match(releasedDossier!.finalImage.sha256, /^[0-9a-f]{64}$/);
+    }
   }
 
   for (const withheld of Object.values(withheldProductAssets)) {

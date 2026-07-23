@@ -294,7 +294,7 @@ test('approval cannot survive a candidate or image change', () => {
   assert.equal(evaluateExternalCatalogueCandidate(changed, stale, asOf).reason, 'approval-binding-mismatch');
 });
 
-test('regulatory pending status and insufficient Nigerian offers remain private', () => {
+test('regulatory status is context while insufficient Nigerian offers remain private', () => {
   const item = candidate();
   const base = approval(item);
   const pending: ExternalCatalogueApproval = {
@@ -306,7 +306,7 @@ test('regulatory pending status and insufficient Nigerian offers remain private'
     nigeria: { ...base.nigeria, exactOffers: base.nigeria.exactOffers.slice(0, 1) },
   };
 
-  assert.equal(evaluateExternalCatalogueCandidate(item, pending, asOf).reason, 'nigeria-regulatory-pending');
+  assert.equal(evaluateExternalCatalogueCandidate(item, pending, asOf).reason, 'approved');
   assert.equal(evaluateExternalCatalogueCandidate(item, oneOffer, asOf).reason, 'nigeria-market-evidence-insufficient');
 });
 

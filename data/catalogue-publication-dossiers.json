@@ -1,5 +1,253 @@
 {
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "exposure": "private-only",
-  "dossiers": []
+  "dossiers": [
+    {
+      "schemaVersion": 8,
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "candidateFingerprint": "b3d094a2b7f570a13088a47094ed9113e7d7835bed9a5331fb77666ea8ab5b90",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "3337875597333",
+        "brand": "CeraVe",
+        "name": "Hydrating Cleanser",
+        "variant": "CeraVe Hydrating Cleanser",
+        "size": "473 ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+        "officialIdentity": {
+          "url": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+          "observedGtin": "3337875597333",
+          "observedVariant": "CeraVe Hydrating Cleanser",
+          "observedSize": "473 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cerave-hydrating-cleanser-473ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "cerave-hydrating-cleanser-473ml",
+            "sourceUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+            "responseUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T15:52:41Z",
+            "fields": {
+              "gtin": {
+                "value": "3337875597333",
+                "locator": "HTML input#prod_name data-eans, third position",
+                "sourceText": "3337875597333"
+              },
+              "variant": {
+                "value": "CeraVe Hydrating Cleanser",
+                "locator": "HTML h1.product-name[itemprop=name]",
+                "sourceText": "CeraVe Hydrating Cleanser"
+              },
+              "size": {
+                "value": "473 ml",
+                "locator": "HTML input#prod_name data-gtm-size, third position",
+                "sourceText": "473 ml"
+              }
+            },
+            "sourceResponseSha256": "9de776d0ac2f0a5fe48f6e74ca39539c8ebdc048a2b062751b6e279ce3e2a1ee",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 59460,
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T16:40:00Z"
+          },
+          "snapshotSha256": "b8cab0fedb330b0fd891a504df3768c0f06f44070425b8d344319d625b0008e7",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 997,
+          "retrievedAt": "2026-07-22T15:52:41Z"
+        },
+        "checkedAt": "2026-07-22T16:40:00Z",
+        "demandEvidenceUrls": [
+          "https://teeka4.com/shop/cerave-hydrating-cleanser-16-oz/",
+          "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-hydrating-cleanser/",
+          "https://peronabeauty.com/product/cerave-hydrating-cleanser-uk-16oz/",
+          "https://www.luxbeautyng.com/product/cerave-hydrating-cleanser-473ml/",
+          "https://www.konga.com/product/cerave-hydrating-cleanser-for-normal-to-dry-skin-473ml-with-hyaluronic-acid-and-3-essential-ceramides-6138374",
+          "https://medplusnig.com/product/cerave-hydrating-cleanser-473ml-1gVKTp",
+          "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Fragrance-free, soap-free, non-foaming rinse-off cleanser for normal-to-dry skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports gentle daily cleansing for normal-to-dry skin. It does not diagnose or treat eczema, infection, allergy, or persistent dryness; ongoing pain, burning, stinging, cracking, or worsening needs clinical review.",
+        "manufacturerEvidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-07-22T17:04:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "brand-authorized",
+        "regulatoryStatus": "pending",
+        "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
+            "observedAt": "2026-07-22T20:38:29Z",
+            "observedTitle": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML",
+            "observedSize": "473 ml",
+            "observedGtin": "3337875597333",
+            "observedGtinBasis": "explicit-ean",
+            "retailerSku": "3337875597333",
+            "priceNgn": 15265,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
+              "responseUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
+              "responseSha256": "b0d401904bdbaedc26c9a75bffd1d289998c8550a121d7a1bdceeeddc9aa6dcd",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 829395,
+              "retrievedAt": "2026-07-22T20:38:29Z",
+              "fields": {
+                "gtin": {
+                  "label": "EAN",
+                  "value": "3337875597333",
+                  "locator": "Product gallery back-label barcode at lower right",
+                  "sourceText": "EAN-13 barcode 3337875597333",
+                  "responseRole": "package-barcode-image"
+                },
+                "title": {
+                  "value": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML",
+                  "locator": "HTML h1.product_title",
+                  "sourceText": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML"
+                },
+                "size": {
+                  "value": "473 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML"
+                },
+                "price": {
+                  "value": 15265,
+                  "currency": "NGN",
+                  "locator": "HTML product summary price",
+                  "sourceText": "₦ 15,265.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML product summary stock count",
+                  "sourceText": "5 in stock"
+                }
+              },
+              "supplementalResponses": [
+                {
+                  "role": "package-barcode-image",
+                  "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
+                  "responseUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
+                  "responseSha256": "b3f15c92259eb814c7111b02026d95bcca14885219ab299c6e5cfcc6cd4a94c9",
+                  "responseMimeType": "image/png",
+                  "responseByteSize": 239216,
+                  "retrievedAt": "2026-07-22T20:38:29Z",
+                  "listingLocator": "HTML product gallery image src",
+                  "listingSourceText": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
+                  "barcode": {
+                    "symbology": "EAN-13",
+                    "value": "3337875597333",
+                    "locator": "Printed barcode at lower-right of back label",
+                    "sourceText": "EAN-13 barcode 3337875597333"
+                  }
+                }
+              ],
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-22T20:40:15Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": [
+          {
+            "retailer": "BuyBetter",
+            "listingHost": "buybetter.ng",
+            "evidence": {
+              "observedAt": "2026-07-22T14:31:54Z",
+              "sourceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
+              "basis": "brand-source",
+              "scope": "independent",
+              "subjectSeller": "BuyBetter",
+              "subjectHost": "buybetter.ng",
+              "locator": "HTML NIGERIA retailer list anchor",
+              "sourceText": "<a href=\"https://buybetter.ng/\">BUY BETTER</a>",
+              "sourceExcerptSha256": "6e043804e9700e23a025dacee471d184910d2ce9773dcd7d5decb49173e16fc7",
+              "responseUrl": "https://africa.cerave.com/en/find-your-nearest-store",
+              "responseSha256": "41946dfadcc92f02f64ec31c4db91e2526329af41b54ab20bc90ca23903c32c5",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 21361,
+              "retrievedAt": "2026-07-22T14:31:54Z",
+              "reviewer": "Market evidence reviewer",
+              "reviewedAt": "2026-07-22T14:34:00Z"
+            }
+          }
+        ]
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/hydrating-cleanser-latest/hydrating-cleanser-473ml/hydrating-cleanser-473ml-1-lg.jpg?rev=-1",
+          "sha256": "9ecacf208787d6f61c7044de43cda34e34a21196e64cd9779214d6d2620b803a",
+          "mimeType": "image/jpeg",
+          "byteSize": 30456,
+          "width": 700,
+          "height": 875,
+          "retrievedAt": "2026-07-22T20:19:41Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation",
+          "model": "gpt-image-2",
+          "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue product packshot\nInput image: edit target — exact official CeraVe Hydrating Cleanser 473 ml EU bilingual pump bottle.\nPrimary request: Change only the white studio background to a perfectly flat solid #ff00ff chroma-key background for later removal. Preserve the exact photographed bottle, the complete white pump and nozzle, bottle proportions, green cap, every label word, logo, typography, colors, shadows within the package, 16 FL OZ / 473 ml size line, and all original source details exactly. Do not redraw, rewrite, retouch, relight, or reinterpret the package.\nComposition: one centered full bottle, generous even padding, no clipping.\nBackground: uniform #ff00ff only; no gradient, texture, floor, cast shadow, reflection, or halo.\nConstraints: exact package identity and pixels must remain unchanged; full pump must be visible; no extra objects; no watermark.\nAvoid: missing pump, altered label, invented text, changed cap, white background, borders, scenery.",
+          "inputs": [
+            {
+              "url": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/hydrating-cleanser-latest/hydrating-cleanser-473ml/hydrating-cleanser-473ml-1-lg.jpg?rev=-1",
+              "sha256": "9ecacf208787d6f61c7044de43cda34e34a21196e64cd9779214d6d2620b803a"
+            }
+          ],
+          "outputSha256": "7928f54978129907360231dbfbbbb4f8b930b3c22271b66537a702386e2e1ac6",
+          "generatedAt": "2026-07-22T20:23:00Z",
+          "recordSha256": "222052bbb05ea4bb70cd31e46fbbea13cdf8fcf6f2bc88bea7c8f3df9dd99fe5"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-hydrating-cleanser-473ml/packshot-v1-7928f54978129907.png",
+        "sha256": "7928f54978129907360231dbfbbbb4f8b930b3c22271b66537a702386e2e1ac6",
+        "mimeType": "image/png",
+        "byteSize": 1084250,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-22T20:25:34Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication review",
+        "approvedAt": "2026-07-23T02:07:00Z"
+      },
+      "dossierFingerprint": "142adb241bea091676a5707f9fb192734f4145c22779c7945908ff00fe873754"
+    }
+  ]
 }

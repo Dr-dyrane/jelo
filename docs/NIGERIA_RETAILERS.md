@@ -16,7 +16,7 @@ JeloCare is a product information and routing layer. It does not manufacture, re
 - Record brand authorization only from a dated brand-controlled source.
 - Never infer physical authenticity from any listing, price, rating or registration record.
 - Refresh exact prices within seven days. A stale observation may remain in history but should not be presented as current.
-- Re-observe catalogue regulatory evidence from NAFDAC within 90 days; stale matches and exemptions return to a private hold.
+- Keep dated NAFDAC observations as contextual research; they never decide whether an otherwise verified product or exact online price can appear.
 - Preserve offer IDs during catalogue seeds so price history remains continuous.
 
 ## Reviewed Nigeria sources

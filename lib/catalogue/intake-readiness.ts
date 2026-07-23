@@ -5,7 +5,6 @@ import { assertRetailerResponseScope } from '@/modules/retail-intelligence/respo
 import { reviewedBrandSellerEvidenceValid } from './brand-seller-evidence';
 import {
   reviewedExactOfferEvidenceValid,
-  reviewedRegulatoryEvidenceValid,
   type ReviewedExactOfferEvidence,
   type ReviewedRegulatoryEvidence,
 } from './market-evidence';
@@ -311,8 +310,6 @@ export type CatalogueIntakeBlocker =
   | 'care-evidence-missing'
   | 'care-independent-guidance-missing'
   | 'care-advisory-boundary-missing'
-  | 'nigeria-regulatory-pending'
-  | 'nigeria-regulatory-evidence-missing'
   | 'nigeria-exact-offer-missing'
   | 'nigeria-offer-identity-unbound'
   | 'nigeria-market-route-insufficient'
@@ -1037,21 +1034,6 @@ function nigeriaBlockers(
   marketRoute: CatalogueNigeriaMarketRoute | undefined,
 ) {
   const blockers: CatalogueIntakeBlocker[] = [];
-  const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
-  const regulatoryReviewedAt = Date.parse(candidate.nigeria.regulatoryEvidence?.reviewedAt ?? '');
-  if (candidate.nigeria.regulatoryStatus === 'pending') blockers.push('nigeria-regulatory-pending');
-  if (
-    !['matched', 'not-required'].includes(candidate.nigeria.regulatoryStatus)
-    || !reviewedRegulatoryEvidenceValid(
-      candidate.nigeria.regulatoryEvidence,
-      candidate.nigeria.regulatoryStatus === 'not-required' ? 'not-required' : 'matched',
-      candidate.identity.gtin,
-      asOf,
-    )
-    || !Number.isFinite(identityCheckedAt)
-    || !Number.isFinite(regulatoryReviewedAt)
-    || regulatoryReviewedAt < identityCheckedAt
-  ) blockers.push('nigeria-regulatory-evidence-missing');
   if (!offers.length) blockers.push('nigeria-exact-offer-missing');
   if (
     (candidate.nigeria.exactOffers.length > 0 || candidate.nigeria.excludedObservations.length > 0)

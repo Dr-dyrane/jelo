@@ -4,7 +4,6 @@ import { canonicalGtin, isValidGtin } from './gtin';
 import { reviewedBrandSellerEvidenceValid } from './brand-seller-evidence';
 import {
   reviewedExactOfferEvidenceValid,
-  reviewedRegulatoryEvidenceValid,
   type ReviewedExactOfferEvidence,
   type ReviewedRegulatoryEvidence,
 } from './market-evidence';
@@ -161,8 +160,6 @@ export type ExternalCatalogueGateReason =
   | 'approval-binding-mismatch'
   | 'exact-sku-not-approved'
   | 'care-review-missing'
-  | 'nigeria-regulatory-pending'
-  | 'nigeria-regulatory-evidence-missing'
   | 'nigeria-market-evidence-insufficient'
   | 'quality-below-minimum'
   | 'automated-background-removal'
@@ -382,25 +379,15 @@ function hardGateReason(
     || !validDateAtOrBefore(approval.careReview.reviewedAt, asOf)
   ) return 'care-review-missing';
 
-  if (approval.nigeria.regulatoryStatus === 'pending') return 'nigeria-regulatory-pending';
-  if (
-    !['matched', 'not-required'].includes(approval.nigeria.regulatoryStatus)
-    || !reviewedRegulatoryEvidenceValid(
-      approval.nigeria.regulatoryEvidence,
-      approval.nigeria.regulatoryStatus === 'not-required' ? 'not-required' : 'matched',
-      candidate.barcode,
-      asOf,
-    )
-  ) return 'nigeria-regulatory-evidence-missing';
-
-  const regulatoryEvidence = approval.nigeria.regulatoryEvidence!;
   const approvedAt = Date.parse(approval.approvedAt);
   const freshOffers = freshNigeriaOffers(candidate, approval, asOf);
   const causalEvidenceTimes = [
     Date.parse(approval.careReview.reviewedAt),
-    Date.parse(regulatoryEvidence.retrievedAt),
-    Date.parse(regulatoryEvidence.observedAt),
-    Date.parse(regulatoryEvidence.reviewedAt),
+    ...(approval.nigeria.regulatoryEvidence ? [
+      Date.parse(approval.nigeria.regulatoryEvidence.retrievedAt),
+      Date.parse(approval.nigeria.regulatoryEvidence.observedAt),
+      Date.parse(approval.nigeria.regulatoryEvidence.reviewedAt),
+    ] : []),
     ...freshOffers.flatMap(offer => [
       Date.parse(offer.observedAt),
       Date.parse(offer.evidence?.retrievedAt ?? ''),

@@ -26,11 +26,6 @@ type PipelineCounts = {
   explicitReleaseCount: number;
 };
 
-const regulatoryOnlyBlockers = new Set([
-  'nigeria-regulatory-pending',
-  'nigeria-regulatory-evidence-missing',
-]);
-
 function nonNegativeInteger(value: number, label: string) {
   if (!Number.isSafeInteger(value) || value < 0) throw new Error(`${label} must be a non-negative integer.`);
   return value;
@@ -45,8 +40,7 @@ export function buildCataloguePipelineStatus(
   const almostReady = decisions.filter(decision => (
     !decision.approvalDraftReady
     && decision.freshExactOffers.length > 0
-    && decision.blockers.length > 0
-    && decision.blockers.every(blocker => regulatoryOnlyBlockers.has(blocker))
+    && decision.blockers.length === 1
   ));
   return {
     liveProductCount: nonNegativeInteger(counts.liveProductCount, 'Live product count'),

@@ -19,9 +19,10 @@ import {
 import type { ReviewedRegulatoryEvidence } from './market-evidence';
 import type { CataloguePublicationImageMimeType } from './publication-image-policy';
 
-export const cataloguePublicationDossierSchemaVersion = 7 as const;
-export const cataloguePublicationApprovalScope = 'exact-identity-source-care-nigeria-rights-and-final-image' as const;
+export const cataloguePublicationDossierSchemaVersion = 8 as const;
+export const cataloguePublicationApprovalScope = 'exact-identity-source-care-retail-rights-and-final-image' as const;
 export const cataloguePublicationExposure = 'private-only' as const;
+export const cataloguePublicationScope = 'neutral-reference' as const;
 
 export type CataloguePublicationApproval = {
   scope: typeof cataloguePublicationApprovalScope;
@@ -35,6 +36,7 @@ export type CataloguePublicationDossier = {
   candidateFingerprint: string;
   dossierFingerprint: string;
   exposure: typeof cataloguePublicationExposure;
+  publicationScope: typeof cataloguePublicationScope;
   publicationStatus: 'not-published';
   recommendationEligible: false;
   identity: {
@@ -66,8 +68,8 @@ export type CataloguePublicationDossier = {
   };
   nigeria: {
     marketRoute: CatalogueNigeriaMarketRoute;
-    regulatoryStatus: 'matched' | 'not-required';
-    regulatoryEvidence: ReviewedRegulatoryEvidence;
+    regulatoryStatus: 'matched' | 'not-required' | 'pending';
+    regulatoryEvidence?: ReviewedRegulatoryEvidence;
     tierAIdentityEvidenceUrl?: string;
     brandAuthorizationEvidenceUrl?: string;
     exactOffers: CatalogueIntakeOffer[];
@@ -230,7 +232,7 @@ function boundBrandSellerEvidence(
 }
 
 export function catalogueIntakeCandidateFingerprint(candidate: CatalogueIntakeCandidate) {
-  return fingerprint('jelocare-catalogue-intake-candidate-v7', candidate);
+  return fingerprint('jelocare-catalogue-intake-candidate-v8', candidate);
 }
 
 export function createCataloguePublicationDossier(
@@ -265,7 +267,10 @@ export function createCataloguePublicationDossier(
     asOf,
   );
   const artReviewedTimestamp = parsedDate(artReviewedAt, `${candidate.id} art review timestamp`, asOf);
-  const regulatoryEvidence = required(candidate.nigeria.regulatoryEvidence, `${candidate.id} regulatory evidence`);
+  const regulatoryEvidence = candidate.nigeria.regulatoryEvidence;
+  if (candidate.nigeria.regulatoryStatus !== 'pending' && !regulatoryEvidence) {
+    throw new Error(`${candidate.id} regulatory evidence is required.`);
+  }
   const nigeriaMarketRoute = required(decision.nigeriaMarketRoute, `${candidate.id} Nigeria market route`);
   const brandSellerAuthorizationEvidence = boundBrandSellerEvidence(
     candidate,
@@ -290,9 +295,11 @@ export function createCataloguePublicationDossier(
     identityCheckedTimestamp,
     identityEvidenceRetrievedTimestamp,
     parsedDate(careReviewedAt, `${candidate.id} care review timestamp`, asOf),
-    parsedDate(regulatoryEvidence.retrievedAt, `${candidate.id} regulatory retrieval timestamp`, asOf),
-    parsedDate(regulatoryEvidence.observedAt, `${candidate.id} regulatory observation timestamp`, asOf),
-    parsedDate(regulatoryEvidence.reviewedAt, `${candidate.id} regulatory review timestamp`, asOf),
+    ...(regulatoryEvidence ? [
+      parsedDate(regulatoryEvidence.retrievedAt, `${candidate.id} regulatory retrieval timestamp`, asOf),
+      parsedDate(regulatoryEvidence.observedAt, `${candidate.id} regulatory observation timestamp`, asOf),
+      parsedDate(regulatoryEvidence.reviewedAt, `${candidate.id} regulatory review timestamp`, asOf),
+    ] : []),
     sourceAssetRetrievedTimestamp,
     artReviewedTimestamp,
     ...(generatedTimestamp == null ? [] : [generatedTimestamp]),
@@ -317,6 +324,7 @@ export function createCataloguePublicationDossier(
     candidateId: candidate.id,
     candidateFingerprint,
     exposure: cataloguePublicationExposure,
+    publicationScope: cataloguePublicationScope,
     publicationStatus: 'not-published' as const,
     recommendationEligible: false as const,
     identity: {
@@ -366,8 +374,8 @@ export function createCataloguePublicationDossier(
     },
     nigeria: {
       marketRoute: nigeriaMarketRoute,
-      regulatoryStatus: candidate.nigeria.regulatoryStatus as 'matched' | 'not-required',
-      regulatoryEvidence: structuredClone(regulatoryEvidence),
+      regulatoryStatus: candidate.nigeria.regulatoryStatus,
+      ...(regulatoryEvidence ? { regulatoryEvidence: structuredClone(regulatoryEvidence) } : {}),
       ...(nigeriaMarketRoute === 'tier-a'
         ? { tierAIdentityEvidenceUrl: required(candidate.nigeria.tierAIdentityEvidenceUrl, `${candidate.id} Tier-A evidence`) }
         : {
@@ -432,7 +440,7 @@ export function createCataloguePublicationDossier(
       approvedAt: approval.approvedAt,
     },
   };
-  const dossierFingerprint = fingerprint('jelocare-catalogue-publication-dossier-v7', payload);
+  const dossierFingerprint = fingerprint('jelocare-catalogue-publication-dossier-v8', payload);
   return deepFreeze({ ...payload, dossierFingerprint });
 }
 

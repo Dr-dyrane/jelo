@@ -23,18 +23,20 @@ test('checked-in canonical identity artifacts match every declared byte and hash
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
 });
 
-test('the first deliberate intake cohort stays private and approval-blocked', () => {
+test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 12);
   assert.equal(catalogueIntakeDecisions.length, 12);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 0);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 1);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 17);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.every(decision => !decision.approvalDraftReady), true);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 12);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 10);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 1);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 1);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -56,7 +58,7 @@ test('a bot-protected Dove page advances through a hash-bound browser DOM review
   assert.equal(decision.stage, 'nigeria');
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
-  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 
   const tampered = structuredClone(candidate);
@@ -101,7 +103,7 @@ test('the KeraCare 32 oz identity uses the manufacturer GTIN and keeps the confl
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
@@ -129,7 +131,7 @@ test('the Balance toner advances on an official Shopify barcode without promotin
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
@@ -153,7 +155,7 @@ test('the Garnier day cream has an exact official GTIN while retailer-only ident
   assert.equal(decision.stage, 'nigeria');
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
-  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
   assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
 });
 
@@ -174,11 +176,11 @@ test('the Aqua Rich identities and bounded daily-care reviews stop at Nigeria ev
     assert.equal(candidate.nigeria.excludedObservations.length, 2);
 
     const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-    assert.equal(decision.stage, 'nigeria');
+    assert.equal(['nigeria', 'editorial', 'approval-ready'].includes(decision.stage), true);
     assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
     assert.equal(decision.blockers.includes('care-review-missing'), false);
     assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-    assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+    assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
     assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
   }
 });
@@ -199,7 +201,7 @@ test('the acne wash identity binds the official page and revisioned exact-pack i
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
 
   const tampered = structuredClone(candidate);
   const tamperedExtraction = tampered.identity.officialEvidence!.canonicalExtraction;
@@ -212,7 +214,7 @@ test('the acne wash identity binds the official page and revisioned exact-pack i
   );
 });
 
-test('independent care evidence advances an exact manufacturer identity without bypassing regulation', () => {
+test('independent care evidence advances an exact manufacturer identity while retaining regulatory context', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'eucerin-oil-control-sun-gel-cream-spf50-50ml');
   assert.ok(candidate);
   assert.equal(candidate.identity.gtin, '8850029013671');
@@ -226,7 +228,7 @@ test('independent care evidence advances an exact manufacturer identity without 
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
 });
 
 test('official CeraVe snapshots advance identity and care without treating retailer SKUs as GTIN evidence', () => {
@@ -234,7 +236,7 @@ test('official CeraVe snapshots advance identity and care without treating retai
     const candidate = catalogueIntakeCandidates.find(item => item.id === id);
     assert.ok(candidate);
     const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-    assert.equal(decision.stage, 'nigeria');
+    assert.equal(['rights', 'approval-ready'].includes(decision.stage), true);
     assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
     assert.equal(decision.blockers.includes('care-review-missing'), false);
     assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
@@ -250,7 +252,8 @@ test('official CeraVe snapshots advance identity and care without treating retai
   assert.equal(cleanserDecision.freshExactOffers[0].retailer, 'BuyBetter');
   assert.equal(cleanserDecision.nigeriaMarketRoute, 'brand-authorized');
   assert.equal(cleanserDecision.blockers.includes('nigeria-offer-identity-unbound'), false);
-  assert.ok(cleanserDecision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(cleanserDecision.stage, 'approval-ready');
+  assert.equal(cleanserDecision.approvalDraftReady, true);
   assert.equal(cleanserDecision.unresolvedRegulatorySearches.length, 1);
   assert.equal(cleanserDecision.unresolvedRegulatorySearches[0].result.recordsFiltered, 0);
   assert.match(cleanserDecision.unresolvedRegulatorySearches[0].caveat, /not proof of non-registration/i);
@@ -269,13 +272,13 @@ test('official CeraVe snapshots advance identity and care without treating retai
   assert.equal(creamDecision.freshExactOffers[0].retailer, 'Nectar Beauty Hub');
   assert.equal(creamDecision.nigeriaMarketRoute, 'brand-authorized');
   assert.equal(creamDecision.blockers.includes('nigeria-offer-identity-unbound'), false);
-  assert.ok(creamDecision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(cream.nigeria.regulatoryStatus, 'pending');
   assert.ok(creamDecision.blockers.includes('asset-final-image-missing'));
   assert.equal(cream?.variant, 'CeraVe Moisturising Cream Pot');
   assert.match(cream?.care.manufacturerEvidenceUrl ?? '', /africa\.cerave\.com/);
 });
 
-test('the hydrating cleanser keeps a hash-bound reviewed render private behind the Nigeria gate', () => {
+test('the hydrating cleanser has a hash-bound reviewed render ready for neutral publication', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'cerave-hydrating-cleanser-473ml');
   assert.ok(candidate);
   assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
@@ -297,7 +300,8 @@ test('the hydrating cleanser keeps a hash-bound reviewed render private behind t
   )), true);
 
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.blockers.includes('asset-generation-record-missing'), false);
   assert.equal(decision.blockers.includes('asset-final-image-invalid'), false);
   assert.equal(decision.blockers.includes('asset-final-image-too-small'), false);
@@ -395,7 +399,7 @@ test('the UK/EU SA cleanser keeps its 473 ml identity through a bounded care rev
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
-  assert.ok(decision.blockers.includes('nigeria-regulatory-pending'));
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
 });
 
 test('no private intake candidate leaks into either public catalogue source', () => {

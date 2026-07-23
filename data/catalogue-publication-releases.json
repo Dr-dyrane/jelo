@@ -1,5 +1,30 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "exposure": "public-catalogue",
-  "releases": []
+  "releases": [
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "dossierFingerprint": "142adb241bea091676a5707f9fb192734f4145c22779c7945908ff00fe873754",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Gentle daily cleanse.",
+        "usage": "Massage onto wet skin, then rinse.",
+        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+        "reviewer": "JeloCare catalogue presentation review",
+        "reviewedAt": "2026-07-23T02:08:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue publication review",
+        "publishedAt": "2026-07-23T02:09:00Z"
+      },
+      "releaseFingerprint": "8042faa6e6561157d046c16552c0a7a85ad498abdab7053dbee071363c5891c6"
+    }
+  ]
 }

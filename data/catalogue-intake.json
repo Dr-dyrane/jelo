@@ -8,7 +8,7 @@
       "name": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner",
       "variant": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner",
       "size": "32 oz",
-      "category": "Hair care",
+      "category": "Hair & scalp",
       "reason": "Adds an exact large-format anti-dandruff conditioner for textured-hair and scalp-care coverage. The current KeraCare page binds the 32 oz variant to GTIN-12 850068103058, and the revisioned DailyMed label independently binds the same product to a 950 ml bottle and label-directed care. The Nigerian listing remains an excluded price observation because its retailer SKU does not match the current manufacturer GTIN.",
       "priority": "essential",
       "gapIds": [
@@ -374,7 +374,7 @@
       "variant": "CeraVe Hydrating Cleanser",
       "size": "473 ml",
       "category": "Face care",
-      "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, with an official EAN and one brand-authorized Nigerian offer now bound to the printed package barcode; publication remains held for product-specific NAFDAC evidence.",
+      "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, with an official EAN and one brand-authorized Nigerian offer bound to the printed package barcode. NAFDAC research is retained as context and never blocks neutral catalogue publication.",
       "priority": "essential",
       "gapIds": [
         "gentle-cleanse-dry-skin",

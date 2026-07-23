@@ -33,8 +33,8 @@ const counts = {
 
 test('reports pipeline stages without presenting discovery leads as live products', () => {
   const status = buildCataloguePipelineStatus(counts, [
-    decision('closest', ['nigeria-regulatory-pending', 'nigeria-regulatory-evidence-missing'], 1),
-    decision('needs-art', ['nigeria-regulatory-pending', 'asset-final-image-missing'], 1),
+    decision('closest', ['asset-final-image-missing'], 1),
+    decision('needs-art', ['asset-final-image-missing', 'asset-rights-missing'], 1),
     decision('needs-market', ['nigeria-exact-offer-missing'], 0),
   ]);
   assert.equal(status.liveProductCount, 15);
@@ -45,7 +45,7 @@ test('reports pipeline stages without presenting discovery leads as live product
 });
 
 test('fails closed on duplicate decisions or impossible counts', () => {
-  const duplicate = decision('same', ['nigeria-regulatory-pending'], 1);
+  const duplicate = decision('same', ['asset-final-image-missing'], 1);
   assert.throws(() => buildCataloguePipelineStatus(counts, [duplicate, duplicate]), /not unique/);
   assert.throws(() => buildCataloguePipelineStatus({ ...counts, liveProductCount: -1 }, []), /non-negative/);
 });
