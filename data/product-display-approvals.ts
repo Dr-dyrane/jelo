@@ -87,8 +87,8 @@ export const productDisplayApprovals = {
     name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea',
     size: '4 oz / 113 g',
     sourceUrl: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600',
-    contentHash: '4dd67b9a6a446bf25738b38e6b10264d98ae84ce8169f5d589548c2b41ebb487',
-    reviewedAt: '2026-07-22T21:02:01.000Z',
+    contentHash: '7a9122c005144cd9af9c4bed6d5d385e903463e5c4ffb944cffddc4ecbf5f204',
+    reviewedAt: '2026-07-23T00:04:01.000Z',
   }),
   'cerave-foaming-facial-cleanser': approval({
     brand: 'CeraVe',

@@ -40,16 +40,22 @@ test('foundational source-pixel isolations bind the source, runtime, output and 
     assert.ok(Date.parse(isolation.audit.generatedAt) < Date.parse(isolation.review.identityReviewedAt));
     assert.ok(Date.parse(isolation.review.identityReviewedAt) < Date.parse(isolation.review.artReviewedAt));
     assert.deepEqual(isolation.review.surfaces, ['peach', 'pink', 'dark']);
-    assert.equal(isolation.review.packagingIntact, true);
+    const active = !('active' in isolation) || isolation.active !== false;
+    assert.equal(isolation.review.packagingIntact, active);
     assert.equal(isolation.review.labelVariantSizeUnchanged, true);
-    assert.equal(isolation.review.magazineReady, true);
+    assert.equal(isolation.review.magazineReady, active);
     assert.equal(isolation.rightsStatus, 'not-verified');
     assert.equal(isolation.publicationScope, 'legacy-foundational-display');
 
     const canonical = productAssets[isolation.productSlug as keyof typeof productAssets];
     assert.ok(canonical, isolation.productSlug);
-    assert.equal(canonical.sourceUrl, isolation.source.url);
-    assert.equal(canonical.contentHash, isolation.output.sha256);
+    if (active) {
+      assert.equal(canonical.sourceUrl, isolation.source.url);
+      assert.equal(canonical.contentHash, isolation.output.sha256);
+    } else {
+      assert.notEqual(canonical.contentHash, isolation.output.sha256);
+      assert.ok('supersededReason' in isolation.review && isolation.review.supersededReason.length > 0);
+    }
     assert.equal('derivation' in canonical, true);
     if (!('derivation' in canonical)) throw new Error(`${isolation.productSlug}: missing derivation`);
     const derivation = canonical.derivation as typeof canonical.derivation & {
@@ -57,10 +63,12 @@ test('foundational source-pixel isolations bind the source, runtime, output and 
       auditSha256?: string;
       isolationRecordId?: string;
     };
-    assert.equal(derivation.kind, 'source-pixel-isolation');
-    assert.equal(derivation.sourceAssetSha256, isolation.source.sha256);
-    assert.equal(derivation.auditSha256, isolation.audit.sha256);
-    assert.equal(derivation.isolationRecordId, isolation.id);
+    if (active) {
+      assert.equal(derivation.kind, 'source-pixel-isolation');
+      assert.equal(derivation.sourceAssetSha256, isolation.source.sha256);
+      assert.equal(derivation.auditSha256, isolation.audit.sha256);
+      assert.equal(derivation.isolationRecordId, isolation.id);
+    }
 
     const file = path.join(process.cwd(), 'public', isolation.output.localPath.replace(/^\//, ''));
     const bytes = await readFile(file);

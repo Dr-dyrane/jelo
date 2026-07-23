@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
+import { analysePackshotSilhouette, likelyTruncatedPackshot } from '../lib/assets/packshot-silhouette';
 
 type AssetRecord = {
   sourceUrl: string;
@@ -78,6 +79,10 @@ async function inspect(slug: string, record: AssetRecord) {
     }
     if (canvas.opaqueEdgeFraction > 0.01) {
       throw new Error(`${slug}: public packshot touches an opaque canvas edge (${canvas.opaqueEdgeFraction.toFixed(3)})`);
+    }
+    const silhouette = await analysePackshotSilhouette(bytes);
+    if (likelyTruncatedPackshot(silhouette)) {
+      throw new Error(`${slug}: public packshot has a full-width lower silhouette edge (${silhouette.bottomTerminalRunFraction.toFixed(3)}), indicating an inherited crop or incomplete package base.`);
     }
   }
 

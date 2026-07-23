@@ -205,6 +205,7 @@
   {
     "schemaVersion": 1,
     "id": "dove-go-fresh-cucumber-green-tea-spray-v2",
+    "active": false,
     "productSlug": "dove-go-fresh-cucumber-green-tea-spray",
     "source": {
       "url": "https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600",
@@ -262,9 +263,10 @@
         "pink",
         "dark"
       ],
-      "packagingIntact": true,
+      "packagingIntact": false,
       "labelVariantSizeUnchanged": true,
-      "magazineReady": true
+      "magazineReady": false,
+      "supersededReason": "The source and isolated silhouette end in a full-width horizontal edge before the can base is complete."
     },
     "rightsStatus": "not-verified",
     "publicationScope": "legacy-foundational-display"

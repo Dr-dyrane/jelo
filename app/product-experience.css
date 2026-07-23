@@ -24,6 +24,26 @@
   z-index: 3;
 }
 
+@media (min-width: 901px) {
+  .product-visual-large {
+    position: sticky;
+    top: 4.75rem;
+    align-self: start;
+    height: calc(100svh - 4.75rem);
+    min-height: 0;
+    padding: clamp(2rem, 4vw, 4.5rem);
+    display: grid;
+    place-items: center;
+  }
+
+  .product-visual-large img {
+    width: min(100%, 34rem);
+    height: auto;
+    max-height: calc(100svh - 10rem);
+    object-fit: contain;
+  }
+}
+
 .product-decision-guide {
   padding: clamp(5rem, 9vw, 9rem) 4vw;
   background: #fffaf6;
@@ -197,6 +217,20 @@
 }
 
 @media (max-width: 900px) {
+  .product-visual-large {
+    height: clamp(26rem, 68svh, 44rem);
+    min-height: 0;
+    padding: clamp(2rem, 8vw, 4rem);
+    display: grid;
+    place-items: center;
+  }
+
+  .product-visual-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   .decision-grid { grid-template-columns: 1fr; }
   .decision-card { min-height: 17rem; }
   .ingredient-disclosure,
