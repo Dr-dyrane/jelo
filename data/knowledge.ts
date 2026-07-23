@@ -344,6 +344,18 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
+    slug: 'slow-swelling-drainage-pattern', name: 'Slow swelling with draining openings', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['deep-draining-mass-like'],
+    summary: 'A slowly growing, usually painless swelling with several draining openings needs prompt examination.',
+    signals: ['slowly growing lump or swelling, often on a foot', 'several openings that drain fluid', 'black, white, yellow or red grains in the discharge', 'increasing difficulty walking or using the area'],
+    ingredients: ['prompt in-person medical examination', 'protect the area from further injury', 'wear protective footwear to reduce new puncture wounds'],
+    productTerms: [],
+    escalation: 'Arrange a prompt in-person medical examination. Get same-day care if the swelling rapidly worsens, becomes hot or severely painful, drains pus, comes with fever, or makes walking or normal movement difficult. Do not cut or squeeze it, use acid wart removers, or start antibiotic or antifungal treatment without clinical direction.',
+    sources: [
+      { title: 'World Health Organization · Mycetoma', url: 'https://www.who.int/news-room/fact-sheets/detail/mycetoma' },
+      { title: 'World Health Organization · Mycetoma diagnostic target', url: 'https://www.who.int/publications/i/item/9789240047075' },
+    ], reviewedAt,
+  },
+  {
     slug: 'painless-ulcer-pattern', name: 'Painless swelling or ulcer', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['painless-ulcer-like'],
     summary: 'A painless swelling, firm patch or ulcer that enlarges.',
     signals: ['painless swelling or firm patch', 'an ulcer that enlarges', 'often on an arm, leg or face', 'may begin without fever'],

@@ -170,6 +170,12 @@ test('published guide-parity patterns stop model and product guidance with deter
       safetyLevel: 'clinician-review',
       action: /prompt in-person examination/i,
     },
+    {
+      query: 'A painless foot mass has several draining holes with black grains.',
+      patternId: 'deep-draining-mass-like',
+      safetyLevel: 'clinician-review',
+      action: /prompt in-person medical examination/i,
+    },
   ] as const;
 
   for (const expected of cases) {
@@ -227,6 +233,7 @@ test('named conditions stop model and product use even beside product-eligible a
     ['I was told this could be river blindness and I also have oily acne.', 'primary-care'],
     ['I have lymphoedema and oily acne on my forehead.', 'primary-care'],
     ['I was told this could be yaws and I also have oily acne.', 'primary-care'],
+    ['I was told this could be mycetoma and I also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [query, referralLevel] of cases) {

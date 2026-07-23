@@ -162,7 +162,7 @@ const rules: PatternRule[] = [
     id: 'cellulitis-like', label: 'Hot, painful swelling pattern',
     positives: [
       { terms: ['cellulitis'], weight: 56, reason: 'A named skin infection was reported and needs urgent confirmation.' },
-      { terms: ['hot and swollen', 'warm and swollen', 'painful swelling', 'warmth and swelling'], weight: 48, reason: 'Pain, heat and swelling together require an urgent infection assessment.' },
+      { terms: ['hot and swollen', 'warm and swollen', 'painful swelling', 'warmth and swelling', 'painful hot spreading swelling'], weight: 48, reason: 'Pain, heat and swelling together require an urgent infection assessment.' },
       { terms: ['spreading colour change', 'spreading color change', 'skin is tender', 'skin feels tender'], weight: 18, reason: 'Tenderness or a spreading colour change adds concern without relying on redness.' },
       { terms: ['feeling unwell', 'flu-like symptoms', 'swollen painful glands'], weight: 18, reason: 'Feeling unwell alongside skin changes increases concern.' },
     ],
@@ -218,7 +218,7 @@ const rules: PatternRule[] = [
     positives: [
       { terms: ['yaws', 'framboesia'], weight: 68, reason: 'A named infectious skin condition was reported and needs clinical confirmation.' },
       { terms: ['wart-like growth became an ulcer', 'wart like growth became an ulcer', 'wart-like bump turned into an ulcer', 'wart like bump turned into an ulcer', 'skin growth that ulcerated'], weight: 50, reason: 'A wart-like lesion progressing to an ulcer needs prompt examination.' },
-      { terms: ['multiple raised yellow lesions', 'several raised yellow skin lesions', 'many raised yellow lesions'], weight: 46, reason: 'Several raised yellow lesions support an infectious skin-lesion assessment.' },
+      { terms: ['multiple raised yellow lesions', 'multiple raised yellow skin lesions', 'several raised yellow skin lesions', 'many raised yellow lesions'], weight: 46, reason: 'Several raised yellow lesions support an infectious skin-lesion assessment.' },
       { terms: ['child has a wart-like growth on the leg', 'child has a wart like growth on the leg', 'child has a wart-like growth on the arm', 'child has a wart like growth on the arm'], weight: 20, reason: 'A wart-like limb lesion in a child adds relevant context without establishing a diagnosis.' },
       { terms: ['pain and swelling of long bones', 'painful swollen fingers with skin lesions', 'bone pain with multiple skin lesions'], weight: 28, reason: 'Bone or finger symptoms alongside skin lesions require clinical review.' },
     ],
@@ -231,6 +231,24 @@ const rules: PatternRule[] = [
       { terms: ['painless foot mass with draining holes', 'discharge containing grains'], weight: 38, reason: 'A chronic draining mass requires a different deep-infection assessment.' },
     ],
     missing: ['Did it begin as a wart-like growth and then ulcerate?', 'Is it on an arm or leg, and are there several raised yellow lesions?', 'Is this affecting a child, or does anyone close have a similar lesion?', 'Is there finger or long-bone pain or swelling?', 'Is there fever, warmth, pus, severe pain or rapid worsening?'],
+  },
+  {
+    id: 'deep-draining-mass-like', label: 'Slow swelling-with-drainage warning pattern',
+    positives: [
+      { terms: ['mycetoma', 'madura foot'], weight: 70, reason: 'A named deep skin-and-tissue infection was reported and needs clinical confirmation.' },
+      { terms: ['painless foot mass', 'painless mass on my foot', 'painless swelling on my foot', 'painless foot swelling'], weight: 40, reason: 'A usually painless foot mass or swelling supports this examination pathway.' },
+      { terms: ['multiple draining holes', 'several draining holes', 'draining openings', 'draining sinuses', 'multiple sinuses'], weight: 34, reason: 'Several draining openings in a chronic swelling need a deep-infection assessment.' },
+      { terms: ['discharge containing grains', 'drainage containing grains', 'grain-like discharge', 'black grains', 'white grains', 'yellow grains', 'red grains'], weight: 34, reason: 'Grains in the discharge are an important sign for clinical testing.' },
+      { terms: ['slow-growing foot swelling', 'slow growing foot swelling', 'slowly swollen foot', 'foot has slowly swollen', 'slow swelling on my foot'], weight: 22, reason: 'Slow progression in a foot swelling adds support without establishing a cause.' },
+      { terms: ['foot', 'ankle', 'hand', 'leg'], weight: 6, reason: 'The reported limb location can fit this warning pattern.' },
+    ],
+    negatives: [
+      { terms: ['painless ulcer keeps enlarging', 'swelling became an ulcer'], weight: 28, reason: 'An enlarging ulcer without grain-containing drainage needs the ulcer pathway.' },
+      { terms: ['recurring armpit lumps', 'recurring groin lumps', 'under breast', 'skin folds'], weight: 30, reason: 'Recurring draining lumps in skin folds support a different pathway.' },
+      { terms: ['one stable wart', 'wart has not changed', 'plantar wart'], weight: 32, reason: 'A stable wart without a deep swelling or drainage is not this warning pattern.' },
+      { terms: ['suddenly swollen', 'hot and swollen', 'severe pain'], weight: 18, reason: 'Sudden heat or severe pain needs an acute-care pathway.' },
+    ],
+    missing: ['Is the swelling slowly increasing and usually painless?', 'Are there several openings that drain fluid?', 'Can you see black, white, yellow or red grains in the discharge?', 'Is walking, movement or normal use becoming difficult?', 'Is there fever, warmth, pus, severe pain or rapid worsening?'],
   },
   {
     id: 'painless-ulcer-like', label: 'Painless enlarging-ulcer pattern',

@@ -157,6 +157,15 @@ test('next condition guides preserve examination-first care and authoritative so
       ],
       terms: ['prompt in-person examination', 'avoid direct skin contact'],
     },
+    {
+      slug: 'slow-swelling-drainage-pattern',
+      pattern: 'deep-draining-mass-like',
+      sources: [
+        'https://www.who.int/news-room/fact-sheets/detail/mycetoma',
+        'https://www.who.int/publications/i/item/9789240047075',
+      ],
+      terms: ['prompt in-person medical examination', 'draining openings'],
+    },
   ];
 
   for (const item of expected) {
@@ -169,6 +178,19 @@ test('next condition guides preserve examination-first care and authoritative so
     const copy = `${concern.summary} ${concern.escalation}`.toLowerCase();
     for (const term of item.terms) assert.ok(copy.includes(term), `${item.slug} is missing ${term}`);
   }
+});
+
+test('slow swelling with draining openings is examination-first and never product-matched', () => {
+  const concern = concerns.find(item => item.slug === 'slow-swelling-drainage-pattern');
+  assert.ok(concern);
+  assert.equal(concern.kind, 'condition-pattern');
+  assert.deepEqual(concern.clinicalPatternIds, ['deep-draining-mass-like']);
+  assert.deepEqual(concern.productTerms, []);
+  const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+  for (const term of ['usually painless', 'draining openings', 'grains', 'same-day care', 'do not cut or squeeze', 'without clinical direction']) {
+    assert.ok(guidance.includes(term), `slow-swelling guide is missing ${term}`);
+  }
+  assert.doesNotMatch(guidance, /diagnos|you have|self-start|recommended antibiotic|recommended antifungal/i);
 });
 
 test('severe itch with nodules or sight changes is examination-first and never product-matched', () => {

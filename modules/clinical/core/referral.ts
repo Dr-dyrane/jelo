@@ -1,7 +1,7 @@
 import type { BarrierAssessment, ClinicalFinding, DifferentialAssessment, PatientProfile, ReferralAssessment } from './types';
 
 const emergencyTerms = ['trouble breathing', 'difficulty breathing', 'swollen tongue', 'swollen throat', 'fainting', 'anaphylaxis'];
-const urgentTerms = ['rapidly spreading', 'severe pain', 'eye swelling', 'face swelling', 'blistering', 'skin peeling', 'fever', 'infected', 'painful rash', 'eye pain', 'blurred vision', 'light sensitivity', 'red eye', 'hot and swollen', 'chills'];
+const urgentTerms = ['rapidly spreading', 'severe pain', 'eye swelling', 'face swelling', 'blistering', 'skin peeling', 'fever', 'infected', 'painful rash', 'eye pain', 'blurred vision', 'light sensitivity', 'red eye', 'hot and swollen', 'chills', 'shivery'];
 const specialistTerms = ['scarring', 'deep cyst', 'nodules', 'persistent redness', 'visible veins', 'recurrent rash', 'months', 'not improving'];
 const changingLesionPatterns = [
   { pattern: /\b(?:spot|mole|mark|growth|bump)\b.{0,64}\b(?:changing|changes|changed|growing|bleeding|bleeds|irregular)\b/i, reason: 'A changing, growing, bleeding or irregular skin mark was reported.' },
@@ -219,6 +219,11 @@ export function assessReferral(input: {
   if (primaryId === 'infectious-papilloma-ulcer-like' || mentionsNamedPattern(normalized, /\b(?:yaws|framboesia)\b/)) return {
     level: 'primary-care', urgency: 'soon', reasons: ['A wart-like growth-to-ulcer or named infectious skin pattern was reported.'],
     action: 'Arrange a prompt in-person examination through a clinic or skin-NTD service. Avoid direct contact with the lesion, and do not use cosmetic treatment or start antibiotics without clinical direction.',
+  };
+
+  if (primaryId === 'deep-draining-mass-like' || mentionsNamedPattern(normalized, /\b(?:mycetoma|madura foot)\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A slow swelling-with-drainage or named deep-infection pattern was reported.'],
+    action: 'Arrange a prompt in-person medical examination through a clinic or skin-NTD service. Do not cut or squeeze the swelling, and do not start antibiotic or antifungal treatment without clinical direction.',
   };
 
   if (primaryId === 'painless-ulcer-like' || mentionsNamedPattern(normalized, /\bburuli ulcer\b/)) return {

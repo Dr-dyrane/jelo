@@ -31,6 +31,7 @@ const patternCases = [
   ['Severe itching with firm lumps under my skin and my vision is getting worse.', 'onchocerciasis-like'],
   ['My leg has stayed swollen for months and the skin is becoming thick and hard.', 'chronic-lymphoedema-like'],
   ['A child has a wart-like growth on the leg that became an ulcer.', 'infectious-papilloma-ulcer-like'],
+  ['A painless foot mass has several draining holes with black grains.', 'deep-draining-mass-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -66,6 +67,7 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('Severe itching with firm lumps under my skin.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('My leg has stayed swollen for months and the skin is becoming thick and hard.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('A child has a wart-like growth on the leg that became an ulcer.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('A painless foot mass has several draining holes with black grains.').referral.level, 'primary-care');
 });
 
 test('wart-like ulcer warnings stop skincare without swallowing nearby patterns', () => {
@@ -85,6 +87,29 @@ test('wart-like ulcer warnings stop skincare without swallowing nearby patterns'
   assert.equal(assessClinicalRoutine('Sores burst and left spreading golden-brown crusts.').differential.primary?.id, 'impetigo-like');
   assert.equal(assessClinicalRoutine('A painless swelling became an ulcer and keeps enlarging.').differential.primary?.id, 'painless-ulcer-like');
   assert.equal(assessClinicalRoutine('Firm painful lesions blistered with swollen glands after close contact with mpox.').differential.primary?.id, 'mpox-like');
+});
+
+test('slow draining swellings stop skincare without swallowing nearby patterns', () => {
+  for (const description of [
+    'A painless foot mass has several draining holes with black grains.',
+    'My foot has slowly swollen and now has draining sinuses with white grains.',
+    'I was told this could be mycetoma and I also have oily acne.',
+    'Madura foot with multiple draining holes.',
+  ]) {
+    const assessment = assessClinicalRoutine(description);
+    assert.equal(assessment.differential.primary?.id, 'deep-draining-mass-like', description);
+    assert.equal(assessment.referral.level, 'primary-care', description);
+    assert.equal(assessment.referral.urgency, 'soon', description);
+  }
+
+  const urgent = assessClinicalRoutine('A painless foot mass with draining holes and grains now has fever and severe pain.');
+  assert.equal(urgent.referral.level, 'urgent');
+  assert.equal(urgent.referral.urgency, 'same-day');
+
+  assert.equal(assessClinicalRoutine('A painless swelling on my arm turned into an ulcer and keeps enlarging.').differential.primary?.id, 'painless-ulcer-like');
+  assert.equal(assessClinicalRoutine('Recurring deep lumps in my armpits with drainage, tunnels and scars.').differential.primary?.id, 'hidradenitis-like');
+  assert.equal(assessClinicalRoutine('My leg has stayed swollen for months and the skin is becoming thick and hard.').differential.primary?.id, 'chronic-lymphoedema-like');
+  assert.notEqual(assessClinicalRoutine('One stable plantar wart has not changed.').differential.primary?.id, 'deep-draining-mass-like');
 });
 
 test('persistent swelling stops skincare while acute clot and infection warnings keep priority', () => {
