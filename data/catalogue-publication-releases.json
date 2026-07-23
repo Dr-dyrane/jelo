@@ -145,6 +145,30 @@
         "publishedAt": "2026-07-23T04:41:00Z"
       },
       "releaseFingerprint": "0796a892b344cd9515d3b3692aa7a53db4c5316a959d04bdb30adbc3d439d602"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "dossierFingerprint": "24c1e10ca7afe2c2271608d22000e6464112c24130cbb966a62f419a8b1340eb",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Tone",
+        "displayLine": "2% salicylic acid with zinc.",
+        "usage": "Follow the pack directions. Introduce gradually and stop if irritation develops.",
+        "manufacturerDirectionsUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml",
+        "reviewer": "JeloCare catalogue presentation review",
+        "reviewedAt": "2026-07-23T05:07:15Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue publication review",
+        "publishedAt": "2026-07-23T05:07:30Z"
+      },
+      "releaseFingerprint": "2d8d26956ae25d0409a3e56d8f64547a94a0c4b19b8ab3b064bec7a4cd85d048"
     }
   ]
 }

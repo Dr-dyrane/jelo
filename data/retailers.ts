@@ -240,6 +240,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Nigeria beauty retailer with brand pages and product listings.',
   },
   {
+    name: '24Eleven',
+    homepage: 'https://www.24eleven.ng/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 84,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    identityEvidence: {
+      observedAt: '2026-07-23T05:00:00Z',
+      sourceUrl: 'https://www.24eleven.ng/balance-salicylic-acid-zinc-clarifying-toner-200ml',
+      basis: 'self-published-contact',
+      scope: 'self-published',
+    },
+    searchUrl: query => `https://www.24eleven.ng/catalogsearch/result/?q=${encodeURIComponent(query)}`,
+    note: 'Nigeria beauty retailer with direct Magento product pages, Naira pricing, live availability and self-published 24Eleven Beauty Ltd identity.',
+  },
+  {
     name: 'Ediths Essentials',
     homepage: 'https://edithsessentials.com/',
     market: 'NG',
