@@ -217,6 +217,30 @@
         "publishedAt": "2026-07-23T06:15:30Z"
       },
       "releaseFingerprint": "5e7c205f18fa7e11fe76fc597be428785309856485061f67b83f02edda997f58"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
+      "dossierFingerprint": "d7850d3431c7a7cec3d22c534b0395ae72425c372e44aac09b63aa30ea0ddacd",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily moisture with vitamin C.",
+        "usage": "Apply to a clean face in circular motions, spread evenly, and use daily.",
+        "manufacturerDirectionsUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T06:39:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T06:40:00Z"
+      },
+      "releaseFingerprint": "86b086c2362132b7434c1ec11276e62f872552ddcdb743fe77651452ed7044fa"
     }
   ]
 }

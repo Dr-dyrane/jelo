@@ -71,7 +71,7 @@ The initial approval manifest is intentionally empty. This preserves the legacy 
 
 ## Private publication dossiers
 
-`data/catalogue-publication-dossiers.json` is the source-agnostic handoff for a candidate that has cleared every publication gate. It contains the CeraVe Hydrating Cleanser neutral-reference dossier. `createCataloguePublicationDossier` binds the exact identity and its official snapshot, demand sources, care review, optional NAFDAC context, complete exact-offer evidence, current seller-authorization snapshot when used, immutable source-asset bytes, permission or the complete hashed generation record, final packshot URL/hash/type/bytes/dimensions, reviewer and causally ordered approval time into candidate and dossier fingerprints. A retailer-registry authorization change invalidates an existing dossier.
+`data/catalogue-publication-dossiers.json` is the source-agnostic handoff for candidates that clear every publication gate. It contains one immutable neutral-reference dossier per approved exact SKU. `createCataloguePublicationDossier` binds the exact identity and its official snapshot, demand sources, care review, optional NAFDAC context, complete exact-offer evidence, current seller-authorization snapshot when used, immutable source-asset bytes, permission or the complete hashed generation record, final packshot URL/hash/type/bytes/dimensions, reviewer and causally ordered approval time into candidate and dossier fingerprints. A retailer-registry authorization change invalidates an existing dossier.
 
 The dossier remains a private, non-recommendation artifact. No dossier publishes itself. Any candidate, evidence, rights, image or approval change invalidates the stored fingerprints. Verify the checked-in structure offline with:
 

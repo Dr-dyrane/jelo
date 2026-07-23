@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T06:13:00Z');
+const researchAsOf = Date.parse('2026-07-23T06:41:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
@@ -26,17 +26,17 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 12);
   assert.equal(catalogueIntakeDecisions.length, 12);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 9);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 12);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 10);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 11);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 9);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 10);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 3);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 2);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 9);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 10);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -169,28 +169,41 @@ test('the Balance toner keeps retailer SKUs local while exact Nigerian offers bi
   assert.equal(decision.blockers.includes('asset-final-image-invalid'), false);
 });
 
-test('the Garnier day cream has an exact official GTIN while retailer-only identifiers stay excluded', () => {
+test('the Garnier day cream binds its official GTIN to exact Nigerian offers and a reviewed render', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'garnier-vitamin-c-brightening-day-cream-50ml');
   assert.ok(candidate);
   assert.equal(candidate.identity.gtin, '3600542453110');
   assert.equal(candidate.identity.officialEvidence?.observedSize, '50 ml');
-  assert.equal(candidate.nigeria.exactOffers.length, 0);
-  assert.equal(candidate.nigeria.excludedObservations.length, 2);
-  assert.equal(candidate.nigeria.excludedObservations.some(observation => (
-    observation.retailer === 'BuyBetter'
-    && observation.exclusionReasons.includes('retailer-identifier-only')
+  assert.equal(candidate.nigeria.tierAIdentityEvidenceUrl, candidate.identity.officialProductUrl);
+  assert.equal(candidate.nigeria.exactOffers.length, 2);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [12_728, 11_833]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku), ['3600542453110', 'TK-0471']);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => (
+    offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
   )), true);
+  assert.equal(candidate.nigeria.excludedObservations.length, 1);
   assert.equal(candidate.nigeria.excludedObservations.some(observation => (
     observation.retailer === 'Slique Beauty'
     && observation.exclusionReasons.includes('manufacturer-identifier-mismatch')
   )), true);
+  assert.equal(candidate.asset.publicImageSha256, 'aa6bc47594a907d570015363924c7d5cb9db2065948e3ad0b41d4a67d036aae2');
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...generationContent } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
-  assert.equal(decision.stage, 'nigeria');
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.freshExactOffers.length, 2);
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
   assert.equal(decision.blockers.includes('care-review-missing'), false);
   assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
-  assert.ok(decision.blockers.includes('nigeria-offer-identity-unbound'));
+  assert.equal(decision.blockers.includes('nigeria-offer-identity-unbound'), false);
+  assert.equal(decision.blockers.includes('asset-final-image-invalid'), false);
 });
 
 test('the Aqua Rich identities and bounded daily-care reviews stop at Nigeria evidence', () => {
@@ -443,10 +456,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 12);
+  assert.equal(observations.length, 11);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 16);
+  ), 0), 18);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
