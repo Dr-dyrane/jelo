@@ -488,6 +488,21 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'cecred-moisturizing-deep-conditioner-300ml': {
+    productSlug: 'cecred-moisturizing-deep-conditioner-300ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-textured-hair-deep-conditioning',
+      label: 'Deep conditioning for dry or textured hair',
+      concernIds: ['dry hair', 'frizz', 'damage', 'breakage'],
+      concernSlugs: ['dry-frizzy-hair'],
+    }],
+    evidenceSourceUrls: [
+      'https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058',
+      'https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips',
+    ],
+    reviewedAt: '2026-07-23',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

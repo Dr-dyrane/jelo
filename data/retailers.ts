@@ -189,6 +189,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Lagos and Ibadan stock counts with nationwide delivery.',
   },
   {
+    name: 'GlowMart',
+    homepage: 'https://glowmartng.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 90,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    identityEvidence: {
+      observedAt: '2026-07-23T18:57:50Z',
+      sourceUrl: 'https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/',
+      basis: 'self-published-contact',
+      scope: 'self-published',
+    },
+    searchUrl: wordpressSearch('https://glowmartng.com/'),
+    note: 'Lekki retailer with a direct catalogue, Naira pricing, live stock, store address and social ordering channels.',
+  },
+  {
     name: 'Konga Health',
     homepage: 'https://www.konga.com/content/health',
     market: 'NG',

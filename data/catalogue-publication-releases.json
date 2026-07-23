@@ -601,6 +601,30 @@
         "publishedAt": "2026-07-23T18:29:00Z"
       },
       "releaseFingerprint": "21c17e2a61523313da2b8a38e907ec982d4ba8acecf88c38446572fc495b5529"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
+      "dossierFingerprint": "6a63728f48b310c5c8475f8014db85a6df2788f6edc9a5333e35cad05804ead0",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Condition",
+        "displayLine": "Deep moisture for textured hair · 300 ml",
+        "usage": "Apply evenly from root to tip on clean, sectioned hair, then rinse thoroughly.",
+        "manufacturerDirectionsUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T19:05:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T19:06:00Z"
+      },
+      "releaseFingerprint": "caed0b8be32d582ae03d0d0952dceefd3f3a9d1bf5532f10f32847632a164275"
     }
   ]
 }

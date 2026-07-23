@@ -1181,32 +1181,6 @@
     },
     {
       "rank": 44,
-      "discoveryId": "4375618aeab9c1fcd81eaeed",
-      "title": "CECRED Moisturizing Deep Conditioner 300ml",
-      "brandHint": "CECRED",
-      "size": "300ml",
-      "categoryHint": "Hair & scalp",
-      "lane": "hair-scalp",
-      "priorityScore": 134,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "00850044935406",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 45,
       "discoveryId": "409d46e2deb8d4a892997d7c",
       "title": "MEDICUBE -Soymint Scaling Shampoo 490ml",
       "brandHint": "MEDICUBE",
@@ -1232,7 +1206,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 46,
+      "rank": 45,
       "discoveryId": "7afa2f6eac15547f92afd336",
       "title": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
       "brandHint": "SALTAIR",
@@ -1258,7 +1232,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 47,
+      "rank": 46,
       "discoveryId": "434e6d0e45a3bea8326d0911",
       "title": "SEAPURI Scalpy Hair Serum 20ml",
       "brandHint": "SEAPURI",
@@ -1284,7 +1258,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 48,
+      "rank": 47,
       "discoveryId": "284b4aa946c8c756f1804c0c",
       "title": "SHEA MOISTURE -Raw Shea Butter (sea kelp and Argan Oil) Deep Moisturizing CONDITIONER 13 oz 384ml",
       "brandHint": "Shea Moisture",
@@ -1295,6 +1269,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "00764302280217",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 48,
+      "discoveryId": "0defb63ca2f722fc93d4e0d5",
+      "title": "SHISEIDO Professional -SUBLIMIC Fuente Forte SHAMPOO (Oily Scalp) 1000ml",
+      "brandHint": "SHISEIDO Professional",
+      "size": "1000ml",
+      "categoryHint": "Hair & scalp",
+      "lane": "hair-scalp",
+      "priorityScore": 134,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "04901872933303",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

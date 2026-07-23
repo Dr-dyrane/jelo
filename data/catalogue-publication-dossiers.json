@@ -7493,6 +7493,298 @@
         "approvedAt": "2026-07-23T18:27:00Z"
       },
       "dossierFingerprint": "e155531b3b2b6c2c69361c742df2c474817538102ba5263d4c2638c394a4d818"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
+      "candidateFingerprint": "34e5e46855f2ef1e4a03011be427a221913c3c7a0e1f3a15adeefc3ae59f387b",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850044935406",
+        "brand": "Cécred",
+        "name": "Moisturizing Deep Conditioner",
+        "variant": "Moisturizing Deep Conditioner",
+        "size": "300 ml / 10 fl oz",
+        "packageVersion": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+        "category": "Hair & scalp"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+        "officialIdentity": {
+          "url": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+          "observedGtin": "850044935406",
+          "observedVariant": "Moisturizing Deep Conditioner",
+          "observedSize": "300 ml / 10 fl oz",
+          "observedPackageVersion": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cecred-moisturizing-deep-conditioner-300ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
+            "sourceUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+            "responseUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+            "retrievedAt": "2026-07-23T18:57:38Z",
+            "fields": {
+              "gtin": {
+                "value": "850044935406",
+                "locator": "Rendered product JSON-LD full-size offer > gtin12",
+                "sourceText": "Product JSON-LD gtin12: 850044935406"
+              },
+              "variant": {
+                "value": "Moisturizing Deep Conditioner",
+                "locator": "Rendered product JSON-LD product and full-size offer names",
+                "sourceText": "Moisturizing Deep Conditioner - Full Size 10 fl oz"
+              },
+              "size": {
+                "value": "300 ml / 10 fl oz",
+                "locator": "Rendered full-size offer and reviewed official front-pack size line",
+                "sourceText": "Full Size 10 fl oz; official front pack label 300 ML"
+              }
+            },
+            "sourceResponseSha256": "95d5926613bf2bd5d418634bd54c724c3395fa8ebafeff4d36ed6a2cabc5e8ed",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 200046,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Deep Conditioner for Curly Hair | Cécred"
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cecred.com/cdn/shop/files/PDP-Carousel-Moisturizing-Deep-Conditioner-Hero-Shot.jpg?v=1782251022",
+                "responseUrl": "https://cecred.com/cdn/shop/files/PDP-Carousel-Moisturizing-Deep-Conditioner-Hero-Shot.jpg?v=1782251022",
+                "retrievedAt": "2026-07-23T18:59:30Z",
+                "responseSha256": "75027e8b11040d82975a2885d09881d75d90417c9b1b487247cda638edb51f43",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 135481
+              }
+            ],
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T19:00:30Z"
+          },
+          "snapshotSha256": "76603346986ea2ffe5257a78595ecd75925cfc1f2c9ca71b712ec29d69a93638",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1801,
+          "retrievedAt": "2026-07-23T18:57:38Z"
+        },
+        "checkedAt": "2026-07-23T19:00:45Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
+          "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Ultra-rich rinse-off deep conditioner with an African oil blend and shea butter",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports routine conditioning and manageability for dry or textured hair. It does not diagnose or treat scalp disease, sudden hair loss or a breakage disorder. Avoid the eyes, rinse thoroughly, stop if irritation develops, and seek clinical advice for persistent scalp pain, inflammation or sudden shedding.",
+        "manufacturerEvidenceUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+        "evidenceUrls": [
+          "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+          "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
+        ],
+        "reviewedAt": "2026-07-23T19:02:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
+            "observedAt": "2026-07-23T18:57:15Z",
+            "observedTitle": "CECRED Moisturizing Deep Conditioner 300ml",
+            "observedSize": "300 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+            "retailerSku": "850044935406",
+            "priceNgn": 139750,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
+              "responseUrl": "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
+              "responseSha256": "a853d3485fcce49bc315e556c61f82d16e733c5ae5a8ebe50e00db0b93ef090a",
+              "responseDigestScope": "rendered-accessibility-tree",
+              "responseMimeType": "text/html",
+              "responseByteSize": 8810,
+              "retrievedAt": "2026-07-23T18:57:15Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "CECRED Moisturizing Deep Conditioner 300ml – Buybetter"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "850044935406",
+                  "locator": "Bound official full-size product identity",
+                  "sourceText": "Official catalogue identity GTIN 850044935406",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "CECRED Moisturizing Deep Conditioner 300ml",
+                  "locator": "Rendered accessibility product heading",
+                  "sourceText": "CECRED Moisturizing Deep Conditioner 300ml"
+                },
+                "size": {
+                  "value": "300 ml",
+                  "locator": "Rendered accessibility product heading",
+                  "sourceText": "CECRED Moisturizing Deep Conditioner 300ml"
+                },
+                "packageVersion": {
+                  "value": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+                  "locator": "Rendered listing image matched to the official current full-size package",
+                  "sourceText": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid"
+                },
+                "price": {
+                  "value": 139750,
+                  "currency": "NGN",
+                  "locator": "Rendered accessibility product price",
+                  "sourceText": "₦139,750.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered accessibility availability",
+                  "sourceText": "1 in stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T19:01:30Z"
+            }
+          },
+          {
+            "retailer": "GlowMart",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
+            "observedAt": "2026-07-23T18:57:50Z",
+            "observedTitle": "Cécred Moisturizing Deep Conditioner 300ml",
+            "observedSize": "300 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+            "priceNgn": 149000,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "listingUrl": "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
+              "responseUrl": "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
+              "responseSha256": "2359696c0be2cf602c22b1df4c537439cbf505b10f7cf43260d72c2160a1b37f",
+              "responseDigestScope": "rendered-accessibility-tree",
+              "responseMimeType": "text/html",
+              "responseByteSize": 7796,
+              "retrievedAt": "2026-07-23T18:57:50Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Cécred Moisturizing Deep Conditioner 300ml"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "850044935406",
+                  "locator": "Bound official full-size product identity",
+                  "sourceText": "Official catalogue identity GTIN 850044935406",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Cécred Moisturizing Deep Conditioner 300ml",
+                  "locator": "Rendered accessibility product heading",
+                  "sourceText": "Cécred Moisturizing Deep Conditioner 300ml"
+                },
+                "size": {
+                  "value": "300 ml",
+                  "locator": "Rendered accessibility product heading",
+                  "sourceText": "Cécred Moisturizing Deep Conditioner 300ml"
+                },
+                "packageVersion": {
+                  "value": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+                  "locator": "Rendered listing image matched to the official current full-size package",
+                  "sourceText": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid"
+                },
+                "price": {
+                  "value": 149000,
+                  "currency": "NGN",
+                  "locator": "Rendered accessibility product price",
+                  "sourceText": "₦149,000.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered accessibility availability",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-23T19:01:30Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cecred.com/cdn/shop/files/PDP-Carousel-Moisturizing-Deep-Conditioner-Hero-Shot.jpg?v=1782251022",
+          "sha256": "75027e8b11040d82975a2885d09881d75d90417c9b1b487247cda638edb51f43",
+          "mimeType": "image/jpeg",
+          "byteSize": 135481,
+          "width": 2048,
+          "height": 2048,
+          "retrievedAt": "2026-07-23T18:59:30Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot\nPrimary request: Create a clean isolated catalogue packshot of the exact Cécred Moisturizing Deep Conditioner 300 ml / 10 fl oz jar from the supplied official reference, with the lid closed on the jar.\nInput image: Image 1 is the edit target and exact product-identity reference.\nScene/backdrop: perfectly flat solid #ff00ff chroma-key background for later removal; one uniform color, no gradients, texture, horizon, or floor plane.\nSubject: one complete sculpted white Cécred jar, front-facing, lid closed, exact shape, embossed CÉCRED wordmark, exact grey product label and exact visible wording from the reference.\nComposition/framing: centered single product, fully visible from lid to rounded base, generous even padding on all sides, square 1:1 canvas.\nLighting/mood: neutral even catalogue lighting that preserves the white textured material without a cast shadow.\nConstraints: preserve the exact real packaging identity, proportions, texture, wordmark, 300 ML e 10 FL OZ size line, label placement and typography. Change only the lid position, background, and framing. No extra objects, no duplicate lid, no reflection, no cast or contact shadow, no props, no watermark. Do not use #ff00ff in the product.",
+          "inputs": [
+            {
+              "url": "https://cecred.com/cdn/shop/files/PDP-Carousel-Moisturizing-Deep-Conditioner-Hero-Shot.jpg?v=1782251022",
+              "sha256": "75027e8b11040d82975a2885d09881d75d90417c9b1b487247cda638edb51f43"
+            }
+          ],
+          "outputSha256": "a2f62a459b075b708ba07184321409ff3a56ae96e7a2fc3d1c3d29f941088ec8",
+          "generatedAt": "2026-07-23T19:00:00Z",
+          "recordSha256": "32ab81cb8fdbca59c238a802035768f3408923be9520519e3a441f4602382e81"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cecred/cecred-moisturizing-deep-conditioner-300ml/packshot-v1-a2f62a459b075b70.png",
+        "sha256": "a2f62a459b075b708ba07184321409ff3a56ae96e7a2fc3d1c3d29f941088ec8",
+        "mimeType": "image/png",
+        "byteSize": 1800410,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-23T19:02:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-07-23T19:04:00Z"
+      },
+      "dossierFingerprint": "6a63728f48b310c5c8475f8014db85a6df2788f6edc9a5333e35cad05804ead0"
     }
   ]
 }

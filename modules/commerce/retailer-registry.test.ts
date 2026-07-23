@@ -64,6 +64,20 @@ test('Kadimez Essentials is a self-published direct retailer, not a brand-author
   assert.equal(retailer.regulatorMatchEvidence, undefined);
 });
 
+test('GlowMart is a self-published direct retailer with a product-scoped Nigeria identity record', () => {
+  const retailer = nigeriaRetailers.find(store => store.name === 'GlowMart');
+  assert.ok(retailer);
+  assert.equal(retailer.reviewStatus, 'directory-listed');
+  assert.equal(retailer.kind, 'retailer');
+  assert.equal(
+    retailer.identityEvidence?.sourceUrl,
+    'https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/',
+  );
+  assert.equal(retailer.identityEvidence?.basis, 'self-published-contact');
+  assert.equal(retailer.identityEvidence?.scope, 'self-published');
+  assert.equal(retailer.regulatorMatchEvidence, undefined);
+});
+
 test('Muna Cosmetics is a self-published direct retailer, not a brand-authorized seller claim', () => {
   const retailer = nigeriaRetailers.find(store => store.name === 'Muna Cosmetics');
   assert.ok(retailer);
