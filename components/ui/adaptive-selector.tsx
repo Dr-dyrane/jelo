@@ -22,6 +22,7 @@ type AdaptiveSelectorProps = {
   value: AdaptiveValue[];
   suggestions: AdaptiveOption[];
   allowCustom?: boolean;
+  searchable?: boolean;
   searchOptions?: (query: string, signal: AbortSignal) => Promise<AdaptiveOption[]>;
   onChange: (value: AdaptiveValue[]) => void;
   onInteraction?: (mode: InputMode, resultsCount: number) => void;
@@ -41,6 +42,7 @@ export function AdaptiveSelector({
   value,
   suggestions,
   allowCustom = true,
+  searchable = true,
   searchOptions,
   onChange,
   onInteraction,
@@ -122,7 +124,7 @@ export function AdaptiveSelector({
   return (
     <div className={styles.selector}>
       <div className={styles.heading}>
-        <label htmlFor={inputId}>{label}</label>
+        {searchable ? <label htmlFor={inputId}>{label}</label> : <h2>{label}</h2>}
         {hint ? <p>{hint}</p> : null}
       </div>
 
@@ -132,7 +134,7 @@ export function AdaptiveSelector({
         </button>)}
       </div> : null}
 
-      <div className={styles.searchBox}>
+      {searchable ? <div className={styles.searchBox}>
         <Search size={18} aria-hidden="true" />
         <input
           id={inputId}
@@ -159,12 +161,12 @@ export function AdaptiveSelector({
           aria-expanded="true"
           aria-activedescendant={resultCount ? `${listId}-${resolvedActiveIndex}` : undefined}
           aria-describedby={statusId}
-          placeholder="Search or add"
+          placeholder={allowCustom ? 'Search or add' : 'Search'}
           autoComplete="off"
         />
-      </div>
+      </div> : null}
 
-      <div className={styles.options} id={listId} role="listbox" aria-multiselectable={mode === 'multiple'}>
+      <div className={styles.options} id={listId} role="listbox" aria-label={label} aria-multiselectable={mode === 'multiple'}>
         {options.map((option, index) => {
           const selected = value.some(item => item.id === option.id);
           return <button

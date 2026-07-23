@@ -349,7 +349,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     </div>
 
     <div className={styles.question} key={currentStep}>
-      {currentStep === 'kind' ? <AdaptiveSelector label="What are you adding?" mode="single" value={kindValue} suggestions={kindOptions} allowCustom={false} onChange={chooseKind} onInteraction={interaction}/> : null}
+      {currentStep === 'kind' ? <AdaptiveSelector label="What are you adding?" mode="single" value={kindValue} suggestions={kindOptions} allowCustom={false} searchable={false} onChange={chooseKind} onInteraction={interaction}/> : null}
       {currentStep === 'purposes' ? <AdaptiveSelector label="What is it for?" hint="Choose every answer that fits." mode="multiple" value={draft.purposes} suggestions={purposes} onChange={values => patchDraft({ purposes: values })} onInteraction={interaction}/> : null}
       {currentStep === 'products' ? <AdaptiveSelector label={draft.kind === 'routine' ? 'What is in your routine?' : 'Which product?'} hint={draft.kind === 'routine' ? 'Add one or more.' : undefined} mode={draft.kind === 'routine' ? 'multiple' : 'single'} value={draft.products} suggestions={products} onChange={chooseProducts} onInteraction={interaction}/> : null}
       {currentStep === 'brand' ? <AdaptiveSelector label="Who makes it?" mode="single" value={draft.brands} suggestions={brands} onChange={values => patchDraft({ brands: values })} onInteraction={interaction}/> : null}
@@ -359,7 +359,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
         <label><span>Price</span><span className={styles.money}><b>₦</b><input inputMode="numeric" type="number" min="100" max="10000000" value={draft.priceNgn ?? ''} onChange={event => patchDraft({ priceNgn: event.target.value ? Number(event.target.value) : null })} placeholder="17,500" /></span></label>
         <label><span>Purchase date</span><input type="date" max={new Date().toISOString().slice(0, 10)} value={draft.purchaseDate ?? ''} onChange={event => patchDraft({ purchaseDate: event.target.value || null })}/></label>
       </div> : null}
-      {currentStep === 'outcome' ? <AdaptiveSelector label="How was it?" hint="Your experience, not a medical claim." mode="single" value={outcomeValue} suggestions={outcomeOptions} allowCustom={false} onChange={values => patchDraft({ outcome: (values[0]?.id as ContributionDraft['outcome']) ?? null })} onInteraction={interaction}/> : null}
+      {currentStep === 'outcome' ? <AdaptiveSelector label="How was it?" hint="Your experience, not a medical claim." mode="single" value={outcomeValue} suggestions={outcomeOptions} allowCustom={false} searchable={false} onChange={values => patchDraft({ outcome: (values[0]?.id as ContributionDraft['outcome']) ?? null })} onInteraction={interaction}/> : null}
       {currentStep === 'review' ? <div className={styles.review}>
         <div><p>Almost done</p><h2 id="contribution-question">Ready to share?</h2><span>Still anonymous.</span></div>
         <dl>
