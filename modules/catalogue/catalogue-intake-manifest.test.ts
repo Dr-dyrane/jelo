@@ -17,7 +17,7 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T02:00:00Z');
+const researchAsOf = Date.parse('2026-07-23T03:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 12);
@@ -26,17 +26,17 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 12);
   assert.equal(catalogueIntakeDecisions.length, 12);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 1);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 2);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 17);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 1);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 2);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 10);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 1);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 1);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 2);
 });
 
 test('a bot-protected Dove page advances through a hash-bound browser DOM review', () => {
@@ -273,7 +273,9 @@ test('official CeraVe snapshots advance identity and care without treating retai
   assert.equal(creamDecision.nigeriaMarketRoute, 'brand-authorized');
   assert.equal(creamDecision.blockers.includes('nigeria-offer-identity-unbound'), false);
   assert.equal(cream.nigeria.regulatoryStatus, 'pending');
-  assert.ok(creamDecision.blockers.includes('asset-final-image-missing'));
+  assert.equal(creamDecision.stage, 'approval-ready');
+  assert.equal(creamDecision.approvalDraftReady, true);
+  assert.equal(creamDecision.blockers.includes('asset-final-image-missing'), false);
   assert.equal(cream?.variant, 'CeraVe Moisturising Cream Pot');
   assert.match(cream?.care.manufacturerEvidenceUrl ?? '', /africa\.cerave\.com/);
 });

@@ -1152,7 +1152,7 @@ function editorialBlockers(candidate: CatalogueIntakeCandidate, asOf: number): C
 const actionForStage: Record<CatalogueIntakeStage, string> = {
   identity: 'Lock the exact manufacturer GTIN, variant and size to a checked-in reviewed extraction and raw-response digest.',
   care: 'Review the formula role and advisory boundaries from primary evidence.',
-  nigeria: 'Verify regulation and fresh exact Nigerian product pages.',
+  nigeria: 'Verify a fresh exact Nigerian product page and bind its current price.',
   rights: 'Document permission or another valid image-rights basis.',
   editorial: 'Finish and manually compare the exact package in its final editorial image.',
   'approval-ready': 'Draft the identity-bound publication approval.',

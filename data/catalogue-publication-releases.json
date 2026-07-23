@@ -25,6 +25,30 @@
         "publishedAt": "2026-07-23T02:09:00Z"
       },
       "releaseFingerprint": "8042faa6e6561157d046c16552c0a7a85ad498abdab7053dbee071363c5891c6"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-moisturising-cream-454g",
+      "dossierFingerprint": "6fdbc2d710f23adda4b019325d49b9eb0c2919b344e39231a3e0590994ad806a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily face and body moisture.",
+        "usage": "Apply to the face and body as needed.",
+        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+        "reviewer": "JeloCare catalogue presentation review",
+        "reviewedAt": "2026-07-23T02:36:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue publication review",
+        "publishedAt": "2026-07-23T02:37:00Z"
+      },
+      "releaseFingerprint": "81bf2b9299797a3a8f6d5bb050b5975e576f402fd723477fb6e6ed6d7387ee3a"
     }
   ]
 }
