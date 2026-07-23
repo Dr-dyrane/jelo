@@ -542,32 +542,6 @@
     },
     {
       "rank": 20,
-      "discoveryId": "89c7891623cf8efa611f7057",
-      "title": "OLAY SUPER SERUM BODY WASH 547ML - NORMAL SKIN",
-      "brandHint": "OLAY",
-      "size": "547ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 162,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "00030772160350",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 21,
       "discoveryId": "7e605cd6690ac73d599d9c2b",
       "title": "AQUA RICH Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract) 1000ml",
       "brandHint": "AQUA RICH",
@@ -593,7 +567,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
+      "rank": 21,
       "discoveryId": "3d1fc594ae79e1f38b4b8260",
       "title": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
       "brandHint": "DOVE",
@@ -619,7 +593,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 22,
       "discoveryId": "5a63a184f3c4ab6402f4a586",
       "title": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
       "brandHint": "DOVE",
@@ -630,6 +604,32 @@
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
       "identityLead": "00011111055230",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 23,
+      "discoveryId": "07638932c92af511bdf56019",
+      "title": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
+      "brandHint": "Dr Teals",
+      "size": "710ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 158,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "00811068015857",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

@@ -457,6 +457,30 @@
         "publishedAt": "2026-07-23T13:04:00Z"
       },
       "releaseFingerprint": "f3265e6fed167ff79bcec4038a9229a743d656ca92a2bfe78bf8241c7e9fe7f6"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "dossierFingerprint": "1425641a20ee0e12070c34fcd147984e98ca07e3542edc14fd044f212638d6ec",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Hydrating body wash for normal skin.",
+        "usage": "Wet skin. Lather with a puff, wash, then rinse.",
+        "manufacturerDirectionsUrl": "https://www.olay.com/products/olay-super-serum-body-wash-normal-skin?pswtb=true",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-23T14:49:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-23T14:50:00Z"
+      },
+      "releaseFingerprint": "ea23642ebc2cdc540d18f0e1620bc1056237fca1ba4772dac49671a93760aa09"
     }
   ]
 }

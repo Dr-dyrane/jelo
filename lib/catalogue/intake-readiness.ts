@@ -527,6 +527,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
   nineless: ['ninelessshop.com'],
+  olay: ['www.olay.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -554,6 +555,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
   nineless: ['ninelessshop.com'],
+  olay: ['www.olay.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
   'nineless-a-control-10-azelaic-acid-serum-30ml': [
