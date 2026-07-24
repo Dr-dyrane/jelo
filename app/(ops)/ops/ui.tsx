@@ -15,7 +15,7 @@ export function Heading({ title, lede }: { title: string; lede?: string }) {
 }
 
 export function Empty({ label }: { label: string }) {
-  return <div className={styles.empty}>Nothing in the {label} queue right now.</div>;
+  return <div className={styles.empty}>Nothing in the {label} queue.</div>;
 }
 
 export function Table({ head, children }: { head: ReactNode; children: ReactNode }) {

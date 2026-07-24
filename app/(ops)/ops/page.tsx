@@ -21,7 +21,7 @@ export default async function OpsOverview() {
   return (
     <>
       <h1 className={styles.h1}>Moderation queues</h1>
-      <p className={styles.lede}>Pending items awaiting review. Nothing here publishes to the catalogue; every decision is recorded in the audit log.</p>
+      <p className={styles.lede}>Awaiting review. Nothing here publishes; every decision is logged.</p>
       <div className={styles.overview}>
         {TILES.map(tile => {
           const count = counts[tile.key];
