@@ -55,7 +55,7 @@ ADR 0001 still governs accounts, collections, public stories, ratings, comments,
 
 ## Operations
 
-Unknown values enter `community_moderation_values`. Contributions and graph edges stay pending until an authenticated moderation system exists. Until then, review is operator-only through controlled database tooling.
+Unknown values enter `community_moderation_values`. Contributions and graph edges stay pending until an authenticated moderation system exists — that system is now decided in [ADR 0007](0007-internal-moderation-operations-console.md). Until it ships, review is operator-only through controlled database tooling.
 
 Abandoned drafts are eligible for deletion after 30 days. `npm run community:intake:purge` performs the cleanup. Production requests use the existing Upstash Redis connection for rate limits.
 

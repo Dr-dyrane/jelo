@@ -38,14 +38,15 @@ The roadmap is ordered by dependency, not novelty.
 - Retailer **confidence** surfaced as compared-set coverage (`Based on N of M stores`), never an authenticity grade.
 - Store ranking scores seller-identity and brand-authorization evidence, the **landed total** (observed price plus any stated numeric delivery), and a shopper's **fulfilment preference** — all evidence-bound, no commercial signal. See [ADR 0006](../adr/0006-store-ranking-excludes-commercial-signals.md).
 - Structured **community observations**: first-class, queryable price and outcome rows for moderation, community-first — see [ADR 0005](../adr/0005-structured-observation-events.md).
+- Cookieless **`store_click`** measurement recorded server-side in `/go`, deriving price rank from the market summary — the behavioural half of [ADR 0005](../adr/0005-structured-observation-events.md). Measurement only; never a ranking input.
 
 ## Next
 
 - Price-history summaries with sufficient same-offer observations.
 - Rank by **location distance / pickup** — the one ranking dimension still deferred: `locationLabel` is free-text with no geo, so this needs a retailer-coordinate dataset (and a consent surface for device location) before it can rank ([ADR 0006](../adr/0006-store-ranking-excludes-commercial-signals.md)).
-- Behavioural events: a server-side, cookieless `store_click` recorded in `/go` — the second, still-pending half of [ADR 0005](../adr/0005-structured-observation-events.md). Measurement only; never a ranking input.
-- The remaining share card: **routines**.
-- An internal moderation and operations view for community and retailer queues.
+- The rest of the behavioural taxonomy (`offer_impression`, `product_view`, `share_click`, `search`, `market_switch`, and the other funnel events) plus its private aggregation — `store_click` shipped first. See [ADR 0005](../adr/0005-structured-observation-events.md) and [Analytics](../ANALYTICS.md).
+- The remaining share card: **routines** (products, prices, and ingredients already ship).
+- An internal moderation and operations console for community and retailer queues — decided in [ADR 0007](../adr/0007-internal-moderation-operations-console.md).
 
 ## Later
 

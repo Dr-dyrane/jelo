@@ -47,6 +47,8 @@ The option may return to planning only when all of the following are true:
 7. Privacy, security, threat-model, data-retention, and account-recovery reviews are complete.
 8. A separate sprint is explicitly funded and scheduled.
 
+**Gate progress (2026-07-24, informational only):** gate #2 has materially advanced — retailer freshness is surfaced, market-summary confidence is shown as compared-set coverage, and `store_click` now measures behaviour in production ([ADR 0005](0005-structured-observation-events.md), [ADR 0006](0006-store-ranking-excludes-commercial-signals.md)). Gate #6 depends on the moderation operating model now decided in [ADR 0007](0007-internal-moderation-operations-console.md). No other gate is met, and this ADR's next action remains **none** until a scheduled discovery initiative opens it.
+
 ## Non-goals
 
 This ADR does not authorize:

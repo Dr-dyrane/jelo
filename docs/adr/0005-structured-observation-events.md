@@ -30,6 +30,8 @@ Build both as strict, enum-and-bounded-int structured events, **community observ
 - Behavioural data is captured cookielessly, with no PII, IP, user-agent, or query text, per the [analytics privacy boundary](../ANALYTICS.md).
 - **Hard constraint:** affiliate/outbound value and behavioural events are *measurement only* and never an input to store ranking, guidance, or safety ([ADR 0006](0006-store-ranking-excludes-commercial-signals.md)). Health-shaped behaviour (concern, Ask Jelo) is never joined to commercial or retailer targeting.
 - Popularity/engagement counts must never proxy for safety, efficacy, authenticity, or authorization ([ADR 0001](0001-deferred-trust-collections-community-and-stock-alerts.md)).
+- The `community_observations` queue and a private, measurement-only `commerce_events` view are triaged in the [ADR 0007](0007-internal-moderation-operations-console.md) console; until it ships, both are read only through controlled tooling.
+- **Still roadmap:** the rest of the behavioural taxonomy (`offer_impression`, `product_view`, `share_click`, `search`, `market_switch`, `filter_change`, `browse_mode`, `consult_step`, `contribute_step`) and its aggregation, per [docs/ANALYTICS.md](../ANALYTICS.md). `store_click` shipped first by design.
 
 ## Alternatives rejected
 

@@ -34,7 +34,7 @@ The platform must operate:
 
 - transactional mail delivery and retry states;
 - application retention and expiry;
-- a private review queue;
+- a private review queue (the surface for it is decided in [ADR 0007](0007-internal-moderation-operations-console.md));
 - consent and access controls;
 - verification before canonical retailer or price publication.
 
