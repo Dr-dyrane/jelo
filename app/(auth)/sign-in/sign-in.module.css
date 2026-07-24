@@ -92,6 +92,48 @@
   .button:hover:not(:disabled) { transform: none; }
 }
 
+/* Code step. The quiet "Sent to …" line sits just under the headline; the code
+   input reads as a field of digits, not a password box. */
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  margin: -1rem 0 1.4rem;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.link,
+.resend {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: var(--wine);
+}
+.link { font-size: .85rem; text-decoration: underline; text-underline-offset: 2px; }
+.link:focus-visible,
+.resend:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; border-radius: 4px; }
+
+.otp {
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: .5em;
+  padding-left: 1.65rem; /* balance the trailing letter-spacing so digits sit centred */
+  font-variant-numeric: tabular-nums;
+}
+.otp::placeholder { letter-spacing: .5em; }
+
+.resend {
+  display: block;
+  margin: 1.1rem auto 0;
+  color: var(--muted);
+  font-size: .8rem;
+}
+.resend:hover:not(:disabled) { color: var(--wine); }
+.resend:disabled { opacity: .5; cursor: default; }
+
 .error { margin: 1rem 0 0; color: var(--wine); font-size: .85rem; line-height: 1.5; }
 
 .foot { margin: 2rem 0 0; color: var(--muted); font-size: .78rem; }
