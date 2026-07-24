@@ -82,7 +82,7 @@ For every supported product, JeloCare may compute across the stores actually com
 - difference from the compared set's median;
 - confidence score.
 
-One qualifying store is labelled `Observed`, never `Best`, `Fair` or `Typical`. Two or more qualifying stores may be labelled `Lowest observed` and `Median`, always scoped to the compared set. Delivery can change the total unless a landed-cost observation explicitly says it is included. Seven- and 30-day movement compares the same offers at both ends of the window and stays hidden unless the current observation is fresh and an appropriately dated anchor exists.
+One qualifying store is labelled `Observed`, never `Best`, `Fair` or `Typical` — a lone price is not representative. Two or more qualifying stores are labelled `Lowest observed` and, for the median of the compared set, `Typical` (a genuine middle of several observations, which a single price can never be). Both are always scoped to the compared set. `Typical` is the reader-facing label; the underlying measure is the median, not the mean. Delivery can change the total unless a landed-cost observation explicitly says it is included. Seven- and 30-day movement compares the same offers at both ends of the window and stays hidden unless the current observation is fresh and an appropriately dated anchor exists.
 
 ## Safety and trust
 
