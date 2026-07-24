@@ -35,8 +35,17 @@ export function rankOffers(offers: Offer[], country: string, now: number | Date 
         reasons.push('Listing not checked');
       }
 
-      if (hasSellerIdentityEvidence(offer)) reasons.push('Seller identity checked');
-      if (hasBrandAuthorizationEvidence(offer)) reasons.push('Brand authorization evidenced');
+      // Evidence-bound refinements, deliberately small so they only break ties
+      // between offers already equal on safety, freshness, location and price
+      // (ADR 0006). Brand authorization is the stronger signal of the two.
+      if (hasSellerIdentityEvidence(offer)) {
+        score += 6;
+        reasons.push('Seller identity checked');
+      }
+      if (hasBrandAuthorizationEvidence(offer)) {
+        score += 8;
+        reasons.push('Brand authorization evidenced');
+      }
 
       if (offer.location.includes(country)) {
         score += 20;
