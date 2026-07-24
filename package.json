@@ -17,6 +17,7 @@
     "assets:static-import": "tsx scripts/import-static-product-assets.ts",
     "assets:promote:staged": "tsx scripts/promote-staged-product-assets.ts",
     "assets:verify": "tsx scripts/verify-product-assets.ts",
+    "ops:seed-operator": "tsx scripts/seed-moderation-operator.ts",
     "assets:product:seed": "tsx scripts/seed-product-asset-metadata.ts",
     "assets:editorial:seed": "tsx scripts/seed-editorial-assets.ts",
     "assets:sync": "tsx scripts/sync-catalogue-assets.ts",
