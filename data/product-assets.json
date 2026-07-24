@@ -1,4 +1,23 @@
 {
+  "skin-by-zaron-vitamin-c-body-lotion-500ml": {
+    "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/09/vecg0cn6.png?fit=1200%2C1200&quality=80&ssl=1",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/skin-by-zaron/skin-by-zaron-vitamin-c-body-lotion-500ml/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 720229,
+    "importedAt": "2026-07-24T17:47:18.000Z",
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "fe43be4dfea2e70206903a674003a9ebcd4ffc969f3836993433990b1f230567",
+    "derivation": {
+      "kind": "source-pixel-isolation",
+      "tool": "IS-Net alpha extraction plus deterministic matte refinement",
+      "localPath": "/products/skin-by-zaron/skin-by-zaron-vitamin-c-body-lotion-500ml-transparent-v2.png",
+      "sourceCompared": true,
+      "reviewer": "Codex visual audit",
+      "reviewedAt": "2026-07-24T17:47:18.000Z"
+    }
+  },
   "cosrx-salicylic-acid-daily-gentle-cleanser": {
     "sourceUrl": "https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser/packshot-v2.png",

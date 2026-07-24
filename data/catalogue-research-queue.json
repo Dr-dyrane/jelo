@@ -194,33 +194,6 @@
     },
     {
       "rank": 7,
-      "discoveryId": "d4a8089af679b0a894a715be",
-      "title": "SKIN BY ZARON VITAMIN C (Brightening And Moisturizing) Body Lotion 500ml",
-      "brandHint": "SKIN BY ZARON",
-      "size": "500ml",
-      "categoryHint": "Body care",
-      "lane": "moisture-barrier",
-      "priorityScore": 180,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "06908137011095",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 8,
       "discoveryId": "0f6340275dfe1257901f0bf0",
       "title": "ESTELIN ALL IN ONE MULTI-DEFENSE Tinted Sunscreen SPF 70+++ 50g",
       "brandHint": "ESTELIN",
@@ -246,7 +219,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 9,
+      "rank": 8,
       "discoveryId": "73f96c6c3931cdc9b240b758",
       "title": "ESTELIN Ultra Light Hydrating Invisible Sunscreen SPF 50+++ 50g",
       "brandHint": "ESTELIN",
@@ -272,7 +245,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 10,
+      "rank": 9,
       "discoveryId": "f8248dfef755c72bc5ba70a1",
       "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
       "brandHint": "AQUA RICH",
@@ -299,7 +272,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 11,
+      "rank": 10,
       "discoveryId": "e0574c12b77f4a4eafd63ed0",
       "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
       "brandHint": "AQUA RICH",
@@ -326,7 +299,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 12,
+      "rank": 11,
       "discoveryId": "afc3e739a50618cbc48a6d2e",
       "title": "BEAUTY FORMULAS Glowing Serum 2% Vitamin C 30ml",
       "brandHint": "BEAUTY FORMULA",
@@ -353,7 +326,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 13,
+      "rank": 12,
       "discoveryId": "c7e76dd320bb3c521744597c",
       "title": "NIU SKIN Glowing (Niacinamide, Vitamin C And AHA) Body Wash 800ml",
       "brandHint": "NIU SKIN",
@@ -380,7 +353,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 14,
+      "rank": 13,
       "discoveryId": "41ed533ef6415b6cea8ea251",
       "title": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
       "brandHint": "SKIN BY ZARON",
@@ -407,7 +380,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 15,
+      "rank": 14,
       "discoveryId": "17bd496cb38c558d4e8a56f9",
       "title": "DR TEALS (Vitamin C And Citrus) Body Lotion with Essential oil 532ml",
       "brandHint": "DR",
@@ -434,7 +407,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 16,
+      "rank": 15,
       "discoveryId": "a12887c4eeb2718f9d17c5f5",
       "title": "FACEFACTS Kojic And Retinol Body Lotion 400ml",
       "brandHint": "FACEFACTS",
@@ -461,7 +434,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 17,
+      "rank": 16,
       "discoveryId": "2c6d463cc24ed30e0826c48f",
       "title": "FACEFACTS Vitamin C Body Lotion 400ml",
       "brandHint": "FACEFACTS",
@@ -488,7 +461,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "discoveryId": "9a010c0186b1418272fce5bb",
       "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
       "brandHint": "ADVANCED",
@@ -507,6 +480,32 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed",
         "formula-or-active-visible"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 18,
+      "discoveryId": "f1ebe655a947668241b4d240",
+      "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
+      "brandHint": "Advanced Korean Skin",
+      "size": "17.6 oz / 500ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 170,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "06156000469782",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
       ],
       "cautions": [
         "retailer-code-unverified"

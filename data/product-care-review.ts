@@ -24,6 +24,10 @@ const reviewedAt = '2026-07-22';
  * names must never substitute for a record here.
  */
 export const reviewedProductCareManifest = {
+  'skin-by-zaron-vitamin-c-body-lotion-500ml': {
+    productSlug: 'skin-by-zaron-vitamin-c-body-lotion-500ml',
+    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
+  },
   'cosrx-salicylic-acid-daily-gentle-cleanser': {
     productSlug: 'cosrx-salicylic-acid-daily-gentle-cleanser',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,

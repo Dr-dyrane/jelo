@@ -50,6 +50,14 @@ function approval(input: ApprovalInput): DisplayApproval {
 // extraction. These approvals bind both exact identity/source and the reviewed
 // image bytes. Any product, source, or file change fails closed.
 export const productDisplayApprovals = {
+  'skin-by-zaron-vitamin-c-body-lotion-500ml': approval({
+    brand: 'Skin by Zaron',
+    name: 'Vitamin C Brightening/Moisturizing Body Lotion',
+    size: '500 ml',
+    sourceUrl: 'https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/09/vecg0cn6.png?fit=1200%2C1200&quality=80&ssl=1',
+    contentHash: 'fe43be4dfea2e70206903a674003a9ebcd4ffc969f3836993433990b1f230567',
+    reviewedAt: '2026-07-24T17:47:18.000Z',
+  }),
   'cosrx-salicylic-acid-daily-gentle-cleanser': approval({
     brand: 'COSRX',
     name: 'Salicylic Acid Daily Gentle Cleanser',

@@ -66,5 +66,19 @@ export const expandedProducts: Product[] = [
     bestFor: ['persistent dandruff', 'itchy flaky scalp'], concerns: ['dandruff', 'itch', 'flaking', 'seborrheic dermatitis'], skinTypes: ['scalp'], sensitiveFriendly: true,
     usage: 'Use according to the package directions; leave on the scalp briefly before rinsing.', evidence: 'high',
     offers: [ngOffer('Jumia', 'https://www.jumia.com.ng/catalog/?q=nizoral+shampoo', 62), usOffer('Walmart', 'https://www.walmart.com/search?q=Nizoral+A-D+shampoo', 90)]
+  },
+  {
+    slug: 'skin-by-zaron-vitamin-c-body-lotion-500ml', brand: 'Skin by Zaron', name: 'Vitamin C Brightening/Moisturizing Body Lotion', size: '500 ml', category: 'Body', step: 'Moisturize',
+    image: 'https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/09/vecg0cn6.png?fit=1200%2C1200&quality=80&ssl=1', displayLine: 'Daily body moisture · 500 ml',
+    bestFor: [], concerns: [], skinTypes: [], sensitiveFriendly: false,
+    usage: 'Apply to clean skin. Can be used morning and evening.', evidence: 'emerging',
+    offers: [{
+      retailer: 'BuyBetter',
+      url: 'https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/',
+      trust: 78, available: true, priceNgn: 14800, checkedAt: '2026-07-22T18:27:03.806Z', match: 'exact',
+      listingEvidence: { observedAt: '2026-07-22T18:27:03.806Z', sourceUrl: 'https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/', basis: 'retailer-page' },
+      priceObservation: { observedAt: '2026-07-22T18:27:03.806Z', variant: 'Vitamin C Brightening/Moisturizing Body Lotion', size: '500 ml', stock: 'in-stock', landedCost: 'unknown' },
+      location: ['NG'],
+    }]
   }
 ];
