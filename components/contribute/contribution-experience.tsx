@@ -13,7 +13,7 @@ import {
   type ContributionKind,
   type IntakeEvent,
 } from '@/lib/community-intake/schema';
-import styles from '@/app/contribute/contribute.module.css';
+import styles from '@/app/(site)/contribute/contribute.module.css';
 
 type ContributionExperienceProps = {
   purposes: AdaptiveOption[];

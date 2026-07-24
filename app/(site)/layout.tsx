@@ -4,22 +4,22 @@ import { Italiana, Manrope } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SiteHeader } from '@/components/navigation/site-header';
 import { ThemeToggle } from '@/components/navigation/theme-toggle';
-import './globals.css';
-import './platform.css';
-import './consult-report.css';
-import './consult-sheet.css';
-import './ask-jelo-safety.css';
-import './evidence.css';
-import './barrier-report.css';
-import './timeline.css';
-import './trend-report.css';
-import './recommendation-audit.css';
-import './storefront.css';
-import './product-experience.css';
-import './product-panel.css';
-import './concern-detail.css';
-import './trust.css';
-import './interaction.css';
+import '../globals.css';
+import '../platform.css';
+import '../consult-report.css';
+import '../consult-sheet.css';
+import '../ask-jelo-safety.css';
+import '../evidence.css';
+import '../barrier-report.css';
+import '../timeline.css';
+import '../trend-report.css';
+import '../recommendation-audit.css';
+import '../storefront.css';
+import '../product-experience.css';
+import '../product-panel.css';
+import '../concern-detail.css';
+import '../trust.css';
+import '../interaction.css';
 
 const display = Italiana({ weight: '400', subsets: ['latin'], variable: '--font-display' });
 const sans = Manrope({ subsets: ['latin'], variable: '--font-sans' });
@@ -66,7 +66,7 @@ export const viewport: Viewport = {
 // overrides from ever applying on a dark-OS machine.
 const themeScript = `(function(){try{var t=localStorage.getItem('jelo-theme');var m=t==='dark'?'dark':'light';var e=document.documentElement;e.setAttribute('data-theme',m);e.style.colorScheme=m;}catch(err){var e=document.documentElement;e.setAttribute('data-theme','light');e.style.colorScheme='light';}})();`;
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>

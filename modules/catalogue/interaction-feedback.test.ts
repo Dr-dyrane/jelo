@@ -5,20 +5,20 @@ import test from 'node:test';
 
 test('catalogue and concern filters acknowledge changes and stay reversible', async () => {
   const root = process.cwd();
-  const catalogue = await readFile(path.join(root, 'app/products/page.tsx'), 'utf8');
+  const catalogue = await readFile(path.join(root, 'app/(site)/products/page.tsx'), 'utf8');
   const feedback = await readFile(path.join(root, 'components/products/filter-feedback-actions.tsx'), 'utf8');
   const tracker = await readFile(path.join(root, 'components/products/catalogue-transition-tracker.tsx'), 'utf8');
   const sheet = await readFile(path.join(root, 'components/products/inventory-filter-sheet.tsx'), 'utf8');
   const search = await readFile(path.join(root, 'components/products/catalogue-search.tsx'), 'utf8');
   const searchStyles = await readFile(path.join(root, 'components/products/catalogue-search.module.css'), 'utf8');
   const concerns = await readFile(path.join(root, 'components/concerns/concern-selector.tsx'), 'utf8');
-  const concernsPage = await readFile(path.join(root, 'app/concerns/page.tsx'), 'utf8');
-  const concernGuide = await readFile(path.join(root, 'app/concerns/[slug]/page.tsx'), 'utf8');
+  const concernsPage = await readFile(path.join(root, 'app/(site)/concerns/page.tsx'), 'utf8');
+  const concernGuide = await readFile(path.join(root, 'app/(site)/concerns/[slug]/page.tsx'), 'utf8');
   const productPanel = await readFile(path.join(root, 'components/products/product-quick-panel.tsx'), 'utf8');
   const navigation = await readFile(path.join(root, 'components/navigation/site-header.tsx'), 'utf8');
-  const layout = await readFile(path.join(root, 'app/layout.tsx'), 'utf8');
-  const catalogueStyles = await readFile(path.join(root, 'app/products/products.module.css'), 'utf8');
-  const catalogueMotion = await readFile(path.join(root, 'app/products/catalogue-feedback.module.css'), 'utf8');
+  const layout = await readFile(path.join(root, 'app/(site)/layout.tsx'), 'utf8');
+  const catalogueStyles = await readFile(path.join(root, 'app/(site)/products/products.module.css'), 'utf8');
+  const catalogueMotion = await readFile(path.join(root, 'app/(site)/products/catalogue-feedback.module.css'), 'utf8');
   const concernMotion = await readFile(path.join(root, 'components/concerns/concern-feedback.module.css'), 'utf8');
 
   assert.match(feedback, /role="status" aria-live="polite"/);

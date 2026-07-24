@@ -140,8 +140,8 @@ test('supportive source filtering stays limited to reviewed eligible products', 
 
 test('browse surfaces separate neutral records from supportive use', async () => {
   const [home, productsPage, productCard, inventoryCard, productExperience, storefront, filterSheet, filterStyles] = await Promise.all([
-    readFile(path.join(process.cwd(), 'app/page.tsx'), 'utf8'),
-    readFile(path.join(process.cwd(), 'app/products/page.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'app/(site)/page.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'app/(site)/products/page.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/product-card.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/inventory-card.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/product-experience.css'), 'utf8'),

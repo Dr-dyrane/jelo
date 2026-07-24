@@ -7,9 +7,9 @@ test('retailer partnerships stay private until a deliberate catalogue review', a
   const root = process.cwd();
   const migration = await readFile(path.join(root, 'db/migrations/0016_retailer_partnership_intake.sql'), 'utf8');
   const repository = await readFile(path.join(root, 'lib/retailer-partnership/repository.ts'), 'utf8');
-  const page = await readFile(path.join(root, 'app/retailers/page.tsx'), 'utf8');
+  const page = await readFile(path.join(root, 'app/(site)/retailers/page.tsx'), 'utf8');
   const experience = await readFile(path.join(root, 'components/retailers/retailer-partnership-experience.tsx'), 'utf8');
-  const layout = await readFile(path.join(root, 'app/layout.tsx'), 'utf8');
+  const layout = await readFile(path.join(root, 'app/(site)/layout.tsx'), 'utf8');
   const magicRoute = await readFile(path.join(root, 'app/api/retailers/magic/route.ts'), 'utf8');
   const mailer = await readFile(path.join(root, 'lib/email/mailer.ts'), 'utf8');
 

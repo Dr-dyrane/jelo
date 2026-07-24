@@ -6,6 +6,29 @@ function boundedLimit(limit: number) {
   return Math.min(Math.max(Math.trunc(limit), 1), 500);
 }
 
+export type QueueCounts = {
+  contributions: number;
+  edges: number;
+  observations: number;
+  values: number;
+  retailers: number;
+  signals: number;
+};
+
+// Pending counts for the console overview, in one round-trip. Read-only.
+export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
+  const [row] = await sql<QueueCounts[]>`
+    select
+      (select count(*) from community_contributions where moderation_status = 'pending')::int as contributions,
+      (select count(*) from community_knowledge_edges where moderation_status = 'pending')::int as edges,
+      (select count(*) from community_observations where moderation_status = 'pending')::int as observations,
+      (select count(*) from community_moderation_values where status = 'pending')::int as values,
+      (select count(*) from retailer_partnership_applications where status = 'submitted')::int as retailers,
+      (select count(*) from commerce_events)::int as signals
+  `;
+  return row;
+}
+
 // Read-only views of the moderation queues (ADR 0005 / 0007). Moderation input
 // only: these read pending rows and never write, promote, or touch a canonical
 // catalogue record. Timestamps are cast to text so the driver returns stable

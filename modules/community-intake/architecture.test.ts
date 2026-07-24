@@ -10,12 +10,12 @@ test('community intake stays separated from canonical data and public media', as
   const observationsMigration = await readFile(path.join(root, 'db/migrations/0018_community_observations.sql'), 'utf8');
   const repository = await readFile(path.join(root, 'lib/community-intake/repository.ts'), 'utf8');
   const security = await readFile(path.join(root, 'lib/community-intake/security.ts'), 'utf8');
-  const page = await readFile(path.join(root, 'app/contribute/page.tsx'), 'utf8');
+  const page = await readFile(path.join(root, 'app/(site)/contribute/page.tsx'), 'utf8');
   const trustSignals = await readFile(
     path.join(root, 'components/contribute/contribution-trust-signals.tsx'),
     'utf8',
   );
-  const contributeStyles = await readFile(path.join(root, 'app/contribute/contribute.module.css'), 'utf8');
+  const contributeStyles = await readFile(path.join(root, 'app/(site)/contribute/contribute.module.css'), 'utf8');
   const selector = await readFile(path.join(root, 'components/ui/adaptive-selector.tsx'), 'utf8');
   const adr = await readFile(path.join(root, 'docs/adr/0002-anonymous-community-knowledge-intake.md'), 'utf8');
 

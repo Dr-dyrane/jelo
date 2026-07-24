@@ -3,7 +3,7 @@
 import { CircleCheck, RotateCcw, X } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useSyncExternalStore } from 'react';
-import feedbackStyles from '@/app/products/catalogue-feedback.module.css';
+import feedbackStyles from '@/app/(site)/products/catalogue-feedback.module.css';
 import { catalogueTransitionMessage } from '@/lib/catalogue/catalogue-interactions';
 import { getCatalogueTransitionSnapshot, subscribeCatalogueTransition } from './catalogue-transition-tracker';
 import styles from './filter-feedback-actions.module.css';

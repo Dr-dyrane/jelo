@@ -10,7 +10,7 @@ export const OG_SIZE = { width: 1200, height: 630 };
 
 // The self-hosted OG fonts live beside the share route; this exact fs path is the
 // one proven to bundle into the serverless function in production.
-const fontDir = join(process.cwd(), 'app', 'share', '[slug]', '_og');
+const fontDir = join(process.cwd(), 'app', '(site)', 'share', '[slug]', '_og');
 
 export async function loadOgFonts() {
   const [italiana, manrope, manropeSemibold] = await Promise.all([

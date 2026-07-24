@@ -45,8 +45,8 @@ Rejected here: a bespoke email/password system (needless credential storage and 
 ## Build status
 
 - **Increment 1 (shipped):** the safety spine. Migration `0020_moderation_operations.sql` adds the `moderation_operators` allowlist and the append-only `moderation_audit_log`. `lib/moderation/` holds a strict action schema, a transaction-scoped `recordModerationAction` audit writer, a deny-by-default access guard (`operatorAuthSubject` returns null until Neon Auth is wired; authorization is an active-allowlist lookup), and the first read-only queue view (`listPendingObservations`). `modules/moderation/architecture.test.ts` enforces that the module writes only the audit log, never a canonical record, and defaults access to deny. No route is exposed yet.
-- **Increment 2 (next):** the internal console route group behind the guard, with the per-queue triage views.
-- **Increment 3:** wire Neon Auth (needs the Neon-console setup and real env values) so `operatorAuthSubject` returns a verified subject.
+- **Increment 2 (read-only console shipped):** the public app moved into an `app/(site)/` route group with its own root layout, and a separate `app/(ops)/` root layout gives the console its own shell (no public header, footer, or Analytics). `/ops` and its six queue pages (contributions, edges, observations, vocabulary, retailers, and a read-only commerce-signals view) each call `requireConsoleOperator` first — a `notFound()` on deny, so the console 404s for everyone until Neon Auth is wired. The read layer (`lib/moderation/queues.ts`) and gated status-change writers (`lib/moderation/transitions.ts`) back it. Triage *actions* (the write forms/server actions) are the remaining increment-2 slice.
+- **Increment 3:** wire Neon Auth (Managed Better Auth per the env — reconcile the section above) so `operatorAuthSubject` returns a verified subject; needs the Neon-console setup and real env values.
 
 ## Alternatives rejected
 

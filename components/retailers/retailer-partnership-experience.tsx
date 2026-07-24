@@ -9,7 +9,7 @@ import {
   retailerPartnershipDraftSchema,
   type RetailerPartnershipDraft,
 } from '@/lib/retailer-partnership/schema';
-import styles from '@/app/retailers/retailers.module.css';
+import styles from '@/app/(site)/retailers/retailers.module.css';
 
 type FlowStep = 'store' | 'channels' | 'location' | 'contact' | 'online' | 'brands' | 'services' | 'review';
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';

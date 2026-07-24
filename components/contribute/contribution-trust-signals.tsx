@@ -2,7 +2,7 @@
 
 import { Heart, ShieldCheck, Timer } from 'lucide-react';
 import type { MouseEvent } from 'react';
-import styles from '@/app/contribute/contribute.module.css';
+import styles from '@/app/(site)/contribute/contribute.module.css';
 
 const signals = [
   { id: 'anonymous', icon: ShieldCheck, title: 'Anonymous' },

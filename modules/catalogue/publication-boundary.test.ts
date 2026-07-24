@@ -141,7 +141,7 @@ test('a projected dossier release appears once and keeps reconciled database off
 });
 
 test('outbound redirects resolve through the same reconciled catalogue', async () => {
-  const route = await readFile(path.join(process.cwd(), 'app/go/route.ts'), 'utf8');
+  const route = await readFile(path.join(process.cwd(), 'app/(site)/go/route.ts'), 'utf8');
 
   assert.match(route, /await findCatalogueProduct\(productSlug\)/);
   assert.doesNotMatch(route, /import \{ products \} from '@\/data\/catalogue'/);
