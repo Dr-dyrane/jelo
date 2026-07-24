@@ -39,6 +39,14 @@ test('a non-NG offer is not shareable', () => {
   assert.equal(isShareableNgOffer(observed({ ...base, location: ['US'] } as Offer), now), false);
 });
 
+test('an out-of-stock offer is not shareable', () => {
+  assert.equal(isShareableNgOffer(observed({ ...base, available: false } as Offer), now), false);
+});
+
+test('a price flagged priceComparison:exclude is not shareable', () => {
+  assert.equal(isShareableNgOffer(observed({ ...base, priceComparison: 'exclude' } as Offer), now), false);
+});
+
 test('a stale offer is not shareable', () => {
   assert.equal(isShareableNgOffer(observed(base as Offer), new Date('2026-07-30T12:00:00Z')), false);
 });
