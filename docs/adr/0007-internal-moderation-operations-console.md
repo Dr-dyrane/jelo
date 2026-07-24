@@ -42,6 +42,12 @@ Rejected here: a bespoke email/password system (needless credential storage and 
 - New dependencies (see [Authentication](#authentication)): wiring the already-provisioned Neon Auth, a Neon audit-log table keyed to `neon_auth.users_sync`, and an operator-role allowlist. No new auth vendor and no password storage.
 - It does **not** authorize any public community feature. [ADR 0001](0001-deferred-trust-collections-community-and-stock-alerts.md) stays in force: no public accounts, ratings, comments, stories, or alerts. This is an internal operations tool only.
 
+## Build status
+
+- **Increment 1 (shipped):** the safety spine. Migration `0020_moderation_operations.sql` adds the `moderation_operators` allowlist and the append-only `moderation_audit_log`. `lib/moderation/` holds a strict action schema, a transaction-scoped `recordModerationAction` audit writer, a deny-by-default access guard (`operatorAuthSubject` returns null until Neon Auth is wired; authorization is an active-allowlist lookup), and the first read-only queue view (`listPendingObservations`). `modules/moderation/architecture.test.ts` enforces that the module writes only the audit log, never a canonical record, and defaults access to deny. No route is exposed yet.
+- **Increment 2 (next):** the internal console route group behind the guard, with the per-queue triage views.
+- **Increment 3:** wire Neon Auth (needs the Neon-console setup and real env values) so `operatorAuthSubject` returns a verified subject.
+
 ## Alternatives rejected
 
 - **Continue operator-only database tooling.** Does not scale, leaves no audit trail, and makes every canonical promotion an error-prone manual query.
