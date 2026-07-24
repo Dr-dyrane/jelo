@@ -24,7 +24,7 @@
 }
 
 .search:focus-within {
-  box-shadow: 0 0 0 2px #6b3b35, 0 16px 46px rgba(78, 49, 43, .09);
+  box-shadow: 0 0 0 2px var(--wine), 0 16px 46px rgba(78, 49, 43, .09);
 }
 
 .search input {
@@ -144,7 +144,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
-  background: linear-gradient(145deg, #fff9f5, #f4d7d5);
+  background: linear-gradient(145deg, var(--card-2), #f4d7d5);
   box-shadow: 0 20px 58px rgba(112, 71, 61, .08);
   scroll-margin-top: 6rem;
   animation: ingredient-in .24s ease both;
@@ -315,7 +315,7 @@
   flex-direction: column;
   overflow: hidden;
   border-radius: 2.25rem 0 0 2.25rem;
-  background: #fff8f4;
+  background: var(--card);
   box-shadow: -24px 0 80px rgba(64, 38, 33, .18);
 }
 
@@ -511,7 +511,7 @@
 .empty button:focus-visible,
 .sheetHeader button:focus-visible,
 .product a:focus-visible {
-  outline: 2px solid #6b3b35;
+  outline: 2px solid var(--wine);
   outline-offset: 2px;
 }
 
@@ -636,7 +636,7 @@
 
 @media (prefers-reduced-transparency: reduce) {
   .search {
-    background: #fffdf9;
+    background: var(--paper);
     backdrop-filter: none;
   }
 
@@ -648,6 +648,78 @@
 
 @supports not (backdrop-filter: blur(1px)) {
   .search {
-    background: #fffdf9;
+    background: var(--paper);
   }
+}
+
+/* dark theme */
+:global(html[data-theme="dark"]) .search { background: rgba(36, 29, 27, .84); color: var(--muted); }
+:global(html[data-theme="dark"]) .search input::placeholder { color: var(--muted); }
+:global(html[data-theme="dark"]) .search button { background: rgba(138, 95, 87, .5); color: var(--ink); }
+:global(html[data-theme="dark"]) .views { background: rgba(36, 29, 27, .58); }
+:global(html[data-theme="dark"]) .views button { color: var(--muted); }
+:global(html[data-theme="dark"]) .views button[aria-pressed='true'] { color: #3d2725; }
+:global(html[data-theme="dark"]) .views button:not([aria-pressed='true']) span { background: rgba(255, 255, 255, .12); }
+:global(html[data-theme="dark"]) .resultBar button { background: rgba(36, 29, 27, .65); color: var(--ink); }
+:global(html[data-theme="dark"]) .card { background: linear-gradient(145deg, rgba(36, 29, 27, .95), rgba(122, 86, 72, .45)); }
+:global(html[data-theme="dark"]) .card:nth-child(3n + 2) { background: linear-gradient(145deg, rgba(36, 29, 27, .95), rgba(122, 86, 72, .4)); }
+:global(html[data-theme="dark"]) .card:nth-child(3n + 3) { background: linear-gradient(145deg, rgba(36, 29, 27, .95), rgba(138, 95, 87, .45)); }
+:global(html[data-theme="dark"]) .cardTop p { color: var(--wine); }
+:global(html[data-theme="dark"]) .cardTop span { background: rgba(36, 29, 27, .5); color: var(--muted); }
+:global(html[data-theme="dark"]) .inci { color: var(--muted); }
+:global(html[data-theme="dark"]) .summary { color: var(--muted); }
+:global(html[data-theme="dark"]) .cardFooter > span { color: var(--muted); }
+:global(html[data-theme="dark"]) .cardFooter button { background: rgba(36, 29, 27, .6); color: var(--ink); }
+:global(html[data-theme="dark"]) .empty { background: linear-gradient(145deg, rgba(36, 29, 27, .85), rgba(122, 86, 72, .5)); }
+:global(html[data-theme="dark"]) .empty > p { color: var(--wine); }
+:global(html[data-theme="dark"]) .empty button { color: var(--cream); }
+:global(html[data-theme="dark"]) .sheetHeader p { color: var(--wine); }
+:global(html[data-theme="dark"]) .sheetHeader span { color: var(--muted); }
+:global(html[data-theme="dark"]) .sheetHeader > button { background: var(--surface-2); color: var(--ink); }
+:global(html[data-theme="dark"]) .sheetSummary { color: var(--muted); }
+:global(html[data-theme="dark"]) .signals div { background: var(--surface-2); }
+:global(html[data-theme="dark"]) .signals div:nth-child(2) { background: rgba(138, 95, 87, .4); }
+:global(html[data-theme="dark"]) .signals dt { color: var(--muted); }
+:global(html[data-theme="dark"]) .signals dd { color: var(--ink); }
+:global(html[data-theme="dark"]) .productHeading span { color: var(--muted); }
+:global(html[data-theme="dark"]) .product { background: var(--surface-2); }
+:global(html[data-theme="dark"]) .product span { color: var(--muted); }
+:global(html[data-theme="dark"]) .product strong { color: var(--ink); }
+:global(html[data-theme="dark"]) .product > a:last-child { background: rgba(36, 29, 27, .7); color: var(--ink); }
+:global(html[data-theme="dark"]) .sheetNote { color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .search { background: rgba(36, 29, 27, .84); color: var(--muted); }
+  :global(html:not([data-theme="light"])) .search input::placeholder { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .search button { background: rgba(138, 95, 87, .5); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .views { background: rgba(36, 29, 27, .58); }
+  :global(html:not([data-theme="light"])) .views button { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .views button[aria-pressed='true'] { color: #3d2725; }
+  :global(html:not([data-theme="light"])) .views button:not([aria-pressed='true']) span { background: rgba(255, 255, 255, .12); }
+  :global(html:not([data-theme="light"])) .resultBar button { background: rgba(36, 29, 27, .65); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .card { background: linear-gradient(145deg, rgba(36, 29, 27, .95), rgba(122, 86, 72, .45)); }
+  :global(html:not([data-theme="light"])) .card:nth-child(3n + 2) { background: linear-gradient(145deg, rgba(36, 29, 27, .95), rgba(122, 86, 72, .4)); }
+  :global(html:not([data-theme="light"])) .card:nth-child(3n + 3) { background: linear-gradient(145deg, rgba(36, 29, 27, .95), rgba(138, 95, 87, .45)); }
+  :global(html:not([data-theme="light"])) .cardTop p { color: var(--wine); }
+  :global(html:not([data-theme="light"])) .cardTop span { background: rgba(36, 29, 27, .5); color: var(--muted); }
+  :global(html:not([data-theme="light"])) .inci { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .summary { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .cardFooter > span { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .cardFooter button { background: rgba(36, 29, 27, .6); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .empty { background: linear-gradient(145deg, rgba(36, 29, 27, .85), rgba(122, 86, 72, .5)); }
+  :global(html:not([data-theme="light"])) .empty > p { color: var(--wine); }
+  :global(html:not([data-theme="light"])) .empty button { color: var(--cream); }
+  :global(html:not([data-theme="light"])) .sheetHeader p { color: var(--wine); }
+  :global(html:not([data-theme="light"])) .sheetHeader span { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .sheetHeader > button { background: var(--surface-2); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .sheetSummary { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .signals div { background: var(--surface-2); }
+  :global(html:not([data-theme="light"])) .signals div:nth-child(2) { background: rgba(138, 95, 87, .4); }
+  :global(html:not([data-theme="light"])) .signals dt { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .signals dd { color: var(--ink); }
+  :global(html:not([data-theme="light"])) .productHeading span { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .product { background: var(--surface-2); }
+  :global(html:not([data-theme="light"])) .product span { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .product strong { color: var(--ink); }
+  :global(html:not([data-theme="light"])) .product > a:last-child { background: rgba(36, 29, 27, .7); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .sheetNote { color: var(--muted); }
 }

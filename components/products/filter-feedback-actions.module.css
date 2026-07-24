@@ -1,1 +1,9 @@
 .actions{margin-left:auto;display:flex;align-items:center;gap:.35rem}.actions a{min-height:2.35rem;padding:.6rem .75rem;display:inline-flex;align-items:center;gap:.3rem;border-radius:999px;background:rgba(255,253,249,.78);color:#4b332f;font-size:.67rem}.actions a.clear{background:#2d211f;color:#fff}@media(max-width:760px){.actions{width:100%;margin-left:0}.actions a{justify-content:center;flex:1}}
+
+/* dark theme */
+:global(html[data-theme="dark"]) .actions a{background:rgba(36,29,27,.78);color:var(--ink)}
+:global(html[data-theme="dark"]) .actions a.clear{background:var(--accent-solid);color:var(--on-accent)}
+@media(prefers-color-scheme:dark){
+  :global(html:not([data-theme="light"])) .actions a{background:rgba(36,29,27,.78);color:var(--ink)}
+  :global(html:not([data-theme="light"])) .actions a.clear{background:var(--accent-solid);color:var(--on-accent)}
+}

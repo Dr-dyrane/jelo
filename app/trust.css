@@ -49,3 +49,11 @@
   .footer-brand { grid-column: 1 / -1; }
   .footer-legal { flex-direction: column; }
 }
+
+/* dark theme: a restrained warm glow fading to the page ground. The light-mode
+   peach start (#7a5648, luminance .12) only cleared 2.7:1 for muted text; this warm-dark
+   start clears ~5.6:1 while keeping the footer's warmth. */
+html[data-theme="dark"] .site-footer { background: linear-gradient(135deg, #3a2a26, var(--cream) 58%); }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .site-footer { background: linear-gradient(135deg, #3a2a26, var(--cream) 58%); }
+}

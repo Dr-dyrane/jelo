@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Italiana, Manrope } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SiteHeader } from '@/components/navigation/site-header';
+import { ThemeToggle } from '@/components/navigation/theme-toggle';
 import './globals.css';
 import './platform.css';
 import './consult-report.css';
@@ -53,14 +54,20 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#f29c85',
-  colorScheme: 'light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f29c85' },
+    { media: '(prefers-color-scheme: dark)', color: '#191413' },
+  ],
+  colorScheme: 'light dark',
 };
+
+const themeScript = `(function(){try{var t=localStorage.getItem('jelo-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`} data-scroll-behavior="smooth">
+    <html lang="en" className={`${display.variable} ${sans.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <SiteHeader />
         {children}
         <footer className="site-footer">
@@ -84,6 +91,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <a href="mailto:hello@jelocare.com?subject=JeloCare%20affiliate%20partnership">Affiliate enquiries</a>
           </div>
           <div className="footer-legal">
+            <ThemeToggle />
             <span>© {new Date().getFullYear()} Dyrane · Guidance, not diagnosis.</span>
           </div>
         </footer>

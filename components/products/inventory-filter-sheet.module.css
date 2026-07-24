@@ -62,7 +62,7 @@
   flex-direction: column;
   overflow: auto;
   border-radius: 2rem 0 0 2rem;
-  background: #fff9f5;
+  background: var(--card-2);
   box-shadow: -24px 0 80px rgba(64, 38, 33, .18);
 }
 
@@ -146,7 +146,7 @@
   box-shadow: 0 10px 24px rgba(112, 71, 61, .1);
 }
 
-.options input:focus-visible + span { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.options input:focus-visible + span { outline: 2px solid var(--wine); outline-offset: 2px; }
 .sectionHint { margin: -.25rem 0 .7rem; color: #67524c; font-size: .65rem; }
 .selectGrid { display: grid; gap: .55rem; }
 .companyField {
@@ -165,7 +165,7 @@
 }
 .companyField > span { font-size: .67rem; }
 .companyField strong { min-width: 0; overflow: hidden; color: #382724; font-size: .7rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
-.companyField:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.companyField:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
 .sheet .companyHeader { align-items: center; }
 .companyHeader > div { flex: 1; }
 .companySearch {
@@ -178,7 +178,7 @@
   background: #f4e8e3;
   color: #705b55;
 }
-.companySearch:focus-within { box-shadow: 0 0 0 2px #6b3b35; }
+.companySearch:focus-within { box-shadow: 0 0 0 2px var(--wine); }
 .companySearch input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #382724; font: inherit; font-size: .78rem; }
 .companyList { display: grid; gap: .45rem; }
 .companyList > button {
@@ -196,7 +196,7 @@
   cursor: pointer;
 }
 .companyList > button.companySelected { background: #f0c6ca; color: #3b2523; }
-.companyList > button:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.companyList > button:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
 .companyList span { min-width: 0; display: grid; gap: .2rem; }
 .companyList strong { overflow: hidden; font-size: .72rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
 .companyList small { color: #67524c; font-size: .6rem; }
@@ -226,7 +226,7 @@
   text-decoration: none;
 }
 .guideOnly > a:focus-visible,
-.allGuides:focus-visible { outline: 2px solid #6b3b35; outline-offset: 2px; }
+.allGuides:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
 .allGuides { margin-top: auto; background: transparent; color: #684a45; }
 .sheet footer {
   position: sticky;
@@ -237,7 +237,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  background: linear-gradient(180deg, transparent, #fff9f5 28%);
+  background: linear-gradient(180deg, transparent, var(--card-2) 28%);
 }
 
 .sheet footer a { padding: .8rem; color: #684a45; font-size: .75rem; }
@@ -259,7 +259,55 @@
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .trigger { background: #fffdf9; backdrop-filter: none; }
+  .trigger { background: var(--paper); backdrop-filter: none; }
   .dialog::backdrop,
   .dialog[data-fallback-modal="true"] { background: rgba(43, 28, 25, .58); backdrop-filter: none; }
+}
+
+/* dark theme */
+:global(html[data-theme="dark"]) .trigger { background: rgba(36, 29, 27, .82); color: var(--ink); }
+:global(html[data-theme="dark"]) .sheet header small { color: var(--wine); }
+:global(html[data-theme="dark"]) .sheet header p { color: var(--muted); }
+:global(html[data-theme="dark"]) .sheet header button { background: var(--surface-2); color: var(--ink); }
+:global(html[data-theme="dark"]) .sheet legend { color: var(--muted); }
+:global(html[data-theme="dark"]) .options span { background: var(--surface-2); color: var(--ink); }
+:global(html[data-theme="dark"]) .options input:checked + span { background: #f0c6ca; color: #3b2523; }
+:global(html[data-theme="dark"]) .sectionHint { color: var(--muted); }
+:global(html[data-theme="dark"]) .companyField { background: var(--surface-2); color: var(--muted); }
+:global(html[data-theme="dark"]) .companyField strong { color: var(--ink); }
+:global(html[data-theme="dark"]) .companySearch { background: var(--surface-2); color: var(--muted); }
+:global(html[data-theme="dark"]) .companySearch input { color: var(--ink); }
+:global(html[data-theme="dark"]) .companyList > button { background: var(--surface-2); color: var(--ink); }
+:global(html[data-theme="dark"]) .companyList > button.companySelected { background: #f0c6ca; color: #3b2523; }
+:global(html[data-theme="dark"]) .companyList small { color: var(--muted); }
+:global(html[data-theme="dark"]) .companyEmpty { color: var(--muted); }
+:global(html[data-theme="dark"]) .concernNote { color: var(--muted); }
+:global(html[data-theme="dark"]) .guideOnly > p { color: var(--muted); }
+:global(html[data-theme="dark"]) .guideOnly > a { background: rgba(36, 29, 27, .5); color: var(--ink); }
+:global(html[data-theme="dark"]) .allGuides { color: var(--muted); }
+:global(html[data-theme="dark"]) .sheet footer a { color: var(--muted); }
+:global(html[data-theme="dark"]) .sheet footer button { background: var(--accent-solid); color: var(--on-accent); }
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .trigger { background: rgba(36, 29, 27, .82); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .sheet header small { color: var(--wine); }
+  :global(html:not([data-theme="light"])) .sheet header p { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .sheet header button { background: var(--surface-2); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .sheet legend { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .options span { background: var(--surface-2); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .options input:checked + span { background: #f0c6ca; color: #3b2523; }
+  :global(html:not([data-theme="light"])) .sectionHint { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .companyField { background: var(--surface-2); color: var(--muted); }
+  :global(html:not([data-theme="light"])) .companyField strong { color: var(--ink); }
+  :global(html:not([data-theme="light"])) .companySearch { background: var(--surface-2); color: var(--muted); }
+  :global(html:not([data-theme="light"])) .companySearch input { color: var(--ink); }
+  :global(html:not([data-theme="light"])) .companyList > button { background: var(--surface-2); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .companyList > button.companySelected { background: #f0c6ca; color: #3b2523; }
+  :global(html:not([data-theme="light"])) .companyList small { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .companyEmpty { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .concernNote { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .guideOnly > p { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .guideOnly > a { background: rgba(36, 29, 27, .5); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .allGuides { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .sheet footer a { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .sheet footer button { background: var(--accent-solid); color: var(--on-accent); }
 }

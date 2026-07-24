@@ -192,7 +192,7 @@
 .menuSheet{
   width:100%;
   max-height:calc(100dvh - 1.5rem);
-  padding:1.15rem;
+  padding:1.15rem .55rem;
   overflow:auto;
   border-radius:1.9rem;
   background:linear-gradient(145deg,rgba(255,253,249,.98),rgba(248,220,226,.96));
@@ -384,4 +384,30 @@
   .menuDialog::backdrop,.menuDialog[data-fallback-modal="true"]{
     backdrop-filter:none;
   }
+}
+
+/* dark theme */
+:global(html[data-theme="dark"]) .scrolled{background:rgba(36,29,27,.78)}
+:global(html[data-theme="dark"]) .menuSheet{background:linear-gradient(145deg,rgba(36,29,27,.98),rgba(122,86,72,.9))}
+:global(html[data-theme="dark"]) .menuHeading button{background:rgba(36,29,27,.7)}
+:global(html[data-theme="dark"]) .mobileLinks>a{background:rgba(36,29,27,.64)}
+:global(html[data-theme="dark"]) .mobileLinks>a[aria-current="page"]{background:rgba(138,95,87,.55)}
+:global(html[data-theme="dark"]) .mobileLinks>a[aria-current="page"] small{color:rgba(255,255,255,.78)}
+:global(html[data-theme="dark"]) .homeHeader{background:rgba(36,29,27,.66)}
+:global(html[data-theme="dark"]) .homeHeader.searchOpen .inlineSearch{background:rgba(36,29,27,.78)}
+@media(prefers-color-scheme:dark){
+  :global(html:not([data-theme="light"])) .scrolled{background:rgba(36,29,27,.78)}
+  :global(html:not([data-theme="light"])) .menuSheet{background:linear-gradient(145deg,rgba(36,29,27,.98),rgba(122,86,72,.9))}
+  :global(html:not([data-theme="light"])) .menuHeading button{background:rgba(36,29,27,.7)}
+  :global(html:not([data-theme="light"])) .mobileLinks>a{background:rgba(36,29,27,.64)}
+  :global(html:not([data-theme="light"])) .mobileLinks>a[aria-current="page"]{background:rgba(138,95,87,.55)}
+  :global(html:not([data-theme="light"])) .mobileLinks>a[aria-current="page"] small{color:rgba(255,255,255,.78)}
+  :global(html:not([data-theme="light"])) .homeHeader{background:rgba(36,29,27,.66)}
+  :global(html:not([data-theme="light"])) .homeHeader.searchOpen .inlineSearch{background:rgba(36,29,27,.78)}
+}
+@media(prefers-reduced-transparency:reduce){
+  :global(html[data-theme="dark"]) .header{background:rgba(36,29,27,.9)}
+}
+@media(prefers-reduced-transparency:reduce) and (prefers-color-scheme:dark){
+  :global(html:not([data-theme="light"])) .header{background:rgba(36,29,27,.9)}
 }

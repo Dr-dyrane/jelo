@@ -4,6 +4,18 @@
   --product-blush: #f3d8ca;
   --product-dark: #392825;
 }
+:root[data-theme="dark"] {
+  --product-peach: #2a201d;
+  --product-pink: #2a1e22;
+  --product-blush: #2c211c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --product-peach: #2a201d;
+    --product-pink: #2a1e22;
+    --product-blush: #2c211c;
+  }
+}
 
 .product-visual,
 .product-visual-large {
@@ -59,7 +71,7 @@
 
 .product-decision-guide {
   padding: clamp(5rem, 9vw, 9rem) 4vw;
-  background: #fffaf6;
+  background: var(--wash-a);
 }
 
 .product-decision-heading {
@@ -138,7 +150,7 @@
   grid-template-columns: minmax(0, .8fr) minmax(30rem, 1.2fr);
   gap: 5vw;
   align-items: center;
-  background: linear-gradient(135deg, #f4d4c5, #fbf3ed);
+  background: linear-gradient(135deg, var(--peach), var(--cream));
 }
 
 .ingredient-disclosure {
@@ -290,4 +302,24 @@
   .retailer-arrow { grid-column: 3; grid-row: 1 / 3; }
   .market-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   .market-summary-notes { margin: 0; grid-column: 1 / -1; justify-items: start; }
+}
+
+.retailer-foot { margin-top: 1rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.retailer-foot .retailer-disclosure { margin: 0; }
+
+/* a11y: 44px hit area (out of flow, no reflow) + keyboard focus on rail controls */
+.retailer-channel-filter button, .retailer-market button, .product-panel-tabs button { position: relative; }
+.retailer-channel-filter button::after, .retailer-market button::after, .product-panel-tabs button::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%);
+}
+.retailer-channel-filter button:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }
+
+/* dark theme: the channel-filter track is a light literal and the active pill is
+   `background:var(--ink);color:#fff` — in dark that flips to a light pill with white
+   text (invisible). Darken the track; give the active pill dark text on its light ground. */
+html[data-theme="dark"] .retailer-channel-filter { background: rgba(255, 255, 255, .08); }
+html[data-theme="dark"] .retailer-channel-filter button.active { color: var(--cream); }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .retailer-channel-filter { background: rgba(255, 255, 255, .08); }
+  html:not([data-theme="light"]) .retailer-channel-filter button.active { color: var(--cream); }
 }

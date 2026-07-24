@@ -1,1 +1,11 @@
 .pagination{margin-top:3rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem}.pagination>a{display:inline-flex;align-items:center;gap:.4rem;color:#5f4641;font-size:.75rem}.pagination>a:last-child{justify-self:end}.pagination>div{display:flex;align-items:center;gap:.2rem}.pagination>div>span{display:flex;align-items:center}.pagination i{padding:.4rem;color:#8d7a74;font-style:normal}.pagination>div a{width:2.45rem;height:2.45rem;display:grid;place-items:center;border-radius:50%;color:#705f59;font-size:.72rem}.pagination>div a.current{background:#f0c6ca;color:#392421}@media(max-width:560px){.pagination{grid-template-columns:1fr 1fr}.pagination>div{grid-column:1/-1;grid-row:1;justify-content:center}.pagination>a{grid-row:2}}
+
+/* dark theme */
+:global(html[data-theme="dark"]) .pagination>a{color:var(--muted)}
+:global(html[data-theme="dark"]) .pagination i{color:var(--muted)}
+:global(html[data-theme="dark"]) .pagination>div a:not(.current){color:var(--muted)}
+@media(prefers-color-scheme:dark){
+  :global(html:not([data-theme="light"])) .pagination>a{color:var(--muted)}
+  :global(html:not([data-theme="light"])) .pagination i{color:var(--muted)}
+  :global(html:not([data-theme="light"])) .pagination>div a:not(.current){color:var(--muted)}
+}

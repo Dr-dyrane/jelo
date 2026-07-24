@@ -1,1 +1,7 @@
 .product-match-reasons{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem}.product-match-reasons span{padding:.38rem .55rem;border-radius:999px;background:rgba(112,71,61,.08);color:var(--wine);font-size:.61rem;font-weight:700;line-height:1.2}.report-section-heading>span{max-width:18rem;text-align:right;line-height:1.45}@media(max-width:900px){.report-section-heading>span{max-width:none;text-align:left}}
+
+/* dark theme */
+html[data-theme="dark"] .product-match-reasons span{background:rgba(231,188,178,.1)}
+@media(prefers-color-scheme:dark){
+  html:not([data-theme="light"]) .product-match-reasons span{background:rgba(231,188,178,.1)}
+}

@@ -170,3 +170,38 @@
   .evidence-banner { padding: 3rem 1.4rem 0; min-height: 0; }
   .evidence-banner img { height: 19rem; }
 }
+
+/* dark theme: these decorative catalogue/editorial cards have hardcoded light gradient
+   stops, light radial glows and light translucent sub-surfaces that the rose/peach tokens
+   do not flip. Give them coherent warm-dark surfaces so the (light) text stays readable.
+   Light rules above are untouched. */
+html[data-theme="dark"] .discovery-intro {
+  background:
+    radial-gradient(circle at 84% 12%, rgba(122, 86, 72, .5), transparent 34%),
+    linear-gradient(135deg, #3a2a26, #2c211d 62%, #34232c);
+}
+html[data-theme="dark"] .editorial-story { background: linear-gradient(135deg, #3a2a26, #2c211d 58%, #34232c); }
+html[data-theme="dark"] .editorial-story .editorial-story-visual {
+  background:
+    radial-gradient(circle at 45% 45%, rgba(122, 86, 72, .45), transparent 40%),
+    linear-gradient(145deg, #34232c, #2a201d);
+}
+html[data-theme="dark"] .editorial-story .editorial-story-visual::after { color: rgba(231, 188, 178, .5); }
+html[data-theme="dark"] .signal-list span { background: rgba(255, 255, 255, .06); }
+html[data-theme="dark"] .market-sources a { background: rgba(255, 255, 255, .08); }
+html[data-theme="dark"] .evidence-banner { background: linear-gradient(125deg, #34232c, #2c211d 56%, #3a2a26); }
+html[data-theme="dark"] .evidence-banner img { filter: drop-shadow(0 30px 38px rgba(0, 0, 0, .5)); }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .discovery-intro {
+    background:
+      radial-gradient(circle at 84% 12%, rgba(122, 86, 72, .5), transparent 34%),
+      linear-gradient(135deg, #3a2a26, #2c211d 62%, #34232c);
+  }
+  html:not([data-theme="light"]) .editorial-story { background: linear-gradient(135deg, #3a2a26, #2c211d 58%, #34232c); }
+  html:not([data-theme="light"]) .editorial-story .editorial-story-visual {
+    background: radial-gradient(circle at 45% 45%, rgba(122, 86, 72, .45), transparent 40%), linear-gradient(145deg, #34232c, #2a201d);
+  }
+  html:not([data-theme="light"]) .signal-list span { background: rgba(255, 255, 255, .06); }
+  html:not([data-theme="light"]) .market-sources a { background: rgba(255, 255, 255, .08); }
+  html:not([data-theme="light"]) .evidence-banner { background: linear-gradient(125deg, #34232c, #2c211d 56%, #3a2a26); }
+}

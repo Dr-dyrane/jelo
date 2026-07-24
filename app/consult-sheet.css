@@ -150,3 +150,21 @@
   .profile-dialog[data-fallback-modal="true"] { backdrop-filter: none; }
   .profile-sheet { background: var(--paper); }
 }
+
+/* dark theme */
+html[data-theme="dark"] .profile-trigger { background: rgba(36, 29, 27, .78); }
+html[data-theme="dark"] .profile-sheet { background: rgba(36, 29, 27, .98); }
+html[data-theme="dark"] .profile-sheet footer { background: rgba(36, 29, 27, .96); }
+html[data-theme="dark"] .profile-sheet footer button { color: var(--cream); }
+@media (max-width: 620px) {
+  html[data-theme="dark"] .profile-sheet::before { background: rgba(240, 220, 210, .24); }
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .profile-trigger { background: rgba(36, 29, 27, .78); }
+  html:not([data-theme="light"]) .profile-sheet { background: rgba(36, 29, 27, .98); }
+  html:not([data-theme="light"]) .profile-sheet footer { background: rgba(36, 29, 27, .96); }
+  html:not([data-theme="light"]) .profile-sheet footer button { color: var(--cream); }
+}
+@media (prefers-color-scheme: dark) and (max-width: 620px) {
+  html:not([data-theme="light"]) .profile-sheet::before { background: rgba(240, 220, 210, .24); }
+}

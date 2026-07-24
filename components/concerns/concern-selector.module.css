@@ -1,7 +1,7 @@
 .selector {
   margin: 4rem -4vw 0;
   padding: clamp(3rem, 7vw, 7rem) 4vw;
-  background: linear-gradient(145deg, #fffaf6, var(--peach) 55%, #f2cbd2);
+  background: linear-gradient(145deg, var(--wash-a), var(--peach) 55%, #f2cbd2);
 }
 
 .selectorHeading,
@@ -237,4 +237,25 @@
   .productGrid {
     grid-template-columns: 1fr;
   }
+}
+
+/* dark theme */
+/* the container gradient has a light #f2cbd2 stop that doesn't flip; without this it stayed
+   a mid-mauve, dropping the wine eyebrow to 2.97 and the translucent cards (which composite
+   over it) to 4.18. A warm-dark base restores contrast for both. */
+:global(html[data-theme="dark"]) .selector { background: linear-gradient(145deg, #2c211c, #241d1b 55%, #2a201d); }
+:global(html[data-theme="dark"]) .card { background: rgba(36, 29, 27, .55); }
+:global(html[data-theme="dark"]) .guideCard { background: rgba(36, 29, 27, .7); }
+:global(html[data-theme="dark"]) .card.active { background: rgba(36, 29, 27, .9); }
+:global(html[data-theme="dark"]) .cardTop > span { background: rgba(36, 29, 27, .72); }
+:global(html[data-theme="dark"]) .resultsHeading button { background: rgba(36, 29, 27, .76); }
+:global(html[data-theme="dark"]) .empty { background: rgba(36, 29, 27, .58); }
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .selector { background: linear-gradient(145deg, #2c211c, #241d1b 55%, #2a201d); }
+  :global(html:not([data-theme="light"])) .card { background: rgba(36, 29, 27, .55); }
+  :global(html:not([data-theme="light"])) .guideCard { background: rgba(36, 29, 27, .7); }
+  :global(html:not([data-theme="light"])) .card.active { background: rgba(36, 29, 27, .9); }
+  :global(html:not([data-theme="light"])) .cardTop > span { background: rgba(36, 29, 27, .72); }
+  :global(html:not([data-theme="light"])) .resultsHeading button { background: rgba(36, 29, 27, .76); }
+  :global(html:not([data-theme="light"])) .empty { background: rgba(36, 29, 27, .58); }
 }

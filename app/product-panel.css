@@ -269,3 +269,55 @@
 @media (prefers-reduced-motion: reduce) {
   .product-panel-dialog[open] { animation: none; }
 }
+
+/* dark theme */
+html[data-theme="dark"] .product-quick-actions button { background: rgba(36, 29, 27, .58); }
+/* primary action stays a light accent pill (its base bg:var(--ink) is overridden dark by the
+   rule above, and base color:#fff would then be invisible); restore the accent pair. */
+html[data-theme="dark"] .product-quick-actions button:first-child { background: var(--accent-solid); color: var(--on-accent); }
+html[data-theme="dark"] .product-panel-dialog { background: rgba(36, 29, 27, .97); }
+html[data-theme="dark"] .product-panel-frame {
+  background:
+    radial-gradient(circle at 82% 3%, rgba(138, 95, 87, .46), transparent 28%),
+    linear-gradient(180deg, rgba(36, 29, 27, .98), rgba(25, 20, 19, .96));
+}
+html[data-theme="dark"] .product-panel-frame::after { background: linear-gradient(transparent, rgba(25, 20, 19, .98)); }
+html[data-theme="dark"] .product-panel-header > button { background: rgba(36, 29, 27, .62); }
+html[data-theme="dark"] .product-panel-tabs { background: rgba(122, 86, 72, .34); }
+html[data-theme="dark"] .product-panel-tabs button[aria-selected="true"] { background: rgba(36, 29, 27, .92); }
+html[data-theme="dark"] .product-panel-stores a { background: rgba(36, 29, 27, .58); }
+html[data-theme="dark"] .product-panel-caution { background: rgba(138, 95, 87, .38); }
+html[data-theme="dark"] .product-panel-chips span,
+html[data-theme="dark"] .product-panel-chips a { background: rgba(36, 29, 27, .76); }
+html[data-theme="dark"] .product-panel-routine > div { background: rgba(36, 29, 27, .5); }
+html[data-theme="dark"] .product-panel-handle { background: rgba(240, 220, 210, .24); }
+@media (max-width: 620px) {
+  html[data-theme="dark"] .product-quick-actions { background: rgba(36, 29, 27, .72); }
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .product-quick-actions button { background: rgba(36, 29, 27, .58); }
+  html:not([data-theme="light"]) .product-quick-actions button:first-child { background: var(--accent-solid); color: var(--on-accent); }
+  html:not([data-theme="light"]) .product-panel-dialog { background: rgba(36, 29, 27, .97); }
+  html:not([data-theme="light"]) .product-panel-frame {
+    background:
+      radial-gradient(circle at 82% 3%, rgba(138, 95, 87, .46), transparent 28%),
+      linear-gradient(180deg, rgba(36, 29, 27, .98), rgba(25, 20, 19, .96));
+  }
+  html:not([data-theme="light"]) .product-panel-frame::after { background: linear-gradient(transparent, rgba(25, 20, 19, .98)); }
+  html:not([data-theme="light"]) .product-panel-header > button { background: rgba(36, 29, 27, .62); }
+  html:not([data-theme="light"]) .product-panel-tabs { background: rgba(122, 86, 72, .34); }
+  html:not([data-theme="light"]) .product-panel-tabs button[aria-selected="true"] { background: rgba(36, 29, 27, .92); }
+  html:not([data-theme="light"]) .product-panel-stores a { background: rgba(36, 29, 27, .58); }
+  html:not([data-theme="light"]) .product-panel-caution { background: rgba(138, 95, 87, .38); }
+  html:not([data-theme="light"]) .product-panel-chips span,
+  html:not([data-theme="light"]) .product-panel-chips a { background: rgba(36, 29, 27, .76); }
+  html:not([data-theme="light"]) .product-panel-routine > div { background: rgba(36, 29, 27, .5); }
+  html:not([data-theme="light"]) .product-panel-handle { background: rgba(240, 220, 210, .24); }
+}
+@media (prefers-color-scheme: dark) and (max-width: 620px) {
+  html:not([data-theme="light"]) .product-quick-actions { background: rgba(36, 29, 27, .72); }
+}
+
+/* a11y: visible keyboard focus inside the panel (containers clip an outset ring) */
+.product-panel-body:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }
+.product-panel-tabs button:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }
