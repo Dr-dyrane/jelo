@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowUpRight, MapPin } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 import type { Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
 import {
@@ -53,7 +53,7 @@ function movementLabel(trends: ProductPriceTrends | undefined, market: Market) {
   };
 }
 
-export function RetailerList({ offers, productSlug, priceTrends }: { offers: Offer[]; productSlug: string; priceTrends?: ProductPriceTrends }) {
+export function RetailerList({ offers, productSlug, priceTrends, footer }: { offers: Offer[]; productSlug: string; priceTrends?: ProductPriceTrends; footer?: ReactNode }) {
   // Nigeria is deliberately the first product-page market. JeloCare should show
   // local buying intelligence before asking shoppers to consider international routes.
   const [market, setMarket] = useState<Market>('NG');
@@ -129,7 +129,10 @@ export function RetailerList({ offers, productSlug, priceTrends }: { offers: Off
           );
         }) : <div className="retailer-empty"><p>No exact offer yet.</p><button type="button" onClick={() => setMarket(market === 'NG' ? 'US' : 'NG')}>Try {market === 'NG' ? 'United States' : 'Nigeria'}</button></div>}
       </div>
-      <p className="retailer-disclosure">Prices can change. Delivery may cost extra.</p>
+      <div className="retailer-foot">
+        <p className="retailer-disclosure">Prices can change. Delivery may cost extra.</p>
+        {footer}
+      </div>
     </div>
   );
 }

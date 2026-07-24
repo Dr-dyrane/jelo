@@ -1,0 +1,165 @@
+.stage {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.75rem;
+  padding: clamp(6rem, 14vh, 9rem) 1.25rem clamp(3rem, 6vw, 5rem);
+  background:
+    radial-gradient(120% 80% at 82% -6%, color-mix(in srgb, var(--rose) 42%, transparent), transparent 60%),
+    var(--cream);
+}
+
+.headline {
+  width: min(100%, 30rem);
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(34px, 6.4vw, 58px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.headline em { font-style: normal; color: var(--wine); }
+
+.card {
+  position: relative;
+  width: min(100%, 30rem);
+  padding: 1.6rem 1.6rem 1.4rem;
+  border-radius: 1.75rem;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90% 60% at 78% 0%, color-mix(in srgb, var(--peach) 40%, transparent), transparent 58%);
+  pointer-events: none;
+}
+.card > * { position: relative; }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--wine);
+  background: color-mix(in srgb, var(--peach) 34%, var(--paper));
+  padding: .4rem .75rem;
+  border-radius: 100px;
+}
+
+.shot { display: flex; justify-content: center; padding: .5rem 0 .25rem; }
+.shot img {
+  width: min(212px, 62%);
+  height: auto;
+  filter: drop-shadow(0 16px 24px var(--shot-shadow));
+}
+
+.brand {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.name {
+  margin: .35rem 0;
+  font-family: var(--font-display), serif;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+.name:hover { color: var(--wine); }
+.microtag { font-style: italic; color: var(--muted); font-size: 13px; }
+
+.spread {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  margin: 1rem 0 0;
+}
+.spread b {
+  font-family: var(--font-display), serif;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--wine);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.02em;
+}
+.spread span { font-size: 12.5px; line-height: 1.35; color: var(--muted); }
+.spread span strong { color: var(--ink); font-weight: 600; }
+
+.offers { display: flex; flex-direction: column; gap: 2px; margin-top: 1.5rem; }
+.offer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: .25rem .75rem;
+  padding: .7rem 0;
+}
+.offer + .offer { border-top: 1px solid var(--border); }
+.store { display: flex; align-items: center; gap: .55rem; font-weight: 500; font-size: 15px; color: var(--ink); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rose); flex: none; }
+.dot.low { background: var(--wine); }
+.price {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 600;
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+  text-align: right;
+  color: var(--ink);
+}
+.meta { grid-column: 1; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-top: .15rem; }
+.label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.label.low { color: var(--wine); }
+.label.mkt { color: var(--muted); }
+.when { font-size: 13px; color: var(--muted); }
+.go {
+  position: relative;
+  grid-column: 2;
+  justify-self: end;
+  margin-top: .1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--wine);
+}
+.go:hover { text-decoration: underline; }
+.go::after { content: ""; position: absolute; inset-block: -14px; inset-inline: -8px; }
+
+.fine { margin-top: 1.15rem; font-size: 12px; line-height: 1.45; color: var(--muted); }
+.fine strong { color: var(--ink); font-weight: 600; }
+
+.footerNote {
+  width: min(100%, 30rem);
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+.footerNote a { color: var(--wine); font-weight: 600; }
+
+.actions {
+  width: min(100%, 30rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.textLink { font-size: 14px; font-weight: 600; color: var(--wine); }
+.textLink:hover { text-decoration: underline; }
+
+/* a11y: 44px target on the product link (out of flow keeps layout) */
+.textLink { display: inline-flex; align-items: center; min-height: 44px; }

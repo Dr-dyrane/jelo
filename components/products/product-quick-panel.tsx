@@ -6,7 +6,9 @@ import type { Offer } from '@/data/products';
 import { nigeriaRetailers } from '@/data/retailers';
 import type { ProductPriceTrends } from '@/modules/commerce/price-trends';
 import { hasListingEvidence } from '@/modules/commerce/offer-evidence';
+import { isOfferFresh } from '@/modules/commerce/offer-freshness';
 import { RetailerList } from '@/components/commerce/retailer-list';
+import { ShareButton } from '@/components/share/share-button';
 
 type PanelTab = 'buy' | 'stores' | 'details';
 type Ingredient = { id: string; label: string; sourceUrl?: string };
@@ -36,6 +38,12 @@ export function ProductQuickPanel(props: ProductQuickPanelProps) {
   const [tab, setTab] = useState<PanelTab>('buy');
   const [open, setOpen] = useState(false);
   const exactRetailers = new Set(props.offers.filter(hasListingEvidence).map(offer => offer.retailer));
+  const shareable = props.offers.some(offer =>
+    offer.match !== 'search'
+    && hasListingEvidence(offer)
+    && offer.location.includes('NG')
+    && isOfferFresh(offer)
+    && offer.priceNgn != null);
   const moreStores = nigeriaRetailers.filter(store => !exactRetailers.has(store.name));
 
   function openPanel(nextTab: PanelTab, opener: HTMLButtonElement) {
@@ -102,16 +110,21 @@ export function ProductQuickPanel(props: ProductQuickPanelProps) {
           <span className="product-panel-handle" aria-hidden="true" />
           <header className="product-panel-header">
             <div><p className="eyebrow">{tab === 'details' ? 'Product guide' : 'Nigeria'}</p><h2 id={`${dialogId}-title`}>{props.productName}</h2></div>
-            <button type="button" onClick={closePanel} aria-label="Close product panel"><X size={20} aria-hidden="true" /></button>
+            <button type="button" onClick={closePanel} aria-label="Close"><X size={20} aria-hidden="true" /></button>
           </header>
 
-          <div className="product-panel-tabs" role="tablist" aria-label="Product panel sections">
+          <div className="product-panel-tabs" role="tablist" aria-label="Product information">
             {tabs.map(item => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} onClick={() => setTab(item.id)}>{item.label}</button>)}
           </div>
 
           <div className="product-panel-body" tabIndex={0}>
             {tab === 'buy' ? <section className="product-panel-buy" role="tabpanel">
-              <RetailerList offers={props.offers} productSlug={props.productSlug} priceTrends={props.priceTrends}/>
+              <RetailerList
+                offers={props.offers}
+                productSlug={props.productSlug}
+                priceTrends={props.priceTrends}
+                footer={shareable ? <ShareButton path={`/share/${props.productSlug}`} title={props.productName} label="Share" inline /> : null}
+              />
             </section> : null}
 
             {tab === 'stores' ? <section className="product-panel-stores" role="tabpanel">

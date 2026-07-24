@@ -1,0 +1,109 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  border: 0;
+  border-radius: 100px;
+  padding: .7rem 1.15rem;
+  background: var(--accent-solid);
+  color: var(--on-accent);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s ease, filter .15s ease;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.btn:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
+
+.quiet {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--muted);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.inline:hover { color: var(--wine); }
+.inline:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; border-radius: 4px; }
+
+/* Share sheet: a focused dialog (bottom sheet on mobile, centered card on desktop),
+   consistent with the product panel. Stacks in the native top layer over any open modal. */
+.sheet {
+  margin: auto;
+  width: min(92vw, 21rem);
+  max-width: 21rem;
+  border: 0;
+  padding: 0;
+  border-radius: 22px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.sheet::backdrop { background: rgba(20, 14, 12, .45); }
+
+.sheetInner { display: flex; flex-direction: column; padding: .9rem 1rem 1.1rem; }
+.grip { align-self: center; width: 2.2rem; height: .25rem; border-radius: 999px; background: var(--border); margin-bottom: .7rem; }
+.sheetHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: .4rem; }
+.sheetHead strong { font-family: var(--font-display), serif; font-size: 1.25rem; font-weight: 400; }
+.sheetHead button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: pointer;
+}
+.sheetHead button:hover { color: var(--ink); }
+.sheetHead button:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
+
+.opt {
+  display: flex;
+  align-items: center;
+  border: 0;
+  border-radius: 12px;
+  padding: .85rem .9rem;
+  background: none;
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+.opt:hover { background: var(--surface-2); }
+.opt:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }
+
+@media (max-width: 560px) {
+  .sheet {
+    margin: 0;
+    position: fixed;
+    inset: auto 0 0 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 22px 22px 0 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sheet[open] { animation: sheet-in .22s cubic-bezier(.2, .7, .2, 1); }
+}
+@keyframes sheet-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* a11y: 44px hit area on the inline share (out of flow; footer height unchanged) */
+.inline { position: relative; }
+.inline::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); height: 44px; }
