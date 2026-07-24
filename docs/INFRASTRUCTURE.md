@@ -196,7 +196,7 @@ The Vercel dashboard is authoritative for which environments receive each variab
 
 ## Current state and next stage
 
-- The 23 reviewed source records are mapped to canonical Blob metadata or an explicit rights hold. Only the transparent, identity-safe, at-least-1,000-pixel, identity-and-hash-approved subset enters public shelves. Reuse rights for the legacy visible subset remain explicitly unverified and should move to permissioned media as evidence is obtained.
+- The 24 reviewed source records are mapped to canonical Blob metadata or an explicit rights hold. Only the transparent, identity-safe, at-least-1,000-pixel, identity-and-hash-approved subset enters public shelves. Reuse rights for the legacy visible subset remain explicitly unverified and should move to permissioned media as evidence is obtained.
 - The checked-in Open Beauty Facts set remains a private legacy research pool. It is not waiting for bulk publication.
 - New exact SKUs remain in the deliberate intake queue until every identity, care, Nigeria, rights and editorial gate passes; approval drafting is still separate from publication.
 - `/image-audit` covers reviewed products and editorial assets. Legacy community artifacts remain outside that public audit until individually approved.

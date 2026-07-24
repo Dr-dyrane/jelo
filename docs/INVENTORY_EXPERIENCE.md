@@ -70,11 +70,11 @@ Brand/company filtering uses the product brand as the accurate current entity. P
 The catalogue keeps candidate count, public approval, and recommendation eligibility separate:
 
 - JeloCare's original 14 products from `pages-v1-static` are the required foundational cohort in `data/jelo-core-products.ts`; every product must remain in the reviewed catalogue with its original category and routine-step classification, while public display still fails closed until its exact transparent packshot passes the image gate;
-- 23 reviewed source records remain in the research set;
+- 24 reviewed source records remain in the research set;
 - public shelves are derived only from records whose canonical packshot is transparent, at least 1,000 × 1,000, identity-safe, not under a rights hold, and approved by exact file hash after peach/pink/dark surface review;
 - generated packshot repairs fail before upload when the lower silhouette is flat or when a long high-contrast seam near the base still makes the package read as sliced; the same repair-specific check runs again against the public Blob bytes;
 - 2 source records currently pass the explicit supportive-care gate for direct guidance, but they appear publicly only when they also pass the image gate;
-- 5 require pharmacist review and 16 remain guidance-ineligible pending better formula evidence;
+- 5 require pharmacist review and 17 remain guidance-ineligible pending better formula evidence;
 - the checked-in barcode-linked Open Beauty Facts records are a frozen legacy research pool, not a target or intake queue;
 - the Nigerian batch screen is a private discovery queue whose retailer SKU, price, stock and image fields remain unverified leads;
 - new candidates enter the private per-SKU queue in `data/catalogue-intake.json` and advance only through explicit identity, care, Nigeria, rights, editorial, and approval-draft gates;
@@ -109,7 +109,7 @@ New intake image approval requires documented rights, intact packaging, exact la
 
 New intake approvals bind the barcode, source snapshot, raw candidate fingerprint, final image hash, reviewer, timestamp, rights source, and final-image attestations. Any candidate or image change invalidates the approval.
 
-The same deterministic audit dimensions—identity, formula completeness, evidence level, exact Nigerian listing, image rights, and final presentation—apply to all 23 reviewed source records. Publication quality and direct-care eligibility remain separate gates.
+The same deterministic audit dimensions—identity, formula completeness, evidence level, exact Nigerian listing, image rights, and final presentation—apply to all 24 reviewed source records. Publication quality and direct-care eligibility remain separate gates.
 
 Open Beauty Facts asks bulk reusers to use the nightly export instead of repeated search calls. The ingestion job therefore streams the official JSONL export. The database is ODbL 1.0, individual contents use the Database Contents License, and product photos use CC BY-SA 3.0. Attribution and source links remain visible in the product catalogue.
 

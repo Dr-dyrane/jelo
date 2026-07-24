@@ -19,8 +19,8 @@ export type ReviewedProductCare = {
 const reviewedAt = '2026-07-22';
 
 /**
- * The explicit clinical-care decision for every product in the original
- * 23-item reviewed catalogue. Catalogue prose, retailer listings and product
+ * The explicit clinical-care decision for every product in the
+ * 24-item reviewed catalogue. Catalogue prose, retailer listings and product
  * names must never substitute for a record here.
  */
 export const reviewedProductCareManifest = {
