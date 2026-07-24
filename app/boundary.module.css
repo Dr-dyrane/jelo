@@ -1,0 +1,78 @@
+/* Shared shell for the not-found and error boundaries. Same language as the
+   sign-in: warm gradient, borderless, a regular-weight display headline, a pill
+   action, and a one-line footer with the theme toggle. All tokens flip in dark. */
+
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--wash-a) 0%, var(--wash-b) 60%, var(--cream) 100%);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: .25rem;
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 2rem clamp(1.25rem, 5vw, 2rem);
+}
+
+.eyebrow { margin: 0; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--wine); }
+
+.h1 {
+  margin: .5rem 0 .3rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -.015em;
+}
+
+.lede { margin: 0 0 1.6rem; color: var(--muted); line-height: 1.6; font-size: 1rem; max-width: 32ch; }
+
+.action {
+  align-self: flex-start;
+  min-height: 2.75rem;
+  padding: .8rem 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent-solid);
+  color: var(--on-accent);
+  font: inherit;
+  font-size: .95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .18s ease;
+}
+.action:hover { transform: translateY(-1px); }
+.action:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .action { transition: none; }
+  .action:hover { transform: none; }
+}
+
+.row { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.ghost { color: var(--wine); text-decoration: none; font-size: .92rem; font-weight: 600; }
+.ghost:hover { text-decoration: underline; }
+.ref { margin: 1.4rem 0 0; color: var(--muted); font-size: .72rem; letter-spacing: .04em; }
+
+.foot {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1.25rem, 5vw, 2rem);
+  color: var(--muted);
+  font-size: .72rem;
+  letter-spacing: .06em;
+}
