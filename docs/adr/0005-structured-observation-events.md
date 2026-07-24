@@ -1,6 +1,6 @@
 # ADR 0005: Structured observation and behavioural events
 
-Status: Accepted (design); build sequenced
+Status: Accepted; community observations shipped, behavioural events pending
 
 Date: 2026-07-24
 
@@ -18,6 +18,8 @@ Both are unblocked; both must obey the same trust and privacy boundaries.
 Build both as strict, enum-and-bounded-int structured events, **community observations first**, each cloning an existing proven pattern (`community_intake_events`, `retailer_partnership_events`): a Zod schema with `.strict()` and no free-text fields as the single source of the shape, a Neon table with no `ip` / `user_agent` / query columns by construction, and an idempotent insert.
 
 1. **Community observations (first).** A `community_observations` table (kind enum, `contribution_id` FK, defaults `pending` / `community_reported`) plus a `communityObservations()` emitter slotted into the same transaction as `communityKnowledgeEdges`. Start with price and outcome — the two not represented as rows anywhere. It is a **moderation input only** and never writes canonical catalogue records — the boundary enforced by the architecture test, which the new layer must keep green.
+
+   *Shipped* in migration `0018_community_observations.sql` and `lib/community-intake/`: a strict `communityObservationSchema` (enums and bounded ints, no free text) is the single source of shape; the emitter parses every row through it; a `check` constraint pins a price row to an amount and an outcome row to an outcome; and `modules/community-intake/architecture.test.ts` now asserts the table has no contributor-identifying columns and writes nothing canonical.
 2. **Behavioural events (second).** A `commerce_events` table and a `store_click` event recorded server-side inside `app/go/route.ts`, deriving `priceRank` from `summarizeMarket` over the offer set `/go` already resolves. Ship `store_click` alone first.
 
 ## Consequences

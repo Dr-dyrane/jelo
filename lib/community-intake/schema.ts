@@ -56,6 +56,23 @@ export const intakeEventSchema = z.object({
 }).strict();
 export type IntakeEvent = z.infer<typeof intakeEventSchema>;
 
+// The single source of shape for a first-class community observation (ADR 0005).
+// Strict, enums and bounded ints only, so no free text or PII can enter by construction.
+export const communityObservationSchema = z.object({
+  observationKind: z.enum(['price', 'outcome']),
+  subjectKind: z.enum(['product', 'anonymous_contribution']),
+  subjectRef: z.string().min(1).max(160),
+  amountNgn: z.number().int().min(100).max(10_000_000).nullable(),
+  outcome: z.enum(['love-it', 'helped', 'unsure', 'didnt-help']).nullable(),
+  observedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable(),
+}).strict().refine(
+  observation => observation.observationKind === 'price'
+    ? observation.amountNgn != null && observation.outcome == null
+    : observation.outcome != null && observation.amountNgn == null,
+  'A price observation carries an amount; an outcome observation carries an outcome.',
+);
+export type CommunityObservation = z.infer<typeof communityObservationSchema>;
+
 export const saveDraftRequestSchema = z.object({
   revision: z.number().int().min(0),
   draft: contributionDraftSchema,

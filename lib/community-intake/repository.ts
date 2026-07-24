@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { getPostgresClient } from '@/lib/db/postgres';
-import { communityKnowledgeEdges, unknownCommunityValues } from './moderation';
+import { communityKnowledgeEdges, communityObservations, unknownCommunityValues } from './moderation';
 import { communityResearchTasks } from './research-queue';
 import {
   emptyContributionDraft,
@@ -135,6 +135,18 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
           ${edge.objectKind}, ${edge.objectRef}, ${transaction.json(edge.metadata)}
         )
         on conflict (contribution_id, subject_kind, subject_ref, predicate, object_kind, object_ref) do nothing
+      `;
+    }
+
+    for (const observation of communityObservations(draft, contribution.id)) {
+      await transaction`
+        insert into community_observations (
+          contribution_id, observation_kind, subject_kind, subject_ref, amount_ngn, outcome, observed_on
+        ) values (
+          ${contribution.id}, ${observation.observationKind}, ${observation.subjectKind}, ${observation.subjectRef},
+          ${observation.amountNgn}, ${observation.outcome}, ${observation.observedOn}
+        )
+        on conflict (contribution_id, observation_kind, subject_kind, subject_ref) do nothing
       `;
     }
 

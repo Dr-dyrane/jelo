@@ -1,5 +1,5 @@
-import type { ContributionDraft } from './schema';
-import { normalizeCommunityValue } from './schema';
+import type { ContributionDraft, CommunityObservation } from './schema';
+import { communityObservationSchema, normalizeCommunityValue } from './schema';
 
 export type UnknownCommunityValue = {
   kind: 'purpose' | 'product' | 'brand' | 'retailer';
@@ -56,4 +56,38 @@ export function communityKnowledgeEdges(draft: ContributionDraft, contributionId
   });
 
   return edges;
+}
+
+// First-class price and outcome observations for the moderation and research queue
+// (ADR 0005). Each row is parsed through the strict schema, so the shape and the
+// PII-free guarantee are enforced here, not just at the table. The subject is the
+// reported product when one exists, else the anonymous contribution itself.
+export function communityObservations(draft: ContributionDraft, contributionId: string): CommunityObservation[] {
+  const productRef = draft.products[0]?.id;
+  const subjectKind = productRef ? 'product' as const : 'anonymous_contribution' as const;
+  const subjectRef = productRef ?? contributionId;
+  const observations: CommunityObservation[] = [];
+
+  if (draft.outcome) {
+    observations.push(communityObservationSchema.parse({
+      observationKind: 'outcome',
+      subjectKind,
+      subjectRef,
+      amountNgn: null,
+      outcome: draft.outcome,
+      observedOn: null,
+    }));
+  }
+  if (draft.priceNgn != null) {
+    observations.push(communityObservationSchema.parse({
+      observationKind: 'price',
+      subjectKind,
+      subjectRef,
+      amountNgn: draft.priceNgn,
+      outcome: null,
+      observedOn: draft.purchaseDate ?? null,
+    }));
+  }
+
+  return observations;
 }
