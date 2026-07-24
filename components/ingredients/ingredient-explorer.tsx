@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Search, X } from 'lucide-react';
 import { useId, useMemo, useState } from 'react';
 import { useModalDialog } from '@/components/ui/use-modal-dialog';
+import { ShareButton } from '@/components/share/share-button';
 import styles from './ingredient-explorer.module.css';
 
 export type IngredientProduct = {
@@ -204,7 +205,10 @@ export function IngredientExplorer({ ingredients }: { ingredients: IngredientCar
               </div>
             </section>
 
-            <p className={styles.sheetNote}>Evidence describes the ingredient, not the whole formula.</p>
+            <div className={styles.sheetFoot}>
+              <p className={styles.sheetNote}>Evidence describes the ingredient, not the whole formula.</p>
+              <ShareButton path={`/share/ingredient/${selected.slug}`} title={selected.name} label="Share" inline />
+            </div>
           </div>
         </div> : null}
       </dialog>

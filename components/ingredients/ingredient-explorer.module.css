@@ -505,6 +505,15 @@
   line-height: 1.5;
 }
 
+.sheetFoot {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.sheetFoot .sheetNote { margin: 0; }
+
 .views button:focus-visible,
 .resultBar button:focus-visible,
 .cardFooter button:focus-visible,

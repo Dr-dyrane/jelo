@@ -31,6 +31,9 @@ export const ingredientSeeds: IngredientSeed[] = [
   { slug: 'ketoconazole', inciName: 'Ketoconazole', commonName: 'Ketoconazole', summary: 'An antifungal active used in medicated dandruff shampoos.', evidenceGrade: 'high', sensitiveSkinStatus: 'use_with_caution' },
 ];
 
+export const ingredientSeedBySlug = (slug: string): IngredientSeed | null =>
+  ingredientSeeds.find(seed => seed.slug === slug) ?? null;
+
 const checkedAt = '2026-07-22';
 
 export const verifiedProductIngredients: Record<string, ProductIngredientSeed[]> = {
