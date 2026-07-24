@@ -1,18 +1,48 @@
 import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { hasShareableNgOffer } from '@/modules/commerce/shareable-offer';
 import { buildShareData } from './share-data';
 
 export const runtime = 'nodejs';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export const alt = 'JeloCare observed Nigerian prices for this product';
+// Refresh the pre-built image hourly so observed prices stay current.
+export const revalidate = 3600;
+
+// Pre-render the OG image for every shareable product at build time, so a social
+// scraper always hits a static, CDN-cached PNG instead of a cold on-demand render
+// (which timed out slow crawlers). Non-shareable slugs 404 on the page anyway.
+export async function generateStaticParams() {
+  const products = await listCatalogueProducts();
+  return products.filter(product => hasShareableNgOffer(product)).map(product => ({ slug: product.slug }));
+}
 
 const ogDir = join(process.cwd(), 'app', 'share', '[slug]', '_og');
 const loadFont = (file: string) => readFile(join(ogDir, file));
 
 function absolute(image: string) {
   return image.startsWith('http') ? image : `https://www.jelocare.com${image}`;
+}
+
+// Fetch the packshot ourselves (with a timeout) and inline it as a data URL, so
+// generation never hangs on a slow image and a fetch failure degrades to a card
+// without the shot rather than failing the whole build.
+async function loadImage(url: string): Promise<string | null> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 5000);
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timer);
+    if (!response.ok) return null;
+    const buffer = Buffer.from(await response.arrayBuffer());
+    const type = response.headers.get('content-type') ?? 'image/png';
+    return `data:${type};base64,${buffer.toString('base64')}`;
+  } catch {
+    return null;
+  }
 }
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
@@ -41,6 +71,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   }
 
   const { view } = data;
+  const imageSrc = await loadImage(absolute(view.image));
   const primary = view.offers[0];
   const secondary = view.offers[1];
   // The Latin font subset has no naira glyph, so spell it in the image only.
@@ -51,7 +82,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       <div style={{ width: '100%', height: '100%', display: 'flex', padding: 56, background: '#fbf3ed', fontFamily: 'Manrope' }}>
         <div style={{ display: 'flex', width: '100%', height: '100%', background: '#fffdf9', borderRadius: 40, boxShadow: '0 30px 90px rgba(112,71,61,.16)', overflow: 'hidden' }}>
           <div style={{ display: 'flex', width: 430, alignItems: 'center', justifyContent: 'center', padding: 40 }}>
-            <img src={absolute(view.image)} width={330} height={430} style={{ objectFit: 'contain' }} alt="" />
+            {imageSrc ? <img src={imageSrc} width={330} height={430} style={{ objectFit: 'contain' }} alt="" /> : null}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', padding: '48px 60px 48px 8px' }}>
             <div style={{ display: 'flex', fontSize: 19, fontWeight: 600, letterSpacing: 3, textTransform: 'uppercase', color: '#7a6b66' }}>{view.brand}</div>
