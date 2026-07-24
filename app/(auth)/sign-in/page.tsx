@@ -28,20 +28,15 @@ export default function OpsSignIn() {
   return (
     <main className={styles.shell}>
       <div className={styles.card}>
-        <div className={styles.brand}>
-          <strong>JeloCare Ops</strong>
-          <span>Moderation console</span>
-        </div>
+        <p className={styles.eyebrow}>JeloCare Ops</p>
         {state === 'sent' ? (
-          <div className={styles.sent}>
-            <h1 className={styles.h1}>Check your email</h1>
-            <p>A one-time sign-in link is on its way to <strong>{email}</strong>. Open it on this device to enter the console.</p>
+          <div className={styles.done}>
+            <h1 className={styles.h1}>Check your email.</h1>
+            <p className={styles.lede}>A sign-in link is on its way to {email}.</p>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className={styles.form}>
-            <h1 className={styles.h1}>Operator sign in</h1>
-            <p className={styles.lede}>Internal only. Enter your operator email to receive a one-time sign-in link.</p>
-            <label className={styles.label} htmlFor="email">Email</label>
+          <form onSubmit={onSubmit}>
+            <h1 className={styles.h1}>Operator sign in.</h1>
             <input
               id="email"
               type="email"
@@ -50,17 +45,21 @@ export default function OpsSignIn() {
               value={email}
               onChange={event => setEmail(event.target.value)}
               placeholder="you@jelocare.com"
+              aria-label="Operator email"
               className={styles.input}
               disabled={state === 'sending'}
             />
-            {state === 'error' ? <p className={styles.error} role="alert">{message}</p> : null}
             <button type="submit" className={styles.button} disabled={state === 'sending' || !email.trim()}>
               {state === 'sending' ? 'Sending…' : 'Send sign-in link'}
             </button>
+            {state === 'error' ? <p role="alert" className={styles.error}>{message}</p> : null}
           </form>
         )}
         <p className={styles.foot}>Access is limited to allowlisted operators.</p>
       </div>
+      <p role="status" aria-live="polite" className={styles.srStatus}>
+        {state === 'sending' ? 'Sending your sign-in link.' : state === 'sent' ? 'Sign-in link sent. Check your email.' : ''}
+      </p>
     </main>
   );
 }

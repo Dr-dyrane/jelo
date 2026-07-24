@@ -1,65 +1,109 @@
+/* Operator sign in. A sibling of the branded transactional email (lib/email/
+   templates.ts): warm page, borderless paper card, wine eyebrow, a large
+   regular-weight display headline, muted body, and a pill CTA. No borders —
+   separation is tone, translucency, and restrained shadow (UI_PHILOSOPHY.md).
+   Every colour is a token that already carries a dark value. */
+
 .shell {
   min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 2rem 1.25rem;
-  background: var(--paper);
+  padding: 2.5rem 1.25rem;
+  background: linear-gradient(180deg, var(--wash-a) 0%, var(--wash-b) 60%, var(--cream) 100%);
   color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 .card {
   width: 100%;
-  max-width: 26rem;
-  padding: clamp(1.75rem, 5vw, 2.5rem);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  background: var(--card);
+  max-width: 27rem;
+  padding: clamp(2rem, 5vw, 2.75rem);
+  border-radius: 28px;
+  background: var(--card-glass);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(22px);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .card { background: var(--paper); backdrop-filter: none; }
 }
 
-.brand { display: flex; flex-direction: column; line-height: 1.2; margin-bottom: 1.5rem; }
-.brand strong { font-family: var(--font-display), serif; font-size: 1.2rem; letter-spacing: .04em; }
-.brand span { color: var(--muted); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+.eyebrow {
+  margin: 0 0 1.75rem;
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
 
-.form { display: flex; flex-direction: column; }
-.h1 { margin: 0 0 .4rem; font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; }
-.lede { margin: 0 0 1.5rem; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+.h1 {
+  margin: 0 0 1.75rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 6vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -.01em;
+}
 
-.label { font-size: .75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .4rem; }
-.input {
-  padding: .8rem .9rem;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  background: var(--paper);
-  color: var(--ink);
-  font: inherit;
+.lede {
+  margin: -.75rem 0 0;
+  color: var(--muted);
+  line-height: 1.6;
   font-size: .95rem;
 }
-.input:focus-visible { outline: 2px solid var(--accent-solid); outline-offset: -1px; }
+
+.done { display: flex; flex-direction: column; }
+
+.input {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: .95rem 1.15rem;
+  border: 0;
+  outline: 0;
+  border-radius: 16px;
+  background: var(--tag-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+.input::placeholder { color: var(--muted); }
+.input:focus-visible { box-shadow: 0 0 0 2px var(--wine); }
+.input:disabled { opacity: .6; }
 
 .button {
-  margin-top: 1.25rem;
-  padding: .85rem 1rem;
+  margin-top: 1.4rem;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: .95rem 1.25rem;
   border: 0;
-  border-radius: 11px;
+  border-radius: 999px;
   background: var(--accent-solid);
   color: var(--on-accent);
   font: inherit;
-  font-size: .95rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity .15s ease, transform .15s ease;
+  transition: transform .18s ease, opacity .18s ease;
 }
 .button:hover:not(:disabled) { transform: translateY(-1px); }
-.button:disabled { opacity: .55; cursor: default; }
-.button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.button:disabled { opacity: .5; cursor: default; }
+.button:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:hover:not(:disabled) { transform: none; }
+}
 
-.error { margin: .9rem 0 0; color: #8c302d; font-size: .82rem; }
-:global(html[data-theme="dark"]) .error { color: #f0a59d; }
-@media (prefers-color-scheme: dark) { :global(html:not([data-theme="light"])) .error { color: #f0a59d; } }
+.error { margin: 1rem 0 0; color: var(--wine); font-size: .85rem; line-height: 1.5; }
 
-.sent { display: flex; flex-direction: column; gap: .5rem; }
-.sent p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+.foot { margin: 2rem 0 0; color: var(--muted); font-size: .78rem; }
 
-.foot { margin: 1.75rem 0 0; color: var(--muted); font-size: .74rem; text-align: center; }
+.srStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
