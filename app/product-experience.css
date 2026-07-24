@@ -323,3 +323,13 @@ html[data-theme="dark"] .retailer-channel-filter button.active { color: var(--cr
   html:not([data-theme="light"]) .retailer-channel-filter { background: rgba(255, 255, 255, .08); }
   html:not([data-theme="light"]) .retailer-channel-filter button.active { color: var(--cream); }
 }
+
+/* dark: price-movement labels used dark green/red (#33704a / #9a3d35) that fall below AA
+   on the dark market-summary surface. Softened, lighter semantic tones clear ~6.5:1+.
+   (Flat already uses --muted, which flips.) */
+html[data-theme="dark"] .market-movement-down { color: #7cc79b; }
+html[data-theme="dark"] .market-movement-up { color: #e8998c; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .market-movement-down { color: #7cc79b; }
+  html:not([data-theme="light"]) .market-movement-up { color: #e8998c; }
+}
