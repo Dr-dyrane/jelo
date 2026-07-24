@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { SafeProductImage } from '@/components/products/safe-product-image';
 import { concerns } from '@/data/knowledge';
 import { isProductMatchConcern } from '@/modules/concerns/product-matching';
 import { listRecentDrops, listShareGaps } from '@/lib/share/worth-sharing';
@@ -39,7 +38,8 @@ export default async function ShareIndex() {
           <div className={styles.grid}>
             {drops.map(drop => (
               <Link key={drop.slug} href={`/share/${drop.slug}`} className={styles.card}>
-                <span className={styles.shot}><SafeProductImage src={drop.image} alt={`${drop.brand} ${drop.name}`} /></span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className={styles.shot} src={drop.image} alt={`${drop.brand} ${drop.name}`} loading="lazy" decoding="async" />
                 <span className={styles.body}>
                   <span className={styles.brand}>{drop.brand}</span>
                   <strong className={styles.name}>{drop.name}</strong>
@@ -62,7 +62,8 @@ export default async function ShareIndex() {
           <div className={styles.grid}>
             {gaps.map(gap => (
               <Link key={gap.slug} href={`/share/${gap.slug}`} className={styles.card}>
-                <span className={styles.shot}><SafeProductImage src={gap.image} alt={`${gap.brand} ${gap.name}`} /></span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className={styles.shot} src={gap.image} alt={`${gap.brand} ${gap.name}`} loading="lazy" decoding="async" />
                 <span className={styles.body}>
                   <span className={styles.brand}>{gap.brand}</span>
                   <strong className={styles.name}>{gap.name}</strong>
