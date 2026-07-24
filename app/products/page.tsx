@@ -234,6 +234,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <div>
         <p>Profiles show products and prices.</p>
         <p>Supportive use adds a care review.</p>
+        <Link href="/share">Worth sharing <ArrowRight size={15} aria-hidden="true" /></Link>
         {externalProducts.length ? <a href="https://world.openbeautyfacts.org/data" target="_blank" rel="noreferrer">Open Beauty Facts · ODbL / CC BY-SA <ArrowRight size={15} aria-hidden="true"/></a> : null}
       </div>
     </aside>

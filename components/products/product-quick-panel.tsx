@@ -6,7 +6,7 @@ import type { Offer } from '@/data/products';
 import { nigeriaRetailers } from '@/data/retailers';
 import type { ProductPriceTrends } from '@/modules/commerce/price-trends';
 import { hasListingEvidence } from '@/modules/commerce/offer-evidence';
-import { isOfferFresh } from '@/modules/commerce/offer-freshness';
+import { hasShareableNgOffer } from '@/modules/commerce/shareable-offer';
 import { RetailerList } from '@/components/commerce/retailer-list';
 import { ShareButton } from '@/components/share/share-button';
 
@@ -38,12 +38,7 @@ export function ProductQuickPanel(props: ProductQuickPanelProps) {
   const [tab, setTab] = useState<PanelTab>('buy');
   const [open, setOpen] = useState(false);
   const exactRetailers = new Set(props.offers.filter(hasListingEvidence).map(offer => offer.retailer));
-  const shareable = props.offers.some(offer =>
-    offer.match !== 'search'
-    && hasListingEvidence(offer)
-    && offer.location.includes('NG')
-    && isOfferFresh(offer)
-    && offer.priceNgn != null);
+  const shareable = hasShareableNgOffer({ offers: props.offers });
   const moreStores = nigeriaRetailers.filter(store => !exactRetailers.has(store.name));
 
   function openPanel(nextTab: PanelTab, opener: HTMLButtonElement) {

@@ -1,7 +1,6 @@
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
-import { hasListingEvidence } from '@/modules/commerce/offer-evidence';
-import { isOfferFresh } from '@/modules/commerce/offer-freshness';
 import { summarizeMarket } from '@/modules/commerce/market-summary';
+import { isShareableNgOffer } from '@/modules/commerce/shareable-offer';
 import type { ShareOffer, ShareView } from './share-card';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
@@ -24,12 +23,7 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
   if (!product) return null;
 
   const offers = product.offers
-    .filter(offer =>
-      offer.match !== 'search'
-      && hasListingEvidence(offer)
-      && offer.location.includes('NG')
-      && isOfferFresh(offer)
-      && offer.priceNgn != null)
+    .filter(offer => isShareableNgOffer(offer))
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
