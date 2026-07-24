@@ -80,9 +80,10 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
         </div>
       </div>
       {summary.retailerCount ? <div className="market-summary" aria-label={`${market === 'NG' ? 'Nigeria' : 'United States'} market summary`}>
-        <span><small>{summary.priceBasis === 'multi-source' ? 'Best price' : 'Price'}</small><strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong></span>
-        {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span><small>Average</small><strong>{formatAmount(summary.typicalPrice, market)}</strong></span> : null}
+        <span><small>{summary.priceBasis === 'multi-source' ? 'Lowest observed' : 'Observed'}</small><strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong></span>
+        {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span><small>Median</small><strong>{formatAmount(summary.typicalPrice, market)}</strong></span> : null}
         <span><small>Stores</small><strong>{summary.pricedRetailerCount}</strong></span>
+        {summary.lastCheckedAt ? <span><small>Checked</small><strong>{shortDate(summary.lastCheckedAt)}</strong></span> : null}
         {summary.savingsVsTypical || movement ? <div className="market-summary-notes">
           {summary.savingsVsTypical ? <span>Save {formatAmount(summary.savingsVsTypical, market)}.</span> : null}
           {movement ? <span className={`market-movement-${movement.direction}`}>{movement.copy}</span> : null}

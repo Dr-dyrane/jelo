@@ -42,7 +42,7 @@ test('summarizes available exact prices in one market', () => {
   assert.equal(summary.priceBasis, 'multi-source');
 });
 
-test('uses the familiar arithmetic average for a multi-store comparison', () => {
+test('uses the median (scoped to the compared set) for a multi-store comparison', () => {
   const threePrices = ([
     { retailer: 'One', url: 'https://example.com/one', trust: 100, available: true, match: 'exact', priceNgn: 10_000, checkedAt: '2026-07-21', location: ['NG'] },
     { retailer: 'Two', url: 'https://example.com/two', trust: 100, available: true, match: 'exact', priceNgn: 11_000, checkedAt: '2026-07-21', location: ['NG'] },
@@ -51,8 +51,9 @@ test('uses the familiar arithmetic average for a multi-store comparison', () => 
 
   const summary = summarizeMarket(threePrices, 'NG', now);
 
-  assert.equal(summary.typicalPrice, 13_000);
-  assert.equal(summary.savingsVsTypical, 3_000);
+  // median of 10k/11k/18k is 11k (the mean would have been 13k)
+  assert.equal(summary.typicalPrice, 11_000);
+  assert.equal(summary.savingsVsTypical, 1_000);
 });
 
 test('does not include search, unavailable or cross-market prices in the comparison', () => {
