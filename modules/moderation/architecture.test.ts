@@ -10,7 +10,7 @@ import test from 'node:test';
 // imported by this runner.
 test('the moderation console writes only its audit log and denies access by default', async () => {
   const root = process.cwd();
-  const files = ['schema.ts', 'audit.ts', 'access.ts', 'queues.ts'];
+  const files = ['schema.ts', 'audit.ts', 'access.ts', 'queues.ts', 'transitions.ts', 'action-input.ts'];
   const sources = await Promise.all(files.map(file => readFile(path.join(root, 'lib/moderation', file), 'utf8')));
   const all = sources.join('\n');
 
