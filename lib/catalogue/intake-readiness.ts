@@ -26,6 +26,21 @@ export const catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion = 6 
 export const catalogueMarketObservationSchemaVersion = 1 as const;
 export const catalogueRegulatorySearchObservationSchemaVersion = 1 as const;
 
+/**
+ * Reviewed browser surfaces whose rendered DOM may bind identity evidence. A surface qualifies
+ * only when an operator drives it, sees the rendered page and attributes the review. Adding one
+ * widens what counts as a reviewed capture, so extend this list deliberately—never to make a
+ * specific candidate pass.
+ */
+export const reviewedBrowserCaptureSurfaces = [
+  'Codex in-app browser',
+  'Claude Code in-app browser',
+] as const;
+export type ReviewedBrowserCaptureSurface = typeof reviewedBrowserCaptureSurfaces[number];
+function reviewedBrowserSurface(surface: string) {
+  return (reviewedBrowserCaptureSurfaces as readonly string[]).includes(surface);
+}
+
 export type CatalogueIntakePriority = 'essential' | 'important' | 'exploratory';
 export type CatalogueIntakeStage = 'identity' | 'care' | 'nigeria' | 'rights' | 'editorial' | 'approval-ready';
 export type CatalogueNigeriaMarketRoute = 'tier-a' | 'brand-authorized';
@@ -81,7 +96,7 @@ type CatalogueCorroboratedIdentifierExtraction = {
   responseDigestScope: 'rendered-dom-outerhtml';
   method: 'reviewed-browser-dom-independent-ean-corroboration';
   browserCapture: {
-    surface: 'Codex in-app browser';
+    surface: ReviewedBrowserCaptureSurface;
     documentReadyState: 'complete';
     pageTitle: string;
   };
@@ -104,13 +119,52 @@ type CatalogueAccessibleCorroboratedIdentifierExtraction = {
   responseDigestScope: 'rendered-accessibility-tree';
   method: 'reviewed-browser-accessibility-independent-ean-corroboration';
   browserCapture: {
-    surface: 'Codex in-app browser';
+    surface: ReviewedBrowserCaptureSurface;
     documentReadyState: 'complete';
     pageTitle: string;
   };
   reviewer: string;
   reviewedAt: string;
 };
+
+/**
+ * Machine-recheckable proof that an official source publishes no manufacturer identifier.
+ *
+ * A Shopify-shaped official page can quote `"sku":"","barcode":null` directly, but a custom
+ * storefront has no such object, and prose ("the page shows no barcode") is not re-verifiable.
+ * This records the search itself: the exact digest scope that was searched, the exact terms, and
+ * the resulting match count. A later reviewer re-fetches the source, confirms the bound response
+ * digest still matches, re-runs the same case-insensitive search and must observe the same zero.
+ *
+ * `searchedTerms` must cover every required identifier term, so a narrow search cannot manufacture
+ * an absence. Matching is whole-word and case-insensitive: a substring search would count "ean"
+ * inside "cleanser" and make a genuine absence impossible to record.
+ */
+export const requiredIdentifierAbsenceTerms = ['barcode', 'ean', 'gtin', 'upc'] as const;
+export type CatalogueIdentifierAbsenceProof = {
+  searchScope: 'complete-rendered-dom-outerhtml';
+  searchedTerms: readonly string[];
+  matchStrategy: 'whole-word';
+  caseInsensitive: true;
+  matchCount: 0;
+};
+
+function identifierAbsenceProofValid(
+  proof: CatalogueIdentifierAbsenceProof | undefined,
+  extraction: { responseDigestScope: string },
+) {
+  if (!proof) return false;
+  const searched = new Set((proof.searchedTerms ?? []).map(term => term.trim().toLowerCase()));
+  return Boolean(
+    proof.searchScope === 'complete-rendered-dom-outerhtml'
+    && extraction.responseDigestScope === 'rendered-dom-outerhtml'
+    && proof.matchStrategy === 'whole-word'
+    && proof.caseInsensitive === true
+    && proof.matchCount === 0
+    && Array.isArray(proof.searchedTerms)
+    && requiredIdentifierAbsenceTerms.every(term => searched.has(term)),
+  );
+}
 
 export type CatalogueCorroboratedIdentityExtraction = {
   schemaVersion: typeof catalogueCorroboratedIdentityExtractionSchemaVersion;
@@ -130,6 +184,7 @@ export type CatalogueCorroboratedIdentityExtraction = {
       value: 'not-published';
       locator: string;
       sourceText: string;
+      absenceProof?: CatalogueIdentifierAbsenceProof;
     };
     packageVersion: {
       value: string;
@@ -153,7 +208,7 @@ export type CatalogueCorroboratedIdentityExtraction = {
   responseDigestScope: 'rendered-dom-outerhtml';
   method: 'reviewed-browser-dom-identity-with-independent-ean-corroboration';
   browserCapture: {
-    surface: 'Codex in-app browser';
+    surface: ReviewedBrowserCaptureSurface;
     documentReadyState: 'complete';
     pageTitle: string;
   };
@@ -198,7 +253,7 @@ export type CatalogueAccessibleCorroboratedIdentityExtraction = {
   responseDigestScope: 'rendered-accessibility-tree';
   method: 'reviewed-browser-accessibility-identity-with-independent-ean-corroboration';
   browserCapture: {
-    surface: 'Codex in-app browser';
+    surface: ReviewedBrowserCaptureSurface;
     documentReadyState: 'complete';
     pageTitle: string;
   };
@@ -218,7 +273,7 @@ export type CatalogueOfficialIdentityExtraction = CatalogueOfficialIdentityExtra
     responseDigestScope: 'rendered-dom-outerhtml';
     method: 'reviewed-browser-dom-identity-field-extraction';
     browserCapture: {
-      surface: 'Codex in-app browser';
+      surface: ReviewedBrowserCaptureSurface;
       documentReadyState: 'complete';
       pageTitle: string;
     };
@@ -896,7 +951,7 @@ function corroboratedIdentityEvidenceValid(
     || !hashPattern.test(extraction.sourceResponseSha256)
     || !Number.isSafeInteger(extraction.sourceResponseByteSize)
     || extraction.sourceResponseByteSize <= 0
-    || extraction.browserCapture.surface !== 'Codex in-app browser'
+    || !reviewedBrowserSurface(extraction.browserCapture.surface)
     || extraction.browserCapture.documentReadyState !== 'complete'
     || extraction.browserCapture.pageTitle.trim().length < 3
     || extraction.retrievedAt !== evidence.retrievedAt
@@ -920,8 +975,15 @@ function corroboratedIdentityEvidenceValid(
     || normalizedSize(officialSize.value) !== normalizedSize(candidate.size)
     || !sourceTextContainsExactSize(officialSize.sourceText, officialSize.value)
     || identifierStatus.value !== 'not-published'
-    || !/["']?barcode["']?\s*:\s*null/i.test(identifierStatus.sourceText)
-    || !/["']?sku["']?\s*:\s*["']{2}/i.test(identifierStatus.sourceText)
+    // Non-publication is proven either by quoting the official empty identifier fields, or by a
+    // bound, re-runnable absence search over the same rendered document. Prose alone never passes.
+    || !(
+      (
+        /["']?barcode["']?\s*:\s*null/i.test(identifierStatus.sourceText)
+        && /["']?sku["']?\s*:\s*["']{2}/i.test(identifierStatus.sourceText)
+      )
+      || identifierAbsenceProofValid(identifierStatus.absenceProof, extraction)
+    )
     || !packageVersion?.trim()
     || normalized(packageVersionField.value) !== normalized(packageVersion)
     || normalized(evidence.observedPackageVersion ?? '') !== normalized(packageVersion)
@@ -965,7 +1027,7 @@ function corroboratedIdentityEvidenceValid(
       || !hashPattern.test(corroboration.sourceResponseSha256)
       || !Number.isSafeInteger(corroboration.sourceResponseByteSize)
       || corroboration.sourceResponseByteSize <= 0
-      || corroboration.browserCapture.surface !== 'Codex in-app browser'
+      || !reviewedBrowserSurface(corroboration.browserCapture.surface)
       || corroboration.browserCapture.documentReadyState !== 'complete'
       || corroboration.browserCapture.pageTitle.trim().length < 3
       || !validPastDate(corroboration.retrievedAt, asOf)
@@ -1029,7 +1091,7 @@ function accessibleCorroboratedIdentityEvidenceValid(
     || !hashPattern.test(extraction.sourceResponseSha256)
     || !Number.isSafeInteger(extraction.sourceResponseByteSize)
     || extraction.sourceResponseByteSize <= 0
-    || extraction.browserCapture.surface !== 'Codex in-app browser'
+    || !reviewedBrowserSurface(extraction.browserCapture.surface)
     || extraction.browserCapture.documentReadyState !== 'complete'
     || extraction.browserCapture.pageTitle.trim().length < 3
     || extraction.retrievedAt !== evidence.retrievedAt
@@ -1097,7 +1159,7 @@ function accessibleCorroboratedIdentityEvidenceValid(
       || !hashPattern.test(corroboration.sourceResponseSha256)
       || !Number.isSafeInteger(corroboration.sourceResponseByteSize)
       || corroboration.sourceResponseByteSize <= 0
-      || corroboration.browserCapture.surface !== 'Codex in-app browser'
+      || !reviewedBrowserSurface(corroboration.browserCapture.surface)
       || corroboration.browserCapture.documentReadyState !== 'complete'
       || corroboration.browserCapture.pageTitle.trim().length < 3
       || !validPastDate(corroboration.retrievedAt, asOf)
@@ -1155,7 +1217,7 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
       && extraction.method === 'reviewed-browser-dom-identity-field-extraction'
       && extraction.responseDigestScope === 'rendered-dom-outerhtml'
       && extraction.sourceResponseMimeType === 'text/html'
-      && extraction.browserCapture.surface === 'Codex in-app browser'
+      && reviewedBrowserSurface(extraction.browserCapture.surface)
       && extraction.browserCapture.documentReadyState === 'complete'
       && extraction.browserCapture.pageTitle.trim().length >= 3
     )

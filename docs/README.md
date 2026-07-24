@@ -33,6 +33,7 @@ This is the entry point for product, engineering, data, and operations.
 - [Ask Jelo](./ASK_JELO_EXPERIENCE.md)
 - [Concern knowledge](./CONCERN_KNOWLEDGE.md)
 - [Ingredient review](./INGREDIENT_REVIEW.md)
+- [Behavioural analytics](./ANALYTICS.md)
 
 ## Publication and media
 

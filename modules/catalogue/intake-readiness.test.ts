@@ -6,6 +6,9 @@ import {
   catalogueGenerationRecordSchemaVersion,
   catalogueGenerationRecordSha256,
   catalogueCorroboratedIdentityExtractionSchemaVersion,
+  reviewedBrowserCaptureSurfaces,
+  requiredIdentifierAbsenceTerms,
+  type ReviewedBrowserCaptureSurface,
   catalogueIdentityExtractionByteSize,
   catalogueIdentityExtractionSchemaVersion,
   catalogueIdentityExtractionSha256,
@@ -968,6 +971,145 @@ test('an unpublished manufacturer barcode requires two independent EAN sources a
   }, asOf);
   assert.equal(changedPackageDecision.stage, 'identity');
   assert.ok(changedPackageDecision.blockers.includes('identity-official-evidence-invalid'));
+});
+
+test('a non-Shopify official source proves an unpublished identifier by bound absence search, never by prose', () => {
+  const officialEvidence = corroboratedIdentityEvidence();
+  const candidate: CatalogueIntakeCandidate = {
+    ...completeCandidate(),
+    id: 'nineless-a-control-10-azelaic-acid-serum-30ml',
+    brand: 'NINELESS',
+    brandAliases: ['NINE LESS'],
+    name: 'A-Control 10% Azelaic Acid Serum',
+    variant: 'A-Control 10% Azelaic Acid Serum',
+    size: '30 ml',
+    identity: {
+      gtin: '8809875270073',
+      officialProductUrl: officialEvidence.url,
+      checkedAt: '2026-07-22T08:00:00Z',
+      basis: 'official-brand',
+      packageVersion: 'Original green dropper bottle',
+      officialEvidence,
+    },
+  };
+  const extraction = officialEvidence.canonicalExtraction;
+  if (extraction.schemaVersion !== catalogueCorroboratedIdentityExtractionSchemaVersion) return;
+
+  const withStatus = (status: Record<string, unknown>) => {
+    const moved = {
+      ...extraction,
+      fields: {
+        ...extraction.fields,
+        manufacturerIdentifierStatus: { ...extraction.fields.manufacturerIdentifierStatus, ...status },
+      },
+    } as typeof extraction;
+    return evaluateCatalogueIntakeCandidate({
+      ...candidate,
+      identity: { ...candidate.identity, officialEvidence: withCanonicalExtraction(officialEvidence, moved) },
+    }, asOf);
+  };
+
+  // Prose alone, with the quotable fields removed, must fail.
+  const prose = withStatus({
+    sourceText: 'The rendered official product document shows no barcode anywhere.',
+    absenceProof: undefined,
+  });
+  assert.ok(prose.blockers.includes('identity-official-evidence-invalid'));
+
+  const validProof = {
+    searchScope: 'complete-rendered-dom-outerhtml' as const,
+    searchedTerms: [...requiredIdentifierAbsenceTerms],
+    matchStrategy: 'whole-word' as const,
+    caseInsensitive: true as const,
+    matchCount: 0 as const,
+  };
+  const proven = withStatus({
+    sourceText: 'The rendered official product document shows no barcode anywhere.',
+    absenceProof: validProof,
+  });
+  assert.equal(proven.blockers.includes('identity-official-evidence-invalid'), false);
+
+  // A narrowed search cannot manufacture an absence.
+  const narrow = withStatus({
+    sourceText: 'no barcode',
+    absenceProof: { ...validProof, searchedTerms: ['barcode'] },
+  });
+  assert.ok(narrow.blockers.includes('identity-official-evidence-invalid'));
+
+  // A search that actually matched cannot claim absence.
+  const matched = withStatus({
+    sourceText: 'no barcode',
+    absenceProof: { ...validProof, matchCount: 3 },
+  });
+  assert.ok(matched.blockers.includes('identity-official-evidence-invalid'));
+
+  // A case-sensitive search would miss capitalised identifiers.
+  const caseSensitive = withStatus({
+    sourceText: 'no barcode',
+    absenceProof: { ...validProof, caseInsensitive: false },
+  });
+  assert.ok(caseSensitive.blockers.includes('identity-official-evidence-invalid'));
+
+  // A partial-document scope cannot stand in for the complete rendered document.
+  const partialScope = withStatus({
+    sourceText: 'no barcode',
+    absenceProof: { ...validProof, searchScope: 'product-detail-panel' },
+  });
+  assert.ok(partialScope.blockers.includes('identity-official-evidence-invalid'));
+
+  // A substring search counts "ean" inside "cleanser", so it can never prove a real absence.
+  const substringSearch = withStatus({
+    sourceText: 'no barcode',
+    absenceProof: { ...validProof, matchStrategy: 'substring' },
+  });
+  assert.ok(substringSearch.blockers.includes('identity-official-evidence-invalid'));
+});
+
+test('identity evidence accepts every reviewed browser surface and rejects an unlisted one', () => {
+  const officialEvidence = corroboratedIdentityEvidence();
+  const candidate: CatalogueIntakeCandidate = {
+    ...completeCandidate(),
+    id: 'nineless-a-control-10-azelaic-acid-serum-30ml',
+    brand: 'NINELESS',
+    brandAliases: ['NINE LESS'],
+    name: 'A-Control 10% Azelaic Acid Serum',
+    variant: 'A-Control 10% Azelaic Acid Serum',
+    size: '30 ml',
+    identity: {
+      gtin: '8809875270073',
+      officialProductUrl: officialEvidence.url,
+      checkedAt: '2026-07-22T08:00:00Z',
+      basis: 'official-brand',
+      packageVersion: 'Original green dropper bottle',
+      officialEvidence,
+    },
+  };
+  const extraction = officialEvidence.canonicalExtraction;
+  if (extraction.schemaVersion !== catalogueCorroboratedIdentityExtractionSchemaVersion) return;
+
+  const onSurface = (surface: ReviewedBrowserCaptureSurface | 'Unreviewed screenshot tool') => {
+    const moved = {
+      ...extraction,
+      browserCapture: { ...extraction.browserCapture, surface },
+      identifierCorroborations: extraction.identifierCorroborations.map(corroboration => ({
+        ...corroboration,
+        browserCapture: { ...corroboration.browserCapture, surface },
+      })),
+    } as typeof extraction;
+    return evaluateCatalogueIntakeCandidate({
+      ...candidate,
+      identity: { ...candidate.identity, officialEvidence: withCanonicalExtraction(officialEvidence, moved) },
+    }, asOf);
+  };
+
+  for (const surface of reviewedBrowserCaptureSurfaces) {
+    const decision = onSurface(surface);
+    assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false, surface);
+  }
+
+  const unreviewed = onSurface('Unreviewed screenshot tool');
+  assert.equal(unreviewed.stage, 'identity');
+  assert.ok(unreviewed.blockers.includes('identity-official-evidence-invalid'));
 });
 
 test('an accessibility-tree capture can corroborate an exact legacy package without inventing official identifier fields', () => {
