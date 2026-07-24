@@ -5,27 +5,24 @@ import { Moon, Sun } from 'lucide-react';
 
 type Theme = 'light' | 'dark';
 
-function systemTheme(): Theme {
-  return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
-}
-
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
 
   // After mount, read the theme the no-flash script already applied to <html>, so
   // the icon matches what the reader sees. This runs client-only to avoid a
-  // hydration mismatch, which is why the sync happens in an effect.
+  // hydration mismatch, which is why the sync happens in an effect. Light is the
+  // default (the app does not follow the OS preference).
   useEffect(() => {
     const stored = document.documentElement.getAttribute('data-theme') as Theme | null;
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(stored ?? systemTheme());
+    setTheme(stored ?? 'light');
   }, []);
 
   function toggle() {
-    const next: Theme = (theme ?? systemTheme()) === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
+    const next: Theme = (theme ?? 'light') === 'dark' ? 'light' : 'dark';
+    const root = document.documentElement;
+    root.setAttribute('data-theme', next);
+    root.style.colorScheme = next;
     try {
       localStorage.setItem('jelo-theme', next);
     } catch {

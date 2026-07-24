@@ -61,7 +61,10 @@ export const viewport: Viewport = {
   colorScheme: 'light dark',
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem('jelo-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
+// Default to light (not the OS preference): only an explicit stored 'dark' opts in.
+// Setting data-theme="light" explicitly also keeps the prefers-color-scheme:dark
+// overrides from ever applying on a dark-OS machine.
+const themeScript = `(function(){try{var t=localStorage.getItem('jelo-theme');var m=t==='dark'?'dark':'light';var e=document.documentElement;e.setAttribute('data-theme',m);e.style.colorScheme=m;}catch(err){var e=document.documentElement;e.setAttribute('data-theme','light');e.style.colorScheme='light';}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
