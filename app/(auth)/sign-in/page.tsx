@@ -17,11 +17,16 @@ export default function OpsSignIn() {
     setMessage('');
     try {
       const { error } = await authClient.signIn.magicLink({ email: email.trim(), callbackURL: '/ops' });
-      if (error) throw new Error(error.message ?? 'Sign-in failed.');
+      if (error) throw error;
       setState('sent');
     } catch (err) {
+      // The technical detail goes to the console; the operator sees a calm line.
+      console.error('sign-in', err);
+      const status = (err as { status?: number } | null)?.status;
       setState('error');
-      setMessage(err instanceof Error ? err.message : 'Something went wrong. Try again.');
+      setMessage(status === 404
+        ? 'Sign-in is not switched on yet. Try again shortly.'
+        : 'Could not send the link. Please try again in a moment.');
     }
   }
 
