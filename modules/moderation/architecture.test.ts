@@ -25,7 +25,13 @@ test('the moderation console writes only its audit log and denies access by defa
 
   // Access is deny-by-default and never infers identity from a header, cookie, or query param.
   const access = sources[files.indexOf('access.ts')];
-  assert.match(access, /async function operatorAuthSubject\([^)]*\): Promise<string \| null> \{\s*return null;/);
+  // operatorAuthSubject must delegate to the verified session helper — never a
+  // hardcoded value — and identity must come only from getAuthSubject().
+  assert.match(access, /import \{ getAuthSubject \} from '@\/lib\/auth\/subject';/);
+  assert.match(
+    access,
+    /export async function operatorAuthSubject\(\): Promise<string \| null> \{\s*const identity = await getAuthSubject\(\);\s*return identity\?\.subject \?\? null;\s*\}/,
+  );
   assert.match(access, /and active = true/);
   assert.match(access, /throw new ModerationAccessError/);
   assert.doesNotMatch(access, /headers\(\)|cookies\(\)|searchParams|request\.headers/);

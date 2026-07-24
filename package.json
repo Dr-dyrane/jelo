@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.221",
+    "@neondatabase/auth": "0.4.2-beta",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.0",
     "@vercel/analytics": "2.0.1",

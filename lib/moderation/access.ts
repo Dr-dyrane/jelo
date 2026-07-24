@@ -1,6 +1,7 @@
 import 'server-only';
 
 import type { Sql } from 'postgres';
+import { getAuthSubject } from '@/lib/auth/subject';
 
 export type ModerationRole = 'moderator' | 'operator' | 'admin';
 
@@ -17,13 +18,14 @@ export class ModerationAccessError extends Error {
   }
 }
 
-// The authenticated operator's stable subject from the Neon Auth session, or null.
-// Neon Auth is provisioned but not yet wired (ADR 0007); until it is, this returns
-// null so every console access is denied by default. Identity must only ever come
-// from the verified Neon Auth session — never from a request header, query
-// parameter, or any cookie other than that session.
+// The authenticated operator's stable subject from the verified Neon Auth session,
+// or null. Identity comes only from getAuthSubject() (the session cookie the SDK
+// verifies) — never a request header, query parameter, or any other cookie. Unknown
+// or deactivated subjects are still denied downstream by the active = true allowlist,
+// and an unconfigured environment returns null, preserving deny-by-default.
 export async function operatorAuthSubject(): Promise<string | null> {
-  return null;
+  const identity = await getAuthSubject();
+  return identity?.subject ?? null;
 }
 
 // Looks up an active operator by auth subject. Returns null for an unknown or
