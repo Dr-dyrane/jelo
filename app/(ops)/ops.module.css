@@ -121,6 +121,35 @@
 .pillWarn { color: var(--ops-warn); background: var(--ops-warn-bg); }
 .pillDanger { color: var(--ops-danger); background: var(--ops-danger-bg); }
 
+.actions { display: flex; align-items: center; gap: .35rem; }
+.noteInput {
+  width: 8rem;
+  min-width: 0;
+  padding: .3rem .45rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: .76rem;
+}
+.noteInput:focus-visible { outline: 2px solid var(--accent-solid); outline-offset: -1px; }
+.btn {
+  padding: .3rem .6rem;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font: inherit;
+  font-size: .76rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btnOk { color: var(--ops-ok); background: var(--ops-ok-bg); }
+.btnOk:hover { border-color: var(--ops-ok); }
+.btnDanger { color: var(--ops-danger); background: var(--ops-danger-bg); }
+.btnDanger:hover { border-color: var(--ops-danger); }
+.btn:focus-visible { outline: 2px solid var(--accent-solid); outline-offset: 1px; }
+
 .empty {
   padding: 3rem 1.5rem;
   border: 1px dashed var(--border);

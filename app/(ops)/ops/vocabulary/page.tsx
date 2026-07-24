@@ -2,7 +2,8 @@ import { getPostgresClient } from '@/lib/db/postgres';
 import { listPendingModerationValues } from '@/lib/moderation/queues';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import styles from '../../ops.module.css';
-import { Empty, Heading, Table, shortDate } from '../ui';
+import { DecideForm, Empty, Heading, Table, shortDate } from '../ui';
+import { decideModerationValueAction } from '../actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,9 +12,9 @@ export default async function VocabularyQueue() {
   const rows = await listPendingModerationValues(getPostgresClient());
   return (
     <>
-      <Heading title="Custom vocabulary" lede="Values shoppers typed that no canonical entity matched, awaiting a mapping decision or rejection." />
+      <Heading title="Custom vocabulary" lede="Values shoppers typed that no canonical entity matched. Approve to accept the term, or reject; mapping to a canonical entity comes next." />
       {rows.length === 0 ? <Empty label="vocabulary" /> : (
-        <Table head={<tr><th>Kind</th><th>Raw</th><th>Normalized</th><th>Seen</th><th>Last seen</th></tr>}>
+        <Table head={<tr><th>Kind</th><th>Raw</th><th>Normalized</th><th>Seen</th><th>Last seen</th><th>Decision</th></tr>}>
           {rows.map(row => (
             <tr key={row.id}>
               <td>{row.valueKind}</td>
@@ -21,6 +22,7 @@ export default async function VocabularyQueue() {
               <td className={styles.mono}>{row.normalizedValue}</td>
               <td>{row.occurrenceCount}</td>
               <td>{shortDate(row.lastSeenAt)}</td>
+              <td><DecideForm action={decideModerationValueAction} id={row.id} /></td>
             </tr>
           ))}
         </Table>
