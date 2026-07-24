@@ -30,15 +30,21 @@ The roadmap is ordered by dependency, not novelty.
 - Launch the retailer partnership path for physical, social, and web stores.
 - Turn approved retailer submissions into canonical retailers and exact offers through the existing verification lane.
 
+## Shipped (2026-07-24)
+
+- Evidence-scoped share cards and dynamic OpenGraph images for products, prices, and ingredients (routines remain, below). See [Share and OpenGraph](../SHARE_AND_OPENGRAPH.md).
+- Dark mode with a pinned light default. See [Design system · Theme](../design/SYSTEM.md#theme) and [ADR 0004](../adr/0004-default-light-theme.md).
+- Retailer freshness surfaced on the market summary, with the contract's `Observed` / `Lowest observed` / `Median` vocabulary and an honest median.
+
 ## Next
 
 - Price-history summaries with sufficient same-offer observations.
-- Better retailer confidence and freshness operations.
+- Retailer **confidence** surface (freshness and the summary vocabulary already shipped, above) — framed as compared-set data coverage, never an authenticity grade.
 - Rank exact-product stores by fulfilment fit, evidence, freshness, availability,
-  landed cost, location, and preferred channel.
-- Beautiful, evidence-scoped share cards for products, ingredients, routines, and prices.
+  landed cost, location, and preferred channel — see the ranking policy in [ADR 0006](../adr/0006-store-ranking-excludes-commercial-signals.md). Evidence and freshness are ready to score now; landed cost and location need new data first.
+- The remaining share card: **routines**.
 - An internal moderation and operations view for community and retailer queues.
-- Structured ingestion events that preserve the original submission while producing product, retailer, price, purpose, and outcome observations.
+- Structured ingestion events that preserve the original submission while producing product, retailer, price, purpose, and outcome observations — see [ADR 0005](../adr/0005-structured-observation-events.md).
 
 ## Later
 

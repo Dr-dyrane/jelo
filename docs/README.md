@@ -34,6 +34,7 @@ This is the entry point for product, engineering, data, and operations.
 - [Concern knowledge](./CONCERN_KNOWLEDGE.md)
 - [Ingredient review](./INGREDIENT_REVIEW.md)
 - [Behavioural analytics](./ANALYTICS.md)
+- [Share and OpenGraph](./SHARE_AND_OPENGRAPH.md)
 
 ## Publication and media
 
@@ -46,6 +47,9 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0001 · Deferred trust, collections, community, and stock alerts](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md)
 - [ADR 0002 · Anonymous community knowledge intake](./adr/0002-anonymous-community-knowledge-intake.md)
 - [ADR 0003 · Retailer partnership intake](./adr/0003-retailer-partnership-intake.md)
+- [ADR 0004 · Default to a pinned light theme](./adr/0004-default-light-theme.md)
+- [ADR 0005 · Structured observation and behavioural events](./adr/0005-structured-observation-events.md)
+- [ADR 0006 · Store ranking excludes commercial and popularity signals](./adr/0006-store-ranking-excludes-commercial-signals.md)
 
 ## What is authoritative
 

@@ -23,6 +23,15 @@ The global tokens live in `app/globals.css`.
 
 Route CSS may add peach, pink, and cream shades. Brown is an accent, not a dominant page background.
 
+### Theme
+
+The table above lists the **light** values. Light is the default and is pinned regardless of the operating system preference ([ADR 0004](../adr/0004-default-light-theme.md)). Every token also carries a **dark** value, added append-only so light mode stays byte-identical:
+
+- `:root[data-theme="dark"]` applies when the reader explicitly chooses dark.
+- `@media (prefers-color-scheme: dark) :root:not([data-theme="light"])` is the system-dark fallback, which the default-light script suppresses unless the reader opts in.
+
+A no-flash inline script in `app/layout.tsx` sets `data-theme` and `color-scheme` before paint from `localStorage['jelo-theme']`, defaulting to `light`; [`ThemeToggle`](../../components/navigation/theme-toggle.tsx) writes the preference. Dark surfaces are warm (never pure black) and sit lighter than the page for correct elevation; product cutouts drop `mix-blend-mode: multiply` in dark. Any route CSS that hardcodes a light value must add a matching dark override, or it renders as a light patch on the dark page.
+
 ## Type
 
 - Display: Italiana, weight 400, exposed as `--font-display`.
