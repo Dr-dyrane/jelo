@@ -1,6 +1,6 @@
 # ADR 0007: Internal moderation and operations console
 
-Status: Proposed (design); awaiting founder acceptance, build sequenced
+Status: Accepted (design); build sequenced
 
 Date: 2026-07-24
 
@@ -21,13 +21,25 @@ Build an internal, authenticated moderation and operations console as a surface 
 1. **Read and triage queues** for: community contributions and knowledge edges (`pending` / `community_reported`), `community_observations` (price and outcome), `community_moderation_values` (custom vocabulary), and retailer partnership applications.
 2. **Promotion stays gated and attributable.** Turning any submission into a canonical record (product, brand, retailer, offer, concern, ingredient, alias, or clinical relation) remains an explicit moderation action that passes the existing evidence gates. The console records actor, timestamp, and rationale in an audit log and never bypasses a gate — it enforces the [ADR 0002](0002-anonymous-community-knowledge-intake.md) trust boundary and the [ADR 0001](0001-deferred-trust-collections-community-and-stock-alerts.md) rule that popularity is never a proxy for safety, authenticity, or authorization.
 3. **A private, measurement-only analytics view** over `commerce_events` (`store_click` `priceRank` / `position`) and the existing `community:research:signals` report. Never joined to health-shaped behaviour and never fed back into store ranking ([ADR 0005](0005-structured-observation-events.md) + [ADR 0006](0006-store-ranking-excludes-commercial-signals.md)).
-4. **Access is gated by the provisioned authentication.** The console is not linked from, or reachable through, the public product, concern, or Ask Jelo surfaces.
+4. **Access is gated by the provisioned authentication** (see below). The console is not linked from, or reachable through, the public product, concern, or Ask Jelo surfaces.
+
+## Authentication
+
+*Where identity is verified* and *where auth state lives* are separate decisions. The console builds no credential storage of its own.
+
+- **Identity: Neon Auth, already provisioned.** `NEON_AUTH_BASE_URL` and `VITE_NEON_AUTH_URL` are in the environment template but unused today — this is the "infrastructure-level" authentication [ADR 0001](0001-deferred-trust-collections-community-and-stock-alerts.md) refers to. Neon Auth delegates sign-in to OIDC providers (Google, GitHub, or email link) and syncs authenticated users into a `neon_auth.users_sync` table in the same Neon database. JeloCare stores no passwords, and operator identity is queryable in SQL.
+- **Durable auth state lives in Neon — the deciding reason to prefer it.** The audit log (actor, action, target, timestamp, rationale) and the operator role list are Neon tables, so a promotion to a canonical record and its audit row commit in the **same transaction** (decision #2). Operator identity foreign-keys to `neon_auth.users_sync`. Redis is the wrong home for this because it is ephemeral.
+- **Authorization is an explicit allowlist.** Neon Auth proves who a person is; a small operator-role table decides what they may triage or promote. Default deny, no self-service signup.
+- **Ephemeral state stays in the existing Upstash Redis** (rate limits, short-lived caches), reusing the HMAC pattern in `lib/community-intake/security.ts` — never as the durable session or audit store.
+- **Edge gate for defense in depth.** The console is a separate internal surface (its own route or subdomain) and may additionally sit behind Vercel deployment protection, so it is never reachable from the public app even before app-level auth runs.
+
+Rejected here: a bespoke email/password system (needless credential storage and reset surface, weaker than the provisioned Neon Auth); Redis-only sessions (no durable, transactional audit trail); and reusing the public magic-link intake primitive for operators (it authenticates a *draft*, not a person, and carries no role model).
 
 ## Consequences
 
 - The intake, observation, and partnership pipelines become operable at scale instead of operator-only database tooling.
 - Moderation actions become auditable and attributable — a precondition several ADR 0001 re-entry gates name (owned moderation model, privacy and audit reviews).
-- New dependencies to specify in the build phase: authenticated internal session handling, an audit-log table, and role / permission scoping.
+- New dependencies (see [Authentication](#authentication)): wiring the already-provisioned Neon Auth, a Neon audit-log table keyed to `neon_auth.users_sync`, and an operator-role allowlist. No new auth vendor and no password storage.
 - It does **not** authorize any public community feature. [ADR 0001](0001-deferred-trust-collections-community-and-stock-alerts.md) stays in force: no public accounts, ratings, comments, stories, or alerts. This is an internal operations tool only.
 
 ## Alternatives rejected
