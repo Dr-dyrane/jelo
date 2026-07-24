@@ -1,12 +1,11 @@
 import { ImageResponse } from 'next/og';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { OG_SIZE, absoluteImage, loadImage, loadOgFonts, ngn } from '@/lib/og/assets';
 import { hasShareableNgOffer } from '@/modules/commerce/shareable-offer';
 import { buildShareData } from './share-data';
 
 export const runtime = 'nodejs';
-export const size = { width: 1200, height: 630 };
+export const size = OG_SIZE;
 export const contentType = 'image/png';
 export const alt = 'JeloCare observed Nigerian prices for this product';
 // Refresh the pre-built image hourly so observed prices stay current.
@@ -20,44 +19,10 @@ export async function generateStaticParams() {
   return products.filter(product => hasShareableNgOffer(product)).map(product => ({ slug: product.slug }));
 }
 
-const ogDir = join(process.cwd(), 'app', 'share', '[slug]', '_og');
-const loadFont = (file: string) => readFile(join(ogDir, file));
-
-function absolute(image: string) {
-  return image.startsWith('http') ? image : `https://www.jelocare.com${image}`;
-}
-
-// Fetch the packshot ourselves (with a timeout) and inline it as a data URL, so
-// generation never hangs on a slow image and a fetch failure degrades to a card
-// without the shot rather than failing the whole build.
-async function loadImage(url: string): Promise<string | null> {
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 5000);
-    const response = await fetch(url, { signal: controller.signal });
-    clearTimeout(timer);
-    if (!response.ok) return null;
-    const buffer = Buffer.from(await response.arrayBuffer());
-    const type = response.headers.get('content-type') ?? 'image/png';
-    return `data:${type};base64,${buffer.toString('base64')}`;
-  } catch {
-    return null;
-  }
-}
-
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const data = await buildShareData(slug);
-  const [italiana, manrope, manropeSemibold] = await Promise.all([
-    loadFont('italiana-400.ttf'),
-    loadFont('manrope-400.ttf'),
-    loadFont('manrope-600.ttf'),
-  ]);
-  const fonts = [
-    { name: 'Italiana', data: italiana, weight: 400 as const },
-    { name: 'Manrope', data: manrope, weight: 400 as const },
-    { name: 'Manrope', data: manropeSemibold, weight: 600 as const },
-  ];
+  const fonts = await loadOgFonts();
 
   if (!data) {
     return new ImageResponse(
@@ -66,16 +31,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           JeloCare
         </div>
       ),
-      { ...size, fonts },
+      { ...OG_SIZE, fonts },
     );
   }
 
   const { view } = data;
-  const imageSrc = await loadImage(absolute(view.image));
+  const imageSrc = await loadImage(absoluteImage(view.image));
   const primary = view.offers[0];
   const secondary = view.offers[1];
-  // The Latin font subset has no naira glyph, so spell it in the image only.
-  const ngn = (label: string) => label.replace('₦', 'NGN ');
 
   return new ImageResponse(
     (
@@ -115,6 +78,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         </div>
       </div>
     ),
-    { ...size, fonts },
+    { ...OG_SIZE, fonts },
   );
 }
