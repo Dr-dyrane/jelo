@@ -28,6 +28,7 @@ async function main() {
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<string, AssetRecord>;
   const sql = postgres(connectionString, { max: 1, prepare: false });
   let updated = 0;
+  let skipped = 0;
 
   try {
     await sql.begin(async transaction => {
@@ -57,11 +58,20 @@ async function main() {
             and p.slug = ${slug}
           returning pi.id
         `;
-        if (rows.length !== 1) throw new Error(`Expected one packshot record for ${slug}; found ${rows.length}.`);
+        if (rows.length > 1) throw new Error(`Expected at most one packshot record for ${slug}; found ${rows.length}.`);
+        if (rows.length === 0) {
+          // A static-catalogue product may not be mirrored into Neon yet: the canonical
+          // catalogue is seeded separately (behind SEED_CATALOGUE_ON_BUILD), while the
+          // runtime renders from data/*.ts. Skip its metadata rather than failing the
+          // whole production build; the packshot is already live on Blob.
+          console.warn(`No Neon packshot row for ${slug}; skipping metadata seed.`);
+          skipped += 1;
+          continue;
+        }
         updated += 1;
       }
     });
-    console.log(`Seeded metadata for ${updated} canonical product assets.`);
+    console.log(`Seeded metadata for ${updated} canonical product assets${skipped ? `; skipped ${skipped} not yet mirrored into Neon` : ''}.`);
   } finally {
     await sql.end();
   }
