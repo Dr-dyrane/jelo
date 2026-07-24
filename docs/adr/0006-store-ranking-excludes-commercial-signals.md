@@ -19,8 +19,10 @@ Enforcement: a ranking-purity test asserts that `offer-selection.ts` references 
 ## Consequences
 
 - "Smarter ranking" is a scoring wire-up over data already present (e.g. weighting the seller-identity / brand-authorization evidence that is modeled but under-scored), not new commercial inputs.
-- Two roadmap sub-dimensions need new data before they can rank: **landed cost** (only an `included` / `excluded` / `unknown` enum today, no numeric delivery amount) and **location distance / pickup** (only free-text `locationLabel`, no geo). They are deferred, not built on fabricated data.
-- Fulfilment fit and preferred channel are modeled but also need a user-selected preference input that does not yet exist in `retailer-list.tsx`.
+- **Landed cost now ranks by the total a shopper would pay** via an optional numeric `deliveryNgn` / `deliveryUsd` seam on the offer: `landedMarketPrice` sums an `excluded` observation with a stated delivery fee, treats an `included` observation as already total, and otherwise falls back to the bare observed price — never a guessed total. It is dormant until a listing states a numeric fee, exactly like price history is dormant until Neon fills it.
+- **Fulfilment fit is a shopper-chosen preference**, not a hidden filter: a `Prefer` control in `retailer-list.tsx` adds a small `+5` tie-breaker to offers that already declare the chosen `FulfilmentMethod`. The preference only nudges; it never removes a store.
+- **Location distance / pickup stays deferred**: `locationLabel` is still free-text with no geo, and true distance ranking needs a retailer-coordinate dataset (and, for device location, a consent surface) that does not exist yet. Not built on fabricated data.
+- Confidence is surfaced as **compared-set coverage** (`Based on N of M stores`), never a grade.
 - The purity test makes the boundary a build-time gate, not just prose.
 
 ## Alternatives rejected

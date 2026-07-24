@@ -1,10 +1,10 @@
-import type { Offer } from '@/data/products';
+import type { FulfilmentMethod, Offer } from '@/data/products';
 import { isOfferFresh } from './offer-freshness';
 import {
-  comparableMarketPrice,
   hasBrandAuthorizationEvidence,
   hasListingEvidence,
   hasSellerIdentityEvidence,
+  landedMarketPrice,
 } from './offer-evidence';
 
 export type RankedOffer = Offer & {
@@ -12,7 +12,18 @@ export type RankedOffer = Offer & {
   reasons: string[];
 };
 
-export function rankOffers(offers: Offer[], country: string, now: number | Date = Date.now()): RankedOffer[] {
+/** Shopper-chosen, evidence-bound preferences that softly break ties (ADR 0006).
+ *  Never commercial: a preference only nudges offers that already declare the trait. */
+export type RankingPreferences = {
+  fulfilment?: FulfilmentMethod;
+};
+
+export function rankOffers(
+  offers: Offer[],
+  country: string,
+  now: number | Date = Date.now(),
+  preferences: RankingPreferences = {},
+): RankedOffer[] {
   return offers
     .map(offer => {
       const reasons: string[] = [];
@@ -47,6 +58,13 @@ export function rankOffers(offers: Offer[], country: string, now: number | Date 
         reasons.push('Brand authorization evidenced');
       }
 
+      // A shopper's stated fulfilment preference nudges offers that already declare
+      // that method — a small, consumer-chosen tie-breaker, never a hidden filter.
+      if (preferences.fulfilment && offer.fulfilment?.includes(preferences.fulfilment)) {
+        score += 5;
+        reasons.push('Matches your fulfilment choice');
+      }
+
       if (offer.location.includes(country)) {
         score += 20;
         reasons.push('Available for your location');
@@ -68,9 +86,11 @@ export function rankOffers(offers: Offer[], country: string, now: number | Date 
         reasons.push('Stock needs confirmation');
       }
 
+      // Landed total (price + any stated delivery) when knowable, so cheaper-to-receive
+      // ranks higher — falls back to the bare observed price, never a guessed total.
       const marketPrice = country === 'US'
-        ? comparableMarketPrice(offer, 'US', now)
-        : comparableMarketPrice(offer, 'NG', now);
+        ? landedMarketPrice(offer, 'US', now)
+        : landedMarketPrice(offer, 'NG', now);
       if (marketPrice != null && fresh) {
         const priceWeight = country === 'US' ? marketPrice / 10 : marketPrice / 10000;
         score += Math.max(0, 16 - priceWeight);

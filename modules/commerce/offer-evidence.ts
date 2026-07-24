@@ -157,6 +157,32 @@ export function landedCostCaveat(offer: Offer) {
   return 'Delivery may change total';
 }
 
+/** Observed numeric delivery fee for the market, only when a listing stated one. */
+export function observedDeliveryFee(offer: Offer, market: Market) {
+  const fee = market === 'NG' ? offer.deliveryNgn : offer.deliveryUsd;
+  return typeof fee === 'number' && Number.isFinite(fee) && fee > 0 ? fee : null;
+}
+
+/**
+ * Comparable price a shopper would actually pay including delivery, when the total
+ * is knowable: an "included" observation is already the total, and an "excluded"
+ * observation plus a stated numeric fee sums to it. When delivery is unknown or has
+ * no numeric amount, this returns the bare comparable price — never a guessed total.
+ */
+export function landedMarketPrice(
+  offer: Offer,
+  market: Market,
+  now: number | Date = Date.now(),
+) {
+  const price = comparableMarketPrice(offer, market, now);
+  if (price == null) return null;
+  if (offer.priceObservation?.landedCost === 'excluded') {
+    const fee = observedDeliveryFee(offer, market);
+    if (fee != null) return price + fee;
+  }
+  return price;
+}
+
 export function observedStockLabel(offer: Offer, fresh: boolean) {
   if (!fresh) return 'Check stock';
   const observed = offer.priceObservation?.stock;

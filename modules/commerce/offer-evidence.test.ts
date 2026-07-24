@@ -12,11 +12,46 @@ import {
   materializeOfferEvidence,
   materializePersistedOfferEvidence,
   comparableMarketPrice,
+  landedMarketPrice,
+  observedDeliveryFee,
   observedStockLabel,
   observedMarketPrice,
 } from './offer-evidence';
 
 const now = new Date('2026-07-22T12:00:00Z');
+
+const comparableOffer = (overrides: Partial<Offer> = {}): Offer => ({
+  retailer: 'Store',
+  url: 'https://example.com/product',
+  trust: 90,
+  available: true,
+  priceNgn: 10_000,
+  match: 'exact',
+  listingEvidence: { observedAt: '2026-07-22', sourceUrl: 'https://example.com/product', basis: 'retailer-page' },
+  priceObservation: { observedAt: '2026-07-22', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'excluded' },
+  location: ['NG'],
+  ...overrides,
+});
+
+test('a stated delivery fee makes the landed total the comparable price', () => {
+  const offer = comparableOffer({ deliveryNgn: 1_500 });
+  assert.equal(comparableMarketPrice(offer, 'NG', now), 10_000);
+  assert.equal(observedDeliveryFee(offer, 'NG'), 1_500);
+  assert.equal(landedMarketPrice(offer, 'NG', now), 11_500);
+});
+
+test('landed price never guesses a total when delivery is unknown or already included', () => {
+  assert.equal(landedMarketPrice(comparableOffer(), 'NG', now), 10_000);
+  assert.equal(
+    landedMarketPrice(comparableOffer({ deliveryNgn: 1_500, priceObservation: { observedAt: '2026-07-22', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'included' } }), 'NG', now),
+    10_000,
+  );
+  assert.equal(observedDeliveryFee(comparableOffer(), 'NG'), null);
+});
+
+test('a comparison-excluded observation has no landed price', () => {
+  assert.equal(landedMarketPrice(comparableOffer({ priceComparison: 'exclude', deliveryNgn: 1_500 }), 'NG', now), null);
+});
 
 test('a price field without listing and observation evidence is not current retail intelligence', () => {
   const offer: Offer = {

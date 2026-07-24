@@ -16,6 +16,10 @@ export type Offer = {
   available: boolean;
   priceNgn?: number;
   priceUsd?: number;
+  /** Observed numeric delivery fee for the market, when a listing states one. Lets ranking
+   *  compare landed totals; absent means delivery is only known qualitatively (see landedCost). */
+  deliveryNgn?: number;
+  deliveryUsd?: number;
   checkedAt?: string;
   expiresAt?: string;
   match?: 'exact' | 'search';

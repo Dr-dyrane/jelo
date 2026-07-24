@@ -1,12 +1,14 @@
 'use client';
 
-import { ArrowUpRight, MapPin } from 'lucide-react';
+import { ArrowUpRight, MapPin, Truck } from 'lucide-react';
 import { type ReactNode, useMemo, useState } from 'react';
-import type { Offer, OrderChannel } from '@/data/products';
+import type { FulfilmentMethod, Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
 import {
+  fulfilmentMethodLabel,
   offerActionLabel,
   offerFulfilmentLabel,
+  offerFulfilmentMethods,
   offerOrderChannels,
   orderChannelLabel,
 } from '@/modules/commerce/offer-channel';
@@ -17,6 +19,7 @@ import {
   hasBrandAuthorizationEvidence,
   hasListingEvidence,
   hasSellerIdentityEvidence,
+  observedDeliveryFee,
   observedStockLabel,
   observedMarketPrice,
 } from '@/modules/commerce/offer-evidence';
@@ -58,7 +61,9 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
   // local buying intelligence before asking shoppers to consider international routes.
   const [market, setMarket] = useState<Market>('NG');
   const [channel, setChannel] = useState<'all' | OrderChannel>('all');
-  const ranked = useMemo(() => rankOffers(offers, market), [offers, market]);
+  const [fulfilment, setFulfilment] = useState<'any' | FulfilmentMethod>('any');
+  const preferences = useMemo(() => (fulfilment === 'any' ? {} : { fulfilment }), [fulfilment]);
+  const ranked = useMemo(() => rankOffers(offers, market, undefined, preferences), [offers, market, preferences]);
   const visible = ranked.filter(offer => offer.match !== 'search'
     && hasListingEvidence(offer)
     && (offer.location.includes(market) || offer.location.includes('INTL')));
@@ -67,8 +72,16 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
   const filtered = activeChannel === 'all'
     ? visible
     : visible.filter(offer => offerOrderChannels(offer).includes(activeChannel));
+  const fulfilments = [...new Set(visible.flatMap(offerFulfilmentMethods))];
+  const activeFulfilment = fulfilment === 'any' || fulfilments.includes(fulfilment) ? fulfilment : 'any';
   const summary = useMemo(() => summarizeMarket(offers, market), [offers, market]);
   const movement = movementLabel(priceTrends, market);
+  // Confidence, surfaced as compared-set coverage — never a grade (ADR 0006). Only
+  // shown when some checked stores are unpriced, so the reader knows the summary
+  // reflects a subset (out-of-stock or comparison-excluded stores are the gap).
+  const coverageNote = summary.pricedRetailerCount > 0 && summary.retailerCount > summary.pricedRetailerCount
+    ? `Based on ${summary.pricedRetailerCount} of ${summary.retailerCount} stores`
+    : null;
 
   return (
     <div className="retailer-panel">
@@ -89,6 +102,7 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
           {movement ? <span className={`market-movement-${movement.direction}`}>{movement.copy}</span> : null}
         </div> : null}
       </div> : null}
+      {coverageNote ? <p className="market-summary-coverage">{coverageNote}</p> : null}
       {channels.length > 1 ? <div className="retailer-channel-filter" role="group" aria-label="Order channel">
         <button className={activeChannel === 'all' ? 'active' : ''} type="button" onClick={() => setChannel('all')}>All</button>
         {channels.map(value => <button
@@ -98,13 +112,26 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
           onClick={() => setChannel(value)}
         >{orderChannelLabel(value)}</button>)}
       </div> : null}
+      {fulfilments.length > 1 ? <div className="retailer-market retailer-fulfilment">
+        <span><Truck size={15}/> Prefer</span>
+        <div role="group" aria-label="Fulfilment preference">
+          <button className={activeFulfilment === 'any' ? 'active' : ''} type="button" onClick={() => setFulfilment('any')}>Any</button>
+          {fulfilments.map(method => <button
+            className={activeFulfilment === method ? 'active' : ''}
+            key={method}
+            type="button"
+            onClick={() => setFulfilment(method)}
+          >{fulfilmentMethodLabel(method)}</button>)}
+        </div>
+      </div> : null}
       <div className="retailer-list">
         {filtered.length ? filtered.map((offer, index) => {
           const fresh = isOfferFresh(offer);
           const price = observedMarketPrice(offer, market);
           const checked = shortDate(offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt ?? offer.checkedAt);
           const stock = observedStockLabel(offer, fresh);
-          const fulfilment = offerFulfilmentLabel(offer);
+          const fulfilmentText = offerFulfilmentLabel(offer);
+          const deliveryFee = offer.priceObservation?.landedCost === 'excluded' ? observedDeliveryFee(offer, market) : null;
           return (
           <a
             key={`${offer.retailer}-${offer.url}`}
@@ -115,7 +142,8 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
             <span>
               <strong>{offer.retailer}</strong>
               <small>{stock}{checked ? ` · ${checked}` : ''}</small>
-              {fulfilment ? <small>{fulfilment}</small> : null}
+              {fulfilmentText ? <small>{fulfilmentText}</small> : null}
+              {deliveryFee != null ? <small className="retailer-delivery">+{formatAmount(deliveryFee, market)} delivery</small> : null}
               {offer.priceObservation ? <small>{offer.priceObservation.size}</small> : null}
               {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}{hasSellerIdentityEvidence(offer) ? '' : ' · Check seller'}</small> : null}
               {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Check with store</small> : null}

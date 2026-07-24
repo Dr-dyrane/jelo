@@ -24,6 +24,14 @@ export function orderChannelLabel(channel: OrderChannel) {
   return channelNames[channel];
 }
 
+export function fulfilmentMethodLabel(method: FulfilmentMethod) {
+  return fulfilmentNames[method];
+}
+
+export function offerFulfilmentMethods(offer: Offer): FulfilmentMethod[] {
+  return [...new Set(offer.fulfilment ?? [])];
+}
+
 export function offerActionLabel(offer: Offer) {
   const channels = offerOrderChannels(offer);
   if (channels.includes('whatsapp')) return 'Message store';

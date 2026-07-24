@@ -15,6 +15,40 @@ test('Nigeria ranks an available exact offer above search and unavailable routes
   assert.equal(rankOffers(offers, 'NG', now)[0].retailer, 'Exact');
 });
 
+const evidenced = (overrides: Partial<Offer>): Offer => ({
+  retailer: 'Store',
+  url: 'https://example.com/product',
+  trust: 90,
+  available: true,
+  match: 'exact',
+  listingEvidence: { observedAt: '2026-07-22', sourceUrl: 'https://example.com/product', basis: 'retailer-page' },
+  priceObservation: { observedAt: '2026-07-22', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'included' },
+  location: ['NG'],
+  ...overrides,
+});
+
+test('a lower landed total outranks a lower sticker price', () => {
+  const now = new Date('2026-07-22T12:00:00Z');
+  const cheapSticker = evidenced({
+    retailer: 'Cheap sticker',
+    priceNgn: 10_000,
+    deliveryNgn: 30_000,
+    priceObservation: { observedAt: '2026-07-22', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'excluded' },
+  });
+  const cheapTotal = evidenced({ retailer: 'Cheap total', priceNgn: 12_000 });
+
+  assert.equal(rankOffers([cheapSticker, cheapTotal], 'NG', now)[0].retailer, 'Cheap total');
+});
+
+test('a stated fulfilment preference only nudges offers that declare it', () => {
+  const now = new Date('2026-07-22T12:00:00Z');
+  const pickup = evidenced({ retailer: 'Pickup shop', priceNgn: 10_000, fulfilment: ['pickup'] });
+  const delivery = evidenced({ retailer: 'Delivery shop', priceNgn: 10_000, fulfilment: ['delivery'] });
+
+  assert.equal(rankOffers([pickup, delivery], 'NG', now, { fulfilment: 'delivery' })[0].retailer, 'Delivery shop');
+  assert.equal(rankOffers([pickup, delivery], 'NG', now, { fulfilment: 'pickup' })[0].retailer, 'Pickup shop');
+});
+
 test('verified Nigerian product matches carry price and check date', () => {
   const product = products.find(item => item.slug === 'panoxyl-acne-foaming-wash-10-benzoyl-peroxide');
   assert.ok(product);

@@ -41,16 +41,17 @@ Product queries show up to three fresh exact offers for the selected market besi
 
 ## Ranking
 
-Nigerian offers are ranked using:
+Nigerian offers are ranked using evidence-bound signals only ([ADR 0006](./adr/0006-store-ranking-excludes-commercial-signals.md)):
 
 1. verified availability;
 2. verification freshness;
 3. listing evidence;
 4. retailer source status;
-5. observed price for the exact variant;
-6. data completeness.
+5. seller-identity and brand-authorization evidence;
+6. the landed total for the exact variant — observed price plus any stated numeric delivery, so cheaper-to-receive ranks higher and a bare price is used only when no total is knowable;
+7. a shopper's fulfilment preference, as a small tie-breaker over offers that already declare that method.
 
-A missing price must be labelled as pending verification rather than represented as zero or silently omitted.
+Affiliate value, outbound clicks, conversion, popularity, ratings and partner status are never ranking inputs, and a build-time purity test enforces it. A missing price must be labelled as pending verification rather than represented as zero or silently omitted.
 
 ## Data model
 
