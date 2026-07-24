@@ -8,8 +8,9 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
 
 - Page traffic through Vercel Analytics, mounted in [app/layout.tsx](../app/layout.tsx).
 - A single outbound choke point for store links: `/go?product=<slug>&retailer=<name>` in [app/go/route.ts](../app/go/route.ts). It resolves the exact offer and attributes the destination through [redirect-attribution.ts](../modules/commerce/redirect-attribution.ts) (`utm_content=<product>:<retailer>`). Every "Open store" already passes through here, so store-click behaviour has one place to record it.
+- The `store_click` event, recorded server-side there for the exact-offer branch. `priceRank`, `position`, and `freshnessDays` come from the same ranking and market summary the product page shows ([price-rank.ts](../modules/commerce/price-rank.ts)); the write goes through `next/server` `after` so it never delays the redirect, no-ops without Neon, and is bounded by a strict schema ([commerce-events.ts](../lib/analytics/commerce-events.ts), table `commerce_events` in `db/migrations/0019_commerce_events.sql`). See [ADR 0005](./adr/0005-structured-observation-events.md).
 
-The custom event taxonomy below is roadmap. Only page traffic and outbound attribution exist now.
+The rest of the custom event taxonomy below is still roadmap. Page traffic, outbound attribution, and `store_click` exist now.
 
 ## What we want to understand
 

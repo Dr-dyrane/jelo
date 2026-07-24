@@ -1,6 +1,6 @@
 # ADR 0005: Structured observation and behavioural events
 
-Status: Accepted; community observations shipped, behavioural events pending
+Status: Accepted; shipped (community observations and the store_click event)
 
 Date: 2026-07-24
 
@@ -21,6 +21,8 @@ Build both as strict, enum-and-bounded-int structured events, **community observ
 
    *Shipped* in migration `0018_community_observations.sql` and `lib/community-intake/`: a strict `communityObservationSchema` (enums and bounded ints, no free text) is the single source of shape; the emitter parses every row through it; a `check` constraint pins a price row to an amount and an outcome row to an outcome; and `modules/community-intake/architecture.test.ts` now asserts the table has no contributor-identifying columns and writes nothing canonical.
 2. **Behavioural events (second).** A `commerce_events` table and a `store_click` event recorded server-side inside `app/go/route.ts`, deriving `priceRank` from `summarizeMarket` over the offer set `/go` already resolves. Ship `store_click` alone first.
+
+   *Shipped* in migration `0019_commerce_events.sql`, `lib/analytics/commerce-events.ts`, and `modules/commerce/price-rank.ts`: the event is written through `next/server` `after`, so measurement never delays the outbound redirect; `recordStoreClick` no-ops without Neon and swallows its own errors; a strict `storeClickEventSchema` keeps the payload to enums and bounded ints; and `commerce_events` has no name, account, network-identifier, or query columns. It is measurement only and, per [ADR 0006](0006-store-ranking-excludes-commercial-signals.md), never re-enters ranking — `offer-selection.ts` does not import it.
 
 ## Consequences
 
