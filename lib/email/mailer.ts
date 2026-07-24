@@ -5,7 +5,7 @@ import {
   resolveHostingerMailboxResourceId,
   sendHostingerMailViaApi,
 } from './hostinger-mail-api';
-import { retailerMagicLinkEmail } from './templates';
+import { operatorOtpEmail, retailerMagicLinkEmail } from './templates';
 
 function mailAddress() {
   return process.env.EMAIL_FROM_ADDRESS ?? 'hello@jelocare.com';
@@ -69,12 +69,7 @@ function hostingerMailboxResourceId(apiToken: string) {
   return mailboxResourceId;
 }
 
-export async function sendRetailerMagicLink(input: {
-  to: string;
-  storeName: string;
-  magicLink: string;
-}) {
-  const message = retailerMagicLinkEmail(input);
+async function deliver(to: string, message: { subject: string; text: string; html: string }) {
   const provider = emailProvider();
   if (!provider) throw new Error('transactional_email_not_configured');
 
@@ -83,7 +78,7 @@ export async function sendRetailerMagicLink(input: {
     return sendHostingerMailViaApi({
       apiToken,
       mailboxResourceId: await hostingerMailboxResourceId(apiToken),
-      to: input.to,
+      to,
       displayName: displayName(),
       subject: message.subject,
       text: message.text,
@@ -93,10 +88,24 @@ export async function sendRetailerMagicLink(input: {
 
   return smtpTransporter().sendMail({
     from: process.env.EMAIL_FROM ?? `JeloCare <${mailAddress()}>`,
-    to: input.to,
+    to,
     replyTo: process.env.EMAIL_REPLY_TO ?? mailAddress(),
     subject: message.subject,
     text: message.text,
     html: message.html,
   });
+}
+
+export async function sendRetailerMagicLink(input: {
+  to: string;
+  storeName: string;
+  magicLink: string;
+}) {
+  return deliver(input.to, retailerMagicLinkEmail(input));
+}
+
+// Used by the Neon Auth send.otp webhook (app/api/auth-hooks) to deliver the
+// operator sign-in code through JeloCare's own branded transport.
+export async function sendOperatorOtp(input: { to: string; code: string; type?: string }) {
+  return deliver(input.to, operatorOtpEmail({ code: input.code, type: input.type }));
 }
