@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import sharp from 'sharp';
 
 // Shared building blocks for the app's dynamic OpenGraph images (nodejs runtime).
 // Keeping them here means every OG route renders with the same fonts, the same
@@ -29,9 +30,10 @@ export function absoluteImage(image: string) {
 }
 
 /**
- * Fetch an image (with a timeout) and inline it as a data URL, so generation never
- * hangs on a slow asset and a failed fetch degrades to a card without the image
- * rather than failing the whole build.
+ * Fetch an image (with a timeout) and inline it as a PNG data URL. Satori can only
+ * decode PNG/JPEG, so every packshot is normalised to PNG via sharp (webp/avif
+ * would otherwise crash the render) and downscaled to keep the data URL small. Any
+ * failure degrades to a card without the image rather than breaking the build.
  */
 export async function loadImage(url: string): Promise<string | null> {
   try {
@@ -40,9 +42,12 @@ export async function loadImage(url: string): Promise<string | null> {
     const response = await fetch(url, { signal: controller.signal });
     clearTimeout(timer);
     if (!response.ok) return null;
-    const buffer = Buffer.from(await response.arrayBuffer());
-    const type = response.headers.get('content-type') ?? 'image/png';
-    return `data:${type};base64,${buffer.toString('base64')}`;
+    const input = Buffer.from(await response.arrayBuffer());
+    const png = await sharp(input)
+      .resize({ width: 660, height: 860, fit: 'inside', withoutEnlargement: true })
+      .png()
+      .toBuffer();
+    return `data:image/png;base64,${png.toString('base64')}`;
   } catch {
     return null;
   }
