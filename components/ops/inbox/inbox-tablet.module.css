@@ -1,0 +1,124 @@
+.tabletStage {
+  pointer-events: auto;
+}
+
+.tabletScrim {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  border: 0;
+  background: color-mix(in srgb, var(--ops-canvas) 52%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.tabletInspector {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--ops-shell-radius);
+  background: var(--ops-workspace);
+  box-shadow: var(--ops-floating-shadow);
+  animation: tabletInspectorIn 320ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.tabletInspectorHeader {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-5);
+  background: color-mix(in srgb, var(--ops-workspace) 94%, var(--ops-surface-subtle));
+}
+
+.tabletInspectorHeader span {
+  color: var(--ops-muted);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  text-transform: capitalize;
+}
+
+.tabletClose {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: var(--ops-surface-subtle);
+  color: var(--ops-ink);
+  cursor: pointer;
+}
+
+.tabletClose:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
+
+.tabletInspectorBody {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--space-6) var(--space-6);
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  :global([data-ops-collection]) {
+    grid-template-columns: 1fr !important;
+    padding: 0 var(--space-6) var(--space-7) !important;
+  }
+
+  :global([data-ops-collection-item]) {
+    min-height: 84px !important;
+  }
+
+  :global([data-ops-collection-item]:first-child) {
+    border-top-color: transparent !important;
+  }
+
+  :global([data-ops-collection-item] > div) {
+    min-height: 83px;
+  }
+
+  :global([data-ops-collection-item] img) {
+    width: 56px !important;
+    height: 56px !important;
+  }
+
+  .tabletInspectorBody :global(form[data-item-id]) {
+    position: sticky;
+    bottom: calc(var(--space-6) * -1);
+    z-index: 2;
+    margin-top: var(--space-6);
+    padding: var(--space-5) 0 calc(var(--space-4) + env(safe-area-inset-bottom));
+    background: linear-gradient(to bottom, transparent, var(--ops-workspace) 18%);
+  }
+
+  .tabletInspectorBody :global(form[data-item-id] > div:last-child) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .tabletInspectorBody :global(form[data-item-id] button) {
+    min-height: 44px;
+  }
+}
+
+@keyframes tabletInspectorIn {
+  from {
+    opacity: .72;
+    transform: translateX(28px) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabletInspector {
+    animation-duration: 1ms;
+  }
+}
