@@ -14,7 +14,7 @@ import {
   decideRetailerApplication,
 } from '@/lib/moderation/transitions';
 
-export function revalidateOpsSurfaces(queuePath: string) {
+function revalidateOpsSurfaces(queuePath: string) {
   revalidatePath(queuePath);
   revalidatePath('/ops');
   revalidatePath('/ops', 'layout');
