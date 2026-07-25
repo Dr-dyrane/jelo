@@ -193,6 +193,7 @@ export function InboxContainer<T extends { id: string }>({
                 <div className={styles.skeletonTitle} />
                 <div className={styles.skeletonSubtext} />
               </div>
+              <div className={styles.skeletonCaret} />
             </div>
           </div>
         ))}
