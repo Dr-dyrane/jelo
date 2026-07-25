@@ -63,22 +63,20 @@
   padding: 0 var(--space-6) var(--space-6);
 }
 
-@media (min-width: 768px) and (max-width: 1279px) {
+@media (min-width: 430px) and (max-width: 768px) {
   :global([data-ops-collection]) {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    column-gap: var(--space-5) !important;
     padding: 0 var(--space-6) var(--space-7) !important;
   }
 
-  :global([data-ops-collection-item]) {
+  :global([data-ops-collection-item]),
+  :global([data-ops-collection-item] > div) {
     min-height: 84px !important;
   }
 
-  :global([data-ops-collection-item]:first-child) {
+  :global([data-ops-collection-item]:nth-child(-n + 2)) {
     border-top-color: transparent !important;
-  }
-
-  :global([data-ops-collection-item] > div) {
-    min-height: 83px;
   }
 
   :global([data-ops-collection-item] img) {
