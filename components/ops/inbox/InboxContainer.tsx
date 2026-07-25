@@ -134,17 +134,19 @@ export function InboxContainer<T extends { id: string }>({
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       {/* Linear top bar breadcrumbs & keyboard hints */}
       <header style={{
-        height: '40px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 var(--space-4)',
-        background: 'var(--card)',
+        background: 'var(--ghost-bg)',
+        backdropFilter: 'blur(12px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(140%)',
         fontSize: '11px',
         userSelect: 'none',
         flexShrink: 0,
-        boxShadow: 'var(--elevation-1)',
+        borderBottom: '1px solid var(--border)',
         zIndex: 10,
+        height: '40px',
       }}>
         <div style={{ fontWeight: 500, color: 'var(--muted)' }}>
           {getBreadcrumbs()}

@@ -24,7 +24,9 @@
   flex-direction: column;
   justify-content: space-between;
   width: 240px;
-  background: var(--cream);
+  background: rgba(251, 243, 237, 0.75); /* Translucent lucent cream */
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   padding: var(--space-3) var(--space-3);
   position: sticky;
   top: 0;
@@ -32,7 +34,19 @@
   z-index: var(--z-rail);
   flex-shrink: 0;
   box-sizing: border-box;
-  box-shadow: var(--elevation-1);
+  border-right: 1px solid rgba(112, 71, 61, 0.06);
+  transition: background var(--duration-base);
+}
+
+:global(html[data-theme="dark"]) .sidebar {
+  background: rgba(25, 20, 19, 0.72);
+  border-right: 1px solid rgba(240, 220, 210, 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .sidebar {
+    background: rgba(25, 20, 19, 0.72);
+    border-right: 1px solid rgba(240, 220, 210, 0.06);
+  }
 }
 
 .workspaceHeader {
@@ -312,7 +326,9 @@
   align-items: center;
   justify-content: space-between;
   width: 52px;
-  background: var(--cream);
+  background: rgba(251, 243, 237, 0.75);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   padding: var(--space-3) 0;
   position: sticky;
   top: 0;
@@ -320,7 +336,19 @@
   z-index: var(--z-rail);
   flex-shrink: 0;
   box-sizing: border-box;
-  box-shadow: var(--elevation-1);
+  border-right: 1px solid rgba(112, 71, 61, 0.06);
+  transition: background var(--duration-base);
+}
+
+:global(html[data-theme="dark"]) .rail {
+  background: rgba(25, 20, 19, 0.72);
+  border-right: 1px solid rgba(240, 220, 210, 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .rail {
+    background: rgba(25, 20, 19, 0.72);
+    border-right: 1px solid rgba(240, 220, 210, 0.06);
+  }
 }
 
 .railLogo {
@@ -490,15 +518,29 @@
   top: 52px;
   left: 12px;
   right: 12px;
-  background: var(--paper);
+  background: rgba(255, 253, 249, 0.82);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(112, 71, 61, 0.06);
   border-radius: var(--radius-card);
-  box-shadow: var(--elevation-2);
+  box-shadow: var(--shadow);
   padding: var(--space-2);
   display: flex;
   flex-direction: column;
   gap: 2px;
   z-index: 100;
   box-sizing: border-box;
+}
+
+:global(html[data-theme="dark"]) .dropdownMenu {
+  background: rgba(36, 29, 27, 0.85);
+  border-color: rgba(240, 220, 210, 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .dropdownMenu {
+    background: rgba(36, 29, 27, 0.85);
+    border-color: rgba(240, 220, 210, 0.06);
+  }
 }
 .dropdownHeader {
   padding: var(--space-2);
