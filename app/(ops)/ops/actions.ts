@@ -9,6 +9,7 @@ import {
   decideContribution,
   decideEdge,
   decideModerationValue,
+  mapModerationValue,
   decideObservation,
   decideRetailerApplication,
 } from '@/lib/moderation/transitions';
@@ -58,6 +59,24 @@ export async function decideModerationValueAction(formData: FormData) {
   assertCan(operator, 'vocabulary.decide');
   const { targetId, decision, rationale } = parseDecision(formData);
   await decideModerationValue(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
+  revalidatePath('/ops/vocabulary');
+  revalidatePath('/ops');
+}
+
+export async function mapModerationValueAction(formData: FormData) {
+  const operator = await requireConsoleOperator();
+  assertCan(operator, 'vocabulary.decide');
+
+  const targetId = formData.get('targetId') as string;
+  const canonicalEntityKind = formData.get('canonicalEntityKind') as string;
+  const canonicalEntityRef = formData.get('canonicalEntityRef') as string;
+  const rationale = (formData.get('rationale') as string | null)?.trim() || null;
+
+  if (!targetId || !canonicalEntityKind || !canonicalEntityRef) {
+    throw new Error('Missing required mapping parameters.');
+  }
+
+  await mapModerationValue(getPostgresClient(), operator.authSubject, targetId, canonicalEntityKind, canonicalEntityRef, rationale);
   revalidatePath('/ops/vocabulary');
   revalidatePath('/ops');
 }

@@ -52,6 +52,14 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
         const brands = Array.isArray(p.brands) ? p.brands.join(', ') : '';
         const services = Array.isArray(p.services) ? p.services.join(', ') : '';
 
+        // Formulate direct verification links
+        const cleanPhone = p.phone ? p.phone.replace(/[^0-9+]/g, '') : '';
+        const cleanWhatsApp = p.whatsapp ? p.whatsapp.replace(/[^0-9]/g, '') : '';
+        const cleanInstagram = p.instagram ? p.instagram.replace('@', '').trim() : '';
+
+        const whatsappUrl = cleanWhatsApp ? `https://wa.me/${cleanWhatsApp}` : null;
+        const instagramUrl = cleanInstagram ? `https://instagram.com/${cleanInstagram}` : null;
+
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
@@ -59,7 +67,7 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
                 {row.storeName}
               </h3>
               <p style={{ fontSize: '11px', color: 'var(--muted)', margin: 0 }}>
-                Primary Email: <strong>{row.email}</strong>
+                Primary Email: <a href={`mailto:${row.email}`} style={{ color: 'var(--wine)', textDecoration: 'underline' }}>{row.email}</a>
               </p>
             </div>
 
@@ -89,11 +97,27 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
               ) : null}
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>Phone</span>
-                <span className={styles.propertyValue}>{p.phone || '—'}</span>
+                <span className={styles.propertyValue}>
+                  {cleanPhone ? (
+                    <a href={`tel:${cleanPhone}`} style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
+                      {p.phone}
+                    </a>
+                  ) : (
+                    '—'
+                  )}
+                </span>
               </div>
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>WhatsApp</span>
-                <span className={styles.propertyValue}>{p.whatsapp || '—'}</span>
+                <span className={styles.propertyValue}>
+                  {whatsappUrl ? (
+                    <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
+                      {p.whatsapp}
+                    </a>
+                  ) : (
+                    '—'
+                  )}
+                </span>
               </div>
               {p.website ? (
                 <div className={styles.propertyRow}>
@@ -108,7 +132,15 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
               {p.instagram ? (
                 <div className={styles.propertyRow}>
                   <span className={styles.propertyLabel}>Instagram</span>
-                  <span className={styles.propertyValue}>{p.instagram}</span>
+                  <span className={styles.propertyValue}>
+                    {instagramUrl ? (
+                      <a href={instagramUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
+                        @{cleanInstagram}
+                      </a>
+                    ) : (
+                      p.instagram
+                    )}
+                  </span>
                 </div>
               ) : null}
               {channels ? (

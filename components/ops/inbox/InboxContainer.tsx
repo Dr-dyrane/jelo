@@ -79,6 +79,13 @@ export function InboxContainer<T extends { id: string }>({
           const btn = form?.querySelector('button[value="reject"]') as HTMLButtonElement;
           btn?.click();
         }
+      } else if (e.key === 'm') {
+        e.preventDefault();
+        if (activeItem) {
+          const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
+          const btn = form?.querySelector('button[value="map"]') as HTMLButtonElement;
+          btn?.click();
+        }
       } else if (e.key === 'Escape') {
         e.preventDefault();
         setDetailId(null);
@@ -148,6 +155,7 @@ export function InboxContainer<T extends { id: string }>({
             <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>Enter</kbd> Focus</span>
             <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>E</kbd> Approve</span>
             <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>R</kbd> Reject</span>
+            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>M</kbd> Map</span>
           </div>
         ) : null}
       </header>

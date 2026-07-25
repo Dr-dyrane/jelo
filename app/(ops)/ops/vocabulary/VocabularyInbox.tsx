@@ -5,7 +5,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
-import { decideModerationValueAction } from '../actions';
+import { decideModerationValueAction, mapModerationValueAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
 interface VocabularyInboxProps {
@@ -90,7 +90,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
             </div>
           </div>
 
-          {/* Decision form */}
+          {/* Decision Form & Mapping Inputs */}
           {canDecide ? (
             <form
               data-item-id={row.id}
@@ -98,6 +98,61 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
               action={decideModerationValueAction}
             >
               <input type="hidden" name="targetId" value={row.id} />
+              
+              {/* Canonical Mapping Inputs */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-2)',
+                background: 'var(--card)',
+                padding: 'var(--space-3)',
+                borderRadius: 'var(--radius-card)',
+                boxShadow: 'var(--elevation-1)',
+                marginBottom: '8px'
+              }}>
+                <strong style={{ fontSize: '11px', color: 'var(--muted)' }}>Canonical Mapping Target</strong>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    <label style={{ fontSize: '10px', color: 'var(--muted)' }}>Entity Kind</label>
+                    <select
+                      name="canonicalEntityKind"
+                      defaultValue="product"
+                      style={{
+                        padding: '4px 6px',
+                        borderRadius: 'var(--radius-control)',
+                        border: '1px solid var(--border)',
+                        background: 'var(--paper)',
+                        color: 'var(--ink)',
+                        fontSize: '11.5px',
+                        outline: 'none'
+                      }}
+                    >
+                      <option value="product">Product</option>
+                      <option value="brand">Brand</option>
+                      <option value="retailer">Retailer</option>
+                      <option value="purpose">Purpose</option>
+                    </select>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    <label style={{ fontSize: '10px', color: 'var(--muted)' }}>Entity Ref / Slug</label>
+                    <input
+                      type="text"
+                      name="canonicalEntityRef"
+                      placeholder="e.g. cerave-hydrating"
+                      style={{
+                        padding: '4px 6px',
+                        borderRadius: 'var(--radius-control)',
+                        border: '1px solid var(--border)',
+                        background: 'var(--paper)',
+                        color: 'var(--ink)',
+                        fontSize: '11.5px',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
                   Decision Rationale
@@ -110,12 +165,23 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
                   aria-label="Decision rationale"
                 />
               </div>
+
               <div className={styles.actionButtons}>
                 <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
                   Reject (R)
                 </button>
                 <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">
                   Approve (E)
+                </button>
+                <button
+                  className={styles.btn}
+                  type="submit"
+                  name="decision"
+                  value="map"
+                  formAction={mapModerationValueAction}
+                  style={{ background: 'var(--wine)', color: 'var(--paper)', borderColor: 'var(--wine)' }}
+                >
+                  Map (M)
                 </button>
               </div>
             </form>

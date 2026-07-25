@@ -15,6 +15,7 @@ import styles from '@/components/ops/inbox/inbox.module.css';
 export interface EnrichedEdge extends PendingEdge {
   subjectProduct?: Product;
   objectProduct?: Product;
+  warnings?: string[];
 }
 
 interface EdgesInboxProps {
@@ -43,6 +44,11 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
                 <span style={{ fontWeight: 600 }}>{object.name}</span>
               </div>
               <div className={styles.metaRow}>
+                {row.warnings && row.warnings.length > 0 ? (
+                  <span style={{ display: 'inline-flex', padding: '1px 5px', borderRadius: '3px', background: 'var(--state-danger-bg)', color: 'var(--state-danger)', fontSize: '9px', fontWeight: 600 }}>
+                    Advisory
+                  </span>
+                ) : null}
                 <RelativeTime iso={row.createdAt} />
               </div>
             </div>
@@ -56,6 +62,29 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
         const object = humanizeRef(objectRefStr);
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {/* Clinical Safety Advisories */}
+            {row.warnings && row.warnings.length > 0 ? (
+              <div style={{
+                background: 'var(--state-danger-bg)',
+                color: 'var(--state-danger)',
+                padding: 'var(--space-3)',
+                borderRadius: 'var(--radius-card)',
+                fontSize: '11px',
+                lineHeight: '1.4',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '4px',
+                boxShadow: 'var(--elevation-1)'
+              }}>
+                <strong style={{ fontSize: '11.5px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  ⚠️ Clinical Safety Advisory
+                </strong>
+                {row.warnings.map((w, idx) => (
+                  <span key={idx}>• {w}</span>
+                ))}
+              </div>
+            ) : null}
+
             {/* Subject Entity details */}
             <div>
               <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', marginBottom: '6px' }}>
