@@ -6,7 +6,7 @@ import type { PendingRetailerApplication } from '@/lib/moderation/queues';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
-import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
+import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
 import { decideRetailerApplicationAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
@@ -33,16 +33,17 @@ type RetailerPayload = {
 export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
   const [actionState, formAction, isPending] = useActionState(decideRetailerApplicationAction, null);
   const pendingDecisionRef = useRef<string | null>(null);
+  const inboxControllerRef = useRef<OpsInboxController | null>(null);
 
   useEffect(() => {
-    if (actionState?.ok && window.__opsInboxAdvance) {
-      window.__opsInboxAdvance(actionState.targetId);
-      pendingDecisionRef.current = null;
-    }
+    if (!actionState?.ok) return;
+    inboxControllerRef.current?.settleItem(actionState.targetId);
+    pendingDecisionRef.current = null;
   }, [actionState]);
 
   return (
     <InboxContainer
+      controllerRef={inboxControllerRef}
       items={rows}
       itemTypeLabel="retailer application"
       renderItemRow={(row) => (
@@ -63,12 +64,9 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
         const channels = Array.isArray(p.channels) ? p.channels.join(', ') : '';
         const brands = Array.isArray(p.brands) ? p.brands.join(', ') : '';
         const services = Array.isArray(p.services) ? p.services.join(', ') : '';
-
-        // Formulate direct verification links
         const cleanPhone = p.phone ? p.phone.replace(/[^0-9+]/g, '') : '';
         const cleanWhatsApp = p.whatsapp ? p.whatsapp.replace(/[^0-9]/g, '') : '';
         const cleanInstagram = p.instagram ? p.instagram.replace('@', '').trim() : '';
-
         const whatsappUrl = cleanWhatsApp ? `https://wa.me/${cleanWhatsApp}` : null;
         const instagramUrl = cleanInstagram ? `https://instagram.com/${cleanInstagram}` : null;
 
@@ -79,14 +77,13 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
                 {row.storeName}
               </h3>
               <p style={{ fontSize: '11px', color: 'var(--muted)', margin: 0 }}>
-                Primary Email: <a href={`mailto:${row.email}`} style={{ color: 'var(--wine)', textDecoration: 'underline' }}>{row.email}</a>
+                Primary email: <a href={`mailto:${row.email}`} style={{ color: 'var(--wine)', textDecoration: 'underline' }}>{row.email}</a>
               </p>
             </div>
 
-            {/* Properties Grid */}
-            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
+            <div className={styles.propertiesSection} style={{ paddingTop: '12px' }}>
               <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Email Status</span>
+                <span className={styles.propertyLabel}>Email status</span>
                 <span className={styles.propertyValue}>
                   <StatusPill tone={row.emailVerifiedAt ? 'success' : 'danger'}>
                     {row.emailVerifiedAt ? 'Verified' : 'Unverified'}
@@ -102,77 +99,38 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
               {p.address ? (
                 <div className={styles.propertyRow} style={{ alignItems: 'flex-start' }}>
                   <span className={styles.propertyLabel}>Address</span>
-                  <span style={{ fontSize: '11px', whiteSpace: 'normal', wordBreak: 'break-word', color: 'var(--ink)' }}>
-                    {p.address}
-                  </span>
+                  <span style={{ fontSize: '11px', whiteSpace: 'normal', wordBreak: 'break-word', color: 'var(--ink)' }}>{p.address}</span>
                 </div>
               ) : null}
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>Phone</span>
                 <span className={styles.propertyValue}>
-                  {cleanPhone ? (
-                    <a href={`tel:${cleanPhone}`} style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
-                      {p.phone}
-                    </a>
-                  ) : (
-                    '—'
-                  )}
+                  {cleanPhone ? <a href={`tel:${cleanPhone}`} style={{ color: 'var(--wine)', textDecoration: 'underline' }}>{p.phone}</a> : '—'}
                 </span>
               </div>
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>WhatsApp</span>
                 <span className={styles.propertyValue}>
-                  {whatsappUrl ? (
-                    <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
-                      {p.whatsapp}
-                    </a>
-                  ) : (
-                    '—'
-                  )}
+                  {whatsappUrl ? <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>{p.whatsapp}</a> : '—'}
                 </span>
               </div>
               {p.website ? (
                 <div className={styles.propertyRow}>
                   <span className={styles.propertyLabel}>Website</span>
-                  <span className={styles.propertyValue}>
-                    <a href={p.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
-                      {p.website}
-                    </a>
-                  </span>
+                  <span className={styles.propertyValue}><a href={p.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>{p.website}</a></span>
                 </div>
               ) : null}
               {p.instagram ? (
                 <div className={styles.propertyRow}>
                   <span className={styles.propertyLabel}>Instagram</span>
                   <span className={styles.propertyValue}>
-                    {instagramUrl ? (
-                      <a href={instagramUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
-                        @{cleanInstagram}
-                      </a>
-                    ) : (
-                      p.instagram
-                    )}
+                    {instagramUrl ? <a href={instagramUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>@{cleanInstagram}</a> : p.instagram}
                   </span>
                 </div>
               ) : null}
-              {channels ? (
-                <div className={styles.propertyRow}>
-                  <span className={styles.propertyLabel}>Channels</span>
-                  <span className={styles.propertyValue} title={channels}>{channels}</span>
-                </div>
-              ) : null}
-              {brands ? (
-                <div className={styles.propertyRow}>
-                  <span className={styles.propertyLabel}>Brands</span>
-                  <span className={styles.propertyValue} title={brands}>{brands}</span>
-                </div>
-              ) : null}
-              {services ? (
-                <div className={styles.propertyRow}>
-                  <span className={styles.propertyLabel}>Services</span>
-                  <span className={styles.propertyValue} title={services}>{services}</span>
-                </div>
-              ) : null}
+              {channels ? <div className={styles.propertyRow}><span className={styles.propertyLabel}>Channels</span><span className={styles.propertyValue} title={channels}>{channels}</span></div> : null}
+              {brands ? <div className={styles.propertyRow}><span className={styles.propertyLabel}>Brands</span><span className={styles.propertyValue} title={brands}>{brands}</span></div> : null}
+              {services ? <div className={styles.propertyRow}><span className={styles.propertyLabel}>Services</span><span className={styles.propertyValue} title={services}>{services}</span></div> : null}
               {p.sampleProduct ? (
                 <div className={styles.propertyRow} style={{ alignItems: 'flex-start' }}>
                   <span className={styles.propertyLabel}>Sample</span>
@@ -181,69 +139,40 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
                   </span>
                 </div>
               ) : null}
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Submitted</span>
-                <span className={styles.propertyValue}><RelativeTime iso={row.submittedAt} /></span>
-              </div>
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>App ID</span>
-                <span className={styles.propertyValue}><IdChip value={row.id} label="app" /></span>
-              </div>
+              <div className={styles.propertyRow}><span className={styles.propertyLabel}>Submitted</span><span className={styles.propertyValue}><RelativeTime iso={row.submittedAt} /></span></div>
             </div>
 
-            {/* Decision form */}
+            <details className={styles.metadataDisclosure}>
+              <summary>Metadata</summary>
+              <div className={styles.metadataBody}>
+                <div className={styles.propertyRow}>
+                  <span className={styles.propertyLabel}>Application ID</span>
+                  <span className={styles.propertyValue}><IdChip value={row.id} label="application" /></span>
+                </div>
+              </div>
+            </details>
+
             {canDecide ? (
-              <form
-                data-item-id={row.id}
-                className={styles.decideSection}
-                action={formAction}
-              >
+              <form data-item-id={row.id} className={styles.decideSection} action={formAction}>
                 {actionState && !actionState.ok && actionState.targetId === row.id && (
-                  <div style={{ color: 'var(--red)', fontSize: '11px', background: 'var(--red-light)', padding: '6px', borderRadius: '4px' }}>
-                    {actionState.error}
-                  </div>
+                  <div style={{ color: 'var(--state-danger)', fontSize: '11px', background: 'var(--state-danger-bg)', padding: '6px', borderRadius: 'var(--ops-control-radius)' }}>{actionState.error}</div>
                 )}
                 <input type="hidden" name="targetId" value={row.id} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
-                    Decision Rationale
-                  </label>
-                  <textarea
-                    id={`rationale-${row.id}`}
-                    className={styles.note}
-                    name="rationale"
-                    placeholder="Add explanation (optional)..."
-                    aria-label="Decision rationale"
-                    disabled={isPending}
-                  />
+                <div className={styles.decideField}>
+                  <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>Rationale</label>
+                  <textarea id={`rationale-${row.id}`} className={styles.note} name="rationale" placeholder="Optional note for the audit trail" aria-label="Decision rationale" disabled={isPending} />
                 </div>
                 <div className={styles.actionButtons}>
-                  <button
-                    className={`${styles.btn} ${styles.btnReject}`}
-                    type="submit"
-                    name="decision"
-                    value="reject"
-                    disabled={isPending}
-                    onClick={() => { pendingDecisionRef.current = 'reject'; }}
-                  >
-                    {isPending && pendingDecisionRef.current === 'reject' ? 'Declining…' : 'Decline (R)'}
+                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
+                    {isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}
                   </button>
-                  <button
-                    className={`${styles.btn} ${styles.btnApprove}`}
-                    type="submit"
-                    name="decision"
-                    value="approve"
-                    disabled={isPending}
-                    onClick={() => { pendingDecisionRef.current = 'approve'; }}
-                  >
-                    {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve (E)'}
+                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>
+                    {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}
                   </button>
                 </div>
               </form>
             ) : (
-              <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
-                You do not have the required permissions to make decisions on retailer applications.
-              </p>
+              <p style={{ fontSize: '11px', color: 'var(--muted)', paddingTop: '12px', margin: 0 }}>You do not have the required permissions to make decisions on retailer applications.</p>
             )}
           </div>
         );
