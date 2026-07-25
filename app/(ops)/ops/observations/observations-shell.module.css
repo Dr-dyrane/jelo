@@ -1,6 +1,21 @@
-/* Route-scoped desktop shell tuning for the first Dyrane Ops reference screen. */
+/* Route-scoped shell tuning for the Dyrane Ops reference screen. */
 
-@media (min-width: 1024px) {
+/* Mobile/touch: edge-to-edge workspace, proper heading padding. */
+@media (max-width: 819px) {
+  :global([data-ops-workspace]) {
+    background: var(--ops-workspace);
+  }
+
+  :global([data-ops-main]) {
+    background: var(--ops-workspace);
+  }
+
+  :global([data-ops-main] > div:first-child) {
+    padding: var(--space-4) var(--space-4) var(--space-3);
+  }
+}
+
+@media (min-width: 820px) {
   :global([data-ops-sidebar]) {
     width: 220px;
     flex-basis: 220px;
@@ -25,7 +40,9 @@
   :global([data-ops-main] > div:first-child) {
     padding: var(--space-6) var(--space-6) var(--space-4);
   }
+}
 
+@media (min-width: 1180px) {
   :global([data-ops-detail]) {
     flex-basis: 332px;
     width: 332px;

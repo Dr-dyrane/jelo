@@ -419,49 +419,7 @@
   color: var(--ops-accent);
 }
 
-.bottomSheet {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: var(--z-sheet);
-  display: flex;
-  max-height: 86dvh;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
-  background: var(--ops-workspace, var(--paper));
-  box-shadow: var(--elevation-3);
-}
-
-.bottomSheetHeader {
-  display: flex;
-  min-height: var(--touch-min);
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 var(--space-4);
-}
-
-.bottomSheetClose {
-  display: grid;
-  width: 32px;
-  height: 32px;
-  place-items: center;
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: var(--ops-surface-subtle, var(--surface-3));
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.bottomSheetContent {
-  min-height: 0;
-  overflow-y: auto;
-  padding: 0 var(--space-4) var(--space-6);
-}
-
-@media (min-width: 1280px) {
+@media (min-width: 1440px) {
   .cardGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -471,14 +429,14 @@
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1179px) {
   .cardGrid {
     padding: 0 var(--space-4) var(--space-5);
     column-gap: var(--space-5);
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 429px) {
   .cardGrid {
     grid-template-columns: 1fr;
     padding: 0 var(--space-3) calc(var(--space-9) + var(--touch-min));

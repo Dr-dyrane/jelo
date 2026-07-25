@@ -4,7 +4,7 @@
 .body {
   margin: 0;
   min-height: 100dvh;
-  background: var(--paper);
+  background: var(--ops-canvas);
   color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: var(--text-cell);
@@ -16,37 +16,36 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
+  color: var(--ops-ink);
+  --ink: var(--ops-ink);
+  --muted: var(--ops-muted);
+  --surface-2: var(--ops-surface-subtle);
+  --surface-3: var(--ops-surface-subtle);
+  --state-selected-bg: var(--ops-accent-subtle);
+  --focus-ring: var(--ops-focus-ring);
 }
 
-/* 1. Desktop Sidebar */
+/* Sidebar: same visual identity at all viewport sizes.
+   Placement changes (persistent vs drawer) live in ops-tablet.module.css. */
 .sidebar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 240px;
-  background: rgba(251, 243, 237, 0.75); /* Translucent lucent cream */
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  padding: var(--space-3) var(--space-3);
+  background: var(--ops-instrument);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: var(--space-3);
   position: sticky;
   top: 0;
   height: 100vh;
   z-index: var(--z-rail);
   flex-shrink: 0;
   box-sizing: border-box;
-  border-right: 1px solid rgba(112, 71, 61, 0.06);
+  border: 0;
+  border-radius: var(--ops-shell-radius);
+  box-shadow: var(--ops-instrument-shadow);
   transition: background var(--duration-base);
-}
-
-:global(html[data-theme="dark"]) .sidebar {
-  background: var(--ops-instrument);
-  border-right: 0;
-}
-@media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .sidebar {
-    background: var(--ops-instrument);
-    border-right: 0;
-  }
 }
 
 .workspaceHeader {
@@ -319,138 +318,7 @@
   background: var(--state-danger-bg);
 }
 
-/* 2. Tablet Collapsed Rail */
-.rail {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 52px;
-  background: rgba(251, 243, 237, 0.75);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  padding: var(--space-3) 0;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  z-index: var(--z-rail);
-  flex-shrink: 0;
-  box-sizing: border-box;
-  border-right: 1px solid rgba(112, 71, 61, 0.06);
-  transition: background var(--duration-base);
-}
 
-:global(html[data-theme="dark"]) .rail {
-  background: rgba(25, 20, 19, 0.72);
-  border-right: 1px solid rgba(240, 220, 210, 0.06);
-}
-@media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .rail {
-    background: rgba(25, 20, 19, 0.72);
-    border-right: 1px solid rgba(240, 220, 210, 0.06);
-  }
-}
-
-.railLogo {
-  width: 24px;
-  height: 24px;
-  border-radius: var(--radius-control);
-  background: var(--wine);
-  color: var(--paper);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: var(--weight-bold);
-  font-size: 11px;
-}
-
-.railNav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  align-items: center;
-  flex: 1;
-  margin-top: var(--space-4);
-}
-
-.railLink {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-control);
-  color: var(--ink);
-  transition: background var(--duration-fast);
-}
-.railLink:hover, .railLinkActive {
-  background: var(--state-selected-bg);
-  color: var(--wine);
-}
-
-.railBadge {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  font-size: 8px;
-  font-weight: var(--weight-semibold);
-  background: var(--wine);
-  color: var(--paper);
-  padding: 0 4px;
-  border-radius: var(--radius-control);
-  min-width: 10px;
-  text-align: center;
-}
-
-/* 3. Mobile Floating Navigation */
-.mobileBar {
-  display: none;
-  position: fixed;
-  bottom: var(--space-3);
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 24px);
-  max-width: 320px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  box-shadow: var(--elevation-3);
-  border-radius: var(--radius-card);
-  justify-content: space-around;
-  align-items: center;
-  padding: var(--space-2) var(--space-1);
-  z-index: var(--z-palette);
-}
-
-.mobileHeader {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-2) var(--space-4);
-  background: var(--cream);
-  position: sticky;
-  top: 0;
-  z-index: var(--z-sticky);
-  height: var(--touch-min);
-  box-sizing: border-box;
-  box-shadow: var(--elevation-1);
-}
-
-.mobileLink {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 9px;
-  flex: 1;
-}
-.mobileLinkActive {
-  color: var(--wine);
-}
 
 /* 4. Page layouts */
 .contentWrapper {
@@ -474,17 +342,28 @@
   display: none;
 }
 
-@media (max-width: 1023px) {
-  .sidebar { display: none; }
-  .rail { display: flex; }
+/* Workspace heading: base styles for all viewports.
+   Desktop overrides add flex: 0 0 auto and gap refinements. */
+.workspaceHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
-@media (max-width: 767px) {
-  .rail { display: none; }
-  .mobileBar { display: flex; }
-  .mobileHeader { display: flex; }
-  .contentWrapper { min-height: calc(100vh - var(--touch-min)); }
+.workspaceTitle {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  color: var(--ink);
 }
+
+.workspaceLede {
+  margin: 0;
+  font-size: var(--text-cell);
+  color: var(--muted);
+}
+
+
 
 .h1 { font-size: var(--text-title); font-weight: var(--weight-semibold); margin: 0; color: var(--ink); }
 .lede { font-size: var(--text-cell); color: var(--muted); margin: var(--space-1) 0 0; }
@@ -703,40 +582,16 @@
   margin: var(--space-1) 0;
 }
 
-@media (min-width: 1024px) {
-  .body {
-    background: var(--ops-canvas);
-  }
-
+@media (min-width: 820px) {
   .container {
     min-height: 100dvh;
     padding: var(--ops-shell-inset);
     gap: var(--ops-shell-inset);
-    color: var(--ops-ink);
-    --ink: var(--ops-ink);
-    --muted: var(--ops-muted);
-    --surface-2: var(--ops-surface-subtle);
-    --surface-3: var(--ops-surface-subtle);
-    --state-selected-bg: var(--ops-accent-subtle);
-    --focus-ring: var(--ops-focus-ring);
   }
 
   .sidebar {
     width: var(--ops-sidebar-width);
     height: calc(100dvh - (var(--ops-shell-inset) * 2));
-    padding: var(--space-3);
-    background: var(--ops-instrument);
-    font-family: var(--font-sans), system-ui, sans-serif;
-    border: 0;
-    border-radius: var(--ops-shell-radius);
-    box-shadow: var(--ops-instrument-shadow);
-  }
-
-  @supports (backdrop-filter: blur(1px)) {
-    .sidebar {
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-    }
   }
 
   .sidebarTop {
@@ -1015,7 +870,6 @@
   .contentWrapper {
     min-height: calc(100dvh - (var(--ops-shell-inset) * 2));
     overflow: hidden;
-    flex-direction: row;
   }
 
   .main {
@@ -1040,9 +894,6 @@
   }
 
   .workspaceHead {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
     flex: 0 0 auto;
   }
 
@@ -1097,6 +948,14 @@
     flex-direction: column;
     min-height: 0;
     flex: 1 1 auto;
+  }
+
+}
+
+/* Docked detail pane: only at ≥1180px (balanced + expanded modes). */
+@media (min-width: 1180px) {
+  .contentWrapper {
+    flex-direction: row;
   }
 
   .detailPane {

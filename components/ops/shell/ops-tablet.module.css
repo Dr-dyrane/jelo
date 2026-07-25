@@ -27,29 +27,12 @@
 
 /* Persistent-sidebar shells. */
 @media (min-width: 820px) and (max-width: 1439px) {
-  :global([data-ops-shell]) {
-    min-height: 100dvh;
-    padding: var(--ops-shell-inset);
-    gap: var(--ops-shell-inset);
-    background: var(--ops-canvas);
-  }
-
   .sidebarLayer {
     display: contents;
   }
 
   .sidebarLayer > :global(aside) {
     display: flex !important;
-  }
-
-  .contentWrapper {
-    min-height: calc(100dvh - (var(--ops-shell-inset) * 2));
-    overflow: hidden;
-  }
-
-  .main {
-    min-height: 0;
-    overflow: auto;
   }
 }
 
@@ -209,10 +192,6 @@
     pointer-events: none;
   }
 
-  :global(.mobileHeader),
-  :global(.mobileBar) {
-    display: none !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

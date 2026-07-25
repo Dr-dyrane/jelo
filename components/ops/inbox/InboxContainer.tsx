@@ -42,7 +42,7 @@ export function InboxContainer<T extends { id: string }>({
 }: InboxContainerProps<T>) {
   const [navigationIndex, setNavigationIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
-  const [viewportMode, setViewportMode] = useState<ViewportMode>('phone');
+  const [viewportMode, setViewportMode] = useState<ViewportMode>('expanded');
   const [overlayInspectorOpen, setOverlayInspectorOpen] = useState(false);
 
   const [optimisticItems, removeOptimisticItem] = useOptimistic(
@@ -258,7 +258,6 @@ export function InboxContainer<T extends { id: string }>({
               <button type="button" className={adaptive.tabletScrim} onClick={closeDetail} aria-label="Close details" />
               <section className={adaptive.tabletInspector}>
                 <header className={adaptive.tabletInspectorHeader}>
-                  <span>{itemTypeLabel}</span>
                   <button type="button" className={adaptive.tabletClose} onClick={closeDetail} aria-label="Close details">
                     <X size={18} />
                   </button>

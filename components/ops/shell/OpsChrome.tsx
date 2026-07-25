@@ -81,7 +81,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   const manageItems = operator.role === 'admin'
     ? [{ href: '/ops/operators', label: 'Operators', icon: UsersRound, count: null }]
     : [];
-  const allItems = [...monitorItems, ...queueItems, ...manageItems];
+
   const navSections: OpsNavigationSection[] = [
     { label: 'Triage', items: queueItems },
     { label: 'Monitor', items: monitorItems },
@@ -142,19 +142,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           <main data-ops-main className={`${styles.main} ${adaptive.main}`}>{children}</main>
           <div data-ops-detail id="ops-detail-pane" className={`${styles.detailPane} ${adaptive.detailPane}`} aria-live="polite" />
 
-          <nav className={styles.mobileBar}>
-            {allItems.map(item => {
-              const isActive = pathname === item.href;
-              const Icon = item.icon;
-              return (
-                <Link key={item.href} href={item.href} className={`${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ''}`}>
-                  <Icon size={16} strokeWidth={isActive ? 2.5 : 1.8} />
-                  <span>{item.label}</span>
-                  {item.count != null && item.count > 0 ? <span className={styles.railBadge} style={{ top: '-4px', right: '-4px' }}>{item.count}</span> : null}
-                </Link>
-              );
-            })}
-          </nav>
+
         </div>
       </div>
     </div>

@@ -18,25 +18,17 @@
   flex-direction: column;
   overflow: hidden;
   border-radius: var(--ops-shell-radius);
-  background: var(--ops-instrument);
+  background: var(--ops-workspace);
   box-shadow: var(--ops-floating-shadow);
   animation: tabletInspectorIn 320ms cubic-bezier(.22, 1, .36, 1) both;
 }
 
 .tabletInspectorHeader {
   display: flex;
-  min-height: 52px;
+  min-height: 48px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0 var(--space-4);
-  background: var(--ops-instrument);
-}
-
-.tabletInspectorHeader span {
-  color: var(--ops-muted);
-  font-size: var(--text-caption);
-  font-weight: var(--weight-semibold);
-  text-transform: capitalize;
 }
 
 .tabletClose {
@@ -62,7 +54,6 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 0 var(--space-4) var(--space-5);
-  background: var(--ops-instrument);
 }
 
 /* Overlay inspector shells: phone, touch and compact. */
