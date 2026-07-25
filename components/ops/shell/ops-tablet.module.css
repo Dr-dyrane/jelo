@@ -3,7 +3,7 @@
 }
 
 .sidebarScrim,
-.tabletHeader {
+.tabletIsland {
   display: none;
 }
 
@@ -13,15 +13,52 @@
   min-width: 0;
 }
 
-@media (min-width: 768px) and (max-width: 1279px) {
+/* Laptop shell: persistent canonical sidebar, two-column collection, no inspector. */
+@media (min-width: 769px) and (max-width: 1279px) {
+  :global([data-ops-shell]) {
+    min-height: 100dvh;
+    padding: var(--ops-shell-inset);
+    gap: var(--ops-shell-inset);
+    background: var(--ops-canvas);
+  }
+
+  .sidebarLayer {
+    display: contents;
+  }
+
+  .sidebarLayer > :global(aside) {
+    display: flex !important;
+    width: var(--ops-sidebar-width);
+    height: calc(100dvh - (var(--ops-shell-inset) * 2));
+    flex: 0 0 var(--ops-sidebar-width);
+    padding: var(--space-3);
+    border: 0;
+    border-radius: var(--ops-shell-radius);
+    background: var(--ops-instrument);
+    box-shadow: var(--ops-instrument-shadow);
+  }
+
+  .contentWrapper {
+    min-height: calc(100dvh - (var(--ops-shell-inset) * 2));
+    overflow: hidden;
+  }
+
+  .main {
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .detailPane {
+    display: none !important;
+  }
+}
+
+/* Tablet shell: centered island, canonical sidebar and inspector as overlays. */
+@media (min-width: 430px) and (max-width: 768px) {
   :global([data-ops-shell]) {
     min-height: 100dvh !important;
     padding: 0 !important;
     gap: 0 !important;
-  }
-
-  .rail {
-    display: none !important;
   }
 
   .sidebarLayer {
@@ -37,18 +74,19 @@
   }
 
   .sidebarLayer > :global(aside) {
-    width: 100%;
-    height: calc(100dvh - (var(--space-3) * 2));
     position: relative;
     top: auto;
     display: flex !important;
+    width: 100%;
+    height: calc(100dvh - (var(--space-3) * 2));
+    padding: var(--space-3);
     border: 0;
     border-radius: var(--ops-shell-radius);
     background: var(--ops-instrument);
     box-shadow: var(--ops-floating-shadow);
   }
 
-  :global([data-ops-shell][data-tablet-sidebar-open='true']) .sidebarLayer {
+  :global([data-ops-shell][data-sidebar-open='true']) .sidebarLayer {
     transform: translateX(0);
     pointer-events: auto;
   }
@@ -59,14 +97,14 @@
     z-index: calc(var(--z-palette) + 1);
     display: block;
     border: 0;
-    background: color-mix(in srgb, var(--ops-canvas) 64%, transparent);
+    background: color-mix(in srgb, var(--ops-canvas) 58%, transparent);
     opacity: 0;
     pointer-events: none;
     backdrop-filter: blur(2px);
     transition: opacity 230ms var(--ease-standard);
   }
 
-  :global([data-ops-shell][data-tablet-sidebar-open='true']) .sidebarScrim {
+  :global([data-ops-shell][data-sidebar-open='true']) .sidebarScrim {
     opacity: 1;
     pointer-events: auto;
   }
@@ -77,69 +115,72 @@
     overflow: hidden;
   }
 
-  .tabletHeader {
-    position: sticky;
-    top: 0;
+  .tabletIsland {
+    position: fixed;
+    top: max(var(--space-3), env(safe-area-inset-top));
+    left: 50%;
     z-index: var(--z-sticky);
-    display: grid !important;
-    min-height: 64px;
-    height: 64px;
-    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    display: flex;
+    min-height: 46px;
     align-items: center;
-    gap: var(--space-3);
-    padding: 0 var(--space-6);
-    background: color-mix(in srgb, var(--ops-workspace) 88%, transparent);
-    box-shadow: none;
-    backdrop-filter: blur(18px) saturate(130%);
-    -webkit-backdrop-filter: blur(18px) saturate(130%);
+    gap: 2px;
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--ops-instrument) 82%, transparent);
+    box-shadow: var(--ops-floating-shadow);
+    backdrop-filter: blur(22px) saturate(145%);
+    -webkit-backdrop-filter: blur(22px) saturate(145%);
+    transform: translateX(-50%);
   }
 
-  .headerButton {
-    display: grid;
-    width: 40px;
-    height: 40px;
-    place-items: center;
+  .islandMenu,
+  .islandLink {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
     border: 0;
-    border-radius: var(--ops-control-radius);
-    background: var(--ops-surface-subtle);
-    color: var(--ops-ink);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ops-muted);
+    font: inherit;
+    font-size: var(--text-cell);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
     cursor: pointer;
+    transition: background var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
   }
 
-  .headerButton:active {
+  .islandMenu {
+    width: 38px;
+    flex: 0 0 38px;
+  }
+
+  .islandLink {
+    padding: 0 var(--space-3);
+  }
+
+  .islandMenu:hover,
+  .islandLink:hover,
+  .islandLinkActive {
+    background: var(--ops-accent-subtle);
+    color: var(--ops-accent);
+  }
+
+  .islandMenu:active,
+  .islandLink:active {
     transform: scale(.985);
   }
 
-  .headerButton:focus-visible {
+  .islandMenu:focus-visible,
+  .islandLink:focus-visible {
     outline: 2px solid var(--ops-focus-ring);
     outline-offset: 2px;
   }
 
-  .headerIdentity {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .headerIdentity strong {
-    overflow: hidden;
-    color: var(--ops-ink);
-    font-size: 15px;
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-tight);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .headerIdentity span {
-    color: var(--ops-muted);
-    font-size: var(--text-caption);
-    font-weight: var(--weight-medium);
-  }
-
   .main {
     min-height: 0;
+    padding-top: calc(46px + var(--space-6));
     overflow: auto;
   }
 
@@ -148,7 +189,7 @@
     inset: var(--space-3) var(--space-3) var(--space-3) auto;
     z-index: calc(var(--z-palette) + 3);
     display: block !important;
-    width: min(440px, calc(100vw - 96px));
+    width: min(440px, calc(100vw - 48px));
     min-width: 0;
     height: calc(100dvh - (var(--space-3) * 2));
     padding: 0 !important;
@@ -156,11 +197,18 @@
     background: transparent !important;
     pointer-events: none;
   }
+
+  :global(.mobileHeader),
+  :global(.mobileBar) {
+    display: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .sidebarLayer,
-  .sidebarScrim {
+  .sidebarScrim,
+  .islandMenu,
+  .islandLink {
     transition-duration: 1ms;
   }
 }
