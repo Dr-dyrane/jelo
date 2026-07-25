@@ -97,13 +97,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px var(--space-2) 5px var(--space-3);
-  border-radius: var(--radius-md);
+  padding: 6px var(--space-3);
+  border-radius: 8px; /* squircle radius */
   color: var(--ink);
   font-size: 12.5px;
   font-weight: var(--weight-medium);
   text-decoration: none;
-  position: relative;
   transition: background var(--duration-fast), color var(--duration-fast);
 }
 .navLink:hover {
@@ -113,16 +112,6 @@
   background: var(--state-selected-bg);
   color: var(--wine);
   font-weight: var(--weight-semibold);
-}
-.navLinkActive::before {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 6px;
-  bottom: 6px;
-  width: 3px;
-  background: var(--wine);
-  border-radius: var(--radius-pill);
 }
 
 .linkContent {
