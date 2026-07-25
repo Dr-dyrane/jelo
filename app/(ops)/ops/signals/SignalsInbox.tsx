@@ -44,7 +44,7 @@ export function SignalsInbox({ rows }: SignalsInboxProps) {
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', marginBottom: '6px' }}>
                 Target Product Reference
               </div>
               <ProductRef subject={product} />

@@ -79,7 +79,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {/* Title / Target */}
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', marginBottom: '6px' }}>
                 Observation Target
               </div>
               <ProductRef subject={subject} />

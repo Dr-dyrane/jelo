@@ -88,9 +88,7 @@
 .navGroupTitle {
   font-size: var(--text-label);
   font-weight: var(--weight-bold);
-  text-transform: uppercase;
   color: var(--wine);
-  letter-spacing: var(--tracking-label);
   padding: var(--space-1) var(--space-2);
   margin-bottom: var(--space-1);
 }

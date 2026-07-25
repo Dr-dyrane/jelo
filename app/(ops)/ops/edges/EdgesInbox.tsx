@@ -58,7 +58,7 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {/* Subject Entity details */}
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', marginBottom: '6px' }}>
                 Subject Entity
               </div>
               <ProductRef subject={subject} />
@@ -102,7 +102,7 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
 
             {/* Object Entity details */}
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', marginBottom: '6px' }}>
                 Object Target Entity
               </div>
               <ProductRef subject={object} />
@@ -174,7 +174,7 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
 
             {row.metadata && Object.keys(row.metadata).length > 0 ? (
               <div>
-                <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>Metadata</div>
+                <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', marginBottom: '6px' }}>Metadata</div>
                 <pre style={{
                   fontSize: '11px',
                   color: 'var(--ink)',

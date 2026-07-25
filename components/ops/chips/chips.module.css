@@ -16,7 +16,6 @@
 .refText { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
 .brand {
   font-size: var(--text-label);
-  text-transform: uppercase; letter-spacing: var(--tracking-label);
   color: var(--wine);
 }
 .name {
@@ -28,7 +27,6 @@
 .idChipLabel {
   font-family: var(--font-sans), sans-serif;
   font-size: var(--text-label); color: var(--muted);
-  text-transform: uppercase; letter-spacing: var(--tracking-label);
 }
 .idChip {
   display: inline-flex; align-items: center;
