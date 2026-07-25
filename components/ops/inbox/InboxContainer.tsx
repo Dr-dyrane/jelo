@@ -11,7 +11,7 @@ import {
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import styles from './inbox.module.css';
-import tablet from './inbox-tablet.module.css';
+import adaptive from './inbox-tablet.module.css';
 
 export interface OpsInboxController {
   settleItem: (id: string) => void;
@@ -28,7 +28,7 @@ interface InboxContainerProps<T> {
   controllerRef?: MutableRefObject<OpsInboxController | null>;
 }
 
-type ViewportMode = 'phone' | 'touch' | 'compact' | 'expanded';
+type ViewportMode = 'phone' | 'touch' | 'compact' | 'balanced' | 'expanded';
 
 export function InboxContainer<T extends { id: string }>({
   items,
@@ -54,7 +54,8 @@ export function InboxContainer<T extends { id: string }>({
   const selectedIndex = detailId ? optimisticItems.findIndex(item => item.id === detailId) : -1;
   const activeItem = selectedIndex >= 0 ? optimisticItems[selectedIndex] : null;
   const navigationItem = optimisticItems[navigationIndex] ?? null;
-  const usesOverlayInspector = viewportMode === 'touch' || viewportMode === 'compact';
+  const usesOverlayInspector = viewportMode === 'phone' || viewportMode === 'touch' || viewportMode === 'compact';
+  const usesDockedInspector = viewportMode === 'balanced' || viewportMode === 'expanded';
 
   useEffect(() => {
     if (optimisticItems.length === 0) return;
@@ -111,7 +112,7 @@ export function InboxContainer<T extends { id: string }>({
     if (selectedId != null) onSelect?.(nextItem, nextIndex);
     else setInternalDetailId(nextItem.id);
 
-    if (viewportMode === 'touch' || viewportMode === 'compact') {
+    if (viewportMode === 'phone' || viewportMode === 'touch' || viewportMode === 'compact') {
       setOverlayInspectorOpen(false);
     }
   }, [optimisticItems, selectedId, onSelect, onDeselect, removeOptimisticItem, viewportMode]);
@@ -129,16 +130,20 @@ export function InboxContainer<T extends { id: string }>({
       const width = window.innerWidth;
       const nextMode: ViewportMode = width < 430
         ? 'phone'
-        : width <= 768
+        : width < 820
           ? 'touch'
-          : width < 1280
+          : width < 1180
             ? 'compact'
-            : 'expanded';
+            : width < 1440
+              ? 'balanced'
+              : 'expanded';
+
       setViewportMode(nextMode);
-      if (nextMode === 'phone' || nextMode === 'expanded') {
+      if (nextMode === 'balanced' || nextMode === 'expanded') {
         setOverlayInspectorOpen(false);
       }
     }
+
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -243,36 +248,27 @@ export function InboxContainer<T extends { id: string }>({
         })}
       </div>
 
-      {viewportMode === 'expanded' && activeItem && detailPortalTarget
+      {usesDockedInspector && activeItem && detailPortalTarget
         ? createPortal(<Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>, detailPortalTarget)
         : null}
 
       {usesOverlayInspector && activeItem && detailPortalTarget && overlayInspectorOpen
         ? createPortal(
-            <div className={tablet.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
-              <button type="button" className={tablet.tabletScrim} onClick={closeDetail} aria-label="Close details" />
-              <section className={tablet.tabletInspector}>
-                <header className={tablet.tabletInspectorHeader}>
+            <div className={adaptive.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
+              <button type="button" className={adaptive.tabletScrim} onClick={closeDetail} aria-label="Close details" />
+              <section className={adaptive.tabletInspector}>
+                <header className={adaptive.tabletInspectorHeader}>
                   <span>{itemTypeLabel}</span>
-                  <button type="button" className={tablet.tabletClose} onClick={closeDetail} aria-label="Close details">
+                  <button type="button" className={adaptive.tabletClose} onClick={closeDetail} aria-label="Close details">
                     <X size={18} />
                   </button>
                 </header>
-                <div className={tablet.tabletInspectorBody}>{renderItemDetails(activeItem)}</div>
+                <div className={adaptive.tabletInspectorBody}>{renderItemDetails(activeItem)}</div>
               </section>
             </div>,
             detailPortalTarget,
           )
         : null}
-
-      {viewportMode === 'phone' && activeItem && (
-        <div className={styles.bottomSheet} role="dialog" aria-modal="true">
-          <div className={styles.bottomSheetHeader}>
-            <button className={styles.bottomSheetClose} onClick={closeDetail} aria-label="Close details">&times;</button>
-          </div>
-          <div className={styles.bottomSheetContent}>{renderItemDetails(activeItem)}</div>
-        </div>
-      )}
     </>
   );
 }
