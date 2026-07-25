@@ -63,7 +63,7 @@ export function OpsSidebar({ operator, summary, pathname, sections, theme, onThe
   }, []);
 
   return (
-    <aside className={styles.sidebar} aria-label="Operations navigation">
+    <aside data-ops-sidebar className={styles.sidebar} aria-label="Operations navigation">
       <div className={styles.sidebarTop}>
         <div className={styles.accountMenu} ref={accountMenuRef}>
           <button
