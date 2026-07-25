@@ -8,7 +8,6 @@ import type { Product } from '@/data/products';
 import { humanizeRef } from '@/lib/humanize/refs';
 import { money } from '@/lib/format/money';
 import { outcomeLabel, outcomeTone } from '@/lib/humanize/outcomes';
-import { ProductRef } from '@/components/ops/chips/ProductRef';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
@@ -30,9 +29,15 @@ function detailFeedback(state: ObservationActionResult | null, rowId: string): R
   if (!state) return null;
   if ('targetId' in state && state.targetId !== rowId) return null;
   if (state.ok) {
-    return <p style={{ margin: 0, fontSize: '11px', color: 'var(--state-success)' }}>Recorded {state.decision}.</p>;
+    return <p className={styles.permissionNote} style={{ color: 'var(--state-success)' }}>Recorded {state.decision}.</p>;
   }
-  return <p style={{ margin: 0, fontSize: '11px', color: 'var(--state-danger)' }}>{state.error}</p>;
+  return <p className={styles.permissionNote} style={{ color: 'var(--state-danger)' }}>{state.error}</p>;
+}
+
+function observationTitle(row: EnrichedObservation) {
+  const subject = humanizeRef(row.subjectRef);
+  if (row.product) return `${row.product.brand} ${row.product.name}`;
+  return subject.brand ? `${subject.brand} ${subject.name}` : subject.name;
 }
 
 export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
@@ -45,12 +50,10 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
 
   function setSelectedId(id: string | null) {
     const params = new URLSearchParams(searchParams.toString());
-    if (id) {
-      params.set('id', id);
-    } else {
-      params.delete('id');
-    }
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    if (id) params.set('id', id);
+    else params.delete('id');
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   }
 
   return (
@@ -63,183 +66,148 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       renderItemRow={(row, isActive) => {
         const subject = humanizeRef(row.subjectRef);
         const image = row.product?.image || subject.image || '/product-placeholder.svg';
-        const title = row.product
-          ? `${row.product.brand} ${row.product.name}`
-          : subject.brand
-            ? `${subject.brand} ${subject.name}`
-            : subject.name;
+        const title = observationTitle(row);
+        const primaryValue = row.kind === 'price'
+          ? money(row.amountNgn)
+          : row.outcome
+            ? outcomeLabel(row.outcome)
+            : 'Awaiting context';
+
         return (
           <div className={styles.cardInner}>
             <SafeProductImage src={image} alt={title} className={styles.cardImage} />
             <div className={styles.cardBody}>
               <div className={styles.cardTitle}>{title}</div>
               <div className={styles.cardSubtext}>
-                {row.kind === 'price' ? money(row.amountNgn) : row.outcome ? outcomeLabel(row.outcome) : '—'}
-                {' · '}
-                <RelativeTime iso={row.createdAt} />
+                {primaryValue} · <RelativeTime iso={row.createdAt} />
               </div>
             </div>
             <ChevronRight
               size={16}
-              className={`${styles.cardCaret} ${isActive ? styles.cardCaretActive : ''}`}
+              className={styles.cardCaret}
               aria-hidden="true"
+              strokeWidth={1.75}
             />
           </div>
         );
       }}
       renderItemDetails={(row) => {
         const subject = humanizeRef(row.subjectRef);
+        const title = observationTitle(row);
+        const image = row.product?.image || subject.image || '/product-placeholder.svg';
 
-        // Price comparison details
         let priceComparisonPill = null;
         let averagePriceNgn: number | null = null;
         if (row.kind === 'price' && row.amountNgn != null && row.product?.offers) {
           const prices = row.product.offers
-            .map(o => o.priceNgn)
-            .filter((p): p is number => p != null && p > 0);
-          
-          if (prices.length > 0) {
-            averagePriceNgn = prices.reduce((sum, p) => sum + p, 0) / prices.length;
-            const diff = row.amountNgn - averagePriceNgn;
-            const pct = (diff / averagePriceNgn) * 100;
+            .map(offer => offer.priceNgn)
+            .filter((price): price is number => price != null && price > 0);
 
-            if (pct <= -20) {
-              priceComparisonPill = <StatusPill tone="success">{`Low Price (${Math.round(pct)}%)`}</StatusPill>;
-            } else if (pct >= 20) {
-              priceComparisonPill = <StatusPill tone="danger">{`High Price (+${Math.round(pct)}%)`}</StatusPill>;
+          if (prices.length > 0) {
+            averagePriceNgn = prices.reduce((sum, price) => sum + price, 0) / prices.length;
+            const percentage = ((row.amountNgn - averagePriceNgn) / averagePriceNgn) * 100;
+
+            if (percentage <= -20) {
+              priceComparisonPill = <StatusPill tone="success">{`${Math.abs(Math.round(percentage))}% below average`}</StatusPill>;
+            } else if (percentage >= 20) {
+              priceComparisonPill = <StatusPill tone="danger">{`${Math.round(percentage)}% above average`}</StatusPill>;
             } else {
-              priceComparisonPill = <StatusPill tone="info">Typical Price</StatusPill>;
+              priceComparisonPill = <StatusPill tone="info">Within normal range</StatusPill>;
             }
           }
         }
 
         return (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {/* Title / Target */}
-            <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', marginBottom: '6px' }}>
-                Observation Target
+          <div className={styles.detailContent}>
+            <header className={styles.detailHeader}>
+              <p className={styles.detailEyebrow}>Observation</p>
+              <h2 className={styles.detailTitle}>{title}</h2>
+              <div className={styles.detailMeta}>
+                <StatusPill tone={row.kind === 'price' ? 'success' : 'warning'}>{row.kind}</StatusPill>
+                <RelativeTime iso={row.createdAt} />
               </div>
-              <ProductRef subject={subject} />
-            </div>
+            </header>
 
-            {/* Rich Product Details Block */}
-            {row.product ? (
-              <div style={{
-                display: 'flex',
-                gap: 'var(--space-3)',
-                background: 'var(--card)',
-                padding: 'var(--space-3)',
-                borderRadius: 'var(--radius-card)',
-                boxShadow: 'var(--elevation-1)',
-                marginTop: '4px'
-              }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  position: 'relative',
-                  background: 'var(--cream)',
-                  borderRadius: 'var(--radius-control)',
-                  display: 'grid',
-                  placeItems: 'center',
-                  flexShrink: 0
-                }}>
-                  <SafeProductImage
-                    src={row.product.image || '/product-placeholder.svg'}
-                    alt={row.product.name}
-                    className=""
-                  />
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
-                  <strong style={{ fontSize: '11.5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                    {row.product.brand} {row.product.name}
-                  </strong>
-                  <span style={{ fontSize: '10.5px', color: 'var(--muted)' }}>
-                    Category: {row.product.category} · Size: {row.product.size}
-                  </span>
-                </div>
-              </div>
-            ) : null}
-
-            {/* Linear Properties Grid */}
-            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Kind</span>
-                <span className={styles.propertyValue}>{row.kind}</span>
-              </div>
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Value</span>
-                <span className={styles.propertyValue}>
-                  {row.kind === 'price' ? (
-                    <span className={styles.value}>{money(row.amountNgn)}</span>
-                  ) : row.outcome ? (
-                    <StatusPill tone={outcomeTone(row.outcome)}>{outcomeLabel(row.outcome)}</StatusPill>
-                  ) : (
-                    '—'
-                  )}
+            <section className={styles.productSummary} aria-label="Product summary">
+              <SafeProductImage src={image} alt={title} className={styles.productImage} />
+              <div className={styles.productCopy}>
+                <strong>{title}</strong>
+                <span>
+                  {row.product
+                    ? `${row.product.category} · ${row.product.size}`
+                    : subject.kind || 'Community submission'}
                 </span>
               </div>
-              {priceComparisonPill ? (
-                <div className={styles.propertyRow}>
-                  <span className={styles.propertyLabel}>Analysis</span>
-                  <span className={styles.propertyValue}>{priceComparisonPill}</span>
-                </div>
-              ) : null}
-              {averagePriceNgn ? (
-                <div className={styles.propertyRow}>
-                  <span className={styles.propertyLabel}>Avg Price</span>
-                  <span className={styles.propertyValue}>{money(averagePriceNgn)}</span>
-                </div>
-              ) : null}
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Reported</span>
-                <span className={styles.propertyValue}><RelativeTime iso={row.createdAt} /></span>
-              </div>
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Source</span>
-                <span className={styles.propertyValue}><IdChip value={row.contributionId} label="source" /></span>
-              </div>
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Obs ID</span>
-                <span className={styles.propertyValue}><IdChip value={row.id} label="obs" /></span>
-              </div>
-            </div>
+            </section>
 
-            {/* Decisions Section */}
+            <section>
+              <p className={styles.sectionLabel}>Evidence</p>
+              <div className={styles.propertiesSection}>
+                <div className={styles.propertyRow}>
+                  <span className={styles.propertyLabel}>Observed value</span>
+                  <span className={styles.propertyValue}>
+                    {row.kind === 'price'
+                      ? <span className={styles.value}>{money(row.amountNgn)}</span>
+                      : row.outcome
+                        ? <StatusPill tone={outcomeTone(row.outcome)}>{outcomeLabel(row.outcome)}</StatusPill>
+                        : '—'}
+                  </span>
+                </div>
+                {priceComparisonPill ? (
+                  <div className={styles.propertyRow}>
+                    <span className={styles.propertyLabel}>Market signal</span>
+                    <span className={styles.propertyValue}>{priceComparisonPill}</span>
+                  </div>
+                ) : null}
+                {averagePriceNgn != null ? (
+                  <div className={styles.propertyRow}>
+                    <span className={styles.propertyLabel}>Average offer</span>
+                    <span className={styles.propertyValue}>{money(averagePriceNgn)}</span>
+                  </div>
+                ) : null}
+                <div className={styles.propertyRow}>
+                  <span className={styles.propertyLabel}>Reported</span>
+                  <span className={styles.propertyValue}><RelativeTime iso={row.createdAt} /></span>
+                </div>
+                <div className={styles.propertyRow}>
+                  <span className={styles.propertyLabel}>Contribution</span>
+                  <span className={styles.propertyValue}><IdChip value={row.contributionId} label="source" /></span>
+                </div>
+                <div className={styles.propertyRow}>
+                  <span className={styles.propertyLabel}>Observation ID</span>
+                  <span className={styles.propertyValue}><IdChip value={row.id} label="obs" /></span>
+                </div>
+              </div>
+            </section>
+
             {canDecide ? (
-              <form
-                data-item-id={row.id}
-                className={styles.decideSection}
-                action={formAction}
-              >
+              <form data-item-id={row.id} className={styles.decideSection} action={formAction}>
                 <input type="hidden" name="targetId" value={row.id} />
                 {detailFeedback(actionState, row.id)}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div className={styles.decideField}>
                   <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
-                    Decision Rationale
+                    Decision rationale
                   </label>
                   <textarea
                     id={`rationale-${row.id}`}
                     className={styles.note}
                     name="rationale"
-                    placeholder="Add explanation (optional)..."
+                    placeholder="Optional note for the audit trail"
                     aria-label="Decision rationale"
                     disabled={isPending}
                   />
                 </div>
                 <div className={styles.actionButtons}>
                   <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending}>
-                    {isPending ? 'Working…' : 'Reject (R)'}
+                    {isPending ? 'Working…' : 'Reject'}
                   </button>
                   <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending}>
-                    {isPending ? 'Working…' : 'Approve (E)'}
+                    {isPending ? 'Working…' : 'Approve'}
                   </button>
                 </div>
               </form>
             ) : (
-              <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
-                You do not have the required permissions to make decisions on observations.
-              </p>
+              <p className={styles.permissionNote}>You do not have permission to decide observations.</p>
             )}
           </div>
         );
