@@ -1,4 +1,5 @@
-/* JeloCare Ops Triage Layout: Linear-inspired split pane system using native Jelo tokens. */
+/* JeloCare Ops Triage Layout: Linear-inspired split pane system using native Jelo tokens.
+   Zero decorative borders: separation by tone, translucency, and soft shadows. */
 
 .inboxLayout {
   display: flex;
@@ -19,47 +20,58 @@
   flex: 1 1 450px;
   max-height: 100%;
   overflow-y: auto;
-  border-right: 1px solid var(--border);
   background: var(--paper);
   display: flex;
   flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-4);
 }
 
-/* List Item Row */
+/* List Item Row (Styled as a soft Jelo storefront-style card instead of a border grid) */
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--border);
-  transition: background var(--duration-fast) var(--ease-out);
+  margin: 0 var(--space-3);
+  border-radius: var(--radius-control);
+  background: var(--card);
+  box-shadow: var(--elevation-1);
+  transition: background var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
   user-select: none;
 }
 .row:hover {
   background: var(--state-selected-bg);
+  transform: translateY(-1px);
 }
 
 .interactiveRow {
   position: relative;
   cursor: pointer;
   outline: none;
-  background: var(--paper);
 }
 
-.interactiveRowActive {
+/* Margin on the first card in the stack */
+.interactiveRow:first-child {
+  margin-top: var(--space-3);
+}
+
+.interactiveRowActive .row {
   background: var(--state-selected-bg);
 }
 
-/* Active vertical indicator bar on left edge */
+/* Active indicator: Jelo uses a elegant wine-colored dot or a left edge marker. Let's make it a clean left bar inside the card border-radius boundary */
 .interactiveRowActive::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
+  left: calc(var(--space-3) + 1px);
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: var(--radius-pill);
   background: var(--wine);
+  z-index: 2;
 }
 
 .subject {
@@ -96,7 +108,7 @@
   flex-direction: column;
   padding: var(--space-4);
   gap: var(--space-4);
-  border-left: 1px solid var(--border);
+  box-shadow: var(--elevation-1);
 }
 
 .detailPlaceholder {
@@ -110,17 +122,16 @@
   text-align: center;
   padding: var(--space-6);
   background: var(--cream);
-  border-left: 1px solid var(--border);
+  box-shadow: var(--elevation-1);
 }
 
 .detailPlaceholder kbd {
   background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 1px 4px;
+  border-radius: 4px;
+  padding: 2px 5px;
   font-family: inherit;
   font-size: 10px;
-  box-shadow: 0 1px 0 rgba(112, 71, 61, 0.05);
+  box-shadow: var(--elevation-1);
 }
 
 /* Mobile Bottom Sheet overlay */
@@ -140,7 +151,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  border-top: 1px solid var(--border);
 }
 
 .bottomSheetHeader {
@@ -189,7 +199,6 @@
 /* Deciding action styles */
 .decideSection {
   margin-top: var(--space-3);
-  border-top: 1px solid var(--border);
   padding-top: var(--space-3);
   display: flex;
   flex-direction: column;
@@ -206,7 +215,7 @@
   width: 100%;
   min-height: var(--touch-min);
   padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-control);
   background: var(--paper);
   color: var(--ink);
@@ -215,11 +224,11 @@
   resize: vertical;
   box-sizing: border-box;
   outline: none;
-  transition: border-color var(--duration-fast);
+  box-shadow: var(--elevation-1);
+  transition: box-shadow var(--duration-fast);
 }
 .note:focus {
-  border-color: var(--wine);
-  box-shadow: 0 0 0 1px var(--wine);
+  box-shadow: 0 0 0 2px var(--wine), var(--elevation-1);
 }
 
 .actionButtons {
@@ -231,8 +240,8 @@
 .btn {
   min-height: var(--touch-min);
   padding: var(--space-2) var(--space-4);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-control);
+  border: 0;
+  border-radius: var(--radius-pill);
   font-family: inherit;
   font-size: var(--text-mono);
   font-weight: var(--weight-semibold);
@@ -241,7 +250,8 @@
   outline: none;
   background: var(--paper);
   color: var(--ink);
-  transition: background var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast) var(--ease-out);
+  box-shadow: var(--elevation-1);
+  transition: background var(--duration-fast), transform var(--duration-fast) var(--ease-out), filter var(--duration-fast);
 }
 .btn:active {
   transform: translateY(1px);
@@ -250,7 +260,6 @@
 .btnApprove {
   color: var(--paper);
   background: var(--state-success);
-  border-color: var(--state-success);
 }
 .btnApprove:hover {
   filter: brightness(0.9) saturate(1.1);
@@ -259,7 +268,6 @@
 .btnReject {
   color: var(--paper);
   background: var(--state-danger);
-  border-color: var(--state-danger);
 }
 .btnReject:hover {
   filter: brightness(0.9) saturate(1.1);
@@ -268,7 +276,6 @@
 :global(html[data-theme="dark"]) .btnApprove {
   color: var(--cream);
   background: var(--state-success-bg);
-  border-color: var(--state-success);
 }
 :global(html[data-theme="dark"]) .btnApprove:hover {
   filter: brightness(1.1);
@@ -277,7 +284,6 @@
 :global(html[data-theme="dark"]) .btnReject {
   color: var(--cream);
   background: var(--state-danger-bg);
-  border-color: var(--state-danger);
 }
 :global(html[data-theme="dark"]) .btnReject:hover {
   filter: brightness(1.1);
@@ -300,7 +306,6 @@
   .listPane {
     flex: 1;
     max-height: none;
-    border-right: 0;
   }
   .detailPane {
     display: none;

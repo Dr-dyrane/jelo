@@ -132,11 +132,12 @@ export function InboxContainer<T extends { id: string }>({
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 var(--space-4)',
-        borderBottom: '1px solid var(--border)',
         background: 'var(--card)',
         fontSize: '11px',
         userSelect: 'none',
         flexShrink: 0,
+        boxShadow: 'var(--elevation-1)',
+        zIndex: 10,
       }}>
         <div style={{ fontWeight: 500, color: 'var(--muted)' }}>
           {getBreadcrumbs()}
