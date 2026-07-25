@@ -9,6 +9,9 @@ interface InboxContainerProps<T> {
   renderItemRow: (item: T, isActive: boolean) => React.ReactNode;
   renderItemDetails: (item: T) => React.ReactNode;
   itemTypeLabel?: string;
+  selectedId?: string | null;
+  onSelect?: (item: T, index: number) => void;
+  onDeselect?: () => void;
 }
 
 export function InboxContainer<T extends { id: string }>({
@@ -16,14 +19,47 @@ export function InboxContainer<T extends { id: string }>({
   renderItemRow,
   renderItemDetails,
   itemTypeLabel = 'item',
+  selectedId,
+  onSelect,
+  onDeselect,
 }: InboxContainerProps<T>) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [detailId, setDetailId] = useState<string | null>(null);
+  const [internalIndex, setInternalIndex] = useState(0);
+  const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
 
+  const controlledIndex = selectedId != null ? items.findIndex(item => item.id === selectedId) : null;
+  const activeIndex = controlledIndex != null && controlledIndex >= 0 ? controlledIndex : internalIndex;
+  const detailId = selectedId != null ? selectedId : internalDetailId;
+
   // Sync active item
   const activeItem = items[activeIndex] || null;
+
+  function syncActiveIndex(index: number) {
+    if (selectedId != null) {
+      const item = items[index];
+      if (item) onSelect?.(item, index);
+    } else {
+      setInternalIndex(index);
+    }
+  }
+
+  function openDetail(item: T) {
+    if (selectedId != null) {
+      onSelect?.(item, items.indexOf(item));
+    } else {
+      setInternalDetailId(item.id);
+      setInternalIndex(items.indexOf(item));
+    }
+  }
+
+  function closeDetail() {
+    if (selectedId != null) {
+      onDeselect?.();
+    } else {
+      setInternalDetailId(null);
+    }
+  }
 
   useEffect(() => {
     function handleResize() {
@@ -51,14 +87,16 @@ export function InboxContainer<T extends { id: string }>({
 
       if (e.key === 'j' || e.key === 'ArrowDown') {
         e.preventDefault();
-        setActiveIndex(prev => Math.min(prev + 1, items.length - 1));
+        const nextIndex = Math.min((selectedId != null ? activeIndex : internalIndex) + 1, items.length - 1);
+        syncActiveIndex(nextIndex);
       } else if (e.key === 'k' || e.key === 'ArrowUp') {
         e.preventDefault();
-        setActiveIndex(prev => Math.max(prev - 1, 0));
+        const nextIndex = Math.max((selectedId != null ? activeIndex : internalIndex) - 1, 0);
+        syncActiveIndex(nextIndex);
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (activeItem) {
-          setDetailId(activeItem.id);
+          openDetail(activeItem);
           setTimeout(() => {
             const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
             const input = form?.querySelector('input[name="rationale"], textarea') as HTMLInputElement | HTMLTextAreaElement;
@@ -88,7 +126,7 @@ export function InboxContainer<T extends { id: string }>({
         }
       } else if (e.key === 'Escape') {
         e.preventDefault();
-        setDetailId(null);
+        closeDetail();
       }
     }
 
@@ -107,8 +145,12 @@ export function InboxContainer<T extends { id: string }>({
   }, [activeIndex, activeItem]);
 
   function handleRowClick(index: number, item: T) {
-    setActiveIndex(index);
-    setDetailId(item.id);
+    if (selectedId != null) {
+      onSelect?.(item, index);
+    } else {
+      setInternalIndex(index);
+      setInternalDetailId(item.id);
+    }
   }
 
   // Generate Linear-style breadcrumbs
@@ -212,7 +254,7 @@ export function InboxContainer<T extends { id: string }>({
               <strong style={{ fontSize: '12px', fontWeight: 600 }}>Triage Detail</strong>
               <button
                 className={styles.bottomSheetClose}
-                onClick={() => setDetailId(null)}
+                onClick={() => closeDetail()}
                 aria-label="Close details"
               >
                 &times;
