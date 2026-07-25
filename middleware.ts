@@ -1,30 +1,40 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { getAuth, isAuthConfigured } from '@/lib/auth/server';
 
-export default async function middleware(request: NextRequest) {
-  if (!isAuthConfigured()) {
-    return NextResponse.next();
-  }
-  const res = await getAuth().middleware({ loginUrl: '/sign-in' })(request);
+// Inbound cookie rewriting for HTTP localhost development.
+//
+// Problem: The Neon Auth SDK hardcodes the `__Secure-` cookie name prefix and
+// the `Secure` flag. Browsers refuse to store such cookies on plain HTTP origins
+// (http://localhost:3000). The auth API route handler (app/api/auth/[...path])
+// strips the prefix and flag on *outbound* responses so the browser can persist
+// them under unprefixed names (e.g. `neon-auth.session_token`).
+//
+// This middleware handles the *inbound* direction: before the request reaches
+// the SDK's server-side `getSession()`, it rewrites the unprefixed cookie names
+// back to `__Secure-` so the SDK recognises them. In production (HTTPS) this
+// middleware is a no-op pass-through.
 
-  if (process.env.NODE_ENV !== 'production' && res.headers.has('set-cookie')) {
-    const cookies = res.headers.getSetCookie();
-    const newHeaders = new Headers(res.headers);
-    newHeaders.delete('set-cookie');
-    for (const cookie of cookies) {
-      const sanitized = cookie.replace(/;\s*Secure/gi, '');
-      newHeaders.append('set-cookie', sanitized);
-    }
-    return new NextResponse(res.body, {
-      status: res.status,
-      statusText: res.statusText,
-      headers: newHeaders,
-    });
-  }
+const IS_SECURE_ORIGIN = process.env.NODE_ENV === 'production';
 
-  return res;
+export function middleware(request: NextRequest) {
+  if (IS_SECURE_ORIGIN) return NextResponse.next();
+
+  const cookie = request.headers.get('cookie');
+  if (!cookie) return NextResponse.next();
+
+  // Re-add `__Secure-` prefix to the SDK's cookie names so getSession() finds them.
+  const rewritten = cookie
+    .replace(/\bbetter-auth\./g, '__Secure-better-auth.')
+    .replace(/\bneon-auth\./g, '__Secure-neon-auth.');
+
+  // Nothing changed → skip the header rewrite cost.
+  if (rewritten === cookie) return NextResponse.next();
+
+  const headers = new Headers(request.headers);
+  headers.set('cookie', rewritten);
+  return NextResponse.next({ request: { headers } });
 }
 
 export const config = {
-  matcher: ['/ops/:path*'],
+  // Run on every route except static assets.
+  matcher: ['/((?!_next/static|_next/image|favicon\\.ico|icon\\.png|apple-icon\\.png|manifest\\.webmanifest|social/).*)'],
 };
