@@ -31,7 +31,7 @@ export default async function ObservationsQueue() {
       {enrichedRows.length === 0 ? (
         <EmptyState
           title="Nothing awaiting review"
-          body="Reported prices and outcomes will appear here as contributors submit them."
+          body="Pending observations will appear here as they are submitted."
         />
       ) : (
         <>
@@ -45,10 +45,7 @@ export default async function ObservationsQueue() {
   );
 
   return (
-    <OpsWorkspace
-      title="Community observations"
-      lede="Reported prices and outcomes awaiting review. Nothing here writes to the catalogue; every decision is logged."
-    >
+    <OpsWorkspace title="Observations">
       {workspace}
     </OpsWorkspace>
   );
