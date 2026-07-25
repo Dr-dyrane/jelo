@@ -1,0 +1,61 @@
+/* Humanized display chips for the operator console. Tokens only — dark flips free. */
+
+.productRef { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.thumb {
+  flex: none; width: 40px; height: 40px;
+  border-radius: var(--radius-control);
+  object-fit: cover; background: var(--surface-2);
+}
+.thumbPlaceholder {
+  flex: none; width: 40px; height: 40px;
+  border-radius: var(--radius-control);
+  background: var(--surface-2);
+  display: grid; place-items: center;
+  color: var(--muted); font-weight: var(--weight-semibold);
+}
+.refText { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.brand {
+  font-size: var(--text-label);
+  text-transform: uppercase; letter-spacing: var(--tracking-label);
+  color: var(--wine);
+}
+.name {
+  font-size: var(--text-cell); color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.idChipWrap { display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.idChipLabel {
+  font-family: var(--font-sans), sans-serif;
+  font-size: var(--text-label); color: var(--muted);
+  text-transform: uppercase; letter-spacing: var(--tracking-label);
+}
+.idChip {
+  display: inline-flex; align-items: center;
+  padding: 2px var(--space-2);
+  border: 0; border-radius: var(--radius-pill);
+  background: var(--tag-bg); color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: var(--text-mono); cursor: pointer;
+  max-width: 100%;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.idChip:hover { color: var(--ink); }
+.idChip:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.copied { color: var(--state-success); }
+
+.time {
+  color: var(--muted); font-size: var(--text-cell);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+.pill {
+  display: inline-block; padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label); font-weight: var(--weight-semibold);
+  letter-spacing: .01em; white-space: nowrap;
+}
+.success { color: var(--state-success); background: var(--state-success-bg); }
+.warning { color: var(--state-warning); background: var(--state-warning-bg); }
+.danger { color: var(--state-danger); background: var(--state-danger-bg); }
+.info { color: var(--state-info); background: var(--state-info-bg); }
