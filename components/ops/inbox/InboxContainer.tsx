@@ -43,7 +43,7 @@ export function InboxContainer<T extends { id: string }>({
   const [navigationIndex, setNavigationIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
   const [viewportMode, setViewportMode] = useState<ViewportMode>('phone');
-  const [touchInspectorOpen, setTouchInspectorOpen] = useState(false);
+  const [overlayInspectorOpen, setOverlayInspectorOpen] = useState(false);
 
   const [optimisticItems, removeOptimisticItem] = useOptimistic(
     items,
@@ -54,6 +54,7 @@ export function InboxContainer<T extends { id: string }>({
   const selectedIndex = detailId ? optimisticItems.findIndex(item => item.id === detailId) : -1;
   const activeItem = selectedIndex >= 0 ? optimisticItems[selectedIndex] : null;
   const navigationItem = optimisticItems[navigationIndex] ?? null;
+  const usesOverlayInspector = viewportMode === 'touch' || viewportMode === 'compact';
 
   useEffect(() => {
     if (optimisticItems.length === 0) return;
@@ -78,12 +79,12 @@ export function InboxContainer<T extends { id: string }>({
     setNavigationIndex(index);
     if (selectedId != null) onSelect?.(item, index);
     else setInternalDetailId(item.id);
-    if (viewportMode === 'touch') setTouchInspectorOpen(true);
+    if (usesOverlayInspector) setOverlayInspectorOpen(true);
   }
 
   function closeDetail() {
-    if (viewportMode === 'touch') {
-      setTouchInspectorOpen(false);
+    if (usesOverlayInspector) {
+      setOverlayInspectorOpen(false);
       return;
     }
     if (selectedId != null) onDeselect?.();
@@ -100,7 +101,7 @@ export function InboxContainer<T extends { id: string }>({
     if (remaining.length === 0) {
       if (selectedId != null) onDeselect?.();
       else setInternalDetailId(null);
-      setTouchInspectorOpen(false);
+      setOverlayInspectorOpen(false);
       return;
     }
 
@@ -110,7 +111,9 @@ export function InboxContainer<T extends { id: string }>({
     if (selectedId != null) onSelect?.(nextItem, nextIndex);
     else setInternalDetailId(nextItem.id);
 
-    if (viewportMode === 'touch') setTouchInspectorOpen(false);
+    if (viewportMode === 'touch' || viewportMode === 'compact') {
+      setOverlayInspectorOpen(false);
+    }
   }, [optimisticItems, selectedId, onSelect, onDeselect, removeOptimisticItem, viewportMode]);
 
   useEffect(() => {
@@ -132,7 +135,9 @@ export function InboxContainer<T extends { id: string }>({
             ? 'compact'
             : 'expanded';
       setViewportMode(nextMode);
-      if (nextMode !== 'touch') setTouchInspectorOpen(false);
+      if (nextMode === 'phone' || nextMode === 'expanded') {
+        setOverlayInspectorOpen(false);
+      }
     }
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -203,7 +208,7 @@ export function InboxContainer<T extends { id: string }>({
   }, [activeItem, detailId, navigationItem]);
 
   function handleRowClick(index: number, item: T) {
-    if (detailId === item.id && viewportMode !== 'touch') return;
+    if (detailId === item.id && !usesOverlayInspector) return;
     openDetail(item, index);
   }
 
@@ -242,7 +247,7 @@ export function InboxContainer<T extends { id: string }>({
         ? createPortal(<Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>, detailPortalTarget)
         : null}
 
-      {viewportMode === 'touch' && activeItem && detailPortalTarget && touchInspectorOpen
+      {usesOverlayInspector && activeItem && detailPortalTarget && overlayInspectorOpen
         ? createPortal(
             <div className={tablet.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
               <button type="button" className={tablet.tabletScrim} onClick={closeDetail} aria-label="Close details" />
