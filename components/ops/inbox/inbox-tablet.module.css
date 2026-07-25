@@ -1,4 +1,5 @@
 .tabletStage {
+  height: 100%;
   pointer-events: auto;
 }
 
@@ -17,18 +18,18 @@
   flex-direction: column;
   overflow: hidden;
   border-radius: var(--ops-shell-radius);
-  background: var(--ops-workspace);
+  background: var(--ops-instrument);
   box-shadow: var(--ops-floating-shadow);
   animation: tabletInspectorIn 320ms cubic-bezier(.22, 1, .36, 1) both;
 }
 
 .tabletInspectorHeader {
   display: flex;
-  min-height: 56px;
+  min-height: 52px;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-5);
-  background: color-mix(in srgb, var(--ops-workspace) 94%, var(--ops-surface-subtle));
+  padding: 0 var(--space-4);
+  background: var(--ops-instrument);
 }
 
 .tabletInspectorHeader span {
@@ -40,8 +41,8 @@
 
 .tabletClose {
   display: grid;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   place-items: center;
   border: 0;
   border-radius: var(--ops-control-radius);
@@ -60,7 +61,29 @@
   flex: 1;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0 var(--space-6) var(--space-6);
+  padding: 0 var(--space-4) var(--space-5);
+  background: var(--ops-instrument);
+}
+
+@media (min-width: 430px) and (max-width: 1279px) {
+  .tabletInspectorBody :global(form[data-item-id]) {
+    position: sticky;
+    bottom: calc(var(--space-5) * -1);
+    z-index: 2;
+    margin-top: var(--space-5);
+    padding: var(--space-4) 0 calc(var(--space-4) + env(safe-area-inset-bottom));
+    background: linear-gradient(to bottom, transparent, var(--ops-instrument) 18%);
+  }
+
+  .tabletInspectorBody :global(form[data-item-id] > div:last-child) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .tabletInspectorBody :global(form[data-item-id] button) {
+    min-height: 44px;
+  }
 }
 
 @media (min-width: 430px) and (max-width: 768px) {
@@ -83,31 +106,12 @@
     width: 56px !important;
     height: 56px !important;
   }
-
-  .tabletInspectorBody :global(form[data-item-id]) {
-    position: sticky;
-    bottom: calc(var(--space-6) * -1);
-    z-index: 2;
-    margin-top: var(--space-6);
-    padding: var(--space-5) 0 calc(var(--space-4) + env(safe-area-inset-bottom));
-    background: linear-gradient(to bottom, transparent, var(--ops-workspace) 18%);
-  }
-
-  .tabletInspectorBody :global(form[data-item-id] > div:last-child) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-  }
-
-  .tabletInspectorBody :global(form[data-item-id] button) {
-    min-height: 44px;
-  }
 }
 
 @keyframes tabletInspectorIn {
   from {
     opacity: .72;
-    transform: translateX(28px) scale(.985);
+    transform: translateX(24px) scale(.99);
   }
   to {
     opacity: 1;
