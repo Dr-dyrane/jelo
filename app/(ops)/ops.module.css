@@ -459,7 +459,6 @@
   flex-direction: column;
   min-width: 0;
   min-height: 100vh;
-  background: var(--paper);
 }
 
 .main {
@@ -1016,15 +1015,11 @@
   .contentWrapper {
     min-height: calc(100dvh - (var(--ops-shell-inset) * 2));
     overflow: hidden;
-    border-radius: var(--ops-shell-radius);
-    background: var(--ops-workspace);
-    box-shadow: var(--ops-workspace-shadow);
     flex-direction: row;
   }
 
   .main {
     min-height: 0;
-    padding: var(--space-6);
     overflow: auto;
   }
 

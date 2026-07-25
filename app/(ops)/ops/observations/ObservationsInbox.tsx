@@ -1,6 +1,7 @@
 'use client';
 
 import { useActionState, type ReactNode } from 'react';
+import { ChevronRight } from 'lucide-react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import type { PendingObservation } from '@/lib/moderation/queues';
 import type { Product } from '@/data/products';
@@ -59,24 +60,32 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       selectedId={selectedId}
       onSelect={item => setSelectedId(item.id)}
       onDeselect={() => setSelectedId(null)}
-      renderItemRow={(row) => {
+      renderItemRow={(row, isActive) => {
         const subject = humanizeRef(row.subjectRef);
+        const image = row.product?.image || subject.image || '/product-placeholder.svg';
+        const title = row.product
+          ? `${row.product.brand} ${row.product.name}`
+          : subject.brand
+            ? `${subject.brand} ${subject.name}`
+            : subject.name;
         return (
-          <div className={styles.row} style={{ width: '100%', background: 'transparent', borderBottom: 0 }}>
-            <div className={styles.subject}>
-              <ProductRef subject={subject} />
-              <div className={styles.metaRow}>
-                <StatusPill tone={row.kind === 'price' ? 'success' : 'warning'}>{row.kind}</StatusPill>
-                {row.kind === 'price' ? (
-                  <span className={styles.value}>{money(row.amountNgn)}</span>
-                ) : row.outcome ? (
-                  <StatusPill tone={outcomeTone(row.outcome)}>{outcomeLabel(row.outcome)}</StatusPill>
-                ) : (
-                  <span className={styles.value}>—</span>
-                )}
+          <div className={styles.cardInner}>
+            <div className={styles.cardMedia}>
+              <SafeProductImage src={image} alt={title} />
+            </div>
+            <div className={styles.cardBody}>
+              <div className={styles.cardTitle}>{title}</div>
+              <div className={styles.cardSubtext}>
+                {row.kind === 'price' ? money(row.amountNgn) : row.outcome ? outcomeLabel(row.outcome) : '—'}
+                {' · '}
                 <RelativeTime iso={row.createdAt} />
               </div>
             </div>
+            <ChevronRight
+              size={16}
+              className={`${styles.cardCaret} ${isActive ? styles.cardCaretActive : ''}`}
+              aria-hidden="true"
+            />
           </div>
         );
       }}

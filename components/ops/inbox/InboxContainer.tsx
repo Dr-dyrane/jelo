@@ -145,69 +145,84 @@ export function InboxContainer<T extends { id: string }>({
 
   function handleRowClick(index: number, item: T) {
     if (selectedId != null) {
-      onSelect?.(item, index);
+      if (selectedId === item.id) {
+        onDeselect?.();
+      } else {
+        onSelect?.(item, index);
+      }
     } else {
-      setInternalIndex(index);
-      setInternalDetailId(item.id);
+      if (internalDetailId === item.id) {
+        setInternalDetailId(null);
+      } else {
+        setInternalIndex(index);
+        setInternalDetailId(item.id);
+      }
     }
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
-      {/* Main Inbox split view */}
-      <div className={styles.inboxLayout}>
-        {/* Left List Pane */}
-        <div className={styles.listPane} role="list" aria-label={`${itemTypeLabel} queue`}>
-          {items.map((item, idx) => {
-            const isActive = activeItem?.id === item.id;
-            return (
-              <div
-                key={item.id}
-                id={`row-${item.id}`}
-                role="listitem"
-                tabIndex={0}
-                className={`${styles.interactiveRow} ${isActive ? styles.interactiveRowActive : ''}`}
-                onClick={() => handleRowClick(idx, item)}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleRowClick(idx, item);
-                  }
-                }}
-                aria-current={isActive ? 'true' : undefined}
-              >
-                {renderItemRow(item, isActive)}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Right Desktop/Tablet Detail Pane (Linear Properties Panel) */}
-        {!isMobile && activeItem ? (
-          createPortal(
-            <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>,
-            document.getElementById('ops-detail-pane') as HTMLElement,
-          )
-        ) : null}
-
-        {/* Mobile Bottom Sheet (slides up on item selection) */}
-        {isMobile && detailId && activeItem && (
-          <div className={styles.bottomSheet} role="dialog" aria-modal="true">
-            <div className={styles.bottomSheetHeader}>
-              <button
-                className={styles.bottomSheetClose}
-                onClick={() => closeDetail()}
-                aria-label="Close details"
-              >
-                &times;
-              </button>
+    <>
+      <div className={styles.cardGrid} role="list" aria-label={`${itemTypeLabel} queue`}>
+        {items.map((item, idx) => {
+          const isActive = activeItem?.id === item.id;
+          return (
+            <div
+              key={item.id}
+              id={`row-${item.id}`}
+              role="listitem"
+              tabIndex={0}
+              className={`${styles.card} ${isActive ? styles.cardActive : ''}`}
+              onClick={() => handleRowClick(idx, item)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleRowClick(idx, item);
+                }
+              }}
+              aria-current={isActive ? 'true' : undefined}
+            >
+              {renderItemRow(item, isActive)}
             </div>
-            <div style={{ flex: 1, overflowY: 'auto' }}>
-              {renderItemDetails(activeItem)}
+          );
+        })}
+        {Array.from({ length: (3 - (items.length % 3)) % 3 }).map((_, i) => (
+          <div key={`skeleton-${i}`} className={`${styles.card} ${styles.skeleton}`} aria-hidden="true">
+            <div className={styles.cardInner}>
+              <div className={styles.cardMedia} />
+              <div className={styles.cardBody}>
+                <div className={styles.skeletonTitle} />
+                <div className={styles.skeletonSubtext} />
+              </div>
             </div>
           </div>
-        )}
+        ))}
       </div>
-    </div>
+
+      {/* Right Desktop/Tablet Detail Pane (Linear Properties Panel) */}
+      {!isMobile && activeItem ? (
+        createPortal(
+          <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>,
+          document.getElementById('ops-detail-pane') as HTMLElement,
+        )
+      ) : null}
+
+      {/* Mobile Bottom Sheet (slides up on item selection) */}
+      {isMobile && detailId && activeItem && (
+        <div className={styles.bottomSheet} role="dialog" aria-modal="true">
+          <div className={styles.bottomSheetHeader}>
+            <button
+              className={styles.bottomSheetClose}
+              onClick={() => closeDetail()}
+              aria-label="Close details"
+            >
+              &times;
+            </button>
+          </div>
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            {renderItemDetails(activeItem)}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

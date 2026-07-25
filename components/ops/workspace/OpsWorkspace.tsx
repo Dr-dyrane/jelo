@@ -20,7 +20,7 @@ export function OpsWorkspace({ title, lede, tabs, children }: OpsWorkspaceProps)
   const pathname = usePathname();
 
   return (
-    <div className={styles.workspace}>
+    <>
       <div className={styles.workspaceHead}>
         <h1 className={styles.workspaceTitle}>{title}</h1>
         {lede ? <p className={styles.workspaceLede}>{lede}</p> : null}
@@ -42,7 +42,7 @@ export function OpsWorkspace({ title, lede, tabs, children }: OpsWorkspaceProps)
           </nav>
         ) : null}
       </div>
-      <div className={styles.workspaceBody}>{children}</div>
-    </div>
+      {children}
+    </>
   );
 }
