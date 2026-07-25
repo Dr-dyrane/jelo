@@ -188,7 +188,7 @@ export function InboxContainer<T extends { id: string }>({
         {Array.from({ length: (3 - (items.length % 3)) % 3 }).map((_, i) => (
           <div key={`skeleton-${i}`} className={`${styles.card} ${styles.skeleton}`} aria-hidden="true">
             <div className={styles.cardInner}>
-              <div className={styles.cardMedia} />
+              <div className={styles.cardImage} />
               <div className={styles.cardBody}>
                 <div className={styles.skeletonTitle} />
                 <div className={styles.skeletonSubtext} />

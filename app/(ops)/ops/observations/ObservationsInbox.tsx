@@ -70,9 +70,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
             : subject.name;
         return (
           <div className={styles.cardInner}>
-            <div className={styles.cardMedia}>
-              <SafeProductImage src={image} alt={title} />
-            </div>
+            <SafeProductImage src={image} alt={title} className={styles.cardImage} />
             <div className={styles.cardBody}>
               <div className={styles.cardTitle}>{title}</div>
               <div className={styles.cardSubtext}>
