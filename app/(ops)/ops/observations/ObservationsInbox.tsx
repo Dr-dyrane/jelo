@@ -25,7 +25,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       renderItemRow={(row) => {
         const subject = humanizeRef(row.subjectRef);
         return (
-          <div className={styles.row} style={{ width: '100%', background: 'transparent' }}>
+          <div className={styles.row} style={{ width: '100%', background: 'transparent', borderBottom: 0 }}>
             <div className={styles.subject}>
               <ProductRef subject={subject} />
               <div className={styles.metaRow}>
@@ -46,68 +46,68 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       renderItemDetails={(row) => {
         const subject = humanizeRef(row.subjectRef);
         return (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {/* Title / Target */}
             <div>
-              <h3 style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 var(--space-2)' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Observation Target
-              </h3>
+              </div>
               <ProductRef subject={subject} />
             </div>
 
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 'var(--space-3)',
-              fontSize: 'var(--text-cell)',
-              background: 'var(--tag-bg)',
-              padding: 'var(--space-3)',
-              borderRadius: 'var(--radius-control)',
-            }}>
-              <div><strong>Kind:</strong> {row.kind}</div>
-              <div>
-                <strong>Value:</strong>{' '}
-                {row.kind === 'price' ? (
-                  <span className={styles.value}>{money(row.amountNgn)}</span>
-                ) : row.outcome ? (
-                  <StatusPill tone={outcomeTone(row.outcome)}>{outcomeLabel(row.outcome)}</StatusPill>
-                ) : (
-                  '—'
-                )}
+            {/* Linear Properties Grid */}
+            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Kind</span>
+                <span className={styles.propertyValue}>{row.kind}</span>
               </div>
-              <div><strong>Reported:</strong> <RelativeTime iso={row.createdAt} /></div>
-              <div><strong>Source contribution:</strong> <IdChip value={row.contributionId} label="source" /></div>
-              <div><strong>Observation ID:</strong> <IdChip value={row.id} label="obs" /></div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Value</span>
+                <span className={styles.propertyValue}>
+                  {row.kind === 'price' ? (
+                    <span className={styles.value}>{money(row.amountNgn)}</span>
+                  ) : row.outcome ? (
+                    <StatusPill tone={outcomeTone(row.outcome)}>{outcomeLabel(row.outcome)}</StatusPill>
+                  ) : (
+                    '—'
+                  )}
+                </span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Reported</span>
+                <span className={styles.propertyValue}><RelativeTime iso={row.createdAt} /></span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Source</span>
+                <span className={styles.propertyValue}><IdChip value={row.contributionId} label="source" /></span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Obs ID</span>
+                <span className={styles.propertyValue}><IdChip value={row.id} label="obs" /></span>
+              </div>
             </div>
 
+            {/* Decisions Section */}
             {canDecide ? (
               <form
                 data-item-id={row.id}
-                className={styles.decide}
+                className={styles.decideSection}
                 action={decideObservationAction}
-                style={{
-                  flexDirection: 'column',
-                  alignItems: 'stretch',
-                  gap: 'var(--space-3)',
-                  marginTop: 'var(--space-2)',
-                  borderTop: '1px solid rgba(112, 71, 61, 0.08)',
-                  paddingTop: 'var(--space-4)',
-                }}
               >
                 <input type="hidden" name="targetId" value={row.id} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
-                  <label htmlFor={`rationale-${row.id}`} style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--muted)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
                     Decision Rationale
                   </label>
-                  <input
+                  <textarea
                     id={`rationale-${row.id}`}
                     className={styles.note}
                     name="rationale"
-                    placeholder="Add explanation..."
+                    placeholder="Add explanation (optional)..."
                     aria-label="Decision rationale"
-                    style={{ width: '100%', boxSizing: 'border-box' }}
                   />
                 </div>
-                <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+                <div className={styles.actionButtons}>
                   <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
                     Reject (R)
                   </button>
@@ -117,7 +117,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                 </div>
               </form>
             ) : (
-              <p style={{ fontSize: '0.8rem', color: 'var(--muted)', margin: 'var(--space-2) 0 0' }}>
+              <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
                 You do not have the required permissions to make decisions on observations.
               </p>
             )}

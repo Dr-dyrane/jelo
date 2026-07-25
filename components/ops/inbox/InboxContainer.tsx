@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import styles from './inbox.module.css';
 
 interface InboxContainerProps<T> {
@@ -19,8 +20,9 @@ export function InboxContainer<T extends { id: string }>({
   const [activeIndex, setActiveIndex] = useState(0);
   const [detailId, setDetailId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname();
 
-  // Sync index to activeId
+  // Sync active item
   const activeItem = items[activeIndex] || null;
 
   useEffect(() => {
@@ -37,7 +39,6 @@ export function InboxContainer<T extends { id: string }>({
     if (items.length === 0) return;
 
     function handleKeyDown(e: KeyboardEvent) {
-      // Ignore key events when typing in inputs/textareas
       if (
         document.activeElement?.tagName === 'INPUT' ||
         document.activeElement?.tagName === 'TEXTAREA'
@@ -58,7 +59,6 @@ export function InboxContainer<T extends { id: string }>({
         e.preventDefault();
         if (activeItem) {
           setDetailId(activeItem.id);
-          // Focus the input inside the active item details form if it exists
           setTimeout(() => {
             const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
             const input = form?.querySelector('input[name="rationale"], textarea') as HTMLInputElement | HTMLTextAreaElement;
@@ -89,7 +89,7 @@ export function InboxContainer<T extends { id: string }>({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeIndex, activeItem, items]);
 
-  // Auto-scroll row into view when navigating
+  // Auto-scroll selected row into view
   useEffect(() => {
     if (activeItem) {
       const el = document.getElementById(`row-${activeItem.id}`);
@@ -104,70 +104,115 @@ export function InboxContainer<T extends { id: string }>({
     setDetailId(item.id);
   }
 
-  return (
-    <div className={styles.inboxLayout}>
-      {/* Left List Pane */}
-      <div className={styles.listPane} role="list" aria-label={`${itemTypeLabel} queue`}>
-        {items.map((item, idx) => {
-          const isActive = activeItem?.id === item.id;
-          return (
-            <div
-              key={item.id}
-              id={`row-${item.id}`}
-              role="listitem"
-              tabIndex={0}
-              className={`${styles.interactiveRow} ${isActive ? styles.interactiveRowActive : ''}`}
-              onClick={() => handleRowClick(idx, item)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleRowClick(idx, item);
-                }
-              }}
-              aria-current={isActive ? 'true' : undefined}
-            >
-              {renderItemRow(item, isActive)}
-            </div>
-          );
-        })}
-      </div>
+  // Generate Linear-style breadcrumbs
+  function getBreadcrumbs() {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length === 0) return 'System / Overview';
+    
+    return segments
+      .map((segment, idx) => {
+        if (idx === 0) return 'Ops';
+        if (segment === 'contributions') return 'Queues / Contributions';
+        if (segment === 'edges') return 'Queues / Edges';
+        if (segment === 'observations') return 'Queues / Observations';
+        if (segment === 'vocabulary') return 'Queues / Vocabulary';
+        if (segment === 'retailers') return 'Queues / Retailers';
+        if (segment === 'signals') return 'System / Signals';
+        return segment.charAt(0).toUpperCase() + segment.slice(1);
+      })
+      .join(' / ');
+  }
 
-      {/* Right Desktop/Tablet Detail Pane */}
-      {!isMobile ? (
-        <div className={styles.detailPane}>
-          {activeItem ? (
-            <div key={activeItem.id}>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
+      {/* Linear top bar breadcrumbs & keyboard hints */}
+      <header style={{
+        height: '40px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 16px',
+        borderBottom: '1px solid var(--linear-border)',
+        background: 'var(--linear-card)',
+        fontSize: '11px',
+        userSelect: 'none',
+        flexShrink: 0,
+      }}>
+        <div style={{ fontWeight: 500, color: 'var(--linear-text-muted)' }}>
+          {getBreadcrumbs()}
+        </div>
+        {!isMobile ? (
+          <div style={{ color: 'var(--linear-text-muted)', display: 'flex', gap: '12px' }}>
+            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>j</kbd>/<kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>k</kbd> Navigate</span>
+            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>Enter</kbd> Focus</span>
+            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>E</kbd> Approve</span>
+            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>R</kbd> Reject</span>
+          </div>
+        ) : null}
+      </header>
+
+      {/* Main Inbox split view */}
+      <div className={styles.inboxLayout}>
+        {/* Left List Pane */}
+        <div className={styles.listPane} role="list" aria-label={`${itemTypeLabel} queue`}>
+          {items.map((item, idx) => {
+            const isActive = activeItem?.id === item.id;
+            return (
+              <div
+                key={item.id}
+                id={`row-${item.id}`}
+                role="listitem"
+                tabIndex={0}
+                className={`${styles.interactiveRow} ${isActive ? styles.interactiveRowActive : ''}`}
+                onClick={() => handleRowClick(idx, item)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleRowClick(idx, item);
+                  }
+                }}
+                aria-current={isActive ? 'true' : undefined}
+              >
+                {renderItemRow(item, isActive)}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Right Desktop/Tablet Detail Pane (Linear Properties Panel) */}
+        {!isMobile ? (
+          <div className={styles.detailPane}>
+            {activeItem ? (
+              <div key={activeItem.id}>
+                {renderItemDetails(activeItem)}
+              </div>
+            ) : (
+              <div className={styles.detailPlaceholder}>
+                <p>Select a {itemTypeLabel} from the list to view details.</p>
+              </div>
+            )}
+          </div>
+        ) : null}
+
+        {/* Mobile Bottom Sheet (slides up on item selection) */}
+        {isMobile && detailId && activeItem && (
+          <div className={styles.bottomSheet} role="dialog" aria-modal="true">
+            <div className={styles.bottomSheetHeader}>
+              <strong style={{ fontSize: '12px', fontWeight: 600 }}>Triage Detail</strong>
+              <button
+                className={styles.bottomSheetClose}
+                onClick={() => setDetailId(null)}
+                aria-label="Close details"
+              >
+                &times;
+              </button>
+            </div>
+            <div style={{ flex: 1, overflowY: 'auto' }}>
               {renderItemDetails(activeItem)}
             </div>
-          ) : (
-            <div className={styles.detailPlaceholder}>
-              <p>Select a {itemTypeLabel} from the list to view details.</p>
-              <p style={{ fontSize: '0.8rem', marginTop: '8px' }}>
-                Use <kbd>j</kbd>/<kbd>k</kbd> to traverse, and <kbd>Enter</kbd> to open.
-              </p>
-            </div>
-          )}
-        </div>
-      ) : null}
-
-      {/* Mobile Bottom Sheet (slides up on item selection) */}
-      {isMobile && detailId && activeItem && (
-        <div className={styles.bottomSheet} role="dialog" aria-modal="true">
-          <div className={styles.bottomSheetHeader}>
-            <strong style={{ fontSize: '1rem' }}>Triage Detail</strong>
-            <button
-              className={styles.bottomSheetClose}
-              onClick={() => setDetailId(null)}
-              aria-label="Close details"
-            >
-              &times;
-            </button>
           </div>
-          <div style={{ flex: 1, overflowY: 'auto' }}>
-            {renderItemDetails(activeItem)}
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

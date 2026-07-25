@@ -26,13 +26,13 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
         const subject = humanizeRef(subjectRefStr);
         const object = humanizeRef(objectRefStr);
         return (
-          <div className={styles.row} style={{ width: '100%', background: 'transparent' }}>
+          <div className={styles.row} style={{ width: '100%', background: 'transparent', borderBottom: 0 }}>
             <div className={styles.subject}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', flexWrap: 'wrap', fontSize: '0.85rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', flexWrap: 'wrap', fontSize: '12px' }}>
                 <span style={{ fontWeight: 600 }}>{subject.name}</span>
-                <span style={{ color: 'var(--muted)' }}>→</span>
-                <span style={{ color: 'var(--wine)' }}>{row.predicate}</span>
-                <span style={{ color: 'var(--muted)' }}>→</span>
+                <span style={{ color: 'var(--linear-text-muted)' }}>→</span>
+                <span style={{ color: 'var(--linear-accent)', fontWeight: 500 }}>{row.predicate}</span>
+                <span style={{ color: 'var(--linear-text-muted)' }}>→</span>
                 <span style={{ fontWeight: 600 }}>{object.name}</span>
               </div>
               <div className={styles.metaRow}>
@@ -48,51 +48,59 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
         const subject = humanizeRef(subjectRefStr);
         const object = humanizeRef(objectRefStr);
         return (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <h3 style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 var(--space-2)' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Subject Entity
-              </h3>
+              </div>
               <ProductRef subject={subject} />
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-              <span style={{ color: 'var(--muted)', fontSize: '0.85rem' }}>Relationship Predicate:</span>
-              <StatusPill tone="info">{row.predicate}</StatusPill>
-            </div>
-
             <div>
-              <h3 style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 var(--space-2)' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Object Target Entity
-              </h3>
+              </div>
               <ProductRef subject={object} />
             </div>
 
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 'var(--space-3)',
-              fontSize: 'var(--text-cell)',
-              background: 'var(--tag-bg)',
-              padding: 'var(--space-3)',
-              borderRadius: 'var(--radius-control)',
-            }}>
-              <div><strong>Subject Kind:</strong> {row.subjectKind}</div>
-              <div><strong>Object Kind:</strong> {row.objectKind}</div>
-              <div><strong>Source contribution:</strong> <IdChip value={row.contributionId} label="source" /></div>
-              <div><strong>Created:</strong> <RelativeTime iso={row.createdAt} /></div>
-              <div><strong>Edge ID:</strong> <IdChip value={row.id} label="edge" /></div>
+            {/* Properties Grid */}
+            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Relationship</span>
+                <span className={styles.propertyValue}><StatusPill tone="info">{row.predicate}</StatusPill></span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Subject Kind</span>
+                <span className={styles.propertyValue}>{row.subjectKind}</span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Object Kind</span>
+                <span className={styles.propertyValue}>{row.objectKind}</span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Source</span>
+                <span className={styles.propertyValue}><IdChip value={row.contributionId} label="source" /></span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Created</span>
+                <span className={styles.propertyValue}><RelativeTime iso={row.createdAt} /></span>
+              </div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Edge ID</span>
+                <span className={styles.propertyValue}><IdChip value={row.id} label="edge" /></span>
+              </div>
             </div>
 
             {row.metadata && Object.keys(row.metadata).length > 0 ? (
               <div>
-                <h4 style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--muted)', margin: '0 0 var(--space-1)' }}>Metadata</h4>
+                <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>Metadata</div>
                 <pre style={{
-                  fontSize: 'var(--text-mono)',
-                  color: 'var(--ink)',
-                  background: 'var(--tag-bg)',
-                  padding: 'var(--space-2)',
-                  borderRadius: 'var(--radius-control)',
+                  fontSize: '11px',
+                  color: 'var(--linear-text)',
+                  background: 'var(--linear-card)',
+                  border: '1px solid var(--linear-border)',
+                  padding: '8px',
+                  borderRadius: 'var(--radius-md)',
                   margin: 0,
                   whiteSpace: 'pre-wrap',
                   wordBreak: 'break-all',
@@ -105,32 +113,23 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
             {canDecide ? (
               <form
                 data-item-id={row.id}
-                className={styles.decide}
+                className={styles.decideSection}
                 action={decideEdgeAction}
-                style={{
-                  flexDirection: 'column',
-                  alignItems: 'stretch',
-                  gap: 'var(--space-3)',
-                  marginTop: 'var(--space-2)',
-                  borderTop: '1px solid rgba(112, 71, 61, 0.08)',
-                  paddingTop: 'var(--space-4)',
-                }}
               >
                 <input type="hidden" name="targetId" value={row.id} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
-                  <label htmlFor={`rationale-${row.id}`} style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--muted)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
                     Decision Rationale
                   </label>
-                  <input
+                  <textarea
                     id={`rationale-${row.id}`}
                     className={styles.note}
                     name="rationale"
-                    placeholder="Add explanation..."
+                    placeholder="Add explanation (optional)..."
                     aria-label="Decision rationale"
-                    style={{ width: '100%', boxSizing: 'border-box' }}
                   />
                 </div>
-                <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+                <div className={styles.actionButtons}>
                   <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
                     Reject (R)
                   </button>
@@ -140,7 +139,7 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
                 </div>
               </form>
             ) : (
-              <p style={{ fontSize: '0.8rem', color: 'var(--muted)', margin: 'var(--space-2) 0 0' }}>
+              <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
                 You do not have the required permissions to make decisions on knowledge edges.
               </p>
             )}

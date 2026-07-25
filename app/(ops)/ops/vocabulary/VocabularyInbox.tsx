@@ -19,12 +19,12 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
       items={rows}
       itemTypeLabel="vocabulary term"
       renderItemRow={(row) => (
-        <div className={styles.row} style={{ width: '100%', background: 'transparent' }}>
+        <div className={styles.row} style={{ width: '100%', background: 'transparent', borderBottom: 0 }}>
           <div className={styles.subject}>
             <div className={styles.value} style={{ fontSize: '1.05rem' }}>{row.rawValue}</div>
             <div className={styles.metaRow}>
               <StatusPill tone="info">{row.valueKind}</StatusPill>
-              <span style={{ fontSize: 'var(--text-cell)', color: 'var(--muted)' }}>
+              <span style={{ fontSize: '11px', color: 'var(--linear-text-muted)' }}>
                 ×{row.occurrenceCount}
               </span>
               <RelativeTime iso={row.lastSeenAt} />
@@ -33,19 +33,20 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
         </div>
       )}
       renderItemDetails={(row) => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--ink)', margin: '0 0 var(--space-1)' }}>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--linear-text)', margin: '0 0 4px' }}>
               {row.rawValue}
             </h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-              <span style={{ color: 'var(--muted)', fontSize: '0.85rem' }}>Normalized representation:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ color: 'var(--linear-text-muted)', fontSize: '11px' }}>Normalized:</span>
               <code style={{
-                fontSize: 'var(--text-mono)',
-                background: 'var(--tag-bg)',
-                padding: 'var(--space-1) var(--space-2)',
-                borderRadius: 'var(--radius-control)',
-                color: 'var(--ink)',
+                fontSize: '11px',
+                background: 'var(--linear-card)',
+                border: '1px solid var(--linear-border)',
+                padding: '2px 6px',
+                borderRadius: '4px',
+                color: 'var(--linear-text)',
                 fontWeight: 600
               }}>
                 {row.normalizedValue}
@@ -53,59 +54,63 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
             </div>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 'var(--space-3)',
-            fontSize: 'var(--text-cell)',
-            background: 'var(--tag-bg)',
-            padding: 'var(--space-3)',
-            borderRadius: 'var(--radius-control)',
-          }}>
-            <div><strong>Kind:</strong> {row.valueKind}</div>
-            <div><strong>Occurrences:</strong> {row.occurrenceCount} {row.occurrenceCount === 1 ? 'time' : 'times'}</div>
-            <div><strong>First Seen:</strong> <RelativeTime iso={row.firstSeenAt} /></div>
-            <div><strong>Last Seen:</strong> <RelativeTime iso={row.lastSeenAt} /></div>
+          {/* Properties Grid */}
+          <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+            <div className={styles.propertyRow}>
+              <span className={styles.propertyLabel}>Kind</span>
+              <span className={styles.propertyValue}><StatusPill tone="info">{row.valueKind}</StatusPill></span>
+            </div>
+            <div className={styles.propertyRow}>
+              <span className={styles.propertyLabel}>Occurrences</span>
+              <span className={styles.propertyValue} style={{ fontWeight: 600 }}>{row.occurrenceCount}</span>
+            </div>
+            <div className={styles.propertyRow}>
+              <span className={styles.propertyLabel}>First Seen</span>
+              <span className={styles.propertyValue}><RelativeTime iso={row.firstSeenAt} /></span>
+            </div>
+            <div className={styles.propertyRow}>
+              <span className={styles.propertyLabel}>Last Seen</span>
+              <span className={styles.propertyValue}><RelativeTime iso={row.lastSeenAt} /></span>
+            </div>
             {row.canonicalEntityKind ? (
-              <div><strong>Canonical Kind:</strong> {row.canonicalEntityKind}</div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Canonical Kind</span>
+                <span className={styles.propertyValue}>{row.canonicalEntityKind}</span>
+              </div>
             ) : null}
             {row.canonicalEntityRef ? (
-              <div><strong>Canonical Ref:</strong> {row.canonicalEntityRef}</div>
+              <div className={styles.propertyRow}>
+                <span className={styles.propertyLabel}>Canonical Ref</span>
+                <span className={styles.propertyValue}><IdChip value={row.canonicalEntityRef} label="ref" /></span>
+              </div>
             ) : null}
-            <div style={{ gridColumn: 'span 2' }}>
-              <strong>Vocabulary ID:</strong> <IdChip value={row.id} label="vocab" />
+            <div className={styles.propertyRow}>
+              <span className={styles.propertyLabel}>Vocab ID</span>
+              <span className={styles.propertyValue}><IdChip value={row.id} label="vocab" /></span>
             </div>
           </div>
 
+          {/* Decision form */}
           {canDecide ? (
             <form
               data-item-id={row.id}
-              className={styles.decide}
+              className={styles.decideSection}
               action={decideModerationValueAction}
-              style={{
-                flexDirection: 'column',
-                alignItems: 'stretch',
-                gap: 'var(--space-3)',
-                marginTop: 'var(--space-2)',
-                borderTop: '1px solid rgba(112, 71, 61, 0.08)',
-                paddingTop: 'var(--space-4)',
-              }}
             >
               <input type="hidden" name="targetId" value={row.id} />
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
-                <label htmlFor={`rationale-${row.id}`} style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--muted)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
                   Decision Rationale
                 </label>
-                <input
+                <textarea
                   id={`rationale-${row.id}`}
                   className={styles.note}
                   name="rationale"
-                  placeholder="Add explanation..."
+                  placeholder="Add explanation (optional)..."
                   aria-label="Decision rationale"
-                  style={{ width: '100%', boxSizing: 'border-box' }}
                 />
               </div>
-              <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+              <div className={styles.actionButtons}>
                 <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
                   Reject (R)
                 </button>
@@ -115,7 +120,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
               </div>
             </form>
           ) : (
-            <p style={{ fontSize: '0.8rem', color: 'var(--muted)', margin: 'var(--space-2) 0 0' }}>
+            <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
               You do not have the required permissions to make decisions on vocabulary.
             </p>
           )}

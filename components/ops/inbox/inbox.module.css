@@ -1,96 +1,102 @@
-/* Inbox: rows are entry points, not spreadsheet cells. Borderless card, zebra by
-   tone, soft hover; the decision controls meet the 44px floor. Tokens only. */
-
-.card {
-  border-radius: var(--radius-card);
-  background: var(--card);
-  box-shadow: var(--elevation-1);
-  overflow: hidden;
-}
-.row {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-4);
-  padding: var(--space-4);
-  flex-wrap: wrap;
-  transition: background var(--duration-fast) var(--ease-out);
-}
-.row:nth-child(even) { background: color-mix(in srgb, var(--wine) 3%, transparent); }
-.row:hover { background: var(--state-selected-bg); }
-
-.subject { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; flex: 1 1 15rem; }
-.metaRow { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
-.value {
-  font-weight: var(--weight-semibold); color: var(--ink);
-  font-size: var(--text-cell); font-variant-numeric: tabular-nums;
-}
-
-.decide { display: flex; align-items: center; gap: var(--space-2); flex: 0 0 auto; }
-.note {
-  min-width: 0; width: 7.5rem;
-  min-height: var(--touch-min);
-  padding: 0 var(--space-3);
-  border: 0; border-radius: var(--radius-control);
-  background: var(--tag-bg); color: var(--ink);
-  font: inherit; font-size: var(--text-mono);
-}
-.note::placeholder { color: var(--muted); }
-.note:focus-visible { outline: 0; box-shadow: 0 0 0 2px var(--focus-ring); }
-.btn {
-  min-height: var(--touch-min);
-  padding: 0 var(--space-4);
-  border: 0; border-radius: var(--radius-control);
-  font: inherit; font-size: var(--text-mono); font-weight: var(--weight-semibold);
-  cursor: pointer; white-space: nowrap;
-  transition: filter var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
-}
-.btnApprove { color: var(--state-success); background: var(--state-success-bg); }
-.btnReject { color: var(--state-danger); background: var(--state-danger-bg); }
-.btn:hover { filter: brightness(.97) saturate(1.1); }
-.btn:active { transform: translateY(1px); }
-.btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) {
-  .row, .btn { transition: none; }
-  .btn:active { transform: none; }
-}
-
-.partial {
-  margin-top: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-control);
-  background: var(--state-info-bg); color: var(--state-info);
-  font-size: var(--text-cell);
-}
+/* JeloCare Ops Triage Layout: Linear-inspired split pane system. */
 
 .inboxLayout {
   display: flex;
-  gap: var(--space-4);
   width: 100%;
+  height: calc(100vh - 44px); /* Subtract mobile header or align to viewport */
   box-sizing: border-box;
+  overflow: hidden;
 }
 
+@media (min-width: 768px) {
+  .inboxLayout {
+    height: 100vh;
+  }
+}
+
+/* 1. Left List Pane */
 .listPane {
-  flex: 0 0 440px;
-  max-height: calc(100vh - 120px);
+  flex: 1 1 450px;
+  max-height: 100%;
   overflow-y: auto;
+  border-right: 1px solid var(--linear-border);
+  background: var(--linear-card);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding-right: var(--space-2);
 }
 
-.detailPane {
-  flex: 1;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  background: var(--card);
-  border-radius: var(--radius-card);
-  box-shadow: var(--ops-shadow-sm);
-  padding: var(--space-4);
-  position: sticky;
-  top: 10px;
+/* List Item Row */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--linear-border);
+  transition: background 0.1s ease;
+  user-select: none;
+}
+.row:hover {
+  background: var(--linear-hover);
+}
+
+.interactiveRow {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  background: var(--linear-card);
+}
+
+.interactiveRowActive {
+  background: var(--linear-active-row);
+}
+
+/* Linear active vertical indicator bar on left edge */
+.interactiveRowActive::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--linear-accent);
+}
+
+.subject {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.value {
+  font-weight: 500;
+  color: var(--linear-text);
+  font-size: 12px;
+}
+
+/* 2. Right Detail Pane (Linear Properties Panel) */
+.detailPane {
+  flex: 0 0 340px; /* Linear issue properties panel width */
+  width: 340px;
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--linear-sidebar-bg);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+  border-left: 1px solid var(--linear-border);
 }
 
 .detailPlaceholder {
@@ -99,74 +105,199 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--muted);
-  font-size: var(--text-cell);
-  border: 2px dashed rgba(112, 71, 61, 0.1);
-  border-radius: var(--radius-card);
-  min-height: 300px;
-  padding: var(--space-4);
+  color: var(--linear-text-muted);
+  font-size: 12px;
   text-align: center;
+  padding: 24px;
+  background: var(--linear-sidebar-bg);
+  border-left: 1px solid var(--linear-border);
 }
 
-.interactiveRow {
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: var(--radius-card);
-  background: var(--card);
-  overflow: hidden;
-  box-shadow: var(--ops-shadow-sm);
+.detailPlaceholder kbd {
+  background: var(--linear-card);
+  border: 1px solid var(--linear-border);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-family: inherit;
+  font-size: 10px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
 
-.interactiveRowActive {
-  border-color: var(--wine);
-  box-shadow: 0 0 0 1px var(--wine);
-}
-
+/* Mobile Bottom Sheet overlay */
 .bottomSheet {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--card);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.2);
+  background: var(--linear-card);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
   max-height: 80vh;
   overflow-y: auto;
   z-index: 200;
-  padding: var(--space-4);
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 12px;
+  border-top: 1px solid var(--linear-border);
 }
 
 .bottomSheetHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(112, 71, 61, 0.08);
-  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--linear-border);
+  padding-bottom: 8px;
 }
 
 .bottomSheetClose {
   background: none;
   border: 0;
-  color: var(--muted);
-  font-size: 1.5rem;
+  color: var(--linear-text-muted);
+  font-size: 20px;
   cursor: pointer;
+}
+
+/* Linear properties grid layout */
+.propertiesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.propertyRow {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 8px;
+  font-size: 11.5px;
+  align-items: center;
+}
+
+.propertyLabel {
+  color: var(--linear-text-muted);
+  font-weight: 500;
+}
+
+.propertyValue {
+  color: var(--linear-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Deciding action styles */
+.decideSection {
+  margin-top: 12px;
+  border-top: 1px solid var(--linear-border);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.decideNoteLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--linear-text-muted);
+}
+
+.note {
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 8px;
+  border: 1px solid var(--linear-border);
+  border-radius: var(--radius-sm);
+  background: var(--linear-card);
+  color: var(--linear-text);
+  font-family: inherit;
+  font-size: 12px;
+  resize: vertical;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.note:focus {
+  border-color: var(--linear-accent);
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: 1px solid var(--linear-border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  background: var(--linear-card);
+  color: var(--linear-text);
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.btnApprove {
+  color: #ffffff;
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+.btnApprove:hover {
+  background: #25632b;
+}
+
+.btnReject {
+  color: #ffffff;
+  background: #c62828;
+  border-color: #c62828;
+}
+.btnReject:hover {
+  background: #b71c1c;
+}
+
+:global(html[data-theme="dark"]) .btnApprove {
+  color: #1b5e20;
+  background: #81c784;
+  border-color: #81c784;
+}
+:global(html[data-theme="dark"]) .btnApprove:hover {
+  background: #a5d6a7;
+}
+
+:global(html[data-theme="dark"]) .btnReject {
+  color: #b71c1c;
+  background: #e57373;
+  border-color: #e57373;
+}
+:global(html[data-theme="dark"]) .btnReject:hover {
+  background: #ef9a9a;
+}
+
+.partial {
+  margin: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--linear-accent-bg);
+  color: var(--linear-accent);
+  font-size: 11px;
 }
 
 @media (max-width: 767px) {
   .inboxLayout {
     flex-direction: column;
+    height: calc(100vh - 44px);
   }
   .listPane {
     flex: 1;
     max-height: none;
-    padding-right: 0;
+    border-right: 0;
   }
   .detailPane {
     display: none;
   }
 }
-
