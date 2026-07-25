@@ -17,6 +17,22 @@ The sidebar names the `Operations` environment once, separates actionable `Triag
 
 Desktop sidebar identity, context, group labels, links, and selected links use medium weight. Selection is communicated by tone and surface, not a heavier face. Semibold is reserved for the small avatar initials, where compact glyphs need additional clarity.
 
+## Workspace and local-tab plan
+
+The right-hand workspace is the operational content area. Its future reusable frame shares **semantic slots**, data contracts, and interaction rules across screen sizes; it must not force desktop, tablet, and mobile into one scaled-down visual composition.
+
+The frame will accept a page context slot, an optional local-tab slot, a primary work slot, and an optional record-detail slot. Each queue or management area decides which slots it needs. The sidebar remains the only top-level console navigation.
+
+Local tabs are sibling views within the active workspace destination. They are not a replacement for the sidebar and must map to durable, shareable URL state. A tab is appropriate only when its view has a distinct query, workflow stage, or permission-aware responsibility. Decorative status tabs are prohibited.
+
+The planned presentations are:
+
+- **Desktop:** persistent sidebar, page context, optional local tabs, and a list-detail split when a queue needs simultaneous circulation and review. The detail pane holds evidence, rationale, and decisions for the selected record.
+- **Tablet:** compact navigation and a workspace adapted to available width. Keep the same page context and tab semantics, but show either a constrained split or one primary pane with a temporary detail sheet or route. Do not simply compress desktop columns until they are unreadable.
+- **Mobile:** one operational task at a time. Queue list and selected record become separate routes or a deliberate bottom-sheet flow; decisions remain focused and full-width. Local tabs use a scrollable accessible tab row only when the views remain necessary on mobile; otherwise the destination exposes the highest-priority view and explicit filters.
+
+The first reusable frame will support triage detail work: a queue list, a selected record, evidence, decision rationale, and guarded decision actions. Retailer workflow tabs become the first candidate only after applications and verification have independent read models. Existing queues remain single-view until their real historical or workflow state exists.
+
 ## Material hierarchy
 
 `--ops-canvas` is the environmental layer.

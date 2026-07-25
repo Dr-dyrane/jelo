@@ -14,6 +14,7 @@ This is the entry point for product, engineering, data, and operations.
 | Review public API and security boundaries | [APIs and security](./architecture/APIS_AND_SECURITY.md) |
 | Build or review an interface | [Design system](./design/SYSTEM.md) |
 | Work on the operations shell | [Operations shell](./design/OPS_SHELL.md) |
+| Plan or implement the operations console | [Operations console delivery](./operations/console/README.md) |
 | Research and release a product | [Catalogue operations](./catalogue/OPERATIONS.md) |
 | Run Neon safely | [Neon and data](./data/NEON.md) |
 | Configure a local, preview, or production environment | [Environments](./operations/ENVIRONMENTS.md) |
