@@ -1,6 +1,13 @@
 'use client';
 
-import { useState, useEffect, useOptimistic, useCallback, Fragment } from 'react';
+import {
+  useState,
+  useEffect,
+  useOptimistic,
+  useCallback,
+  Fragment,
+  type MutableRefObject,
+} from 'react';
 import { createPortal } from 'react-dom';
 import styles from './inbox.module.css';
 
@@ -11,6 +18,10 @@ import styles from './inbox.module.css';
 // - Optimistic removal: decided rows disappear instantly with rollback on failure.
 // - Keyboard navigation: j/k/arrows, Enter to focus rationale, e/a to approve, r to reject.
 
+export interface OpsInboxController {
+  settleItem: (id: string) => void;
+}
+
 interface InboxContainerProps<T> {
   items: T[];
   renderItemRow: (item: T, isActive: boolean) => React.ReactNode;
@@ -19,6 +30,7 @@ interface InboxContainerProps<T> {
   selectedId?: string | null;
   onSelect?: (item: T, index: number) => void;
   onDeselect?: () => void;
+  controllerRef?: MutableRefObject<OpsInboxController | null>;
 }
 
 export function InboxContainer<T extends { id: string }>({
@@ -29,12 +41,12 @@ export function InboxContainer<T extends { id: string }>({
   selectedId,
   onSelect,
   onDeselect,
+  controllerRef,
 }: InboxContainerProps<T>) {
   const [navigationIndex, setNavigationIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(true);
 
-  // Optimistic queue: allows instant row removal before server confirms.
   const [optimisticItems, removeOptimisticItem] = useOptimistic(
     items,
     (current: T[], settledId: string) => current.filter(item => item.id !== settledId),
@@ -45,24 +57,15 @@ export function InboxContainer<T extends { id: string }>({
   const activeItem = selectedIndex >= 0 ? optimisticItems[selectedIndex] : null;
   const navigationItem = optimisticItems[navigationIndex] ?? null;
 
-  // Auto-selection: when items exist but no valid selection, auto-select the first.
-  // This runs as an effect to avoid infinite loops with the parent's onSelect → URL update.
   useEffect(() => {
     if (optimisticItems.length === 0) return;
-
-    // If the current selectedId matches a real item, nothing to do.
     if (detailId && optimisticItems.some(item => item.id === detailId)) return;
 
-    // Auto-select first item.
     const first = optimisticItems[0];
-    if (selectedId != null) {
-      // External (URL-driven) mode: tell the parent to update the URL.
-      onSelect?.(first, 0);
-    } else {
-      setInternalDetailId(first.id);
-    }
+    if (selectedId != null) onSelect?.(first, 0);
+    else setInternalDetailId(first.id);
     setNavigationIndex(0);
-  }, [optimisticItems, detailId, selectedId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [optimisticItems, detailId, selectedId, onSelect]);
 
   function syncNavigationIndex(index: number) {
     setNavigationIndex(index);
@@ -84,25 +87,19 @@ export function InboxContainer<T extends { id: string }>({
     else setInternalDetailId(null);
   }
 
-  // Auto-advance after a decision: call this from the parent when actionState.ok.
-  // Exposed via the render prop context through the items array mutation.
   const handleItemSettled = useCallback((settledId: string) => {
     const settledIndex = optimisticItems.findIndex(item => item.id === settledId);
     if (settledIndex < 0) return;
 
-    // Optimistically remove the item.
     removeOptimisticItem(settledId);
 
-    // Compute the next selection from the post-removal list.
     const remaining = optimisticItems.filter(item => item.id !== settledId);
     if (remaining.length === 0) {
-      // Queue complete — clear selection.
       if (selectedId != null) onDeselect?.();
       else setInternalDetailId(null);
       return;
     }
 
-    // Prefer the item that moves into the same index; fall back to i - 1.
     const nextIndex = Math.min(settledIndex, remaining.length - 1);
     const nextItem = remaining[nextIndex];
     setNavigationIndex(nextIndex);
@@ -110,13 +107,13 @@ export function InboxContainer<T extends { id: string }>({
     else setInternalDetailId(nextItem.id);
   }, [optimisticItems, selectedId, onSelect, onDeselect, removeOptimisticItem]);
 
-  // Expose handleItemSettled to parent via a DOM data attribute (consumed by action effect).
-  // This avoids threading callbacks through render props. The parent reads window.__opsInboxAdvance.
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).__opsInboxAdvance = handleItemSettled;
-    return () => { delete (window as any).__opsInboxAdvance; };
-  }, [handleItemSettled]);
+    if (!controllerRef) return;
+    controllerRef.current = { settleItem: handleItemSettled };
+    return () => {
+      controllerRef.current = null;
+    };
+  }, [controllerRef, handleItemSettled]);
 
   useEffect(() => {
     function handleResize() {
@@ -153,11 +150,11 @@ export function InboxContainer<T extends { id: string }>({
         e.preventDefault();
         if (navigationItem) {
           openDetail(navigationItem, navigationIndex);
-          setTimeout(() => {
+          requestAnimationFrame(() => {
             const form = document.querySelector(`form[data-item-id="${navigationItem.id}"]`);
             const input = form?.querySelector('input[name="rationale"], textarea') as HTMLInputElement | HTMLTextAreaElement;
             input?.focus();
-          }, 100);
+          });
         }
       } else if (e.key === 'e' || e.key === 'a') {
         e.preventDefault();
@@ -197,22 +194,23 @@ export function InboxContainer<T extends { id: string }>({
   }, [activeItem, detailId, navigationItem]);
 
   function handleRowClick(index: number, item: T) {
-    if (detailId === item.id) closeDetail();
-    else openDetail(item, index);
+    if (detailId === item.id) return;
+    openDetail(item, index);
   }
 
   const detailPortalTarget = typeof document === 'undefined' ? null : document.getElementById('ops-detail-pane');
 
   return (
     <>
-      <div className={styles.cardGrid} role="list" aria-label={`${itemTypeLabel} queue`}>
+      <div className={styles.cardGrid} role="listbox" aria-label={`${itemTypeLabel} queue`}>
         {optimisticItems.map((item, idx) => {
           const isActive = detailId === item.id;
           return (
             <div
               key={item.id}
               id={`row-${item.id}`}
-              role="listitem"
+              role="option"
+              aria-selected={isActive}
               tabIndex={0}
               className={`${styles.card} ${isActive ? styles.cardActive : ''}`}
               onFocus={() => setNavigationIndex(idx)}
@@ -223,7 +221,6 @@ export function InboxContainer<T extends { id: string }>({
                   handleRowClick(idx, item);
                 }
               }}
-              aria-current={isActive ? 'true' : undefined}
             >
               {renderItemRow(item, isActive)}
             </div>
