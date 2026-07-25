@@ -6,6 +6,7 @@ import { humanizeRef } from '@/lib/humanize/refs';
 import { money } from '@/lib/format/money';
 import { outcomeLabel, outcomeTone } from '@/lib/humanize/outcomes';
 import { ProductRef } from '@/components/ops/chips/ProductRef';
+import { SafeProductImage } from '@/components/products/safe-product-image';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
@@ -105,10 +106,10 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                   placeItems: 'center',
                   flexShrink: 0
                 }}>
-                  <img
+                  <SafeProductImage
                     src={row.product.image || '/product-placeholder.svg'}
                     alt={row.product.name}
-                    style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                    className=""
                   />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>

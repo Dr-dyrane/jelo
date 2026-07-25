@@ -4,6 +4,7 @@ import type { PendingEdge } from '@/lib/moderation/queues';
 import type { Product } from '@/data/products';
 import { humanizeRef } from '@/lib/humanize/refs';
 import { ProductRef } from '@/components/ops/chips/ProductRef';
+import { SafeProductImage } from '@/components/products/safe-product-image';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
@@ -81,10 +82,10 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
                     placeItems: 'center',
                     flexShrink: 0
                   }}>
-                    <img
+                    <SafeProductImage
                       src={row.subjectProduct.image || '/product-placeholder.svg'}
                       alt={row.subjectProduct.name}
-                      style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                      className=""
                     />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
@@ -125,10 +126,10 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
                     placeItems: 'center',
                     flexShrink: 0
                   }}>
-                    <img
+                    <SafeProductImage
                       src={row.objectProduct.image || '/product-placeholder.svg'}
                       alt={row.objectProduct.name}
-                      style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                      className=""
                     />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>

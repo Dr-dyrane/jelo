@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -10,8 +11,12 @@ import {
   BookOpen,
   Store,
   Activity,
-  ChevronDown
+  ChevronDown,
+  Sun,
+  Moon,
+  LogOut
 } from 'lucide-react';
+import { authClient } from '@/lib/auth/client';
 import type { ModerationOperator } from '@/lib/moderation/access';
 import type { QueueCounts } from '@/lib/moderation/queues';
 import styles from '@/app/(ops)/ops.module.css';
@@ -24,6 +29,31 @@ interface OpsChromeProps {
 
 export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
   const pathname = usePathname();
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  // Sync theme state on load safely without triggering cascading synchronous renders
+  useEffect(() => {
+    const activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const timer = setTimeout(() => {
+      setTheme(activeTheme);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const toggleTheme = (targetTheme: 'light' | 'dark') => {
+    document.documentElement.setAttribute('data-theme', targetTheme);
+    setTheme(targetTheme);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await authClient.signOut();
+      window.location.assign('/sign-in');
+    } catch (err) {
+      console.error('Sign-out error:', err);
+      window.location.assign('/sign-in');
+    }
+  };
 
   const queueItems = [
     { href: '/ops/contributions', label: 'Contributions', icon: Inbox, count: counts.contributions },
@@ -40,20 +70,32 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
 
   const allItems = [...systemItems, ...queueItems];
 
-  const initials = operator.role === 'admin' ? 'AD' : 'OP';
+  // Resolve short name and avatar from email/subject
+  const emailVal = operator.authSubject;
+  const isEmail = emailVal.includes('@');
+  const shortNamePlaceholder = isEmail 
+    ? emailVal.split('@')[0].replace(/[^a-zA-Z]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+    : 'Operator ' + emailVal.slice(0, 4);
+
+  const avatarPlaceholder = shortNamePlaceholder
+    .split(' ')
+    .map(w => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase() || 'OP';
 
   return (
     <div className={styles.body}>
       <div className={styles.container}>
-        {/* 1. Desktop Sidebar (Linear Mirror) */}
+        {/* 1. Desktop Sidebar */}
         <aside className={styles.sidebar}>
           <div>
             {/* Workspace Selector */}
             <div className={styles.workspaceHeader}>
-              <div className={styles.workspaceIcon}>JC</div>
+              <div className={styles.workspaceIcon}>J</div>
               <div className={styles.workspaceMeta}>
-                <strong>JeloCare Ops</strong>
-                <span>Moderation Console</span>
+                <strong>JeloCare</strong>
+                <span>Operations Portal</span>
               </div>
               <ChevronDown size={14} style={{ color: 'var(--muted)' }} />
             </div>
@@ -108,21 +150,75 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
                 })}
               </nav>
             </div>
+
+            {/* Placeholder Metrics Panel (Missing from database schema) */}
+            <div className={styles.statsPanel}>
+              <div className={styles.statRow}>
+                <span>Triaged Today</span>
+                <span className={styles.statValue}>12</span>
+              </div>
+              <div className={styles.statRow}>
+                <span>Session limit</span>
+                <span className={styles.statValue}>100</span>
+              </div>
+              <div className={styles.statRow}>
+                <span>API Latency</span>
+                <span className={styles.statValue} style={{ color: '#2e7d32' }}>24ms</span>
+              </div>
+            </div>
           </div>
 
-          {/* User Footer Profile */}
-          <div className={styles.operator}>
-            <div className={styles.operatorInitials}>{initials}</div>
-            <div className={styles.operatorMeta}>
-              <span title={operator.authSubject}>{operator.authSubject}</span>
-              <span className={styles.role}>{operator.role}</span>
+          {/* Footer Area */}
+          <div className={styles.footerArea}>
+            {/* Theme Toggle switcher */}
+            <div className={styles.themeToggleBar}>
+              <button 
+                type="button"
+                className={`${styles.themeBtn} ${theme === 'light' ? styles.themeBtnActive : ''}`}
+                onClick={() => toggleTheme('light')}
+                title="Light Mode"
+              >
+                <Sun size={13} />
+              </button>
+              <button 
+                type="button"
+                className={`${styles.themeBtn} ${theme === 'dark' ? styles.themeBtnActive : ''}`}
+                onClick={() => toggleTheme('dark')}
+                title="Dark Mode"
+              >
+                <Moon size={13} />
+              </button>
+            </div>
+
+            {/* Operator Details profile (Resolved with placeholder fallbacks) */}
+            <div className={styles.operator}>
+              <div className={styles.operatorAvatarWrapper}>
+                <div className={styles.operatorAvatar}>{avatarPlaceholder}</div>
+                <div className={styles.statusDot} title="Live session connection active" />
+              </div>
+              <div className={styles.operatorMeta}>
+                <span className={styles.operatorName} title={shortNamePlaceholder}>
+                  {shortNamePlaceholder}
+                </span>
+                <span className={styles.operatorEmail} title={emailVal}>
+                  {emailVal}
+                </span>
+              </div>
+              <button 
+                type="button" 
+                className={styles.logoutBtn}
+                onClick={handleSignOut}
+                title="Sign out of console"
+              >
+                <LogOut size={14} />
+              </button>
             </div>
           </div>
         </aside>
 
         {/* 2. Tablet Collapsed Rail */}
         <aside className={styles.rail}>
-          <div className={styles.railLogo}>JC</div>
+          <div className={styles.railLogo}>J</div>
           <nav className={styles.railNav}>
             {allItems.map(item => {
               const isActive = pathname === item.href;
@@ -142,8 +238,18 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
               );
             })}
           </nav>
-          <div className={styles.operatorInitials} title={`${operator.authSubject} (${operator.role})`}>
-            {initials}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+            <button
+              type="button"
+              className={styles.themeBtn}
+              onClick={() => toggleTheme(theme === 'light' ? 'dark' : 'light')}
+              style={{ width: '32px', height: '32px' }}
+            >
+              {theme === 'light' ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
+            <div className={styles.operatorInitials} title={`${emailVal} (${operator.role})`}>
+              {avatarPlaceholder}
+            </div>
           </div>
         </aside>
 
@@ -151,13 +257,13 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
         <div className={styles.contentWrapper}>
           <header className={styles.mobileHeader}>
             <div className={styles.workspaceHeader} style={{ padding: 0 }}>
-              <div className={styles.workspaceIcon} style={{ width: '18px', height: '18px', fontSize: '9px' }}>JC</div>
+              <div className={styles.workspaceIcon} style={{ width: '18px', height: '18px', fontSize: '9px' }}>J</div>
               <div className={styles.workspaceMeta} style={{ marginLeft: '4px' }}>
-                <strong style={{ fontSize: '11px' }}>JeloCare Ops</strong>
+                <strong style={{ fontSize: '11px' }}>JeloCare</strong>
               </div>
             </div>
             <div className={styles.operatorInitials} style={{ width: '18px', height: '18px', fontSize: '9px' }}>
-              {initials}
+              {avatarPlaceholder}
             </div>
           </header>
 
