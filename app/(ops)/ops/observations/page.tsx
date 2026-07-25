@@ -5,7 +5,7 @@ import { can } from '@/lib/moderation/capabilities';
 import { EmptyState } from '@/components/ops/state/EmptyState';
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { ObservationsInbox } from './ObservationsInbox';
-import opsStyles from '../../ops.module.css';
+import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -26,11 +26,8 @@ export default async function ObservationsQueue() {
     return row;
   }));
 
-  return (
+  const workspace = (
     <>
-      <h1 className={opsStyles.h1}>Community observations</h1>
-      <p className={opsStyles.lede}>Reported prices and outcomes awaiting review. Nothing here writes to the catalogue; every decision is logged.</p>
-
       {enrichedRows.length === 0 ? (
         <EmptyState
           title="Nothing awaiting review"
@@ -45,5 +42,14 @@ export default async function ObservationsQueue() {
         </>
       )}
     </>
+  );
+
+  return (
+    <OpsWorkspace
+      title="Community observations"
+      lede="Reported prices and outcomes awaiting review. Nothing here writes to the catalogue; every decision is logged."
+    >
+      {workspace}
+    </OpsWorkspace>
   );
 }
