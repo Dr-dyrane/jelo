@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, Fragment } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './inbox.module.css';
 
 interface InboxContainerProps<T> {
@@ -24,7 +25,7 @@ export function InboxContainer<T extends { id: string }>({
 }: InboxContainerProps<T>) {
   const [internalIndex, setInternalIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   const controlledIndex = selectedId != null ? items.findIndex(item => item.id === selectedId) : null;
   const activeIndex = controlledIndex != null && controlledIndex >= 0 ? controlledIndex : internalIndex;
@@ -182,12 +183,11 @@ export function InboxContainer<T extends { id: string }>({
         </div>
 
         {/* Right Desktop/Tablet Detail Pane (Linear Properties Panel) */}
-        {!isMobile ? (
-          <div className={styles.detailPane}>
-            {activeItem ? (
-              <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>
-            ) : null}
-          </div>
+        {!isMobile && activeItem ? (
+          createPortal(
+            <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>,
+            document.getElementById('ops-detail-pane') as HTMLElement,
+          )
         ) : null}
 
         {/* Mobile Bottom Sheet (slides up on item selection) */}

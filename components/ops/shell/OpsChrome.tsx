@@ -148,7 +148,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           </header>
 
           <main className={styles.main}>{children}</main>
-
+          <div id="ops-detail-pane" className={styles.detailPane} aria-live="polite" />
           <nav className={styles.mobileBar}>
             {allItems.map(item => {
               const isActive = pathname === item.href;
