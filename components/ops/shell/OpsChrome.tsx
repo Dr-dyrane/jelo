@@ -1,37 +1,26 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  Home,
-  Inbox,
-  GitFork,
-  Eye,
-  BookOpen,
-  Store,
-  Activity,
-  ChevronDown,
-  Sun,
-  Moon,
-  LogOut
-} from 'lucide-react';
+import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, Moon, Store, Sun, UsersRound } from 'lucide-react';
 import { authClient } from '@/lib/auth/client';
 import type { ModerationOperator } from '@/lib/moderation/access';
 import type { QueueCounts } from '@/lib/moderation/queues';
+import type { OpsSidebarSummary } from '@/lib/moderation/sidebar-summary';
+import { OpsSidebar, type OpsNavigationSection } from './OpsSidebar';
 import styles from '@/app/(ops)/ops.module.css';
 
 interface OpsChromeProps {
   operator: ModerationOperator;
   counts: QueueCounts;
+  sidebarSummary: OpsSidebarSummary;
   children: React.ReactNode;
 }
 
-export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
+export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChromeProps) {
   const pathname = usePathname();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Sync theme state on load safely without triggering cascading synchronous renders
   useEffect(() => {
@@ -42,23 +31,14 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle click outside to close the dropdown menu
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowDropdown(false);
-      }
-    }
-    if (showDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showDropdown]);
-
   const toggleTheme = (targetTheme: 'light' | 'dark') => {
     document.documentElement.setAttribute('data-theme', targetTheme);
+    document.documentElement.style.colorScheme = targetTheme;
+    try {
+      localStorage.setItem('jelo-theme', targetTheme);
+    } catch {
+      // The selected appearance remains active for the current visit.
+    }
     setTheme(targetTheme);
   };
 
@@ -80,23 +60,25 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
     { href: '/ops/retailers', label: 'Retailers', icon: Store, count: counts.retailers },
   ];
 
-  const systemItems = [
-    { href: '/ops', label: 'Overview', icon: Home, count: null },
+  const monitorItems = [
+    { href: '/ops', label: 'Queue overview', icon: Home, count: null },
+    { href: '/ops/activity', label: 'Decision history', icon: History, count: null },
     { href: '/ops/signals', label: 'Signals', icon: Activity, count: null },
   ];
 
-  const allItems = [...systemItems, ...queueItems];
+  const manageItems = operator.role === 'admin'
+    ? [{ href: '/ops/operators', label: 'Operators', icon: UsersRound, count: null }]
+    : [];
+  const allItems = [...monitorItems, ...queueItems, ...manageItems];
+  const navSections: OpsNavigationSection[] = [
+    { label: 'Triage', items: queueItems },
+    { label: 'Monitor', items: monitorItems },
+    ...(manageItems.length > 0 ? [{ label: 'Manage', items: manageItems }] : []),
+  ];
 
-  // Resolve short name and avatar from email/subject
-  const emailVal = operator.authSubject;
-  const isEmail = emailVal.includes('@');
-  const shortNamePlaceholder = isEmail 
-    ? emailVal.split('@')[0].replace(/[^a-zA-Z]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-    : 'Operator ' + emailVal.slice(0, 4);
-
-  const avatarPlaceholder = shortNamePlaceholder
+  const avatarPlaceholder = sidebarSummary.displayName
     .split(' ')
-    .map(w => w[0])
+    .map(word => word[0])
     .join('')
     .slice(0, 2)
     .toUpperCase() || 'OP';
@@ -105,136 +87,15 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
     <div className={styles.body}>
       <div className={styles.container}>
         {/* 1. Desktop Sidebar */}
-        <aside className={styles.sidebar}>
-          <div style={{ position: 'relative' }} ref={dropdownRef}>
-            {/* Unified User & Workspace Selector Dropdown (Linear style) */}
-            <button
-              type="button"
-              className={styles.workspaceHeader}
-              onClick={() => setShowDropdown(!showDropdown)}
-              style={{ width: '100%', border: 0, background: 'transparent', textAlign: 'left' }}
-              aria-haspopup="true"
-              aria-expanded={showDropdown}
-            >
-              <div className={styles.operatorAvatarWrapper}>
-                <div className={styles.operatorAvatar}>{avatarPlaceholder}</div>
-                <div className={styles.statusDot} title="Live session connection active" />
-              </div>
-              <div className={styles.workspaceMeta} style={{ marginLeft: '6px' }}>
-                <span className={styles.brandLogo}>JELOCARE</span>
-                <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.01em' }}>
-                  {shortNamePlaceholder} ({operator.role})
-                </span>
-              </div>
-              <ChevronDown size={14} style={{ color: 'var(--muted)', transform: showDropdown ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s ease' }} />
-            </button>
-
-            {/* Dropdown Menu Option Panel */}
-            {showDropdown && (
-              <div className={styles.dropdownMenu}>
-                <div className={styles.dropdownHeader}>
-                  <strong style={{ fontSize: '12px', color: 'var(--ink)' }}>{shortNamePlaceholder}</strong>
-                  <span style={{ fontSize: '10.5px', color: 'var(--muted)', wordBreak: 'break-all' }}>{emailVal}</span>
-                  <span style={{ fontSize: '9px', color: 'var(--wine)', fontWeight: 600, textTransform: 'capitalize', marginTop: '2px' }}>
-                    Role: {operator.role}
-                  </span>
-                </div>
-                <button type="button" className={styles.dropdownItem} onClick={() => { alert('Workspace configurations are canonical.'); setShowDropdown(false); }}>
-                  Workspace Settings
-                </button>
-                <button type="button" className={styles.dropdownItem} onClick={() => { alert('Operator details managed via database access policies.'); setShowDropdown(false); }}>
-                  Operator Profile
-                </button>
-                <div className={styles.dropdownDivider} />
-                <button type="button" className={styles.dropdownItem} onClick={handleSignOut} style={{ color: 'var(--state-danger)' }}>
-                  <LogOut size={13} style={{ color: 'inherit' }} />
-                  <span>Sign out</span>
-                </button>
-              </div>
-            )}
-
-            {/* Navigation Group: Queues */}
-            <div className={styles.navGroup}>
-              <div className={styles.navGroupTitle}>Triage Queues</div>
-              <nav className={styles.nav}>
-                {queueItems.map(item => {
-                  const isActive = pathname === item.href;
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
-                    >
-                      <span className={styles.linkContent}>
-                        <Icon size={14} strokeWidth={isActive ? 2.5 : 2} style={{ color: isActive ? 'var(--wine)' : 'inherit' }} />
-                        <span>{item.label}</span>
-                      </span>
-                      {item.count != null && item.count > 0 ? (
-                        <span className={`${styles.badge} ${isActive ? styles.badgeActive : ''}`}>
-                          {item.count}
-                        </span>
-                      ) : null}
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
-
-            {/* Navigation Group: System */}
-            <div className={styles.navGroup}>
-              <div className={styles.navGroupTitle}>System</div>
-              <nav className={styles.nav}>
-                {systemItems.map(item => {
-                  const isActive = pathname === item.href;
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
-                    >
-                      <span className={styles.linkContent}>
-                        <Icon size={14} strokeWidth={isActive ? 2.5 : 2} style={{ color: isActive ? 'var(--wine)' : 'inherit' }} />
-                        <span>{item.label}</span>
-                      </span>
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
-
-            {/* Triage Progress Card */}
-            <div className={styles.statsPanel}>
-              <div className={styles.statRow} style={{ justifyContent: 'center', gap: '4px' }}>
-                <span style={{ fontWeight: 500 }}>12 triaged today</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer Area */}
-          <div className={styles.footerArea}>
-            {/* Theme Toggle switcher */}
-            <div className={styles.themeToggleBar}>
-              <button 
-                type="button"
-                className={`${styles.themeBtn} ${theme === 'light' ? styles.themeBtnActive : ''}`}
-                onClick={() => toggleTheme('light')}
-                title="Light Mode"
-              >
-                <Sun size={13} />
-              </button>
-              <button 
-                type="button"
-                className={`${styles.themeBtn} ${theme === 'dark' ? styles.themeBtnActive : ''}`}
-                onClick={() => toggleTheme('dark')}
-                title="Dark Mode"
-              >
-                <Moon size={13} />
-              </button>
-            </div>
-          </div>
-        </aside>
+        <OpsSidebar
+          operator={operator}
+          summary={sidebarSummary}
+          pathname={pathname}
+          sections={navSections}
+          theme={theme}
+          onThemeChange={toggleTheme}
+          onSignOut={handleSignOut}
+        />
 
         {/* 2. Tablet Collapsed Rail */}
         <aside className={styles.rail}>
@@ -267,7 +128,7 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
             >
               {theme === 'light' ? <Sun size={15} /> : <Moon size={15} />}
             </button>
-            <div className={styles.operatorInitials} title={`${emailVal} (${operator.role})`}>
+            <div className={styles.operatorInitials} title={`${sidebarSummary.displayName} (${operator.role})`}>
               {avatarPlaceholder}
             </div>
           </div>

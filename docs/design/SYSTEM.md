@@ -1,6 +1,6 @@
 # Design system
 
-Updated: 2026-07-23
+Updated: 2026-07-25
 
 JeloCare is calm, editorial, inclusive, and quiet enough for the product to remain the focus.
 
@@ -23,6 +23,18 @@ The global tokens live in `app/globals.css`.
 
 Route CSS may add peach, pink, and cream shades. Brown is an accent, not a dominant page background.
 
+### Colour contexts
+
+The public experience uses the warm editorial palette above because products, care guidance, and photography are its primary content.
+
+Private workspaces use a separate low-chroma mineral shell. Operations and future account surfaces share its geometry and interaction grammar, but not the public product temperature:
+
+- `--ops-canvas`, `--ops-instrument`, and `--ops-workspace` establish the environmental, lucent instrument, and solid working planes.
+- `--ops-accent`, `--ops-accent-subtle`, and `--ops-focus-ring` provide muted umber selection and focus without making public wine the private-shell default.
+- Semantic success, warning, danger, and information tokens retain their meanings. They are never ambient decoration.
+
+A private surface may warm slightly for personal account work or cool slightly for operational density, but it must remain low-chroma and task-led. Public peach and rose surfaces do not become private-shell defaults.
+
 ### Theme
 
 The table above lists the **light** values. Light is the default and is pinned regardless of the operating system preference ([ADR 0004](../adr/0004-default-light-theme.md)). Every token also carries a **dark** value, added append-only so light mode stays byte-identical:
@@ -41,6 +53,8 @@ A no-flash inline script in `app/layout.tsx` sets `data-theme` and `color-scheme
 - Bold is exceptional.
 
 Do not use weight to compensate for weak hierarchy. Use scale, spacing, and position first.
+
+Private shells use `--font-sans` only. Italiana is editorial and does not appear in account controls, navigation, or operational labels. The desktop sidebar uses a compact interface hierarchy: account identity, environment context, and navigation at `--text-cell`; roles and supporting metadata at `--text-caption`; group labels and count badges at `--text-label`. Controls retain a 44 px hit target even when their visual text is compact.
 
 ## Surfaces
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { getPostgresClient } from '@/lib/db/postgres';
 import { pendingQueueCounts } from '@/lib/moderation/queues';
+import { getMockOpsSidebarSummary } from '@/lib/moderation/sidebar-summary';
 import { OpsChrome } from '@/components/ops/shell/OpsChrome';
 import styles from './ops.module.css';
 
@@ -14,10 +15,11 @@ export const metadata: Metadata = {
 export default async function OpsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const operator = await requireConsoleOperator();
   const counts = await pendingQueueCounts(getPostgresClient());
+  const sidebarSummary = getMockOpsSidebarSummary(operator);
 
   return (
     <div className={styles.body}>
-      <OpsChrome operator={operator} counts={counts}>
+      <OpsChrome operator={operator} counts={counts} sidebarSummary={sidebarSummary}>
         {children}
       </OpsChrome>
     </div>

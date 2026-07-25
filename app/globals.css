@@ -41,7 +41,6 @@
 }
 
 /* dark tokens: overrides only, light values above are untouched */
-:root[data-theme="dark"], :root:not([data-theme="light"]){}
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --ink:#f3eae4; --muted:#b6a49b;
@@ -116,6 +115,24 @@
   --elevation-2:0 12px 34px rgba(73,43,38,.10);
   --elevation-3:0 18px 44px rgba(73,43,38,.16);
   --elevation-4:0 30px 90px rgba(73,43,38,.12);
+  --ops-canvas:#ecebe7;
+  --ops-instrument:rgba(250,250,247,.62);
+  --ops-workspace:#fcfcfa;
+  --ops-surface-subtle:#f2f1ed;
+  --ops-ink:#2d2d29;
+  --ops-muted:#706f68;
+  --ops-workspace-shadow:0 18px 48px rgba(35,35,31,.09);
+  --ops-instrument-shadow:0 8px 22px rgba(35,35,31,.07);
+  --ops-floating-shadow:0 20px 50px rgba(35,35,31,.14);
+  --ops-accent:#745957;
+  --ops-accent-subtle:rgba(116,89,87,.12);
+  --ops-focus-ring:#745957;
+  --ops-shell-inset:clamp(8px,1vw,16px);
+  --ops-sidebar-width:248px;
+  --ops-shell-radius:1.75rem;
+  --ops-instrument-inner-radius:calc(var(--ops-shell-radius) - var(--space-3));
+  --ops-control-height:36px;
+  --ops-control-radius:12px;
 }
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
@@ -128,6 +145,18 @@
     --elevation-2:0 14px 40px rgba(0,0,0,.5);
     --elevation-3:0 20px 50px rgba(0,0,0,.55);
     --elevation-4:0 30px 90px rgba(0,0,0,.55);
+    --ops-canvas:#121310;
+    --ops-instrument:rgba(31,32,29,.62);
+    --ops-workspace:#1b1c19;
+    --ops-surface-subtle:#272824;
+    --ops-ink:#ecebe5;
+    --ops-muted:#aaa9a2;
+    --ops-workspace-shadow:0 18px 48px rgba(0,0,0,.36);
+    --ops-instrument-shadow:0 10px 26px rgba(0,0,0,.38);
+    --ops-floating-shadow:0 20px 50px rgba(0,0,0,.5);
+    --ops-accent:#d6b8b2;
+    --ops-accent-subtle:rgba(214,184,178,.16);
+    --ops-focus-ring:#d6b8b2;
   }
 }
 :root[data-theme="dark"]{
@@ -140,6 +169,18 @@
   --elevation-2:0 14px 40px rgba(0,0,0,.5);
   --elevation-3:0 20px 50px rgba(0,0,0,.55);
   --elevation-4:0 30px 90px rgba(0,0,0,.55);
+  --ops-canvas:#121310;
+  --ops-instrument:rgba(31,32,29,.62);
+  --ops-workspace:#1b1c19;
+  --ops-surface-subtle:#272824;
+  --ops-ink:#ecebe5;
+  --ops-muted:#aaa9a2;
+  --ops-workspace-shadow:0 18px 48px rgba(0,0,0,.36);
+  --ops-instrument-shadow:0 10px 26px rgba(0,0,0,.38);
+  --ops-floating-shadow:0 20px 50px rgba(0,0,0,.5);
+  --ops-accent:#d6b8b2;
+  --ops-accent-subtle:rgba(214,184,178,.16);
+  --ops-focus-ring:#d6b8b2;
 }
 
 *{box-sizing:border-box}
