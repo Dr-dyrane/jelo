@@ -123,7 +123,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           tabIndex={tabletSidebarOpen ? 0 : -1}
         />
 
-        <aside className={styles.rail}>
+        <aside className={`${styles.rail} ${tablet.rail}`}>
           <div className={styles.railLogo} style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400 }}>J</div>
           <nav className={styles.railNav}>
             {allItems.map(item => {
