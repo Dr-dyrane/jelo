@@ -14,6 +14,14 @@ import {
   decideRetailerApplication,
 } from '@/lib/moderation/transitions';
 
+function revalidateOps(...queuePaths: string[]) {
+  for (const path of queuePaths) revalidatePath(path);
+  revalidatePath('/ops');
+  revalidatePath('/ops', 'layout');
+  revalidatePath('/ops/activity');
+  revalidatePath('/ops/signals');
+}
+
 // Every action re-runs the guard (it never trusts the page that rendered the form),
 // authorizes the specific capability for the operator's role, and uses the
 // operator's own resolved subject — never a value from the client.
@@ -30,8 +38,7 @@ export async function decideContributionAction(formData: FormData) {
   assertCan(operator, 'contributions.decide');
   const { targetId, decision, rationale } = parseDecision(formData);
   await decideContribution(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
-  revalidatePath('/ops/contributions');
-  revalidatePath('/ops');
+  revalidateOps('/ops/contributions');
 }
 
 export async function decideEdgeAction(formData: FormData) {
@@ -39,8 +46,7 @@ export async function decideEdgeAction(formData: FormData) {
   assertCan(operator, 'edges.decide');
   const { targetId, decision, rationale } = parseDecision(formData);
   await decideEdge(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
-  revalidatePath('/ops/edges');
-  revalidatePath('/ops');
+  revalidateOps('/ops/edges');
 }
 
 export type ObservationActionResult =
@@ -56,10 +62,10 @@ export async function decideObservationAction(
     assertCan(operator, 'observations.decide');
     const { targetId, decision, rationale } = parseDecision(formData);
     // decideObservation is idempotent: a null result means another operator already
-    // decided this row, not a failure. The revalidate below drops the settled row.
+    // decided this row, not a failure. Revalidation removes the settled row and
+    // refreshes the shared sidebar, activity feed, and signals surfaces.
     const settled = await decideObservation(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
-    revalidatePath('/ops/observations');
-    revalidatePath('/ops');
+    revalidateOps('/ops/observations');
     if (!settled) {
       return { ok: false, targetId, error: 'This observation was already reviewed by another operator.' };
     }
@@ -75,8 +81,7 @@ export async function decideModerationValueAction(formData: FormData) {
   assertCan(operator, 'vocabulary.decide');
   const { targetId, decision, rationale } = parseDecision(formData);
   await decideModerationValue(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
-  revalidatePath('/ops/vocabulary');
-  revalidatePath('/ops');
+  revalidateOps('/ops/vocabulary');
 }
 
 export async function mapModerationValueAction(formData: FormData) {
@@ -93,8 +98,7 @@ export async function mapModerationValueAction(formData: FormData) {
   }
 
   await mapModerationValue(getPostgresClient(), operator.authSubject, targetId, canonicalEntityKind, canonicalEntityRef, rationale);
-  revalidatePath('/ops/vocabulary');
-  revalidatePath('/ops');
+  revalidateOps('/ops/vocabulary');
 }
 
 export async function decideRetailerApplicationAction(formData: FormData) {
@@ -102,6 +106,5 @@ export async function decideRetailerApplicationAction(formData: FormData) {
   assertCan(operator, 'retailers.decide');
   const { targetId, decision, rationale } = parseDecision(formData);
   await decideRetailerApplication(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
-  revalidatePath('/ops/retailers');
-  revalidatePath('/ops');
+  revalidateOps('/ops/retailers');
 }
