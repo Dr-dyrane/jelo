@@ -131,22 +131,22 @@ export function InboxContainer<T extends { id: string }>({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 16px',
-        borderBottom: '1px solid var(--linear-border)',
-        background: 'var(--linear-card)',
+        padding: '0 var(--space-4)',
+        borderBottom: '1px solid var(--border)',
+        background: 'var(--card)',
         fontSize: '11px',
         userSelect: 'none',
         flexShrink: 0,
       }}>
-        <div style={{ fontWeight: 500, color: 'var(--linear-text-muted)' }}>
+        <div style={{ fontWeight: 500, color: 'var(--muted)' }}>
           {getBreadcrumbs()}
         </div>
         {!isMobile ? (
-          <div style={{ color: 'var(--linear-text-muted)', display: 'flex', gap: '12px' }}>
-            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>j</kbd>/<kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>k</kbd> Navigate</span>
-            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>Enter</kbd> Focus</span>
-            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>E</kbd> Approve</span>
-            <span><kbd style={{ background: 'var(--linear-sidebar-bg)', border: '1px solid var(--linear-border)', padding: '1px 3px', borderRadius: '3px' }}>R</kbd> Reject</span>
+          <div style={{ color: 'var(--muted)', display: 'flex', gap: '12px' }}>
+            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>j</kbd>/<kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>k</kbd> Navigate</span>
+            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>Enter</kbd> Focus</span>
+            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>E</kbd> Approve</span>
+            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>R</kbd> Reject</span>
           </div>
         ) : null}
       </header>

@@ -1,9 +1,9 @@
-/* JeloCare Ops Triage Layout: Linear-inspired split pane system. */
+/* JeloCare Ops Triage Layout: Linear-inspired split pane system using native Jelo tokens. */
 
 .inboxLayout {
   display: flex;
   width: 100%;
-  height: calc(100vh - 44px); /* Subtract mobile header or align to viewport */
+  height: calc(100vh - var(--touch-min));
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -19,8 +19,8 @@
   flex: 1 1 450px;
   max-height: 100%;
   overflow-y: auto;
-  border-right: 1px solid var(--linear-border);
-  background: var(--linear-card);
+  border-right: 1px solid var(--border);
+  background: var(--paper);
   display: flex;
   flex-direction: column;
 }
@@ -31,27 +31,27 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--linear-border);
-  transition: background 0.1s ease;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--duration-fast) var(--ease-out);
   user-select: none;
 }
 .row:hover {
-  background: var(--linear-hover);
+  background: var(--state-selected-bg);
 }
 
 .interactiveRow {
   position: relative;
   cursor: pointer;
   outline: none;
-  background: var(--linear-card);
+  background: var(--paper);
 }
 
 .interactiveRowActive {
-  background: var(--linear-active-row);
+  background: var(--state-selected-bg);
 }
 
-/* Linear active vertical indicator bar on left edge */
+/* Active vertical indicator bar on left edge */
 .interactiveRowActive::before {
   content: "";
   position: absolute;
@@ -59,13 +59,13 @@
   top: 0;
   bottom: 0;
   width: 3px;
-  background: var(--linear-accent);
+  background: var(--wine);
 }
 
 .subject {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
   min-width: 0;
   flex: 1;
 }
@@ -73,30 +73,30 @@
 .metaRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex-wrap: wrap;
-  margin-top: 2px;
+  margin-top: var(--space-1);
 }
 
 .value {
-  font-weight: 500;
-  color: var(--linear-text);
-  font-size: 12px;
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+  font-size: var(--text-cell);
 }
 
-/* 2. Right Detail Pane (Linear Properties Panel) */
+/* 2. Right Detail Pane (Linear-style Properties Panel) */
 .detailPane {
-  flex: 0 0 340px; /* Linear issue properties panel width */
+  flex: 0 0 340px;
   width: 340px;
   max-height: 100%;
   overflow-y: auto;
-  background: var(--linear-sidebar-bg);
+  background: var(--cream);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  gap: 16px;
-  border-left: 1px solid var(--linear-border);
+  padding: var(--space-4);
+  gap: var(--space-4);
+  border-left: 1px solid var(--border);
 }
 
 .detailPlaceholder {
@@ -105,22 +105,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--linear-text-muted);
-  font-size: 12px;
+  color: var(--muted);
+  font-size: var(--text-cell);
   text-align: center;
-  padding: 24px;
-  background: var(--linear-sidebar-bg);
-  border-left: 1px solid var(--linear-border);
+  padding: var(--space-6);
+  background: var(--cream);
+  border-left: 1px solid var(--border);
 }
 
 .detailPlaceholder kbd {
-  background: var(--linear-card);
-  border: 1px solid var(--linear-border);
+  background: var(--paper);
+  border: 1px solid var(--border);
   border-radius: 3px;
   padding: 1px 4px;
   font-family: inherit;
   font-size: 10px;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+  box-shadow: 0 1px 0 rgba(112, 71, 61, 0.05);
 }
 
 /* Mobile Bottom Sheet overlay */
@@ -129,58 +129,58 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--linear-card);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
+  background: var(--card);
+  border-top-left-radius: var(--radius-card);
+  border-top-right-radius: var(--radius-card);
+  box-shadow: var(--elevation-3);
   max-height: 80vh;
   overflow-y: auto;
-  z-index: 200;
-  padding: 16px;
+  z-index: var(--z-sheet);
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border-top: 1px solid var(--linear-border);
+  gap: var(--space-3);
+  border-top: 1px solid var(--border);
 }
 
 .bottomSheetHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--linear-border);
-  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-2);
 }
 
 .bottomSheetClose {
   background: none;
   border: 0;
-  color: var(--linear-text-muted);
+  color: var(--muted);
   font-size: 20px;
   cursor: pointer;
 }
 
-/* Linear properties grid layout */
+/* Properties grid layout */
 .propertiesSection {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-2);
 }
 
 .propertyRow {
   display: grid;
   grid-template-columns: 90px 1fr;
-  gap: 8px;
-  font-size: 11.5px;
+  gap: var(--space-2);
+  font-size: var(--text-cell);
   align-items: center;
 }
 
 .propertyLabel {
-  color: var(--linear-text-muted);
-  font-weight: 500;
+  color: var(--muted);
+  font-weight: var(--weight-medium);
 }
 
 .propertyValue {
-  color: var(--linear-text);
+  color: var(--ink);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -188,109 +188,114 @@
 
 /* Deciding action styles */
 .decideSection {
-  margin-top: 12px;
-  border-top: 1px solid var(--linear-border);
-  padding-top: 14px;
+  margin-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-3);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .decideNoteLabel {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--linear-text-muted);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--muted);
 }
 
 .note {
   width: 100%;
-  min-height: 44px;
-  padding: 6px 8px;
-  border: 1px solid var(--linear-border);
-  border-radius: var(--radius-sm);
-  background: var(--linear-card);
-  color: var(--linear-text);
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--paper);
+  color: var(--ink);
   font-family: inherit;
-  font-size: 12px;
+  font-size: var(--text-cell);
   resize: vertical;
   box-sizing: border-box;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color var(--duration-fast);
 }
 .note:focus {
-  border-color: var(--linear-accent);
+  border-color: var(--wine);
+  box-shadow: 0 0 0 1px var(--wine);
 }
 
 .actionButtons {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
   justify-content: flex-end;
 }
 
 .btn {
-  padding: 6px 12px;
-  border: 1px solid var(--linear-border);
-  border-radius: var(--radius-sm);
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
   font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--text-mono);
+  font-weight: var(--weight-semibold);
   cursor: pointer;
   white-space: nowrap;
   outline: none;
-  background: var(--linear-card);
-  color: var(--linear-text);
-  transition: background 0.1s, border-color 0.1s;
+  background: var(--paper);
+  color: var(--ink);
+  transition: background var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast) var(--ease-out);
+}
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btnApprove {
-  color: #ffffff;
-  background: #2e7d32;
-  border-color: #2e7d32;
+  color: var(--paper);
+  background: var(--state-success);
+  border-color: var(--state-success);
 }
 .btnApprove:hover {
-  background: #25632b;
+  filter: brightness(0.9) saturate(1.1);
 }
 
 .btnReject {
-  color: #ffffff;
-  background: #c62828;
-  border-color: #c62828;
+  color: var(--paper);
+  background: var(--state-danger);
+  border-color: var(--state-danger);
 }
 .btnReject:hover {
-  background: #b71c1c;
+  filter: brightness(0.9) saturate(1.1);
 }
 
 :global(html[data-theme="dark"]) .btnApprove {
-  color: #1b5e20;
-  background: #81c784;
-  border-color: #81c784;
+  color: var(--cream);
+  background: var(--state-success-bg);
+  border-color: var(--state-success);
 }
 :global(html[data-theme="dark"]) .btnApprove:hover {
-  background: #a5d6a7;
+  filter: brightness(1.1);
 }
 
 :global(html[data-theme="dark"]) .btnReject {
-  color: #b71c1c;
-  background: #e57373;
-  border-color: #e57373;
+  color: var(--cream);
+  background: var(--state-danger-bg);
+  border-color: var(--state-danger);
 }
 :global(html[data-theme="dark"]) .btnReject:hover {
-  background: #ef9a9a;
+  filter: brightness(1.1);
 }
 
 .partial {
-  margin: 12px;
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  background: var(--linear-accent-bg);
-  color: var(--linear-accent);
-  font-size: 11px;
+  margin: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  background: var(--state-info-bg);
+  color: var(--state-info);
+  font-size: var(--text-cell);
 }
 
 @media (max-width: 767px) {
   .inboxLayout {
     flex-direction: column;
-    height: calc(100vh - 44px);
+    height: calc(100vh - var(--touch-min));
   }
   .listPane {
     flex: 1;

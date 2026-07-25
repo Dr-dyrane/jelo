@@ -38,14 +38,14 @@ export function SignalsInbox({ rows }: SignalsInboxProps) {
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Target Product Reference
               </div>
               <ProductRef subject={product} />
             </div>
 
             {/* Properties Grid */}
-            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>Event Type</span>
                 <span className={styles.propertyValue}><StatusPill tone="info">{row.eventType}</StatusPill></span>
@@ -96,7 +96,7 @@ export function SignalsInbox({ rows }: SignalsInboxProps) {
               </div>
             </div>
 
-            <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0, fontStyle: 'italic' }}>
+            <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0, fontStyle: 'italic' }}>
               Commerce signals are read-only metrics stored immutably to audit search/click attribution.
             </p>
           </div>

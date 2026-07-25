@@ -49,14 +49,14 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {/* Title / Target */}
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Observation Target
               </div>
               <ProductRef subject={subject} />
             </div>
 
             {/* Linear Properties Grid */}
-            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>Kind</span>
                 <span className={styles.propertyValue}>{row.kind}</span>
@@ -117,7 +117,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                 </div>
               </form>
             ) : (
-              <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
+              <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
                 You do not have the required permissions to make decisions on observations.
               </p>
             )}

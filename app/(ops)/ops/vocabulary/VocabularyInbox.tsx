@@ -24,7 +24,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
             <div className={styles.value} style={{ fontSize: '1.05rem' }}>{row.rawValue}</div>
             <div className={styles.metaRow}>
               <StatusPill tone="info">{row.valueKind}</StatusPill>
-              <span style={{ fontSize: '11px', color: 'var(--linear-text-muted)' }}>
+              <span style={{ fontSize: '11px', color: 'var(--muted)' }}>
                 ×{row.occurrenceCount}
               </span>
               <RelativeTime iso={row.lastSeenAt} />
@@ -35,18 +35,18 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
       renderItemDetails={(row) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--linear-text)', margin: '0 0 4px' }}>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--ink)', margin: '0 0 4px' }}>
               {row.rawValue}
             </h3>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ color: 'var(--linear-text-muted)', fontSize: '11px' }}>Normalized:</span>
+              <span style={{ color: 'var(--muted)', fontSize: '11px' }}>Normalized:</span>
               <code style={{
                 fontSize: '11px',
-                background: 'var(--linear-card)',
-                border: '1px solid var(--linear-border)',
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
                 padding: '2px 6px',
                 borderRadius: '4px',
-                color: 'var(--linear-text)',
+                color: 'var(--ink)',
                 fontWeight: 600
               }}>
                 {row.normalizedValue}
@@ -55,7 +55,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
           </div>
 
           {/* Properties Grid */}
-          <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+          <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
             <div className={styles.propertyRow}>
               <span className={styles.propertyLabel}>Kind</span>
               <span className={styles.propertyValue}><StatusPill tone="info">{row.valueKind}</StatusPill></span>
@@ -120,7 +120,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
               </div>
             </form>
           ) : (
-            <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
+            <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
               You do not have the required permissions to make decisions on vocabulary.
             </p>
           )}

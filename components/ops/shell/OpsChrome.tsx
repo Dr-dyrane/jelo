@@ -55,7 +55,7 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
                 <strong>JeloCare Ops</strong>
                 <span>Moderation Console</span>
               </div>
-              <ChevronDown size={14} style={{ color: 'var(--linear-text-muted)' }} />
+              <ChevronDown size={14} style={{ color: 'var(--muted)' }} />
             </div>
 
             {/* Navigation Group: Queues */}
@@ -72,7 +72,7 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
                       className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
                     >
                       <span className={styles.linkContent}>
-                        <Icon size={14} strokeWidth={isActive ? 2.5 : 2} style={{ color: isActive ? 'var(--linear-accent)' : 'inherit' }} />
+                        <Icon size={14} strokeWidth={isActive ? 2.5 : 2} style={{ color: isActive ? 'var(--wine)' : 'inherit' }} />
                         <span>{item.label}</span>
                       </span>
                       {item.count != null && item.count > 0 ? (
@@ -100,7 +100,7 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
                       className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
                     >
                       <span className={styles.linkContent}>
-                        <Icon size={14} strokeWidth={isActive ? 2.5 : 2} style={{ color: isActive ? 'var(--linear-accent)' : 'inherit' }} />
+                        <Icon size={14} strokeWidth={isActive ? 2.5 : 2} style={{ color: isActive ? 'var(--wine)' : 'inherit' }} />
                         <span>{item.label}</span>
                       </span>
                     </Link>

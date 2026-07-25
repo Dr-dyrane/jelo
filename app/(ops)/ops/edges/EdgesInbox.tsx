@@ -30,9 +30,9 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
             <div className={styles.subject}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', flexWrap: 'wrap', fontSize: '12px' }}>
                 <span style={{ fontWeight: 600 }}>{subject.name}</span>
-                <span style={{ color: 'var(--linear-text-muted)' }}>→</span>
-                <span style={{ color: 'var(--linear-accent)', fontWeight: 500 }}>{row.predicate}</span>
-                <span style={{ color: 'var(--linear-text-muted)' }}>→</span>
+                <span style={{ color: 'var(--muted)' }}>→</span>
+                <span style={{ color: 'var(--wine)', fontWeight: 500 }}>{row.predicate}</span>
+                <span style={{ color: 'var(--muted)' }}>→</span>
                 <span style={{ fontWeight: 600 }}>{object.name}</span>
               </div>
               <div className={styles.metaRow}>
@@ -50,21 +50,21 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Subject Entity
               </div>
               <ProductRef subject={subject} />
             </div>
 
             <div>
-              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Object Target Entity
               </div>
               <ProductRef subject={object} />
             </div>
 
             {/* Properties Grid */}
-            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>Relationship</span>
                 <span className={styles.propertyValue}><StatusPill tone="info">{row.predicate}</StatusPill></span>
@@ -93,12 +93,12 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
 
             {row.metadata && Object.keys(row.metadata).length > 0 ? (
               <div>
-                <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>Metadata</div>
+                <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>Metadata</div>
                 <pre style={{
                   fontSize: '11px',
-                  color: 'var(--linear-text)',
-                  background: 'var(--linear-card)',
-                  border: '1px solid var(--linear-border)',
+                  color: 'var(--ink)',
+                  background: 'var(--card)',
+                  border: '1px solid var(--border)',
                   padding: '8px',
                   borderRadius: 'var(--radius-md)',
                   margin: 0,
@@ -139,7 +139,7 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
                 </div>
               </form>
             ) : (
-              <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
+              <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
                 You do not have the required permissions to make decisions on knowledge edges.
               </p>
             )}

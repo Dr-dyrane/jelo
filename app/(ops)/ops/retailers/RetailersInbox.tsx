@@ -55,16 +55,16 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--linear-text)', margin: '0 0 2px' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--ink)', margin: '0 0 2px' }}>
                 {row.storeName}
               </h3>
-              <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', margin: 0 }}>
+              <p style={{ fontSize: '11px', color: 'var(--muted)', margin: 0 }}>
                 Primary Email: <strong>{row.email}</strong>
               </p>
             </div>
 
             {/* Properties Grid */}
-            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+            <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>Email Status</span>
                 <span className={styles.propertyValue}>
@@ -82,7 +82,7 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
               {p.address ? (
                 <div className={styles.propertyRow} style={{ alignItems: 'flex-start' }}>
                   <span className={styles.propertyLabel}>Address</span>
-                  <span style={{ fontSize: '11px', whiteSpace: 'normal', wordBreak: 'break-word', color: 'var(--linear-text)' }}>
+                  <span style={{ fontSize: '11px', whiteSpace: 'normal', wordBreak: 'break-word', color: 'var(--ink)' }}>
                     {p.address}
                   </span>
                 </div>
@@ -99,7 +99,7 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
                 <div className={styles.propertyRow}>
                   <span className={styles.propertyLabel}>Website</span>
                   <span className={styles.propertyValue}>
-                    <a href={p.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--linear-accent)', textDecoration: 'underline' }}>
+                    <a href={p.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
                       {p.website}
                     </a>
                   </span>
@@ -132,7 +132,7 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
               {p.sampleProduct ? (
                 <div className={styles.propertyRow} style={{ alignItems: 'flex-start' }}>
                   <span className={styles.propertyLabel}>Sample</span>
-                  <span style={{ fontSize: '11px', whiteSpace: 'normal', color: 'var(--linear-text)' }}>
+                  <span style={{ fontSize: '11px', whiteSpace: 'normal', color: 'var(--ink)' }}>
                     {p.sampleProduct} {p.samplePriceNgn ? `(₦${p.samplePriceNgn.toLocaleString('en-NG')})` : ''}
                   </span>
                 </div>
@@ -177,7 +177,7 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
                 </div>
               </form>
             ) : (
-              <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
+              <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
                 You do not have the required permissions to make decisions on retailer applications.
               </p>
             )}

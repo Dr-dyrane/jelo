@@ -27,7 +27,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
             </div>
             <span style={{
               fontSize: '11px',
-              color: 'var(--linear-text-muted)',
+              color: 'var(--muted)',
               fontFamily: 'var(--font-mono)',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
@@ -42,14 +42,14 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
       renderItemDetails={(row) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--linear-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
               Contribution Payload
             </div>
             <pre style={{
               fontSize: '11px',
-              color: 'var(--linear-text)',
-              background: 'var(--linear-card)',
-              border: '1px solid var(--linear-border)',
+              color: 'var(--ink)',
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
               padding: '10px',
               borderRadius: 'var(--radius-md)',
               overflow: 'auto',
@@ -63,7 +63,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
           </div>
 
           {/* Properties Grid */}
-          <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--linear-border)', paddingTop: '12px' }}>
+          <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
             <div className={styles.propertyRow}>
               <span className={styles.propertyLabel}>Kind</span>
               <span className={styles.propertyValue}><StatusPill tone="warning">{row.kind}</StatusPill></span>
@@ -112,7 +112,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
               </div>
             </form>
           ) : (
-            <p style={{ fontSize: '11px', color: 'var(--linear-text-muted)', borderTop: '1px solid var(--linear-border)', paddingTop: '12px', margin: 0 }}>
+            <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
               You do not have the required permissions to make decisions on contributions.
             </p>
           )}
