@@ -37,8 +37,8 @@
   height: 34px;
   place-items: center;
   border: 0;
-  border-radius: var(--ops-control-radius);
-  background: var(--ops-surface-subtle);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ops-surface-subtle) 45%, transparent);
   color: var(--ops-ink);
   cursor: pointer;
 }
@@ -56,25 +56,13 @@
   padding: 0 var(--space-4) var(--space-5);
 }
 
-/* Overlay inspector shells: phone, touch and compact. */
+/* Overlay inspector shells: phone, touch and compact.
+   Buttons may be full-width in a 2-column grid, but keep the canonical .btn design. */
 @media (max-width: 1179px) {
-  .tabletInspectorBody :global(form[data-item-id]) {
-    position: sticky;
-    bottom: calc(var(--space-5) * -1);
-    z-index: 2;
-    margin-top: var(--space-5);
-    padding: var(--space-4) 0 calc(var(--space-4) + env(safe-area-inset-bottom));
-    background: linear-gradient(to bottom, transparent, var(--ops-instrument) 18%);
-  }
-
   .tabletInspectorBody :global(form[data-item-id] > div:last-child) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-  }
-
-  .tabletInspectorBody :global(form[data-item-id] button) {
-    min-height: 44px;
+    gap: var(--space-2);
   }
 }
 

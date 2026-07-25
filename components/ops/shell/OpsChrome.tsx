@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, PanelLeft, Store, UsersRound } from 'lucide-react';
+import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, Store, UsersRound } from 'lucide-react';
 import { authClient } from '@/lib/auth/client';
 import type { ModerationOperator } from '@/lib/moderation/access';
 import type { QueueCounts } from '@/lib/moderation/queues';
@@ -63,6 +63,13 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
       window.location.assign('/sign-in');
     }
   };
+
+  const initials = sidebarSummary.displayName
+    .split(/\s+/)
+    .map(part => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase() || 'OP';
 
   const queueItems = [
     { href: '/ops/contributions', label: 'Contributions', icon: Inbox, count: counts.contributions },
@@ -126,7 +133,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
               aria-label={sidebarOpen ? 'Close navigation' : 'Open navigation'}
               aria-expanded={sidebarOpen}
             >
-              <PanelLeft size={18} strokeWidth={1.9} />
+              <span className={`${styles.operatorAvatar} ${adaptive.islandAvatar}`} aria-hidden="true">{initials}</span>
             </button>
             {tabletDestinations.map(item => (
               <Link

@@ -88,7 +88,7 @@
 }
 
 .navGroup {
-  margin-top: var(--space-4);
+  margin: 0;
 }
 
 .navGroupTitle {
@@ -104,6 +104,13 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.sidebarNavigation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
 }
 
 .navLink {
@@ -582,6 +589,172 @@
   margin: var(--space-1) 0;
 }
 
+.accountMenu {
+  position: relative;
+}
+
+.accountTrigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--touch-min);
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--ops-instrument-inner-radius);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+}
+
+.accountTrigger:hover,
+.accountTrigger[aria-expanded='true'] {
+  background: var(--state-selected-bg);
+}
+
+.operatorAvatar {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--ops-accent) 60%, white), var(--ops-accent) 55%, color-mix(in srgb, var(--ops-accent) 70%, black));
+  box-shadow: inset -3px -3px 6px color-mix(in srgb, black 16%, transparent), inset 3px 3px 6px color-mix(in srgb, white 32%, transparent), 0 2px 4px color-mix(in srgb, var(--ops-ink) 12%, transparent);
+  color: var(--on-accent);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
+.accountIdentity {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+}
+
+.accountIdentity strong {
+  font-size: var(--text-cell);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.accountIdentity span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.accountChevron {
+  flex: 0 0 auto;
+  color: var(--muted);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.accountTrigger[aria-expanded='true'] .accountChevron {
+  transform: rotate(180deg);
+}
+
+.accountPopover {
+  position: absolute;
+  z-index: var(--z-palette);
+  top: calc(100% + var(--space-2));
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--ops-instrument-inner-radius);
+  background: var(--ops-workspace);
+  box-shadow: var(--ops-floating-shadow);
+}
+
+.accountPopoverIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: var(--space-2);
+}
+
+.accountPopoverIdentity strong {
+  font-size: var(--text-cell);
+  font-weight: var(--weight-medium);
+}
+
+.accountPopoverIdentity span {
+  color: var(--muted);
+  font-size: var(--text-caption);
+  text-transform: capitalize;
+}
+
+.accountActivity {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: var(--space-2);
+  background: var(--ops-surface-subtle);
+  border-radius: var(--ops-instrument-inner-radius);
+}
+
+.accountActivity > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.accountActivity dt,
+.accountActivity dd {
+  margin: 0;
+}
+
+.accountActivity dt {
+  color: var(--muted);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  line-height: 1.25;
+}
+
+.accountActivity dd {
+  color: var(--ink);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: 1.25;
+  text-align: right;
+}
+
+.accountSignOut {
+  display: flex;
+  align-items: center;
+  min-height: var(--ops-control-height);
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: transparent;
+  color: var(--state-danger);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-cell);
+  text-align: left;
+}
+
+.accountSignOut:hover {
+  background: var(--state-danger-bg);
+}
+
 @media (min-width: 820px) {
   .container {
     min-height: 100dvh;
@@ -601,170 +774,6 @@
     min-height: 0;
   }
 
-  .accountMenu {
-    position: relative;
-  }
-
-  .accountTrigger {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: var(--touch-min);
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border: 0;
-    border-radius: var(--ops-instrument-inner-radius);
-    background: transparent;
-    color: var(--ink);
-    cursor: pointer;
-    text-align: left;
-    transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
-  }
-
-  .accountTrigger:hover,
-  .accountTrigger[aria-expanded='true'] {
-    background: var(--state-selected-bg);
-  }
-
-  .operatorAvatar {
-    display: grid;
-    width: 28px;
-    height: 28px;
-    flex: 0 0 auto;
-    place-items: center;
-    border-radius: var(--radius-pill);
-    background: var(--ops-accent-subtle);
-    color: var(--ops-accent);
-    font-size: var(--text-label);
-    font-weight: var(--weight-semibold);
-    line-height: 1;
-  }
-
-  .accountIdentity {
-    display: flex;
-    min-width: 0;
-    flex: 1;
-    flex-direction: column;
-    gap: 2px;
-    line-height: 1.2;
-  }
-
-  .accountIdentity strong {
-    font-size: var(--text-cell);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0;
-    line-height: 1.2;
-  }
-
-  .accountIdentity span {
-    overflow: hidden;
-    color: var(--muted);
-    font-size: var(--text-caption);
-    font-weight: var(--weight-medium);
-    line-height: 1.2;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    white-space: nowrap;
-  }
-
-  .accountChevron {
-    flex: 0 0 auto;
-    color: var(--muted);
-    transition: transform var(--duration-fast) var(--ease-standard);
-  }
-
-  .accountTrigger[aria-expanded='true'] .accountChevron {
-    transform: rotate(180deg);
-  }
-
-  .accountPopover {
-    position: absolute;
-    z-index: var(--z-palette);
-    top: calc(100% + var(--space-2));
-    right: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--ops-instrument-inner-radius);
-    background: var(--ops-workspace);
-    box-shadow: var(--ops-floating-shadow);
-  }
-
-  .accountPopoverIdentity {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    padding: var(--space-2);
-  }
-
-  .accountPopoverIdentity strong {
-    font-size: var(--text-cell);
-    font-weight: var(--weight-medium);
-  }
-
-  .accountPopoverIdentity span {
-    color: var(--muted);
-    font-size: var(--text-caption);
-    text-transform: capitalize;
-  }
-
-  .accountActivity {
-    display: grid;
-    gap: var(--space-1);
-    margin: 0;
-    padding: var(--space-2);
-    background: var(--ops-surface-subtle);
-    border-radius: var(--ops-instrument-inner-radius);
-  }
-
-  .accountActivity > div {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-  }
-
-  .accountActivity dt,
-  .accountActivity dd {
-    margin: 0;
-  }
-
-  .accountActivity dt {
-    color: var(--muted);
-    font-size: var(--text-label);
-    font-weight: var(--weight-medium);
-    line-height: 1.25;
-  }
-
-  .accountActivity dd {
-    color: var(--ink);
-    font-size: var(--text-caption);
-    font-weight: var(--weight-medium);
-    line-height: 1.25;
-    text-align: right;
-  }
-
-  .accountSignOut {
-    display: flex;
-    align-items: center;
-    min-height: var(--ops-control-height);
-    gap: var(--space-2);
-    padding: 0 var(--space-3);
-    border: 0;
-    border-radius: var(--ops-control-radius);
-    background: transparent;
-    color: var(--state-danger);
-    cursor: pointer;
-    font: inherit;
-    font-size: var(--text-cell);
-    text-align: left;
-  }
-
-  .accountSignOut:hover {
-    background: var(--state-danger-bg);
-  }
 
   .sidebarNavigation {
     display: flex;
