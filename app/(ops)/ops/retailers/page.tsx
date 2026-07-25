@@ -6,6 +6,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { EmptyState } from '@/components/ops/state/EmptyState';
+import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
 import { decideRetailerApplicationAction } from '../actions';
 import opsStyles from '../../ops.module.css';
 import styles from '@/components/ops/inbox/inbox.module.css';
@@ -24,6 +25,7 @@ type RetailerPayload = {
   address?: string | null;
   channels?: string[] | null;
   brands?: string[] | null;
+  services?: string[] | null;
   sampleProduct?: string | null;
   samplePriceNgn?: number | null;
 };
@@ -45,71 +47,129 @@ export default async function RetailerApplicationsQueue() {
         />
       ) : (
         <>
-          <div className={styles.card}>
-            {rows.map(row => {
+          <InboxContainer
+            items={rows}
+            itemTypeLabel="retailer application"
+            renderItemRow={(row) => (
+              <div className={styles.row} style={{ width: '100%', background: 'transparent' }}>
+                <div className={styles.subject}>
+                  <div className={styles.value} style={{ fontSize: '1.05rem' }}>{row.storeName}</div>
+                  <div className={styles.metaRow}>
+                    <StatusPill tone={row.emailVerifiedAt ? 'success' : 'danger'}>
+                      {row.emailVerifiedAt ? 'verified' : 'unverified'}
+                    </StatusPill>
+                    <RelativeTime iso={row.submittedAt} />
+                  </div>
+                </div>
+              </div>
+            )}
+            renderItemDetails={(row) => {
               const p = row.payload as RetailerPayload;
               const channels = Array.isArray(p.channels) ? p.channels.join(', ') : '';
               const brands = Array.isArray(p.brands) ? p.brands.join(', ') : '';
+              const services = Array.isArray(p.services) ? p.services.join(', ') : '';
 
               return (
-                <div key={row.id} className={styles.row}>
-                  <div className={styles.subject}>
-                    <div className={styles.value} style={{ fontSize: '1.15rem' }}>{row.storeName}</div>
-                    <div className={styles.metaRow}>
-                      <span style={{ fontSize: 'var(--text-cell)', color: 'var(--ink)' }}>{row.email}</span>
-                      <StatusPill tone={row.emailVerifiedAt ? 'success' : 'danger'}>
-                        {row.emailVerifiedAt ? 'email verified' : 'unverified'}
-                      </StatusPill>
-                      <RelativeTime iso={row.submittedAt} />
-                      <IdChip value={row.id} label="app" />
-                    </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--ink)', margin: '0 0 var(--space-1)' }}>
+                      {row.storeName}
+                    </h3>
+                    <p style={{ fontSize: '0.88rem', color: 'var(--muted)', margin: 0 }}>
+                      Primary Email: <strong>{row.email}</strong>
+                    </p>
+                  </div>
 
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-                      gap: 'var(--space-2)',
-                      fontSize: 'var(--text-cell)',
-                      color: 'var(--muted)',
-                      background: 'var(--tag-bg)',
-                      padding: 'var(--space-3)',
-                      borderRadius: 'var(--radius-control)',
-                      marginTop: 'var(--space-2)',
-                    }}>
-                      <div><strong>Location:</strong> {p.city || '—'}{p.state?.[0] ? `, ${p.state[0]}` : ''}</div>
-                      <div><strong>Phone:</strong> {p.phone || '—'}</div>
-                      <div><strong>WhatsApp:</strong> {p.whatsapp || '—'}</div>
-                      {p.website ? (
-                        <div>
-                          <strong>Website:</strong>{' '}
-                          <a href={p.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
-                            {p.website}
-                          </a>
-                        </div>
-                      ) : null}
-                      {p.instagram ? <div><strong>Instagram:</strong> {p.instagram}</div> : null}
-                      {channels ? <div><strong>Channels:</strong> {channels}</div> : null}
-                      {brands ? <div><strong>Brands:</strong> {brands}</div> : null}
-                      {p.sampleProduct ? (
-                        <div>
-                          <strong>Sample Product:</strong> {p.sampleProduct}
-                          {p.samplePriceNgn ? ` (₦${p.samplePriceNgn.toLocaleString('en-NG')})` : ''}
-                        </div>
-                      ) : null}
-                    </div>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                    gap: 'var(--space-3)',
+                    fontSize: 'var(--text-cell)',
+                    background: 'var(--tag-bg)',
+                    padding: 'var(--space-4)',
+                    borderRadius: 'var(--radius-control)',
+                  }}>
+                    <div><strong>Store Location:</strong> {p.city || '—'}{p.state?.[0] ? `, ${p.state[0]}` : ''}</div>
+                    {p.address ? <div style={{ gridColumn: 'span 2' }}><strong>Full Address:</strong> {p.address}</div> : null}
+                    <div><strong>Phone:</strong> {p.phone || '—'}</div>
+                    <div><strong>WhatsApp:</strong> {p.whatsapp || '—'}</div>
+                    {p.website ? (
+                      <div>
+                        <strong>Website:</strong>{' '}
+                        <a href={p.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wine)', textDecoration: 'underline' }}>
+                          {p.website}
+                        </a>
+                      </div>
+                    ) : null}
+                    {p.instagram ? <div><strong>Instagram:</strong> {p.instagram}</div> : null}
+                    {channels ? <div><strong>Channels:</strong> {channels}</div> : null}
+                    {brands ? <div><strong>Brands Stocked:</strong> {brands}</div> : null}
+                    {services ? <div><strong>Services:</strong> {services}</div> : null}
+                    {p.sampleProduct ? (
+                      <div style={{ gridColumn: 'span 2' }}>
+                        <strong>Sample Product:</strong> {p.sampleProduct}
+                        {p.samplePriceNgn ? ` (₦${p.samplePriceNgn.toLocaleString('en-NG')})` : ''}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: 'var(--space-3)',
+                    fontSize: 'var(--text-cell)',
+                  }}>
+                    <div><strong>Email Status:</strong> {row.emailVerifiedAt ? 'Verified' : 'Unverified'}</div>
+                    <div><strong>Submitted:</strong> <RelativeTime iso={row.submittedAt} /></div>
+                    <div><strong>Application ID:</strong> <IdChip value={row.id} label="app" /></div>
                   </div>
 
                   {canDecide ? (
-                    <form className={styles.decide} action={decideRetailerApplicationAction}>
+                    <form
+                      data-item-id={row.id}
+                      className={styles.decide}
+                      action={decideRetailerApplicationAction}
+                      style={{
+                        flexDirection: 'column',
+                        alignItems: 'stretch',
+                        gap: 'var(--space-3)',
+                        marginTop: 'var(--space-2)',
+                        borderTop: '1px solid rgba(112, 71, 61, 0.08)',
+                        paddingTop: 'var(--space-4)',
+                      }}
+                    >
                       <input type="hidden" name="targetId" value={row.id} />
-                      <input className={styles.note} name="rationale" placeholder="Note" aria-label="Decision note" />
-                      <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">Approve</button>
-                      <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">Decline</button>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+                        <label htmlFor={`rationale-${row.id}`} style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--muted)' }}>
+                          Decision Rationale
+                        </label>
+                        <input
+                          id={`rationale-${row.id}`}
+                          className={styles.note}
+                          name="rationale"
+                          placeholder="Add explanation..."
+                          aria-label="Decision rationale"
+                          style={{ width: '100%', boxSizing: 'border-box' }}
+                        />
+                      </div>
+                      <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+                        <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
+                          Decline (R)
+                        </button>
+                        <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">
+                          Approve (E)
+                        </button>
+                      </div>
                     </form>
-                  ) : null}
+                  ) : (
+                    <p style={{ fontSize: '0.8rem', color: 'var(--muted)', margin: 'var(--space-2) 0 0' }}>
+                      You do not have the required permissions to make decisions on retailer applications.
+                    </p>
+                  )}
                 </div>
               );
-            })}
-          </div>
+            }}
+          />
 
           {rows.length === LIMIT ? (
             <p className={styles.partial}>Showing the {LIMIT} most recent — more may be pending.</p>

@@ -10,6 +10,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { EmptyState } from '@/components/ops/state/EmptyState';
+import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
 import { decideObservationAction } from '../actions';
 import opsStyles from '../../ops.module.css';
 import styles from '@/components/ops/inbox/inbox.module.css';
@@ -18,9 +19,6 @@ export const dynamic = 'force-dynamic';
 
 const LIMIT = 100;
 
-// The Observations triage inbox (reference flow, v1 — humanized rows + the five
-// states + capability-gated decisions, server-rendered). The keyboard-first
-// list⇄detail-sheet and optimistic-undo layer wraps this next.
 export default async function ObservationsQueue() {
   const operator = await requireConsoleOperator();
   const canDecide = can(operator.role, 'observations.decide');
@@ -38,11 +36,13 @@ export default async function ObservationsQueue() {
         />
       ) : (
         <>
-          <div className={styles.card}>
-            {rows.map(row => {
+          <InboxContainer
+            items={rows}
+            itemTypeLabel="observation"
+            renderItemRow={(row) => {
               const subject = humanizeRef(row.subjectRef);
               return (
-                <div key={row.id} className={styles.row}>
+                <div className={styles.row} style={{ width: '100%', background: 'transparent' }}>
                   <div className={styles.subject}>
                     <ProductRef subject={subject} />
                     <div className={styles.metaRow}>
@@ -55,22 +55,93 @@ export default async function ObservationsQueue() {
                         <span className={styles.value}>—</span>
                       )}
                       <RelativeTime iso={row.createdAt} />
-                      <IdChip value={row.contributionId} label="source" />
                     </div>
+                  </div>
+                </div>
+              );
+            }}
+            renderItemDetails={(row) => {
+              const subject = humanizeRef(row.subjectRef);
+              return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 var(--space-2)' }}>
+                      Observation Target
+                    </h3>
+                    <ProductRef subject={subject} />
+                  </div>
+
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: 'var(--space-3)',
+                    fontSize: 'var(--text-cell)',
+                    background: 'var(--tag-bg)',
+                    padding: 'var(--space-3)',
+                    borderRadius: 'var(--radius-control)',
+                  }}>
+                    <div><strong>Kind:</strong> {row.kind}</div>
+                    <div>
+                      <strong>Value:</strong>{' '}
+                      {row.kind === 'price' ? (
+                        <span className={styles.value}>{money(row.amountNgn)}</span>
+                      ) : row.outcome ? (
+                        <StatusPill tone={outcomeTone(row.outcome)}>{outcomeLabel(row.outcome)}</StatusPill>
+                      ) : (
+                        '—'
+                      )}
+                    </div>
+                    <div><strong>Reported:</strong> <RelativeTime iso={row.createdAt} /></div>
+                    <div><strong>Source contribution:</strong> <IdChip value={row.contributionId} label="source" /></div>
+                    <div><strong>Observation ID:</strong> <IdChip value={row.id} label="obs" /></div>
                   </div>
 
                   {canDecide ? (
-                    <form className={styles.decide} action={decideObservationAction}>
+                    <form
+                      data-item-id={row.id}
+                      className={styles.decide}
+                      action={decideObservationAction}
+                      style={{
+                        flexDirection: 'column',
+                        alignItems: 'stretch',
+                        gap: 'var(--space-3)',
+                        marginTop: 'var(--space-2)',
+                        borderTop: '1px solid rgba(112, 71, 61, 0.08)',
+                        paddingTop: 'var(--space-4)',
+                      }}
+                    >
                       <input type="hidden" name="targetId" value={row.id} />
-                      <input className={styles.note} name="rationale" placeholder="Note" aria-label="Decision note" />
-                      <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">Approve</button>
-                      <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">Reject</button>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+                        <label htmlFor={`rationale-${row.id}`} style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--muted)' }}>
+                          Decision Rationale
+                        </label>
+                        <input
+                          id={`rationale-${row.id}`}
+                          className={styles.note}
+                          name="rationale"
+                          placeholder="Add explanation..."
+                          aria-label="Decision rationale"
+                          style={{ width: '100%', boxSizing: 'border-box' }}
+                        />
+                      </div>
+                      <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+                        <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
+                          Reject (R)
+                        </button>
+                        <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">
+                          Approve (E)
+                        </button>
+                      </div>
                     </form>
-                  ) : null}
+                  ) : (
+                    <p style={{ fontSize: '0.8rem', color: 'var(--muted)', margin: 'var(--space-2) 0 0' }}>
+                      You do not have the required permissions to make decisions on observations.
+                    </p>
+                  )}
                 </div>
               );
-            })}
-          </div>
+            }}
+          />
 
           {rows.length === LIMIT ? (
             <p className={styles.partial}>Showing the {LIMIT} most recent — more may be pending.</p>
