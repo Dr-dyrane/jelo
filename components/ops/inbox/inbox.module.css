@@ -563,3 +563,39 @@
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+/* Detail pane skeleton placeholders for loading.tsx.
+   Shared surface treatment keeps shimmer/reduce-motion simple. */
+.skeletonSurface {
+  background: var(--ops-surface-subtle);
+}
+
+.skeletonEyebrow { width: 80px; height: 10px; border-radius: var(--ops-control-radius); }
+.skeletonDetailTitle { width: 90%; height: 16px; border-radius: var(--ops-control-radius); }
+.skeletonPill { width: 56px; height: 20px; border-radius: 999px; }
+.skeletonProductImage { width: 64px; height: 64px; border-radius: calc(var(--ops-control-radius) - 3px); }
+.skeletonProductTitle { width: 80%; height: 13px; border-radius: var(--ops-control-radius); }
+.skeletonProductMeta { width: 55%; height: 10px; border-radius: var(--ops-control-radius); }
+.skeletonPropertyLabel { width: 60%; height: 10px; border-radius: var(--ops-control-radius); }
+.skeletonPropertyValue { width: 70%; height: 10px; border-radius: var(--ops-control-radius); }
+.skeletonNote { width: 100%; min-height: 76px; border-radius: var(--ops-control-radius); }
+.skeletonBtn { min-height: 34px; border-radius: var(--ops-control-radius); cursor: default; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeletonSurface {
+    background: linear-gradient(
+      90deg,
+      var(--ops-surface-subtle) 25%,
+      color-mix(in srgb, var(--ops-surface-subtle) 70%, var(--ops-workspace)) 37%,
+      var(--ops-surface-subtle) 63%
+    );
+    background-size: 200% 100%;
+    animation: opsSkeletonShimmer 1.4s var(--ease-standard) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonSurface {
+    background: var(--ops-surface-subtle);
+  }
+}
