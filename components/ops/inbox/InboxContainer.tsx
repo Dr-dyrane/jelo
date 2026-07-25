@@ -23,41 +23,33 @@ export function InboxContainer<T extends { id: string }>({
   onSelect,
   onDeselect,
 }: InboxContainerProps<T>) {
-  const [internalIndex, setInternalIndex] = useState(0);
+  const [navigationIndex, setNavigationIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(true);
 
-  const controlledIndex = selectedId != null ? items.findIndex(item => item.id === selectedId) : null;
-  const activeIndex = controlledIndex != null && controlledIndex >= 0 ? controlledIndex : internalIndex;
-  const detailId = selectedId != null ? selectedId : internalDetailId;
+  const detailId = selectedId ?? internalDetailId;
+  const selectedIndex = detailId ? items.findIndex(item => item.id === detailId) : -1;
+  const activeItem = selectedIndex >= 0 ? items[selectedIndex] : null;
+  const navigationItem = items[navigationIndex] ?? null;
 
-  // Sync active item
-  const activeItem = items[activeIndex] || null;
-
-  function syncActiveIndex(index: number) {
-    if (selectedId != null) {
-      const item = items[index];
-      if (item) onSelect?.(item, index);
-    } else {
-      setInternalIndex(index);
+  function syncNavigationIndex(index: number) {
+    setNavigationIndex(index);
+    const item = items[index];
+    if (detailId && item) {
+      if (selectedId != null) onSelect?.(item, index);
+      else setInternalDetailId(item.id);
     }
   }
 
-  function openDetail(item: T) {
-    if (selectedId != null) {
-      onSelect?.(item, items.indexOf(item));
-    } else {
-      setInternalDetailId(item.id);
-      setInternalIndex(items.indexOf(item));
-    }
+  function openDetail(item: T, index = items.indexOf(item)) {
+    setNavigationIndex(index);
+    if (selectedId != null) onSelect?.(item, index);
+    else setInternalDetailId(item.id);
   }
 
   function closeDetail() {
-    if (selectedId != null) {
-      onDeselect?.();
-    } else {
-      setInternalDetailId(null);
-    }
+    if (selectedId != null) onDeselect?.();
+    else setInternalDetailId(null);
   }
 
   useEffect(() => {
@@ -69,7 +61,10 @@ export function InboxContainer<T extends { id: string }>({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Handle keyboard navigation
+  useEffect(() => {
+    if (selectedIndex >= 0) setNavigationIndex(selectedIndex);
+  }, [selectedIndex]);
+
   useEffect(() => {
     if (items.length === 0) return;
 
@@ -78,26 +73,22 @@ export function InboxContainer<T extends { id: string }>({
         document.activeElement?.tagName === 'INPUT' ||
         document.activeElement?.tagName === 'TEXTAREA'
       ) {
-        if (e.key === 'Escape') {
-          (document.activeElement as HTMLElement).blur();
-        }
+        if (e.key === 'Escape') (document.activeElement as HTMLElement).blur();
         return;
       }
 
       if (e.key === 'j' || e.key === 'ArrowDown') {
         e.preventDefault();
-        const nextIndex = Math.min((selectedId != null ? activeIndex : internalIndex) + 1, items.length - 1);
-        syncActiveIndex(nextIndex);
+        syncNavigationIndex(Math.min(navigationIndex + 1, items.length - 1));
       } else if (e.key === 'k' || e.key === 'ArrowUp') {
         e.preventDefault();
-        const nextIndex = Math.max((selectedId != null ? activeIndex : internalIndex) - 1, 0);
-        syncActiveIndex(nextIndex);
+        syncNavigationIndex(Math.max(navigationIndex - 1, 0));
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        if (activeItem) {
-          openDetail(activeItem);
+        if (navigationItem) {
+          openDetail(navigationItem, navigationIndex);
           setTimeout(() => {
-            const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
+            const form = document.querySelector(`form[data-item-id="${navigationItem.id}"]`);
             const input = form?.querySelector('input[name="rationale"], textarea') as HTMLInputElement | HTMLTextAreaElement;
             input?.focus();
           }, 100);
@@ -131,40 +122,26 @@ export function InboxContainer<T extends { id: string }>({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeIndex, activeItem, items]);
+  }, [activeItem, detailId, items, navigationIndex, navigationItem, selectedId]);
 
-  // Auto-scroll selected row into view
   useEffect(() => {
-    if (activeItem) {
-      const el = document.getElementById(`row-${activeItem.id}`);
-      if (el) {
-        el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
-    }
-  }, [activeIndex, activeItem]);
+    const item = detailId ? activeItem : navigationItem;
+    if (!item) return;
+    document.getElementById(`row-${item.id}`)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }, [activeItem, detailId, navigationItem]);
 
   function handleRowClick(index: number, item: T) {
-    if (selectedId != null) {
-      if (selectedId === item.id) {
-        onDeselect?.();
-      } else {
-        onSelect?.(item, index);
-      }
-    } else {
-      if (internalDetailId === item.id) {
-        setInternalDetailId(null);
-      } else {
-        setInternalIndex(index);
-        setInternalDetailId(item.id);
-      }
-    }
+    if (detailId === item.id) closeDetail();
+    else openDetail(item, index);
   }
+
+  const detailPortalTarget = typeof document === 'undefined' ? null : document.getElementById('ops-detail-pane');
 
   return (
     <>
       <div className={styles.cardGrid} role="list" aria-label={`${itemTypeLabel} queue`}>
         {items.map((item, idx) => {
-          const isActive = activeItem?.id === item.id;
+          const isActive = detailId === item.id;
           return (
             <div
               key={item.id}
@@ -172,6 +149,7 @@ export function InboxContainer<T extends { id: string }>({
               role="listitem"
               tabIndex={0}
               className={`${styles.card} ${isActive ? styles.cardActive : ''}`}
+              onFocus={() => setNavigationIndex(idx)}
               onClick={() => handleRowClick(idx, item)}
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -185,43 +163,27 @@ export function InboxContainer<T extends { id: string }>({
             </div>
           );
         })}
-        {Array.from({ length: (3 - (items.length % 3)) % 3 }).map((_, i) => (
-          <div key={`skeleton-${i}`} className={`${styles.card} ${styles.skeleton}`} aria-hidden="true">
-            <div className={styles.cardInner}>
-              <div className={styles.cardImage} />
-              <div className={styles.cardBody}>
-                <div className={styles.skeletonTitle} />
-                <div className={styles.skeletonSubtext} />
-              </div>
-              <div className={styles.skeletonCaret} />
-            </div>
-          </div>
-        ))}
       </div>
 
-      {/* Right Desktop/Tablet Detail Pane (Linear Properties Panel) */}
-      {!isMobile && activeItem ? (
-        createPortal(
-          <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>,
-          document.getElementById('ops-detail-pane') as HTMLElement,
-        )
-      ) : null}
+      {!isMobile && activeItem && detailPortalTarget
+        ? createPortal(
+            <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>,
+            detailPortalTarget,
+          )
+        : null}
 
-      {/* Mobile Bottom Sheet (slides up on item selection) */}
-      {isMobile && detailId && activeItem && (
+      {isMobile && activeItem && (
         <div className={styles.bottomSheet} role="dialog" aria-modal="true">
           <div className={styles.bottomSheetHeader}>
             <button
               className={styles.bottomSheetClose}
-              onClick={() => closeDetail()}
+              onClick={closeDetail}
               aria-label="Close details"
             >
               &times;
             </button>
           </div>
-          <div style={{ flex: 1, overflowY: 'auto' }}>
-            {renderItemDetails(activeItem)}
-          </div>
+          <div className={styles.bottomSheetContent}>{renderItemDetails(activeItem)}</div>
         </div>
       )}
     </>
