@@ -1,5 +1,7 @@
 'use client';
 
+import { useActionState, type ReactNode } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import type { PendingObservation } from '@/lib/moderation/queues';
 import type { Product } from '@/data/products';
 import { humanizeRef } from '@/lib/humanize/refs';
@@ -11,7 +13,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
-import { decideObservationAction } from '../actions';
+import { decideObservationAction, type ObservationActionResult } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
 export interface EnrichedObservation extends PendingObservation {
@@ -23,11 +25,40 @@ interface ObservationsInboxProps {
   canDecide: boolean;
 }
 
+function detailFeedback(state: ObservationActionResult | null, rowId: string): ReactNode {
+  if (!state) return null;
+  if ('targetId' in state && state.targetId !== rowId) return null;
+  if (state.ok) {
+    return <p style={{ margin: 0, fontSize: '11px', color: 'var(--state-success)' }}>Recorded {state.decision}.</p>;
+  }
+  return <p style={{ margin: 0, fontSize: '11px', color: 'var(--state-danger)' }}>{state.error}</p>;
+}
+
 export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [actionState, formAction, isPending] = useActionState(decideObservationAction, null);
+
+  const selectedId = searchParams.get('id');
+
+  function setSelectedId(id: string | null) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (id) {
+      params.set('id', id);
+    } else {
+      params.delete('id');
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }
+
   return (
     <InboxContainer
       items={rows}
       itemTypeLabel="observation"
+      selectedId={selectedId}
+      onSelect={item => setSelectedId(item.id)}
+      onDeselect={() => setSelectedId(null)}
       renderItemRow={(row) => {
         const subject = humanizeRef(row.subjectRef);
         return (
@@ -172,9 +203,10 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
               <form
                 data-item-id={row.id}
                 className={styles.decideSection}
-                action={decideObservationAction}
+                action={formAction}
               >
                 <input type="hidden" name="targetId" value={row.id} />
+                {detailFeedback(actionState, row.id)}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
                     Decision Rationale
@@ -185,14 +217,15 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                     name="rationale"
                     placeholder="Add explanation (optional)..."
                     aria-label="Decision rationale"
+                    disabled={isPending}
                   />
                 </div>
                 <div className={styles.actionButtons}>
-                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
-                    Reject (R)
+                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending}>
+                    {isPending ? 'Working…' : 'Reject (R)'}
                   </button>
-                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">
-                    Approve (E)
+                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending}>
+                    {isPending ? 'Working…' : 'Approve (E)'}
                   </button>
                 </div>
               </form>
