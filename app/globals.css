@@ -73,6 +73,75 @@
   --shadow:0 30px 90px rgba(0,0,0,.5); --shot-shadow:rgba(0,0,0,.45);
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   Operator design system (ADR 0007). ADDITIVE ONLY: every property below is a
+   NEW token name — no existing token above is redefined — so public surfaces,
+   which reference none of these, render byte-for-byte identically. Colour-bearing
+   tokens (state, elevation) repeat this file's three-context pattern
+   (light :root · prefers-dark · [data-theme=dark]); scales/motion/glass are
+   theme-invariant and inherit the flipped surface tokens automatically. */
+:root{
+  /* 8pt spacing, 4px sub-grid */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-7:32px; --space-8:48px; --space-9:72px;
+  /* radii (concentric: inner = outer − padding) */
+  --radius-control:9px; --radius-card:16px; --radius-panel:1.35rem;
+  --radius-sheet:1.9rem; --radius-pill:999px;
+  /* type ramp (console uses font-sans; Italiana stays site-only) */
+  --text-metric:1.95rem; --text-title:1.35rem; --text-body:.875rem;
+  --text-cell:.82rem; --text-caption:.74rem; --text-mono:.76rem; --text-label:.7rem;
+  --weight-regular:400; --weight-medium:500; --weight-semibold:600; --weight-bold:700;
+  --tracking-label:.06em; --tracking-tight:-.02em; --leading-ui:1.5;
+  /* motion */
+  --duration-fast:.15s; --duration-base:.2s; --duration-sheet:.3s;
+  --ease-standard:cubic-bezier(.2,.75,.25,1);
+  --ease-reveal:cubic-bezier(.2,.8,.2,1); --ease-out:ease;
+  /* touch targets (HIG 44pt floor — intentionally grows current ops controls) */
+  --touch-min:44px; --touch-comfortable:48px;
+  /* layering */
+  --z-rail:10; --z-sticky:10; --z-sheet:40; --z-palette:50; --z-toast:60;
+  /* glass recipe — shell chrome only (bar, tab-bar, rail, palette, sheet, toast) */
+  --glass-bg:color-mix(in srgb, var(--surface-2) 80%, transparent);
+  --glass-blur:blur(20px) saturate(180%);
+  --glass-scrim:rgba(45,33,31,.3);
+  --glass-scrim-blur:blur(12px) saturate(115%);
+  /* semantic state + elevation — light */
+  --state-success:#2f6f4e; --state-success-bg:rgba(47,111,78,.12);
+  --state-warning:#8a5a2b; --state-warning-bg:rgba(138,90,43,.12);
+  --state-danger:#8c302d; --state-danger-bg:rgba(140,48,45,.12);
+  --state-info:var(--wine); --state-info-bg:rgba(107,59,53,.10);
+  --state-selected-bg:color-mix(in srgb, var(--wine) 8%, transparent);
+  --focus-ring:var(--wine);
+  --elevation-1:0 8px 22px rgba(73,43,38,.07);
+  --elevation-2:0 12px 34px rgba(73,43,38,.10);
+  --elevation-3:0 18px 44px rgba(73,43,38,.16);
+  --elevation-4:0 30px 90px rgba(73,43,38,.12);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --state-success:#7cc79b; --state-success-bg:rgba(124,199,155,.14);
+    --state-warning:#e6b877; --state-warning-bg:rgba(230,184,119,.14);
+    --state-danger:#f0a59d; --state-danger-bg:rgba(240,165,157,.14);
+    --state-info:var(--wine); --state-info-bg:rgba(231,188,178,.10);
+    --state-selected-bg:color-mix(in srgb, var(--wine) 14%, transparent);
+    --elevation-1:0 10px 26px rgba(0,0,0,.45);
+    --elevation-2:0 14px 40px rgba(0,0,0,.5);
+    --elevation-3:0 20px 50px rgba(0,0,0,.55);
+    --elevation-4:0 30px 90px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --state-success:#7cc79b; --state-success-bg:rgba(124,199,155,.14);
+  --state-warning:#e6b877; --state-warning-bg:rgba(230,184,119,.14);
+  --state-danger:#f0a59d; --state-danger-bg:rgba(240,165,157,.14);
+  --state-info:var(--wine); --state-info-bg:rgba(231,188,178,.10);
+  --state-selected-bg:color-mix(in srgb, var(--wine) 14%, transparent);
+  --elevation-1:0 10px 26px rgba(0,0,0,.45);
+  --elevation-2:0 14px 40px rgba(0,0,0,.5);
+  --elevation-3:0 20px 50px rgba(0,0,0,.55);
+  --elevation-4:0 30px 90px rgba(0,0,0,.55);
+}
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--cream);color-scheme:light}
 html[data-theme="dark"]{color-scheme:dark}
