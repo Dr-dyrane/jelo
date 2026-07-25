@@ -34,18 +34,15 @@ export type ActionResult =
   | { ok: true; targetId: string; decision: string }
   | { ok: false; targetId?: string; error: string };
 
-async function runDecision(
-  capability: Parameters<typeof assertCan>[1],
-  queuePath: string,
-  transition: (client: ReturnType<typeof getPostgresClient>, operatorSubject: string, targetId: string, decision: 'approve' | 'reject', rationale: string | null) => Promise<unknown>,
-  formData: FormData,
-): Promise<ActionResult> {
+export type ObservationActionResult = ActionResult;
+
+export async function decideContributionAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
   try {
     const operator = await requireConsoleOperator();
-    assertCan(operator, capability);
+    assertCan(operator, 'contributions.decide');
     const { targetId, decision, rationale } = parseDecision(formData);
-    const settled = await transition(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
-    revalidateOpsSurfaces(queuePath);
+    const settled = await decideContribution(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
+    revalidateOpsSurfaces('/ops/contributions');
     if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
     return { ok: true, targetId, decision };
   } catch (err) {
@@ -53,22 +50,46 @@ async function runDecision(
   }
 }
 
-export async function decideContributionAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
-  return runDecision('contributions.decide', '/ops/contributions', decideContribution, formData);
-}
-
 export async function decideEdgeAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
-  return runDecision('edges.decide', '/ops/edges', decideEdge, formData);
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, 'edges.decide');
+    const { targetId, decision, rationale } = parseDecision(formData);
+    const settled = await decideEdge(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
+    revalidateOpsSurfaces('/ops/edges');
+    if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
+    return { ok: true, targetId, decision };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+  }
 }
-
-export type ObservationActionResult = ActionResult;
 
 export async function decideObservationAction(_prevState: unknown, formData: FormData): Promise<ObservationActionResult> {
-  return runDecision('observations.decide', '/ops/observations', decideObservation, formData);
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, 'observations.decide');
+    const { targetId, decision, rationale } = parseDecision(formData);
+    const settled = await decideObservation(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
+    revalidateOpsSurfaces('/ops/observations');
+    if (!settled) return { ok: false, targetId, error: 'This observation was already reviewed by another operator.' };
+    return { ok: true, targetId, decision };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+  }
 }
 
 export async function decideModerationValueAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
-  return runDecision('vocabulary.decide', '/ops/vocabulary', decideModerationValue, formData);
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, 'vocabulary.decide');
+    const { targetId, decision, rationale } = parseDecision(formData);
+    const settled = await decideModerationValue(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
+    revalidateOpsSurfaces('/ops/vocabulary');
+    if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
+    return { ok: true, targetId, decision };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+  }
 }
 
 export async function mapModerationValueAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
@@ -102,5 +123,15 @@ export async function mapModerationValueAction(_prevState: unknown, formData: Fo
 }
 
 export async function decideRetailerApplicationAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
-  return runDecision('retailers.decide', '/ops/retailers', decideRetailerApplication, formData);
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, 'retailers.decide');
+    const { targetId, decision, rationale } = parseDecision(formData);
+    const settled = await decideRetailerApplication(getPostgresClient(), operator.authSubject, targetId, decision, rationale);
+    revalidateOpsSurfaces('/ops/retailers');
+    if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
+    return { ok: true, targetId, decision };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+  }
 }
