@@ -42,8 +42,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding-bottom: var(--space-5);
-  border-bottom: 1px solid var(--ops-separator, var(--border));
+  padding-bottom: var(--space-6);
 }
 
 .detailEyebrow,
@@ -78,8 +77,7 @@
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr);
   gap: var(--space-3);
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--ops-separator, var(--border));
+  padding: var(--space-6) 0;
 }
 
 .productImage {
@@ -118,8 +116,7 @@
 }
 
 .detailSection {
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--ops-separator, var(--border));
+  padding: var(--space-6) 0 0;
 }
 
 .detailSection .sectionLabel {
@@ -159,7 +156,7 @@
 }
 
 .metadataDisclosure {
-  border-bottom: 1px solid var(--ops-separator, var(--border));
+  margin-top: var(--space-4);
 }
 
 .metadataDisclosure summary {
@@ -220,7 +217,7 @@
   width: 100%;
   min-height: 76px;
   padding: var(--space-3);
-  border: 1px solid transparent;
+  border: 0;
   border-radius: var(--ops-control-radius);
   outline: 0;
   background: var(--ops-surface-subtle);
@@ -229,7 +226,7 @@
   font-size: var(--text-cell);
   line-height: var(--leading-ui);
   resize: vertical;
-  transition: border-color var(--duration-fast), background var(--duration-fast), box-shadow var(--duration-fast);
+  transition: background var(--duration-fast), box-shadow var(--duration-fast);
 }
 
 .note::placeholder {
@@ -241,7 +238,6 @@
 }
 
 .note:focus-visible {
-  border-color: var(--ops-focus-ring);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--ops-focus-ring) 18%, transparent);
 }
 
@@ -255,13 +251,13 @@
 .btn {
   min-height: 34px;
   padding: 0 var(--space-4);
-  border: 1px solid transparent;
+  border: 0;
   border-radius: var(--ops-control-radius);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
   font-weight: var(--weight-semibold);
-  transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+  transition: background var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
 }
 
 .btn:active {
@@ -283,14 +279,12 @@
 }
 
 .btnReject {
-  border-color: var(--ops-separator, var(--border));
-  background: transparent;
+  background: var(--state-danger-bg);
   color: var(--state-danger);
 }
 
 .btnReject:hover {
-  border-color: color-mix(in srgb, var(--state-danger) 26%, transparent);
-  background: var(--state-danger-bg);
+  background: color-mix(in srgb, var(--state-danger-bg) 80%, var(--state-danger));
 }
 
 .btn:focus-visible {
@@ -503,4 +497,69 @@
   .cardCaret {
     opacity: 1;
   }
+}
+
+/* Skeleton placeholders for the loading.tsx fallback.
+   Mirror the dense row geometry without interactive state. */
+.skeletonCard {
+  cursor: default;
+  pointer-events: none;
+}
+
+.skeletonImage {
+  width: 48px;
+  height: 48px;
+  border-radius: 7px;
+  background: var(--ops-surface-subtle);
+}
+
+.skeletonTitle {
+  width: 70%;
+  height: 12px;
+  border-radius: var(--ops-control-radius);
+  background: var(--ops-surface-subtle);
+}
+
+.skeletonSubtext {
+  width: 45%;
+  height: 10px;
+  border-radius: var(--ops-control-radius);
+  background: var(--ops-surface-subtle);
+}
+
+.skeletonCaret {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--ops-surface-subtle);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeletonImage,
+  .skeletonTitle,
+  .skeletonSubtext,
+  .skeletonCaret {
+    background: linear-gradient(
+      90deg,
+      var(--ops-surface-subtle) 25%,
+      color-mix(in srgb, var(--ops-surface-subtle) 70%, var(--ops-workspace)) 37%,
+      var(--ops-surface-subtle) 63%
+    );
+    background-size: 200% 100%;
+    animation: opsSkeletonShimmer 1.4s var(--ease-standard) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonImage,
+  .skeletonTitle,
+  .skeletonSubtext,
+  .skeletonCaret {
+    background: var(--ops-surface-subtle);
+  }
+}
+
+@keyframes opsSkeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }

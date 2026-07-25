@@ -1,5 +1,7 @@
 'use client';
 
+import { useActionState, useEffect, useRef } from 'react';
+
 import type { PendingModerationValue } from '@/lib/moderation/queues';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
@@ -14,6 +16,26 @@ interface VocabularyInboxProps {
 }
 
 export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
+  const [decideState, decideAction, isDecidePending] = useActionState(decideModerationValueAction, null);
+  const [mapState, mapAction, isMapPending] = useActionState(mapModerationValueAction, null);
+  const pendingDecisionRef = useRef<string | null>(null);
+  const isPending = isDecidePending || isMapPending;
+  const errorState = (decideState && !decideState.ok) ? decideState : ((mapState && !mapState.ok) ? mapState : null);
+
+  useEffect(() => {
+    if (decideState?.ok && window.__opsInboxAdvance) {
+      window.__opsInboxAdvance(decideState.targetId);
+      pendingDecisionRef.current = null;
+    }
+  }, [decideState]);
+
+  useEffect(() => {
+    if (mapState?.ok && window.__opsInboxAdvance) {
+      window.__opsInboxAdvance(mapState.targetId);
+      pendingDecisionRef.current = null;
+    }
+  }, [mapState]);
+
   return (
     <InboxContainer
       items={rows}
@@ -95,8 +117,13 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
             <form
               data-item-id={row.id}
               className={styles.decideSection}
-              action={decideModerationValueAction}
+              action={decideAction}
             >
+              {errorState && errorState.targetId === row.id && (
+                <div style={{ color: 'var(--red)', fontSize: '11px', background: 'var(--red-light)', padding: '6px', borderRadius: '4px' }}>
+                  {errorState.error}
+                </div>
+              )}
               <input type="hidden" name="targetId" value={row.id} />
               
               {/* Canonical Mapping Inputs */}
@@ -126,6 +153,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
                         fontSize: '11.5px',
                         outline: 'none'
                       }}
+                      disabled={isPending}
                     >
                       <option value="product">Product</option>
                       <option value="brand">Brand</option>
@@ -148,6 +176,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
                         fontSize: '11.5px',
                         outline: 'none'
                       }}
+                      disabled={isPending}
                     />
                   </div>
                 </div>
@@ -163,25 +192,42 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
                   name="rationale"
                   placeholder="Add explanation (optional)..."
                   aria-label="Decision rationale"
+                  disabled={isPending}
                 />
               </div>
 
               <div className={styles.actionButtons}>
-                <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
-                  Reject (R)
+                <button
+                  className={`${styles.btn} ${styles.btnReject}`}
+                  type="submit"
+                  name="decision"
+                  value="reject"
+                  disabled={isPending}
+                  onClick={() => { pendingDecisionRef.current = 'reject'; }}
+                >
+                  {isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject (R)'}
                 </button>
-                <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">
-                  Approve (E)
+                <button
+                  className={`${styles.btn} ${styles.btnApprove}`}
+                  type="submit"
+                  name="decision"
+                  value="approve"
+                  disabled={isPending}
+                  onClick={() => { pendingDecisionRef.current = 'approve'; }}
+                >
+                  {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve (E)'}
                 </button>
                 <button
                   className={styles.btn}
                   type="submit"
                   name="decision"
                   value="map"
-                  formAction={mapModerationValueAction}
+                  formAction={mapAction}
                   style={{ background: 'var(--wine)', color: 'var(--paper)', borderColor: 'var(--wine)' }}
+                  disabled={isPending}
+                  onClick={() => { pendingDecisionRef.current = 'map'; }}
                 >
-                  Map (M)
+                  {isPending && pendingDecisionRef.current === 'map' ? 'Mapping…' : 'Map (M)'}
                 </button>
               </div>
             </form>

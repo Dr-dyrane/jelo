@@ -1,5 +1,7 @@
 'use client';
 
+import { useActionState, useEffect, useRef } from 'react';
+
 import type { PendingRetailerApplication } from '@/lib/moderation/queues';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
@@ -29,6 +31,16 @@ type RetailerPayload = {
 };
 
 export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
+  const [actionState, formAction, isPending] = useActionState(decideRetailerApplicationAction, null);
+  const pendingDecisionRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (actionState?.ok && window.__opsInboxAdvance) {
+      window.__opsInboxAdvance(actionState.targetId);
+      pendingDecisionRef.current = null;
+    }
+  }, [actionState]);
+
   return (
     <InboxContainer
       items={rows}
@@ -184,8 +196,13 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
               <form
                 data-item-id={row.id}
                 className={styles.decideSection}
-                action={decideRetailerApplicationAction}
+                action={formAction}
               >
+                {actionState && !actionState.ok && actionState.targetId === row.id && (
+                  <div style={{ color: 'var(--red)', fontSize: '11px', background: 'var(--red-light)', padding: '6px', borderRadius: '4px' }}>
+                    {actionState.error}
+                  </div>
+                )}
                 <input type="hidden" name="targetId" value={row.id} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
@@ -197,14 +214,29 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
                     name="rationale"
                     placeholder="Add explanation (optional)..."
                     aria-label="Decision rationale"
+                    disabled={isPending}
                   />
                 </div>
                 <div className={styles.actionButtons}>
-                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
-                    Decline (R)
+                  <button
+                    className={`${styles.btn} ${styles.btnReject}`}
+                    type="submit"
+                    name="decision"
+                    value="reject"
+                    disabled={isPending}
+                    onClick={() => { pendingDecisionRef.current = 'reject'; }}
+                  >
+                    {isPending && pendingDecisionRef.current === 'reject' ? 'Declining…' : 'Decline (R)'}
                   </button>
-                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">
-                    Approve (E)
+                  <button
+                    className={`${styles.btn} ${styles.btnApprove}`}
+                    type="submit"
+                    name="decision"
+                    value="approve"
+                    disabled={isPending}
+                    onClick={() => { pendingDecisionRef.current = 'approve'; }}
+                  >
+                    {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve (E)'}
                   </button>
                 </div>
               </form>

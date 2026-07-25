@@ -1,7 +1,10 @@
 # Dyrane Ops UI Canon
 
-Status: canonical desktop pattern  
-Reference implementation: `/ops/observations`
+Status: canonical desktop pattern
+
+## Reference implementation
+
+The Observations page (`/ops/observations`) is the canonical reference implementation for all queue pages: Contributions, Edges, Vocabulary, Retailers, and future operational queues.
 
 ## Purpose
 
@@ -42,7 +45,17 @@ The observation collection is the canonical queue pattern.
 - Hover is a faint tonal wash.
 - Selected state is restrained and should not overpower the inspector.
 - Titles and supporting values remain one line where possible.
-- The first item is not selected until the operator explicitly opens it.
+
+## Selection and advancement
+
+### Selection
+A work queue with available items always has an active selection. The inspector is never empty while actionable work remains. When the queue loads and no valid selection exists in the URL, the first item is auto-selected. An invalid URL selection (pointing to a non-existent item) falls back to the first available row.
+
+### Advancement
+Completing an item (approve/reject) automatically advances to the next logical item. The item at the same index is preferred; if no item remains at that index, the previous item is selected. Operators should not repeatedly re-enter the queue by clicking.
+
+### Empty state
+An empty inspector is valid only when the queue has no remaining items.
 
 Do not convert queue rows into decorative dashboard cards.
 
@@ -51,13 +64,11 @@ Do not convert queue rows into decorative dashboard cards.
 The right pane is an inspector, not a stack of cards.
 
 - Use one stable background shared with the workspace.
-- Use hairline separators to define sections.
+- Inspector hierarchy is created through spacing (24–32px between major sections, 8–12px between heading and content), typography, alignment, and restrained surfaces. Internal borders and divider lines are prohibited inside the inspector and on action buttons.
 - Do not use surface-color changes as the primary section separator.
-- Section names use title case, never all caps.
-- Hierarchy comes from spacing, weight, and placement.
 - Product context appears near the top.
 - Evidence and operational properties follow.
-- Internal identifiers are hidden by default under a `Metadata` disclosure.
+- Internal identifiers (Contribution ID, Observation ID, database references) remain available through collapsed `<details>` metadata disclosure but do not compete with decision-critical information in the primary evidence list.
 - Metadata remains accessible and copyable for engineering and audit work.
 
 Canonical section order:
@@ -70,30 +81,26 @@ Canonical section order:
 
 ## Typography
 
-- Do not use all-caps headings or labels.
-- Use title case for section headings.
+- Ops section headings use title case. All-caps labels are not part of the JeloCare interface language. Hierarchy comes from font weight, size, spacing, color, and placement.
 - Use sentence case for action labels, helper text, and status explanations.
-- Use weight and spacing rather than capitalization to create hierarchy.
 - IDs may use monospace through the existing ID primitive.
 
 ## Actions
 
-Decision controls inherit the JeloCare button hierarchy.
+Button hierarchy is expressed through surface tokens, tone, and typography — not borders. All buttons are borderless.
 
-Primary action:
-
-- Approve
-- Uses the canonical primary background and on-primary text token
+Primary action (Approve):
+- `background: var(--accent-solid); color: var(--on-accent); border: 0`
 - Slender control height
 - Squircle radius
 - Visually dominant
 
-Secondary destructive action:
-
-- Reject
-- Quiet or outlined by default
-- Uses danger color for text and hover feedback
+Secondary destructive action (Reject):
+- `background: var(--state-danger-bg); color: var(--state-danger); border: 0`
 - Must not compete equally with Approve
+
+Ghost:
+- Transparent until interaction.
 
 Do not use independent green and red filled buttons as the default pair. Status colors communicate outcomes; they do not replace the product button hierarchy.
 
@@ -107,11 +114,10 @@ Do not use independent green and red filled buttons as the default pair. Status 
 
 ## Borders and separation
 
-Borders are allowed when structural.
+Internal borders and divider lines are prohibited inside the inspector and on action buttons. Borders are allowed when structural elsewhere.
 
 Use:
 
-- subtle hairline separators between inspector sections
 - quiet separators between dense queue rows
 - focus outlines for keyboard navigation
 
@@ -147,16 +153,9 @@ Use the established spacing scale only.
 
 ## State and synchronization
 
-Every moderation decision affects multiple surfaces:
+Queue state, selected detail, sidebar counts, activity, signals, and overview metrics must update as one operational system. Server actions use the shared `revalidateOps()` contract to invalidate all relevant surfaces.
 
-- current queue
-- sidebar queue count
-- queue overview
-- operator activity
-- decision history
-- signals
-
-Server actions must use the shared ops revalidation contract rather than refreshing only the local page. The persistent database remains the source of truth. Optimistic interactions may improve perceived speed, but settled state must reconcile against the server response.
+The persistent database remains the source of truth. Optimistic interactions may improve perceived speed, but settled state must reconcile against the server response.
 
 ## Accessibility
 
@@ -188,7 +187,7 @@ Before shipping an ops screen, confirm:
 
 - Does it inherit the canonical shell?
 - Is the primary collection easy to scan in one second?
-- Is the inspector one continuous plane with structural hairlines?
+- Is the inspector one continuous plane without internal borders or dividers?
 - Are headings title case rather than all caps?
 - Are internal IDs hidden under Metadata?
 - Does the primary action follow JeloCare button tokens?

@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, type ReactNode } from 'react';
+import { useActionState, useEffect, useRef, type ReactNode } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import type { PendingObservation } from '@/lib/moderation/queues';
@@ -25,15 +25,6 @@ interface ObservationsInboxProps {
   canDecide: boolean;
 }
 
-function detailFeedback(state: ObservationActionResult | null, rowId: string): ReactNode {
-  if (!state) return null;
-  if ('targetId' in state && state.targetId !== rowId) return null;
-  if (state.ok) {
-    return <p className={styles.permissionNote} style={{ color: 'var(--state-success)' }}>Recorded {state.decision}.</p>;
-  }
-  return <p className={styles.permissionNote} style={{ color: 'var(--state-danger)' }}>{state.error}</p>;
-}
-
 function observationTitle(row: EnrichedObservation) {
   const subject = humanizeRef(row.subjectRef);
   if (row.product) return `${row.product.brand} ${row.product.name}`;
@@ -45,6 +36,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [actionState, formAction, isPending] = useActionState(decideObservationAction, null);
+  const pendingDecisionRef = useRef<string | null>(null);
 
   const selectedId = searchParams.get('id');
 
@@ -55,6 +47,23 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
     const query = params.toString();
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   }
+
+  // Track which decision is being submitted for contextual button labels.
+  useEffect(() => {
+    if (!isPending) pendingDecisionRef.current = null;
+  }, [isPending]);
+
+  // Auto-advance after a successful decision.
+  useEffect(() => {
+    if (!actionState?.ok) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const advance = (window as any).__opsInboxAdvance as
+      | ((id: string) => void)
+      | undefined;
+    if (advance && actionState.targetId) {
+      advance(actionState.targetId);
+    }
+  }, [actionState]);
 
   return (
     <InboxContainer
@@ -111,6 +120,14 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
             }
           }
         }
+
+        // Show action feedback only for the current row.
+        const feedback = (() => {
+          if (!actionState) return null;
+          if ('targetId' in actionState && actionState.targetId !== row.id) return null;
+          if (actionState.ok) return null; // Success handled by auto-advance, no lingering message.
+          return <p className={styles.permissionNote} style={{ color: 'var(--state-danger)' }}>{actionState.error}</p>;
+        })();
 
         return (
           <div className={styles.detailContent}>
@@ -171,7 +188,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
               <summary>Metadata</summary>
               <div className={styles.metadataBody}>
                 <div className={styles.propertyRow}>
-                  <span className={styles.propertyLabel}>Contribution</span>
+                  <span className={styles.propertyLabel}>Contribution ID</span>
                   <span className={styles.propertyValue}><IdChip value={row.contributionId} label="contribution" /></span>
                 </div>
                 <div className={styles.propertyRow}>
@@ -185,7 +202,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
               <form data-item-id={row.id} className={styles.decideSection} action={formAction}>
                 <input type="hidden" name="targetId" value={row.id} />
                 <h3 className={styles.sectionLabel}>Decision</h3>
-                {detailFeedback(actionState, row.id)}
+                {feedback}
                 <div className={styles.decideField}>
                   <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
                     Rationale
@@ -200,11 +217,25 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                   />
                 </div>
                 <div className={styles.actionButtons}>
-                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending}>
-                    {isPending ? 'Working…' : 'Reject'}
+                  <button
+                    className={`${styles.btn} ${styles.btnReject}`}
+                    type="submit"
+                    name="decision"
+                    value="reject"
+                    disabled={isPending}
+                    onClick={() => { pendingDecisionRef.current = 'reject'; }}
+                  >
+                    {isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}
                   </button>
-                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending}>
-                    {isPending ? 'Working…' : 'Approve'}
+                  <button
+                    className={`${styles.btn} ${styles.btnApprove}`}
+                    type="submit"
+                    name="decision"
+                    value="approve"
+                    disabled={isPending}
+                    onClick={() => { pendingDecisionRef.current = 'approve'; }}
+                  >
+                    {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}
                   </button>
                 </div>
               </form>

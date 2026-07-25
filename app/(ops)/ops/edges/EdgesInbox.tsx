@@ -1,5 +1,7 @@
 'use client';
 
+import { useActionState, useEffect, useRef } from 'react';
+
 import type { PendingEdge } from '@/lib/moderation/queues';
 import type { Product } from '@/data/products';
 import { humanizeRef } from '@/lib/humanize/refs';
@@ -24,6 +26,19 @@ interface EdgesInboxProps {
 }
 
 export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
+  const [actionState, formAction, isPending] = useActionState(decideEdgeAction, null);
+  const pendingDecisionRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!actionState?.ok) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const advance = (window as any).__opsInboxAdvance as ((id: string) => void) | undefined;
+    if (advance && actionState.targetId) {
+      advance(actionState.targetId);
+    }
+    pendingDecisionRef.current = null;
+  }, [actionState]);
+
   return (
     <InboxContainer
       items={rows}
@@ -224,8 +239,13 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
               <form
                 data-item-id={row.id}
                 className={styles.decideSection}
-                action={decideEdgeAction}
+                action={formAction}
               >
+                {actionState && !actionState.ok && actionState.targetId === row.id && (
+                  <div style={{ color: 'var(--red)', fontSize: '11px', background: 'var(--red-light)', padding: '6px', borderRadius: '4px' }}>
+                    {actionState.error}
+                  </div>
+                )}
                 <input type="hidden" name="targetId" value={row.id} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
@@ -237,14 +257,29 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
                     name="rationale"
                     placeholder="Add explanation (optional)..."
                     aria-label="Decision rationale"
+                    disabled={isPending}
                   />
                 </div>
                 <div className={styles.actionButtons}>
-                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject">
-                    Reject (R)
+                  <button
+                    className={`${styles.btn} ${styles.btnReject}`}
+                    type="submit"
+                    name="decision"
+                    value="reject"
+                    disabled={isPending}
+                    onClick={() => { pendingDecisionRef.current = 'reject'; }}
+                  >
+                    {isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject (R)'}
                   </button>
-                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve">
-                    Approve (E)
+                  <button
+                    className={`${styles.btn} ${styles.btnApprove}`}
+                    type="submit"
+                    name="decision"
+                    value="approve"
+                    disabled={isPending}
+                    onClick={() => { pendingDecisionRef.current = 'approve'; }}
+                  >
+                    {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve (E)'}
                   </button>
                 </div>
               </form>

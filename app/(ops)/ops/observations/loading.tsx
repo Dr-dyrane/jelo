@@ -1,14 +1,26 @@
-import { Skeleton } from '@/components/ops/state/Skeleton';
-import opsStyles from '../../ops.module.css';
+import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
+import styles from '@/components/ops/inbox/inbox.module.css';
+import './observations-shell.module.css';
 
-// Suspense fallback while the force-dynamic query resolves. Skeleton in the inbox
-// row geometry — never a spinner, no reflow into the ready state.
+// Suspense fallback while the force-dynamic query resolves. Skeleton grid
+// mirrors the ready-state collection geometry exactly so there is no reflow.
 export default function LoadingObservations() {
   return (
-    <>
-      <h1 className={opsStyles.h1}>Community observations</h1>
-      <p className={opsStyles.lede}>Reported prices and outcomes awaiting review.</p>
-      <Skeleton variant="row" count={8} />
-    </>
+    <OpsWorkspace title="Observations">
+      <div className={styles.cardGrid} role="status" aria-label="Loading observations">
+        {Array.from({ length: 9 }).map((_, index) => (
+          <div key={index} className={`${styles.card} ${styles.skeletonCard}`} aria-hidden="true">
+            <div className={styles.cardInner}>
+              <div className={styles.skeletonImage} />
+              <div className={styles.cardBody}>
+                <div className={styles.skeletonTitle} />
+                <div className={styles.skeletonSubtext} />
+              </div>
+              <div className={styles.skeletonCaret} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </OpsWorkspace>
   );
 }

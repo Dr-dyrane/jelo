@@ -1113,6 +1113,6 @@
     box-sizing: border-box;
     padding: var(--space-4);
     gap: var(--space-4);
-    border-left: 1px solid var(--border);
+    border-left: 0;
   }
 }
