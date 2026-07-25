@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import styles from './inbox.module.css';
 
 interface InboxContainerProps<T> {
@@ -26,7 +25,6 @@ export function InboxContainer<T extends { id: string }>({
   const [internalIndex, setInternalIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const pathname = usePathname();
 
   const controlledIndex = selectedId != null ? items.findIndex(item => item.id === selectedId) : null;
   const activeIndex = controlledIndex != null && controlledIndex >= 0 ? controlledIndex : internalIndex;
@@ -153,57 +151,8 @@ export function InboxContainer<T extends { id: string }>({
     }
   }
 
-  // Generate Linear-style breadcrumbs
-  function getBreadcrumbs() {
-    const segments = pathname.split('/').filter(Boolean);
-    if (segments.length === 0) return 'System / Overview';
-    
-    return segments
-      .map((segment, idx) => {
-        if (idx === 0) return 'Ops';
-        if (segment === 'contributions') return 'Queues / Contributions';
-        if (segment === 'edges') return 'Queues / Edges';
-        if (segment === 'observations') return 'Queues / Observations';
-        if (segment === 'vocabulary') return 'Queues / Vocabulary';
-        if (segment === 'retailers') return 'Queues / Retailers';
-        if (segment === 'signals') return 'System / Signals';
-        return segment.charAt(0).toUpperCase() + segment.slice(1);
-      })
-      .join(' / ');
-  }
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
-      {/* Linear top bar breadcrumbs & keyboard hints */}
-      <header style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 var(--space-4)',
-        background: 'var(--ghost-bg)',
-        backdropFilter: 'blur(12px) saturate(140%)',
-        WebkitBackdropFilter: 'blur(12px) saturate(140%)',
-        fontSize: '11px',
-        userSelect: 'none',
-        flexShrink: 0,
-        borderBottom: '1px solid var(--border)',
-        zIndex: 10,
-        height: '40px',
-      }}>
-        <div style={{ fontWeight: 500, color: 'var(--muted)' }}>
-          {getBreadcrumbs()}
-        </div>
-        {!isMobile ? (
-          <div style={{ color: 'var(--muted)', display: 'flex', gap: '12px' }}>
-            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>j</kbd>/<kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>k</kbd> Navigate</span>
-            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>Enter</kbd> Focus</span>
-            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>E</kbd> Approve</span>
-            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>R</kbd> Reject</span>
-            <span><kbd style={{ background: 'var(--cream)', border: '1px solid var(--border)', padding: '1px 3px', borderRadius: '3px' }}>M</kbd> Map</span>
-          </div>
-        ) : null}
-      </header>
-
       {/* Main Inbox split view */}
       <div className={styles.inboxLayout}>
         {/* Left List Pane */}
@@ -239,11 +188,7 @@ export function InboxContainer<T extends { id: string }>({
               <div key={activeItem.id}>
                 {renderItemDetails(activeItem)}
               </div>
-            ) : (
-              <div className={styles.detailPlaceholder}>
-                <p>Select a {itemTypeLabel} from the list to view details.</p>
-              </div>
-            )}
+            ) : null}
           </div>
         ) : null}
 
@@ -251,7 +196,6 @@ export function InboxContainer<T extends { id: string }>({
         {isMobile && detailId && activeItem && (
           <div className={styles.bottomSheet} role="dialog" aria-modal="true">
             <div className={styles.bottomSheetHeader}>
-              <strong style={{ fontSize: '12px', fontWeight: 600 }}>Triage Detail</strong>
               <button
                 className={styles.bottomSheetClose}
                 onClick={() => closeDetail()}
