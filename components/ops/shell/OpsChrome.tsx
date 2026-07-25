@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, Menu, Moon, Store, Sun, UsersRound, X } from 'lucide-react';
+import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, PanelLeft, Store, UsersRound } from 'lucide-react';
 import { authClient } from '@/lib/auth/client';
 import type { ModerationOperator } from '@/lib/moderation/access';
 import type { QueueCounts } from '@/lib/moderation/queues';
 import type { OpsSidebarSummary } from '@/lib/moderation/sidebar-summary';
 import { OpsSidebar, type OpsNavigationSection } from './OpsSidebar';
 import styles from '@/app/(ops)/ops.module.css';
-import tablet from './ops-tablet.module.css';
+import adaptive from './ops-tablet.module.css';
 
 interface OpsChromeProps {
   operator: ModerationOperator;
@@ -22,7 +22,7 @@ interface OpsChromeProps {
 export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChromeProps) {
   const pathname = usePathname();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [tabletSidebarOpen, setTabletSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -31,17 +31,17 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   }, []);
 
   useEffect(() => {
-    setTabletSidebarOpen(false);
+    setSidebarOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    if (!tabletSidebarOpen) return;
+    if (!sidebarOpen) return;
     function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') setTabletSidebarOpen(false);
+      if (event.key === 'Escape') setSidebarOpen(false);
     }
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [tabletSidebarOpen]);
+  }, [sidebarOpen]);
 
   const toggleTheme = (targetTheme: 'light' | 'dark') => {
     document.documentElement.setAttribute('data-theme', targetTheme);
@@ -88,22 +88,16 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
     ...(manageItems.length > 0 ? [{ label: 'Manage', items: manageItems }] : []),
   ];
 
-  const currentDestination = useMemo(
-    () => allItems.find(item => item.href === pathname) ?? { label: 'Operations', count: null },
-    [allItems, pathname],
-  );
-
-  const avatarPlaceholder = sidebarSummary.displayName
-    .split(' ')
-    .map(word => word[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase() || 'OP';
+  const tabletDestinations = [
+    { href: '/ops', label: 'Home' },
+    { href: '/ops/contributions', label: 'Queue' },
+    { href: '/ops/observations', label: 'Review' },
+  ];
 
   return (
     <div className={styles.body}>
-      <div className={styles.container} data-ops-shell data-tablet-sidebar-open={tabletSidebarOpen ? 'true' : 'false'}>
-        <div className={tablet.sidebarLayer} data-ops-sidebar-layer>
+      <div className={styles.container} data-ops-shell data-sidebar-open={sidebarOpen ? 'true' : 'false'}>
+        <div className={adaptive.sidebarLayer} data-ops-sidebar-layer>
           <OpsSidebar
             operator={operator}
             summary={sidebarSummary}
@@ -117,54 +111,37 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
 
         <button
           type="button"
-          className={tablet.sidebarScrim}
-          onClick={() => setTabletSidebarOpen(false)}
+          className={adaptive.sidebarScrim}
+          onClick={() => setSidebarOpen(false)}
           aria-label="Close navigation"
-          tabIndex={tabletSidebarOpen ? 0 : -1}
+          tabIndex={sidebarOpen ? 0 : -1}
         />
 
-        <aside className={`${styles.rail} ${tablet.rail}`}>
-          <div className={styles.railLogo} style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400 }}>J</div>
-          <nav className={styles.railNav}>
-            {allItems.map(item => {
-              const isActive = pathname === item.href;
-              const Icon = item.icon;
-              return (
-                <Link key={item.href} href={item.href} title={item.label} className={`${styles.railLink} ${isActive ? styles.railLinkActive : ''}`}>
-                  <Icon size={18} strokeWidth={isActive ? 2.5 : 1.8} />
-                  {item.count != null && item.count > 0 ? <span className={styles.railBadge}>{item.count}</span> : null}
-                </Link>
-              );
-            })}
-          </nav>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
-            <button type="button" className={styles.themeBtn} onClick={() => toggleTheme(theme === 'light' ? 'dark' : 'light')} style={{ width: '32px', height: '32px' }}>
-              {theme === 'light' ? <Sun size={15} /> : <Moon size={15} />}
-            </button>
-            <div className={styles.operatorInitials} title={`${sidebarSummary.displayName} (${operator.role})`}>{avatarPlaceholder}</div>
-          </div>
-        </aside>
-
-        <div data-ops-workspace className={`${styles.contentWrapper} ${tablet.contentWrapper}`}>
-          <header className={`${styles.mobileHeader} ${tablet.tabletHeader}`}>
+        <div data-ops-workspace className={`${styles.contentWrapper} ${adaptive.contentWrapper}`}>
+          <nav className={adaptive.tabletIsland} aria-label="Primary operations navigation">
             <button
               type="button"
-              className={tablet.headerButton}
-              onClick={() => setTabletSidebarOpen(open => !open)}
-              aria-label={tabletSidebarOpen ? 'Close navigation' : 'Open navigation'}
-              aria-expanded={tabletSidebarOpen}
+              className={adaptive.islandMenu}
+              onClick={() => setSidebarOpen(open => !open)}
+              aria-label={sidebarOpen ? 'Close navigation' : 'Open navigation'}
+              aria-expanded={sidebarOpen}
             >
-              {tabletSidebarOpen ? <X size={20} /> : <Menu size={20} />}
+              <PanelLeft size={18} strokeWidth={1.9} />
             </button>
-            <div className={tablet.headerIdentity}>
-              <strong>{currentDestination.label}</strong>
-              {currentDestination.count != null ? <span>{currentDestination.count} pending</span> : <span>JeloCare Ops</span>}
-            </div>
-            <div className={styles.operatorInitials} style={{ width: '28px', height: '28px', fontSize: '10px' }}>{avatarPlaceholder}</div>
-          </header>
+            {tabletDestinations.map(item => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`${adaptive.islandLink} ${pathname === item.href ? adaptive.islandLinkActive : ''}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-          <main data-ops-main className={`${styles.main} ${tablet.main}`}>{children}</main>
-          <div data-ops-detail id="ops-detail-pane" className={`${styles.detailPane} ${tablet.detailPane}`} aria-live="polite" />
+          <main data-ops-main className={`${styles.main} ${adaptive.main}`}>{children}</main>
+          <div data-ops-detail id="ops-detail-pane" className={`${styles.detailPane} ${adaptive.detailPane}`} aria-live="polite" />
+
           <nav className={styles.mobileBar}>
             {allItems.map(item => {
               const isActive = pathname === item.href;
