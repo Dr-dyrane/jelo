@@ -17,7 +17,8 @@ export async function getAuthSubject(): Promise<AuthIdentity | null> {
     const user = session?.user;
     if (!user?.id) return null;
     return { subject: user.id, email: user.email ?? null };
-  } catch {
+  } catch (err) {
+    console.error('[getAuthSubject Error]:', err);
     return null;
   }
 }

@@ -31,17 +31,25 @@ export async function operatorAuthSubject(): Promise<string | null> {
 // Looks up an active operator by auth subject. Returns null for an unknown or
 // deactivated subject, so authorization is an explicit allowlist with default deny.
 export async function resolveActiveOperator(sql: Sql, authSubject: string | null): Promise<ModerationOperator | null> {
-  if (!authSubject) return null;
+  if (!authSubject) {
+    console.log('[Console Access]: No authSubject found in verified session.');
+    return null;
+  }
   const [row] = await sql<{ id: string; auth_subject: string; role: ModerationRole }[]>`
     select id, auth_subject, role
     from moderation_operators
     where auth_subject = ${authSubject} and active = true
   `;
-  return row ? { id: row.id, authSubject: row.auth_subject, role: row.role } : null;
+  if (!row) {
+    console.log(`[Console Access]: Subject "${authSubject}" is not in moderation_operators allowlist.`);
+    return null;
+  }
+  return { id: row.id, authSubject: row.auth_subject, role: row.role };
 }
 
 export async function currentOperator(sql: Sql): Promise<ModerationOperator | null> {
-  return resolveActiveOperator(sql, await operatorAuthSubject());
+  const subject = await operatorAuthSubject();
+  return resolveActiveOperator(sql, subject);
 }
 
 // Gate for every console entry point. Throws unless the request carries a verified,
