@@ -51,6 +51,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0005 · Structured observation and behavioural events](./adr/0005-structured-observation-events.md)
 - [ADR 0006 · Store ranking excludes commercial and popularity signals](./adr/0006-store-ranking-excludes-commercial-signals.md)
 - [ADR 0007 · Internal moderation and operations console](./adr/0007-internal-moderation-operations-console.md)
+- [ADR 0008 · Public-surface abuse and browser-security hardening](./adr/0008-public-surface-abuse-and-browser-hardening.md)
 
 ## What is authoritative
 

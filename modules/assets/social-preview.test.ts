@@ -18,7 +18,7 @@ test('default social preview is a crawler-safe 1200 × 630 JPEG', async () => {
 });
 
 test('site metadata binds Open Graph and Twitter to the reviewed preview', async () => {
-  const layoutSource = await readFile(path.join(process.cwd(), 'app/(site)/layout.tsx'), 'utf8');
+  const layoutSource = await readFile(path.join(process.cwd(), 'app/layout.tsx'), 'utf8');
 
   assert.match(layoutSource, /images:\s*\[\{[\s\S]*url: '\/social\/jelocare-open-graph-v1\.jpg'/);
   assert.match(layoutSource, /card: 'summary_large_image'/);
