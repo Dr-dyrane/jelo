@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import styles from './inbox.module.css';
 
 interface InboxContainerProps<T> {
@@ -185,9 +185,7 @@ export function InboxContainer<T extends { id: string }>({
         {!isMobile ? (
           <div className={styles.detailPane}>
             {activeItem ? (
-              <div key={activeItem.id}>
-                {renderItemDetails(activeItem)}
-              </div>
+              <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>
             ) : null}
           </div>
         ) : null}
