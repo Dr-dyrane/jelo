@@ -1,6 +1,7 @@
 'use client';
 
 import type { CommerceSignal } from '@/lib/moderation/queues';
+import type { Product } from '@/data/products';
 import { humanizeRef } from '@/lib/humanize/refs';
 import { money } from '@/lib/format/money';
 import { ProductRef } from '@/components/ops/chips/ProductRef';
@@ -10,8 +11,12 @@ import { IdChip } from '@/components/ops/chips/IdChip';
 import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
+export interface EnrichedCommerceSignal extends CommerceSignal {
+  product?: Product;
+}
+
 interface SignalsInboxProps {
-  rows: CommerceSignal[];
+  rows: EnrichedCommerceSignal[];
 }
 
 export function SignalsInbox({ rows }: SignalsInboxProps) {
@@ -42,6 +47,42 @@ export function SignalsInbox({ rows }: SignalsInboxProps) {
                 Target Product Reference
               </div>
               <ProductRef subject={product} />
+              {row.product ? (
+                <div style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  background: 'var(--card)',
+                  padding: 'var(--space-3)',
+                  borderRadius: 'var(--radius-card)',
+                  boxShadow: 'var(--elevation-1)',
+                  marginTop: '6px'
+                }}>
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    position: 'relative',
+                    background: 'var(--cream)',
+                    borderRadius: 'var(--radius-control)',
+                    display: 'grid',
+                    placeItems: 'center',
+                    flexShrink: 0
+                  }}>
+                    <img
+                      src={row.product.image || '/product-placeholder.svg'}
+                      alt={row.product.name}
+                      style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
+                    <strong style={{ fontSize: '11px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                      {row.product.brand} {row.product.name}
+                    </strong>
+                    <span style={{ fontSize: '10px', color: 'var(--muted)' }}>
+                      Category: {row.product.category} · Size: {row.product.size}
+                    </span>
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             {/* Properties Grid */}

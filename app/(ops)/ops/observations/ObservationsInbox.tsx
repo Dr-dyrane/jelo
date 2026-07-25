@@ -1,6 +1,7 @@
 'use client';
 
 import type { PendingObservation } from '@/lib/moderation/queues';
+import type { Product } from '@/data/products';
 import { humanizeRef } from '@/lib/humanize/refs';
 import { money } from '@/lib/format/money';
 import { outcomeLabel, outcomeTone } from '@/lib/humanize/outcomes';
@@ -12,8 +13,12 @@ import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
 import { decideObservationAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
+export interface EnrichedObservation extends PendingObservation {
+  product?: Product;
+}
+
 interface ObservationsInboxProps {
-  rows: PendingObservation[];
+  rows: EnrichedObservation[];
   canDecide: boolean;
 }
 
@@ -45,6 +50,30 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       }}
       renderItemDetails={(row) => {
         const subject = humanizeRef(row.subjectRef);
+
+        // Price comparison details
+        let priceComparisonPill = null;
+        let averagePriceNgn: number | null = null;
+        if (row.kind === 'price' && row.amountNgn != null && row.product?.offers) {
+          const prices = row.product.offers
+            .map(o => o.priceNgn)
+            .filter((p): p is number => p != null && p > 0);
+          
+          if (prices.length > 0) {
+            averagePriceNgn = prices.reduce((sum, p) => sum + p, 0) / prices.length;
+            const diff = row.amountNgn - averagePriceNgn;
+            const pct = (diff / averagePriceNgn) * 100;
+
+            if (pct <= -20) {
+              priceComparisonPill = <StatusPill tone="success">{`Low Price (${Math.round(pct)}%)`}</StatusPill>;
+            } else if (pct >= 20) {
+              priceComparisonPill = <StatusPill tone="danger">{`High Price (+${Math.round(pct)}%)`}</StatusPill>;
+            } else {
+              priceComparisonPill = <StatusPill tone="info">Typical Price</StatusPill>;
+            }
+          }
+        }
+
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {/* Title / Target */}
@@ -54,6 +83,44 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
               </div>
               <ProductRef subject={subject} />
             </div>
+
+            {/* Rich Product Details Block */}
+            {row.product ? (
+              <div style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                background: 'var(--card)',
+                padding: 'var(--space-3)',
+                borderRadius: 'var(--radius-card)',
+                boxShadow: 'var(--elevation-1)',
+                marginTop: '4px'
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  position: 'relative',
+                  background: 'var(--cream)',
+                  borderRadius: 'var(--radius-control)',
+                  display: 'grid',
+                  placeItems: 'center',
+                  flexShrink: 0
+                }}>
+                  <img
+                    src={row.product.image || '/product-placeholder.svg'}
+                    alt={row.product.name}
+                    style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                  />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
+                  <strong style={{ fontSize: '11.5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                    {row.product.brand} {row.product.name}
+                  </strong>
+                  <span style={{ fontSize: '10.5px', color: 'var(--muted)' }}>
+                    Category: {row.product.category} · Size: {row.product.size}
+                  </span>
+                </div>
+              </div>
+            ) : null}
 
             {/* Linear Properties Grid */}
             <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
@@ -73,6 +140,18 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                   )}
                 </span>
               </div>
+              {priceComparisonPill ? (
+                <div className={styles.propertyRow}>
+                  <span className={styles.propertyLabel}>Analysis</span>
+                  <span className={styles.propertyValue}>{priceComparisonPill}</span>
+                </div>
+              ) : null}
+              {averagePriceNgn ? (
+                <div className={styles.propertyRow}>
+                  <span className={styles.propertyLabel}>Avg Price</span>
+                  <span className={styles.propertyValue}>{money(averagePriceNgn)}</span>
+                </div>
+              ) : null}
               <div className={styles.propertyRow}>
                 <span className={styles.propertyLabel}>Reported</span>
                 <span className={styles.propertyValue}><RelativeTime iso={row.createdAt} /></span>

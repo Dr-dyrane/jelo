@@ -1,6 +1,7 @@
 'use client';
 
 import type { PendingEdge } from '@/lib/moderation/queues';
+import type { Product } from '@/data/products';
 import { humanizeRef } from '@/lib/humanize/refs';
 import { ProductRef } from '@/components/ops/chips/ProductRef';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
@@ -10,8 +11,13 @@ import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
 import { decideEdgeAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
+export interface EnrichedEdge extends PendingEdge {
+  subjectProduct?: Product;
+  objectProduct?: Product;
+}
+
 interface EdgesInboxProps {
-  rows: PendingEdge[];
+  rows: EnrichedEdge[];
   canDecide: boolean;
 }
 
@@ -49,18 +55,92 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
         const object = humanizeRef(objectRefStr);
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {/* Subject Entity details */}
             <div>
               <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Subject Entity
               </div>
               <ProductRef subject={subject} />
+              {row.subjectProduct ? (
+                <div style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  background: 'var(--card)',
+                  padding: 'var(--space-3)',
+                  borderRadius: 'var(--radius-card)',
+                  boxShadow: 'var(--elevation-1)',
+                  marginTop: '6px'
+                }}>
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    position: 'relative',
+                    background: 'var(--cream)',
+                    borderRadius: 'var(--radius-control)',
+                    display: 'grid',
+                    placeItems: 'center',
+                    flexShrink: 0
+                  }}>
+                    <img
+                      src={row.subjectProduct.image || '/product-placeholder.svg'}
+                      alt={row.subjectProduct.name}
+                      style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
+                    <strong style={{ fontSize: '11px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                      {row.subjectProduct.brand} {row.subjectProduct.name}
+                    </strong>
+                    <span style={{ fontSize: '10px', color: 'var(--muted)' }}>
+                      Category: {row.subjectProduct.category} · Size: {row.subjectProduct.size}
+                    </span>
+                  </div>
+                </div>
+              ) : null}
             </div>
 
+            {/* Object Entity details */}
             <div>
               <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                 Object Target Entity
               </div>
               <ProductRef subject={object} />
+              {row.objectProduct ? (
+                <div style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  background: 'var(--card)',
+                  padding: 'var(--space-3)',
+                  borderRadius: 'var(--radius-card)',
+                  boxShadow: 'var(--elevation-1)',
+                  marginTop: '6px'
+                }}>
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    position: 'relative',
+                    background: 'var(--cream)',
+                    borderRadius: 'var(--radius-control)',
+                    display: 'grid',
+                    placeItems: 'center',
+                    flexShrink: 0
+                  }}>
+                    <img
+                      src={row.objectProduct.image || '/product-placeholder.svg'}
+                      alt={row.objectProduct.name}
+                      style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
+                    <strong style={{ fontSize: '11px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                      {row.objectProduct.brand} {row.objectProduct.name}
+                    </strong>
+                    <span style={{ fontSize: '10px', color: 'var(--muted)' }}>
+                      Category: {row.objectProduct.category} · Size: {row.objectProduct.size}
+                    </span>
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             {/* Properties Grid */}
