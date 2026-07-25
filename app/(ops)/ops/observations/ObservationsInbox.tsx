@@ -63,7 +63,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       selectedId={selectedId}
       onSelect={item => setSelectedId(item.id)}
       onDeselect={() => setSelectedId(null)}
-      renderItemRow={(row, isActive) => {
+      renderItemRow={(row) => {
         const subject = humanizeRef(row.subjectRef);
         const image = row.product?.image || subject.image || '/product-placeholder.svg';
         const title = observationTitle(row);
@@ -82,12 +82,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                 {primaryValue} · <RelativeTime iso={row.createdAt} />
               </div>
             </div>
-            <ChevronRight
-              size={16}
-              className={styles.cardCaret}
-              aria-hidden="true"
-              strokeWidth={1.75}
-            />
+            <ChevronRight size={16} className={styles.cardCaret} aria-hidden="true" strokeWidth={1.75} />
           </div>
         );
       }}
@@ -140,8 +135,8 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
               </div>
             </section>
 
-            <section>
-              <p className={styles.sectionLabel}>Evidence</p>
+            <section className={styles.detailSection}>
+              <h3 className={styles.sectionLabel}>Evidence</h3>
               <div className={styles.propertiesSection}>
                 <div className={styles.propertyRow}>
                   <span className={styles.propertyLabel}>Observed value</span>
@@ -169,24 +164,31 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                   <span className={styles.propertyLabel}>Reported</span>
                   <span className={styles.propertyValue}><RelativeTime iso={row.createdAt} /></span>
                 </div>
+              </div>
+            </section>
+
+            <details className={styles.metadataDisclosure}>
+              <summary>Metadata</summary>
+              <div className={styles.metadataBody}>
                 <div className={styles.propertyRow}>
                   <span className={styles.propertyLabel}>Contribution</span>
-                  <span className={styles.propertyValue}><IdChip value={row.contributionId} label="source" /></span>
+                  <span className={styles.propertyValue}><IdChip value={row.contributionId} label="contribution" /></span>
                 </div>
                 <div className={styles.propertyRow}>
                   <span className={styles.propertyLabel}>Observation ID</span>
-                  <span className={styles.propertyValue}><IdChip value={row.id} label="obs" /></span>
+                  <span className={styles.propertyValue}><IdChip value={row.id} label="observation" /></span>
                 </div>
               </div>
-            </section>
+            </details>
 
             {canDecide ? (
               <form data-item-id={row.id} className={styles.decideSection} action={formAction}>
                 <input type="hidden" name="targetId" value={row.id} />
+                <h3 className={styles.sectionLabel}>Decision</h3>
                 {detailFeedback(actionState, row.id)}
                 <div className={styles.decideField}>
                   <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
-                    Decision rationale
+                    Rationale
                   </label>
                   <textarea
                     id={`rationale-${row.id}`}
