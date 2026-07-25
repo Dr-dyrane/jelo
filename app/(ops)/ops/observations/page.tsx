@@ -7,6 +7,7 @@ import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { ObservationsInbox } from './ObservationsInbox';
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from '@/components/ops/inbox/inbox.module.css';
+import './observations-shell.module.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,8 +27,8 @@ export default async function ObservationsQueue() {
     return row;
   }));
 
-  const workspace = (
-    <>
+  return (
+    <OpsWorkspace title="Observations">
       {enrichedRows.length === 0 ? (
         <EmptyState
           title="Nothing awaiting review"
@@ -41,12 +42,6 @@ export default async function ObservationsQueue() {
           ) : null}
         </>
       )}
-    </>
-  );
-
-  return (
-    <OpsWorkspace title="Observations">
-      {workspace}
     </OpsWorkspace>
   );
 }
