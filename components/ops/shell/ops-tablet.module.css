@@ -13,8 +13,20 @@
   min-width: 0;
 }
 
-/* Laptop shell: canonical sidebar persists; collection remains two columns; detail floats above it. */
-@media (min-width: 769px) and (max-width: 1279px) {
+/*
+ * Five-stage shell progression.
+ * Sidebar visuals remain owned entirely by the canonical OpsSidebar styles.
+ * This file changes only placement and presentation.
+ *
+ * >= 1440: sidebar + 3 columns + docked pane
+ * 1180-1439: sidebar + 2 columns + docked pane
+ * 820-1179: sidebar + 2 columns + right overlay sheet
+ * 430-819: left overlay sidebar + 2 columns + right overlay sheet
+ * < 430: left overlay sidebar + 1 column + right overlay sheet
+ */
+
+/* Persistent-sidebar shells. */
+@media (min-width: 820px) and (max-width: 1439px) {
   :global([data-ops-shell]) {
     min-height: 100dvh;
     padding: var(--ops-shell-inset);
@@ -28,14 +40,6 @@
 
   .sidebarLayer > :global(aside) {
     display: flex !important;
-    width: var(--ops-sidebar-width);
-    height: calc(100dvh - (var(--ops-shell-inset) * 2));
-    flex: 0 0 var(--ops-sidebar-width);
-    padding: var(--space-3);
-    border: 0;
-    border-radius: var(--ops-shell-radius);
-    background: var(--ops-instrument);
-    box-shadow: var(--ops-instrument-shadow);
   }
 
   .contentWrapper {
@@ -47,7 +51,10 @@
     min-height: 0;
     overflow: auto;
   }
+}
 
+/* Compact shell: persistent sidebar, right overlay inspector. */
+@media (min-width: 820px) and (max-width: 1179px) {
   .detailPane {
     position: fixed;
     top: var(--ops-shell-inset);
@@ -64,8 +71,8 @@
   }
 }
 
-/* Tablet shell: centered island, canonical sidebar and inspector presented as overlays. */
-@media (min-width: 430px) and (max-width: 768px) {
+/* Touch and phone shells: same sidebar, floated from the left. */
+@media (max-width: 819px) {
   :global([data-ops-shell]) {
     min-height: 100dvh !important;
     padding: 0 !important;
@@ -86,16 +93,7 @@
   }
 
   .sidebarLayer > :global(aside) {
-    position: relative;
-    top: auto;
     display: flex !important;
-    width: 100%;
-    height: calc(100dvh - (var(--space-3) * 2));
-    padding: var(--space-3);
-    border: 0;
-    border-radius: var(--ops-shell-radius);
-    background: var(--ops-instrument);
-    box-shadow: var(--ops-floating-shadow);
   }
 
   :global([data-ops-shell][data-sidebar-open='true']) .sidebarLayer {
@@ -203,7 +201,7 @@
     bottom: var(--space-3);
     z-index: calc(var(--z-palette) + 3);
     display: block !important;
-    width: min(350px, calc(100vw - (var(--space-6) * 2)));
+    width: min(350px, calc(100vw - (var(--space-3) * 2)));
     min-width: 0;
     padding: 0 !important;
     overflow: visible !important;
