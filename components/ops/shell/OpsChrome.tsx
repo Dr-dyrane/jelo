@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -30,6 +30,8 @@ interface OpsChromeProps {
 export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
   const pathname = usePathname();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Sync theme state on load safely without triggering cascading synchronous renders
   useEffect(() => {
@@ -39,6 +41,21 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
     }, 0);
     return () => clearTimeout(timer);
   }, []);
+
+  // Handle click outside to close the dropdown menu
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
 
   const toggleTheme = (targetTheme: 'light' | 'dark') => {
     document.documentElement.setAttribute('data-theme', targetTheme);
@@ -89,9 +106,16 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
       <div className={styles.container}>
         {/* 1. Desktop Sidebar */}
         <aside className={styles.sidebar}>
-          <div>
+          <div style={{ position: 'relative' }} ref={dropdownRef}>
             {/* Unified User & Workspace Selector Dropdown (Linear style) */}
-            <div className={styles.workspaceHeader} title={`${emailVal} (${operator.role})`}>
+            <button
+              type="button"
+              className={styles.workspaceHeader}
+              onClick={() => setShowDropdown(!showDropdown)}
+              style={{ width: '100%', border: 0, background: 'transparent', textAlign: 'left' }}
+              aria-haspopup="true"
+              aria-expanded={showDropdown}
+            >
               <div className={styles.operatorAvatarWrapper}>
                 <div className={styles.operatorAvatar}>{avatarPlaceholder}</div>
                 <div className={styles.statusDot} title="Live session connection active" />
@@ -102,8 +126,32 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
                   {shortNamePlaceholder} ({operator.role})
                 </span>
               </div>
-              <ChevronDown size={14} style={{ color: 'var(--muted)' }} />
-            </div>
+              <ChevronDown size={14} style={{ color: 'var(--muted)', transform: showDropdown ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s ease' }} />
+            </button>
+
+            {/* Dropdown Menu Option Panel */}
+            {showDropdown && (
+              <div className={styles.dropdownMenu}>
+                <div className={styles.dropdownHeader}>
+                  <strong style={{ fontSize: '12px', color: 'var(--ink)' }}>{shortNamePlaceholder}</strong>
+                  <span style={{ fontSize: '10.5px', color: 'var(--muted)', wordBreak: 'break-all' }}>{emailVal}</span>
+                  <span style={{ fontSize: '9px', color: 'var(--wine)', fontWeight: 600, textTransform: 'capitalize', marginTop: '2px' }}>
+                    Role: {operator.role}
+                  </span>
+                </div>
+                <button type="button" className={styles.dropdownItem} onClick={() => { alert('Workspace configurations are canonical.'); setShowDropdown(false); }}>
+                  Workspace Settings
+                </button>
+                <button type="button" className={styles.dropdownItem} onClick={() => { alert('Operator details managed via database access policies.'); setShowDropdown(false); }}>
+                  Operator Profile
+                </button>
+                <div className={styles.dropdownDivider} />
+                <button type="button" className={styles.dropdownItem} onClick={handleSignOut} style={{ color: 'var(--state-danger)' }}>
+                  <LogOut size={13} style={{ color: 'inherit' }} />
+                  <span>Sign out</span>
+                </button>
+              </div>
+            )}
 
             {/* Navigation Group: Queues */}
             <div className={styles.navGroup}>
@@ -185,17 +233,6 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
                 <Moon size={13} />
               </button>
             </div>
-
-            {/* Logout button */}
-            <button 
-              type="button" 
-              className={styles.footerLogoutBtn}
-              onClick={handleSignOut}
-              title="Sign out of console"
-            >
-              <LogOut size={13} />
-              <span>Sign out</span>
-            </button>
           </div>
         </aside>
 

@@ -481,3 +481,53 @@
 .tileCount.zero { color: var(--muted); }
 .tileLabel { font-size: var(--text-cell); font-weight: var(--weight-medium); }
 .tileHint { color: var(--muted); font-size: var(--text-caption); }
+
+/* Unified Header Dropdown Menu */
+.dropdownMenu {
+  position: absolute;
+  top: 52px;
+  left: 12px;
+  right: 12px;
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-2);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 100;
+  box-sizing: border-box;
+}
+.dropdownHeader {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  font-size: var(--text-cell);
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--duration-fast);
+}
+.dropdownItem:hover {
+  background: var(--state-selected-bg);
+  color: var(--wine);
+}
+.dropdownDivider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-1) 0;
+}
