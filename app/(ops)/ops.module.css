@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 220px;
+  width: 240px;
   background: var(--cream);
   padding: var(--space-3) var(--space-3);
   position: sticky;
@@ -79,9 +79,10 @@
 }
 
 .navGroupTitle {
-  font-size: var(--text-label);
-  font-weight: var(--weight-bold);
-  color: var(--wine);
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  color: var(--muted);
+  letter-spacing: 0.03em;
   padding: var(--space-1) var(--space-2);
   margin-bottom: var(--space-1);
 }
@@ -96,10 +97,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-2);
-  border-radius: var(--radius-control);
+  padding: 5px var(--space-2);
+  border-radius: var(--radius-md);
   color: var(--ink);
-  font-size: var(--text-cell);
+  font-size: 12.5px;
+  font-weight: var(--weight-medium);
   text-decoration: none;
   transition: background var(--duration-fast), color var(--duration-fast);
 }
