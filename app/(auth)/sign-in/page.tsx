@@ -41,12 +41,15 @@ export default function OpsSignIn() {
     }
   }
 
-  async function verifyCode(event: FormEvent): Promise<void> {
-    event.preventDefault();
+  async function verifyCode(event?: FormEvent, targetCode?: string): Promise<void> {
+    if (event) event.preventDefault();
+    const finalCode = (targetCode ?? code).trim();
+    if (finalCode.length < 6 || busy) return;
+
     setBusy(true);
     setError('');
     try {
-      const { error: err } = await authClient.signIn.emailOtp({ email: email.trim(), otp: code.trim() });
+      const { error: err } = await authClient.signIn.emailOtp({ email: email.trim(), otp: finalCode });
       if (err) throw err;
       // Full navigation so the server re-runs the operator guard with the new session.
       window.location.assign('/ops');
@@ -101,7 +104,13 @@ export default function OpsSignIn() {
               autoFocus
               required
               value={code}
-              onChange={event => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))}
+              onChange={event => {
+                const nextVal = event.target.value.replace(/\D/g, '').slice(0, 6);
+                setCode(nextVal);
+                if (nextVal.length === 6 && !busy) {
+                  void verifyCode(undefined, nextVal);
+                }
+              }}
               placeholder="000000"
               aria-label="Six-digit code"
               className={`${styles.input} ${styles.otp}`}
