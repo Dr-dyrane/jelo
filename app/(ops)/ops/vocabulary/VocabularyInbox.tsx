@@ -6,7 +6,7 @@ import type { PendingModerationValue } from '@/lib/moderation/queues';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
-import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
+import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
 import { decideModerationValueAction, mapModerationValueAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
@@ -19,25 +19,25 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
   const [decideState, decideAction, isDecidePending] = useActionState(decideModerationValueAction, null);
   const [mapState, mapAction, isMapPending] = useActionState(mapModerationValueAction, null);
   const pendingDecisionRef = useRef<string | null>(null);
+  const inboxControllerRef = useRef<OpsInboxController | null>(null);
   const isPending = isDecidePending || isMapPending;
-  const errorState = (decideState && !decideState.ok) ? decideState : ((mapState && !mapState.ok) ? mapState : null);
+  const errorState = decideState && !decideState.ok ? decideState : mapState && !mapState.ok ? mapState : null;
 
   useEffect(() => {
-    if (decideState?.ok && window.__opsInboxAdvance) {
-      window.__opsInboxAdvance(decideState.targetId);
-      pendingDecisionRef.current = null;
-    }
+    if (!decideState?.ok) return;
+    inboxControllerRef.current?.settleItem(decideState.targetId);
+    pendingDecisionRef.current = null;
   }, [decideState]);
 
   useEffect(() => {
-    if (mapState?.ok && window.__opsInboxAdvance) {
-      window.__opsInboxAdvance(mapState.targetId);
-      pendingDecisionRef.current = null;
-    }
+    if (!mapState?.ok) return;
+    inboxControllerRef.current?.settleItem(mapState.targetId);
+    pendingDecisionRef.current = null;
   }, [mapState]);
 
   return (
     <InboxContainer
+      controllerRef={inboxControllerRef}
       items={rows}
       itemTypeLabel="vocabulary term"
       renderItemRow={(row) => (
@@ -46,9 +46,7 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
             <div className={styles.value} style={{ fontSize: '1.05rem' }}>{row.rawValue}</div>
             <div className={styles.metaRow}>
               <StatusPill tone="info">{row.valueKind}</StatusPill>
-              <span style={{ fontSize: '11px', color: 'var(--muted)' }}>
-                ×{row.occurrenceCount}
-              </span>
+              <span style={{ fontSize: '11px', color: 'var(--muted)' }}>×{row.occurrenceCount}</span>
               <RelativeTime iso={row.lastSeenAt} />
             </div>
           </div>
@@ -57,184 +55,64 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
       renderItemDetails={(row) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--ink)', margin: '0 0 4px' }}>
-              {row.rawValue}
-            </h3>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--ink)', margin: '0 0 4px' }}>{row.rawValue}</h3>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ color: 'var(--muted)', fontSize: '11px' }}>Normalized:</span>
-              <code style={{
-                fontSize: '11px',
-                background: 'var(--card)',
-                border: '1px solid var(--border)',
-                padding: '2px 6px',
-                borderRadius: '4px',
-                color: 'var(--ink)',
-                fontWeight: 600
-              }}>
-                {row.normalizedValue}
-              </code>
+              <span style={{ color: 'var(--muted)', fontSize: '11px' }}>Normalized</span>
+              <code style={{ fontSize: '11px', background: 'var(--ops-surface-subtle)', padding: '2px 6px', borderRadius: 'var(--ops-control-radius)', color: 'var(--ink)', fontWeight: 600 }}>{row.normalizedValue}</code>
             </div>
           </div>
 
-          {/* Properties Grid */}
-          <div className={styles.propertiesSection} style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
-            <div className={styles.propertyRow}>
-              <span className={styles.propertyLabel}>Kind</span>
-              <span className={styles.propertyValue}><StatusPill tone="info">{row.valueKind}</StatusPill></span>
-            </div>
-            <div className={styles.propertyRow}>
-              <span className={styles.propertyLabel}>Occurrences</span>
-              <span className={styles.propertyValue} style={{ fontWeight: 600 }}>{row.occurrenceCount}</span>
-            </div>
-            <div className={styles.propertyRow}>
-              <span className={styles.propertyLabel}>First Seen</span>
-              <span className={styles.propertyValue}><RelativeTime iso={row.firstSeenAt} /></span>
-            </div>
-            <div className={styles.propertyRow}>
-              <span className={styles.propertyLabel}>Last Seen</span>
-              <span className={styles.propertyValue}><RelativeTime iso={row.lastSeenAt} /></span>
-            </div>
-            {row.canonicalEntityKind ? (
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Canonical Kind</span>
-                <span className={styles.propertyValue}>{row.canonicalEntityKind}</span>
-              </div>
-            ) : null}
-            {row.canonicalEntityRef ? (
-              <div className={styles.propertyRow}>
-                <span className={styles.propertyLabel}>Canonical Ref</span>
-                <span className={styles.propertyValue}><IdChip value={row.canonicalEntityRef} label="ref" /></span>
-              </div>
-            ) : null}
-            <div className={styles.propertyRow}>
-              <span className={styles.propertyLabel}>Vocab ID</span>
-              <span className={styles.propertyValue}><IdChip value={row.id} label="vocab" /></span>
-            </div>
+          <div className={styles.propertiesSection} style={{ paddingTop: '12px' }}>
+            <div className={styles.propertyRow}><span className={styles.propertyLabel}>Kind</span><span className={styles.propertyValue}><StatusPill tone="info">{row.valueKind}</StatusPill></span></div>
+            <div className={styles.propertyRow}><span className={styles.propertyLabel}>Occurrences</span><span className={styles.propertyValue} style={{ fontWeight: 600 }}>{row.occurrenceCount}</span></div>
+            <div className={styles.propertyRow}><span className={styles.propertyLabel}>First seen</span><span className={styles.propertyValue}><RelativeTime iso={row.firstSeenAt} /></span></div>
+            <div className={styles.propertyRow}><span className={styles.propertyLabel}>Last seen</span><span className={styles.propertyValue}><RelativeTime iso={row.lastSeenAt} /></span></div>
+            {row.canonicalEntityKind ? <div className={styles.propertyRow}><span className={styles.propertyLabel}>Canonical kind</span><span className={styles.propertyValue}>{row.canonicalEntityKind}</span></div> : null}
+            {row.canonicalEntityRef ? <div className={styles.propertyRow}><span className={styles.propertyLabel}>Canonical reference</span><span className={styles.propertyValue}>{row.canonicalEntityRef}</span></div> : null}
           </div>
 
-          {/* Decision Form & Mapping Inputs */}
+          <details className={styles.metadataDisclosure}>
+            <summary>Metadata</summary>
+            <div className={styles.metadataBody}>
+              {row.canonicalEntityRef ? <div className={styles.propertyRow}><span className={styles.propertyLabel}>Canonical reference</span><span className={styles.propertyValue}><IdChip value={row.canonicalEntityRef} label="reference" /></span></div> : null}
+              <div className={styles.propertyRow}><span className={styles.propertyLabel}>Vocabulary ID</span><span className={styles.propertyValue}><IdChip value={row.id} label="vocabulary" /></span></div>
+            </div>
+          </details>
+
           {canDecide ? (
-            <form
-              data-item-id={row.id}
-              className={styles.decideSection}
-              action={decideAction}
-            >
-              {errorState && errorState.targetId === row.id && (
-                <div style={{ color: 'var(--red)', fontSize: '11px', background: 'var(--red-light)', padding: '6px', borderRadius: '4px' }}>
-                  {errorState.error}
-                </div>
-              )}
+            <form data-item-id={row.id} className={styles.decideSection} action={decideAction}>
+              {errorState && errorState.targetId === row.id ? <div style={{ color: 'var(--state-danger)', fontSize: '11px', background: 'var(--state-danger-bg)', padding: '6px', borderRadius: 'var(--ops-control-radius)' }}>{errorState.error}</div> : null}
               <input type="hidden" name="targetId" value={row.id} />
-              
-              {/* Canonical Mapping Inputs */}
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-2)',
-                background: 'var(--card)',
-                padding: 'var(--space-3)',
-                borderRadius: 'var(--radius-card)',
-                boxShadow: 'var(--elevation-1)',
-                marginBottom: '8px'
-              }}>
-                <strong style={{ fontSize: '11px', color: 'var(--muted)' }}>Canonical Mapping Target</strong>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', background: 'var(--ops-surface-subtle)', padding: 'var(--space-3)', borderRadius: 'var(--radius-card)', marginBottom: '8px' }}>
+                <strong style={{ fontSize: '11px', color: 'var(--muted)' }}>Canonical mapping target</strong>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                    <label style={{ fontSize: '10px', color: 'var(--muted)' }}>Entity Kind</label>
-                    <select
-                      name="canonicalEntityKind"
-                      defaultValue="product"
-                      style={{
-                        padding: '4px 6px',
-                        borderRadius: 'var(--radius-control)',
-                        border: '1px solid var(--border)',
-                        background: 'var(--paper)',
-                        color: 'var(--ink)',
-                        fontSize: '11.5px',
-                        outline: 'none'
-                      }}
-                      disabled={isPending}
-                    >
-                      <option value="product">Product</option>
-                      <option value="brand">Brand</option>
-                      <option value="retailer">Retailer</option>
-                      <option value="purpose">Purpose</option>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '2px', fontSize: '10px', color: 'var(--muted)' }}>
+                    Entity kind
+                    <select name="canonicalEntityKind" defaultValue="product" className={styles.note} style={{ minHeight: '34px', resize: 'none' }} disabled={isPending}>
+                      <option value="product">Product</option><option value="brand">Brand</option><option value="retailer">Retailer</option><option value="purpose">Purpose</option>
                     </select>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                    <label style={{ fontSize: '10px', color: 'var(--muted)' }}>Entity Ref / Slug</label>
-                    <input
-                      type="text"
-                      name="canonicalEntityRef"
-                      placeholder="e.g. cerave-hydrating"
-                      style={{
-                        padding: '4px 6px',
-                        borderRadius: 'var(--radius-control)',
-                        border: '1px solid var(--border)',
-                        background: 'var(--paper)',
-                        color: 'var(--ink)',
-                        fontSize: '11.5px',
-                        outline: 'none'
-                      }}
-                      disabled={isPending}
-                    />
-                  </div>
+                  </label>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '2px', fontSize: '10px', color: 'var(--muted)' }}>
+                    Entity reference
+                    <input type="text" name="canonicalEntityRef" placeholder="e.g. cerave-hydrating" className={styles.note} style={{ minHeight: '34px' }} disabled={isPending} />
+                  </label>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>
-                  Decision Rationale
-                </label>
-                <textarea
-                  id={`rationale-${row.id}`}
-                  className={styles.note}
-                  name="rationale"
-                  placeholder="Add explanation (optional)..."
-                  aria-label="Decision rationale"
-                  disabled={isPending}
-                />
+              <div className={styles.decideField}>
+                <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>Rationale</label>
+                <textarea id={`rationale-${row.id}`} className={styles.note} name="rationale" placeholder="Optional note for the audit trail" aria-label="Decision rationale" disabled={isPending} />
               </div>
 
               <div className={styles.actionButtons}>
-                <button
-                  className={`${styles.btn} ${styles.btnReject}`}
-                  type="submit"
-                  name="decision"
-                  value="reject"
-                  disabled={isPending}
-                  onClick={() => { pendingDecisionRef.current = 'reject'; }}
-                >
-                  {isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject (R)'}
-                </button>
-                <button
-                  className={`${styles.btn} ${styles.btnApprove}`}
-                  type="submit"
-                  name="decision"
-                  value="approve"
-                  disabled={isPending}
-                  onClick={() => { pendingDecisionRef.current = 'approve'; }}
-                >
-                  {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve (E)'}
-                </button>
-                <button
-                  className={styles.btn}
-                  type="submit"
-                  name="decision"
-                  value="map"
-                  formAction={mapAction}
-                  style={{ background: 'var(--wine)', color: 'var(--paper)', borderColor: 'var(--wine)' }}
-                  disabled={isPending}
-                  onClick={() => { pendingDecisionRef.current = 'map'; }}
-                >
-                  {isPending && pendingDecisionRef.current === 'map' ? 'Mapping…' : 'Map (M)'}
-                </button>
+                <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>{isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}</button>
+                <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>{isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}</button>
+                <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="map" formAction={mapAction} disabled={isPending} onClick={() => { pendingDecisionRef.current = 'map'; }}>{isPending && pendingDecisionRef.current === 'map' ? 'Mapping…' : 'Map'}</button>
               </div>
             </form>
           ) : (
-            <p style={{ fontSize: '11px', color: 'var(--muted)', borderTop: '1px solid var(--border)', paddingTop: '12px', margin: 0 }}>
-              You do not have the required permissions to make decisions on vocabulary.
-            </p>
+            <p style={{ fontSize: '11px', color: 'var(--muted)', paddingTop: '12px', margin: 0 }}>You do not have the required permissions to make decisions on vocabulary.</p>
           )}
         </div>
       )}
