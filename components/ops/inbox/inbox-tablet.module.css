@@ -65,7 +65,8 @@
   background: var(--ops-instrument);
 }
 
-@media (min-width: 430px) and (max-width: 1279px) {
+/* Overlay inspector shells: phone, touch and compact. */
+@media (max-width: 1179px) {
   .tabletInspectorBody :global(form[data-item-id]) {
     position: sticky;
     bottom: calc(var(--space-5) * -1);
@@ -86,7 +87,26 @@
   }
 }
 
-@media (min-width: 430px) and (max-width: 768px) {
+/* Phone: one collection column. */
+@media (max-width: 429px) {
+  :global([data-ops-collection]) {
+    grid-template-columns: 1fr !important;
+    padding: 0 var(--space-3) var(--space-7) !important;
+  }
+
+  :global([data-ops-collection-item]),
+  :global([data-ops-collection-item]:nth-child(-n + 2)),
+  :global([data-ops-collection-item]:nth-child(-n + 3)) {
+    border-top-color: var(--ops-separator, var(--border)) !important;
+  }
+
+  :global([data-ops-collection-item]:first-child) {
+    border-top-color: transparent !important;
+  }
+}
+
+/* Touch: two columns while both navigation and inspector float. */
+@media (min-width: 430px) and (max-width: 819px) {
   :global([data-ops-collection]) {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     column-gap: var(--space-5) !important;
@@ -108,14 +128,28 @@
   }
 }
 
+/* Compact: persistent sidebar, two columns, overlay inspector. */
+@media (min-width: 820px) and (max-width: 1179px) {
+  :global([data-ops-collection]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Balanced: persistent sidebar, two columns, docked inspector. */
+@media (min-width: 1180px) and (max-width: 1439px) {
+  :global([data-ops-collection]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
 @keyframes tabletInspectorIn {
   from {
     opacity: .72;
-    transform: translateX(24px) scale(.99);
+    transform: translateX(24px);
   }
   to {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateX(0);
   }
 }
 
