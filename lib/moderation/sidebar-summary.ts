@@ -1,5 +1,6 @@
 import 'server-only';
 
+import type { Sql } from 'postgres';
 import type { ModerationOperator } from './access';
 
 export type OpsSidebarSummary = {
@@ -9,27 +10,46 @@ export type OpsSidebarSummary = {
   lastActionLabel: string;
 };
 
-const mockSummaries: Record<ModerationOperator['role'], OpsSidebarSummary> = {
-  moderator: {
-    displayName: 'Amina Okafor',
-    email: 'amina.okafor@ops.example',
-    decisionsToday: 5,
-    lastActionLabel: '22m ago',
-  },
-  operator: {
-    displayName: 'Chidi Okoye',
-    email: 'chidi.okoye@ops.example',
-    decisionsToday: 8,
-    lastActionLabel: '14m ago',
-  },
-  admin: {
-    displayName: 'Ifeoma Nwosu',
-    email: 'ifeoma.nwosu@ops.example',
-    decisionsToday: 12,
-    lastActionLabel: '8m ago',
-  },
-};
+export async function getOpsSidebarSummary(
+  sql: Sql,
+  operator: ModerationOperator,
+): Promise<OpsSidebarSummary> {
+  const [profile] = await sql<{ display_name: string | null; email: string | null }[]>`
+    select display_name, email
+    from moderation_operators
+    where id = ${operator.id}
+    limit 1
+  `;
 
-export function getMockOpsSidebarSummary(operator: ModerationOperator): OpsSidebarSummary {
-  return mockSummaries[operator.role];
+  const [activity] = await sql<{
+    decisions_today: number;
+    last_action_at: string | null;
+  }[]>`
+    select
+      count(id)::int as decisions_today,
+      max(created_at)::text as last_action_at
+    from moderation_audit_log
+    where operator_subject = ${operator.authSubject}
+      and created_at >= date_trunc('day', now())
+  `;
+
+  return {
+    displayName: profile?.display_name ?? operator.authSubject.slice(0, 24),
+    email: profile?.email ?? '—',
+    decisionsToday: activity?.decisions_today ?? 0,
+    lastActionLabel: activity?.last_action_at ? relativeLabel(activity.last_action_at) : 'No actions today',
+  };
+}
+
+function relativeLabel(iso: string): string {
+  const then = new Date(iso).getTime();
+  const now = Date.now();
+  const diffMs = now - then;
+  const diffMins = Math.floor(diffMs / 60_000);
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) return `${diffHours}h ago`;
+  const diffDays = Math.floor(diffHours / 24);
+  return `${diffDays}d ago`;
 }

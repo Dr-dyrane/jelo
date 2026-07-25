@@ -78,6 +78,6 @@ At the desktop operations boundary, `app/(ops)/ops.module.css` aliases shared se
 
 Navigation controls use native links, compact labels, visible focus, and a stable selected state. The account popover contains identity, role, decisions today, the latest action time, and the working sign-out action. Appearance choices persist through the shared `jelo-theme` preference.
 
-During UI development, `lib/moderation/sidebar-summary.ts` provides a role-specific fixture for operator display identity and audit-style activity. It is deliberately resolved at the server layout boundary, then passed through the shell as `OpsSidebarSummary`; the client sidebar does not own mock data. Replace this fixture with a single read model over `moderation_operators` (`display_name`, `email`) and `moderation_audit_log` (current operator decisions today and latest action) before treating those values as production evidence.
+`lib/moderation/sidebar-summary.ts` resolves the operator's display identity and audit activity from `moderation_operators` (`display_name`, `email`) and `moderation_audit_log` (current operator decisions today and latest action). It is resolved at the server layout boundary and passed through the shell as `OpsSidebarSummary`; the client sidebar does not own this data.
 
 The sidebar stays an instrument. Queue rows, decision forms, and other operational content belong to the workspace and should not be added to the shell.
