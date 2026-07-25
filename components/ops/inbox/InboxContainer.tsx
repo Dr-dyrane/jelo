@@ -9,14 +9,9 @@ import {
   type MutableRefObject,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import styles from './inbox.module.css';
-
-// Canonical inbox container for all /ops queue pages (ADR 0007). Implements:
-// - Auto-selection: first item selected when no valid ID is present.
-// - Auto-advance: after a decision, the next logical item is selected.
-// - URL synchronization: selection is reflected in the `?id=` param.
-// - Optimistic removal: decided rows disappear instantly with rollback on failure.
-// - Keyboard navigation: j/k/arrows, Enter to focus rationale, e/a to approve, r to reject.
+import tablet from './inbox-tablet.module.css';
 
 export interface OpsInboxController {
   settleItem: (id: string) => void;
@@ -33,6 +28,8 @@ interface InboxContainerProps<T> {
   controllerRef?: MutableRefObject<OpsInboxController | null>;
 }
 
+type ViewportMode = 'mobile' | 'tablet' | 'desktop';
+
 export function InboxContainer<T extends { id: string }>({
   items,
   renderItemRow,
@@ -45,7 +42,8 @@ export function InboxContainer<T extends { id: string }>({
 }: InboxContainerProps<T>) {
   const [navigationIndex, setNavigationIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(true);
+  const [viewportMode, setViewportMode] = useState<ViewportMode>('mobile');
+  const [tabletInspectorOpen, setTabletInspectorOpen] = useState(false);
 
   const [optimisticItems, removeOptimisticItem] = useOptimistic(
     items,
@@ -80,9 +78,14 @@ export function InboxContainer<T extends { id: string }>({
     setNavigationIndex(index);
     if (selectedId != null) onSelect?.(item, index);
     else setInternalDetailId(item.id);
+    if (viewportMode === 'tablet') setTabletInspectorOpen(true);
   }
 
   function closeDetail() {
+    if (viewportMode === 'tablet') {
+      setTabletInspectorOpen(false);
+      return;
+    }
     if (selectedId != null) onDeselect?.();
     else setInternalDetailId(null);
   }
@@ -97,6 +100,7 @@ export function InboxContainer<T extends { id: string }>({
     if (remaining.length === 0) {
       if (selectedId != null) onDeselect?.();
       else setInternalDetailId(null);
+      setTabletInspectorOpen(false);
       return;
     }
 
@@ -105,7 +109,9 @@ export function InboxContainer<T extends { id: string }>({
     setNavigationIndex(nextIndex);
     if (selectedId != null) onSelect?.(nextItem, nextIndex);
     else setInternalDetailId(nextItem.id);
-  }, [optimisticItems, selectedId, onSelect, onDeselect, removeOptimisticItem]);
+
+    if (viewportMode === 'tablet') setTabletInspectorOpen(false);
+  }, [optimisticItems, selectedId, onSelect, onDeselect, removeOptimisticItem, viewportMode]);
 
   useEffect(() => {
     if (!controllerRef) return;
@@ -117,7 +123,10 @@ export function InboxContainer<T extends { id: string }>({
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth < 768);
+      const width = window.innerWidth;
+      const nextMode: ViewportMode = width < 768 ? 'mobile' : width < 1280 ? 'tablet' : 'desktop';
+      setViewportMode(nextMode);
+      if (nextMode !== 'tablet') setTabletInspectorOpen(false);
     }
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -132,10 +141,7 @@ export function InboxContainer<T extends { id: string }>({
     if (optimisticItems.length === 0) return;
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (
-        document.activeElement?.tagName === 'INPUT' ||
-        document.activeElement?.tagName === 'TEXTAREA'
-      ) {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') {
         if (e.key === 'Escape') (document.activeElement as HTMLElement).blur();
         return;
       }
@@ -160,22 +166,19 @@ export function InboxContainer<T extends { id: string }>({
         e.preventDefault();
         if (activeItem) {
           const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
-          const btn = form?.querySelector('button[value="approve"]') as HTMLButtonElement;
-          btn?.click();
+          (form?.querySelector('button[value="approve"]') as HTMLButtonElement)?.click();
         }
       } else if (e.key === 'r') {
         e.preventDefault();
         if (activeItem) {
           const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
-          const btn = form?.querySelector('button[value="reject"]') as HTMLButtonElement;
-          btn?.click();
+          (form?.querySelector('button[value="reject"]') as HTMLButtonElement)?.click();
         }
       } else if (e.key === 'm') {
         e.preventDefault();
         if (activeItem) {
           const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
-          const btn = form?.querySelector('button[value="map"]') as HTMLButtonElement;
-          btn?.click();
+          (form?.querySelector('button[value="map"]') as HTMLButtonElement)?.click();
         }
       } else if (e.key === 'Escape') {
         e.preventDefault();
@@ -185,7 +188,7 @@ export function InboxContainer<T extends { id: string }>({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeItem, detailId, optimisticItems, navigationIndex, navigationItem, selectedId]);
+  }, [activeItem, detailId, optimisticItems, navigationIndex, navigationItem, selectedId, viewportMode]);
 
   useEffect(() => {
     const item = detailId ? activeItem : navigationItem;
@@ -194,7 +197,7 @@ export function InboxContainer<T extends { id: string }>({
   }, [activeItem, detailId, navigationItem]);
 
   function handleRowClick(index: number, item: T) {
-    if (detailId === item.id) return;
+    if (detailId === item.id && viewportMode !== 'tablet') return;
     openDetail(item, index);
   }
 
@@ -202,13 +205,14 @@ export function InboxContainer<T extends { id: string }>({
 
   return (
     <>
-      <div className={styles.cardGrid} role="listbox" aria-label={`${itemTypeLabel} queue`}>
+      <div className={styles.cardGrid} data-ops-collection role="listbox" aria-label={`${itemTypeLabel} queue`}>
         {optimisticItems.map((item, idx) => {
           const isActive = detailId === item.id;
           return (
             <div
               key={item.id}
               id={`row-${item.id}`}
+              data-ops-collection-item
               role="option"
               aria-selected={isActive}
               tabIndex={0}
@@ -228,23 +232,32 @@ export function InboxContainer<T extends { id: string }>({
         })}
       </div>
 
-      {!isMobile && activeItem && detailPortalTarget
+      {viewportMode === 'desktop' && activeItem && detailPortalTarget
+        ? createPortal(<Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>, detailPortalTarget)
+        : null}
+
+      {viewportMode === 'tablet' && activeItem && detailPortalTarget && tabletInspectorOpen
         ? createPortal(
-            <Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>,
+            <div className={tablet.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
+              <button type="button" className={tablet.tabletScrim} onClick={closeDetail} aria-label="Close details" />
+              <section className={tablet.tabletInspector}>
+                <header className={tablet.tabletInspectorHeader}>
+                  <span>{itemTypeLabel}</span>
+                  <button type="button" className={tablet.tabletClose} onClick={closeDetail} aria-label="Close details">
+                    <X size={18} />
+                  </button>
+                </header>
+                <div className={tablet.tabletInspectorBody}>{renderItemDetails(activeItem)}</div>
+              </section>
+            </div>,
             detailPortalTarget,
           )
         : null}
 
-      {isMobile && activeItem && (
+      {viewportMode === 'mobile' && activeItem && (
         <div className={styles.bottomSheet} role="dialog" aria-modal="true">
           <div className={styles.bottomSheetHeader}>
-            <button
-              className={styles.bottomSheetClose}
-              onClick={closeDetail}
-              aria-label="Close details"
-            >
-              &times;
-            </button>
+            <button className={styles.bottomSheetClose} onClick={closeDetail} aria-label="Close details">&times;</button>
           </div>
           <div className={styles.bottomSheetContent}>{renderItemDetails(activeItem)}</div>
         </div>
