@@ -28,7 +28,7 @@ interface InboxContainerProps<T> {
   controllerRef?: MutableRefObject<OpsInboxController | null>;
 }
 
-type ViewportMode = 'mobile' | 'tablet' | 'desktop';
+type ViewportMode = 'phone' | 'touch' | 'compact' | 'expanded';
 
 export function InboxContainer<T extends { id: string }>({
   items,
@@ -42,8 +42,8 @@ export function InboxContainer<T extends { id: string }>({
 }: InboxContainerProps<T>) {
   const [navigationIndex, setNavigationIndex] = useState(0);
   const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
-  const [viewportMode, setViewportMode] = useState<ViewportMode>('mobile');
-  const [tabletInspectorOpen, setTabletInspectorOpen] = useState(false);
+  const [viewportMode, setViewportMode] = useState<ViewportMode>('phone');
+  const [touchInspectorOpen, setTouchInspectorOpen] = useState(false);
 
   const [optimisticItems, removeOptimisticItem] = useOptimistic(
     items,
@@ -78,12 +78,12 @@ export function InboxContainer<T extends { id: string }>({
     setNavigationIndex(index);
     if (selectedId != null) onSelect?.(item, index);
     else setInternalDetailId(item.id);
-    if (viewportMode === 'tablet') setTabletInspectorOpen(true);
+    if (viewportMode === 'touch') setTouchInspectorOpen(true);
   }
 
   function closeDetail() {
-    if (viewportMode === 'tablet') {
-      setTabletInspectorOpen(false);
+    if (viewportMode === 'touch') {
+      setTouchInspectorOpen(false);
       return;
     }
     if (selectedId != null) onDeselect?.();
@@ -100,7 +100,7 @@ export function InboxContainer<T extends { id: string }>({
     if (remaining.length === 0) {
       if (selectedId != null) onDeselect?.();
       else setInternalDetailId(null);
-      setTabletInspectorOpen(false);
+      setTouchInspectorOpen(false);
       return;
     }
 
@@ -110,7 +110,7 @@ export function InboxContainer<T extends { id: string }>({
     if (selectedId != null) onSelect?.(nextItem, nextIndex);
     else setInternalDetailId(nextItem.id);
 
-    if (viewportMode === 'tablet') setTabletInspectorOpen(false);
+    if (viewportMode === 'touch') setTouchInspectorOpen(false);
   }, [optimisticItems, selectedId, onSelect, onDeselect, removeOptimisticItem, viewportMode]);
 
   useEffect(() => {
@@ -124,9 +124,15 @@ export function InboxContainer<T extends { id: string }>({
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
-      const nextMode: ViewportMode = width < 768 ? 'mobile' : width < 1280 ? 'tablet' : 'desktop';
+      const nextMode: ViewportMode = width < 430
+        ? 'phone'
+        : width <= 768
+          ? 'touch'
+          : width < 1280
+            ? 'compact'
+            : 'expanded';
       setViewportMode(nextMode);
-      if (nextMode !== 'tablet') setTabletInspectorOpen(false);
+      if (nextMode !== 'touch') setTouchInspectorOpen(false);
     }
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -197,7 +203,7 @@ export function InboxContainer<T extends { id: string }>({
   }, [activeItem, detailId, navigationItem]);
 
   function handleRowClick(index: number, item: T) {
-    if (detailId === item.id && viewportMode !== 'tablet') return;
+    if (detailId === item.id && viewportMode !== 'touch') return;
     openDetail(item, index);
   }
 
@@ -232,11 +238,11 @@ export function InboxContainer<T extends { id: string }>({
         })}
       </div>
 
-      {viewportMode === 'desktop' && activeItem && detailPortalTarget
+      {viewportMode === 'expanded' && activeItem && detailPortalTarget
         ? createPortal(<Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>, detailPortalTarget)
         : null}
 
-      {viewportMode === 'tablet' && activeItem && detailPortalTarget && tabletInspectorOpen
+      {viewportMode === 'touch' && activeItem && detailPortalTarget && touchInspectorOpen
         ? createPortal(
             <div className={tablet.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
               <button type="button" className={tablet.tabletScrim} onClick={closeDetail} aria-label="Close details" />
@@ -254,7 +260,7 @@ export function InboxContainer<T extends { id: string }>({
           )
         : null}
 
-      {viewportMode === 'mobile' && activeItem && (
+      {viewportMode === 'phone' && activeItem && (
         <div className={styles.bottomSheet} role="dialog" aria-modal="true">
           <div className={styles.bottomSheetHeader}>
             <button className={styles.bottomSheetClose} onClick={closeDetail} aria-label="Close details">&times;</button>
