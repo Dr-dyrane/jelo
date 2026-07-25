@@ -22,12 +22,9 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   const pathname = usePathname();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  // Sync theme state on load safely without triggering cascading synchronous renders
   useEffect(() => {
     const activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    const timer = setTimeout(() => {
-      setTheme(activeTheme);
-    }, 0);
+    const timer = setTimeout(() => setTheme(activeTheme), 0);
     return () => clearTimeout(timer);
   }, []);
 
@@ -86,7 +83,6 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   return (
     <div className={styles.body}>
       <div className={styles.container}>
-        {/* 1. Desktop Sidebar */}
         <OpsSidebar
           operator={operator}
           summary={sidebarSummary}
@@ -97,7 +93,6 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           onSignOut={handleSignOut}
         />
 
-        {/* 2. Tablet Collapsed Rail */}
         <aside className={styles.rail}>
           <div className={styles.railLogo} style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400 }}>J</div>
           <nav className={styles.railNav}>
@@ -134,8 +129,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           </div>
         </aside>
 
-        {/* 3. Mobile Header & Floating Bottom Tab Bar */}
-        <div className={styles.contentWrapper}>
+        <div data-ops-workspace className={styles.contentWrapper}>
           <header className={styles.mobileHeader}>
             <div className={styles.workspaceHeader} style={{ padding: 0 }}>
               <div className={styles.workspaceMeta} style={{ marginLeft: '4px' }}>
@@ -147,8 +141,8 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
             </div>
           </header>
 
-          <main className={styles.main}>{children}</main>
-          <div id="ops-detail-pane" className={styles.detailPane} aria-live="polite" />
+          <main data-ops-main className={styles.main}>{children}</main>
+          <div data-ops-detail id="ops-detail-pane" className={styles.detailPane} aria-live="polite" />
           <nav className={styles.mobileBar}>
             {allItems.map(item => {
               const isActive = pathname === item.href;
