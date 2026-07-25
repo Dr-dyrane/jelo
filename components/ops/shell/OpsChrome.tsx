@@ -90,12 +90,17 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
         {/* 1. Desktop Sidebar */}
         <aside className={styles.sidebar}>
           <div>
-            {/* Workspace Selector */}
-            <div className={styles.workspaceHeader}>
-              <div className={styles.workspaceIcon}>J</div>
-              <div className={styles.workspaceMeta}>
-                <strong>JeloCare</strong>
-                <span>Operations Portal</span>
+            {/* Unified User & Workspace Selector Dropdown (Linear style) */}
+            <div className={styles.workspaceHeader} title={`${emailVal} (${operator.role})`}>
+              <div className={styles.operatorAvatarWrapper}>
+                <div className={styles.operatorAvatar}>{avatarPlaceholder}</div>
+                <div className={styles.statusDot} title="Live session connection active" />
+              </div>
+              <div className={styles.workspaceMeta} style={{ marginLeft: '6px' }}>
+                <span className={styles.brandLogo}>JELOCARE</span>
+                <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.01em' }}>
+                  {shortNamePlaceholder} ({operator.role})
+                </span>
               </div>
               <ChevronDown size={14} style={{ color: 'var(--muted)' }} />
             </div>
@@ -151,19 +156,10 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
               </nav>
             </div>
 
-            {/* Placeholder Metrics Panel (Missing from database schema) */}
+            {/* Triage Progress Card */}
             <div className={styles.statsPanel}>
-              <div className={styles.statRow}>
-                <span>Triaged Today</span>
-                <span className={styles.statValue}>12</span>
-              </div>
-              <div className={styles.statRow}>
-                <span>Session limit</span>
-                <span className={styles.statValue}>100</span>
-              </div>
-              <div className={styles.statRow}>
-                <span>API Latency</span>
-                <span className={styles.statValue} style={{ color: '#2e7d32' }}>24ms</span>
+              <div className={styles.statRow} style={{ justifyContent: 'center', gap: '4px' }}>
+                <span style={{ fontWeight: 500 }}>12 triaged today</span>
               </div>
             </div>
           </div>
@@ -190,35 +186,22 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
               </button>
             </div>
 
-            {/* Operator Details profile (Resolved with placeholder fallbacks) */}
-            <div className={styles.operator}>
-              <div className={styles.operatorAvatarWrapper}>
-                <div className={styles.operatorAvatar}>{avatarPlaceholder}</div>
-                <div className={styles.statusDot} title="Live session connection active" />
-              </div>
-              <div className={styles.operatorMeta}>
-                <span className={styles.operatorName} title={shortNamePlaceholder}>
-                  {shortNamePlaceholder}
-                </span>
-                <span className={styles.operatorEmail} title={emailVal}>
-                  {emailVal}
-                </span>
-              </div>
-              <button 
-                type="button" 
-                className={styles.logoutBtn}
-                onClick={handleSignOut}
-                title="Sign out of console"
-              >
-                <LogOut size={14} />
-              </button>
-            </div>
+            {/* Logout button */}
+            <button 
+              type="button" 
+              className={styles.footerLogoutBtn}
+              onClick={handleSignOut}
+              title="Sign out of console"
+            >
+              <LogOut size={13} />
+              <span>Sign out</span>
+            </button>
           </div>
         </aside>
 
         {/* 2. Tablet Collapsed Rail */}
         <aside className={styles.rail}>
-          <div className={styles.railLogo}>J</div>
+          <div className={styles.railLogo} style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400 }}>J</div>
           <nav className={styles.railNav}>
             {allItems.map(item => {
               const isActive = pathname === item.href;
@@ -257,9 +240,8 @@ export function OpsChrome({ operator, counts, children }: OpsChromeProps) {
         <div className={styles.contentWrapper}>
           <header className={styles.mobileHeader}>
             <div className={styles.workspaceHeader} style={{ padding: 0 }}>
-              <div className={styles.workspaceIcon} style={{ width: '18px', height: '18px', fontSize: '9px' }}>J</div>
               <div className={styles.workspaceMeta} style={{ marginLeft: '4px' }}>
-                <strong style={{ fontSize: '11px' }}>JeloCare</strong>
+                <strong style={{ fontSize: '11px', fontFamily: 'var(--font-display)', letterSpacing: '.05em' }}>JELOCARE</strong>
               </div>
             </div>
             <div className={styles.operatorInitials} style={{ width: '18px', height: '18px', fontSize: '9px' }}>

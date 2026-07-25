@@ -48,19 +48,12 @@
   background: var(--state-selected-bg);
 }
 
-.workspaceIcon {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, var(--rose), var(--wine));
-  color: var(--paper);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: serif;
-  font-weight: var(--weight-bold);
-  font-size: 14px;
-  box-shadow: var(--elevation-1);
+.brandLogo {
+  font-family: var(--font-display), serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: .14em;
+  color: var(--ink);
 }
 
 .workspaceMeta {
@@ -174,6 +167,27 @@
 }
 
 /* Theme Toggle Bar */
+.footerLogoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font-size: var(--text-cell);
+  transition: background var(--duration-fast), color var(--duration-fast);
+  margin-top: var(--space-1);
+}
+.footerLogoutBtn:hover {
+  background: var(--state-selected-bg);
+  color: var(--wine);
+}
+
 .themeToggleBar {
   display: flex;
   justify-content: space-between;
