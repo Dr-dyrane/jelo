@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useEffect, useRef, type ReactNode } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import type { PendingObservation } from '@/lib/moderation/queues';
@@ -12,8 +12,8 @@ import { SafeProductImage } from '@/components/products/safe-product-image';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
-import { InboxContainer } from '@/components/ops/inbox/InboxContainer';
-import { decideObservationAction, type ObservationActionResult } from '../actions';
+import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
+import { decideObservationAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
 export interface EnrichedObservation extends PendingObservation {
@@ -37,6 +37,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
   const pathname = usePathname();
   const [actionState, formAction, isPending] = useActionState(decideObservationAction, null);
   const pendingDecisionRef = useRef<string | null>(null);
+  const inboxControllerRef = useRef<OpsInboxController | null>(null);
 
   const selectedId = searchParams.get('id');
 
@@ -48,25 +49,18 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   }
 
-  // Track which decision is being submitted for contextual button labels.
   useEffect(() => {
     if (!isPending) pendingDecisionRef.current = null;
   }, [isPending]);
 
-  // Auto-advance after a successful decision.
   useEffect(() => {
     if (!actionState?.ok) return;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const advance = (window as any).__opsInboxAdvance as
-      | ((id: string) => void)
-      | undefined;
-    if (advance && actionState.targetId) {
-      advance(actionState.targetId);
-    }
+    inboxControllerRef.current?.settleItem(actionState.targetId);
   }, [actionState]);
 
   return (
     <InboxContainer
+      controllerRef={inboxControllerRef}
       items={rows}
       itemTypeLabel="observation"
       selectedId={selectedId}
@@ -121,11 +115,10 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
           }
         }
 
-        // Show action feedback only for the current row.
         const feedback = (() => {
           if (!actionState) return null;
           if ('targetId' in actionState && actionState.targetId !== row.id) return null;
-          if (actionState.ok) return null; // Success handled by auto-advance, no lingering message.
+          if (actionState.ok) return null;
           return <p className={styles.permissionNote} style={{ color: 'var(--state-danger)' }}>{actionState.error}</p>;
         })();
 
