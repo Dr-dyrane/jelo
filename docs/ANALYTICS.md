@@ -1,6 +1,6 @@
 # Behavioural analytics
 
-Updated: 2026-07-24
+Updated: 2026-07-26
 
 We measure behaviour to answer one question: does JeloCare help someone choose better before buying skincare. Every event serves that. None of it profiles a person.
 
@@ -10,11 +10,35 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
 - Anonymous contribution drafts keep one bounded first-touch campaign record in
   `community_intake_attributions`. It stores only normalized source, medium,
   campaign, creative label, and `/contribute` landing path. The aggregate is
-  available through `npm run community:research:signals`.
+  available through `/ops/signals` and
+  `npm run community:research:signals`.
 - A single outbound choke point for store links: `/go?product=<slug>&retailer=<name>` in [app/go/route.ts](../app/go/route.ts). It resolves the exact offer and attributes the destination through [redirect-attribution.ts](../modules/commerce/redirect-attribution.ts) (`utm_content=<product>:<retailer>`). Every "Open store" already passes through here, so store-click behaviour has one place to record it.
 - The `store_click` event, recorded server-side there for the exact-offer branch. `priceRank`, `position`, and `freshnessDays` come from the same ranking and market summary the product page shows ([price-rank.ts](../modules/commerce/price-rank.ts)); the write goes through `next/server` `after` so it never delays the redirect, no-ops without Neon, and is bounded by a strict schema ([commerce-events.ts](../lib/analytics/commerce-events.ts), table `commerce_events` in `db/migrations/0019_commerce_events.sql`). See [ADR 0005](./adr/0005-structured-observation-events.md).
 
-The rest of the custom event taxonomy below is still roadmap. Page traffic, outbound attribution, and `store_click` exist now.
+The rest of the custom event taxonomy below is still roadmap. Page traffic,
+anonymous contribution starts and completions, outbound attribution, and
+`store_click` exist now.
+
+## Campaign response
+
+`/ops/signals` reports two independent facts:
+
+- **Started** means a person answered the first contribution prompt and a
+  private remote draft was created.
+- **Completed** means the contribution was submitted.
+
+The page groups only bounded campaign labels. It does not join a campaign to
+products, concerns, prices, routines, accounts, devices, or individual
+contributors. Submissions collected before attribution existed remain
+`Not recorded`; they are never relabelled `Direct`.
+
+Bounded tags such as `utm_source=tiktok`, `utm_medium=paid-social`, and a
+non-identifying campaign label preserve the richest source context. When those
+tags are absent, JeloCare recognizes the presence of TikTok's automatically
+appended click marker as `TikTok · Paid` and immediately discards the marker
+value. It is never stored or sent back to TikTok. TikTok-reported clicks,
+impressions, spend, and CTR are not JeloCare events and are not inferred by
+this monitor. No TikTok Pixel or Events API is installed.
 
 ## What we want to understand
 
@@ -69,7 +93,9 @@ This is a hard boundary, not a preference.
 - Keep `/go` the only outbound path. Record `store_click` server-side there, deriving `priceRank` from the offer set already resolved for the redirect.
 - Send client events through Vercel Analytics custom events, or a thin typed wrapper, with no free text.
 - Aggregate privately, the same boundary as `npm run community:research:signals`. Do not expose a public analytics endpoint.
-- Ship `store_click` first. It carries the most signal for the least surface. Add funnel events after.
+- Keep contribution starts and completions derived from the intake records
+  already required to save and submit the form. Do not add a parallel
+  person-level advertising event stream.
 
 ## Source of truth
 
@@ -78,7 +104,7 @@ This is a hard boundary, not a preference.
 | Outbound attribution | [modules/commerce/redirect-attribution.ts](../modules/commerce/redirect-attribution.ts) |
 | Outbound route | [app/go/route.ts](../app/go/route.ts) |
 | Page analytics | `@vercel/analytics` in [app/layout.tsx](../app/layout.tsx) |
-| Anonymous contribution source | `community_intake_attributions`, aggregated by `npm run community:research:signals` |
+| Anonymous contribution source | `community_intake_attributions`, aggregated by `/ops/signals` and `npm run community:research:signals` |
 | Decision measures | [Product roadmap](./product/ROADMAP.md) |
 | Privacy posture | [ADR 0001](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md), [community intake](./COMMUNITY_KNOWLEDGE_INTAKE.md) |
 

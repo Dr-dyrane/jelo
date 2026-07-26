@@ -43,3 +43,17 @@ test('campaign labels are normalized and capped to non-identifying slugs', () =>
   assert.equal(attribution.content, 'card-06');
   assert.equal('referrer' in attribution, false);
 });
+
+test('recognizes a TikTok ad marker without retaining its click identifier', () => {
+  const attribution = communityIntakeAttributionFromReferrer(
+    'https://www.jelocare.com/contribute?ttclid=private-click-value',
+  );
+  assert.deepEqual(attribution, {
+    source: 'tiktok',
+    medium: 'paid-social',
+    campaign: null,
+    content: null,
+    landingPath: '/contribute',
+  });
+  assert.doesNotMatch(JSON.stringify(attribution), /ttclid|private-click-value/);
+});

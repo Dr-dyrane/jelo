@@ -31,8 +31,12 @@ export function communityIntakeAttributionFromReferrer(
     landing = null;
   }
 
-  const source = attributionToken(landing?.searchParams.get('utm_source') ?? null) ?? 'direct';
-  const medium = attributionToken(landing?.searchParams.get('utm_medium') ?? null);
+  const taggedSource = attributionToken(landing?.searchParams.get('utm_source') ?? null);
+  const hasTikTokClickMarker = taggedSource == null
+    && landing?.searchParams.has('ttclid') === true;
+  const source = taggedSource ?? (hasTikTokClickMarker ? 'tiktok' : 'direct');
+  const medium = attributionToken(landing?.searchParams.get('utm_medium') ?? null)
+    ?? (hasTikTokClickMarker ? 'paid-social' : null);
   const campaign = attributionToken(landing?.searchParams.get('utm_campaign') ?? null);
   const content = attributionToken(landing?.searchParams.get('utm_content') ?? null);
   const landingPath = landing?.pathname.startsWith('/contribute')

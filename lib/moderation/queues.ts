@@ -509,50 +509,340 @@ export async function findPendingRetailerApplication(
   } : null;
 }
 
-export type CommerceSignal = {
-  id: string;
-  eventType: string;
-  productSlug: string;
-  retailer: string;
-  market: string;
-  priceNgn: number | null;
-  priceRank: string;
-  position: number;
-  freshnessDays: number | null;
-  createdAt: string;
+export type CommercePriceChoice = 'lowest' | 'median' | 'higher' | 'only' | 'marketplace';
+
+export type CommerceSignalMonitor = {
+  asOf: string;
+  last7DaysCount: number;
+  previous7DaysCount: number;
+  last30DaysCount: number;
+  lastRecordedAt: string | null;
+  priceChoices: {
+    choice: CommercePriceChoice;
+    count: number;
+  }[];
+  topProducts: {
+    productSlug: string;
+    visitCount: number;
+    storeCount: number;
+    lastVisitedAt: string;
+  }[];
+  topRetailers: {
+    retailer: string;
+    visitCount: number;
+    productCount: number;
+    lastVisitedAt: string;
+  }[];
+  recentVisits: {
+    id: string;
+    productSlug: string;
+    retailer: string;
+    market: 'NG' | 'US';
+    priceNgn: number | null;
+    priceChoice: CommercePriceChoice;
+    position: number;
+    freshnessDays: number | null;
+    createdAt: string;
+  }[];
 };
 
 // Measurement only (ADR 0005 / 0006): a read-only window on store_click signals.
 // Never joined to health-shaped behaviour and never an input to ranking.
-export async function listCommerceSignals(sql: Sql, limit = 100): Promise<CommerceSignal[]> {
-  const rows = await sql<{
-    id: string;
-    event_type: string;
-    product_slug: string;
-    retailer: string;
-    market: string;
-    price_ngn: number | null;
-    price_rank: string;
-    position: number;
-    freshness_days: number | null;
-    created_at: string;
-  }[]>`
-    select id, event_type, product_slug, retailer, market, price_ngn, price_rank,
-           position, freshness_days, created_at::text as created_at
-    from commerce_events
-    order by created_at desc
-    limit ${boundedLimit(limit)}
-  `;
-  return rows.map(row => ({
-    id: row.id,
-    eventType: row.event_type,
-    productSlug: row.product_slug,
-    retailer: row.retailer,
-    market: row.market,
-    priceNgn: row.price_ngn,
-    priceRank: row.price_rank,
-    position: row.position,
-    freshnessDays: row.freshness_days,
-    createdAt: row.created_at,
-  }));
+export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignalMonitor> {
+  const [summaryRows, priceChoiceRows, productRows, retailerRows, recentRows] = await Promise.all([
+    sql<{
+      as_of: string;
+      last_7_days_count: number;
+      previous_7_days_count: number;
+      last_30_days_count: number;
+      last_recorded_at: string | null;
+    }[]>`
+      select now()::text as as_of,
+             count(*) filter (where created_at >= now() - interval '7 days')::int as last_7_days_count,
+             count(*) filter (
+               where created_at >= now() - interval '14 days'
+                 and created_at < now() - interval '7 days'
+             )::int as previous_7_days_count,
+             count(*) filter (where created_at >= now() - interval '30 days')::int as last_30_days_count,
+             max(created_at)::text as last_recorded_at
+      from commerce_events
+      where event_type = 'store_click'
+    `,
+    sql<{
+      price_rank: CommercePriceChoice;
+      visit_count: number;
+    }[]>`
+      select price_rank, count(*)::int as visit_count
+      from commerce_events
+      where event_type = 'store_click'
+        and created_at >= now() - interval '30 days'
+      group by price_rank
+      order by visit_count desc, price_rank asc
+    `,
+    sql<{
+      product_slug: string;
+      visit_count: number;
+      store_count: number;
+      last_visited_at: string;
+    }[]>`
+      select product_slug, count(*)::int as visit_count,
+             count(distinct retailer)::int as store_count,
+             max(created_at)::text as last_visited_at
+      from commerce_events
+      where event_type = 'store_click'
+        and created_at >= now() - interval '30 days'
+      group by product_slug
+      order by visit_count desc, last_visited_at desc, product_slug asc
+      limit 8
+    `,
+    sql<{
+      retailer: string;
+      visit_count: number;
+      product_count: number;
+      last_visited_at: string;
+    }[]>`
+      select retailer, count(*)::int as visit_count,
+             count(distinct product_slug)::int as product_count,
+             max(created_at)::text as last_visited_at
+      from commerce_events
+      where event_type = 'store_click'
+        and created_at >= now() - interval '30 days'
+      group by retailer
+      order by visit_count desc, last_visited_at desc, retailer asc
+      limit 8
+    `,
+    sql<{
+      id: string;
+      product_slug: string;
+      retailer: string;
+      market: 'NG' | 'US';
+      price_ngn: number | null;
+      price_rank: CommercePriceChoice;
+      position: number;
+      freshness_days: number | null;
+      created_at: string;
+    }[]>`
+      select id, product_slug, retailer, market, price_ngn, price_rank,
+             position, freshness_days, created_at::text as created_at
+      from commerce_events
+      where event_type = 'store_click'
+      order by created_at desc, id desc
+      limit 20
+    `,
+  ]);
+  const summary = summaryRows[0];
+  if (!summary) throw new Error('Commerce signal summary unavailable.');
+
+  return {
+    asOf: summary.as_of,
+    last7DaysCount: summary.last_7_days_count,
+    previous7DaysCount: summary.previous_7_days_count,
+    last30DaysCount: summary.last_30_days_count,
+    lastRecordedAt: summary.last_recorded_at,
+    priceChoices: priceChoiceRows.map(row => ({
+      choice: row.price_rank,
+      count: row.visit_count,
+    })),
+    topProducts: productRows.map(row => ({
+      productSlug: row.product_slug,
+      visitCount: row.visit_count,
+      storeCount: row.store_count,
+      lastVisitedAt: row.last_visited_at,
+    })),
+    topRetailers: retailerRows.map(row => ({
+      retailer: row.retailer,
+      visitCount: row.visit_count,
+      productCount: row.product_count,
+      lastVisitedAt: row.last_visited_at,
+    })),
+    recentVisits: recentRows.map(row => ({
+      id: row.id,
+      productSlug: row.product_slug,
+      retailer: row.retailer,
+      market: row.market,
+      priceNgn: row.price_ngn,
+      priceChoice: row.price_rank,
+      position: row.position,
+      freshnessDays: row.freshness_days,
+      createdAt: row.created_at,
+    })),
+  };
+}
+
+export type ContributionAttributionMonitor = {
+  asOf: string;
+  last7DaysStarts: number;
+  last7DaysCompletions: number;
+  previous7DaysStarts: number;
+  previous7DaysCompletions: number;
+  last30DaysStarts: number;
+  last30DaysCompletions: number;
+  lastStartedAt: string | null;
+  lastCompletedAt: string | null;
+  campaigns: {
+    source: string;
+    medium: string | null;
+    campaign: string | null;
+    content: string | null;
+    starts: number;
+    completions: number;
+    lastStartedAt: string | null;
+    lastCompletedAt: string | null;
+  }[];
+};
+
+// Aggregate-only campaign measurement for the anonymous community intake.
+// This deliberately carries no submission contents, identity, health context,
+// click identifier, or device metadata. A submitted contribution counts as a
+// completion even if moderation later rejects it: moderation evaluates quality,
+// not whether someone completed the form.
+export async function getContributionAttributionMonitor(
+  sql: Sql,
+): Promise<ContributionAttributionMonitor> {
+  const [summaryRows, campaignRows] = await Promise.all([
+    sql<{
+      as_of: string;
+      last_7_days_starts: number;
+      last_7_days_completions: number;
+      previous_7_days_starts: number;
+      previous_7_days_completions: number;
+      last_30_days_starts: number;
+      last_30_days_completions: number;
+      last_started_at: string | null;
+      last_completed_at: string | null;
+    }[]>`
+      select now()::text as as_of,
+             (
+               select count(*)::int
+               from community_intake_attributions attribution
+               where attribution.retain_until > now()
+                 and attribution.captured_at >= now() - interval '7 days'
+             ) as last_7_days_starts,
+             (
+               select count(*)::int
+               from community_contributions contribution
+               where contribution.retain_until > now()
+                 and contribution.submitted_at >= now() - interval '7 days'
+             ) as last_7_days_completions,
+             (
+               select count(*)::int
+               from community_intake_attributions attribution
+               where attribution.retain_until > now()
+                 and attribution.captured_at >= now() - interval '14 days'
+                 and attribution.captured_at < now() - interval '7 days'
+             ) as previous_7_days_starts,
+             (
+               select count(*)::int
+               from community_contributions contribution
+               where contribution.retain_until > now()
+                 and contribution.submitted_at >= now() - interval '14 days'
+                 and contribution.submitted_at < now() - interval '7 days'
+             ) as previous_7_days_completions,
+             (
+               select count(*)::int
+               from community_intake_attributions attribution
+               where attribution.retain_until > now()
+                 and attribution.captured_at >= now() - interval '30 days'
+             ) as last_30_days_starts,
+             (
+               select count(*)::int
+               from community_contributions contribution
+               where contribution.retain_until > now()
+                 and contribution.submitted_at >= now() - interval '30 days'
+             ) as last_30_days_completions,
+             (
+               select max(attribution.captured_at)::text
+               from community_intake_attributions attribution
+               where attribution.retain_until > now()
+             ) as last_started_at,
+             (
+               select max(contribution.submitted_at)::text
+               from community_contributions contribution
+               where contribution.retain_until > now()
+             ) as last_completed_at
+    `,
+    sql<{
+      source: string;
+      medium: string | null;
+      campaign: string | null;
+      content: string | null;
+      starts: number;
+      completions: number;
+      last_started_at: string | null;
+      last_completed_at: string | null;
+    }[]>`
+      with attribution_window as (
+        select attribution.source, attribution.medium, attribution.campaign,
+               attribution.content, attribution.captured_at
+        from community_intake_attributions attribution
+        where attribution.retain_until > now()
+          and attribution.captured_at >= now() - interval '30 days'
+      ),
+      completion_window as (
+        select coalesce(attribution.source, 'not-recorded') as source,
+               attribution.medium, attribution.campaign, attribution.content,
+               contribution.submitted_at
+        from community_contributions contribution
+        left join community_intake_attributions attribution
+          on attribution.draft_id = contribution.draft_id
+          and attribution.retain_until > now()
+        where contribution.retain_until > now()
+          and contribution.submitted_at >= now() - interval '30 days'
+      ),
+      campaign_counts as (
+        select source, medium, campaign, content,
+               count(*)::int as starts,
+               0::int as completions,
+               max(captured_at)::text as last_started_at,
+               null::text as last_completed_at
+        from attribution_window
+        group by source, medium, campaign, content
+        union all
+        select source, medium, campaign, content,
+               0::int as starts,
+               count(*)::int as completions,
+               null::text as last_started_at,
+               max(submitted_at)::text as last_completed_at
+        from completion_window
+        group by source, medium, campaign, content
+      )
+      select source, medium, campaign, content,
+             sum(starts)::int as starts,
+             sum(completions)::int as completions,
+             max(last_started_at) as last_started_at,
+             max(last_completed_at) as last_completed_at
+      from campaign_counts
+      group by source, medium, campaign, content
+      order by completions desc, starts desc,
+               max(last_completed_at) desc nulls last,
+               max(last_started_at) desc nulls last,
+               source asc, medium asc nulls first,
+               campaign asc nulls first, content asc nulls first
+      limit 12
+    `,
+  ]);
+  const summary = summaryRows[0];
+  if (!summary) throw new Error('Contribution attribution summary unavailable.');
+
+  return {
+    asOf: summary.as_of,
+    last7DaysStarts: summary.last_7_days_starts,
+    last7DaysCompletions: summary.last_7_days_completions,
+    previous7DaysStarts: summary.previous_7_days_starts,
+    previous7DaysCompletions: summary.previous_7_days_completions,
+    last30DaysStarts: summary.last_30_days_starts,
+    last30DaysCompletions: summary.last_30_days_completions,
+    lastStartedAt: summary.last_started_at,
+    lastCompletedAt: summary.last_completed_at,
+    campaigns: campaignRows.map(row => ({
+      source: row.source,
+      medium: row.medium,
+      campaign: row.campaign,
+      content: row.content,
+      starts: row.starts,
+      completions: row.completions,
+      lastStartedAt: row.last_started_at,
+      lastCompletedAt: row.last_completed_at,
+    })),
+  };
 }
