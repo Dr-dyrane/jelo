@@ -7,6 +7,10 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
 ## What exists today
 
 - Page traffic through Vercel Analytics, mounted in [app/layout.tsx](../app/layout.tsx).
+- Anonymous contribution drafts keep one bounded first-touch campaign record in
+  `community_intake_attributions`. It stores only normalized source, medium,
+  campaign, creative label, and `/contribute` landing path. The aggregate is
+  available through `npm run community:research:signals`.
 - A single outbound choke point for store links: `/go?product=<slug>&retailer=<name>` in [app/go/route.ts](../app/go/route.ts). It resolves the exact offer and attributes the destination through [redirect-attribution.ts](../modules/commerce/redirect-attribution.ts) (`utm_content=<product>:<retailer>`). Every "Open store" already passes through here, so store-click behaviour has one place to record it.
 - The `store_click` event, recorded server-side there for the exact-offer branch. `priceRank`, `position`, and `freshnessDays` come from the same ranking and market summary the product page shows ([price-rank.ts](../modules/commerce/price-rank.ts)); the write goes through `next/server` `after` so it never delays the redirect, no-ops without Neon, and is bounded by a strict schema ([commerce-events.ts](../lib/analytics/commerce-events.ts), table `commerce_events` in `db/migrations/0019_commerce_events.sql`). See [ADR 0005](./adr/0005-structured-observation-events.md).
 
@@ -51,6 +55,9 @@ A small typed set. Every click that changes state or leaves the app is one event
 This is a hard boundary, not a preference.
 
 - No personal data: no legal name, email, account, raw IP address, or user-agent string is stored. Same rule as [community intake](./COMMUNITY_KNOWLEDGE_INTAKE.md).
+- Contribution attribution never stores a full referrer, query string,
+  `utm_term`, ad-network click ID, or person/session identifier. It is
+  first-touch campaign context, not identity and never a trust signal.
 - No search-query text is stored. Events record counts and modes, never what was typed.
 - Identifiers used for abuse limits are HMACed and short-lived; analytics is aggregate.
 - Concern and Ask Jelo activity is never joined to advertising or retailer targeting. Health-shaped behaviour stays out of commercial signals. See [ADR 0001](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md).
@@ -71,6 +78,7 @@ This is a hard boundary, not a preference.
 | Outbound attribution | [modules/commerce/redirect-attribution.ts](../modules/commerce/redirect-attribution.ts) |
 | Outbound route | [app/go/route.ts](../app/go/route.ts) |
 | Page analytics | `@vercel/analytics` in [app/layout.tsx](../app/layout.tsx) |
+| Anonymous contribution source | `community_intake_attributions`, aggregated by `npm run community:research:signals` |
 | Decision measures | [Product roadmap](./product/ROADMAP.md) |
 | Privacy posture | [ADR 0001](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md), [community intake](./COMMUNITY_KNOWLEDGE_INTAKE.md) |
 

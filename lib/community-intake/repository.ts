@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { getPostgresClient } from '@/lib/db/postgres';
+import type { CommunityIntakeAttribution } from './attribution';
 import { communityKnowledgeEdges, communityObservations, unknownCommunityValues } from './moderation';
 import { communityResearchTasks } from './research-queue';
 import {
@@ -21,15 +22,29 @@ type DraftRow = {
 
 type ContributionRow = { id: string };
 
-export async function createCommunityDraft(kind: ContributionKind, editSecretHash: string) {
+export async function createCommunityDraft(
+  kind: ContributionKind,
+  editSecretHash: string,
+  attribution: CommunityIntakeAttribution,
+) {
   const sql = getPostgresClient();
   const payload = emptyContributionDraft(kind);
-  const [row] = await sql<DraftRow[]>`
-    insert into community_intake_drafts (edit_secret_hash, contribution_kind, payload)
-    values (${editSecretHash}, ${kind}, ${sql.json(payload)})
-    returning id, revision, expires_at, status, payload
-  `;
-  return row;
+  return sql.begin(async transaction => {
+    const [row] = await transaction<DraftRow[]>`
+      insert into community_intake_drafts (edit_secret_hash, contribution_kind, payload)
+      values (${editSecretHash}, ${kind}, ${transaction.json(payload)})
+      returning id, revision, expires_at, status, payload
+    `;
+    await transaction`
+      insert into community_intake_attributions (
+        draft_id, source, medium, campaign, content, landing_path
+      ) values (
+        ${row.id}, ${attribution.source}, ${attribution.medium},
+        ${attribution.campaign}, ${attribution.content}, ${attribution.landingPath}
+      )
+    `;
+    return row;
+  });
 }
 
 export async function saveCommunityDraft(input: {

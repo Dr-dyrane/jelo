@@ -17,6 +17,14 @@ type PriceRow = {
   median_ngn: number;
 };
 type UnknownRow = { kind: string; value: string; occurrences: number; last_seen_at: Date };
+type AttributionRow = {
+  source: string;
+  medium: string | null;
+  campaign: string | null;
+  content: string | null;
+  drafts_started: number;
+  contributions_received: number;
+};
 type ResearchTaskRow = {
   task_kind: CommunityResearchPriorityTask['taskKind'];
   entity_kind: CommunityResearchPriorityTask['entityKind'];
@@ -68,7 +76,7 @@ async function readCommunityResearchSignals(limit = 100) {
         and contribution.retain_until > now()
       group by object_ref order by mentions desc, label limit ${limit}
     `;
-    const [products, retailers, purposes, prices, unknownValues, researchQueue] = await Promise.all([
+    const [products, retailers, purposes, prices, unknownValues, researchQueue, attribution] = await Promise.all([
       mentions('reported_product'),
       mentions('reported_retailer'),
       mentions('reported_for'),
@@ -123,6 +131,19 @@ async function readCommunityResearchSignals(limit = 100) {
         order by task.priority_rank, signal_count desc, last_seen_at desc, task.entity_label
         limit ${limit}
       `,
+      sql<AttributionRow[]>`
+        select attribution.source, attribution.medium, attribution.campaign, attribution.content,
+               count(distinct attribution.draft_id)::integer as drafts_started,
+               count(distinct contribution.id)::integer as contributions_received
+        from community_intake_attributions attribution
+        left join community_contributions contribution
+          on contribution.draft_id = attribution.draft_id
+          and contribution.moderation_status <> 'rejected'
+          and contribution.retain_until > now()
+        where attribution.retain_until > now()
+        group by attribution.source, attribution.medium, attribution.campaign, attribution.content
+        order by contributions_received desc, drafts_started desc, attribution.source
+      `,
     ]);
     return {
       generatedAt: new Date().toISOString(),
@@ -130,6 +151,7 @@ async function readCommunityResearchSignals(limit = 100) {
       moderationBoundary: 'research-priority-only' as const,
       submittedContributionCount: summary?.count ?? 0,
       pendingModerationCount: pending?.count ?? 0,
+      attribution,
       contributionKinds: kinds,
       products,
       retailers,
@@ -187,6 +209,8 @@ async function main() {
     pendingModeration: signals.pendingModerationCount,
     boundary: signals.moderationBoundary,
   });
+  console.log('Anonymous contribution sources');
+  console.table(signals.attribution);
   console.log('Products');
   console.table(signals.products);
   console.log('Retailers');

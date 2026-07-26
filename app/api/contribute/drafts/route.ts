@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hasPostgresConfig } from '@/lib/db/postgres';
+import { communityIntakeAttributionFromReferrer } from '@/lib/community-intake/attribution';
 import { createCommunityDraft } from '@/lib/community-intake/repository';
 import { createDraftRequestSchema } from '@/lib/community-intake/schema';
 import {
@@ -21,7 +22,8 @@ export async function POST(request: NextRequest) {
   try {
     const input = createDraftRequestSchema.parse(await readBoundedJson(request));
     const secret = createEditSecret();
-    const draft = await createCommunityDraft(input.kind, hashEditSecret(secret));
+    const attribution = communityIntakeAttributionFromReferrer(request.headers.get('referer'));
+    const draft = await createCommunityDraft(input.kind, hashEditSecret(secret), attribution);
     const response = NextResponse.json({
       draftId: draft.id,
       revision: draft.revision,

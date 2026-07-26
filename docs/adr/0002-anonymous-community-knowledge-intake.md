@@ -24,11 +24,20 @@ The system stores:
 - custom values in a moderation queue;
 - contribution-scoped knowledge edges marked `community_reported` and `pending`;
 - deduplicated interaction events that record modes and counts, never search text;
+- one separate first-touch campaign record with bounded source, medium,
+  campaign, creative label, and landing path;
 - no legal name, email, account, raw IP address or user-agent string.
 
 A random edit secret is returned only as an HttpOnly, SameSite cookie. PostgreSQL stores its SHA-256 hash. Autosaves use optimistic revisions. Finalization is idempotent for one draft.
 
 Network identifiers used for abuse limits are HMACed server-side and retained only by the short-lived Redis limiter. PostgreSQL does not store them.
+
+Campaign attribution is analytics, not contribution evidence. It is stored
+outside the immutable contribution payload and never enters moderation,
+recommendations, ranking, clinical logic, or retailer targeting. JeloCare does
+not retain the full referrer, query string, `utm_term`, click IDs, or a
+person/session identifier. Existing submissions without a first-touch row stay
+`unknown`; they are never backfilled as direct traffic.
 
 ## Trust boundary
 
