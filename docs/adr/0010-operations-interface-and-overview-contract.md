@@ -1060,3 +1060,165 @@ the next operations route.
 - **Use more glass, borders, or charts to make Ops feel premium.** Rejected:
   premium operations UI comes from deference, clarity, truthful data, and
   predictable behavior.
+
+## Edges transfer trial
+
+Status: candidate transfer trial, not canon.
+
+The internal route and database may continue to call these records edges. The
+operator-facing job is simpler: decide whether one community-reported
+relationship is coherent enough to remain available for later moderation work.
+Approval keeps that submitted relationship. It does not verify the underlying
+claim, publish a canonical catalogue fact, or establish clinical truth.
+
+The live queue inspection on 2026-07-26 found 129 pending relationships across
+seven real families: reported purpose, reported outcome, reported retailer,
+included product, reported product, reported brand, and reported price. Most
+subjects were anonymous-contribution UUIDs and several object values were raw
+references or numeric strings. That evidence makes a typed presentation
+boundary mandatory. Rendering database triples directly is not an acceptable
+shortcut.
+
+### Typed relationship boundary
+
+`lib/moderation/edge-presentation.ts` owns the conversion from a pending
+database record to an operator-facing relationship item. The route consumes
+that item and does not repeat parsing, reference humanisation, product lookup,
+money formatting, outcome mapping, or predicate mapping in JSX.
+
+The typed item provides:
+
+- one human relationship family;
+- one readable source-context label;
+- one readable target label or formatted value;
+- one concise relationship sentence or equivalent title and summary;
+- creation time and an explicit matching state only when attention is needed;
+- an optional product image only when the canonical product is display
+  approved; and
+- raw IDs and references only as secondary metadata when operationally useful.
+
+The primary route title is `Relationships`. Visible queue rows and the primary
+inspector use language such as `Used for`, `Bought from`, `Reported result`,
+`Includes`, `Brand named`, and `Reported price`. They never expose
+`edge`, `triple`, `predicate`, `subject kind`, `object kind`, a UUID, a prefixed
+reference, JSON, schema language, or raw payload syntax. An anonymous
+submission is described through its submitted product, routine, or store
+context rather than a shortened identifier.
+
+Metadata is progressive disclosure, not a raw-data escape hatch. When an ID is
+needed for support or audit, use the existing ID control and a human label.
+Do not render a raw object with `JSON.stringify`, `<pre>`, or code styling.
+
+### Queue truth and ordering
+
+The review order is oldest eligible relationship first. Ordering is enforced
+by the server queue or typed read model and tested there; it is not asserted by
+decorative UI copy.
+
+The route uses bounded truth:
+
+1. request `LIMIT + 1`;
+2. present only `slice(0, LIMIT)`;
+3. derive `hasMore` from `rows.length > LIMIT`; and
+4. derive a stable `(createdAt, id)` cursor from the final presented row; and
+5. fetch the next bounded window at the scroll threshold while keeping a
+   keyboard-reachable `Load more` fallback.
+
+A capped projection must never say `all shown`, claim the global total, infer
+completeness from `rows.length === LIMIT`, or describe an oldest-first queue as
+the `most recent`. It must not replace continuation with a static `more
+waiting` label. The sidebar count and route window may differ without either
+becoming false.
+
+The requested URL item is included once when it is still eligible but falls
+outside the first bounded window. Selection, rendered order, keyboard order,
+settlement, and the URL remain one state machine.
+
+### Route anatomy and surfaces
+
+The route uses the shared title-only `OpsWorkspace` and the accepted responsive
+shell. It adds no lede. On docked desktop the navigation, relationship
+workspace, and contextual inspector are sibling planes; the inspector owns its
+scroll and anchored decision region. Compact uses a right side sheet. Touch and
+phone use a bottom sheet. Temporary inspectors do not auto-open merely because
+the populated desktop state auto-selects.
+
+The workspace is arranged by operator context rather than table fields:
+
+- `Up next` contains the two oldest eligible relationships in a two-card
+  feature shelf;
+- `Product context` contains uses, products, and brands in compact rows;
+- `Stores` is a fixed-measure horizontal rail; and
+- `Results and prices` keeps experience and price evidence together.
+
+Every section uses the same selection, keyboard, settlement, and inspector
+state. Local progressive disclosure and server continuation are separate
+layers: revealing an already-fetched row cannot falsely imply that the server
+queue is complete.
+
+Loading follows resolved behavior, not URL timing. A populated ready route
+auto-selects its first eligible relationship, so the docked loading state
+reserves the detail skeleton unconditionally at `>=1180px`. It does not read or
+wait for `id`. Compact, touch, and phone loading preserve the collection
+geometry without inventing an open dialog.
+
+A row is one interactive control with immediate selected or pending tone and
+`aria-busy` feedback. Selecting another row immediately mounts that
+relationship's detail skeleton in the current inspector plane while navigation
+resolves. Overlay entry moves focus inside; Tab stays contained; Escape and
+safe outside dismissal close it; body scroll locks; focus returns to the exact
+trigger unless settlement removed it.
+
+The contextual FAB remains available on phone and opens the current
+relationship. Every touch action, close control, and overflow control provides
+at least a `44 × 44` CSS-pixel target. Destructive decisions never use an
+unmodified single-key shortcut.
+
+At rest, only an optional image stage owns a quiet surface. The surrounding row
+and its copy remain on the workspace; the whole row gains tone only for hover,
+focus, pending selection, or selected state. Do not place a surfaced product
+summary inside another surfaced relationship card. Do not use opaque
+cream/white wells, generic product placeholders, or unapproved remote imagery.
+Long product names and relationship sentences wrap or clamp to a readable
+multi-line measure with a complete accessible name; pagination may not compress
+fixed-width rail content.
+
+### Decision and state contract
+
+Rejecting one relationship rejects only that relationship in the current
+transition. It does not reject its parent contribution or sibling reports. The
+first Reject control opens an inline confirmation in the anchored decision
+region:
+
+- `Reject this relationship?`
+- `This removes only this relationship from the review queue.`
+- `Keep`
+- `Reject`
+
+This confirmation is not a nested modal. Approval remains direct. Both paths
+disable duplicate decisions, keep context visible, announce a concise result,
+handle already-settled conflicts, advance predictably, and never expose
+arbitrary exception text.
+
+| State | Required behavior |
+| --- | --- |
+| Loading | Preserve relationship-row geometry and reserve the docked inspector without reading `id`; do not auto-open a temporary sheet. |
+| Initial populated | Select the oldest eligible relationship and reconcile the URL without an empty inspector flash. |
+| Selecting | Mark the chosen row busy immediately and show its detail skeleton in the current inspector plane. |
+| Populated | Show one human relationship, its reported value, evidence time, any matching work, progressive metadata, and one decision region. |
+| Approving | Change only the submitted action label, prevent duplicates, preserve context, and announce the result. |
+| Rejecting | Show the inline single-relationship consequence before submitting. |
+| Settled | Remove the item, advance URL and selection, and restore focus to a valid next target. |
+| Conflict | Keep context until fresh data resolves; say another operator already handled it and offer safe recovery. |
+| Empty | `Nothing awaiting review` and `New relationships will appear here.` on the bare workspace. |
+| Partial | Continue from a stable cursor through scroll loading with a `Load more` fallback; do not claim completeness. |
+| Error | Preserve the shell, say `Couldn't load relationships`, offer `Try again`, and keep diagnostics private. |
+| Denied | Hide decisions and use plain operator language without describing permission internals. |
+| Long content | Preserve full accessible meaning, readable wrapping, stable media measure, and reachable actions. |
+
+The evidence matrix is `390 × 844`, `600 × 800`, `1000 × 800`, `1300 × 820`,
+`1440 × 900`, and `320 × 640`, plus keyboard-only, dark mode,
+reduced-motion, loading, empty, partial, conflict, and error review. The trial
+must pass its typed projection tests and
+`modules/moderation/edges-contract.test.ts` before product review can consider
+it canonical.

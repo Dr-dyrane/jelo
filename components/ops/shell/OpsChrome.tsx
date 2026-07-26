@@ -101,7 +101,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
 
   const queueItems = [
     { href: '/ops/contributions', label: 'Contributions', icon: Inbox, count: counts.contributions },
-    { href: '/ops/edges', label: 'Edges', icon: GitFork, count: counts.edges },
+    { href: '/ops/edges', label: 'Relationships', icon: GitFork, count: counts.edges },
     { href: '/ops/observations', label: 'Observations', icon: Eye, count: counts.observations },
     { href: '/ops/vocabulary', label: 'Vocabulary', icon: BookOpen, count: counts.values },
     { href: '/ops/retailers', label: 'Retailers', icon: Store, count: counts.retailers },

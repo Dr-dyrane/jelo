@@ -18,7 +18,7 @@ export const OVERVIEW_QUEUE_ORDER: readonly OverviewQueueKind[] = [
 
 export const OVERVIEW_QUEUES: readonly OverviewQueueDefinition[] = [
   { kind: 'contributions', label: 'Contributions', href: '/ops/contributions' },
-  { kind: 'edges', label: 'Knowledge edges', href: '/ops/edges' },
+  { kind: 'edges', label: 'Relationships', href: '/ops/edges' },
   { kind: 'observations', label: 'Observations', href: '/ops/observations' },
   { kind: 'vocabulary', label: 'Vocabulary', href: '/ops/vocabulary' },
   { kind: 'retailers', label: 'Retailer applications', href: '/ops/retailers' },
@@ -105,7 +105,7 @@ const ACTION_LABELS: Record<OverviewAuditEntry['action'], string> = {
 };
 
 const AUDIT_QUEUE_LABELS: Record<OverviewAuditEntry['queue'], string> = {
-  community_contribution: 'contribution', community_edge: 'knowledge edge', community_observation: 'observation', community_moderation_value: 'vocabulary item', community_research_task: 'research task', retailer_application: 'retailer application', commerce_signal: 'commerce signal',
+  community_contribution: 'contribution', community_edge: 'relationship', community_observation: 'observation', community_moderation_value: 'vocabulary item', community_research_task: 'research task', retailer_application: 'retailer application', commerce_signal: 'commerce signal',
 };
 
 const AUDIT_QUEUE_KINDS: Record<OverviewAuditEntry['queue'], OverviewQueueKind | null> = {

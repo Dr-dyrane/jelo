@@ -76,8 +76,45 @@ export async function decideEdgeAction(_prevState: unknown, formData: FormData):
     if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
     return { ok: true, targetId, decision };
   } catch (err) {
-    return decisionFailure('knowledge edge', requestedId, err);
+    return decisionFailure('relationship', requestedId, err);
   }
+}
+
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export async function fetchMoreRelationshipsAction(
+  afterCreatedAt: string,
+  afterId: string,
+  limit = 40,
+) {
+  await requireConsoleOperator();
+
+  const parsedDate = new Date(afterCreatedAt);
+  if (!Number.isFinite(parsedDate.valueOf()) || !uuidPattern.test(afterId)) {
+    throw new Error('Invalid relationship cursor.');
+  }
+
+  const safeLimit = Math.min(Math.max(Math.trunc(limit), 1), 100);
+  const { listPendingEdges } = await import('@/lib/moderation/queues');
+  const { edgeReviewItem } = await import('@/lib/moderation/edge-presentation');
+  const fetchedRows = await listPendingEdges(
+    getPostgresClient(),
+    safeLimit + 1,
+    {
+      createdAt: parsedDate.toISOString(),
+      id: afterId,
+    },
+  );
+  const rows = fetchedRows.slice(0, safeLimit);
+  const lastRow = rows.at(-1);
+
+  return {
+    items: rows.map(edgeReviewItem),
+    hasMore: fetchedRows.length > safeLimit,
+    nextCursor: lastRow
+      ? { createdAt: lastRow.createdAt, id: lastRow.id }
+      : null,
+  };
 }
 
 export async function decideObservationAction(_prevState: unknown, formData: FormData): Promise<ObservationActionResult> {

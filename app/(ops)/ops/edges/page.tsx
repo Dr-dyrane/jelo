@@ -7,12 +7,10 @@ import {
 } from '@/lib/moderation/queue-selection';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { can } from '@/lib/moderation/capabilities';
+import { edgeReviewItem } from '@/lib/moderation/edge-presentation';
 import { EmptyState } from '@/components/ops/state/EmptyState';
-import { findCatalogueProduct } from '@/lib/catalogue/repository';
-import { listProductIngredientsSafe } from '@/lib/clinical/ingredients';
+import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import { EdgesInbox } from './EdgesInbox';
-import opsStyles from '../../ops.module.css';
-import styles from '@/components/ops/inbox/inbox.module.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,68 +25,34 @@ export default async function EdgesQueue({
   const canDecide = can(operator.role, 'edges.decide');
   const selectedId = selectedQueueItemId(await searchParams);
   const sql = getPostgresClient();
-  const recentRows = await listPendingEdges(sql, LIMIT);
+  const fetchedRows = await listPendingEdges(sql, LIMIT + 1);
+  const recentRows = fetchedRows.slice(0, LIMIT);
+  const hasMore = fetchedRows.length > LIMIT;
   const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
     ? await findPendingEdge(sql, selectedId)
     : null;
   const rows = includeSelectedQueueItem(recentRows, selectedRow);
-
-  const enrichedRows = await Promise.all(rows.map(async row => {
-    let subjectProduct;
-    let objectProduct;
-    const warnings: string[] = [];
-
-    if (row.subjectKind === 'product' || row.subjectRef.startsWith('product:')) {
-      const slug = row.subjectRef.startsWith('product:') ? row.subjectRef.slice(8) : row.subjectRef;
-      subjectProduct = await findCatalogueProduct(slug);
-
-      if (subjectProduct) {
-        // Query active ingredients to verify clinical safety restrictions (ADR 0006)
-        const ingredients = await listProductIngredientsSafe(subjectProduct.slug);
-        
-        const avoidInPregnancy = ingredients.some(i => i.pregnancyStatus === 'avoid');
-        if (avoidInPregnancy) {
-          warnings.push('Contains ingredients to avoid during pregnancy (e.g. retinoids).');
-        }
-
-        const sensitiveCaution = ingredients.some(i => i.sensitiveSkinStatus === 'avoid' || i.sensitiveSkinStatus === 'use_with_caution');
-        if (sensitiveCaution) {
-          warnings.push('Contains ingredients posing sensitive skin irritation risk.');
-        }
-
-        const needsSunProtection = ingredients.some(i => i.requiresSunProtection);
-        if (needsSunProtection) {
-          warnings.push('Contains sun-sensitizing actives requiring daytime SPF.');
-        }
-      }
-    }
-
-    if (row.objectKind === 'product' || row.objectRef.startsWith('product:')) {
-      const slug = row.objectRef.startsWith('product:') ? row.objectRef.slice(8) : row.objectRef;
-      objectProduct = await findCatalogueProduct(slug);
-    }
-
-    return { ...row, subjectProduct, objectProduct, warnings };
-  }));
+  const reviewItems = rows.map(edgeReviewItem);
+  const lastQueueRow = recentRows.at(-1);
+  const nextCursor = lastQueueRow
+    ? { createdAt: lastQueueRow.createdAt, id: lastQueueRow.id }
+    : null;
 
   return (
-    <>
-      <h1 className={opsStyles.h1}>Knowledge edges</h1>
-      <p className={opsStyles.lede}>Typed triples derived from contributions, pending review. Community-reported until an operator approves.</p>
-
-      {enrichedRows.length === 0 ? (
+    <OpsWorkspace title="Relationships">
+      {rows.length === 0 ? (
         <EmptyState
-          title="No pending edges"
-          body="Triples connecting products, ingredients, concerns, or brands will appear here."
+          title="Nothing awaiting review"
+          body="New relationships will appear here."
         />
       ) : (
-        <>
-          <EdgesInbox rows={enrichedRows} canDecide={canDecide} />
-          {recentRows.length === LIMIT ? (
-            <p className={styles.partial}>Showing the {LIMIT} most recent — more may be pending.</p>
-          ) : null}
-        </>
+        <EdgesInbox
+          rows={reviewItems}
+          canDecide={canDecide}
+          initialHasMore={hasMore}
+          initialCursor={nextCursor}
+        />
       )}
-    </>
+    </OpsWorkspace>
   );
 }

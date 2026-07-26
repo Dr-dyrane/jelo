@@ -42,7 +42,7 @@ test('overview recommends the oldest actionable pending queue with a human reaso
   assert.deepEqual(briefing.nextAction, {
     queueKind: 'edges',
     href: '/ops/edges',
-    label: 'Knowledge edges',
+    label: 'Relationships',
     reasonCode: 'oldest-actionable-pending',
     reasonText: 'Oldest item waiting',
   });

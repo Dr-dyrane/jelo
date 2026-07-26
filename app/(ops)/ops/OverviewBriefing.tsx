@@ -32,7 +32,7 @@ const QUEUE_ICONS: Record<OverviewQueue['kind'], LucideIcon> = {
 
 const QUEUE_ITEM_LABELS: Record<OverviewQueue['kind'], string> = {
   contributions: 'Contribution',
-  edges: 'Knowledge edge',
+  edges: 'Relationship',
   observations: 'Observation',
   vocabulary: 'Vocabulary',
   retailers: 'Retailer',

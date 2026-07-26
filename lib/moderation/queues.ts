@@ -234,45 +234,76 @@ export async function findPendingContribution(
 export type PendingEdge = {
   id: string;
   contributionId: string;
+  contributionKind: 'product' | 'routine' | 'store';
+  contributionPayload: Record<string, unknown>;
   subjectKind: string;
   subjectRef: string;
   predicate: string;
   objectKind: string;
   objectRef: string;
+  confidenceState: string;
   metadata: Record<string, unknown>;
   createdAt: string;
 };
 
-export async function listPendingEdges(sql: Sql, limit = 100): Promise<PendingEdge[]> {
+export type PendingEdgeCursor = {
+  createdAt: string;
+  id: string;
+};
+
+export async function listPendingEdges(
+  sql: Sql,
+  limit = 100,
+  after?: PendingEdgeCursor,
+): Promise<PendingEdge[]> {
+  const afterCursor = after
+    ? sql`
+        and (edge.created_at, edge.id) > (
+          ${after.createdAt}::timestamptz,
+          ${after.id}::uuid
+        )
+      `
+    : sql``;
   const rows = await sql<{
     id: string;
     contribution_id: string;
+    contribution_kind: PendingEdge['contributionKind'];
+    contribution_payload: Record<string, unknown>;
     subject_kind: string;
     subject_ref: string;
     predicate: string;
     object_kind: string;
     object_ref: string;
+    confidence_state: string;
     metadata: Record<string, unknown>;
     created_at: string;
   }[]>`
-    select edge.id, edge.contribution_id, edge.subject_kind, edge.subject_ref, edge.predicate,
-           edge.object_kind, edge.object_ref, edge.metadata, edge.created_at::text as created_at
+    select edge.id, edge.contribution_id,
+           contribution.contribution_kind,
+           contribution.payload as contribution_payload,
+           edge.subject_kind, edge.subject_ref, edge.predicate,
+           edge.object_kind, edge.object_ref, edge.confidence_state,
+           edge.metadata, edge.created_at::text as created_at
     from community_knowledge_edges edge
     join community_contributions contribution on contribution.id = edge.contribution_id
     where edge.moderation_status = 'pending'
       and contribution.moderation_status <> 'rejected'
       and contribution.retain_until > now()
-    order by edge.created_at desc
+      ${afterCursor}
+    order by edge.created_at asc, edge.id asc
     limit ${boundedLimit(limit)}
   `;
   return rows.map(row => ({
     id: row.id,
     contributionId: row.contribution_id,
+    contributionKind: row.contribution_kind,
+    contributionPayload: row.contribution_payload,
     subjectKind: row.subject_kind,
     subjectRef: row.subject_ref,
     predicate: row.predicate,
     objectKind: row.object_kind,
     objectRef: row.object_ref,
+    confidenceState: row.confidence_state,
     metadata: row.metadata,
     createdAt: row.created_at,
   }));
@@ -282,16 +313,23 @@ export async function findPendingEdge(sql: Sql, id: string): Promise<PendingEdge
   const [row] = await sql<{
     id: string;
     contribution_id: string;
+    contribution_kind: PendingEdge['contributionKind'];
+    contribution_payload: Record<string, unknown>;
     subject_kind: string;
     subject_ref: string;
     predicate: string;
     object_kind: string;
     object_ref: string;
+    confidence_state: string;
     metadata: Record<string, unknown>;
     created_at: string;
   }[]>`
-    select edge.id, edge.contribution_id, edge.subject_kind, edge.subject_ref, edge.predicate,
-           edge.object_kind, edge.object_ref, edge.metadata, edge.created_at::text as created_at
+    select edge.id, edge.contribution_id,
+           contribution.contribution_kind,
+           contribution.payload as contribution_payload,
+           edge.subject_kind, edge.subject_ref, edge.predicate,
+           edge.object_kind, edge.object_ref, edge.confidence_state,
+           edge.metadata, edge.created_at::text as created_at
     from community_knowledge_edges edge
     join community_contributions contribution on contribution.id = edge.contribution_id
     where edge.moderation_status = 'pending'
@@ -304,11 +342,14 @@ export async function findPendingEdge(sql: Sql, id: string): Promise<PendingEdge
   return row ? {
     id: row.id,
     contributionId: row.contribution_id,
+    contributionKind: row.contribution_kind,
+    contributionPayload: row.contribution_payload,
     subjectKind: row.subject_kind,
     subjectRef: row.subject_ref,
     predicate: row.predicate,
     objectKind: row.object_kind,
     objectRef: row.object_ref,
+    confidenceState: row.confidence_state,
     metadata: row.metadata,
     createdAt: row.created_at,
   } : null;

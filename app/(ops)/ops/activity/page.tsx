@@ -11,7 +11,7 @@ const LIMIT = 100;
 
 const queueLabels = {
   community_contribution: 'Contribution',
-  community_edge: 'Knowledge edge',
+  community_edge: 'Relationship',
   community_observation: 'Observation',
   community_moderation_value: 'Vocabulary',
   community_research_task: 'Research task',

@@ -289,9 +289,7 @@ export function InboxContainer<T extends { id: string }>({
     : -1;
   const detailId = requestedIndex >= 0
     ? requestedDetailId
-    : !isControlled
-      ? optimisticItems[0]?.id ?? null
-      : null;
+    : optimisticItems[0]?.id ?? null;
   const selectedIndex = detailId
     ? optimisticItems.findIndex(item => item.id === detailId)
     : -1;
