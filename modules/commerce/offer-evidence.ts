@@ -52,6 +52,7 @@ export function materializePersistedOfferEvidence(
 ): Offer {
   const observedAt = timestamp(persisted.lastVerifiedAt);
   const basis = persisted.verificationMethod === 'retailer_page'
+    || persisted.verificationMethod === 'manual'
     ? 'retailer-page' as const
     : persisted.verificationMethod === 'api'
       ? 'retailer-api' as const

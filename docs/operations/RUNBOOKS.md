@@ -140,6 +140,9 @@ present. It records manual verification timestamps, a 1–168 hour expiry,
 structured browser evidence and rationale, price history when a price is given,
 and completes only the matching active refresh job. It does not print the email,
 browser evidence, rationale, URL, or other raw observation payload.
+A passing manual observation may refresh an already approved exact public offer
+through the same title, size, route, market, and freshness gates as automation.
+It cannot create or approve a product, retailer, or offer identity.
 
 ```bash
 MODERATION_OPERATOR_EMAIL=operator@example.invalid \

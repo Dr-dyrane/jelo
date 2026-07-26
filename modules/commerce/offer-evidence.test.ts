@@ -94,7 +94,7 @@ test('a price observation cannot stand in for listing evidence', () => {
   assert.equal(observedMarketPrice(offer, 'NG', now), null);
 });
 
-test('repository mapping promotes only retailer-page or API verification into listing evidence', () => {
+test('repository mapping promotes governed retailer-page, manual, or API verification into listing evidence', () => {
   const offer: Offer = {
     retailer: 'Store',
     url: 'https://example.com/product',
@@ -121,6 +121,17 @@ test('repository mapping promotes only retailer-page or API verification into li
       observedSize: '100 ml',
     },
   );
+  const manuallyChecked = materializePersistedOfferEvidence(
+    { name: 'Example', size: '100 ml' },
+    offer,
+    {
+      verificationMethod: 'manual',
+      lastVerifiedAt: offer.checkedAt,
+      inventoryStatus: 'in_stock',
+      observedTitle: 'Example 100 ml',
+      observedSize: '100 ml',
+    },
+  );
   assert.equal(hasListingEvidence(imported), false);
   assert.equal(observedMarketPrice(imported, 'NG', now), null);
   assert.equal(hasListingEvidence(checked), true);
@@ -128,6 +139,8 @@ test('repository mapping promotes only retailer-page or API verification into li
   assert.equal(checked.priceObservation?.variant, 'Example 100 ml');
   assert.equal(checked.priceObservation?.size, '100 ml');
   assert.equal(observedMarketPrice(checked, 'NG', now), 2_000);
+  assert.equal(hasListingEvidence(manuallyChecked), true);
+  assert.equal(observedMarketPrice(manuallyChecked, 'NG', now), 2_000);
 });
 
 test('retailer UI preserves observed low-stock detail', () => {
