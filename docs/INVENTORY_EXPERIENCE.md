@@ -1,13 +1,15 @@
 # Inventory experience
 
-Updated: 2026-07-23
+Updated: 2026-07-26
 
 ## References studied
 
 - [Apple Store](https://www.apple.com/store)
 - [Apple accessories catalogue](https://www.apple.com/shop/accessories/all)
-- [Shop Explore](https://shop.app/categories)
-- [Shop Beauty](https://shop.app/categories/5/beauty)
+- [Apple Store app](https://apps.apple.com/us/app/apple-store/id375380948)
+- [Shop discovery](https://help.shop.app/en/shop/shopping/discover)
+- [Shop saved products and stores](https://help.shop.app/en/shop/shopping/discover/save-products-and-follow-stores)
+- [Shop recommendation controls](https://help.shop.app/en/shop/shopping/discover/manage-recommendations)
 - [Shop customer search and discovery](https://help.shopify.com/en/manual/online-sales-channels/shop/customer-experience)
 - [Shop products and collections](https://help.shopify.com/en/manual/online-sales-channels/shop/manage-shop-store/products-and-collections)
 - [Shop product reviews](https://help.shopify.com/en/manual/online-sales-channels/shop/product-reviews)
@@ -18,7 +20,12 @@ Updated: 2026-07-23
 
 Apple makes one task dominant at a time. Search is prominent, browse modes are explicit, visual categories are easy to scan, and curated shelves come before the full catalogue. Service reassurance follows the products instead of interrupting discovery.
 
-Shop makes a large catalogue feel current. It uses compact visual category rails, human-led editorial collections, dense product signals, and repeated horizontal shelves instead of one endless grid.
+Shop makes a large catalogue feel current. Search accepts product, brand and
+category intent; relevant refinements appear in context; and the home feed
+combines recommendations, recent activity, saved-item changes and followed
+stores. Its recommendation controls are immediate and reversible. JeloCare
+borrows the explicit state feedback and repeated discovery shelves, not opaque
+purchase-history ranking.
 
 The live catalogue review on 2026-07-22 also set useful limits. Apple does not lead with a large filter system on its all-accessories page; clear taxonomy and short curated shelves do most of the work. Shop starts search with concrete suggestions and puts company, current price, meaningful discount, and purchase-linked review evidence on cards. JeloCare can borrow the discovery hierarchy, but not ratings, sale claims, or personalization signals it cannot independently verify.
 
@@ -44,6 +51,14 @@ The page order is:
 7. source, review, price, and affiliate disclosure.
 
 Current cards keep evidence compact: exact fresh comparable offers render as a lowest observed price plus the number of stores in that comparison. A single observation is not presented as a multi-store comparison. Search assistance provides reversible company and category suggestions with keyboard support. On desktop and tablet it remains a sticky command surface beneath the main navigation; on mobile it stays in normal flow so it does not consume the small viewport. Category, routine, and concern are separate browse modes. Routine uses only the neutral `step` metadata on reviewed products; it does not establish suitability or clinical evidence. Switching market preserves the current catalogue intent and resets only pagination. Filtered result anchors reserve clearance beneath both surfaces. Broader multi-select facets remain later work. Every facet must stay auditable, hide zero-result choices, and never turn a condition pattern into product matching.
+
+Two inventory shelves now use explicit, testable rules. **Fresh price checks**
+orders public reviewed products by the newest still-valid exact-market
+observation. **Under ₦10,000** (or **Under $15** in the US view) includes a
+product only when its lowest current comparable observation is below that
+ceiling. Search matches, stale pages, unavailable offers, excluded prices and
+wrong-market observations cannot enter either shelf. Neither rule uses
+affiliate value, clicks, popularity, stock pressure or a product-quality score.
 
 ## Visual rules
 

@@ -15,9 +15,12 @@ import { concerns } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
 import type { ReviewedProduct } from '@/data/products';
 import { catalogueMarketHref, matchingCatalogueConcerns } from '@/lib/catalogue/catalogue-interactions';
+import {
+  selectProductsBelowPrice,
+  selectRecentlyCheckedProducts,
+} from '@/lib/catalogue/inventory-shelves';
 import { queryInventory } from '@/lib/catalogue/inventory-repository';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
-import { hasVerifiedNigeriaOffer } from '@/modules/commerce/home-merchandising';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 import styles from './products.module.css';
 import feedbackStyles from './catalogue-feedback.module.css';
@@ -99,7 +102,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     listCatalogueProducts(),
     listRecommendationEligibleProducts(),
   ]);
-  const nigeriaReady = reviewedProducts.filter(hasVerifiedNigeriaOffer);
+  const recentlyChecked = selectRecentlyCheckedProducts(reviewedProducts, market);
+  const accessiblePriceCeiling = market === 'NG' ? 10_000 : 15;
+  const accessiblePriceProducts = selectProductsBelowPrice(
+    reviewedProducts,
+    market,
+    accessiblePriceCeiling,
+  );
   const faceCare = reviewedProducts.filter(product => product.category === 'Face');
   const hairAndScalp = reviewedProducts.filter(product => product.category === 'Hair');
   const approvedConcerns = concerns.filter(concern => supportiveProducts.some(product => productMatchesConcern(product, concern)));
@@ -210,7 +219,20 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <article><div className={styles.storyImage}><SafeEditorialImage asset={ageAsset} alt={ageAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Simple care</p><h2>Made for change.</h2><Link href="/consult">Ask JeloCare <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
     </section>
 
-    <DiscoveryRail eyebrow="Observed in Nigeria" title="Prices seen here." products={nigeriaReady} market={market} href={href(params, { review: 'reviewed' })}/>
+    <DiscoveryRail
+      eyebrow={market === 'NG' ? 'Checked in Nigeria' : 'Checked in the US'}
+      title="Fresh price checks."
+      products={recentlyChecked}
+      market={market}
+      href={href(params, { review: 'reviewed', availability: 'priced', sort: 'newest' })}
+    />
+    <DiscoveryRail
+      eyebrow="Current prices"
+      title={market === 'NG' ? 'Under ₦10,000.' : 'Under $15.'}
+      products={accessiblePriceProducts}
+      market={market}
+      href={href(params, { review: 'reviewed', availability: 'priced', price: 'low' })}
+    />
     <DiscoveryRail eyebrow="Supportive use" title="Supportive care." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' })}/>
     <DiscoveryRail eyebrow="Face care" title="Browse the category." products={faceCare} market={market} href={href(params, { review: 'reviewed', category: 'Face care', browse: 'category' })}/>
     <DiscoveryRail eyebrow="Hair & scalp" title="Browse the category." products={hairAndScalp} market={market} href={href(params, { review: 'reviewed', category: 'Hair & scalp', browse: 'category' })}/></> : null}
