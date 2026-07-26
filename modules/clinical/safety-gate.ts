@@ -12,7 +12,7 @@ const urgentPatterns = [
   { pattern: /\b(?:eyes?\s+pain|painful\s+eyes?|swollen\s+eyes?|eyes?\s+(?:is\s+|are\s+)?swollen|eyes?\s+swelling|(?:suddenly\s+)?blurred\s+vision|vision\s+(?:is\s+)?(?:suddenly\s+)?blurred|sudden\s+vision\s+(?:change|changes|loss)|light\s+sensitivity|red\s+eye)\b/i, label: 'eye involvement' },
   { pattern: /\b(?:(?:rapidly|quickly|fast)\s+(?:spreading|worsening)|spread(?:ing)?\s+(?:rapidly|quickly))\b/i, label: 'rapid spread' },
   { pattern: /\b(?:fever|chills)\b/i, label: 'fever or chills' },
-  { pattern: /\b(?:blistering|widespread\s+blisters?|multiple\s+blisters?|skin\s+(?:is\s+)?peeling|peeling\s+skin)\b/i, label: 'blistering or skin peeling' },
+  { pattern: /\b(?:blistering|widespread\s+blisters?|multiple\s+blisters?|skin\b[^.;]{0,32}\b(?:is|are)\s+peeling|peeling\s+skin)\b/i, label: 'blistering or skin peeling' },
   { pattern: /\bsevere\s+pain\b/i, label: 'severe pain' },
   { pattern: /\b(?:pus\b.*\bfever|fever\b.*\bpus)\b/i, label: 'possible infection' },
 ];
@@ -37,9 +37,11 @@ function matches(text: string, patterns: Array<{ pattern: RegExp; label: string 
     if (item.label === 'blistering or skin peeling') {
       const hasBlistering = /\b(?:blistering|widespread\s+blisters?|multiple\s+blisters?)\b/i.test(text)
         && !/\b(?:no|without)\b[^.;]{0,28}\b(?:blistering|widespread\s+blisters?|multiple\s+blisters?)\b/i.test(text);
-      const hasPeeling = /\b(?:skin\s+(?:is\s+)?peeling|peeling\s+skin)\b/i.test(text)
-        && !/\b(?:no|without)\b[^.;]{0,28}\b(?:skin\s+(?:is\s+)?peeling|peeling\s+skin)\b/i.test(text);
-      return hasBlistering || hasPeeling;
+      const hasPeeling = /\b(?:skin\b[^.;]{0,32}\b(?:is|are)\s+peeling|peeling\s+skin)\b/i.test(text)
+        && !/\b(?:no|without)\s+(?:signs?\s+of\s+)?(?:skin\b[^.;]{0,16}\b(?:is|are)\s+peeling|peeling\s+skin)\b/i.test(text);
+      const toeWebPeeling = /\b(?:between\s+(?:my|the)\s+toes|toe[- ]web|athlete'?s foot|tinea pedis)\b/i.test(text);
+      const widespreadPeeling = /\b(?:widespread|all over|across (?:my|the) body|whole body|large areas?)\b/i.test(text);
+      return hasBlistering || (hasPeeling && (!toeWebPeeling || widespreadPeeling));
     }
     return true;
   }).map(item => item.label);

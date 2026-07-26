@@ -329,3 +329,44 @@ test('common cosmetic look-alikes remain observable, sourced and product-ineligi
     assert.doesNotMatch(guidance, /you have|diagnos|recommended product|buy now/i);
   }
 });
+
+test('foot, nail and changing-mark guides are sourced, non-diagnostic and product-ineligible', () => {
+  const expected = [
+    {
+      slug: 'athletes-foot-pattern',
+      pattern: 'tinea-pedis-like',
+      sources: ['https://www.nhs.uk/conditions/athletes-foot/'],
+      terms: ['between the toes', 'clean and dry', 'diabetes', 'same-day care'],
+    },
+    {
+      slug: 'thick-discoloured-nail-pattern',
+      pattern: 'nail-change-like',
+      sources: [
+        'https://www.nhs.uk/conditions/Fungal-nail-infection/',
+        'https://www.aad.org/public/diseases/a-z/nail-fungus-symptoms',
+      ],
+      terms: ['thicker', 'crumbly', 'dark band', 'in-person skin examination'],
+    },
+    {
+      slug: 'changing-skin-mark-pattern',
+      pattern: 'changing-skin-mark-like',
+      sources: [
+        'https://www.aad.org/public/diseases/skin-cancer/find/skin-of-color',
+        'https://www.aad.org/public/diseases/skin-cancer/find/know-how',
+      ],
+      terms: ['changes', 'does not heal', 'palms, soles, nails', 'in-person skin examination'],
+    },
+  ];
+
+  for (const item of expected) {
+    const concern = concerns.find(candidate => candidate.slug === item.slug);
+    assert.ok(concern, item.slug);
+    assert.equal(concern.kind, 'condition-pattern');
+    assert.deepEqual(concern.clinicalPatternIds, [item.pattern]);
+    assert.deepEqual(concern.productTerms, []);
+    assert.deepEqual(concern.sources.map(source => source.url), item.sources);
+    const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+    for (const term of item.terms) assert.ok(guidance.includes(term), `${item.slug} is missing ${term}`);
+    assert.doesNotMatch(guidance, /you have|diagnos|recommended product|buy now/i);
+  }
+});

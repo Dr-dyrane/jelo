@@ -5,7 +5,7 @@ import test from 'node:test';
 import { buildConsultProductCandidate, buildDeterministicConsultReport, POST } from '@/app/api/consult/route';
 import { products } from '@/data/catalogue';
 import { assessClinicalRoutine } from './core/engine';
-import { assessConsultSafety } from './safety-gate';
+import { assessConsultSafety, assessRedFlags } from './safety-gate';
 import type { ClinicalProductDecision } from '@/modules/recommendations/clinical-product-filter';
 
 function request(body: unknown) {
@@ -30,6 +30,17 @@ test('one safety decision gates products and model use', () => {
   assert.equal(selfCare.stopJourney, false);
   assert.equal(selfCare.allowModel, true);
   assert.equal(selfCare.allowProducts, true);
+});
+
+test('toe-web peeling does not masquerade as a widespread peeling emergency', () => {
+  const toeWeb = assessRedFlags({ symptoms: ['Itchy white peeling skin is cracked between my toes.'] });
+  assert.equal(toeWeb.level, 'self-care-eligible');
+
+  const widespread = assessRedFlags({ symptoms: ['My skin is peeling across my body.'] });
+  assert.equal(widespread.level, 'urgent');
+
+  const mixed = assessRedFlags({ symptoms: ['The skin between my toes is peeling and now large areas across my body are peeling.'] });
+  assert.equal(mixed.level, 'urgent');
 });
 
 test('urgent and pregnancy paths return before AI and products', async () => {
@@ -218,6 +229,24 @@ test('published guide-parity patterns stop model and product guidance with deter
       patternId: 'cold-sore-like',
       safetyLevel: 'clinician-review',
       action: /pharmacist or clinician/i,
+    },
+    {
+      query: 'Itchy white peeling skin is cracked between my toes.',
+      patternId: 'tinea-pedis-like',
+      safetyLevel: 'clinician-review',
+      action: /pharmacist or clinician/i,
+    },
+    {
+      query: 'My thick yellow toenail is crumbly and lifting.',
+      patternId: 'nail-change-like',
+      safetyLevel: 'clinician-review',
+      action: /pharmacist or clinician/i,
+    },
+    {
+      query: 'A mole is changing and bleeding.',
+      patternId: 'changing-skin-mark-like',
+      safetyLevel: 'clinician-review',
+      action: /prompt in-person skin examination/i,
     },
   ] as const;
 

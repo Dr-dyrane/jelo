@@ -30,6 +30,18 @@ Reviewed 2026-07-26. Three frequent-looking skincare questions now have explicit
 
 All three are `condition-pattern` guides with no product terms. Their directed referrals stop model and catalogue output.
 
+## Foot, nail and changing-mark checks
+
+Reviewed 2026-07-26. This small group closes three common gaps without turning JeloCare into a diagnostic service. Each is an observational `condition-pattern`, has `productTerms: []`, and stops model and catalogue output while a pharmacist or clinician checks the pattern.
+
+| Public guide | Boundary | Primary guidance |
+| --- | --- | --- |
+| Itchy, peeling skin between the toes | Does not call a foot rash an infection. The route distinguishes toe-web itch, white or pale skin, peeling and cracking from a hot, painful or swollen foot, which stays on the same-day path. Diabetes or weakened immunity prompts clinician review. | [NHS · Athlete’s foot](https://www.nhs.uk/conditions/athletes-foot/) |
+| Thick or discoloured nail | Does not call every nail change fungal. It keeps dark or changing bands, around-nail pigment, splitting and a new bump on the prompt skin-examination path; pregnancy, breastfeeding, childhood, diabetes, immune suppression, pain or spread need clinician review. | [NHS · Fungal nail infection](https://www.nhs.uk/conditions/Fungal-nail-infection/) and [AAD · Nail fungus signs](https://www.aad.org/public/diseases/a-z/nail-fungus-symptoms) |
+| Changing, bleeding or non-healing skin mark | Keeps suspicious marks out of pigment, scar, wart and lightening-product shopping. The guide names visible change rather than a condition and reminds people to check palms, soles, nails, scalp, mouth and less-visible areas on every skin tone. | [AAD · Finding skin cancer in darker skin tones](https://www.aad.org/public/diseases/skin-cancer/find/skin-of-color) and [AAD · How to find skin cancer](https://www.aad.org/public/diseases/skin-cancer/find/know-how) |
+
+The changing-mark route is deliberately conservative. It asks for a prompt in-person skin examination without naming a diagnosis, and it never tells a person to use a cosmetic, wart-removal, lightening or scar product first.
+
 ## Infection-warning cluster
 
 Reviewed 2026-07-22. This cluster fills the gap between existing fungal/infestation guides and presentations where browsing products should stop.

@@ -38,6 +38,9 @@ const patternCases = [
   ['Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.', 'periorificial-dermatitis-like'],
   ['Raised itchy patches appear and disappear within hours and move around my body.', 'urticaria-like'],
   ['Tingling came before small fluid-filled blisters on my lip that crusted into a scab.', 'cold-sore-like'],
+  ['Itchy white peeling skin is cracked between my toes.', 'tinea-pedis-like'],
+  ['My thick yellow toenail is crumbly and lifting.', 'nail-change-like'],
+  ['A mole is changing and bleeding.', 'changing-skin-mark-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -80,6 +83,9 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.').referral.level, 'dermatology');
   assert.equal(assessClinicalRoutine('Raised itchy patches appear and disappear within hours and move around my body.').referral.level, 'pharmacist');
   assert.equal(assessClinicalRoutine('Tingling came before small fluid-filled blisters on my lip that crusted into a scab.').referral.level, 'pharmacist');
+  assert.equal(assessClinicalRoutine('Itchy white peeling skin is cracked between my toes.').referral.level, 'pharmacist');
+  assert.equal(assessClinicalRoutine('My thick yellow toenail is crumbly and lifting.').referral.level, 'pharmacist');
+  assert.equal(assessClinicalRoutine('A mole is changing and bleeding.').referral.level, 'dermatology');
 });
 
 test('wart-like ulcer warnings stop skincare without swallowing nearby patterns', () => {
@@ -411,6 +417,31 @@ test('changing skin and nail warnings interrupt without naming a diagnosis', () 
     assert.match(assessment.referral.action, /prompt in-person skin examination/i, description);
     assert.doesNotMatch(JSON.stringify(assessment.referral), /melanoma|cancer|diagnos/i, description);
   }
+});
+
+test('new foot and nail patterns preserve close alternatives and fail closed at higher-risk boundaries', () => {
+  const athleteFoot = assessClinicalRoutine('Itchy white peeling skin is cracked between my toes.');
+  assert.equal(athleteFoot.differential.primary?.id, 'tinea-pedis-like');
+  assert.equal(athleteFoot.referral.level, 'pharmacist');
+  assert.equal(athleteFoot.referral.urgency, 'soon');
+
+  const diabeticFoot = assessClinicalRoutine('I have diabetes and itchy white peeling skin cracked between my toes.');
+  assert.equal(diabeticFoot.differential.primary?.id, 'tinea-pedis-like');
+  assert.equal(diabeticFoot.referral.level, 'primary-care');
+  assert.equal(diabeticFoot.referral.urgency, 'soon');
+
+  const nail = assessClinicalRoutine('My thick yellow toenail is crumbly and lifting.');
+  assert.equal(nail.differential.primary?.id, 'nail-change-like');
+  assert.equal(nail.referral.level, 'pharmacist');
+  assert.equal(nail.referral.urgency, 'soon');
+
+  const darkBand = assessClinicalRoutine('A dark line under my toenail is growing wider.');
+  assert.equal(darkBand.referral.level, 'dermatology');
+  assert.equal(darkBand.referral.urgency, 'soon');
+
+  assert.notEqual(assessClinicalRoutine('A smooth bald patch with no scale.').differential.primary?.id, 'tinea-pedis-like');
+  assert.notEqual(assessClinicalRoutine('One stable normal toenail has not changed.').differential.primary?.id, 'nail-change-like');
+  assert.notEqual(assessClinicalRoutine('One stable ordinary mole has not changed.').differential.primary?.id, 'changing-skin-mark-like');
 });
 
 test('eye and infection warning terms interrupt ordinary guidance', () => {

@@ -498,6 +498,42 @@ export const concerns: Concern[] = [
     ],
     reviewedAt: '2026-07-26',
   },
+  {
+    slug: 'athletes-foot-pattern', name: 'Itchy, peeling skin between the toes', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['tinea-pedis-like'],
+    summary: 'Itchy white, flaky or cracked skin between the toes can need infection-aware care.',
+    signals: ['itchy white or pale patches between the toes', 'flaky, peeling or cracked foot skin', 'sore patches on the sole or side of a foot', 'sweaty feet or shared wet-floor exposure'],
+    ingredients: ['keep feet clean and dry', 'dry carefully between the toes', 'pharmacist or clinician confirmation'],
+    productTerms: [],
+    escalation: 'Ask a pharmacist or clinician to confirm the pattern before choosing treatment. A foot or leg that is hot, painful or swollen, worsening cracks or bleeding, spread to other areas, diabetes or weakened immunity needs prompt clinical review; fever, rapid spread or severe pain needs same-day care.',
+    sources: [{ title: 'NHS · Athlete’s foot', url: 'https://www.nhs.uk/conditions/athletes-foot/' }],
+    reviewedAt: '2026-07-26',
+  },
+  {
+    slug: 'thick-discoloured-nail-pattern', name: 'Thick or discoloured nail', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['nail-change-like'],
+    summary: 'A nail that becomes thicker, brittle, crumbly or discoloured needs a careful check before treatment.',
+    signals: ['a toenail or fingernail becoming thicker', 'white, yellow, brown or other new colour change', 'a brittle, split or crumbly nail', 'nail lifting or buildup beneath the nail'],
+    ingredients: ['keep feet clean and dry', 'do not share nail tools', 'pharmacist or clinician confirmation'],
+    productTerms: [],
+    escalation: 'Ask a pharmacist or clinician to check a new or persistent nail change before choosing treatment. Pain, swelling around the nail, spread to several nails, diabetes, weakened immunity, pregnancy, breastfeeding or age under 18 needs clinician review. A new or changing dark band, darker skin around a nail, a nail that splits down the middle or a new bump beneath a nail needs a prompt in-person skin examination.',
+    sources: [
+      { title: 'NHS · Fungal nail infection', url: 'https://www.nhs.uk/conditions/Fungal-nail-infection/' },
+      { title: 'American Academy of Dermatology · Nail fungus signs', url: 'https://www.aad.org/public/diseases/a-z/nail-fungus-symptoms' },
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  {
+    slug: 'changing-skin-mark-pattern', name: 'Changing, bleeding or non-healing skin mark', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['changing-skin-mark-like'],
+    summary: 'A spot, growth, sore or nail change that looks different, changes, bleeds or does not heal needs an in-person examination.',
+    signals: ['a spot, mole, mark or growth that changes or grows', 'a sore that does not heal or heals and returns', 'itching or bleeding from a changing mark', 'a dark line or band in or around a nail'],
+    ingredients: ['prompt in-person skin examination', 'note when the change began', 'do not rely on lightening, wart-removal or scar products'],
+    productTerms: [],
+    escalation: 'Arrange a prompt in-person skin examination. Check the palms, soles, nails, scalp, mouth and other less-visible areas too: these changes can occur on every skin tone and do not need to be painful. Rapid change, a new bleeding or open sore, severe pain, fever or spreading warmth needs same-day medical care.',
+    sources: [
+      { title: 'American Academy of Dermatology · Finding skin cancer in darker skin tones', url: 'https://www.aad.org/public/diseases/skin-cancer/find/skin-of-color' },
+      { title: 'American Academy of Dermatology · How to find skin cancer', url: 'https://www.aad.org/public/diseases/skin-cancer/find/know-how' },
+    ],
+    reviewedAt: '2026-07-26',
+  },
 ];
 
 export const concernBySlug = (slug: string) => concerns.find(concern => concern.slug === slug);

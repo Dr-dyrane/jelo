@@ -205,6 +205,43 @@ const rules: PatternRule[] = [
     missing: ['Does the patch have a raised or spreading edge?', 'Is the scalp, beard or nail involved?', 'Has anyone close to you or a pet had a similar rash?'],
   },
   {
+    id: 'tinea-pedis-like', label: 'Toe-web peeling pattern',
+    positives: [
+      { terms: ['athlete\'s foot', 'athletes foot', 'tinea pedis'], weight: 58, reason: 'A named foot fungal pattern was reported and needs confirmation.' },
+      { terms: ['itchy between my toes', 'itching between my toes', 'itchy skin between my toes', 'itchy white patches between my toes', 'white patches between my toes', 'itchy white peeling skin'], weight: 46, reason: 'Itchy white or pale skin between the toes supports this foot pattern.' },
+      { terms: ['peeling between my toes', 'peeling skin between my toes', 'cracked skin between my toes', 'skin is cracked between my toes', 'flaky skin between my toes', 'toe web peeling'], weight: 42, reason: 'Peeling, flaking or cracking between toes adds support.' },
+      { terms: ['itchy flaky foot', 'itchy peeling foot', 'sore flaky patches on my foot', 'sore flaky patches on my feet'], weight: 24, reason: 'Itchy flaky foot skin can fit this pattern.' },
+    ],
+    negatives: [
+      { terms: ['dark line under my toenail', 'dark streak under my toenail', 'dark band under my toenail'], weight: 54, reason: 'A changing dark nail band needs a separate examination pathway.' },
+      { terms: ['hot and swollen', 'warm and swollen', 'severe pain'], weight: 28, reason: 'Heat, swelling or severe pain needs an acute-care pathway.' },
+    ],
+    missing: ['Is skin between the toes itchy, white or flaky?', 'Is it peeling, cracking or bleeding?', 'Is the foot hot, painful or swollen, or is there diabetes or weakened immunity?'],
+  },
+  {
+    id: 'nail-change-like', label: 'Thick or discoloured nail pattern',
+    positives: [
+      { terms: ['fungal nail infection', 'nail fungus', 'onychomycosis'], weight: 58, reason: 'A named nail condition was reported and needs confirmation.' },
+      { terms: ['yellow thick toenail', 'thick yellow toenail', 'thick discoloured toenail', 'thick discolored toenail', 'brown thick toenail', 'white thick toenail'], weight: 46, reason: 'A thickened, discoloured toenail supports this nail-change pattern.' },
+      { terms: ['brittle toenail', 'crumbly toenail', 'toenail is crumbling', 'toenail is brittle', 'nail is crumbling', 'nail is brittle'], weight: 42, reason: 'A brittle or crumbly nail change adds support.' },
+      { terms: ['nail lifting', 'nail lifted', 'buildup under my nail', 'build up under my nail'], weight: 26, reason: 'Nail lifting or buildup needs a careful check before treatment.' },
+    ],
+    negatives: [
+      { terms: ['dark line under my nail', 'dark streak under my nail', 'dark band under my nail', 'dark line under my toenail', 'dark streak under my toenail', 'dark band under my toenail'], weight: 58, reason: 'A dark nail band needs a prompt examination pathway.' },
+    ],
+    missing: ['Is the nail thicker, brittle, crumbly, lifted or changing colour?', 'Is one nail affected or several?', 'Is there pain, swelling, diabetes, weakened immunity, pregnancy or breastfeeding?'],
+  },
+  {
+    id: 'changing-skin-mark-like', label: 'Changing skin-mark warning pattern',
+    positives: [
+      { terms: ['changing mole', 'changing spot', 'changing mark', 'changing growth', 'changing bump', 'mole is changing', 'spot is changing', 'mark is changing', 'growth is changing', 'bump is changing'], weight: 58, reason: 'A changing skin mark was reported and needs an in-person examination.' },
+      { terms: ['spot is growing', 'mole is growing', 'mark is growing', 'growth is growing', 'spot is bleeding', 'mole is bleeding', 'mark is bleeding', 'growth is bleeding'], weight: 52, reason: 'A growing or bleeding mark needs prompt examination.' },
+      { terms: ['sore that will not heal', 'sore that won\'t heal', 'wound that will not heal', 'wound that won\'t heal', 'sore heals and returns', 'sore heals then returns'], weight: 52, reason: 'A non-healing or returning sore needs prompt examination.' },
+      { terms: ['dark line under my nail', 'dark streak under my nail', 'dark band under my nail', 'dark line under my toenail', 'dark streak under my toenail', 'dark band under my toenail'], weight: 58, reason: 'A dark line or band in a nail needs prompt examination.' },
+    ],
+    missing: ['What has changed: size, shape, colour, bleeding, itch or healing?', 'Where is it, including a nail, scalp, palm or sole?', 'When did the change begin?'],
+  },
+  {
     id: 'tinea-capitis-like', label: 'Scalp fungal-infection pattern',
     positives: [
       { terms: ['tinea capitis', 'scalp ringworm', 'ringworm on my scalp', 'ringworm on the scalp'], weight: 56, reason: 'A named scalp fungal condition was reported and needs in-person confirmation.' },

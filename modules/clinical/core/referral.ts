@@ -6,6 +6,8 @@ const specialistTerms = ['scarring', 'deep cyst', 'nodules', 'persistent redness
 const changingLesionPatterns = [
   { pattern: /\b(?:spot|mole|mark|growth|bump)\b.{0,64}\b(?:changing|changes|changed|growing|bleeding|bleeds|irregular)\b/i, reason: 'A changing, growing, bleeding or irregular skin mark was reported.' },
   { pattern: /\b(?:changing|changes|changed|growing|bleeding|bleeds|irregular)\b.{0,64}\b(?:spot|mole|mark|growth|bump)\b/i, reason: 'A changing, growing, bleeding or irregular skin mark was reported.' },
+  { pattern: /\b(?:spot|mole|mark|growth|bump)\b.{0,64}\b(?:looks?|is|seems?)?\s*(?:different|unlike)\b/i, reason: 'A skin mark that looks different from the others was reported.' },
+  { pattern: /\b(?:different|unlike)\b.{0,64}\b(?:spot|mole|mark|growth|bump)\b/i, reason: 'A skin mark that looks different from the others was reported.' },
   { pattern: /\b(?:dark|brown|black)\s+(?:line|band|streak)\b.{0,48}\b(?:finger|toe)?nail\b/i, reason: 'A dark line or band in or around a nail was reported.' },
   { pattern: /\b(?:sore|ulcer|wound)\b.{0,80}\b(?:does(?:\s+not|n't)|will\s+not|won't|not)\s+heal\b/i, reason: 'A sore that is not healing was reported.' },
   { pattern: /\b(?:sore|ulcer|wound)\b.{0,80}\bheal(?:s|ed|ing)?\b.{0,32}\b(?:return(?:s|ed|ing)?|come(?:s)?\s+back|recur(?:s|red|ring)?)\b/i, reason: 'A sore that heals and returns was reported.' },
@@ -287,6 +289,31 @@ export function assessReferral(input: {
     level: 'primary-care', urgency: 'soon', reasons: ['A rash beginning after a medicine was reported.'],
     action: 'Contact a clinician or pharmacist promptly. Seek emergency hospital care now if the rash spreads, becomes painful, blisters or peels, or affects the mouth, eyes, throat or genitals.',
   };
+
+  if (primaryId === 'tinea-pedis-like' || mentionsNamedPattern(normalized, /\b(?:athlete'?s foot|tinea pedis)\b/)) {
+    const higherRisk = /\b(?:diabetes|diabetic|weakened immune|suppressed immune|immunocompromised|chemotherapy)\b/.test(normalized);
+    return higherRisk ? {
+      level: 'primary-care', urgency: 'soon', reasons: ['A toe-web peeling pattern and a higher-risk context were reported.'],
+      action: 'Arrange clinician review before choosing treatment because foot problems can be more serious in this context.',
+    } : {
+      level: 'pharmacist', urgency: 'soon', reasons: ['A toe-web peeling pattern was reported.'],
+      action: 'Ask a pharmacist or clinician to confirm the pattern before choosing treatment. Keep feet clean and dry, especially between the toes.',
+    };
+  }
+
+  if (primaryId === 'nail-change-like' || mentionsNamedPattern(normalized, /\b(?:fungal nail infection|nail fungus|onychomycosis)\b/)) {
+    const higherRisk = input.profile.pregnant
+      || input.profile.breastfeeding
+      || (typeof input.profile.age === 'number' && input.profile.age < 18)
+      || /\b(?:diabetes|diabetic|weakened immune|suppressed immune|immunocompromised|chemotherapy|painful|pain|swollen|swelling|spread to other nails|several nails)\b/.test(normalized);
+    return higherRisk ? {
+      level: 'primary-care', urgency: 'soon', reasons: ['A nail-change pattern and a higher-risk context were reported.'],
+      action: 'Arrange clinician review before choosing treatment for this nail change.',
+    } : {
+      level: 'pharmacist', urgency: 'soon', reasons: ['A thick or discoloured nail pattern was reported.'],
+      action: 'Ask a pharmacist or clinician to confirm the nail change before choosing treatment.',
+    };
+  }
 
   if (primaryId === 'tinea-capitis-like' || mentionsNamedPattern(normalized, /\b(?:tinea capitis|scalp ringworm)\b/)) return {
     level: 'primary-care', urgency: 'soon', reasons: ['A scalp fungal-infection pattern was reported.'],
