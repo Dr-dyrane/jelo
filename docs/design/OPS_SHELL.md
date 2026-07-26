@@ -81,3 +81,7 @@ Navigation controls use native links, compact labels, visible focus, and a stabl
 `lib/moderation/sidebar-summary.ts` resolves the operator's display identity and audit activity from `moderation_operators` (`display_name`, `email`) and `moderation_audit_log` (current operator decisions today and latest action). It is resolved at the server layout boundary and passed through the shell as `OpsSidebarSummary`; the client sidebar does not own this data.
 
 The sidebar stays an instrument. Queue rows, decision forms, and other operational content belong to the workspace and should not be added to the shell.
+
+## See also
+
+- [Responsive shell evolution](../operations/console/RESPONSIVE_SHELL_HISTORY.md) — the implementation history and load-bearing constants for the current desktop, tablet, and mobile shells.
