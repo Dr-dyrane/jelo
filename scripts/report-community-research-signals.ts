@@ -1,4 +1,10 @@
 import postgres from 'postgres';
+import staticResearchQueue from '@/data/catalogue-research-queue.json';
+import {
+  buildGlobalResearchSchedule,
+  type CommunityResearchPriorityTask,
+} from '@/lib/catalogue/global-research-scheduler';
+import type { CatalogueResearchQueue } from '@/lib/catalogue/research-priority';
 
 type CountRow = { count: number };
 type ContributionKindRow = { kind: 'product' | 'routine' | 'store'; count: number };
@@ -12,8 +18,8 @@ type PriceRow = {
 };
 type UnknownRow = { kind: string; value: string; occurrences: number; last_seen_at: Date };
 type ResearchTaskRow = {
-  task_kind: string;
-  entity_kind: string;
+  task_kind: CommunityResearchPriorityTask['taskKind'];
+  entity_kind: CommunityResearchPriorityTask['entityKind'];
   entity_ref: string;
   entity_label: string;
   entity_source: 'canonical' | 'custom';
@@ -21,6 +27,10 @@ type ResearchTaskRow = {
   signal_count: number;
   status: string;
   last_seen_at: Date;
+  canonical_slug: string | null;
+  identity_brand: string | null;
+  identity_name: string | null;
+  identity_size: string | null;
 };
 
 function connectionString() {
@@ -29,7 +39,7 @@ function connectionString() {
   return value!;
 }
 
-async function readCommunityResearchSignals(limit = 25) {
+async function readCommunityResearchSignals(limit = 100) {
   if (!Number.isSafeInteger(limit) || limit < 1 || limit > 100) throw new Error('Signal limit must be between 1 and 100.');
   const sql = postgres(connectionString(), { max: 1, prepare: false });
   try {
@@ -93,10 +103,19 @@ async function readCommunityResearchSignals(limit = 25) {
         select task.task_kind, task.entity_kind, task.entity_ref, task.entity_label,
                task.entity_source, task.priority_lane,
                count(distinct mention.contribution_id)::integer as signal_count,
-               task.status, max(contribution.submitted_at) as last_seen_at
+               task.status, max(contribution.submitted_at) as last_seen_at,
+               max(canonical_product.slug) as canonical_slug,
+               coalesce(max(canonical_brand.name), min(mention.context -> 'brands' ->> 0)) as identity_brand,
+               max(canonical_product.name) as identity_name,
+               max(canonical_product.size) as identity_size
         from community_research_tasks task
         join community_research_task_mentions mention on mention.task_id = task.id
         join community_contributions contribution on contribution.id = mention.contribution_id
+        left join products canonical_product
+          on task.entity_kind = 'product'
+          and task.entity_source = 'canonical'
+          and canonical_product.slug = regexp_replace(task.entity_ref, '^product:', '')
+        left join brands canonical_brand on canonical_brand.id = canonical_product.brand_id
         where task.status <> 'dismissed'
           and contribution.moderation_status <> 'rejected'
           and contribution.retain_until > now()
@@ -138,6 +157,13 @@ async function readCommunityResearchSignals(limit = 25) {
         signalCount: row.signal_count,
         status: row.status,
         lastSeenAt: row.last_seen_at.toISOString(),
+        publicationStatus: 'private-research-only' as const,
+        identity: {
+          canonicalSlug: row.canonical_slug,
+          brand: row.identity_brand,
+          name: row.identity_name,
+          size: row.identity_size,
+        },
       })),
     };
   } finally {
@@ -146,9 +172,13 @@ async function readCommunityResearchSignals(limit = 25) {
 }
 
 async function main() {
-  const signals = await readCommunityResearchSignals(25);
+  const signals = await readCommunityResearchSignals(100);
+  const globalResearchSchedule = buildGlobalResearchSchedule(
+    signals.researchQueue,
+    staticResearchQueue as CatalogueResearchQueue,
+  );
   if (process.argv.includes('--json')) {
-    console.log(JSON.stringify(signals, null, 2));
+    console.log(JSON.stringify({ ...signals, globalResearchSchedule }, null, 2));
     return;
   }
   console.log('Community research signals');
@@ -167,6 +197,24 @@ async function main() {
   console.table(signals.prices);
   console.log('Community-first research queue');
   console.table(signals.researchQueue);
+  console.log('Global private research schedule');
+  console.table(globalResearchSchedule.items.slice(0, 25).map(item => item.source === 'community'
+    ? {
+      rank: item.rank,
+      source: item.source,
+      task: item.task.taskKind,
+      label: item.task.entityLabel,
+      signals: item.score.signalCount,
+      lastSeenAt: item.score.lastSeenAt,
+    }
+    : {
+      rank: item.rank,
+      source: item.source,
+      task: item.task.nextAction,
+      label: item.task.title,
+      signals: null,
+      lastSeenAt: null,
+    }));
   if (signals.unknownValues.length) {
     console.log('Pending vocabulary');
     console.table(signals.unknownValues);
