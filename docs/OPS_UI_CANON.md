@@ -315,6 +315,9 @@ Loading fallbacks mirror the final shell rather than replacing it with a generic
   placeholders, compact price rows, and the experience rail.
 - The inspector skeleton portals into `#ops-detail-pane` and mirrors subject
   identity, evidence, metadata, and the anchored decision region.
+- Selecting a row updates its selected state and mounts that same inspector
+  skeleton in the current pane immediately. URL-backed content replaces it
+  when navigation resolves; a click never leaves an unexplained blank pane.
 - Side-sheet and bottom-sheet breakpoints do not flash an inactive docked
   inspector while the route loads.
 - Motion preferences control shimmer behavior.

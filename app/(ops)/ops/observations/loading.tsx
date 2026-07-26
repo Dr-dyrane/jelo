@@ -7,53 +7,10 @@ import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import observationStyles from './observations.module.css';
 import adaptive from '@/components/ops/inbox/inbox-tablet.module.css';
+import { ObservationDetailSkeleton } from './ObservationDetailSkeleton';
 import './observations-shell.module.css';
 
 type ViewportMode = 'phone' | 'touch' | 'compact' | 'balanced' | 'expanded';
-
-function SkeletonDetailContent() {
-  return (
-    <div className={styles.detailContent} aria-hidden="true">
-      <div className={styles.detailScroll}>
-        <section className={styles.productSummary}>
-          <div className={`${styles.skeletonProductImage} ${styles.skeletonSurface}`} />
-          <div className={styles.productCopy}>
-            <div className={`${styles.skeletonProductTitle} ${styles.skeletonSurface}`} />
-            <div className={`${styles.skeletonProductMeta} ${styles.skeletonSurface}`} />
-            <div className={styles.detailMeta}>
-              <span className={`${styles.skeletonPill} ${styles.skeletonSurface}`} />
-              <span className={`${styles.skeletonSubtext} ${styles.skeletonSurface}`} />
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.detailSection}>
-          <h3 className={styles.sectionLabel}>Evidence</h3>
-          <div className={styles.propertiesSection}>
-            {Array.from({ length: 2 }).map((_, i) => (
-              <div key={i} className={styles.propertyRow}>
-                <span className={`${styles.skeletonPropertyLabel} ${styles.skeletonSurface}`} />
-                <span className={`${styles.skeletonPropertyValue} ${styles.skeletonSurface}`} />
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      <section className={styles.decideSection}>
-        <h3 className={styles.sectionLabel}>Decision</h3>
-        <div className={styles.decideField}>
-          <label className={styles.decideNoteLabel}>Rationale</label>
-          <div className={`${styles.skeletonNote} ${styles.skeletonSurface}`} />
-        </div>
-        <div className={styles.actionButtons}>
-          <div className={`${styles.btn} ${styles.skeletonBtn} ${styles.skeletonSurface}`} />
-          <div className={`${styles.btn} ${styles.skeletonBtn} ${styles.skeletonSurface}`} />
-        </div>
-      </section>
-    </div>
-  );
-}
 
 function DetailSkeleton({ mode, selectedId }: { mode: ViewportMode; selectedId: string | null }) {
   const detailPortalTarget = typeof document === 'undefined' ? null : document.getElementById('ops-detail-pane');
@@ -70,7 +27,7 @@ function DetailSkeleton({ mode, selectedId }: { mode: ViewportMode; selectedId: 
             <div className={adaptive.tabletClose} aria-hidden="true" />
           </header>
           <div className={adaptive.tabletInspectorBody}>
-            <SkeletonDetailContent />
+            <ObservationDetailSkeleton />
           </div>
         </section>
       </div>,
@@ -78,7 +35,7 @@ function DetailSkeleton({ mode, selectedId }: { mode: ViewportMode; selectedId: 
     );
   }
 
-  return createPortal(<SkeletonDetailContent />, detailPortalTarget);
+  return createPortal(<ObservationDetailSkeleton />, detailPortalTarget);
 }
 
 function SkeletonBlock({ className = '' }: { className?: string }) {

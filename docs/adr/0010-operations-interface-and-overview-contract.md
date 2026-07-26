@@ -499,6 +499,10 @@ end state is the database's global end state.
 - Initial skeletons mirror only the initial reveal and every ready-state
   presentation. Loading another page does not replace settled rows or block the
   inspector.
+- Selection feedback is optimistic but content is not: the selected row changes
+  state immediately and the canonical inspector skeleton mounts in the same
+  frame. Only the URL-resolved record may replace that skeleton with evidence
+  and decision controls.
 - If a future lane needs records beyond the server boundary, it adds a typed,
   permission-aware cursor contract and tests request deduplication, stale
   responses, retry, and terminal state before implementation.

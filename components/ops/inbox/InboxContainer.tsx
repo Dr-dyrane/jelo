@@ -46,6 +46,7 @@ interface InboxContainerProps<T extends { id: string }> {
   renderItemDetails: (item: T) => React.ReactNode;
   itemTypeLabel?: string;
   selectedId?: string | null;
+  pendingSelectionId?: string | null;
   onSelect?: (item: T, index: number) => void;
   onDeselect?: () => void;
   controllerRef?: React.RefObject<OpsInboxController | null>;
@@ -252,6 +253,7 @@ export function InboxContainer<T extends { id: string }>({
   renderItemDetails,
   itemTypeLabel = 'item',
   selectedId,
+  pendingSelectionId,
   onSelect,
   onDeselect,
   controllerRef,
@@ -550,6 +552,7 @@ export function InboxContainer<T extends { id: string }>({
             id={`row-${item.id}`}
             data-ops-collection-item
             aria-current={isActive ? 'true' : undefined}
+            aria-busy={pendingSelectionId === item.id ? 'true' : undefined}
             tabIndex={isKeyboardCurrent ? 0 : -1}
             className={`${styles.sectionItemButton} ${isActive ? styles.sectionItemButtonActive : ''}`}
             onFocus={() => setNavigationIndex(idx)}
@@ -572,6 +575,7 @@ export function InboxContainer<T extends { id: string }>({
         data-ops-collection-item
         role="option"
         aria-selected={isActive}
+        aria-busy={pendingSelectionId === item.id ? 'true' : undefined}
         tabIndex={isKeyboardCurrent ? 0 : -1}
         className={`${styles.card} ${isActive ? styles.cardActive : ''}`}
         onFocus={() => setNavigationIndex(idx)}

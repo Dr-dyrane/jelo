@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useEffect, useMemo, useRef } from 'react';
+import { useActionState, useEffect, useMemo, useOptimistic, useRef, useTransition } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { PendingObservation } from '@/lib/moderation/queues';
@@ -20,6 +20,7 @@ import {
 import { decideObservationAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import observationStyles from './observations.module.css';
+import { ObservationDetailSkeleton } from './ObservationDetailSkeleton';
 
 export interface EnrichedObservation extends PendingObservation {
   product?: Product;
@@ -46,10 +47,16 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [actionState, formAction, isPending] = useActionState(decideObservationAction, null);
+  const [actionState, formAction, isDecisionPending] = useActionState(decideObservationAction, null);
+  const [isSelectionPending, startSelectionTransition] = useTransition();
   const pendingDecisionRef = useRef<string | null>(null);
   const inboxControllerRef = useRef<OpsInboxController | null>(null);
-  const selectedId = searchParams.get('id');
+  const routeSelectedId = searchParams.get('id');
+  const [selectedId, setOptimisticSelectedId] = useOptimistic(
+    routeSelectedId,
+    (_currentId, nextId: string | null) => nextId,
+  );
+  const isSelectionNavigating = isSelectionPending && selectedId !== routeSelectedId;
   const orderedRows = useMemo(() => {
     const upNext = rows.slice(0, 2);
     const remaining = rows.slice(2);
@@ -89,16 +96,21 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
   ], [orderedRows]);
 
   function setSelectedId(id: string | null) {
+    if (id === selectedId) return;
+
     const params = new URLSearchParams(searchParams.toString());
     if (id) params.set('id', id);
     else params.delete('id');
     const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    startSelectionTransition(() => {
+      setOptimisticSelectedId(id);
+      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    });
   }
 
   useEffect(() => {
-    if (!isPending) pendingDecisionRef.current = null;
-  }, [isPending]);
+    if (!isDecisionPending) pendingDecisionRef.current = null;
+  }, [isDecisionPending]);
 
   useEffect(() => {
     if (actionState?.ok) inboxControllerRef.current?.settleItem(actionState.targetId);
@@ -111,6 +123,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       sections={sections}
       itemTypeLabel="observation"
       selectedId={selectedId}
+      pendingSelectionId={isSelectionNavigating ? selectedId : null}
       onSelect={item => setSelectedId(item.id)}
       onDeselect={() => setSelectedId(null)}
       renderItemRow={(row, _isActive, context) => {
@@ -171,6 +184,10 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
         );
       }}
       renderItemDetails={(row) => {
+        if (isSelectionNavigating && selectedId === row.id) {
+          return <ObservationDetailSkeleton />;
+        }
+
         const subject = humanizeRef(row.subjectRef);
         const title = observationTitle(row);
         const image = row.product?.image || subject.image || '/product-placeholder.svg';
@@ -240,15 +257,15 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                     className={styles.note}
                     name="rationale"
                     placeholder="Optional note for the audit trail"
-                    disabled={isPending}
+                    disabled={isDecisionPending}
                   />
                 </div>
                 <div className={styles.actionButtons}>
-                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
-                    {isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}
+                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isDecisionPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
+                    {isDecisionPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}
                   </button>
-                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>
-                    {isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}
+                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isDecisionPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>
+                    {isDecisionPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}
                   </button>
                 </div>
               </form>

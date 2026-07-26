@@ -16,6 +16,10 @@ const observationLoading = readFileSync(
   join(root, 'app/(ops)/ops/observations/loading.tsx'),
   'utf8',
 );
+const observationDetailSkeleton = readFileSync(
+  join(root, 'app/(ops)/ops/observations/ObservationDetailSkeleton.tsx'),
+  'utf8',
+);
 const inboxSource = readFileSync(
   join(root, 'components/ops/inbox/InboxContainer.tsx'),
   'utf8',
@@ -105,6 +109,18 @@ describe('Observation list visual integrity', () => {
     assert.match(observationLoading, /featureCard[\s\S]*featureVisual[\s\S]*skeletonFeatureProduct/);
     assert.match(observationLoading, /compactRow[\s\S]*skeletonCompactImage/);
     assert.match(observationLoading, /experienceCard[\s\S]*experienceVisual[\s\S]*skeletonExperienceProduct/);
+    assert.match(observationLoading, /import \{ ObservationDetailSkeleton \}/);
+    assert.match(observationDetailSkeleton, /data-observation-detail-loading/);
+    assert.match(observationDetailSkeleton, /aria-label="Loading observation details"/);
+  });
+
+  it('acknowledges selection before URL navigation finishes', () => {
+    assert.match(observationSource, /useOptimistic\(/);
+    assert.match(observationSource, /startSelectionTransition\(\(\) => \{[\s\S]*setOptimisticSelectedId\(id\);[\s\S]*router\.replace/);
+    assert.match(observationSource, /isSelectionNavigating = isSelectionPending && selectedId !== routeSelectedId/);
+    assert.match(observationSource, /pendingSelectionId=\{isSelectionNavigating \? selectedId : null\}/);
+    assert.match(observationSource, /isSelectionNavigating && selectedId === row\.id[\s\S]*<ObservationDetailSkeleton/);
+    assert.match(inboxSource, /aria-busy=\{pendingSelectionId === item\.id \? 'true' : undefined\}/);
   });
 });
 
