@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, LogOut, Moon, Sun, type LucideIcon } from 'lucide-react';
+import { ChevronDown, ChevronRight, LogOut, Moon, Sun, type LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import type { ModerationOperator } from '@/lib/moderation/access';
@@ -104,6 +104,20 @@ export function OpsSidebar({ operator, summary, pathname, sections, theme, onThe
               </button>
             </div>
           ) : null}
+
+          <button
+            type="button"
+            className={styles.profileRow}
+            onClick={() => setIsAccountMenuOpen(open => !open)}
+            aria-label="Open profile details"
+          >
+            <span className={styles.operatorAvatar} aria-hidden="true">{initials}</span>
+            <span className={styles.profileIdentity}>
+              <strong>Profile</strong>
+              <span>{summary.email}</span>
+            </span>
+            <ChevronRight className={styles.profileChevron} size={14} aria-hidden="true" />
+          </button>
         </div>
 
         <nav className={styles.sidebarNavigation} aria-label="Operations sections">
@@ -126,7 +140,10 @@ export function OpsSidebar({ operator, summary, pathname, sections, theme, onThe
                         <Icon size={15} strokeWidth={isActive ? 2.25 : 1.9} aria-hidden="true" />
                         <span>{item.label}</span>
                       </span>
-                      {item.count ? <span className={styles.badge}>{item.count}</span> : null}
+                      <span className={styles.navLinkEnd}>
+                        {item.count ? <span className={styles.badge}>{item.count}</span> : null}
+                        <ChevronRight className={styles.navLinkChevron} size={14} aria-hidden="true" />
+                      </span>
                     </Link>
                   );
                 })}
@@ -136,8 +153,9 @@ export function OpsSidebar({ operator, summary, pathname, sections, theme, onThe
         </nav>
       </div>
 
-      <div className={styles.sidebarFooter}>
-        <div className={styles.themeToggleBar} aria-label="Appearance">
+      <div className={styles.sidebarFooter} data-ops-sidebar-footer>
+        <span className={styles.sheetFooterLabel} data-ops-footer-label>Appearance</span>
+        <div className={styles.themeToggleBar} aria-label="Appearance" data-ops-theme-toggle>
           <button
             type="button"
             className={`${styles.themeBtn} ${theme === 'light' ? styles.themeBtnActive : ''}`}

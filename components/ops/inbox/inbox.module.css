@@ -252,7 +252,7 @@
   min-height: 34px;
   padding: 0 var(--space-4);
   border: 0;
-  border-radius: var(--ops-control-radius);
+  border-radius: var(--ops-instrument-inner-radius);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
