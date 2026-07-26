@@ -464,6 +464,12 @@
   pointer-events: none;
 }
 
+@media (max-width: 429px) {
+  .skeletonCard:nth-child(n + 7) {
+    display: none;
+  }
+}
+
 .skeletonImage {
   width: 48px;
   height: 48px;
