@@ -7,6 +7,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
+import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
 import { decideRetailerApplicationAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
@@ -31,6 +32,7 @@ type RetailerPayload = {
 };
 
 export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
+  const selection = useUrlInboxSelection();
   const [actionState, formAction, isPending] = useActionState(decideRetailerApplicationAction, null);
   const pendingDecisionRef = useRef<string | null>(null);
   const inboxControllerRef = useRef<OpsInboxController | null>(null);
@@ -46,6 +48,10 @@ export function RetailersInbox({ rows, canDecide }: RetailersInboxProps) {
       controllerRef={inboxControllerRef}
       items={rows}
       itemTypeLabel="retailer application"
+      selectedId={selection.selectedId}
+      pendingSelectionId={selection.pendingSelectionId}
+      onSelect={selection.onSelect}
+      onDeselect={selection.onDeselect}
       renderItemRow={(row) => (
         <div className={styles.row} style={{ width: '100%', background: 'transparent', borderBottom: 0 }}>
           <div className={styles.subject}>

@@ -7,6 +7,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
+import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
 import { decideModerationValueAction, mapModerationValueAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
@@ -16,6 +17,7 @@ interface VocabularyInboxProps {
 }
 
 export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
+  const selection = useUrlInboxSelection();
   const [decideState, decideAction, isDecidePending] = useActionState(decideModerationValueAction, null);
   const [mapState, mapAction, isMapPending] = useActionState(mapModerationValueAction, null);
   const pendingDecisionRef = useRef<string | null>(null);
@@ -40,6 +42,10 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
       controllerRef={inboxControllerRef}
       items={rows}
       itemTypeLabel="vocabulary term"
+      selectedId={selection.selectedId}
+      pendingSelectionId={selection.pendingSelectionId}
+      onSelect={selection.onSelect}
+      onDeselect={selection.onDeselect}
       renderItemRow={(row) => (
         <div className={styles.row} style={{ width: '100%', background: 'transparent', borderBottom: 0 }}>
           <div className={styles.subject}>

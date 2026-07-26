@@ -9,6 +9,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
+import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
 import { decideContributionAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
@@ -61,6 +62,7 @@ export function parseContributionPayload(payload: Record<string, unknown>) {
 }
 
 export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps) {
+  const selection = useUrlInboxSelection();
   const [actionState, formAction, isPending] = useActionState(decideContributionAction, null);
   const pendingDecisionRef = useRef<string | null>(null);
   const inboxControllerRef = useRef<OpsInboxController | null>(null);
@@ -76,6 +78,10 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
       controllerRef={inboxControllerRef}
       items={rows}
       itemTypeLabel="contribution"
+      selectedId={selection.selectedId}
+      pendingSelectionId={selection.pendingSelectionId}
+      onSelect={selection.onSelect}
+      onDeselect={selection.onDeselect}
       renderItemRow={(row) => {
         const parsed = parseContributionPayload(row.payload);
         const primaryVal = parsed.priceNgn

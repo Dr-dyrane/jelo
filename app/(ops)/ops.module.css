@@ -2,8 +2,12 @@
    Zero decorative borders: separation by tone, translucency, and soft shadows. */
 
 .body {
+  position: fixed;
+  inset: 0;
   margin: 0;
+  height: 100dvh;
   min-height: 100dvh;
+  overflow: hidden;
   background: var(--ops-canvas);
   color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;

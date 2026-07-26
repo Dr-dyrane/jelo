@@ -18,9 +18,9 @@ selection materially changes the operator's next decision.
 
 [`/ops` Overview has its own accepted contract](./adr/0010-operations-interface-and-overview-contract.md).
 It uses the same split-view grammar at **queue level**: selectable queue rows
-in the workspace and the selected queue's context in the inspector. It never
-embeds individual moderation rows or decisions, and it is never a tile
-dashboard.
+in the workspace and the selected queue's context in the inspector. A maximum
+two-record `Up next` shelf may preview real records from the recommended queue;
+it never embeds moderation controls, and it is never a tile dashboard.
 
 ## Adaptive shell law
 
@@ -108,13 +108,21 @@ Glass is reserved for floating chrome. Repeated rows and inspector sections do n
 - A queue-level overview uses the same selectable-row treatment. Its selected
   inspector explains that queue and links to its canonical route; it does not
   contain item-level approve, reject, map, or bulk controls.
+- Overview may lead with at most two oldest records from the one recommended
+  actionable queue. Each preview uses an exact title, one useful fact, age, and
+  optional display-approved packshot. Its URL must select that exact record in
+  the canonical queue; otherwise the preview link is not permitted.
+- Overview may arrange those semantic rows in two columns at `600px` and above
+  when full queue names and waiting context remain visible. Below that width it
+  returns to one column. Only the small recognition surface is toned by
+  default; the full row receives a surface when selected, hovered, or focused.
 
 ### Tablet
 
 - Uses content-driven density rather than one forced column count.
-- Under `430px`, all collection groups use one column.
-- From `430–599px`, a shallow feature shelf may remain two columns while
-  compact text rows use one column.
+- Under `600px`, a shallow feature shelf may become a horizontal rail with a
+  fixed readable card width and visible continuation cue. Compact text rows
+  use one column.
 - From `600–819px`, feature and compact groups may use two columns when their
   complete labels remain readable.
 - From `820–1179px`, the collection remains the primary workspace and selected
@@ -393,9 +401,10 @@ Before shipping an Ops queue, confirm:
 - Reject uses a destructive tonal surface with no border.
 - Buttons are slender squircles on desktop and touch-safe on tablet.
 - Pending labels identify the submitted action.
-- Responsive collection density preserves complete labels: one column below
-  `430px`, content-driven grouping through `819px`, and a side sheet from
-  `820–1179px`.
+- Responsive collection density preserves complete labels: compact rows use
+  one column below `600px`, feature shelves retain a readable fixed measure,
+  grouping remains content-driven through `819px`, and selected context uses a
+  side sheet from `820–1179px`.
 - Desktop uses three sibling planes with independent workspace and inspector
   scrolling.
 - Sidebar counts, activity, signals, and overview data revalidate together.

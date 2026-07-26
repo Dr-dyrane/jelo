@@ -70,3 +70,30 @@ test('the phone shell always exposes one real contextual action', async () => {
   assert.match(overview, /label: `Open \$\{selectedQueue\.label\.toLowerCase\(\)\} context`/);
   assert.match(overview, /onClick: openSelectedQueueContext/);
 });
+
+test('the Ops shell owns the viewport while each workspace owns its scroll', async () => {
+  const root = process.cwd();
+  const [layout, chrome, shellCss, adaptiveCss] = await Promise.all([
+    readFile(path.join(root, 'app/(ops)/layout.tsx'), 'utf8'),
+    readFile(path.join(root, 'components/ops/shell/OpsChrome.tsx'), 'utf8'),
+    readFile(path.join(root, 'app/(ops)/ops.module.css'), 'utf8'),
+    readFile(path.join(root, 'components/ops/shell/ops-tablet.module.css'), 'utf8'),
+  ]);
+
+  // A duplicate viewport wrapper lets scrollable route content enlarge the
+  // document even when the visible shell itself is clipped.
+  assert.doesNotMatch(layout, /className=\{styles\.body\}/);
+  assert.equal((chrome.match(/className=\{styles\.body\}/g) ?? []).length, 1);
+
+  const viewportRoot = shellCss.match(/\.body\s*\{([\s\S]*?)\}/)?.[1] ?? '';
+  assert.match(viewportRoot, /position:\s*fixed;/);
+  assert.match(viewportRoot, /inset:\s*0;/);
+  assert.match(viewportRoot, /height:\s*100dvh;/);
+  assert.match(viewportRoot, /overflow:\s*hidden;/);
+
+  assert.match(shellCss, /\.main\s*\{[\s\S]*?min-height:\s*0;[\s\S]*?overflow:\s*auto;/);
+  assert.match(
+    adaptiveCss,
+    /\.contentWrapper\s*\{[\s\S]*?height:\s*100dvh\s*!important;[\s\S]*?min-height:\s*0\s*!important;[\s\S]*?overflow:\s*hidden;/,
+  );
+});

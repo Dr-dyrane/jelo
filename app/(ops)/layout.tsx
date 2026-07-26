@@ -4,7 +4,6 @@ import { getPostgresClient } from '@/lib/db/postgres';
 import { pendingQueueCounts } from '@/lib/moderation/queues';
 import { getOpsSidebarSummary } from '@/lib/moderation/sidebar-summary';
 import { OpsChrome } from '@/components/ops/shell/OpsChrome';
-import styles from './ops.module.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'Ops · JeloCare' },
@@ -21,10 +20,8 @@ export default async function OpsLayout({ children }: Readonly<{ children: React
   ]);
 
   return (
-    <div className={styles.body}>
-      <OpsChrome operator={operator} counts={counts} sidebarSummary={sidebarSummary}>
-        {children}
-      </OpsChrome>
-    </div>
+    <OpsChrome operator={operator} counts={counts} sidebarSummary={sidebarSummary}>
+      {children}
+    </OpsChrome>
   );
 }

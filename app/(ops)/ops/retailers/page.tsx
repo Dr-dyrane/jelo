@@ -1,5 +1,13 @@
 import { getPostgresClient } from '@/lib/db/postgres';
-import { listPendingRetailerApplications } from '@/lib/moderation/queues';
+import {
+  findPendingRetailerApplication,
+  listPendingRetailerApplications,
+} from '@/lib/moderation/queues';
+import {
+  includeSelectedQueueItem,
+  selectedQueueItemId,
+  type QueueSearchParams,
+} from '@/lib/moderation/queue-selection';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { can } from '@/lib/moderation/capabilities';
 import { EmptyState } from '@/components/ops/state/EmptyState';
@@ -11,10 +19,20 @@ export const dynamic = 'force-dynamic';
 
 const LIMIT = 100;
 
-export default async function RetailerApplicationsQueue() {
+export default async function RetailerApplicationsQueue({
+  searchParams,
+}: {
+  searchParams: Promise<QueueSearchParams>;
+}) {
   const operator = await requireConsoleOperator();
   const canDecide = can(operator.role, 'retailers.decide');
-  const rows = await listPendingRetailerApplications(getPostgresClient(), LIMIT);
+  const selectedId = selectedQueueItemId(await searchParams);
+  const sql = getPostgresClient();
+  const recentRows = await listPendingRetailerApplications(sql, LIMIT);
+  const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
+    ? await findPendingRetailerApplication(sql, selectedId)
+    : null;
+  const rows = includeSelectedQueueItem(recentRows, selectedRow);
 
   return (
     <>
@@ -29,7 +47,7 @@ export default async function RetailerApplicationsQueue() {
       ) : (
         <>
           <RetailersInbox rows={rows} canDecide={canDecide} />
-          {rows.length === LIMIT ? (
+          {recentRows.length === LIMIT ? (
             <p className={styles.partial}>Showing the {LIMIT} most recent — more may be pending.</p>
           ) : null}
         </>

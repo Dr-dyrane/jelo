@@ -1,6 +1,6 @@
 # ADR 0010: Operations use a native split-view work grammar
 
-Status: Proposed — pending product review
+Status: Proposed — implementation candidate under product review
 
 Date: 2026-07-25
 
@@ -250,6 +250,15 @@ nextAction
   label
   reasonCode
   reasonText
+upNext[0..2]
+  id
+  queueKind
+  queueLabel
+  href
+  title
+  summary
+  createdAt
+  image
 recentDecisions[]
 attentionItems[]
 partialOrStaleState
@@ -257,9 +266,11 @@ partialOrStaleState
 
 This is a semantic contract, not a required property spelling.
 
-The projection contains enough stable queue-level context for the inspector.
-It never carries an arbitrary first record, raw product media, or a record-level
-decision form into Overview.
+The projection contains enough stable queue-level context for the inspector and
+at most two real records from the recommended queue for the `Up next` shelf.
+Those records are a read-only preview, not a second triage surface. Product
+media appears only when the exact display-approved asset is already available.
+Overview never carries a record-level decision form.
 
 The first recommendation policy is deliberately simple:
 
@@ -292,8 +303,9 @@ All Overview facts follow these rules:
   helps the operator make both exist.
 
 Overview reads a small purpose-built projection. It does not load and enrich
-100 record rows merely to preview the next destination. Queue-level selection
-is sufficient for the inspector.
+100 record rows merely to preview the next destination. The projection selects
+only the first two pending records from the recommended actionable queue.
+Queue-level selection remains sufficient for the inspector.
 
 ## Overview contract
 
@@ -304,11 +316,16 @@ tiles or embedded individual-record triage.
 ### Canonical anatomy
 
 1. **Page context** — `Overview` and one concise load statement.
-2. **Queue workspace** — all accessible queues as compact, selectable rows;
+2. **Up next** — the first two real records from the recommended actionable
+   queue, with a human title, one decision-relevant fact, age, and optional
+   approved exact product image.
+3. **Queue workspace** — all accessible queues as compact, selectable rows;
    each row makes its count, waiting context, and selected state legible.
-3. **Contextual inspector** — the selected queue's load, oldest actionable
-   item, meaningful recent decision context, and one verb-led route action.
-4. **Attention** — only real failures, stale processes, or incomplete reads
+4. **Contextual inspector** — the selected queue's load, oldest age,
+   meaningful recent decision context, and one verb-led route action.
+5. **Recent work** — a short audit projection naming the real action, target,
+   operator, and time.
+6. **Attention** — only real failures, stale processes, or incomplete reads
    with a clear owner or next action.
 
 The recommended next queue is selected by default when valid. Its inspector may
@@ -321,6 +338,31 @@ Queue topology is not a card zoo. Prefer a compact selectable list. The count
 is legible but the queue name, state, and route remain the primary meaning. A
 row that changes the in-page inspector is a button; its inspector action is the
 link to the queue route. Do not present both semantics on one ambiguous target.
+
+The current Overview candidate applies the useful Apple Music home-page lesson
+as **content-first section rhythm and scan density**, not visual imitation:
+
+- one shallow `Up next` shelf elevates two real records from the recommended
+  queue; it never invents content, silently diversifies queues, or embeds
+  decision controls;
+- the queue collection uses two aligned columns when complete names remain
+  readable and one column below `600px`;
+- below `600px`, the `Up next` shelf keeps its readable fixed card measure and
+  becomes a quiet horizontal rail with a continuation cue;
+- an unselected queue keeps its main plane transparent and gives only its small
+  recognition surface a tonal background;
+- selection may tone the complete queue row because the whole row is the
+  interactive object;
+- a compact `Recent decisions` group may project the existing audit trail
+  across queues and link to Decision history; it is omitted when there is no
+  real activity and never substitutes fabricated examples;
+- the docked inspector action sits at the bottom of its independent plane, so
+  empty space remains calm and the route action stays predictable.
+
+This does not authorize album-like queue tiles, decorative imagery, invented
+charts, duplicate queue identities, or a generic metrics dashboard. A preview
+link must open that exact record in its canonical queue; a record-shaped link
+may not silently land on a different selection.
 
 Recent decisions reassure and orient inside the selected queue context; they do
 not compete with pending work. When no recent decision exists, say so quietly
@@ -388,8 +430,8 @@ same reading order while changing composition:
 
 | Band | Overview composition |
 | --- | --- |
-| Phone, `<430px` | One workspace column and bottom-sheet selected-queue context. The route CTA remains above the bottom bar. |
-| Touch, `430–819px` | One calm workspace column and bottom-sheet selected-queue context. Navigation remains an overlay. |
+| Phone, `<430px` | One workspace column, a readable horizontal `Up next` rail, and bottom-sheet selected-queue context. The route CTA remains above the bottom bar. |
+| Touch, `430–819px` | A content-driven one- or two-column workspace, with the feature shelf preserving readable measure and selected-queue context in a bottom sheet. Navigation remains an overlay. |
 | Compact tablet, `820–1179px` | Persistent shell navigation; queue rows own the workspace; selected-queue context opens in a right side sheet. No squeezed dashboard grid. |
 | Balanced desktop, `1180–1439px` | Persistent sidebar, queue workspace, and contextual inspector are visible as three related planes. |
 | Expanded desktop, `≥1440px` | Preserve the same three-plane hierarchy with a comfortable measure; do not add widgets merely to fill space. |
@@ -412,8 +454,8 @@ Each route owns states that preserve its final anatomy.
 
 ### Loading
 
-- Overview has a dedicated skeleton for context, one next-action region, queue
-  rows, and recent activity.
+- Overview has a dedicated skeleton for context, the two-record `Up next`
+  shelf, queue rows, recent activity, and the docked inspector geometry.
 - It does not borrow the Observations collection and inspector skeleton.
 - Skeletons do not announce every shape. One concise loading status is enough.
 - Reduced motion removes shimmer without removing geometry.
@@ -601,11 +643,19 @@ from a tile dashboard and embedded record triage. The following rule
 
 `/ops` is a stable briefing presented as a queue-level split view. On desktop it
 is **sidebar → selectable queue workspace → contextual queue inspector**. The
-workspace shows every accessible queue as compact rows; it never uses a grid of
-dashboard tiles. Selecting a row changes the inspector in place. The inspector
-explains the selected queue's load, waiting context, relevant audit context,
-and one real link to that queue's canonical route. It never embeds an
-individual record or executes approve, reject, map, or bulk actions.
+workspace leads with at most two real, read-only records from the recommended
+actionable queue, then shows every accessible queue as compact rows. It never
+uses a grid of dashboard tiles. Selecting a queue row changes the inspector in
+place. The inspector explains the selected queue's load, waiting context,
+relevant audit context, and one real link to that queue's canonical route.
+Overview never executes approve, reject, map, or bulk actions.
+
+The two `Up next` records are content, not dashboard widgets. They show an
+exact title, one decision-relevant fact, age, and optional display-approved
+product image. Both come from the same typed recommended queue and preserve
+oldest-first order. Their links must resolve to those exact IDs in the
+canonical queue. If exact URL selection is not implemented for a queue, that
+queue may not expose record-shaped links from Overview.
 
 At tablet widths the workspace remains visible and this contextual inspector is
 a right side sheet. At mobile and touch widths it is a bottom sheet. Both obey
@@ -626,9 +676,9 @@ ops-overview-briefing
 
 Outcome:
 /ops remains a stable operational briefing. In five seconds an authorized
-operator can see the total work, understand the recommended next queue and why,
-scan and select every accessible queue, inspect its context, and open the
-canonical queue route.
+operator can see the total work, recognize the next two real records, understand
+the recommended queue and why, scan and select every accessible queue, inspect
+its context, and open an exact record or the canonical queue route.
 
 Baseline:
 Record the current commit, active draft, dirty files, operator role, queue
@@ -655,6 +705,8 @@ deny-by-default access remains unchanged
 queue routes remain the only triage owners
 all visible counts come from one logical read
 recommendation is permission-aware and explains its reason
+Up next contains at most two oldest records from that recommended queue
+record preview links resolve to the exact canonical queue selection
 desktop is sidebar -> selectable queue workspace -> contextual inspector
 queue selection updates context without embedding record triage
 tablet uses a right side sheet; mobile/touch uses a bottom sheet
@@ -797,8 +849,10 @@ canonical.
 - [ ] The route mode is declared and its primary job is obvious.
 - [ ] Overview stays a briefing and queue routes stay record-triage workspaces.
 - [ ] On desktop, Overview is sidebar → selectable queue workspace → contextual inspector.
+- [ ] Up next shows at most two real oldest records from the one recommended queue.
+- [ ] Every record preview link opens that exact record in its canonical queue.
 - [ ] Queue rows select context; the inspector has one real canonical-route action.
-- [ ] No queue tile grid, nested card stack, embedded record triage, or record-level decision ships.
+- [ ] No queue tile grid, nested card stack, embedded decision form, or record-level moderation action ships.
 - [ ] Recommendation policy is typed, tested, permission-aware, and explained.
 - [ ] All accessible queues remain visible, including quiet zero states.
 - [ ] Counts, timestamps, status, freshness, and confidence labels are truthful.

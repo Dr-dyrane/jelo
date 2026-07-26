@@ -11,6 +11,7 @@ import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
 import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
+import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
 import { decideEdgeAction } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
@@ -41,6 +42,7 @@ function ProductSummary({ product }: { product?: Product }) {
 }
 
 export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
+  const selection = useUrlInboxSelection();
   const [actionState, formAction, isPending] = useActionState(decideEdgeAction, null);
   const pendingDecisionRef = useRef<string | null>(null);
   const inboxControllerRef = useRef<OpsInboxController | null>(null);
@@ -56,6 +58,10 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
       controllerRef={inboxControllerRef}
       items={rows}
       itemTypeLabel="knowledge edge"
+      selectedId={selection.selectedId}
+      pendingSelectionId={selection.pendingSelectionId}
+      onSelect={selection.onSelect}
+      onDeselect={selection.onDeselect}
       renderItemRow={(row) => {
         const subject = humanizeRef(row.subjectKind ? `${row.subjectKind}:${row.subjectRef}` : row.subjectRef);
         const object = humanizeRef(row.objectKind ? `${row.objectKind}:${row.objectRef}` : row.objectRef);

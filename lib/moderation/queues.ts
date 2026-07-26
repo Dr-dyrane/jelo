@@ -115,6 +115,34 @@ export async function listPendingContributions(sql: Sql, limit = 100): Promise<P
   }));
 }
 
+export async function findPendingContribution(
+  sql: Sql,
+  id: string,
+): Promise<PendingContribution | null> {
+  const [row] = await sql<{
+    id: string;
+    contribution_kind: string;
+    payload: Record<string, unknown>;
+    submitted_at: string;
+    retain_until: string;
+  }[]>`
+    select id, contribution_kind, payload,
+           submitted_at::text as submitted_at, retain_until::text as retain_until
+    from community_contributions
+    where moderation_status = 'pending'
+      and id = ${id}
+    limit 1
+  `;
+
+  return row ? {
+    id: row.id,
+    kind: row.contribution_kind,
+    payload: row.payload,
+    submittedAt: row.submitted_at,
+    retainUntil: row.retain_until,
+  } : null;
+}
+
 export type PendingEdge = {
   id: string;
   contributionId: string;
@@ -157,6 +185,39 @@ export async function listPendingEdges(sql: Sql, limit = 100): Promise<PendingEd
     metadata: row.metadata,
     createdAt: row.created_at,
   }));
+}
+
+export async function findPendingEdge(sql: Sql, id: string): Promise<PendingEdge | null> {
+  const [row] = await sql<{
+    id: string;
+    contribution_id: string;
+    subject_kind: string;
+    subject_ref: string;
+    predicate: string;
+    object_kind: string;
+    object_ref: string;
+    metadata: Record<string, unknown>;
+    created_at: string;
+  }[]>`
+    select id, contribution_id, subject_kind, subject_ref, predicate,
+           object_kind, object_ref, metadata, created_at::text as created_at
+    from community_knowledge_edges
+    where moderation_status = 'pending'
+      and id = ${id}
+    limit 1
+  `;
+
+  return row ? {
+    id: row.id,
+    contributionId: row.contribution_id,
+    subjectKind: row.subject_kind,
+    subjectRef: row.subject_ref,
+    predicate: row.predicate,
+    objectKind: row.object_kind,
+    objectRef: row.object_ref,
+    metadata: row.metadata,
+    createdAt: row.created_at,
+  } : null;
 }
 
 export type PendingModerationValue = {
@@ -204,6 +265,43 @@ export async function listPendingModerationValues(sql: Sql, limit = 100): Promis
   }));
 }
 
+export async function findPendingModerationValue(
+  sql: Sql,
+  id: string,
+): Promise<PendingModerationValue | null> {
+  const [row] = await sql<{
+    id: string;
+    value_kind: string;
+    raw_value: string;
+    normalized_value: string;
+    occurrence_count: number;
+    canonical_entity_kind: string | null;
+    canonical_entity_ref: string | null;
+    first_seen_at: string;
+    last_seen_at: string;
+  }[]>`
+    select id, value_kind, raw_value, normalized_value, occurrence_count,
+           canonical_entity_kind, canonical_entity_ref,
+           first_seen_at::text as first_seen_at, last_seen_at::text as last_seen_at
+    from community_moderation_values
+    where status = 'pending'
+      and id = ${id}
+    limit 1
+  `;
+
+  return row ? {
+    id: row.id,
+    valueKind: row.value_kind,
+    rawValue: row.raw_value,
+    normalizedValue: row.normalized_value,
+    occurrenceCount: row.occurrence_count,
+    canonicalEntityKind: row.canonical_entity_kind,
+    canonicalEntityRef: row.canonical_entity_ref,
+    firstSeenAt: row.first_seen_at,
+    lastSeenAt: row.last_seen_at,
+  } : null;
+}
+
 export type PendingRetailerApplication = {
   id: string;
   storeName: string;
@@ -242,6 +340,38 @@ export async function listPendingRetailerApplications(sql: Sql, limit = 100): Pr
     payload: row.payload,
     submittedAt: row.submitted_at,
   }));
+}
+
+export async function findPendingRetailerApplication(
+  sql: Sql,
+  id: string,
+): Promise<PendingRetailerApplication | null> {
+  const [row] = await sql<{
+    id: string;
+    store_name: string;
+    email: string;
+    email_verified_at: string | null;
+    contact_consent_at: string;
+    payload: Record<string, unknown>;
+    submitted_at: string | null;
+  }[]>`
+    select id, store_name, email, email_verified_at::text as email_verified_at,
+           contact_consent_at::text as contact_consent_at, payload, submitted_at::text as submitted_at
+    from retailer_partnership_applications
+    where status = 'submitted'
+      and id = ${id}
+    limit 1
+  `;
+
+  return row ? {
+    id: row.id,
+    storeName: row.store_name,
+    email: row.email,
+    emailVerifiedAt: row.email_verified_at,
+    contactConsentAt: row.contact_consent_at,
+    payload: row.payload,
+    submittedAt: row.submitted_at,
+  } : null;
 }
 
 export type CommerceSignal = {

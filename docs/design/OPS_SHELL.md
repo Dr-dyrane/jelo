@@ -37,11 +37,16 @@ The inspector must not descend from the rounded workspace wrapper. Nesting it
 there turns two work planes into one card and prevents reliable independent
 scrolling.
 
-The desktop shell is exactly `100dvh` and does not scroll the document. The
-workspace and inspector each own their vertical overflow. Inside a decision
-inspector, evidence and metadata scroll while the decision region remains
-anchored at the bottom. Empty inspector space is intentional; do not fill it
-with duplicate headings, decorative cards, or repeated record-type labels.
+The Ops root is one fixed `100dvh` viewport boundary at every width and never
+scrolls the document. Do not nest viewport roots or allow the page body to
+become a fallback scroll owner. The workspace owns route scrolling; the
+inspector owns its independent detail scrolling. On touch and phone widths the
+workspace wrapper remains exactly `100dvh` with `min-height: 0`, so long route
+content scrolls inside the main plane while floating navigation stays fixed.
+Inside a decision inspector, evidence and metadata scroll while the decision
+region remains anchored at the bottom. Empty inspector space is intentional;
+do not fill it with duplicate headings, decorative cards, or repeated
+record-type labels.
 
 Routes portal selected context into the shell-owned detail plane. This keeps
 selection state and focus behavior shared while preserving the structural
