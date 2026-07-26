@@ -26,32 +26,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Test
-        run: npm test
-
-      - name: Check documentation
-        run: npm run docs:check
-
-      - name: Verify private publication dossiers
-        run: npm run catalogue:publication:verify
-
-      - name: Verify explicit catalogue releases
-        run: npm run catalogue:publication:releases:verify
-
-      - name: Verify private catalogue research priorities
-        run: npm run catalogue:research:verify
-
-      - name: Verify private publication image bytes
-        run: npm run catalogue:publication:images:verify
-
-      - name: Verify canonical media
-        run: npm run assets:verify
+      - name: Verify release integrity
+        run: npm run verify:release
 
       - name: Build
         run: npm run build

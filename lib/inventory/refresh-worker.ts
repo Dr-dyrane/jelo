@@ -1,6 +1,4 @@
-import 'server-only';
-
-import { getPostgresClient } from '@/lib/db/postgres';
+import postgres from 'postgres';
 import { extractRetailerPage, type InventoryStatus, type RetailerExtraction } from '@/modules/retail-intelligence/extraction';
 import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
 
@@ -31,8 +29,31 @@ type ClaimedJob = {
   brand_name: string;
 };
 
+let inventoryRefreshClient: ReturnType<typeof postgres> | undefined;
+
+function getInventoryRefreshClient() {
+  const connectionString = process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
+  if (!connectionString) throw new Error('DATABASE_URL or POSTGRES_URL is required for inventory refresh.');
+  if (!inventoryRefreshClient) {
+    inventoryRefreshClient = postgres(connectionString, {
+      max: 5,
+      idle_timeout: 20,
+      connect_timeout: 10,
+      prepare: false,
+    });
+  }
+  return inventoryRefreshClient;
+}
+
+export async function closeInventoryRefreshClient() {
+  if (!inventoryRefreshClient) return;
+  const client = inventoryRefreshClient;
+  inventoryRefreshClient = undefined;
+  await client.end({ timeout: 5 });
+}
+
 async function claimJob(): Promise<ClaimedJob | undefined> {
-  const sql = getPostgresClient();
+  const sql = getInventoryRefreshClient();
   const [job] = await sql<ClaimedJob[]>`
     with candidate as (
       select j.id
@@ -94,7 +115,7 @@ async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
 }
 
 async function completeJob(job: ClaimedJob, observation: RetailerObservation) {
-  const sql = getPostgresClient();
+  const sql = getInventoryRefreshClient();
   const available = observation.inventoryStatus === 'in_stock' || observation.inventoryStatus === 'low_stock';
   const validity = observation.inventoryStatus === 'unknown' || observation.confidence < 60
     ? '1 day'
@@ -143,7 +164,7 @@ async function completeJob(job: ClaimedJob, observation: RetailerObservation) {
 }
 
 async function failJob(job: ClaimedJob, error: unknown) {
-  const sql = getPostgresClient();
+  const sql = getInventoryRefreshClient();
   const message = error instanceof Error ? error.message : String(error);
   const terminal = job.attempt_count >= MAX_ATTEMPTS;
   const backoffMinutes = Math.min(2 ** Math.max(job.attempt_count - 1, 0) * 5, 240);

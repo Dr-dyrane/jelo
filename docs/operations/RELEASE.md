@@ -48,13 +48,16 @@ Stage explicit paths. Review the staged patch. Never stage `.env*`, `.vercel/`, 
 At minimum:
 
 ```bash
-npm run lint
-npm run typecheck
-npm test
+npm run verify:release
 npm run build
 ```
 
-Run every domain gate touched by the change. Catalogue publication requires the full sequence in [Catalogue operations](../catalogue/OPERATIONS.md).
+`verify:release` is the shared, non-building preflight for CI and production.
+It runs lint, typecheck, all Node tests, documentation checks, catalogue
+publication and research checks, publication image verification, and canonical
+asset verification. Run every additional domain gate touched by the change.
+Catalogue publication requires the full sequence in
+[Catalogue operations](../catalogue/OPERATIONS.md).
 
 ## CI
 
@@ -63,15 +66,8 @@ Run every domain gate touched by the change. Catalogue publication requires the 
 The validation job runs:
 
 1. `npm ci`
-2. lint
-3. typecheck
-4. Node tests
-5. dossier verification
-6. release verification
-7. research queue verification
-8. publication image verification
-9. canonical asset verification
-10. build with migrations disabled
+2. the shared `verify:release` preflight
+3. build with migrations disabled
 
 A second job installs the hash-locked Python 3.12 CPU runtime and verifies the exact-SKU packshot operator.
 
@@ -82,15 +78,20 @@ Do not merge around a red gate. Read the exact failing log.
 Production builds run through `scripts/vercel-build.ts`.
 
 ```text
-promote staged assets
+release verification
+  -> next build
+  -> promote staged assets
   -> apply pending migrations
   -> optional one-time catalogue seed
   -> seed product asset metadata
   -> seed editorial asset metadata
-  -> next build
 ```
 
-Preview and CI builds do not run migrations.
+Production verification and the Next build must both pass before staged Blob
+promotion, migrations, or seeds can mutate external state. This protects
+production even when Vercel receives a commit before GitHub Actions finishes.
+Preview and local builds stay on the fast Next-only path. CI runs the shared
+preflight explicitly and does not run migrations.
 
 ## After push
 

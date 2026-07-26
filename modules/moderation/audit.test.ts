@@ -10,6 +10,7 @@ test('a valid promotion normalizes to an audit row', () => {
     targetRef: 'obs-123',
     canonicalWrite: true,
     rationale: 'Matches an existing exact offer.',
+    metadata: {},
   });
   assert.deepEqual(row, {
     operatorSubject: 'neon-auth|op-1',
@@ -18,6 +19,7 @@ test('a valid promotion normalizes to an audit row', () => {
     targetRef: 'obs-123',
     canonicalWrite: true,
     rationale: 'Matches an existing exact offer.',
+    metadata: {},
   });
 });
 
@@ -30,6 +32,24 @@ test('a read-only action defaults to no canonical write and no rationale', () =>
   });
   assert.equal(parsed.canonicalWrite, false);
   assert.equal(parsed.rationale, null);
+  assert.deepEqual(parsed.metadata, {});
+});
+
+test('mapping and reconciliation are explicit audit actions', () => {
+  assert.equal(moderationActionSchema.parse({
+    operatorSubject: 'op',
+    queue: 'community_moderation_value',
+    action: 'map',
+    targetRef: 'value-1',
+    metadata: { canonicalEntityRef: 'keratosis-pilaris' },
+  }).action, 'map');
+  assert.equal(moderationActionSchema.parse({
+    operatorSubject: 'op',
+    queue: 'community_research_task',
+    action: 'reconcile',
+    targetRef: 'active-signal-counts',
+    metadata: { reconciledTaskCount: 2 },
+  }).action, 'reconcile');
 });
 
 test('unknown actions, queues, and extra fields are rejected', () => {

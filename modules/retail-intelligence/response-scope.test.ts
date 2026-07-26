@@ -52,6 +52,13 @@ test('normalizes compact SPF tokens and UK or US moisturiser spelling', () => {
     expectedTitle: 'Example Moisturising Face Fluid UV SPF 30',
     observedTitle: 'Example Moisturizing Fluid UV SPF30 156g',
   }));
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'ANUA Niacinamide 10% + TXA 4% Serum',
+    expectedSize: '30 ml',
+    observedTitle: 'Anua Niacinamide 10% + Tranexamic Acid 4% Serum',
+    observedSize: '30 ml',
+  }));
 });
 
 test('normalizes manufacturer camel-case when retailers separate the same product name', () => {
@@ -61,6 +68,13 @@ test('normalizes manufacturer camel-case when retailers separate the same produc
     expectedSize: '250 ml',
     observedTitle: 'EUCERIN Urea Repair Plus 10% Urea Lotion 250ml',
     observedSize: '250 ml',
+  }));
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'FACE FACTS Bright + Clear Face Cream',
+    expectedSize: '75 ml',
+    observedTitle: 'FaceFacts Bright + Clear Face Cream – 75ml',
+    observedSize: '75 ml',
   }));
 });
 

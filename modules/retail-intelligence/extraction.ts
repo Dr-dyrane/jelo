@@ -1,3 +1,5 @@
+import { priceAmountToStorageInteger } from '@/lib/inventory/price-storage';
+
 export type InventoryStatus = 'in_stock' | 'low_stock' | 'out_of_stock' | 'unknown';
 
 export type RetailerExtraction = {
@@ -191,7 +193,7 @@ function normalizePrice(value: unknown, currencyCode: string | null) {
   if (!Number.isFinite(amount) || amount <= 0 || !currencyCode) return null;
 
   // Existing JeloCare NGN records use whole Naira; other currencies use minor units.
-  return currencyCode === 'NGN' ? Math.round(amount) : Math.round(amount * 100);
+  return priceAmountToStorageInteger(amount, currencyCode);
 }
 
 function availabilityStatus(value: unknown): InventoryStatus {

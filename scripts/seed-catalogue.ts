@@ -3,6 +3,7 @@ import { products as catalogue } from '../data/catalogue';
 import { isPublishedIntakeProduct } from '../data/published-intake-products';
 import productAssets from '../data/product-assets.json';
 import { ingredientSeeds, verifiedProductIngredients } from '../data/product-ingredients';
+import { priceAmountToStorageInteger } from '../lib/inventory/price-storage';
 
 type ProductAssetRecord = {
   sourceUrl: string;
@@ -51,6 +52,15 @@ const assetBySlug = productAssets as Record<string, ProductAssetRecord>;
 
 try {
   await sql.begin(async tx => {
+    const publishedSlugs = catalogue.map(product => product.slug);
+    await tx`
+      update products
+      set is_published = false,
+          updated_at = now()
+      where is_published = true
+        and not (slug = any(${publishedSlugs}::text[]))
+    `;
+
     for (const product of catalogue) {
       const brandSlug = slugify(product.brand);
       const [brand] = await tx<{ id: string }[]>`
@@ -278,9 +288,9 @@ try {
         for (const market of offer.location) {
           const inventoryStatus = offer.available ? 'in_stock' : 'out_of_stock';
           const priceMinor = market === 'NG' && offer.priceNgn != null
-            ? offer.priceNgn
+            ? priceAmountToStorageInteger(offer.priceNgn, 'NGN')
             : market === 'US' && offer.priceUsd != null
-              ? Math.round(offer.priceUsd * 100)
+              ? priceAmountToStorageInteger(offer.priceUsd, 'USD')
               : null;
           const currencyCode = market === 'NG' && offer.priceNgn != null
             ? 'NGN'

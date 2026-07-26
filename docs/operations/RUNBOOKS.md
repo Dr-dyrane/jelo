@@ -78,6 +78,58 @@ Never heal a mismatched package with generation.
 5. Let bounded retries work; do not create duplicate active jobs.
 6. Manually inspect any retailer that blocks automation.
 
+### Private manual browser observation
+
+For a retailer that blocks the bounded fetch worker, record an observation only
+after opening the exact product page in a browser and confirming its title,
+measurable size, stock, and (when supplied) NGN price. This is a private CLI,
+not an API. It resolves one pre-existing `exact` offer from product slug,
+retailer name, and optionally its exact URL; it never creates an offer, changes
+match kind, or approves a product.
+
+An active `operator` or `admin` mapping is required through
+`MODERATION_OPERATOR_EMAIL`. The command is a dry run unless `--apply` is
+present. It records manual verification timestamps, a 1–168 hour expiry,
+structured browser evidence and rationale, price history when a price is given,
+and completes only the matching active refresh job. It does not print the email,
+browser evidence, rationale, URL, or other raw observation payload.
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.invalid \
+  npm run inventory:observe:manual -- \
+  --product-slug exact-product-slug \
+  --retailer "Exact Retailer Name" \
+  --stock in_stock \
+  --price-naira 23500 \
+  --observed-title "Exact product title shown by the retailer" \
+  --observed-size "473 ml" \
+  --evidence-note "Price and stock visible on the browser product page." \
+  --rationale "Retailer blocks automated verification." \
+  --valid-for-hours 24
+```
+
+After reviewing the dry-run result, repeat the same command with `--apply`:
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.invalid \
+  npm run inventory:observe:manual -- \
+  --product-slug exact-product-slug \
+  --retailer "Exact Retailer Name" \
+  --stock in_stock \
+  --price-naira 23500 \
+  --observed-title "Exact product title shown by the retailer" \
+  --observed-size "473 ml" \
+  --evidence-note "Price and stock visible on the browser product page." \
+  --rationale "Retailer blocks automated verification." \
+  --valid-for-hours 24 \
+  --apply
+```
+
+Omit `--price-naira` only when the page does not show a reliable whole-naira
+price. Supply `--url` when the product/retailer pair has more than one market
+offer. Do not use this command for a search result, variant ambiguity, or a
+retailer page whose title or size cannot be verified.
+
 ## Community submissions arrive
 
 ```bash
@@ -87,6 +139,67 @@ npm run community:research:signals
 Use aggregate signals to prioritize research. Review custom vocabulary in the moderation queue. Do not publish prices, outcomes, or retailer claims directly from a community record.
 
 Never report unique contributor counts until a privacy-reviewed stable anonymous identifier exists.
+
+### Private moderation operator
+
+Use `/ops` for item-by-item review. The command-line operator is the private,
+aggregate-first fallback for an authenticated operator; it is not an API and must
+never be wrapped in a public route.
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.com \
+  npm run community:moderate
+```
+
+The default inspection is read-only and prints aggregate backlog, research-lane,
+and integrity counts without raw contribution payloads. Every mutation requires:
+
+- an email matching one active row in `moderation_operators`;
+- the capability granted to that operator role;
+- an explicit action, target, and rationale;
+- `--apply`.
+
+Without `--apply`, a valid command performs a dry run:
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.com \
+  npm run community:moderate -- \
+  --action reject \
+  --queue community_contribution \
+  --target-id 00000000-0000-4000-8000-000000000000 \
+  --rationale "Duplicate test submission."
+```
+
+After reviewing the dry run, append `--apply`. Contribution rejection also rejects
+its still-pending edges and observations and recalculates affected research signal
+counts in the same transaction. The parent decision and cascade counts are written
+to `moderation_audit_log`.
+
+Map a custom term only to an existing canonical slug:
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.com \
+  npm run community:moderate -- \
+  --action map \
+  --queue community_moderation_value \
+  --target-id 00000000-0000-4000-8000-000000000000 \
+  --canonical-kind purpose \
+  --canonical-ref keratosis-pilaris \
+  --rationale "Common-language alias for the existing concern."
+```
+
+An admin can reconcile materialized research counters after a retention or recovery
+event. This also defaults to a dry run:
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.com \
+  npm run community:moderate -- \
+  --action reconcile \
+  --rationale "Scheduled retention reconciliation."
+```
+
+Never copy a connection string, raw payload, operator subject, or contributor text
+into a ticket, commit, terminal transcript, or chat. Use queue row IDs for handoff.
 
 ## Retailer application email fails
 

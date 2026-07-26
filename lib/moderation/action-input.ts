@@ -15,7 +15,10 @@ export type DecisionInput = z.infer<typeof decisionInputSchema>;
 export const mapValueInputSchema = z.object({
   targetId: z.uuid(),
   canonicalEntityKind: z.enum(['purpose', 'product', 'brand', 'retailer']),
-  canonicalEntityRef: z.string().min(1).max(160),
+  canonicalEntityRef: z.string()
+    .min(1)
+    .max(160)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use the exact canonical slug.'),
   rationale: z.string().min(1).max(2000).nullable().default(null),
 }).strict();
 export type MapValueInput = z.infer<typeof mapValueInputSchema>;

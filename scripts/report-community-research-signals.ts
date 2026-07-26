@@ -90,11 +90,18 @@ async function readCommunityResearchSignals(limit = 25) {
         order by occurrences desc, last_seen_at desc limit ${limit}
       `,
       sql<ResearchTaskRow[]>`
-        select task_kind, entity_kind, entity_ref, entity_label, entity_source,
-               priority_lane, signal_count, status, last_seen_at
-        from community_research_tasks
-        where status <> 'dismissed'
-        order by priority_rank, signal_count desc, last_seen_at desc, entity_label
+        select task.task_kind, task.entity_kind, task.entity_ref, task.entity_label,
+               task.entity_source, task.priority_lane,
+               count(distinct mention.contribution_id)::integer as signal_count,
+               task.status, max(contribution.submitted_at) as last_seen_at
+        from community_research_tasks task
+        join community_research_task_mentions mention on mention.task_id = task.id
+        join community_contributions contribution on contribution.id = mention.contribution_id
+        where task.status <> 'dismissed'
+          and contribution.moderation_status <> 'rejected'
+          and contribution.retain_until > now()
+        group by task.id
+        order by task.priority_rank, signal_count desc, last_seen_at desc, task.entity_label
         limit ${limit}
       `,
     ]);

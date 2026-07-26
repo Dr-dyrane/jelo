@@ -7,6 +7,7 @@ export const moderationQueueSchema = z.enum([
   'community_edge',
   'community_observation',
   'community_moderation_value',
+  'community_research_task',
   'retailer_application',
   'commerce_signal',
 ]);
@@ -18,10 +19,14 @@ export type ModerationQueue = z.infer<typeof moderationQueueSchema>;
 export const moderationActionSchema = z.object({
   operatorSubject: z.string().min(1).max(320),
   queue: moderationQueueSchema,
-  action: z.enum(['claim', 'approve', 'reject', 'promote', 'defer', 'note']),
+  action: z.enum(['claim', 'approve', 'reject', 'map', 'promote', 'reconcile', 'defer', 'note']),
   targetRef: z.string().min(1).max(200),
   canonicalWrite: z.boolean().default(false),
   rationale: z.string().min(1).max(2000).nullable().default(null),
+  metadata: z.record(
+    z.string().min(1).max(80),
+    z.union([z.string().max(500), z.number().finite(), z.boolean(), z.null()]),
+  ).default({}),
 }).strict();
 export type ModerationAction = z.infer<typeof moderationActionSchema>;
 
@@ -32,6 +37,7 @@ export type ModerationAuditRow = {
   targetRef: string;
   canonicalWrite: boolean;
   rationale: string | null;
+  metadata: Record<string, string | number | boolean | null>;
 };
 
 // Validates and normalizes an operator action into the row to append. Pure and
@@ -46,5 +52,6 @@ export function buildModerationAuditRow(input: ModerationAction): ModerationAudi
     targetRef: parsed.targetRef,
     canonicalWrite: parsed.canonicalWrite,
     rationale: parsed.rationale,
+    metadata: parsed.metadata,
   };
 }

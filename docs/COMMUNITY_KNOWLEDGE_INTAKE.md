@@ -60,6 +60,20 @@ Run `npm run community:research:signals` in a server environment with a real dat
 
 The report ranks product, retailer and purpose mentions, summarizes community-reported Nigerian price observations, exposes the `community-first` task order, and lists pending vocabulary for moderation. It does not expose contributor identity. Community tasks precede bulk retailer-discovery leads, but they cannot verify authenticity, identity, price freshness, formula suitability, regulatory status, image rights or publication readiness. Repeated independent reports, photos and receipts can become stronger evidence only after the deferred quarantine and moderation systems exist.
 
+Private decisions happen in `/ops` or through `npm run community:moderate`; there
+is no public moderation endpoint. The command-line path requires an active
+allowlisted operator, prints only aggregate data by default, dry-runs every mutation
+unless `--apply` is present, requires a rationale, and appends the decision to the
+same audit trail as the console.
+
+Rejected contributions retain their immutable record but cannot leave pending
+edges, observations, or active research priority behind. Migration
+`0021_community_moderation_integrity.sql` reconciles existing rows, and future
+rejections cascade those moderation states and recalculate affected task signals in
+one audited transaction. Queue reads exclude expired or rejected-parent material;
+shared custom vocabulary is ordered by active retained mentions rather than its
+historical counter.
+
 Public contributor counts and trust labels must be derived from moderated, retained records—not drafted submissions or raw edge totals. Until the sample is meaningful, prefer a truthful qualitative invitation over a small vanity count. When counts are shown later, distinguish contributors, submissions and independently confirmed observations.
 
 ## Release boundary

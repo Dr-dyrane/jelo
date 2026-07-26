@@ -78,6 +78,22 @@ export async function decideObservationAction(_prevState: unknown, formData: For
   }
 }
 
+export async function fetchMoreObservationsAction(offset: number, limit = 50) {
+  await requireConsoleOperator();
+  const { listPendingObservations } = await import('@/lib/moderation/queues');
+  const { findCatalogueProduct } = await import('@/lib/catalogue/repository');
+  const rows = await listPendingObservations(getPostgresClient(), limit, offset);
+  const enrichedRows = await Promise.all(rows.map(async row => {
+    if (row.subjectKind === 'product') {
+      const slug = row.subjectRef.startsWith('product:') ? row.subjectRef.slice(8) : row.subjectRef;
+      const product = await findCatalogueProduct(slug);
+      return { ...row, product };
+    }
+    return row;
+  }));
+  return enrichedRows;
+}
+
 export async function decideModerationValueAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
   try {
     const operator = await requireConsoleOperator();
@@ -110,7 +126,7 @@ export async function mapModerationValueAction(_prevState: unknown, formData: Fo
       getPostgresClient(),
       operator.authSubject,
       targetId,
-      canonicalEntityKind,
+      canonicalEntityKind as 'purpose' | 'product' | 'brand' | 'retailer',
       canonicalEntityRef,
       rationale,
     );

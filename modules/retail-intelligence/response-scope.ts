@@ -24,6 +24,8 @@ function sameProductRoute(left: URL, right: URL) {
 function titleTokens(value: string) {
   return Array.from(new Set(value
     .replace(/\burea(?=repair\b)/gi, 'urea ')
+    .replace(/\btxa\b/gi, 'tranexamic acid')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
     .toLowerCase()
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')

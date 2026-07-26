@@ -13,10 +13,11 @@ test('a decision requires a uuid target and a valid decision', () => {
 });
 
 test('mapping a value requires the canonical target', () => {
-  const parsed = mapValueInputSchema.parse({ targetId: uuid, canonicalEntityKind: 'brand', canonicalEntityRef: 'brand:cosrx' });
-  assert.equal(parsed.canonicalEntityRef, 'brand:cosrx');
+  const parsed = mapValueInputSchema.parse({ targetId: uuid, canonicalEntityKind: 'brand', canonicalEntityRef: 'cosrx' });
+  assert.equal(parsed.canonicalEntityRef, 'cosrx');
   assert.throws(() => mapValueInputSchema.parse({ targetId: uuid, canonicalEntityKind: 'unknown', canonicalEntityRef: 'x' }));
   assert.throws(() => mapValueInputSchema.parse({ targetId: uuid, canonicalEntityKind: 'brand' }));
+  assert.throws(() => mapValueInputSchema.parse({ targetId: uuid, canonicalEntityKind: 'brand', canonicalEntityRef: 'brand:cosrx' }));
 });
 
 test('a note requires non-empty text and defaults its action', () => {

@@ -25,8 +25,9 @@ Never expose a PostgreSQL connection string through a `NEXT_PUBLIC_` variable.
 | Clinical | `ingredients`, `ingredient_synonyms`, `ingredient_concerns`, `ingredient_relations`, `product_ingredients` |
 | Editorial | `editorial_assets` |
 | Frozen external catalogue | `external_catalogue_products`, `external_catalogue_releases` |
-| Community intake | `community_intake_drafts`, `community_contributions`, moderation, event, and edge tables |
+| Community intake | `community_intake_drafts`, `community_contributions`, moderation, observation, research-task, event, and edge tables |
 | Retailer partnerships | `retailer_partnership_applications`, `retailer_partnership_events` |
+| Operations | `moderation_operators`, append-only `moderation_audit_log` |
 | Migration history | `schema_migrations` |
 
 The ordered files in `db/migrations/` are authoritative.
@@ -66,9 +67,13 @@ Do not run two manual migration operators against the same database.
 `scripts/vercel-build.ts` runs on every build.
 
 - Preview, local, and CI builds skip migrations.
-- Vercel production builds run staged asset promotion, pending migrations, product asset metadata seed, and editorial asset seed.
+- Vercel production builds first run the shared release preflight and complete
+  the Next build. Only then may they promote staged assets, apply pending
+  migrations, and seed product and editorial asset metadata.
 - `SEED_CATALOGUE_ON_BUILD=1` additionally runs catalogue and external-catalogue seeds. Use it only for an intentional one-time operation.
-- `SKIP_DATABASE_MIGRATIONS=1` suppresses production migrations. This is an emergency control, not the normal release path.
+- `SKIP_DATABASE_MIGRATIONS=1` suppresses production mutations but never skips
+  production verification or the Next build. This is an emergency control, not
+  the normal release path.
 
 ## Seeds are not migrations
 
@@ -107,7 +112,14 @@ npm run inventory:prices
 npm run clinical:audit
 npm run assets:audit
 npm run community:research:signals
+npm run community:moderate
 ```
+
+`community:moderate` requires `MODERATION_OPERATOR_EMAIL` to match one active
+allowlisted operator. Its default is an aggregate-only read. All decisions are
+dry-runs unless `--apply` is explicit, and every applied action requires a rationale
+and writes its audit row in the same transaction. It never writes canonical
+catalogue tables.
 
 ## Recovery
 

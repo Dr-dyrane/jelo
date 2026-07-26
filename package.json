@@ -9,9 +9,10 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "tsx --test modules/**/*.test.ts",
+    "test": "tsx --test modules/**/*.test.ts test/**/*.test.ts",
     "docs:check": "tsx scripts/check-documentation.ts",
-    "validate": "npm run lint && npm run typecheck && npm run test && npm run docs:check && npm run build",
+    "verify:release": "tsx scripts/verify-release.ts",
+    "validate": "npm run verify:release && npm run build",
     "assets:audit": "tsx scripts/audit-catalogue-assets.ts",
     "assets:import": "node scripts/import-product-assets.mjs",
     "assets:static-import": "tsx scripts/import-static-product-assets.ts",
@@ -26,6 +27,7 @@
     "inventory:prices": "tsx scripts/audit-offer-prices.ts",
     "inventory:queue": "tsx scripts/queue-inventory-refresh.ts",
     "inventory:work": "tsx scripts/process-inventory-refresh.ts",
+    "inventory:observe:manual": "tsx scripts/record-manual-inventory-observation.ts",
     "db:migrate": "tsx scripts/migrate-database.ts",
     "db:seed": "tsx scripts/seed-catalogue.ts",
     "db:seed:external": "tsx scripts/seed-external-catalogue.ts",
@@ -51,6 +53,7 @@
     "catalogue:packshots:manifest:validate": "tsx scripts/validate-external-packshot-manifest.ts",
     "catalogue:packshots:remote:verify": "tsx scripts/validate-external-packshot-manifest.ts --remote",
     "community:intake:purge": "tsx scripts/purge-community-intake-drafts.ts",
+    "community:moderate": "tsx scripts/manage-community-data.ts",
     "community:research:signals": "tsx scripts/report-community-research-signals.ts"
   },
   "dependencies": {

@@ -46,7 +46,7 @@ export type PendingObservation = {
   createdAt: string;
 };
 
-export async function listPendingObservations(sql: Sql, limit = 100): Promise<PendingObservation[]> {
+export async function listPendingObservations(sql: Sql, limit = 100, offset = 0): Promise<PendingObservation[]> {
   const rows = await sql<{
     id: string;
     contribution_id: string;
@@ -58,12 +58,17 @@ export async function listPendingObservations(sql: Sql, limit = 100): Promise<Pe
     observed_on: string | null;
     created_at: string;
   }[]>`
-    select id, contribution_id, observation_kind, subject_kind, subject_ref,
-           amount_ngn, outcome, observed_on::text as observed_on, created_at::text as created_at
-    from community_observations
-    where moderation_status = 'pending'
-    order by created_at desc
-    limit ${boundedLimit(limit)}
+    select observation.id, observation.contribution_id, observation.observation_kind,
+           observation.subject_kind, observation.subject_ref, observation.amount_ngn,
+           observation.outcome, observation.observed_on::text as observed_on,
+           observation.created_at::text as created_at
+    from community_observations observation
+    join community_contributions contribution on contribution.id = observation.contribution_id
+    where observation.moderation_status = 'pending'
+      and contribution.moderation_status <> 'rejected'
+      and contribution.retain_until > now()
+    order by observation.created_at asc
+    limit ${boundedLimit(limit)} offset ${Math.max(0, Math.trunc(offset))}
   `;
   return rows.map(row => ({
     id: row.id,
