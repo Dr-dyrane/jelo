@@ -368,7 +368,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 29);
+  assert.equal(result.dossierCount, 30);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -869,7 +869,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 29);
+  assert.equal(report.releaseCount, 30);
   assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
   assert.equal(report.products[0].offers[0].priceNgn, 15_265);
   assert.equal(report.products[1].slug, 'cerave-moisturising-cream-454g');

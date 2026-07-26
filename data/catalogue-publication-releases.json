@@ -697,6 +697,30 @@
         "publishedAt": "2026-07-23T20:23:00Z"
       },
       "releaseFingerprint": "bdc07b4b55a623fb9f6f9d7d3669d7b6e1cc48557de02eaf3d427283c6349084"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "laroche-posay-mela-b3-serum-30ml",
+      "dossierFingerprint": "b578321e5b692a1adeddc0201b737bfe7e391185671d9ac1e1776e3ab5a6621d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Niacinamide and Melasyl for dark spots · 30 ml",
+        "usage": "Apply 3–4 drops to the face, neck and décolleté morning and evening. Avoid the eye area. Finish the morning routine with sunscreen.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.co.uk/en_GB/mela-b3-intense-anti-dark-spot-serum/3337875890021.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T08:20:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T08:21:00Z"
+      },
+      "releaseFingerprint": "f37c3f028295394bd8f5fbc632fe57e48b1a2be1083658f08ee8b438cfbd1fd0"
     }
   ]
 }

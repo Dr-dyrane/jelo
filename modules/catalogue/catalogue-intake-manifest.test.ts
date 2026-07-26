@@ -20,23 +20,59 @@ import {
 const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 29);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 30);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 30);
-  assert.equal(catalogueIntakeDecisions.length, 30);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 29);
+  assert.equal(catalogueIntakeCandidates.length, 31);
+  assert.equal(catalogueIntakeDecisions.length, 31);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 30);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 15);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 29);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 30);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 29);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 30);
+});
+
+test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'laroche-posay-mela-b3-serum-30ml'
+  ));
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '3337875890021');
+  assert.equal(candidate.identity.basis, 'official-brand');
+  assert.equal(candidate.identity.officialEvidence?.snapshotKind, 'canonical-extraction');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction?.fields.variant.value, 'Mela B3 Serum');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction?.fields.size.value, '30 ml');
+  assert.equal(candidate.care.status, 'reviewed');
+  assert.equal(candidate.care.careTier, 'targeted-care');
+  assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => [
+    offer.retailer,
+    offer.priceNgn,
+    offer.stock,
+  ]), [
+    ['Lux Beauty', 48_500, 'in-stock'],
+    ['BuyBetter', 43_100, 'out-of-stock'],
+  ]);
+  assert.equal(candidate.nigeria.exactOffers[1]?.retailerSku, '3337875890021');
+  assert.equal(
+    candidate.nigeria.exactOffers[1]?.evidence?.fields.gtin?.responseRole,
+    'official-identity-correlation',
+  );
+  assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
+  assert.equal(candidate.asset.publicImageSha256, '296fbaa7564c766c910102a43be444e2496c73644d1212135c81c28641e87026');
+  assert.deepEqual([candidate.asset.width, candidate.asset.height], [2000, 2000]);
+  assert.equal(candidate.asset.packaging, 'intact');
+  assert.equal(
+    evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T08:20:00Z')).stage,
+    'approval-ready',
+  );
 });
 
 test('the Simple replenishing moisturiser binds UK identity while holding formula, pack and rights variance', () => {
@@ -1071,7 +1107,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 15);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 58);
+  ), 0), 60);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

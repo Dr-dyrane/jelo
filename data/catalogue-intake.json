@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-07-26T05:56:22Z",
+  "updatedAt": "2026-07-26T08:15:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -9163,6 +9163,263 @@
         "packagingInvented": false,
         "manualSourceOutputQa": true,
         "artReviewedAt": "2026-07-23T20:19:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "laroche-posay-mela-b3-serum-30ml",
+      "brand": "La Roche-Posay",
+      "brandAliases": [
+        "La Roche Posay",
+        "LRP"
+      ],
+      "name": "Mela B3 Serum",
+      "variant": "Mela B3 Serum",
+      "size": "30 ml",
+      "category": "Face care",
+      "reason": "Advances a community-requested exact product before the bulk discovery queue. The official L’Oréal Dermatological Beauty catalogue binds the current purple Mela B3 Serum 30 ml pack to manufacturer GTIN 3337875890021. BuyBetter and Lux Beauty each expose the exact 30 ml serum on current Nigerian product pages; their retailer-local identifiers are retained only as local metadata and are not used to mint the manufacturer identity. The current price comparison includes one in-stock offer and one exact out-of-stock reference without making a NAFDAC result a publication gate.",
+      "priority": "essential",
+      "gapIds": [
+        "community-requested-product",
+        "dark-spot-support",
+        "hyperpigmentation-routine-coverage"
+      ],
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/la-roche-posay-mela-b3-10-serum-30ml/",
+        "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
+        "https://allure.com.ng/la-roche-posay-mela-b3-serum-30ml/",
+        "https://www.konga.com/product/la-roche-posay-mela-b3-serum-for-dark-spot-corrector-30ml-6480001?cid=2279"
+      ],
+      "identity": {
+        "gtin": "3337875890021",
+        "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dwba78cefc/Page%20Designer/2025/LRP%202025%20FULL%20CATALOGUE%20.pdf",
+        "checkedAt": "2026-07-26T08:10:30Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dwba78cefc/Page%20Designer/2025/LRP%202025%20FULL%20CATALOGUE%20.pdf",
+          "observedGtin": "3337875890021",
+          "observedVariant": "Mela B3 Serum",
+          "observedSize": "30 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/laroche-posay-mela-b3-serum-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "laroche-posay-mela-b3-serum-30ml",
+            "sourceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dwba78cefc/Page%20Designer/2025/LRP%202025%20FULL%20CATALOGUE%20.pdf",
+            "responseUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dwba78cefc/Page%20Designer/2025/LRP%202025%20FULL%20CATALOGUE%20.pdf",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-26T08:08:28Z",
+            "fields": {
+              "gtin": {
+                "value": "3337875890021",
+                "locator": "Official L’Oréal LRP 2025 catalogue PDF page 4, #5 Shelf 1 UPC row",
+                "sourceText": "UPC 3337875890021 | La Roche-Posay melamedic serum 30ml"
+              },
+              "variant": {
+                "value": "Mela B3 Serum",
+                "locator": "Official catalogue PDF page 4 #5 Shelf 1 purple dropper pack label and corresponding Name row",
+                "sourceText": "Purple dropper pack label: “MELA B3 SERUM”; row: “La Roche-Posay melamedic serum 30ml”"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Official L’Oréal LRP 2025 catalogue PDF page 4, #5 Shelf 1 Name row",
+                "sourceText": "La Roche-Posay melamedic serum 30ml"
+              }
+            },
+            "sourceResponseSha256": "3e02ed7f3050ba0fcb91d24eee42f9ccb92d7b31334cea45c8e79de3b3604bb1",
+            "sourceResponseMimeType": "application/pdf",
+            "sourceResponseByteSize": 2567961,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw7336464b/LRP_Product/Mela_B3/3337875890069_Mela-B3-Serum-For-Hyperpigmentation_30ml_01_La-Roche-Posay.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+                "responseUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw7336464b/LRP_Product/Mela_B3/3337875890069_Mela-B3-Serum-For-Hyperpigmentation_30ml_01_La-Roche-Posay.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+                "retrievedAt": "2026-07-26T08:05:46Z",
+                "responseSha256": "ddfbabdf78400b4fca845e3e350deaa23e6c1790cf5bfb3ffeb2f6590f0a3cec",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 238228
+              }
+            ],
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T08:10:00Z"
+          },
+          "snapshotSha256": "a3fbbf12e2260bf431a107e4ef261afc21dfbe6c9032511ef120a806b8c8bafe",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2244,
+          "retrievedAt": "2026-07-26T08:08:28Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on cosmetic dark-spot serum with 10% niacinamide, Melasyl (2-mercaptonicotinoyl glycine), capryloyl salicylic acid (LHA), retinyl palmitate, humectants, silicones and fragrance",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic dark-spot support only, not a diagnosis or a treatment plan for melasma or another pigment disorder. Introduce gradually, avoid the eye area, stop if persistent burning or irritation develops, and use broad-spectrum sunscreen on exposed skin. Seek professional review for changing, symptomatic, extensive or persistent pigmentation.",
+        "manufacturerEvidenceUrl": "https://www.laroche-posay.co.uk/en_GB/mela-b3-intense-anti-dark-spot-serum/3337875890021.html",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://www.laroche-posay.co.uk/en_GB/mela-b3-intense-anti-dark-spot-serum/3337875890021.html",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-07-26T08:13:30Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dwba78cefc/Page%20Designer/2025/LRP%202025%20FULL%20CATALOGUE%20.pdf",
+        "exactOffers": [
+          {
+            "retailer": "Lux Beauty",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
+            "observedAt": "2026-07-26T08:14:04Z",
+            "observedTitle": "La Roche-Posay Mela B3 dark spot serum 30ml",
+            "observedSize": "30 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "priceNgn": 48500,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-exact-offer-field-extraction",
+              "listingUrl": "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
+              "responseUrl": "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
+              "responseSha256": "0d7bdb0c16b0e812f1e6b1ab0ff77b45f2ac275c63356110f24c6a712fcf56f6",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 126612,
+              "retrievedAt": "2026-07-26T08:14:04Z",
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "3337875890021",
+                  "locator": "Bound official La Roche-Posay catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875890021",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "La Roche-Posay Mela B3 dark spot serum 30ml",
+                  "locator": "HTML h1.product_title entry-title",
+                  "sourceText": "La Roche-Posay Mela B3 dark spot serum 30ml"
+                },
+                "size": {
+                  "value": "30 ml",
+                  "locator": "HTML h1.product_title size suffix",
+                  "sourceText": "La Roche-Posay Mela B3 dark spot serum 30ml"
+                },
+                "price": {
+                  "value": 48500,
+                  "currency": "NGN",
+                  "locator": "HTML div.product-price WooCommerce amount",
+                  "sourceText": "₦48,500.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML div.product-stock in-stock",
+                  "sourceText": "In Stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-26T08:15:00Z"
+            }
+          },
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/la-roche-posay-mela-b3-10-serum-30ml/",
+            "observedAt": "2026-07-26T08:14:36Z",
+            "observedTitle": "LA ROCHE-POSAY Mela B3 10 Serum 30ml",
+            "observedSize": "30 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "3337875890021",
+            "priceNgn": 43100,
+            "stock": "out-of-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/la-roche-posay-mela-b3-10-serum-30ml/",
+              "responseUrl": "https://buybetter.ng/product/la-roche-posay-mela-b3-10-serum-30ml/",
+              "responseSha256": "9511d9453aaee075ef0c3cdea3dacf8b61b72f9ff6d33e8de497c55a92471af5",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 806627,
+              "retrievedAt": "2026-07-26T08:14:36Z",
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "3337875890021",
+                  "locator": "Bound official La Roche-Posay catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875890021",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "LA ROCHE-POSAY Mela B3 10 Serum 30ml",
+                  "locator": "HTML document title and WooCommerce product data layer",
+                  "sourceText": "LA ROCHE-POSAY Mela B3 10 Serum 30ml"
+                },
+                "size": {
+                  "value": "30 ml",
+                  "locator": "HTML product title size suffix",
+                  "sourceText": "LA ROCHE-POSAY Mela B3 10 Serum 30ml"
+                },
+                "price": {
+                  "value": 43100,
+                  "currency": "NGN",
+                  "locator": "HTML p.price woobt-price-406041",
+                  "sourceText": "₦43,100.00 NG"
+                },
+                "stock": {
+                  "value": "out-of-stock",
+                  "locator": "HTML p.stock out-of-stock",
+                  "sourceText": "Out of stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-26T08:15:00Z"
+            }
+          }
+        ],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "sourceUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw7336464b/LRP_Product/Mela_B3/3337875890069_Mela-B3-Serum-For-Hyperpigmentation_30ml_01_La-Roche-Posay.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+        "sourceAssetSha256": "ddfbabdf78400b4fca845e3e350deaa23e6c1790cf5bfb3ffeb2f6590f0a3cec",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 238228,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-07-26T08:05:46Z",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+          "model": "gpt-image-2",
+          "prompt": "Create a faithful studio product packshot of the exact product shown in the reference: La Roche-Posay Mela B3 Serum, 30 ml, purple glass dropper bottle with white dropper cap and the exact visible white label layout. Preserve the product identity, proportions, complete packaging, cap, bottle silhouette, purple color, white label placement, and all major label marks. Do not redesign, add props, crop, clip, tilt, distort, invent packaging, add hands, or add shadows outside the product. Front-facing, centered, upright, fully visible with generous clear space around every edge, Vogue-grade clean lighting and crisp retail detail. Render on a perfectly flat, uniform chroma green #00FF00 background with no gradient, texture, floor, horizon, reflection, or cast shadow so the background can be removed deterministically. Square composition, high resolution.",
+          "inputs": [
+            {
+              "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw7336464b/LRP_Product/Mela_B3/3337875890069_Mela-B3-Serum-For-Hyperpigmentation_30ml_01_La-Roche-Posay.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+              "sha256": "ddfbabdf78400b4fca845e3e350deaa23e6c1790cf5bfb3ffeb2f6590f0a3cec"
+            }
+          ],
+          "outputSha256": "296fbaa7564c766c910102a43be444e2496c73644d1212135c81c28641e87026",
+          "generatedAt": "2026-07-26T08:13:40Z",
+          "recordSha256": "5383bf7aab96bc613451cbde4559e7b962ba6bbbcc30e17c795502e75dca1854"
+        },
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/larocheposay/laroche-posay-mela-b3-serum-30ml/packshot-v1-296fbaa7564c766c.png",
+        "publicImageSha256": "296fbaa7564c766c910102a43be444e2496c73644d1212135c81c28641e87026",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 694257,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-07-26T08:14:20Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }

@@ -582,6 +582,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   facefacts: ['facefacts.me'],
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
+  larocheposay: ['www.laroche-posay.co.uk'],
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
   sheamoisture: ['www.sheamoisture.com'],
@@ -596,6 +597,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   ],
   'cerave-sa-smoothing-cleanser-473ml': [
     'https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser',
+  ],
+  'laroche-posay-mela-b3-serum-30ml': [
+    'https://www.laroche-posay.co.uk/en_GB/mela-b3-intense-anti-dark-spot-serum/3337875890021.html',
   ],
   'tresemme-keratin-smooth-weightless-conditioner-828ml': [
     'https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738',
@@ -617,6 +621,10 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   facefacts: ['facefacts.me'],
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
+  larocheposay: [
+    'www.laroche-posay.co.uk',
+    'uk.lorealdermatologicalbeautypartnershop.com',
+  ],
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],

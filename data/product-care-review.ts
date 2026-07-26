@@ -552,6 +552,21 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'laroche-posay-mela-b3-serum-30ml': {
+    productSlug: 'laroche-posay-mela-b3-serum-30ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'dark-spot-serum-review',
+      label: 'Dark-spot serum review',
+      concernIds: ['hyperpigmentation', 'dark spots', 'post-acne marks'],
+      concernSlugs: ['dark-spots'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.laroche-posay.co.uk/en_GB/mela-b3-intense-anti-dark-spot-serum/3337875890021.html',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-07-26',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

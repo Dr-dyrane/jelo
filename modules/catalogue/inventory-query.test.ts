@@ -111,7 +111,7 @@ test('concern browsing includes explicit reviewed references without turning the
     queryInventoryRecords(products).facets.concerns.map(facet => [facet.value, facet.total]),
     [
       ['acne-breakouts', 9],
-      ['dark-spots', 3],
+      ['dark-spots', 4],
       ['sensitive-barrier', 1],
       ['dry-dehydrated-skin', 4],
       ['dry-rough-body-skin', 5],
