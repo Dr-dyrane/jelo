@@ -422,6 +422,43 @@ export const concerns: Concern[] = [
     sources: [{ title: 'World Health Organization · Noma', url: 'https://www.who.int/news-room/fact-sheets/detail/noma/' }],
     reviewedAt: '2026-07-23',
   },
+  {
+    slug: 'folliculitis-pattern', name: 'Follicle-centred bumps', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['folliculitis'],
+    summary: 'A sudden group of similar bumps around hairs can look like acne.',
+    signals: ['similar-sized bumps', 'bumps centred on hair follicles', 'itch or tenderness', 'after shaving, sweating or tight clothing'],
+    ingredients: ['pause shaving or waxing the area', 'reduce heat, friction and tight clothing', 'use a clean warm compress'],
+    productTerms: [],
+    escalation: 'Arrange an in-person skin review if the bumps persist, recur, hurt, worsen or remain uncertain. Spreading warmth or swelling, severe pain, fever or feeling unwell needs same-day care. Do not self-start antibiotics.',
+    sources: [{ title: 'American Academy of Dermatology · Folliculitis', url: 'https://www.aad.org/public/diseases/a-z/folliculitis' }],
+    reviewedAt: '2026-07-26',
+  },
+  {
+    slug: 'boil-abscess-pattern', name: 'Painful pus-filled lump', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['boil-abscess-like'],
+    summary: 'A hard or warm painful lump with a soft or pus-filled centre needs careful assessment.',
+    signals: ['tender or painful lump', 'warm or swollen skin', 'soft centre or pus', 'one boil or a group of lumps'],
+    ingredients: ['use a clean warm compress', 'cover drainage with a clean dressing', 'do not pick, squeeze or pierce it'],
+    productTerms: [],
+    escalation: 'Get same-day care if the lump is on the face, the surrounding skin is hot, painful or swollen, redness is spreading, or fever or shivering develops. Anyone with diabetes or weakened immunity should also get same-day care. Arrange an examination if it grows, feels hard and does not move, lasts more than 2 weeks, returns or appears in a group.',
+    sources: [
+      { title: 'NHS · Boils', url: 'https://www.nhs.uk/conditions/boils/' },
+      { title: 'NHS · Skin abscess', url: 'https://www.nhs.uk/conditions/skin-abscess/' },
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  {
+    slug: 'skin-lightening-exposure-pattern', name: 'Skin-lightening product safety', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['skin-lightening-exposure-like'],
+    summary: 'Some unlabelled or mercury-containing lightening products can harm the user and other people in the home.',
+    signals: ['skin-lightening or bleaching cream or soap', 'mercury, mercurous, mercuric or calomel on the label', 'rash or skin discolouration after use', 'tremor or memory and thinking changes after prolonged exposure'],
+    ingredients: ['stop using a product that lists mercury or has no reliable label', 'keep the container and ingredient list', 'seek medical or poison-service advice'],
+    productTerms: [],
+    escalation: 'Arrange prompt medical or poison-service assessment if mercury is listed or exposure is suspected, especially during pregnancy or breastfeeding or when a child may have been exposed. Tremor, memory or thinking changes, reduced urine, new swelling, or marked skin or eye changes need prompt medical care. Breathing difficulty, fainting or severe weakness needs emergency care.',
+    sources: [
+      { title: 'World Health Organization · Mercury in skin-lightening products', url: 'https://www.who.int/publications/i/item/WHO-CED-PHE-EPE-19.13' },
+      { title: 'NAFDAC · Bleaching agents regulations', url: 'https://www.nafdac.gov.ng/wp-content/uploads/Files/Resources/Regulations/All_Regulations/Cosmetics-Products-Prohibition-of-Bleaching-Agents-Regulations-2019.pdf' },
+      { title: 'NAFDAC Poison Control · Mercury in skin-lightening products', url: 'https://nafdac.gov.ng/wp-content/uploads/Files/Resources/Poison_Control/Mercury-Poisoning-in-Skin-Lightening-Products-SLPS-and-Clinical-Management-of-Chronic-Mercury-Intoxication.pdf' },
+    ],
+    reviewedAt: '2026-07-26',
+  },
 ];
 
 export const concernBySlug = (slug: string) => concerns.find(concern => concern.slug === slug);

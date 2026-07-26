@@ -77,10 +77,39 @@ const rules: PatternRule[] = [
   {
     id: 'folliculitis', label: 'Folliculitis-like pattern',
     positives: [
-      { terms: ['same size bumps', 'uniform bumps', 'hair follicle', 'after shaving', 'itchy bumps', 'pus bumps'], weight: 30, reason: 'Uniform follicle-centred bumps support folliculitis.' },
+      { terms: ['folliculitis'], weight: 56, reason: 'A named follicle condition was reported and needs confirmation.' },
+      { terms: ['same size bumps', 'same-size bumps', 'similar-sized bumps', 'uniform bumps', 'hair follicle', 'centred on hairs', 'centered on hairs', 'itchy bumps', 'pus bumps'], weight: 34, reason: 'Uniform follicle-centred bumps support folliculitis.' },
+      { terms: ['after shaving', 'after sweating', 'tight clothing', 'hot humid weather', 'heat and humidity'], weight: 16, reason: 'Shaving, sweat, heat or friction can precede follicle-centred bumps.' },
       { terms: ['chest', 'back', 'beard', 'scalp'], weight: 8, reason: 'The reported location can fit folliculitis.' },
     ],
     missing: ['Are the bumps all similar in size?', 'Are they centred on hairs?', 'Did shaving, sweating or occlusion precede them?'],
+  },
+  {
+    id: 'boil-abscess-like', label: 'Boil or skin-abscess warning pattern',
+    positives: [
+      { terms: ['a boil', 'boils', 'painful boil', 'boil on my', 'boil on the', 'skin abscess', 'abscess on my skin', 'carbuncle'], weight: 58, reason: 'A named boil or skin abscess was reported and needs examination.' },
+      { terms: ['hard painful lump', 'warm painful lump', 'painful pus-filled lump', 'painful pus filled lump', 'tender pus-filled lump'], weight: 44, reason: 'A painful lump with pus supports a boil-or-abscess warning pattern.' },
+      { terms: ['soft centre', 'soft center', 'leaking pus', 'draining pus', 'pus in the centre', 'pus in the center'], weight: 28, reason: 'A soft or draining centre adds support.' },
+    ],
+    negatives: [
+      { terms: ['recurring deep lumps', 'recurrent deep lumps', 'tunnels', 'repeated scars'], weight: 50, reason: 'Recurring deep lumps, tunnels or scars support the hidradenitis pathway.' },
+      { terms: ['same-size bumps', 'same size bumps', 'uniform bumps', 'centred on hairs', 'centered on hairs'], weight: 36, reason: 'Many uniform follicle-centred bumps support the folliculitis pathway.' },
+      { terms: ['one pimple', 'small pustule', 'not spreading'], weight: 34, reason: 'One small stable pimple is not specific for a boil or abscess.' },
+      { terms: ['tooth abscess', 'gum abscess'], weight: 58, reason: 'A dental abscess needs a dental pathway.' },
+    ],
+    missing: ['Is this one deep lump or many similar bumps?', 'Is the centre soft or draining pus?', 'Is it on the face, spreading, recurring or linked to fever?', 'Do you have diabetes or weakened immunity?'],
+  },
+  {
+    id: 'skin-lightening-exposure-like', label: 'Skin-lightening product exposure warning pattern',
+    positives: [
+      { terms: ['skin-lightening product', 'skin lightening product', 'skin-lightening cream', 'skin lightening cream', 'skin-lightening soap', 'skin lightening soap', 'bleaching cream', 'bleaching soap', 'mercury cream', 'mercury soap'], weight: 58, reason: 'A skin-lightening product exposure was reported and needs a safety review.' },
+      { terms: ['mercurous', 'mercuric', 'calomel', 'mercury on the label', 'label mentions mercury', 'contains mercury'], weight: 34, reason: 'A mercury name on the label raises a product-safety concern.' },
+      { terms: ['rash after bleaching cream', 'skin discoloration after lightening', 'skin discolouration after lightening', 'tremor after lightening cream', 'memory changes after lightening cream', 'thinking changes after lightening cream'], weight: 20, reason: 'A symptom linked to prolonged lightening-product use adds concern.' },
+    ],
+    negatives: [
+      { terms: ['dark marks after acne', 'flat dark marks after acne', 'daily sunscreen'], weight: 28, reason: 'Post-acne marks without lightening-product exposure need a different pathway.' },
+    ],
+    missing: ['What is the product name and full ingredient list?', 'Does the label mention mercury, mercurous, mercuric or calomel?', 'How long and how widely has it been used?', 'Could a pregnant person, breastfeeding person or child have been exposed?', 'Are there skin, eye, tremor, memory, thinking or urinary changes?'],
   },
   {
     id: 'xerosis', label: 'Dry-skin pattern',

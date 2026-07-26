@@ -16,7 +16,11 @@ test('provides sourced concern guidance without turning condition patterns into 
       const url = new URL(source.url);
       assert.equal(url.protocol, 'https:');
       assert.ok(
-        url.hostname === 'www.aad.org' || url.hostname === 'www.nhs.uk' || url.hostname === 'www.who.int',
+        url.hostname === 'www.aad.org'
+          || url.hostname === 'www.nhs.uk'
+          || url.hostname === 'www.who.int'
+          || url.hostname === 'nafdac.gov.ng'
+          || url.hostname === 'www.nafdac.gov.ng',
         source.url,
       );
     }
@@ -240,4 +244,46 @@ test('rapid gum-to-face changes are urgent, non-diagnostic and never product-mat
     assert.ok(guidance.includes(term), `rapid gum-to-face guide is missing ${term}`);
   }
   assert.doesNotMatch(guidance, /you have|diagnos|antibiotic|mouthwash treatment|isolate/i);
+});
+
+test('cosmetic-looking safety guides are sourced, examination-first and product-ineligible', () => {
+  const expected = [
+    {
+      slug: 'folliculitis-pattern',
+      pattern: 'folliculitis',
+      sources: ['https://www.aad.org/public/diseases/a-z/folliculitis'],
+      terms: ['look like acne', 'in-person skin review', 'same-day care', 'do not self-start antibiotics'],
+    },
+    {
+      slug: 'boil-abscess-pattern',
+      pattern: 'boil-abscess-like',
+      sources: [
+        'https://www.nhs.uk/conditions/boils/',
+        'https://www.nhs.uk/conditions/skin-abscess/',
+      ],
+      terms: ['painful lump', 'do not pick, squeeze or pierce', 'same-day care', 'diabetes', 'more than 2 weeks'],
+    },
+    {
+      slug: 'skin-lightening-exposure-pattern',
+      pattern: 'skin-lightening-exposure-like',
+      sources: [
+        'https://www.who.int/publications/i/item/WHO-CED-PHE-EPE-19.13',
+        'https://www.nafdac.gov.ng/wp-content/uploads/Files/Resources/Regulations/All_Regulations/Cosmetics-Products-Prohibition-of-Bleaching-Agents-Regulations-2019.pdf',
+        'https://nafdac.gov.ng/wp-content/uploads/Files/Resources/Poison_Control/Mercury-Poisoning-in-Skin-Lightening-Products-SLPS-and-Clinical-Management-of-Chronic-Mercury-Intoxication.pdf',
+      ],
+      terms: ['mercury-containing', 'ingredient list', 'poison-service assessment', 'pregnancy', 'emergency care'],
+    },
+  ];
+
+  for (const item of expected) {
+    const concern = concerns.find(candidate => candidate.slug === item.slug);
+    assert.ok(concern, item.slug);
+    assert.equal(concern.kind, 'condition-pattern');
+    assert.deepEqual(concern.clinicalPatternIds, [item.pattern]);
+    assert.deepEqual(concern.productTerms, []);
+    assert.deepEqual(concern.sources.map(source => source.url), item.sources);
+    const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+    for (const term of item.terms) assert.ok(guidance.includes(term), `${item.slug} is missing ${term}`);
+    assert.doesNotMatch(guidance, /you have|diagnos|recommended product|buy now/i);
+  }
 });

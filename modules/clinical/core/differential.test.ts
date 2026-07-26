@@ -32,6 +32,9 @@ const patternCases = [
   ['My leg has stayed swollen for months and the skin is becoming thick and hard.', 'chronic-lymphoedema-like'],
   ['A child has a wart-like growth on the leg that became an ulcer.', 'infectious-papilloma-ulcer-like'],
   ['A painless foot mass has several draining holes with black grains.', 'deep-draining-mass-like'],
+  ['Sudden itchy same-size bumps centred on hairs after sweating in tight clothing.', 'folliculitis'],
+  ['A hard painful lump has a soft centre and is leaking pus.', 'boil-abscess-like'],
+  ['I used an unlabelled bleaching cream and the label mentions mercury.', 'skin-lightening-exposure-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -68,6 +71,9 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('My leg has stayed swollen for months and the skin is becoming thick and hard.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('A child has a wart-like growth on the leg that became an ulcer.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('A painless foot mass has several draining holes with black grains.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('Sudden itchy same-size bumps centred on hairs after sweating in tight clothing.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('A hard painful lump has a soft centre and is leaking pus.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('I used an unlabelled bleaching cream and the label mentions mercury.').referral.level, 'primary-care');
 });
 
 test('wart-like ulcer warnings stop skincare without swallowing nearby patterns', () => {
@@ -212,8 +218,38 @@ test('new observational patterns do not swallow close alternatives', () => {
     'post-inflammatory-hyperpigmentation',
   );
   assert.notEqual(assessClinicalRoutine('One pimple has a small pustule and is not spreading.').differential.primary?.id, 'impetigo-like');
+  assert.notEqual(assessClinicalRoutine('One pimple has a small pustule and is not spreading.').differential.primary?.id, 'boil-abscess-like');
+  assert.equal(
+    assessClinicalRoutine('Recurring deep painful boils in my armpits with tunnels and repeated scars.').differential.primary?.id,
+    'hidradenitis-like',
+  );
+  assert.equal(
+    assessClinicalRoutine('Many uniform same-size bumps centred on hairs after sweating.').differential.primary?.id,
+    'folliculitis',
+  );
+  assert.notEqual(
+    assessClinicalRoutine('Flat dark marks after acne on my cheeks.').differential.primary?.id,
+    'skin-lightening-exposure-like',
+  );
   assert.notEqual(assessClinicalRoutine('A small patch is swollen but not painful or warm.').differential.primary?.id, 'cellulitis-like');
   assert.notEqual(assessClinicalRoutine('I am confused about which moisturizer to use for dry skin.').referral.level, 'emergency');
+});
+
+test('boil and abscess warnings preserve face and health-risk referral boundaries', () => {
+  const face = assessClinicalRoutine('I have a painful boil on my face with a soft centre.');
+  assert.equal(face.differential.primary?.id, 'boil-abscess-like');
+  assert.equal(face.referral.level, 'urgent');
+  assert.equal(face.referral.urgency, 'same-day');
+
+  const diabetes = assessClinicalRoutine('I have diabetes and a hard painful boil on my leg.');
+  assert.equal(diabetes.differential.primary?.id, 'boil-abscess-like');
+  assert.equal(diabetes.referral.level, 'urgent');
+  assert.equal(diabetes.referral.urgency, 'same-day');
+
+  const ordinary = assessClinicalRoutine('A hard painful lump has a soft centre and is leaking pus.');
+  assert.equal(ordinary.referral.level, 'primary-care');
+  assert.equal(ordinary.referral.urgency, 'soon');
+  assert.match(ordinary.referral.action, /in-person medical examination/i);
 });
 
 test('higher-risk scabies contexts require clinician review', () => {
@@ -239,6 +275,9 @@ test('named conditions interrupt even when ordinary acne ranks alongside them', 
     ['I have lymphoedema and oily acne on my forehead.', 'primary-care'],
     ['I was told this could be yaws and I also have oily acne.', 'primary-care'],
     ['I was told this could be noma and I also have oily acne.', 'urgent'],
+    ['I have folliculitis and oily acne.', 'primary-care'],
+    ['I have a boil and oily acne.', 'primary-care'],
+    ['I used a bleaching cream and also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [description, level] of cases) {

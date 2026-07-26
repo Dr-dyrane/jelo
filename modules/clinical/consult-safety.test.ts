@@ -183,6 +183,24 @@ test('published guide-parity patterns stop model and product guidance with deter
       safetyLevel: 'urgent',
       action: /urgent in-person medical assessment today/i,
     },
+    {
+      query: 'Sudden itchy same-size bumps centred on hairs after sweating in tight clothing.',
+      patternId: 'folliculitis',
+      safetyLevel: 'clinician-review',
+      action: /in-person skin review/i,
+    },
+    {
+      query: 'A hard painful lump has a soft centre and is leaking pus.',
+      patternId: 'boil-abscess-like',
+      safetyLevel: 'clinician-review',
+      action: /in-person medical examination/i,
+    },
+    {
+      query: 'I used an unlabelled bleaching cream and the label mentions mercury.',
+      patternId: 'skin-lightening-exposure-like',
+      safetyLevel: 'clinician-review',
+      action: /prompt medical or poison-service advice/i,
+    },
   ] as const;
 
   for (const expected of cases) {
@@ -242,6 +260,9 @@ test('named conditions stop model and product use even beside product-eligible a
     ['I was told this could be yaws and I also have oily acne.', 'primary-care'],
     ['I was told this could be mycetoma and I also have oily acne.', 'primary-care'],
     ['I was told this could be noma and I also have oily acne.', 'urgent'],
+    ['I have folliculitis and oily acne.', 'primary-care'],
+    ['I have a boil and oily acne.', 'primary-care'],
+    ['I used a bleaching cream and also have oily acne.', 'primary-care'],
   ] as const;
 
   for (const [query, referralLevel] of cases) {
@@ -252,6 +273,18 @@ test('named conditions stop model and product use even beside product-eligible a
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
   }
+});
+
+test('a boil on the face stops model and products for same-day assessment', async () => {
+  const response = await POST(request({ query: 'I have a painful boil on my face with a soft centre.', market: 'NG' }));
+  const payload = await response.json();
+  assert.equal(payload.clinical.differential.primary?.id, 'boil-abscess-like');
+  assert.equal(payload.clinical.referral.level, 'urgent');
+  assert.equal(payload.meta.safetyLevel, 'urgent');
+  assert.equal(payload.meta.modelCalls, 0);
+  assert.equal(payload.meta.safetyInterrupt, true);
+  assert.deepEqual(payload.products, []);
+  assert.match(payload.report.summary, /same-day in-person medical assessment/i);
 });
 
 test('rapid mouth-to-face warning signs never reach AI or products', async () => {

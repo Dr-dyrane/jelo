@@ -193,6 +193,30 @@ export function assessReferral(input: {
     };
   }
 
+  if (primaryId === 'boil-abscess-like' || mentionsNamedPattern(normalized, /\b(?:boil|boils|skin abscess|carbuncle)\b/)) {
+    const higherRisk = (
+      /\b(?:on|near)\s+(?:my|the)\s+face\b/.test(normalized)
+      || /\b(?:diabetes|diabetic|weakened immune|suppressed immune|immunocompromised|chemotherapy|steroid treatment)\b/.test(normalized)
+    );
+    return higherRisk ? {
+      level: 'urgent', urgency: 'same-day', reasons: ['A boil-or-abscess warning pattern and a higher-risk context were reported.'],
+      action: 'Arrange same-day in-person medical assessment. Do not squeeze, pierce or rely on skincare products.',
+    } : {
+      level: 'primary-care', urgency: 'soon', reasons: ['A boil-or-abscess warning pattern was reported.'],
+      action: 'Arrange an in-person medical examination; a clinician may need to drain the lump or choose medicine. Do not squeeze, pierce or self-start antibiotics.',
+    };
+  }
+
+  if (primaryId === 'skin-lightening-exposure-like' || mentionsNamedPattern(normalized, /\b(?:skin[- ]lightening (?:product|cream|soap)|bleaching (?:cream|soap)|mercury (?:cream|soap))\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A potentially unsafe skin-lightening product exposure was reported.'],
+    action: 'Stop using the suspected product, keep its container and ingredient list, and arrange prompt medical or poison-service advice. Do not add another lightening product.',
+  };
+
+  if (primaryId === 'folliculitis' || mentionsNamedPattern(normalized, /\bfolliculitis\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A follicle-centred bump pattern was reported.'],
+    action: 'Arrange an in-person skin review if this persists, recurs, hurts or remains uncertain; acne and folliculitis can look alike. Do not self-start antibiotics.',
+  };
+
   if (primaryId === 'numb-patch-like') return {
     level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],
     action: 'Arrange a prompt in-person examination. Do not test the patch with heat or sharp objects.',
@@ -278,7 +302,7 @@ export function assessReferral(input: {
     action: 'Arrange clinician review before choosing treatment, and seek care sooner if infection or rapid worsening develops.',
   };
 
-  const specialistPatterns = ['rosacea', 'folliculitis', 'psoriasis-like', 'hidradenitis-like', 'vitiligo-like', 'alopecia-areata-like', 'traction-alopecia-like', 'ccca-like', 'acne-keloidalis-nuchae-like'];
+  const specialistPatterns = ['rosacea', 'psoriasis-like', 'hidradenitis-like', 'vitiligo-like', 'alopecia-areata-like', 'traction-alopecia-like', 'ccca-like', 'acne-keloidalis-nuchae-like'];
   const scalpFungalPattern = primaryId === 'tinea-corporis-like' && /\b(scalp|beard|nail)\b/.test(normalized);
   if (specialist.length || specialistPatterns.includes(primaryId ?? '') || scalpFungalPattern) return {
     level: 'dermatology', urgency: 'soon', reasons: specialist.length ? specialist.map(term => `Reported ${term}.`) : [`The leading pattern is ${input.differential.primary?.label}.`],
