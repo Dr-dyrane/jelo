@@ -71,12 +71,20 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       label: 'Price reports',
       presentation: 'compact-rows',
       itemIds: orderedRows.filter((row, index) => index >= 2 && row.kind === 'price').map(row => row.id),
+      pagination: {
+        initialCount: 8,
+        pageSize: 8,
+      },
     },
     {
       id: 'experience-reports',
       label: 'Experience reports',
       presentation: 'horizontal-rail',
       itemIds: orderedRows.filter((row, index) => index >= 2 && row.kind === 'outcome').map(row => row.id),
+      pagination: {
+        initialCount: 5,
+        pageSize: 5,
+      },
     },
   ], [orderedRows]);
 
@@ -105,14 +113,14 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       selectedId={selectedId}
       onSelect={item => setSelectedId(item.id)}
       onDeselect={() => setSelectedId(null)}
-      renderItemRow={(row, isActive, context) => {
+      renderItemRow={(row, _isActive, context) => {
         const subject = humanizeRef(row.subjectRef);
         const title = observationTitle(row);
         const image = row.product?.image || subject.image || '/product-placeholder.svg';
 
         if (context?.presentation === 'feature-shelf') {
           return (
-            <span className={`${observationStyles.featureCard} ${isActive ? observationStyles.selectedSurface : ''}`}>
+            <span className={observationStyles.featureCard}>
               <span className={observationStyles.featureVisual}>
                 <SafeProductImage src={image} alt="" className={observationStyles.featureImage} />
               </span>
@@ -133,7 +141,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
 
         if (context?.presentation === 'horizontal-rail') {
           return (
-            <span className={`${observationStyles.experienceCard} ${isActive ? observationStyles.selectedSurface : ''}`}>
+            <span className={observationStyles.experienceCard}>
               <span className={observationStyles.experienceVisual}>
                 <SafeProductImage src={image} alt="" className={observationStyles.experienceImage} />
               </span>

@@ -15,9 +15,12 @@ import { useContextFab } from '@/components/ops/shell/OpsShellContext';
 import styles from './inbox.module.css';
 import adaptive from './inbox-tablet.module.css';
 import {
+  nextInboxPageVisibleCount,
   normalizeInboxSections,
   type InboxCollectionSection,
   type InboxItemRenderContext,
+  type ResolvedInboxCollectionSection,
+  visibleInboxCountForSelection,
 } from './collection-sections';
 
 export {
@@ -62,6 +65,184 @@ function getDetailPaneSnapshot() {
 
 function getServerDetailPaneSnapshot() {
   return null;
+}
+
+interface ProgressiveInboxSectionProps<T extends { id: string }> {
+  section: ResolvedInboxCollectionSection<T>;
+  allItems: T[];
+  selectedId: string | null;
+  renderItem: (
+    item: T,
+    index: number,
+    context: Omit<InboxItemRenderContext, 'isActive' | 'isKeyboardCurrent'>,
+  ) => React.ReactNode;
+}
+
+function ProgressiveInboxSection<T extends { id: string }>({
+  section,
+  allItems,
+  selectedId,
+  renderItem,
+}: ProgressiveInboxSectionProps<T>) {
+  const initialCount = section.pagination
+    ? Math.min(section.items.length, Math.max(1, section.pagination.initialCount))
+    : section.items.length;
+  const [visibleCount, setVisibleCount] = useState(initialCount);
+  const [isLoading, setIsLoading] = useState(false);
+  const listRef = useRef<HTMLUListElement | null>(null);
+  const sentinelRef = useRef<HTMLElement | null>(null);
+  const loadPendingRef = useRef(false);
+  const observerArmedRef = useRef(true);
+
+  const selectedIndex = selectedId
+    ? section.items.findIndex(item => item.id === selectedId)
+    : -1;
+  const pageSize = section.pagination?.pageSize ?? section.items.length;
+  const requiredVisibleCount = visibleInboxCountForSelection(
+    visibleCount,
+    selectedIndex,
+    section.items.length,
+    pageSize,
+  );
+  const renderedCount = Math.min(
+    section.items.length,
+    Math.max(visibleCount, requiredVisibleCount),
+  );
+  const visibleItems = section.items.slice(0, renderedCount);
+  const hasMore = renderedCount < section.items.length;
+  const isHorizontal = section.presentation === 'horizontal-rail';
+  const statusId = `ops-section-status-${section.id}`;
+
+  const loadMore = useCallback(() => {
+    if (!section.pagination || loadPendingRef.current || !hasMore) return;
+
+    loadPendingRef.current = true;
+    setIsLoading(true);
+    setVisibleCount(current => nextInboxPageVisibleCount(
+      Math.max(current, renderedCount),
+      section.items.length,
+      section.pagination?.pageSize ?? 1,
+    ));
+
+    requestAnimationFrame(() => {
+      loadPendingRef.current = false;
+      setIsLoading(false);
+    });
+  }, [hasMore, renderedCount, section.items.length, section.pagination]);
+
+  useEffect(() => {
+    if (!section.pagination || !hasMore || !sentinelRef.current) return;
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(entries => {
+      const entry = entries[0];
+      if (!entry?.isIntersecting) {
+        observerArmedRef.current = true;
+        return;
+      }
+      if (!observerArmedRef.current) return;
+      observerArmedRef.current = false;
+      loadMore();
+    }, {
+      root: isHorizontal ? listRef.current : null,
+      rootMargin: isHorizontal ? '0px 160px 0px 0px' : '180px 0px',
+      threshold: 0.01,
+    });
+
+    observer.observe(sentinelRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, isHorizontal, loadMore, section.pagination]);
+
+  useEffect(() => {
+    if (selectedIndex < 0 || selectedIndex < visibleCount) return;
+    const frame = requestAnimationFrame(() => {
+      setVisibleCount(current => Math.max(current, requiredVisibleCount));
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [requiredVisibleCount, selectedIndex, visibleCount]);
+
+  const paginationStatus = isLoading
+    ? `Loading more ${section.label.toLowerCase()}.`
+    : hasMore
+      ? `Showing ${renderedCount} of ${section.items.length} ${section.label.toLowerCase()}.`
+      : `All ${section.items.length} ${section.label.toLowerCase()} shown.`;
+
+  const loadControl = hasMore ? (
+    <button
+      type="button"
+      className={styles.paginationButton}
+      aria-describedby={statusId}
+      disabled={isLoading}
+      onClick={loadMore}
+    >
+      {isLoading ? 'Loading…' : 'Load more'}
+    </button>
+  ) : null;
+
+  return (
+    <section
+      className={styles.collectionSection}
+      data-presentation={section.presentation}
+      aria-labelledby={`ops-section-${section.id}`}
+    >
+      <header className={styles.collectionSectionHeader}>
+        <h2 id={`ops-section-${section.id}`}>{section.label}</h2>
+        {isHorizontal && section.items.length > 1 ? (
+          <div className={styles.railControls} aria-label={`${section.label} controls`}>
+            <button
+              type="button"
+              aria-label={`Scroll ${section.label} left`}
+              onClick={() => listRef.current?.scrollBy({
+                left: -260,
+                behavior: 'smooth',
+              })}
+            >
+              <ChevronLeft size={16} strokeWidth={1.8} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              aria-label={`Scroll ${section.label} right`}
+              onClick={() => listRef.current?.scrollBy({
+                left: 260,
+                behavior: 'smooth',
+              })}
+            >
+              <ChevronRight size={16} strokeWidth={1.8} aria-hidden="true" />
+            </button>
+          </div>
+        ) : null}
+      </header>
+      <ul
+        ref={listRef}
+        id={`ops-section-items-${section.id}`}
+        className={styles.sectionItems}
+        data-presentation={section.presentation}
+      >
+        {visibleItems.map(item => {
+          const idx = allItems.findIndex(candidate => candidate.id === item.id);
+          return renderItem(item, idx, {
+            sectionId: section.id,
+            presentation: section.presentation,
+          });
+        })}
+        {isHorizontal && loadControl ? (
+          <li ref={sentinelRef as React.RefObject<HTMLLIElement | null>} className={styles.paginationRailTail}>
+            {loadControl}
+          </li>
+        ) : null}
+      </ul>
+      {!isHorizontal && loadControl ? (
+        <div ref={sentinelRef as React.RefObject<HTMLDivElement | null>} className={styles.paginationFooter}>
+          {loadControl}
+        </div>
+      ) : null}
+      {section.pagination ? (
+        <span id={statusId} className={styles.paginationStatus} role="status" aria-live="polite">
+          {paginationStatus}
+        </span>
+      ) : null}
+    </section>
+  );
 }
 
 export function InboxContainer<T extends { id: string }>({
@@ -421,53 +602,13 @@ export function InboxContainer<T extends { id: string }>({
       {resolvedSections ? (
         <div className={styles.sectionCollection} data-ops-collection="sectioned" aria-label={`${itemTypeLabel} queue`}>
           {resolvedSections.map(section => (
-            <section
+            <ProgressiveInboxSection
               key={section.id}
-              className={styles.collectionSection}
-              data-presentation={section.presentation}
-              aria-labelledby={`ops-section-${section.id}`}
-            >
-              <header className={styles.collectionSectionHeader}>
-                <h2 id={`ops-section-${section.id}`}>{section.label}</h2>
-                {section.presentation === 'horizontal-rail' && section.items.length > 1 ? (
-                  <div className={styles.railControls} aria-label={`${section.label} controls`}>
-                    <button
-                      type="button"
-                      aria-label={`Scroll ${section.label} left`}
-                      onClick={() => document.getElementById(`ops-section-items-${section.id}`)?.scrollBy({
-                        left: -260,
-                        behavior: 'smooth',
-                      })}
-                    >
-                      <ChevronLeft size={16} strokeWidth={1.8} aria-hidden="true" />
-                    </button>
-                    <button
-                      type="button"
-                      aria-label={`Scroll ${section.label} right`}
-                      onClick={() => document.getElementById(`ops-section-items-${section.id}`)?.scrollBy({
-                        left: 260,
-                        behavior: 'smooth',
-                      })}
-                    >
-                      <ChevronRight size={16} strokeWidth={1.8} aria-hidden="true" />
-                    </button>
-                  </div>
-                ) : null}
-              </header>
-              <ul
-                id={`ops-section-items-${section.id}`}
-                className={styles.sectionItems}
-                data-presentation={section.presentation}
-              >
-                {section.items.map(item => {
-                  const idx = optimisticItems.findIndex(candidate => candidate.id === item.id);
-                  return renderQueueItem(item, idx, {
-                    sectionId: section.id,
-                    presentation: section.presentation,
-                  });
-                })}
-              </ul>
-            </section>
+              section={section}
+              allItems={optimisticItems}
+              selectedId={detailId ?? null}
+              renderItem={renderQueueItem}
+            />
           ))}
         </div>
       ) : (

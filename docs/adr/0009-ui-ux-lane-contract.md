@@ -110,6 +110,14 @@ Implementation must follow these defaults:
 - Keep product presentation quiet: no competing geometry, emoji, decorative
   logo badges, fake stock pressure, ornamental labels, or opaque white packshot
   canvases. Use Lucide icons already in the system.
+- Give each repeated semantic item one dominant surface at rest. Internal
+  wrappers may align media and copy, but they must not create a persistent card
+  inside another persistent card. The public `/share` price row uses one whole
+  row surface with its packshot placed directly in that composition. A dense
+  Operations row may invert the treatment: its copy remains on the workspace
+  while one quiet media stage contains the packshot, and the whole row gains a
+  surface only when selected. These are two valid topologies; do not combine
+  both resting surfaces.
 - Add inclusive people photography where it advances the story, including
   sections beyond the hero. Keep text beside the image or on a reliably opaque
   surface with tested contrast. Photography supplements product evidence; it
@@ -143,6 +151,13 @@ Responsive work preserves the journey, not identical geometry:
 - Horizontal rails keep touch, wheel, and keyboard scrolling; hide the
   scrollbar while preserving a visible continuation cue and logical focus
   order.
+- Long vertical lists and horizontal rails render a bounded first page and load
+  the next page near the relevant scroll edge. Loading is idempotent, preserves
+  position and selection, stops cleanly at the end, and announces the appended
+  count through a concise polite status. Keep an explicit accessible fallback
+  action and do not let automatic vertical loading make a public footer
+  unreachable. Skeletons match the appended row or card geometry instead of
+  replacing the whole collection.
 - At 320 px and 200% zoom, controls do not collide, clip important copy, create
   horizontal page overflow, or hide primary actions behind fixed chrome.
 
@@ -282,6 +297,8 @@ The reviewer answers each applicable item with evidence:
 
 - [ ] Scope stayed inside the owned paths or an explicit handoff expanded it.
 - [ ] Shared tokens and components were reused rather than forked locally.
+- [ ] Each repeated item has one dominant resting surface; media and metadata
+      do not form decorative cards inside another surfaced item.
 - [ ] Public and private palettes, type, and surface grammar remain distinct.
 - [ ] Primary content is visible without unnecessary disclosure or scrolling.
 - [ ] Desktop side sheet/modal and mobile bottom sheet preserve the same task.
@@ -290,6 +307,8 @@ The reviewer answers each applicable item with evidence:
 - [ ] Focus, keyboard, contrast, zoom, motion, transparency, and touch targets pass.
 - [ ] Photography and packshots satisfy their separate story and evidence roles.
 - [ ] Empty, loading, long, error, and populated states remain usable.
+- [ ] Paginated stacks and rails deduplicate requests, preserve focus/selection,
+      announce appended results, expose a fallback, and reach a stable end.
 - [ ] No unrelated data, clinical, catalogue, media, or shell contract changed.
 - [ ] Commands, browser matrix, commit, deployment, and remaining risk are recorded.
 

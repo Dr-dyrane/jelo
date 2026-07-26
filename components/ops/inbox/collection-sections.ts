@@ -3,11 +3,19 @@ export type InboxSectionPresentation =
   | 'compact-rows'
   | 'horizontal-rail';
 
+export interface InboxSectionPagination {
+  /** Small first reveal; the server-owned result set remains unchanged. */
+  initialCount: number;
+  /** Number of already-fetched records revealed at each threshold. */
+  pageSize: number;
+}
+
 export interface InboxCollectionSection<T extends { id: string }> {
   id: string;
   label: string;
   presentation: InboxSectionPresentation;
   itemIds: readonly T['id'][];
+  pagination?: InboxSectionPagination;
 }
 
 export interface InboxItemRenderContext {
@@ -20,6 +28,30 @@ export interface InboxItemRenderContext {
 export interface ResolvedInboxCollectionSection<T extends { id: string }>
   extends Omit<InboxCollectionSection<T>, 'itemIds'> {
   items: T[];
+}
+
+export function nextInboxPageVisibleCount(
+  currentCount: number,
+  totalCount: number,
+  pageSize: number,
+) {
+  if (totalCount <= 0) return 0;
+  return Math.min(totalCount, Math.max(0, currentCount) + Math.max(1, pageSize));
+}
+
+export function visibleInboxCountForSelection(
+  currentCount: number,
+  selectedIndex: number,
+  totalCount: number,
+  pageSize: number,
+) {
+  if (selectedIndex < 0 || selectedIndex < currentCount) {
+    return Math.min(totalCount, Math.max(0, currentCount));
+  }
+
+  const safePageSize = Math.max(1, pageSize);
+  const pageBoundary = Math.ceil((selectedIndex + 1) / safePageSize) * safePageSize;
+  return Math.min(totalCount, Math.max(currentCount, pageBoundary));
 }
 
 export function normalizeInboxSections<T extends { id: string }>(
@@ -44,6 +76,7 @@ export function normalizeInboxSections<T extends { id: string }>(
         id: section.id,
         label: section.label,
         presentation: section.presentation,
+        pagination: section.pagination,
         items: sectionItems,
       });
     }

@@ -116,14 +116,16 @@ export default function LoadingObservations() {
             <ul className={styles.sectionItems} data-presentation="feature-shelf">
               {Array.from({ length: 2 }).map((_, index) => (
                 <li key={index} className={styles.sectionItem}>
-                  <span className={observationStyles.featureCard}>
-                    <span className={observationStyles.featureVisual}>
-                      <SkeletonBlock className={observationStyles.skeletonFeatureProduct} />
-                    </span>
-                    <span className={observationStyles.featureCopy}>
-                      <SkeletonBlock className={observationStyles.skeletonFeatureLabel} />
-                      <SkeletonBlock className={observationStyles.skeletonFeatureTitle} />
-                      <SkeletonBlock className={observationStyles.skeletonFeatureMeta} />
+                  <span className={`${styles.sectionItemButton} ${styles.skeletonSectionItemButton}`}>
+                    <span className={observationStyles.featureCard}>
+                      <span className={observationStyles.featureVisual}>
+                        <SkeletonBlock className={observationStyles.skeletonFeatureProduct} />
+                      </span>
+                      <span className={observationStyles.featureCopy}>
+                        <SkeletonBlock className={observationStyles.skeletonFeatureLabel} />
+                        <SkeletonBlock className={observationStyles.skeletonFeatureTitle} />
+                        <SkeletonBlock className={observationStyles.skeletonFeatureMeta} />
+                      </span>
                     </span>
                   </span>
                 </li>
@@ -138,11 +140,13 @@ export default function LoadingObservations() {
             <ul className={styles.sectionItems} data-presentation="compact-rows">
               {Array.from({ length: 8 }).map((_, index) => (
                 <li key={index} className={styles.sectionItem}>
-                  <span className={observationStyles.compactRow}>
-                    <SkeletonBlock className={observationStyles.skeletonCompactImage} />
-                    <span className={observationStyles.compactCopy}>
-                      <SkeletonBlock className={styles.skeletonTitle} />
-                      <SkeletonBlock className={styles.skeletonSubtext} />
+                  <span className={`${styles.sectionItemButton} ${styles.skeletonSectionItemButton}`}>
+                    <span className={observationStyles.compactRow}>
+                      <SkeletonBlock className={observationStyles.skeletonCompactImage} />
+                      <span className={observationStyles.compactCopy}>
+                        <SkeletonBlock className={styles.skeletonTitle} />
+                        <SkeletonBlock className={styles.skeletonSubtext} />
+                      </span>
                     </span>
                   </span>
                 </li>
@@ -157,13 +161,15 @@ export default function LoadingObservations() {
             <ul className={styles.sectionItems} data-presentation="horizontal-rail">
               {Array.from({ length: 5 }).map((_, index) => (
                 <li key={index} className={styles.sectionItem}>
-                  <span className={observationStyles.experienceCard}>
-                    <span className={observationStyles.experienceVisual}>
-                      <SkeletonBlock className={observationStyles.skeletonExperienceProduct} />
-                    </span>
-                    <span className={observationStyles.experienceCopy}>
-                      <SkeletonBlock className={styles.skeletonTitle} />
-                      <SkeletonBlock className={styles.skeletonSubtext} />
+                  <span className={`${styles.sectionItemButton} ${styles.skeletonSectionItemButton}`}>
+                    <span className={observationStyles.experienceCard}>
+                      <span className={observationStyles.experienceVisual}>
+                        <SkeletonBlock className={observationStyles.skeletonExperienceProduct} />
+                      </span>
+                      <span className={observationStyles.experienceCopy}>
+                        <SkeletonBlock className={styles.skeletonTitle} />
+                        <SkeletonBlock className={styles.skeletonSubtext} />
+                      </span>
                     </span>
                   </span>
                 </li>

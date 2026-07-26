@@ -469,6 +469,40 @@ must not weaken it to make an error screen easier to demo.
 - Loading, long content, high counts, zero counts, partial data, error, denied,
   and clear queues are part of acceptance evidence.
 
+## Bounded queue pagination
+
+Long operations queues use progressive revelation without changing the queue's
+authority. The server still owns the ordered, permission-filtered result set
+and its explicit cap or cursor. A client may reveal that already-authorized set
+in small pages; it must not refetch, reorder, merge, or imply that the local
+end state is the database's global end state.
+
+- Start with a small task-shaped page. Choose the count from the presentation's
+  scan density, not from the maximum server limit.
+- A vertical collection may observe a sentinel near its lower edge. A
+  horizontal rail observes its trailing sentinel with the rail itself as the
+  observer root.
+- Pagination bounds mounted records, never card width. One horizontal
+  collection keeps the same fixed card measure at every viewport; the available
+  width changes how many complete cards and how much of the continuation cue
+  are visible.
+- One section owns at most one pending reveal. Deduplicate observer and button
+  requests, stop at the bounded end, and re-arm automatic loading only after
+  the sentinel leaves the threshold.
+- Keep a visible, keyboard-operable `Load more` control whenever more bounded
+  records remain. Intersection Observer is an enhancement, not the only path.
+- Announce loading, visible count, and end state through one concise polite
+  status. Do not make the full collection live.
+- A URL-selected inspector record outside the initial page reveals its
+  containing page. Selection, focus order, auto-advance, and the canonical URL
+  survive pagination.
+- Initial skeletons mirror only the initial reveal and every ready-state
+  presentation. Loading another page does not replace settled rows or block the
+  inspector.
+- If a future lane needs records beyond the server boundary, it adds a typed,
+  permission-aware cursor contract and tests request deduplication, stale
+  responses, retry, and terminal state before implementation.
+
 ## Audit of the current Overview draft
 
 The active draft in `app/(ops)/ops/page.tsx` is not an accepted implementation

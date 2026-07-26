@@ -1,24 +1,24 @@
 .featureCard {
   display: grid;
   width: 100%;
-  min-height: 176px;
-  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-  overflow: hidden;
-  border-radius: calc(var(--ops-control-radius) + 4px);
-  background: color-mix(in srgb, var(--ops-surface-subtle) 92%, var(--ops-accent));
+  min-height: 164px;
+  grid-template-columns: minmax(96px, .84fr) minmax(0, 1.16fr);
+  align-items: stretch;
+  padding: var(--space-2);
 }
 
 .featureVisual {
   display: grid;
   min-width: 0;
   place-items: center;
-  padding: var(--space-4);
-  background: color-mix(in srgb, var(--product-peach) 38%, var(--ops-workspace));
+  padding: var(--space-2);
+  border-radius: calc(var(--ops-control-radius) - 2px);
+  background: color-mix(in srgb, var(--ops-surface-subtle) 86%, transparent);
 }
 
 .featureImage {
   width: 100%;
-  height: 142px;
+  height: 132px;
   object-fit: contain;
   filter: drop-shadow(0 10px 14px rgba(72, 40, 38, .07));
 }
@@ -28,7 +28,7 @@
   min-width: 0;
   flex-direction: column;
   justify-content: flex-end;
-  padding: var(--space-4);
+  padding: var(--space-3);
 }
 
 .featureEyebrow {
@@ -71,8 +71,8 @@
 
 .compactRow {
   display: grid;
-  min-height: 64px;
-  grid-template-columns: 46px minmax(0, 1fr) 16px;
+  min-height: 68px;
+  grid-template-columns: 52px minmax(0, 1fr) 16px;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2);
@@ -81,18 +81,17 @@
 
 .compactImageStage {
   display: grid;
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 52px;
   place-items: center;
-  overflow: hidden;
-  border-radius: 9px;
-  background: color-mix(in srgb, var(--product-peach) 28%, var(--ops-workspace));
+  border-radius: calc(var(--ops-control-radius) - 3px);
+  background: color-mix(in srgb, var(--ops-surface-subtle) 86%, transparent);
 }
 
 .compactImage {
   width: 100%;
   height: 100%;
-  padding: 5px;
+  padding: 2px;
   object-fit: contain;
 }
 
@@ -128,25 +127,22 @@
 }
 
 .experienceCard {
-  display: block;
+  display: grid;
   width: 100%;
-  min-height: 204px;
-  overflow: hidden;
-  border-radius: calc(var(--ops-control-radius) + 2px);
-  background: color-mix(in srgb, var(--ops-surface-subtle) 94%, var(--product-pink));
-}
-
-.featureCard.selectedSurface,
-.experienceCard.selectedSurface {
-  background: color-mix(in srgb, var(--ops-accent-subtle) 72%, var(--ops-surface-subtle));
+  min-height: 82px;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: center;
+  padding: var(--space-2);
 }
 
 .experienceVisual {
   display: grid;
-  height: 128px;
+  width: 58px;
+  height: 66px;
   place-items: center;
-  padding: var(--space-3);
-  background: color-mix(in srgb, var(--product-pink) 30%, var(--ops-workspace));
+  padding: 4px;
+  border-radius: calc(var(--ops-control-radius) - 3px);
+  background: color-mix(in srgb, var(--ops-surface-subtle) 86%, transparent);
 }
 
 .experienceImage {
@@ -161,7 +157,7 @@
   min-width: 0;
   flex-direction: column;
   gap: 4px;
-  padding: var(--space-3);
+  padding: var(--space-2);
 }
 
 .experienceTitle {
@@ -211,35 +207,35 @@
 }
 
 .skeletonCompactImage {
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 52px;
   border-radius: 9px;
 }
 
 .skeletonExperienceProduct {
-  width: 42%;
-  height: 76%;
-  border-radius: 10px;
+  width: 70%;
+  height: 78%;
+  border-radius: 8px;
 }
 
 @media (max-width: 819px) {
   .featureCard {
-    min-height: 148px;
+    min-height: 140px;
     grid-template-columns: minmax(76px, .72fr) minmax(0, 1.28fr);
   }
 
   .featureImage {
-    height: 104px;
+    height: 108px;
   }
 }
 
 @media (min-width: 430px) and (max-width: 599px) {
   .featureVisual {
-    padding: var(--space-2);
+    padding: var(--space-1);
   }
 
   .featureCopy {
-    padding: var(--space-3);
+    padding: var(--space-2);
   }
 
   .featureTitle {
@@ -262,10 +258,11 @@
   .featureCard {
     min-height: 116px;
     grid-template-columns: 104px minmax(0, 1fr);
+    padding: var(--space-1);
   }
 
   .featureVisual {
-    padding: var(--space-3);
+    padding: var(--space-2);
   }
 
   .featureImage {

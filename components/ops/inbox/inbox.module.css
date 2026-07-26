@@ -382,7 +382,7 @@
 
 .sectionItems[data-presentation='horizontal-rail'] {
   display: grid;
-  grid-auto-columns: minmax(148px, 24%);
+  grid-auto-columns: 220px;
   grid-auto-flow: column;
   gap: var(--space-3);
   overflow-x: auto;
@@ -406,6 +406,7 @@
 }
 
 .sectionItemButton {
+  display: block;
   width: 100%;
   min-width: 0;
   margin: 0;
@@ -446,6 +447,13 @@
   outline-offset: 2px;
 }
 
+.skeletonSectionItemButton {
+  --ops-skeleton-surface: color-mix(in srgb, var(--ops-surface-subtle) 88%, var(--ink));
+
+  cursor: default;
+  pointer-events: none;
+}
+
 .railControls {
   display: flex;
   align-items: center;
@@ -473,6 +481,63 @@
 .railControls button:focus-visible {
   outline: 2px solid var(--ops-focus-ring);
   outline-offset: 2px;
+}
+
+.paginationFooter {
+  display: flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+.paginationRailTail {
+  display: grid;
+  min-width: 96px;
+  min-height: 82px;
+  place-items: center;
+  scroll-snap-align: start;
+}
+
+.paginationButton {
+  min-width: 88px;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: transparent;
+  color: var(--ops-accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.paginationButton:hover {
+  background: var(--ops-accent-subtle);
+}
+
+.paginationButton:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
+
+.paginationButton:disabled {
+  cursor: wait;
+  opacity: .58;
+}
+
+.paginationStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* Apple Music-inspired multi-column observation list */
@@ -605,29 +670,15 @@
     padding: 0 var(--space-4) var(--space-6);
   }
 
-  .sectionItems[data-presentation='horizontal-rail'] {
-    grid-auto-columns: minmax(150px, 32%);
-  }
-
   .cardGrid {
     padding: 0 var(--space-4) var(--space-5);
     column-gap: var(--space-5);
   }
 }
 
-@media (max-width: 819px) {
-  .sectionItems[data-presentation='horizontal-rail'] {
-    grid-auto-columns: minmax(148px, 38%);
-  }
-}
-
 @media (min-width: 430px) and (max-width: 599px) {
   .sectionItems[data-presentation='compact-rows'] {
     grid-template-columns: 1fr;
-  }
-
-  .sectionItems[data-presentation='horizontal-rail'] {
-    grid-auto-columns: minmax(148px, 44%);
   }
 }
 
@@ -640,10 +691,6 @@
   .sectionItems[data-presentation='feature-shelf'],
   .sectionItems[data-presentation='compact-rows'] {
     grid-template-columns: 1fr;
-  }
-
-  .sectionItems[data-presentation='horizontal-rail'] {
-    grid-auto-columns: minmax(154px, 46%);
   }
 
   .railControls {
@@ -744,7 +791,7 @@
 /* Detail pane skeleton placeholders for loading.tsx.
    Shared surface treatment keeps shimmer/reduce-motion simple. */
 .skeletonSurface {
-  background: var(--ops-surface-subtle);
+  background: var(--ops-skeleton-surface, var(--ops-surface-subtle));
 }
 
 .skeletonEyebrow { width: 80px; height: 10px; border-radius: var(--ops-control-radius); }
@@ -762,9 +809,9 @@
   .skeletonSurface {
     background: linear-gradient(
       90deg,
-      var(--ops-surface-subtle) 25%,
-      color-mix(in srgb, var(--ops-surface-subtle) 70%, var(--ops-workspace)) 37%,
-      var(--ops-surface-subtle) 63%
+      var(--ops-skeleton-surface, var(--ops-surface-subtle)) 25%,
+      color-mix(in srgb, var(--ops-skeleton-surface, var(--ops-surface-subtle)) 70%, var(--ops-workspace)) 37%,
+      var(--ops-skeleton-surface, var(--ops-surface-subtle)) 63%
     );
     background-size: 200% 100%;
     animation: opsSkeletonShimmer 1.4s var(--ease-standard) infinite;
@@ -773,6 +820,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .skeletonSurface {
-    background: var(--ops-surface-subtle);
+    background: var(--ops-skeleton-surface, var(--ops-surface-subtle));
   }
 }

@@ -1,6 +1,10 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeInboxSections } from '../components/ops/inbox/collection-sections';
+import {
+  nextInboxPageVisibleCount,
+  normalizeInboxSections,
+  visibleInboxCountForSelection,
+} from '../components/ops/inbox/collection-sections';
 
 // Pure logic tests for the canonical inbox auto-selection and auto-advance behavior.
 // These test the selection algorithm without React rendering. The InboxContainer
@@ -139,5 +143,33 @@ describe('Inbox section projections', () => {
       sections.at(-1)?.items.map(item => item.id),
       ['a', 'b', 'd'],
     );
+  });
+});
+
+describe('Inbox progressive section pagination', () => {
+  it('reveals one bounded page and never crosses the server-owned result set', () => {
+    assert.strictEqual(nextInboxPageVisibleCount(8, 27, 8), 16);
+    assert.strictEqual(nextInboxPageVisibleCount(24, 27, 8), 27);
+    assert.strictEqual(nextInboxPageVisibleCount(27, 27, 8), 27);
+  });
+
+  it('reveals the page containing a URL-selected inspector record', () => {
+    assert.strictEqual(visibleInboxCountForSelection(8, 18, 27, 8), 24);
+    assert.strictEqual(visibleInboxCountForSelection(8, 3, 27, 8), 8);
+    assert.strictEqual(visibleInboxCountForSelection(8, -1, 27, 8), 8);
+  });
+
+  it('retains pagination metadata through section normalization', () => {
+    const items = Array.from({ length: 12 }, (_, index) => ({ id: `${index}` }));
+    const sections = normalizeInboxSections(items, [{
+      id: 'prices',
+      label: 'Price reports',
+      presentation: 'compact-rows',
+      itemIds: items.map(item => item.id),
+      pagination: { initialCount: 4, pageSize: 4 },
+    }]);
+
+    assert.deepEqual(sections[0].pagination, { initialCount: 4, pageSize: 4 });
+    assert.strictEqual(sections[0].items.length, 12);
   });
 });
