@@ -203,7 +203,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           </nav>
 
           <ShellContext.Provider value={{ contextFab, setContextFab }}>
-            <main data-ops-main className={`${styles.main} ${adaptive.main}`}>{children}</main>
+            <main data-ops-main tabIndex={-1} className={`${styles.main} ${adaptive.main}`}>{children}</main>
           </ShellContext.Provider>
 
           <nav className={adaptive.bottomBar} aria-label="Primary navigation">
@@ -213,6 +213,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-label={item.label}
                   className={`${adaptive.bottomBarItem} ${pathname === item.href ? adaptive.bottomBarItemActive : ''}`}
                 >
                   <Icon size={24} />

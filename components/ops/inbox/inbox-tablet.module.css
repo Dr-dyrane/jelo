@@ -59,6 +59,11 @@
 /* Overlay inspector shells: phone, touch and compact.
    Buttons may be full-width in a 2-column grid, but keep the canonical .btn design. */
 @media (max-width: 1179px) {
+  .tabletClose {
+    width: var(--touch-min);
+    height: var(--touch-min);
+  }
+
   .tabletInspectorBody :global(form[data-item-id] > div:last-child) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -66,23 +71,8 @@
   }
 }
 
-/* Phone: one collection column + detail bottom sheet. */
-@media (max-width: 429px) {
-  :global([data-ops-collection='default']) {
-    grid-template-columns: 1fr !important;
-    padding: 0 var(--space-3) var(--space-7) !important;
-  }
-
-  :global([data-ops-collection='default'] [data-ops-collection-item]),
-  :global([data-ops-collection='default'] [data-ops-collection-item]:nth-child(-n + 2)),
-  :global([data-ops-collection='default'] [data-ops-collection-item]:nth-child(-n + 3)) {
-    border-top-color: var(--ops-separator, var(--border)) !important;
-  }
-
-  :global([data-ops-collection='default'] [data-ops-collection-item]:first-child) {
-    border-top-color: transparent !important;
-  }
-
+/* Touch and phone: the temporary inspector is a bottom sheet. */
+@media (max-width: 819px) {
   .tabletStage {
     display: flex;
     align-items: flex-end;
@@ -110,6 +100,24 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+/* Phone: one collection column + detail bottom sheet. */
+@media (max-width: 429px) {
+  :global([data-ops-collection='default']) {
+    grid-template-columns: 1fr !important;
+    padding: 0 var(--space-3) var(--space-7) !important;
+  }
+
+  :global([data-ops-collection='default'] [data-ops-collection-item]),
+  :global([data-ops-collection='default'] [data-ops-collection-item]:nth-child(-n + 2)),
+  :global([data-ops-collection='default'] [data-ops-collection-item]:nth-child(-n + 3)) {
+    border-top-color: var(--ops-separator, var(--border)) !important;
+  }
+
+  :global([data-ops-collection='default'] [data-ops-collection-item]:first-child) {
+    border-top-color: transparent !important;
   }
 }
 

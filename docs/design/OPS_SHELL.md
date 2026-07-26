@@ -43,6 +43,9 @@ become a fallback scroll owner. The workspace owns route scrolling; the
 inspector owns its independent detail scrolling. On touch and phone widths the
 workspace wrapper remains exactly `100dvh` with `min-height: 0`, so long route
 content scrolls inside the main plane while floating navigation stays fixed.
+Viewport shells use `overflow: clip`, not `overflow: hidden`: a hidden-overflow
+element remains programmatically scrollable and focus helpers can displace the
+entire fixed shell even when no scrollbar is visible.
 Inside a decision inspector, evidence and metadata scroll while the decision
 region remains anchored at the bottom. Empty inspector space is intentional;
 do not fill it with duplicate headings, decorative cards, or repeated
@@ -51,6 +54,18 @@ record-type labels.
 Routes portal selected context into the shell-owned detail plane. This keeps
 selection state and focus behavior shared while preserving the structural
 separation of the three planes.
+
+Loading preserves the same plane contract. A queue that selects its first
+available record in the ready state reserves the desktop inspector skeleton
+while its read model resolves; it does not wait for the later `id` URL update.
+Temporary inspectors stay interaction-driven, so tablet side sheets and mobile
+bottom sheets do not appear merely because the route is loading.
+
+Interface copy names the operator's task, not the implementation. Schema
+versions, payload keys, UUIDs, SQL, query parameters, backend names, provider
+names, and raw enum values stay out of headings, states, messages, and controls.
+When one is essential for diagnosis, disclose it deliberately under
+`Metadata` or audit detail.
 
 The sidebar names the `Operations` environment once, separates actionable `Triage` from read-only `Monitor` navigation, and keeps the account trigger person-first. Brand text does not appear inside the account trigger.
 
@@ -152,6 +167,54 @@ accordion-in-accordion panels, or action-shaped controls that do nothing.
 The same selected record renders in only one inspector presentation at a time:
 docked plane, side sheet, or bottom sheet. Breakpoint changes must not duplicate
 the record in the accessibility tree or leave an off-screen dialog interactive.
+
+### Queue trial admission
+
+A route does not become a shell reference by resembling Observations. Every
+trial first declares its operator job, typed presentation, decision meaning,
+responsive anatomy, data states, and recovery behavior in its ADR lane packet.
+The shell provides planes, overlay mechanics, selection context, and the phone
+FAB; the route remains responsible for truthful projection, kind-specific
+content, action consequences, and safe copy.
+
+`/ops/contributions` is the first reviewed triage transfer candidate. Its
+detailed contract lives in
+[ADR 0010](../adr/0010-operations-interface-and-overview-contract.md#contributions-trial-contract).
+Until the declared browser and automated evidence passes product review, it is
+not canonical and must not be copied as a page template.
+
+The shared shell enforces these admission rules:
+
+- an auto-selecting populated queue reserves its docked desktop inspector
+  during loading without waiting for URL timing; temporary sheets remain
+  closed until a real interaction opens them;
+- the selected item exists in only one presentation and one accessibility-tree
+  position at a time;
+- rendered collection order and keyboard order agree, including after
+  grouping, pagination, and settlement;
+- selection, pending state, URL, inspector content, and contextual FAB identify
+  the same record;
+- a successful settlement returns focus to the next selected record; a failed
+  action preserves selection and exposes a safe recovery;
+- docked evidence scrolls independently while the decision region remains
+  anchored; temporary inspectors contain focus, lock background scrolling, and
+  restore it to a valid trigger;
+- touch close, rail, navigation, and decision controls provide at least a
+  `44 × 44` CSS-pixel target while desktop actions retain their slender
+  geometry;
+- interface actions use direct verbs and shared tokens. Technical error text,
+  raw payloads, schema values, provider parameters, and attribution identifiers
+  do not enter shell headings, controls, states, or feedback.
+
+Attribution may appear only as a human provenance fact inside a route-owned
+`Metadata` disclosure. It never changes shell priority, selected state, colour,
+confidence, or available decisions.
+
+Each trial is checked at `390 × 844`, `600 × 900`, `1000 × 800`,
+`1300 × 900`, `1440 × 900`, and `320px` at `200%` zoom. Evidence includes
+loading, empty, partial, error, denied, pending, settled, long-content, and
+high-count states as applicable. Screenshots alone do not establish focus,
+scroll ownership, keyboard order, action feedback, or acceptance.
 
 ## See also
 

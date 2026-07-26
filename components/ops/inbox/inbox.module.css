@@ -272,7 +272,7 @@
   min-height: 34px;
   padding: 0 var(--space-4);
   border: 0;
-  border-radius: var(--ops-instrument-inner-radius);
+  border-radius: var(--ops-control-radius);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
@@ -666,6 +666,10 @@
 }
 
 @media (max-width: 1179px) {
+  .btn {
+    min-height: var(--touch-min);
+  }
+
   .sectionCollection {
     padding: 0 var(--space-4) var(--space-6);
   }
@@ -673,6 +677,13 @@
   .cardGrid {
     padding: 0 var(--space-4) var(--space-5);
     column-gap: var(--space-5);
+  }
+}
+
+@media (max-width: 819px), (pointer: coarse) {
+  .railControls button {
+    width: var(--touch-min);
+    height: var(--touch-min);
   }
 }
 

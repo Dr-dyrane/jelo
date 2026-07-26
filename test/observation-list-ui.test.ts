@@ -111,7 +111,10 @@ describe('Observation list visual integrity', () => {
     assert.match(observationLoading, /experienceCard[\s\S]*experienceVisual[\s\S]*skeletonExperienceProduct/);
     assert.match(observationLoading, /import \{ ObservationDetailSkeleton \}/);
     assert.match(observationDetailSkeleton, /data-observation-detail-loading/);
-    assert.match(observationDetailSkeleton, /aria-label="Loading observation details"/);
+    assert.match(
+      observationDetailSkeleton,
+      /aria-label=\{announce \? 'Loading observation details' : undefined\}/,
+    );
   });
 
   it('acknowledges selection before URL navigation finishes', () => {
@@ -129,7 +132,8 @@ describe('Observation list progressive loading integrity', () => {
     assert.match(inboxSource, /new IntersectionObserver/);
     assert.match(inboxSource, /loadPendingRef\.current/);
     assert.match(inboxSource, /onClick=\{loadMore\}/);
-    assert.match(inboxSource, /role="status" aria-live="polite"/);
+    assert.match(inboxSource, /role=\{isLoading \? 'status' : undefined\}/);
+    assert.match(inboxSource, /aria-live=\{isLoading \? 'polite' : undefined\}/);
   });
 
   it('keeps the initial observation reveal deliberately small', () => {

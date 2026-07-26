@@ -11,19 +11,17 @@ export interface OpsWorkspaceTab {
 
 interface OpsWorkspaceProps {
   title: string;
-  lede?: string;
   tabs?: OpsWorkspaceTab[];
   children: React.ReactNode;
 }
 
-export function OpsWorkspace({ title, lede, tabs, children }: OpsWorkspaceProps) {
+export function OpsWorkspace({ title, tabs, children }: OpsWorkspaceProps) {
   const pathname = usePathname();
 
   return (
     <>
       <div className={styles.workspaceHead}>
         <h1 className={styles.workspaceTitle}>{title}</h1>
-        {lede ? <p className={styles.workspaceLede}>{lede}</p> : null}
         {tabs && tabs.length > 0 ? (
           <nav className={styles.workspaceTabs} aria-label="Workspace views">
             {tabs.map(tab => {

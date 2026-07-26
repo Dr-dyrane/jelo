@@ -107,22 +107,19 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
               </div>
 
               <div className={styles.decideField}>
-                <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>Rationale</label>
-                <textarea id={`rationale-${row.id}`} className={styles.note} name="rationale" placeholder="Optional note for the audit trail" aria-label="Decision rationale" disabled={isPending} />
+                <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>Note</label>
+                <textarea id={`rationale-${row.id}`} className={styles.note} name="rationale" placeholder="Optional note" aria-label="Decision note" disabled={isPending} />
               </div>
 
               <div className={styles.actionButtons}>
                 <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
                   <span>{isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}</span>
-                  <kbd className={styles.kbdBadge}>R</kbd>
                 </button>
                 <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>
                   <span>{isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}</span>
-                  <kbd className={styles.kbdBadge}>E</kbd>
                 </button>
                 <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="map" formAction={mapAction} disabled={isPending} onClick={() => { pendingDecisionRef.current = 'map'; }}>
                   <span>{isPending && pendingDecisionRef.current === 'map' ? 'Mapping…' : 'Map'}</span>
-                  <kbd className={styles.kbdBadge}>M</kbd>
                 </button>
               </div>
             </form>

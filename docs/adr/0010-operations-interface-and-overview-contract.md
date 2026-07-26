@@ -160,6 +160,13 @@ Raw system terms may appear in Metadata or an audit detail when operators need
 them. They do not become the primary interface voice merely because the data
 model uses them.
 
+The default interface vocabulary must not expose schema versions, payload
+keys, UUIDs, SQL, query parameters, backend or provider names, or raw enum
+values. Translate them into the operator's task language. When an identifier or
+implementation fact is genuinely needed, place it inside an explicit
+`Metadata` or audit disclosure; never use it in a route heading, loading or
+empty state, error message, primary control, or success feedback.
+
 ## Typography and hierarchy
 
 Operations uses `--font-sans` only.
@@ -458,6 +465,11 @@ Each route owns states that preserve its final anatomy.
 - Overview has a dedicated skeleton for context, the two-record `Up next`
   shelf, queue rows, recent activity, and the docked inspector geometry.
 - It does not borrow the Observations collection and inspector skeleton.
+- Loading geometry follows the resolved route contract, not the momentary URL.
+  If a populated ready-state queue automatically selects its first record, its
+  desktop fallback reserves the docked inspector even before an `id` appears
+  in the address. A compact side sheet or mobile bottom sheet remains closed
+  until the corresponding ready-state interaction would open it.
 - Skeletons do not announce every shape. One concise loading status is enough.
 - Reduced motion removes shimmer without removing geometry.
 
@@ -751,6 +763,156 @@ An agent stops and requests a decision when the work requires:
 - a new global token or shell breakpoint;
 - a chart without a defined operational decision;
 - a shell control or shared primitive change outside the owned lane.
+
+## Contributions trial contract
+
+`/ops/contributions` is the first triage-route transfer test for this ADR. It is
+a reviewed candidate, not a new canon and not permission to copy its sections
+into Edges, Vocabulary, Retailers, or another route. Product review accepts the
+trial only after its browser and automated evidence passes.
+
+### Operator job and decision meaning
+
+The operator decides whether an anonymous community submission is coherent
+enough to remain available as source material for later moderation. The route
+does not verify a product, retailer, price, outcome, routine, contributor, or
+campaign; it does not publish a canonical catalogue record.
+
+`Approve` accepts the contribution record only. Its derived knowledge edges,
+observations, aliases, prices, retailer claims, and catalogue candidates retain
+their own confidence and moderation paths.
+
+`Reject` is consequential: it also rejects the contribution's pending derived
+edges and observations and updates affected research signals. Before submitting
+that action, the interface presents one focused confirmation that names this
+consequence, with `Keep` and `Reject`. A keyboard shortcut, FAB, or other
+alternate trigger may not bypass the confirmation. Because the decision already
+lives in an anchored inspector footer, the confirmation replaces those footer
+actions in place. It does not open a second modal or sheet inside the inspector.
+
+### Typed presentation
+
+The server supplies a validated, display-ready contribution projection. Client
+components do not cast arbitrary payload arrays, concatenate schema fields, or
+derive trust in JSX. The projection preserves:
+
+- contribution identity, kind, submitted time, retention date, and permission;
+- one human title and one decision-relevant summary;
+- product, brand, retailer, purpose, outcome, price, and purchase date only
+  where the selected kind can contain them;
+- each submitted value's human label and whether it matched an existing value
+  or needs matching;
+- one optional exact display-approved product image;
+- a human campaign-source label when first-touch attribution exists;
+- an explicit bounded-result completeness state.
+
+An existing value and a new community value must not look equivalent. Use a
+quiet, literal state such as `New` or `Needs matching`; do not use warning
+colour merely because a value is custom. A product image is shown only when its
+canonical reference resolves to the exact approved packshot. An unresolved or
+custom reference uses the route's quiet icon treatment rather than a guessed
+image.
+
+The three contribution kinds adapt the inspector instead of rendering one
+schema-shaped property list:
+
+| Kind | Primary context |
+| --- | --- |
+| Product | Product, brand, uses, store, reported price and date when supplied, and reported outcome. |
+| Routine | Products used together, uses, and reported outcome. Product count supplements the names; it does not replace them. |
+| Store | Store and the uses people associated with it. Product, price, purchase, and outcome rows are absent rather than empty. |
+
+Call the primary section `Submitted details`. Use `Note` for the optional
+operator rationale. The selected kind appears once where it aids orientation;
+do not repeat it as an eyebrow, subtitle, coloured pill, and metadata row.
+`Trusted store`, `verified`, `current price`, and similar confidence language
+remain prohibited until a typed rule establishes them.
+
+### Technical and attribution boundary
+
+The normal inspector never renders a raw JSON payload, schema key, enum, UUID,
+SQL term, provider name, UTM parameter, full referrer, click identifier, or
+server exception. Technical diagnostics, when genuinely required, belong in a
+separately permissioned diagnostic surface rather than the moderation reading
+order.
+
+One collapsed `Metadata` disclosure may contain the copyable contribution ID,
+retention date, exact submission time, and a human first-touch source such as
+`TikTok campaign` or `Direct`. Attribution is provenance only. It never changes
+rank, urgency, confidence, approval, rejection, or the wording of the
+submission's evidence.
+
+Server actions return bounded operator-facing outcomes. They log technical
+detail privately and never pass an arbitrary exception message to the
+interface. Approval, rejection, conflict, and retry feedback stays attached to
+the selected contribution.
+
+### Collection and control integrity
+
+One contribution appears once. A mixed-density projection may use a shallow
+oldest-first `Up next` shelf, compact product and store rows, and a fixed-measure
+routine rail only when those presentations improve recognition. They remain one
+ordered queue with one selected ID, one inspector, and one settlement path.
+
+The rendered collection order is the keyboard order. Grouping may not cause
+Arrow or shortcut navigation to jump against visual reading order. After a
+successful settlement, the projection is recomputed from the remaining queue:
+the next oldest eligible record fills `Up next`, selection and URL advance
+together, and focus moves to the new selected row or its inspector without an
+empty flash.
+
+At rest, the media stage may carry one quiet recognition surface while the row
+copy stays on the workspace. The whole row gains tone only for hover, focus,
+pending selection, or selected state. Do not combine a surfaced row, surfaced
+inner card, and surfaced image well. Fixed rail card width does not shrink when
+pagination reveals more records.
+
+Buttons use the shared decision tokens and direct verbs. Desktop decision
+controls retain the accepted slender geometry; every touch presentation,
+including close and rail controls, provides at least a `44 × 44` CSS-pixel
+target. Unexplained letter badges do not appear inside actions. A keyboard
+shortcut is exposed only through the shared discoverable shortcut system and
+never becomes the sole path.
+
+### State and recovery matrix
+
+| State | Required behavior |
+| --- | --- |
+| Loading | Preserve the Contributions sections and reserve the docked desktop inspector because the populated ready state auto-selects. Do not wait for `id` and do not auto-open a side or bottom sheet. Use one polite loading announcement. |
+| Initial populated | Select the oldest available contribution synchronously, then reconcile the URL. The inspector never flashes empty. |
+| Selecting | Tone and mark the row busy immediately; mount the matching detail skeleton in the current presentation before navigation resolves. |
+| Populated | Show only kind-relevant submitted details, new-value state, human time and one decision region. |
+| Approving | Change only the submitted action label, disable duplicate decisions, preserve selection, and announce the outcome concisely. |
+| Rejecting | Open the cascade confirmation first; while settling, preserve the selected context and identify the submitted action. |
+| Settled | Remove the item, rebalance sections, advance URL and selection, and place focus predictably. |
+| Conflict | Keep the item visible until fresh data resolves; say that someone already handled it and offer a safe refresh. |
+| Empty | Use the quiet workspace anatomy: `Nothing awaiting review` and `New contributions will appear here.` Do not add an elevated success card. |
+| Partial | State what is shown without claiming the bounded client set is the global end. Preserve a visible load path when one exists. |
+| Error | Preserve the shell, say `Couldn't load contributions`, offer `Try again`, and keep diagnostics private. |
+| Denied | Keep the fail-closed access boundary. Do not render decision controls and do not describe internal permission implementation. |
+| Long or high-count | Preserve complete accessible names, stable card measure, bounded pagination, selection, and a reachable final action. |
+
+The responsive evidence matrix is `390 × 844`, `600 × 900`, `1000 × 800`,
+`1300 × 900`, `1440 × 900`, and `320px` at `200%` zoom. At `1300` and `1440`
+the inspector is a sibling plane with its own scroll and anchored decision
+region. At `1000` it is a right side sheet. At `600` and `390` it is a bottom
+sheet. The page remains the primary task beneath every temporary inspector.
+
+Overlay review proves a visible selected-subject title without a redundant
+generic heading, a close control, focus containment, body scroll lock, Escape
+and safe outside dismissal, independent inspector scrolling, reduced motion,
+and exact trigger-focus return. A settled item cannot receive returned focus;
+focus moves to the next selected row. A breakpoint change cannot duplicate the
+selected contribution in the accessibility tree or strand focus in an
+unmounted overlay.
+
+The trial is not accepted from screenshots alone. Its handoff includes typed
+projection tests, unique membership and keyboard-order tests, settlement
+rebalance tests, bounded-completeness tests, safe-error tests, loading-contract
+tests, button and surface source contracts, and the complete browser matrix
+above. Until product review accepts that evidence, agents may inspect the
+trial's principles but must not cite its route-specific sections, copy, or
+geometry as canonical.
 
 ## Cross-route adoption harness
 

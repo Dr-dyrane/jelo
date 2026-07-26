@@ -80,8 +80,11 @@
     display: block;
     width: var(--ops-sidebar-width);
     padding: var(--space-3);
+    visibility: hidden;
     transform: translateX(calc(-100% - var(--space-4)));
-    transition: transform 320ms cubic-bezier(.22, 1, .36, 1);
+    transition:
+      transform 320ms cubic-bezier(.22, 1, .36, 1),
+      visibility 0s linear 320ms;
     pointer-events: none;
   }
 
@@ -91,7 +94,9 @@
   }
 
   :global([data-ops-shell][data-sidebar-open='true']) .sidebarLayer {
+    visibility: visible;
     transform: translateX(0);
+    transition-delay: 0s;
     pointer-events: auto;
   }
 
@@ -117,7 +122,7 @@
     height: 100dvh !important;
     min-height: 0 !important;
     flex-direction: column !important;
-    overflow: hidden;
+    overflow: clip;
   }
 
   .tabletIsland {
@@ -126,7 +131,7 @@
     left: 50%;
     z-index: var(--z-sticky);
     display: flex;
-    min-height: 46px;
+    min-height: 52px;
     align-items: center;
     gap: 2px;
     padding: 4px;
@@ -141,7 +146,7 @@
   .islandMenu,
   .islandLink {
     display: inline-flex;
-    min-height: 38px;
+    min-height: var(--touch-min);
     align-items: center;
     justify-content: center;
     border: 0;
@@ -157,13 +162,13 @@
   }
 
   .islandMenu {
-    width: 38px;
-    flex: 0 0 38px;
+    width: var(--touch-min);
+    flex: 0 0 var(--touch-min);
   }
 
   .islandAvatar {
-    width: 38px !important;
-    height: 38px !important;
+    width: var(--touch-min) !important;
+    height: var(--touch-min) !important;
     font-size: var(--text-cell) !important;
   }
 
@@ -197,12 +202,10 @@
 
   .detailPane {
     position: fixed;
-    top: var(--space-3);
-    right: var(--space-3);
-    bottom: var(--space-3);
+    inset: 0;
     z-index: calc(var(--z-palette) + 6);
     display: block !important;
-    width: min(350px, calc(100vw - (var(--space-3) * 2)));
+    width: auto;
     min-width: 0;
     padding: 0 !important;
     overflow: visible !important;
@@ -314,15 +317,15 @@
     display: flex;
     margin: 0;
     font-size: var(--text-heading-3);
-    font-weight: var(--weight-bold);
+    font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-tight);
     line-height: 1.2;
   }
 
   .sheetClose {
     display: grid;
-    width: 32px;
-    height: 32px;
+    width: var(--touch-min);
+    height: var(--touch-min);
     place-items: center;
     padding: 0;
     border: 0;
@@ -469,6 +472,17 @@
     margin: 0 auto var(--space-4);
     border-radius: 3px;
     background: color-mix(in srgb, var(--ops-muted) 35%, transparent);
+  }
+}
+
+@media (max-width: 359px) {
+  .bottomBar {
+    gap: 0;
+    padding-inline: var(--space-2);
+  }
+
+  .bottomBarItem span {
+    display: none;
   }
 }
 

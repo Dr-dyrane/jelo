@@ -64,7 +64,13 @@ test('canonical moderation queues implement the shared URL-selection contract', 
     assert.match(page, /includeSelectedQueueItem\(recentRows, selectedRow\)/);
     assert.match(inbox, /useUrlInboxSelection\(\)/);
     assert.match(inbox, /selectedId=\{selection\.selectedId\}/);
-    assert.match(inbox, /onSelect=\{selection\.onSelect\}/);
-    assert.match(inbox, /onDeselect=\{selection\.onDeselect\}/);
+    assert.match(
+      inbox,
+      /(?:onSelect=\{selection\.onSelect\}|onSelect=\{item => \{[\s\S]*selection\.onSelect\(item\))/,
+    );
+    assert.match(
+      inbox,
+      /(?:onDeselect=\{selection\.onDeselect\}|onDeselect=\{\(\) => \{[\s\S]*selection\.onDeselect\(\))/,
+    );
   }
 });

@@ -19,9 +19,28 @@ export type QueueCounts = {
 export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
   const [row] = await sql<QueueCounts[]>`
     select
-      (select count(*) from community_contributions where moderation_status = 'pending')::int as contributions,
-      (select count(*) from community_knowledge_edges where moderation_status = 'pending')::int as edges,
-      (select count(*) from community_observations where moderation_status = 'pending')::int as observations,
+      (
+        select count(*)
+        from community_contributions contribution
+        where contribution.moderation_status = 'pending'
+          and contribution.retain_until > now()
+      )::int as contributions,
+      (
+        select count(*)
+        from community_knowledge_edges edge
+        join community_contributions contribution on contribution.id = edge.contribution_id
+        where edge.moderation_status = 'pending'
+          and contribution.moderation_status <> 'rejected'
+          and contribution.retain_until > now()
+      )::int as edges,
+      (
+        select count(*)
+        from community_observations observation
+        join community_contributions contribution on contribution.id = observation.contribution_id
+        where observation.moderation_status = 'pending'
+          and contribution.moderation_status <> 'rejected'
+          and contribution.retain_until > now()
+      )::int as observations,
       (select count(*) from community_moderation_values where status = 'pending')::int as values,
       (select count(*) from retailer_partnership_applications where status = 'submitted')::int as retailers,
       (select count(*) from commerce_events)::int as signals
@@ -85,25 +104,56 @@ export async function listPendingObservations(sql: Sql, limit = 100, offset = 0)
 
 export type PendingContribution = {
   id: string;
-  kind: string;
+  kind: 'product' | 'routine' | 'store';
   payload: Record<string, unknown>;
   submittedAt: string;
   retainUntil: string;
+  pendingEdgeCount: number;
+  pendingObservationCount: number;
+  attribution: {
+    source: string;
+    medium: string | null;
+    campaign: string | null;
+  } | null;
 };
 
 export async function listPendingContributions(sql: Sql, limit = 100): Promise<PendingContribution[]> {
   const rows = await sql<{
     id: string;
-    contribution_kind: string;
+    contribution_kind: PendingContribution['kind'];
     payload: Record<string, unknown>;
     submitted_at: string;
     retain_until: string;
+    pending_edge_count: number;
+    pending_observation_count: number;
+    attribution_source: string | null;
+    attribution_medium: string | null;
+    attribution_campaign: string | null;
   }[]>`
-    select id, contribution_kind, payload,
-           submitted_at::text as submitted_at, retain_until::text as retain_until
-    from community_contributions
-    where moderation_status = 'pending'
-    order by submitted_at desc
+    select contribution.id, contribution.contribution_kind, contribution.payload,
+           contribution.submitted_at::text as submitted_at,
+           contribution.retain_until::text as retain_until,
+           (
+             select count(*)::int
+             from community_knowledge_edges edge
+             where edge.contribution_id = contribution.id
+               and edge.moderation_status = 'pending'
+           ) as pending_edge_count,
+           (
+             select count(*)::int
+             from community_observations observation
+             where observation.contribution_id = contribution.id
+               and observation.moderation_status = 'pending'
+           ) as pending_observation_count,
+           attribution.source as attribution_source,
+           attribution.medium as attribution_medium,
+           attribution.campaign as attribution_campaign
+    from community_contributions contribution
+    left join community_intake_attributions attribution
+      on attribution.draft_id = contribution.draft_id
+    where contribution.moderation_status = 'pending'
+      and contribution.retain_until > now()
+    order by contribution.submitted_at asc
     limit ${boundedLimit(limit)}
   `;
   return rows.map(row => ({
@@ -112,6 +162,13 @@ export async function listPendingContributions(sql: Sql, limit = 100): Promise<P
     payload: row.payload,
     submittedAt: row.submitted_at,
     retainUntil: row.retain_until,
+    pendingEdgeCount: row.pending_edge_count,
+    pendingObservationCount: row.pending_observation_count,
+    attribution: row.attribution_source ? {
+      source: row.attribution_source,
+      medium: row.attribution_medium,
+      campaign: row.attribution_campaign,
+    } : null,
   }));
 }
 
@@ -121,16 +178,40 @@ export async function findPendingContribution(
 ): Promise<PendingContribution | null> {
   const [row] = await sql<{
     id: string;
-    contribution_kind: string;
+    contribution_kind: PendingContribution['kind'];
     payload: Record<string, unknown>;
     submitted_at: string;
     retain_until: string;
+    pending_edge_count: number;
+    pending_observation_count: number;
+    attribution_source: string | null;
+    attribution_medium: string | null;
+    attribution_campaign: string | null;
   }[]>`
-    select id, contribution_kind, payload,
-           submitted_at::text as submitted_at, retain_until::text as retain_until
-    from community_contributions
-    where moderation_status = 'pending'
-      and id = ${id}
+    select contribution.id, contribution.contribution_kind, contribution.payload,
+           contribution.submitted_at::text as submitted_at,
+           contribution.retain_until::text as retain_until,
+           (
+             select count(*)::int
+             from community_knowledge_edges edge
+             where edge.contribution_id = contribution.id
+               and edge.moderation_status = 'pending'
+           ) as pending_edge_count,
+           (
+             select count(*)::int
+             from community_observations observation
+             where observation.contribution_id = contribution.id
+               and observation.moderation_status = 'pending'
+           ) as pending_observation_count,
+           attribution.source as attribution_source,
+           attribution.medium as attribution_medium,
+           attribution.campaign as attribution_campaign
+    from community_contributions contribution
+    left join community_intake_attributions attribution
+      on attribution.draft_id = contribution.draft_id
+    where contribution.moderation_status = 'pending'
+      and contribution.retain_until > now()
+      and contribution.id = ${id}
     limit 1
   `;
 
@@ -140,6 +221,13 @@ export async function findPendingContribution(
     payload: row.payload,
     submittedAt: row.submitted_at,
     retainUntil: row.retain_until,
+    pendingEdgeCount: row.pending_edge_count,
+    pendingObservationCount: row.pending_observation_count,
+    attribution: row.attribution_source ? {
+      source: row.attribution_source,
+      medium: row.attribution_medium,
+      campaign: row.attribution_campaign,
+    } : null,
   } : null;
 }
 
@@ -167,11 +255,14 @@ export async function listPendingEdges(sql: Sql, limit = 100): Promise<PendingEd
     metadata: Record<string, unknown>;
     created_at: string;
   }[]>`
-    select id, contribution_id, subject_kind, subject_ref, predicate,
-           object_kind, object_ref, metadata, created_at::text as created_at
-    from community_knowledge_edges
-    where moderation_status = 'pending'
-    order by created_at desc
+    select edge.id, edge.contribution_id, edge.subject_kind, edge.subject_ref, edge.predicate,
+           edge.object_kind, edge.object_ref, edge.metadata, edge.created_at::text as created_at
+    from community_knowledge_edges edge
+    join community_contributions contribution on contribution.id = edge.contribution_id
+    where edge.moderation_status = 'pending'
+      and contribution.moderation_status <> 'rejected'
+      and contribution.retain_until > now()
+    order by edge.created_at desc
     limit ${boundedLimit(limit)}
   `;
   return rows.map(row => ({
@@ -199,11 +290,14 @@ export async function findPendingEdge(sql: Sql, id: string): Promise<PendingEdge
     metadata: Record<string, unknown>;
     created_at: string;
   }[]>`
-    select id, contribution_id, subject_kind, subject_ref, predicate,
-           object_kind, object_ref, metadata, created_at::text as created_at
-    from community_knowledge_edges
-    where moderation_status = 'pending'
-      and id = ${id}
+    select edge.id, edge.contribution_id, edge.subject_kind, edge.subject_ref, edge.predicate,
+           edge.object_kind, edge.object_ref, edge.metadata, edge.created_at::text as created_at
+    from community_knowledge_edges edge
+    join community_contributions contribution on contribution.id = edge.contribution_id
+    where edge.moderation_status = 'pending'
+      and contribution.moderation_status <> 'rejected'
+      and contribution.retain_until > now()
+      and edge.id = ${id}
     limit 1
   `;
 

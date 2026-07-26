@@ -89,12 +89,12 @@ test('the Ops shell owns the viewport while each workspace owns its scroll', asy
   assert.match(viewportRoot, /position:\s*fixed;/);
   assert.match(viewportRoot, /inset:\s*0;/);
   assert.match(viewportRoot, /height:\s*100dvh;/);
-  assert.match(viewportRoot, /overflow:\s*hidden;/);
+  assert.match(viewportRoot, /overflow:\s*clip;/);
 
   assert.match(shellCss, /\.main\s*\{[\s\S]*?min-height:\s*0;[\s\S]*?overflow:\s*auto;/);
   assert.match(
     adaptiveCss,
-    /\.contentWrapper\s*\{[\s\S]*?height:\s*100dvh\s*!important;[\s\S]*?min-height:\s*0\s*!important;[\s\S]*?overflow:\s*hidden;/,
+    /\.contentWrapper\s*\{[\s\S]*?height:\s*100dvh\s*!important;[\s\S]*?min-height:\s*0\s*!important;[\s\S]*?overflow:\s*clip;/,
   );
 });
 
@@ -109,4 +109,25 @@ test('Ops workspace headers stay single-line and never narrate route state', asy
   assert.match(header, /<h1 id="overview-heading">Overview<\/h1>/);
   assert.doesNotMatch(header, /<p>|pendingTotal|RelativeTime|awaiting review|Updated/);
   assert.doesNotMatch(loading, /skeletonText/);
+});
+
+test('the Observations fallback follows the resolved inspector contract, not URL timing', async () => {
+  const root = process.cwd();
+  const [loading, inbox] = await Promise.all([
+    readFile(path.join(root, 'app/(ops)/ops/observations/loading.tsx'), 'utf8'),
+    readFile(path.join(root, 'components/ops/inbox/InboxContainer.tsx'), 'utf8'),
+  ]);
+
+  // The ready inbox selects the first available record when no URL selection
+  // exists, so desktop loading must reserve that inspector before `?id=` is
+  // written. URL timing is not a reliable loading-state contract.
+  assert.match(inbox, /onSelect\(optimisticItems\[0\], 0\);/);
+  assert.doesNotMatch(loading, /useSearchParams|searchParams|selectedId/);
+  assert.match(loading, /window\.matchMedia\('\(min-width: 1180px\)'\)\.matches/);
+  assert.match(loading, /<DetailSkeleton \/>/);
+  assert.match(loading, /createPortal\(<ObservationDetailSkeleton announce=\{false\} \/>/);
+
+  // Compact inspectors remain interaction-driven sheets. The route fallback
+  // must not invent an open dialog while the ready state keeps it closed.
+  assert.doesNotMatch(loading, /role="dialog"|aria-modal="true"|tabletStage/);
 });

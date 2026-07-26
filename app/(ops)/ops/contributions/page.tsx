@@ -10,9 +10,10 @@ import {
 } from '@/lib/moderation/queue-selection';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { can } from '@/lib/moderation/capabilities';
+import { contributionReviewItem } from '@/lib/moderation/contribution-presentation';
 import { EmptyState } from '@/components/ops/state/EmptyState';
+import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import { ContributionsInbox } from './ContributionsInbox';
-import opsStyles from '../../ops.module.css';
 import styles from '@/components/ops/inbox/inbox.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -28,30 +29,30 @@ export default async function ContributionsQueue({
   const canDecide = can(operator.role, 'contributions.decide');
   const selectedId = selectedQueueItemId(await searchParams);
   const sql = getPostgresClient();
-  const recentRows = await listPendingContributions(sql, LIMIT);
+  const fetchedRows = await listPendingContributions(sql, LIMIT + 1);
+  const recentRows = fetchedRows.slice(0, LIMIT);
+  const hasMore = fetchedRows.length > LIMIT;
   const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
     ? await findPendingContribution(sql, selectedId)
     : null;
   const rows = includeSelectedQueueItem(recentRows, selectedRow);
+  const reviewItems = rows.map(contributionReviewItem);
 
   return (
-    <>
-      <h1 className={opsStyles.h1}>Community contributions</h1>
-      <p className={opsStyles.lede}>Anonymous submissions, preserved immutably. A decision marks them reviewed; it never writes a canonical record.</p>
-
+    <OpsWorkspace title="Contributions">
       {rows.length === 0 ? (
         <EmptyState
-          title="No pending contributions"
-          body="New community submissions will appear here for verification review."
+          title="Nothing awaiting review"
+          body="New contributions will appear here."
         />
       ) : (
         <>
-          <ContributionsInbox rows={rows} canDecide={canDecide} />
-          {recentRows.length === LIMIT ? (
-            <p className={styles.partial}>Showing the {LIMIT} most recent — more may be pending.</p>
+          <ContributionsInbox rows={reviewItems} canDecide={canDecide} />
+          {hasMore ? (
+            <p className={styles.partial}>This view starts with the oldest {LIMIT}. More are waiting.</p>
           ) : null}
         </>
       )}
-    </>
+    </OpsWorkspace>
   );
 }

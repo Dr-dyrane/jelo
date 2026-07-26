@@ -7,7 +7,7 @@
   margin: 0;
   height: 100dvh;
   min-height: 100dvh;
-  overflow: hidden;
+  overflow: clip;
   background: var(--ops-canvas);
   color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
@@ -386,6 +386,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  padding: var(--space-5) var(--space-6) var(--space-3);
 }
 
 .workspaceTitle {
@@ -394,14 +395,6 @@
   font-weight: var(--weight-semibold);
   color: var(--ink);
 }
-
-.workspaceLede {
-  margin: 0;
-  font-size: var(--text-cell);
-  color: var(--muted);
-}
-
-
 
 .h1 { font-size: var(--text-title); font-weight: var(--weight-semibold); margin: 0; color: var(--ink); }
 .lede { font-size: var(--text-cell); color: var(--muted); margin: var(--space-1) 0 0; }
@@ -828,7 +821,7 @@
     min-height: 0;
     padding: var(--ops-shell-inset);
     gap: var(--ops-shell-inset);
-    overflow: hidden;
+    overflow: clip;
   }
 
   .sidebar {
@@ -871,7 +864,7 @@
   .contentWrapper {
     height: calc(100dvh - (var(--ops-shell-inset) * 2));
     min-height: 0;
-    overflow: hidden;
+    overflow: clip;
     border-radius: var(--ops-shell-radius);
     background: var(--ops-workspace);
     box-shadow: var(--ops-workspace-shadow);
@@ -908,12 +901,6 @@
     font-size: var(--text-title);
     font-weight: var(--weight-semibold);
     color: var(--ink);
-  }
-
-  .workspaceLede {
-    margin: 0;
-    font-size: var(--text-cell);
-    color: var(--muted);
   }
 
   .workspaceTabs {
@@ -956,6 +943,18 @@
     flex: 1 1 auto;
   }
 
+}
+
+@media (max-width: 1179px) {
+  .workspaceHead {
+    padding-inline: var(--space-4);
+  }
+}
+
+@media (max-width: 429px) {
+  .workspaceHead {
+    padding: var(--space-4) var(--space-3) var(--space-3);
+  }
 }
 
 /* Docked detail pane: only at ≥1180px (balanced + expanded modes). */

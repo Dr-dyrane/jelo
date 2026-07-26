@@ -1,41 +1,40 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
-import { useSearchParams } from 'next/navigation';
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import observationStyles from './observations.module.css';
-import adaptive from '@/components/ops/inbox/inbox-tablet.module.css';
 import { ObservationDetailSkeleton } from './ObservationDetailSkeleton';
 import './observations-shell.module.css';
 
-type ViewportMode = 'phone' | 'touch' | 'compact' | 'balanced' | 'expanded';
+function subscribeToDetailPane(onStoreChange: () => void) {
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(document.body, { childList: true, subtree: true });
+  return () => observer.disconnect();
+}
 
-function DetailSkeleton({ mode, selectedId }: { mode: ViewportMode; selectedId: string | null }) {
-  const detailPortalTarget = typeof document === 'undefined' ? null : document.getElementById('ops-detail-pane');
-  if (!detailPortalTarget || !selectedId) return null;
+function getDetailPaneSnapshot() {
+  return document.getElementById('ops-detail-pane');
+}
 
-  const usesOverlayInspector = mode === 'phone' || mode === 'touch' || mode === 'compact';
+function subscribeToDesktopViewport(onStoreChange: () => void) {
+  const query = window.matchMedia('(min-width: 1180px)');
+  query.addEventListener('change', onStoreChange);
+  return () => query.removeEventListener('change', onStoreChange);
+}
 
-  if (usesOverlayInspector) {
-    return createPortal(
-      <div className={adaptive.tabletStage} role="dialog" aria-modal="true" aria-label="Loading observation details">
-        <span className={adaptive.tabletScrim} aria-hidden="true" />
-        <section className={adaptive.tabletInspector}>
-          <header className={adaptive.tabletInspectorHeader}>
-            <div className={adaptive.tabletClose} aria-hidden="true" />
-          </header>
-          <div className={adaptive.tabletInspectorBody}>
-            <ObservationDetailSkeleton />
-          </div>
-        </section>
-      </div>,
-      detailPortalTarget,
-    );
-  }
+function getDesktopViewportSnapshot() {
+  return window.matchMedia('(min-width: 1180px)').matches;
+}
 
-  return createPortal(<ObservationDetailSkeleton />, detailPortalTarget);
+function DetailSkeleton() {
+  const detailPortalTarget = useSyncExternalStore(subscribeToDetailPane, getDetailPaneSnapshot, () => null);
+  const isDesktop = useSyncExternalStore(subscribeToDesktopViewport, getDesktopViewportSnapshot, () => false);
+
+  if (!isDesktop || !detailPortalTarget) return null;
+
+  return createPortal(<ObservationDetailSkeleton announce={false} />, detailPortalTarget);
 }
 
 function SkeletonBlock({ className = '' }: { className?: string }) {
@@ -45,23 +44,6 @@ function SkeletonBlock({ className = '' }: { className?: string }) {
 // Suspense fallback while the force-dynamic query resolves. Each section
 // mirrors the ready-state geometry so the workspace does not recompose.
 export default function LoadingObservations() {
-  const [viewportMode, setViewportMode] = useState<ViewportMode>('expanded');
-  const searchParams = useSearchParams();
-  const selectedId = searchParams.get('id');
-
-  useEffect(() => {
-    function handleResize() {
-      const width = window.innerWidth;
-      setViewportMode(
-        width < 430 ? 'phone' : width < 820 ? 'touch' : width < 1180 ? 'compact' : width < 1440 ? 'balanced' : 'expanded',
-      );
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     <>
       <OpsWorkspace title="Observations">
@@ -135,7 +117,7 @@ export default function LoadingObservations() {
           </section>
         </div>
       </OpsWorkspace>
-      <DetailSkeleton mode={viewportMode} selectedId={selectedId} />
+      <DetailSkeleton />
     </>
   );
 }

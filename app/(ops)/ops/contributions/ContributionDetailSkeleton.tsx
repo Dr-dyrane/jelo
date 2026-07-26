@@ -1,22 +1,22 @@
 import styles from '@/components/ops/inbox/inbox.module.css';
+import contributionStyles from './contributions.module.css';
 
-export function ObservationDetailSkeleton({ announce = true }: { announce?: boolean }) {
+export function ContributionDetailSkeleton({ announce = true }: { announce?: boolean }) {
   return (
     <div
       className={styles.detailContent}
-      data-observation-detail-loading
       role={announce ? 'status' : undefined}
-      aria-label={announce ? 'Loading observation details' : undefined}
+      aria-label={announce ? 'Loading contribution details' : undefined}
       aria-live={announce ? 'polite' : undefined}
       aria-busy="true"
     >
       <div className={styles.detailScroll} aria-hidden="true">
-        <section className={styles.productSummary}>
-          <div className={`${styles.skeletonProductImage} ${styles.skeletonSurface}`} />
-          <div className={styles.productCopy}>
+        <section className={contributionStyles.identitySummary}>
+          <div className={`${contributionStyles.identityVisual} ${styles.skeletonSurface}`} />
+          <div className={contributionStyles.identityCopy}>
             <div className={`${styles.skeletonProductTitle} ${styles.skeletonSurface}`} />
             <div className={`${styles.skeletonProductMeta} ${styles.skeletonSurface}`} />
-            <div className={styles.detailMeta}>
+            <div className={contributionStyles.identityMeta}>
               <span className={`${styles.skeletonPill} ${styles.skeletonSurface}`} />
               <span className={`${styles.skeletonSubtext} ${styles.skeletonSurface}`} />
             </div>
@@ -24,9 +24,9 @@ export function ObservationDetailSkeleton({ announce = true }: { announce?: bool
         </section>
 
         <section className={styles.detailSection}>
-          <h3 className={styles.sectionLabel}>Evidence</h3>
+          <h3 className={styles.sectionLabel}>Submitted details</h3>
           <div className={styles.propertiesSection}>
-            {Array.from({ length: 2 }).map((_, index) => (
+            {Array.from({ length: 5 }).map((_, index) => (
               <div key={index} className={styles.propertyRow}>
                 <span className={`${styles.skeletonPropertyLabel} ${styles.skeletonSurface}`} />
                 <span className={`${styles.skeletonPropertyValue} ${styles.skeletonSurface}`} />

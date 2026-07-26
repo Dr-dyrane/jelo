@@ -165,8 +165,8 @@ function ProgressiveInboxSection<T extends { id: string }>({
   const paginationStatus = isLoading
     ? `Loading more ${section.label.toLowerCase()}.`
     : hasMore
-      ? `Showing ${renderedCount} of ${section.items.length} ${section.label.toLowerCase()}.`
-      : `All ${section.items.length} ${section.label.toLowerCase()} shown.`;
+      ? `${renderedCount} ${section.label.toLowerCase()} shown. More available.`
+      : `${section.items.length} ${section.label.toLowerCase()} shown.`;
 
   const loadControl = hasMore ? (
     <button
@@ -238,7 +238,13 @@ function ProgressiveInboxSection<T extends { id: string }>({
         </div>
       ) : null}
       {section.pagination ? (
-        <span id={statusId} className={styles.paginationStatus} role="status" aria-live="polite">
+        <span
+          id={statusId}
+          className={styles.paginationStatus}
+          role={isLoading ? 'status' : undefined}
+          aria-live={isLoading ? 'polite' : undefined}
+          aria-atomic={isLoading ? 'true' : undefined}
+        >
           {paginationStatus}
         </span>
       ) : null}
@@ -379,7 +385,7 @@ export function InboxContainer<T extends { id: string }>({
       if (event.key !== 'Tab') return;
 
       const focusable = overlayInspectorRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        'a[href], button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
       );
       if (!focusable?.length) return;
       const first = focusable[0];
@@ -395,7 +401,7 @@ export function InboxContainer<T extends { id: string }>({
 
     const focusFrame = requestAnimationFrame(() => {
       overlayInspectorRef.current
-        ?.querySelector<HTMLElement>('button:not([disabled]), a[href], textarea:not([disabled]), input:not([disabled])')
+        ?.querySelector<HTMLElement>('button:not([disabled]):not([tabindex="-1"]), a[href], textarea:not([disabled]), input:not([disabled])')
         ?.focus();
     });
     window.addEventListener('keydown', handleOverlayKeyDown);
@@ -417,6 +423,9 @@ export function InboxContainer<T extends { id: string }>({
       if (isControlled) onDeselect?.();
       else setInternalDetailId(null);
       setOverlayInspectorOpen(false);
+      requestAnimationFrame(() => {
+        document.querySelector<HTMLElement>('[data-ops-main]')?.focus({ preventScroll: true });
+      });
       return;
     }
 
@@ -429,6 +438,9 @@ export function InboxContainer<T extends { id: string }>({
     if (viewportMode === 'phone' || viewportMode === 'touch' || viewportMode === 'compact') {
       setOverlayInspectorOpen(false);
     }
+    requestAnimationFrame(() => {
+      document.getElementById(`row-${nextItem.id}`)?.focus({ preventScroll: true });
+    });
   }, [optimisticItems, isControlled, onSelect, onDeselect, removeOptimisticItem, viewportMode]);
 
   useEffect(() => {
@@ -468,7 +480,10 @@ export function InboxContainer<T extends { id: string }>({
 
     function handleKeyDown(e: KeyboardEvent) {
       const target = e.target instanceof HTMLElement ? e.target : null;
-      if (target?.closest('input, textarea, select, button, a[href], [contenteditable="true"]')) {
+      const isTyping = target?.closest('input, textarea, select, [contenteditable="true"]');
+      const isInteractive = target?.closest('button, a[href]');
+      const isCollectionRow = target?.closest('[data-ops-collection-item]');
+      if (isTyping || (isInteractive && !isCollectionRow)) {
         if (e.key === 'Escape') (document.activeElement as HTMLElement).blur();
         return;
       }
@@ -488,24 +503,6 @@ export function InboxContainer<T extends { id: string }>({
             const input = form?.querySelector('input[name="rationale"], textarea') as HTMLInputElement | HTMLTextAreaElement;
             input?.focus();
           });
-        }
-      } else if (e.key === 'e' || e.key === 'a') {
-        e.preventDefault();
-        if (activeItem) {
-          const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
-          (form?.querySelector('button[value="approve"]') as HTMLButtonElement)?.click();
-        }
-      } else if (e.key === 'r') {
-        e.preventDefault();
-        if (activeItem) {
-          const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
-          (form?.querySelector('button[value="reject"]') as HTMLButtonElement)?.click();
-        }
-      } else if (e.key === 'm') {
-        e.preventDefault();
-        if (activeItem) {
-          const form = document.querySelector(`form[data-item-id="${activeItem.id}"]`);
-          (form?.querySelector('button[value="map"]') as HTMLButtonElement)?.click();
         }
       } else if (e.key === 'Escape') {
         e.preventDefault();
@@ -628,7 +625,13 @@ export function InboxContainer<T extends { id: string }>({
       {usesOverlayInspector && activeItem && detailPortalTarget && overlayInspectorOpen
         ? createPortal(
             <div className={adaptive.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
-              <button type="button" className={adaptive.tabletScrim} onClick={closeDetail} aria-label="Close details" />
+              <button
+                type="button"
+                className={adaptive.tabletScrim}
+                onClick={closeDetail}
+                tabIndex={-1}
+                aria-hidden="true"
+              />
               <section ref={overlayInspectorRef} className={adaptive.tabletInspector}>
                 <header className={adaptive.tabletInspectorHeader}>
                   <button type="button" className={adaptive.tabletClose} onClick={closeDetail} aria-label="Close details">

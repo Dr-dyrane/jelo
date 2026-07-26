@@ -36,7 +36,22 @@ export type ActionResult =
 
 export type ObservationActionResult = ActionResult;
 
+function requestedTargetId(formData: FormData) {
+  const value = formData.get('targetId');
+  return typeof value === 'string' && value ? value : undefined;
+}
+
+function decisionFailure(task: string, targetId: string | undefined, error: unknown): ActionResult {
+  console.error(`Could not save ${task} decision.`, error);
+  return {
+    ok: false,
+    targetId,
+    error: 'Couldn’t save this decision. Try again.',
+  };
+}
+
 export async function decideContributionAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
+  const requestedId = requestedTargetId(formData);
   try {
     const operator = await requireConsoleOperator();
     assertCan(operator, 'contributions.decide');
@@ -46,11 +61,12 @@ export async function decideContributionAction(_prevState: unknown, formData: Fo
     if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
     return { ok: true, targetId, decision };
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+    return decisionFailure('contribution', requestedId, err);
   }
 }
 
 export async function decideEdgeAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
+  const requestedId = requestedTargetId(formData);
   try {
     const operator = await requireConsoleOperator();
     assertCan(operator, 'edges.decide');
@@ -60,11 +76,12 @@ export async function decideEdgeAction(_prevState: unknown, formData: FormData):
     if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
     return { ok: true, targetId, decision };
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+    return decisionFailure('knowledge edge', requestedId, err);
   }
 }
 
 export async function decideObservationAction(_prevState: unknown, formData: FormData): Promise<ObservationActionResult> {
+  const requestedId = requestedTargetId(formData);
   try {
     const operator = await requireConsoleOperator();
     assertCan(operator, 'observations.decide');
@@ -74,7 +91,7 @@ export async function decideObservationAction(_prevState: unknown, formData: For
     if (!settled) return { ok: false, targetId, error: 'This observation was already reviewed by another operator.' };
     return { ok: true, targetId, decision };
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+    return decisionFailure('observation', requestedId, err);
   }
 }
 
@@ -95,6 +112,7 @@ export async function fetchMoreObservationsAction(offset: number, limit = 50) {
 }
 
 export async function decideModerationValueAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
+  const requestedId = requestedTargetId(formData);
   try {
     const operator = await requireConsoleOperator();
     assertCan(operator, 'vocabulary.decide');
@@ -104,11 +122,12 @@ export async function decideModerationValueAction(_prevState: unknown, formData:
     if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
     return { ok: true, targetId, decision };
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+    return decisionFailure('vocabulary', requestedId, err);
   }
 }
 
 export async function mapModerationValueAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
+  const requestedId = requestedTargetId(formData);
   try {
     const operator = await requireConsoleOperator();
     assertCan(operator, 'vocabulary.decide');
@@ -119,7 +138,7 @@ export async function mapModerationValueAction(_prevState: unknown, formData: Fo
     const rationale = (formData.get('rationale') as string | null)?.trim() || null;
 
     if (!targetId || !canonicalEntityKind || !canonicalEntityRef) {
-      return { ok: false, targetId, error: 'Missing required mapping parameters.' };
+      return { ok: false, targetId, error: 'Choose what this value should become.' };
     }
 
     const settled = await mapModerationValue(
@@ -134,11 +153,12 @@ export async function mapModerationValueAction(_prevState: unknown, formData: Fo
     if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
     return { ok: true, targetId, decision: 'map' };
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+    return decisionFailure('vocabulary match', requestedId, err);
   }
 }
 
 export async function decideRetailerApplicationAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
+  const requestedId = requestedTargetId(formData);
   try {
     const operator = await requireConsoleOperator();
     assertCan(operator, 'retailers.decide');
@@ -148,6 +168,6 @@ export async function decideRetailerApplicationAction(_prevState: unknown, formD
     if (!settled) return { ok: false, targetId, error: 'This item was already reviewed by another operator.' };
     return { ok: true, targetId, decision };
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : 'An unexpected error occurred.' };
+    return decisionFailure('retailer application', requestedId, err);
   }
 }

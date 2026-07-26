@@ -251,12 +251,12 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                 <h3 className={styles.sectionLabel}>Decision</h3>
                 {feedback}
                 <div className={styles.decideField}>
-                  <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>Rationale</label>
+                  <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>Note</label>
                   <textarea
                     id={`rationale-${row.id}`}
                     className={styles.note}
                     name="rationale"
-                    placeholder="Optional note for the audit trail"
+                    placeholder="Optional note"
                     disabled={isDecisionPending}
                   />
                 </div>
