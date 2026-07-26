@@ -459,6 +459,45 @@ export const concerns: Concern[] = [
     ],
     reviewedAt: '2026-07-26',
   },
+  {
+    slug: 'mouth-area-bumps-pattern', name: 'Small bumps around the mouth', area: 'Face', kind: 'condition-pattern', clinicalPatternIds: ['periorificial-dermatitis-like'],
+    summary: 'Many small acne-like bumps limited to skin around the mouth, nose or eyes can need a different plan from acne.',
+    signals: ['small skin-coloured or inflamed bumps around the mouth', 'possible nose or eye-area involvement', 'burning, itching or flaking', 'possible facial steroid-cream use'],
+    ingredients: ['pause non-essential new skincare', 'ask before changing a prescribed steroid', 'in-person skin examination'],
+    productTerms: [],
+    escalation: 'Arrange an in-person skin examination before treating this as acne. Ask the prescriber before changing any prescribed steroid medicine. Eye pain, a red eye, light sensitivity, blurred vision, facial swelling, blistering or rapid worsening needs same-day medical assessment.',
+    sources: [
+      { title: 'American Academy of Dermatology · Perioral dermatitis', url: 'https://www.aad.org/public/diseases/a-z/perioral-dermatitis' },
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  {
+    slug: 'raised-itchy-welts-pattern', name: 'Raised itchy welts', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['urticaria-like'],
+    summary: 'Raised, itchy or burning patches can appear in different shapes and may be skin-coloured on brown or black skin.',
+    signals: ['raised itchy bumps or patches', 'different shapes and sizes', 'welts that fade, move or change', 'possible trigger such as heat, pressure, infection, sting, food or medicine'],
+    ingredients: ['pharmacist or clinician confirmation', 'do not guess a medicine trigger', 'avoid adding new skincare while the pattern is active'],
+    productTerms: [],
+    escalation: 'Get urgent clinical advice if the rash spreads, keeps returning, comes with fever or feeling unwell, or has swelling under the skin; spreading symptoms or deeper swelling needs same-day care. Lip, mouth, tongue or throat swelling, trouble breathing or swallowing, blue, grey or pale colour, severe dizziness, confusion or fainting needs emergency care now.',
+    sources: [
+      { title: 'NHS · Hives', url: 'https://www.nhs.uk/conditions/hives/' },
+      { title: 'NHS · Angioedema', url: 'https://www.nhs.uk/conditions/angioedema/' },
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  {
+    slug: 'tingling-facial-blisters-pattern', name: 'Tingling facial blisters', area: 'Face', kind: 'condition-pattern', clinicalPatternIds: ['cold-sore-like'],
+    summary: 'Tingling, itching or burning followed by small painful blisters on the outer lip or face needs infection-aware care.',
+    signals: ['tingling, itching or burning before blisters', 'small fluid-filled blisters on the outer lip or face', 'blisters that burst and form a scab', 'contagious until fully healed'],
+    ingredients: ['wash hands after touching the area', 'avoid kissing, oral sex and sharing personal items', 'pharmacist or clinician confirmation'],
+    productTerms: [],
+    escalation: 'Get medical review if the area is very large or painful, has not started healing within 10 days, comes with swollen painful gums or mouth sores, or affects someone who is pregnant or has weakened immunity. Blisters near an eye, eye pain, a worsening red eye, light sensitivity or vision changes need same-day assessment. Never kiss a newborn while a cold sore is active.',
+    sources: [
+      { title: 'NHS · Cold sores', url: 'https://www.nhs.uk/conditions/cold-sores/' },
+      { title: 'American Academy of Dermatology · Cold-sore treatment', url: 'https://www.aad.org/public/diseases/a-z/cold-sores-treatment' },
+      { title: 'American Academy of Dermatology · Herpes simplex signs', url: 'https://www.aad.org/public/diseases/a-z/herpes-simplex-symptoms' },
+    ],
+    reviewedAt: '2026-07-26',
+  },
 ];
 
 export const concernBySlug = (slug: string) => concerns.find(concern => concern.slug === slug);

@@ -287,3 +287,45 @@ test('cosmetic-looking safety guides are sourced, examination-first and product-
     assert.doesNotMatch(guidance, /you have|diagnos|recommended product|buy now/i);
   }
 });
+
+test('common cosmetic look-alikes remain observable, sourced and product-ineligible', () => {
+  const expected = [
+    {
+      slug: 'mouth-area-bumps-pattern',
+      pattern: 'periorificial-dermatitis-like',
+      sources: ['https://www.aad.org/public/diseases/a-z/perioral-dermatitis'],
+      terms: ['different plan from acne', 'in-person skin examination', 'prescribed steroid', 'same-day medical assessment'],
+    },
+    {
+      slug: 'raised-itchy-welts-pattern',
+      pattern: 'urticaria-like',
+      sources: [
+        'https://www.nhs.uk/conditions/hives/',
+        'https://www.nhs.uk/conditions/angioedema/',
+      ],
+      terms: ['skin-coloured', 'swelling under the skin', 'emergency care now', 'do not guess a medicine trigger'],
+    },
+    {
+      slug: 'tingling-facial-blisters-pattern',
+      pattern: 'cold-sore-like',
+      sources: [
+        'https://www.nhs.uk/conditions/cold-sores/',
+        'https://www.aad.org/public/diseases/a-z/cold-sores-treatment',
+        'https://www.aad.org/public/diseases/a-z/herpes-simplex-symptoms',
+      ],
+      terms: ['contagious until fully healed', 'same-day assessment', 'never kiss a newborn', 'outer lip or face'],
+    },
+  ];
+
+  for (const item of expected) {
+    const concern = concerns.find(candidate => candidate.slug === item.slug);
+    assert.ok(concern, item.slug);
+    assert.equal(concern.kind, 'condition-pattern');
+    assert.deepEqual(concern.clinicalPatternIds, [item.pattern]);
+    assert.deepEqual(concern.productTerms, []);
+    assert.deepEqual(concern.sources.map(source => source.url), item.sources);
+    const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+    for (const term of item.terms) assert.ok(guidance.includes(term), `${item.slug} is missing ${term}`);
+    assert.doesNotMatch(guidance, /you have|diagnos|recommended product|buy now/i);
+  }
+});

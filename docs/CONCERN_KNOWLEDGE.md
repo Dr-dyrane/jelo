@@ -18,6 +18,18 @@ Parity does not turn a guide into a diagnosis. Public pattern labels remain obse
 
 Tests must cover the representative pattern, a close alternative, the referral level and timing, and the API boundary (`modelCalls: 0` and no products) for any path that needs human review.
 
+## Common cosmetic look-alikes
+
+Reviewed 2026-07-26. Three frequent-looking skincare questions now have explicit non-diagnostic boundaries:
+
+| Public guide | Boundary | Primary guidance |
+| --- | --- | --- |
+| Small bumps around the mouth | Distinguished from comedonal acne, cold sores and impetigo; routes to an examination before acne treatment and never tells someone to stop a prescribed steroid without the prescriber. | [AAD · Perioral dermatitis](https://www.aad.org/public/diseases/a-z/perioral-dermatitis) |
+| Raised itchy welts | Allows skin-coloured welts on brown or black skin; routes ordinary cases to pharmacist review, deeper swelling to same-day care, and airway or collapse signals to emergency care. | [NHS · Hives](https://www.nhs.uk/conditions/hives/) and [NHS · Angioedema](https://www.nhs.uk/conditions/angioedema/) |
+| Tingling facial blisters | Distinguished from an inside-the-mouth ulcer, impetigo, a boil and shingles; adds contagious-contact guidance and same-day care for eye-area or newborn involvement. | [NHS · Cold sores](https://www.nhs.uk/conditions/cold-sores/), [AAD · Cold-sore treatment](https://www.aad.org/public/diseases/a-z/cold-sores-treatment) and [AAD · Herpes simplex signs](https://www.aad.org/public/diseases/a-z/herpes-simplex-symptoms) |
+
+All three are `condition-pattern` guides with no product terms. Their directed referrals stop model and catalogue output.
+
 ## Infection-warning cluster
 
 Reviewed 2026-07-22. This cluster fills the gap between existing fungal/infestation guides and presentations where browsing products should stop.

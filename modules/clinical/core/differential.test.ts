@@ -35,6 +35,9 @@ const patternCases = [
   ['Sudden itchy same-size bumps centred on hairs after sweating in tight clothing.', 'folliculitis'],
   ['A hard painful lump has a soft centre and is leaking pus.', 'boil-abscess-like'],
   ['I used an unlabelled bleaching cream and the label mentions mercury.', 'skin-lightening-exposure-like'],
+  ['Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.', 'periorificial-dermatitis-like'],
+  ['Raised itchy patches appear and disappear within hours and move around my body.', 'urticaria-like'],
+  ['Tingling came before small fluid-filled blisters on my lip that crusted into a scab.', 'cold-sore-like'],
 ] as const;
 
 test('recognizes broader condition-like patterns without labelling them diagnoses', () => {
@@ -74,6 +77,9 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('Sudden itchy same-size bumps centred on hairs after sweating in tight clothing.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('A hard painful lump has a soft centre and is leaking pus.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('I used an unlabelled bleaching cream and the label mentions mercury.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.').referral.level, 'dermatology');
+  assert.equal(assessClinicalRoutine('Raised itchy patches appear and disappear within hours and move around my body.').referral.level, 'pharmacist');
+  assert.equal(assessClinicalRoutine('Tingling came before small fluid-filled blisters on my lip that crusted into a scab.').referral.level, 'pharmacist');
 });
 
 test('wart-like ulcer warnings stop skincare without swallowing nearby patterns', () => {
@@ -257,6 +263,67 @@ test('higher-risk scabies contexts require clinician review', () => {
   assert.equal(child.differential.primary?.id, 'scabies-like');
   assert.equal(child.referral.level, 'primary-care');
   assert.equal(child.referral.urgency, 'soon');
+});
+
+test('facial acne look-alikes route to examination without swallowing acne or infections', () => {
+  const lookAlike = assessClinicalRoutine('Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.');
+  assert.equal(lookAlike.differential.primary?.id, 'periorificial-dermatitis-like');
+  assert.equal(lookAlike.referral.level, 'dermatology');
+  assert.equal(lookAlike.referral.urgency, 'soon');
+  assert.match(lookAlike.referral.action, /in-person skin examination/i);
+  assert.match(lookAlike.referral.action, /prescriber before changing any prescribed steroid/i);
+
+  assert.equal(assessClinicalRoutine('Blackheads and whiteheads on my forehead and chin with oily skin.').differential.primary?.id, 'acne-vulgaris');
+  assert.equal(assessClinicalRoutine('Tingling came before fluid-filled blisters on my lip.').differential.primary?.id, 'cold-sore-like');
+  assert.equal(assessClinicalRoutine('Sores burst and left spreading golden-brown crusts around my mouth.').differential.primary?.id, 'impetigo-like');
+});
+
+test('raised itchy welts preserve allergy emergencies and close rash alternatives', () => {
+  const ordinary = assessClinicalRoutine('Raised itchy patches appear and disappear within hours and move around my body.');
+  assert.equal(ordinary.differential.primary?.id, 'urticaria-like');
+  assert.equal(ordinary.referral.level, 'pharmacist');
+  assert.equal(ordinary.referral.urgency, 'soon');
+
+  const deeperSwelling = assessClinicalRoutine('I have hives with swelling under my skin on my hands.');
+  assert.equal(deeperSwelling.differential.primary?.id, 'urticaria-like');
+  assert.equal(deeperSwelling.referral.level, 'urgent');
+  assert.equal(deeperSwelling.referral.urgency, 'same-day');
+
+  const spreading = assessClinicalRoutine('My hives rash is spreading and I feel unwell.');
+  assert.equal(spreading.differential.primary?.id, 'urticaria-like');
+  assert.equal(spreading.referral.level, 'urgent');
+  assert.equal(spreading.referral.urgency, 'same-day');
+
+  const mouthSwelling = assessClinicalRoutine('I have hives and my lips and mouth are suddenly swollen.');
+  assert.equal(mouthSwelling.referral.level, 'emergency');
+  assert.equal(mouthSwelling.referral.urgency, 'immediate');
+
+  const emergency = assessClinicalRoutine('I have hives and my tongue is swollen and I am struggling to breathe.');
+  assert.equal(emergency.referral.level, 'emergency');
+  assert.equal(emergency.referral.urgency, 'immediate');
+
+  assert.equal(assessClinicalRoutine('Severe itching at night and other people at home are itchy.').differential.primary?.id, 'scabies-like');
+  assert.equal(assessClinicalRoutine('A fixed ring-shaped scaly patch has a raised edge.').differential.primary?.id, 'tinea-corporis-like');
+});
+
+test('tingling facial blisters preserve eye and newborn referral boundaries', () => {
+  const ordinary = assessClinicalRoutine('Tingling came before small fluid-filled blisters on my lip that crusted into a scab.');
+  assert.equal(ordinary.differential.primary?.id, 'cold-sore-like');
+  assert.equal(ordinary.referral.level, 'pharmacist');
+  assert.equal(ordinary.referral.urgency, 'soon');
+
+  const eyeArea = assessClinicalRoutine('I have a cold sore with blisters near my eye.');
+  assert.equal(eyeArea.differential.primary?.id, 'cold-sore-like');
+  assert.equal(eyeArea.referral.level, 'urgent');
+  assert.equal(eyeArea.referral.urgency, 'same-day');
+
+  const newborn = assessClinicalRoutine('I have an active cold sore and kissed my newborn.');
+  assert.equal(newborn.differential.primary?.id, 'cold-sore-like');
+  assert.equal(newborn.referral.level, 'urgent');
+  assert.equal(newborn.referral.urgency, 'same-day');
+
+  assert.notEqual(assessClinicalRoutine('One canker sore inside my mouth.').differential.primary?.id, 'cold-sore-like');
+  assert.equal(assessClinicalRoutine('Pain and tingling came before clustered blisters in a band on one side of my body.').differential.primary?.id, 'shingles-like');
 });
 
 test('named conditions interrupt even when ordinary acne ranks alongside them', () => {

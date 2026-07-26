@@ -112,6 +112,53 @@ const rules: PatternRule[] = [
     missing: ['What is the product name and full ingredient list?', 'Does the label mention mercury, mercurous, mercuric or calomel?', 'How long and how widely has it been used?', 'Could a pregnant person, breastfeeding person or child have been exposed?', 'Are there skin, eye, tremor, memory, thinking or urinary changes?'],
   },
   {
+    id: 'periorificial-dermatitis-like', label: 'Mouth-or-eye-area bump pattern',
+    positives: [
+      { terms: ['perioral dermatitis', 'periorificial dermatitis', 'periorbital dermatitis', 'perinasal dermatitis'], weight: 60, reason: 'A named mouth-, eye- or nose-area dermatitis was reported and needs confirmation.' },
+      { terms: ['small bumps around my mouth', 'small bumps around the mouth', 'acne-like bumps around my mouth', 'acne-like bumps around the mouth', 'pimple-like bumps around my mouth', 'pimple-like bumps around the mouth'], weight: 46, reason: 'Many small acne-like bumps limited to the mouth area support this look-alike pattern.' },
+      { terms: ['small bumps around my eyes', 'small bumps around the eyes', 'small bumps around my nose', 'small bumps around the nose'], weight: 38, reason: 'Small bumps around another facial opening add support.' },
+      { terms: ['burning around my mouth', 'itching around my mouth', 'dry flaky skin around my mouth', 'dry and flaky around my mouth'], weight: 20, reason: 'Burning, itch or flaking in the same area adds support.' },
+      { terms: ['hydrocortisone on my face', 'steroid cream on my face', 'corticosteroid on my face', 'steroid cream around my mouth'], weight: 22, reason: 'Facial corticosteroid use can be relevant to this pattern and should be reviewed safely.' },
+    ],
+    negatives: [
+      { terms: ['blackheads', 'whiteheads', 'comedones'], weight: 30, reason: 'Comedones support acne rather than this mouth-area dermatitis pattern.' },
+      { terms: ['tingling then blisters', 'fluid-filled blisters on my lip', 'fluid filled blisters on my lip'], weight: 42, reason: 'Tingling followed by fluid-filled lip blisters supports the cold-sore pathway.' },
+      { terms: ['golden-brown crust', 'golden brown crust', 'spreading crusts'], weight: 42, reason: 'Bursting sores with characteristic crusting support the impetigo pathway.' },
+    ],
+    missing: ['Are the bumps limited to the skin around the mouth, nose or eyes?', 'Are there blackheads or whiteheads?', 'Does the area burn, itch or flake?', 'Have you used hydrocortisone or another steroid cream there?', 'Is any facial medicine prescribed?'],
+  },
+  {
+    id: 'urticaria-like', label: 'Raised itchy-welt pattern',
+    positives: [
+      { terms: ['hives', 'urticaria', 'nettle rash', 'itchy welts', 'itchy wheals'], weight: 58, reason: 'A named hives condition or its common welt description was reported.' },
+      { terms: ['raised itchy patches', 'raised itchy bumps', 'raised itchy rash', 'puffy itchy patches'], weight: 38, reason: 'Raised itchy patches in different shapes and sizes support this pattern.' },
+      { terms: ['appear and disappear', 'comes and goes within hours', 'come and go within hours', 'moves around my body', 'move around my body', 'changes shape and location'], weight: 30, reason: 'Short-lived welts that change or move add support.' },
+      { terms: ['same colour as my skin', 'skin-coloured raised patches', 'skin-colored raised patches'], weight: 10, reason: 'Hives can be skin-coloured and may not look red on brown or black skin.' },
+    ],
+    negatives: [
+      { terms: ['itching worse at night', 'other people at home are itchy', 'skin burrows'], weight: 42, reason: 'Night itch with household spread supports the scabies pathway.' },
+      { terms: ['fixed scaly patch', 'same patch for weeks', 'ring-shaped scaly patch'], weight: 30, reason: 'A fixed scaly patch needs another rash pathway.' },
+      { terms: ['fluid-filled blisters', 'fluid filled blisters', 'golden-brown crust'], weight: 30, reason: 'Fluid-filled or characteristically crusted lesions need another pathway.' },
+    ],
+    missing: ['Are the areas raised and itchy?', 'Does each welt fade or move while new ones appear?', 'Is there swelling under the skin?', 'Did this begin after a medicine, food, sting or infection?', 'Is there lip, mouth, tongue or throat swelling, breathing trouble, dizziness or fainting?'],
+  },
+  {
+    id: 'cold-sore-like', label: 'Tingling facial-blister pattern',
+    positives: [
+      { terms: ['cold sore', 'cold sores', 'herpes labialis', 'fever blister', 'fever blisters'], weight: 60, reason: 'A named cold-sore condition was reported and needs confirmation.' },
+      { terms: ['tingling then blisters', 'tingling before blisters', 'tingling came before blisters', 'tingling came before fluid-filled blisters', 'tingling came before fluid filled blisters', 'burning before blisters', 'itching before blisters'], weight: 38, reason: 'Tingling, burning or itch before blisters supports this pattern.' },
+      { terms: ['small fluid-filled blisters on my lip', 'small fluid filled blisters on my lip', 'clustered fluid-filled blisters on my lip', 'clustered fluid filled blisters on my lip', 'painful blisters on my lip'], weight: 44, reason: 'Small painful fluid-filled blisters on the lip or face add support.' },
+      { terms: ['blisters burst and scab', 'blisters crusted into a scab', 'lip blisters crusted over'], weight: 20, reason: 'Blisters that burst and form a scab can fit this pattern.' },
+    ],
+    negatives: [
+      { terms: ['inside my mouth', 'inside the lip', 'canker sore', 'mouth ulcer'], weight: 42, reason: 'A sore inside the mouth or lip needs a mouth-ulcer pathway.' },
+      { terms: ['golden-brown crust', 'golden brown crust', 'spreading crusts'], weight: 42, reason: 'Spreading golden-brown crusts support the impetigo pathway.' },
+      { terms: ['pus-filled spot', 'pus filled spot', 'hard painful lump', 'soft centre'], weight: 32, reason: 'A pus-filled spot or deep lump needs the acne, boil or abscess pathway.' },
+      { terms: ['band on one side', 'one side of my body', 'one-sided body rash'], weight: 34, reason: 'A one-sided band of painful blisters supports the shingles pathway.' },
+    ],
+    missing: ['Did tingling, itching or burning come before the blisters?', 'Are the blisters on the outer lip or face rather than inside the mouth?', 'Is this near an eye?', 'Is a newborn, pregnant person or someone with weakened immunity involved?', 'Has it started healing within 10 days?'],
+  },
+  {
     id: 'xerosis', label: 'Dry-skin pattern',
     positives: [
       { terms: ['dry', 'flaky', 'ashy', 'scaly', 'tight'], weight: 28, reason: 'Dryness, scale or tightness was described.' },

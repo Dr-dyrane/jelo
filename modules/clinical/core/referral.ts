@@ -1,6 +1,6 @@
 import type { BarrierAssessment, ClinicalFinding, DifferentialAssessment, PatientProfile, ReferralAssessment } from './types';
 
-const emergencyTerms = ['trouble breathing', 'difficulty breathing', 'swollen tongue', 'swollen throat', 'fainting', 'anaphylaxis'];
+const emergencyTerms = ['trouble breathing', 'difficulty breathing', 'struggling to breathe', 'swollen tongue', 'tongue is swollen', 'swollen throat', 'throat is swollen', 'fainting', 'anaphylaxis'];
 const urgentTerms = ['rapidly spreading', 'severe pain', 'eye swelling', 'face swelling', 'blistering', 'skin peeling', 'fever', 'infected', 'painful rash', 'eye pain', 'blurred vision', 'light sensitivity', 'red eye', 'hot and swollen', 'chills', 'shivery'];
 const specialistTerms = ['scarring', 'deep cyst', 'nodules', 'persistent redness', 'visible veins', 'recurrent rash', 'months', 'not improving'];
 const changingLesionPatterns = [
@@ -119,6 +119,15 @@ export function assessReferral(input: {
   };
 
   const primaryId = input.differential.primary?.id;
+  const hivesPattern = primaryId === 'urticaria-like' || mentionsNamedPattern(normalized, /\b(?:hives|urticaria|nettle rash)\b/);
+  if (
+    hivesPattern
+    && /\b(?:(?:lips?|mouth|tongue|throat)\s+(?:is\s+|are\s+)?(?:suddenly\s+)?swollen|(?:suddenly\s+)?swollen\s+(?:lips?|mouth|tongue|throat)|swelling\s+(?:of|in)\s+(?:the\s+)?(?:lips?|mouth|tongue|throat))\b/.test(normalized)
+  ) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['Raised itchy welts with lip, mouth, tongue or throat swelling were reported.'],
+    action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
+  };
+
   if (primaryId === 'rapid-mouth-face-breakdown-like' || mentionsNamedPattern(normalized, /\b(?:noma|cancrum oris|gangrenous stomatitis)\b/)) return {
     level: 'urgent', urgency: 'same-day', reasons: ['A rapidly worsening gum-to-face warning pattern was reported.'],
     action: 'Arrange urgent in-person medical assessment today. Do not wait for skincare, mouthwash or home treatment to work.',
@@ -216,6 +225,53 @@ export function assessReferral(input: {
     level: 'primary-care', urgency: 'soon', reasons: ['A follicle-centred bump pattern was reported.'],
     action: 'Arrange an in-person skin review if this persists, recurs, hurts or remains uncertain; acne and folliculitis can look alike. Do not self-start antibiotics.',
   };
+
+  if (primaryId === 'periorificial-dermatitis-like' || mentionsNamedPattern(normalized, /\b(?:perioral|periorificial|periorbital|perinasal) dermatitis\b/)) return {
+    level: 'dermatology', urgency: 'soon', reasons: ['A mouth-, eye- or nose-area acne look-alike pattern was reported.'],
+    action: 'Arrange a non-urgent in-person skin examination before choosing acne treatment. Do not add acne actives, and ask the prescriber before changing any prescribed steroid medicine.',
+  };
+
+  if (hivesPattern) {
+    const deeperSwelling = /\b(?:swelling under (?:my|the) skin|under[- ]skin swelling|angioedema|hands? suddenly swollen|feet suddenly swollen|genitals? suddenly swollen)\b/.test(normalized);
+    const worsening = /\b(?:rash (?:is )?spreading|hives (?:are|is) spreading|high temperature|feel(?:ing)? unwell)\b/.test(normalized);
+    const medicineLinked = /\b(?:after|since)\b.{0,36}\b(?:medicine|medication|drug|antibiotic|painkiller)\b/.test(normalized)
+      || /\b(?:medicine|medication|drug|antibiotic|painkiller)\b.{0,36}\b(?:hives|raised itchy|welts?|wheals?)\b/.test(normalized);
+    if (deeperSwelling || worsening) return {
+      level: 'urgent', urgency: 'same-day', reasons: ['Raised itchy welts with worsening symptoms or deeper swelling were reported.'],
+      action: 'Arrange same-day in-person medical assessment. Seek emergency care now for lip, mouth, tongue or throat swelling, breathing or swallowing trouble, dizziness, confusion or fainting.',
+    };
+    if (medicineLinked || /\b(?:keeps coming back|recurring hives|recurrent hives|not improving after 2 days|not improved after 2 days)\b/.test(normalized)) return {
+      level: 'primary-care', urgency: 'soon', reasons: ['A recurring, persistent or medicine-linked raised-welt pattern was reported.'],
+      action: 'Arrange clinician review before choosing treatment. Do not stop a prescribed medicine unless the prescriber or an emergency clinician tells you to.',
+    };
+    return {
+      level: 'pharmacist', urgency: 'soon', reasons: ['A raised itchy-welt pattern was reported.'],
+      action: 'Ask a pharmacist or clinician to confirm the pattern and check whether an antihistamine is suitable. Get urgent help if the rash spreads, keeps returning, comes with fever or deeper swelling.',
+    };
+  }
+
+  if (primaryId === 'cold-sore-like' || mentionsNamedPattern(normalized, /\b(?:cold sores?|herpes labialis|fever blisters?)\b/)) {
+    const eyeArea = /\b(?:near|around|by|on)\s+(?:my|the)?\s*(?:eye|eyelid)\b/.test(normalized)
+      || /\b(?:eye|eyelid)\b.{0,32}\b(?:blister|rash|sore)\b/.test(normalized)
+      || /\b(?:blister|rash|sore)\b.{0,32}\b(?:eye|eyelid)\b/.test(normalized);
+    const newbornContext = /\b(?:newborn|new-born|baby under 4 weeks|baby under four weeks)\b/.test(normalized)
+      && /\b(?:kiss(?:ed|ing)?|touch(?:ed|ing)?|contact|rash|blister|sore|fever|not feeding)\b/.test(normalized);
+    const higherRisk = input.profile.pregnant
+      || weakenedImmunity
+      || /\b(?:diabetes|diabetic|chemotherapy)\b/.test(normalized);
+    if (eyeArea || newbornContext) return {
+      level: 'urgent', urgency: 'same-day', reasons: ['A facial-blister pattern involves the eye area or a newborn.'],
+      action: 'Arrange same-day medical assessment. Avoid touching the sore or the eye, and do not kiss a newborn while a cold sore is active.',
+    };
+    if (higherRisk || /\b(?:very large|very painful|swollen painful gums|sores in my mouth|not healing after 10 days|not started to heal within 10 days)\b/.test(normalized)) return {
+      level: 'primary-care', urgency: 'soon', reasons: ['A facial-blister pattern and a higher-risk or persistent context were reported.'],
+      action: 'Arrange clinician review before choosing treatment. Keep the area away from other people and wash your hands after touching it.',
+    };
+    return {
+      level: 'pharmacist', urgency: 'soon', reasons: ['A tingling facial-blister pattern was reported.'],
+      action: 'Ask a pharmacist or clinician to confirm the pattern before choosing treatment. Avoid kissing, oral sex and sharing items until the area has fully healed.',
+    };
+  }
 
   if (primaryId === 'numb-patch-like') return {
     level: 'primary-care', urgency: 'soon', reasons: [`The leading pattern is ${input.differential.primary?.label}.`],

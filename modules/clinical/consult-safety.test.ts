@@ -201,6 +201,24 @@ test('published guide-parity patterns stop model and product guidance with deter
       safetyLevel: 'clinician-review',
       action: /prompt medical or poison-service advice/i,
     },
+    {
+      query: 'Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.',
+      patternId: 'periorificial-dermatitis-like',
+      safetyLevel: 'clinician-review',
+      action: /in-person skin examination/i,
+    },
+    {
+      query: 'Raised itchy patches appear and disappear within hours and move around my body.',
+      patternId: 'urticaria-like',
+      safetyLevel: 'clinician-review',
+      action: /pharmacist or clinician/i,
+    },
+    {
+      query: 'Tingling came before small fluid-filled blisters on my lip that crusted into a scab.',
+      patternId: 'cold-sore-like',
+      safetyLevel: 'clinician-review',
+      action: /pharmacist or clinician/i,
+    },
   ] as const;
 
   for (const expected of cases) {
@@ -263,6 +281,9 @@ test('named conditions stop model and product use even beside product-eligible a
     ['I have folliculitis and oily acne.', 'primary-care'],
     ['I have a boil and oily acne.', 'primary-care'],
     ['I used a bleaching cream and also have oily acne.', 'primary-care'],
+    ['I have perioral dermatitis and oily acne.', 'dermatology'],
+    ['I have hives and oily acne.', 'pharmacist'],
+    ['I have a cold sore and oily acne.', 'pharmacist'],
   ] as const;
 
   for (const [query, referralLevel] of cases) {
@@ -285,6 +306,28 @@ test('a boil on the face stops model and products for same-day assessment', asyn
   assert.equal(payload.meta.safetyInterrupt, true);
   assert.deepEqual(payload.products, []);
   assert.match(payload.report.summary, /same-day in-person medical assessment/i);
+});
+
+test('new look-alike patterns fail closed at higher-risk boundaries', async () => {
+  const cases = [
+    ['I have hives with swelling under my skin on my hands.', 'urticaria-like', 'urgent', /same-day/i],
+    ['My hives rash is spreading and I feel unwell.', 'urticaria-like', 'urgent', /same-day/i],
+    ['I have hives and my lips and mouth are suddenly swollen.', 'urticaria-like', 'emergency', /emergency care now/i],
+    ['I have hives and my tongue is swollen and I am struggling to breathe.', 'urticaria-like', 'emergency', /emergency care now/i],
+    ['I have a cold sore with blisters near my eye.', 'cold-sore-like', 'urgent', /same-day/i],
+    ['I have an active cold sore and kissed my newborn.', 'cold-sore-like', 'urgent', /same-day/i],
+  ] as const;
+
+  for (const [query, patternId, safetyLevel, action] of cases) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+    assert.equal(payload.clinical.differential.primary?.id, patternId, query);
+    assert.equal(payload.meta.safetyLevel, safetyLevel, query);
+    assert.equal(payload.meta.modelCalls, 0, query);
+    assert.equal(payload.meta.safetyInterrupt, true, query);
+    assert.deepEqual(payload.products, [], query);
+    assert.match(payload.report.summary, action, query);
+  }
 });
 
 test('rapid mouth-to-face warning signs never reach AI or products', async () => {
