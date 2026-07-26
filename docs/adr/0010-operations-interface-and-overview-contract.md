@@ -18,7 +18,7 @@ schema data; that implementation is evidence for review, not proof of the
 right operator information architecture. Its strongest current decisions are
 systemic:
 
-- one concise page context;
+- one concise page title;
 - a dense collection that supports scanning;
 - one continuous inspector rather than nested cards;
 - a visible selected state and predictable advancement;
@@ -90,7 +90,7 @@ Other operations pages reuse these principles:
 - Manrope-only interface typography;
 - low-chroma operations tokens;
 - borderless surface hierarchy;
-- short page context;
+- one stable page title with no explanatory subtitle;
 - decision-relevant information first;
 - stable URL meaning;
 - slender controls and quiet status treatments;
@@ -315,7 +315,8 @@ tiles or embedded individual-record triage.
 
 ### Canonical anatomy
 
-1. **Page context** — `Overview` and one concise load statement.
+1. **Page context** — `Overview` only. Counts, freshness, and queue state live
+   in their relevant sections, never in a generated header subtitle.
 2. **Up next** — the first two real records from the recommended actionable
    queue, with a human title, one decision-relevant fact, age, and optional
    approved exact product image.

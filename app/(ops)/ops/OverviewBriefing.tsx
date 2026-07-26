@@ -144,7 +144,6 @@ export function OverviewBriefing({ briefing }: { briefing: OverviewBriefingReadM
   const detailPortalTarget = useSyncExternalStore(subscribeToDetailPane, getDetailPaneSnapshot, () => null);
   const isDesktop = useSyncExternalStore(subscribeToDesktopViewport, getDesktopViewportSnapshot, () => true);
   const selectedQueue = briefing.queues.find(queue => queue.kind === selectedKind) ?? briefing.queues[0] ?? null;
-  const hasPendingWork = briefing.pendingTotal > 0;
 
   const closeInspector = useCallback(() => {
     setOverlayOpen(false);
@@ -241,15 +240,6 @@ export function OverviewBriefing({ briefing }: { briefing: OverviewBriefingReadM
     }}>
       <header className={styles.context}>
         <h1 id="overview-heading">Overview</h1>
-        <p>
-          <span aria-live="polite">
-            {hasPendingWork
-              ? `${briefing.pendingTotal} awaiting review`
-              : 'Nothing awaiting review'}
-          </span>
-          <span aria-hidden="true"> · </span>
-          <span>Updated <RelativeTime iso={briefing.generatedAt} /></span>
-        </p>
       </header>
 
       {briefing.attentionItems.length > 0 ? (

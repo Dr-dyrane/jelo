@@ -97,3 +97,16 @@ test('the Ops shell owns the viewport while each workspace owns its scroll', asy
     /\.contentWrapper\s*\{[\s\S]*?height:\s*100dvh\s*!important;[\s\S]*?min-height:\s*0\s*!important;[\s\S]*?overflow:\s*hidden;/,
   );
 });
+
+test('Ops workspace headers stay single-line and never narrate route state', async () => {
+  const root = process.cwd();
+  const [overview, loading] = await Promise.all([
+    readFile(path.join(root, 'app/(ops)/ops/OverviewBriefing.tsx'), 'utf8'),
+    readFile(path.join(root, 'app/(ops)/ops/loading.tsx'), 'utf8'),
+  ]);
+  const header = overview.match(/<header className=\{styles\.context\}>[\s\S]*?<\/header>/)?.[0] ?? '';
+
+  assert.match(header, /<h1 id="overview-heading">Overview<\/h1>/);
+  assert.doesNotMatch(header, /<p>|pendingTotal|RelativeTime|awaiting review|Updated/);
+  assert.doesNotMatch(loading, /skeletonText/);
+});

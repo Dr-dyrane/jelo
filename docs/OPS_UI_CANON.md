@@ -66,6 +66,12 @@ placed beside one another.
 
 ## Candidate anatomy
 
+Top-level workspace headers name the location once: `Overview`,
+`Observations`, `Contributions`, and so on. Do not generate explanatory
+subtitles, queue totals, freshness labels, or state prose beneath them. Put
+those facts in the section or inspector that owns them. Loading skeletons must
+preserve the same single-line header geometry.
+
 Every queue page follows the same system:
 
 1. Navigation instrument

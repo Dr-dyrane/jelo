@@ -36,7 +36,6 @@
 .sectionHeading h2,
 .auditHeading h3 { font-size: 1rem; }
 
-.context p,
 .sectionHeading p,
 .upNextHeading p,
 .upNextUnavailable,
@@ -598,7 +597,6 @@
 
 .skeletonTitle,
 .skeletonHeading,
-.skeletonText,
 .skeletonButton,
 .skeletonFeatureCard,
 .skeletonRow,
@@ -616,7 +614,6 @@
 
 .skeletonTitle { width: 8rem; height: 1.6rem; }
 .skeletonHeading { width: 5.5rem; height: 1rem; }
-.skeletonText { width: min(16rem, 70vw); height: .8rem; }
 .skeletonButton { width: 8rem; height: var(--touch-min); }
 .skeletonFeatureShelf {
   display: grid;
@@ -804,7 +801,6 @@
 @media (prefers-reduced-motion: reduce) {
   .skeletonTitle,
   .skeletonHeading,
-  .skeletonText,
   .skeletonButton,
   .skeletonFeatureCard,
   .skeletonRow,

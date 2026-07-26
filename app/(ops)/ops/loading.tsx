@@ -7,7 +7,6 @@ export default function LoadingOverview() {
       <div className={styles.briefing} role="status" aria-label="Loading overview">
         <div className={styles.context} aria-hidden="true">
           <div className={styles.skeletonTitle} />
-          <div className={styles.skeletonText} />
         </div>
         <div className={styles.upNextSection} aria-hidden="true">
           <div className={styles.skeletonHeading} />
