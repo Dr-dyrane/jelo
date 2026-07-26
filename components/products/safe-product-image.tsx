@@ -8,18 +8,20 @@ type Props = {
   src: string;
   alt: string;
   className?: string;
+  priority?: boolean;
 };
 
 const fallback = '/product-placeholder.svg';
 
-export function SafeProductImage({ src, alt, className }: Props) {
+export function SafeProductImage({ src, alt, className, priority = false }: Props) {
   const [current, setCurrent] = useState(src);
   return (
     <img
       src={current}
       alt={alt}
       className={className}
-      loading="lazy"
+      loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : 'auto'}
       decoding="async"
       referrerPolicy="no-referrer"
       onError={() => {

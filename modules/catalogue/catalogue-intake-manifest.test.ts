@@ -24,19 +24,57 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 29);
-  assert.equal(catalogueIntakeDecisions.length, 29);
+  assert.equal(catalogueIntakeCandidates.length, 30);
+  assert.equal(catalogueIntakeDecisions.length, 30);
   assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 29);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 13);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 15);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 29);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 29);
+});
+
+test('the Simple replenishing moisturiser binds UK identity while holding formula, pack and rights variance', () => {
+  const candidate = catalogueIntakeCandidates.find(item => item.id === 'c28f590dd2739ea73f1b5ea3');
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '5011451103948');
+  assert.equal(
+    candidate.identity.officialProductUrl,
+    'https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948',
+  );
+  assert.match(candidate.identity.packageVersion ?? '', /current grey[\s\S]+older Nigerian/i);
+  assert.equal(candidate.care.status, 'pending');
+  assert.match(candidate.care.formulaArchetype ?? '', /UK[\s\S]+pantolactone[\s\S]+India[\s\S]+niacinamide/i);
+  assert.deepEqual(candidate.care.evidenceUrls, [
+    'https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948',
+    'https://www.simpleskincare.in/products/replenishing-rich-moisturiser-with-glycerin-pro-vit-b5-125ml',
+  ]);
+  assert.equal(candidate.asset.rightsStatus, 'unresolved');
+  assert.equal(candidate.asset.sourceUrl, 'https://assets.unileversolutions.com/v1/123557875.png');
+  assert.equal(candidate.asset.sourceAssetSha256, '0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992');
+  assert.deepEqual([candidate.asset.sourceAssetWidth, candidate.asset.sourceAssetHeight], [2880, 2880]);
+  assert.equal(candidate.asset.sourceAssetRetrievedAt, undefined);
+  assert.equal(candidate.nigeria.exactOffers.length, 1);
+  assert.equal(candidate.nigeria.exactOffers[0]?.retailer, 'Nectar Beauty Hub');
+  assert.equal(candidate.nigeria.exactOffers[0]?.priceNgn, 4799);
+  assert.equal(candidate.nigeria.exactOffers[0]?.evidence, undefined);
+  assert.equal(candidate.nigeria.excludedObservations.length, 2);
+  assert.equal(candidate.nigeria.excludedObservations[0]?.retailer, 'BuyBetter');
+  assert.equal(candidate.nigeria.excludedObservations[0]?.evidence.fields.retailerIdentifier?.value, '5011451103948');
+  assert.ok(candidate.nigeria.excludedObservations[0]?.exclusionReasons.includes('retailer-identifier-only'));
+  assert.ok(candidate.nigeria.excludedObservations[0]?.exclusionReasons.includes('package-variant-conflict'));
+  assert.equal(candidate.nigeria.excludedObservations[1]?.retailer, 'Lux Beauty');
+  assert.ok(candidate.nigeria.excludedObservations[1]?.exclusionReasons.includes('retailer-identifier-only'));
+  assert.ok(candidate.nigeria.excludedObservations[1]?.exclusionReasons.includes('package-variant-conflict'));
+  const decision = catalogueIntakeDecisions.find(item => item.candidate.id === candidate.id);
+  assert.equal(decision?.stage, 'identity');
+  assert.equal(decision?.approvalDraftReady, false);
+  assert.equal(decision?.freshExactOffers.length, 0);
 });
 
 test('the Cécred deep conditioner binds its exact full-size identity, two Nigerian prices and reviewed render', () => {
@@ -1030,7 +1068,7 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 15);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
   ), 0), 58);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-07-23T20:20:00Z",
+  "updatedAt": "2026-07-26T05:56:22Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -9165,6 +9165,193 @@
         "artReviewedAt": "2026-07-23T20:19:00Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "c28f590dd2739ea73f1b5ea3",
+      "brand": "Simple",
+      "name": "Kind to Skin Replenishing Rich Moisturiser",
+      "variant": "Kind to Skin Replenishing Rich Moisturiser 125 ml",
+      "size": "125 ml",
+      "category": "Face care",
+      "reason": "Advances the existing community-priority discovery lead without minting a second SKU. The official Simple UK product route binds Kind to Skin Replenishing Rich Moisturiser, canonical GTIN-13 5011451103948 and the 125 ml presentation. Official UK and India pages publish materially different ingredient lists, and Nigerian listings span current and older packaging, so neither market formula is attributed to Nigerian stock without a matching back-label review. Nectar Beauty Hub shows the current boxed pack at ₦4,799 in stock but remains an unbound research lead because no controlled listing-response capture was retained. BuyBetter and Lux Beauty show the older Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA presentation and are excluded from exact comparison for package conflict and retailer-only identifiers.",
+      "priority": "essential",
+      "gapIds": [
+        "daily-facial-moisturising",
+        "dry-skin-moisture-support",
+        "sensitive-skin-routine-coverage"
+      ],
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/simple-kind-to-skin-replenishing-rich-moisturizer-125ml/",
+        "https://nectarbeautyhub.com/products/simple-replenishing-rich-moisturiser-125ml",
+        "https://www.luxbeautyng.com/product/simple-kind-to-skin-replenishing-rich-moisturiser-125ml/"
+      ],
+      "identity": {
+        "gtin": "5011451103948",
+        "officialProductUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+        "checkedAt": "2026-07-26T05:56:22Z",
+        "basis": "official-brand",
+        "packageVersion": "Current grey 100%-recycled-plastic 125 ml bottle and boxed Instantly Smoothing presentation; older Nigerian listing images show a white Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA package"
+      },
+      "care": {
+        "status": "pending",
+        "formulaArchetype": "Formula-variant research hold: the official UK list includes pantolactone and omits niacinamide, citric acid, sodium chloride and allantoin; the official India list adds niacinamide, citric acid, sodium chloride and allantoin and omits pantolactone. Both list glycerin, panthenol, bisabolol and UV filters, but neither list is attributed to Nigerian stock without a matching package back label.",
+        "advisoryBoundary": "Daily moisturiser research only. Do not infer the formula, suitability or UV-protection performance of Nigerian stock from another market's page while current and older package versions coexist.",
+        "manufacturerEvidenceUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+        "evidenceUrls": [
+          "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+          "https://www.simpleskincare.in/products/replenishing-rich-moisturiser-with-glycerin-pro-vit-b5-125ml"
+        ]
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [
+          {
+            "retailer": "Nectar Beauty Hub",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://nectarbeautyhub.com/products/simple-replenishing-rich-moisturiser-125ml",
+            "observedAt": "2026-07-26T05:56:22Z",
+            "observedTitle": "Simple Replenishing Rich Moisturiser - 125ml",
+            "observedSize": "125 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current grey 100%-recycled-plastic 125 ml bottle and boxed Instantly Smoothing presentation; older Nigerian listing images show a white Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA package",
+            "priceNgn": 4799,
+            "stock": "in-stock"
+          }
+        ],
+        "excludedObservations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/simple-kind-to-skin-replenishing-rich-moisturizer-125ml/",
+            "observedAt": "2026-07-26T05:41:58Z",
+            "observedTitle": "SIMPLE Kind To Skin Replenishing Rich Moisturizer 125ml",
+            "observedSize": "125 ml",
+            "priceNgn": 4790,
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only",
+              "package-variant-conflict"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://buybetter.ng/product/simple-kind-to-skin-replenishing-rich-moisturizer-125ml/",
+              "responseSha256": "4a5a5a83beb77bda49b24864d69805b5159e8aab0cd8cf38bd23c6ac6e2a122f",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 814535,
+              "retrievedAt": "2026-07-26T05:41:58Z",
+              "fields": {
+                "title": {
+                  "value": "SIMPLE Kind To Skin Replenishing Rich Moisturizer 125ml",
+                  "locator": "HTML document title and WooCommerce product heading",
+                  "sourceText": "SIMPLE Kind To Skin Replenishing Rich Moisturizer 125ml"
+                },
+                "size": {
+                  "value": "125 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "SIMPLE Kind To Skin Replenishing Rich Moisturizer 125ml"
+                },
+                "price": {
+                  "value": 4790,
+                  "currency": "NGN",
+                  "locator": "HTML WooCommerce product price",
+                  "sourceText": "₦4,790.00 NG"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "HTML WooCommerce stock count",
+                  "sourceText": "36 in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "5011451103948",
+                  "locator": "HTML WooCommerce product_meta SKU field",
+                  "sourceText": "SKU 5011451103948"
+                },
+                "packageVariantConflict": {
+                  "value": "Older Skin Smoothing Actives package",
+                  "locator": "WooCommerce primary product-gallery image",
+                  "sourceText": "Listing image shows the older white 125 ml bottle with Skin Smoothing Actives, vitamin B5+E + niacinamide and PETA panel, rather than the current official UK grey recycled-plastic and Instantly Smoothing presentation."
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-26T05:41:58Z"
+            }
+          },
+          {
+            "retailer": "Lux Beauty",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.luxbeautyng.com/product/simple-kind-to-skin-replenishing-rich-moisturiser-125ml/",
+            "observedAt": "2026-07-26T05:54:16Z",
+            "observedTitle": "Simple Kind to Skin Replenishing Rich Moisturiser 125ml",
+            "observedSize": "125 ml",
+            "priceNgn": 5999,
+            "stock": "in-stock",
+            "disposition": "excluded-from-exact-comparison",
+            "exclusionReasons": [
+              "retailer-identifier-only",
+              "package-variant-conflict"
+            ],
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-retailer-observation",
+              "responseUrl": "https://www.luxbeautyng.com/product/simple-kind-to-skin-replenishing-rich-moisturiser-125ml/",
+              "responseSha256": "fc05b71c4b18860b655861495bc9c4842693addd345b792166ac88e40b28fc96",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "text/html",
+              "responseByteSize": 124524,
+              "retrievedAt": "2026-07-26T05:54:16Z",
+              "fields": {
+                "title": {
+                  "value": "Simple Kind to Skin Replenishing Rich Moisturiser 125ml",
+                  "locator": "JSON-LD Product.name",
+                  "sourceText": "Simple Kind to Skin Replenishing Rich Moisturiser 125ml"
+                },
+                "size": {
+                  "value": "125 ml",
+                  "locator": "JSON-LD Product.name size suffix",
+                  "sourceText": "Simple Kind to Skin Replenishing Rich Moisturiser 125ml"
+                },
+                "price": {
+                  "value": 5999,
+                  "currency": "NGN",
+                  "locator": "JSON-LD UnitPriceSpecification",
+                  "sourceText": "\"price\":\"5999.00\",\"priceCurrency\":\"NGN\""
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "JSON-LD Offer.availability",
+                  "sourceText": "\"availability\":\"https://schema.org/InStock\""
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "6712",
+                  "locator": "JSON-LD Product.sku",
+                  "sourceText": "\"sku\":6712"
+                },
+                "packageVariantConflict": {
+                  "value": "Older Skin Smoothing Actives package",
+                  "locator": "JSON-LD Product.image and primary WooCommerce gallery image",
+                  "sourceText": "Listing image shows multiple older white 125 ml bottles with Skin Smoothing Actives, vitamin B5+E + niacinamide and PETA panels, rather than the current official UK grey recycled-plastic and Instantly Smoothing presentation."
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-26T05:54:16Z"
+            }
+          }
+        ]
+      },
+      "asset": {
+        "rightsStatus": "unresolved",
+        "sourceUrl": "https://assets.unileversolutions.com/v1/123557875.png",
+        "sourceAssetSha256": "0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 1637017,
+        "sourceAssetWidth": 2880,
+        "sourceAssetHeight": 2880
       }
     }
   ]

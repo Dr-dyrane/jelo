@@ -85,7 +85,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}/> : null}
       <main className="product-page">
       <section className="product-hero">
-        <div className="product-visual-large"><SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`}/></div>
+        <div className="product-visual-large"><SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} priority/></div>
         <div className="product-story">
           <p className="eyebrow">{product.brand}</p>
           <h1>{product.name}</h1>
