@@ -36,6 +36,8 @@
     "catalogue:discovery:screen": "tsx scripts/screen-catalogue-discovery.ts",
     "catalogue:research:build": "tsx scripts/build-catalogue-research-queue.ts",
     "catalogue:research:verify": "tsx scripts/verify-catalogue-research-queue.ts",
+    "catalogue:research:packets": "tsx scripts/prepare-catalogue-research-packets.ts",
+    "catalogue:research:packets:verify": "tsx scripts/verify-catalogue-research-packets.ts",
     "catalogue:pipeline:status": "tsx scripts/report-catalogue-pipeline.ts",
     "catalogue:intake:audit": "tsx scripts/audit-catalogue-intake.ts",
     "catalogue:publication:verify": "tsx scripts/verify-catalogue-publication-dossiers.ts",

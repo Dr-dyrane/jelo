@@ -1,6 +1,6 @@
 # Catalogue operations
 
-Updated: 2026-07-23
+Updated: 2026-07-26
 
 Release one exact product at a time. Discovery can run in parallel; evidence and publication cannot be assumed.
 
@@ -9,6 +9,7 @@ Release one exact product at a time. Discovery can run in parallel; evidence and
 ```text
 Retailer discovery
   -> deterministic research queue
+  -> private evidence packet
   -> deliberate per-SKU intake
   -> identity and package evidence
   -> bounded care review
@@ -56,7 +57,33 @@ Choose a candidate for:
 
 The frozen Open Beauty Facts pool and retailer discovery leads are private research. They are not public catalogue products.
 
-## 3. Lock identity
+## 3. Prepare a private evidence packet
+
+Use the packet preparer before authoring a new deliberate intake candidate. It makes the missing proofs visible without creating a product, changing `data/catalogue-intake.json`, or granting publication permission.
+
+The checked-in first batch is deliberately limited to eight traceable static priorities. Its discovery response digests, retailer listings, and retailer-local code leads live in `data/catalogue-research-evidence-packets.json`.
+
+```bash
+# One current static priority
+npm run catalogue:research:packets -- --static <discovery-id>
+
+# A bounded static batch (1–12); --write only updates the private packet manifest
+npm run catalogue:research:packets -- --batch 8 --write
+npm run catalogue:research:packets:verify
+```
+
+When a server-side aggregate community report has been generated, it can seed an ephemeral private batch. It retains only task-level label, source, signal count and timing; never contributor, draft, submission, contact, or session identifiers.
+
+```bash
+npm run community:research:signals -- --json > .cache/community-research-signals.json
+npm run catalogue:research:packets -- \
+  --community-report .cache/community-research-signals.json \
+  --batch 8 --write --out .cache/community-evidence-packets.json
+```
+
+Every packet begins with six empty proof slots: official identity, care, exact Nigerian offers, rights/source bytes, final image, and generation. A packet is not a partial `CatalogueIntakeCandidate`; copy verified evidence into a new deliberate candidate only after all applicable gates can be met. Retailer codes remain retailer-local leads even when their shape resembles a GTIN.
+
+## 4. Lock identity
 
 Record the exact brand, variant, size, package version, and manufacturer identifier.
 
@@ -71,7 +98,7 @@ Retailer SKUs remain retailer-local. Never promote one into a manufacturer GTIN.
 
 Identity artifacts are checked against their declared bytes and hashes. Package revisions must stay distinct.
 
-## 4. Review care
+## 5. Review care
 
 Care review establishes a narrow role, not a marketing claim.
 
@@ -82,7 +109,7 @@ Care review establishes a narrow role, not a marketing claim.
 - NAFDAC status is useful context; pending status is not a publication blocker.
 - Keep neutral catalogue references out of clinical matching.
 
-## 5. Capture Nigerian offers
+## 6. Capture Nigerian offers
 
 An exact observation binds:
 
@@ -99,7 +126,7 @@ Use the rendered browser for stores such as Beauty by Daz when automation is blo
 
 Slique Beauty is provisional and link-only under the current policy. Do not reuse its images or descriptions.
 
-## 6. Produce the image
+## 7. Produce the image
 
 The public asset must:
 
@@ -122,7 +149,7 @@ npm run catalogue:publication:images:verify
 npm run assets:verify
 ```
 
-## 7. Update the deliberate intake
+## 8. Update the deliberate intake
 
 The candidate lives in `data/catalogue-intake.json`. Keep its identity, care, Nigerian, rights, editorial, and asset fields internally consistent.
 
@@ -135,7 +162,7 @@ npm test
 
 An approval-ready result means the code gate found no blocker. It is not public yet.
 
-## 8. Create the dossier and release
+## 9. Create the dossier and release
 
 First run the release operator without `--write`. Supply explicit ISO timestamps and presentation copy.
 
@@ -167,7 +194,7 @@ npm run catalogue:research:build -- --write
 npm run catalogue:research:verify
 ```
 
-## 9. Run publication gates
+## 10. Run publication gates
 
 ```bash
 npm run catalogue:publication:verify
@@ -187,7 +214,7 @@ npm run inventory:audit
 npm run inventory:prices
 ```
 
-## 10. Verify the experience
+## 11. Verify the experience
 
 Check desktop and mobile:
 
@@ -210,4 +237,5 @@ After push, verify the exact production deployment and custom domain before call
 - Treat a retailer SKU as the manufacturer barcode.
 - Repair a clipped or conflicting image into false evidence.
 - Edit a deterministic research projection by hand.
+- Treat a private evidence packet as an intake candidate, dossier, release, or public product.
 - Remove a failing gate to release faster.
