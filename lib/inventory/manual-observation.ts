@@ -35,7 +35,7 @@ export async function resolveManualInventoryOperator(sql: Sql): Promise<ManualOp
 
 export async function resolveExactManualObservationOffer(
   sql: Sql,
-  command: Pick<ManualObservationCommand, 'productSlug' | 'retailer' | 'url'>,
+  command: Pick<ManualObservationCommand, 'productSlug' | 'retailer' | 'url' | 'marketCode'>,
 ): Promise<ManualObservationOffer> {
   const rows = await sql<ManualObservationOffer[]>`
     select
@@ -54,11 +54,12 @@ export async function resolveExactManualObservationOffer(
       and lower(r.name) = lower(${command.retailer})
       and o.match_kind = 'exact'
       and (${command.url ?? null}::text is null or o.url = ${command.url ?? null})
+      and (${command.marketCode ?? null}::text is null or o.market_code = ${command.marketCode ?? null})
     order by o.market_code
     limit 2
   `;
   if (rows.length !== 1) {
-    throw new Error('Product slug, retailer, and optional URL must resolve exactly one existing exact offer.');
+    throw new Error('Product slug, retailer, and optional URL or market code must resolve exactly one existing exact offer.');
   }
   return rows[0];
 }

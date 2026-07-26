@@ -4,6 +4,7 @@ const ignoredTitleWords = new Set([
 ]);
 
 const equivalentTitleTokens: Record<string, string> = {
+  facefacts: 'facts',
   moisturiser: 'moisturizer',
   moisturising: 'moisturizing',
 };

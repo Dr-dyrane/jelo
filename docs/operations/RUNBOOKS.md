@@ -146,6 +146,7 @@ MODERATION_OPERATOR_EMAIL=operator@example.invalid \
   npm run inventory:observe:manual -- \
   --product-slug exact-product-slug \
   --retailer "Exact Retailer Name" \
+  --market-code NG \
   --stock in_stock \
   --price-naira 23500 \
   --observed-title "Exact product title shown by the retailer" \
@@ -162,6 +163,7 @@ MODERATION_OPERATOR_EMAIL=operator@example.invalid \
   npm run inventory:observe:manual -- \
   --product-slug exact-product-slug \
   --retailer "Exact Retailer Name" \
+  --market-code NG \
   --stock in_stock \
   --price-naira 23500 \
   --observed-title "Exact product title shown by the retailer" \
@@ -173,9 +175,11 @@ MODERATION_OPERATOR_EMAIL=operator@example.invalid \
 ```
 
 Omit `--price-naira` only when the page does not show a reliable whole-naira
-price. Supply `--url` when the product/retailer pair has more than one market
-offer. Do not use this command for a search result, variant ambiguity, or a
-retailer page whose title or size cannot be verified.
+price. Supply `--market-code` whenever the product/retailer pair can resolve to
+more than one market offer (including duplicate exact URLs); use the canonical
+market code such as `NG`. `--url` identifies the retailer listing but does not
+replace market scope. Do not use this command for a search result, variant
+ambiguity, or a retailer page whose title or size cannot be verified.
 
 ## Community submissions arrive
 

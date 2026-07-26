@@ -12,6 +12,7 @@ const allowedFlags = new Set([
   'product-slug',
   'retailer',
   'url',
+  'market-code',
   'price-naira',
   'stock',
   'observed-title',
@@ -26,6 +27,7 @@ export type ManualObservationCommand = {
   productSlug: string;
   retailer: string;
   url?: string;
+  marketCode?: string;
   priceNaira?: number;
   stock: InventoryStatus;
   observedTitle: string;
@@ -73,6 +75,13 @@ function parseHttpsUrl(value: string) {
   return url;
 }
 
+function parseMarketCode(value: string) {
+  const normalized = value.trim().toUpperCase();
+  return z.string()
+    .regex(/^[A-Z]{2,8}$/, 'Market code must contain 2–8 uppercase letters.')
+    .parse(normalized);
+}
+
 function parseWholeNaira(value: string | undefined) {
   if (value == null) return undefined;
   const normalized = value.trim();
@@ -101,6 +110,7 @@ export function parseManualObservationCommand(argv: readonly string[]): ManualOb
     productSlug: productSlug.parse(required(flags, 'product-slug')),
     retailer: retailer.parse(required(flags, 'retailer')),
     ...(optional(flags, 'url') ? { url: parseHttpsUrl(optional(flags, 'url')!) } : {}),
+    ...(optional(flags, 'market-code') ? { marketCode: parseMarketCode(optional(flags, 'market-code')!) } : {}),
     ...(priceNaira != null
       ? { priceNaira }
       : {}),

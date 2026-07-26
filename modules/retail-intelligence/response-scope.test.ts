@@ -78,6 +78,19 @@ test('normalizes manufacturer camel-case when retailers separate the same produc
   }));
 });
 
+test('normalizes an all-caps compact FACE FACTS brand token', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    requestedUrl: 'https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/',
+    responseUrl: 'https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/',
+    expectedTitle: 'FACE FACTS Ceramide Oil Control Foaming Cleanser',
+    expectedSize: '400 ml',
+    observedTitle: 'FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml',
+    observedSize: '400ml',
+    marketCode: 'NG',
+    currencyCode: 'NGN',
+  }));
+});
+
 test('accepts a deliberately curated catalogue-name alias without weakening the official variant', () => {
   assert.doesNotThrow(() => assertRetailerResponseScope({
     requestedUrl: 'https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/',

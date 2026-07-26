@@ -31,15 +31,18 @@ test('manual observations accept an optional exact URL and whole-naira price onl
   const parsed = parseManualObservationCommand([
     ...base,
     '--url', 'https://beauty.example/products/cleanser',
+    '--market-code', 'ng',
     '--price-naira', '23500',
     '--valid-for-hours', '24',
   ]);
   assert.equal(parsed.url, 'https://beauty.example/products/cleanser');
+  assert.equal(parsed.marketCode, 'NG');
   assert.equal(parsed.priceNaira, 23_500);
   assert.equal(parsed.validForHours, 24);
   assert.throws(() => parseManualObservationCommand([...base, '--price-naira', '23500.50']), /whole-naira/);
   assert.throws(() => parseManualObservationCommand([...base, '--price-naira', '0']), /positive whole-naira/);
   assert.throws(() => parseManualObservationCommand([...base, '--url', 'http://beauty.example/product']), /https/);
+  assert.throws(() => parseManualObservationCommand([...base, '--market-code', 'NG-1']), /Market code/);
 });
 
 test('manual observations fail closed on missing scope evidence, invalid stock, and unbounded expiry', () => {
