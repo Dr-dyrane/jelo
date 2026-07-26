@@ -1,6 +1,6 @@
 # Operational runbooks
 
-Updated: 2026-07-23
+Updated: 2026-07-26
 
 Lead with evidence. Preserve data. Prefer a forward repair.
 
@@ -14,6 +14,53 @@ Lead with evidence. Preserve data. Prefer a forward repair.
 6. Re-run local gates and verify the next exact deployment.
 
 Do not disable migrations to conceal a bad migration.
+
+## A preview lane closes
+
+The lane that creates a preview owns its cleanup. Preview resources are
+temporary; production releases and rollback history follow a separate retention
+decision.
+
+Protect these before resolving deletion targets:
+
+- Git `main`, `pages-v1-static`, and the `pages-v1.0` tag;
+- the Neon primary/default `main` branch;
+- the current production deployment;
+- `jelocare.com`, `www.jelocare.com`, the stable Vercel project/main aliases,
+  and the localhost origins intentionally used by Ops.
+
+Then:
+
+1. Run `git fetch --prune` and prove the feature branch is merged before
+   deleting its remote ref.
+2. List Vercel Preview deployments and aliases. Remove only the closed lane's
+   Preview deployments and branch aliases.
+3. List Neon branches. Delete the corresponding non-primary preview branch,
+   including its compute and Auth instance.
+4. List Neon Auth trusted domains on `main`. Remove immutable deployment
+   origins that are no longer current; retain only the approved stable origins,
+   localhost development origins, and the current production deployment origin.
+5. Re-list Git, Vercel, Neon branches, and trusted domains. A delete request is
+   not evidence that cleanup finished.
+6. Smoke-test the custom domain and the exact production commit.
+
+Useful read-only inventory commands:
+
+```bash
+git ls-remote --heads origin
+vercel ls --environment preview --format json --limit 100
+vercel alias ls
+neonctl branches list --project-id "$NEON_PROJECT_ID" --output json
+neonctl neon-auth domain list \
+  --project-id "$NEON_PROJECT_ID" \
+  --branch main \
+  --output json
+```
+
+Do not bulk-delete production deployments while cleaning previews. Establish and
+record a production retention window first so rollback evidence is preserved.
+If the Neon plan refuses branch protection, record that provider limitation;
+never unprotect an unrelated project to make room silently.
 
 ## Neon is unavailable
 

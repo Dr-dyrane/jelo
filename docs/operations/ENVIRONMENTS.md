@@ -1,6 +1,6 @@
 # Environments
 
-Updated: 2026-07-23
+Updated: 2026-07-26
 
 Use the same names across local development, Vercel Preview, and Vercel Production. Values differ; contracts do not.
 
@@ -18,6 +18,30 @@ vercel env pull .env.local
 ```
 
 Never commit `.env*`, `.vercel/`, tokens, or connection strings.
+
+## Operator CLI baseline
+
+An operator workstation is ready only when the repository can resolve:
+
+```bash
+git --version
+gh --version
+node --version
+npm --version
+vercel --version
+neonctl --version
+rg --version
+jq --version
+```
+
+`gh`, `vercel`, and `neonctl` also need an authenticated local profile for the
+operation being run. Authentication state and connector access are separate:
+confirm the exact CLI before relying on it in a runbook. Never place CLI tokens
+in shell history, documentation, screenshots, or committed environment files.
+
+Use the repository package scripts for application work. Global CLIs are for
+provider operations; they do not replace checked-in dependencies or release
+verification.
 
 ## Variable contract
 
