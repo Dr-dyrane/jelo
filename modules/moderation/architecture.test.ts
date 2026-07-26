@@ -10,7 +10,15 @@ import test from 'node:test';
 // imported by this runner.
 test('the moderation console writes only its audit log and denies access by default', async () => {
   const root = process.cwd();
-  const files = ['schema.ts', 'audit.ts', 'access.ts', 'queues.ts', 'transitions.ts', 'action-input.ts'];
+  const files = [
+    'schema.ts',
+    'audit.ts',
+    'access.ts',
+    'queues.ts',
+    'transitions.ts',
+    'database-transitions.ts',
+    'action-input.ts',
+  ];
   const sources = await Promise.all(files.map(file => readFile(path.join(root, 'lib/moderation', file), 'utf8')));
   const all = sources.join('\n');
 
@@ -35,4 +43,30 @@ test('the moderation console writes only its audit log and denies access by defa
   assert.match(access, /and active = true/);
   assert.match(access, /throw new ModerationAccessError/);
   assert.doesNotMatch(access, /headers\(\)|cookies\(\)|searchParams|request\.headers/);
+
+  const databaseTransitions = sources[files.indexOf('database-transitions.ts')];
+  assert.match(databaseTransitions, /update community_knowledge_edges[\s\S]*contribution_id = \$\{id\}/);
+  assert.match(databaseTransitions, /update community_observations[\s\S]*contribution_id = \$\{id\}/);
+  assert.match(databaseTransitions, /contribution\.retain_until > now\(\)/);
+  assert.match(databaseTransitions, /action: 'map'/);
+  assert.match(databaseTransitions, /action: 'reconcile'/);
+});
+
+test('the phone shell always exposes one real contextual action', async () => {
+  const root = process.cwd();
+  const [chrome, inbox, overview] = await Promise.all([
+    readFile(path.join(root, 'components/ops/shell/OpsChrome.tsx'), 'utf8'),
+    readFile(path.join(root, 'components/ops/inbox/InboxContainer.tsx'), 'utf8'),
+    readFile(path.join(root, 'app/(ops)/ops/OverviewBriefing.tsx'), 'utf8'),
+  ]);
+
+  assert.match(chrome, /function defaultContextFab\(\): ContextFabConfig/);
+  assert.match(chrome, /onClick: \(\) => router\.refresh\(\)/);
+  assert.match(chrome, /contextFabState\.value \?\? defaultContextFab\(\)/);
+  assert.doesNotMatch(chrome, /label:\s*['"`](Stats|Export|Invite|New|Signal)['"`]/);
+
+  assert.match(inbox, /label: `Open current \$\{itemTypeLabel\}`/);
+  assert.match(inbox, /onClick: openCurrentDetail/);
+  assert.match(overview, /label: `Open \$\{selectedQueue\.label\.toLowerCase\(\)\} context`/);
+  assert.match(overview, /onClick: openSelectedQueueContext/);
 });

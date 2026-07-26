@@ -1,5 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { normalizeInboxSections } from '../components/ops/inbox/collection-sections';
 
 // Pure logic tests for the canonical inbox auto-selection and auto-advance behavior.
 // These test the selection algorithm without React rendering. The InboxContainer
@@ -92,5 +93,51 @@ describe('Inbox selection recovery', () => {
     const first = resolveSelection(items, null);
     const second = resolveSelection(items, first);
     assert.strictEqual(first, second);
+  });
+});
+
+describe('Inbox section projections', () => {
+  const items = [{ id: 'a' }, { id: 'b' }, { id: 'c' }, { id: 'd' }];
+
+  it('ignores missing IDs and never renders an item twice', () => {
+    const sections = normalizeInboxSections(items, [
+      {
+        id: 'feature',
+        label: 'Up next',
+        presentation: 'feature-shelf',
+        itemIds: ['a', 'missing', 'b'],
+      },
+      {
+        id: 'prices',
+        label: 'Price reports',
+        presentation: 'compact-rows',
+        itemIds: ['b', 'c'],
+      },
+    ]);
+
+    assert.deepEqual(
+      sections.map(section => [section.id, section.items.map(item => item.id)]),
+      [
+        ['feature', ['a', 'b']],
+        ['prices', ['c']],
+        ['more', ['d']],
+      ],
+    );
+  });
+
+  it('keeps unassigned records in canonical queue order', () => {
+    const sections = normalizeInboxSections(items, [
+      {
+        id: 'feature',
+        label: 'Up next',
+        presentation: 'feature-shelf',
+        itemIds: ['c'],
+      },
+    ]);
+
+    assert.deepEqual(
+      sections.at(-1)?.items.map(item => item.id),
+      ['a', 'b', 'd'],
+    );
   });
 });

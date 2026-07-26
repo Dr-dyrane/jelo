@@ -5,33 +5,68 @@ import {
   useEffect,
   useOptimistic,
   useCallback,
+  useSyncExternalStore,
+  useRef,
   Fragment,
-  type MutableRefObject,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, PanelTopOpen, X } from 'lucide-react';
+import { useContextFab } from '@/components/ops/shell/OpsShellContext';
 import styles from './inbox.module.css';
 import adaptive from './inbox-tablet.module.css';
+import {
+  normalizeInboxSections,
+  type InboxCollectionSection,
+  type InboxItemRenderContext,
+} from './collection-sections';
+
+export {
+  normalizeInboxSections,
+  type InboxCollectionSection,
+  type InboxItemRenderContext,
+  type InboxSectionPresentation,
+  type ResolvedInboxCollectionSection,
+} from './collection-sections';
 
 export interface OpsInboxController {
   settleItem: (id: string) => void;
 }
 
-interface InboxContainerProps<T> {
+interface InboxContainerProps<T extends { id: string }> {
   items: T[];
-  renderItemRow: (item: T, isActive: boolean) => React.ReactNode;
+  sections?: readonly InboxCollectionSection<T>[];
+  renderItemRow: (
+    item: T,
+    isActive: boolean,
+    context?: InboxItemRenderContext,
+  ) => React.ReactNode;
   renderItemDetails: (item: T) => React.ReactNode;
   itemTypeLabel?: string;
   selectedId?: string | null;
   onSelect?: (item: T, index: number) => void;
   onDeselect?: () => void;
-  controllerRef?: MutableRefObject<OpsInboxController | null>;
+  controllerRef?: React.RefObject<OpsInboxController | null>;
 }
 
 type ViewportMode = 'phone' | 'touch' | 'compact' | 'balanced' | 'expanded';
 
+function subscribeToDetailPane(onStoreChange: () => void) {
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(document.body, { childList: true, subtree: true });
+  return () => observer.disconnect();
+}
+
+function getDetailPaneSnapshot() {
+  return document.getElementById('ops-detail-pane');
+}
+
+function getServerDetailPaneSnapshot() {
+  return null;
+}
+
 export function InboxContainer<T extends { id: string }>({
   items,
+  sections,
   renderItemRow,
   renderItemDetails,
   itemTypeLabel = 'item',
@@ -40,57 +75,153 @@ export function InboxContainer<T extends { id: string }>({
   onDeselect,
   controllerRef,
 }: InboxContainerProps<T>) {
-  const [navigationIndex, setNavigationIndex] = useState(0);
-  const [internalDetailId, setInternalDetailId] = useState<string | null>(null);
+  const setContextFab = useContextFab();
+  const isControlled = onSelect != null;
+  const [navigationIndex, setNavigationIndex] = useState(() => {
+    const initialIndex = selectedId ? items.findIndex(item => item.id === selectedId) : -1;
+    return initialIndex >= 0 ? initialIndex : 0;
+  });
+  const [internalDetailId, setInternalDetailId] = useState<string | null>(
+    () => items[0]?.id ?? null,
+  );
   const [viewportMode, setViewportMode] = useState<ViewportMode>('expanded');
   const [overlayInspectorOpen, setOverlayInspectorOpen] = useState(false);
+  const overlayInspectorRef = useRef<HTMLElement | null>(null);
+  const lastTriggerRef = useRef<HTMLElement | null>(null);
 
   const [optimisticItems, removeOptimisticItem] = useOptimistic(
     items,
     (current: T[], settledId: string) => current.filter(item => item.id !== settledId),
   );
 
-  const detailId = selectedId ?? internalDetailId;
-  const selectedIndex = detailId ? optimisticItems.findIndex(item => item.id === detailId) : -1;
+  const requestedDetailId = isControlled ? selectedId : internalDetailId;
+  const requestedIndex = requestedDetailId
+    ? optimisticItems.findIndex(item => item.id === requestedDetailId)
+    : -1;
+  const detailId = requestedIndex >= 0
+    ? requestedDetailId
+    : !isControlled
+      ? optimisticItems[0]?.id ?? null
+      : null;
+  const selectedIndex = detailId
+    ? optimisticItems.findIndex(item => item.id === detailId)
+    : -1;
+  const clampedNavigationIndex = Math.min(
+    Math.max(navigationIndex, 0),
+    Math.max(optimisticItems.length - 1, 0),
+  );
+  const effectiveNavigationIndex = selectedIndex >= 0
+    ? selectedIndex
+    : clampedNavigationIndex;
   const activeItem = selectedIndex >= 0 ? optimisticItems[selectedIndex] : null;
-  const navigationItem = optimisticItems[navigationIndex] ?? null;
+  const navigationItem = optimisticItems[effectiveNavigationIndex] ?? null;
   const usesOverlayInspector = viewportMode === 'phone' || viewportMode === 'touch' || viewportMode === 'compact';
   const usesDockedInspector = viewportMode === 'balanced' || viewportMode === 'expanded';
 
   useEffect(() => {
-    if (optimisticItems.length === 0) return;
-    if (detailId && optimisticItems.some(item => item.id === detailId)) return;
+    if (!isControlled || optimisticItems.length === 0 || requestedIndex >= 0) return;
+    onSelect(optimisticItems[0], 0);
+  }, [isControlled, optimisticItems, onSelect, requestedIndex]);
 
-    const first = optimisticItems[0];
-    if (selectedId != null) onSelect?.(first, 0);
-    else setInternalDetailId(first.id);
-    setNavigationIndex(0);
-  }, [optimisticItems, detailId, selectedId, onSelect]);
-
-  function syncNavigationIndex(index: number) {
+  const syncNavigationIndex = useCallback((index: number) => {
     setNavigationIndex(index);
     const item = optimisticItems[index];
     if (detailId && item) {
-      if (selectedId != null) onSelect?.(item, index);
+      if (isControlled) onSelect?.(item, index);
       else setInternalDetailId(item.id);
     }
-  }
+    if (item) {
+      requestAnimationFrame(() => {
+        document.getElementById(`row-${item.id}`)?.focus({ preventScroll: true });
+      });
+    }
+  }, [detailId, isControlled, onSelect, optimisticItems]);
 
-  function openDetail(item: T, index = optimisticItems.indexOf(item)) {
+  const openDetail = useCallback((item: T, index = optimisticItems.indexOf(item)) => {
     setNavigationIndex(index);
-    if (selectedId != null) onSelect?.(item, index);
+    if (isControlled) onSelect?.(item, index);
     else setInternalDetailId(item.id);
-    if (usesOverlayInspector) setOverlayInspectorOpen(true);
-  }
-
-  function closeDetail() {
     if (usesOverlayInspector) {
-      setOverlayInspectorOpen(false);
+      lastTriggerRef.current = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+      setOverlayInspectorOpen(true);
+    }
+  }, [isControlled, onSelect, optimisticItems, usesOverlayInspector]);
+
+  const openCurrentDetail = useCallback(() => {
+    const item = activeItem ?? navigationItem;
+    if (!item) return;
+    openDetail(item, optimisticItems.findIndex(candidate => candidate.id === item.id));
+  }, [activeItem, navigationItem, openDetail, optimisticItems]);
+
+  useEffect(() => {
+    const item = activeItem ?? navigationItem;
+    if (!item) {
+      setContextFab(null);
       return;
     }
-    if (selectedId != null) onDeselect?.();
+
+    setContextFab({
+      icon: PanelTopOpen,
+      label: `Open current ${itemTypeLabel}`,
+      onClick: openCurrentDetail,
+    });
+
+    return () => setContextFab(null);
+  }, [activeItem, itemTypeLabel, navigationItem, openCurrentDetail, setContextFab]);
+
+  const closeDetail = useCallback(() => {
+    if (usesOverlayInspector) {
+      setOverlayInspectorOpen(false);
+      requestAnimationFrame(() => lastTriggerRef.current?.focus());
+      return;
+    }
+    if (isControlled) onDeselect?.();
     else setInternalDetailId(null);
-  }
+  }, [isControlled, onDeselect, usesOverlayInspector]);
+
+  useEffect(() => {
+    if (!usesOverlayInspector || !overlayInspectorOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    function handleOverlayKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeDetail();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const focusable = overlayInspectorRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    const focusFrame = requestAnimationFrame(() => {
+      overlayInspectorRef.current
+        ?.querySelector<HTMLElement>('button:not([disabled]), a[href], textarea:not([disabled]), input:not([disabled])')
+        ?.focus();
+    });
+    window.addEventListener('keydown', handleOverlayKeyDown);
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleOverlayKeyDown);
+    };
+  }, [closeDetail, overlayInspectorOpen, usesOverlayInspector]);
 
   const handleItemSettled = useCallback((settledId: string) => {
     const settledIndex = optimisticItems.findIndex(item => item.id === settledId);
@@ -100,7 +231,7 @@ export function InboxContainer<T extends { id: string }>({
 
     const remaining = optimisticItems.filter(item => item.id !== settledId);
     if (remaining.length === 0) {
-      if (selectedId != null) onDeselect?.();
+      if (isControlled) onDeselect?.();
       else setInternalDetailId(null);
       setOverlayInspectorOpen(false);
       return;
@@ -109,13 +240,13 @@ export function InboxContainer<T extends { id: string }>({
     const nextIndex = Math.min(settledIndex, remaining.length - 1);
     const nextItem = remaining[nextIndex];
     setNavigationIndex(nextIndex);
-    if (selectedId != null) onSelect?.(nextItem, nextIndex);
+    if (isControlled) onSelect?.(nextItem, nextIndex);
     else setInternalDetailId(nextItem.id);
 
     if (viewportMode === 'phone' || viewportMode === 'touch' || viewportMode === 'compact') {
       setOverlayInspectorOpen(false);
     }
-  }, [optimisticItems, selectedId, onSelect, onDeselect, removeOptimisticItem, viewportMode]);
+  }, [optimisticItems, isControlled, onSelect, onDeselect, removeOptimisticItem, viewportMode]);
 
   useEffect(() => {
     if (!controllerRef) return;
@@ -150,28 +281,25 @@ export function InboxContainer<T extends { id: string }>({
   }, []);
 
   useEffect(() => {
-    if (selectedIndex >= 0) setNavigationIndex(selectedIndex);
-  }, [selectedIndex]);
-
-  useEffect(() => {
     if (optimisticItems.length === 0) return;
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') {
+      const target = e.target instanceof HTMLElement ? e.target : null;
+      if (target?.closest('input, textarea, select, button, a[href], [contenteditable="true"]')) {
         if (e.key === 'Escape') (document.activeElement as HTMLElement).blur();
         return;
       }
 
       if (e.key === 'j' || e.key === 'ArrowDown') {
         e.preventDefault();
-        syncNavigationIndex(Math.min(navigationIndex + 1, optimisticItems.length - 1));
+        syncNavigationIndex(Math.min(effectiveNavigationIndex + 1, optimisticItems.length - 1));
       } else if (e.key === 'k' || e.key === 'ArrowUp') {
         e.preventDefault();
-        syncNavigationIndex(Math.max(navigationIndex - 1, 0));
+        syncNavigationIndex(Math.max(effectiveNavigationIndex - 1, 0));
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (navigationItem) {
-          openDetail(navigationItem, navigationIndex);
+          openDetail(navigationItem, effectiveNavigationIndex);
           requestAnimationFrame(() => {
             const form = document.querySelector(`form[data-item-id="${navigationItem.id}"]`);
             const input = form?.querySelector('input[name="rationale"], textarea') as HTMLInputElement | HTMLTextAreaElement;
@@ -204,7 +332,15 @@ export function InboxContainer<T extends { id: string }>({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeItem, detailId, optimisticItems, navigationIndex, navigationItem, selectedId, viewportMode]);
+  }, [
+    activeItem,
+    closeDetail,
+    effectiveNavigationIndex,
+    navigationItem,
+    openDetail,
+    optimisticItems.length,
+    syncNavigationIndex,
+  ]);
 
   useEffect(() => {
     const item = detailId ? activeItem : navigationItem;
@@ -217,36 +353,128 @@ export function InboxContainer<T extends { id: string }>({
     openDetail(item, index);
   }
 
-  const detailPortalTarget = typeof document === 'undefined' ? null : document.getElementById('ops-detail-pane');
+  function renderQueueItem(
+    item: T,
+    idx: number,
+    context?: Omit<InboxItemRenderContext, 'isActive' | 'isKeyboardCurrent'>,
+  ) {
+    const isActive = detailId === item.id;
+    const isKeyboardCurrent = idx === effectiveNavigationIndex;
+
+    if (context) {
+      return (
+        <li key={item.id} className={styles.sectionItem}>
+          <button
+            type="button"
+            id={`row-${item.id}`}
+            data-ops-collection-item
+            aria-current={isActive ? 'true' : undefined}
+            tabIndex={isKeyboardCurrent ? 0 : -1}
+            className={`${styles.sectionItemButton} ${isActive ? styles.sectionItemButtonActive : ''}`}
+            onFocus={() => setNavigationIndex(idx)}
+            onClick={() => handleRowClick(idx, item)}
+          >
+            {renderItemRow(item, isActive, {
+              ...context,
+              isActive,
+              isKeyboardCurrent,
+            })}
+          </button>
+        </li>
+      );
+    }
+
+    return (
+      <div
+        key={item.id}
+        id={`row-${item.id}`}
+        data-ops-collection-item
+        role="option"
+        aria-selected={isActive}
+        tabIndex={isKeyboardCurrent ? 0 : -1}
+        className={`${styles.card} ${isActive ? styles.cardActive : ''}`}
+        onFocus={() => setNavigationIndex(idx)}
+        onClick={() => handleRowClick(idx, item)}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleRowClick(idx, item);
+          }
+        }}
+      >
+        {renderItemRow(item, isActive)}
+      </div>
+    );
+  }
+
+  const detailPortalTarget = useSyncExternalStore(
+    subscribeToDetailPane,
+    getDetailPaneSnapshot,
+    getServerDetailPaneSnapshot,
+  );
+  const resolvedSections = sections
+    ? normalizeInboxSections(optimisticItems, sections)
+    : null;
 
   return (
     <>
-      <div className={styles.cardGrid} data-ops-collection role="listbox" aria-label={`${itemTypeLabel} queue`}>
-        {optimisticItems.map((item, idx) => {
-          const isActive = detailId === item.id;
-          return (
-            <div
-              key={item.id}
-              id={`row-${item.id}`}
-              data-ops-collection-item
-              role="option"
-              aria-selected={isActive}
-              tabIndex={0}
-              className={`${styles.card} ${isActive ? styles.cardActive : ''}`}
-              onFocus={() => setNavigationIndex(idx)}
-              onClick={() => handleRowClick(idx, item)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleRowClick(idx, item);
-                }
-              }}
+      {resolvedSections ? (
+        <div className={styles.sectionCollection} data-ops-collection="sectioned" aria-label={`${itemTypeLabel} queue`}>
+          {resolvedSections.map(section => (
+            <section
+              key={section.id}
+              className={styles.collectionSection}
+              data-presentation={section.presentation}
+              aria-labelledby={`ops-section-${section.id}`}
             >
-              {renderItemRow(item, isActive)}
-            </div>
-          );
-        })}
-      </div>
+              <header className={styles.collectionSectionHeader}>
+                <h2 id={`ops-section-${section.id}`}>{section.label}</h2>
+                {section.presentation === 'horizontal-rail' && section.items.length > 1 ? (
+                  <div className={styles.railControls} aria-label={`${section.label} controls`}>
+                    <button
+                      type="button"
+                      aria-label={`Scroll ${section.label} left`}
+                      onClick={() => document.getElementById(`ops-section-items-${section.id}`)?.scrollBy({
+                        left: -260,
+                        behavior: 'smooth',
+                      })}
+                    >
+                      <ChevronLeft size={16} strokeWidth={1.8} aria-hidden="true" />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={`Scroll ${section.label} right`}
+                      onClick={() => document.getElementById(`ops-section-items-${section.id}`)?.scrollBy({
+                        left: 260,
+                        behavior: 'smooth',
+                      })}
+                    >
+                      <ChevronRight size={16} strokeWidth={1.8} aria-hidden="true" />
+                    </button>
+                  </div>
+                ) : null}
+              </header>
+              <ul
+                id={`ops-section-items-${section.id}`}
+                className={styles.sectionItems}
+                data-presentation={section.presentation}
+              >
+                {section.items.map(item => {
+                  const idx = optimisticItems.findIndex(candidate => candidate.id === item.id);
+                  return renderQueueItem(item, idx, {
+                    sectionId: section.id,
+                    presentation: section.presentation,
+                  });
+                })}
+              </ul>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <div className={styles.cardGrid} data-ops-collection="default" role="listbox" aria-label={`${itemTypeLabel} queue`}>
+          {optimisticItems.map((item, idx) => renderQueueItem(item, idx))}
+        </div>
+      )}
 
       {usesDockedInspector && activeItem && detailPortalTarget
         ? createPortal(<Fragment key={activeItem.id}>{renderItemDetails(activeItem)}</Fragment>, detailPortalTarget)
@@ -256,7 +484,7 @@ export function InboxContainer<T extends { id: string }>({
         ? createPortal(
             <div className={adaptive.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
               <button type="button" className={adaptive.tabletScrim} onClick={closeDetail} aria-label="Close details" />
-              <section className={adaptive.tabletInspector}>
+              <section ref={overlayInspectorRef} className={adaptive.tabletInspector}>
                 <header className={adaptive.tabletInspectorHeader}>
                   <button type="button" className={adaptive.tabletClose} onClick={closeDetail} aria-label="Close details">
                     <X size={18} />

@@ -1,0 +1,320 @@
+.briefing {
+  width: min(100%, 980px);
+  padding: clamp(var(--space-5), 3vw, var(--space-8));
+  padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
+  color: var(--ops-ink);
+}
+
+.context,
+.sectionHeading,
+.nextActionCopy,
+.inspectorHeader > div,
+.auditHeading {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.context { max-width: 38rem; }
+
+.context h1,
+.sectionHeading h2,
+.nextActionTitle,
+.inspectorHeader h2,
+.auditHeading h3 {
+  margin: 0;
+  color: var(--ops-ink);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.context h1 { font-size: var(--text-title); }
+.nextActionTitle,
+.inspectorHeader h2 { font-size: 1.05rem; }
+.sectionHeading h2,
+.auditHeading h3 { font-size: 1rem; }
+
+.context p,
+.sectionHeading p,
+.nextActionReason,
+.inspectorSummary p,
+.auditHeading p,
+.quietEmpty {
+  margin: 0;
+  color: var(--ops-muted);
+  font-size: var(--text-cell);
+  line-height: var(--leading-ui);
+}
+
+/* A short action band, not a dashboard card. */
+.nextAction {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+  padding: var(--space-4) 0;
+  border: 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ops-accent-subtle) 58%, transparent), transparent 72%);
+  color: var(--ops-ink);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.nextAction:hover { background: linear-gradient(90deg, var(--ops-accent-subtle), transparent 78%); }
+.nextAction:focus-visible { outline: 2px solid var(--ops-focus-ring); outline-offset: 3px; }
+
+.sectionKicker,
+.inspectorEyebrow,
+.inspectorKicker {
+  margin: 0;
+  color: var(--ops-accent);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: 1.25;
+}
+
+.inspectorLink {
+  display: inline-flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  padding: 0 var(--space-4);
+  border-radius: var(--ops-control-radius);
+  font-size: var(--text-cell);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.queueSection { margin-top: var(--space-7); }
+.sectionHeading { margin-bottom: var(--space-3); }
+
+.queueList {
+  display: grid;
+  gap: 2px;
+}
+
+.queueRow {
+  display: grid;
+  width: 100%;
+  min-height: var(--touch-min);
+  grid-template-columns: minmax(0, 1fr) minmax(9rem, auto) minmax(2ch, auto);
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: transparent;
+  color: var(--ops-ink);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.queueRow:hover,
+.queueRow:focus-visible { background: color-mix(in srgb, var(--ops-accent-subtle) 72%, transparent); }
+.queueRowActive { background: var(--ops-accent-subtle); }
+.queueRow:focus-visible,
+.inspectorLink:focus-visible,
+.inspectorClose:focus-visible { outline: 2px solid var(--ops-focus-ring); outline-offset: 3px; }
+
+.queueName { min-width: 0; font-size: var(--text-cell); font-weight: var(--weight-medium); }
+.queueMeta { color: var(--ops-muted); font-size: var(--text-caption); text-align: right; white-space: nowrap; }
+.queueCount { color: var(--ops-ink); font-size: 1rem; font-weight: var(--weight-medium); font-variant-numeric: tabular-nums; text-align: right; }
+.queueQuiet .queueName,
+.queueQuiet .queueMeta,
+.queueQuiet .queueCount { color: var(--ops-muted); }
+
+/* The docked inspector is one continuous plane owned by the shell. */
+.inspectorContent {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  color: var(--ops-ink);
+}
+
+.inspectorHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.inspectorSummary {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
+}
+
+.inspectorSummary .recommendationNote { color: var(--ops-accent); }
+.viewOnly { color: var(--ops-muted); }
+
+.inspectorLink {
+  align-self: flex-start;
+  background: var(--ops-accent);
+  color: var(--on-accent);
+}
+
+.auditSection {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+}
+
+.decisionList {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decisionList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  min-height: 34px;
+  align-items: center;
+  color: var(--ops-ink);
+  font-size: var(--text-caption);
+}
+
+.decisionList li span:last-child { color: var(--ops-muted); white-space: nowrap; }
+.quietEmpty { font-size: var(--text-caption); }
+
+.inspectorClose {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ops-surface-subtle) 58%, transparent);
+  color: var(--ops-ink);
+  cursor: pointer;
+}
+
+.overlayStage {
+  height: 100%;
+  pointer-events: auto;
+}
+
+.overlayScrim {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  border: 0;
+  background: color-mix(in srgb, var(--ops-canvas) 56%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.overlayInspector {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--space-5);
+  border-radius: var(--ops-shell-radius);
+  background: var(--ops-workspace);
+  box-shadow: var(--ops-floating-shadow);
+  animation: inspectorIn 260ms var(--ease-standard) both;
+}
+
+.errorState {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  max-width: 34rem;
+  margin-top: var(--space-7);
+  padding: var(--space-5) 0;
+}
+
+.errorState h2,
+.errorState p { margin: 0; }
+.errorState h2 { color: var(--state-danger); font-size: 1rem; font-weight: var(--weight-semibold); }
+.errorState p { color: var(--ops-ink); font-size: var(--text-cell); line-height: var(--leading-ui); }
+
+.retryButton {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: var(--ops-accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-cell);
+  font-weight: var(--weight-medium);
+}
+
+.skeletonTitle,
+.skeletonText,
+.skeletonButton,
+.skeletonRow {
+  border-radius: var(--ops-control-radius);
+  background: linear-gradient(90deg, var(--ops-surface-subtle) 25%, color-mix(in srgb, var(--ops-surface-subtle) 78%, var(--ops-workspace)) 37%, var(--ops-surface-subtle) 63%);
+  background-size: 200% 100%;
+  animation: overviewShimmer 1.4s var(--ease-standard) infinite;
+}
+
+.skeletonTitle { width: 8rem; height: 1.6rem; }
+.skeletonText { width: min(16rem, 70vw); height: .8rem; }
+.skeletonButton { width: 8rem; height: var(--touch-min); }
+.skeletonBlock { min-height: 4rem; }
+.skeletonRows { display: grid; gap: 2px; margin-top: var(--space-7); }
+.skeletonRow { height: var(--touch-min); }
+
+@keyframes overviewShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes inspectorIn {
+  from { opacity: .72; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (min-width: 1180px) {
+  :global([data-ops-detail]:empty) { display: none; }
+}
+
+@media (max-width: 1179px) {
+  .briefing { padding-top: calc(var(--space-8) + var(--touch-min)); }
+}
+
+@media (max-width: 819px) {
+  .briefing { padding-bottom: calc(var(--space-9) + var(--touch-min) + env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 429px) {
+  .briefing { padding-right: var(--space-4); padding-left: var(--space-4); }
+  .nextAction { align-items: center; }
+  .queueRow { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2); }
+  .queueMeta { grid-column: 1; grid-row: 2; text-align: left; }
+  .queueCount { grid-column: 2; grid-row: 1 / span 2; }
+  .overlayStage { display: flex; align-items: flex-end; }
+  .overlayInspector {
+    width: 100%;
+    height: min(76dvh, 680px);
+    padding: var(--space-5) var(--space-4) max(var(--space-5), env(safe-area-inset-bottom));
+    border-radius: var(--ops-shell-radius) var(--ops-shell-radius) 0 0;
+    animation-name: inspectorUp;
+  }
+
+  @keyframes inspectorUp {
+    from { opacity: .72; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonTitle,
+  .skeletonText,
+  .skeletonButton,
+  .skeletonRow,
+  .overlayInspector { animation-duration: 1ms; }
+}

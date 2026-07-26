@@ -48,8 +48,8 @@
     width: 332px;
     padding: var(--space-5);
     border: 0;
-    background: color-mix(in srgb, var(--ops-workspace) 96%, var(--ops-surface-subtle));
-    box-shadow: inset 1px 0 var(--ops-separator, rgba(63, 48, 43, .08));
+    background: color-mix(in srgb, var(--ops-workspace) 92%, var(--ops-surface-subtle));
+    box-shadow: none;
   }
 
   :global([data-ops-detail]:empty) {

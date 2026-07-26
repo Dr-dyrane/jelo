@@ -125,8 +125,14 @@ export function EdgesInbox({ rows, canDecide }: EdgesInboxProps) {
                   <textarea id={`rationale-${row.id}`} className={styles.note} name="rationale" placeholder="Optional note for the audit trail" aria-label="Decision rationale" disabled={isPending} />
                 </div>
                 <div className={styles.actionButtons}>
-                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>{isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}</button>
-                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>{isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}</button>
+                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
+                    <span>{isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}</span>
+                    <kbd className={styles.kbdBadge}>R</kbd>
+                  </button>
+                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>
+                    <span>{isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}</span>
+                    <kbd className={styles.kbdBadge}>E</kbd>
+                  </button>
                 </div>
               </form>
             ) : (

@@ -4,12 +4,48 @@ The operations console is a private working environment. Its shell provides orie
 
 ## Desktop composition
 
-Desktop uses two persistent planes inside a quiet operations canvas:
+Desktop uses a native three-column split view inside a quiet operations canvas:
 
 - The left sidebar is the instrument plane. It holds account controls, navigation, queue counts, and appearance controls.
-- The workspace is the content plane. It is inset on every side, with a continuous rounded boundary created by surrounding canvas, tonal difference, and restrained elevation rather than a visible border.
+- The main workspace is the scan-and-select plane. It is inset on every side,
+  with a continuous rounded boundary created by surrounding canvas, tonal
+  difference, and restrained elevation rather than a visible border.
+- The contextual inspector is the detail plane for the current selection. It
+  remains a single continuous working surface, not a stack of internal cards.
+  A route that has no selection may omit it; it must not add dashboard tiles to
+  occupy the space.
 
-The sidebar and workspace use the same shell radius so they read as one composed environment. The gap between them is intentional cognitive space, not a divider. Nested sidebar instrument surfaces use `--ops-instrument-inner-radius`, derived from the shell radius minus sidebar padding, so account, navigation, and account-summary curves remain concentric with the sidebar.
+The sidebar, workspace, and inspector are related planes, not three cards. The
+gaps between them are intentional cognitive space, not dividers. Nested sidebar
+instrument surfaces use `--ops-instrument-inner-radius`, derived from the shell
+radius minus sidebar padding, so account, navigation, and account-summary curves
+remain concentric with the sidebar.
+
+### Desktop DOM and scroll law
+
+At `>=1180px`, the three planes are direct siblings inside
+`[data-ops-shell]`:
+
+```text
+[data-ops-shell]
+├── [data-ops-sidebar-layer]
+├── [data-ops-workspace]
+└── [data-ops-detail]
+```
+
+The inspector must not descend from the rounded workspace wrapper. Nesting it
+there turns two work planes into one card and prevents reliable independent
+scrolling.
+
+The desktop shell is exactly `100dvh` and does not scroll the document. The
+workspace and inspector each own their vertical overflow. Inside a decision
+inspector, evidence and metadata scroll while the decision region remains
+anchored at the bottom. Empty inspector space is intentional; do not fill it
+with duplicate headings, decorative cards, or repeated record-type labels.
+
+Routes portal selected context into the shell-owned detail plane. This keeps
+selection state and focus behavior shared while preserving the structural
+separation of the three planes.
 
 The sidebar names the `Operations` environment once, separates actionable `Triage` from read-only `Monitor` navigation, and keeps the account trigger person-first. Brand text does not appear inside the account trigger.
 
@@ -27,9 +63,9 @@ Local tabs are sibling views within the active workspace destination. They are n
 
 The planned presentations are:
 
-- **Desktop:** persistent sidebar, page context, optional local tabs, and a list-detail split when a queue needs simultaneous circulation and review. The detail pane holds evidence, rationale, and decisions for the selected record.
-- **Tablet:** compact navigation and a workspace adapted to available width. Keep the same page context and tab semantics, but show either a constrained split or one primary pane with a temporary detail sheet or route. Do not simply compress desktop columns until they are unreadable.
-- **Mobile:** one operational task at a time. Queue list and selected record become separate routes or a deliberate bottom-sheet flow; decisions remain focused and full-width. Local tabs use a scrollable accessible tab row only when the views remain necessary on mobile; otherwise the destination exposes the highest-priority view and explicit filters.
+- **Desktop (`>=1180px`):** persistent sidebar, main workspace, and contextual inspector when selection changes useful context. The inspector holds evidence, rationale, decisions, or queue context as appropriate.
+- **Tablet (`820–1179px`):** keep the workspace readable; selected context opens in a temporary right side sheet. Do not simply compress desktop columns until they are unreadable.
+- **Mobile and touch (`<820px`):** one operational task at a time. Queue list and selected record use a deliberate bottom-sheet flow; decisions remain focused and full-width. Collection density remains content-driven: phone widths under `430px` use one column; the `430–599px` band may keep a shallow two-column feature shelf while compact text rows remain one column; from `600px`, compact rows may use two columns when labels remain readable. Local tabs use a scrollable accessible tab row only when the views remain necessary on mobile; otherwise the destination exposes the highest-priority view and explicit filters.
 
 The first reusable frame will support triage detail work: a queue list, a selected record, evidence, decision rationale, and guarded decision actions. Retailer workflow tabs become the first candidate only after applications and verification have independent read models. Existing queues remain single-view until their real historical or workflow state exists.
 
@@ -81,6 +117,36 @@ Navigation controls use native links, compact labels, visible focus, and a stabl
 `lib/moderation/sidebar-summary.ts` resolves the operator's display identity and audit activity from `moderation_operators` (`display_name`, `email`) and `moderation_audit_log` (current operator decisions today and latest action). It is resolved at the server layout boundary and passed through the shell as `OpsSidebarSummary`; the client sidebar does not own this data.
 
 The sidebar stays an instrument. Queue rows, decision forms, and other operational content belong to the workspace and should not be added to the shell.
+
+### Phone contextual action
+
+Phone composition always reserves the separate circular FAB beside the bottom
+navigation bar. It is contextual, never decorative:
+
+- queue routes open the current selected record;
+- Overview opens the selected queue context;
+- read-only routes refresh their own current data when no stronger action
+  exists;
+- an empty queue refreshes that queue rather than inventing a creation action.
+
+The route registers the strongest real action through `ShellContext`. The shell
+provides only a route-labelled refresh fallback while route content loads or
+when no more specific action exists. Generic `Stats`, `New`, `Export`, or other
+placeholder actions are prohibited.
+
+### Overlay integrity
+
+Temporary inspector context uses a right side sheet on tablet and desktop where
+the workspace must remain visible, and a bottom sheet on mobile/touch. Every
+overlay has a title and close control, traps focus, locks background scrolling,
+responds to Escape where available, supports safe outside dismissal,
+independently scrolls when long, honors reduced motion, and returns focus to
+its exact trigger. Do not replace this behavior with nested dropdowns,
+accordion-in-accordion panels, or action-shaped controls that do nothing.
+
+The same selected record renders in only one inspector presentation at a time:
+docked plane, side sheet, or bottom sheet. Breakpoint changes must not duplicate
+the record in the accessibility tree or leave an off-screen dialog interactive.
 
 ## See also
 

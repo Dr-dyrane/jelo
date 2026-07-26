@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Activity, BookOpen, Download, Eye, GitFork, History, Home, Inbox, Plus, Store, UserPlus, UsersRound, X } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, RefreshCw, Store, UsersRound, X } from 'lucide-react';
 import { authClient } from '@/lib/auth/client';
 import type { ModerationOperator } from '@/lib/moderation/access';
 import type { QueueCounts } from '@/lib/moderation/queues';
@@ -22,8 +22,10 @@ interface OpsChromeProps {
 
 export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChromeProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpenPath, setSidebarOpenPath] = useState<string | null>(null);
+  const sidebarOpen = sidebarOpenPath === pathname;
 
   useEffect(() => {
     const activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -32,13 +34,9 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   }, []);
 
   useEffect(() => {
-    setSidebarOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!sidebarOpen) return;
     function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') setSidebarOpen(false);
+      if (event.key === 'Escape') setSidebarOpenPath(null);
     }
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
@@ -72,28 +70,33 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
     .slice(0, 2)
     .toUpperCase() || 'OP';
 
-  function defaultContextFab(path: string): ContextFabConfig {
-    const noop = () => {};
-    if (path === '/ops') return { icon: Activity, label: 'Stats', onClick: noop };
-    if (path.startsWith('/ops/activity')) return { icon: Download, label: 'Export', onClick: noop };
-    if (path.startsWith('/ops/operators')) return { icon: UserPlus, label: 'Invite', onClick: noop };
-    if (
-      path.startsWith('/ops/contributions') ||
-      path.startsWith('/ops/observations') ||
-      path.startsWith('/ops/edges') ||
-      path.startsWith('/ops/vocabulary') ||
-      path.startsWith('/ops/retailers')
-    ) {
-      return { icon: Plus, label: 'New', onClick: noop };
-    }
-    if (path.startsWith('/ops/signals')) return { icon: Activity, label: 'Signal', onClick: noop };
-    return { icon: Plus, label: 'New', onClick: noop };
+  function defaultContextFab(): ContextFabConfig {
+    const label = pathname === '/ops/activity'
+      ? 'Refresh decision history'
+      : pathname === '/ops/signals'
+        ? 'Refresh commerce signals'
+        : pathname === '/ops/operators'
+          ? 'Refresh operators'
+          : pathname === '/ops'
+            ? 'Refresh queue overview'
+            : 'Refresh this queue';
+
+    return {
+      icon: RefreshCw,
+      label,
+      onClick: () => router.refresh(),
+    };
   }
 
-  const [contextFab, setContextFab] = useState<ContextFabConfig | null>(() => defaultContextFab(pathname));
-
-  useEffect(() => {
-    setContextFab(defaultContextFab(pathname));
+  const [contextFabState, setContextFabState] = useState<{
+    pathname: string;
+    value: ContextFabConfig | null;
+  }>(() => ({ pathname, value: defaultContextFab() }));
+  const contextFab = contextFabState.pathname === pathname
+    ? contextFabState.value ?? defaultContextFab()
+    : defaultContextFab();
+  const setContextFab = useCallback((value: ContextFabConfig | null) => {
+    setContextFabState({ pathname, value });
   }, [pathname]);
 
   const queueItems = [
@@ -142,7 +145,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
             <button
               type="button"
               className={adaptive.sheetClose}
-              onClick={() => setSidebarOpen(false)}
+              onClick={() => setSidebarOpenPath(null)}
               aria-label="Close navigation"
             >
               <X size={18} />
@@ -162,7 +165,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
         <button
           type="button"
           className={adaptive.sidebarScrim}
-          onClick={() => setSidebarOpen(false)}
+          onClick={() => setSidebarOpenPath(null)}
           aria-label="Close navigation"
           tabIndex={sidebarOpen ? 0 : -1}
         />
@@ -170,7 +173,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
         <button
           type="button"
           className={adaptive.menuFab}
-          onClick={() => setSidebarOpen(open => !open)}
+          onClick={() => setSidebarOpenPath(openPath => openPath === pathname ? null : pathname)}
           aria-label={sidebarOpen ? 'Close navigation' : 'Open navigation'}
           aria-expanded={sidebarOpen}
         >
@@ -182,7 +185,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
             <button
               type="button"
               className={adaptive.islandMenu}
-              onClick={() => setSidebarOpen(open => !open)}
+              onClick={() => setSidebarOpenPath(openPath => openPath === pathname ? null : pathname)}
               aria-label={sidebarOpen ? 'Close navigation' : 'Open navigation'}
               aria-expanded={sidebarOpen}
             >
@@ -202,7 +205,6 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           <ShellContext.Provider value={{ contextFab, setContextFab }}>
             <main data-ops-main className={`${styles.main} ${adaptive.main}`}>{children}</main>
           </ShellContext.Provider>
-          <div data-ops-detail id="ops-detail-pane" className={`${styles.detailPane} ${adaptive.detailPane}`} aria-live="polite" />
 
           <nav className={adaptive.bottomBar} aria-label="Primary navigation">
             {bottomBarItems.map(item => {
@@ -235,6 +237,12 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           })()}
 
         </div>
+        <div
+          data-ops-detail
+          id="ops-detail-pane"
+          className={`${styles.detailPane} ${adaptive.detailPane}`}
+          aria-live="polite"
+        />
       </div>
     </div>
   );

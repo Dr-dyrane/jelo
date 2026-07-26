@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useSearchParams } from 'next/navigation';
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from '@/components/ops/inbox/inbox.module.css';
+import observationStyles from './observations.module.css';
 import adaptive from '@/components/ops/inbox/inbox-tablet.module.css';
 import './observations-shell.module.css';
 
@@ -12,36 +14,33 @@ type ViewportMode = 'phone' | 'touch' | 'compact' | 'balanced' | 'expanded';
 function SkeletonDetailContent() {
   return (
     <div className={styles.detailContent} aria-hidden="true">
-      <header className={styles.detailHeader}>
-        <div className={`${styles.skeletonEyebrow} ${styles.skeletonSurface}`} />
-        <div className={`${styles.skeletonDetailTitle} ${styles.skeletonSurface}`} />
-        <div className={styles.detailMeta}>
-          <span className={`${styles.skeletonPill} ${styles.skeletonSurface}`} />
-          <span className={`${styles.skeletonSubtext} ${styles.skeletonSurface}`} />
-        </div>
-      </header>
-
-      <section className={styles.productSummary}>
-        <div className={`${styles.skeletonProductImage} ${styles.skeletonSurface}`} />
-        <div className={styles.productCopy}>
-          <div className={`${styles.skeletonProductTitle} ${styles.skeletonSurface}`} />
-          <div className={`${styles.skeletonProductMeta} ${styles.skeletonSurface}`} />
-        </div>
-      </section>
-
-      <section className={styles.detailSection}>
-        <h3 className={styles.sectionLabel}>Evidence</h3>
-        <div className={styles.propertiesSection}>
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className={styles.propertyRow}>
-              <span className={`${styles.skeletonPropertyLabel} ${styles.skeletonSurface}`} />
-              <span className={`${styles.skeletonPropertyValue} ${styles.skeletonSurface}`} />
+      <div className={styles.detailScroll}>
+        <section className={styles.productSummary}>
+          <div className={`${styles.skeletonProductImage} ${styles.skeletonSurface}`} />
+          <div className={styles.productCopy}>
+            <div className={`${styles.skeletonProductTitle} ${styles.skeletonSurface}`} />
+            <div className={`${styles.skeletonProductMeta} ${styles.skeletonSurface}`} />
+            <div className={styles.detailMeta}>
+              <span className={`${styles.skeletonPill} ${styles.skeletonSurface}`} />
+              <span className={`${styles.skeletonSubtext} ${styles.skeletonSurface}`} />
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <section className={styles.detailSection}>
+        <section className={styles.detailSection}>
+          <h3 className={styles.sectionLabel}>Evidence</h3>
+          <div className={styles.propertiesSection}>
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className={styles.propertyRow}>
+                <span className={`${styles.skeletonPropertyLabel} ${styles.skeletonSurface}`} />
+                <span className={`${styles.skeletonPropertyValue} ${styles.skeletonSurface}`} />
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <section className={styles.decideSection}>
         <h3 className={styles.sectionLabel}>Decision</h3>
         <div className={styles.decideField}>
           <label className={styles.decideNoteLabel}>Rationale</label>
@@ -56,9 +55,9 @@ function SkeletonDetailContent() {
   );
 }
 
-function DetailSkeleton({ mode }: { mode: ViewportMode }) {
+function DetailSkeleton({ mode, selectedId }: { mode: ViewportMode; selectedId: string | null }) {
   const detailPortalTarget = typeof document === 'undefined' ? null : document.getElementById('ops-detail-pane');
-  if (!detailPortalTarget) return null;
+  if (!detailPortalTarget || !selectedId) return null;
 
   const usesOverlayInspector = mode === 'phone' || mode === 'touch' || mode === 'compact';
 
@@ -82,10 +81,16 @@ function DetailSkeleton({ mode }: { mode: ViewportMode }) {
   return createPortal(<SkeletonDetailContent />, detailPortalTarget);
 }
 
-// Suspense fallback while the force-dynamic query resolves. Skeleton grid
-// mirrors the ready-state collection geometry exactly so there is no reflow.
+function SkeletonBlock({ className = '' }: { className?: string }) {
+  return <span className={`${styles.skeletonSurface} ${className}`} />;
+}
+
+// Suspense fallback while the force-dynamic query resolves. Each section
+// mirrors the ready-state geometry so the workspace does not recompose.
 export default function LoadingObservations() {
   const [viewportMode, setViewportMode] = useState<ViewportMode>('expanded');
+  const searchParams = useSearchParams();
+  const selectedId = searchParams.get('id');
 
   useEffect(() => {
     function handleResize() {
@@ -103,22 +108,71 @@ export default function LoadingObservations() {
   return (
     <>
       <OpsWorkspace title="Observations">
-        <div className={styles.cardGrid} data-ops-collection role="status" aria-label="Loading observations">
-          {Array.from({ length: 9 }).map((_, index) => (
-            <div key={index} className={`${styles.card} ${styles.skeletonCard}`} data-ops-collection-item aria-hidden="true">
-              <div className={styles.cardInner}>
-                <div className={styles.skeletonImage} />
-                <div className={styles.cardBody}>
-                  <div className={styles.skeletonTitle} />
-                  <div className={styles.skeletonSubtext} />
-                </div>
-                <div className={styles.skeletonCaret} />
-              </div>
-            </div>
-          ))}
+        <div className={styles.sectionCollection} data-ops-collection="sectioned" role="status" aria-label="Loading observations">
+          <section className={styles.collectionSection} data-presentation="feature-shelf" aria-hidden="true">
+            <header className={styles.collectionSectionHeader}>
+              <h2>Up next</h2>
+            </header>
+            <ul className={styles.sectionItems} data-presentation="feature-shelf">
+              {Array.from({ length: 2 }).map((_, index) => (
+                <li key={index} className={styles.sectionItem}>
+                  <span className={observationStyles.featureCard}>
+                    <span className={observationStyles.featureVisual}>
+                      <SkeletonBlock className={observationStyles.skeletonFeatureProduct} />
+                    </span>
+                    <span className={observationStyles.featureCopy}>
+                      <SkeletonBlock className={observationStyles.skeletonFeatureLabel} />
+                      <SkeletonBlock className={observationStyles.skeletonFeatureTitle} />
+                      <SkeletonBlock className={observationStyles.skeletonFeatureMeta} />
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className={styles.collectionSection} data-presentation="compact-rows" aria-hidden="true">
+            <header className={styles.collectionSectionHeader}>
+              <h2>Price reports</h2>
+            </header>
+            <ul className={styles.sectionItems} data-presentation="compact-rows">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <li key={index} className={styles.sectionItem}>
+                  <span className={observationStyles.compactRow}>
+                    <SkeletonBlock className={observationStyles.skeletonCompactImage} />
+                    <span className={observationStyles.compactCopy}>
+                      <SkeletonBlock className={styles.skeletonTitle} />
+                      <SkeletonBlock className={styles.skeletonSubtext} />
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className={styles.collectionSection} data-presentation="horizontal-rail" aria-hidden="true">
+            <header className={styles.collectionSectionHeader}>
+              <h2>Experience reports</h2>
+            </header>
+            <ul className={styles.sectionItems} data-presentation="horizontal-rail">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <li key={index} className={styles.sectionItem}>
+                  <span className={observationStyles.experienceCard}>
+                    <span className={observationStyles.experienceVisual}>
+                      <SkeletonBlock className={observationStyles.skeletonExperienceProduct} />
+                    </span>
+                    <span className={observationStyles.experienceCopy}>
+                      <SkeletonBlock className={styles.skeletonTitle} />
+                      <SkeletonBlock className={styles.skeletonSubtext} />
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
       </OpsWorkspace>
-      <DetailSkeleton mode={viewportMode} />
+      <DetailSkeleton mode={viewportMode} selectedId={selectedId} />
     </>
   );
 }

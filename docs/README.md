@@ -13,7 +13,9 @@ This is the entry point for product, engineering, data, and operations.
 | Understand the application | [Architecture](./architecture/OVERVIEW.md) |
 | Review public API and security boundaries | [APIs and security](./architecture/APIS_AND_SECURITY.md) |
 | Build or review an interface | [Design system](./design/SYSTEM.md) |
-| Work on the operations shell | [Operations shell](./design/OPS_SHELL.md) |
+| Work on the native operations shell | [Operations shell](./design/OPS_SHELL.md) |
+| Apply the Observations split-view canon | [Operations UI canon](./OPS_UI_CANON.md) |
+| Build or review the queue-level Overview | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md) |
 | Plan or implement the operations console | [Operations console delivery](./operations/console/README.md) |
 | Research and release a product | [Catalogue operations](./catalogue/OPERATIONS.md) |
 | Run Neon safely | [Neon and data](./data/NEON.md) |
@@ -54,6 +56,8 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0006 · Store ranking excludes commercial and popularity signals](./adr/0006-store-ranking-excludes-commercial-signals.md)
 - [ADR 0007 · Internal moderation and operations console](./adr/0007-internal-moderation-operations-console.md)
 - [ADR 0008 · Public-surface abuse and browser-security hardening](./adr/0008-public-surface-abuse-and-browser-hardening.md)
+- [ADR 0009 · UI and UX work ships through explicit lane contracts](./adr/0009-ui-ux-lane-contract.md)
+- [ADR 0010 · Operations use a native split-view work grammar](./adr/0010-operations-interface-and-overview-contract.md)
 
 ## What is authoritative
 

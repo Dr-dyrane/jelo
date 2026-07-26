@@ -14,6 +14,7 @@ const queueLabels = {
   community_edge: 'Knowledge edge',
   community_observation: 'Observation',
   community_moderation_value: 'Vocabulary',
+  community_research_task: 'Research task',
   retailer_application: 'Retailer',
   commerce_signal: 'Commerce signal',
 } as const;
@@ -22,7 +23,9 @@ const actionLabels = {
   claim: 'Claimed',
   approve: 'Approved',
   reject: 'Rejected',
+  map: 'Mapped',
   promote: 'Promoted',
+  reconcile: 'Reconciled',
   defer: 'Deferred',
   note: 'Noted',
 } as const;

@@ -1,0 +1,290 @@
+.featureCard {
+  display: grid;
+  width: 100%;
+  min-height: 176px;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  overflow: hidden;
+  border-radius: calc(var(--ops-control-radius) + 4px);
+  background: color-mix(in srgb, var(--ops-surface-subtle) 92%, var(--ops-accent));
+}
+
+.featureVisual {
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--product-peach) 38%, var(--ops-workspace));
+}
+
+.featureImage {
+  width: 100%;
+  height: 142px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgba(72, 40, 38, .07));
+}
+
+.featureCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-4);
+}
+
+.featureEyebrow {
+  margin: 0 0 var(--space-2);
+  color: var(--ops-accent);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+}
+
+.featureTitle {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.18;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.featureMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-3);
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.3;
+}
+
+.featureValue {
+  color: var(--ink);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.compactRow {
+  display: grid;
+  min-height: 64px;
+  grid-template-columns: 46px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--ops-control-radius);
+}
+
+.compactImageStage {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--product-peach) 28%, var(--ops-workspace));
+}
+
+.compactImage {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  object-fit: contain;
+}
+
+.compactCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.compactTitle {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: var(--text-cell);
+  font-weight: var(--weight-medium);
+  line-height: 1.28;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compactMeta {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compactCaret {
+  color: var(--muted);
+  opacity: .5;
+}
+
+.experienceCard {
+  display: block;
+  width: 100%;
+  min-height: 204px;
+  overflow: hidden;
+  border-radius: calc(var(--ops-control-radius) + 2px);
+  background: color-mix(in srgb, var(--ops-surface-subtle) 94%, var(--product-pink));
+}
+
+.featureCard.selectedSurface,
+.experienceCard.selectedSurface {
+  background: color-mix(in srgb, var(--ops-accent-subtle) 72%, var(--ops-surface-subtle));
+}
+
+.experienceVisual {
+  display: grid;
+  height: 128px;
+  place-items: center;
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--product-pink) 30%, var(--ops-workspace));
+}
+
+.experienceImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(72, 40, 38, .06));
+}
+
+.experienceCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-3);
+}
+
+.experienceTitle {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: 1.25;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.experienceMeta {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: var(--text-label);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skeletonFeatureProduct {
+  width: 46%;
+  height: 76%;
+  border-radius: 10px;
+}
+
+.skeletonFeatureLabel {
+  width: 38%;
+  height: 9px;
+  border-radius: 999px;
+}
+
+.skeletonFeatureTitle {
+  width: 82%;
+  height: 30px;
+  margin-top: var(--space-3);
+  border-radius: 7px;
+}
+
+.skeletonFeatureMeta {
+  width: 58%;
+  height: 10px;
+  margin-top: auto;
+  border-radius: 999px;
+}
+
+.skeletonCompactImage {
+  width: 46px;
+  height: 46px;
+  border-radius: 9px;
+}
+
+.skeletonExperienceProduct {
+  width: 42%;
+  height: 76%;
+  border-radius: 10px;
+}
+
+@media (max-width: 819px) {
+  .featureCard {
+    min-height: 148px;
+    grid-template-columns: minmax(76px, .72fr) minmax(0, 1.28fr);
+  }
+
+  .featureImage {
+    height: 104px;
+  }
+}
+
+@media (min-width: 430px) and (max-width: 599px) {
+  .featureVisual {
+    padding: var(--space-2);
+  }
+
+  .featureCopy {
+    padding: var(--space-3);
+  }
+
+  .featureTitle {
+    font-size: .94rem;
+  }
+
+  .featureMeta {
+    flex-wrap: wrap;
+    gap: 2px var(--space-1);
+    font-size: var(--text-label);
+  }
+
+  .featureMeta > span,
+  .featureMeta time {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 429px) {
+  .featureCard {
+    min-height: 116px;
+    grid-template-columns: 104px minmax(0, 1fr);
+  }
+
+  .featureVisual {
+    padding: var(--space-3);
+  }
+
+  .featureImage {
+    height: 92px;
+  }
+
+  .featureTitle {
+    font-size: .92rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .featureMeta {
+    padding-top: var(--space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featureImage,
+  .experienceImage {
+    filter: none;
+  }
+}

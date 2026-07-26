@@ -106,9 +106,18 @@ export function VocabularyInbox({ rows, canDecide }: VocabularyInboxProps) {
               </div>
 
               <div className={styles.actionButtons}>
-                <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>{isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}</button>
-                <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>{isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}</button>
-                <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="map" formAction={mapAction} disabled={isPending} onClick={() => { pendingDecisionRef.current = 'map'; }}>{isPending && pendingDecisionRef.current === 'map' ? 'Mapping…' : 'Map'}</button>
+                <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
+                  <span>{isPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}</span>
+                  <kbd className={styles.kbdBadge}>R</kbd>
+                </button>
+                <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>
+                  <span>{isPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}</span>
+                  <kbd className={styles.kbdBadge}>E</kbd>
+                </button>
+                <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="map" formAction={mapAction} disabled={isPending} onClick={() => { pendingDecisionRef.current = 'map'; }}>
+                  <span>{isPending && pendingDecisionRef.current === 'map' ? 'Mapping…' : 'Map'}</span>
+                  <kbd className={styles.kbdBadge}>M</kbd>
+                </button>
               </div>
             </form>
           ) : (
