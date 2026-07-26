@@ -45,6 +45,7 @@ interface InboxContainerProps<T extends { id: string }> {
   ) => React.ReactNode;
   renderItemDetails: (item: T) => React.ReactNode;
   itemTypeLabel?: string;
+  getItemLabel?: (item: T) => string;
   selectedId?: string | null;
   pendingSelectionId?: string | null;
   onSelect?: (item: T, index: number) => void;
@@ -258,6 +259,7 @@ export function InboxContainer<T extends { id: string }>({
   renderItemRow,
   renderItemDetails,
   itemTypeLabel = 'item',
+  getItemLabel,
   selectedId,
   pendingSelectionId,
   onSelect,
@@ -372,9 +374,26 @@ export function InboxContainer<T extends { id: string }>({
     if (!usesOverlayInspector || !overlayInspectorOpen) return;
 
     const previousOverflow = document.body.style.overflow;
+    const workspaceScrollOwner = document.querySelector<HTMLElement>('[data-ops-main]');
+    const previousWorkspaceOverflow = workspaceScrollOwner?.style.overflow ?? '';
+    const inertTargets = [
+      document.querySelector<HTMLElement>('[data-ops-workspace]'),
+      document.querySelector<HTMLElement>('[data-ops-sidebar-layer]'),
+    ].filter((target): target is HTMLElement => target != null);
+    const previousInert = inertTargets.map(target => target.hasAttribute('inert'));
+
     document.body.style.overflow = 'hidden';
+    if (workspaceScrollOwner) workspaceScrollOwner.style.overflow = 'hidden';
+    inertTargets.forEach(target => target.setAttribute('inert', ''));
 
     function handleOverlayKeyDown(event: KeyboardEvent) {
+      if (event.defaultPrevented) return;
+      const eventDialog = event.target instanceof Element
+        ? event.target.closest('dialog')
+        : null;
+      const nestedDialog = document.querySelector<HTMLDialogElement>('dialog[open]');
+      if (eventDialog || nestedDialog) return;
+
       if (event.key === 'Escape') {
         event.preventDefault();
         closeDetail();
@@ -406,6 +425,10 @@ export function InboxContainer<T extends { id: string }>({
     return () => {
       cancelAnimationFrame(focusFrame);
       document.body.style.overflow = previousOverflow;
+      if (workspaceScrollOwner) workspaceScrollOwner.style.overflow = previousWorkspaceOverflow;
+      inertTargets.forEach((target, index) => {
+        if (!previousInert[index]) target.removeAttribute('inert');
+      });
       window.removeEventListener('keydown', handleOverlayKeyDown);
     };
   }, [closeDetail, overlayInspectorOpen, usesOverlayInspector]);
@@ -478,6 +501,9 @@ export function InboxContainer<T extends { id: string }>({
 
     function handleKeyDown(e: KeyboardEvent) {
       const target = e.target instanceof HTMLElement ? e.target : null;
+      const eventDialog = target?.closest('dialog');
+      const nestedDialog = document.querySelector<HTMLDialogElement>('dialog[open]');
+      if (eventDialog || nestedDialog) return;
       const isTyping = target?.closest('input, textarea, select, [contenteditable="true"]');
       const isInteractive = target?.closest('button, a[href]');
       const isCollectionRow = target?.closest('[data-ops-collection-item]');
@@ -622,7 +648,7 @@ export function InboxContainer<T extends { id: string }>({
 
       {usesOverlayInspector && activeItem && detailPortalTarget && overlayInspectorOpen
         ? createPortal(
-            <div className={adaptive.tabletStage} role="dialog" aria-modal="true" aria-label={`${itemTypeLabel} details`}>
+            <div className={adaptive.tabletStage} role="dialog" aria-modal="true" aria-label={`${getItemLabel?.(activeItem) ?? itemTypeLabel} details`}>
               <button
                 type="button"
                 className={adaptive.tabletScrim}

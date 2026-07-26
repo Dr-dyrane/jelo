@@ -1,0 +1,68 @@
+/* Route-scoped shell tuning shared with the accepted Ops reference screen.
+   The inbox owns compact/touch inspector overlays. This shell owns only the
+   desktop detail plane, so a loading fallback never creates a false sheet. */
+
+@media (max-width: 819px) {
+  :global([data-ops-workspace]),
+  :global([data-ops-main]) {
+    background: var(--ops-workspace);
+  }
+
+  :global([data-ops-main] > div:first-child) {
+    padding: var(--space-4) var(--space-4) var(--space-3);
+  }
+}
+
+@media (min-width: 820px) {
+  :global([data-ops-sidebar]) {
+    width: 220px;
+    flex-basis: 220px;
+    background: color-mix(in srgb, var(--ops-instrument) 94%, var(--ops-workspace));
+    box-shadow: var(--ops-instrument-shadow);
+  }
+
+  :global([data-ops-workspace]) {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: var(--ops-shell-radius);
+    background: var(--ops-workspace);
+    box-shadow: var(--ops-workspace-shadow);
+  }
+
+  :global([data-ops-main]) {
+    min-width: 0;
+    padding: 0;
+    background: var(--ops-workspace);
+  }
+
+  :global([data-ops-main] > div:first-child) {
+    padding: var(--space-6) var(--space-6) var(--space-4);
+  }
+}
+
+@media (min-width: 1180px) {
+  :global([data-ops-detail]) {
+    width: 332px;
+    flex-basis: 332px;
+    padding: var(--space-5);
+    border: 0;
+    background: color-mix(in srgb, var(--ops-workspace) 92%, var(--ops-surface-subtle));
+    box-shadow: none;
+  }
+
+  :global([data-ops-detail]:empty) {
+    display: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  :global([data-ops-sidebar]) {
+    width: 232px;
+    flex-basis: 232px;
+  }
+
+  :global([data-ops-detail]) {
+    width: 352px;
+    flex-basis: 352px;
+  }
+}

@@ -195,14 +195,36 @@ export async function canonicalModerationTargetExists(
   kind: 'purpose' | 'product' | 'brand' | 'retailer',
   ref: string,
 ): Promise<boolean> {
-  const rows = kind === 'purpose'
-    ? await sql<{ exists: boolean }[]>`select exists(select 1 from concerns where slug = ${ref}) as exists`
-    : kind === 'product'
-      ? await sql<{ exists: boolean }[]>`select exists(select 1 from products where slug = ${ref}) as exists`
-      : kind === 'brand'
-        ? await sql<{ exists: boolean }[]>`select exists(select 1 from brands where slug = ${ref}) as exists`
-        : await sql<{ exists: boolean }[]>`select exists(select 1 from retailers where slug = ${ref}) as exists`;
-  return rows[0]?.exists ?? false;
+  if (kind === 'purpose') {
+    const rows = await sql<{ exists: boolean }[]>`
+      select exists(select 1 from concerns where slug = ${ref}) as exists
+    `;
+    return rows[0]?.exists ?? false;
+  }
+  if (kind === 'brand') {
+    const rows = await sql<{ exists: boolean }[]>`
+      select exists(select 1 from brands where slug = ${ref}) as exists
+    `;
+    return rows[0]?.exists ?? false;
+  }
+  if (kind === 'retailer') {
+    const rows = await sql<{ exists: boolean }[]>`
+      select exists(select 1 from retailers where slug = ${ref}) as exists
+    `;
+    return rows[0]?.exists ?? false;
+  }
+
+  const rows = await sql<{ exists: boolean }[]>`
+    select exists(
+      select 1 from products where slug = ${ref} and is_published = true
+    ) as exists
+  `;
+  if (rows[0]?.exists) return true;
+
+  // Checked-in publication releases are also canonical public products, even
+  // before their optional Neon mirror has caught up.
+  const { products } = await import('@/data/catalogue');
+  return products.some(product => product.slug === ref);
 }
 
 export function mapModerationValue(
@@ -221,7 +243,9 @@ export function mapModerationValue(
       update community_moderation_values
       set status = 'mapped', canonical_entity_kind = ${canonicalEntityKind}, canonical_entity_ref = ${canonicalEntityRef},
           reviewed_at = now(), reviewer = ${operatorSubject}, review_note = ${rationale}
-      where id = ${id} and status = 'pending'
+      where id = ${id}
+        and status = 'pending'
+        and value_kind = ${canonicalEntityKind}
       returning id
     `;
     if (rows.length === 0) return null;

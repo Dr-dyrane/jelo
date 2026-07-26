@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { getPostgresClient } from '@/lib/db/postgres';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { assertCan } from '@/lib/moderation/capabilities';
-import { decisionInputSchema } from '@/lib/moderation/action-input';
+import { decisionInputSchema, mapValueInputSchema } from '@/lib/moderation/action-input';
 import {
   decideContribution,
   decideEdge,
@@ -148,6 +148,52 @@ export async function fetchMoreObservationsAction(offset: number, limit = 50) {
   return enrichedRows;
 }
 
+export async function fetchMoreVocabularyAction(
+  afterActiveMentionCount: number,
+  afterFirstSeenAt: string,
+  afterId: string,
+  limit = 40,
+) {
+  await requireConsoleOperator();
+
+  const parsedDate = new Date(afterFirstSeenAt);
+  if (
+    !Number.isInteger(afterActiveMentionCount)
+    || afterActiveMentionCount < 1
+    || !Number.isFinite(parsedDate.valueOf())
+    || !uuidPattern.test(afterId)
+  ) {
+    throw new Error('Invalid vocabulary cursor.');
+  }
+
+  const safeLimit = Math.min(Math.max(Math.trunc(limit), 1), 100);
+  const { listPendingModerationValues } = await import('@/lib/moderation/queues');
+  const { vocabularyReviewItem } = await import('@/lib/moderation/vocabulary-presentation');
+  const fetchedRows = await listPendingModerationValues(
+    getPostgresClient(),
+    safeLimit + 1,
+    {
+      activeMentionCount: afterActiveMentionCount,
+      firstSeenAt: parsedDate.toISOString(),
+      id: afterId,
+    },
+  );
+  const rows = fetchedRows.slice(0, safeLimit);
+  const lastRow = rows.at(-1);
+
+  return {
+    items: rows.map(vocabularyReviewItem),
+    hasMore: fetchedRows.length > safeLimit,
+    nextCursor: lastRow
+      ? {
+          activeMentionCount: lastRow.activeMentionCount,
+          firstSeenAt: lastRow.firstSeenAt,
+          id: lastRow.id,
+        }
+      : null,
+  };
+}
+
 export async function decideModerationValueAction(_prevState: unknown, formData: FormData): Promise<ActionResult> {
   const requestedId = requestedTargetId(formData);
   try {
@@ -167,22 +213,20 @@ export async function mapModerationValueAction(_prevState: unknown, formData: Fo
   const requestedId = requestedTargetId(formData);
   try {
     const operator = await requireConsoleOperator();
-    assertCan(operator, 'vocabulary.decide');
+    assertCan(operator, 'vocabulary.map');
 
-    const targetId = formData.get('targetId') as string;
-    const canonicalEntityKind = formData.get('canonicalEntityKind') as string;
-    const canonicalEntityRef = formData.get('canonicalEntityRef') as string;
-    const rationale = (formData.get('rationale') as string | null)?.trim() || null;
-
-    if (!targetId || !canonicalEntityKind || !canonicalEntityRef) {
-      return { ok: false, targetId, error: 'Choose what this value should become.' };
-    }
+    const { targetId, canonicalEntityKind, canonicalEntityRef, rationale } = mapValueInputSchema.parse({
+      targetId: formData.get('targetId'),
+      canonicalEntityKind: formData.get('canonicalEntityKind'),
+      canonicalEntityRef: formData.get('canonicalEntityRef'),
+      rationale: (formData.get('rationale') as string | null)?.trim() || null,
+    });
 
     const settled = await mapModerationValue(
       getPostgresClient(),
       operator.authSubject,
       targetId,
-      canonicalEntityKind as 'purpose' | 'product' | 'brand' | 'retailer',
+      canonicalEntityKind,
       canonicalEntityRef,
       rationale,
     );

@@ -24,6 +24,28 @@ Build an internal, authenticated moderation and operations console as a surface 
 4. **Access is gated by the provisioned authentication** (see below). The console is not linked from, or reachable through, the public product, concern, or Ask Jelo surfaces.
 5. **The console uses a neutral private-shell colour context.** It shares JeloCare geometry and interaction grammar with future authenticated surfaces, but uses low-chroma mineral canvas, workspace, and lucent instrument layers rather than the public peach and rose product palette. Muted umber is reserved for active selection and focus; semantic colours communicate operational state only. The decision is implemented through the `--ops-*` token family and documented in [the operations shell guide](../design/OPS_SHELL.md).
 
+## Operator parity
+
+Automation can collect, refresh, or propose. It cannot become the only way to
+change JeloCare. Every automated pathway needs a private, attributable operator
+equivalent before it can make a governed change or publish a result. The
+equivalent may be a console workflow or a controlled runbook while its console
+workflow is not yet shipped; it is never an undocumented database edit.
+
+| Pathway | Operator equivalent |
+| --- | --- |
+| Product catalogue | Create, correct, archive, and restore a product through identity and publication gates. |
+| Retailer catalogue | Create, correct, archive, and restore a retailer with its verification record intact. |
+| Price observations and refresh | Inspect the source, add or correct an observation, replace a stale value, and preserve the freshness record. |
+| Catalogue publishing | Review evidence, publish or unpublish deliberately, and see the resulting public state. |
+| Contributions and vocabulary | Review, link, keep for research, or mark not useful without erasing the original report. |
+
+Every consequential action has role checks, validation, an attributable audit
+entry, honest failure feedback, and an explicit reversal path. A reversal is a
+new audited action with a reason; it restores or retires a published state
+without deleting the original report or audit history. This rule does not
+authorize generic canonical-record editing or bypass existing evidence gates.
+
 ## Authentication
 
 *Where identity is verified* and *where auth state lives* are separate decisions. The console builds no credential storage of its own.

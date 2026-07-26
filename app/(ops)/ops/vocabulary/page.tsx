@@ -1,6 +1,7 @@
 import { getPostgresClient } from '@/lib/db/postgres';
 import {
   findPendingModerationValue,
+  listCanonicalVocabularyTargets,
   listPendingModerationValues,
 } from '@/lib/moderation/queues';
 import {
@@ -10,14 +11,30 @@ import {
 } from '@/lib/moderation/queue-selection';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { can } from '@/lib/moderation/capabilities';
+import {
+  vocabularyReviewItem,
+  type VocabularyTarget,
+} from '@/lib/moderation/vocabulary-presentation';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import { EmptyState } from '@/components/ops/state/EmptyState';
+import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import { VocabularyInbox } from './VocabularyInbox';
-import opsStyles from '../../ops.module.css';
-import styles from '@/components/ops/inbox/inbox.module.css';
+import './vocabulary-shell.module.css';
 
 export const dynamic = 'force-dynamic';
 
 const LIMIT = 100;
+
+function mergeTargets(targets: VocabularyTarget[]) {
+  const byIdentity = new Map<string, VocabularyTarget>();
+  targets.forEach(target => {
+    byIdentity.set(`${target.kind}:${target.ref}`, target);
+  });
+  return [...byIdentity.values()].sort((left, right) => (
+    left.kind.localeCompare(right.kind, 'en-NG')
+    || left.label.localeCompare(right.label, 'en-NG')
+  ));
+}
 
 export default async function VocabularyQueue({
   searchParams,
@@ -26,32 +43,56 @@ export default async function VocabularyQueue({
 }) {
   const operator = await requireConsoleOperator();
   const canDecide = can(operator.role, 'vocabulary.decide');
+  const canMap = can(operator.role, 'vocabulary.map');
   const selectedId = selectedQueueItemId(await searchParams);
   const sql = getPostgresClient();
-  const recentRows = await listPendingModerationValues(sql, LIMIT);
+  const [fetchedRows, databaseTargets, publicProducts] = await Promise.all([
+    listPendingModerationValues(sql, LIMIT + 1),
+    canMap ? listCanonicalVocabularyTargets(sql) : Promise.resolve([]),
+    canMap ? listCatalogueProducts() : Promise.resolve([]),
+  ]);
+  const targets = mergeTargets([
+    ...databaseTargets,
+    ...publicProducts.map(product => ({
+      kind: 'product' as const,
+      ref: product.slug,
+      label: product.name,
+      detail: `${product.brand} · ${product.size}`,
+    })),
+  ]);
+  const recentRows = fetchedRows.slice(0, LIMIT);
+  const hasMore = fetchedRows.length > LIMIT;
   const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
     ? await findPendingModerationValue(sql, selectedId)
     : null;
   const rows = includeSelectedQueueItem(recentRows, selectedRow);
+  const reviewItems = rows.map(vocabularyReviewItem);
+  const lastQueueRow = recentRows.at(-1);
+  const nextCursor = lastQueueRow
+    ? {
+        activeMentionCount: lastQueueRow.activeMentionCount,
+        firstSeenAt: lastQueueRow.firstSeenAt,
+        id: lastQueueRow.id,
+      }
+    : null;
 
   return (
-    <>
-      <h1 className={opsStyles.h1}>Custom vocabulary</h1>
-      <p className={opsStyles.lede}>Values shoppers typed that no canonical entity matched. Approve to accept the term, or reject; mapping to a canonical entity comes next.</p>
-
+    <OpsWorkspace title="Vocabulary">
       {rows.length === 0 ? (
         <EmptyState
-          title="No custom vocabulary pending"
-          body="New custom terms typed by contributors will appear here."
+          title="Nothing awaiting review"
+          body="New community terms will appear here."
         />
       ) : (
-        <>
-          <VocabularyInbox rows={rows} canDecide={canDecide} />
-          {recentRows.length === LIMIT ? (
-            <p className={styles.partial}>Showing the {LIMIT} most recent — more may be pending.</p>
-          ) : null}
-        </>
+        <VocabularyInbox
+          rows={reviewItems}
+          targets={targets}
+          canDecide={canDecide}
+          canMap={canMap}
+          initialHasMore={hasMore}
+          initialCursor={nextCursor}
+        />
       )}
-    </>
+    </OpsWorkspace>
   );
 }

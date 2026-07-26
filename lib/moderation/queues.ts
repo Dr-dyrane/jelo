@@ -41,7 +41,19 @@ export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
           and contribution.moderation_status <> 'rejected'
           and contribution.retain_until > now()
       )::int as observations,
-      (select count(*) from community_moderation_values where status = 'pending')::int as values,
+      (
+        select count(*)
+        from community_moderation_values value
+        where value.status = 'pending'
+          and exists (
+            select 1
+            from community_moderation_mentions mention
+            join community_contributions contribution on contribution.id = mention.contribution_id
+            where mention.moderation_value_id = value.id
+              and contribution.moderation_status <> 'rejected'
+              and contribution.retain_until > now()
+          )
+      )::int as values,
       (select count(*) from retailer_partnership_applications where status = 'submitted')::int as retailers,
       (select count(*) from commerce_events)::int as signals
   `;
@@ -355,46 +367,122 @@ export async function findPendingEdge(sql: Sql, id: string): Promise<PendingEdge
   } : null;
 }
 
+export type PendingModerationValueContext = {
+  contributionKind: 'product' | 'routine' | 'store';
+  contributionPayload: Record<string, unknown>;
+  submittedAt: string;
+};
+
 export type PendingModerationValue = {
   id: string;
-  valueKind: string;
+  valueKind: 'purpose' | 'product' | 'brand' | 'retailer';
   rawValue: string;
-  normalizedValue: string;
-  occurrenceCount: number;
-  canonicalEntityKind: string | null;
-  canonicalEntityRef: string | null;
+  activeMentionCount: number;
+  contributionKinds: ('product' | 'routine' | 'store')[];
+  recentContexts: PendingModerationValueContext[];
   firstSeenAt: string;
   lastSeenAt: string;
 };
 
-export async function listPendingModerationValues(sql: Sql, limit = 100): Promise<PendingModerationValue[]> {
+export type PendingModerationValueCursor = {
+  activeMentionCount: number;
+  firstSeenAt: string;
+  id: string;
+};
+
+export type CanonicalVocabularyTarget = {
+  kind: PendingModerationValue['valueKind'];
+  ref: string;
+  label: string;
+  detail: string | null;
+};
+
+export async function listPendingModerationValues(
+  sql: Sql,
+  limit = 100,
+  after?: PendingModerationValueCursor,
+): Promise<PendingModerationValue[]> {
+  const afterCursor = after
+    ? sql`
+        and (
+          active.active_mention_count < ${after.activeMentionCount}
+          or (
+            active.active_mention_count = ${after.activeMentionCount}
+            and (active.first_seen_at, value.id) > (
+              ${after.firstSeenAt}::timestamptz,
+              ${after.id}::uuid
+            )
+          )
+        )
+      `
+    : sql``;
   const rows = await sql<{
     id: string;
-    value_kind: string;
+    value_kind: PendingModerationValue['valueKind'];
     raw_value: string;
-    normalized_value: string;
-    occurrence_count: number;
-    canonical_entity_kind: string | null;
-    canonical_entity_ref: string | null;
+    active_mention_count: number;
+    contribution_kinds: PendingModerationValue['contributionKinds'];
+    recent_contexts: {
+      contributionKind: PendingModerationValueContext['contributionKind'];
+      contributionPayload: Record<string, unknown>;
+      submittedAt: string;
+    }[];
     first_seen_at: string;
     last_seen_at: string;
   }[]>`
-    select id, value_kind, raw_value, normalized_value, occurrence_count,
-           canonical_entity_kind, canonical_entity_ref,
-           first_seen_at::text as first_seen_at, last_seen_at::text as last_seen_at
-    from community_moderation_values
-    where status = 'pending'
-    order by last_seen_at desc
+    with active_mentions as (
+      select mention.moderation_value_id,
+             count(distinct contribution.id)::int as active_mention_count,
+             array_agg(distinct contribution.contribution_kind::text order by contribution.contribution_kind::text) as contribution_kinds,
+             min(contribution.submitted_at) as first_seen_at,
+             max(contribution.submitted_at) as last_seen_at
+      from community_moderation_mentions mention
+      join community_contributions contribution on contribution.id = mention.contribution_id
+      where contribution.moderation_status <> 'rejected'
+        and contribution.retain_until > now()
+      group by mention.moderation_value_id
+    )
+    select value.id, value.value_kind, value.raw_value,
+           active.active_mention_count, active.contribution_kinds,
+           active.first_seen_at::text as first_seen_at,
+           active.last_seen_at::text as last_seen_at,
+           coalesce(context.recent_contexts, '[]'::jsonb) as recent_contexts
+    from community_moderation_values value
+    join active_mentions active on active.moderation_value_id = value.id
+    left join lateral (
+      select jsonb_agg(jsonb_build_object(
+        'contributionKind', recent.contribution_kind,
+        'contributionPayload', recent.payload,
+        'submittedAt', recent.submitted_at
+      ) order by recent.submitted_at desc, recent.id asc) as recent_contexts
+      from (
+        select contribution.id, contribution.contribution_kind,
+               contribution.payload, contribution.submitted_at
+        from community_moderation_mentions mention
+        join community_contributions contribution on contribution.id = mention.contribution_id
+        where mention.moderation_value_id = value.id
+          and contribution.moderation_status <> 'rejected'
+          and contribution.retain_until > now()
+        order by contribution.submitted_at desc, contribution.id asc
+        limit 3
+      ) recent
+    ) context on true
+    where value.status = 'pending'
+      ${afterCursor}
+    order by active.active_mention_count desc, active.first_seen_at asc, value.id asc
     limit ${boundedLimit(limit)}
   `;
   return rows.map(row => ({
     id: row.id,
     valueKind: row.value_kind,
     rawValue: row.raw_value,
-    normalizedValue: row.normalized_value,
-    occurrenceCount: row.occurrence_count,
-    canonicalEntityKind: row.canonical_entity_kind,
-    canonicalEntityRef: row.canonical_entity_ref,
+    activeMentionCount: row.active_mention_count,
+    contributionKinds: row.contribution_kinds,
+    recentContexts: row.recent_contexts.map(context => ({
+      contributionKind: context.contributionKind,
+      contributionPayload: context.contributionPayload,
+      submittedAt: context.submittedAt,
+    })),
     firstSeenAt: row.first_seen_at,
     lastSeenAt: row.last_seen_at,
   }));
@@ -406,21 +494,50 @@ export async function findPendingModerationValue(
 ): Promise<PendingModerationValue | null> {
   const [row] = await sql<{
     id: string;
-    value_kind: string;
+    value_kind: PendingModerationValue['valueKind'];
     raw_value: string;
-    normalized_value: string;
-    occurrence_count: number;
-    canonical_entity_kind: string | null;
-    canonical_entity_ref: string | null;
+    active_mention_count: number;
+    contribution_kinds: PendingModerationValue['contributionKinds'];
+    recent_contexts: {
+      contributionKind: PendingModerationValueContext['contributionKind'];
+      contributionPayload: Record<string, unknown>;
+      submittedAt: string;
+    }[];
     first_seen_at: string;
     last_seen_at: string;
   }[]>`
-    select id, value_kind, raw_value, normalized_value, occurrence_count,
-           canonical_entity_kind, canonical_entity_ref,
-           first_seen_at::text as first_seen_at, last_seen_at::text as last_seen_at
-    from community_moderation_values
-    where status = 'pending'
-      and id = ${id}
+    select value.id, value.value_kind, value.raw_value,
+           count(distinct contribution.id)::int as active_mention_count,
+           array_agg(distinct contribution.contribution_kind::text order by contribution.contribution_kind::text) as contribution_kinds,
+           min(contribution.submitted_at)::text as first_seen_at,
+           max(contribution.submitted_at)::text as last_seen_at,
+           coalesce((
+             select jsonb_agg(jsonb_build_object(
+               'contributionKind', recent.contribution_kind,
+               'contributionPayload', recent.payload,
+               'submittedAt', recent.submitted_at
+             ) order by recent.submitted_at desc, recent.id asc)
+             from (
+               select context_contribution.id, context_contribution.contribution_kind,
+                      context_contribution.payload, context_contribution.submitted_at
+               from community_moderation_mentions context_mention
+               join community_contributions context_contribution
+                 on context_contribution.id = context_mention.contribution_id
+               where context_mention.moderation_value_id = value.id
+                 and context_contribution.moderation_status <> 'rejected'
+                 and context_contribution.retain_until > now()
+               order by context_contribution.submitted_at desc, context_contribution.id asc
+               limit 3
+             ) recent
+           ), '[]'::jsonb) as recent_contexts
+    from community_moderation_values value
+    join community_moderation_mentions mention on mention.moderation_value_id = value.id
+    join community_contributions contribution on contribution.id = mention.contribution_id
+    where value.status = 'pending'
+      and value.id = ${id}
+      and contribution.moderation_status <> 'rejected'
+      and contribution.retain_until > now()
+    group by value.id
     limit 1
   `;
 
@@ -428,13 +545,38 @@ export async function findPendingModerationValue(
     id: row.id,
     valueKind: row.value_kind,
     rawValue: row.raw_value,
-    normalizedValue: row.normalized_value,
-    occurrenceCount: row.occurrence_count,
-    canonicalEntityKind: row.canonical_entity_kind,
-    canonicalEntityRef: row.canonical_entity_ref,
+    activeMentionCount: row.active_mention_count,
+    contributionKinds: row.contribution_kinds,
+    recentContexts: row.recent_contexts.map(context => ({
+      contributionKind: context.contributionKind,
+      contributionPayload: context.contributionPayload,
+      submittedAt: context.submittedAt,
+    })),
     firstSeenAt: row.first_seen_at,
     lastSeenAt: row.last_seen_at,
   } : null;
+}
+
+export async function listCanonicalVocabularyTargets(sql: Sql): Promise<CanonicalVocabularyTarget[]> {
+  const rows = await sql<{
+    kind: CanonicalVocabularyTarget['kind'];
+    ref: string;
+    label: string;
+    detail: string | null;
+  }[]>`
+    select 'purpose'::text as kind, slug as ref, name as label, null::text as detail from concerns
+    union all
+    select 'product'::text as kind, product.slug as ref, product.name as label, brand.name as detail
+    from products product
+    join brands brand on brand.id = product.brand_id
+    where product.is_published = true
+    union all
+    select 'brand'::text as kind, slug as ref, name as label, null::text as detail from brands
+    union all
+    select 'retailer'::text as kind, slug as ref, name as label, null::text as detail from retailers
+    order by kind asc, label asc, detail asc
+  `;
+  return rows;
 }
 
 export type PendingRetailerApplication = {
