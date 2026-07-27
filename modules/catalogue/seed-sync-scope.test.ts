@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   catalogueSyncTimeouts,
+  assertCatalogueRetirementSafety,
   parseCatalogueSeedScope,
   selectCatalogueSeedProducts,
   shouldRetireStaleCatalogueProducts,
@@ -42,6 +43,14 @@ test('a full catalogue sync retains every reviewed product', () => {
 test('a targeted repair cannot unpublish unrelated catalogue rows', () => {
   const scope = parseCatalogueSeedScope(['--only', 'second-product']);
   assert.equal(shouldRetireStaleCatalogueProducts(scope), false);
+});
+
+test('full sync retirement fails closed for empty and suspiciously reduced catalogues', () => {
+  assert.doesNotThrow(() => assertCatalogueRetirementSafety(51, 51));
+  assert.doesNotThrow(() => assertCatalogueRetirementSafety(40, 51));
+  assert.throws(() => assertCatalogueRetirementSafety(19, 51), /below 20 reviewed products/);
+  assert.throws(() => assertCatalogueRetirementSafety(38, 51), /retain at least 39 reviewed products/);
+  assert.throws(() => assertCatalogueRetirementSafety(51, -1), /count is invalid/);
 });
 
 test('scope parsing fails closed for malformed, missing, and unknown input', () => {

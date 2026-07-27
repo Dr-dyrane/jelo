@@ -3,6 +3,27 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 
+function ruleDeclarations(styles: string, selector: string): string {
+  const match = styles.match(new RegExp(`${selector.replace('.', '\\.') }\\s*\\{([^}]*)\\}`));
+  assert.ok(match, `Missing ${selector} rule.`);
+  return match[1];
+}
+
+function firstMediaBlock(styles: string, query: string): string {
+  const start = styles.indexOf(query);
+  assert.notEqual(start, -1, `Missing ${query} media query.`);
+  const openingBrace = styles.indexOf('{', start);
+  let depth = 0;
+  for (let index = openingBrace; index < styles.length; index += 1) {
+    if (styles[index] === '{') depth += 1;
+    if (styles[index] === '}') {
+      depth -= 1;
+      if (depth === 0) return styles.slice(openingBrace + 1, index);
+    }
+  }
+  throw new Error(`Unclosed ${query} media query.`);
+}
+
 test('catalogue and concern filters acknowledge changes and stay reversible', async () => {
   const root = process.cwd();
   const catalogue = await readFile(path.join(root, 'app/(site)/products/page.tsx'), 'utf8');
@@ -41,9 +62,12 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(search, /recordCatalogueTransition/);
   assert.match(search, /href=\{marketHrefs\.NG\}/);
   assert.match(search, /href=\{marketHrefs\.US\}/);
-  assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*position: fixed/);
-  assert.match(searchStyles, /\.shell\s*\{[\s\S]*position: sticky;[\s\S]*top: 5\.35rem;/);
-  assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*\.shell\s*\{[\s\S]*position: relative;[\s\S]*top: auto;/);
+  assert.match(ruleDeclarations(searchStyles, '.shell'), /position:\s*sticky;/);
+  assert.match(ruleDeclarations(searchStyles, '.shell'), /top:\s*5\.35rem;/);
+  const mobileSearchStyles = firstMediaBlock(searchStyles, '@media (max-width: 640px)');
+  assert.match(ruleDeclarations(mobileSearchStyles, '.suggestions'), /position:\s*fixed;/);
+  assert.match(ruleDeclarations(mobileSearchStyles, '.shell'), /position:\s*relative;/);
+  assert.match(ruleDeclarations(mobileSearchStyles, '.shell'), /top:\s*auto;/);
   assert.match(searchStyles, /scrollbar-width: none/);
   assert.match(catalogueStyles, /^\.page\{overflow:clip;/);
   assert.doesNotMatch(search, /[😀-🙏]/u);

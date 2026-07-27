@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-07-26T23:01:30Z",
+  "updatedAt": "2026-07-27T01:18:26Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -1673,14 +1673,15 @@
       "variant": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide",
       "size": "150 ml",
       "category": "Face care",
-      "reason": "A strong acne-wash candidate for inflammatory facial and body-breakout coverage, pending safety review.",
+      "reason": "A strong acne-wash candidate for inflammatory facial and body-breakout coverage. Care review is complete, and Beauty by Daz plus Teeka4 each show the exact 10% / 150 ml variant with a current Nigerian price.",
       "priority": "important",
       "gapIds": [
         "inflammatory-acne-wash",
         "body-acne-support"
       ],
       "demandEvidenceUrls": [
-        "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/"
+        "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+        "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/"
       ],
       "identity": {
         "gtin": "3606000604520",
@@ -7225,7 +7226,7 @@
       "variant": "Vitamin C Body Lotion",
       "size": "400 ml",
       "category": "Body care",
-      "reason": "Adds an exact daily body-lotion SKU with current Nigerian price coverage and a conservative dry-body care boundary. Face Facts confirms the current 400 ml pump, directions and full formula; eBay UK and Apollo Wholesale independently corroborate EAN 5031413929089; and BuyBetter plus Allure each show the exact 400 ml product in stock at a current Naira price. Slique remains visible as demand evidence but is excluded from the exact comparison because its provisional listing exposes a conflicting retailer-local EAN.",
+      "reason": "Adds an exact daily body-lotion SKU with current Nigerian price coverage and a conservative dry-body care boundary. Face Facts confirms the current 400 ml pump, directions and full formula; eBay UK and Apollo Wholesale independently corroborate EAN 5031413929089; and BuyBetter plus Allure each show the exact 400 ml product in stock at a current Naira price. Slique remains demand evidence only while its retailer status is provisional.",
       "priority": "essential",
       "gapIds": [
         "dry-body-daily-care",
@@ -9462,20 +9463,7 @@
       },
       "nigeria": {
         "regulatoryStatus": "pending",
-        "exactOffers": [
-          {
-            "retailer": "Nectar Beauty Hub",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://nectarbeautyhub.com/products/simple-replenishing-rich-moisturiser-125ml",
-            "observedAt": "2026-07-26T05:56:22Z",
-            "observedTitle": "Simple Replenishing Rich Moisturiser - 125ml",
-            "observedSize": "125 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Current grey 100%-recycled-plastic 125 ml bottle and boxed Instantly Smoothing presentation; older Nigerian listing images show a white Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA package",
-            "priceNgn": 4799,
-            "stock": "in-stock"
-          }
-        ],
+        "exactOffers": [],
         "excludedObservations": [
           {
             "retailer": "BuyBetter",

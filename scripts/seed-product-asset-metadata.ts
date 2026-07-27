@@ -60,10 +60,9 @@ async function main() {
         `;
         if (rows.length > 1) throw new Error(`Expected at most one packshot record for ${slug}; found ${rows.length}.`);
         if (rows.length === 0) {
-          // A static-catalogue product may not be mirrored into Neon yet: the canonical
-          // catalogue is seeded separately (behind SEED_CATALOGUE_ON_BUILD), while the
-          // runtime renders from data/*.ts. Skip its metadata rather than failing the
-          // whole production build; the packshot is already live on Blob.
+          // A product may be absent during a targeted repair or an interrupted prior
+          // release. Runtime still renders the checked-in catalogue and the reviewed
+          // packshot is already immutable on Blob, so keep this seed non-destructive.
           console.warn(`No Neon packshot row for ${slug}; skipping metadata seed.`);
           skipped += 1;
           continue;

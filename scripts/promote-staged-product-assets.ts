@@ -17,7 +17,9 @@ import {
   type StagedProductAssetBlobClient,
   type StagedProductAssetPromotion,
   verifyCatalogueIntakePromotionBinding,
+  expectedSharpFormatForStagedProductAsset,
 } from '../lib/assets/staged-product-asset-promotion';
+import { parseStagedProductPromotionIds } from '../lib/assets/staged-product-promotion-selection';
 import {
   verifyCataloguePublicationImageBytes,
   verifyRemoteCataloguePublicationImage,
@@ -67,7 +69,7 @@ async function verifiedBytes(promotion: StagedProductAssetPromotion) {
     throw new Error(`${promotion.id}: staged bytes changed`);
   }
   if (
-    metadata.format !== promotion.contentType.split('/')[1]
+    metadata.format !== expectedSharpFormatForStagedProductAsset(promotion.contentType)
     || metadata.width !== promotion.width
     || metadata.height !== promotion.height
     || metadata.hasAlpha !== promotion.hasAlpha
@@ -101,14 +103,7 @@ function usableCredential(value: string | undefined) {
 }
 
 async function main() {
-  const requestedIds = process.argv
-    .slice(2)
-    .filter(argument => argument.startsWith('--id='))
-    .map(argument => argument.slice('--id='.length))
-    .filter(Boolean);
-  if (new Set(requestedIds).size !== requestedIds.length) {
-    throw new Error('Each requested promotion ID must be unique.');
-  }
+  const requestedIds = parseStagedProductPromotionIds(process.argv.slice(2));
   const activePromotions = (promotions as StagedProductAssetPromotion[])
     .filter(promotion => promotion.active);
   const activeById = new Map(activePromotions.map(promotion => [promotion.id, promotion]));

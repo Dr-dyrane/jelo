@@ -20,8 +20,10 @@ function run(command: string, args: string[]) {
 async function main() {
   const isVercelProduction = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production';
   const migrationsDisabled = process.env.SKIP_DATABASE_MIGRATIONS === '1';
-  const seedExternalCatalogue = process.env.SEED_EXTERNAL_CATALOGUE_ON_BUILD === '1'
-    || process.env.SEED_CATALOGUE_ON_BUILD === '1';
+  // Reviewed catalogue projection is always seeded by a production release.
+  // External discovery is a separate, exceptional pathway and must never be
+  // enabled by the legacy internal-catalogue flag.
+  const seedExternalCatalogue = process.env.SEED_EXTERNAL_CATALOGUE_ON_BUILD === '1';
   const plan = createDeploymentPlan({
     isVercelProduction,
     migrationsDisabled,
@@ -34,6 +36,9 @@ async function main() {
     console.log('Production release verification remains enabled; database mutations are disabled by SKIP_DATABASE_MIGRATIONS=1.');
   } else {
     console.log('Production deployment detected. Verification and Next build must pass before external mutations.');
+  }
+  if (process.env.SEED_CATALOGUE_ON_BUILD === '1') {
+    console.log('SEED_CATALOGUE_ON_BUILD is legacy; reviewed catalogue sync already runs in every production release.');
   }
 
   const commands: Record<DeploymentStep, [string, string[]]> = {

@@ -476,7 +476,22 @@ export async function writeCatalogueIntakeProjectionAtomically({
       encoding: 'utf8',
       flag: 'wx',
     });
-    lock = await open(lockPath, 'wx');
+    try {
+      lock = await open(lockPath, 'wx');
+    } catch (error) {
+      if (
+        error
+        && typeof error === 'object'
+        && 'code' in error
+        && error.code === 'EEXIST'
+      ) {
+        throw new Error(
+          'Catalogue intake compilation lock already exists. Wait for any active compiler; if the lock persists, verify no compiler is running, remove data/.catalogue-intake.compiler.lock, and rerun.',
+          { cause: error },
+        );
+      }
+      throw error;
+    }
     const [currentProjection, currentSources] = await Promise.all([
       readFile(projectionPath),
       readCatalogueIntakeSourceFiles(repositoryRoot),

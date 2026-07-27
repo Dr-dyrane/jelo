@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T15:18:00Z",
+  "updatedAt": "2026-07-27T01:18:26Z",
   "order": 30,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -45,20 +45,7 @@
     },
     "nigeria": {
       "regulatoryStatus": "pending",
-      "exactOffers": [
-        {
-          "retailer": "Nectar Beauty Hub",
-          "retailerStatus": "directory-listed",
-          "listingUrl": "https://nectarbeautyhub.com/products/simple-replenishing-rich-moisturiser-125ml",
-          "observedAt": "2026-07-26T05:56:22Z",
-          "observedTitle": "Simple Replenishing Rich Moisturiser - 125ml",
-          "observedSize": "125 ml",
-          "observedGtinBasis": "exact-variant-and-size",
-          "observedPackageVersion": "Current grey 100%-recycled-plastic 125 ml bottle and boxed Instantly Smoothing presentation; older Nigerian listing images show a white Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA package",
-          "priceNgn": 4799,
-          "stock": "in-stock"
-        }
-      ],
+      "exactOffers": [],
       "excludedObservations": [
         {
           "retailer": "BuyBetter",

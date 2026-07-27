@@ -173,7 +173,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
-      "dossierFingerprint": "0f4758c63cad7f874a7cbb658962497ebbbca7b7714aa723406cddd56b47339d",
+      "dossierFingerprint": "c1aaa58884a084938322e72dc8b1adc435374380d18123fe17298b5c0ecd9c19",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -192,7 +192,7 @@
         "reviewer": "JeloCare catalogue publication review",
         "publishedAt": "2026-07-23T05:33:25Z"
       },
-      "releaseFingerprint": "27ff24df5b57878b7ad8170cf4c1e7288da27c5cd50f7b38acbbcd6d3eea40bd"
+      "releaseFingerprint": "9a3b4997368234abb0833a81522289d31e2536fde40ee360567df29c10e61549"
     },
     {
       "schemaVersion": 2,
@@ -557,7 +557,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "facefacts-vitamin-c-body-lotion-400ml",
-      "dossierFingerprint": "d0c94c8cd0348827aa0e15205fb9b913429451eef6fe3d3c3f7f55fa4d15b556",
+      "dossierFingerprint": "33d9de1f3cfab983b8043f29ff63c43e78e09d8b0d13b6355c83e992ee60818f",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -576,7 +576,7 @@
         "reviewer": "JeloCare catalogue release reviewer",
         "publishedAt": "2026-07-23T18:00:10Z"
       },
-      "releaseFingerprint": "a61bc30ef7d25cfbb35b9422b111663702bfccada7ead80326a262000f26b98f"
+      "releaseFingerprint": "04a5aad76f7bdb158c9e63c8a452809dce603b724f5abc39ab660abdcc647473"
     },
     {
       "schemaVersion": 2,
@@ -756,7 +756,7 @@
       "recommendationEligible": false,
       "presentation": {
         "category": "Body",
-        "routineStep": "Moisturise",
+        "routineStep": "Moisturize",
         "displayLine": "Daily body moisture · 400 ml",
         "usage": "Apply over the body. Allow it to absorb before dressing, and store in a cool, dry place.",
         "manufacturerDirectionsUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
@@ -768,7 +768,7 @@
         "reviewer": "JeloCare catalogue release reviewer",
         "publishedAt": "2026-07-26T19:53:10Z"
       },
-      "releaseFingerprint": "a9ecf08fa99b98bb0e117558f8ad9ab7685ecc3f0b3c894f74179fffc30c049d"
+      "releaseFingerprint": "42b37ccaf51cf8f92dc180baed060e29ff67910e844035e82d34782053fc6b01"
     },
     {
       "schemaVersion": 2,
@@ -828,7 +828,7 @@
       "recommendationEligible": false,
       "presentation": {
         "category": "Face",
-        "routineStep": "Moisturise",
+        "routineStep": "Moisturize",
         "displayLine": "Light moisture for blemish-prone skin.",
         "usage": "After cleansing and toning, apply a small amount and massage in. Do not rinse.",
         "manufacturerDirectionsUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
@@ -840,7 +840,7 @@
         "reviewer": "JeloCare catalogue release reviewer",
         "publishedAt": "2026-07-26T23:14:00Z"
       },
-      "releaseFingerprint": "b6d0d5c03e681026c4644619d7a3812f8760ddeb9e59cbd7d34311e956b21cf1"
+      "releaseFingerprint": "2d3773f114cedd984953bed6fcccac65ef594197657c6060ceba54ce905308be"
     }
   ]
 }

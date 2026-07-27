@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T15:18:00Z",
+  "updatedAt": "2026-07-27T01:18:26Z",
   "order": 6,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -14,14 +14,15 @@
     "variant": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide",
     "size": "150 ml",
     "category": "Face care",
-    "reason": "A strong acne-wash candidate for inflammatory facial and body-breakout coverage, pending safety review.",
+    "reason": "A strong acne-wash candidate for inflammatory facial and body-breakout coverage. Care review is complete, and Beauty by Daz plus Teeka4 each show the exact 10% / 150 ml variant with a current Nigerian price.",
     "priority": "important",
     "gapIds": [
       "inflammatory-acne-wash",
       "body-acne-support"
     ],
     "demandEvidenceUrls": [
-      "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/"
+      "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+      "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/"
     ],
     "identity": {
       "gtin": "3606000604520",

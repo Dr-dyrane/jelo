@@ -5,6 +5,7 @@ import {
   readFile,
   readdir,
   rm,
+  unlink,
   writeFile,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -33,7 +34,7 @@ import {
 const repositoryRoot = process.cwd();
 // This fixed verification instant must remain later than every checked-in
 // source, dossier and release timestamp represented by the fixture.
-const asOf = Date.parse('2026-07-27T00:00:00Z');
+const asOf = Date.parse('2026-07-28T00:00:00Z');
 
 async function readJson(relativePath: string): Promise<unknown> {
   return JSON.parse(await readFile(path.resolve(repositoryRoot, relativePath), 'utf8')) as unknown;
@@ -354,6 +355,18 @@ test('the atomic writer refuses stale projection or source snapshots and cleans 
     await writeFile(path.join(sourceRoot, 'one.json'), '{}\n');
     const { manifest } = await currentFixture();
     const initialSources = await readCatalogueIntakeSourceFiles(temporaryRoot);
+
+    await writeFile(path.join(dataRoot, '.catalogue-intake.compiler.lock'), 'other compiler\n');
+    await assert.rejects(
+      writeCatalogueIntakeProjectionAtomically({
+        repositoryRoot: temporaryRoot,
+        manifest,
+        expectedProjectionSha256: catalogueIntakeBytesSha256(originalProjection),
+        expectedSourceSnapshotSha256: catalogueIntakeSourceSnapshotSha256(initialSources),
+      }),
+      /lock already exists[\s\S]*remove data\/\.catalogue-intake\.compiler\.lock/,
+    );
+    await unlink(path.join(dataRoot, '.catalogue-intake.compiler.lock'));
 
     await assert.rejects(
       writeCatalogueIntakeProjectionAtomically({

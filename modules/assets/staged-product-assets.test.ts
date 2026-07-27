@@ -15,6 +15,7 @@ import {
 } from '@/lib/assets/packshot-silhouette';
 import {
   assertStagedProductAssetPromotion,
+  expectedSharpFormatForStagedProductAsset,
   promoteVerifiedStagedProductAsset,
   resolveStagedProductAssetPath,
   type CatalogueIntakeAssetPromotion,
@@ -22,6 +23,7 @@ import {
   type StagedProductAssetPromotion,
   verifyCatalogueIntakePromotionBinding,
 } from '@/lib/assets/staged-product-asset-promotion';
+import { parseStagedProductPromotionIds } from '@/lib/assets/staged-product-promotion-selection';
 
 test('staged promotions bind exact local bytes to one public product or private candidate', async () => {
   const ids = new Set<string>();
@@ -66,7 +68,7 @@ test('staged promotions bind exact local bytes to one public product or private 
     assert.equal(metadata.width, promotion.width);
     assert.equal(metadata.height, promotion.height);
     assert.equal(metadata.hasAlpha, promotion.hasAlpha);
-    assert.equal(metadata.format, promotion.contentType.split('/')[1]);
+    assert.equal(metadata.format, expectedSharpFormatForStagedProductAsset(promotion.contentType));
     if (promotion.hasAlpha) {
       assert.equal(statistics.isOpaque, false);
       assert.equal(
@@ -168,6 +170,57 @@ test('private candidate paths are non-public, versioned, and content-addressed',
     } as unknown as StagedProductAssetPromotion),
     /exactly one productSlug or candidateId/,
   );
+});
+
+test('asset promotion URLs and public paths are structurally bound to their target', () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const promotion = candidatePromotion(bytes);
+  assert.throws(
+    () => assertStagedProductAssetPromotion({ ...promotion, sourceUrl: 'not a URL' }),
+    /private-candidate-test-v1: source URL is invalid/,
+  );
+  assert.throws(
+    () => assertStagedProductAssetPromotion({ ...promotion, blobUrl: 'not a URL' }),
+    /private-candidate-test-v1: destination URL is invalid/,
+  );
+
+  const publicPromotion = {
+    ...promotion,
+    id: 'example-product-v1',
+    candidateId: undefined,
+    productSlug: 'example-product',
+    localPath: '/products/example/example-product-transparent-v1.png',
+    blobPath: 'products/example/example-product/packshot-v1.png',
+    blobUrl: 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/example/example-product/packshot-v1.png',
+  } as unknown as StagedProductAssetPromotion;
+  assert.deepEqual(assertStagedProductAssetPromotion(publicPromotion), {
+    kind: 'public-product',
+    id: 'example-product',
+  });
+  assert.throws(
+    () => assertStagedProductAssetPromotion({
+      ...publicPromotion,
+      blobPath: 'products/example/other-example-product/packshot-v1.png',
+      blobUrl: 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/example/other-example-product/packshot-v1.png',
+    }),
+    /Blob path does not match productSlug/,
+  );
+});
+
+test('asset promotion selection never silently widens malformed input', () => {
+  assert.deepEqual(parseStagedProductPromotionIds([]), []);
+  assert.deepEqual(parseStagedProductPromotionIds(['--id=example-product-v1']), ['example-product-v1']);
+  assert.throws(() => parseStagedProductPromotionIds(['--id=']), /Invalid staged asset promotion ID/);
+  assert.throws(() => parseStagedProductPromotionIds(['--id']), /Unknown staged asset promotion argument/);
+  assert.throws(() => parseStagedProductPromotionIds(['--unexpected']), /Unknown staged asset promotion argument/);
+  assert.throws(
+    () => parseStagedProductPromotionIds(['--id=example-product-v1', '--id=example-product-v1']),
+    /must be unique/,
+  );
+});
+
+test('AVIF promotion metadata uses sharp’s HEIF decoded format', () => {
+  assert.equal(expectedSharpFormatForStagedProductAsset('image/avif'), 'heif');
 });
 
 test('publication candidate paths stay private locally and bind brand, SKU and hash remotely', () => {
@@ -378,6 +431,27 @@ test('remote metadata or byte mismatches fail closed and never overwrite', async
   assert.equal(putCalls, 0);
 });
 
+test('local promotion bytes are checked before a remote read or write', async () => {
+  const reviewedBytes = Buffer.from('reviewed candidate bytes');
+  const alteredBytes = Buffer.from('altered candidate bytes');
+  const promotion = candidatePromotion(reviewedBytes);
+  let reads = 0;
+  const client: StagedProductAssetBlobClient = {
+    get: async () => {
+      reads += 1;
+      return null;
+    },
+    put: async () => {
+      throw new Error('put must not run');
+    },
+  };
+  await assert.rejects(
+    promoteVerifiedStagedProductAsset(promotion, alteredBytes, client),
+    /local staged bytes do not match the reviewed asset/,
+  );
+  assert.equal(reads, 0);
+});
+
 test('a concurrent create is idempotent only when the winning bytes verify', async () => {
   const bytes = Buffer.from('reviewed candidate bytes');
   const promotion = candidatePromotion(bytes);
@@ -395,6 +469,28 @@ test('a concurrent create is idempotent only when the winning bytes verify', asy
   assert.equal(
     await promoteVerifiedStagedProductAsset(promotion, bytes, client),
     'verified-existing',
+  );
+  assert.equal(getCalls, 2);
+});
+
+test('a concurrent create with different winning bytes fails closed', async () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const altered = Buffer.from(bytes);
+  altered[0] ^= 0xff;
+  const promotion = candidatePromotion(bytes);
+  let getCalls = 0;
+  const client: StagedProductAssetBlobClient = {
+    get: async () => {
+      getCalls += 1;
+      return getCalls === 1 ? null : remoteRead(promotion, altered);
+    },
+    put: async () => {
+      throw new Error('another build created the immutable path');
+    },
+  };
+  await assert.rejects(
+    promoteVerifiedStagedProductAsset(promotion, bytes, client, { postWriteVerificationDelaysMs: [0] }),
+    /remote Blob bytes do not match/,
   );
   assert.equal(getCalls, 2);
 });

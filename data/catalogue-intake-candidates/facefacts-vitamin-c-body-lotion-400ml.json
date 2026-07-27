@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T15:18:00Z",
+  "updatedAt": "2026-07-27T01:18:26Z",
   "order": 23,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -14,7 +14,7 @@
     "variant": "Vitamin C Body Lotion",
     "size": "400 ml",
     "category": "Body care",
-    "reason": "Adds an exact daily body-lotion SKU with current Nigerian price coverage and a conservative dry-body care boundary. Face Facts confirms the current 400 ml pump, directions and full formula; eBay UK and Apollo Wholesale independently corroborate EAN 5031413929089; and BuyBetter plus Allure each show the exact 400 ml product in stock at a current Naira price. Slique remains visible as demand evidence but is excluded from the exact comparison because its provisional listing exposes a conflicting retailer-local EAN.",
+    "reason": "Adds an exact daily body-lotion SKU with current Nigerian price coverage and a conservative dry-body care boundary. Face Facts confirms the current 400 ml pump, directions and full formula; eBay UK and Apollo Wholesale independently corroborate EAN 5031413929089; and BuyBetter plus Allure each show the exact 400 ml product in stock at a current Naira price. Slique remains demand evidence only while its retailer status is provisional.",
     "priority": "essential",
     "gapIds": [
       "dry-body-daily-care",

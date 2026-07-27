@@ -95,10 +95,7 @@ test('the Simple replenishing moisturiser binds UK identity while holding formul
   assert.equal(candidate.asset.sourceAssetSha256, '0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992');
   assert.deepEqual([candidate.asset.sourceAssetWidth, candidate.asset.sourceAssetHeight], [2880, 2880]);
   assert.equal(candidate.asset.sourceAssetRetrievedAt, undefined);
-  assert.equal(candidate.nigeria.exactOffers.length, 1);
-  assert.equal(candidate.nigeria.exactOffers[0]?.retailer, 'Nectar Beauty Hub');
-  assert.equal(candidate.nigeria.exactOffers[0]?.priceNgn, 4799);
-  assert.equal(candidate.nigeria.exactOffers[0]?.evidence, undefined);
+  assert.equal(candidate.nigeria.exactOffers.length, 0);
   assert.equal(candidate.nigeria.excludedObservations.length, 2);
   assert.equal(candidate.nigeria.excludedObservations[0]?.retailer, 'BuyBetter');
   assert.equal(candidate.nigeria.excludedObservations[0]?.evidence.fields.retailerIdentifier?.value, '5011451103948');

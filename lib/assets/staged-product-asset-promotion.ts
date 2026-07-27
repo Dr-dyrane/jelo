@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { catalogueBrandSlug } from '../catalogue/slug';
 
 export const stagedProductAssetHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 export const stagedCatalogueIntakeAssetDirectory = 'data/catalogue-intake-assets';
@@ -95,6 +96,28 @@ const supportedExtensionByContentType: Record<StagedProductAssetContentType, rea
   'image/jpeg': ['jpg', 'jpeg'],
 };
 
+const sharpFormatByContentType: Record<StagedProductAssetContentType, string> = {
+  'image/png': 'png',
+  'image/webp': 'webp',
+  // sharp identifies AVIF containers as HEIF in metadata.
+  'image/avif': 'heif',
+  'image/jpeg': 'jpeg',
+};
+
+export function expectedSharpFormatForStagedProductAsset(
+  contentType: StagedProductAssetContentType,
+) {
+  return sharpFormatByContentType[contentType];
+}
+
+function parsePromotionUrl(value: string, promotionId: string, label: string) {
+  try {
+    return new URL(value);
+  } catch {
+    throw new Error(`${promotionId}: ${label} URL is invalid`);
+  }
+}
+
 function promotionTarget(promotion: StagedProductAssetPromotion) {
   const productSlug = 'productSlug' in promotion ? promotion.productSlug : undefined;
   const candidateId = 'candidateId' in promotion ? promotion.candidateId : undefined;
@@ -152,8 +175,8 @@ export function assertStagedProductAssetPromotion(
     throw new Error(`${promotion.id}: image metadata is invalid`);
   }
 
-  const source = new URL(promotion.sourceUrl);
-  const destination = new URL(promotion.blobUrl);
+  const source = parsePromotionUrl(promotion.sourceUrl, promotion.id, 'source');
+  const destination = parsePromotionUrl(promotion.blobUrl, promotion.id, 'destination');
   if (source.protocol !== 'https:') throw new Error(`${promotion.id}: source must use HTTPS`);
   if (
     destination.protocol !== 'https:'
@@ -176,15 +199,11 @@ export function assertStagedProductAssetPromotion(
     }
     const relativeLocalPath = promotion.localPath.replace(/^\/+/, '');
     normalizedRepositoryPath(relativeLocalPath, `${promotion.id} local path`);
-    if (
-      !promotion.blobPath.startsWith('products/')
-      || !promotion.blobPath.includes(`/${target.id}/`)
-    ) {
+    const publicPath = promotion.blobPath.match(
+      new RegExp(`^products/(${targetIdPattern.source.slice(1, -1)})/${target.id}/(packshot-v[1-9]\\d*)\\.${extension}$`),
+    );
+    if (!publicPath) {
       throw new Error(`${promotion.id}: Blob path does not match productSlug`);
-    }
-    const publicFilename = path.posix.basename(promotion.blobPath);
-    if (!new RegExp(`^packshot-v[1-9]\\d*\\.${extension}$`).test(publicFilename)) {
-      throw new Error(`${promotion.id}: public product Blob path must contain an immutable version`);
     }
     return target;
   }
@@ -285,13 +304,7 @@ export async function verifyCatalogueIntakePromotionBinding(
     target.kind === 'catalogue-publication'
     && (
       typeof source.candidate.brand !== 'string'
-      || source.candidate.brand
-        .trim()
-        .toLowerCase()
-        .normalize('NFKD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '') !== target.brandSlug
+      || catalogueBrandSlug(source.candidate.brand) !== target.brandSlug
     )
   ) {
     throw new Error(`${promotion.id}: publication brand binding is invalid`);
@@ -362,6 +375,11 @@ export async function promoteVerifiedStagedProductAsset(
     postWriteVerificationDelaysMs?: readonly number[];
   } = {},
 ) {
+  assertStagedProductAssetPromotion(promotion);
+  const localHash = createHash('sha256').update(bytes).digest('hex');
+  if (bytes.length !== promotion.byteSize || localHash !== promotion.contentHash) {
+    throw new Error(`${promotion.id}: local staged bytes do not match the reviewed asset`);
+  }
   if (await verifyExistingRemoteStagedProductAsset(promotion, client)) {
     return 'verified-existing' as const;
   }

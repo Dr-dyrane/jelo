@@ -8,10 +8,12 @@ import {
 } from '../data/product-ingredients';
 import {
   catalogueSyncTimeouts,
+  assertCatalogueRetirementSafety,
   parseCatalogueSeedScope,
   selectCatalogueSeedProducts,
   shouldRetireStaleCatalogueProducts,
 } from '../lib/catalogue/seed-sync-scope';
+import { catalogueBrandSlug } from '../lib/catalogue/slug';
 import { priceAmountToStorageInteger } from '../lib/inventory/price-storage';
 
 type ProductAssetRecord = {
@@ -44,13 +46,7 @@ async function main() {
     connect_timeout: 10,
     connection: { application_name: 'jelocare-catalogue-sync' },
   });
-  const slugify = (value: string) =>
-    value
-      .toLowerCase()
-      .normalize('NFKD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
+  const slugify = catalogueBrandSlug;
 
   const sourceHost = (value: string) => {
     try {
@@ -427,11 +423,19 @@ async function main() {
       const publishedSlugs = catalogue.map((product) => product.slug);
       await sql.begin(async (tx) => {
         await configureSyncTransaction(tx);
+        const [current] = await tx<{ count: number }[]>`
+          select count(*)::int as count
+          from products
+          where is_published = true
+            and source_version in ('static-v1', 'published-intake-v1')
+        `;
+        assertCatalogueRetirementSafety(publishedSlugs.length, current?.count ?? 0);
         await tx`
         update products
         set is_published = false,
             updated_at = now()
         where is_published = true
+          and source_version in ('static-v1', 'published-intake-v1')
           and not (slug = any(${publishedSlugs}::text[]))
       `;
       });

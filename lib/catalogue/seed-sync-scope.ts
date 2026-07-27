@@ -10,6 +10,9 @@ export type CatalogueSyncTimeouts = {
   readonly statementTimeoutMs: number;
 };
 
+export const catalogueRetirementMinimumProductCount = 20;
+export const catalogueRetirementMinimumRetainedRatio = 0.75;
+
 type Slugged = { slug: string };
 
 function positiveMilliseconds(
@@ -81,6 +84,30 @@ export function selectCatalogueSeedProducts<T extends Slugged>(
 /** A targeted repair must never retire an unrelated public product. */
 export function shouldRetireStaleCatalogueProducts(scope: CatalogueSeedScope) {
   return !scope.isScoped;
+}
+
+/**
+ * Retiring rows is the only destructive part of an otherwise upsert-only sync.
+ * A partial/empty runtime import must never be mistaken for the whole catalogue.
+ */
+export function assertCatalogueRetirementSafety(
+  nextPublishedCount: number,
+  currentPublishedCount: number,
+) {
+  if (!Number.isInteger(nextPublishedCount) || nextPublishedCount < catalogueRetirementMinimumProductCount) {
+    throw new Error(
+      `Refusing catalogue retirement below ${catalogueRetirementMinimumProductCount} reviewed products.`,
+    );
+  }
+  if (!Number.isInteger(currentPublishedCount) || currentPublishedCount < 0) {
+    throw new Error('Current published catalogue count is invalid.');
+  }
+  const minimumRetained = Math.ceil(currentPublishedCount * catalogueRetirementMinimumRetainedRatio);
+  if (currentPublishedCount >= catalogueRetirementMinimumProductCount && nextPublishedCount < minimumRetained) {
+    throw new Error(
+      `Refusing catalogue retirement from ${currentPublishedCount} to ${nextPublishedCount}; retain at least ${minimumRetained} reviewed products.`,
+    );
+  }
 }
 
 /**

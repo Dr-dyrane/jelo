@@ -107,7 +107,8 @@ is not an SMTP password.
 | --- | --- | --- |
 | `CRON_SECRET` | Production | Bearer secret for `/api/cron/inventory` |
 | `SKIP_DATABASE_MIGRATIONS` | CI/emergency only | `1` skips production migrations |
-| `SEED_CATALOGUE_ON_BUILD` | One-time operation only | `1` enables full catalogue seeds during production build |
+| `SEED_EXTERNAL_CATALOGUE_ON_BUILD` | One-time operation only | `1` enables the separate external-catalogue seed during a production build |
+| `SEED_CATALOGUE_ON_BUILD` | Legacy | Does not enable external discovery; reviewed catalogue sync already runs in every normal production release |
 
 ### Declared future service
 
