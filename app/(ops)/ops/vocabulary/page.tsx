@@ -80,8 +80,9 @@ export default async function VocabularyQueue({
     <OpsWorkspace title="Vocabulary">
       {rows.length === 0 ? (
         <EmptyState
-          title="Nothing awaiting review"
-          body="New community terms will appear here."
+          title="You’re caught up."
+          body="There’s nothing waiting."
+          action={{ href: '/ops/activity', label: 'View insights' }}
         />
       ) : (
         <VocabularyInbox

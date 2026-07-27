@@ -16,7 +16,7 @@ test('Vocabulary uses a title-only workspace and truthful bounded state', async 
   assert.match(page, /listPendingModerationValues\(sql, LIMIT \+ 1\)/);
   assert.match(page, /fetchedRows\.slice\(0, LIMIT\)/);
   assert.match(page, /fetchedRows\.length > LIMIT/);
-  assert.match(page, /Nothing awaiting review/);
+  assert.match(page, /There’s nothing waiting/);
 });
 
 test('Vocabulary ranks active retained evidence instead of historical counters', async () => {
@@ -124,9 +124,17 @@ test('Vocabulary partial state continues from its own scroll root', async () => 
   ]);
   assert.match(queues, /active\.active_mention_count < \$\{after\.activeMentionCount\}/);
   assert.match(queues, /\(active\.first_seen_at, value\.id\) > \(/);
+  assert.match(queues, /\$\{after\.firstSeenAt\}::text::timestamptz/);
+  assert.match(queues, /active\.first_seen_at::text as first_seen_at/);
   assert.match(page, /initialHasMore=\{hasMore\}/);
   assert.match(page, /initialCursor=\{nextCursor\}/);
   assert.match(actions, /export async function fetchMoreVocabularyAction/);
+  assert.match(actions, /firstSeenAt: afterFirstSeenAt/);
+  assert.doesNotMatch(actions, /firstSeenAt: parsedDate\.toISOString\(\)/);
+  assert.match(inbox, /right\.activeMentionCount - left\.activeMentionCount/);
+  assert.match(inbox, /left\.firstSeenAt < right\.firstSeenAt \? -1 : 1/);
+  assert.match(inbox, /left\.id < right\.id \? -1 : 1/);
+  assert.doesNotMatch(inbox, /new Date\(left\.firstSeenAt\)|localeCompare\(right\.firstSeenAt/);
   assert.match(inbox, /new IntersectionObserver/);
   assert.match(inbox, /document\.querySelector<HTMLElement>\('\[data-ops-main\]'\)/);
   assert.match(inbox, /ref=\{loadSentinelRef\}/);

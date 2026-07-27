@@ -111,7 +111,16 @@ function vocabularyRows(initialRows: VocabularyReviewItem[], state: QueueRuntime
   [...initialRows, ...state.extraRows].forEach(row => {
     if (!settled.has(row.id)) byId.set(row.id, row);
   });
-  return [...byId.values()];
+  return [...byId.values()].sort((left, right) => {
+    if (left.activeMentionCount !== right.activeMentionCount) {
+      return right.activeMentionCount - left.activeMentionCount;
+    }
+    if (left.firstSeenAt !== right.firstSeenAt) {
+      return left.firstSeenAt < right.firstSeenAt ? -1 : 1;
+    }
+    if (left.id === right.id) return 0;
+    return left.id < right.id ? -1 : 1;
+  });
 }
 
 const groupedKinds: VocabularyValueKind[] = ['product', 'retailer', 'brand', 'purpose'];
