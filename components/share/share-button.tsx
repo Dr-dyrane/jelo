@@ -24,7 +24,7 @@ export function ShareButton({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const router = useRouter();
   const pathname = usePathname();
-  const url = typeof window !== 'undefined' ? new URL(path, window.location.origin).toString() : `${SITE}${path}`;
+  const url = new URL(path, SITE).toString();
 
   function openSheet() {
     const dialog = dialogRef.current;

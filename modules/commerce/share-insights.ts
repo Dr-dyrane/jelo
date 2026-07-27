@@ -98,7 +98,10 @@ export function selectRecentDrops(
       // NG prices are stored in whole naira, so amountMinor is already naira.
       amountNaira: Math.abs(movement.amountMinor),
       percent: movement.percent,
-      days: movement.days,
+      // Share cards deliberately use only the fixed seven- and 30-day windows
+      // selected above; the shorter in-page "last check" fallback is not public
+      // campaign evidence.
+      days: movement.days === 30 ? 30 : 7,
       lowestNaira: summary.lowestPrice,
     });
   }

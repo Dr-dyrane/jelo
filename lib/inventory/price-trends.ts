@@ -1,7 +1,12 @@
 import 'server-only';
 
 import { hasPostgresConfig, getPostgresClient } from '@/lib/db/postgres';
-import { calculatePriceTrends, type PriceObservation, type ProductPriceTrends } from '@/modules/commerce/price-trends';
+import {
+  calculateOfferPriceTrends,
+  calculatePriceTrends,
+  type PriceObservation,
+  type ProductPriceTrends,
+} from '@/modules/commerce/price-trends';
 
 type ObservationRow = PriceObservation & { market: 'NG' | 'US' };
 
@@ -32,7 +37,14 @@ export async function getProductPriceTrends(slug: string): Promise<ProductPriceT
     const result: ProductPriceTrends = {};
     for (const market of ['NG', 'US'] as const) {
       const observations = rows.filter(row => row.market === market);
-      if (observations.length) result[market] = calculatePriceTrends(observations);
+      if (!observations.length) continue;
+
+      result[market] = calculatePriceTrends(observations);
+      const offerTrends = calculateOfferPriceTrends(observations);
+      if (offerTrends.length) {
+        result.byOffer ??= {};
+        result.byOffer[market] = offerTrends;
+      }
     }
     return result;
   } catch (error) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowUpRight, MapPin, Truck } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, MapPin, Minus, Truck } from 'lucide-react';
 import { type ReactNode, useMemo, useState } from 'react';
 import type { FulfilmentMethod, Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
@@ -19,11 +19,20 @@ import {
   hasBrandAuthorizationEvidence,
   hasListingEvidence,
   hasSellerIdentityEvidence,
+  comparableMarketPrice,
   observedDeliveryFee,
   observedStockLabel,
   observedMarketPrice,
 } from '@/modules/commerce/offer-evidence';
-import type { ProductPriceTrends } from '@/modules/commerce/price-trends';
+import type {
+  PriceMovement,
+  ProductPriceTrends,
+} from '@/modules/commerce/price-trends';
+import {
+  describePriceMovement,
+  preferredPriceMovement,
+  selectRetailerPriceMovement,
+} from '@/modules/commerce/price-trends';
 
 const formatNaira = new Intl.NumberFormat('en-NG', {
   style: 'currency',
@@ -45,15 +54,35 @@ function formatAmount(value: number, market: Market) {
   return market === 'NG' ? formatNaira.format(value) : formatDollars.format(value);
 }
 
-function movementLabel(trends: ProductPriceTrends | undefined, market: Market) {
-  const movement = trends?.[market]?.thirtyDay ?? trends?.[market]?.sevenDay;
+function PriceTrend({
+  movement,
+  subject,
+}: {
+  movement: PriceMovement | null;
+  subject: string;
+}) {
   if (!movement) return null;
-  if (movement.direction === 'flat') return { direction: 'flat', copy: 'Price steady' };
-  const majorAmount = Math.abs(movement.amountMinor) / (market === 'US' ? 100 : 1);
-  return {
-    direction: movement.direction,
-    copy: `Price ${movement.direction === 'down' ? 'dropped' : 'rose'} ${formatAmount(majorAmount, market)}`,
-  };
+
+  const amount = Math.abs(movement.percent);
+  const value = Number.isInteger(amount) ? amount.toFixed(0) : amount.toFixed(1);
+  const visible = movement.direction === 'flat' ? 'Steady' : `${value}%`;
+  const label = describePriceMovement(movement, subject);
+  const Icon = movement.direction === 'down'
+    ? ArrowDown
+    : movement.direction === 'up'
+      ? ArrowUp
+      : Minus;
+
+  return (
+    <span
+      className={`price-trend price-trend-${movement.direction}`}
+      aria-label={label}
+      title={label}
+    >
+      <Icon size={12} strokeWidth={1.8} aria-hidden="true" />
+      <span aria-hidden="true">{visible} · {movement.days}d</span>
+    </span>
+  );
 }
 
 export function RetailerList({ offers, productSlug, priceTrends, footer }: { offers: Offer[]; productSlug: string; priceTrends?: ProductPriceTrends; footer?: ReactNode }) {
@@ -75,7 +104,13 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
   const fulfilments = [...new Set(visible.flatMap(offerFulfilmentMethods))];
   const activeFulfilment = fulfilment === 'any' || fulfilments.includes(fulfilment) ? fulfilment : 'any';
   const summary = useMemo(() => summarizeMarket(offers, market), [offers, market]);
-  const movement = movementLabel(priceTrends, market);
+  const marketMovement = preferredPriceMovement(priceTrends?.[market]);
+  const lowestOffer = visible.find(offer => (
+    offer.available
+    && isOfferFresh(offer)
+    && comparableMarketPrice(offer, market) === summary.lowestPrice
+  ));
+  const lowestMovement = selectRetailerPriceMovement(priceTrends, market, lowestOffer?.retailer);
   // Confidence, surfaced as compared-set coverage — never a grade (ADR 0006). Only
   // shown when some checked stores are unpriced, so the reader knows the summary
   // reflects a subset (out-of-stock or comparison-excluded stores are the gap).
@@ -93,13 +128,24 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
         </div>
       </div>
       {summary.retailerCount ? <div className="market-summary" aria-label={`${market === 'NG' ? 'Nigeria' : 'United States'} market summary`}>
-        <span><small>{summary.priceBasis === 'multi-source' ? 'Lowest observed' : 'Observed'}</small><strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong></span>
-        {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span><small>Typical</small><strong>{formatAmount(summary.typicalPrice, market)}</strong></span> : null}
+        <span>
+          <small>{summary.priceBasis === 'multi-source' ? 'Lowest observed' : 'Observed'}</small>
+          <span className="market-price-line">
+            <strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong>
+            <PriceTrend movement={lowestMovement} subject="This store price" />
+          </span>
+        </span>
+        {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span>
+          <small>Typical</small>
+          <span className="market-price-line">
+            <strong>{formatAmount(summary.typicalPrice, market)}</strong>
+            <PriceTrend movement={marketMovement} subject="Market price" />
+          </span>
+        </span> : null}
         <span><small>Stores</small><strong>{summary.pricedRetailerCount}</strong></span>
         {summary.lastCheckedAt ? <span><small>Checked</small><strong>{shortDate(summary.lastCheckedAt)}</strong></span> : null}
-        {summary.savingsVsTypical || movement ? <div className="market-summary-notes">
+        {summary.savingsVsTypical ? <div className="market-summary-notes">
           {summary.savingsVsTypical ? <span>Save {formatAmount(summary.savingsVsTypical, market)}.</span> : null}
-          {movement ? <span className={`market-movement-${movement.direction}`}>{movement.copy}</span> : null}
         </div> : null}
       </div> : null}
       {coverageNote ? <p className="market-summary-coverage">{coverageNote}</p> : null}
@@ -132,6 +178,7 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
           const stock = observedStockLabel(offer, fresh);
           const fulfilmentText = offerFulfilmentLabel(offer);
           const deliveryFee = offer.priceObservation?.landedCost === 'excluded' ? observedDeliveryFee(offer, market) : null;
+          const movement = selectRetailerPriceMovement(priceTrends, market, offer.retailer);
           return (
           <a
             key={`${offer.retailer}-${offer.url}`}
@@ -150,7 +197,10 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
               {hasBrandAuthorizationEvidence(offer) ? <small>Listed by the brand</small> : null}
             </span>
             <span className="retailer-price">
-              <strong>{price != null ? formatAmount(price, market) : 'Check price'}</strong>
+              <span className="retailer-price-line">
+                <strong>{price != null ? formatAmount(price, market) : 'Check price'}</strong>
+                {price != null ? <PriceTrend movement={movement} subject={`${offer.retailer} price`} /> : null}
+              </span>
               <small>{offerActionLabel(offer)}</small>
             </span>
             <ArrowUpRight className="retailer-arrow" size={19}/>
