@@ -145,8 +145,8 @@
 
 .options input:focus-visible + span { outline: 2px solid var(--wine); outline-offset: 2px; }
 .sectionHint { margin: -.25rem 0 .7rem; color: #67524c; font-size: .65rem; }
-.selectGrid { display: grid; gap: .55rem; }
 .companyField {
+  width: 100%;
   min-height: 4rem;
   padding: .8rem .85rem;
   display: grid;
@@ -163,6 +163,35 @@
 .companyField > span { font-size: .67rem; }
 .companyField strong { min-width: 0; overflow: hidden; color: #382724; font-size: .7rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
 .companyField:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
+.specificNote {
+  margin: auto 0;
+  color: #67524c;
+  font-size: .72rem;
+  text-align: center;
+}
+.disclosure {
+  min-height: 2.8rem;
+  padding: .65rem .25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  border: 0;
+  background: transparent;
+  color: #684a45;
+  font: inherit;
+  font-size: .72rem;
+  text-align: left;
+  cursor: pointer;
+}
+.disclosure svg { transition: transform var(--duration-base) var(--ease-standard); }
+.disclosure[aria-expanded="true"] svg { transform: rotate(180deg); }
+.disclosure:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; border-radius: .7rem; }
+.secondaryGroups {
+  display: grid;
+  gap: 1.6rem;
+}
+.secondaryGroups[hidden] { display: none; }
 .sheet .companyHeader { align-items: center; }
 .companyHeader > div { flex: 1; }
 .companySearch {
@@ -259,6 +288,10 @@
   .dialog[data-fallback-modal="true"] { background: rgba(43, 28, 25, .58); backdrop-filter: none; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .disclosure svg { transition: none; }
+}
+
 /* dark theme */
 :global(html[data-theme="dark"]) .trigger { background: rgba(36, 29, 27, .82); color: var(--ink); }
 :global(html[data-theme="dark"]) .sheet header small { color: var(--wine); }
@@ -268,6 +301,8 @@
 :global(html[data-theme="dark"]) .options span { background: var(--surface-2); color: var(--ink); }
 :global(html[data-theme="dark"]) .options input:checked + span { background: #f0c6ca; color: #3b2523; }
 :global(html[data-theme="dark"]) .sectionHint { color: var(--muted); }
+:global(html[data-theme="dark"]) .specificNote,
+:global(html[data-theme="dark"]) .disclosure { color: var(--muted); }
 :global(html[data-theme="dark"]) .companyField { background: var(--surface-2); color: var(--muted); }
 :global(html[data-theme="dark"]) .companyField strong { color: var(--ink); }
 :global(html[data-theme="dark"]) .companySearch { background: var(--surface-2); color: var(--muted); }
@@ -291,6 +326,8 @@
   :global(html:not([data-theme="light"])) .options span { background: var(--surface-2); color: var(--ink); }
   :global(html:not([data-theme="light"])) .options input:checked + span { background: #f0c6ca; color: #3b2523; }
   :global(html:not([data-theme="light"])) .sectionHint { color: var(--muted); }
+  :global(html:not([data-theme="light"])) .specificNote,
+  :global(html:not([data-theme="light"])) .disclosure { color: var(--muted); }
   :global(html:not([data-theme="light"])) .companyField { background: var(--surface-2); color: var(--muted); }
   :global(html:not([data-theme="light"])) .companyField strong { color: var(--ink); }
   :global(html:not([data-theme="light"])) .companySearch { background: var(--surface-2); color: var(--muted); }

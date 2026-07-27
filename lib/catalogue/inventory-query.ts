@@ -100,6 +100,8 @@ export type InventoryResult = {
     supportive: number;
     community: number;
     priced: number;
+    priceScope: number;
+    priceBands: Record<Exclude<InventoryPriceFilter, 'all'>, number>;
   };
 };
 
@@ -310,6 +312,12 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
   }
 
   const items = completeItems.filter(item => itemMatches(item));
+  const priceScopeItems = completeItems.filter(item => itemMatches(item, ['availability', 'price']));
+  const priceBandCounts = {
+    low: priceScopeItems.filter(item => priceMatches(lowestFreshPrice(item, market), 'low', market)).length,
+    mid: priceScopeItems.filter(item => priceMatches(lowestFreshPrice(item, market), 'mid', market)).length,
+    high: priceScopeItems.filter(item => priceMatches(lowestFreshPrice(item, market), 'high', market)).length,
+  };
 
   const normalizedQuery = normalized(q);
   items.sort((left, right) => {
@@ -400,7 +408,9 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
       reviewed: completeItems.filter(item => item.kind === 'reviewed' && itemMatches(item, ['review'])).length,
       supportive: completeItems.filter(item => item.kind === 'reviewed' && item.careState === 'supportive_eligible' && itemMatches(item, ['review'])).length,
       community: completeItems.filter(item => item.kind === 'community' && itemMatches(item, ['review'])).length,
-      priced: completeItems.filter(item => lowestFreshPrice(item, market) != null && itemMatches(item, ['availability', 'price'])).length,
+      priced: priceBandCounts.low + priceBandCounts.mid + priceBandCounts.high,
+      priceScope: priceScopeItems.length,
+      priceBands: priceBandCounts,
     },
   };
 }

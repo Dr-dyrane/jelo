@@ -1,6 +1,6 @@
 # Inventory experience
 
-Updated: 2026-07-26
+Updated: 2026-07-27
 
 ## References studied
 
@@ -53,6 +53,15 @@ The page order is:
 
 Current cards keep evidence compact: exact fresh comparable offers render as a lowest observed price plus the number of stores in that comparison. A single observation is not presented as a multi-store comparison. Search assistance provides reversible company and category suggestions with keyboard support. On desktop and tablet it remains a sticky command surface beneath the main navigation; on mobile it stays in normal flow so it does not consume the small viewport. Category, routine, and concern are separate browse modes. Routine uses only the neutral `step` metadata on reviewed products; it does not establish suitability or clinical evidence. Switching market preserves the current catalogue intent and resets only pagination. Filtered result anchors reserve clearance beneath both surfaces. Broader multi-select facets remain later work. Every facet must stay auditable, hide zero-result choices, and never turn a condition pattern into product matching.
 
+The first filter view is contextual. Search prioritizes only useful
+non-clinical refinements; explicit category, routine and concern browse modes
+lead with their corresponding group. The policy derives usefulness from the
+same server projection as the result set, including exact current-price bands.
+It never interprets query words as concern suitability. Active groups stay
+visible even at zero, and one quiet **All refinements** control exposes the
+remaining useful groups without turning the sheet into a permanent filter
+wall.
+
 The all-products result path renders 24 products on the server. Near the end of
 the grid it may append at most two pages automatically; a visible,
 keyboard-operable **Load more** control remains available after that boundary.
@@ -94,7 +103,13 @@ The complete cross-site interaction contract is in [UI_PHILOSOPHY.md](./UI_PHILO
 
 ## Filter model
 
-The compact catalogue view exposes browse rails and a single filter trigger. The responsive sheet may combine source, category, company, reviewed function, reviewed concern, market, fresh exact price, and order. It must not infer sale status, gender/sex suitability, stock, or clinical fit from missing data.
+The compact catalogue view exposes browse rails and a single filter trigger.
+The responsive sheet combines source, category, company, routine, reviewed
+concern, fresh exact price, price band, and order only when each group can help
+with the current context or is already active. Remaining useful groups sit
+behind **All refinements**. Counts are exact server-derived projections; active
+zero-count values remain removable. The sheet must not infer sale status,
+gender/sex suitability, stock, or clinical fit from missing data.
 
 Brand/company filtering uses the product brand as the accurate current entity. Parent-company ownership is a separate future provenance field and must not be guessed.
 

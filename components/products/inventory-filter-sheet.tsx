@@ -1,11 +1,21 @@
 'use client';
 
-import { ArrowLeft, Check, ChevronRight, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowLeft, Check, ChevronDown, ChevronRight, Search, SlidersHorizontal, X } from 'lucide-react';
 import Link from 'next/link';
-import { useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import {
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
+} from 'react';
 import type { ExternalCatalogueCategory } from '@/data/external-catalogue';
 import { matchingCompanies } from '@/lib/catalogue/catalogue-interactions';
 import type { InventoryResult } from '@/lib/catalogue/inventory-repository';
+import {
+  inventoryRefinementPlan,
+  type InventoryRefinementGroup,
+  withActiveCompanyFacet,
+} from '@/lib/catalogue/inventory-refinements';
 import { useModalDialog } from '@/components/ui/use-modal-dialog';
 import styles from './inventory-filter-sheet.module.css';
 
@@ -30,6 +40,7 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
   const [companyQuery, setCompanyQuery] = useState('');
   const [selectedBrand, setSelectedBrand] = useState(filters.brand);
   const [selectedConcern, setSelectedConcern] = useState(filters.concern);
+  const [showAllRefinements, setShowAllRefinements] = useState(false);
   const activeCount = [
     filters.category !== 'All',
     filters.review !== 'all',
@@ -47,7 +58,8 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
   const selectedConcernLabel = facets.concerns.find(concern => concern.value === selectedConcern)?.label;
   const productConcerns = facets.concerns.filter(concern => concern.total > 0);
   const guideOnlyConcerns = facets.concerns.filter(concern => concern.total === 0);
-  const companies = matchingCompanies(facets.brands, companyQuery, selectedBrand);
+  const companyFacets = withActiveCompanyFacet(facets.brands, selectedBrand);
+  const companies = matchingCompanies(companyFacets, companyQuery, selectedBrand);
   const sourceOptions = ([
     ['all', `All · ${facets.reviewed + facets.community}`, facets.reviewed + facets.community],
     ['reviewed', `JeloCare profiles · ${facets.reviewed}`, facets.reviewed],
@@ -56,6 +68,12 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
   ] as const).filter(([value, , count]) => value === 'all' || count > 0 || filters.review === value);
   const categoryOptions = facets.categories.filter(({ value, count }) => count > 0 || filters.category === value);
   const stepOptions = facets.steps.filter(({ value, count }) => count > 0 || filters.step === value);
+  const priceOptions = ([
+    ['low', priceLabels.low, facets.priceBands.low],
+    ['mid', priceLabels.mid, facets.priceBands.mid],
+    ['high', priceLabels.high, facets.priceBands.high],
+  ] as const).filter(([value, , count]) => count > 0 || filters.price === value);
+  const refinementPlan = inventoryRefinementPlan({ filters, facets, browse, total });
 
   function openSheet() {
     formRef.current?.reset();
@@ -63,6 +81,7 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
     setCompanyQuery('');
     setSelectedBrand(filters.brand);
     setSelectedConcern(filters.concern);
+    setShowAllRefinements(false);
     open();
   }
 
@@ -71,6 +90,7 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
     setCompanyQuery('');
     setSelectedBrand(filters.brand);
     setSelectedConcern(filters.concern);
+    setShowAllRefinements(false);
     close();
   }
 
@@ -146,6 +166,68 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
     }
   }
 
+  function renderRefinementGroup(group: InventoryRefinementGroup): ReactNode {
+    switch (group) {
+      case 'source':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Source</legend>
+          <div className={styles.options}>
+            {sourceOptions.map(([value, label]) => <label key={value}><input type="radio" name="review" value={value} defaultChecked={filters.review === value}/><span>{label}</span></label>)}
+          </div>
+        </fieldset>;
+      case 'category':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Category</legend>
+          <div className={styles.options}>
+            <label><input type="radio" name="category" value="All" defaultChecked={filters.category === 'All'}/><span>All</span></label>
+            {categoryOptions.map(({ value, count }: { value: ExternalCatalogueCategory; count: number }) => <label key={value}><input type="radio" name="category" value={value} defaultChecked={filters.category === value}/><span>{value} · {count}</span></label>)}
+          </div>
+        </fieldset>;
+      case 'routine':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Routine</legend>
+          <div className={styles.options}>
+            <label><input type="radio" name="step" value="" defaultChecked={!filters.step}/><span>Any step</span></label>
+            {stepOptions.map(({ value, count }) => <label key={value}><input type="radio" name="step" value={value} defaultChecked={filters.step === value}/><span>{value} · {count}</span></label>)}
+          </div>
+        </fieldset>;
+      case 'company':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Company</legend>
+          <button className={styles.companyField} type="button" ref={companyButtonRef} onClick={showCompanies}><span>Company</span><strong>{selectedBrand || 'Any company'}</strong><ChevronRight size={17} aria-hidden="true"/></button>
+        </fieldset>;
+      case 'concern':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Concern</legend>
+          <button className={styles.companyField} type="button" ref={concernButtonRef} onClick={showConcerns}><span>Concern</span><strong>{selectedConcernLabel || 'Any concern'}</strong><ChevronRight size={17} aria-hidden="true"/></button>
+        </fieldset>;
+      case 'availability':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Store information</legend>
+          <p className={styles.sectionHint}>Only fresh, exact prices count.</p>
+          <div className={styles.options}>
+            <label><input type="radio" name="availability" value="all" defaultChecked={filters.availability === 'all'}/><span>Any listing</span></label>
+            <label><input type="radio" name="availability" value="priced" defaultChecked={filters.availability === 'priced'}/><span>Fresh price · {facets.priced}</span></label>
+          </div>
+        </fieldset>;
+      case 'price':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Price</legend>
+          <div className={styles.options}>
+            <label><input type="radio" name="price" value="all" defaultChecked={filters.price === 'all'}/><span>Any price</span></label>
+            {priceOptions.map(([value, label, count]) => <label key={value}><input type="radio" name="price" value={value} defaultChecked={filters.price === value}/><span>{label} · {count}</span></label>)}
+          </div>
+        </fieldset>;
+      case 'order':
+        return <fieldset data-refinement-group={group} key={group}>
+          <legend>Order</legend>
+          <div className={styles.options}>
+            {([['featured', 'Catalogue order'], ['name', 'Name'], ['newest', 'Recently updated']] as const).map(([value, label]) => <label key={value}><input type="radio" name="sort" value={value} defaultChecked={filters.sort === value}/><span>{label}</span></label>)}
+          </div>
+        </fieldset>;
+    }
+  }
+
   return (
     <>
       <button className={styles.trigger} type="button" ref={triggerRef} onClick={openSheet}>
@@ -177,59 +259,25 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
           <div className={styles.view} hidden={view !== 'filters'} ref={filterViewRef}>
             <header><div><small>Catalogue</small><h2 id="catalogue-filter-title">Refine the shelf.</h2><p>{total.toLocaleString()} shown now.</p></div><button type="button" onClick={closeSheet} aria-label="Close filters"><X size={20} /></button></header>
 
-            <fieldset>
-              <legend>Source</legend>
-              <div className={styles.options}>
-                {sourceOptions.map(([value, label]) => <label key={value}><input type="radio" name="review" value={value} defaultChecked={filters.review === value}/><span>{label}</span></label>)}
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Category</legend>
-              <div className={styles.options}>
-                <label><input type="radio" name="category" value="All" defaultChecked={filters.category === 'All'}/><span>All</span></label>
-                {categoryOptions.map(({ value, count }: { value: ExternalCatalogueCategory; count: number }) => <label key={value}><input type="radio" name="category" value={value} defaultChecked={filters.category === value}/><span>{value} · {count}</span></label>)}
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Routine</legend>
-              <div className={styles.options}>
-                <label><input type="radio" name="step" value="" defaultChecked={!filters.step}/><span>Any step</span></label>
-                {stepOptions.map(({ value, count }) => <label key={value}><input type="radio" name="step" value={value} defaultChecked={filters.step === value}/><span>{value} · {count}</span></label>)}
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Product</legend>
-              <div className={styles.selectGrid}>
-                <button className={styles.companyField} type="button" ref={companyButtonRef} onClick={showCompanies}><span>Company</span><strong>{selectedBrand || 'Any company'}</strong><ChevronRight size={17} aria-hidden="true"/></button>
-                <button className={styles.companyField} type="button" ref={concernButtonRef} onClick={showConcerns}><span>Concern</span><strong>{selectedConcernLabel || 'Any concern'}</strong><ChevronRight size={17} aria-hidden="true"/></button>
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Store information</legend>
-              <p className={styles.sectionHint}>Only fresh, exact prices count.</p>
-              <div className={styles.options}>
-                <label><input type="radio" name="availability" value="all" defaultChecked={filters.availability === 'all'}/><span>Any listing</span></label>
-                <label><input type="radio" name="availability" value="priced" defaultChecked={filters.availability === 'priced'}/><span>Fresh price · {facets.priced}</span></label>
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Price</legend>
-              <div className={styles.options}>
-                {([['all', 'Any price'], ['low', priceLabels.low], ['mid', priceLabels.mid], ['high', priceLabels.high]] as const).map(([value, label]) => <label key={value}><input type="radio" name="price" value={value} defaultChecked={filters.price === value}/><span>{label}</span></label>)}
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Order</legend>
-              <div className={styles.options}>
-                {([['featured', 'Catalogue order'], ['name', 'Name'], ['newest', 'Recently updated']] as const).map(([value, label]) => <label key={value}><input type="radio" name="sort" value={value} defaultChecked={filters.sort === value}/><span>{label}</span></label>)}
-              </div>
-            </fieldset>
+            {refinementPlan.primary.map(renderRefinementGroup)}
+            {!refinementPlan.primary.length ? <p className={styles.specificNote}>This shelf is already specific.</p> : null}
+            {refinementPlan.secondary.length ? <button
+              className={styles.disclosure}
+              type="button"
+              aria-expanded={showAllRefinements}
+              aria-controls="catalogue-all-refinements"
+              onClick={() => setShowAllRefinements(current => !current)}
+            >
+              {showAllRefinements ? 'Show fewer' : 'All refinements'}
+              <ChevronDown size={17} aria-hidden="true"/>
+            </button> : null}
+            {refinementPlan.secondary.length ? <div
+              className={styles.secondaryGroups}
+              id="catalogue-all-refinements"
+              hidden={!showAllRefinements}
+            >
+              {refinementPlan.secondary.map(renderRefinementGroup)}
+            </div> : null}
 
             <footer><Link href={resetHref}>Clear all</Link><button type="submit">Apply filters</button></footer>
           </div>

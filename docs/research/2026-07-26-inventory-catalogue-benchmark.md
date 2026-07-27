@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-26
 **Scope:** Apple Store catalogue pages, the Shop/Shop app discovery model, and JeloCare `/products`
-**Status:** Research contract; P0 continuation implemented 2026-07-26
+**Status:** Research contract; P0 continuation and contextual refinements implemented
 
 ## Executive decision
 
@@ -17,8 +17,8 @@ JeloCare should borrow the catalogue structure, not the commerce pressure.
   stock pressure, or opaque personalization.
 
 The current catalogue already has most of the right primitives. The highest
-value change for a much larger inventory is bounded progressive continuation,
-not a redesign.
+value changes for a much larger inventory are bounded progressive continuation
+and contextual refinement, not a redesign.
 
 ## P0 implementation checkpoint
 
@@ -30,6 +30,16 @@ page, refresh/back restoration fetches the missing bounded server pages, and
 pending, retry, appended-count, and terminal states remain explicit. The
 legacy client explorer, dense search results, and numbered-pagination paths
 were removed after confirming they had no active imports.
+
+The same canonical path now derives an exact price-band projection beside its
+existing server facets. A deterministic policy promotes at most four useful
+groups for the current search or explicit category/routine/concern browse mode.
+Every active group stays in the first view even when its current count reaches
+zero. Other useful groups remain behind one quiet **All refinements**
+disclosure. Query text changes only non-clinical group order; it never creates
+or promotes a concern relationship. The existing right sheet, mobile bottom
+sheet, URL state, applied-filter removal, Undo, Clear and focus return remain
+unchanged.
 
 ## Method and limits
 
@@ -72,9 +82,9 @@ This section is an **observed code snapshot**, not a proposed redesign.
 - The active catalogue is assembled through
   `lib/catalogue/inventory-repository.ts` and
   `lib/catalogue/inventory-query.ts`.
-- The static public snapshot contains **46 reviewed products, zero external
-  products, and 46 total products**. This count was evaluated from
-  `data/catalogue.ts` and `data/external-catalogue.ts` on 2026-07-26.
+- The static public snapshot contains **52 reviewed products, zero external
+  products, and 52 total products**. This count was evaluated from
+  `data/catalogue.ts` and `data/external-catalogue.ts` on 2026-07-27.
 - The server returns **24 products per page** and binds search, category,
   source/care state, concern, routine step, company, current-price
   availability, price band, order, market, and page to the URL.
@@ -88,7 +98,8 @@ This section is an **observed code snapshot**, not a proposed redesign.
   - the full inventory.
 - Filters open as a right sheet on desktop and a bottom sheet on mobile.
   Applied state is visible and supports removing one filter, Undo, and Clear
-  all.
+  all. The first filter view is ordered by current search or explicit browse
+  context, while **All refinements** reveals the remaining useful groups.
 - The concern facet only matches approved supportive product relationships;
   it does not infer a diagnosis from a condition keyword.
 - Product cards show packshot, company, exact product identity, size, and a
@@ -97,14 +108,14 @@ This section is an **observed code snapshot**, not a proposed redesign.
   prices, and wrong-market offers from its price shelves.
 - The current result grid is four columns on wide screens, then three, two,
   and one. Horizontal shelves use snap scrolling with hidden scrollbars.
-- Pagination is numbered navigation. It replaces the result page rather than
-  appending the next server result set.
+- Results continue progressively in bounded server pages. Two pages may append
+  automatically before the explicit **Load more** fallback becomes the only
+  continuation.
 
 ### Active-path integrity
 
-`components/products/catalogue-explorer.tsx` and
-`components/products/product-search-results.tsx` are not imported by the
-active route. `components/products/product-quick-panel.tsx` is used on product
+The earlier client explorer and dense search-result implementations have been
+removed. `components/products/product-quick-panel.tsx` is used on product
 detail pages, not the inventory page.
 
 This matters because adding a third catalogue result implementation would
@@ -127,15 +138,15 @@ inventory work.
 
 ## Explicit deltas
 
-| Priority | Delta | Why it matters |
-| --- | --- | --- |
-| P0 | Numbered replacement pagination is the remaining large-inventory discontinuity. | At hundreds of products, repeated page replacement interrupts comparison and loses spatial continuity. |
-| P0 | The canonical active result path is not documented in code architecture; dormant result components remain. | New work can accidentally fix an unused path or create conflicting interaction rules. |
-| P0 | Facets are comprehensive but static. | Shop's first-party documentation shows the value of query-specific refinements. JeloCare should show only relevant refinement groups while preserving active selections. |
-| P1 | Inventory has no dedicated quick look. | Apple's model demonstrates a secondary “closer look” path that can reduce unnecessary product-page navigation. |
-| P1 | Search suggestions are grouped but do not expose canonical alias provenance. | Community vocabulary can improve search without turning unknown language into an unreviewed clinical claim. |
-| P1 | Shelf rules are factual but not presented as a reusable shelf contract. | More products will tempt teams to add popularity-like shelves without evidence. |
-| P2 | Saves, collections, alerts, and recent activity are deferred rather than systematized. | Apple and Shop show their value, but they require identity, privacy, and durable evidence infrastructure. |
+| Priority | Status | Delta | Why it matters |
+| --- | --- | --- | --- |
+| P0 | Implemented | Replace numbered result pages with bounded progressive continuation. | At hundreds of products, repeated page replacement interrupts comparison and loses spatial continuity. |
+| P0 | Implemented | Declare and remove alternatives to the canonical active result path. | New work can otherwise accidentally fix an unused path or create conflicting interaction rules. |
+| P0 | Implemented | Make comprehensive facets contextual while preserving active selections. | Query- and browse-aware ordering keeps the first filter view useful without hiding reversible state. |
+| P1 | Open | Inventory has no dedicated quick look. | Apple's model demonstrates a secondary “closer look” path that can reduce unnecessary product-page navigation. |
+| P1 | Open | Search suggestions are grouped but do not expose canonical alias provenance. | Community vocabulary can improve search without turning unknown language into an unreviewed clinical claim. |
+| P1 | Open | Shelf rules are factual but not presented as a reusable shelf contract. | More products will tempt teams to add popularity-like shelves without evidence. |
+| P2 | Deferred | Saves, collections, alerts, and recent activity are deferred rather than systematized. | Apple and Shop show their value, but they require identity, privacy, and durable evidence infrastructure. |
 
 ## Patterns to transfer
 
@@ -242,6 +253,20 @@ relevant to the query or current browse path.
 - Selection is URL-bound and produces visible applied-state, Undo, and Clear.
 - Concern matches remain approved supportive relationships only.
 - Search aliases improve retrieval; they do not create clinical suitability.
+
+**Current implementation**
+
+- `lib/catalogue/inventory-refinements.ts` owns one deterministic group plan.
+- Search context may promote company, category, current-price, source and order
+  groups; it never promotes concern from query language.
+- Explicit category, routine and concern browse modes promote their own group.
+- A group is promoted only when its exact server facet can narrow the current
+  shelf, unless it is active and therefore must remain visible.
+- Price-band counts and the priceable scope are computed by
+  `lib/catalogue/inventory-query.ts` from the same records and evidence rules as
+  the result set.
+- Active company, category, routine, concern, source, current-price, price and
+  order selections remain visible at zero.
 
 ### P0 — Preserve the truth-first card
 

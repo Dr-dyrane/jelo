@@ -312,10 +312,14 @@ test('uses only fresh exact offers for market and price filters', () => {
   const ng = queryInventoryRecords(fixtures, { review: 'reviewed', availability: 'priced', market: 'NG' });
   assert.deepEqual(ng.items.map(item => item.id), ['reviewed:fresh-ng']);
   assert.equal(ng.facets.priced, 1);
+  assert.equal(ng.facets.priceScope, 4);
+  assert.deepEqual(ng.facets.priceBands, { low: 1, mid: 0, high: 0 });
   assert.equal(queryInventoryRecords(fixtures, { review: 'reviewed', price: 'low', market: 'NG' }).total, 1);
   assert.equal(queryInventoryRecords(fixtures, { review: 'reviewed', price: 'mid', market: 'NG' }).total, 0);
 
   const us = queryInventoryRecords(fixtures, { review: 'reviewed', availability: 'priced', price: 'mid', market: 'US' });
   assert.deepEqual(us.items.map(item => item.id), ['reviewed:fresh-us']);
   assert.equal(us.facets.priced, 1);
+  assert.equal(us.facets.priceScope, 4);
+  assert.deepEqual(us.facets.priceBands, { low: 0, mid: 1, high: 0 });
 });
