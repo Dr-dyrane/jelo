@@ -1,6 +1,24 @@
 # Dyrane Ops UI Candidate Contract
 
-Status: Draft — Observations is under joint product review
+Status: Candidate contract — no queue page is canonical yet
+
+## Authority and maturity
+
+Use these documents in this order:
+
+1. [ADR 0009](./adr/0009-ui-ux-lane-contract.md) is accepted and governs lane
+   ownership, evidence, and handoff.
+2. [Operations shell](./design/OPS_SHELL.md) governs the implemented shell
+   planes, breakpoints, scrolling, overlays, and contextual action.
+3. [ADR 0010](./adr/0010-operations-interface-and-overview-contract.md) is a
+   proposed route grammar under product review.
+4. This file records reusable candidate behavior observed in real routes. It
+   cannot promote a route to canon.
+
+`/ops/observations`, `/ops`, and `/ops/contributions` are evidence at different
+stages. A route becomes canonical only after explicit product acceptance and
+the declared browser, state, accessibility, and automated gates pass. Visual
+similarity or a successful agent handoff is not acceptance.
 
 ## Reference candidate
 
@@ -16,7 +34,7 @@ and manage routes reuse its typography, surfaces, state integrity, and
 responsive discipline. A route earns a collection and inspector only when a
 selection materially changes the operator's next decision.
 
-[`/ops` Overview has its own accepted contract](./adr/0010-operations-interface-and-overview-contract.md).
+[`/ops` Overview has its own candidate contract](./adr/0010-operations-interface-and-overview-contract.md).
 It uses the same split-view grammar at **queue level**: selectable queue rows
 in the workspace and the selected queue's context in the inspector. A maximum
 two-record `Up next` shelf may preview real records from the recommended queue;
@@ -34,6 +52,9 @@ Desktop, tablet, and mobile consume the same operational primitives but use diff
   context opens in a right side sheet. It is not a compressed third column.
 - Mobile and touch (`<820px`) retain one primary plane. Selected context opens
   in a bottom sheet; no side sheet is squeezed into the page.
+- Every width below `1180px` keeps the route's contextual `56 × 56` action
+  reachable while its temporary inspector is closed. Queue routes open the
+  current selection; a real route-labelled refresh is the safe fallback.
 
 Shared primitives remain stable across shells:
 
@@ -206,11 +227,18 @@ not a new layer of nested DOM panels.
 | Mobile and touch (`<820px`) | Bottom sheet; preserve the current page and safe-area space. |
 
 Every sheet or modal has a visible title and close control, traps focus while
-open, locks background scrolling, dismisses with Escape where a keyboard is
-present, supports safe outside dismissal when the task is not destructive,
-keeps its own body scrollable, respects reduced motion, and returns focus to
-the exact trigger. A control that opens an overlay must expose that relationship
-and must remain reachable at keyboard, touch, and 200% zoom.
+open, makes the underlying workspace and navigation inert, locks the actual
+background scroll owner, dismisses with Escape where a keyboard is present,
+supports safe outside dismissal when the task is not destructive, respects
+reduced motion, and returns focus to the exact trigger. Its accessible name
+uses the selected subject, not only `Contribution`, `Observation`, or another
+generic record type. A control that opens an overlay must expose that
+relationship and must remain reachable at keyboard, touch, and 200% zoom.
+
+An inspector has exactly one vertical evidence scroll owner. The shell and
+overlay body hide overflow; the evidence region scrolls; the decision region
+remains an anchored sibling. Nested vertical scroll containers inside one
+inspector are a regression.
 
 ## Inspector
 
@@ -329,6 +357,9 @@ Loading fallbacks mirror the final shell rather than replacing it with a generic
   placeholders, compact price rows, and the experience rail.
 - The inspector skeleton portals into `#ops-detail-pane` and mirrors subject
   identity, evidence, metadata, and the anchored decision region.
+- A populated auto-selecting queue reserves that desktop plane from route
+  intent. It does not wait for an `id` that is created only after the route
+  resolves. Side and bottom sheets remain closed until a real interaction.
 - Selecting a row updates its selected state and mounts that same inspector
   skeleton in the current pane immediately. URL-backed content replaces it
   when navigation resolves; a click never leaves an unexplained blank pane.

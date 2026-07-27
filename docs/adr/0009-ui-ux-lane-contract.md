@@ -54,9 +54,12 @@ Before editing, record:
 | Lane | A stable name such as `catalogue-filter-feedback` or `ops-observation-inspector` |
 | Outcome | The user-visible problem and the observable behavior that resolves it |
 | Baseline | Current commit, affected routes, relevant state or query, and dirty-tree notes |
+| Route mode and operator question | Briefing, triage, monitor, or manage; the one question this surface must answer |
+| Content hierarchy and voice | Information order, exact primary nouns and verbs, and implementation terms that must stay out of visible copy |
 | Owned paths | The smallest files the lane may edit |
 | Protected dependencies | Shared tokens, primitives, layouts, data contracts, or assets the lane may consume but not change |
 | Invariants | Behavior and visual qualities that must remain true |
+| Scroll and overlay owners | The one scroll owner per plane, overlay presentation, contextual action, and focus-return target |
 | Responsive matrix | Exact viewport bands and states that need evidence |
 | Data states | Loading, empty, populated, long-copy, error, stale, disabled, and permission states that apply |
 | Acceptance evidence | Commands, browser checks, screenshots, accessibility checks, and production check appropriate to the risk |
@@ -151,13 +154,17 @@ Responsive work preserves the journey, not identical geometry:
 - Horizontal rails keep touch, wheel, and keyboard scrolling; hide the
   scrollbar while preserving a visible continuation cue and logical focus
   order.
-- Long vertical lists and horizontal rails render a bounded first page and load
-  the next page near the relevant scroll edge. Loading is idempotent, preserves
-  position and selection, stops cleanly at the end, and announces the appended
-  count through a concise polite status. Keep an explicit accessible fallback
-  action and do not let automatic vertical loading make a public footer
-  unreachable. Skeletons match the appended row or card geometry instead of
-  replacing the whole collection.
+- Long vertical lists and horizontal rails render a bounded first page and
+  continue near the relevant scroll edge. Revealing rows already returned by
+  the server uses `Show more` and does not pretend to be network loading.
+  Fetching a real server cursor page may use `Load more` and must expose
+  pending, retry, stale-response, and terminal states. Both paths are
+  idempotent, preserve position and selection, stop cleanly at their truthful
+  boundary, and announce the appended count through one concise polite status.
+  Keep an explicit accessible fallback action and do not let automatic
+  vertical continuation make a public footer unreachable. Only a real network
+  continuation appends matching skeleton geometry; a client reveal does not
+  replace or shimmer settled content.
 - At 320 px and 200% zoom, controls do not collide, clip important copy, create
   horizontal page overflow, or hide primary actions behind fixed chrome.
 

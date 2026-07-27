@@ -79,6 +79,7 @@ function SkeletonItem({ presentation }: { presentation: 'feature' | 'compact' | 
           <SkeletonBlock className={styles.skeletonTitle} />
           <SkeletonBlock className={styles.skeletonSubtext} />
         </span>
+        <SkeletonBlock className={styles.skeletonCaret} />
       </span>
     </span>
   );
@@ -118,6 +119,7 @@ export default function LoadingContributions() {
           </section>
         </div>
       </OpsWorkspace>
+      <span hidden data-ops-reserve-detail />
       <DetailSkeleton />
     </>
   );

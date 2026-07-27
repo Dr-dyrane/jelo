@@ -47,9 +47,13 @@ Viewport shells use `overflow: clip`, not `overflow: hidden`: a hidden-overflow
 element remains programmatically scrollable and focus helpers can displace the
 entire fixed shell even when no scrollbar is visible.
 Inside a decision inspector, evidence and metadata scroll while the decision
-region remains anchored at the bottom. Empty inspector space is intentional;
-do not fill it with duplicate headings, decorative cards, or repeated
-record-type labels.
+region remains anchored at the bottom. This is one-owner scrolling: the
+inspector shell and its immediate body use `overflow: hidden`; one named
+evidence region owns `overflow-y: auto`; the decision region is its sibling,
+not its descendant. A side sheet or bottom sheet follows the same law. Never
+give both the sheet body and the evidence region independent vertical scroll.
+Empty inspector space is intentional; do not fill it with duplicate headings,
+decorative cards, or repeated record-type labels.
 
 Routes portal selected context into the shell-owned detail plane. This keeps
 selection state and focus behavior shared while preserving the structural
@@ -138,10 +142,13 @@ Navigation controls use native links, compact labels, visible focus, and a stabl
 
 The sidebar stays an instrument. Queue rows, decision forms, and other operational content belong to the workspace and should not be added to the shell.
 
-### Phone contextual action
+### Contextual action
 
-Phone composition always reserves the separate circular FAB beside the bottom
-navigation bar. It is contextual, never decorative:
+Every layout that hides the docked inspector (`<1180px`) keeps the route's
+separate `56 × 56` contextual FAB reachable while the temporary inspector is
+closed. On phone it sits beside the bottom navigation bar; on touch and compact
+widths it floats at the lower trailing edge. It is contextual, never
+decorative:
 
 - queue routes open the current selected record;
 - Overview opens the selected queue context;
@@ -158,10 +165,12 @@ placeholder actions are prohibited.
 
 Temporary inspector context uses a right side sheet on tablet and desktop where
 the workspace must remain visible, and a bottom sheet on mobile/touch. Every
-overlay has a title and close control, traps focus, locks background scrolling,
-responds to Escape where available, supports safe outside dismissal,
-independently scrolls when long, honors reduced motion, and returns focus to
-its exact trigger. Do not replace this behavior with nested dropdowns,
+overlay is labelled with the exact selected subject rather than a generic
+record type. It has a visible close control, traps focus, makes the workspace
+and navigation inert, locks the real background scroll owner, responds to
+Escape where available, supports safe outside dismissal, uses the one-owner
+inspector scroll law, honors reduced motion, and returns focus to its exact
+trigger. Do not replace this behavior with nested dropdowns,
 accordion-in-accordion panels, or action-shaped controls that do nothing.
 
 The same selected record renders in only one inspector presentation at a time:
@@ -174,7 +183,7 @@ A route does not become a shell reference by resembling Observations. Every
 trial first declares its operator job, typed presentation, decision meaning,
 responsive anatomy, data states, and recovery behavior in its ADR lane packet.
 The shell provides planes, overlay mechanics, selection context, and the phone
-FAB; the route remains responsible for truthful projection, kind-specific
+and temporary-inspector FAB; the route remains responsible for truthful projection, kind-specific
 content, action consequences, and safe copy.
 
 `/ops/contributions` is the first reviewed triage transfer candidate. Its

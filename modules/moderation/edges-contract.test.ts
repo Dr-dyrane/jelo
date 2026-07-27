@@ -164,14 +164,17 @@ test('responsive inspectors are siblings or overlays with complete focus recover
   assert.match(sharedInbox, /usesDockedInspector/);
   assert.match(sharedInbox, /usesOverlayInspector/);
   assert.match(sharedInbox, /createPortal\(/);
-  assert.match(sharedInbox, /role="dialog" aria-modal="true"/);
+  assert.match(sharedInbox, /role="dialog"[\s\S]{0,100}aria-modal="true"/);
+  assert.match(sharedInbox, /getItemLabel\?\.\(activeItem\) \?\? itemTypeLabel/);
   assert.match(sharedInbox, /document\.body\.style\.overflow = 'hidden'/);
+  assert.match(sharedInbox, /setAttribute\('inert', ''\)/);
   assert.match(sharedInbox, /event\.key === 'Escape'/);
   assert.match(sharedInbox, /lastTriggerRef\.current\?\.focus/);
   assert.match(sharedInbox, /button:not\(\[disabled\]\):not\(\[tabindex="-1"\]\)/);
   assert.match(inspectorCss, /@media \(max-width: 819px\)[\s\S]*?align-items: flex-end;/);
+  assert.match(inspectorCss, /\.tabletInspectorBody \{[\s\S]*?overflow: hidden;/);
   assert.match(shellCss, /@media \(max-width: 819px\)[\s\S]*?\.detailPane \{[\s\S]*?inset: 0;/);
-  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow-y: auto;/);
+  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow: hidden;/);
 });
 
 test('touch actions and the phone contextual FAB stay reachable', async () => {
@@ -242,10 +245,14 @@ test('relationship cards surface only approved imagery and preserve readable lon
 });
 
 test('the shell clips the viewport while workspace and inspector own their scroll', async () => {
-  const opsCss = await readSource('app/(ops)/ops.module.css');
+  const [opsCss, inboxCss] = await Promise.all([
+    readSource('app/(ops)/ops.module.css'),
+    readSource('components/ops/inbox/inbox.module.css'),
+  ]);
 
   assert.match(opsCss, /\.body \{[\s\S]*?height: 100dvh;[\s\S]*?overflow: clip;/);
   assert.match(opsCss, /@media \(min-width: 820px\)[\s\S]*?\.contentWrapper \{[\s\S]*?overflow: clip;/);
   assert.match(opsCss, /@media \(min-width: 820px\)[\s\S]*?\.main \{[\s\S]*?min-height: 0;[\s\S]*?overflow: auto;/);
-  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow-y: auto;/);
+  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow: hidden;/);
+  assert.match(inboxCss, /\.detailScroll \{[\s\S]*?overflow-y: auto;/);
 });

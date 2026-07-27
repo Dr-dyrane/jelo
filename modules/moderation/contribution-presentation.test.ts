@@ -65,7 +65,11 @@ test('malformed payload fields fail safely into a truthful empty projection', ()
   }));
 
   assert.equal(item.title, 'Community submission');
-  assert.equal(item.summary, 'Community report');
+  assert.equal(item.summary, '');
+  assert.deepEqual(item.productValues, []);
+  assert.deepEqual(item.brandValues, []);
+  assert.deepEqual(item.storeValues, []);
+  assert.deepEqual(item.purposeValues, []);
   assert.deepEqual(item.productNames, []);
   assert.deepEqual(item.brandNames, []);
   assert.deepEqual(item.storeNames, []);
@@ -87,6 +91,8 @@ test('any valid custom value marks the contribution as needing matching', () => 
 
   assert.equal(canonicalOnly.needsMatching, false);
   assert.equal(withCustomValue.needsMatching, true);
+  assert.deepEqual(canonicalOnly.purposeValues, [{ label: 'Acne', match: 'known' }]);
+  assert.deepEqual(withCustomValue.purposeValues, [{ label: 'Chicken Skin', match: 'new' }]);
 });
 
 test('missing attribution is distinct from a directly opened contribution', () => {
@@ -117,8 +123,28 @@ test('store summaries describe submitted data without claiming trust', () => {
   }));
 
   assert.equal(item.title, 'Lagos Skin House');
-  assert.equal(item.summary, 'Store submission');
+  assert.equal(item.summary, '');
   assert.equal(item.summary.toLocaleLowerCase('en-NG').includes('trusted'), false);
+});
+
+test('routine titles stay scannable while the full product list remains available', () => {
+  const item = contributionReviewItem(reviewRecord({
+    products: [
+      { id: 'product:first', label: 'Cleanser', source: 'custom' },
+      { id: 'product:second', label: 'Toner', source: 'custom' },
+      { id: 'product:third', label: 'Moisturiser', source: 'custom' },
+    ],
+  }, {
+    kind: 'routine',
+  }));
+
+  assert.equal(item.title, 'Cleanser + 2 more');
+  assert.deepEqual(item.productNames, ['Cleanser', 'Toner', 'Moisturiser']);
+  assert.deepEqual(item.productValues, [
+    { label: 'Cleanser', match: 'new' },
+    { label: 'Toner', match: 'new' },
+    { label: 'Moisturiser', match: 'new' },
+  ]);
 });
 
 test('all submitted products, brands, retailers, and purposes remain visible', () => {

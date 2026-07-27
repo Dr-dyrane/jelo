@@ -49,9 +49,11 @@
 }
 
 .tabletInspectorBody {
+  display: flex;
   min-height: 0;
   flex: 1;
-  overflow-y: auto;
+  flex-direction: column;
+  overflow: hidden;
   overscroll-behavior: contain;
   padding: 0 var(--space-4) var(--space-5);
 }
@@ -64,7 +66,8 @@
     height: var(--touch-min);
   }
 
-  .tabletInspectorBody :global(form[data-item-id] > div:last-child) {
+  .tabletInspectorBody :global(form[data-item-id] [data-ops-decision-actions]),
+  .tabletInspectorBody :global(form[data-item-id] > div:last-child:not(:has(> div))) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-2);

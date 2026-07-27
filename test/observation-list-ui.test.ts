@@ -131,9 +131,11 @@ describe('Observation list progressive loading integrity', () => {
   it('uses a deduped observer threshold with a keyboard fallback and live status', () => {
     assert.match(inboxSource, /new IntersectionObserver/);
     assert.match(inboxSource, /loadPendingRef\.current/);
-    assert.match(inboxSource, /onClick=\{loadMore\}/);
-    assert.match(inboxSource, /role=\{isLoading \? 'status' : undefined\}/);
-    assert.match(inboxSource, /aria-live=\{isLoading \? 'polite' : undefined\}/);
+    assert.match(inboxSource, /onClick=\{showMore\}/);
+    assert.match(inboxSource, />\s*Show more\s*<\/button>/);
+    assert.match(inboxSource, /role="status"/);
+    assert.match(inboxSource, /aria-live="polite"/);
+    assert.match(inboxSource, /aria-atomic="true"/);
   });
 
   it('keeps the initial observation reveal deliberately small', () => {

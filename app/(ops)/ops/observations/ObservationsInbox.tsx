@@ -122,6 +122,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       items={orderedRows}
       sections={sections}
       itemTypeLabel="observation"
+      getItemLabel={observationTitle}
       selectedId={selectedId}
       pendingSelectionId={isSelectionNavigating ? selectedId : null}
       onSelect={item => setSelectedId(item.id)}
@@ -260,7 +261,7 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
                     disabled={isDecisionPending}
                   />
                 </div>
-                <div className={styles.actionButtons}>
+                <div className={styles.actionButtons} data-ops-decision-actions>
                   <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isDecisionPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
                     {isDecisionPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}
                   </button>

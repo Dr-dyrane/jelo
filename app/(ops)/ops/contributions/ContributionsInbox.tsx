@@ -2,7 +2,10 @@
 
 import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronRight, Layers3, PackageOpen, Store } from 'lucide-react';
-import type { ContributionReviewItem } from '@/lib/moderation/contribution-presentation';
+import type {
+  ContributionDisplayValue,
+  ContributionReviewItem,
+} from '@/lib/moderation/contribution-presentation';
 import { money } from '@/lib/format/money';
 import { outcomeLabel, outcomeTone } from '@/lib/humanize/outcomes';
 import { SafeProductImage } from '@/components/products/safe-product-image';
@@ -46,8 +49,39 @@ function ContributionVisual({
   );
 }
 
-function joined(values: string[]) {
-  return values.join(', ');
+function SubmittedValues({ values }: { values: ContributionDisplayValue[] }) {
+  return (
+    <span className={contributionStyles.submittedValues}>
+      {values.map((value, index) => (
+        <span key={`${value.label}-${index}`} className={contributionStyles.submittedValue}>
+          <span>{value.label}</span>
+          {value.match === 'new' ? (
+            <span className={contributionStyles.newValue}>New</span>
+          ) : null}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function SummaryAndTime({
+  summary,
+  submittedAt,
+}: {
+  summary: string;
+  submittedAt: string;
+}) {
+  return (
+    <>
+      {summary ? (
+        <>
+          <span>{summary}</span>
+          <span aria-hidden="true">·</span>
+        </>
+      ) : null}
+      <RelativeTime iso={submittedAt} />
+    </>
+  );
 }
 
 export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps) {
@@ -116,6 +150,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
         items={orderedRows}
         sections={sections}
         itemTypeLabel="contribution"
+        getItemLabel={item => item.title}
         selectedId={selection.selectedId}
         pendingSelectionId={selection.pendingSelectionId}
         onSelect={item => {
@@ -141,9 +176,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                   <span className={contributionStyles.featureEyebrow}>{row.kindLabel}</span>
                   <span className={contributionStyles.featureTitle}>{row.title}</span>
                   <span className={contributionStyles.featureMeta}>
-                    <span>{row.summary}</span>
-                    <span aria-hidden="true">·</span>
-                    <RelativeTime iso={row.submittedAt} />
+                    <SummaryAndTime summary={row.summary} submittedAt={row.submittedAt} />
                   </span>
                 </span>
               </span>
@@ -162,7 +195,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                 <span className={contributionStyles.routineCopy}>
                   <span className={contributionStyles.routineTitle}>{row.title}</span>
                   <span className={contributionStyles.routineMeta}>
-                    {row.summary} · <RelativeTime iso={row.submittedAt} />
+                    <SummaryAndTime summary={row.summary} submittedAt={row.submittedAt} />
                   </span>
                 </span>
               </span>
@@ -180,7 +213,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
               <span className={contributionStyles.compactCopy}>
                 <span className={contributionStyles.compactTitle}>{row.title}</span>
                 <span className={contributionStyles.compactMeta}>
-                  {row.summary} · <RelativeTime iso={row.submittedAt} />
+                  <SummaryAndTime summary={row.summary} submittedAt={row.submittedAt} />
                 </span>
               </span>
               <ChevronRight size={16} className={contributionStyles.compactCaret} aria-hidden="true" />
@@ -210,7 +243,6 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                     <h2>{row.title}</h2>
                     <span>{row.kindLabel}</span>
                     <div className={contributionStyles.identityMeta}>
-                      {row.needsMatching ? <StatusPill tone="info">Needs matching</StatusPill> : null}
                       <RelativeTime iso={row.submittedAt} />
                     </div>
                   </div>
@@ -219,35 +251,35 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                 <section className={styles.detailSection}>
                   <h3 className={styles.sectionLabel}>Submitted details</h3>
                   <div className={styles.propertiesSection}>
-                    {row.brandNames.length > 0 ? (
+                    {row.brandValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>Brand</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.brandNames)}
+                          <SubmittedValues values={row.brandValues} />
                         </span>
                       </div>
                     ) : null}
-                    {row.productNames.length > 0 ? (
+                    {row.productValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>{row.kind === 'routine' ? 'Products' : 'Product'}</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.productNames)}
+                          <SubmittedValues values={row.productValues} />
                         </span>
                       </div>
                     ) : null}
-                    {row.storeNames.length > 0 ? (
+                    {row.storeValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>Store</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.storeNames)}
+                          <SubmittedValues values={row.storeValues} />
                         </span>
                       </div>
                     ) : null}
-                    {row.purposeNames.length > 0 ? (
+                    {row.purposeValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>Used for</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.purposeNames)}
+                          <SubmittedValues values={row.purposeValues} />
                         </span>
                       </div>
                     ) : null}
@@ -342,7 +374,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                           </span>
                         ) : null}
                       </div>
-                      <div className={styles.actionButtons}>
+                      <div className={styles.actionButtons} data-ops-decision-actions>
                         <button
                           className={styles.btn}
                           type="button"
@@ -365,7 +397,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                       </div>
                     </div>
                   ) : (
-                    <div className={styles.actionButtons}>
+                    <div className={styles.actionButtons} data-ops-decision-actions>
                       <button
                         className={`${styles.btn} ${styles.btnReject}`}
                         type="button"

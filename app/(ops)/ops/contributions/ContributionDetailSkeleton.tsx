@@ -34,6 +34,11 @@ export function ContributionDetailSkeleton({ announce = true }: { announce?: boo
             ))}
           </div>
         </section>
+
+        <div className={styles.skeletonDisclosure}>
+          <span className={`${styles.skeletonSubtext} ${styles.skeletonSurface}`} />
+          <span className={`${styles.skeletonCaret} ${styles.skeletonSurface}`} />
+        </div>
       </div>
 
       <section className={styles.decideSection} aria-hidden="true">

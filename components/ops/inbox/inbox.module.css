@@ -423,6 +423,7 @@
 }
 
 .sectionItems[data-presentation='feature-shelf'] .sectionItemButton {
+  height: 100%;
   border-radius: calc(var(--ops-control-radius) + 4px);
 }
 
@@ -462,8 +463,8 @@
 
 .railControls button {
   display: grid;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   place-items: center;
   padding: 0;
   border: 0;
@@ -815,6 +816,14 @@
 .skeletonPropertyValue { width: 70%; height: 10px; border-radius: var(--ops-control-radius); }
 .skeletonNote { width: 100%; min-height: 76px; border-radius: var(--ops-control-radius); }
 .skeletonBtn { min-height: 34px; border-radius: var(--ops-control-radius); cursor: default; }
+
+.skeletonDisclosure {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-4);
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .skeletonSurface {

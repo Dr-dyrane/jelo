@@ -37,10 +37,38 @@ test('the Contributions fallback reserves the desktop inspector without dependin
   assert.match(loading, /window\.matchMedia\('\(min-width: 1180px\)'\)\.matches/);
   assert.match(loading, /<DetailSkeleton \/>/);
   assert.match(loading, /createPortal\(<ContributionDetailSkeleton announce=\{false\} \/>/);
+  assert.match(loading, /data-ops-reserve-detail/);
 
   // Compact inspectors are interaction-driven sheets in the ready state. The
   // route fallback must not invent an already-open dialog.
   assert.doesNotMatch(loading, /role="dialog"|aria-modal="true"|tabletStage/);
+});
+
+test('temporary inspectors name the selected subject and leave one evidence scroll owner', async () => {
+  const [inbox, inboxCss, inspectorCss] = await Promise.all([
+    readSource('components/ops/inbox/InboxContainer.tsx'),
+    readSource('components/ops/inbox/inbox.module.css'),
+    readSource('components/ops/inbox/inbox-tablet.module.css'),
+  ]);
+
+  assert.match(inbox, /getItemLabel\?\.\(activeItem\) \?\? itemTypeLabel/);
+  assert.match(inbox, /setAttribute\('inert', ''\)/);
+  assert.match(inbox, /removeAttribute\('inert'\)/);
+  assert.match(inboxCss, /\.detailScroll \{[\s\S]*?overflow-y: auto;/);
+  assert.match(inspectorCss, /\.tabletInspectorBody \{[\s\S]*?overflow: hidden;/);
+});
+
+test('the contextual contribution action remains reachable between phone and docked layouts', async () => {
+  const [chrome, shellCss] = await Promise.all([
+    readSource('components/ops/shell/OpsChrome.tsx'),
+    readSource('components/ops/shell/ops-tablet.module.css'),
+  ]);
+
+  assert.match(chrome, /data-ops-context-fab/);
+  assert.match(
+    shellCss,
+    /@media \(min-width: 430px\) and \(max-width: 1179px\)[\s\S]*?\.bottomBarAction \{[\s\S]*?display: flex;[\s\S]*?width: 56px;[\s\S]*?height: 56px;/,
+  );
 });
 
 test('moderation actions never return arbitrary exception text to the operator UI', async () => {

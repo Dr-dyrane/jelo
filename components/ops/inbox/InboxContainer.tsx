@@ -90,7 +90,7 @@ function ProgressiveInboxSection<T extends { id: string }>({
     ? Math.min(section.items.length, Math.max(1, section.pagination.initialCount))
     : section.items.length;
   const [visibleCount, setVisibleCount] = useState(initialCount);
-  const [isLoading, setIsLoading] = useState(false);
+  const [paginationAnnouncement, setPaginationAnnouncement] = useState('');
   const listRef = useRef<HTMLUListElement | null>(null);
   const sentinelRef = useRef<HTMLElement | null>(null);
   const loadPendingRef = useRef(false);
@@ -115,22 +115,26 @@ function ProgressiveInboxSection<T extends { id: string }>({
   const isHorizontal = section.presentation === 'horizontal-rail';
   const statusId = `ops-section-status-${section.id}`;
 
-  const loadMore = useCallback(() => {
+  const showMore = useCallback(() => {
     if (!section.pagination || loadPendingRef.current || !hasMore) return;
 
     loadPendingRef.current = true;
-    setIsLoading(true);
-    setVisibleCount(current => nextInboxPageVisibleCount(
-      Math.max(current, renderedCount),
+    const nextCount = nextInboxPageVisibleCount(
+      renderedCount,
       section.items.length,
       section.pagination?.pageSize ?? 1,
-    ));
+    );
+    setVisibleCount(nextCount);
+    setPaginationAnnouncement(
+      nextCount < section.items.length
+        ? `Showing ${nextCount} of ${section.items.length} ${section.label.toLowerCase()}.`
+        : `All ${section.items.length} ${section.label.toLowerCase()} shown.`,
+    );
 
     requestAnimationFrame(() => {
       loadPendingRef.current = false;
-      setIsLoading(false);
     });
-  }, [hasMore, renderedCount, section.items.length, section.pagination]);
+  }, [hasMore, renderedCount, section.items.length, section.label, section.pagination]);
 
   useEffect(() => {
     if (!section.pagination || !hasMore || !sentinelRef.current) return;
@@ -144,16 +148,18 @@ function ProgressiveInboxSection<T extends { id: string }>({
       }
       if (!observerArmedRef.current) return;
       observerArmedRef.current = false;
-      loadMore();
+      showMore();
     }, {
-      root: isHorizontal ? listRef.current : null,
+      root: isHorizontal
+        ? listRef.current
+        : document.querySelector<HTMLElement>('[data-ops-main]'),
       rootMargin: isHorizontal ? '0px 160px 0px 0px' : '180px 0px',
       threshold: 0.01,
     });
 
     observer.observe(sentinelRef.current);
     return () => observer.disconnect();
-  }, [hasMore, isHorizontal, loadMore, section.pagination]);
+  }, [hasMore, isHorizontal, section.pagination, showMore]);
 
   useEffect(() => {
     if (selectedIndex < 0 || selectedIndex < visibleCount) return;
@@ -163,21 +169,14 @@ function ProgressiveInboxSection<T extends { id: string }>({
     return () => cancelAnimationFrame(frame);
   }, [requiredVisibleCount, selectedIndex, visibleCount]);
 
-  const paginationStatus = isLoading
-    ? `Loading more ${section.label.toLowerCase()}.`
-    : hasMore
-      ? `${renderedCount} ${section.label.toLowerCase()} shown. More available.`
-      : `${section.items.length} ${section.label.toLowerCase()} shown.`;
-
   const loadControl = hasMore ? (
     <button
       type="button"
       className={styles.paginationButton}
       aria-describedby={statusId}
-      disabled={isLoading}
-      onClick={loadMore}
+      onClick={showMore}
     >
-      {isLoading ? 'Loading…' : 'Load more'}
+      Show more
     </button>
   ) : null;
 
@@ -242,11 +241,11 @@ function ProgressiveInboxSection<T extends { id: string }>({
         <span
           id={statusId}
           className={styles.paginationStatus}
-          role={isLoading ? 'status' : undefined}
-          aria-live={isLoading ? 'polite' : undefined}
-          aria-atomic={isLoading ? 'true' : undefined}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
         >
-          {paginationStatus}
+          {paginationAnnouncement}
         </span>
       ) : null}
     </section>
@@ -501,6 +500,10 @@ export function InboxContainer<T extends { id: string }>({
 
     function handleKeyDown(e: KeyboardEvent) {
       const target = e.target instanceof HTMLElement ? e.target : null;
+      // A queue inspector can launch a second, focused dialog (for example,
+      // Vocabulary's same-as-known search). That dialog owns its keyboard
+      // contract; its Escape must never advance or dismiss the inspector
+      // beneath it.
       const eventDialog = target?.closest('dialog');
       const nestedDialog = document.querySelector<HTMLDialogElement>('dialog[open]');
       if (eventDialog || nestedDialog) return;

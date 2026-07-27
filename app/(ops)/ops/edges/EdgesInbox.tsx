@@ -303,6 +303,7 @@ export function EdgesInbox({
         items={loadedRows}
         sections={sections}
         itemTypeLabel="relationship"
+        getItemLabel={item => item.title}
         selectedId={selection.selectedId}
         pendingSelectionId={selection.pendingSelectionId}
         onSelect={item => {
@@ -498,7 +499,7 @@ export function EdgesInbox({
                         <strong>Reject this relationship?</strong>
                         <span>This removes only this relationship from the review queue.</span>
                       </div>
-                      <div className={styles.actionButtons}>
+                      <div className={styles.actionButtons} data-ops-decision-actions>
                         <button
                           className={styles.btn}
                           type="button"
@@ -523,7 +524,7 @@ export function EdgesInbox({
                       </div>
                     </div>
                   ) : (
-                    <div className={styles.actionButtons}>
+                    <div className={styles.actionButtons} data-ops-decision-actions>
                       <button
                         className={`${styles.btn} ${styles.btnReject}`}
                         type="button"

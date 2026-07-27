@@ -228,6 +228,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
             return (
               <button
                 type="button"
+                data-ops-context-fab
                 className={adaptive.bottomBarAction}
                 onClick={contextFab.onClick}
                 aria-label={contextFab.label}
@@ -242,7 +243,6 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           data-ops-detail
           id="ops-detail-pane"
           className={`${styles.detailPane} ${adaptive.detailPane}`}
-          aria-live="polite"
         />
       </div>
     </div>

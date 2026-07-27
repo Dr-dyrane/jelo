@@ -128,6 +128,7 @@ export default function LoadingEdges() {
           ))}
         </div>
       </OpsWorkspace>
+      <span hidden data-ops-reserve-detail />
       <DetailSkeleton />
     </>
   );
