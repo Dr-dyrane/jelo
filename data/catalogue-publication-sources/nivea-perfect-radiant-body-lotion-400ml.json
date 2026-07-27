@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+    "candidateFingerprint": "f7626cf482a1f30cf5c57ff919575b9009863ed7c45dc03ff803ad22941bcc64",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "4005900378606",
+      "brand": "NIVEA",
+      "name": "Perfect & Radiant Body Lotion",
+      "variant": "Perfect & Radiant Body Lotion",
+      "size": "400 ml",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+      "officialIdentity": {
+        "url": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+        "observedGtin": "4005900378606",
+        "observedVariant": "Perfect & Radiant Body Lotion",
+        "observedSize": "400 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/nivea-perfect-radiant-body-lotion-400ml.json",
+        "canonicalExtraction": {
+          "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official Product JSON-LD gtin13",
+              "sourceText": "\"gtin13\":\"4005900378606\"",
+              "value": "4005900378606"
+            },
+            "variant": {
+              "locator": "Official product heading and Product JSON-LD name",
+              "sourceText": "NIVEA Perfect & Radiant Body Lotion",
+              "value": "Perfect & Radiant Body Lotion"
+            },
+            "size": {
+              "locator": "Official selected product variation size",
+              "sourceText": "400 ml",
+              "value": "400 ml"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+          "retrievedAt": "2026-07-26T15:44:00Z",
+          "reviewedAt": "2026-07-26T15:45:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 322204,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "4eb6d310c7ba26b510449c4631d7008e4019c04905c435dafe4ebf241d6f5b40",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 109375,
+              "responseMimeType": "image/png",
+              "responseSha256": "ca389de95dc9fe3bcb3961ac0cd6785019c33830611b35ff4af02f2d2900c91d",
+              "responseUrl": "https://img.nivea.com/-/media/miscellaneous/media-center-items/e/f/3/9f4d88dd3c07449f8232057fa54cd601-web_1010x1180_transparent_png.png",
+              "retrievedAt": "2026-07-26T15:44:00Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://img.nivea.com/-/media/miscellaneous/media-center-items/e/f/3/9f4d88dd3c07449f8232057fa54cd601-web_1010x1180_transparent_png.png"
+            }
+          ],
+          "sourceUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html"
+        },
+        "snapshotSha256": "ab77770f8b31b6d80e6b21b6dee788233fca9f008d39c6d17f6adcfb8d519d43",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1609,
+        "retrievedAt": "2026-07-26T15:44:00Z"
+      },
+      "checkedAt": "2026-07-26T15:45:00Z",
+      "demandEvidenceUrls": [
+        "https://teeka4.com/shop/241662/",
+        "https://allure.com.ng/nivea-perfect-radiant-body-lotion/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Daily fragranced body lotion for moisturizing dry skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Daily body moisturising support only; it does not diagnose or treat pigmentation or another skin condition. Fragrance may not suit reactive skin, and this lotion does not replace a broad-spectrum SPF 30 or higher sunscreen. Stop if burning or persistent irritation develops and seek care for inflamed, weeping or painful skin.",
+      "manufacturerEvidenceUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-07-26T15:46:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "tier-a",
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+      "exactOffers": [
+        {
+          "retailer": "Teeka4",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://teeka4.com/shop/241662/",
+          "observedAt": "2026-07-26T15:44:00Z",
+          "observedTitle": "Nivea Perfect & Radiant Body Lotion 400ml",
+          "observedSize": "400 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "TK-0690",
+          "priceNgn": 5999,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-exact-offer-field-extraction",
+            "listingUrl": "https://teeka4.com/shop/241662/",
+            "responseUrl": "https://teeka4.com/shop/241662/",
+            "responseSha256": "77430c7bf1a72ff3ddd26f2aefc688aa6bb9c53074bc95af592f6d57643b88ea",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 337237,
+            "retrievedAt": "2026-07-26T15:44:00Z",
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "4005900378606",
+                "locator": "Bound official NIVEA catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 4005900378606",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Nivea Perfect & Radiant Body Lotion 400ml",
+                "locator": "HTML product heading",
+                "sourceText": "Nivea Perfect & Radiant Body Lotion 400ml"
+              },
+              "size": {
+                "value": "400 ml",
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ml"
+              },
+              "price": {
+                "value": 5999,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦5,999.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T15:48:00Z"
+          }
+        },
+        {
+          "retailer": "Allure Beauty",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
+          "observedAt": "2026-07-26T15:44:00Z",
+          "observedTitle": "Nivea Perfect & Radiant Body Lotion",
+          "observedSize": "400 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 6500,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-exact-offer-field-extraction",
+            "listingUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
+            "responseUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
+            "responseSha256": "42eef4c3a6b9a570dddd1916a83825e8f3237a656bebe6e4e0d6711e9e2fb84a",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 597885,
+            "retrievedAt": "2026-07-26T15:44:00Z",
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "4005900378606",
+                "locator": "Bound official NIVEA catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 4005900378606",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Nivea Perfect & Radiant Body Lotion",
+                "locator": "HTML product heading",
+                "sourceText": "Nivea Perfect & Radiant Body Lotion"
+              },
+              "size": {
+                "value": "400 ml",
+                "locator": "HTML product description",
+                "sourceText": "For Women 400ml"
+              },
+              "price": {
+                "value": 6500,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦6,500"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T15:49:00Z"
+          }
+        }
+      ],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+      "sourceAsset": {
+        "url": "https://img.nivea.com/-/media/miscellaneous/media-center-items/e/f/3/9f4d88dd3c07449f8232057fa54cd601-web_1010x1180_transparent_png.png",
+        "sha256": "ca389de95dc9fe3bcb3961ac0cd6785019c33830611b35ff4af02f2d2900c91d",
+        "mimeType": "image/png",
+        "byteSize": 109375,
+        "width": 1010,
+        "height": 1180,
+        "retrievedAt": "2026-07-26T15:44:00Z"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nivea/nivea-perfect-radiant-body-lotion-400ml/packshot-v1-399a6d2b19ecb2ec.png",
+      "sha256": "399a6d2b19ecb2ecd9db6c9021ef3aa1eb65ee01113e444c473ab56a06732204",
+      "mimeType": "image/png",
+      "byteSize": 546699,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "none",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-07-26T19:47:16Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-retail-rights-and-final-image",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-07-26T19:51:10Z"
+    },
+    "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+    "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Moisturize",
+      "displayLine": "Daily body moisture · 400 ml",
+      "usage": "Apply over the body. Allow it to absorb before dressing, and store in a cool, dry place.",
+      "manufacturerDirectionsUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-07-26T19:52:10Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-07-26T19:53:10Z"
+    },
+    "releaseFingerprint": "42b37ccaf51cf8f92dc180baed060e29ff67910e844035e82d34782053fc6b01"
+  }
+}

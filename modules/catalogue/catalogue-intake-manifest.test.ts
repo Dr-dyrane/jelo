@@ -20,23 +20,23 @@ import {
 const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 35);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 36);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 38);
-  assert.equal(catalogueIntakeDecisions.length, 38);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 35);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 19);
+  assert.equal(catalogueIntakeCandidates.length, 39);
+  assert.equal(catalogueIntakeDecisions.length, 39);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 36);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 20);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 35);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 36);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 3);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 35);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 36);
 });
 
 test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
@@ -73,6 +73,30 @@ test('the community-requested Mela B3 serum binds official identity, Nigerian pr
     evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T08:20:00Z')).stage,
     'approval-ready',
   );
+});
+
+test('the Beauty Formulas serum binds its exact formula, Nigerian prices and reviewed render', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'beauty-formulas-glowing-serum-2-vitamin-c-30ml'
+  ));
+  assert.ok(candidate);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-27T01:00:00Z'));
+  assert.equal(candidate.identity.gtin, '5012251013611');
+  assert.equal(candidate.care.status, 'reviewed');
+  assert.match(candidate.care.formulaArchetype ?? '', /sodium ascorbyl phosphate/i);
+  assert.match(candidate.care.advisoryBoundary ?? '', /Vitamin E is not listed/i);
+  assert.ok(candidate.care.evidenceUrls.some(url => url.includes('GLOWING_SERUM_BACK')));
+  assert.equal(candidate.nigeria.exactOffers.length, 3);
+  assert.equal(candidate.nigeria.excludedObservations.some(observation => (
+    observation.retailer === 'Slique Beauty'
+    && observation.exclusionReasons.includes('manufacturer-identifier-mismatch')
+  )), true);
+  assert.equal(
+    candidate.asset.publicImageSha256,
+    '420f76cf802aab4c8328b9b8d10830add8496cb8efd10f6152da5bad84532329',
+  );
+  assert.equal(decision.stage, 'approval-ready');
+  assert.deepEqual(decision.blockers, []);
 });
 
 test('the Simple replenishing moisturiser binds UK identity while holding formula, pack and rights variance', () => {
@@ -1123,10 +1147,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 19);
+  assert.equal(observations.length, 20);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 70);
+  ), 0), 73);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

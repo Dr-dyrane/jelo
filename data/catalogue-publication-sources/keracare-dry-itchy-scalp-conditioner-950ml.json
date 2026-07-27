@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "keracare-dry-itchy-scalp-conditioner-950ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "keracare-dry-itchy-scalp-conditioner-950ml",
+    "candidateFingerprint": "1b70634d5a6eb8549894f1fd5e17a6e7efffb086c8035a27a9e7aced3315f9ee",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850068103058",
+      "brand": "KeraCare",
+      "name": "Dry & Itchy Conditioner",
+      "variant": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner",
+      "size": "32 oz",
+      "category": "Hair & scalp"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+      "officialIdentity": {
+        "url": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+        "observedGtin": "850068103058",
+        "observedVariant": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner",
+        "observedSize": "32 oz",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/keracare-dry-itchy-scalp-conditioner-950ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "keracare-dry-itchy-scalp-conditioner-950ml",
+          "sourceUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+          "responseUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-07-23T01:46:00Z",
+          "fields": {
+            "gtin": {
+              "value": "850068103058",
+              "locator": "Rendered Shopify product JSON-LD 32 oz offer gtin12",
+              "sourceText": "32 oz offer — gtin12: 850068103058; SKU: 501266"
+            },
+            "variant": {
+              "value": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner",
+              "locator": "Rendered DOM h1 product heading",
+              "sourceText": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner"
+            },
+            "size": {
+              "value": "32 oz",
+              "locator": "Rendered Size fieldset radio label and selected variant data",
+              "sourceText": "Size — 32 oz; Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner - 32 oz"
+            }
+          },
+          "sourceResponseSha256": "d7b8fc5057267c57055f5faa20de57bab35303671cebad4d6e086c1fc2079ce7",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 200022,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner – keracare"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-23T01:54:00Z"
+        },
+        "snapshotSha256": "cf3b9cc84bf85ce89b24cb427b3e7b9356df8d1b941f33d0155842c2ff3a0f67",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1393,
+        "retrievedAt": "2026-07-23T01:46:00Z"
+      },
+      "checkedAt": "2026-07-23T01:54:00Z",
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/keracare-no2-dry-and-itchy-scalp-anti-dandruff-moisturizing-conditioner-950ml/",
+        "https://edithsessentials.com/products/keracare-dry-and-itchy-conditioner-950ml"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Pyrithione zinc 1% topical anti-dandruff rinse-off conditioner with menthol, piroctone olamine and conditioning agents",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports only label-directed relief of scalp flaking, itching and irritation associated with dandruff or seborrheic dermatitis; it does not diagnose the cause of scalp symptoms. External use only. Avoid the eyes, ask a doctor before use if seborrheic dermatitis covers large areas, stop and seek review if symptoms worsen or do not improve, and get urgent poison-control or medical help if swallowed.",
+      "manufacturerEvidenceUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+      "independentClinicalGuidanceUrl": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f",
+      "evidenceUrls": [
+        "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+        "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=5d501ba0-a6f9-4f0d-86d5-0e8d9302737f"
+      ],
+      "reviewedAt": "2026-07-23T01:54:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "tier-a",
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/keracare-no2-dry-and-itchy-scalp-anti-dandruff-moisturizing-conditioner-950ml/",
+          "observedAt": "2026-07-23T04:27:00Z",
+          "observedTitle": "KERACARE Dry And Itchy Conditioner 950ml",
+          "observedSize": "950 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "796708350195",
+          "priceNgn": 38485,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/keracare-no2-dry-and-itchy-scalp-anti-dandruff-moisturizing-conditioner-950ml/",
+            "responseUrl": "https://buybetter.ng/product/keracare-no2-dry-and-itchy-scalp-anti-dandruff-moisturizing-conditioner-950ml/",
+            "responseSha256": "66d393f844df2388482e02c2ec564abbc69e2deab88eb03dc98de4795bd593a1",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200092,
+            "retrievedAt": "2026-07-23T04:27:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "KERACARE Dry And Itchy Conditioner 950ml – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "850068103058",
+                "locator": "Bound official KeraCare 32 oz identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 850068103058",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "KERACARE Dry And Itchy Conditioner 950ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "KERACARE Dry And Itchy Conditioner 950ml"
+              },
+              "size": {
+                "value": "950 ml",
+                "locator": "Rendered DOM h1 size suffix and description size row",
+                "sourceText": "KERACARE Dry And Itchy Conditioner 950ml · Size: 950ml"
+              },
+              "price": {
+                "value": 38485,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦38,485.00 NG"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM stock count",
+                "sourceText": "10 in stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T04:28:15Z"
+          }
+        },
+        {
+          "retailer": "Ediths Essentials",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://edithsessentials.com/products/keracare-dry-and-itchy-conditioner-950ml",
+          "observedAt": "2026-07-23T04:27:00Z",
+          "observedTitle": "KERACARE Dry And Itchy Conditioner 950ml",
+          "observedSize": "950 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "BBE600",
+          "priceNgn": 43485,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://edithsessentials.com/products/keracare-dry-and-itchy-conditioner-950ml",
+            "responseUrl": "https://edithsessentials.com/products/keracare-dry-and-itchy-conditioner-950ml",
+            "responseSha256": "0847e7c29110008318e73195d499cf58ad1cecd6cfac5328338d6d84a53bd088",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 158274,
+            "retrievedAt": "2026-07-23T04:27:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "KERACARE Dry And Itchy Conditioner 950ml – Ediths Essentials"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "850068103058",
+                "locator": "Bound official KeraCare 32 oz identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 850068103058",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "KERACARE Dry And Itchy Conditioner 950ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "KERACARE Dry And Itchy Conditioner 950ml"
+              },
+              "size": {
+                "value": "950 ml",
+                "locator": "Rendered DOM h1 size suffix and product description",
+                "sourceText": "KERACARE Dry And Itchy Conditioner 950ml · Size: 950ml"
+              },
+              "price": {
+                "value": 43485,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦43,485.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered product availability microdata",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T04:28:15Z"
+          }
+        }
+      ],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://edithsessentials.com/cdn/shop/files/x1erf93f_cfbd4e86-5499-487c-beb5-9aa3fca055e8_1024x1024.jpg?v=1782827523",
+        "sha256": "3785064f40199fa4aaa8bd32002c7d8a0f081d95e6fdc5dad202f5c07ab4a3cc",
+        "mimeType": "image/jpeg",
+        "byteSize": 49632,
+        "width": 1024,
+        "height": 1024,
+        "retrievedAt": "2026-07-23T04:27:47Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: product-mockup and precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact identity reference for KeraCare Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner, 950 ml / 1 qt / 32 oz.\nPrimary request: Create one faithful, high-resolution, centered, straight-on render of the complete bottle from Image 1. Preserve the tall turquoise-blue Avlon KeraCare bottle, gold cap, complete silhouette, exact proportions, label layout, variant number 2, and all visible identity text including “Dry & Itchy Scalp”, “Anti-Dandruff Moisturizing Conditioner”, and “950 ml (1 qt.)”.\nComposition: one full bottle only, front-facing, upright, centered, generous even padding on every side, no crop, no tilt, no base or platform.\nBackground: perfectly uniform solid #00ff00 chroma green, one flat color only; no gradient, texture, floor plane, vignette, reflection, cast shadow, contact shadow, or lighting variation.\nConstraints: label text, brand, variant, size, bottle shape, cap shape, colors, and proportions must match the reference. No redesign, no alternate package, no extra product, no props, no watermark, no added text. Do not use #00ff00 anywhere on the product.",
+        "inputs": [
+          {
+            "url": "https://edithsessentials.com/cdn/shop/files/x1erf93f_cfbd4e86-5499-487c-beb5-9aa3fca055e8_1024x1024.jpg?v=1782827523",
+            "sha256": "3785064f40199fa4aaa8bd32002c7d8a0f081d95e6fdc5dad202f5c07ab4a3cc"
+          }
+        ],
+        "outputSha256": "d37d0d5abab7580e7e4c094f4b848ef3250665ece05296769347cdb2cdf89652",
+        "generatedAt": "2026-07-23T04:34:00Z",
+        "recordSha256": "744820294342bdb09a8e0a7503d0065a8ce72b8129d6034d151dd2efbc8c858a"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/keracare/keracare-dry-itchy-scalp-conditioner-950ml/packshot-v1-d37d0d5abab7580e.png",
+      "sha256": "d37d0d5abab7580e7e4c094f4b848ef3250665ece05296769347cdb2cdf89652",
+      "mimeType": "image/png",
+      "byteSize": 1022366,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-07-23T04:37:03Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-retail-rights-and-final-image",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-07-23T04:39:20Z"
+    },
+    "dossierFingerprint": "b7ed1d1eea6c89e88ee3f5575365e2ef3bc8c609c657a5bfa654bccccb31819c"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "keracare-dry-itchy-scalp-conditioner-950ml",
+    "dossierFingerprint": "b7ed1d1eea6c89e88ee3f5575365e2ef3bc8c609c657a5bfa654bccccb31819c",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Hair",
+      "routineStep": "Condition",
+      "displayLine": "Conditioning care for a dry, itchy scalp.",
+      "usage": "Distribute through the hair after shampooing. Cover, leave on for a few minutes, then rinse thoroughly.",
+      "manufacturerDirectionsUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+      "reviewer": "JeloCare catalogue presentation review",
+      "reviewedAt": "2026-07-23T04:40:50Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue publication review",
+      "publishedAt": "2026-07-23T04:41:00Z"
+    },
+    "releaseFingerprint": "0796a892b344cd9515d3b3692aa7a53db4c5316a959d04bdb30adbc3d439d602"
+  }
+}

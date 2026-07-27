@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "cerave-moisturising-cream-454g",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "cerave-moisturising-cream-454g",
+    "candidateFingerprint": "fcafbbd47277807d8992d2f1617c2dae09d0d312f37f29d2d1b37ae6d975ee46",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "3337875597388",
+      "brand": "CeraVe",
+      "name": "Moisturising Cream Pot",
+      "variant": "CeraVe Moisturising Cream Pot",
+      "size": "454 g",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+      "officialIdentity": {
+        "url": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "observedGtin": "3337875597388",
+        "observedVariant": "CeraVe Moisturising Cream Pot",
+        "observedSize": "454 g",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/cerave-moisturising-cream-454g.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "cerave-moisturising-cream-454g",
+          "sourceUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+          "responseUrl": "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-07-22T15:49:02Z",
+          "fields": {
+            "gtin": {
+              "value": "3337875597388",
+              "locator": "PDF page 3 of 4, #4 Shelf 1 UPC row",
+              "sourceText": "3337875597388 | Cerave moisturising cream pot 454g | 1 | 2"
+            },
+            "variant": {
+              "value": "CeraVe Moisturising Cream Pot",
+              "locator": "PDF page 3 of 4, #4 Shelf 1 Name column",
+              "sourceText": "Cerave moisturising cream pot 454g"
+            },
+            "size": {
+              "value": "454 g",
+              "locator": "PDF page 3 of 4, #4 Shelf 1 Name column",
+              "sourceText": "Cerave moisturising cream pot 454g"
+            }
+          },
+          "sourceResponseSha256": "83d107915c0531680c78ff7dc8aecbb49cd659ef050b14a244b0ce29982ba836",
+          "sourceResponseMimeType": "application/pdf",
+          "sourceResponseByteSize": 2135857,
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-22T16:40:00Z"
+        },
+        "snapshotSha256": "4130cfbdb41213510d789c9c8f02cafa4a88567d2a3d8a43664952f50188fb31",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1303,
+        "retrievedAt": "2026-07-22T15:49:02Z"
+      },
+      "checkedAt": "2026-07-22T16:40:00Z",
+      "demandEvidenceUrls": [
+        "https://beautybydaz.com/shop/bath-body/creams-lotions/cerave-moisturising-cream-454g-16oz-uk/",
+        "https://sliquebeautylimited.com/product/cerave-moisturising-cream-454g/",
+        "https://teeka4.com/shop/cerave-moisturizing-cream-for-dry-to-very-skin-16-oz/",
+        "https://www.konga.com/product/cerave-moisturising-cream-for-dry-to-very-dry-skin-454g-with-hyaluronic-acid-and-3-essential-ceramides-6111001?cid=10163",
+        "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
+        "https://medplusnig.com/product/cerave-moisturising-cream-454g-YDm3Kx"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Fragrance-free leave-on face-and-body moisturising cream with ceramides, hyaluronic acid and petrolatum for dry-to-very-dry skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday moisturising for dry-to-very-dry skin. It does not diagnose or treat an underlying condition; stop and ask a pharmacist or clinician about persistent burning, rash, painful cracks, infection, or symptoms that do not improve.",
+      "manufacturerEvidenceUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+      "independentClinicalGuidanceUrl": "https://www.nhs.uk/tests-and-treatments/emollients/",
+      "evidenceUrls": [
+        "https://uk.lorealdermatologicalbeautypartnershop.com/on/demandware.static/-/Library-Sites-SharedLibrary-UK-IE/default/dw39860b2b/Page%20Designer/2025/CERAVE%202025%20FULL%20CATALOGUE.pdf",
+        "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+        "https://www.nhs.uk/tests-and-treatments/emollients/"
+      ],
+      "reviewedAt": "2026-07-22T17:04:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "brand-authorized",
+      "regulatoryStatus": "pending",
+      "brandAuthorizationEvidenceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
+      "exactOffers": [
+        {
+          "retailer": "Nectar Beauty Hub",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
+          "observedAt": "2026-07-22T22:44:17.764Z",
+          "observedTitle": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
+          "observedSize": "454 g",
+          "observedGtin": "3337875597388",
+          "observedGtinBasis": "explicit-gtin",
+          "priceNgn": 22500,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-exact-offer-field-extraction",
+            "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
+            "responseUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
+            "responseSha256": "8256446f98ec8335a1063306f556734bbf18704c055b160a9699b84d40f1643b",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 865792,
+            "retrievedAt": "2026-07-22T22:44:17.764Z",
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "3337875597388",
+                "locator": "JSON-LD Product.gtin13",
+                "sourceText": "\"gtin13\":\"3337875597388\""
+              },
+              "title": {
+                "value": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
+                "locator": "JSON-LD Product.name",
+                "sourceText": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g"
+              },
+              "size": {
+                "value": "454 g",
+                "locator": "JSON-LD Product.name size suffix",
+                "sourceText": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g"
+              },
+              "price": {
+                "value": 22500,
+                "currency": "NGN",
+                "locator": "HTML main product price",
+                "sourceText": "₦22,500.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "HTML main product availability",
+                "sourceText": "Availability: In Stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T22:50:00Z"
+          }
+        }
+      ],
+      "brandSellerAuthorizationEvidence": [
+        {
+          "retailer": "Nectar Beauty Hub",
+          "listingHost": "nectarbeautyhub.com",
+          "evidence": {
+            "observedAt": "2026-07-22T22:48:23.877Z",
+            "sourceUrl": "https://africa.cerave.com/en/find-your-nearest-store",
+            "basis": "brand-source",
+            "scope": "independent",
+            "subjectSeller": "Nectar Beauty Hub",
+            "subjectHost": "nectarbeautyhub.com",
+            "locator": "HTML NIGERIA retailer list anchor",
+            "sourceText": "<a href=\"https://nectarbeautyhub.com/\">Nectar Beauty Hub</a>",
+            "sourceExcerptSha256": "8790c0f07d6e4950f4531111ca94f67a16e6ceb17ac872a3826f4615ca9730b4",
+            "responseUrl": "https://africa.cerave.com/en/find-your-nearest-store",
+            "responseSha256": "51b6183be606c2add3bd28d16807333fceb95cd8d5d749e4bb7fb622e2dedf35",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 21361,
+            "retrievedAt": "2026-07-22T22:48:23.877Z",
+            "reviewer": "Market evidence reviewer",
+            "reviewedAt": "2026-07-22T22:50:00Z"
+          }
+        }
+      ]
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/French/New-Product-Images/Moisturising-Cream-Winner-Logo-New.webp",
+        "sha256": "fd07d0faff2a75fa7c0d2cbc3a84f2d8f90840c685feeac2ddf2a8cac7b7822e",
+        "mimeType": "image/webp",
+        "byteSize": 10696,
+        "width": 400,
+        "height": 450,
+        "retrievedAt": "2026-07-23T02:22:29Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: product-mockup\nAsset type: JeloCare catalogue packshot source for background removal\nInput images: Image 1 is the official CeraVe Africa front-package reference; Image 2 is the exact Nigerian retailer listing corroborating the same 454 g pot.\nPrimary request: Create one faithful, front-facing catalogue render of the exact CeraVe Moisturising Cream Pot, 454 g / 16 oz variant, on a perfectly flat solid #ff00ff chroma-key background.\nSubject: The complete white cylindrical CeraVe cream jar with its full white lid and the exact blue-and-white front label layout shown in the references. Preserve the recognizable CeraVe wordmark, Moisturising Cream / Baume Hydratant naming, dry-to-very-dry-skin positioning, three-ceramides and hyaluronic-acid line, and the bottom size marking. Keep the package proportions, lid height, blue geometric label block, typography hierarchy, and white plastic material faithful to the references.\nComposition/framing: centered single pot, straight-on eye-level view, generous even padding on every side, fully visible rounded base, no clipping.\nLighting/mood: clean soft catalogue illumination contained within the product; no cast shadow or contact shadow.\nBackground: exactly uniform #ff00ff only, with no gradient, texture, floor plane, reflection, vignette, or lighting variation.\nConstraints: no extra objects, no awards badge, no hands, no scenery, no border, no watermark. Do not invent a different package, pump, tube, carton, label color, or product size. Do not use #ff00ff anywhere on the subject.\nAvoid: white background, clipped lid or base, flattened base, distorted label, duplicate pot, illegible brand name, invented claims.",
+        "inputs": [
+          {
+            "url": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/French/New-Product-Images/Moisturising-Cream-Winner-Logo-New.webp",
+            "sha256": "fd07d0faff2a75fa7c0d2cbc3a84f2d8f90840c685feeac2ddf2a8cac7b7822e"
+          },
+          {
+            "url": "https://nectarbeautyhub.com/cdn/shop/files/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g-700295.jpg?v=1750774367",
+            "sha256": "d72e019aa6c6d7addbebc7a96327da3d634a2c3c2bf3bf554ca1b83780cb43aa"
+          }
+        ],
+        "outputSha256": "3aa36a9141ac619598518c39e4aa4a455116037271c6997e7ee7bf63ee57ad52",
+        "generatedAt": "2026-07-23T02:24:47Z",
+        "recordSha256": "ff14f6f256db320dfa709f994d96ffacee3a4772ac2e316cf2dcfc37748267c0"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-moisturising-cream-454g/packshot-v3-3aa36a9141ac6195.png",
+      "sha256": "3aa36a9141ac619598518c39e4aa4a455116037271c6997e7ee7bf63ee57ad52",
+      "mimeType": "image/png",
+      "byteSize": 1368916,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-07-23T02:35:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-retail-rights-and-final-image",
+      "reviewer": "JeloCare catalogue approval review",
+      "approvedAt": "2026-07-23T02:36:00Z"
+    },
+    "dossierFingerprint": "6fdbc2d710f23adda4b019325d49b9eb0c2919b344e39231a3e0590994ad806a"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "cerave-moisturising-cream-454g",
+    "dossierFingerprint": "6fdbc2d710f23adda4b019325d49b9eb0c2919b344e39231a3e0590994ad806a",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Moisturize",
+      "displayLine": "Daily face and body moisture.",
+      "usage": "Apply to the face and body as needed.",
+      "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+      "reviewer": "JeloCare catalogue presentation review",
+      "reviewedAt": "2026-07-23T02:36:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue publication review",
+      "publishedAt": "2026-07-23T02:37:00Z"
+    },
+    "releaseFingerprint": "81bf2b9299797a3a8f6d5bb050b5975e576f402fd723477fb6e6ed6d7387ee3a"
+  }
+}
