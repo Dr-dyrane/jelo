@@ -38,6 +38,7 @@ This is the entry point for product, engineering, data, and operations.
 - [Ask Jelo](./ASK_JELO_EXPERIENCE.md)
 - [Concern knowledge](./CONCERN_KNOWLEDGE.md)
 - [Ingredient review](./INGREDIENT_REVIEW.md)
+- [SIMTI practice-source review](./research/2026-07-26-safe-in-my-skin-training-institute.md)
 - [Behavioural analytics](./ANALYTICS.md)
 - [Share and OpenGraph](./SHARE_AND_OPENGRAPH.md)
 
