@@ -7,6 +7,8 @@ function boundedLimit(limit: number) {
   return Math.min(Math.max(Math.trunc(limit), 1), 500);
 }
 
+const uuidPattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$';
+
 export type DecisionHistoryEntry = {
   id: string;
   operatorName: string;
@@ -21,6 +23,7 @@ export type DecisionHistoryEntry = {
 
 export type OverviewDecisionHistoryEntry = DecisionHistoryEntry & {
   targetLabel: string;
+  productRef: string | null;
   globalRank: number;
   queueRank: number;
 };
@@ -85,6 +88,7 @@ export async function listOverviewDecisionHistory(
     action: ModerationAction['action'];
     target_ref: string;
     target_label: string;
+    product_ref: string | null;
     canonical_write: boolean;
     rationale: string | null;
     created_at: string;
@@ -147,6 +151,93 @@ export async function listOverviewDecisionHistory(
           end,
           audit.target_ref
         ) as target_label,
+        case
+          when audit.queue = 'community_contribution' then (
+            select case
+              when contribution.payload #>> '{products,0,source}' = 'canonical'
+                then contribution.payload #>> '{products,0,id}'
+              else null
+            end
+            from community_contributions contribution
+            where contribution.id = case
+              when audit.target_ref ~* ${uuidPattern} then audit.target_ref::uuid
+              else null
+            end
+          )
+          when audit.queue = 'community_observation' then (
+            select case
+              when observation.subject_kind = 'product'
+                and contribution.payload #>> '{products,0,source}' = 'canonical'
+                and observation.subject_ref = contribution.payload #>> '{products,0,id}'
+                then observation.subject_ref
+              else null
+            end
+            from community_observations observation
+            join community_contributions contribution
+              on contribution.id = observation.contribution_id
+            where observation.id = case
+              when audit.target_ref ~* ${uuidPattern} then audit.target_ref::uuid
+              else null
+            end
+          )
+          when audit.queue = 'community_edge' then (
+            select case
+              when contribution.payload #>> '{products,0,source}' = 'canonical'
+                then contribution.payload #>> '{products,0,id}'
+              else null
+            end
+            from community_knowledge_edges edge
+            join community_contributions contribution
+              on contribution.id = edge.contribution_id
+            where edge.id = case
+              when audit.target_ref ~* ${uuidPattern} then audit.target_ref::uuid
+              else null
+            end
+          )
+          when audit.queue = 'community_moderation_value' then (
+            select case
+              when value.status = 'mapped'
+                and value.canonical_entity_kind = 'product'
+                then value.canonical_entity_ref
+              else null
+            end
+            from community_moderation_values value
+            where value.id = case
+              when audit.target_ref ~* ${uuidPattern} then audit.target_ref::uuid
+              else null
+            end
+          )
+          when audit.queue = 'community_research_task' then (
+            select coalesce(
+              case
+                when resolution.canonical_product_slug is not null
+                  then 'product:' || resolution.canonical_product_slug
+                else null
+              end,
+              case
+                when task.entity_kind = 'product' and task.entity_source = 'canonical'
+                  then task.entity_ref
+                else null
+              end
+            )
+            from community_research_tasks task
+            left join community_product_research_resolutions resolution
+              on resolution.task_id = task.id
+            where task.id = case
+              when audit.target_ref ~* ${uuidPattern} then audit.target_ref::uuid
+              else null
+            end
+          )
+          when audit.queue = 'commerce_signal' then (
+            select event.product_slug
+            from commerce_events event
+            where event.id = case
+              when audit.target_ref ~* ${uuidPattern} then audit.target_ref::uuid
+              else null
+            end
+          )
+          else null
+        end as product_ref,
         audit.canonical_write,
         audit.rationale,
         audit.created_at,
@@ -163,6 +254,7 @@ export async function listOverviewDecisionHistory(
       action,
       target_ref,
       target_label,
+      product_ref,
       canonical_write,
       rationale,
       created_at::text as created_at,
@@ -181,6 +273,7 @@ export async function listOverviewDecisionHistory(
     action: row.action,
     targetRef: row.target_ref,
     targetLabel: row.target_label,
+    productRef: row.product_ref,
     canonicalWrite: row.canonical_write,
     rationale: row.rationale,
     createdAt: row.created_at,

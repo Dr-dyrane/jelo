@@ -5,6 +5,7 @@ import { listOverviewDecisionHistory } from '@/lib/moderation/audit-queries';
 import { humanizeRef } from '@/lib/humanize/refs';
 import { can, type Capability } from '@/lib/moderation/capabilities';
 import type { ModerationRole } from '@/lib/moderation/access';
+import { resolveOpsProductImages } from '@/lib/moderation/ops-product-visuals';
 import {
   buildOverviewBriefing,
   overviewQueueKindForAuditQueue,
@@ -97,7 +98,11 @@ async function listOverviewOldestItems(sql: Sql): Promise<OverviewFeaturedItemFa
           contribution.payload #>> '{brands,0,label}',
           initcap(contribution.contribution_kind::text)
         ) as summary,
-        contribution.payload #>> '{products,0,id}' as product_ref
+        case
+          when contribution.payload #>> '{products,0,source}' = 'canonical'
+            then contribution.payload #>> '{products,0,id}'
+          else null
+        end as product_ref
       from community_contributions contribution
       where contribution.moderation_status = 'pending'
         and contribution.retain_until > now()
@@ -115,7 +120,11 @@ async function listOverviewOldestItems(sql: Sql): Promise<OverviewFeaturedItemFa
           initcap(replace(edge.predicate, '_', ' ')),
           nullif(initcap(replace(split_part(edge.object_ref, ':', 2), '-', ' ')), '')
         ),
-        contribution.payload #>> '{products,0,id}'
+        case
+          when contribution.payload #>> '{products,0,source}' = 'canonical'
+            then contribution.payload #>> '{products,0,id}'
+          else null
+        end
       from community_knowledge_edges edge
       join community_contributions contribution on contribution.id = edge.contribution_id
       where edge.moderation_status = 'pending'
@@ -139,7 +148,13 @@ async function listOverviewOldestItems(sql: Sql): Promise<OverviewFeaturedItemFa
           when observation.outcome = 'didnt-help' then 'Didn’t help'
           else 'Community report'
         end,
-        contribution.payload #>> '{products,0,id}'
+        case
+          when observation.subject_kind = 'product'
+            and contribution.payload #>> '{products,0,source}' = 'canonical'
+            and observation.subject_ref = contribution.payload #>> '{products,0,id}'
+            then observation.subject_ref
+          else null
+        end
       from community_observations observation
       join community_contributions contribution on contribution.id = observation.contribution_id
       where observation.moderation_status = 'pending'
@@ -231,6 +246,9 @@ export async function loadOverviewBriefing(sql: Sql, role: ModerationRole): Prom
     ),
   ]);
 
+  const productImages = await resolveOpsProductImages(
+    auditResult.rows.map(row => row.productRef),
+  );
   const recentDecisions = auditResult.rows
     .filter(row => row.globalRank <= 5)
     .map<OverviewAuditEntry>(row => ({
@@ -240,6 +258,7 @@ export async function loadOverviewBriefing(sql: Sql, role: ModerationRole): Prom
       action: row.action,
       targetLabel: row.targetLabel,
       createdAt: row.createdAt,
+      image: row.productRef ? productImages.get(row.productRef) ?? null : null,
     }));
   const recentDecisionsByQueue: Partial<Record<OverviewQueueKind, OverviewAuditEntry[]>> = {};
   for (const row of auditResult.rows) {
@@ -253,6 +272,7 @@ export async function loadOverviewBriefing(sql: Sql, role: ModerationRole): Prom
       action: row.action,
       targetLabel: row.targetLabel,
       createdAt: row.createdAt,
+      image: row.productRef ? productImages.get(row.productRef) ?? null : null,
     });
   }
 

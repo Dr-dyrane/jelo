@@ -58,6 +58,7 @@ export type OverviewRecentDecision = {
   targetLabel: string;
   operatorName: string;
   createdAt: string;
+  image: string | null;
 };
 
 export type OverviewAttentionItem = {
@@ -98,6 +99,7 @@ export type OverviewAuditEntry = {
   action: 'claim' | 'approve' | 'reject' | 'map' | 'promote' | 'reconcile' | 'defer' | 'note';
   targetLabel?: string;
   createdAt: string;
+  image?: string | null;
 };
 
 const ACTION_LABELS: Record<OverviewAuditEntry['action'], string> = {
@@ -134,6 +136,7 @@ function projectDecision(decision: OverviewAuditEntry): OverviewRecentDecision {
     targetLabel: decision.targetLabel ?? AUDIT_QUEUE_LABELS[decision.queue],
     operatorName: decision.operatorName,
     createdAt: decision.createdAt,
+    image: decision.image ?? null,
   };
 }
 
