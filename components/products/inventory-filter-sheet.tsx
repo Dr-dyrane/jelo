@@ -36,6 +36,7 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
     filters.sort !== 'featured',
     Boolean(filters.concern),
     Boolean(filters.brand),
+    Boolean(filters.step),
     filters.availability !== 'all',
     filters.price !== 'all',
   ].filter(Boolean).length;
@@ -54,6 +55,7 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
     ['community', `Community · ${facets.community}`, facets.community],
   ] as const).filter(([value, , count]) => value === 'all' || count > 0 || filters.review === value);
   const categoryOptions = facets.categories.filter(({ value, count }) => count > 0 || filters.category === value);
+  const stepOptions = facets.steps.filter(({ value, count }) => count > 0 || filters.step === value);
 
   function openSheet() {
     formRef.current?.reset();
@@ -187,6 +189,14 @@ export function InventoryFilterSheet({ filters, facets, market, browse, total }:
               <div className={styles.options}>
                 <label><input type="radio" name="category" value="All" defaultChecked={filters.category === 'All'}/><span>All</span></label>
                 {categoryOptions.map(({ value, count }: { value: ExternalCatalogueCategory; count: number }) => <label key={value}><input type="radio" name="category" value={value} defaultChecked={filters.category === value}/><span>{value} · {count}</span></label>)}
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Routine</legend>
+              <div className={styles.options}>
+                <label><input type="radio" name="step" value="" defaultChecked={!filters.step}/><span>Any step</span></label>
+                {stepOptions.map(({ value, count }) => <label key={value}><input type="radio" name="step" value={value} defaultChecked={filters.step === value}/><span>{value} · {count}</span></label>)}
               </div>
             </fieldset>
 

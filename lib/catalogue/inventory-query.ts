@@ -12,6 +12,7 @@ import {
   isProductMatchConcern,
   productReferencesConcern,
 } from '@/modules/concerns/product-matching';
+import { inventoryContinuationRange } from './inventory-continuation';
 
 export const inventoryPageSize = 24;
 export const inventoryCategories = externalCatalogueCategories;
@@ -102,6 +103,15 @@ export type InventoryResult = {
   };
 };
 
+export type InventoryPageRangeResult = {
+  items: InventoryItem[];
+  fromPage: number;
+  throughPage: number;
+  pageCount: number;
+  pageSize: number;
+  total: number;
+};
+
 function normalized(value: string) {
   return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -180,6 +190,11 @@ function validMarket(value: string | undefined): Market {
 function pageNumber(value: string | number | undefined) {
   const parsed = Number(value ?? 1);
   return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : 1;
+}
+
+function sourceUpdateTimestamp(item: InventoryItem) {
+  const timestamp = Date.parse(item.sourceUpdatedAt ?? '');
+  return Number.isFinite(timestamp) ? timestamp : null;
 }
 
 function queryMatches(item: InventoryItem, query: string, reviewedSearchTerms = '') {
@@ -300,9 +315,15 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
   items.sort((left, right) => {
     if (sort === 'name') return left.name.localeCompare(right.name) || left.brand.localeCompare(right.brand) || left.id.localeCompare(right.id);
     if (sort === 'newest') {
-      const leftDate = left.sourceUpdatedAt ? Date.parse(left.sourceUpdatedAt) : Number.MAX_SAFE_INTEGER;
-      const rightDate = right.sourceUpdatedAt ? Date.parse(right.sourceUpdatedAt) : Number.MAX_SAFE_INTEGER;
-      return rightDate - leftDate || left.id.localeCompare(right.id);
+      const leftDate = sourceUpdateTimestamp(left);
+      const rightDate = sourceUpdateTimestamp(right);
+      if (leftDate == null || rightDate == null) {
+        if (leftDate != null) return -1;
+        if (rightDate != null) return 1;
+      } else if (leftDate !== rightDate) {
+        return rightDate - leftDate;
+      }
+      return left.id.localeCompare(right.id);
     }
     if (normalizedQuery) {
       const compactQuery = compactNormalized(q);
@@ -381,5 +402,40 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
       community: completeItems.filter(item => item.kind === 'community' && itemMatches(item, ['review'])).length,
       priced: completeItems.filter(item => lowestFreshPrice(item, market) != null && itemMatches(item, ['availability', 'price'])).length,
     },
+  };
+}
+
+export function queryInventoryRecordPages(
+  reviewedProducts: ReviewedProduct[],
+  input: InventoryQuery,
+  fromPage: number,
+  toPage: number,
+): InventoryPageRangeResult {
+  const first = queryInventoryRecords(reviewedProducts, { ...input, page: 1 });
+  const range = inventoryContinuationRange(fromPage, toPage, first.pageCount);
+  if (!range) {
+    return {
+      items: [],
+      fromPage: Math.max(2, Math.trunc(fromPage)),
+      throughPage: first.pageCount,
+      pageCount: first.pageCount,
+      pageSize: first.pageSize,
+      total: first.total,
+    };
+  }
+
+  return {
+    items: Array.from(
+      { length: range.toPage - range.fromPage + 1 },
+      (_, index) => queryInventoryRecords(reviewedProducts, {
+        ...input,
+        page: range.fromPage + index,
+      }).items,
+    ).flat(),
+    fromPage: range.fromPage,
+    throughPage: range.toPage,
+    pageCount: first.pageCount,
+    pageSize: first.pageSize,
+    total: first.total,
   };
 }

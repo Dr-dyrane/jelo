@@ -15,6 +15,7 @@ Updated: 2026-07-26
 - [Shop product reviews](https://help.shopify.com/en/manual/online-sales-channels/shop/product-reviews)
 - [Open Beauty Facts data exports](https://world.openbeautyfacts.org/data)
 - [Open Beauty Facts API notes](https://openfoodfacts.github.io/documentation/docs/Product-Opener/api/tutorials/scanning-cosmetics-pet-food-and-other-products/)
+- [2026 catalogue benchmark](./research/2026-07-26-inventory-catalogue-benchmark.md)
 
 ## What the references do well
 
@@ -38,7 +39,7 @@ JeloCare combines that hierarchy with information the references do not provide:
 - a visible distinction between JeloCare-reviewed and community-sourced records;
 - source, barcode, and update provenance for imported records;
 - clinical matching only for products that JeloCare has actually reviewed;
-- paged server-side catalogue results instead of sending 1,000 records to the browser.
+- progressive server-side catalogue results instead of sending the full inventory to the browser.
 
 The page order is:
 
@@ -47,10 +48,27 @@ The page order is:
 3. browse-mode rail;
 4. editorial people-led collection stories;
 5. curated reviewed-product shelves;
-6. paged all-products catalogue with a filter sheet;
+6. progressively continued all-products catalogue with a filter sheet;
 7. source, review, price, and affiliate disclosure.
 
 Current cards keep evidence compact: exact fresh comparable offers render as a lowest observed price plus the number of stores in that comparison. A single observation is not presented as a multi-store comparison. Search assistance provides reversible company and category suggestions with keyboard support. On desktop and tablet it remains a sticky command surface beneath the main navigation; on mobile it stays in normal flow so it does not consume the small viewport. Category, routine, and concern are separate browse modes. Routine uses only the neutral `step` metadata on reviewed products; it does not establish suitability or clinical evidence. Switching market preserves the current catalogue intent and resets only pagination. Filtered result anchors reserve clearance beneath both surfaces. Broader multi-select facets remain later work. Every facet must stay auditable, hide zero-result choices, and never turn a condition pattern into product matching.
+
+The all-products result path renders 24 products on the server. Near the end of
+the grid it may append at most two pages automatically; a visible,
+keyboard-operable **Load more** control remains available after that boundary.
+Each request is limited to four server pages, appends by stable product ID, and
+leaves settled cards in place on failure. Pending requests use matching card
+skeletons; retry, appended-count, and terminal states are announced through one
+polite status. The deepest loaded page is written to the existing catalogue URL
+without creating a new history entry. Returning, refreshing, or sharing that
+URL rebuilds the cumulative state from the bounded server pages. Filters and
+market changes continue to reset pagination, and automatic continuation stops
+before it can make the public footer unreachable.
+
+`app/(site)/products/page.tsx` and `components/products/inventory-results.tsx`
+are the canonical inventory result path. The earlier client-only explorer,
+dense search result, and numbered pagination implementations were removed so
+future catalogue work cannot accidentally target a dormant experience.
 
 Two inventory shelves now use explicit, testable rules. **Fresh price checks**
 orders public reviewed products by the newest still-valid exact-market
@@ -92,7 +110,7 @@ The catalogue keeps candidate count, public approval, and recommendation eligibi
 - 5 require pharmacist review and 17 remain guidance-ineligible pending better formula evidence;
 - the checked-in barcode-linked Open Beauty Facts records are a frozen legacy research pool, not a target or intake queue;
 - the Nigerian batch screen is a private discovery queue whose retailer SKU, price, stock and image fields remain unverified leads;
-- new candidates enter the private per-SKU queue in `data/catalogue-intake.json` and advance only through explicit identity, care, Nigeria, rights, editorial, and approval-draft gates;
+- new candidates enter through one packet-bound source in `data/catalogue-intake-candidates/`; the compiler projects the private queue into `data/catalogue-intake.json`, and candidates advance only through explicit identity, care, Nigeria, rights, editorial, and approval-draft gates;
 - `data/external-product-approvals.json` remains empty and every non-empty legacy manifest is rejected;
 - legacy community records cannot become public or recommendation-eligible through that retired path.
 

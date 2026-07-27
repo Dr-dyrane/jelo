@@ -7,6 +7,11 @@ import { concerns } from '@/data/knowledge';
 import { editorialAsset } from '@/data/editorial';
 import { nigeriaRetailers } from '@/data/retailers';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import {
+  communityOptionId,
+  communityPurposeLabels,
+} from '@/lib/community-intake/canonical-options';
+import { catalogueSearchProductPrefill } from '@/lib/community-intake/catalogue-search-handoff';
 import styles from './contribute.module.css';
 
 export const revalidate = 3600;
@@ -19,11 +24,11 @@ export const metadata: Metadata = {
 
 const heroAsset = editorialAsset('morning-care-lagos');
 
-function optionId(prefix: string, value: string) {
-  return `${prefix}:${value.normalize('NFKD').toLocaleLowerCase('en-NG').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
-}
+type SearchParams = Record<string, string | string[] | undefined>;
 
-export default async function ContributePage() {
+export default async function ContributePage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const params = await searchParams;
+  const initialProduct = catalogueSearchProductPrefill(params);
   const catalogue = await listCatalogueProducts();
   const products: AdaptiveOption[] = catalogue.map(product => ({
     id: `product:${product.slug}`,
@@ -32,18 +37,15 @@ export default async function ContributePage() {
     aliases: [product.size, product.displayLine],
   }));
   const brandNames = [...new Set(catalogue.map(product => product.brand))].sort((left, right) => left.localeCompare(right));
-  const brands: AdaptiveOption[] = brandNames.map(brand => ({ id: optionId('brand', brand), label: brand }));
+  const brands: AdaptiveOption[] = brandNames.map(brand => ({ id: communityOptionId('brand', brand), label: brand }));
   const retailers: AdaptiveOption[] = nigeriaRetailers.map(retailer => ({
-    id: optionId('retailer', retailer.name),
+    id: communityOptionId('retailer', retailer.name),
     label: retailer.name,
     detail: retailer.kind === 'marketplace' ? 'Marketplace' : 'Nigeria',
   }));
-  const purposeLabels = [
-    'Acne', 'Dark spots', 'Oily skin', 'Dry skin', 'Normal skin', 'Sensitive skin', 'Hair', 'Body',
-  ];
   const concernAliases = new Map(concerns.map(concern => [concern.name.toLocaleLowerCase('en-NG'), concern.signals]));
-  const purposes: AdaptiveOption[] = purposeLabels.map(label => ({
-    id: optionId('purpose', label),
+  const purposes: AdaptiveOption[] = communityPurposeLabels.map(label => ({
+    id: communityOptionId('purpose', label),
     label,
     aliases: concernAliases.get(label.toLocaleLowerCase('en-NG')),
   }));
@@ -61,7 +63,14 @@ export default async function ContributePage() {
       </div>
     </section>
 
-    <ContributionExperience purposes={purposes} products={products} brands={brands} retailers={retailers}/>
+    <ContributionExperience
+      key={initialProduct ? `catalogue-search:${initialProduct.label}` : 'direct'}
+      purposes={purposes}
+      products={products}
+      brands={brands}
+      retailers={retailers}
+      initialProduct={initialProduct}
+    />
 
     <section className={styles.boundary}>
       <p>Built together.</p>

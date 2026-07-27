@@ -1,0 +1,116 @@
+.continuation {
+  min-height: 5.5rem;
+  padding: 1.4rem 0 .2rem;
+  display: grid;
+  place-items: center;
+  gap: .45rem;
+}
+
+.continuation button {
+  min-width: 8.5rem;
+  min-height: 2.75rem;
+  padding: .75rem 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-size: .72rem;
+  cursor: pointer;
+}
+
+.continuation button:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 3px;
+}
+
+.continuation button:disabled {
+  cursor: wait;
+  opacity: .68;
+}
+
+.error,
+.complete {
+  margin: 0;
+  color: var(--muted);
+  font-size: .68rem;
+}
+
+.skeletonCard {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background: var(--product-peach);
+}
+
+.skeletonCard:nth-child(even) {
+  background: var(--product-pink);
+}
+
+.skeletonVisual {
+  height: 20rem;
+  background: linear-gradient(
+    105deg,
+    transparent 28%,
+    rgba(255, 255, 255, .38) 42%,
+    transparent 56%
+  );
+  background-size: 220% 100%;
+  animation: inventory-sheen 1.2s ease-in-out infinite;
+}
+
+.skeletonCopy {
+  min-height: 7rem;
+  padding: 1.1rem 1.2rem 1.25rem;
+  display: grid;
+  align-content: start;
+  gap: .65rem;
+}
+
+.skeletonCopy span {
+  height: .7rem;
+  border-radius: 999px;
+  background: rgba(92, 66, 61, .12);
+}
+
+.skeletonCopy span:first-child { width: 34%; }
+.skeletonCopy span:nth-child(2) { width: 78%; height: 1.05rem; }
+.skeletonCopy span:last-child { width: 52%; }
+
+@keyframes inventory-sheen {
+  from { background-position: 115% 0; }
+  to { background-position: -115% 0; }
+}
+
+@media (max-width: 640px) {
+  .skeletonVisual { height: 18rem; }
+  .continuation { min-height: 5rem; }
+  .continuation button { min-height: 2.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonVisual {
+    animation: none;
+    background: rgba(255, 255, 255, .22);
+  }
+}
+
+:global(html[data-theme="dark"]) .continuation button {
+  background: var(--accent-solid);
+  color: var(--on-accent);
+}
+
+:global(html[data-theme="dark"]) .skeletonCopy span {
+  background: rgba(255, 255, 255, .12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .continuation button {
+    background: var(--accent-solid);
+    color: var(--on-accent);
+  }
+
+  :global(html:not([data-theme="light"])) .skeletonCopy span {
+    background: rgba(255, 255, 255, .12);
+  }
+}

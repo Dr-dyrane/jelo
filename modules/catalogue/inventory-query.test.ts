@@ -115,11 +115,13 @@ test('concern browsing includes explicit reviewed references without turning the
     queryInventoryRecords(products).facets.concerns.map(facet => [facet.value, facet.total]),
     [
       ['acne-breakouts', 12],
-      ['dark-spots', 5],
+      ['dark-spots', 6],
       ['sensitive-barrier', 2],
       ['dry-dehydrated-skin', 4],
       ['dry-rough-body-skin', 6],
+      ['sweat-body-odour', 1],
       ['oily-congested-skin', 5],
+      ['daily-sun-protection', 1],
       ['dandruff-itchy-scalp', 1],
       ['dry-frizzy-hair', 4],
     ],
@@ -162,8 +164,7 @@ test('browse surfaces separate neutral records from supportive use', async () =>
   assert.match(home, /const newAndNoteworthy = products\.slice\(12, 24\);/);
   assert.doesNotMatch(home, /slice\(12, 24\)\.length/);
   assert.match(home, /hairCare\.length \? 'Hair & scalp' : null/);
-  assert.match(productsPage, /Profiles show reviewed product records/);
-  assert.match(productsPage, /Current prices appear when verified/);
+  assert.match(productsPage, /Profiles show products and prices/);
   assert.match(productsPage, /Supportive use adds a care review/);
   assert.match(productsPage, /review: 'supportive'/);
   assert.doesNotMatch(productsPage, /inventoryCategories\.map/);
@@ -196,6 +197,56 @@ test('applies combined facets and clamps invalid pages', () => {
   assert.equal(last.page, last.pageCount);
   const expectedLastPage = (products.length + externalProducts.length) % 24 || Math.min(24, products.length + externalProducts.length);
   assert.equal(last.items.length, expectedLastPage);
+});
+
+test('sorts only valid source update timestamps as recently updated', () => {
+  const fixtureName = 'Recency ordering fixture';
+  const reviewed = {
+    ...products[0],
+    slug: 'recency-ordering-reviewed',
+    brand: 'Recency fixture',
+    name: fixtureName,
+  };
+  const catalogueItems = externalProducts as unknown as Array<{
+    barcode: string;
+    brand: string;
+    name: string;
+    quantity: string;
+    category: 'Face care';
+    canonicalImageUrl: string;
+    sourceUrl: string;
+    sourceUpdatedAt: string;
+  }>;
+  const originalLength = catalogueItems.length;
+  const external = (barcode: string, sourceUpdatedAt: string) => ({
+    barcode,
+    brand: 'Recency fixture',
+    name: fixtureName,
+    quantity: '100 ml',
+    category: 'Face care' as const,
+    canonicalImageUrl: 'https://example.com/product.webp',
+    sourceUrl: `https://example.com/products/${barcode}`,
+    sourceUpdatedAt,
+  });
+  const older = external('recency-older', '2026-07-20T00:00:00Z');
+  const newest = external('recency-newest', '2026-07-21T00:00:00Z');
+  const invalid = external('recency-invalid', 'not-a-date');
+
+  try {
+    catalogueItems.push(older, newest, invalid);
+    const result = queryInventoryRecords([reviewed], { q: fixtureName, sort: 'newest' });
+
+    assert.deepEqual(result.items.map(item => item.id), [
+      `open-beauty-facts:${newest.barcode}`,
+      `open-beauty-facts:${older.barcode}`,
+      ...[
+        `open-beauty-facts:${invalid.barcode}`,
+        'reviewed:recency-ordering-reviewed',
+      ].sort(),
+    ]);
+  } finally {
+    catalogueItems.splice(originalLength);
+  }
 });
 
 test('filters by an exact normalized brand and exposes company facets', () => {

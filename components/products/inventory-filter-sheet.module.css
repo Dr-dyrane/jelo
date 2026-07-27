@@ -85,8 +85,7 @@
 .sheet header small {
   color: #82534e;
   font-size: .62rem;
-  letter-spacing: .15em;
-  text-transform: uppercase;
+  font-weight: var(--weight-regular);
 }
 
 .sheet h2 {
@@ -120,9 +119,7 @@
   margin-bottom: .7rem;
   color: #705b55;
   font-size: .65rem;
-  font-weight: 600;
-  letter-spacing: .13em;
-  text-transform: uppercase;
+  font-weight: var(--weight-regular);
 }
 
 .options { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
@@ -207,9 +204,7 @@
   margin: .35rem 0 .15rem;
   color: #705b55;
   font-size: .62rem;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+  font-weight: var(--weight-regular);
 }
 .guideOnly > a,
 .allGuides {
