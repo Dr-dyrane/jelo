@@ -721,6 +721,126 @@
         "publishedAt": "2026-07-26T08:21:00Z"
       },
       "releaseFingerprint": "f37c3f028295394bd8f5fbc632fe57e48b1a2be1083658f08ee8b438cfbd1fd0"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "dossierFingerprint": "2a9785757bbdc9ffb858ef67734b5037de41fd3c8e74c2c6f4949434a18f94e2",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid and niacinamide · 30 ml",
+        "usage": "Dispense 2–3 drops onto clean, dry skin and press over the face, neck and décolletage, avoiding the eye area. Follow with moisturiser and use SPF 30+ in the daytime. Begin three nights a week, then build as tolerated.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T19:52:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T19:53:00Z"
+      },
+      "releaseFingerprint": "5c8008d5da3b2eac89f7802331120b5bf86f5a72af63f3c1c04e2c0032ee2853"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturise",
+        "displayLine": "Daily body moisture · 400 ml",
+        "usage": "Apply over the body. Allow it to absorb before dressing, and store in a cool, dry place.",
+        "manufacturerDirectionsUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T19:52:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T19:53:10Z"
+      },
+      "releaseFingerprint": "a9ecf08fa99b98bb0e117558f8ad9ab7685ecc3f0b3c894f74179fffc30c049d"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "dossierFingerprint": "0e63cc3be67396be6fa4d18a47112fde5f422a8698017b8dd201dc215268d08a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Soap-free daily cleanse · 150 ml",
+        "usage": "Massage over wet facial skin in gentle circular motions, then rinse well with tepid water. Avoid the eye area and follow with moisturiser.",
+        "manufacturerDirectionsUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T19:52:20Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T19:53:20Z"
+      },
+      "releaseFingerprint": "5467c08dec630a922733fcc931a8758f33d7b964ff34ff52bd8499260edc272b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "dossierFingerprint": "9fbff126ef67ad1dd11f7add2de1134b9767e4f3e6765cdc25897396438eb465",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "10% azelaic acid · 30 ml",
+        "usage": "Start once or twice weekly with 1–2 drops. Build only as tolerated; use SPF 30+ by day.",
+        "manufacturerDirectionsUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T21:52:02Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T21:52:10Z"
+      },
+      "releaseFingerprint": "74d8804c6402107eaae068360baa29ed26b277eb961dc87f8f2452f1d3d6c23b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+      "dossierFingerprint": "061eddd7aba49fdea2cc5d1ed289316ab1d4f33885c9a257ad2aa9d7ebe7add2",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturise",
+        "displayLine": "Light moisture for blemish-prone skin.",
+        "usage": "After cleansing and toning, apply a small amount and massage in. Do not rinse.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T23:13:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T23:14:00Z"
+      },
+      "releaseFingerprint": "b6d0d5c03e681026c4644619d7a3812f8760ddeb9e59cbd7d34311e956b21cf1"
     }
   ]
 }

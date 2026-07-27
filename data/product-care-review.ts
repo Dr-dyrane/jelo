@@ -567,6 +567,83 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-26',
   },
+  'dang-azelaic-acid-serum-30ml': {
+    productSlug: 'dang-azelaic-acid-serum-30ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'dang-azelaic-acid-serum-review',
+      label: 'Azelaic-acid serum review',
+      concernIds: ['acne', 'breakouts', 'hyperpigmentation', 'dark spots', 'post-acne marks'],
+      concernSlugs: ['acne-breakouts', 'dark-spots'],
+    }],
+    evidenceSourceUrls: [
+      'https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  'nivea-perfect-radiant-body-lotion-400ml': {
+    productSlug: 'nivea-perfect-radiant-body-lotion-400ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-body-daily-moisturising',
+      label: 'Daily moisturising for dry body skin',
+      concernIds: ['body dryness', 'rough skin'],
+      concernSlugs: ['dry-rough-body-skin'],
+      skinTypes: ['dry'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  'simple-kind-to-skin-refreshing-facial-gel-wash-150ml': {
+    productSlug: 'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'gentle-daily-face-cleansing',
+      label: 'Gentle daily facial cleansing',
+      concernIds: ['sensitivity', 'daily cleansing'],
+      concernSlugs: ['sensitive-barrier'],
+      skinTypes: ['normal', 'sensitive'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml': {
+    productSlug: 'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'anua-azelaic-acid-serum-review',
+      label: 'Azelaic-acid serum review',
+      concernIds: ['acne', 'breakouts', 'redness', 'post-acne marks'],
+      concernSlugs: ['acne-breakouts'],
+    }],
+    evidenceSourceUrls: [
+      'https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum',
+      'https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment',
+    ],
+    reviewedAt: '2026-07-26',
+  },
+  'facefacts-ceramide-blemish-gel-moisturiser-50ml': {
+    productSlug: 'facefacts-ceramide-blemish-gel-moisturiser-50ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'salicylic-acid-moisturiser-review',
+      label: 'Salicylic-acid moisturiser review',
+      concernIds: ['acne', 'breakouts', 'blemishes'],
+      concernSlugs: ['acne-breakouts'],
+    }],
+    evidenceSourceUrls: [
+      'https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-07-26',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

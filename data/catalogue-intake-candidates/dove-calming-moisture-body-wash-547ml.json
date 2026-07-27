@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T15:18:00Z",
+  "order": 20,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "dove-calming-moisture-body-wash-547ml"
+  },
+  "candidate": {
+    "id": "dove-calming-moisture-body-wash-547ml",
+    "brand": "Dove",
+    "name": "Calming Moisture 3% Body Wash",
+    "variant": "Calming Moisture Serum Body Wash with renewing Retinol",
+    "size": "18.5 fl oz / 547 ml",
+    "category": "Body care",
+    "reason": "Adds a current body-wash reference with an exact manufacturer GTIN, a transparent identity-verified packshot, and two current Nigerian price observations. Dove binds the exact 18.5 fl oz / 547 ml bottle to GTIN 00011111049437; BuyBetter and Teeka4 show the same current variant and size. Retailer SKUs remain local identifiers.",
+    "priority": "important",
+    "gapIds": [
+      "daily-body-cleansing",
+      "retinol-body-wash",
+      "fragranced-body-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
+      "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/"
+    ],
+    "identity": {
+      "gtin": "00011111049437",
+      "officialProductUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+      "checkedAt": "2026-07-23T15:25:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+        "observedGtin": "00011111049437",
+        "observedVariant": "Calming Moisture Serum Body Wash with renewing Retinol",
+        "observedSize": "18.5 fl oz / 547 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/dove-calming-moisture-body-wash-547ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Calming Moisture Serum Body Wash With Retinol | Dove | Dove"
+          },
+          "candidateId": "dove-calming-moisture-body-wash-547ml",
+          "sourceUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+          "responseUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+          "retrievedAt": "2026-07-23T15:17:00Z",
+          "fields": {
+            "gtin": {
+              "value": "00011111049437",
+              "locator": "Rendered Product JSON-LD gs1:gtin and gtin14 fields",
+              "sourceText": "Product JSON-LD: \"gs1:gtin\":\"00011111049437\"; \"gtin14\":\"00011111049437\""
+            },
+            "variant": {
+              "value": "Calming Moisture Serum Body Wash with renewing Retinol",
+              "locator": "Rendered h1 and Product JSON-LD gs1:productName",
+              "sourceText": "Calming Moisture Serum Body Wash with renewing Retinol"
+            },
+            "size": {
+              "value": "18.5 fl oz / 547 ml",
+              "locator": "Rendered 18.5oz variant selector and official front-pack label",
+              "sourceText": "18.5oz Variant Selected; official front pack label 18.5 FL OZ / 547 mL"
+            }
+          },
+          "sourceResponseSha256": "90d4e92cb44b003ade4d4a1f6f9bfb152569c30fb617407df1b4d40b91f6dd8e",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 200011,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://assets.unileversolutions.com/v1/129813735.png?im=AspectCrop=(2000,2000);Resize=(2000,2000)",
+              "responseUrl": "https://assets.unileversolutions.com/v1/129813735.png?im=AspectCrop=(2000,2000);Resize=(2000,2000)",
+              "retrievedAt": "2026-07-23T15:22:00Z",
+              "responseSha256": "6e6a2b673136ae1aa92a190a4df6efc125898765341b3f6823edebe628547bb1",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 150362
+            }
+          ],
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-23T15:24:00Z"
+        },
+        "snapshotSha256": "e55f70c2457f6cf2e595f3414c39701bd9dd22fdbb5c52ee4c132a50184cef28",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1874,
+        "retrievedAt": "2026-07-23T15:17:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Fragranced rinse-off body wash with mild surfactants, glycerin, soybean-derived emollients, chamomile extract and retinol",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A rinse-off cleanser, not a treatment for dryness, eczema, pigment change, acne or ageing. It contains fragrance and retinol, so it may not suit dry, irritated, broken or very sensitive skin. Use on damp skin and rinse; stop for persistent burning or rash, and seek clinical review for painful, worsening or unexplained changes.",
+      "manufacturerEvidenceUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-07-23T15:26:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
+          "observedAt": "2026-07-23T15:18:00Z",
+          "observedTitle": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
+          "observedSize": "547 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "011111049437",
+          "priceNgn": 22600,
+          "stock": "low-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
+            "responseUrl": "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
+            "responseSha256": "93964a2dadafbe90523febfad73efd27fa15bdf4fd99f2759ad55c3cbbd56e77",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200092,
+            "retrievedAt": "2026-07-23T15:18:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "DOVE CALMING MOISTURE 3% Body Wash 547ml – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "00011111049437",
+                "locator": "Bound official Dove catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 00011111049437",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "DOVE CALMING MOISTURE 3% Body Wash 547ml"
+              },
+              "size": {
+                "value": "547 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "DOVE CALMING MOISTURE 3% Body Wash 547ml"
+              },
+              "price": {
+                "value": 22600,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦22,600.00 NG"
+              },
+              "stock": {
+                "value": "low-stock",
+                "locator": "Rendered DOM product stock count",
+                "sourceText": "2 in stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T15:27:00Z"
+          }
+        },
+        {
+          "retailer": "Teeka4",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/",
+          "observedAt": "2026-07-23T15:19:00Z",
+          "observedTitle": "Dove Calming Moisture 3% Body Wash 547ml",
+          "observedSize": "547 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "TK-1689",
+          "priceNgn": 17800,
+          "stock": "out-of-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/",
+            "responseUrl": "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/",
+            "responseSha256": "f729e74293cdf54554c5d39308f20b69d47d7ce600df09dfcc9dbf854104ed84",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200036,
+            "retrievedAt": "2026-07-23T15:19:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Dove Calming Moisture 3% Body Wash 547ml in Nigeria | Teeka4"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "00011111049437",
+                "locator": "Bound official Dove catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 00011111049437",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Dove Calming Moisture 3% Body Wash 547ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "Dove Calming Moisture 3% Body Wash 547ml"
+              },
+              "size": {
+                "value": "547 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "Dove Calming Moisture 3% Body Wash 547ml"
+              },
+              "price": {
+                "value": 17800,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦17,800.00"
+              },
+              "stock": {
+                "value": "out-of-stock",
+                "locator": "Rendered DOM availability label",
+                "sourceText": "Out of Stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T15:27:00Z"
+          }
+        }
+      ],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/03/odoo-13942-optimized.png?w=1024&quality=80&ssl=1",
+      "sourceAssetSha256": "341604771d18eacf860074b40b96bf8f602ebcdccacb46f23d9ef0d6a30a872e",
+      "sourceAssetMimeType": "image/webp",
+      "sourceAssetByteSize": 14850,
+      "sourceAssetWidth": 1024,
+      "sourceAssetHeight": 1024,
+      "sourceAssetRetrievedAt": "2026-07-23T15:22:30Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal, chromatic fringe cleanup and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the exact current Dove Calming Moisture Body Wash front pack and the sole authority for product identity, bottle geometry, pump, label layout, wording, colours, variant, percentage, and size.\nPrimary request: recreate the exact single Dove Calming Moisture Body Wash bottle shown in Image 1. Produce one complete upright 18.5 FL OZ / 547 mL white pump bottle, centered, perfectly front-facing, crisp, photorealistic, and premium catalogue quality. Preserve its tall softly rounded white bottle; full white pump and gold collar; gold Dove bird; pale lavender-blue CALMING MOISTURE; WARM OAT MILK; large 3%; PREBIOTIC MOISTURE WITH RETINOL and chamomile; large vertical blue Dove wordmark; BODY WASH; and exact bottom size line.\nText (verbatim where visible): “CALMING MOISTURE”; “WARM OAT MILK”; “3%”; “PREBIOTIC MOISTURE WITH RETINOL”; “and chamomile”; “BODY WASH”; “18.5 FL OZ / 547 mL”; “Dove”.\nComposition: square; full pump tip, full bottle shoulders, and complete rounded bottle base visible; generous even clear margin on all sides; product occupies about 70% of canvas height; no clipping, tilt, duplicate, pedestal, floor, or props.\nLighting: soft clean frontal product light contained on the bottle, with subtle edge definition for the white plastic. No cast shadow, contact shadow, or reflection.\nScene/backdrop: perfectly flat uniform solid #ff00ff chroma-magenta for local removal, with no gradient, texture, vignette, spill, floor plane, or lighting variation.\nConstraints: Image 1 overrides every generated assumption. Do not invent or alter the package, label, percentage, size, wording, colours, pump proportions, or bottle silhouette. Use no #ff00ff anywhere on the product.\nAvoid: cropped pump, sliced or faded bottle base, white backdrop, carton, travel size, jumbo bottle, hands, people, water, foam, decorative geometry, detached text, watermark, shadows, reflections.",
+        "inputs": [
+          {
+            "url": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/03/odoo-13942-optimized.png?w=1024&quality=80&ssl=1",
+            "sha256": "341604771d18eacf860074b40b96bf8f602ebcdccacb46f23d9ef0d6a30a872e"
+          }
+        ],
+        "outputSha256": "b6a102a269cec6f344bee5bb868c83f3204addf63f350e673e16f495d9133cf4",
+        "generatedAt": "2026-07-23T15:28:00Z",
+        "recordSha256": "a7fa696ffb3f340bb527e1b333fa7e4d97f598a61013475651f3e312ed6d4743"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-calming-moisture-body-wash-547ml/packshot-v1-b6a102a269cec6f3.png",
+      "publicImageSha256": "b6a102a269cec6f344bee5bb868c83f3204addf63f350e673e16f495d9133cf4",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 822500,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-23T15:31:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

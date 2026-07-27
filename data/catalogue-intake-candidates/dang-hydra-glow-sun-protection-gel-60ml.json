@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T22:35:00Z",
+  "order": 34,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "dang-hydra-glow-sun-protection-gel-60ml"
+  },
+  "candidate": {
+    "id": "dang-hydra-glow-sun-protection-gel-60ml",
+    "brand": "DANG",
+    "name": "Hydra Glow Sun Protection Gel",
+    "variant": "Hydra Glow Sun Protection Gel-60ml",
+    "size": "60 ml",
+    "category": "Face care",
+    "reason": "Community-priority daily sunscreen candidate. The official 60 ml SPF 50+ PA+++ page supplies an internal SKU but no public GTIN, EAN, UPC or barcode, so no retailer price may become an exact identity-bound offer. Bracketts Beauty and BuyBetter remain retained retailer-local-SKU observations. Beauty Hut Africa was also checked on 2026-07-26: its direct page showed ₦26,900 and in stock, but it is not yet in the reviewed retailer directory, so it remains demand evidence rather than a validator-recognised market observation.",
+    "priority": "essential",
+    "gapIds": [
+      "daily-sun-protection",
+      "transparent-sunscreen-coverage"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.brackettsbeauty.com/products/hydra-glow-sun-protection",
+      "https://beautyhutafrica.com/product/dang-hydra-glow-sun-protection-gel/",
+      "https://buybetter.ng/product/dang-hydra-glow-sun-protection-gel-60ml/"
+    ],
+    "identity": {
+      "officialProductUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml?v=c6a82504ceeb",
+      "checkedAt": "2026-07-26T15:20:00Z",
+      "basis": "official-brand"
+    },
+    "care": {
+      "status": "pending",
+      "formulaArchetype": "Manufacturer-stated sunscreen gel with Homosalate, Tinosorb S, Amiloxate, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Octisalate, Avobenzone, Ethylhexyl Triazone, glycerin and hyaluronic acid. Formula lists can change; the current official package and page are the only product-specific source retained here.",
+      "advisoryBoundary": "Sun-protection education only. SPF 50+ PA+++ and transparent-finish language are manufacturer-stated, not independently verified by JeloCare. Use the final AM step, apply before sun exposure, and reapply every two hours and after swimming or sweating as the manufacturer directs; do not infer suitability or protection performance from an unbound retailer listing.",
+      "manufacturerEvidenceUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml?v=c6a82504ceeb",
+      "evidenceUrls": [
+        "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml?v=c6a82504ceeb"
+      ]
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": [
+        {
+          "retailer": "Bracketts Beauty",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.brackettsbeauty.com/products/hydra-glow-sun-protection",
+          "observedAt": "2026-07-26T14:53:00Z",
+          "observedTitle": "Hydra Glow Sun Protection",
+          "observedSize": "60 ml",
+          "priceNgn": 27500,
+          "stock": "in-stock",
+          "disposition": "excluded-from-exact-comparison",
+          "exclusionReasons": [
+            "retailer-identifier-only"
+          ],
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-retailer-observation",
+            "responseUrl": "https://www.brackettsbeauty.com/products/hydra-glow-sun-protection",
+            "responseSha256": "f496e747ed5062dfa555f3ee59824666839a02ddc3c636c6d271c47686aeb1a2",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 443479,
+            "retrievedAt": "2026-07-26T14:53:00Z",
+            "fields": {
+              "title": {
+                "value": "Hydra Glow Sun Protection",
+                "locator": "HTML h1.product-title",
+                "sourceText": "Hydra Glow Sun Protection"
+              },
+              "size": {
+                "value": "60 ml",
+                "locator": "Twitter product description size declaration",
+                "sourceText": "Size: 60mL."
+              },
+              "price": {
+                "value": 27500,
+                "currency": "NGN",
+                "locator": "Rendered sale-price and Open Graph product:price:amount",
+                "sourceText": "₦27,500.00 NGN"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Product JSON-LD Offer availability",
+                "sourceText": "In stock"
+              },
+              "retailerIdentifier": {
+                "label": "SKU",
+                "value": "DAN-SUN-060(M)-HGS-001-010",
+                "locator": "Product JSON-LD Product.sku",
+                "sourceText": "sku: DAN-SUN-060(M)-HGS-001-010"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T14:53:30Z"
+          }
+        },
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dang-hydra-glow-sun-protection-gel-60ml/",
+          "observedAt": "2026-07-26T22:25:00Z",
+          "observedTitle": "DANG -Hydra Glow Sun Protection Gel-60ml",
+          "observedSize": "60 ml",
+          "priceNgn": 19350,
+          "stock": "out-of-stock",
+          "disposition": "excluded-from-exact-comparison",
+          "exclusionReasons": [
+            "retailer-identifier-only"
+          ],
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-retailer-observation",
+            "responseUrl": "https://buybetter.ng/product/dang-hydra-glow-sun-protection-gel-60ml/",
+            "responseSha256": "42556eeb161ed8ecea5a8059f35eff5733309522e7f64cc06150d788b160757a",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 802740,
+            "retrievedAt": "2026-07-26T22:25:00Z",
+            "fields": {
+              "title": {
+                "value": "DANG -Hydra Glow Sun Protection Gel-60ml",
+                "locator": "HTML document title and product analytics payload",
+                "sourceText": "DANG -Hydra Glow Sun Protection Gel-60ml"
+              },
+              "size": {
+                "value": "60 ml",
+                "locator": "HTML document title size suffix",
+                "sourceText": "DANG -Hydra Glow Sun Protection Gel-60ml"
+              },
+              "price": {
+                "value": 19350,
+                "currency": "NGN",
+                "locator": "window.pmwDataLayer.products[332344].price",
+                "sourceText": "price: 19350"
+              },
+              "stock": {
+                "value": "out-of-stock",
+                "locator": "WordPress product body class",
+                "sourceText": "product type-product post-332344 status-publish outofstock"
+              },
+              "retailerIdentifier": {
+                "label": "SKU",
+                "value": "69167",
+                "locator": "window.pmwDataLayer.products[332344].sku",
+                "sourceText": "sku: 69167"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T22:25:30Z"
+          }
+        }
+      ]
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://danglifestyle.co/cdn/shop/files/Hydra-Glow-Protection-scaled.jpg?v=1783924796&width=2048",
+      "sourceAssetSha256": "b3a62b77974f4b8091c849a72c7310ad9380950a076248fcc39d44d5ed8d74df",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 202683,
+      "sourceAssetWidth": 2048,
+      "sourceAssetHeight": 2048,
+      "sourceAssetRetrievedAt": "2026-07-26T15:20:00Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue product display source for background removal\nInput image: official DANG manufacturer product photograph; this is the edit target\nPrimary request: Replace only the pale off-white background with a perfectly flat, uniform solid #ff00ff chroma-key background. Preserve the exact photographed carton and tube, including their original pixels, geometry, perspective, turquoise colour, cap, all package text, and the exact “SPF 50+ PA+++” and “60ml” markings. Do not reconstruct, redraw, restyle, retouch, or reinterpret the packaging.\nComposition/framing: keep the full carton and full tube visible with the same generous padding; do not crop or move them\nLighting/mood: preserve existing product lighting; remove any floor/contact shadow from the background only\nConstraints: the new background must be one uniform #ff00ff with no gradient, texture, floor plane, shadow, reflection, or lighting variation; do not use #ff00ff on the product; no watermark\nAvoid: changing any letters, claims, ingredient text, plus-sign count, branding, size, pack proportions, positions, or product edges",
+        "inputs": [
+          {
+            "url": "https://danglifestyle.co/cdn/shop/files/Hydra-Glow-Protection-scaled.jpg?v=1783924796&width=2048",
+            "sha256": "b3a62b77974f4b8091c849a72c7310ad9380950a076248fcc39d44d5ed8d74df"
+          }
+        ],
+        "outputSha256": "9df96be464b016371d9c40db5ad143b1f9af0536bd1bc567564458c731305ef3",
+        "generatedAt": "2026-07-26T22:35:00Z",
+        "recordSha256": "cfa1af9fffd8984ba0461e31442a1f4b98364830bf9ed35b5742a93d4c5c41aa"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/catalogue-intake/dang-hydra-glow-sun-protection-gel-60ml/packshot-v1-9df96be464b0.png",
+      "publicImageSha256": "9df96be464b016371d9c40db5ad143b1f9af0536bd1bc567564458c731305ef3",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1977127,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-26T22:35:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

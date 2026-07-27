@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T15:18:00Z",
+  "order": 8,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "aqua-rich-ceramide-body-lotion-500ml"
+  },
+  "candidate": {
+    "id": "aqua-rich-ceramide-body-lotion-500ml",
+    "brand": "Aqua Rich",
+    "name": "Hydrate + Protect Body Lotion",
+    "variant": "Aqua Rich Ceramide Body Lotion",
+    "size": "500 ml",
+    "category": "Body care",
+    "reason": "Adds a Nigerian-observed body-moisture candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
+    "priority": "important",
+    "gapIds": [
+      "body-moisture-barrier"
+    ],
+    "demandEvidenceUrls": [
+      "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+      "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/"
+    ],
+    "identity": {
+      "gtin": "4897073187549",
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+      "checkedAt": "2026-07-22T23:14:30Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+        "observedGtin": "4897073187549",
+        "observedVariant": "Aqua Rich Ceramide Body Lotion",
+        "observedSize": "500 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-ceramide-body-lotion-500ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+          "sourceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+          "responseUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-07-22T23:13:50Z",
+          "fields": {
+            "gtin": {
+              "value": "4897073187549",
+              "locator": "Official back-package image printed EAN-13 barcode",
+              "sourceText": "EAN-13 barcode 4897073187549"
+            },
+            "variant": {
+              "value": "Aqua Rich Ceramide Body Lotion",
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Ceramide Body Lotion – 500ml"
+            },
+            "size": {
+              "value": "500 ml",
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Ceramide Body Lotion – 500ml"
+            }
+          },
+          "sourceResponseSha256": "c9a48c5fb552ac982b57d48c2783999bb825c98ea6c886465ae0e24209b1a05d",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 258001,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-Back-1.jpg",
+              "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-Back-1.jpg",
+              "retrievedAt": "2026-07-22T23:14:11Z",
+              "responseSha256": "1386977c69ec18f3f38ad6806b37d074f5030e9de7333b017130b96a718f0344",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 37145
+            }
+          ],
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-22T23:14:30Z"
+        },
+        "snapshotSha256": "5c3a3584608e5255cf7f536f2de9924d93ed9f6f7a85a6358b9468df125c6c37",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1510,
+        "retrievedAt": "2026-07-22T23:13:50Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on daily body moisturising lotion described by the manufacturer as containing ceramides, for dry or rough-feeling body skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday moisturising and comfort for dry or rough-feeling body skin. The package carries an SPF 50 claim, but the reviewed sources do not establish tested broad-spectrum sun protection, so do not classify or recommend it as sunscreen. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful cracking; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+      "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-07-22T23:25:37Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+          "observedAt": "2026-07-23T06:56:38.537Z",
+          "observedTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
+          "observedSize": "500 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "4897073187549",
+          "priceNgn": 12800,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+            "responseUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+            "responseSha256": "21d29c58ce9220ce7a31d0f711c2371b750a44a8d42e7b78e975c730d29f41bd",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 813881,
+            "retrievedAt": "2026-07-23T06:56:38.537Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "4897073187549",
+                "locator": "Bound official Aqua Rich 500 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 4897073187549",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
+                "locator": "Rendered DOM h1.product_title",
+                "sourceText": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml"
+              },
+              "size": {
+                "value": "500 ml",
+                "locator": "Rendered DOM h1.product_title size suffix",
+                "sourceText": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml"
+              },
+              "price": {
+                "value": 12800,
+                "currency": "NGN",
+                "locator": "Rendered DOM p.price",
+                "sourceText": "₦12,800.00 NG"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM p.stock",
+                "sourceText": "8 IN STOCK"
+              },
+              "retailerIdentifier": {
+                "label": "SKU",
+                "value": "4897073187549",
+                "locator": "Rendered DOM .product_meta .sku",
+                "sourceText": "SKU 4897073187549"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T06:58:00Z"
+          }
+        },
+        {
+          "retailer": "CSi Grocery",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
+          "observedAt": "2026-07-23T06:56:39.042Z",
+          "observedTitle": "AQUA RICH Hydrate + Protect Body Lotion – 500ml",
+          "observedSize": "500 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 13000,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
+            "responseUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
+            "responseSha256": "5ed3770f703f95154555d3caab33ce3c0fc13d81411c0dc611d7b7b0eb2f45b7",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 471277,
+            "retrievedAt": "2026-07-23T06:56:39.042Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy AQUA RICH Hydrate + Protect Body Lotion | Order Online"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "4897073187549",
+                "locator": "Bound official Aqua Rich 500 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 4897073187549",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "AQUA RICH Hydrate + Protect Body Lotion – 500ml",
+                "locator": "Rendered DOM h1.product_title",
+                "sourceText": "AQUA RICH Hydrate + Protect Body Lotion – 500ml"
+              },
+              "size": {
+                "value": "500 ml",
+                "locator": "Rendered DOM h1.product_title size suffix",
+                "sourceText": "AQUA RICH Hydrate + Protect Body Lotion – 500ml"
+              },
+              "price": {
+                "value": 13000,
+                "currency": "NGN",
+                "locator": "Rendered DOM p.price",
+                "sourceText": "₦13,000.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM .stock",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T06:58:00Z"
+          }
+        }
+      ],
+      "excludedObservations": [
+        {
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/",
+          "observedAt": "2026-07-22T23:07:01Z",
+          "observedTitle": "AQUA RICH BODY LOTION 500ML – HYDRATE + PROTECT",
+          "observedSize": "500 ml",
+          "priceNgn": 11000,
+          "stock": "in-stock",
+          "disposition": "excluded-from-exact-comparison",
+          "exclusionReasons": [
+            "manufacturer-identifier-mismatch",
+            "retailer-provisional"
+          ],
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-retailer-observation",
+            "responseUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/",
+            "responseSha256": "ea8b78acc444d9ccb9259a1951ab8a0ff6b8f7f4783ae07061a509bd1d94df13",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 298440,
+            "retrievedAt": "2026-07-22T23:07:01Z",
+            "fields": {
+              "title": {
+                "value": "AQUA RICH BODY LOTION 500ML – HYDRATE + PROTECT",
+                "locator": "HTML h1.product_title",
+                "sourceText": "AQUA RICH BODY LOTION 500ML – HYDRATE + PROTECT"
+              },
+              "size": {
+                "value": "500 ml",
+                "locator": "HTML h1.product_title size token",
+                "sourceText": "AQUA RICH BODY LOTION 500ML – HYDRATE + PROTECT"
+              },
+              "price": {
+                "value": 11000,
+                "currency": "NGN",
+                "locator": "HTML p.price",
+                "sourceText": "₦11,000.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "HTML span.stock",
+                "sourceText": "In stock"
+              },
+              "retailerIdentifier": {
+                "label": "EAN",
+                "value": "2000000249551",
+                "locator": "HTML product_meta EAN row",
+                "sourceText": "EAN: 2000000249551"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T23:10:00Z"
+          }
+        }
+      ]
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-1.jpg",
+      "sourceAssetSha256": "d3b408a63d75cc380f2144ea0edb7617eff2e630d5898db972183a3460efa500",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 31006,
+      "sourceAssetWidth": 800,
+      "sourceAssetHeight": 800,
+      "sourceAssetRetrievedAt": "2026-07-23T06:59:00Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: product-mockup\nAsset type: JeloCare transparent catalogue packshot source on chroma key\nInput image: exact official Aqua Rich reference; identity and packaging lock\nPrimary request: Create a high-end, straight-on studio packshot of this exact Aqua Rich Hydrate + Protect Body Lotion Ceramide 500 ml pump bottle. Preserve the exact tall rounded lavender bottle silhouette, complete lavender pump and white collar, label layout, AQUA RICH magenta wordmark, “Hydrate + Protect”, “BODY LOTION”, “Ceramide”, blue molecular-water graphic, vegan roundel, and 500ml front size line. It must remain recognizable as the same exact manufacturer SKU, not a redesign or generic substitute.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background for later removal.\nComposition/framing: one complete upright bottle centered with generous even padding; entire pump nozzle, bottle shoulders, side edge, and curved base visible; no crop; no carton; no props; no overlapping geometry.\nLighting/mood: premium Vogue-quality catalogue lighting on the product only, soft clean highlights, readable front identity, realistic opaque plastic.\nText to preserve where legible: “AQUA RICH”, “Hydrate + Protect”, “BODY LOTION”, “Ceramide”, “VEGAN”, “500ml”. Preserve the Korean label marks and small bullet copy as shapes without inventing different claims.\nConstraints: exact product identity; complete silhouette; front-facing camera; crisp edges; label undistorted; no invented badges; no SPF claim; no product redesign; no size or colour change.\nBackground constraints: one uniform #00ff00 colour with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Do not use chroma green anywhere in the product.\nAvoid: white background, cast shadow, contact shadow, reflection, floor, hands, people, botanicals, decorative shapes, watermark, added text, duplicate bottle, cropped pump, cropped base, skewed packaging.",
+        "inputs": [
+          {
+            "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-1.jpg",
+            "sha256": "d3b408a63d75cc380f2144ea0edb7617eff2e630d5898db972183a3460efa500"
+          }
+        ],
+        "outputSha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324",
+        "generatedAt": "2026-07-23T07:00:00Z",
+        "recordSha256": "30ed6a826478a360325f7bbfe27874047175b7c5129110ff691bcf17d92218ee"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v1-9435ff0eb88c9189.png",
+      "publicImageSha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1296181,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-23T07:04:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

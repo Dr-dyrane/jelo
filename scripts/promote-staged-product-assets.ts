@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-import { put } from '@vercel/blob';
+import { get, put } from '@vercel/blob';
 import sharp from 'sharp';
 import promotions from '../data/product-asset-promotions.json';
 import repairs from '../data/product-asset-repairs.json';
@@ -10,47 +9,54 @@ import {
   likelySlicedPackshotBase,
   likelyTruncatedPackshot,
 } from '../lib/assets/packshot-silhouette';
+import {
+  assertStagedProductAssetPromotion,
+  promoteVerifiedStagedProductAsset,
+  resolveStagedProductAssetPath,
+  type CatalogueIntakeAssetPromotion,
+  type StagedProductAssetBlobClient,
+  type StagedProductAssetPromotion,
+  verifyCatalogueIntakePromotionBinding,
+} from '../lib/assets/staged-product-asset-promotion';
+import {
+  verifyCataloguePublicationImageBytes,
+  verifyRemoteCataloguePublicationImage,
+} from '../lib/catalogue/publication-image-verification';
 
-const assetHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 const repairIds = new Set(repairs.repairs.map(repair => repair.id));
+const blobClient: StagedProductAssetBlobClient = { get, put };
 
-type Promotion = {
-  id: string;
-  active: boolean;
-  productSlug: string;
-  sourceUrl: string;
-  localPath: string;
-  blobPath: string;
-  blobUrl: string;
-  contentType: 'image/png' | 'image/webp' | 'image/avif' | 'image/jpeg';
-  byteSize: number;
-  width: number;
-  height: number;
-  hasAlpha: boolean;
-  contentHash: string;
-};
-
-function localAssetPath(localPath: string) {
-  const publicRoot = path.resolve(process.cwd(), 'public');
-  const resolved = path.resolve(publicRoot, localPath.replace(/^\/+/, ''));
-  if (!resolved.startsWith(`${publicRoot}${path.sep}`)) {
-    throw new Error(`Staged asset escapes public/: ${localPath}`);
+function publicationExpectation(
+  candidateId: string,
+  promotion: StagedProductAssetPromotion,
+) {
+  if (
+    promotion.contentType !== 'image/png'
+    && promotion.contentType !== 'image/webp'
+  ) {
+    throw new Error(
+      `${promotion.id}: publication packshots must use PNG or WebP`,
+    );
   }
-  return resolved;
+  return {
+    candidateId,
+    url: promotion.blobUrl,
+    sha256: promotion.contentHash,
+    mimeType: promotion.contentType,
+    byteSize: promotion.byteSize,
+    width: promotion.width,
+    height: promotion.height,
+  };
 }
 
-async function verifiedBytes(promotion: Promotion) {
-  const source = new URL(promotion.sourceUrl);
-  const destination = new URL(promotion.blobUrl);
-  if (source.protocol !== 'https:') throw new Error(`${promotion.id}: source must use HTTPS`);
-  if (destination.protocol !== 'https:' || destination.hostname !== assetHost) {
-    throw new Error(`${promotion.id}: destination is outside the JeloCare Blob store`);
+async function verifiedBytes(promotion: StagedProductAssetPromotion) {
+  const target = assertStagedProductAssetPromotion(promotion);
+  if (target.kind !== 'public-product') {
+    await verifyCatalogueIntakePromotionBinding(
+      promotion as CatalogueIntakeAssetPromotion,
+    );
   }
-  if (destination.pathname !== `/${promotion.blobPath}`) {
-    throw new Error(`${promotion.id}: Blob URL and pathname disagree`);
-  }
-
-  const bytes = await readFile(localAssetPath(promotion.localPath));
+  const bytes = await readFile(resolveStagedProductAssetPath(promotion));
   const [metadata, statistics, silhouette] = await Promise.all([
     sharp(bytes).metadata(),
     sharp(bytes).stats(),
@@ -81,32 +87,68 @@ async function verifiedBytes(promotion: Promotion) {
       + `(${silhouette.bottomNearTerminalStrongEdgeRunFraction.toFixed(3)}); rebuild and visually review the base before upload`,
     );
   }
+  if (target.kind === 'catalogue-publication') {
+    await verifyCataloguePublicationImageBytes(
+      publicationExpectation(target.id, promotion),
+      bytes,
+    );
+  }
   return bytes;
 }
 
+function usableCredential(value: string | undefined) {
+  return Boolean(value && value !== '[SENSITIVE]');
+}
+
 async function main() {
-  const active = (promotions as Promotion[]).filter(promotion => promotion.active);
+  const requestedIds = process.argv
+    .slice(2)
+    .filter(argument => argument.startsWith('--id='))
+    .map(argument => argument.slice('--id='.length))
+    .filter(Boolean);
+  if (new Set(requestedIds).size !== requestedIds.length) {
+    throw new Error('Each requested promotion ID must be unique.');
+  }
+  const activePromotions = (promotions as StagedProductAssetPromotion[])
+    .filter(promotion => promotion.active);
+  const activeById = new Map(activePromotions.map(promotion => [promotion.id, promotion]));
+  const unknownIds = requestedIds.filter(id => !activeById.has(id));
+  if (unknownIds.length) {
+    throw new Error(`Unknown or inactive promotion IDs: ${unknownIds.join(', ')}`);
+  }
+  const active = requestedIds.length
+    ? requestedIds.map(id => activeById.get(id)!)
+    : activePromotions;
   if (!active.length) {
     console.log('No staged product assets require promotion.');
     return;
   }
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    throw new Error('BLOB_READ_WRITE_TOKEN is required to promote staged product assets.');
+  if (
+    !usableCredential(process.env.BLOB_READ_WRITE_TOKEN)
+    && !(
+      usableCredential(process.env.VERCEL_OIDC_TOKEN)
+      && usableCredential(process.env.BLOB_STORE_ID)
+    )
+  ) {
+    throw new Error(
+      'Blob credentials are required: use BLOB_READ_WRITE_TOKEN or VERCEL_OIDC_TOKEN with BLOB_STORE_ID.',
+    );
   }
 
   for (const promotion of active) {
+    const target = assertStagedProductAssetPromotion(promotion);
     const bytes = await verifiedBytes(promotion);
-    const uploaded = await put(promotion.blobPath, bytes, {
-      access: 'public',
-      contentType: promotion.contentType,
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 31_536_000,
-    });
-    if (uploaded.url !== promotion.blobUrl || uploaded.pathname !== promotion.blobPath) {
-      throw new Error(`${promotion.id}: Blob returned an unexpected immutable location`);
+    const result = await promoteVerifiedStagedProductAsset(promotion, bytes, blobClient);
+    if (target.kind === 'catalogue-publication') {
+      await verifyRemoteCataloguePublicationImage(
+        publicationExpectation(target.id, promotion),
+      );
     }
-    console.log(`Promoted ${promotion.id} to its hash-reviewed Blob path.`);
+    console.log(
+      result === 'uploaded'
+        ? `Promoted ${promotion.id} to its hash-reviewed Blob path.`
+        : `Verified existing ${promotion.id} at its hash-reviewed Blob path.`,
+    );
   }
 }
 

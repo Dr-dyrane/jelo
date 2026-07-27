@@ -10,6 +10,7 @@ const releaseGates: ReleaseGate[] = [
   { label: 'Typecheck', script: 'typecheck' },
   { label: 'Node tests', script: 'test' },
   { label: 'Documentation', script: 'docs:check' },
+  { label: 'Per-SKU catalogue intake projection', script: 'catalogue:intake:verify' },
   { label: 'Private publication dossiers', script: 'catalogue:publication:verify' },
   { label: 'Explicit catalogue releases', script: 'catalogue:publication:releases:verify' },
   { label: 'Private catalogue research priorities', script: 'catalogue:research:verify' },

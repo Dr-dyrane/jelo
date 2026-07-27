@@ -318,6 +318,7 @@ export type CatalogueIntakeOffer = {
   listingUrl: string;
   observedAt: string;
   observedTitle: string;
+  reviewedTitleAlias?: string;
   observedSize: string;
   observedGtin?: string;
   observedGtinBasis?: 'explicit-gtin' | 'explicit-ean' | 'explicit-upc' | 'exact-variant-and-size';
@@ -572,20 +573,24 @@ const packshotEligibleOrigins = [
   'owned-identity-verified-render',
 ] as const;
 const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
+  anua: ['anua.com'],
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   cecred: ['cecred.com'],
   delacruz: ['dlclabs.com'],
+  dang: ['danglifestyle.co', 'international.danglifestyle.co'],
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
   larocheposay: ['www.laroche-posay.co.uk'],
+  nivea: ['www.nivea.com.ng'],
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
   sheamoisture: ['www.sheamoisture.com'],
+  simple: ['www.simpleskincare.com', 'www.simple.co.uk'],
   tresemme: ['www.tresemme.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
@@ -606,6 +611,7 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
+  anua: ['anua.com'],
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
   cerave: [
@@ -616,6 +622,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   ],
   cecred: ['cecred.com'],
   delacruz: ['dlclabs.com'],
+  dang: ['danglifestyle.co', 'international.danglifestyle.co'],
   dove: ['www.dove.com', 'assets.unileversolutions.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
@@ -625,9 +632,11 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
     'www.laroche-posay.co.uk',
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
+  nivea: ['www.nivea.com.ng', 'img.nivea.com'],
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],
+  simple: ['www.simpleskincare.com', 'www.simple.co.uk', 'assets.unileversolutions.com'],
   tresemme: ['www.tresemme.com', 'assets.unileversolutions.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
@@ -658,6 +667,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
   'facefacts-ceramide-foaming-cleanser-400ml': [
     'https://lamifragrance.com/product/face-facts-ceramide-foaming-cleanser/',
     'https://beautyfree.gr/en/gel-foam/38505-face-facts-ceramide-skin-barrier-complex-foaming-cleanser-400ml-5031413936636.html',
+  ],
+  'facefacts-ceramide-blemish-gel-moisturiser-50ml': [
+    'https://sianwholesale.com/face-facts-ceramide-blemish-gel-moisturiser-50ml5031413935691.html',
+    'https://lamifragrance.com/product/face-facts-ceramide-blemish-gel-moisturiser/',
   ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
@@ -1371,6 +1384,24 @@ function canonicalRetailerOffer(offer: CatalogueIntakeOffer) {
   } satisfies CatalogueIntakeOffer;
 }
 
+function reviewedOfferTitleAlias(candidate: CatalogueIntakeCandidate, offer: CatalogueIntakeOffer) {
+  const alias = offer.reviewedTitleAlias?.trim();
+  if (!alias) return undefined;
+
+  const tokens = (value: string) => normalized(value)
+    .split(' ')
+    .filter(token => token.length >= 3);
+  const candidateTokens = new Set(tokens(`${candidate.name} ${candidate.variant}`));
+  const aliasTokens = Array.from(new Set(tokens(alias)));
+  const observedTokens = new Set(tokens(offer.observedTitle));
+
+  return aliasTokens.length >= 3
+    && aliasTokens.every(token => candidateTokens.has(token))
+    && aliasTokens.every(token => observedTokens.has(token))
+    ? alias
+    : undefined;
+}
+
 const marketObservationExclusionReasons: readonly CatalogueMarketObservationExclusionReason[] = [
   'retailer-identifier-only',
   'retailer-identifier-conflicts-with-candidate',
@@ -1496,15 +1527,18 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
 
   const canonicalOffer = canonicalRetailerOffer(offer);
   if (!canonicalOffer) return undefined;
+  const reviewedTitleAlias = reviewedOfferTitleAlias(candidate, canonicalOffer);
+  if (canonicalOffer.reviewedTitleAlias && !reviewedTitleAlias) return undefined;
 
   try {
     assertRetailerResponseScope({
       requestedUrl: canonicalOffer.listingUrl,
       responseUrl: canonicalOffer.listingUrl,
       expectedTitle: candidate.variant,
-      expectedTitleAliases: normalized(candidate.name) === normalized(candidate.variant)
-        ? []
-        : [candidate.name],
+      expectedTitleAliases: [
+        ...(normalized(candidate.name) === normalized(candidate.variant) ? [] : [candidate.name]),
+        ...(reviewedTitleAlias ? [reviewedTitleAlias] : []),
+      ],
       expectedSize: candidate.size,
       observedTitle: canonicalOffer.observedTitle,
       observedSize: canonicalOffer.observedSize,

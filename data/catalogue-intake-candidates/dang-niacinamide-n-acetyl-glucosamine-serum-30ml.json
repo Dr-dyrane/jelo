@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T15:18:00Z",
+  "order": 33,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml"
+  },
+  "candidate": {
+    "id": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+    "brand": "DANG",
+    "name": "Ageless Niacinamide + N-Acetyl Glucosamine Serum",
+    "variant": "Niacinamide+N-Acetyl Glucosamine Serum- 30ml",
+    "size": "30 ml",
+    "category": "Face care",
+    "reason": "Community-priority lead retained privately: the official product response names internal SKU DGL-SKC-005 but barcode is null. A live Nigerian price is preserved as a retailer-local-SKU observation, not promoted to an exact manufacturer-identity comparison.",
+    "priority": "essential",
+    "gapIds": [
+      "dark-spot-routine-coverage",
+      "barrier-support-routine"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.brackettsbeauty.com/products/ageless-niacinamide-n-acetyl-glucosamine-serum"
+    ],
+    "identity": {
+      "officialProductUrl": "https://international.danglifestyle.co/en-us/products/10-niacinamide-serum",
+      "checkedAt": "2026-07-26T14:50:00Z",
+      "basis": "official-brand"
+    },
+    "care": {
+      "status": "pending",
+      "formulaArchetype": "Official product identity captured; manufacturer GTIN/barcode is not published in the reviewed product response.",
+      "advisoryBoundary": "Do not infer an exact formula or suitability until the manufacturer package barcode and a matching ingredient presentation are captured.",
+      "manufacturerEvidenceUrl": "https://international.danglifestyle.co/en-us/products/10-niacinamide-serum",
+      "evidenceUrls": [
+        "https://international.danglifestyle.co/en-us/products/10-niacinamide-serum"
+      ]
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": [
+        {
+          "retailer": "Bracketts Beauty",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.brackettsbeauty.com/products/ageless-niacinamide-n-acetyl-glucosamine-serum",
+          "observedAt": "2026-07-26T14:53:00Z",
+          "observedTitle": "Ageless Niacinamide + N-Acetyl Glucosamine Serum",
+          "observedSize": "30 ml",
+          "priceNgn": 20421.5,
+          "stock": "in-stock",
+          "disposition": "excluded-from-exact-comparison",
+          "exclusionReasons": [
+            "retailer-identifier-only"
+          ],
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-retailer-observation",
+            "responseUrl": "https://www.brackettsbeauty.com/products/ageless-niacinamide-n-acetyl-glucosamine-serum",
+            "responseSha256": "25d75fe2dcf5960f0dcac595b21ffc04d50624f1db12d55d9d230ce17eea56e5",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 442882,
+            "retrievedAt": "2026-07-26T14:53:00Z",
+            "fields": {
+              "title": {
+                "value": "Ageless Niacinamide + N-Acetyl Glucosamine Serum",
+                "locator": "HTML h1.product-title",
+                "sourceText": "Ageless Niacinamide + N-Acetyl Glucosamine Serum"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Twitter product description size declaration",
+                "sourceText": "Size: 30mL."
+              },
+              "price": {
+                "value": 20421.5,
+                "currency": "NGN",
+                "locator": "Rendered sale-price and Open Graph product:price:amount",
+                "sourceText": "₦20,421.50 NGN"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Product JSON-LD Offer availability",
+                "sourceText": "In stock"
+              },
+              "retailerIdentifier": {
+                "label": "SKU",
+                "value": "DAN-SER-030(M)-NNG-001-010",
+                "locator": "Product JSON-LD Product.sku",
+                "sourceText": "sku: DAN-SER-030(M)-NNG-001-010"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T14:53:30Z"
+          }
+        }
+      ]
+    },
+    "asset": {
+      "rightsStatus": "unresolved",
+      "sourceUrl": "https://international.danglifestyle.co/cdn/shop/files/Niacinamide.jpg?v=1725616251",
+      "sourceAssetSha256": "8aacc22c6c935bbf564a473c9bc73812ef892e28044fc9ec08bf0f7f08b6d607",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 1522635,
+      "sourceAssetWidth": 4480,
+      "sourceAssetHeight": 4480,
+      "sourceAssetRetrievedAt": "2026-07-26T14:50:00Z"
+    }
+  }
+}

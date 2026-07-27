@@ -4,6 +4,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { catalogueResearchKnownIdentities } from '@/data/catalogue-research-identities';
 import type { CatalogueDiscoverySnapshot, ScreenedDiscoveryCandidate } from '@/lib/catalogue/discovery-screening';
+import { canonicalGtin, isValidGtin } from '@/lib/catalogue/gtin';
 import {
   buildCatalogueResearchQueue,
   catalogueResearchQueueDigest,
@@ -161,6 +162,39 @@ test('a retailer identity lead matching a verified manufacturer GTIN cannot re-e
   assert.equal(queue.selectedCount, 0);
 });
 
+test('a zero-padded GTIN-14 identity lead matches its verified GTIN-13 identity', () => {
+  const known = candidate({
+    title: 'FACEFACTS Vitamin C Body Lotion 400ml',
+    brandHint: 'FACEFACTS',
+    size: '400 ml',
+    retailerGtinHint: '05031413929089',
+  });
+  const queue = buildCatalogueResearchQueue(snapshot([known]), digest, 1, [{
+    brand: 'Face Facts',
+    name: 'Vitamin C Body Lotion',
+    size: '400 ml',
+    gtin: '5031413929089',
+  }]);
+  assert.equal(queue.selectedCount, 0);
+});
+
+test('a valid GTIN-14 with a different indicator digit remains a distinct identity', () => {
+  const distinct = candidate({
+    title: 'FACEFACTS Vitamin C Body Lotion Multipack 400 ml',
+    brandHint: 'FACEFACTS',
+    size: '400 ml',
+    retailerGtinHint: '15031413929086',
+  });
+  const queue = buildCatalogueResearchQueue(snapshot([distinct]), digest, 1, [{
+    brand: 'Face Facts',
+    name: 'Vitamin C Body Lotion',
+    size: '400 ml',
+    gtin: '5031413929089',
+  }]);
+  assert.equal(queue.selectedCount, 1);
+  assert.equal(queue.items[0].identityLead, '15031413929086');
+});
+
 test('a different retailer code cannot suppress a merely similar product', () => {
   const similar = candidate({
     title: 'Example Ceramide Lotion 355 ml',
@@ -214,11 +248,14 @@ test('the checked-in queue is an exact deterministic projection of the discovery
     brand => expected.items.filter(item => item.brandHint === brand).length,
   )) <= 3, true);
   const verifiedGtins = new Set(catalogueResearchKnownIdentities.flatMap(identity => (
-    identity.gtin ? [identity.gtin] : []
+    identity.gtin && isValidGtin(identity.gtin) ? [canonicalGtin(identity.gtin)] : []
   )));
-  assert.equal(expected.items.every(item => !item.identityLead || !verifiedGtins.has(item.identityLead)), true);
+  assert.equal(expected.items.every(item => (
+    !item.identityLead || !verifiedGtins.has(canonicalGtin(item.identityLead))
+  )), true);
   assert.equal(expected.items.some(item => item.title.includes('DOVE MELANIN EVEN TONE')), false);
   assert.equal(expected.items.some(item => item.title.includes('KERACARE Dry And Itchy Conditioner')), false);
+  assert.equal(expected.items.some(item => item.title.includes('FACEFACTS Vitamin C Body Lotion')), false);
 });
 
 test('reviewed brand aliases stop retailer-shortened duplicates consuming research slots', () => {

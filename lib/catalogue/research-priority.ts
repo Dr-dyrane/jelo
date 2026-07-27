@@ -4,6 +4,7 @@ import {
   type CatalogueDiscoverySnapshot,
   type ScreenedDiscoveryCandidate,
 } from './discovery-screening';
+import { canonicalGtin, isValidGtin } from './gtin';
 
 export const catalogueResearchQueueSchemaVersion = 1 as const;
 export const catalogueResearchQueuePolicy = 'private-research-only' as const;
@@ -140,11 +141,16 @@ function normalized(value: string) {
     .trim();
 }
 
+function canonicalVerifiedGtin(value: string | undefined) {
+  const gtin = value?.trim();
+  return gtin && isValidGtin(gtin) ? canonicalGtin(gtin) : undefined;
+}
+
 function alreadyKnown(candidate: ScreenedDiscoveryCandidate, identities: readonly KnownCatalogueIdentity[]) {
-  const retailerIdentityLead = candidate.retailerGtinHint?.replace(/\D/g, '');
+  const retailerIdentityLead = canonicalVerifiedGtin(candidate.retailerGtinHint);
   if (
     retailerIdentityLead
-    && identities.some(identity => identity.gtin?.replace(/\D/g, '') === retailerIdentityLead)
+    && identities.some(identity => canonicalVerifiedGtin(identity.gtin) === retailerIdentityLead)
   ) return true;
 
   const brand = normalized(candidate.brandHint);

@@ -15,6 +15,7 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   const concernsPage = await readFile(path.join(root, 'app/(site)/concerns/page.tsx'), 'utf8');
   const concernGuide = await readFile(path.join(root, 'app/(site)/concerns/[slug]/page.tsx'), 'utf8');
   const productPanel = await readFile(path.join(root, 'components/products/product-quick-panel.tsx'), 'utf8');
+  const productPanelStyles = await readFile(path.join(root, 'app/product-panel.css'), 'utf8');
   const navigation = await readFile(path.join(root, 'components/navigation/site-header.tsx'), 'utf8');
   const layout = await readFile(path.join(root, 'app/(site)/layout.tsx'), 'utf8');
   const catalogueStyles = await readFile(path.join(root, 'app/(site)/products/products.module.css'), 'utf8');
@@ -63,6 +64,10 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(productPanel, /How to use/);
   assert.doesNotMatch(productPanel, /Check the pack before use/);
   assert.doesNotMatch(productPanel, /Buy options|See prices/);
+  assert.match(productPanelStyles, /\.product-panel-dialog\s*\{[\s\S]*inset: 0 0 0 auto;[\s\S]*box-sizing: border-box;/);
+  assert.match(productPanelStyles, /@media \(max-width: 620px\)[\s\S]*\.product-panel-dialog\s*\{[\s\S]*inset: auto 0 0;[\s\S]*max-width: 100vw;/);
+  assert.match(productPanelStyles, /@media \(max-width: 620px\)[\s\S]*\.product-panel-header h2\s*\{[\s\S]*overflow-wrap: anywhere;/);
+  assert.match(productPanelStyles, /@media \(max-width: 620px\)[\s\S]*\.product-panel-tabs\s*\{[\s\S]*overflow: hidden;/);
   assert.match(navigation, /href="\/contribute"[^>]*>Share skincare/);
   assert.match(navigation, /label: 'Share skincare', detail: 'Tell us what you use'/);
   assert.match(layout, /href="\/contribute">Share skincare/);

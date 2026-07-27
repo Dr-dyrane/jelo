@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T23:01:30Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "e746bbaf48eb1b92eecb329f",
+    "discoveryId": "8ef9c3aad4a08d8aed3c2715",
+    "sourceSnapshotSha256": "81e19feb997ec3822660045302f48441533c1780ce3101a800ce12a947093e44"
+  },
+  "candidate": {
+    "id": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+    "brand": "FACE FACTS",
+    "brandAliases": [
+      "FACEFACTS",
+      "Face Facts"
+    ],
+    "name": "Ceramide Blemish Gel Moisturiser",
+    "variant": "Ceramide Blemish Gel Moisturiser",
+    "size": "50 ml",
+    "category": "Face care",
+    "reason": "Adds a current fragrance-free 50 ml leave-on moisturiser with exact official variant and size, manufacturer SKU 35691-150, independently corroborated EAN 5031413935691, two current Nigerian offers, a reviewed non-diagnostic care boundary, and an identity-verified transparent packshot. BuyBetter and Beauty by Daz label their own SKU fields separately; JeloCare binds the product identity through the official Face Facts page plus independent EAN records rather than treating either retailer SKU as manufacturer proof.",
+    "priority": "essential",
+    "gapIds": [
+      "blemish-prone-skin-moisture",
+      "lightweight-moisturising",
+      "salicylic-acid-support"
+    ],
+    "demandEvidenceUrls": [
+      "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+      "https://buybetter.ng/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/",
+      "https://beautybydaz.com/shop/face/facefacts-ceramide-blemish-gel-moisturizer-50ml/"
+    ],
+    "identity": {
+      "gtin": "5031413935691",
+      "officialProductUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+      "checkedAt": "2026-07-26T23:00:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label",
+      "officialEvidence": {
+        "url": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+        "observedGtin": "5031413935691",
+        "observedVariant": "Ceramide Blemish Gel Moisturiser",
+        "observedSize": "50 ml",
+        "observedPackageVersion": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/facefacts-ceramide-blemish-gel-moisturiser-50ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 6,
+          "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+          "sourceUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+          "responseUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+          "retrievedAt": "2026-07-26T22:48:00Z",
+          "fields": {
+            "gtin": {
+              "value": "5031413935691",
+              "locator": "identifierCorroborations[*].fields.gtin",
+              "sourceText": "EAN 5031413935691 is independently corroborated by SIAN Wholesale and Lami Fragrance; the visible manufacturer page publishes manufacturer SKU 35691-150 but no GTIN/EAN."
+            },
+            "variant": {
+              "value": "Ceramide Blemish Gel Moisturiser",
+              "locator": "Rendered accessibility tree product heading",
+              "sourceText": "Ceramide Blemish Gel Moisturiser"
+            },
+            "size": {
+              "value": "50 ml",
+              "locator": "Rendered accessibility tree product details list",
+              "sourceText": "50ml"
+            },
+            "packageVersion": {
+              "value": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label",
+              "locator": "Official manufacturer primary product image",
+              "sourceText": "The current official image shows a white 50 ml squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label and a translucent flip cap.",
+              "evidenceUrl": "https://facefacts.me/cdn/shop/files/35691-150-face-facts-ceramide-blemish-gel-moisturiser_1.jpg?v=1775040277&width=2000"
+            }
+          },
+          "sourceResponseSha256": "296b73762b55b22ada5c3658a05f3bc5a2ae605ab5124c367c2482f4323ee3c6",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 5028,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://facefacts.me/cdn/shop/files/35691-150-face-facts-ceramide-blemish-gel-moisturiser_1.jpg?v=1775040277&width=2000",
+              "responseUrl": "https://facefacts.me/cdn/shop/files/35691-150-face-facts-ceramide-blemish-gel-moisturiser_1.jpg?v=1775040277&width=2000",
+              "retrievedAt": "2026-07-26T22:56:00Z",
+              "responseSha256": "2d0436e3f462a354218a530ab0fde3e1a1cda3d5e53565d895dd2254f8924239",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 63649
+            }
+          ],
+          "responseDigestScope": "rendered-accessibility-tree",
+          "method": "reviewed-browser-accessibility-identity-with-independent-ean-corroboration",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Ceramide Blemish Gel Moisturiser | Ideal for Dry & Sensitive Skin – FaceFacts"
+          },
+          "identifierCorroborations": [
+            {
+              "sourceUrl": "https://sianwholesale.com/face-facts-ceramide-blemish-gel-moisturiser-50ml5031413935691.html",
+              "responseUrl": "https://sianwholesale.com/face-facts-ceramide-blemish-gel-moisturiser-50ml5031413935691.html",
+              "retrievedAt": "2026-07-26T22:52:00Z",
+              "fields": {
+                "gtin": {
+                  "value": "5031413935691",
+                  "locator": "Rendered accessibility product metadata labelled EAN",
+                  "sourceText": "EAN: 5031413935691"
+                },
+                "variant": {
+                  "value": "Face Facts Ceramide Blemish Gel Moisturiser 50ml",
+                  "locator": "Rendered accessibility page heading",
+                  "sourceText": "Face Facts Ceramide Blemish Gel Moisturiser 50ml"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "Rendered accessibility page heading size token",
+                  "sourceText": "Face Facts Ceramide Blemish Gel Moisturiser 50ml"
+                }
+              },
+              "sourceResponseSha256": "8013ac26e0df75db908ca8c2ab7f1ddab526d31dd449e213b5567feeb4d1313c",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseByteSize": 9624,
+              "responseDigestScope": "rendered-accessibility-tree",
+              "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Face Facts Ceramide Blemish Gel Moisturiser 50ml"
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-26T23:00:00Z"
+            },
+            {
+              "sourceUrl": "https://lamifragrance.com/product/face-facts-ceramide-blemish-gel-moisturiser/",
+              "responseUrl": "https://lamifragrance.com/product/face-facts-ceramide-blemish-gel-moisturiser/",
+              "retrievedAt": "2026-07-26T22:54:00Z",
+              "fields": {
+                "gtin": {
+                  "value": "5031413935691",
+                  "locator": "Rendered accessibility product metadata labelled GTIN",
+                  "sourceText": "GTIN: 5031413935691"
+                },
+                "variant": {
+                  "value": "Face Facts Ceramide Blemish Gel Moisturiser 50ml",
+                  "locator": "Rendered accessibility page heading",
+                  "sourceText": "Face Facts Ceramide Blemish Gel Moisturiser 50ml"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "Rendered accessibility page heading size token",
+                  "sourceText": "Face Facts Ceramide Blemish Gel Moisturiser 50ml"
+                }
+              },
+              "sourceResponseSha256": "9441ffb2ec4f591eead6d7ad565ebe9242dc550a7cd6697e6aa940e17535ed3b",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseByteSize": 15053,
+              "responseDigestScope": "rendered-accessibility-tree",
+              "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Face Facts Ceramide Blemish Gel Moisturiser | Lami Fragrance"
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-26T23:00:00Z"
+            }
+          ],
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-26T23:00:00Z"
+        },
+        "snapshotSha256": "ff9bd293fbd0361aba2a45820013445c5ffeee23a213078bf41ae72b44fc91e8",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 4910,
+        "retrievedAt": "2026-07-26T22:48:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Fragrance-free leave-on gel moisturiser with mineral oil, glycerin, niacinamide, salicylic acid and listed ceramides NP, NS, NG, AS, EOP and AP",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A leave-on cosmetic moisturiser, not a diagnosis or a treatment for painful, cystic, scarring, infected or unexplained skin changes. The manufacturer does not state the salicylic-acid concentration on the reviewed page. Introduce cautiously, avoid stacking several irritating exfoliants at once, and stop if burning, marked dryness or a persistent rash develops. Persistent or scarring acne needs clinical review.",
+      "manufacturerEvidenceUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+      "evidenceUrls": [
+        "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+        "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+      ],
+      "reviewedAt": "2026-07-26T23:00:30Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/",
+          "observedAt": "2026-07-26T22:58:30Z",
+          "observedTitle": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURISER 50ML",
+          "observedSize": "50 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label",
+          "retailerSku": "5031413935691",
+          "priceNgn": 3440,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/",
+            "responseUrl": "https://buybetter.ng/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/",
+            "responseSha256": "5584e1ef6a972c53b36e0c53b344bc39c5f6f3d20b9702738014ed7115ea0a7c",
+            "responseDigestScope": "rendered-accessibility-tree",
+            "responseMimeType": "text/html",
+            "responseByteSize": 13894,
+            "retrievedAt": "2026-07-26T22:58:30Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURISER 50ML – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5031413935691",
+                "locator": "Bound composite catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5031413935691",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURISER 50ML",
+                "locator": "Rendered product heading",
+                "sourceText": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURISER 50ML"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered product heading size token",
+                "sourceText": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURISER 50ML"
+              },
+              "packageVersion": {
+                "value": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label",
+                "locator": "Rendered primary product gallery image",
+                "sourceText": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label"
+              },
+              "price": {
+                "value": 3440,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦3,440.00 NG"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered stock message",
+                "sourceText": "47 in stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T23:00:45Z"
+          }
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://beautybydaz.com/shop/face/facefacts-ceramide-blemish-gel-moisturizer-50ml/",
+          "observedAt": "2026-07-26T22:59:00Z",
+          "observedTitle": "Facefacts Ceramide Blemish Gel Moisturizer 50ml",
+          "observedSize": "50 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label",
+          "retailerSku": "358-1-byd",
+          "priceNgn": 3500,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "listingUrl": "https://beautybydaz.com/shop/face/facefacts-ceramide-blemish-gel-moisturizer-50ml/",
+            "responseUrl": "https://beautybydaz.com/shop/face/facefacts-ceramide-blemish-gel-moisturizer-50ml/",
+            "responseSha256": "d151f56fa0201a70cfc0b4f682f9419c3de7f8f1ff7533447c034d5cd1ca132b",
+            "responseDigestScope": "rendered-accessibility-tree",
+            "responseMimeType": "text/html",
+            "responseByteSize": 8599,
+            "retrievedAt": "2026-07-26T22:59:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Facefacts Ceramide Blemish Gel Moisturizer 50ml"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5031413935691",
+                "locator": "Bound composite catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5031413935691",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Facefacts Ceramide Blemish Gel Moisturizer 50ml",
+                "locator": "Rendered product heading",
+                "sourceText": "Facefacts Ceramide Blemish Gel Moisturizer 50ml"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered product heading size token",
+                "sourceText": "Facefacts Ceramide Blemish Gel Moisturizer 50ml"
+              },
+              "packageVersion": {
+                "value": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label",
+                "locator": "Rendered primary product gallery image",
+                "sourceText": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label"
+              },
+              "price": {
+                "value": 3500,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦3,500.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered stock message",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T23:00:45Z"
+          }
+        }
+      ],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://facefacts.me/cdn/shop/files/35691-150-face-facts-ceramide-blemish-gel-moisturiser_1.jpg?v=1775040277&width=2000",
+      "sourceAssetSha256": "2d0436e3f462a354218a530ab0fde3e1a1cda3d5e53565d895dd2254f8924239",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 63649,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-07-26T22:56:00Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot\nPrimary request: isolate the exact Face Facts Ceramide Blemish Gel Moisturiser tube from the supplied official manufacturer image onto a perfectly flat solid #00ff00 chroma-key background for background removal.\nInput images: Image 1 is the edit target and authoritative product identity reference.\nSubject: one complete upright 50 ml white squeeze tube, including the full crimped top and complete translucent flip cap.\nStyle/medium: source-faithful premium studio product photography; preserve the real package exactly.\nComposition/framing: centered, front-facing, full product visible with generous even padding on every side; no clipping.\nText (verbatim): preserve every existing package word, number, symbol, line break, color, font relationship, and placement exactly as shown in the source; do not invent or correct any text.\nConstraints: change only the background; preserve the tube silhouette, proportions, cap, white material, cyan and charcoal artwork, label layout, and all packaging details. The background must be one uniform #00ff00 color with no gradient, texture, floor plane, shadow, reflection, glow, halo, watermark, extra object, carton, badge, or decoration. Keep crisp clean edges. Do not use #00ff00 anywhere in the product.",
+        "inputs": [
+          {
+            "url": "https://facefacts.me/cdn/shop/files/35691-150-face-facts-ceramide-blemish-gel-moisturiser_1.jpg?v=1775040277&width=2000",
+            "sha256": "2d0436e3f462a354218a530ab0fde3e1a1cda3d5e53565d895dd2254f8924239"
+          }
+        ],
+        "outputSha256": "331a720d7f15183ad014bb26bec4097bf98caf4b8d6bef86791ccc88a0917d50",
+        "generatedAt": "2026-07-26T22:58:00Z",
+        "recordSha256": "799c23f153c99bd8ad9b18d976791cf2768a2c5eaf6c0f471070eb2cc4c03efd"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-ceramide-blemish-gel-moisturiser-50ml/packshot-v1-331a720d7f15183a.png",
+      "publicImageSha256": "331a720d7f15183ad014bb26bec4097bf98caf4b8d6bef86791ccc88a0917d50",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1026239,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-26T23:01:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

@@ -20,11 +20,12 @@ function run(command: string, args: string[]) {
 async function main() {
   const isVercelProduction = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production';
   const migrationsDisabled = process.env.SKIP_DATABASE_MIGRATIONS === '1';
-  const seedCatalogue = process.env.SEED_CATALOGUE_ON_BUILD === '1';
+  const seedExternalCatalogue = process.env.SEED_EXTERNAL_CATALOGUE_ON_BUILD === '1'
+    || process.env.SEED_CATALOGUE_ON_BUILD === '1';
   const plan = createDeploymentPlan({
     isVercelProduction,
     migrationsDisabled,
-    seedCatalogue,
+    seedExternalCatalogue,
   });
 
   if (!isVercelProduction) {
@@ -48,7 +49,10 @@ async function main() {
 
   for (const step of plan) {
     if (step === 'seed-catalogue') {
-      console.log('One-time catalogue seed requested for this production build.');
+      console.log('Synchronizing the reviewed public catalogue projection.');
+    }
+    if (step === 'seed-external-catalogue') {
+      console.log('One-time external catalogue seed requested for this production build.');
     }
     const [command, args] = commands[step];
     await run(command, args);

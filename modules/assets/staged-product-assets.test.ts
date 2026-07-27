@@ -13,30 +13,48 @@ import {
   likelySlicedPackshotBase,
   likelyTruncatedPackshot,
 } from '@/lib/assets/packshot-silhouette';
+import {
+  assertStagedProductAssetPromotion,
+  promoteVerifiedStagedProductAsset,
+  resolveStagedProductAssetPath,
+  type CatalogueIntakeAssetPromotion,
+  type StagedProductAssetBlobClient,
+  type StagedProductAssetPromotion,
+  verifyCatalogueIntakePromotionBinding,
+} from '@/lib/assets/staged-product-asset-promotion';
 
-test('staged product promotions are exact local bytes bound to one reviewed product', async () => {
+test('staged promotions bind exact local bytes to one public product or private candidate', async () => {
   const ids = new Set<string>();
   const slugs = new Set<string>();
+  const candidateIds = new Set<string>();
   const productBySlug = new Map([...coreProducts, ...expandedProducts].map(product => [product.slug, product]));
   const repairIds = new Set(repairs.repairs.map(repair => repair.id));
 
-  for (const promotion of promotions) {
+  for (const promotion of promotions as StagedProductAssetPromotion[]) {
     assert.equal(ids.has(promotion.id), false, promotion.id);
-    assert.equal(slugs.has(promotion.productSlug), false, promotion.productSlug);
     ids.add(promotion.id);
-    slugs.add(promotion.productSlug);
 
-    const product = productBySlug.get(promotion.productSlug);
-    assert.ok(product, promotion.productSlug);
-    assert.equal(product.image, promotion.sourceUrl);
-    assert.equal(new URL(promotion.sourceUrl).protocol, 'https:');
-    const destination = new URL(promotion.blobUrl);
-    assert.equal(destination.hostname, 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com');
-    assert.equal(destination.pathname, `/${promotion.blobPath}`);
-    assert.match(promotion.localPath, /^\/products\/[a-z0-9/-]+\.png$/);
-    assert.match(promotion.contentHash, /^[0-9a-f]{64}$/);
+    const target = assertStagedProductAssetPromotion(promotion);
+    if (target.kind === 'public-product') {
+      assert.equal(slugs.has(target.id), false, target.id);
+      slugs.add(target.id);
+      const product = productBySlug.get(target.id);
+      assert.ok(product, target.id);
+      assert.equal(product.image, promotion.sourceUrl);
+    } else {
+      assert.equal(candidateIds.has(target.id), false, target.id);
+      candidateIds.add(target.id);
+      assert.equal(
+        productBySlug.has(target.id),
+        false,
+        `${target.id}: private candidate is already present in the public catalogue`,
+      );
+      await verifyCatalogueIntakePromotionBinding(
+        promotion as CatalogueIntakeAssetPromotion,
+      );
+    }
 
-    const localFile = path.join(process.cwd(), 'public', promotion.localPath.replace(/^\//, ''));
+    const localFile = resolveStagedProductAssetPath(promotion);
     const bytes = await readFile(localFile);
     const [metadata, statistics, silhouette] = await Promise.all([
       sharp(bytes).metadata(),
@@ -48,18 +66,335 @@ test('staged product promotions are exact local bytes bound to one reviewed prod
     assert.equal(metadata.width, promotion.width);
     assert.equal(metadata.height, promotion.height);
     assert.equal(metadata.hasAlpha, promotion.hasAlpha);
-    assert.equal(statistics.isOpaque, false);
-    assert.equal(
-      likelyTruncatedPackshot(silhouette),
-      false,
-      `${promotion.id}: staged packshot has an inherited lower crop`,
-    );
-    if (repairIds.has(promotion.id)) {
+    assert.equal(metadata.format, promotion.contentType.split('/')[1]);
+    if (promotion.hasAlpha) {
+      assert.equal(statistics.isOpaque, false);
       assert.equal(
-        likelySlicedPackshotBase(silhouette),
+        likelyTruncatedPackshot(silhouette),
         false,
-        `${promotion.id}: generated repair still has a sliced lower seam`,
+        `${promotion.id}: staged packshot has an inherited lower crop`,
       );
+      if (repairIds.has(promotion.id)) {
+        assert.equal(
+          likelySlicedPackshotBase(silhouette),
+          false,
+          `${promotion.id}: generated repair still has a sliced lower seam`,
+        );
+      }
     }
   }
+});
+
+function candidatePromotion(bytes: Buffer): CatalogueIntakeAssetPromotion {
+  const contentHash = createHash('sha256').update(bytes).digest('hex');
+  const candidateId = 'private-candidate-test';
+  const blobPath = `catalogue-intake/${candidateId}/packshot-v1-${contentHash.slice(0, 12)}.png`;
+  return {
+    id: `${candidateId}-v1`,
+    active: true,
+    candidateId,
+    destination: 'private-staging',
+    sourceUrl: 'https://example.com/exact-source.png',
+    localPath: `data/catalogue-intake-assets/${candidateId}/packshot-v1.png`,
+    blobPath,
+    blobUrl: `https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/${blobPath}`,
+    contentType: 'image/png',
+    byteSize: bytes.length,
+    width: 1,
+    height: 1,
+    hasAlpha: true,
+    contentHash,
+  };
+}
+
+function remoteRead(
+  promotion: StagedProductAssetPromotion,
+  bytes: Buffer,
+  overrides: Partial<{
+    url: string;
+    pathname: string;
+    contentType: string;
+    size: number;
+  }> = {},
+) {
+  return {
+    statusCode: 200 as const,
+    stream: new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(bytes);
+        controller.close();
+      },
+    }),
+    blob: {
+      url: overrides.url ?? promotion.blobUrl,
+      pathname: overrides.pathname ?? promotion.blobPath,
+      contentType: overrides.contentType ?? promotion.contentType,
+      size: overrides.size ?? promotion.byteSize,
+    },
+  };
+}
+
+test('private candidate paths are non-public, versioned, and content-addressed', () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const promotion = candidatePromotion(bytes);
+  assert.deepEqual(assertStagedProductAssetPromotion(promotion), {
+    kind: 'catalogue-intake',
+    id: 'private-candidate-test',
+  });
+  assert.match(
+    resolveStagedProductAssetPath(promotion, '/repository'),
+    /\/repository\/data\/catalogue-intake-assets\/private-candidate-test\/packshot-v1\.png$/,
+  );
+
+  assert.throws(
+    () => assertStagedProductAssetPromotion({
+      ...promotion,
+      localPath: '/products/private-candidate-test/packshot-v1.png',
+    }),
+    /must stay outside public/,
+  );
+  assert.throws(
+    () => assertStagedProductAssetPromotion({
+      ...promotion,
+      blobPath: 'catalogue-intake/private-candidate-test/packshot-v1-deadbeefdead.png',
+      blobUrl: 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/catalogue-intake/private-candidate-test/packshot-v1-deadbeefdead.png',
+    }),
+    /matching hash prefix/,
+  );
+  assert.throws(
+    () => assertStagedProductAssetPromotion({
+      ...promotion,
+      productSlug: 'private-candidate-test',
+    } as unknown as StagedProductAssetPromotion),
+    /exactly one productSlug or candidateId/,
+  );
+});
+
+test('publication candidate paths stay private locally and bind brand, SKU and hash remotely', () => {
+  const bytes = Buffer.from('reviewed publication bytes');
+  const contentHash = createHash('sha256').update(bytes).digest('hex');
+  const candidateId = 'private-candidate-test';
+  const blobPath = `products/example/${candidateId}/packshot-v1-${contentHash.slice(0, 16)}.png`;
+  const promotion: CatalogueIntakeAssetPromotion = {
+    ...candidatePromotion(bytes),
+    destination: 'publication',
+    publicationBrandSlug: 'example',
+    blobPath,
+    blobUrl: `https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/${blobPath}`,
+  };
+
+  assert.deepEqual(assertStagedProductAssetPromotion(promotion), {
+    kind: 'catalogue-publication',
+    id: candidateId,
+    brandSlug: 'example',
+  });
+  assert.match(
+    resolveStagedProductAssetPath(promotion, '/repository'),
+    /\/repository\/data\/catalogue-intake-assets\/private-candidate-test\/packshot-v1\.png$/,
+  );
+  assert.throws(
+    () => assertStagedProductAssetPromotion({
+      ...promotion,
+      blobPath: `products/other/${candidateId}/packshot-v1-${contentHash.slice(0, 16)}.png`,
+      blobUrl: `https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/other/${candidateId}/packshot-v1-${contentHash.slice(0, 16)}.png`,
+    }),
+    /must bind the brand, candidate, version and content hash/,
+  );
+  assert.throws(
+    () => assertStagedProductAssetPromotion({
+      ...promotion,
+      blobPath: `products/example/${candidateId}/packshot-v1-deadbeefdeadbeef.png`,
+      blobUrl: `https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/example/${candidateId}/packshot-v1-deadbeefdeadbeef.png`,
+    }),
+    /must bind the brand, candidate, version and content hash/,
+  );
+});
+
+test('candidate promotions bind to the private intake source asset', async () => {
+  const candidateId = 'nivea-perfect-radiant-body-lotion-400ml';
+  const sourcePath = path.join(
+    process.cwd(),
+    'data/catalogue-intake-candidates',
+    `${candidateId}.json`,
+  );
+  const source = JSON.parse(await readFile(sourcePath, 'utf8')) as {
+    candidate: { asset: { sourceUrl: string } };
+  };
+  const bytes = Buffer.from('binding-only fixture');
+  const promotion = {
+    ...candidatePromotion(bytes),
+    id: `${candidateId}-v1`,
+    candidateId,
+    sourceUrl: source.candidate.asset.sourceUrl,
+    localPath: `data/catalogue-intake-assets/${candidateId}/packshot-v1.png`,
+  };
+  const contentHash = createHash('sha256').update(bytes).digest('hex');
+  promotion.blobPath = `catalogue-intake/${candidateId}/packshot-v1-${contentHash.slice(0, 12)}.png`;
+  promotion.blobUrl = `https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/${promotion.blobPath}`;
+
+  await verifyCatalogueIntakePromotionBinding(promotion);
+  await assert.rejects(
+    verifyCatalogueIntakePromotionBinding({
+      ...promotion,
+      sourceUrl: 'https://example.com/wrong-source.png',
+    }),
+    /source-asset binding is invalid/,
+  );
+
+  const publication = {
+    ...promotion,
+    destination: 'publication' as const,
+    publicationBrandSlug: 'nivea',
+    blobPath: `products/nivea/${candidateId}/packshot-v1-${contentHash.slice(0, 16)}.png`,
+    blobUrl: `https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nivea/${candidateId}/packshot-v1-${contentHash.slice(0, 16)}.png`,
+  };
+  await verifyCatalogueIntakePromotionBinding(publication);
+  await assert.rejects(
+    verifyCatalogueIntakePromotionBinding({
+      ...publication,
+      publicationBrandSlug: 'wrong-brand',
+      blobPath: `products/wrong-brand/${candidateId}/packshot-v1-${contentHash.slice(0, 16)}.png`,
+      blobUrl: `https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/wrong-brand/${candidateId}/packshot-v1-${contentHash.slice(0, 16)}.png`,
+    }),
+    /publication brand binding is invalid/,
+  );
+});
+
+test('an exact existing remote asset is verified and skipped without writing', async () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const promotion = candidatePromotion(bytes);
+  let putCalls = 0;
+  const client: StagedProductAssetBlobClient = {
+    get: async () => remoteRead(promotion, bytes, {
+      url: promotion.blobUrl.replace(
+        'm6aftkbqbwtkxooa.public',
+        'M6aftkBQBWTKxOoA.public',
+      ),
+    }),
+    put: async () => {
+      putCalls += 1;
+      throw new Error('put must not run');
+    },
+  };
+
+  assert.equal(
+    await promoteVerifiedStagedProductAsset(promotion, bytes, client),
+    'verified-existing',
+  );
+  assert.equal(putCalls, 0);
+});
+
+test('a new asset uses create-only upload options and is remotely verified', async () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const promotion = candidatePromotion(bytes);
+  let getCalls = 0;
+  let putCalls = 0;
+  const client: StagedProductAssetBlobClient = {
+    get: async () => {
+      getCalls += 1;
+      return getCalls === 1 ? null : remoteRead(promotion, bytes);
+    },
+    put: async (pathname, body, options) => {
+      putCalls += 1;
+      assert.equal(pathname, promotion.blobPath);
+      assert.deepEqual(body, bytes);
+      assert.deepEqual(options, {
+        access: 'public',
+        contentType: 'image/png',
+        addRandomSuffix: false,
+        allowOverwrite: false,
+        cacheControlMaxAge: 31_536_000,
+      });
+      return {
+        url: promotion.blobUrl,
+        pathname: promotion.blobPath,
+        contentType: promotion.contentType,
+      };
+    },
+  };
+
+  assert.equal(
+    await promoteVerifiedStagedProductAsset(promotion, bytes, client),
+    'uploaded',
+  );
+  assert.equal(putCalls, 1);
+  assert.equal(getCalls, 2);
+});
+
+test('a new asset tolerates bounded post-write visibility delay before verification', async () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const promotion = candidatePromotion(bytes);
+  let getCalls = 0;
+  const client: StagedProductAssetBlobClient = {
+    get: async () => {
+      getCalls += 1;
+      return getCalls < 4 ? null : remoteRead(promotion, bytes);
+    },
+    put: async () => ({
+      url: promotion.blobUrl,
+      pathname: promotion.blobPath,
+      contentType: promotion.contentType,
+    }),
+  };
+
+  assert.equal(
+    await promoteVerifiedStagedProductAsset(promotion, bytes, client, {
+      postWriteVerificationDelaysMs: [0, 0, 0],
+    }),
+    'uploaded',
+  );
+  assert.equal(getCalls, 4);
+});
+
+test('remote metadata or byte mismatches fail closed and never overwrite', async () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const promotion = candidatePromotion(bytes);
+  let putCalls = 0;
+  const metadataMismatch: StagedProductAssetBlobClient = {
+    get: async () => remoteRead(promotion, bytes, { contentType: 'image/jpeg' }),
+    put: async () => {
+      putCalls += 1;
+      throw new Error('put must not run');
+    },
+  };
+  await assert.rejects(
+    promoteVerifiedStagedProductAsset(promotion, bytes, metadataMismatch),
+    /remote Blob metadata does not match/,
+  );
+
+  const altered = Buffer.from(bytes);
+  altered[0] ^= 0xff;
+  const byteMismatch: StagedProductAssetBlobClient = {
+    get: async () => remoteRead(promotion, altered),
+    put: async () => {
+      putCalls += 1;
+      throw new Error('put must not run');
+    },
+  };
+  await assert.rejects(
+    promoteVerifiedStagedProductAsset(promotion, bytes, byteMismatch),
+    /remote Blob bytes do not match/,
+  );
+  assert.equal(putCalls, 0);
+});
+
+test('a concurrent create is idempotent only when the winning bytes verify', async () => {
+  const bytes = Buffer.from('reviewed candidate bytes');
+  const promotion = candidatePromotion(bytes);
+  let getCalls = 0;
+  const client: StagedProductAssetBlobClient = {
+    get: async () => {
+      getCalls += 1;
+      return getCalls === 1 ? null : remoteRead(promotion, bytes);
+    },
+    put: async () => {
+      throw new Error('another build created the immutable path');
+    },
+  };
+
+  assert.equal(
+    await promoteVerifiedStagedProductAsset(promotion, bytes, client),
+    'verified-existing',
+  );
+  assert.equal(getCalls, 2);
 });

@@ -2,7 +2,16 @@ import postgres from 'postgres';
 import { products as catalogue } from '../data/catalogue';
 import { isPublishedIntakeProduct } from '../data/published-intake-products';
 import productAssets from '../data/product-assets.json';
-import { ingredientSeeds, verifiedProductIngredients } from '../data/product-ingredients';
+import {
+  ingredientSeeds,
+  verifiedProductIngredients,
+} from '../data/product-ingredients';
+import {
+  catalogueSyncTimeouts,
+  parseCatalogueSeedScope,
+  selectCatalogueSeedProducts,
+  shouldRetireStaleCatalogueProducts,
+} from '../lib/catalogue/seed-sync-scope';
 import { priceAmountToStorageInteger } from '../lib/inventory/price-storage';
 
 type ProductAssetRecord = {
@@ -17,53 +26,77 @@ type ProductAssetRecord = {
 };
 
 async function main() {
-const connectionString = process.env.DATABASE_URL_UNPOOLED
-  ?? process.env.POSTGRES_URL_NON_POOLING
-  ?? process.env.DATABASE_URL
-  ?? process.env.POSTGRES_URL;
+  const connectionString =
+    process.env.DATABASE_URL_UNPOOLED ??
+    process.env.POSTGRES_URL_NON_POOLING ??
+    process.env.DATABASE_URL ??
+    process.env.POSTGRES_URL;
 
-if (!connectionString) {
-  throw new Error('A Neon connection string is required to seed the catalogue.');
-}
-
-const sql = postgres(connectionString, { max: 1, prepare: false });
-const slugify = (value: string) => value
-  .toLowerCase()
-  .normalize('NFKD')
-  .replace(/[\u0300-\u036f]/g, '')
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-|-$/g, '');
-
-const sourceHost = (value: string) => {
-  try {
-    return new URL(value).hostname.replace(/^www\./, '');
-  } catch {
-    return null;
+  if (!connectionString) {
+    throw new Error(
+      'A Neon connection string is required to seed the catalogue.',
+    );
   }
-};
-const observationDate = (value?: string) => {
-  const normalized = value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00Z` : value;
-  const parsed = normalized ? new Date(normalized) : new Date();
-  if (Number.isNaN(parsed.getTime())) throw new Error(`Invalid offer observation timestamp: ${value}`);
-  return parsed;
-};
-const ingredientBySlug = new Map(ingredientSeeds.map(ingredient => [ingredient.slug, ingredient]));
-const assetBySlug = productAssets as Record<string, ProductAssetRecord>;
 
-try {
-  await sql.begin(async tx => {
-    const publishedSlugs = catalogue.map(product => product.slug);
-    await tx`
-      update products
-      set is_published = false,
-          updated_at = now()
-      where is_published = true
-        and not (slug = any(${publishedSlugs}::text[]))
-    `;
+  const sql = postgres(connectionString, {
+    max: 1,
+    prepare: false,
+    connect_timeout: 10,
+    connection: { application_name: 'jelocare-catalogue-sync' },
+  });
+  const slugify = (value: string) =>
+    value
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
 
-    for (const product of catalogue) {
-      const brandSlug = slugify(product.brand);
-      const [brand] = await tx<{ id: string }[]>`
+  const sourceHost = (value: string) => {
+    try {
+      return new URL(value).hostname.replace(/^www\./, '');
+    } catch {
+      return null;
+    }
+  };
+  const observationDate = (value?: string) => {
+    const normalized =
+      value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00Z` : value;
+    const parsed = normalized ? new Date(normalized) : new Date();
+    if (Number.isNaN(parsed.getTime()))
+      throw new Error(`Invalid offer observation timestamp: ${value}`);
+    return parsed;
+  };
+  const ingredientBySlug = new Map(
+    ingredientSeeds.map((ingredient) => [ingredient.slug, ingredient]),
+  );
+  const assetBySlug = productAssets as Record<string, ProductAssetRecord>;
+  const scope = parseCatalogueSeedScope(process.argv.slice(2));
+  const selectedCatalogue = selectCatalogueSeedProducts(catalogue, scope);
+  const timeouts = catalogueSyncTimeouts({
+    CATALOGUE_SYNC_LOCK_TIMEOUT_MS: process.env.CATALOGUE_SYNC_LOCK_TIMEOUT_MS,
+    CATALOGUE_SYNC_STATEMENT_TIMEOUT_MS:
+      process.env.CATALOGUE_SYNC_STATEMENT_TIMEOUT_MS,
+  });
+
+  const configureSyncTransaction = async (tx: postgres.TransactionSql) => {
+    await tx`select set_config('lock_timeout', ${`${timeouts.lockTimeoutMs}ms`}, true)`;
+    await tx`select set_config('statement_timeout', ${`${timeouts.statementTimeoutMs}ms`}, true)`;
+  };
+
+  try {
+    console.log(
+      `Synchronizing ${selectedCatalogue.length} reviewed public product${selectedCatalogue.length === 1 ? '' : 's'}${scope.isScoped ? ' (scoped)' : ''}.`,
+    );
+    for (const [productIndex, product] of selectedCatalogue.entries()) {
+      const startedAt = Date.now();
+      console.log(
+        `[${productIndex + 1}/${selectedCatalogue.length}] ${product.slug}`,
+      );
+      await sql.begin(async (tx) => {
+        await configureSyncTransaction(tx);
+        const brandSlug = slugify(product.brand);
+        const [brand] = await tx<{ id: string }[]>`
         insert into brands (slug, name)
         values (${brandSlug}, ${product.brand})
         on conflict (slug) do update set
@@ -72,14 +105,16 @@ try {
         returning id
       `;
 
-      const productAsset = assetBySlug[product.slug];
-      const imageUrl = productAsset?.blobUrl ?? product.image;
-      const imageSourceUrl = productAsset?.sourceUrl
-        ?? (product.image.includes('vercel-storage.com') ? null : product.image);
-      const isPlaceholder = imageUrl.startsWith('/product-fallback')
-        || imageUrl.startsWith('/product-placeholder');
+        const productAsset = assetBySlug[product.slug];
+        const imageUrl = productAsset?.blobUrl ?? product.image;
+        const imageSourceUrl =
+          productAsset?.sourceUrl ??
+          (product.image.includes('vercel-storage.com') ? null : product.image);
+        const isPlaceholder =
+          imageUrl.startsWith('/product-fallback') ||
+          imageUrl.startsWith('/product-placeholder');
 
-      const [savedProduct] = await tx<{ id: string }[]>`
+        const [savedProduct] = await tx<{ id: string }[]>`
         insert into products (
           brand_id, slug, name, size, category, routine_step, display_line,
           usage, evidence, sensitive_friendly, is_published, source_version
@@ -105,14 +140,14 @@ try {
         returning id
       `;
 
-      await tx`delete from product_skin_types where product_id = ${savedProduct.id}`;
-      await tx`delete from product_best_for where product_id = ${savedProduct.id}`;
-      await tx`delete from product_concerns where product_id = ${savedProduct.id}`;
+        await tx`delete from product_skin_types where product_id = ${savedProduct.id}`;
+        await tx`delete from product_best_for where product_id = ${savedProduct.id}`;
+        await tx`delete from product_concerns where product_id = ${savedProduct.id}`;
 
-      // Keep offer ids stable so historical prices remain attached. Curated
-      // imports that disappear from the static set become hidden search routes;
-      // retailer-page and API observations are left untouched.
-      await tx`
+        // Keep offer ids stable so historical prices remain attached. Curated
+        // imports that disappear from the static set become hidden search routes;
+        // retailer-page and API observations are left untouched.
+        await tx`
         update offers
         set
           available = false,
@@ -124,45 +159,45 @@ try {
           and verification_method = 'import'
       `;
 
-      for (const skinType of product.skinTypes) {
-        await tx`
+        for (const skinType of product.skinTypes) {
+          await tx`
           insert into product_skin_types (product_id, skin_type)
           values (${savedProduct.id}, ${skinType})
           on conflict do nothing
         `;
-      }
+        }
 
-      for (const [priority, label] of product.bestFor.entries()) {
-        await tx`
+        for (const [priority, label] of product.bestFor.entries()) {
+          await tx`
           insert into product_best_for (product_id, label, priority)
           values (${savedProduct.id}, ${label}, ${priority})
           on conflict (product_id, label) do update set priority = excluded.priority
         `;
-      }
+        }
 
-      for (const [priority, concernName] of product.concerns.entries()) {
-        const concernSlug = slugify(concernName);
-        const [concern] = await tx<{ id: string }[]>`
+        for (const [priority, concernName] of product.concerns.entries()) {
+          const concernSlug = slugify(concernName);
+          const [concern] = await tx<{ id: string }[]>`
           insert into concerns (slug, name)
           values (${concernSlug}, ${concernName})
           on conflict (slug) do update set name = excluded.name
           returning id
         `;
 
-        await tx`
+          await tx`
           insert into product_concerns (product_id, concern_id, priority)
           values (${savedProduct.id}, ${concern.id}, ${priority})
           on conflict (product_id, concern_id) do update set priority = excluded.priority
         `;
-      }
+        }
 
-      const imageStatus = isPlaceholder
-        ? 'failed'
-        : imageUrl.includes('vercel-storage.com')
-          ? 'verified'
-          : 'pending';
+        const imageStatus = isPlaceholder
+          ? 'failed'
+          : imageUrl.includes('vercel-storage.com')
+            ? 'verified'
+            : 'pending';
 
-      await tx`
+        await tx`
         insert into product_images (
           product_id, kind, blob_url, source_url, source_host, alt_text,
           mime_type, width, height, byte_size, has_alpha, content_hash,
@@ -226,11 +261,18 @@ try {
           updated_at = now()
       `;
 
-      for (const productIngredient of verifiedProductIngredients[product.slug] ?? []) {
-        const ingredient = ingredientBySlug.get(productIngredient.ingredientSlug);
-        if (!ingredient) throw new Error(`Missing ingredient seed for ${productIngredient.ingredientSlug}.`);
+        for (const productIngredient of verifiedProductIngredients[
+          product.slug
+        ] ?? []) {
+          const ingredient = ingredientBySlug.get(
+            productIngredient.ingredientSlug,
+          );
+          if (!ingredient)
+            throw new Error(
+              `Missing ingredient seed for ${productIngredient.ingredientSlug}.`,
+            );
 
-        const [savedIngredient] = await tx<{ id: string }[]>`
+          const [savedIngredient] = await tx<{ id: string }[]>`
           insert into ingredients (
             slug, inci_name, display_name, common_name, summary, evidence_grade,
             sensitive_skin_status, pharmacist_reviewed
@@ -250,7 +292,7 @@ try {
           returning id
         `;
 
-        await tx`
+          await tx`
           insert into product_ingredients (
             product_id, ingredient_id, concentration_text, is_key, position,
             concentration_percent, is_active, source, source_url, verified_at
@@ -272,11 +314,11 @@ try {
             verified_at = excluded.verified_at,
             updated_at = now()
         `;
-      }
+        }
 
-      for (const offer of product.offers) {
-        const retailerSlug = slugify(offer.retailer);
-        const [retailer] = await tx<{ id: string }[]>`
+        for (const offer of product.offers) {
+          const retailerSlug = slugify(offer.retailer);
+          const [retailer] = await tx<{ id: string }[]>`
           insert into retailers (slug, name, trust_score)
           values (${retailerSlug}, ${offer.retailer}, ${offer.trust})
           on conflict (slug) do update set
@@ -285,31 +327,39 @@ try {
           returning id
         `;
 
-        for (const market of offer.location) {
-          const inventoryStatus = offer.available ? 'in_stock' : 'out_of_stock';
-          const priceMinor = market === 'NG' && offer.priceNgn != null
-            ? priceAmountToStorageInteger(offer.priceNgn, 'NGN')
-            : market === 'US' && offer.priceUsd != null
-              ? priceAmountToStorageInteger(offer.priceUsd, 'USD')
-              : null;
-          const currencyCode = market === 'NG' && offer.priceNgn != null
-            ? 'NGN'
-            : market === 'US' && offer.priceUsd != null
-              ? 'USD'
-              : null;
-          const checkedAt = observationDate(offer.checkedAt);
-          const lastVerifiedAt = observationDate(offer.listingEvidence?.observedAt ?? offer.checkedAt);
-          const verificationMethod = offer.listingEvidence?.basis === 'retailer-api'
-            ? 'api'
-            : offer.listingEvidence?.basis === 'retailer-page'
-              ? 'retailer_page'
-              : 'import';
-          const verificationNote = verificationMethod === 'api'
-            ? 'Seeded from a dated retailer API observation.'
-            : verificationMethod === 'retailer_page'
-              ? 'Seeded from a dated retailer-page observation.'
-              : 'Seeded from the curated catalogue.';
-          const [savedOffer] = await tx<{ id: string }[]>`
+          for (const market of offer.location) {
+            const inventoryStatus = offer.available
+              ? 'in_stock'
+              : 'out_of_stock';
+            const priceMinor =
+              market === 'NG' && offer.priceNgn != null
+                ? priceAmountToStorageInteger(offer.priceNgn, 'NGN')
+                : market === 'US' && offer.priceUsd != null
+                  ? priceAmountToStorageInteger(offer.priceUsd, 'USD')
+                  : null;
+            const currencyCode =
+              market === 'NG' && offer.priceNgn != null
+                ? 'NGN'
+                : market === 'US' && offer.priceUsd != null
+                  ? 'USD'
+                  : null;
+            const checkedAt = observationDate(offer.checkedAt);
+            const lastVerifiedAt = observationDate(
+              offer.listingEvidence?.observedAt ?? offer.checkedAt,
+            );
+            const verificationMethod =
+              offer.listingEvidence?.basis === 'retailer-api'
+                ? 'api'
+                : offer.listingEvidence?.basis === 'retailer-page'
+                  ? 'retailer_page'
+                  : 'import';
+            const verificationNote =
+              verificationMethod === 'api'
+                ? 'Seeded from a dated retailer API observation.'
+                : verificationMethod === 'retailer_page'
+                  ? 'Seeded from a dated retailer-page observation.'
+                  : 'Seeded from the curated catalogue.';
+            const [savedOffer] = await tx<{ id: string }[]>`
             insert into offers (
               product_id, retailer_id, url, market_code, available,
               price_minor, currency_code, checked_at, inventory_status,
@@ -351,8 +401,8 @@ try {
             returning id
           `;
 
-          if (priceMinor != null && currencyCode) {
-            await tx`
+            if (priceMinor != null && currencyCode) {
+              await tx`
               insert into offer_price_history (
                 offer_id, price_minor, currency_code, observed_at, source
               ) values (
@@ -360,19 +410,45 @@ try {
               )
               on conflict do nothing
             `;
+            }
           }
         }
-      }
+      });
+      console.log(
+        `[${productIndex + 1}/${selectedCatalogue.length}] committed in ${Date.now() - startedAt}ms`,
+      );
     }
-  });
 
-  console.log(`Seeded ${catalogue.length} products into Neon.`);
-} finally {
-  await sql.end();
-}
+    // Scoped repairs must never alter the visibility of another product. Full
+    // synchronizations retire stale static rows only after every reviewed row
+    // was committed successfully, so an interrupted run cannot unpublish a
+    // healthy catalogue.
+    if (shouldRetireStaleCatalogueProducts(scope)) {
+      const publishedSlugs = catalogue.map((product) => product.slug);
+      await sql.begin(async (tx) => {
+        await configureSyncTransaction(tx);
+        await tx`
+        update products
+        set is_published = false,
+            updated_at = now()
+        where is_published = true
+          and not (slug = any(${publishedSlugs}::text[]))
+      `;
+      });
+      console.log(
+        'Retired stale reviewed catalogue rows after the successful full sync.',
+      );
+    }
+
+    console.log(
+      `Synchronized ${selectedCatalogue.length} reviewed public product${selectedCatalogue.length === 1 ? '' : 's'} into Neon.`,
+    );
+  } finally {
+    await sql.end();
+  }
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
