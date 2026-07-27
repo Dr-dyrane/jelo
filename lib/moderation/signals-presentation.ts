@@ -37,6 +37,7 @@ export type CommerceSignalView = {
   recentVisits: {
     id: string;
     productTitle: string;
+    image: string | null;
     retailer: string;
     marketLabel: string;
     priceNgn: number | null;
@@ -227,6 +228,7 @@ export function commerceSignalView(
       return {
         id: item.id,
         productTitle: product ? `${product.brand} ${product.name}` : fallbackProductTitle(item.productSlug),
+        image: product?.image ?? null,
         retailer: item.retailer,
         marketLabel: item.market === 'NG' ? 'Nigeria' : 'United States',
         priceNgn: item.priceNgn,

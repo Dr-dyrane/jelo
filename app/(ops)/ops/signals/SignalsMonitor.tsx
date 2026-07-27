@@ -1,4 +1,6 @@
+import { Package } from 'lucide-react';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
+import { OpsRecordVisual } from '@/components/ops/visuals/OpsRecordVisual';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { money } from '@/lib/format/money';
 import type {
@@ -7,43 +9,38 @@ import type {
 } from '@/lib/moderation/signals-presentation';
 import styles from './signals.module.css';
 
-const countFormatter = new Intl.NumberFormat('en-NG');
-const percentFormatter = new Intl.NumberFormat('en-NG', {
+const number = new Intl.NumberFormat('en-NG');
+const percent = new Intl.NumberFormat('en-NG', {
   style: 'percent',
   maximumFractionDigits: 0,
 });
 
 function countLabel(count: number, singular: string, plural = `${singular}s`) {
-  return `${countFormatter.format(count)} ${count === 1 ? singular : plural}`;
+  return `${number.format(count)} ${count === 1 ? singular : plural}`;
 }
 
-// A share is never rounded down to 0% while real visits exist, and never up to
-// 100% while some visit chose another option.
+// Keep a real non-zero share visible without rounding a partial share to 100%.
 function shareLabel(share: number) {
   if (share > 0 && share < 0.01) return 'under 1%';
   if (share > 0.99 && share < 1) return 'over 99%';
-  return percentFormatter.format(share);
+  return percent.format(share);
 }
 
-function trendLabel(current: number, previous: number) {
-  const change = current - previous;
-  if (change === 0) return 'Unchanged from the previous 7 days';
-  const direction = change > 0 ? 'more than' : 'fewer than';
-  return `${countFormatter.format(Math.abs(change))} ${direction} the previous 7 days`;
+function differenceLabel(
+  current: number,
+  previous: number,
+  noun: string,
+) {
+  const difference = current - previous;
+  if (difference === 0) return `Same ${noun} count as the previous 7 days`;
+  const measuredNoun = Math.abs(difference) === 1 ? noun : `${noun}s`;
+  return `${number.format(Math.abs(difference))} ${difference > 0 ? 'more' : 'fewer'} ${measuredNoun} than the previous 7 days`;
 }
 
-function activityTrend(current: number, previous: number, singular: string) {
-  const change = current - previous;
-  const noun = Math.abs(change) === 1 ? singular : `${singular}s`;
-  if (change === 0) return `${singular[0]?.toUpperCase()}${singular.slice(1)}s unchanged`;
-  return `${countFormatter.format(Math.abs(change))} ${change > 0 ? 'more' : 'fewer'} ${noun} than the previous 7 days`;
-}
-
-function dateRange(asOf: string, startDaysAgo: number, endDaysAgo: number) {
+function periodLabel(asOf: string, days: number) {
   const end = new Date(asOf);
   const start = new Date(asOf);
-  start.setUTCDate(start.getUTCDate() - startDaysAgo);
-  end.setUTCDate(end.getUTCDate() - endDaysAgo);
+  start.setUTCDate(start.getUTCDate() - days);
   const formatter = new Intl.DateTimeFormat('en-NG', {
     day: 'numeric',
     month: 'short',
@@ -60,231 +57,246 @@ export function SignalsMonitor({
   commerce: CommerceSignalView;
   contributions: ContributionSignalView;
 }) {
+  const recentHandoffs = commerce.recentVisits.slice(0, 8);
+
   return (
-    <div className={styles.monitor}>
-      <section className={styles.summary} aria-labelledby="contributions-heading">
-        <div>
+    <div className={styles.surface}>
+      <section
+        className={styles.featureRail}
+        aria-label="Recent signal summary"
+        tabIndex={0}
+      >
+        <article className={styles.feature}>
           <span className={styles.eyebrow}>Last 7 days</span>
-          <h2 id="contributions-heading">Contributions</h2>
-          <div className={styles.heroMetrics}>
-            <span className={styles.heroMetric}>
-              <strong className={styles.total}>{countFormatter.format(contributions.last7DaysCompletions)}</strong>
-              <span>completed</span>
+          <h2>Contribution activity</h2>
+          <div className={styles.featureMeasures}>
+            <span>
+              <strong>{number.format(contributions.last7DaysCompletions)}</strong>
+              <small>submitted</small>
             </span>
-            <span className={styles.heroMetric}>
-              <strong>{countFormatter.format(contributions.last7DaysStarts)}</strong>
-              <span>started</span>
+            <span>
+              <strong>{number.format(contributions.last7DaysStarts)}</strong>
+              <small>started</small>
             </span>
           </div>
-        </div>
-        <div className={styles.comparison}>
-          <span>{dateRange(contributions.asOf, 7, 0)}</span>
-          <strong>
-            {activityTrend(
+          <p>
+            {differenceLabel(
               contributions.last7DaysCompletions,
               contributions.previous7DaysCompletions,
-              'completion',
+              'submission',
             )}
-          </strong>
-          <span>
-            {activityTrend(
-              contributions.last7DaysStarts,
-              contributions.previous7DaysStarts,
-              'start',
+          </p>
+          <footer>
+            <span>{periodLabel(contributions.asOf, 7)}</span>
+            {contributions.lastCompletedAt ? (
+              <span>Latest <RelativeTime iso={contributions.lastCompletedAt} /></span>
+            ) : (
+              <span>No submissions yet</span>
             )}
-          </span>
-          {contributions.lastCompletedAt ? (
-            <span>Last completed <RelativeTime iso={contributions.lastCompletedAt} /></span>
-          ) : null}
-        </div>
+          </footer>
+        </article>
+
+        <article className={styles.feature}>
+          <span className={styles.eyebrow}>Last 7 days</span>
+          <h2>Store links</h2>
+          <div className={styles.featureMeasures}>
+            <span>
+              <strong>{number.format(commerce.last7DaysCount)}</strong>
+              <small>opened</small>
+            </span>
+          </div>
+          <p>
+            {differenceLabel(
+              commerce.last7DaysCount,
+              commerce.previous7DaysCount,
+              'open',
+            )}
+          </p>
+          <footer>
+            <span>{periodLabel(commerce.asOf, 7)}</span>
+            {commerce.lastRecordedAt ? (
+              <span>Latest <RelativeTime iso={commerce.lastRecordedAt} /></span>
+            ) : (
+              <span>No link opened</span>
+            )}
+          </footer>
+        </article>
       </section>
 
       <section className={styles.section} aria-labelledby="sources-heading">
         <header className={styles.sectionHeading}>
-          <div>
-            <h2 id="sources-heading">How people found us</h2>
-            <p>Share skincare starts and completions by source.</p>
-          </div>
-          <span>{countLabel(contributions.last30DaysCompletions, 'completion')} · last 30 days</span>
+          <h2 id="sources-heading">Leading sources</h2>
+          <span>
+            Last 30 days · {countLabel(contributions.last30DaysStarts, 'start')} ·{' '}
+            {countLabel(contributions.last30DaysCompletions, 'submission')}
+          </span>
         </header>
         {contributions.campaigns.length > 0 ? (
-          <ol className={styles.campaignList}>
+          <ol className={styles.sourceList}>
             {contributions.campaigns.map(campaign => (
               <li key={campaign.key}>
-                <span className={styles.campaignCopy}>
+                <span className={styles.rowCopy}>
                   <strong>{campaign.sourceLabel}</strong>
                   {campaign.detailLabel ? <span>{campaign.detailLabel}</span> : null}
                 </span>
-                <span className={styles.campaignMeasure}>
-                  <strong>{countFormatter.format(campaign.starts)}</strong>
-                  <span>started</span>
+                <span className={styles.rowMeasure}>
+                  <strong>{number.format(campaign.starts)}</strong>
+                  <small>started</small>
                 </span>
-                <span className={styles.campaignMeasure}>
-                  <strong>{countFormatter.format(campaign.completions)}</strong>
-                  <span>completed</span>
+                <span className={styles.rowMeasure}>
+                  <strong>{number.format(campaign.completions)}</strong>
+                  <small>submitted</small>
                 </span>
-                {campaign.lastActivityAt ? <RelativeTime iso={campaign.lastActivityAt} /> : null}
+                {campaign.lastActivityAt ? (
+                  <RelativeTime iso={campaign.lastActivityAt} />
+                ) : null}
               </li>
             ))}
           </ol>
         ) : (
-          <p className={styles.noData}>No tracked form starts yet.</p>
+          <p className={styles.empty}>No contribution activity in the last 30 days.</p>
         )}
       </section>
 
-      <section className={styles.summary} aria-labelledby="store-visits-heading">
-        <div>
-          <span className={styles.eyebrow}>Last 7 days</span>
-          <h2 id="store-visits-heading">Store visits</h2>
-          <strong className={styles.total}>{countFormatter.format(commerce.last7DaysCount)}</strong>
-        </div>
-        <div className={styles.comparison}>
-          <span>{dateRange(commerce.asOf, 7, 0)}</span>
-          <strong>{trendLabel(commerce.last7DaysCount, commerce.previous7DaysCount)}</strong>
-          <span>{countLabel(commerce.previous7DaysCount, 'visit')} in that period</span>
-          {commerce.lastRecordedAt ? (
-            <span>Last recorded <RelativeTime iso={commerce.lastRecordedAt} /></span>
-          ) : null}
-        </div>
-      </section>
-
-      <section className={styles.section} aria-labelledby="price-choices-heading">
+      <section className={styles.section} aria-labelledby="position-heading">
         <header className={styles.sectionHeading}>
-          <div>
-            <h2 id="price-choices-heading">Price choices</h2>
-            <p>Which presented offer people chose before leaving JeloCare.</p>
-          </div>
-          <span>{countLabel(commerce.last30DaysCount, 'visit')} · last 30 days</span>
+          <h2 id="position-heading">Price choices</h2>
+          <span>
+            Last 30 days · {countLabel(commerce.last30DaysCount, 'open')}
+          </span>
         </header>
         {commerce.last30DaysCount > 0 ? (
-          <div className={styles.choiceList}>
+          <div className={styles.positionGrid}>
             {commerce.priceChoices.map(choice => (
-              <div className={styles.choiceRow} key={choice.choice}>
-                <div className={styles.choiceCopy}>
+              <div className={styles.position} key={choice.choice}>
+                <span className={styles.positionCopy}>
                   <span>{choice.label}</span>
-                  <span>
-                    {countFormatter.format(choice.count)} · {shareLabel(choice.share)}
-                  </span>
-                </div>
+                  <strong>
+                    {number.format(choice.count)} · {shareLabel(choice.share)}
+                  </strong>
+                </span>
                 <progress
                   max={commerce.last30DaysCount}
                   value={choice.count}
-                  aria-label={`${choice.label}: ${choice.count} of ${commerce.last30DaysCount} visits`}
+                  aria-label={`${choice.label}: ${choice.count} of ${commerce.last30DaysCount} store-link opens`}
                 />
               </div>
             ))}
           </div>
         ) : (
-          <p className={styles.noData}>No store visits in the last 30 days.</p>
+          <p className={styles.empty}>No store links opened in the last 30 days.</p>
         )}
       </section>
 
       <div className={styles.rankedColumns}>
         <section className={styles.section} aria-labelledby="products-heading">
           <header className={styles.sectionHeading}>
-            <div>
-              <h2 id="products-heading">Most visited products</h2>
-              <p>Store visits by product over the last 30 days.</p>
-            </div>
+            <h2 id="products-heading">Most-opened products</h2>
+            <span>Last 30 days</span>
           </header>
           {commerce.topProducts.length > 0 ? (
             <ol className={styles.productList}>
-              {commerce.topProducts.map((product, index) => (
+              {commerce.topProducts.map(product => (
                 <li key={product.slug}>
-                  <span className={styles.rank}>{index + 1}</span>
-                  <span className={styles.productImage}>
+                  <span className={styles.productStage}>
                     {product.image ? (
-                      <SafeProductImage src={product.image} alt="" className={styles.productImageAsset} />
+                      <SafeProductImage
+                        src={product.image}
+                        alt=""
+                        className={styles.productImage}
+                      />
                     ) : null}
                   </span>
-                  <span className={styles.rankedCopy}>
+                  <span className={styles.rowCopy}>
                     <strong>{product.title}</strong>
                     <span>
                       {product.detail ? `${product.detail} · ` : ''}
                       {countLabel(product.storeCount, 'store')}
                     </span>
                   </span>
-                  <span className={styles.rankedValue}>
-                    <strong>{countFormatter.format(product.visitCount)}</strong>
-                    <span>{product.visitCount === 1 ? 'visit' : 'visits'}</span>
+                  <span className={styles.rowMeasure}>
+                    <strong>{number.format(product.visitCount)}</strong>
+                    <small>{product.visitCount === 1 ? 'open' : 'opens'}</small>
                   </span>
                 </li>
               ))}
             </ol>
           ) : (
-            <p className={styles.noData}>No product visits in this period.</p>
+            <p className={styles.empty}>No product links opened in this period.</p>
           )}
         </section>
 
         <section className={styles.section} aria-labelledby="stores-heading">
           <header className={styles.sectionHeading}>
-            <div>
-              <h2 id="stores-heading">Most visited stores</h2>
-              <p>Outbound visits by store over the last 30 days.</p>
-            </div>
+            <h2 id="stores-heading">Most-opened stores</h2>
+            <span>Last 30 days</span>
           </header>
           {commerce.topRetailers.length > 0 ? (
             <ol className={styles.storeList}>
-              {commerce.topRetailers.map((retailer, index) => (
+              {commerce.topRetailers.map(retailer => (
                 <li key={retailer.retailer}>
-                  <span className={styles.rank}>{index + 1}</span>
-                  <span className={styles.rankedCopy}>
+                  <span className={styles.rowCopy}>
                     <strong>{retailer.retailer}</strong>
                     <span>{countLabel(retailer.productCount, 'product')}</span>
                   </span>
-                  <span className={styles.rankedValue}>
-                    <strong>{countFormatter.format(retailer.visitCount)}</strong>
-                    <span>{retailer.visitCount === 1 ? 'visit' : 'visits'}</span>
+                  <span className={styles.rowMeasure}>
+                    <strong>{number.format(retailer.visitCount)}</strong>
+                    <small>{retailer.visitCount === 1 ? 'open' : 'opens'}</small>
                   </span>
                 </li>
               ))}
             </ol>
           ) : (
-            <p className={styles.noData}>No store visits in this period.</p>
+            <p className={styles.empty}>No store links opened in this period.</p>
           )}
         </section>
       </div>
 
-      <section className={styles.section} aria-labelledby="recent-visits-heading">
+      <section className={styles.section} aria-labelledby="recent-heading">
         <header className={styles.sectionHeading}>
-          <div>
-            <h2 id="recent-visits-heading">Recent store visits</h2>
-            <p>The latest recorded handoffs from JeloCare to a store.</p>
-          </div>
-          <span>Latest {commerce.recentVisits.length}</span>
+          <h2 id="recent-heading">Recent store links</h2>
+          <span>Latest {recentHandoffs.length}</span>
         </header>
-        <ol className={styles.recentList}>
-          {commerce.recentVisits.map(visit => (
-            <li key={visit.id}>
-              <span className={styles.recentCopy}>
-                <strong>{visit.productTitle}</strong>
-                <span>
-                  {visit.retailer} · {visit.priceChoiceLabel} · {visit.positionLabel}
+        {recentHandoffs.length > 0 ? (
+          <ol className={styles.recentList}>
+            {recentHandoffs.map(handoff => (
+              <li key={handoff.id}>
+                <OpsRecordVisual
+                  image={handoff.image}
+                  className={styles.productStage}
+                  imageClassName={styles.productImage}
+                  fallback={<Package size={19} strokeWidth={1.65} />}
+                />
+                <span className={styles.rowCopy}>
+                  <strong>{handoff.productTitle}</strong>
+                  <span>
+                    {handoff.retailer} · {handoff.priceChoiceLabel} · {handoff.positionLabel}
+                  </span>
+                  <small>
+                    {handoff.marketLabel}
+                    {handoff.priceNgn != null ? ` · ${money(handoff.priceNgn)}` : ''}
+                    {handoff.freshnessLabel ? ` · ${handoff.freshnessLabel}` : ''}
+                  </small>
                 </span>
-                <small>
-                  {visit.marketLabel}
-                  {visit.priceNgn != null ? ` · ${money(visit.priceNgn)}` : ''}
-                  {visit.freshnessLabel ? ` · ${visit.freshnessLabel}` : ''}
-                </small>
-              </span>
-              <RelativeTime iso={visit.createdAt} />
-            </li>
-          ))}
-        </ol>
+                <RelativeTime iso={handoff.createdAt} />
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className={styles.empty}>No store links opened yet.</p>
+        )}
       </section>
 
-      <details className={styles.measureDisclosure}>
-        <summary>About these numbers</summary>
+      <footer className={styles.boundary}>
         <p>
-          A start is recorded after someone answers the first prompt. A completion is a submitted
-          contribution. Earlier submissions may not have a source.
+          Starts follow the first answer. Submitted means the note reached
+          JeloCare. Earlier notes may not include a source.
         </p>
         <p>
-          Store visits are anonymous, read-only measurements from outbound store links.
-          Campaign sources are never joined to skincare answers. Neither measure influences
-          store ranking, guidance, or safety.
+          Store-link opens are anonymous. Sources are never joined to skincare
+          answers or used to change store order, guidance, or safety.
         </p>
-      </details>
+      </footer>
     </div>
   );
 }

@@ -108,6 +108,7 @@ test('Signals preserves zero choice categories and names the denominator share',
 test('Signals projects catalogue labels and bounded visit context', () => {
   const view = commerceSignalView(monitor, products);
   assert.equal(view.topProducts[0]?.title, 'Jelo Glow Wash');
+  assert.equal(view.recentVisits[0]?.image, '/glow-wash.png');
   assert.equal(view.recentVisits[0]?.marketLabel, 'Nigeria');
   assert.equal(view.recentVisits[0]?.priceChoiceLabel, 'Lowest-priced option');
   assert.equal(view.recentVisits[0]?.positionLabel, 'Shown 2nd');
