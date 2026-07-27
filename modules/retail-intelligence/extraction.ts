@@ -64,6 +64,8 @@ function decodeHtml(value: string) {
     .replace(/&amp;/gi, '&')
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
+    .replace(/&#x([0-9a-f]+);/gi, (_, value: string) => String.fromCodePoint(Number.parseInt(value, 16)))
+    .replace(/&#(\d+);/g, (_, value: string) => String.fromCodePoint(Number.parseInt(value, 10)))
     .trim();
 }
 
@@ -74,6 +76,15 @@ function stripTags(value: string) {
 function sizeText(value: string) {
   const matches = stripTags(value).match(PRODUCT_SIZE_PATTERN);
   return matches?.map(match => match.replace(/\s+/g, ' ').trim()).join(' / ');
+}
+
+function singleSizeText(value?: string) {
+  if (!value) return undefined;
+  const matches = stripTags(value).match(PRODUCT_SIZE_PATTERN)
+    ?.map(match => match.replace(/\s+/g, ' ').trim());
+  if (!matches?.length) return undefined;
+  const uniqueMatches = new Set(matches.map(match => match.toLowerCase()));
+  return uniqueMatches.size === 1 ? matches[0] : undefined;
 }
 
 function quantitativeSize(value: unknown): string | undefined {
@@ -239,6 +250,26 @@ function productStockMarker(html: string): InventoryStatus {
   return 'unknown';
 }
 
+function woocommerceProductPrice(html: string, defaultCurrency?: string) {
+  const title = html.match(/<h1\b[^>]*class\s*=\s*(["'])[^"']*\bproduct_title\b[^"']*\1[^>]*>[\s\S]*?<\/h1>/i);
+  if (title?.index == null) return { priceMinor: null, currencyCode: null };
+  const productSummary = html.slice(title.index + title[0].length, title.index + title[0].length + 20_000);
+  const price = productSummary.match(/<p\b[^>]*class\s*=\s*(["'])[^"']*\bprice\b[^"']*\1[^>]*>([\s\S]*?)<\/p>/i)?.[2];
+  if (!price) return { priceMinor: null, currencyCode: null };
+
+  const currentPrice = price.match(/<ins\b[^>]*>([\s\S]*?)<\/ins>/i)?.[1] ?? price;
+  const amountTexts = Array.from(currentPrice.matchAll(/<bdi\b[^>]*>([\s\S]*?)<\/bdi>/gi))
+    .map(match => stripTags(match[1]))
+    .filter(Boolean);
+  if (amountTexts.length > 1) return { priceMinor: null, currencyCode: null };
+  const priceText = amountTexts[0] ?? stripTags(currentPrice);
+  const currencyCode = normalizeCurrency(
+    priceText.includes('₦') || /(?:^|\s)NG(?:\s|$)/i.test(priceText) ? 'NGN' : undefined,
+    defaultCurrency,
+  );
+  return { priceMinor: normalizePrice(priceText, currencyCode), currencyCode };
+}
+
 function productTitle(html: string, product?: JsonObject) {
   if (typeof product?.name === 'string' && product.name.trim()) return stripTags(product.name);
   const metaTitle = metaContent(html, ['og:title']);
@@ -268,6 +299,13 @@ function extractDocument(input: { url: URL; html: string }, config?: ExtractionC
     if (priceMinor != null) evidence.push('Product price metadata');
   }
 
+  if (priceMinor == null && config?.platform === 'woocommerce') {
+    const wooCommercePrice = woocommerceProductPrice(input.html, config.defaultCurrency);
+    priceMinor = wooCommercePrice.priceMinor;
+    currencyCode = wooCommercePrice.currencyCode;
+    if (priceMinor != null) evidence.push('WooCommerce product price');
+  }
+
   if (inventoryStatus === 'unknown' && config?.platform === 'woocommerce') {
     inventoryStatus = productStockMarker(input.html);
     if (inventoryStatus !== 'unknown') evidence.push('WooCommerce product stock marker');
@@ -278,14 +316,23 @@ function extractDocument(input: { url: URL; html: string }, config?: ExtractionC
   const structuredSize = explicitStructuredProductSize(structured?.product);
   const titleSize = title ? sizeText(title) : undefined;
   const netWeight = semanticallyNetProductWeight(structured?.product);
-  const observedSize = structuredSize ?? titleSize ?? netWeight;
+  const imageAltSize = singleSizeText(metaContent(input.html, ['og:image:alt']));
+  const descriptionSize = singleSizeText(metaContent(input.html, ['description']));
+  const routeSize = singleSizeText(decodeURIComponent(input.url.pathname).replace(/[-_]+/g, ' '));
+  const observedSize = structuredSize ?? titleSize ?? netWeight ?? imageAltSize ?? descriptionSize ?? routeSize;
   const observedSizeEvidence = structuredSize
     ? 'JSON-LD Product size'
     : titleSize
       ? 'Product title size'
       : netWeight
         ? 'JSON-LD Product size'
-        : undefined;
+        : imageAltSize
+          ? 'Open Graph product image size'
+          : descriptionSize
+            ? 'Product description size'
+            : routeSize
+              ? 'Product route size'
+              : undefined;
   if (observedSizeEvidence) evidence.push(observedSizeEvidence);
   const canonical = canonicalUrl(input.html, input.url);
   if (canonical) evidence.push('Canonical product URL');
@@ -324,6 +371,7 @@ export const retailerAdapters: RetailerAdapter[] = [
   configuredAdapter({ key: 'lux-beauty-ng', hosts: ['luxbeautyng.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
   configuredAdapter({ key: 'teeka4', hosts: ['teeka4.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
   configuredAdapter({ key: 'perona-beauty', hosts: ['peronabeauty.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'buybetter', hosts: ['buybetter.ng'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
   configuredAdapter({ key: 'care-to-beauty', hosts: ['caretobeauty.com'], platform: 'structured' }),
 ];
 

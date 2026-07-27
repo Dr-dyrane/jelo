@@ -78,6 +78,46 @@ test('normalizes manufacturer camel-case when retailers separate the same produc
   }));
 });
 
+test('normalizes established compound brand styling without dropping the brand check', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'CeraVe SA Smoothing Cleanser',
+    expectedSize: '473 ml',
+    observedTitle: 'CERAVE SA Smoothing Cleanser 473ml',
+    observedSize: '473 ml',
+  }));
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'PanOxyl Acne Foaming Wash 10% Benzoyl Peroxide',
+    observedTitle: 'PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% Maximum Strength 156g',
+  }));
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'KeraCare Dry & Itchy Conditioner',
+    expectedSize: '32 oz',
+    observedTitle: 'KERACARE Dry And Itchy Conditioner 950ml',
+    observedSize: '950 ml',
+  }));
+
+  assert.throws(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'CeraVe SA Smoothing Cleanser',
+    expectedSize: '473 ml',
+    observedTitle: 'CERAVE Hydrating Cleanser 473ml',
+    observedSize: '473 ml',
+  }), /title/);
+});
+
+test('normalizes the reviewed Balance Active Formula brand shortening', () => {
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
+    expectedTitle: 'Balance Active Formula Niacinamide Blemish Recovery Serum',
+    expectedSize: '30 ml',
+    observedTitle: 'BALANCE Niacinamide Blemish Recovery Serum Clear 30ml',
+    observedSize: '30 ml',
+  }));
+});
+
 test('normalizes an all-caps compact FACE FACTS brand token', () => {
   assert.doesNotThrow(() => assertRetailerResponseScope({
     requestedUrl: 'https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/',
