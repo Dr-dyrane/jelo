@@ -85,3 +85,15 @@ test('descriptions without a supported ordinary-care intent remain outside the b
     assert.equal(assessOrdinaryCareIntent(query), undefined, query);
   }
 });
+
+test('product words cannot turn unresolved symptoms into ordinary shopping intent', () => {
+  for (const query of [
+    'I need body lotion for a rash.',
+    'I want conditioner because my scalp is painful.',
+    'I need body cream because my skin is itchy.',
+    'I need deodorant because I suddenly smell different.',
+    'I want sunscreen because my skin is burning.',
+  ]) {
+    assert.equal(assessOrdinaryCareIntent(query), undefined, query);
+  }
+});

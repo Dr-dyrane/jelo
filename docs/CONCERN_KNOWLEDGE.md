@@ -26,6 +26,10 @@ The initial directly supported intents are daily sun protection, ordinary sweat 
 
 Red flags and directed clinical patterns always take precedence. For example, ordinary underarm odour may reach deodorant guidance, while night sweats or soaking unexplained sweating remain on the cause-finding path. Dry or frizzy hair may reach reviewed conditioning uses, while a smooth bald patch suppresses products and routes to an examination. This precedence is tested at the API boundary with zero model calls on both the ordinary deterministic path and every interrupted path.
 
+Unresolved symptom language also stays outside the bridge. Product words are
+not evidence that a rash, painful scalp, itchy skin, burning reaction, or
+sudden change is an ordinary shopping request.
+
 ## Prevention and stop-journey additions
 
 Reviewed 2026-07-26. This batch deliberately separates one ordinary prevention need from three observations where shopping must stop.

@@ -44,6 +44,12 @@ The precedence is fixed:
 
 Everyday-care results say what the person asked for rather than presenting a possible condition. They do not expose the low-confidence pattern scores used internally to check whether a safer route should take precedence.
 
+Naming a product type does not make a description ordinary care. Rash, pain,
+itch, burning, bleeding, swelling, discharge, hair loss, or a sudden
+unexplained change suppresses this bridge even when the same sentence asks for
+lotion, conditioner, deodorant, or sunscreen. The normal clarification or
+directed-care path handles that description without ordinary-care products.
+
 ## Launch safety contract
 
 - Emergency and urgent care copy is deterministic. Model output cannot replace it.

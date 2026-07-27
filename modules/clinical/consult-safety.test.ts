@@ -209,6 +209,23 @@ test('red flags and directed care paths interrupt nearby ordinary-care requests'
   }
 });
 
+test('unresolved symptoms beside product words do not enter the ordinary-care bridge', async () => {
+  for (const query of [
+    'I need body lotion for a rash.',
+    'I want conditioner because my scalp is painful.',
+    'I need body cream because my skin is itchy.',
+    'I need deodorant because I suddenly smell different.',
+  ]) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+
+    assert.equal(payload.meta.modelCalls, 0, query);
+    assert.equal(payload.meta.ordinaryCare, undefined, query);
+    assert.equal(payload.careIntent, undefined, query);
+    assert.deepEqual(payload.products, [], query);
+  }
+});
+
 test('a single localized blister or pustule does not overclaim a same-day emergency', async () => {
   for (const query of ['I have one small friction blister on my heel.', 'One pimple has a small amount of pus.']) {
     const response = await POST(request({ query, market: 'NG' }));

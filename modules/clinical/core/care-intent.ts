@@ -30,6 +30,10 @@ type OrdinaryCareIntentDefinition = {
 const hairContext = /\b(?:hair|frizz|frizzy|brittle|conditioner|shampoo|leave-in|hair mask)\b/;
 const bodyContext = /\b(?:body|arms?|legs?|elbows?|knees?|hands?|feet|body lotion|body cream)\b/;
 const dryContext = /\b(?:dry|dryness|rough|roughness|ashy|flaky|tight|dehydrated|moisturi[sz])\w*\b/;
+const unresolvedSymptomContext = /\b(?:rash|pain|painful|sore|itch|itchy|burn|burning|sting|stinging|bleed|bleeding|blister|swelling|swollen|fever|wound|ooz\w*|pus|discharge|infection|hair loss|bald patch)\b/;
+const unexplainedChangeContext = (
+  /\b(?:sudden(?:ly)?|unexplained|new|changed?|different)\b.{0,32}\b(?:odou?r|smell|sweat\w*)\b/
+);
 
 export const ordinaryCareIntentDefinitions: readonly OrdinaryCareIntentDefinition[] = [
   {
@@ -128,6 +132,12 @@ export function assessOrdinaryCareIntent(
   if (differential && hasDirectedDifferential(differential)) return undefined;
 
   const normalized = normalizedText(text);
+  if (
+    unresolvedSymptomContext.test(normalized)
+    || unexplainedChangeContext.test(normalized)
+  ) {
+    return undefined;
+  }
   const matches = ordinaryCareIntentDefinitions.filter(definition => definition.matches(normalized));
   if (matches.length === 0) return undefined;
 
