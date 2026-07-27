@@ -45,15 +45,17 @@ test('the Contributions fallback reserves the desktop inspector without dependin
 });
 
 test('temporary inspectors name the selected subject and leave one evidence scroll owner', async () => {
-  const [inbox, inboxCss, inspectorCss] = await Promise.all([
+  const [inbox, overlay, inboxCss, inspectorCss] = await Promise.all([
     readSource('components/ops/inbox/InboxContainer.tsx'),
+    readSource('components/ops/shell/use-ops-overlay.ts'),
     readSource('components/ops/inbox/inbox.module.css'),
     readSource('components/ops/inbox/inbox-tablet.module.css'),
   ]);
 
   assert.match(inbox, /getItemLabel\?\.\(activeItem\) \?\? itemTypeLabel/);
-  assert.match(inbox, /setAttribute\('inert', ''\)/);
-  assert.match(inbox, /removeAttribute\('inert'\)/);
+  assert.match(inbox, /inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS/);
+  assert.match(overlay, /setAttribute\('inert', ''\)/);
+  assert.match(overlay, /removeAttribute\('inert'\)/);
   assert.match(inboxCss, /\.detailScroll \{[\s\S]*?overflow-y: auto;/);
   assert.match(inspectorCss, /\.tabletInspectorBody \{[\s\S]*?overflow: hidden;/);
 });
@@ -150,13 +152,89 @@ test('pending queues exclude facts whose parent contribution was rejected or exp
   );
 });
 
-test('the Contributions list over-fetches one row before declaring the queue partial', async () => {
-  const page = await readSource('app/(ops)/ops/contributions/page.tsx');
+test('the Contributions queue continues from a stable oldest-first identity', async () => {
+  const [page, actions, queues, inbox, migration] = await Promise.all([
+    readSource('app/(ops)/ops/contributions/page.tsx'),
+    readSource('app/(ops)/ops/actions.ts'),
+    readSource('lib/moderation/queues.ts'),
+    readSource('app/(ops)/ops/contributions/ContributionsInbox.tsx'),
+    readSource('db/migrations/0027_community_contribution_fifo_index.sql'),
+  ]);
 
-  assert.match(page, /listPendingContributions\(sql,\s*LIMIT\s*\+\s*1\)/);
-  assert.match(page, /\.slice\(0,\s*LIMIT\)/);
-  assert.match(page, /\.length\s*>\s*LIMIT/);
-  assert.doesNotMatch(page, /\.length\s*===\s*LIMIT/);
+  const contributions = sourceBetween(
+    queues,
+    'export type PendingContribution',
+    'export type PendingEdge',
+  );
+  assert.match(contributions, /export type PendingContributionCursor/);
+  assert.match(
+    contributions,
+    /and \(contribution\.submitted_at, contribution\.id\) > \([\s\S]*?\$\{after\.submittedAt\}::text::timestamptz,[\s\S]*?\$\{after\.id\}::uuid/,
+  );
+  assert.match(
+    contributions,
+    /order by contribution\.submitted_at asc, contribution\.id asc/,
+  );
+  assert.match(
+    migration,
+    /on community_contributions \(moderation_status, submitted_at asc, id asc\)/,
+  );
+  assert.match(migration, /where moderation_status = 'pending'/);
+
+  assert.match(page, /const PAGE_SIZE = 40/);
+  assert.match(page, /listPendingContributions\(sql,\s*PAGE_SIZE\s*\+\s*1\)/);
+  assert.match(page, /\.slice\(0,\s*PAGE_SIZE\)/);
+  assert.match(page, /\.length\s*>\s*PAGE_SIZE/);
+  assert.doesNotMatch(page, /\.length\s*===\s*PAGE_SIZE/);
+  assert.match(
+    page,
+    /\{ submittedAt: lastQueueRow\.submittedAt, id: lastQueueRow\.id \}/,
+  );
+  assert.match(page, /initialHasMore=\{hasMore\}/);
+  assert.match(page, /initialCursor=\{nextCursor\}/);
+
+  const continuation = sourceBetween(
+    actions,
+    'export async function fetchMoreContributionsAction',
+    'export async function fetchMoreRelationshipsAction',
+  );
+  assert.match(continuation, /await requireConsoleOperator\(\)/);
+  assert.match(continuation, /uuidPattern\.test\(afterId\)/);
+  assert.match(
+    continuation,
+    /Number\.isFinite\(limit\) \? Math\.trunc\(limit\) : 40/,
+  );
+  assert.match(
+    continuation,
+    /Math\.min\(Math\.max\(requestedLimit, 1\), 100\)/,
+  );
+  assert.match(continuation, /safeLimit \+ 1/);
+  assert.match(continuation, /submittedAt: afterSubmittedAt/);
+  assert.doesNotMatch(continuation, /submittedAt: parsedDate\.toISOString\(\)/);
+  assert.match(continuation, /fetchedRows\.slice\(0, safeLimit\)/);
+  assert.match(
+    continuation,
+    /submittedAt: lastRow\.submittedAt, id: lastRow\.id/,
+  );
+
+  assert.match(inbox, /function queueRuntimeReducer/);
+  assert.match(inbox, /left\.submittedAt < right\.submittedAt \? -1 : 1/);
+  assert.doesNotMatch(
+    inbox,
+    /new Date\(left\.submittedAt\)\.getTime\(\)[\s\S]*?new Date\(right\.submittedAt\)\.getTime\(\)/,
+  );
+  assert.match(inbox, /const knownIds = new Set\(state\.extraRows\.map/);
+  assert.match(inbox, /settled\.has\(row\.id\) \|\| knownIds\.has\(row\.id\)/);
+  assert.match(inbox, /dispatchQueue\(\{ type: 'settled', id: actionState\.targetId \}\)/);
+  assert.match(inbox, /new IntersectionObserver/);
+  assert.match(
+    inbox,
+    /root: document\.querySelector<HTMLElement>\('\[data-ops-main\]'\)/,
+  );
+  assert.match(inbox, /queueState\.loadError[\s\S]*?return;/);
+  assert.match(inbox, /'Try again'[\s\S]*?'Load more'/);
+  assert.match(inbox, /<ContributionDetailSkeleton \/>/);
+  assert.doesNotMatch(inbox, /autoSelectFirst=\{false\}/);
 });
 
 test('contribution decisions expose consequence, recovery, and a route-owned error state', async () => {
@@ -182,7 +260,8 @@ test('shared inbox controls cannot bypass deliberate decisions and restore valid
 
   assert.doesNotMatch(inbox, /e\.key === ['"](?:e|a|r|m)['"]/);
   assert.doesNotMatch(inbox, /button\[value="(?:approve|reject|map)"\]/);
-  assert.match(inbox, /button:not\(\[disabled\]\):not\(\[tabindex="-1"\]\)/);
+  assert.match(inbox, /useOpsOverlay\(\{/);
+  assert.match(inbox, /returnFocusRef: lastTriggerRef/);
   assert.match(inbox, /document\.getElementById\(`row-\$\{nextItem\.id\}`\)\?\.focus/);
   assert.match(inbox, /const isCollectionRow = target\?\.closest\('\[data-ops-collection-item\]'\)/);
 });
