@@ -18,6 +18,14 @@ Parity does not turn a guide into a diagnosis. Public pattern labels remain obse
 
 Tests must cover the representative pattern, a close alternative, the referral level and timing, and the API boundary (`modelCalls: 0` and no products) for any path that needs human review.
 
+## Canonical everyday-care intents
+
+Ordinary care and clinical patterns use separate identifiers. The everyday-care bridge can emit only canonical slugs whose guide has `kind: 'concern'`. Every `concernSlugs` value in an approved product-care use is validated against that same manifest and must never resolve to a `condition-pattern`.
+
+The initial directly supported intents are daily sun protection, ordinary sweat or body odour, dry or rough body skin, dry or frizzy hair, dry facial skin, sensitive-feeling skin, and oily skin. The request reaches only `supportive_eligible` uses that explicitly name the matched concern slug. A product’s marketing copy or an overlapping clinical term is not enough.
+
+Red flags and directed clinical patterns always take precedence. For example, ordinary underarm odour may reach deodorant guidance, while night sweats or soaking unexplained sweating remain on the cause-finding path. Dry or frizzy hair may reach reviewed conditioning uses, while a smooth bald patch suppresses products and routes to an examination. This precedence is tested at the API boundary with zero model calls on both the ordinary deterministic path and every interrupted path.
+
 ## Prevention and stop-journey additions
 
 Reviewed 2026-07-26. This batch deliberately separates one ordinary prevention need from three observations where shopping must stop.

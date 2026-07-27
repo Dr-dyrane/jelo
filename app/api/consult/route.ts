@@ -1,9 +1,14 @@
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { products } from '@/data/catalogue';
+import { concernBySlug } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
 import type { Product } from '@/data/products';
 import { assessConsultSafety } from '@/modules/clinical/safety-gate';
+import {
+  assessOrdinaryCareIntent,
+  type OrdinaryCareIntent,
+} from '@/modules/clinical/core/care-intent';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { createTimelineRecord } from '@/modules/clinical/core/timeline';
 import { analyzeTimeline } from '@/modules/clinical/core/trends';
@@ -110,6 +115,29 @@ export function buildDeterministicConsultReport(
   };
 }
 
+export function buildDeterministicCareIntentReport(
+  careIntent: OrdinaryCareIntent,
+  selectedSlugs: string[],
+): z.infer<typeof reportSchema> {
+  const canonicalConcerns = careIntent.concernSlugs
+    .map(concernBySlug)
+    .filter((concern): concern is NonNullable<typeof concern> => Boolean(concern));
+  const requestedCare = careIntent.labels.map(label => label.toLowerCase()).join(' and ');
+
+  return {
+    title: 'A simple place to start.',
+    summary: selectedSlugs.length
+      ? `These options were checked for ${requestedCare}.`
+      : `JeloCare does not have a suitable direct match for ${requestedCare} yet.`,
+    pattern: `You asked about ${requestedCare}. JeloCare treated this as everyday care, not a diagnosis.`,
+    routine: careIntent.routine,
+    cautions: canonicalConcerns.map(concern => concern.escalation).slice(0, 3),
+    productSlugs: selectedSlugs,
+    followUp: canonicalConcerns[0]?.escalation
+      ?? 'Get in-person care if the concern becomes painful, spreads quickly or does not improve.',
+  };
+}
+
 export async function POST(request: Request) {
   const parsed = requestSchema.safeParse(await request.json());
   if (!parsed.success) return Response.json({ error: 'Please describe the concern in a little more detail.' }, { status: 400 });
@@ -137,6 +165,57 @@ export async function POST(request: Request) {
       clinical: publicClinical,
       recommendationAudit: { candidateCount: 0, selectedCount: 0, deterministic: true },
       meta: { modelCalls: 0, market, concerns, clinicalSchemaVersion: 4, safetyInterrupt: true, safetyLevel: safety.level },
+    });
+  }
+
+  const careIntent = assessOrdinaryCareIntent(query, clinical.differential);
+  if (careIntent) {
+    const ranked = rankProducts(products, {
+      concerns: [],
+      concernSlugs: careIntent.concernSlugs,
+      sensitive: clinical.profile?.sensitiveSkin ?? false,
+      location: market,
+    });
+    const rankScore = new Map(ranked.map(item => [item.slug, item.score]));
+    const eligible = clinicallyFilterProducts(
+      products,
+      clinical,
+      priorTimeline as ClinicalTimelineRecord[],
+      { concerns: [], concernSlugs: careIntent.concernSlugs },
+    )
+      .filter(item => rankScore.has(item.product.slug))
+      .sort((a, b) => {
+        const scoreDifference = (
+          (rankScore.get(b.product.slug) ?? 0) + b.decision.clinicalScore
+        ) - (
+          (rankScore.get(a.product.slug) ?? 0) + a.decision.clinicalScore
+        );
+        return scoreDifference || a.product.slug.localeCompare(b.product.slug);
+      })
+      .slice(0, 8);
+    const selected = eligible.slice(0, 4);
+    const selectedSlugs = selected.map(item => item.product.slug);
+
+    return Response.json({
+      report: buildDeterministicCareIntentReport(careIntent, selectedSlugs),
+      products: selected.map(item => publicProduct(item.product, market, item.decision)),
+      careIntent: {
+        concernSlugs: careIntent.concernSlugs,
+        labels: careIntent.labels,
+      },
+      recommendationAudit: {
+        candidateCount: eligible.length,
+        selectedCount: selected.length,
+        deterministic: true,
+      },
+      meta: {
+        modelCalls: 0,
+        market,
+        concerns,
+        concernSlugs: careIntent.concernSlugs,
+        clinicalSchemaVersion: 4,
+        ordinaryCare: true,
+      },
     });
   }
 

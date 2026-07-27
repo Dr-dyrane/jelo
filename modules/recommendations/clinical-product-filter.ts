@@ -26,6 +26,7 @@ export function evaluateProductClinically(
   product: Product,
   clinical: ClinicalAssessment,
   timeline: ClinicalTimelineRecord[] = [],
+  match: { concerns?: readonly string[]; concernSlugs?: readonly string[] } = {},
 ): ClinicalProductDecision {
   const review = getReviewedProductCare(product.slug);
   const careState = review?.careState ?? 'unreviewed';
@@ -39,7 +40,10 @@ export function evaluateProductClinically(
       || Boolean(clinical.profile?.breastfeeding && ingredient.breastfeeding === 'avoid');
   });
   const approvedUses = review
-    ? matchingApprovedProductUses(review, { concerns: clinical.profile?.concerns ?? [] })
+    ? matchingApprovedProductUses(review, {
+        concerns: match.concerns ?? clinical.profile?.concerns ?? [],
+        concernSlugs: match.concernSlugs,
+      })
     : [];
   const exclusions: string[] = [];
   const reasons = approvedUses.map(use => use.label);
@@ -77,8 +81,9 @@ export function clinicallyFilterProducts(
   products: Product[],
   clinical: ClinicalAssessment,
   timeline: ClinicalTimelineRecord[] = [],
+  match: { concerns?: readonly string[]; concernSlugs?: readonly string[] } = {},
 ) {
   return products
-    .map(product => ({ product, decision: evaluateProductClinically(product, clinical, timeline) }))
+    .map(product => ({ product, decision: evaluateProductClinically(product, clinical, timeline, match) }))
     .filter(item => item.decision.eligible);
 }

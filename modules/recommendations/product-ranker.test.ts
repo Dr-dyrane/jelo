@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { expandedProducts } from '@/data/expanded-products';
+import { publishedIntakeProducts } from '@/data/published-intake-products';
 import { products as coreProducts } from '@/data/products';
 import { rankProducts } from './product-ranker';
 
@@ -23,5 +24,23 @@ test('normal skin can match the cleanser through its reviewed use, not product s
   assert.deepEqual(
     rankProducts(catalogue, { concerns: [], skinType: 'normal' }).map(product => product.slug),
     ['cerave-foaming-facial-cleanser'],
+  );
+});
+
+test('canonical concern slugs rank only explicitly reviewed supportive uses', () => {
+  assert.deepEqual(
+    rankProducts(catalogue, {
+      concerns: [],
+      concernSlugs: ['daily-sun-protection'],
+    }).map(product => product.slug),
+    [],
+  );
+
+  assert.deepEqual(
+    rankProducts([...catalogue, ...publishedIntakeProducts], {
+      concerns: [],
+      concernSlugs: ['daily-sun-protection'],
+    }).map(product => product.slug),
+    ['eucerin-oil-control-sun-gel-cream-spf50-50ml'],
   );
 });

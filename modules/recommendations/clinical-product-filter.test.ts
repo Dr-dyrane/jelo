@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { expandedProducts } from '@/data/expanded-products';
+import { concernBySlug } from '@/data/knowledge';
 import { publishedIntakeProducts } from '@/data/published-intake-products';
 import {
   publishedProductCareManifest,
@@ -40,6 +41,26 @@ test('every dossier-released product has an explicit post-publication care decis
   assert.equal(states.filter(state => state === 'supportive_eligible').length, 16);
   assert.equal(states.filter(state => state === 'pharmacist_review').length, 14);
   assert.equal(states.filter(state => state === 'insufficient_data').length, 6);
+});
+
+test('every approved-use concern slug resolves only to an ordinary concern', () => {
+  const manifests = [reviewedProductCareManifest, publishedProductCareManifest];
+
+  for (const manifest of manifests) {
+    for (const review of Object.values(manifest)) {
+      for (const use of review.approvedUses) {
+        for (const slug of use.concernSlugs ?? []) {
+          const concern = concernBySlug(slug);
+          assert.ok(concern, `${review.productSlug}:${use.id} references missing concern ${slug}`);
+          assert.equal(
+            concern.kind,
+            'concern',
+            `${review.productSlug}:${use.id} must not reference condition pattern ${slug}`,
+          );
+        }
+      }
+    }
+  }
 });
 
 test('unsupported text-derived active never qualifies or enters ingredient evidence', () => {
@@ -106,6 +127,25 @@ test('daily sun protection qualifies only the explicitly reviewed Eucerin sunscr
 
   assert.deepEqual(eligible.map(decision => decision.slug), ['eucerin-oil-control-sun-gel-cream-spf50-50ml']);
   assert.deepEqual(eligible[0]?.approvedUseIds, ['oily-skin-sun-protection']);
+});
+
+test('canonical concern slugs reach reviewed uses without becoming legacy concern ids', () => {
+  const sunscreen = publishedIntakeProducts.find(
+    item => item.slug === 'eucerin-oil-control-sun-gel-cream-spf50-50ml',
+  );
+  assert.ok(sunscreen);
+  const clinical = assessClinicalRoutine('I want an everyday sunscreen.', { concerns: [] });
+  const withoutSlug = evaluateProductClinically(sunscreen, clinical);
+  const withSlug = evaluateProductClinically(
+    sunscreen,
+    clinical,
+    [],
+    { concernSlugs: ['daily-sun-protection'] },
+  );
+
+  assert.equal(withoutSlug.eligible, false);
+  assert.equal(withSlug.eligible, true);
+  assert.deepEqual(withSlug.approvedUseIds, ['oily-skin-sun-protection']);
 });
 
 test('a reviewed retinoid remains blocked during pregnancy', () => {

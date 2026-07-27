@@ -683,13 +683,15 @@ export function getReviewedProductCare(productSlug: string) {
 
 export function matchingApprovedProductUses(
   review: ReviewedProductCare,
-  input: { concerns: readonly string[]; skinType?: string },
+  input: { concerns: readonly string[]; concernSlugs?: readonly string[]; skinType?: string },
 ) {
   const concerns = new Set(input.concerns.map(value => value.trim().toLowerCase()));
+  const concernSlugs = new Set((input.concernSlugs ?? []).map(value => value.trim().toLowerCase()));
   const skinType = input.skinType?.trim().toLowerCase();
 
   return review.approvedUses.filter(use => (
     use.concernIds.some(concern => concerns.has(concern.toLowerCase()))
+    || Boolean(use.concernSlugs?.some(slug => concernSlugs.has(slug.toLowerCase())))
     || Boolean(skinType && use.skinTypes?.some(type => type.toLowerCase() === skinType))
   ));
 }

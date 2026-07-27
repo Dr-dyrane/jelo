@@ -81,6 +81,134 @@ test('common emergency and urgent word orders fail closed with matching care cop
   }
 });
 
+test('ordinary care reaches canonical concerns and reviewed products without a model call', async () => {
+  const cases = [
+    {
+      query: 'I need sunscreen for every day.',
+      concernSlug: 'daily-sun-protection',
+      productSlugs: ['eucerin-oil-control-sun-gel-cream-spf50-50ml'],
+      routinePattern: /broad-spectrum sunscreen/i,
+    },
+    {
+      query: 'I want a deodorant for ordinary underarm odour.',
+      concernSlug: 'sweat-body-odour',
+      productSlugs: ['dove-go-fresh-cucumber-green-tea-spray'],
+      routinePattern: /underarms/i,
+    },
+    {
+      query: 'I need a moisturiser for dry body skin.',
+      concernSlug: 'dry-rough-body-skin',
+      productSlugs: [
+        'aqua-rich-ceramide-body-lotion-500ml',
+        'cerave-moisturising-cream-454g',
+        'dove-skin-replenish-serum-body-wash-547ml',
+        'eucerin-urearepair-plus-10-urea-body-lotion-250ml',
+      ],
+      routinePattern: /body moisturiser/i,
+    },
+    {
+      query: 'I want shampoo and conditioner for dry frizzy hair.',
+      concernSlug: 'dry-frizzy-hair',
+      productSlugs: [
+        'cecred-moisturizing-deep-conditioner-300ml',
+        'sheamoisture-jamaican-black-castor-oil-shampoo-384ml',
+        'sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml',
+        'tresemme-keratin-smooth-weightless-conditioner-828ml',
+      ],
+      routinePattern: /conditioner/i,
+    },
+    {
+      query: 'I need a gentle moisturiser for dry face skin.',
+      concernSlug: 'dry-dehydrated-skin',
+      productSlugs: [
+        'cerave-hydrating-cleanser-473ml',
+        'cerave-pm-facial-moisturising-lotion-52ml',
+        'cosrx-advanced-snail-96-mucin-power-essence',
+        'facefacts-ceramide-hydrating-gentle-cleanser-400ml',
+      ],
+      routinePattern: /reviewed moisturiser/i,
+    },
+    {
+      query: 'I want a gentle routine for sensitive skin.',
+      concernSlug: 'sensitive-barrier',
+      productSlugs: [
+        'cerave-pm-facial-moisturising-lotion-52ml',
+        'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
+      ],
+      routinePattern: /routine short/i,
+    },
+    {
+      query: 'I need a cleanser for oily skin.',
+      concernSlug: 'oily-congested-skin',
+      productSlugs: [
+        'cerave-foaming-facial-cleanser',
+        'eucerin-oil-control-sun-gel-cream-spf50-50ml',
+        'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
+      ],
+      routinePattern: /without scrubbing/i,
+    },
+  ] as const;
+
+  for (const expected of cases) {
+    const response = await POST(request({ query: expected.query, market: 'NG' }));
+    const payload = await response.json();
+
+    assert.equal(payload.meta.modelCalls, 0, expected.query);
+    assert.equal(payload.meta.ordinaryCare, true, expected.query);
+    assert.deepEqual(payload.meta.concernSlugs, [expected.concernSlug], expected.query);
+    assert.deepEqual(payload.careIntent.concernSlugs, [expected.concernSlug], expected.query);
+    assert.equal(payload.clinical, undefined, expected.query);
+    assert.equal(payload.timeline, undefined, expected.query);
+    assert.equal(payload.recommendationAudit.deterministic, true, expected.query);
+    assert.deepEqual(
+      payload.products.map((product: { slug: string }) => product.slug),
+      expected.productSlugs,
+      expected.query,
+    );
+    assert.match(payload.report.pattern, /everyday care, not a diagnosis/i, expected.query);
+    assert.match(
+      payload.report.routine.map((step: { action: string }) => step.action).join(' '),
+      expected.routinePattern,
+      expected.query,
+    );
+  }
+});
+
+test('red flags and directed care paths interrupt nearby ordinary-care requests', async () => {
+  const cases = [
+    {
+      query: 'I want a deodorant because my night sweats soak the bedding.',
+      patternId: 'hyperhidrosis-like',
+    },
+    {
+      query: 'I want conditioner for dry frizzy hair, but I have a smooth bald patch.',
+      patternId: 'alopecia-areata-like',
+    },
+    {
+      query: 'I need daily sunscreen for a changing bleeding mole.',
+      patternId: undefined,
+    },
+    {
+      query: 'I need body lotion because a painful rash is rapidly spreading and I have a fever.',
+      patternId: undefined,
+    },
+  ] as const;
+
+  for (const expected of cases) {
+    const response = await POST(request({ query: expected.query, market: 'NG' }));
+    const payload = await response.json();
+
+    assert.equal(payload.meta.modelCalls, 0, expected.query);
+    assert.equal(payload.meta.safetyInterrupt, true, expected.query);
+    assert.equal(payload.meta.ordinaryCare, undefined, expected.query);
+    assert.equal(payload.careIntent, undefined, expected.query);
+    assert.deepEqual(payload.products, [], expected.query);
+    if (expected.patternId) {
+      assert.equal(payload.clinical.differential.primary?.id, expected.patternId, expected.query);
+    }
+  }
+});
+
 test('a single localized blister or pustule does not overclaim a same-day emergency', async () => {
   for (const query of ['I have one small friction blister on my heel.', 'One pimple has a small amount of pus.']) {
     const response = await POST(request({ query, market: 'NG' }));

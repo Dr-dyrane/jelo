@@ -3,6 +3,7 @@ import { getReviewedProductCare, matchingApprovedProductUses } from '@/data/prod
 
 type MatchInput = {
   concerns: string[];
+  concernSlugs?: readonly string[];
   skinType?: string;
   sensitive?: boolean;
   location?: string;
@@ -13,7 +14,11 @@ export function rankProducts(products: Product[], input: MatchInput) {
     .map(product => {
       const review = getReviewedProductCare(product.slug);
       const approvedUses = review
-        ? matchingApprovedProductUses(review, { concerns: input.concerns, skinType: input.skinType })
+        ? matchingApprovedProductUses(review, {
+            concerns: input.concerns,
+            concernSlugs: input.concernSlugs,
+            skinType: input.skinType,
+          })
         : [];
       const score = review?.careState === 'supportive_eligible' ? approvedUses.length * 24 : 0;
 

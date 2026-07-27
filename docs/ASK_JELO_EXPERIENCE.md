@@ -29,6 +29,21 @@ Ask Jelo is a guided education canvas, not a chat transcript, diagnosis tool, or
 
 A red flag replaces the normal journey with a concise care action. It makes zero model calls and returns zero products.
 
+## Everyday care requests
+
+An explicit, non-diagnostic request for everyday care does not need a disease-pattern result. Ask Jelo can route daily sun protection, ordinary sweat or body odour, dry or rough body skin, dry or frizzy hair, dry facial skin, sensitive-feeling skin, and oily skin to their canonical concern guides.
+
+This path is deterministic and makes zero model calls. Products appear only when an explicit `supportive_eligible` product-care record names the same canonical concern slug. Legacy concern words, product names, catalogue copy, retailer claims, and condition-pattern slugs cannot create a match.
+
+The precedence is fixed:
+
+1. Emergency and urgent signals stop the journey.
+2. A directed clinical pattern or referral suppresses everyday care.
+3. A supported everyday-care intent may reach reviewed product uses.
+4. An unclear description asks for more detail.
+
+Everyday-care results say what the person asked for rather than presenting a possible condition. They do not expose the low-confidence pattern scores used internally to check whether a safer route should take precedence.
+
 ## Launch safety contract
 
 - Emergency and urgent care copy is deterministic. Model output cannot replace it.
