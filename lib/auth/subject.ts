@@ -2,7 +2,11 @@ import 'server-only';
 
 import { getAuth, isAuthConfigured } from './server';
 
-export type AuthIdentity = { subject: string; email: string | null };
+export type AuthIdentity = {
+  subject: string;
+  email: string | null;
+  emailVerified: boolean;
+};
 
 // The single place that turns a verified Neon Auth session into an identity.
 // `subject` is neon_auth."user".id (a uuid, equal to the JWT `sub`) returned as a
@@ -16,7 +20,11 @@ export async function getAuthSubject(): Promise<AuthIdentity | null> {
     const { data: session } = await getAuth().getSession();
     const user = session?.user;
     if (!user?.id) return null;
-    return { subject: user.id, email: user.email ?? null };
+    return {
+      subject: user.id,
+      email: user.email ?? null,
+      emailVerified: user.emailVerified === true,
+    };
   } catch (err) {
     console.error('[getAuthSubject Error]:', err);
     return null;

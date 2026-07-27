@@ -54,6 +54,36 @@ export function operatorOtpEmail(input: { code: string; type?: string }) {
   };
 }
 
+export function operatorInvitationEmail(input: { email: string; signInLink: string }) {
+  const email = escapeHtml(input.email);
+  const signInLink = escapeHtml(input.signInLink);
+  return {
+    subject: 'You’re invited to JeloCare Ops',
+    text: [
+      'You’re invited to JeloCare Ops.',
+      '',
+      `Invited email: ${input.email}`,
+      '',
+      `Sign in here: ${input.signInLink}`,
+      '',
+      'Your access becomes active only after you verify the invited email.',
+      'If you were not expecting this invitation, you can ignore this email.',
+    ].join('\n'),
+    html: `
+      <div style="margin:0;background:#fff9f5;padding:40px 20px;color:#201b19;font-family:Arial,sans-serif">
+        <div style="max-width:560px;margin:0 auto;background:#fffdf9;border-radius:28px;padding:40px">
+          <p style="margin:0 0 28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#6b3b35">JeloCare Ops</p>
+          <h1 style="margin:0 0 18px;font-size:36px;line-height:1.05;font-weight:400">You’re invited.</h1>
+          <p style="margin:0 0 8px;color:#6f625e;line-height:1.6">Sign in with the invited email to join the JeloCare operations team.</p>
+          <p style="margin:0 0 28px;color:#201b19;line-height:1.6"><strong>${email}</strong></p>
+          <a href="${signInLink}" style="display:inline-block;border-radius:999px;background:#201b19;padding:14px 20px;color:#fff;text-decoration:none">Sign in to JeloCare</a>
+          <p style="margin:28px 0 0;color:#8a7d78;font-size:13px;line-height:1.55">Access becomes active only after the invited email is verified. If you were not expecting this invitation, ignore this email.</p>
+        </div>
+      </div>
+    `,
+  };
+}
+
 export function retailerMagicLinkEmail(input: { storeName: string; magicLink: string }) {
   const storeName = escapeHtml(input.storeName);
   const magicLink = escapeHtml(input.magicLink);
