@@ -153,7 +153,15 @@ function manufacturerCandidate(source: string) {
   } as unknown as CatalogueIntakeCandidate;
 }
 
-function manufacturerJsonCandidate(source: string) {
+function manufacturerJsonCandidate(
+  source: string,
+  sourceText: {
+    variant?: string;
+    size?: string;
+    packageVersion?: string;
+    gtinPublicationStatus?: string;
+  } = {},
+) {
   const extraction: CatalogueManufacturerSkuIdentityExtraction = {
     schemaVersion: catalogueManufacturerSkuIdentityExtractionSchemaVersion,
     candidateId,
@@ -176,22 +184,28 @@ function manufacturerJsonCandidate(source: string) {
       variant: {
         value: 'Example Barrier Lotion',
         locator: 'Official product response title field',
-        sourceText: '"title":"Example Barrier Lotion"',
+        sourceText: sourceText.variant ?? '"title":"Example Barrier Lotion"',
       },
       size: {
         value: '400 ml',
         locator: 'Official product response option value',
-        sourceText: '"option1":"400 ml"',
+        sourceText: sourceText.size ?? '"option1":"400 ml"',
       },
       packageVersion: {
         value: 'Pump bottle 400 ml',
         locator: 'Official product response package version field',
-        sourceText: '"package_version":"Pump bottle 400 ml"',
+        sourceText: (
+          sourceText.packageVersion
+          ?? '"package_version":"Pump bottle 400 ml"'
+        ),
       },
       gtinPublicationStatus: {
         value: 'not-published',
         locator: 'Official product response variants[0].barcode null field',
-        sourceText: '"sku":"CER-BARRIER-400-A","barcode":null',
+        sourceText: (
+          sourceText.gtinPublicationStatus
+          ?? '"sku":"CER-BARRIER-400-A","barcode":null'
+        ),
       },
     },
     sourceResponseSha256: sha256(source),
@@ -381,6 +395,61 @@ test('artifact verification rejects incidental brand prose and structured identi
   );
 });
 
+test('artifact verification detects encoded JSON keys and JavaScript property assignments', async t => {
+  const repositoryRoot = await mkdtemp(
+    path.join(os.tmpdir(), 'jelocare-manufacturer-structured-identifiers-'),
+  );
+  t.after(() => rm(repositoryRoot, { recursive: true, force: true }));
+
+  const cleanSource = `<!doctype html><html><body>${productRecord}</body></html>`;
+  const structuredFragments = [
+    '<div data-product="{&quot;gtin13&quot;:&quot;4005808319695&quot;}"></div>',
+    '<div data-product="{&#34;barcodeValue&#34;:&#34;4005808319695&#34;}"></div>',
+    '<div data-product="{&#x22;ean13&#x22;&#x3a;&#x22;4005808319695&#x22;}"></div>',
+    '<div data-product="{&apos;upce&apos;:&apos;4005808319695&apos;}"></div>',
+    '<div data-product="{&amp;quot;upca&amp;quot;:&amp;quot;4005808319695&amp;quot;}"></div>',
+    '<script>window.product.gtin13 = "4005808319695";</script>',
+    '<script>catalogue.item["barcodeValue"] = "4005808319695";</script>',
+  ];
+
+  for (const fragment of structuredFragments) {
+    const source = cleanSource.replace('</body>', `${fragment}</body>`);
+    const candidate = manufacturerCandidate(source);
+    await writeIdentityArtifacts(repositoryRoot, candidate, source);
+    await assert.rejects(
+      () => verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot),
+      /contradicts its no-GTIN search result/,
+      `machine-readable identifier must be detected in ${fragment}`,
+    );
+  }
+
+  const proseSource = cleanSource.replace(
+    '</body>',
+    [
+      '<p>',
+      'Our documentation explains that product.gtin13 is optional, ',
+      'quotes &quot;barcodeValue&quot;: as an example term, ',
+      'and shows product.ean13 = 4005808319695 in visible prose.',
+      '</p>',
+      '<div data-note="The term &quot;gtin13&quot;: appears in documentation."></div>',
+      '<script>',
+      'const quoted = "product.gtin13 = 4005808319695";',
+      'const pattern = /product\\.ean13\\s*=/;',
+      '// catalogue.item.barcodeValue = "4005808319695";',
+      '/* product.upca = "4005808319695"; */',
+      'if (product.gtin13 === undefined) product.gtin13Label = "GTIN13";',
+      '</script>',
+      '</body>',
+    ].join(''),
+  );
+  const proseCandidate = manufacturerCandidate(proseSource);
+  await writeIdentityArtifacts(repositoryRoot, proseCandidate, proseSource);
+  assert.equal(
+    await verifyCatalogueIdentityEvidenceArtifacts([proseCandidate], repositoryRoot),
+    1,
+  );
+});
+
 test('artifact verification retains an exact official JSON product response without synthetic DOM', async t => {
   const repositoryRoot = await mkdtemp(
     path.join(os.tmpdir(), 'jelocare-manufacturer-json-artifacts-'),
@@ -405,6 +474,214 @@ test('artifact verification retains an exact official JSON product response with
   assert.equal(
     await verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot),
     1,
+  );
+
+  const validMultiVariantSource = JSON.stringify({
+    id: 123,
+    title: 'Example Barrier Lotion',
+    vendor: 'CeraVe',
+    package_version: 'Pump bottle 400 ml',
+    variants: [
+      {
+        id: 456,
+        title: '400 ml',
+        name: 'Example Barrier Lotion',
+        option1: '400 ml',
+        package_version: 'Pump bottle 400 ml',
+        sku: 'CER-BARRIER-400-A',
+        barcode: null,
+      },
+      {
+        id: 789,
+        title: '200 ml',
+        name: 'Example Barrier Lotion Travel',
+        option1: '200 ml',
+        package_version: 'Pump bottle 200 ml',
+        sku: 'CER-BARRIER-200-B',
+        barcode: null,
+      },
+    ],
+  });
+  const selectedVariantSourceText = {
+    variant: '"name":"Example Barrier Lotion"',
+  };
+  const validMultiVariantCandidate = manufacturerJsonCandidate(
+    validMultiVariantSource,
+    selectedVariantSourceText,
+  );
+  await writeIdentityArtifacts(
+    repositoryRoot,
+    validMultiVariantCandidate,
+    validMultiVariantSource,
+  );
+  assert.equal(
+    await verifyCatalogueIdentityEvidenceArtifacts(
+      [validMultiVariantCandidate],
+      repositoryRoot,
+    ),
+    1,
+  );
+
+  const crossVariantSource = JSON.stringify({
+    id: 123,
+    title: 'Example Barrier Lotion',
+    vendor: 'CeraVe',
+    package_version: 'Pump bottle 400 ml',
+    variants: [
+      {
+        id: 456,
+        title: '200 ml',
+        name: 'Example Barrier Lotion',
+        option1: '200 ml',
+        package_version: 'Pump bottle 200 ml',
+        sku: 'CER-BARRIER-400-A',
+        barcode: null,
+      },
+      {
+        id: 789,
+        title: '400 ml',
+        name: 'Example Barrier Lotion Refill',
+        option1: '400 ml',
+        package_version: 'Pump bottle 400 ml',
+        sku: 'CER-BARRIER-400-B',
+        barcode: null,
+      },
+    ],
+  });
+  const crossVariantCandidate = manufacturerJsonCandidate(
+    crossVariantSource,
+    selectedVariantSourceText,
+  );
+  await writeIdentityArtifacts(repositoryRoot, crossVariantCandidate, crossVariantSource);
+  await assert.rejects(
+    () => verifyCatalogueIdentityEvidenceArtifacts(
+      [crossVariantCandidate],
+      repositoryRoot,
+    ),
+    /does not bind the selected SKU, variant, size, package and null barcode to one variant/,
+  );
+
+  const crossVariantCases = [
+    {
+      label: 'variant',
+      selected: {
+        title: '400 ml',
+        name: 'Example Barrier Lotion Travel',
+        option1: '400 ml',
+        package_version: 'Pump bottle 400 ml',
+        sku: 'CER-BARRIER-400-A',
+        barcode: null,
+      },
+      sibling: {
+        title: '200 ml',
+        name: 'Example Barrier Lotion',
+        option1: '200 ml',
+        package_version: 'Pump bottle 200 ml',
+        sku: 'CER-BARRIER-200-B',
+        barcode: null,
+      },
+    },
+    {
+      label: 'size',
+      selected: {
+        title: '200 ml',
+        name: 'Example Barrier Lotion',
+        option1: '200 ml',
+        package_version: 'Pump bottle 400 ml',
+        sku: 'CER-BARRIER-400-A',
+        barcode: null,
+      },
+      sibling: {
+        title: '400 ml',
+        name: 'Example Barrier Lotion Refill',
+        option1: '400 ml',
+        package_version: 'Pump bottle 200 ml',
+        sku: 'CER-BARRIER-200-B',
+        barcode: null,
+      },
+    },
+    {
+      label: 'package',
+      selected: {
+        title: '400 ml',
+        name: 'Example Barrier Lotion',
+        option1: '400 ml',
+        package_version: 'Pump bottle 200 ml',
+        sku: 'CER-BARRIER-400-A',
+        barcode: null,
+      },
+      sibling: {
+        title: '200 ml',
+        name: 'Example Barrier Lotion Refill',
+        option1: '200 ml',
+        package_version: 'Pump bottle 400 ml',
+        sku: 'CER-BARRIER-200-B',
+        barcode: null,
+      },
+    },
+    {
+      label: 'null barcode',
+      selected: {
+        title: '400 ml',
+        name: 'Example Barrier Lotion',
+        option1: '400 ml',
+        package_version: 'Pump bottle 400 ml',
+        sku: 'CER-BARRIER-400-A',
+        barcode: '4005808319695',
+      },
+      sibling: {
+        title: '200 ml',
+        name: 'Example Barrier Lotion Refill',
+        option1: '200 ml',
+        package_version: 'Pump bottle 200 ml',
+        sku: 'CER-BARRIER-200-B',
+        barcode: null,
+      },
+    },
+  ];
+  for (const crossVariantCase of crossVariantCases) {
+    const sourceWithBorrowedField = JSON.stringify({
+      id: 123,
+      title: 'Example Barrier Lotion',
+      vendor: 'CeraVe',
+      package_version: 'Pump bottle 400 ml',
+      variants: [
+        crossVariantCase.selected,
+        crossVariantCase.sibling,
+      ],
+    });
+    const candidateWithBorrowedField = manufacturerJsonCandidate(
+      sourceWithBorrowedField,
+      selectedVariantSourceText,
+    );
+    await writeIdentityArtifacts(
+      repositoryRoot,
+      candidateWithBorrowedField,
+      sourceWithBorrowedField,
+    );
+    await assert.rejects(
+      () => verifyCatalogueIdentityEvidenceArtifacts(
+        [candidateWithBorrowedField],
+        repositoryRoot,
+      ),
+      /does not bind the selected SKU, variant, size, package and null barcode to one variant/,
+      `must not borrow ${crossVariantCase.label} from a sibling Shopify variant`,
+    );
+  }
+
+  const rootSourcedVariantCandidate = manufacturerJsonCandidate(validMultiVariantSource);
+  await writeIdentityArtifacts(
+    repositoryRoot,
+    rootSourcedVariantCandidate,
+    validMultiVariantSource,
+  );
+  await assert.rejects(
+    () => verifyCatalogueIdentityEvidenceArtifacts(
+      [rootSourcedVariantCandidate],
+      repositoryRoot,
+    ),
+    /does not bind the selected SKU, variant, size, package and null barcode to one variant/,
+    'multi-variant evidence must point each asserted field at the selected variant record',
   );
 
   const contradictorySource = source.replace(

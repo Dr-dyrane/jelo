@@ -25,6 +25,293 @@ const structuredIdentifierKey = (
   + '|upc(?:[_-]?(?:a|e|value|number))?)'
 );
 
+const exactStructuredIdentifierKey = new RegExp(`^${structuredIdentifierKey}$`, 'i');
+
+type StructuredIdentifierMatch = {
+  term: string;
+  index: number;
+};
+
+function retainedScriptBodies(source: string) {
+  return Array.from(
+    source.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi),
+  ).map(match => {
+    const start = (match.index ?? 0) + match[0].indexOf('>') + 1;
+    return {
+      source: match[1],
+      start,
+      end: start + match[1].length,
+    };
+  });
+}
+
+function decodeHtmlJsonSyntaxEntities(value: string) {
+  let decoded = value;
+  for (let pass = 0; pass < 2; pass += 1) {
+    const next = decoded
+      .replace(/&quot;|&#0*34;|&#x0*22;/gi, '"')
+      .replace(/&apos;|&#0*39;|&#x0*27;/gi, "'")
+      .replace(/&colon;|&#0*58;|&#x0*3a;/gi, ':')
+      .replace(/&amp;/gi, '&');
+    if (next === decoded) break;
+    decoded = next;
+  }
+  return decoded;
+}
+
+/**
+ * Rendered DOM snapshots entity-encode quotes inside JSON-valued attributes. Decode and parse
+ * only complete JSON attribute values: a quoted identifier term in visible prose is not evidence
+ * that the page publishes a structured identifier.
+ */
+function structuredIdentifierKeysInHtmlJsonAttributes(source: string) {
+  const matches: StructuredIdentifierMatch[] = [];
+  const tagPattern = /<[A-Za-z][^<>]*>/g;
+  const excludedRanges = [
+    ...retainedScriptBodies(source).map(script => ({
+      start: script.start,
+      end: script.end,
+    })),
+    ...Array.from(source.matchAll(/<!--[\s\S]*?-->/g)).map(match => ({
+      start: match.index ?? 0,
+      end: (match.index ?? 0) + match[0].length,
+    })),
+  ];
+
+  for (const tagMatch of source.matchAll(tagPattern)) {
+    if (excludedRanges.some(range => (
+      (tagMatch.index ?? 0) >= range.start
+      && (tagMatch.index ?? 0) < range.end
+    ))) continue;
+    const tag = tagMatch[0];
+    const attributePattern = /\s[^\s"'<>/=]+\s*=\s*(["'])([\s\S]*?)\1/g;
+    for (const attributeMatch of tag.matchAll(attributePattern)) {
+      const encodedValue = attributeMatch[2];
+      if (!encodedValue.includes('&')) continue;
+      const decodedValue = decodeHtmlJsonSyntaxEntities(encodedValue).trim();
+      if (!decodedValue.startsWith('{') && !decodedValue.startsWith('[')) continue;
+
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(decodedValue) as unknown;
+      } catch {
+        // Retained storefront attributes occasionally serialize a JavaScript object literal with
+        // entity-encoded single quotes. Keep that fallback object-shaped and key-delimited.
+        const objectKeyPattern = new RegExp(
+          `(?:^|[{,])\\s*["'](${structuredIdentifierKey})["']\\s*:`,
+          'gi',
+        );
+        for (const keyMatch of decodedValue.matchAll(objectKeyPattern)) {
+          const key = keyMatch[1];
+          const keyOffset = encodedValue.toLowerCase().indexOf(key.toLowerCase());
+          matches.push({
+            term: key,
+            index: (
+              (tagMatch.index ?? 0)
+              + (attributeMatch.index ?? 0)
+              + attributeMatch[0].indexOf(encodedValue)
+              + Math.max(0, keyOffset)
+            ),
+          });
+        }
+        continue;
+      }
+
+      const visit = (value: unknown) => {
+        if (Array.isArray(value)) {
+          value.forEach(visit);
+          return;
+        }
+        if (!value || typeof value !== 'object') return;
+        for (const [key, child] of Object.entries(value as Record<string, unknown>)) {
+          if (exactStructuredIdentifierKey.test(key)) {
+            const keyOffset = encodedValue.toLowerCase().indexOf(key.toLowerCase());
+            matches.push({
+              term: key,
+              index: (
+                (tagMatch.index ?? 0)
+                + (attributeMatch.index ?? 0)
+                + attributeMatch[0].indexOf(encodedValue)
+                + Math.max(0, keyOffset)
+              ),
+            });
+          }
+          visit(child);
+        }
+      };
+      visit(parsed);
+    }
+  }
+  return matches;
+}
+
+/**
+ * Marks executable JavaScript characters while leaving strings, comments, template bodies and
+ * regular-expression literals unmarked. The result lets the narrow assignment patterns below
+ * reject quoted examples without executing retained page code.
+ */
+function retainedJavaScriptCodeMask(source: string) {
+  const code = new Uint8Array(source.length);
+  const regexPrefixKeywords = new Set([
+    'await',
+    'case',
+    'delete',
+    'do',
+    'else',
+    'in',
+    'instanceof',
+    'new',
+    'of',
+    'return',
+    'throw',
+    'typeof',
+    'void',
+    'yield',
+  ]);
+  let index = 0;
+  let regexCanStart = true;
+
+  while (index < source.length) {
+    const character = source[index];
+    if (/\s/.test(character)) {
+      code[index] = 1;
+      index += 1;
+      continue;
+    }
+
+    if (character === '/' && source[index + 1] === '/') {
+      index += 2;
+      while (index < source.length && source[index] !== '\n') index += 1;
+      continue;
+    }
+    if (character === '/' && source[index + 1] === '*') {
+      index += 2;
+      while (
+        index < source.length
+        && !(source[index] === '*' && source[index + 1] === '/')
+      ) index += 1;
+      index = Math.min(source.length, index + 2);
+      continue;
+    }
+
+    if (character === '"' || character === "'" || character === '`') {
+      const quote = character;
+      index += 1;
+      while (index < source.length) {
+        if (source[index] === '\\') {
+          index += 2;
+          continue;
+        }
+        if (source[index] === quote) {
+          index += 1;
+          break;
+        }
+        index += 1;
+      }
+      regexCanStart = false;
+      continue;
+    }
+
+    if (character === '/' && regexCanStart) {
+      index += 1;
+      let inCharacterClass = false;
+      while (index < source.length) {
+        if (source[index] === '\\') {
+          index += 2;
+          continue;
+        }
+        if (source[index] === '[') {
+          inCharacterClass = true;
+        } else if (source[index] === ']') {
+          inCharacterClass = false;
+        } else if (source[index] === '/' && !inCharacterClass) {
+          index += 1;
+          while (/[A-Za-z]/.test(source[index] ?? '')) index += 1;
+          break;
+        } else if (source[index] === '\n') {
+          break;
+        }
+        index += 1;
+      }
+      regexCanStart = false;
+      continue;
+    }
+
+    if (/[A-Za-z_$]/.test(character)) {
+      const start = index;
+      index += 1;
+      while (/[A-Za-z0-9_$]/.test(source[index] ?? '')) index += 1;
+      code.fill(1, start, index);
+      regexCanStart = regexPrefixKeywords.has(source.slice(start, index));
+      continue;
+    }
+
+    if (/\d/.test(character)) {
+      const start = index;
+      index += 1;
+      while (/[A-Za-z0-9_.]/.test(source[index] ?? '')) index += 1;
+      code.fill(1, start, index);
+      regexCanStart = false;
+      continue;
+    }
+
+    code[index] = 1;
+    regexCanStart = !/[)\]}]/.test(character);
+    index += 1;
+  }
+
+  return code;
+}
+
+function structuredIdentifierPropertyAssignments(source: string) {
+  const scripts = retainedScriptBodies(source);
+  const retainedScripts = scripts.length > 0
+    ? scripts
+    : /<[A-Za-z][\s\S]*>/.test(source)
+      ? []
+      : [{ source, start: 0, end: source.length }];
+  const matches: StructuredIdentifierMatch[] = [];
+  const assignmentPatterns = [
+    {
+      pattern: new RegExp(
+        `(?:^|[^\\w$])((?:[A-Za-z_$][\\w$]*\\s*\\.\\s*)+)`
+          + `(${structuredIdentifierKey})\\s*=(?!=|>)`,
+        'gi',
+      ),
+      keyGroup: 2,
+    },
+    {
+      pattern: new RegExp(
+        `(?:^|[^\\w$])([A-Za-z_$][\\w$]*`
+          + `(?:\\s*\\.\\s*[A-Za-z_$][\\w$]*)*)\\s*`
+          + `\\[\\s*(["'])(${structuredIdentifierKey})\\2\\s*\\]\\s*=(?!=|>)`,
+        'gi',
+      ),
+      keyGroup: 3,
+    },
+  ];
+
+  for (const retainedScript of retainedScripts) {
+    const code = retainedJavaScriptCodeMask(retainedScript.source);
+    for (const { pattern, keyGroup } of assignmentPatterns) {
+      for (const match of retainedScript.source.matchAll(pattern)) {
+        const objectOffset = (match.index ?? 0) + match[0].indexOf(match[1]);
+        if (code[objectOffset] !== 1) continue;
+        const term = match[keyGroup];
+        matches.push({
+          term,
+          index: (
+            retainedScript.start
+            + (match.index ?? 0)
+            + match[0].lastIndexOf(term)
+          ),
+        });
+      }
+    }
+  }
+  return matches;
+}
+
 /**
  * Detects machine-readable identifier keys, including common suffix/casing variants, without
  * treating ordinary editorial prose about barcodes or UPC standards as a published identifier.
@@ -43,10 +330,19 @@ function structuredIdentifierKeyMatches(source: string) {
     new RegExp(`>\\s*(${structuredIdentifierKey})\\s*(?::\\s*)?<`, 'gi'),
     new RegExp(`(?:^|[\\n;])\\s*(${structuredIdentifierKey})\\s*:`, 'gi'),
   ];
-  return patterns.flatMap(pattern => Array.from(source.matchAll(pattern)).map(match => ({
-    term: match[1],
-    index: match.index ?? -1,
-  })));
+  const matches = [
+    ...patterns.flatMap(pattern => Array.from(source.matchAll(pattern)).map(match => ({
+      term: match[1],
+      index: (match.index ?? 0) + match[0].indexOf(match[1]),
+    }))),
+    ...structuredIdentifierKeysInHtmlJsonAttributes(source),
+    ...structuredIdentifierPropertyAssignments(source),
+  ];
+  return Array.from(
+    new Map(matches.map(match => (
+      [`${match.term.toLowerCase()}:${match.index}`, match] as const
+    ))).values(),
+  );
 }
 
 function normalizedRetainedText(value: string) {
@@ -143,6 +439,135 @@ function retainedObjectHasSkuAndNullBarcode(source: string, manufacturerSku: str
     && parsed.sku === manufacturerSku
     && parsed.barcode === null
   ));
+}
+
+function parsedRetainedJsonProduct(source: string) {
+  try {
+    const parsed = JSON.parse(source) as unknown;
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+      ? parsed as Record<string, unknown>
+      : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function retainedPrimitiveStrings(value: unknown, strings: string[] = []) {
+  if (typeof value === 'string') {
+    strings.push(value);
+    return strings;
+  }
+  if (Array.isArray(value)) {
+    value.forEach(item => retainedPrimitiveStrings(item, strings));
+    return strings;
+  }
+  if (value && typeof value === 'object') {
+    Object.values(value as Record<string, unknown>)
+      .forEach(item => retainedPrimitiveStrings(item, strings));
+  }
+  return strings;
+}
+
+function retainedMeasurementTokens(value: string) {
+  return Array.from(value.toLowerCase().matchAll(
+    /\b(\d+(?:[.,]\d+)?)\s*(fl\.?\s*oz|ml|cl|l|mg|kg|g|oz|count|pcs?|pieces?|pack)\b/g,
+  )).map(match => {
+    const amount = Number(match[1].replace(',', '.'));
+    const amountToken = Number.isFinite(amount) ? String(amount).replace('.', 'd') : match[1];
+    const unitToken = match[2]
+      .replace(/[^a-z]/g, '')
+      .replace(/^pieces?$/, 'pc')
+      .replace(/^pcs?$/, 'pc');
+    return `${amountToken}${unitToken}`;
+  });
+}
+
+function sameRetainedUrl(left: string, right: string) {
+  try {
+    const leftUrl = new URL(left.startsWith('//') ? `https:${left}` : left);
+    const rightUrl = new URL(right.startsWith('//') ? `https:${right}` : right);
+    if (leftUrl.protocol !== 'https:' || rightUrl.protocol !== 'https:') return false;
+    return leftUrl.href === rightUrl.href;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Shopify's product response keeps all variants inside one root object. A whole-root byte range
+ * therefore proves only co-location, not that a reviewed size or package belongs to the selected
+ * SKU. Single-variant products are unambiguous. Multi-variant products must carry the reviewed
+ * variant, measured size and package media inside the exact variant object that owns the SKU and
+ * null barcode.
+ */
+function retainedOfficialJsonVariantBindingValid(
+  source: string,
+  extraction: CatalogueManufacturerSkuIdentityExtraction,
+) {
+  const product = parsedRetainedJsonProduct(source);
+  if (!product || !Array.isArray(product.variants) || product.variants.length < 1) return false;
+  const expectedSku = extraction.fields.manufacturerSku.value
+    .normalize('NFKC')
+    .trim()
+    .toUpperCase();
+  const selectedVariants = product.variants.filter(value => {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+    const variant = value as Record<string, unknown>;
+    return typeof variant.sku === 'string'
+      && variant.sku.normalize('NFKC').trim().toUpperCase() === expectedSku;
+  }) as Array<Record<string, unknown>>;
+  if (
+    selectedVariants.length !== 1
+    || !Object.hasOwn(selectedVariants[0], 'barcode')
+    || selectedVariants[0].barcode !== null
+  ) return false;
+
+  // With one variant, product-level title, size suffix and media cannot be borrowed from a sibling.
+  // This preserves the reviewed DANG response, whose one exact variant owns the SKU/barcode while
+  // the same product root owns the title and reviewed package media.
+  if (product.variants.length === 1) return true;
+
+  const selectedVariant = selectedVariants[0];
+  const selectedVariantSource = JSON.stringify(selectedVariant);
+  const selectedStrings = retainedPrimitiveStrings(selectedVariant);
+  const selectedNormalized = selectedStrings.map(normalizedRetainedText);
+  const expectedSizeTokens = retainedMeasurementTokens(extraction.fields.size.value);
+  const variantPresent = (
+    retainedExtractionFieldPresent(selectedVariantSource, extraction.fields.variant)
+    && selectedNormalized.includes(normalizedRetainedText(extraction.fields.variant.value))
+  );
+  const sizePresent = (
+    retainedExtractionFieldPresent(selectedVariantSource, extraction.fields.size)
+    && expectedSizeTokens.length > 0
+    && selectedStrings.some(value => {
+      const observed = new Set(retainedMeasurementTokens(value));
+      return expectedSizeTokens.every(token => observed.has(token));
+    })
+  );
+  const packageField = extraction.fields.packageVersion;
+  const packagePresent = packageField.reviewedMedia
+    ? selectedStrings.some(value => (
+      sameRetainedUrl(value, packageField.reviewedMedia!.sourceUrl)
+    ))
+    : (
+      retainedExtractionFieldPresent(selectedVariantSource, packageField)
+      && selectedNormalized.includes(normalizedRetainedText(packageField.value))
+    );
+  const nullBarcodeSourcePresent = retainedTextSegments(selectedVariantSource).some(segment => (
+    segment.includes(normalizedRetainedText(
+      extraction.fields.gtinPublicationStatus.sourceText,
+    ))
+  ));
+  return (
+    retainedExtractionFieldPresent(
+      selectedVariantSource,
+      extraction.fields.manufacturerSku,
+    )
+    && variantPresent
+    && sizePresent
+    && packagePresent
+    && nullBarcodeSourcePresent
+  );
 }
 
 const catalogueBrandFieldLabels = new Set([
@@ -248,12 +673,26 @@ function verifyRetainedManufacturerSource(
         `${candidateId} retained official identity source contradicts its no-GTIN search result.`,
       );
     }
-    return;
+    // Absence-search evidence is a rendered-DOM route. Do not let a malformed exact JSON route
+    // use it to bypass the Shopify variant binding below.
+    if (extraction.sourceResponseMimeType === 'text/html') return;
   }
 
   const manufacturerSku = extraction.fields.manufacturerSku.value;
   const nullBarcodePattern = /["']?barcode["']?\s*:\s*null/gi;
-  if (!retainedObjectHasSkuAndNullBarcode(productRecordSource, manufacturerSku)) {
+  if (
+    extraction.sourceResponseMimeType !== 'text/html'
+    && !retainedOfficialJsonVariantBindingValid(productRecordSource, extraction)
+  ) {
+    throw new Error(
+      `${candidateId} retained official product record does not bind the selected SKU, variant, `
+      + 'size, package and null barcode to one variant.',
+    );
+  }
+  if (
+    extraction.sourceResponseMimeType === 'text/html'
+    && !retainedObjectHasSkuAndNullBarcode(productRecordSource, manufacturerSku)
+  ) {
     throw new Error(`${candidateId} retained official identity source lost its null-barcode variant.`);
   }
 
