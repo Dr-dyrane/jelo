@@ -50,8 +50,8 @@
 .pill {
   display: inline-block; padding: 2px var(--space-3);
   border-radius: var(--radius-pill);
-  font-size: var(--text-label); font-weight: var(--weight-semibold);
-  letter-spacing: .01em; white-space: nowrap;
+  font-size: var(--text-label); font-weight: var(--weight-regular);
+  letter-spacing: 0; white-space: nowrap;
 }
 .success { color: var(--state-success); background: var(--state-success-bg); }
 .warning { color: var(--state-warning); background: var(--state-warning-bg); }
