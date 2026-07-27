@@ -12,6 +12,10 @@ import {
 import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight, PanelTopOpen, X } from 'lucide-react';
 import { useContextFab } from '@/components/ops/shell/OpsShellContext';
+import {
+  OPS_OVERLAY_INERT_TARGETS,
+  useOpsOverlay,
+} from '@/components/ops/shell/use-ops-overlay';
 import styles from './inbox.module.css';
 import adaptive from './inbox-tablet.module.css';
 import {
@@ -51,6 +55,10 @@ interface InboxContainerProps<T extends { id: string }> {
   onSelect?: (item: T, index: number) => void;
   onDeselect?: () => void;
   controllerRef?: React.RefObject<OpsInboxController | null>;
+  collectionLabel?: string;
+  globalKeyboardShortcuts?: boolean;
+  autoSelectFirst?: boolean;
+  registerContextFab?: boolean;
 }
 
 type ViewportMode = 'phone' | 'touch' | 'compact' | 'balanced' | 'expanded';
@@ -264,6 +272,10 @@ export function InboxContainer<T extends { id: string }>({
   onSelect,
   onDeselect,
   controllerRef,
+  collectionLabel,
+  globalKeyboardShortcuts = true,
+  autoSelectFirst = true,
+  registerContextFab = true,
 }: InboxContainerProps<T>) {
   const setContextFab = useContextFab();
   const isControlled = onSelect != null;
@@ -278,6 +290,11 @@ export function InboxContainer<T extends { id: string }>({
   const [overlayInspectorOpen, setOverlayInspectorOpen] = useState(false);
   const overlayInspectorRef = useRef<HTMLElement | null>(null);
   const lastTriggerRef = useRef<HTMLElement | null>(null);
+  const detailPortalTarget = useSyncExternalStore(
+    subscribeToDetailPane,
+    getDetailPaneSnapshot,
+    getServerDetailPaneSnapshot,
+  );
 
   const [optimisticItems, removeOptimisticItem] = useOptimistic(
     items,
@@ -290,7 +307,9 @@ export function InboxContainer<T extends { id: string }>({
     : -1;
   const detailId = requestedIndex >= 0
     ? requestedDetailId
-    : optimisticItems[0]?.id ?? null;
+    : autoSelectFirst
+      ? optimisticItems[0]?.id ?? null
+      : null;
   const selectedIndex = detailId
     ? optimisticItems.findIndex(item => item.id === detailId)
     : -1;
@@ -307,9 +326,14 @@ export function InboxContainer<T extends { id: string }>({
   const usesDockedInspector = viewportMode === 'balanced' || viewportMode === 'expanded';
 
   useEffect(() => {
-    if (!isControlled || optimisticItems.length === 0 || requestedIndex >= 0) return;
+    if (
+      !autoSelectFirst
+      || !isControlled
+      || optimisticItems.length === 0
+      || requestedIndex >= 0
+    ) return;
     onSelect(optimisticItems[0], 0);
-  }, [isControlled, optimisticItems, onSelect, requestedIndex]);
+  }, [autoSelectFirst, isControlled, optimisticItems, onSelect, requestedIndex]);
 
   const syncNavigationIndex = useCallback((index: number) => {
     setNavigationIndex(index);
@@ -344,6 +368,7 @@ export function InboxContainer<T extends { id: string }>({
   }, [activeItem, navigationItem, openDetail, optimisticItems]);
 
   useEffect(() => {
+    if (!registerContextFab) return;
     const item = activeItem ?? navigationItem;
     if (!item) {
       setContextFab(null);
@@ -357,80 +382,39 @@ export function InboxContainer<T extends { id: string }>({
     });
 
     return () => setContextFab(null);
-  }, [activeItem, itemTypeLabel, navigationItem, openCurrentDetail, setContextFab]);
+  }, [
+    activeItem,
+    itemTypeLabel,
+    navigationItem,
+    openCurrentDetail,
+    registerContextFab,
+    setContextFab,
+  ]);
 
   const closeDetail = useCallback(() => {
     if (usesOverlayInspector) {
       setOverlayInspectorOpen(false);
-      requestAnimationFrame(() => lastTriggerRef.current?.focus());
       return;
     }
     if (isControlled) onDeselect?.();
     else setInternalDetailId(null);
   }, [isControlled, onDeselect, usesOverlayInspector]);
 
-  useEffect(() => {
-    if (!usesOverlayInspector || !overlayInspectorOpen) return;
+  const overlayMounted = (
+    usesOverlayInspector
+    && overlayInspectorOpen
+    && activeItem != null
+    && detailPortalTarget != null
+  );
 
-    const previousOverflow = document.body.style.overflow;
-    const workspaceScrollOwner = document.querySelector<HTMLElement>('[data-ops-main]');
-    const previousWorkspaceOverflow = workspaceScrollOwner?.style.overflow ?? '';
-    const inertTargets = [
-      document.querySelector<HTMLElement>('[data-ops-workspace]'),
-      document.querySelector<HTMLElement>('[data-ops-sidebar-layer]'),
-    ].filter((target): target is HTMLElement => target != null);
-    const previousInert = inertTargets.map(target => target.hasAttribute('inert'));
-
-    document.body.style.overflow = 'hidden';
-    if (workspaceScrollOwner) workspaceScrollOwner.style.overflow = 'hidden';
-    inertTargets.forEach(target => target.setAttribute('inert', ''));
-
-    function handleOverlayKeyDown(event: KeyboardEvent) {
-      if (event.defaultPrevented) return;
-      const eventDialog = event.target instanceof Element
-        ? event.target.closest('dialog')
-        : null;
-      const nestedDialog = document.querySelector<HTMLDialogElement>('dialog[open]');
-      if (eventDialog || nestedDialog) return;
-
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        closeDetail();
-        return;
-      }
-      if (event.key !== 'Tab') return;
-
-      const focusable = overlayInspectorRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusable?.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
-
-    const focusFrame = requestAnimationFrame(() => {
-      overlayInspectorRef.current
-        ?.querySelector<HTMLElement>('button:not([disabled]):not([tabindex="-1"]), a[href], textarea:not([disabled]), input:not([disabled])')
-        ?.focus();
-    });
-    window.addEventListener('keydown', handleOverlayKeyDown);
-    return () => {
-      cancelAnimationFrame(focusFrame);
-      document.body.style.overflow = previousOverflow;
-      if (workspaceScrollOwner) workspaceScrollOwner.style.overflow = previousWorkspaceOverflow;
-      inertTargets.forEach((target, index) => {
-        if (!previousInert[index]) target.removeAttribute('inert');
-      });
-      window.removeEventListener('keydown', handleOverlayKeyDown);
-    };
-  }, [closeDetail, overlayInspectorOpen, usesOverlayInspector]);
+  useOpsOverlay({
+    open: overlayMounted,
+    onClose: closeDetail,
+    dialogRef: overlayInspectorRef,
+    returnFocusRef: lastTriggerRef,
+    inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS,
+    initialFocusSelector: '[data-ops-inspector-close]',
+  });
 
   const handleItemSettled = useCallback((settledId: string) => {
     const settledIndex = optimisticItems.findIndex(item => item.id === settledId);
@@ -496,7 +480,7 @@ export function InboxContainer<T extends { id: string }>({
   }, []);
 
   useEffect(() => {
-    if (optimisticItems.length === 0) return;
+    if (!globalKeyboardShortcuts || optimisticItems.length === 0) return;
 
     function handleKeyDown(e: KeyboardEvent) {
       const target = e.target instanceof HTMLElement ? e.target : null;
@@ -546,6 +530,7 @@ export function InboxContainer<T extends { id: string }>({
     navigationItem,
     openDetail,
     optimisticItems.length,
+    globalKeyboardShortcuts,
     syncNavigationIndex,
   ]);
 
@@ -616,11 +601,6 @@ export function InboxContainer<T extends { id: string }>({
     );
   }
 
-  const detailPortalTarget = useSyncExternalStore(
-    subscribeToDetailPane,
-    getDetailPaneSnapshot,
-    getServerDetailPaneSnapshot,
-  );
   const resolvedSections = sections
     ? normalizeInboxSections(optimisticItems, sections)
     : null;
@@ -628,7 +608,7 @@ export function InboxContainer<T extends { id: string }>({
   return (
     <>
       {resolvedSections ? (
-        <div className={styles.sectionCollection} data-ops-collection="sectioned" aria-label={`${itemTypeLabel} queue`}>
+        <div className={styles.sectionCollection} data-ops-collection="sectioned" aria-label={collectionLabel ?? `${itemTypeLabel} queue`}>
           {resolvedSections.map(section => (
             <ProgressiveInboxSection
               key={section.id}
@@ -640,7 +620,7 @@ export function InboxContainer<T extends { id: string }>({
           ))}
         </div>
       ) : (
-        <div className={styles.cardGrid} data-ops-collection="default" role="listbox" aria-label={`${itemTypeLabel} queue`}>
+        <div className={styles.cardGrid} data-ops-collection="default" role="listbox" aria-label={collectionLabel ?? `${itemTypeLabel} queue`}>
           {optimisticItems.map((item, idx) => renderQueueItem(item, idx))}
         </div>
       )}
@@ -661,7 +641,13 @@ export function InboxContainer<T extends { id: string }>({
               />
               <section ref={overlayInspectorRef} className={adaptive.tabletInspector}>
                 <header className={adaptive.tabletInspectorHeader}>
-                  <button type="button" className={adaptive.tabletClose} onClick={closeDetail} aria-label="Close details">
+                  <button
+                    type="button"
+                    data-ops-inspector-close
+                    className={adaptive.tabletClose}
+                    onClick={closeDetail}
+                    aria-label="Close details"
+                  >
                     <X size={18} />
                   </button>
                 </header>
