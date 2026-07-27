@@ -1,18 +1,20 @@
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { products } from '@/data/catalogue';
-import { concernBySlug } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
 import type { Product } from '@/data/products';
 import { assessConsultSafety } from '@/modules/clinical/safety-gate';
-import {
-  assessOrdinaryCareIntent,
-  type OrdinaryCareIntent,
-} from '@/modules/clinical/core/care-intent';
+import { assessOrdinaryCareIntent } from '@/modules/clinical/core/care-intent';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { createTimelineRecord } from '@/modules/clinical/core/timeline';
 import { analyzeTimeline } from '@/modules/clinical/core/trends';
-import type { ClinicalFinding, ClinicalTimelineRecord, EvidenceRecord, RoutineStep } from '@/modules/clinical/core/types';
+import type { ClinicalFinding, ClinicalTimelineRecord, EvidenceRecord } from '@/modules/clinical/core/types';
+import {
+  buildConsultProductCandidate,
+  buildDeterministicCareIntentReport,
+  buildDeterministicConsultReport,
+  compactRoutine,
+} from '@/modules/clinical/consult-report';
 import { marketProductPrice, marketRetailerLinks } from '@/modules/commerce/market-product';
 import { clinicallyFilterProducts, type ClinicalProductDecision } from '@/modules/recommendations/clinical-product-filter';
 import { rankProducts } from '@/modules/recommendations/product-ranker';
@@ -57,85 +59,12 @@ function publicProduct(product: Product, market: Market, decision?: ClinicalProd
   };
 }
 
-export function buildConsultProductCandidate(product: Product, decision: ClinicalProductDecision) {
-  return {
-    slug: product.slug,
-    brand: product.brand,
-    name: product.name,
-    approvedUseIds: decision.approvedUseIds,
-    clinicalReasons: decision.reasons,
-    ingredientIds: decision.ingredientIds,
-  };
-}
-
-function publicRoutineStep(step: RoutineStep) {
-  const time: 'Morning' | 'Evening' | 'Weekly' = step.time === 'morning' ? 'Morning' : step.time === 'evening' ? 'Evening' : 'Weekly';
-  return { time, action: step.action, rationale: step.rationale, frequency: step.frequency };
-}
-
 function publicGuidanceNote(note: EvidenceRecord) {
   return { id: note.id, title: note.title, source: note.source, sourceType: note.sourceType, summary: note.summary };
 }
 
 function publicFinding(finding: ClinicalFinding) {
   return { ...finding, evidence: finding.evidence?.map(publicGuidanceNote) };
-}
-
-function compactRoutine(clinical: ReturnType<typeof assessClinicalRoutine>) {
-  const plan = clinical.routinePlan;
-  if (!plan) return [];
-  return [...plan.morning, ...plan.evening, ...plan.weekly].slice(0, 10).map(publicRoutineStep);
-}
-
-export function buildDeterministicConsultReport(
-  clinical: ReturnType<typeof assessClinicalRoutine>,
-  selectedSlugs: string[],
-  _modelDraft?: z.infer<typeof reportSchema>,
-): z.infer<typeof reportSchema> {
-  void _modelDraft;
-  const routine = compactRoutine(clinical).slice(0, 8).map(step => ({ time: step.time, action: step.action }));
-  const cautions = [
-    ...clinical.findings.map(finding => `${finding.title}: ${finding.explanation}`),
-    `${clinical.referral.level}: ${clinical.referral.action}`,
-  ].slice(0, 6);
-  const pattern = clinical.differential.primary
-    ? `${clinical.differential.primary.label} is the leading working pattern. This is not a diagnosis.`
-    : 'The description is not yet specific enough for a working pattern.';
-
-  return {
-    title: clinical.referral.level === 'self-care' ? 'A careful starting point.' : 'Check before you continue.',
-    summary: clinical.referral.level === 'self-care'
-      ? clinical.routinePlan?.summary ?? 'Keep the routine simple and introduce one change at a time.'
-      : clinical.referral.action,
-    pattern,
-    routine: clinical.referral.level === 'self-care' ? routine : [],
-    cautions,
-    productSlugs: selectedSlugs,
-    followUp: clinical.referral.action,
-  };
-}
-
-export function buildDeterministicCareIntentReport(
-  careIntent: OrdinaryCareIntent,
-  selectedSlugs: string[],
-): z.infer<typeof reportSchema> {
-  const canonicalConcerns = careIntent.concernSlugs
-    .map(concernBySlug)
-    .filter((concern): concern is NonNullable<typeof concern> => Boolean(concern));
-  const requestedCare = careIntent.labels.map(label => label.toLowerCase()).join(' and ');
-
-  return {
-    title: 'A simple place to start.',
-    summary: selectedSlugs.length
-      ? `These options were checked for ${requestedCare}.`
-      : `JeloCare does not have a suitable direct match for ${requestedCare} yet.`,
-    pattern: `You asked about ${requestedCare}. JeloCare treated this as everyday care, not a diagnosis.`,
-    routine: careIntent.routine,
-    cautions: canonicalConcerns.map(concern => concern.escalation).slice(0, 3),
-    productSlugs: selectedSlugs,
-    followUp: canonicalConcerns[0]?.escalation
-      ?? 'Get in-person care if the concern becomes painful, spreads quickly or does not improve.',
-  };
 }
 
 export async function POST(request: Request) {

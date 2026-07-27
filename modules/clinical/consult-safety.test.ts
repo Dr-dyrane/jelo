@@ -2,8 +2,12 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
-import { buildConsultProductCandidate, buildDeterministicConsultReport, POST } from '@/app/api/consult/route';
+import { POST } from '@/app/api/consult/route';
 import { products } from '@/data/catalogue';
+import {
+  buildConsultProductCandidate,
+  buildDeterministicConsultReport,
+} from '@/modules/clinical/consult-report';
 import { assessClinicalRoutine } from './core/engine';
 import { assessConsultSafety, assessRedFlags } from './safety-gate';
 import type { ClinicalProductDecision } from '@/modules/recommendations/clinical-product-filter';
