@@ -227,17 +227,12 @@
 .price-trend {
   display: inline-flex;
   align-items: center;
-  gap: .12rem;
   color: var(--muted);
-  font-size: .62rem;
-  font-weight: 600;
   line-height: 1;
-  white-space: nowrap;
 }
 
 .price-trend-down { color: #33704a; }
 .price-trend-up { color: #9a3d35; }
-.price-trend-flat { color: var(--muted); }
 
 .retailer-row-unavailable { opacity: .62; }
 
@@ -326,14 +321,6 @@
   .market-summary-notes { margin: 0; grid-column: 1 / -1; justify-items: start; }
 }
 
-@media (max-width: 383px) {
-  .market-price-line {
-    display: grid;
-    justify-content: start;
-    gap: .25rem;
-  }
-}
-
 .retailer-foot { margin-top: 1rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .retailer-foot .retailer-disclosure { margin: 0; }
 
@@ -354,9 +341,7 @@ html[data-theme="dark"] .retailer-channel-filter button.active { color: var(--cr
   html:not([data-theme="light"]) .retailer-channel-filter button.active { color: var(--cream); }
 }
 
-/* dark: price-movement labels used dark green/red (#33704a / #9a3d35) that fall below AA
-   on the dark market-summary surface. Softened, lighter semantic tones clear ~6.5:1+.
-   (Flat already uses --muted, which flips.) */
+/* Dark: keep the small movement arrows legible on the market surface. */
 html[data-theme="dark"] .price-trend-down { color: #7cc79b; }
 html[data-theme="dark"] .price-trend-up { color: #e8998c; }
 @media (prefers-color-scheme: dark) {

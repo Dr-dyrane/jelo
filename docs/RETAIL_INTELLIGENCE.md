@@ -85,21 +85,20 @@ For every supported product, JeloCare may compute across the stores actually com
 
 One qualifying store is labelled `Observed`, never `Best`, `Fair` or `Typical` — a lone price is not representative. Two or more qualifying stores are labelled `Lowest observed` and, for the median of the compared set, `Typical` (a genuine middle of several observations, which a single price can never be). Both are always scoped to the compared set. `Typical` is the reader-facing label; the underlying measure is the median, not the mean. Delivery can change the total unless a landed-cost observation explicitly says it is included. Seven- and 30-day movement compares the same offers at both ends of the window and stays hidden unless the current observation is fresh and an appropriately dated anchor exists.
 
-Price movement is presented beside the price it describes. `Typical` uses the
-compared market set; each store row uses only that exact store offer. A store
-increase can therefore appear beside a market decrease without contradiction.
-The compact arrow, percentage, and window are always paired with an accessible
-label and never appear when the exact comparison is unavailable. A retailer SKU,
-search result, stale listing, or different store is never used as a substitute
-history anchor. If one retailer card currently represents more than one exact
-offer, its movement stays hidden until the displayed offer identity is
-unambiguous.
+Price movement is presented as a single up or down arrow beside the price it
+describes. `Typical` uses the compared market set; each store row uses only that
+exact store offer. A store increase can therefore appear beside a market
+decrease without contradiction. Flat movement is silent. The percentage,
+evidence window, and compared-offer count remain in the arrow's accessible
+label instead of adding visible copy. A retailer SKU, search result, stale
+listing, or different store is never used as a substitute history anchor. If
+one retailer card currently represents more than one exact offer, its movement
+stays hidden until the displayed offer identity is unambiguous.
 
 The UI prefers a valid 30-day comparison, then seven days. While a new history
 is still growing, it may compare the latest two checks of the same exact offer
 when they are at least 12 hours apart, no more than 14 days apart, and the
-current observation is fresh. The visible day count is the actual elapsed
-window. Rapid retries never become a trend.
+current observation is fresh. Rapid retries never become a trend.
 
 ## Safety and trust
 

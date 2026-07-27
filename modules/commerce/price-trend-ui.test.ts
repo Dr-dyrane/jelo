@@ -20,13 +20,11 @@ test('price movement stays compact, per-store, accessible, and evidence gated', 
   assert.match(component, /selectRetailerPriceMovement/);
   assert.match(component, /PriceTrend movement=\{movement\}/);
   assert.match(component, /aria-label=\{label\}/);
-  assert.match(component, /movement\.days\}d/);
   assert.match(component, /describePriceMovement/);
+  assert.match(component, /movement\.direction === 'flat'\) return null/);
+  assert.match(component, /const Icon = movement\.direction === 'down' \? ArrowDown : ArrowUp/);
   assert.match(priceModel, /movement\.comparableOfferCount/);
-  assert.match(styles, /\.price-trend\s*\{[\s\S]*white-space:\s*nowrap/);
-  assert.match(
-    styles,
-    /@media \(max-width: 383px\)[\s\S]*\.market-price-line\s*\{[\s\S]*display:\s*grid/,
-  );
-  assert.doesNotMatch(component, /Price dropped|Price rose/);
+  assert.match(styles, /\.price-trend\s*\{[\s\S]*display:\s*inline-flex/);
+  assert.doesNotMatch(styles, /@media \(max-width: 383px\)/);
+  assert.doesNotMatch(component, /Steady|movement\.days\}d|lowestMovement/);
 });

@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowDown, ArrowUp, ArrowUpRight, MapPin, Minus, Truck } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, MapPin, Truck } from 'lucide-react';
 import { type ReactNode, useMemo, useState } from 'react';
 import type { FulfilmentMethod, Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
@@ -19,7 +19,6 @@ import {
   hasBrandAuthorizationEvidence,
   hasListingEvidence,
   hasSellerIdentityEvidence,
-  comparableMarketPrice,
   observedDeliveryFee,
   observedStockLabel,
   observedMarketPrice,
@@ -61,17 +60,10 @@ function PriceTrend({
   movement: PriceMovement | null;
   subject: string;
 }) {
-  if (!movement) return null;
+  if (!movement || movement.direction === 'flat') return null;
 
-  const amount = Math.abs(movement.percent);
-  const value = Number.isInteger(amount) ? amount.toFixed(0) : amount.toFixed(1);
-  const visible = movement.direction === 'flat' ? 'Steady' : `${value}%`;
   const label = describePriceMovement(movement, subject);
-  const Icon = movement.direction === 'down'
-    ? ArrowDown
-    : movement.direction === 'up'
-      ? ArrowUp
-      : Minus;
+  const Icon = movement.direction === 'down' ? ArrowDown : ArrowUp;
 
   return (
     <span
@@ -79,8 +71,7 @@ function PriceTrend({
       aria-label={label}
       title={label}
     >
-      <Icon size={12} strokeWidth={1.8} aria-hidden="true" />
-      <span aria-hidden="true">{visible} · {movement.days}d</span>
+      <Icon size={13} strokeWidth={1.9} aria-hidden="true" />
     </span>
   );
 }
@@ -105,12 +96,6 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
   const activeFulfilment = fulfilment === 'any' || fulfilments.includes(fulfilment) ? fulfilment : 'any';
   const summary = useMemo(() => summarizeMarket(offers, market), [offers, market]);
   const marketMovement = preferredPriceMovement(priceTrends?.[market]);
-  const lowestOffer = visible.find(offer => (
-    offer.available
-    && isOfferFresh(offer)
-    && comparableMarketPrice(offer, market) === summary.lowestPrice
-  ));
-  const lowestMovement = selectRetailerPriceMovement(priceTrends, market, lowestOffer?.retailer);
   // Confidence, surfaced as compared-set coverage — never a grade (ADR 0006). Only
   // shown when some checked stores are unpriced, so the reader knows the summary
   // reflects a subset (out-of-stock or comparison-excluded stores are the gap).
@@ -132,7 +117,6 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
           <small>{summary.priceBasis === 'multi-source' ? 'Lowest observed' : 'Observed'}</small>
           <span className="market-price-line">
             <strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong>
-            <PriceTrend movement={lowestMovement} subject="This store price" />
           </span>
         </span>
         {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span>
