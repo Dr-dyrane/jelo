@@ -255,18 +255,18 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       title="Fresh price checks."
       products={recentlyChecked}
       market={market}
-      href={href(params, { review: 'reviewed', availability: 'priced', sort: 'newest' })}
+      href={href(params, { review: 'reviewed', availability: 'priced', sort: 'newest' }, 'all-products')}
     />
     <DiscoveryRail
       eyebrow="Current prices"
       title={market === 'NG' ? 'Under ₦10,000.' : 'Under $15.'}
       products={accessiblePriceProducts}
       market={market}
-      href={href(params, { review: 'reviewed', availability: 'priced', price: 'low' })}
+      href={href(params, { review: 'reviewed', availability: 'priced', price: 'low' }, 'all-products')}
     />
-    <DiscoveryRail eyebrow="Supportive use" title="Supportive care." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' })}/>
-    <DiscoveryRail eyebrow="Face care" title="Browse the category." products={faceCare} market={market} href={href(params, { review: 'reviewed', category: 'Face care', browse: 'category' })}/>
-    <DiscoveryRail eyebrow="Hair & scalp" title="Browse the category." products={hairAndScalp} market={market} href={href(params, { review: 'reviewed', category: 'Hair & scalp', browse: 'category' })}/></> : null}
+    <DiscoveryRail eyebrow="Supportive use" title="Supportive care." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' }, 'all-products')}/>
+    <DiscoveryRail eyebrow="Face care" title="Browse the category." products={faceCare} market={market} href={href(params, { review: 'reviewed', category: 'Face care', browse: 'category' }, 'all-products')}/>
+    <DiscoveryRail eyebrow="Hair & scalp" title="Browse the category." products={hairAndScalp} market={market} href={href(params, { review: 'reviewed', category: 'Hair & scalp', browse: 'category' }, 'all-products')}/></> : null}
 
     <section className={`${styles.catalogue} ${feedbackStyles.catalogueState} ${appliedFilters.length ? feedbackStyles.filtered : ''}`} id="all-products">
       {concernGuides.length ? <aside className={styles.concernGuide} aria-label="Concern guidance">
