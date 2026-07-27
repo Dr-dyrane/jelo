@@ -196,7 +196,14 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <div className={styles.heroImage}><SafeEditorialImage asset={heroAsset} alt={heroAsset.altText} priority sizes="(max-width: 760px) 100vw, 58vw"/></div>
     </section>
 
-    <CatalogueSearch key={`${market}:${result.filters.q}`} defaultValue={result.filters.q} market={market} marketHrefs={marketHrefs} suggestions={searchSuggestions}/>
+    <CatalogueSearch
+      key={`${market}:${result.filters.q}`}
+      defaultValue={result.filters.q}
+      clearHref={href(params, { q: null }, 'all-products')}
+      market={market}
+      marketHrefs={marketHrefs}
+      suggestions={searchSuggestions}
+    />
 
     {!hasActiveIntent ? <><section className={styles.browse} id="browse">
       <div className={styles.sectionHeading}>
@@ -224,18 +231,18 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       title="Fresh price checks."
       products={recentlyChecked}
       market={market}
-      href={href(params, { review: 'reviewed', availability: 'priced', sort: 'newest' })}
+      href={href(params, { review: 'reviewed', availability: 'priced', sort: 'newest' }, 'all-products')}
     />
     <DiscoveryRail
       eyebrow="Current prices"
       title={market === 'NG' ? 'Under ₦10,000.' : 'Under $15.'}
       products={accessiblePriceProducts}
       market={market}
-      href={href(params, { review: 'reviewed', availability: 'priced', price: 'low' })}
+      href={href(params, { review: 'reviewed', availability: 'priced', price: 'low' }, 'all-products')}
     />
-    <DiscoveryRail eyebrow="Supportive use" title="Supportive care." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' })}/>
-    <DiscoveryRail eyebrow="Face care" title="Browse the category." products={faceCare} market={market} href={href(params, { review: 'reviewed', category: 'Face care', browse: 'category' })}/>
-    <DiscoveryRail eyebrow="Hair & scalp" title="Browse the category." products={hairAndScalp} market={market} href={href(params, { review: 'reviewed', category: 'Hair & scalp', browse: 'category' })}/></> : null}
+    <DiscoveryRail eyebrow="Supportive use" title="Supportive care." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' }, 'all-products')}/>
+    <DiscoveryRail eyebrow="Face care" title="Browse the category." products={faceCare} market={market} href={href(params, { review: 'reviewed', category: 'Face care', browse: 'category' }, 'all-products')}/>
+    <DiscoveryRail eyebrow="Hair & scalp" title="Browse the category." products={hairAndScalp} market={market} href={href(params, { review: 'reviewed', category: 'Hair & scalp', browse: 'category' }, 'all-products')}/></> : null}
 
     <section className={`${styles.catalogue} ${feedbackStyles.catalogueState} ${appliedFilters.length ? feedbackStyles.filtered : ''}`} id="all-products">
       {concernGuides.length ? <aside className={styles.concernGuide} aria-label="Concern guidance">
@@ -254,7 +261,8 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     <aside className={styles.sourceNote}>
       <div><p className={styles.kicker}>{externalProducts.length ? 'Two catalogue sources' : 'Catalogue context'}</p><h2>Know what you see.</h2></div>
       <div>
-        <p>Profiles show products and prices.</p>
+        <p>Profiles show reviewed product records.</p>
+        <p>Current prices appear when verified.</p>
         <p>Supportive use adds a care review.</p>
         <Link href="/share">Worth sharing <ArrowRight size={15} aria-hidden="true" /></Link>
         {externalProducts.length ? <a href="https://world.openbeautyfacts.org/data" target="_blank" rel="noreferrer">Open Beauty Facts · ODbL / CC BY-SA <ArrowRight size={15} aria-hidden="true"/></a> : null}

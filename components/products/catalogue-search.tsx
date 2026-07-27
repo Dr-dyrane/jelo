@@ -21,12 +21,13 @@ const kindLabels: Record<CatalogueSearchSuggestionKind, string> = {
 
 type Props = {
   defaultValue: string;
+  clearHref: string;
   market: 'NG' | 'US';
   marketHrefs: Record<'NG' | 'US', string>;
   suggestions: CatalogueSearchSuggestion[];
 };
 
-export function CatalogueSearch({ defaultValue, market, marketHrefs, suggestions }: Props) {
+export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, suggestions }: Props) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -101,9 +102,15 @@ export function CatalogueSearch({ defaultValue, market, marketHrefs, suggestions
     });
   }
 
-  function clearDraft() {
+  function clearSearch() {
     setValue('');
     setActiveIndex(-1);
+    if (defaultValue) {
+      closeSuggestions();
+      recordCatalogueTransition(clearHref);
+      router.push(clearHref);
+      return;
+    }
     setExpanded(true);
     inputRef.current?.focus();
   }
@@ -130,7 +137,7 @@ export function CatalogueSearch({ defaultValue, market, marketHrefs, suggestions
           aria-controls={listboxId}
           aria-activedescendant={showSuggestions && currentActiveIndex >= 0 ? `${listboxId}-${currentActiveIndex}` : undefined}
         />
-        {value ? <button className={styles.clear} type="button" onClick={clearDraft} aria-label="Clear search"><X size={16} aria-hidden="true" /></button> : null}
+        {value ? <button className={styles.clear} type="button" onClick={clearSearch} aria-label="Clear search"><X size={16} aria-hidden="true" /></button> : null}
         <input type="hidden" name="market" value={market} />
         <button className={styles.submit} type="submit" aria-label="Search">Search</button>
         <div className={styles.market} aria-label="Shopping market">

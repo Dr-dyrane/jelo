@@ -52,6 +52,11 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(catalogue, /matchingCatalogueConcerns/);
   assert.match(catalogue, /#all-products/);
   assert.match(catalogue, /CatalogueSearch/);
+  assert.match(catalogue, /clearHref=\{href\(params, \{ q: null \}, 'all-products'\)\}/);
+  assert.equal(
+    (catalogue.match(/<DiscoveryRail[\s\S]*?href=\{href\(params,[\s\S]*?'all-products'\)\}/g) ?? []).length,
+    5,
+  );
   assert.match(catalogue, /\['category', 'routine', 'concern'\]/);
   assert.match(catalogue, /result\.facets\.steps/);
   assert.match(catalogue, /marketHrefs=\{marketHrefs\}/);
@@ -60,6 +65,7 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(search, /role="listbox"/);
   assert.match(search, /role="status" aria-live="polite"/);
   assert.match(search, /recordCatalogueTransition/);
+  assert.match(search, /defaultValue[\s\S]*recordCatalogueTransition\(clearHref\)[\s\S]*router\.push\(clearHref\)/);
   assert.match(search, /href=\{marketHrefs\.NG\}/);
   assert.match(search, /href=\{marketHrefs\.US\}/);
   assert.match(ruleDeclarations(searchStyles, '.shell'), /position:\s*sticky;/);

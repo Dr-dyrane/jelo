@@ -162,7 +162,8 @@ test('browse surfaces separate neutral records from supportive use', async () =>
   assert.match(home, /const newAndNoteworthy = products\.slice\(12, 24\);/);
   assert.doesNotMatch(home, /slice\(12, 24\)\.length/);
   assert.match(home, /hairCare\.length \? 'Hair & scalp' : null/);
-  assert.match(productsPage, /Profiles show products and prices/);
+  assert.match(productsPage, /Profiles show reviewed product records/);
+  assert.match(productsPage, /Current prices appear when verified/);
   assert.match(productsPage, /Supportive use adds a care review/);
   assert.match(productsPage, /review: 'supportive'/);
   assert.doesNotMatch(productsPage, /inventoryCategories\.map/);
