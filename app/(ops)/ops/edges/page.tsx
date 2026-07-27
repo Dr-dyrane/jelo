@@ -42,8 +42,9 @@ export default async function EdgesQueue({
     <OpsWorkspace title="Relationships">
       {rows.length === 0 ? (
         <EmptyState
-          title="Nothing awaiting review"
-          body="New relationships will appear here."
+          title="You’re caught up."
+          body="There’s nothing waiting."
+          action={{ href: '/ops/activity', label: 'View insights' }}
         />
       ) : (
         <EdgesInbox

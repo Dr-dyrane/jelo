@@ -167,6 +167,29 @@ test('routine relationships use the parent contribution to name the real routine
   );
   assert.equal(item.contribution.kindLabel, 'Routine contribution');
   assert.equal(item.family, 'products');
+  assert.ok(item.image);
+});
+
+test('an exact published product reference keeps its approved image even when parent context is incomplete', () => {
+  const item = edgeReviewItem(edgeRecord({
+    contributionPayload: {
+      kind: 'product',
+      products: [],
+      brands: [],
+      retailers: [],
+      purposes: [],
+    },
+    subjectKind: 'product',
+    subjectRef: 'product:cerave-foaming-facial-cleanser',
+    predicate: 'reported_price',
+    objectKind: 'amount_ngn',
+    objectRef: '17500',
+    metadata: {},
+  }));
+
+  assert.equal(item.title, 'CeraVe Foaming Facial Cleanser');
+  assert.equal(item.subject.matchState, 'linked');
+  assert.ok(item.image);
 });
 
 test('a current store contribution uses the submitted store as its human subject', () => {
@@ -328,7 +351,7 @@ test('the decision copy preserves the canonical-write boundary', () => {
   assert.deepEqual(item.decisionScope, {
     approve: 'Approve this relationship only.',
     reject: 'Reject this relationship only.',
-    boundary: 'Neither action publishes or verifies catalogue or clinical data.',
+    boundary: 'This accepts the connection only. It does not verify a product, store, price or result.',
   });
   assert.doesNotMatch(JSON.stringify(item.decisionScope), /product approved|retailer verified|clinically safe/i);
 });

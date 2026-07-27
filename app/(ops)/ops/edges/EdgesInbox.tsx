@@ -9,13 +9,14 @@ import {
   useRef,
   useState,
 } from 'react';
-import { ChevronRight, Waypoints } from 'lucide-react';
+import { ChevronRight, PackageSearch, Waypoints } from 'lucide-react';
 import type {
   EdgeReviewItem,
   RelationshipFamily,
   RelationshipMatchState,
 } from '@/lib/moderation/edge-presentation';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { EmptyState } from '@/components/ops/state/EmptyState';
 import { StatusPill, type PillTone } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
@@ -90,13 +91,16 @@ function queueRuntimeReducer(
     };
   }
 
-  const existingIds = new Set(state.extraRows.map(row => row.id));
+  const settled = new Set(state.settledIds);
+  const knownIds = new Set(state.extraRows.map(row => row.id));
+  const newRows = action.rows.filter(row => {
+    if (settled.has(row.id) || knownIds.has(row.id)) return false;
+    knownIds.add(row.id);
+    return true;
+  });
   return {
     ...state,
-    extraRows: [
-      ...state.extraRows,
-      ...action.rows.filter(row => !existingIds.has(row.id)),
-    ],
+    extraRows: [...state.extraRows, ...newRows],
     cursor: action.cursor,
     hasMore: action.hasMore,
     isLoading: false,
@@ -113,7 +117,13 @@ function relationshipRows(
   [...initialRows, ...state.extraRows].forEach(row => {
     if (!settled.has(row.id)) byId.set(row.id, row);
   });
-  return [...byId.values()];
+  return [...byId.values()].sort((left, right) => {
+    if (left.createdAt !== right.createdAt) {
+      return left.createdAt < right.createdAt ? -1 : 1;
+    }
+    if (left.id === right.id) return 0;
+    return left.id < right.id ? -1 : 1;
+  });
 }
 
 function matchTone(state: RelationshipMatchState): PillTone {
@@ -147,12 +157,17 @@ function RelationshipVisual({
   imageClassName: string;
   iconSize?: number;
 }) {
+  const Icon = row.subject.kindLabel.startsWith('Product')
+    || row.object.kindLabel === 'Product'
+    ? PackageSearch
+    : Waypoints;
+
   return (
     <span className={className} aria-hidden="true">
       {row.image ? (
         <SafeProductImage src={row.image} alt="" className={imageClassName} />
       ) : (
-        <Waypoints size={iconSize} strokeWidth={1.65} />
+        <Icon size={iconSize} strokeWidth={1.65} />
       )}
     </span>
   );
@@ -295,6 +310,16 @@ export function EdgesInbox({
   const actionAnnouncement = actionState?.ok
     ? `Relationship ${actionState.decision === 'approve' ? 'approved' : 'rejected'}.`
     : '';
+
+  if (loadedRows.length === 0 && !queueState.hasMore) {
+    return (
+      <EmptyState
+        title="You’re caught up."
+        body="There’s nothing waiting."
+        action={{ href: '/ops/activity', label: 'View insights' }}
+      />
+    );
+  }
 
   return (
     <>
@@ -477,6 +502,9 @@ export function EdgesInbox({
                       {actionState.error}
                     </p>
                   ) : null}
+                  <p className={edgeStyles.decisionBoundary}>
+                    {row.decisionScope.boundary}
+                  </p>
                   <input type="hidden" name="targetId" value={row.id} />
                   <div className={styles.decideField}>
                     <label
