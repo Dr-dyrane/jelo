@@ -2,7 +2,9 @@ import dossierManifest from '../data/catalogue-publication-dossiers.json';
 import releaseManifest from '../data/catalogue-publication-releases.json';
 import { catalogueIntakeCandidates } from '../data/catalogue-intake';
 import type { CataloguePublicationDossierManifest } from '../lib/catalogue/publication-dossier';
-import { verifyCataloguePublicationReleaseManifest } from '../lib/catalogue/publication-release';
+import {
+  verifyCataloguePublicationReleaseManifestWithArtifacts,
+} from '../lib/catalogue/publication-release';
 import type { CataloguePublicationReleaseManifest } from '../lib/catalogue/publication-release';
 import {
   assertCataloguePublicationProjectionMatches,
@@ -21,7 +23,7 @@ async function main() {
     releaseManifest as CataloguePublicationReleaseManifest,
     compilation,
   );
-  const report = verifyCataloguePublicationReleaseManifest(
+  const report = await verifyCataloguePublicationReleaseManifestWithArtifacts(
     catalogueIntakeCandidates,
     dossierManifest,
     releaseManifest,

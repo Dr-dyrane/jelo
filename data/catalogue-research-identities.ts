@@ -1,6 +1,7 @@
 import { products as coreProducts } from '@/data/products';
 import { expandedProducts } from '@/data/expanded-products';
 import { catalogueIntakeCandidates } from '@/data/catalogue-intake';
+import { catalogueGtinForIdentity } from '@/lib/catalogue/canonical-identity';
 import type { KnownCatalogueIdentity } from '@/lib/catalogue/research-priority';
 
 function compactUnique(values: Array<string | undefined>) {
@@ -27,6 +28,6 @@ for (const candidate of catalogueIntakeCandidates) {
     ]),
     size: candidate.size,
     sizeAliases: compactUnique(candidate.nigeria.exactOffers.map(offer => offer.observedSize)),
-    gtin: candidate.identity.gtin,
+    gtin: catalogueGtinForIdentity(candidate.identity),
   });
 }

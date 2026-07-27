@@ -320,7 +320,7 @@ test('the KeraCare 32 oz identity keeps retailer SKUs local while exact Nigerian
   assert.equal(candidate.nigeria.exactOffers[0].retailerSku, '796708350195');
   assert.equal(candidate.nigeria.exactOffers[1].retailerSku, 'BBE600');
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
-    offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.nigeria.excludedObservations.length, 0);
   assert.equal(candidate.asset.publicImageSha256, 'd37d0d5abab7580e7e4c094f4b848ef3250665ece05296769347cdb2cdf89652');
@@ -350,7 +350,7 @@ test('the Balance toner keeps retailer SKUs local while exact Nigerian offers bi
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
   assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku), ['5015833000351', '1023650']);
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
-    offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.nigeria.excludedObservations.length, 1);
   assert.equal(candidate.nigeria.excludedObservations.some(observation => (
@@ -397,7 +397,7 @@ test('the Balance niacinamide serum binds official identity, two exact Nigerian 
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
     offer.observedGtin === undefined
     && offer.observedGtinBasis === 'exact-variant-and-size'
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku), ['5015833328165', undefined]);
   assert.equal(candidate.nigeria.excludedObservations.length, 1);
@@ -528,7 +528,7 @@ test('the original NINELESS Mela-Pro toner keeps renewed formula claims off olde
     offer.observedGtin === undefined
     && offer.observedGtinBasis === 'exact-variant-and-size'
     && offer.observedPackageVersion === candidate.identity.packageVersion
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.asset.publicImageSha256, 'e0f7d446a0d85b5dde60d67a09c61ea35def172ca229ee811303f847abdcdcc4');
   assert.equal(candidate.asset.publicImageByteSize, 496_786);
@@ -583,7 +583,7 @@ test('the Face Facts oil-control cleanser binds two independent EAN sources, two
     offer.observedGtin === undefined
     && offer.observedGtinBasis === 'exact-variant-and-size'
     && offer.observedPackageVersion === candidate.identity.packageVersion
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.nigeria.exactOffers[1].evidence?.method, 'reviewed-browser-dom-exact-offer-field-extraction');
   assert.equal(candidate.nigeria.exactOffers[1].evidence?.browserCapture?.documentReadyState, 'complete');
@@ -646,7 +646,7 @@ test('the Face Facts hydrating cleanser binds two independent EAN sources, three
     offer.observedGtin === undefined
     && offer.observedGtinBasis === 'exact-variant-and-size'
     && offer.observedPackageVersion === candidate.identity.packageVersion
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
     && offer.evidence.browserCapture?.documentReadyState === 'complete'
   )), true);
 
@@ -681,7 +681,7 @@ test('the Garnier day cream binds its official GTIN to exact Nigerian offers and
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
-    offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.nigeria.excludedObservations.length, 1);
   assert.equal(candidate.nigeria.excludedObservations.some(observation => (
@@ -718,7 +718,7 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
   assert.deepEqual(ceramide.nigeria.exactOffers.map(offer => offer.priceNgn), [12_800, 13_000]);
   assert.equal(ceramide.nigeria.exactOffers.every(offer => (
     offer.observedGtinBasis === 'exact-variant-and-size'
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(ceramide.nigeria.excludedObservations.length, 1);
   assert.equal(ceramide.asset.publicImageSha256, '9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324');
@@ -744,7 +744,7 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
   assert.deepEqual(turmeric.nigeria.exactOffers.map(offer => offer.priceNgn), [10_750, 12_000]);
   assert.equal(turmeric.nigeria.exactOffers.every(offer => (
     offer.observedGtinBasis === 'exact-variant-and-size'
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(turmeric.nigeria.excludedObservations.length, 1);
   assert.equal(turmeric.asset.publicImageSha256, 'f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b');
@@ -814,7 +814,7 @@ test('the 4% acne cleanser keeps exact size evidence, current availability and i
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
     offer.observedGtinBasis === 'exact-variant-and-size'
     && offer.evidence?.method === 'reviewed-browser-accessibility-exact-offer-field-extraction'
-    && offer.evidence.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.demandEvidenceUrls.some(url => new URL(url).hostname === 'beautybydaz.com'), true);
   assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Beauty by Daz'), false);
@@ -886,7 +886,7 @@ test('the Eucerin sunscreen binds two exact Nigerian listings without relabellin
     assert.ok(evidence);
     assert.equal(evidence.method, 'reviewed-browser-dom-exact-offer-field-extraction');
     assert.equal(evidence.responseDigestScope, 'rendered-dom-outerhtml');
-    assert.equal(evidence.fields.gtin.responseRole, 'official-identity-correlation');
+    assert.equal(evidence.fields.gtin?.responseRole, 'official-identity-correlation');
     assert.equal(evidence.browserCapture?.documentReadyState, 'complete');
   }
 });
@@ -1187,7 +1187,7 @@ test('the De La Cruz sulfur jar binds its official identity, two current Nigeria
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
     offer.observedGtinBasis === 'exact-variant-and-size'
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(
     candidate.nigeria.exactOffers[0].evidence?.method,
@@ -1252,7 +1252,7 @@ test('the ANUA azelaic serum binds an official v4 identity capture, exact offers
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
     offer.observedGtin === undefined
     && offer.observedGtinBasis === 'exact-variant-and-size'
-    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.asset.publicImageSha256, 'a20069cb6878945db3b498a247f943d414a601fe31e3c3a74e3029e54ef4f8db');
   const generation = candidate.asset.generationRecord;

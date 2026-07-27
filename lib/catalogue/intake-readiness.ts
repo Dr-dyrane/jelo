@@ -1,11 +1,33 @@
 import { createHash } from 'node:crypto';
 import { canonicalGtin, isValidGtin } from './gtin';
+import {
+  catalogueCanonicalIdentifierFor,
+  catalogueCanonicalIdentifierKey,
+  catalogueGtinForIdentity,
+  catalogueOfficialProductPackageKey,
+  catalogueOfficialProductCrosswalkRouteClass,
+  catalogueOfficialProductCrosswalkKeyGrounded,
+  catalogueOfficialProductCrosswalkSchemaVersion,
+  catalogueOfficialProductCrosswalkValid,
+  catalogueOfficialProductRoutePackageKey,
+  normalizedManufacturerSku,
+  validManufacturerSku,
+  validManufacturerSkuLabel,
+  type CatalogueCanonicalProductIdentifier,
+  type CatalogueManufacturerSkuLabel,
+  type CatalogueOfficialProductIdentityCrosswalk,
+} from './canonical-identity';
+import {
+  catalogueRetainedRecordShapeValid,
+  sourceTextNamesCatalogueBrandField,
+  type CatalogueRetainedRecord,
+} from './retained-record';
 import { nigeriaRetailers } from '@/data/retailers';
 import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
 import { reviewedBrandSellerEvidenceValid } from './brand-seller-evidence';
 import {
   reviewedExactOfferEvidenceValid,
-  type ReviewedExactOfferEvidence,
+  type ReviewedCatalogueExactOfferEvidence,
   type ReviewedRegulatoryEvidence,
 } from './market-evidence';
 import {
@@ -23,6 +45,7 @@ export const catalogueIdentityExtractionSchemaVersion = 3 as const;
 export const catalogueBrowserIdentityExtractionSchemaVersion = 4 as const;
 export const catalogueCorroboratedIdentityExtractionSchemaVersion = 5 as const;
 export const catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion = 6 as const;
+export const catalogueManufacturerSkuIdentityExtractionSchemaVersion = 8 as const;
 export const catalogueMarketObservationSchemaVersion = 1 as const;
 export const catalogueRegulatorySearchObservationSchemaVersion = 1 as const;
 
@@ -144,7 +167,7 @@ export const requiredIdentifierAbsenceTerms = ['barcode', 'ean', 'gtin', 'upc'] 
 export type CatalogueIdentifierAbsenceProof = {
   searchScope: 'complete-rendered-dom-outerhtml';
   searchedTerms: readonly string[];
-  matchStrategy: 'whole-word';
+  matchStrategy: 'whole-word' | 'structured-key-variants';
   caseInsensitive: true;
   matchCount: 0;
 };
@@ -158,7 +181,7 @@ function identifierAbsenceProofValid(
   return Boolean(
     proof.searchScope === 'complete-rendered-dom-outerhtml'
     && extraction.responseDigestScope === 'rendered-dom-outerhtml'
-    && proof.matchStrategy === 'whole-word'
+    && ['whole-word', 'structured-key-variants'].includes(proof.matchStrategy)
     && proof.caseInsensitive === true
     && proof.matchCount === 0
     && Array.isArray(proof.searchedTerms)
@@ -262,38 +285,127 @@ export type CatalogueAccessibleCorroboratedIdentityExtraction = {
   reviewedAt: string;
 };
 
-export type CatalogueOfficialIdentityExtraction = CatalogueOfficialIdentityExtractionBase & (
-  | {
-    schemaVersion: typeof catalogueIdentityExtractionSchemaVersion;
-    responseDigestScope: 'decoded-response-body';
-    method: 'reviewed-exact-identity-field-extraction';
-  }
-  | {
-    schemaVersion: typeof catalogueBrowserIdentityExtractionSchemaVersion;
-    responseDigestScope: 'rendered-dom-outerhtml';
-    method: 'reviewed-browser-dom-identity-field-extraction';
-    browserCapture: {
-      surface: ReviewedBrowserCaptureSurface;
-      documentReadyState: 'complete';
-      pageTitle: string;
+export type CatalogueManufacturerSkuIdentityExtraction = {
+  schemaVersion: typeof catalogueManufacturerSkuIdentityExtractionSchemaVersion;
+  candidateId: string;
+  sourceUrl: string;
+  responseUrl: string;
+  retrievedAt: string;
+  productRecord: CatalogueRetainedRecord;
+  fields: {
+    manufacturerBrand: {
+      value: string;
+      locator: string;
+      sourceText: string;
     };
-  }
-) | CatalogueCorroboratedIdentityExtraction | CatalogueAccessibleCorroboratedIdentityExtraction;
+    manufacturerBrandAliases?: Array<{
+      value: string;
+      locator: string;
+      sourceText: string;
+    }>;
+    manufacturerSku: {
+      value: string;
+      label: CatalogueManufacturerSkuLabel;
+      locator: string;
+      sourceText: string;
+    };
+    variant: { value: string; locator: string; sourceText: string };
+    size: { value: string; locator: string; sourceText: string };
+    packageVersion: { value: string; locator: string; sourceText: string };
+    gtinPublicationStatus: {
+      value: 'not-published';
+      locator: string;
+      sourceText: string;
+      absenceProof?: CatalogueIdentifierAbsenceProof;
+    };
+  };
+  sourceResponseSha256: string;
+  sourceResponseMimeType: 'text/html';
+  sourceResponseByteSize: number;
+  sourceSnapshotPath: string;
+  responseDigestScope: 'rendered-dom-outerhtml';
+  method: 'reviewed-browser-dom-official-manufacturer-sku-identity';
+  browserCapture: {
+    surface: ReviewedBrowserCaptureSurface;
+    documentReadyState: 'complete';
+    pageTitle: string;
+  };
+  supplementalResponses?: never;
+  reviewer: string;
+  reviewedAt: string;
+};
 
-export type CatalogueOfficialIdentityEvidence = {
+export type CatalogueOfficialIdentityExtraction =
+  | (CatalogueOfficialIdentityExtractionBase & (
+    | {
+      schemaVersion: typeof catalogueIdentityExtractionSchemaVersion;
+      responseDigestScope: 'decoded-response-body';
+      method: 'reviewed-exact-identity-field-extraction';
+    }
+    | {
+      schemaVersion: typeof catalogueBrowserIdentityExtractionSchemaVersion;
+      responseDigestScope: 'rendered-dom-outerhtml';
+      method: 'reviewed-browser-dom-identity-field-extraction';
+      browserCapture: {
+        surface: ReviewedBrowserCaptureSurface;
+        documentReadyState: 'complete';
+        pageTitle: string;
+      };
+    }
+  ))
+  | CatalogueCorroboratedIdentityExtraction
+  | CatalogueAccessibleCorroboratedIdentityExtraction
+  | CatalogueManufacturerSkuIdentityExtraction;
+
+type CatalogueOfficialIdentityEvidenceBase = {
   url: string;
-  observedGtin: string;
   observedVariant: string;
   observedSize: string;
   observedPackageVersion?: string;
   snapshotKind: 'canonical-extraction';
   snapshotPath: string;
-  canonicalExtraction: CatalogueOfficialIdentityExtraction;
   snapshotSha256: string;
   snapshotMimeType: 'application/json';
   snapshotByteSize: number;
   retrievedAt: string;
 };
+
+export type CatalogueOfficialGtinIdentityEvidence = CatalogueOfficialIdentityEvidenceBase & {
+  observedGtin: string;
+  canonicalExtraction: Exclude<
+    CatalogueOfficialIdentityExtraction,
+    CatalogueManufacturerSkuIdentityExtraction
+  >;
+};
+
+export type CatalogueOfficialManufacturerSkuIdentityEvidence =
+  CatalogueOfficialIdentityEvidenceBase & {
+    identityKind: 'manufacturer-sku';
+    observedGtin?: never;
+    observedManufacturerSku: string;
+    observedManufacturerSkuLabel: CatalogueManufacturerSkuLabel;
+    canonicalExtraction: CatalogueManufacturerSkuIdentityExtraction;
+  };
+
+/**
+ * Preserve the established GTIN evidence name for compiler and fixture
+ * compatibility. Candidate-aware callers that can handle either route use
+ * the explicitly wider evidence type.
+ */
+export type CatalogueOfficialIdentityEvidence = CatalogueOfficialGtinIdentityEvidence;
+/**
+ * Intake JSON is decoded before its identity route is trusted. Keep this
+ * boundary broad enough for immutable record migrations; the readiness and
+ * artifact gates prove the exact GTIN or manufacturer-SKU shape.
+ */
+export type CatalogueCandidateOfficialIdentityEvidence =
+  CatalogueOfficialIdentityEvidenceBase & {
+    observedGtin?: string;
+    identityKind?: 'manufacturer-sku';
+    observedManufacturerSku?: string;
+    observedManufacturerSkuLabel?: CatalogueManufacturerSkuLabel;
+    canonicalExtraction: CatalogueOfficialIdentityExtraction;
+  };
 
 export type CatalogueGenerationRecordContent = {
   schemaVersion: typeof catalogueGenerationRecordSchemaVersion;
@@ -326,7 +438,7 @@ export type CatalogueIntakeOffer = {
   retailerSku?: string;
   priceNgn: number;
   stock: 'in-stock' | 'low-stock' | 'out-of-stock';
-  evidence?: ReviewedExactOfferEvidence;
+  evidence?: ReviewedCatalogueExactOfferEvidence;
 };
 
 export type CatalogueMarketObservationExclusionReason =
@@ -415,6 +527,34 @@ export type CatalogueRegulatorySearchObservation = {
   reviewedAt: string;
 };
 
+type CatalogueCandidateIdentityBase = {
+  officialProductUrl?: string;
+  checkedAt?: string;
+  basis?: 'official-brand';
+  packageVersion?: string;
+};
+
+export type CatalogueGtinCandidateIdentity = CatalogueCandidateIdentityBase & {
+  gtin?: string;
+  canonicalIdentifier?: Extract<CatalogueCanonicalProductIdentifier, { kind: 'gtin' }>;
+  officialProductCrosswalk?: CatalogueOfficialProductIdentityCrosswalk;
+  officialEvidence?: CatalogueOfficialGtinIdentityEvidence;
+};
+
+export type CatalogueManufacturerSkuCandidateIdentity = CatalogueCandidateIdentityBase & {
+  gtin?: never;
+  canonicalIdentifier: Extract<CatalogueCanonicalProductIdentifier, { kind: 'manufacturer-sku' }>;
+  officialProductCrosswalk: CatalogueOfficialProductIdentityCrosswalk;
+  officialEvidence?: CatalogueOfficialManufacturerSkuIdentityEvidence;
+};
+
+export type CatalogueCandidateIdentity = CatalogueCandidateIdentityBase & {
+  gtin?: string;
+  canonicalIdentifier?: CatalogueCanonicalProductIdentifier;
+  officialProductCrosswalk?: CatalogueOfficialProductIdentityCrosswalk;
+  officialEvidence?: CatalogueCandidateOfficialIdentityEvidence;
+};
+
 export type CatalogueIntakeCandidate = {
   id: string;
   brand: string;
@@ -427,14 +567,7 @@ export type CatalogueIntakeCandidate = {
   priority: CatalogueIntakePriority;
   gapIds: string[];
   demandEvidenceUrls: string[];
-  identity: {
-    gtin?: string;
-    officialProductUrl?: string;
-    checkedAt?: string;
-    basis?: 'official-brand';
-    packageVersion?: string;
-    officialEvidence?: CatalogueOfficialIdentityEvidence;
-  };
+  identity: CatalogueCandidateIdentity;
   care: {
     status: 'pending' | 'reviewed';
     formulaArchetype?: string;
@@ -504,6 +637,7 @@ export type CatalogueIntakeManifest = {
 
 export type CatalogueIntakeBlocker =
   | 'identity-gtin-missing-or-invalid'
+  | 'identity-manufacturer-sku-missing-or-invalid'
   | 'identity-official-source-missing'
   | 'identity-official-evidence-invalid'
   | 'identity-check-missing-or-future'
@@ -876,6 +1010,30 @@ function sourceTextContainsExactGtin(sourceText: string, gtin: string) {
   return new RegExp(`(?:^|\\D)${escaped}(?:\\D|$)`).test(sourceText);
 }
 
+function sourceTextContainsExactIdentifier(sourceText: string, identifier: string) {
+  const escaped = identifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?:^|[^a-z0-9])${escaped}(?:[^a-z0-9]|$)`, 'i').test(sourceText);
+}
+
+function sourceNamesManufacturerSkuLabel(sourceText: string, label: CatalogueManufacturerSkuLabel) {
+  const pattern = label === 'SKU'
+    ? /(?:^|[^a-z0-9])sku(?:[^a-z0-9]|$)/i
+    : label === 'Manufacturer SKU'
+      ? /(?:^|[^a-z0-9])manufacturer\s+sku(?:[^a-z0-9]|$)/i
+      : /(?:^|[^a-z0-9])product\s+code(?:[^a-z0-9]|$)/i;
+  return pattern.test(sourceText);
+}
+
+function officialNullIdentifierFieldValid(
+  status: CatalogueManufacturerSkuIdentityExtraction['fields']['gtinPublicationStatus'],
+  manufacturerSku: CatalogueManufacturerSkuIdentityExtraction['fields']['manufacturerSku'],
+) {
+  const escapedSku = manufacturerSku.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return /(?:^|[^a-z0-9])barcode(?:[^a-z0-9]|$)/i.test(status.locator)
+    && /["']?barcode["']?\s*:\s*null/i.test(status.sourceText)
+    && new RegExp(`["']?sku["']?\\s*:\\s*["']${escapedSku}["']`, 'i').test(status.sourceText);
+}
+
 function extractionNamesExplicitManufacturerIdentifier(field: { value: string; locator: string; sourceText: string }) {
   const explicitLabel = /(?:^|[^a-z0-9])(?:barcode|gtin(?:-?1[234])?|ean(?:-?13)?s?|upc(?:-?[ae])?)(?:[^a-z0-9]|$)/i;
   if (explicitLabel.test(field.locator) || explicitLabel.test(field.sourceText)) return true;
@@ -943,7 +1101,7 @@ function reviewedIdentifierCorroborationSource(
 
 function corroboratedIdentityEvidenceValid(
   candidate: CatalogueIntakeCandidate,
-  evidence: CatalogueOfficialIdentityEvidence,
+  evidence: CatalogueOfficialGtinIdentityEvidence,
   extraction: CatalogueCorroboratedIdentityExtraction,
   asOf: number,
 ) {
@@ -1011,7 +1169,7 @@ function corroboratedIdentityEvidenceValid(
     || normalized(packageVersionField.value) !== normalized(packageVersion)
     || normalized(evidence.observedPackageVersion ?? '') !== normalized(packageVersion)
     || !validHttps(packageVersionField.evidenceUrl)
-    || !sameGtin(evidence.observedGtin, candidate.identity.gtin)
+    || !sameGtin(evidence.observedGtin, catalogueGtinForIdentity(candidate.identity))
     || normalized(evidence.observedVariant) !== normalized(candidate.variant)
     || normalizedSize(evidence.observedSize) !== normalizedSize(candidate.size)
     || !hashPattern.test(evidence.snapshotSha256)
@@ -1084,7 +1242,7 @@ function corroboratedIdentityEvidenceValid(
 
 function accessibleCorroboratedIdentityEvidenceValid(
   candidate: CatalogueIntakeCandidate,
-  evidence: CatalogueOfficialIdentityEvidence,
+  evidence: CatalogueOfficialGtinIdentityEvidence,
   extraction: CatalogueAccessibleCorroboratedIdentityExtraction,
   asOf: number,
 ) {
@@ -1140,7 +1298,7 @@ function accessibleCorroboratedIdentityEvidenceValid(
     || normalized(packageVersionField.value) !== normalized(packageVersion)
     || normalized(evidence.observedPackageVersion ?? '') !== normalized(packageVersion)
     || !validHttps(packageVersionField.evidenceUrl)
-    || !sameGtin(evidence.observedGtin, candidate.identity.gtin)
+    || !sameGtin(evidence.observedGtin, catalogueGtinForIdentity(candidate.identity))
     || normalized(evidence.observedVariant) !== normalized(candidate.variant)
     || normalizedSize(evidence.observedSize) !== normalizedSize(candidate.size)
     || !hashPattern.test(evidence.snapshotSha256)
@@ -1214,17 +1372,191 @@ function accessibleCorroboratedIdentityEvidenceValid(
     && sourceHosts.size === extraction.identifierCorroborations.length;
 }
 
+function manufacturerSkuIdentityEvidenceValid(
+  candidate: CatalogueIntakeCandidate,
+  evidence: CatalogueOfficialManufacturerSkuIdentityEvidence,
+  extraction: CatalogueManufacturerSkuIdentityExtraction,
+  asOf: number,
+) {
+  const canonicalIdentifier = catalogueCanonicalIdentifierFor(candidate.identity);
+  const officialProductCrosswalk = 'officialProductCrosswalk' in candidate.identity
+    ? candidate.identity.officialProductCrosswalk
+    : undefined;
+  const checkedAt = Date.parse(candidate.identity.checkedAt ?? '');
+  const retrievedAt = Date.parse(evidence.retrievedAt);
+  const reviewedAt = Date.parse(extraction.reviewedAt);
+  const manufacturerSku = extraction.fields.manufacturerSku;
+  const manufacturerBrand = extraction.fields.manufacturerBrand;
+  const manufacturerBrandAliases = extraction.fields.manufacturerBrandAliases ?? [];
+  const variant = extraction.fields.variant;
+  const size = extraction.fields.size;
+  const packageVersion = extraction.fields.packageVersion;
+  const gtinStatus = extraction.fields.gtinPublicationStatus;
+
+  return Boolean(
+    canonicalIdentifier?.kind === 'manufacturer-sku'
+    && evidence.identityKind === 'manufacturer-sku'
+    && !Object.prototype.hasOwnProperty.call(evidence, 'observedGtin')
+    && catalogueOfficialProductCrosswalkValid(officialProductCrosswalk)
+    && catalogueOfficialProductCrosswalkKeyGrounded(
+      officialProductCrosswalk!,
+      extraction as CatalogueManufacturerSkuIdentityExtraction & {
+        fields: Record<string, unknown>;
+      },
+    )
+    && officialProductCrosswalk?.canonicalManufacturerProductKey.basis === 'manufacturer-sku'
+    && normalizedManufacturerSku(
+      officialProductCrosswalk?.canonicalManufacturerProductKey.value ?? '',
+    ) === canonicalIdentifier.value
+    && officialProductCrosswalk?.schemaVersion
+      === catalogueOfficialProductCrosswalkSchemaVersion
+    && officialProductCrosswalk?.officialSourceResponseSha256
+      === extraction.sourceResponseSha256
+    && sameUrl(
+      officialProductCrosswalk?.officialProductUrl,
+      evidence.url,
+    )
+    && normalized(officialProductCrosswalk?.variant ?? '') === normalized(evidence.observedVariant)
+    && normalizedSize(officialProductCrosswalk?.size ?? '') === normalizedSize(evidence.observedSize)
+    && normalized(officialProductCrosswalk?.packageVersion ?? '')
+      === normalized(evidence.observedPackageVersion ?? '')
+    && evidence.snapshotKind === 'canonical-extraction'
+    && evidence.snapshotPath === `data/catalogue-identity-evidence/${candidate.id}.json`
+    && evidence.snapshotMimeType === 'application/json'
+    && reviewedOfficialIdentitySource(candidate, evidence.url)
+    && sameUrl(evidence.url, candidate.identity.officialProductUrl)
+    && sameUrl(extraction.sourceUrl, evidence.url)
+    && sameUrl(extraction.responseUrl, extraction.sourceUrl)
+    && extraction.candidateId === candidate.id
+    && extraction.schemaVersion === catalogueManufacturerSkuIdentityExtractionSchemaVersion
+    && extraction.responseDigestScope === 'rendered-dom-outerhtml'
+    && extraction.method === 'reviewed-browser-dom-official-manufacturer-sku-identity'
+    && extraction.sourceResponseMimeType === 'text/html'
+    && extraction.sourceSnapshotPath
+      === `data/catalogue-identity-source-evidence/${candidate.id}.html`
+    && catalogueRetainedRecordShapeValid(extraction.productRecord)
+    && hashPattern.test(extraction.sourceResponseSha256)
+    && Number.isSafeInteger(extraction.sourceResponseByteSize)
+    && extraction.sourceResponseByteSize > 0
+    && reviewedBrowserSurface(extraction.browserCapture.surface)
+    && extraction.browserCapture.documentReadyState === 'complete'
+    && extraction.browserCapture.pageTitle.trim().length >= 3
+    && extraction.retrievedAt === evidence.retrievedAt
+    && validPastDate(extraction.retrievedAt, asOf)
+    && validPastDate(extraction.reviewedAt, asOf)
+    && Number.isFinite(checkedAt)
+    && Number.isFinite(retrievedAt)
+    && Number.isFinite(reviewedAt)
+    && reviewedAt >= retrievedAt
+    && reviewedAt <= checkedAt
+    && identityExtractionFieldValid(manufacturerBrand)
+    && normalized(manufacturerBrand.value) === normalized(candidate.brand)
+    && sourceTextNamesCatalogueBrandField(
+      manufacturerBrand.sourceText,
+      manufacturerBrand.value,
+    )
+    && Array.isArray(manufacturerBrandAliases)
+    && manufacturerBrandAliases.every(alias => (
+      identityExtractionFieldValid(alias)
+      && normalized(alias.value) !== normalized(candidate.brand)
+      && sourceTextNamesCatalogueBrandField(alias.sourceText, alias.value)
+    ))
+    && new Set(manufacturerBrandAliases.map(alias => normalized(alias.value))).size
+      === manufacturerBrandAliases.length
+    && identityExtractionFieldValid(manufacturerSku)
+    && validManufacturerSku(manufacturerSku.value)
+    && validManufacturerSkuLabel(manufacturerSku.label)
+    && manufacturerSku.label === canonicalIdentifier.label
+    && normalizedManufacturerSku(manufacturerSku.value) === canonicalIdentifier.value
+    && sourceNamesManufacturerSkuLabel(manufacturerSku.sourceText, manufacturerSku.label)
+    && sourceTextContainsExactIdentifier(manufacturerSku.sourceText, manufacturerSku.value)
+    && identityExtractionFieldValid(variant)
+    && normalized(variant.value) === normalized(candidate.variant)
+    && normalized(variant.sourceText).includes(normalized(variant.value))
+    && identityExtractionFieldValid(size)
+    && normalizedSize(size.value) === normalizedSize(candidate.size)
+    && sourceTextContainsExactSize(size.sourceText, size.value)
+    && identityExtractionFieldValid(packageVersion)
+    && candidate.identity.packageVersion?.trim()
+    && normalized(packageVersion.value) === normalized(candidate.identity.packageVersion)
+    && normalized(packageVersion.sourceText).includes(normalized(packageVersion.value))
+    && identityExtractionFieldValid(gtinStatus)
+    && gtinStatus.value === 'not-published'
+    && (
+      identifierAbsenceProofValid(gtinStatus.absenceProof, extraction)
+      || officialNullIdentifierFieldValid(gtinStatus, manufacturerSku)
+    )
+    && (
+      !gtinStatus.absenceProof
+      || gtinStatus.absenceProof.matchStrategy === 'structured-key-variants'
+    )
+    && typeof evidence.observedManufacturerSku === 'string'
+    && normalizedManufacturerSku(evidence.observedManufacturerSku) === canonicalIdentifier.value
+    && evidence.observedManufacturerSkuLabel === canonicalIdentifier.label
+    && normalized(evidence.observedVariant) === normalized(candidate.variant)
+    && normalizedSize(evidence.observedSize) === normalizedSize(candidate.size)
+    && normalized(evidence.observedPackageVersion ?? '') === normalized(candidate.identity.packageVersion)
+    && hashPattern.test(evidence.snapshotSha256)
+    && Number.isSafeInteger(evidence.snapshotByteSize)
+    && evidence.snapshotByteSize > 0
+    && evidence.snapshotSha256 === catalogueIdentityExtractionSha256(extraction)
+    && evidence.snapshotByteSize === catalogueIdentityExtractionByteSize(extraction)
+    && typeof extraction.reviewer === 'string'
+    && extraction.reviewer.trim().length >= 2
+  );
+}
+
 function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf: number) {
   const evidence = candidate.identity.officialEvidence;
-  const extraction = evidence?.canonicalExtraction;
+  if (!evidence) return false;
+  if (evidence.identityKind === 'manufacturer-sku') {
+    if (
+      Object.prototype.hasOwnProperty.call(evidence, 'observedGtin')
+      || typeof evidence.observedManufacturerSku !== 'string'
+      || !validManufacturerSkuLabel(evidence.observedManufacturerSkuLabel)
+      || evidence.canonicalExtraction.schemaVersion
+        !== catalogueManufacturerSkuIdentityExtractionSchemaVersion
+    ) return false;
+    return manufacturerSkuIdentityEvidenceValid(
+      candidate,
+      evidence as CatalogueOfficialManufacturerSkuIdentityEvidence,
+      evidence.canonicalExtraction,
+      asOf,
+    );
+  }
   if (
-    evidence
-    && extraction?.schemaVersion === catalogueCorroboratedIdentityExtractionSchemaVersion
-  ) return corroboratedIdentityEvidenceValid(candidate, evidence, extraction, asOf);
+    Object.prototype.hasOwnProperty.call(evidence, 'identityKind')
+    || Object.prototype.hasOwnProperty.call(evidence, 'observedManufacturerSku')
+    || Object.prototype.hasOwnProperty.call(evidence, 'observedManufacturerSkuLabel')
+    || !Object.prototype.hasOwnProperty.call(evidence, 'observedGtin')
+    || typeof evidence.observedGtin !== 'string'
+  ) return false;
+  const gtinEvidence = evidence as CatalogueOfficialGtinIdentityEvidence;
+  const extraction = evidence.canonicalExtraction;
+  const officialProductCrosswalk = candidate.identity.officialProductCrosswalk;
   if (
-    evidence
-    && extraction?.schemaVersion === catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion
-  ) return accessibleCorroboratedIdentityEvidenceValid(candidate, evidence, extraction, asOf);
+    officialProductCrosswalk
+    && (
+      !catalogueOfficialProductCrosswalkValid(officialProductCrosswalk)
+      || !catalogueOfficialProductCrosswalkKeyGrounded(
+        officialProductCrosswalk,
+        extraction as typeof extraction & { fields: Record<string, unknown> },
+      )
+      || officialProductCrosswalk.officialSourceResponseSha256
+        !== evidence.canonicalExtraction.sourceResponseSha256
+      || !sameUrl(officialProductCrosswalk.officialProductUrl, evidence.url)
+      || normalized(officialProductCrosswalk.variant) !== normalized(evidence.observedVariant)
+      || normalizedSize(officialProductCrosswalk.size) !== normalizedSize(evidence.observedSize)
+      || normalized(officialProductCrosswalk.packageVersion)
+        !== normalized(evidence.observedPackageVersion ?? '')
+    )
+  ) return false;
+  if (
+    extraction.schemaVersion === catalogueCorroboratedIdentityExtractionSchemaVersion
+  ) return corroboratedIdentityEvidenceValid(candidate, gtinEvidence, extraction, asOf);
+  if (
+    extraction.schemaVersion === catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion
+  ) return accessibleCorroboratedIdentityEvidenceValid(candidate, gtinEvidence, extraction, asOf);
 
   const checkedAt = Date.parse(candidate.identity.checkedAt ?? '');
   const retrievedAt = Date.parse(evidence?.retrievedAt ?? '');
@@ -1293,7 +1625,7 @@ function officialIdentityEvidenceValid(candidate: CatalogueIntakeCandidate, asOf
     && Date.parse(extraction.reviewedAt) >= Date.parse(extraction.retrievedAt)
     && Date.parse(extraction.reviewedAt) <= checkedAt
     && sameUrl(evidence.url, candidate.identity.officialProductUrl)
-    && sameGtin(evidence.observedGtin, candidate.identity.gtin)
+    && sameGtin(evidence.observedGtin, catalogueGtinForIdentity(candidate.identity))
     && normalized(evidence.observedVariant) === normalized(candidate.variant)
     && normalizedSize(evidence.observedSize) === normalizedSize(candidate.size)
     && hashPattern.test(evidence.snapshotSha256)
@@ -1480,7 +1812,10 @@ function marketObservationValid(
   if (reasons.has('retailer-identifier-only') && identifier?.label !== 'SKU') return false;
   if (
     reasons.has('retailer-identifier-conflicts-with-candidate')
-    && (identifier?.label !== 'SKU' || sameGtin(identifier.value, candidate.identity.gtin))
+    && (
+      identifier?.label !== 'SKU'
+      || sameGtin(identifier.value, catalogueGtinForIdentity(candidate.identity))
+    )
   ) return false;
   if (
     reasons.has('manufacturer-identifier-mismatch')
@@ -1488,7 +1823,7 @@ function marketObservationValid(
       !identifier
       || !['EAN', 'GTIN', 'UPC'].includes(identifier.label)
       || !isValidGtin(identifier.value)
-      || sameGtin(identifier.value, candidate.identity.gtin)
+      || sameGtin(identifier.value, catalogueGtinForIdentity(candidate.identity))
     )
   ) return false;
   if (reasons.has('package-variant-conflict') && !evidence.fields.packageVariantConflict?.sourceText.trim()) return false;
@@ -1496,18 +1831,33 @@ function marketObservationValid(
   return true;
 }
 
+function retainedOfficialManufacturerBrandAliases(candidate: CatalogueIntakeCandidate) {
+  const extraction = candidate.identity.officialEvidence?.canonicalExtraction;
+  if (
+    !extraction
+    || extraction.schemaVersion !== catalogueManufacturerSkuIdentityExtractionSchemaVersion
+  ) return [] as string[];
+  return (extraction.fields.manufacturerBrandAliases ?? []).map(alias => alias.value);
+}
+
 function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueIntakeOffer, asOf: number) {
   const observedAt = Date.parse(offer.observedAt);
   const identityCheckedAt = Date.parse(candidate.identity.checkedAt ?? '');
   const offerReviewedAt = Date.parse(offer.evidence?.reviewedAt ?? '');
   const exactVariantAndSize = offer.observedGtinBasis === 'exact-variant-and-size';
+  const canonicalIdentifier = catalogueCanonicalIdentifierFor(candidate.identity);
   if (
-    !offer.retailer.trim()
+    !canonicalIdentifier
+    || !offer.retailer.trim()
     || !validHttps(offer.listingUrl)
     || (
-      exactVariantAndSize
-        ? offer.observedGtin != null
-        : !sameGtin(offer.observedGtin, candidate.identity.gtin)
+      canonicalIdentifier?.kind === 'manufacturer-sku'
+        ? (!exactVariantAndSize || offer.observedGtin != null)
+        : (
+          exactVariantAndSize
+            ? offer.observedGtin != null
+            : !sameGtin(offer.observedGtin, catalogueGtinForIdentity(candidate.identity))
+        )
     )
     || !['explicit-gtin', 'explicit-ean', 'explicit-upc', 'exact-variant-and-size'].includes(
       offer.observedGtinBasis ?? '',
@@ -1521,7 +1871,21 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
     || observedAt > asOf + 5 * 60_000
     || !Number.isFinite(offer.priceNgn)
     || offer.priceNgn <= 0
-    || !reviewedExactOfferEvidenceValid(offer, candidate.identity.gtin, asOf)
+    || !reviewedExactOfferEvidenceValid(
+      offer,
+      canonicalIdentifier.kind === 'manufacturer-sku'
+        ? {
+          ...canonicalIdentifier,
+          officialProductUrl: candidate.identity.officialProductUrl ?? '',
+          officialIdentitySnapshotPath: candidate.identity.officialEvidence?.snapshotPath ?? '',
+          officialIdentitySnapshotSha256: candidate.identity.officialEvidence?.snapshotSha256 ?? '',
+          brand: candidate.brand,
+          officialBrandAliases: retainedOfficialManufacturerBrandAliases(candidate),
+          variant: candidate.variant,
+        }
+        : canonicalIdentifier,
+      asOf,
+    )
     || !Number.isFinite(identityCheckedAt)
     || !Number.isFinite(offerReviewedAt)
     || offerReviewedAt < identityCheckedAt
@@ -1555,7 +1919,14 @@ function matchingOffer(candidate: CatalogueIntakeCandidate, offer: CatalogueInta
 
 function identityBlockers(candidate: CatalogueIntakeCandidate, asOf: number): CatalogueIntakeBlocker[] {
   const blockers: CatalogueIntakeBlocker[] = [];
-  if (!candidate.identity.gtin || !isValidGtin(candidate.identity.gtin)) blockers.push('identity-gtin-missing-or-invalid');
+  const canonicalIdentifier = catalogueCanonicalIdentifierFor(candidate.identity);
+  if (!canonicalIdentifier) {
+    blockers.push(
+      candidate.identity.canonicalIdentifier?.kind === 'manufacturer-sku'
+        ? 'identity-manufacturer-sku-missing-or-invalid'
+        : 'identity-gtin-missing-or-invalid',
+    );
+  }
   if (candidate.identity.basis !== 'official-brand' || !validHttps(candidate.identity.officialProductUrl)) blockers.push('identity-official-source-missing');
   if (!validPastDate(candidate.identity.checkedAt, asOf)) blockers.push('identity-check-missing-or-future');
   if (!officialIdentityEvidenceValid(candidate, asOf)) blockers.push('identity-official-evidence-invalid');
@@ -1755,7 +2126,7 @@ function editorialBlockers(candidate: CatalogueIntakeCandidate, asOf: number): C
 }
 
 const actionForStage: Record<CatalogueIntakeStage, string> = {
-  identity: 'Lock the exact manufacturer GTIN, variant and size to a checked-in reviewed extraction and raw-response digest.',
+  identity: 'Lock the exact manufacturer identifier, variant, size and package to a checked-in reviewed extraction and source digest.',
   care: 'Review the formula role and advisory boundaries from primary evidence.',
   nigeria: 'Verify a fresh exact Nigerian product page and bind its current price.',
   rights: 'Document permission or another valid image-rights basis.',
@@ -1803,17 +2174,73 @@ export function auditCatalogueIntakeCandidates(
 ) {
   const ids = new Set<string>();
   const gtins = new Set<string>();
+  const canonicalIdentifiers = new Set<string>();
+  const officialProductCrosswalks = new Set<string>();
+  const officialProductRoutePackages = new Map<
+    string,
+    'manufacturer-sku' | 'official-route'
+  >();
   const identities = new Set<string>();
   for (const candidate of candidates) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(candidate.id)) throw new Error(`Invalid catalogue intake id: ${candidate.id}`);
     if (ids.has(candidate.id)) throw new Error(`Duplicate catalogue intake id: ${candidate.id}`);
     ids.add(candidate.id);
-    if (candidate.identity.gtin) {
-      const gtinKey = isValidGtin(candidate.identity.gtin)
-        ? canonicalGtin(candidate.identity.gtin)
-        : candidate.identity.gtin;
-      if (gtins.has(gtinKey)) throw new Error(`Duplicate catalogue intake GTIN: ${candidate.identity.gtin}`);
+    const candidateGtin = catalogueGtinForIdentity(candidate.identity);
+    if (candidateGtin) {
+      const gtinKey = isValidGtin(candidateGtin)
+        ? canonicalGtin(candidateGtin)
+        : candidateGtin;
+      if (gtins.has(gtinKey)) throw new Error(`Duplicate catalogue intake GTIN: ${candidateGtin}`);
       gtins.add(gtinKey);
+    }
+    const canonicalIdentifier = catalogueCanonicalIdentifierFor(candidate.identity);
+    if (canonicalIdentifier) {
+      const keys = canonicalIdentifier.kind === 'manufacturer-sku'
+        ? [candidate.brand, ...(candidate.brandAliases ?? [])]
+          .map(brand => catalogueCanonicalIdentifierKey(brand, canonicalIdentifier))
+        : [catalogueCanonicalIdentifierKey(candidate.brand, canonicalIdentifier)];
+      if (keys.some(key => canonicalIdentifiers.has(key))) {
+        throw new Error(
+          canonicalIdentifier.kind === 'manufacturer-sku'
+            ? `Duplicate catalogue intake manufacturer SKU: ${candidate.brand} ${canonicalIdentifier.value}`
+            : `Duplicate catalogue intake GTIN: ${canonicalIdentifier.value}`,
+        );
+      }
+      keys.forEach(key => canonicalIdentifiers.add(key));
+    }
+    const officialProductCrosswalk = candidate.identity.officialProductCrosswalk;
+    if (officialProductCrosswalk) {
+      const crosswalkKey = catalogueOfficialProductPackageKey(officialProductCrosswalk);
+      if (!crosswalkKey) {
+        throw new Error(`Catalogue intake ${candidate.id} has an invalid official product crosswalk.`);
+      }
+      if (officialProductCrosswalks.has(crosswalkKey)) {
+        throw new Error(
+          `Duplicate catalogue intake official product/package crosswalk: ${candidate.id}`,
+        );
+      }
+      officialProductCrosswalks.add(crosswalkKey);
+
+      const routePackageKey =
+        catalogueOfficialProductRoutePackageKey(officialProductCrosswalk);
+      const routeClass =
+        catalogueOfficialProductCrosswalkRouteClass(officialProductCrosswalk);
+      if (!routePackageKey || !routeClass) {
+        throw new Error(`Catalogue intake ${candidate.id} has an invalid official route/package.`);
+      }
+      const existingRouteClass = officialProductRoutePackages.get(routePackageKey);
+      if (
+        existingRouteClass
+        && (
+          existingRouteClass !== 'manufacturer-sku'
+          || routeClass !== 'manufacturer-sku'
+        )
+      ) {
+        throw new Error(
+          `Duplicate catalogue intake official route/package across identity routes: ${candidate.id}`,
+        );
+      }
+      officialProductRoutePackages.set(routePackageKey, routeClass);
     }
     const identity = normalizedIdentity(candidate);
     if (identities.has(identity)) throw new Error(`Duplicate catalogue intake identity: ${candidate.brand} ${candidate.name} ${candidate.size}`);

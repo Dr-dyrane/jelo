@@ -724,6 +724,15 @@ def main() -> int:
                 "variant": candidate["variant"],
                 "size": candidate["size"],
                 "gtin": candidate.get("identity", {}).get("gtin"),
+                **(
+                    {
+                        "canonicalIdentifier": candidate.get("identity", {}).get(
+                            "canonicalIdentifier"
+                        )
+                    }
+                    if candidate.get("identity", {}).get("canonicalIdentifier")
+                    else {}
+                ),
                 "intakeSha256": json_sha256(candidate),
             },
             "source": {

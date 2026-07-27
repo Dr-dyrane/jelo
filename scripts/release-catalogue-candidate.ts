@@ -2,12 +2,12 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   cataloguePublicationApprovalScope,
-  createCataloguePublicationDossier,
+  createVerifiedCataloguePublicationDossier,
   type CataloguePublicationDossierManifest,
 } from '@/lib/catalogue/publication-dossier';
 import {
   cataloguePublicationReleaseApprovalScope,
-  createCataloguePublicationRelease,
+  createVerifiedCataloguePublicationRelease,
   type CataloguePublicationPresentation,
 } from '@/lib/catalogue/publication-release';
 import type {
@@ -141,16 +141,17 @@ async function main() {
   const candidate = intake.candidates.find(item => item.id === candidateId);
   if (!candidate) throw new Error(`Unknown catalogue candidate: ${candidateId}`);
 
-  const dossier = createCataloguePublicationDossier(
+  const dossier = await createVerifiedCataloguePublicationDossier(
     candidate as CatalogueIntakeCandidate,
     {
       scope: cataloguePublicationApprovalScope,
       reviewer: approvalReviewer,
       approvedAt,
     },
-    asOf,
+    { repositoryRoot: root, asOf },
   );
-  const release = createCataloguePublicationRelease(
+  const release = await createVerifiedCataloguePublicationRelease(
+    candidate as CatalogueIntakeCandidate,
     dossier,
     presentation,
     {
@@ -158,7 +159,7 @@ async function main() {
       reviewer: releaseReviewer,
       publishedAt,
     },
-    asOf,
+    { repositoryRoot: root, asOf },
   );
   const source = cataloguePublicationSourceRecord(dossier, release);
   const sourceFilename = `${candidateId}.json`;

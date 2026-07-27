@@ -81,13 +81,14 @@ class ReviewedPackshotTests(unittest.TestCase):
         width: int = 24,
         height: int = 40,
         mime_type: str = "image/png",
+        identity: dict[str, object] | None = None,
     ) -> None:
         candidate = {
             "id": self.candidate_id,
             "brand": "Exact Brand",
             "variant": "Exact Product",
             "size": "250 ml",
-            "identity": {"gtin": "1234567890128"},
+            "identity": identity or {"gtin": "1234567890128"},
             "asset": {
                 "sourceUrl": "https://brand.example/exact-product.png",
                 "sourceAssetSha256": source_sha256 or sha256(self.source),
@@ -194,6 +195,21 @@ class ReviewedPackshotTests(unittest.TestCase):
             self.assertEqual(output.getpixel((0, 0))[3], 0)
             self.assertTrue(output.info.get("icc_profile"))
         self.assertTrue(Path(result["output"]).is_file())
+
+    def test_audit_preserves_the_discriminated_manufacturer_sku_identity(self) -> None:
+        canonical_identifier = {
+            "kind": "manufacturer-sku",
+            "value": "DGL-SKC-005",
+            "label": "SKU",
+        }
+        self.write_intake(identity={"canonicalIdentifier": canonical_identifier})
+        self.run_main()
+        candidate_root = self.output_root / self.candidate_id
+        pointer = json.loads((candidate_root / "latest.json").read_text())
+        audit = json.loads((candidate_root / pointer["run"] / "audit.json").read_text())
+
+        self.assertEqual(audit["candidate"]["canonicalIdentifier"], canonical_identifier)
+        self.assertIsNone(audit["candidate"]["gtin"])
 
     def test_failed_pointer_swap_preserves_previous_authoritative_run(self) -> None:
         self.run_main()

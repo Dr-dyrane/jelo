@@ -43,6 +43,12 @@ export type Offer = {
 
 export type Product = {
   slug: string;
+  /** Immutable catalogue identity for releases whose canonical route is not the legacy GTIN path. */
+  catalogueIdentity?: {
+    kind: 'manufacturer-sku';
+    value: string;
+    label: 'SKU' | 'Manufacturer SKU' | 'Product code';
+  };
   brand: string;
   name: string;
   size: string;

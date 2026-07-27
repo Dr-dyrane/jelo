@@ -1,7 +1,13 @@
 import { createHash } from 'node:crypto';
 import { canonicalGtin, isValidGtin } from './gtin';
+import {
+  catalogueRetainedRecordShapeValid,
+  sourceTextNamesCatalogueBrandField,
+  type CatalogueRetainedRecord,
+} from './retained-record';
 
 export const catalogueExactOfferEvidenceSchemaVersion = 1 as const;
+export const catalogueExactOfferManufacturerSkuEvidenceSchemaVersion = 3 as const;
 export const catalogueRegulatoryEvidenceSchemaVersion = 2 as const;
 
 export type ExactOfferGtinLabel = 'GTIN' | 'EAN' | 'UPC';
@@ -59,8 +65,7 @@ export type ReviewedPackageRegulatoryLabelResponse = {
   };
 };
 
-export type ReviewedExactOfferEvidence = {
-  schemaVersion: typeof catalogueExactOfferEvidenceSchemaVersion;
+type ReviewedExactOfferEvidenceBase = {
   method:
     | 'reviewed-exact-offer-field-extraction'
     | 'reviewed-browser-dom-exact-offer-field-extraction'
@@ -78,22 +83,78 @@ export type ReviewedExactOfferEvidence = {
     pageTitle: string;
   };
   fields: {
-    gtin: {
-      label: ExactOfferGtinLabel;
-      value: string;
-      locator: string;
-      sourceText: string;
-      responseRole?: 'listing-response' | 'package-barcode-image' | 'official-identity-correlation';
-    };
     title: { value: string; locator: string; sourceText: string };
     size: { value: string; locator: string; sourceText: string };
     packageVersion?: { value: string; locator: string; sourceText: string };
     price: { value: number; currency: 'NGN'; locator: string; sourceText: string };
     stock: { value: ExactOfferStock; locator: string; sourceText: string };
   };
-  supplementalResponses?: ReviewedPackageBarcodeResponse[];
   reviewer: string;
   reviewedAt: string;
+};
+
+type ReviewedManufacturerSkuIdentityCorrelation = {
+    basis: 'official-manufacturer-sku-and-exact-variant-size-package';
+    manufacturerSku: {
+      value: string;
+      label: 'SKU' | 'Manufacturer SKU' | 'Product code';
+    };
+    officialProductUrl: string;
+    officialIdentitySnapshotPath: string;
+    officialIdentitySnapshotSha256: string;
+};
+
+/**
+ * The established GTIN-bound evidence contract remains the compatibility type
+ * used by existing catalogue fixtures and external approval records.
+ * Manufacturer-SKU evidence is additive through
+ * `ReviewedCatalogueExactOfferEvidence`.
+ */
+export type ReviewedExactOfferEvidence =
+  ReviewedExactOfferEvidenceBase & {
+    schemaVersion: typeof catalogueExactOfferEvidenceSchemaVersion;
+    fields: ReviewedExactOfferEvidenceBase['fields'] & {
+      gtin: {
+        label: ExactOfferGtinLabel;
+        value: string;
+        locator: string;
+        sourceText: string;
+        responseRole?: 'listing-response' | 'package-barcode-image' | 'official-identity-correlation';
+      };
+    };
+    supplementalResponses?: ReviewedPackageBarcodeResponse[];
+  };
+
+export type ReviewedManufacturerSkuExactOfferEvidence =
+  ReviewedExactOfferEvidenceBase & {
+    schemaVersion: typeof catalogueExactOfferManufacturerSkuEvidenceSchemaVersion;
+    responseSnapshotPath: string;
+    offerRecord: CatalogueRetainedRecord;
+    fields: ReviewedExactOfferEvidenceBase['fields'] & {
+      brand: { value: string; locator: string; sourceText: string };
+      gtin?: never;
+    };
+    identityCorrelation: ReviewedManufacturerSkuIdentityCorrelation;
+    supplementalResponses?: never;
+  };
+
+/**
+ * Intake records are decoded before their route is trusted, so this boundary
+ * deliberately models the union as a broad shape. Runtime validation below
+ * proves the exact GTIN or manufacturer-SKU route before publication.
+ */
+export type ReviewedCatalogueExactOfferEvidence = ReviewedExactOfferEvidenceBase & {
+  schemaVersion:
+    | typeof catalogueExactOfferEvidenceSchemaVersion
+    | typeof catalogueExactOfferManufacturerSkuEvidenceSchemaVersion;
+  fields: ReviewedExactOfferEvidenceBase['fields'] & {
+    gtin?: ReviewedExactOfferEvidence['fields']['gtin'];
+    brand?: ReviewedManufacturerSkuExactOfferEvidence['fields']['brand'];
+  };
+  supplementalResponses?: ReviewedPackageBarcodeResponse[];
+  responseSnapshotPath?: string;
+  offerRecord?: CatalogueRetainedRecord;
+  identityCorrelation?: ReviewedManufacturerSkuIdentityCorrelation;
 };
 
 type RegulatoryEvidenceBase = {
@@ -171,8 +232,22 @@ export type ExactOfferEvidenceSubject = {
   observedPackageVersion?: string;
   priceNgn: number;
   stock: ExactOfferStock;
-  evidence?: ReviewedExactOfferEvidence;
+  evidence?: ReviewedCatalogueExactOfferEvidence;
 };
+
+export type ExactOfferCandidateIdentifier =
+  | { kind: 'gtin'; value: string }
+  | {
+    kind: 'manufacturer-sku';
+    value: string;
+    label: 'SKU' | 'Manufacturer SKU' | 'Product code';
+    officialProductUrl: string;
+    officialIdentitySnapshotPath: string;
+    officialIdentitySnapshotSha256: string;
+    brand: string;
+    officialBrandAliases: readonly string[];
+    variant: string;
+  };
 
 const hashPattern = /^[0-9a-f]{64}$/;
 const regulatoryEvidenceMaxAgeMs = 90 * 86_400_000;
@@ -189,6 +264,24 @@ function validHttps(value: unknown) {
   } catch {
     return false;
   }
+}
+
+function manufacturerOfferTitleMatchesIdentity(
+  title: string,
+  identity: Extract<ExactOfferCandidateIdentifier, { kind: 'manufacturer-sku' }>,
+) {
+  const normalizedTitle = normalized(title);
+  const normalizedVariant = normalized(identity.variant);
+  return [identity.brand, ...identity.officialBrandAliases]
+    .map(normalized)
+    .some(brand => (
+      normalizedTitle === normalizedVariant
+      || normalizedTitle === `${brand} ${normalizedVariant}`
+      || (
+        normalizedVariant.startsWith(`${brand} `)
+        && normalizedTitle === normalizedVariant
+      )
+    ));
 }
 
 function sameUrl(left: unknown, right: unknown) {
@@ -386,12 +479,25 @@ function sourceNamesLabel(sourceText: string, label: ExactOfferGtinLabel) {
 
 export function reviewedExactOfferEvidenceValid(
   offer: ExactOfferEvidenceSubject,
-  candidateGtin: string | undefined,
+  candidateIdentity: string | undefined | ExactOfferCandidateIdentifier,
   asOf: number,
 ) {
+  const canonicalIdentity: ExactOfferCandidateIdentifier | undefined = typeof candidateIdentity === 'string'
+    ? { kind: 'gtin', value: candidateIdentity }
+    : candidateIdentity;
   const evidence = offer.evidence;
   if (!evidence || typeof evidence !== 'object' || Array.isArray(evidence)) return false;
   const fields = evidence.fields;
+  const hasGtinField = Object.prototype.hasOwnProperty.call(fields, 'gtin');
+  const hasBrandField = Object.prototype.hasOwnProperty.call(fields, 'brand');
+  const gtinField = 'gtin' in fields ? fields.gtin : undefined;
+  const brandField = 'brand' in fields ? fields.brand : undefined;
+  const identityCorrelation = 'identityCorrelation' in evidence
+    ? evidence.identityCorrelation
+    : undefined;
+  const supplementalResponses = 'supplementalResponses' in evidence
+    ? evidence.supplementalResponses
+    : undefined;
   const rawResponseEvidence = evidence.method === 'reviewed-exact-offer-field-extraction'
     && evidence.responseDigestScope === 'decoded-response-body'
     && evidence.browserCapture == null;
@@ -410,7 +516,11 @@ export function reviewedExactOfferEvidenceValid(
     && evidence.browserCapture.pageTitle.trim().length >= 3
   );
   if (
-    evidence.schemaVersion !== catalogueExactOfferEvidenceSchemaVersion
+    evidence.schemaVersion !== (
+      canonicalIdentity?.kind === 'manufacturer-sku'
+        ? catalogueExactOfferManufacturerSkuEvidenceSchemaVersion
+        : catalogueExactOfferEvidenceSchemaVersion
+    )
     || (!rawResponseEvidence && !browserResponseEvidence && !accessibleBrowserResponseEvidence)
     || !sameUrl(evidence.listingUrl, offer.listingUrl)
     || !sameUrl(evidence.responseUrl, offer.listingUrl)
@@ -420,7 +530,11 @@ export function reviewedExactOfferEvidenceValid(
     || evidence.responseByteSize <= 0
     || !fields
     || typeof fields !== 'object'
-    || !fieldShape(fields.gtin)
+    || (
+      canonicalIdentity?.kind === 'gtin'
+        ? (!hasGtinField || !fieldShape(gtinField))
+        : (hasGtinField || !hasBrandField || !fieldShape(brandField))
+    )
     || !fieldShape(fields.title)
     || !fieldShape(fields.size)
     || !fieldShape(fields.price)
@@ -441,43 +555,90 @@ export function reviewedExactOfferEvidenceValid(
     || reviewedAt < retrievedAt
   ) return false;
 
-  const label = expectedLabel(offer.observedGtinBasis);
-  const gtinResponseRole = fields.gtin.responseRole ?? 'listing-response';
   const exactVariantAndSize = offer.observedGtinBasis === 'exact-variant-and-size';
+  const label = expectedLabel(offer.observedGtinBasis);
+  const gtinResponseRole = gtinField?.responseRole ?? 'listing-response';
+  const candidateGtin = canonicalIdentity?.kind === 'gtin' ? canonicalIdentity.value : undefined;
   const packageBarcodeValid = gtinResponseRole === 'package-barcode-image'
+    && gtinField != null
     && label != null
-    && Array.isArray(evidence.supplementalResponses)
-    && evidence.supplementalResponses.length === 1
+    && Array.isArray(supplementalResponses)
+    && supplementalResponses.length === 1
     && reviewedPackageBarcodeResponseValid(
-      evidence.supplementalResponses[0],
+      supplementalResponses[0],
       offer.listingUrl,
-      fields.gtin.value,
+      gtinField.value,
       label,
       reviewedAt!,
       asOf,
     );
-  return Boolean(
-    label
-    && fields.gtin.label === label
-    && typeof fields.gtin.value === 'string'
-    && isValidGtin(fields.gtin.value)
-    && isValidGtin(candidateGtin ?? '')
-    && canonicalGtin(fields.gtin.value) === canonicalGtin(candidateGtin ?? '')
-    && sourceTextContainsExactGtin(fields.gtin.sourceText, fields.gtin.value)
-    && sourceNamesLabel(fields.gtin.sourceText, label)
-    && (
+  const identityBindingValid = canonicalIdentity?.kind === 'manufacturer-sku'
+    ? (
       exactVariantAndSize
-        ? (
-          offer.observedGtin == null
-          && gtinResponseRole === 'official-identity-correlation'
-          && /official\s+(?:catalogue\s+)?identity/i.test(fields.gtin.sourceText)
-        )
-        : (
-          isValidGtin(offer.observedGtin ?? '')
-          && canonicalGtin(fields.gtin.value) === canonicalGtin(offer.observedGtin ?? '')
-          && (gtinResponseRole === 'listing-response' || packageBarcodeValid)
-        )
+      && offer.observedGtin == null
+      && gtinField == null
+      && 'responseSnapshotPath' in evidence
+      && new RegExp(
+        '^data/catalogue-offer-source-evidence/'
+        + '[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*'
+        + (evidence.responseMimeType === 'application/json' ? '\\.json$' : '\\.html$'),
+      ).test(evidence.responseSnapshotPath ?? '')
+      && 'offerRecord' in evidence
+      && catalogueRetainedRecordShapeValid(evidence.offerRecord)
+      && (!supplementalResponses || supplementalResponses.length === 0)
+      && identityCorrelation?.basis
+        === 'official-manufacturer-sku-and-exact-variant-size-package'
+      && identityCorrelation.manufacturerSku.value === canonicalIdentity.value
+      && identityCorrelation.manufacturerSku.label === canonicalIdentity.label
+      && sameUrl(
+        identityCorrelation.officialProductUrl,
+        canonicalIdentity.officialProductUrl,
+      )
+      && identityCorrelation.officialIdentitySnapshotPath
+        === canonicalIdentity.officialIdentitySnapshotPath
+      && hashPattern.test(identityCorrelation.officialIdentitySnapshotSha256)
+      && identityCorrelation.officialIdentitySnapshotSha256
+        === canonicalIdentity.officialIdentitySnapshotSha256
+      && typeof brandField?.value === 'string'
+      && [canonicalIdentity.brand, ...canonicalIdentity.officialBrandAliases]
+        .map(normalized)
+        .includes(normalized(brandField.value))
+      && sourceTextNamesCatalogueBrandField(
+        brandField.sourceText,
+        brandField.value,
+      )
+      && manufacturerOfferTitleMatchesIdentity(
+        fields.title.value as string,
+        canonicalIdentity,
+      )
     )
+    : Boolean(
+      label
+      && gtinField
+      && gtinField.label === label
+      && typeof gtinField.value === 'string'
+      && isValidGtin(gtinField.value)
+      && isValidGtin(candidateGtin ?? '')
+      && canonicalGtin(gtinField.value) === canonicalGtin(candidateGtin ?? '')
+      && sourceTextContainsExactGtin(gtinField.sourceText, gtinField.value)
+      && sourceNamesLabel(gtinField.sourceText, label)
+      && (
+        exactVariantAndSize
+          ? (
+            offer.observedGtin == null
+            && gtinResponseRole === 'official-identity-correlation'
+            && /official\s+(?:catalogue\s+)?identity/i.test(gtinField.sourceText)
+          )
+          : (
+            isValidGtin(offer.observedGtin ?? '')
+            && canonicalGtin(gtinField.value) === canonicalGtin(offer.observedGtin ?? '')
+            && (gtinResponseRole === 'listing-response' || packageBarcodeValid)
+          )
+      )
+      && identityCorrelation == null
+    );
+  return Boolean(
+    identityBindingValid
     && typeof fields.title.value === 'string'
     && normalized(fields.title.value) === normalized(offer.observedTitle)
     && normalized(fields.title.sourceText).includes(normalized(fields.title.value))

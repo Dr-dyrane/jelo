@@ -2,15 +2,23 @@ import { createHash } from 'node:crypto';
 import {
   auditCatalogueIntakeCandidates,
   catalogueBrandAuthorizationSourceValid,
+  catalogueManufacturerSkuIdentityExtractionSchemaVersion,
   evaluateCatalogueIntakeCandidate,
   type CatalogueGenerationRecord,
   type CatalogueIntakeCandidate,
   type CatalogueIntakeOffer,
   type CatalogueNigeriaMarketRoute,
   type CatalogueOfficialIdentityExtraction,
-  type CatalogueOfficialIdentityEvidence,
+  type CatalogueCandidateOfficialIdentityEvidence,
+  type CatalogueManufacturerSkuIdentityExtraction,
   type CatalogueSourceAssetMimeType,
 } from './intake-readiness';
+import {
+  catalogueCanonicalIdentifierFor,
+  catalogueGtinForIdentity,
+  type CatalogueCanonicalProductIdentifier,
+  type CatalogueOfficialProductIdentityCrosswalk,
+} from './canonical-identity';
 import { nigeriaRetailers } from '@/data/retailers';
 import {
   reviewedBrandSellerEvidenceFor,
@@ -18,6 +26,7 @@ import {
 } from './brand-seller-evidence';
 import type { ReviewedRegulatoryEvidence } from './market-evidence';
 import type { CataloguePublicationImageMimeType } from './publication-image-policy';
+import { verifyCatalogueIdentityEvidenceArtifacts } from './identity-evidence-artifact';
 
 export const cataloguePublicationDossierSchemaVersion = 8 as const;
 export const cataloguePublicationApprovalScope = 'exact-identity-source-care-retail-rights-and-final-image' as const;
@@ -30,6 +39,15 @@ export type CataloguePublicationApproval = {
   approvedAt: string;
 };
 
+type CataloguePublicationDossierIdentityBase = {
+  brand: string;
+  name: string;
+  variant: string;
+  size: string;
+  packageVersion?: string;
+  category: CatalogueIntakeCandidate['category'];
+};
+
 export type CataloguePublicationDossier = {
   schemaVersion: typeof cataloguePublicationDossierSchemaVersion;
   candidateId: string;
@@ -39,19 +57,21 @@ export type CataloguePublicationDossier = {
   publicationScope: typeof cataloguePublicationScope;
   publicationStatus: 'not-published';
   recommendationEligible: false;
-  identity: {
-    gtin: string;
-    brand: string;
-    name: string;
-    variant: string;
-    size: string;
-    packageVersion?: string;
-    category: CatalogueIntakeCandidate['category'];
-  };
+  identity: CataloguePublicationDossierIdentityBase & (
+    | {
+      gtin: string;
+      canonicalIdentifier?: Extract<CatalogueCanonicalProductIdentifier, { kind: 'gtin' }>;
+      officialProductCrosswalk?: CatalogueOfficialProductIdentityCrosswalk;
+    }
+    | {
+      canonicalIdentifier: Extract<CatalogueCanonicalProductIdentifier, { kind: 'manufacturer-sku' }>;
+      officialProductCrosswalk: CatalogueOfficialProductIdentityCrosswalk;
+    }
+  );
   sourceEvidence: {
     basis: 'official-brand';
     officialProductUrl: string;
-    officialIdentity: CatalogueOfficialIdentityEvidence;
+    officialIdentity: CatalogueCandidateOfficialIdentityEvidence;
     checkedAt: string;
     demandEvidenceUrls: string[];
   };
@@ -137,6 +157,37 @@ function stableJson(value: unknown): string {
 function cloneOfficialIdentityExtraction(
   extraction: CatalogueOfficialIdentityExtraction,
 ): CatalogueOfficialIdentityExtraction {
+  if (extraction.schemaVersion === catalogueManufacturerSkuIdentityExtractionSchemaVersion) {
+    return {
+      ...extraction,
+      productRecord: { ...extraction.productRecord },
+      fields: {
+        manufacturerBrand: { ...extraction.fields.manufacturerBrand },
+        ...(extraction.fields.manufacturerBrandAliases
+          ? {
+            manufacturerBrandAliases:
+              extraction.fields.manufacturerBrandAliases.map(alias => ({ ...alias })),
+          }
+          : {}),
+        manufacturerSku: { ...extraction.fields.manufacturerSku },
+        variant: { ...extraction.fields.variant },
+        size: { ...extraction.fields.size },
+        packageVersion: { ...extraction.fields.packageVersion },
+        gtinPublicationStatus: {
+          ...extraction.fields.gtinPublicationStatus,
+          ...(extraction.fields.gtinPublicationStatus.absenceProof
+            ? {
+              absenceProof: {
+                ...extraction.fields.gtinPublicationStatus.absenceProof,
+                searchedTerms: [...extraction.fields.gtinPublicationStatus.absenceProof.searchedTerms],
+              },
+            }
+            : {}),
+        },
+      },
+      browserCapture: { ...extraction.browserCapture },
+    };
+  }
   if (extraction.schemaVersion === 6) {
     return {
       ...extraction,
@@ -203,6 +254,36 @@ function cloneOfficialIdentityExtraction(
     ...(extraction.supplementalResponses
       ? { supplementalResponses: extraction.supplementalResponses.map(response => ({ ...response })) }
       : {}),
+  };
+}
+
+function cloneOfficialIdentityEvidence(
+  evidence: CatalogueCandidateOfficialIdentityEvidence,
+): CatalogueCandidateOfficialIdentityEvidence {
+  if ('identityKind' in evidence) {
+    if (
+      evidence.identityKind !== 'manufacturer-sku'
+      || Object.prototype.hasOwnProperty.call(evidence, 'observedGtin')
+      || evidence.canonicalExtraction.schemaVersion
+        !== catalogueManufacturerSkuIdentityExtractionSchemaVersion
+    ) throw new Error('Manufacturer identity evidence is ambiguous.');
+    return {
+      ...evidence,
+      canonicalExtraction: cloneOfficialIdentityExtraction(
+        evidence.canonicalExtraction,
+      ) as CatalogueManufacturerSkuIdentityExtraction,
+    };
+  }
+  if (
+    Object.prototype.hasOwnProperty.call(evidence, 'observedManufacturerSku')
+    || Object.prototype.hasOwnProperty.call(evidence, 'observedManufacturerSkuLabel')
+    || typeof evidence.observedGtin !== 'string'
+  ) throw new Error('GTIN identity evidence is ambiguous.');
+  return {
+    ...evidence,
+    canonicalExtraction: cloneOfficialIdentityExtraction(
+      evidence.canonicalExtraction,
+    ) as Exclude<CatalogueOfficialIdentityExtraction, CatalogueManufacturerSkuIdentityExtraction>,
   };
 }
 
@@ -290,7 +371,7 @@ export function catalogueIntakeCandidateFingerprint(candidate: CatalogueIntakeCa
   return fingerprint('jelocare-catalogue-intake-candidate-v8', candidate);
 }
 
-export function createCataloguePublicationDossier(
+function createCataloguePublicationDossierCore(
   candidate: CatalogueIntakeCandidate,
   approval: CataloguePublicationApproval,
   asOf = Date.now(),
@@ -305,6 +386,10 @@ export function createCataloguePublicationDossier(
 
   const approvedAt = parsedDate(approval.approvedAt, `${candidate.id} approval timestamp`, asOf);
   const officialIdentity = required(candidate.identity.officialEvidence, `${candidate.id} official identity evidence`);
+  const canonicalIdentifier = required(
+    catalogueCanonicalIdentifierFor(candidate.identity),
+    `${candidate.id} canonical identifier`,
+  );
   const identityCheckedAt = required(candidate.identity.checkedAt, `${candidate.id} identity timestamp`);
   const identityEvidenceRetrievedAt = required(officialIdentity.retrievedAt, `${candidate.id} official identity retrieval timestamp`);
   const careReviewedAt = required(candidate.care.reviewedAt, `${candidate.id} care review timestamp`);
@@ -383,7 +468,22 @@ export function createCataloguePublicationDossier(
     publicationStatus: 'not-published' as const,
     recommendationEligible: false as const,
     identity: {
-      gtin: required(candidate.identity.gtin, `${candidate.id} GTIN`),
+      ...(canonicalIdentifier.kind === 'gtin'
+        ? {
+          gtin: required(catalogueGtinForIdentity(candidate.identity), `${candidate.id} GTIN`),
+          ...(candidate.identity.officialProductCrosswalk
+            ? { officialProductCrosswalk: { ...candidate.identity.officialProductCrosswalk } }
+            : {}),
+        }
+        : {
+          canonicalIdentifier,
+          officialProductCrosswalk: {
+            ...required(
+              candidate.identity.officialProductCrosswalk,
+              `${candidate.id} official product identity crosswalk`,
+            ),
+          },
+        }),
       brand: candidate.brand,
       name: candidate.name,
       variant: candidate.variant,
@@ -397,19 +497,7 @@ export function createCataloguePublicationDossier(
       basis: required(candidate.identity.basis, `${candidate.id} identity basis`),
       officialProductUrl: required(candidate.identity.officialProductUrl, `${candidate.id} official source`),
       officialIdentity: {
-        url: officialIdentity.url,
-        observedGtin: officialIdentity.observedGtin,
-        observedVariant: officialIdentity.observedVariant,
-        observedSize: officialIdentity.observedSize,
-        ...(officialIdentity.observedPackageVersion
-          ? { observedPackageVersion: officialIdentity.observedPackageVersion }
-          : {}),
-        snapshotKind: officialIdentity.snapshotKind,
-        snapshotPath: officialIdentity.snapshotPath,
-        canonicalExtraction: cloneOfficialIdentityExtraction(officialIdentity.canonicalExtraction),
-        snapshotSha256: officialIdentity.snapshotSha256,
-        snapshotMimeType: officialIdentity.snapshotMimeType,
-        snapshotByteSize: officialIdentity.snapshotByteSize,
+        ...cloneOfficialIdentityEvidence(officialIdentity),
         retrievedAt: identityEvidenceRetrievedAt,
       },
       checkedAt: identityCheckedAt,
@@ -505,6 +593,19 @@ export function createCataloguePublicationDossier(
   return deepFreeze({ ...payload, dossierFingerprint });
 }
 
+/**
+ * Pure structural constructor retained for the immutable per-SKU compiler and
+ * deterministic tests. Production publication entrypoints must use
+ * `createVerifiedCataloguePublicationDossier` so retained bytes are reopened.
+ */
+export function createCataloguePublicationDossier(
+  candidate: CatalogueIntakeCandidate,
+  approval: CataloguePublicationApproval,
+  asOf = Date.now(),
+): CataloguePublicationDossier {
+  return createCataloguePublicationDossierCore(candidate, approval, asOf);
+}
+
 function objectRecord(value: unknown, label: string): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label} must be an object.`);
   return value as Record<string, unknown>;
@@ -520,7 +621,7 @@ function approvalFromStoredDossier(value: Record<string, unknown>, candidateId: 
   return approval as CataloguePublicationApproval;
 }
 
-export function verifyCataloguePublicationDossierManifest(
+function verifyCataloguePublicationDossierManifestCore(
   candidates: readonly CatalogueIntakeCandidate[],
   manifest: unknown,
   asOf = Date.now(),
@@ -549,7 +650,11 @@ export function verifyCataloguePublicationDossierManifest(
       throw new Error(`${candidateId} candidate fingerprint changed; approval is invalid.`);
     }
 
-    const expected = createCataloguePublicationDossier(candidate, approvalFromStoredDossier(stored, candidateId), asOf);
+    const expected = createCataloguePublicationDossierCore(
+      candidate,
+      approvalFromStoredDossier(stored, candidateId),
+      asOf,
+    );
     if (typeof stored.dossierFingerprint !== 'string' || !hashPattern.test(stored.dossierFingerprint)) {
       throw new Error(`${candidateId} dossier fingerprint is invalid.`);
     }
@@ -570,4 +675,51 @@ export function verifyCataloguePublicationDossierManifest(
     publicProductCount: 0 as const,
     dossiers,
   };
+}
+
+/**
+ * Pure structural verification retained for source compilation. Production
+ * release gates use the artifact-aware wrapper below.
+ */
+export function verifyCataloguePublicationDossierManifest(
+  candidates: readonly CatalogueIntakeCandidate[],
+  manifest: unknown,
+  asOf = Date.now(),
+) {
+  return verifyCataloguePublicationDossierManifestCore(candidates, manifest, asOf);
+}
+
+export type CataloguePublicationVerificationOptions = {
+  repositoryRoot?: string;
+  asOf?: number;
+};
+
+/**
+ * Production dossier creation is deliberately asynchronous: the boundary
+ * reopens every retained identity/offer artifact before it can mint a dossier.
+ */
+export async function createVerifiedCataloguePublicationDossier(
+  candidate: CatalogueIntakeCandidate,
+  approval: CataloguePublicationApproval,
+  options: CataloguePublicationVerificationOptions = {},
+): Promise<CataloguePublicationDossier> {
+  const repositoryRoot = options.repositoryRoot ?? process.cwd();
+  const asOf = options.asOf ?? Date.now();
+  await verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot);
+  return createCataloguePublicationDossierCore(candidate, approval, asOf);
+}
+
+/**
+ * Verifies retained bytes first, then verifies the immutable dossier manifest.
+ * No production caller can obtain a successful report from metadata alone.
+ */
+export async function verifyCataloguePublicationDossierManifestWithArtifacts(
+  candidates: readonly CatalogueIntakeCandidate[],
+  manifest: unknown,
+  options: CataloguePublicationVerificationOptions = {},
+) {
+  const repositoryRoot = options.repositoryRoot ?? process.cwd();
+  const asOf = options.asOf ?? Date.now();
+  await verifyCatalogueIdentityEvidenceArtifacts(candidates, repositoryRoot);
+  return verifyCataloguePublicationDossierManifestCore(candidates, manifest, asOf);
 }

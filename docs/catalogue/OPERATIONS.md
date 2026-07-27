@@ -120,9 +120,11 @@ Preferred evidence order:
 3. two independent identifier corroborations when the manufacturer does not publish the code;
 4. hash-bound reviewed browser DOM when direct retrieval is blocked.
 
-Retailer SKUs remain retailer-local. Never promote one into a manufacturer GTIN.
+Use exactly one canonical route. Keep the GTIN route whenever the manufacturer publishes a GTIN/EAN/UPC. When the exact official product record publishes no GTIN but explicitly labels its own `SKU`, `Manufacturer SKU`, or `Product code`, use extraction schema 8 and record the exact package version. Retain the complete official response at `data/catalogue-identity-source-evidence/<candidate>.html`, plus its exact byte count and SHA-256 and the byte range and fragment hash for one product record.
 
-Identity artifacts are checked against their declared bytes and hashes. Package revisions must stay distinct.
+Verification reopens the retained bytes and requires the manufacturer brand, reviewed aliases, manufacturer SKU, variant, size and package together in that record. Brand and aliases must come from explicit `Brand`, `Vendor`, or `Manufacturer` fields or labels, not descriptive copy. The complete representation is scanned for structured identifier keys; a null-barcode claim cannot coexist with another structured identifier. Persist the exact package and capture binding in the schema-2 manufacturer crosswalk. Duplicate checks use the stable manufacturer-owned key, size and package, with a second official-route/size/package guard against mixed GTIN and manufacturer-SKU admission.
+
+Retailer SKUs remain retailer-local. Never promote one into a manufacturer GTIN or manufacturer SKU. Identity artifacts are checked against their exact retained bytes and hashes. Package revisions must stay distinct.
 
 ## 5. Review care
 
@@ -147,6 +149,8 @@ An exact observation binds:
 - controlled stock state;
 - retrieval and review timestamps;
 - response bytes, MIME type, digest, locators, and excerpts.
+
+GTIN candidates keep exact-offer schema 1. Manufacturer-SKU candidates use exact-offer schema 3 and retain the complete retailer response at `data/catalogue-offer-source-evidence/<candidate>--<retailer>.html` or `.json`, plus one exact offer-record byte range and fragment hash. Verification requires brand, title, size, package, price and stock to occur together in that record and rechecks the immutable official identity snapshot. Brand must equal the official manufacturer brand or a reviewed official-record alias and must be an explicit `Brand`, `Vendor`, or `Manufacturer` field or label. A description mention does not count. A variant-only title is acceptable only beside that explicit same-record brand field. Foreign and dual-brand listings fail. `retailerSku` may remain as retailer operations metadata but is never compared with the canonical identifier.
 
 Use the rendered browser for stores such as Beauty by Daz when automation is blocked. Search pages, sibling redirects, stale observations, package conflicts, and ambiguous sizes remain excluded evidence.
 
@@ -198,11 +202,18 @@ npm run catalogue:intake:build -- --write
 ```
 
 The compiler rejects filename/ID mismatches, unsupported or duplicate origins,
-duplicate identities and GTINs, timestamps that predate evidence, deletions,
+duplicate canonical identities, GTINs and manufacturer-owned product keys,
+cross-route package collisions, timestamps that predate evidence, deletions,
 and writes larger than 12 changed/new candidates. Before an atomic write it
-rechecks source and projection digests and verifies canonical identity
-artifacts plus every existing dossier and release binding. It never creates or
-changes a dossier, release, public image, or public product.
+rechecks source and projection digests and structurally verifies every existing
+dossier and release binding. It never creates or changes a dossier, release,
+public image, or public product.
+
+The compiler deliberately does not reopen retained evidence bytes: it must stay
+deterministic and side-effect free. Production dossier and release commands use
+the artifact-aware APIs and fail closed unless every retained official and
+retailer response, declared byte count, SHA-256, exact record range, fragment
+hash and structured-field proof can be re-opened and verified.
 
 Validate the wider contract:
 
@@ -236,7 +247,10 @@ The chronology must be:
 dossier approval <= presentation review <= publication
 ```
 
-Review the fingerprints, then repeat with `--write`. The operator writes the dossier and release manifests atomically and rejects duplicates.
+Review the fingerprints, then repeat with `--write`. The operator reopens all
+retained identity and offer artifacts, writes the dossier and release manifests
+atomically, and rejects duplicate canonical identities and cross-route package
+collisions.
 
 Regenerate the research projection:
 

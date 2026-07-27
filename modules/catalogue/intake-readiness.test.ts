@@ -19,6 +19,7 @@ import {
   type CatalogueGenerationRecordContent,
   type CatalogueIntakeCandidate,
   type CatalogueIntakeOffer,
+  type CatalogueCandidateOfficialIdentityEvidence,
   type CatalogueOfficialIdentityEvidence,
 } from '@/lib/catalogue/intake-readiness';
 import {
@@ -597,9 +598,9 @@ function generationRecord(
 }
 
 function withCanonicalExtraction(
-  evidence: CatalogueOfficialIdentityEvidence,
-  canonicalExtraction: CatalogueOfficialIdentityEvidence['canonicalExtraction'],
-): CatalogueOfficialIdentityEvidence {
+  evidence: CatalogueCandidateOfficialIdentityEvidence,
+  canonicalExtraction: CatalogueCandidateOfficialIdentityEvidence['canonicalExtraction'],
+): CatalogueCandidateOfficialIdentityEvidence {
   return {
     ...evidence,
     canonicalExtraction,
@@ -706,7 +707,7 @@ test('intake fails at exact identity before later research gates', () => {
   assert.equal(decision.approvalDraftReady, false);
   assert.ok(decision.blockers.includes('identity-gtin-missing-or-invalid'));
   assert.ok(decision.blockers.includes('care-review-missing'));
-  assert.match(decision.nextAction, /manufacturer GTIN/i);
+  assert.match(decision.nextAction, /manufacturer identifier/i);
 });
 
 test('care review remains a distinct gate after identity is locked', () => {
@@ -1708,7 +1709,7 @@ test('a retailer SKU label cannot be relabelled as manufacturer GTIN evidence', 
           fields: {
             ...evidence.fields,
             gtin: {
-              ...evidence.fields.gtin,
+              ...evidence.fields.gtin!,
               locator: 'HTML retailer SKU row',
               sourceText: `SKU ${offer.observedGtin}`,
             },

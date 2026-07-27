@@ -1,7 +1,8 @@
 import manifest from '../data/catalogue-publication-dossiers.json';
 import { catalogueIntakeCandidates } from '../data/catalogue-intake';
-import { verifyCatalogueIdentityEvidenceArtifacts } from '../lib/catalogue/identity-evidence-artifact';
-import { verifyCataloguePublicationDossierManifest } from '../lib/catalogue/publication-dossier';
+import {
+  verifyCataloguePublicationDossierManifestWithArtifacts,
+} from '../lib/catalogue/publication-dossier';
 import type { CataloguePublicationDossierManifest } from '../lib/catalogue/publication-dossier';
 import releaseManifest from '../data/catalogue-publication-releases.json';
 import type { CataloguePublicationReleaseManifest } from '../lib/catalogue/publication-release';
@@ -12,7 +13,6 @@ import {
 } from '../lib/catalogue/publication-source';
 
 async function main() {
-  await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates);
   const sourceFiles = await readCataloguePublicationSourceFiles();
   const compilation = compileCataloguePublicationSources(
     catalogueIntakeCandidates,
@@ -23,7 +23,10 @@ async function main() {
     releaseManifest as CataloguePublicationReleaseManifest,
     compilation,
   );
-  const report = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, manifest);
+  const report = await verifyCataloguePublicationDossierManifestWithArtifacts(
+    catalogueIntakeCandidates,
+    manifest,
+  );
 
   if (process.argv.includes('--json')) {
     console.log(JSON.stringify({

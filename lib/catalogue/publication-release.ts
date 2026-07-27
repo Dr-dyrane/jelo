@@ -3,9 +3,17 @@ import { nigeriaRetailers } from '@/data/retailers';
 import type { Offer, Product } from '@/data/products';
 import type { CatalogueIntakeCandidate } from './intake-readiness';
 import {
+  catalogueCanonicalIdentifierKey,
+  catalogueOfficialProductPackageKey,
+  catalogueOfficialProductCrosswalkRouteClass,
+  catalogueOfficialProductRoutePackageKey,
+} from './canonical-identity';
+import {
   cataloguePublicationScope,
   verifyCataloguePublicationDossierManifest,
+  verifyCataloguePublicationDossierManifestWithArtifacts,
   type CataloguePublicationDossier,
+  type CataloguePublicationVerificationOptions,
 } from './publication-dossier';
 
 export const cataloguePublicationReleaseSchemaVersion = 2 as const;
@@ -144,7 +152,7 @@ function normalizedPresentation(
   };
 }
 
-export function createCataloguePublicationRelease(
+function createCataloguePublicationReleaseCore(
   dossier: CataloguePublicationDossier,
   presentation: CataloguePublicationPresentation,
   publication: CataloguePublicationReleaseApproval,
@@ -177,6 +185,53 @@ export function createCataloguePublicationRelease(
     },
   };
   return { ...payload, releaseFingerprint: fingerprint(payload) };
+}
+
+/**
+ * Pure structural constructor retained for the immutable per-SKU compiler and
+ * deterministic tests. Production publication entrypoints use the verified
+ * constructor below.
+ */
+export function createCataloguePublicationRelease(
+  dossier: CataloguePublicationDossier,
+  presentation: CataloguePublicationPresentation,
+  publication: CataloguePublicationReleaseApproval,
+  asOf = Date.now(),
+): CataloguePublicationRelease {
+  return createCataloguePublicationReleaseCore(dossier, presentation, publication, asOf);
+}
+
+/**
+ * Mints a release record only after the candidate's retained identity/offer
+ * artifacts and immutable dossier have been reopened and verified.
+ */
+export async function createVerifiedCataloguePublicationRelease(
+  candidate: CatalogueIntakeCandidate,
+  dossier: CataloguePublicationDossier,
+  presentation: CataloguePublicationPresentation,
+  publication: CataloguePublicationReleaseApproval,
+  options: CataloguePublicationVerificationOptions = {},
+): Promise<CataloguePublicationRelease> {
+  const asOf = options.asOf ?? Date.now();
+  const dossierReport = await verifyCataloguePublicationDossierManifestWithArtifacts(
+    [candidate],
+    {
+      schemaVersion: dossier.schemaVersion,
+      exposure: dossier.exposure,
+      dossiers: [dossier],
+    },
+    { ...options, asOf },
+  );
+  const verifiedDossier = dossierReport.dossiers[0];
+  if (!verifiedDossier || verifiedDossier.candidateId !== candidate.id) {
+    throw new Error(`${candidate.id} has no current verified publication dossier.`);
+  }
+  return createCataloguePublicationReleaseCore(
+    verifiedDossier,
+    presentation,
+    publication,
+    asOf,
+  );
 }
 
 function releaseInput(value: Record<string, unknown>, candidateId: string) {
@@ -241,6 +296,9 @@ export function materializeCataloguePublicationRelease(
   }
   return {
     slug: dossier.candidateId,
+    ...(dossier.identity.canonicalIdentifier?.kind === 'manufacturer-sku'
+      ? { catalogueIdentity: { ...dossier.identity.canonicalIdentifier } }
+      : {}),
     brand: dossier.identity.brand,
     name: dossier.identity.name,
     size: dossier.identity.size,
@@ -259,13 +317,13 @@ export function materializeCataloguePublicationRelease(
   };
 }
 
-export function verifyCataloguePublicationReleaseManifest(
-  candidates: readonly CatalogueIntakeCandidate[],
-  dossierManifest: unknown,
+function verifyCataloguePublicationReleaseManifestCore(
+  dossierReport: Awaited<ReturnType<
+    typeof verifyCataloguePublicationDossierManifestWithArtifacts
+  >>,
   manifest: unknown,
   asOf = Date.now(),
 ) {
-  const dossierReport = verifyCataloguePublicationDossierManifest(candidates, dossierManifest, asOf);
   const source = objectRecord(manifest, 'Catalogue publication release manifest');
   if (source.schemaVersion !== cataloguePublicationReleaseSchemaVersion) {
     throw new Error('Unsupported catalogue publication release schema.');
@@ -280,7 +338,12 @@ export function verifyCataloguePublicationReleaseManifest(
   const dossierByCandidate = new Map(dossierReport.dossiers.map(dossier => [dossier.candidateId, dossier]));
   const seenCandidates = new Set<string>();
   const seenFingerprints = new Set<string>();
-  const seenGtins = new Set<string>();
+  const seenCanonicalIdentifiers = new Set<string>();
+  const seenOfficialProductCrosswalks = new Set<string>();
+  const seenOfficialProductRoutePackages = new Map<
+    string,
+    'manufacturer-sku' | 'official-route'
+  >();
   const releases = source.releases.map((value, index) => {
     const stored = objectRecord(value, `Catalogue publication release ${index}`);
     if (typeof stored.candidateId !== 'string' || !stored.candidateId) {
@@ -295,7 +358,12 @@ export function verifyCataloguePublicationReleaseManifest(
       throw new Error(`${candidateId} release dossier fingerprint changed; publication is invalid.`);
     }
     const input = releaseInput(stored, candidateId);
-    const expected = createCataloguePublicationRelease(dossier, input.presentation, input.publication, asOf);
+    const expected = createCataloguePublicationReleaseCore(
+      dossier,
+      input.presentation,
+      input.publication,
+      asOf,
+    );
     if (typeof stored.releaseFingerprint !== 'string' || !hashPattern.test(stored.releaseFingerprint)) {
       throw new Error(`${candidateId} release fingerprint is invalid.`);
     }
@@ -306,18 +374,124 @@ export function verifyCataloguePublicationReleaseManifest(
     if (stableJson(stored) !== stableJson(expected)) {
       throw new Error(`${candidateId} release content or fingerprint changed; publication is invalid.`);
     }
-    if (seenGtins.has(dossier.identity.gtin)) {
-      throw new Error(`${candidateId} duplicates another released GTIN.`);
+    const canonicalIdentifier = dossier.identity.canonicalIdentifier?.kind === 'manufacturer-sku'
+      ? dossier.identity.canonicalIdentifier
+      : {
+        kind: 'gtin' as const,
+        value: (() => {
+          if (!('gtin' in dossier.identity) || !dossier.identity.gtin) {
+            throw new Error(`${candidateId} dossier has no canonical identifier.`);
+          }
+          return dossier.identity.gtin;
+        })(),
+      };
+    const canonicalIdentifierKey = catalogueCanonicalIdentifierKey(
+      dossier.identity.brand,
+      canonicalIdentifier,
+    );
+    if (seenCanonicalIdentifiers.has(canonicalIdentifierKey)) {
+      throw new Error(`${candidateId} duplicates another released canonical identifier.`);
     }
-    seenGtins.add(dossier.identity.gtin);
-    return { release: expected, dossier, product: materializeCataloguePublicationRelease(dossier, expected) };
+    seenCanonicalIdentifiers.add(canonicalIdentifierKey);
+    const officialProductCrosswalk = 'officialProductCrosswalk' in dossier.identity
+      ? dossier.identity.officialProductCrosswalk
+      : undefined;
+    if (officialProductCrosswalk) {
+      const crosswalkKey = catalogueOfficialProductPackageKey(officialProductCrosswalk);
+      if (!crosswalkKey) throw new Error(`${candidateId} has an invalid official product crosswalk.`);
+      if (seenOfficialProductCrosswalks.has(crosswalkKey)) {
+        throw new Error(`${candidateId} duplicates another released official product/package.`);
+      }
+      seenOfficialProductCrosswalks.add(crosswalkKey);
+
+      const routePackageKey =
+        catalogueOfficialProductRoutePackageKey(officialProductCrosswalk);
+      const routeClass =
+        catalogueOfficialProductCrosswalkRouteClass(officialProductCrosswalk);
+      if (!routePackageKey || !routeClass) {
+        throw new Error(`${candidateId} has an invalid official route/package.`);
+      }
+      const existingRouteClass = seenOfficialProductRoutePackages.get(routePackageKey);
+      if (
+        existingRouteClass
+        && (
+          existingRouteClass !== 'manufacturer-sku'
+          || routeClass !== 'manufacturer-sku'
+        )
+      ) {
+        throw new Error(
+          `${candidateId} duplicates another released official route/package across identity routes.`,
+        );
+      }
+      seenOfficialProductRoutePackages.set(routePackageKey, routeClass);
+    }
+    return { release: expected, dossier };
   });
 
   return {
-    schemaVersion: cataloguePublicationReleaseSchemaVersion,
-    exposure: cataloguePublicationReleaseExposure,
-    releaseCount: releases.length,
-    products: releases.map(item => item.product),
-    releases: releases.map(item => item.release),
+    report: {
+      schemaVersion: cataloguePublicationReleaseSchemaVersion,
+      exposure: cataloguePublicationReleaseExposure,
+      releaseCount: releases.length,
+      releases: releases.map(item => item.release),
+    },
+    bindings: releases,
+  };
+}
+
+/**
+ * Pure structural verification retained for source compilation. Production
+ * release gates use the artifact-aware wrapper below.
+ */
+export function verifyCataloguePublicationReleaseManifest(
+  candidates: readonly CatalogueIntakeCandidate[],
+  dossierManifest: unknown,
+  manifest: unknown,
+  asOf = Date.now(),
+) {
+  const dossierReport = verifyCataloguePublicationDossierManifest(
+    candidates,
+    dossierManifest,
+    asOf,
+  );
+  const verified = verifyCataloguePublicationReleaseManifestCore(
+    dossierReport,
+    manifest,
+    asOf,
+  );
+  return {
+    ...verified.report,
+    products: verified.bindings.map(({ dossier, release }) => (
+      materializeCataloguePublicationRelease(dossier, release)
+    )),
+  };
+}
+
+/**
+ * Public release verification always begins by reopening the retained
+ * identity and retailer response artifacts bound to the candidate set.
+ */
+export async function verifyCataloguePublicationReleaseManifestWithArtifacts(
+  candidates: readonly CatalogueIntakeCandidate[],
+  dossierManifest: unknown,
+  manifest: unknown,
+  options: CataloguePublicationVerificationOptions = {},
+) {
+  const asOf = options.asOf ?? Date.now();
+  const dossierReport = await verifyCataloguePublicationDossierManifestWithArtifacts(
+    candidates,
+    dossierManifest,
+    { ...options, asOf },
+  );
+  const verified = verifyCataloguePublicationReleaseManifestCore(
+    dossierReport,
+    manifest,
+    asOf,
+  );
+  return {
+    ...verified.report,
+    products: verified.bindings.map(({ dossier, release }) => (
+      materializeCataloguePublicationRelease(dossier, release)
+    )),
   };
 }
