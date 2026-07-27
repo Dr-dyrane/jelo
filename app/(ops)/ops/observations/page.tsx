@@ -1,46 +1,71 @@
 import { getPostgresClient } from '@/lib/db/postgres';
-import { listPendingObservations } from '@/lib/moderation/queues';
+import {
+  findPendingObservation,
+  listPendingObservations,
+} from '@/lib/moderation/queues';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { can } from '@/lib/moderation/capabilities';
 import { EmptyState } from '@/components/ops/state/EmptyState';
-import { findCatalogueProduct } from '@/lib/catalogue/repository';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import {
+  observationProductSlug,
+  observationReviewItem,
+} from '@/lib/moderation/observation-presentation';
+import {
+  includeSelectedQueueItem,
+  selectedQueueItemId,
+  type QueueSearchParams,
+} from '@/lib/moderation/queue-selection';
 import { ObservationsInbox } from './ObservationsInbox';
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
-import styles from '@/components/ops/inbox/inbox.module.css';
 import './observations-shell.module.css';
 
 export const dynamic = 'force-dynamic';
 
 const LIMIT = 100;
 
-export default async function ObservationsQueue() {
+export default async function ObservationsQueue({
+  searchParams,
+}: {
+  searchParams: Promise<QueueSearchParams>;
+}) {
   const operator = await requireConsoleOperator();
   const canDecide = can(operator.role, 'observations.decide');
-  const rows = await listPendingObservations(getPostgresClient(), LIMIT);
-
-  const enrichedRows = await Promise.all(rows.map(async row => {
-    if (row.subjectKind === 'product') {
-      const slug = row.subjectRef.startsWith('product:') ? row.subjectRef.slice(8) : row.subjectRef;
-      const product = await findCatalogueProduct(slug);
-      return { ...row, product };
-    }
-    return row;
-  }));
+  const selectedId = selectedQueueItemId(await searchParams);
+  const sql = getPostgresClient();
+  const fetchedRows = await listPendingObservations(sql, LIMIT + 1);
+  const recentRows = fetchedRows.slice(0, LIMIT);
+  const hasMore = fetchedRows.length > LIMIT;
+  const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
+    ? await findPendingObservation(sql, selectedId)
+    : null;
+  const rows = includeSelectedQueueItem(recentRows, selectedRow);
+  const catalogue = await listCatalogueProducts();
+  const productsBySlug = new Map(catalogue.map(product => [product.slug, product]));
+  const reviewItems = rows.map(row => {
+    const slug = observationProductSlug(row);
+    return observationReviewItem(row, slug ? productsBySlug.get(slug) : undefined);
+  });
+  const lastQueueRow = recentRows.at(-1);
+  const nextCursor = lastQueueRow
+    ? { createdAt: lastQueueRow.createdAt, id: lastQueueRow.id }
+    : null;
 
   return (
     <OpsWorkspace title="Observations">
-      {enrichedRows.length === 0 ? (
+      {rows.length === 0 ? (
         <EmptyState
-          title="Nothing awaiting review"
-          body="Pending observations will appear here as they are submitted."
+          title="You’re caught up."
+          body="There’s nothing waiting."
+          action={{ href: '/ops/activity', label: 'View insights' }}
         />
       ) : (
-        <>
-          <ObservationsInbox rows={enrichedRows} canDecide={canDecide} />
-          {enrichedRows.length === LIMIT ? (
-            <p className={styles.partial}>Showing the {LIMIT} most recent — more may be pending.</p>
-          ) : null}
-        </>
+        <ObservationsInbox
+          rows={reviewItems}
+          canDecide={canDecide}
+          initialHasMore={hasMore}
+          initialCursor={nextCursor}
+        />
       )}
     </OpsWorkspace>
   );

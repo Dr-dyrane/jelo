@@ -1,14 +1,24 @@
 'use client';
 
-import { useActionState, useEffect, useMemo, useOptimistic, useRef, useTransition } from 'react';
-import { ChevronRight } from 'lucide-react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import type { PendingObservation } from '@/lib/moderation/queues';
-import type { Product } from '@/data/products';
-import { humanizeRef } from '@/lib/humanize/refs';
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
+import {
+  ChevronRight,
+  MessageSquareText,
+  PackageSearch,
+} from 'lucide-react';
+import type { ObservationReviewItem } from '@/lib/moderation/observation-presentation';
 import { money } from '@/lib/format/money';
 import { outcomeLabel, outcomeTone } from '@/lib/humanize/outcomes';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { EmptyState } from '@/components/ops/state/EmptyState';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
@@ -17,56 +27,193 @@ import {
   type InboxCollectionSection,
   type OpsInboxController,
 } from '@/components/ops/inbox/InboxContainer';
-import { decideObservationAction } from '../actions';
+import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
+import {
+  decideObservationAction,
+  fetchMoreObservationsAction,
+} from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import observationStyles from './observations.module.css';
 import { ObservationDetailSkeleton } from './ObservationDetailSkeleton';
 
-export interface EnrichedObservation extends PendingObservation {
-  product?: Product;
-}
-
 interface ObservationsInboxProps {
-  rows: EnrichedObservation[];
+  rows: ObservationReviewItem[];
   canDecide: boolean;
+  initialHasMore: boolean;
+  initialCursor: ObservationCursor | null;
 }
 
-function observationTitle(row: EnrichedObservation) {
-  const subject = humanizeRef(row.subjectRef);
-  if (row.product) return `${row.product.brand} ${row.product.name}`;
-  return subject.brand ? `${subject.brand} ${subject.name}` : subject.name;
+type ObservationCursor = {
+  createdAt: string;
+  id: string;
+};
+
+type QueueRuntimeState = {
+  extraRows: ObservationReviewItem[];
+  settledIds: string[];
+  cursor: ObservationCursor | null;
+  hasMore: boolean;
+  isLoading: boolean;
+  loadError: string | null;
+};
+
+type QueueRuntimeAction =
+  | { type: 'load-start' }
+  | {
+      type: 'load-success';
+      rows: ObservationReviewItem[];
+      cursor: ObservationCursor | null;
+      hasMore: boolean;
+    }
+  | { type: 'load-error' }
+  | { type: 'settled'; id: string };
+
+function queueRuntimeReducer(
+  state: QueueRuntimeState,
+  action: QueueRuntimeAction,
+): QueueRuntimeState {
+  if (action.type === 'load-start') {
+    return { ...state, isLoading: true, loadError: null };
+  }
+  if (action.type === 'load-error') {
+    return {
+      ...state,
+      isLoading: false,
+      loadError: 'Couldn’t load more. Try again.',
+    };
+  }
+  if (action.type === 'settled') {
+    return {
+      ...state,
+      extraRows: state.extraRows.filter(row => row.id !== action.id),
+      settledIds: state.settledIds.includes(action.id)
+        ? state.settledIds
+        : [...state.settledIds, action.id],
+    };
+  }
+
+  const settled = new Set(state.settledIds);
+  const knownIds = new Set(state.extraRows.map(row => row.id));
+  const newRows = action.rows.filter(row => {
+    if (settled.has(row.id) || knownIds.has(row.id)) return false;
+    knownIds.add(row.id);
+    return true;
+  });
+  return {
+    ...state,
+    extraRows: [...state.extraRows, ...newRows],
+    cursor: action.cursor,
+    hasMore: action.hasMore,
+    isLoading: false,
+    loadError: null,
+  };
 }
 
-function observationSummary(row: EnrichedObservation) {
-  if (row.kind === 'price') return money(row.amountNgn);
-  if (row.outcome) return outcomeLabel(row.outcome);
-  return 'Community report';
+function observationRows(
+  initialRows: ObservationReviewItem[],
+  state: QueueRuntimeState,
+) {
+  const settled = new Set(state.settledIds);
+  const byId = new Map<string, ObservationReviewItem>();
+  [...initialRows, ...state.extraRows].forEach(row => {
+    if (!settled.has(row.id)) byId.set(row.id, row);
+  });
+  return [...byId.values()].sort((left, right) => {
+    if (left.createdAt !== right.createdAt) {
+      return left.createdAt < right.createdAt ? -1 : 1;
+    }
+    if (left.id === right.id) return 0;
+    return left.id < right.id ? -1 : 1;
+  });
 }
 
-export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const [actionState, formAction, isDecisionPending] = useActionState(decideObservationAction, null);
-  const [isSelectionPending, startSelectionTransition] = useTransition();
-  const pendingDecisionRef = useRef<string | null>(null);
-  const inboxControllerRef = useRef<OpsInboxController | null>(null);
-  const routeSelectedId = searchParams.get('id');
-  const [selectedId, setOptimisticSelectedId] = useOptimistic(
-    routeSelectedId,
-    (_currentId, nextId: string | null) => nextId,
+function ObservationVisual({
+  row,
+  className,
+  imageClassName,
+  iconSize = 22,
+  alt = '',
+}: {
+  row: ObservationReviewItem;
+  className: string;
+  imageClassName: string;
+  iconSize?: number;
+  alt?: string;
+}) {
+  const Icon = row.identity.state === 'unresolved_product'
+    ? PackageSearch
+    : MessageSquareText;
+
+  return (
+    <span className={className} aria-hidden={alt ? undefined : 'true'}>
+      {row.identity.image ? (
+        <SafeProductImage
+          src={row.identity.image}
+          alt={alt}
+          className={imageClassName}
+        />
+      ) : (
+        <Icon
+          className={observationStyles.visualPlaceholder}
+          size={iconSize}
+          strokeWidth={1.65}
+          aria-hidden="true"
+        />
+      )}
+    </span>
   );
-  const isSelectionNavigating = isSelectionPending && selectedId !== routeSelectedId;
+}
+
+function reportedDate(value: string | null) {
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  const date = new Date(`${value}T12:00:00Z`);
+  if (!Number.isFinite(date.valueOf())) return null;
+  return new Intl.DateTimeFormat('en-NG', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
+
+export function ObservationsInbox({
+  rows,
+  canDecide,
+  initialHasMore,
+  initialCursor,
+}: ObservationsInboxProps) {
+  const selection = useUrlInboxSelection();
+  const [actionState, formAction, isDecisionPending] = useActionState(
+    decideObservationAction,
+    null,
+  );
+  const [rejectConfirmId, setRejectConfirmId] = useState<string | null>(null);
+  const [queueState, dispatchQueue] = useReducer(queueRuntimeReducer, {
+    extraRows: [],
+    settledIds: [],
+    cursor: initialCursor,
+    hasMore: initialHasMore,
+    isLoading: false,
+    loadError: null,
+  });
+  const pendingDecisionRef = useRef<string | null>(null);
+  const loadPendingRef = useRef(false);
+  const loadSentinelRef = useRef<HTMLDivElement | null>(null);
+  const inboxControllerRef = useRef<OpsInboxController | null>(null);
+  const loadedRows = useMemo(
+    () => observationRows(rows, queueState),
+    [queueState, rows],
+  );
   const orderedRows = useMemo(() => {
-    const upNext = rows.slice(0, 2);
-    const remaining = rows.slice(2);
+    const upNext = loadedRows.slice(0, 2);
+    const remaining = loadedRows.slice(2);
     return [
       ...upNext,
       ...remaining.filter(row => row.kind === 'price'),
       ...remaining.filter(row => row.kind === 'outcome'),
     ];
-  }, [rows]);
-  const sections = useMemo<InboxCollectionSection<EnrichedObservation>[]>(() => [
+  }, [loadedRows]);
+  const sections = useMemo<InboxCollectionSection<ObservationReviewItem>[]>(() => [
     {
       id: 'up-next',
       label: 'Up next',
@@ -77,7 +224,9 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       id: 'price-reports',
       label: 'Price reports',
       presentation: 'compact-rows',
-      itemIds: orderedRows.filter((row, index) => index >= 2 && row.kind === 'price').map(row => row.id),
+      itemIds: orderedRows
+        .filter((row, index) => index >= 2 && row.kind === 'price')
+        .map(row => row.id),
       pagination: {
         initialCount: 8,
         pageSize: 8,
@@ -87,7 +236,9 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
       id: 'experience-reports',
       label: 'Experience reports',
       presentation: 'horizontal-rail',
-      itemIds: orderedRows.filter((row, index) => index >= 2 && row.kind === 'outcome').map(row => row.id),
+      itemIds: orderedRows
+        .filter((row, index) => index >= 2 && row.kind === 'outcome')
+        .map(row => row.id),
       pagination: {
         initialCount: 5,
         pageSize: 5,
@@ -95,185 +246,385 @@ export function ObservationsInbox({ rows, canDecide }: ObservationsInboxProps) {
     },
   ], [orderedRows]);
 
-  function setSelectedId(id: string | null) {
-    if (id === selectedId) return;
+  const loadMore = useCallback(async () => {
+    if (
+      loadPendingRef.current
+      || queueState.isLoading
+      || !queueState.hasMore
+      || !queueState.cursor
+    ) {
+      return;
+    }
 
-    const params = new URLSearchParams(searchParams.toString());
-    if (id) params.set('id', id);
-    else params.delete('id');
-    const query = params.toString();
-    startSelectionTransition(() => {
-      setOptimisticSelectedId(id);
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    loadPendingRef.current = true;
+    dispatchQueue({ type: 'load-start' });
+    try {
+      const result = await fetchMoreObservationsAction(
+        queueState.cursor.createdAt,
+        queueState.cursor.id,
+      );
+      dispatchQueue({
+        type: 'load-success',
+        rows: result.items,
+        cursor: result.nextCursor,
+        hasMore: result.hasMore,
+      });
+    } catch (error) {
+      console.error('Could not load more observations.', error);
+      dispatchQueue({ type: 'load-error' });
+    } finally {
+      loadPendingRef.current = false;
+    }
+  }, [
+    queueState.cursor,
+    queueState.hasMore,
+    queueState.isLoading,
+  ]);
+
+  useEffect(() => {
+    if (!queueState.hasMore || !loadSentinelRef.current) return;
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0]?.isIntersecting) void loadMore();
+    }, {
+      rootMargin: '240px 0px',
+      threshold: 0.01,
     });
-  }
+    observer.observe(loadSentinelRef.current);
+    return () => observer.disconnect();
+  }, [loadMore, queueState.hasMore]);
 
   useEffect(() => {
     if (!isDecisionPending) pendingDecisionRef.current = null;
   }, [isDecisionPending]);
 
   useEffect(() => {
-    if (actionState?.ok) inboxControllerRef.current?.settleItem(actionState.targetId);
+    if (!actionState?.ok) return;
+    inboxControllerRef.current?.settleItem(actionState.targetId);
+    dispatchQueue({ type: 'settled', id: actionState.targetId });
   }, [actionState]);
 
+  const actionAnnouncement = actionState?.ok
+    ? `Report ${actionState.decision === 'approve' ? 'approved' : 'rejected'}.`
+    : '';
+
+  if (orderedRows.length === 0 && !queueState.hasMore) {
+    return (
+      <EmptyState
+        title="You’re caught up."
+        body="There’s nothing waiting."
+        action={{ href: '/ops/activity', label: 'View insights' }}
+      />
+    );
+  }
+
   return (
-    <InboxContainer
-      controllerRef={inboxControllerRef}
-      items={orderedRows}
-      sections={sections}
-      itemTypeLabel="observation"
-      getItemLabel={observationTitle}
-      selectedId={selectedId}
-      pendingSelectionId={isSelectionNavigating ? selectedId : null}
-      onSelect={item => setSelectedId(item.id)}
-      onDeselect={() => setSelectedId(null)}
-      renderItemRow={(row, _isActive, context) => {
-        const subject = humanizeRef(row.subjectRef);
-        const title = observationTitle(row);
-        const image = row.product?.image || subject.image || '/product-placeholder.svg';
-
-        if (context?.presentation === 'feature-shelf') {
-          return (
-            <span className={observationStyles.featureCard}>
-              <span className={observationStyles.featureVisual}>
-                <SafeProductImage src={image} alt="" className={observationStyles.featureImage} />
-              </span>
-              <span className={observationStyles.featureCopy}>
-                <span className={observationStyles.featureEyebrow}>
-                  {row.kind === 'price' ? 'Price report' : 'Experience report'}
-                </span>
-                <span className={observationStyles.featureTitle}>{title}</span>
-                <span className={observationStyles.featureMeta}>
-                  <span className={observationStyles.featureValue}>{observationSummary(row)}</span>
-                  <span aria-hidden="true">·</span>
-                  <RelativeTime iso={row.createdAt} />
-                </span>
-              </span>
-            </span>
-          );
-        }
-
-        if (context?.presentation === 'horizontal-rail') {
-          return (
-            <span className={observationStyles.experienceCard}>
-              <span className={observationStyles.experienceVisual}>
-                <SafeProductImage src={image} alt="" className={observationStyles.experienceImage} />
-              </span>
-              <span className={observationStyles.experienceCopy}>
-                <span className={observationStyles.experienceTitle}>{title}</span>
-                <span className={observationStyles.experienceMeta}>
-                  {observationSummary(row)} · <RelativeTime iso={row.createdAt} />
-                </span>
-              </span>
-            </span>
-          );
-        }
-
-        return (
-          <span className={observationStyles.compactRow}>
-            <span className={observationStyles.compactImageStage}>
-              <SafeProductImage src={image} alt="" className={observationStyles.compactImage} />
-            </span>
-            <span className={observationStyles.compactCopy}>
-              <span className={observationStyles.compactTitle}>{title}</span>
-              <span className={observationStyles.compactMeta}>
-                {observationSummary(row)} · <RelativeTime iso={row.createdAt} />
-              </span>
-            </span>
-            <ChevronRight className={observationStyles.compactCaret} size={16} aria-hidden="true" />
-          </span>
-        );
-      }}
-      renderItemDetails={(row) => {
-        if (isSelectionNavigating && selectedId === row.id) {
-          return <ObservationDetailSkeleton />;
-        }
-
-        const subject = humanizeRef(row.subjectRef);
-        const title = observationTitle(row);
-        const image = row.product?.image || subject.image || '/product-placeholder.svg';
-        const feedback = actionState && actionState.targetId === row.id && !actionState.ok
-          ? <p className={styles.permissionNote} style={{ color: 'var(--state-danger)' }}>{actionState.error}</p>
-          : null;
-
-        return (
-          <div className={styles.detailContent}>
-            <div className={styles.detailScroll}>
-              <section className={styles.productSummary} aria-label="Product summary">
-                <SafeProductImage src={image} alt="" className={styles.productImage} />
-                <div className={styles.productCopy}>
-                  <h2 className={styles.detailTitle}>{title}</h2>
-                  <span>{row.product ? `${row.product.category} · ${row.product.size}` : subject.kind || 'Community submission'}</span>
-                  <div className={styles.detailMeta}>
-                    <StatusPill tone={row.kind === 'price' ? 'success' : 'warning'}>{row.kind}</StatusPill>
+    <>
+      <InboxContainer
+        controllerRef={inboxControllerRef}
+        items={orderedRows}
+        sections={sections}
+        itemTypeLabel="observation"
+        getItemLabel={item => item.title}
+        selectedId={selection.selectedId}
+        pendingSelectionId={selection.pendingSelectionId}
+        onSelect={item => {
+          setRejectConfirmId(null);
+          selection.onSelect(item);
+        }}
+        onDeselect={() => {
+          setRejectConfirmId(null);
+          selection.onDeselect();
+        }}
+        renderItemRow={(row, _isActive, context) => {
+          if (context?.presentation === 'feature-shelf') {
+            return (
+              <span className={observationStyles.featureCard}>
+                <ObservationVisual
+                  row={row}
+                  className={observationStyles.featureVisual}
+                  imageClassName={observationStyles.featureImage}
+                  iconSize={30}
+                />
+                <span className={observationStyles.featureCopy}>
+                  <span className={observationStyles.featureEyebrow}>
+                    {row.kind === 'price' ? 'Price report' : 'Experience report'}
+                  </span>
+                  <span className={observationStyles.featureTitle}>{row.title}</span>
+                  <span className={observationStyles.featureMeta}>
+                    <span className={observationStyles.featureValue}>{row.summary}</span>
+                    <span aria-hidden="true">·</span>
                     <RelativeTime iso={row.createdAt} />
-                  </div>
-                </div>
-              </section>
+                  </span>
+                </span>
+              </span>
+            );
+          }
 
-              <section className={styles.detailSection}>
-                <h3 className={styles.sectionLabel}>Evidence</h3>
-                <div className={styles.propertiesSection}>
-                  <div className={styles.propertyRow}>
-                    <span className={styles.propertyLabel}>Reported value</span>
-                    <span className={styles.propertyValue}>
-                      {row.kind === 'price'
-                        ? <span className={styles.value}>{money(row.amountNgn)}</span>
-                        : row.outcome
-                          ? <StatusPill tone={outcomeTone(row.outcome)}>{outcomeLabel(row.outcome)}</StatusPill>
-                          : '—'}
-                    </span>
-                  </div>
-                  <div className={styles.propertyRow}>
-                    <span className={styles.propertyLabel}>Reported</span>
-                    <span className={styles.propertyValue}><RelativeTime iso={row.createdAt} /></span>
-                  </div>
-                </div>
-              </section>
+          if (context?.presentation === 'horizontal-rail') {
+            return (
+              <span className={observationStyles.experienceCard}>
+                <ObservationVisual
+                  row={row}
+                  className={observationStyles.experienceVisual}
+                  imageClassName={observationStyles.experienceImage}
+                />
+                <span className={observationStyles.experienceCopy}>
+                  <span className={observationStyles.experienceTitle}>{row.title}</span>
+                  <span className={observationStyles.experienceMeta}>
+                    {row.summary} · <RelativeTime iso={row.createdAt} />
+                  </span>
+                </span>
+              </span>
+            );
+          }
 
-              <details className={styles.metadataDisclosure}>
-                <summary>Metadata</summary>
-                <div className={styles.metadataBody}>
-                  <div className={styles.propertyRow}>
-                    <span className={styles.propertyLabel}>Contribution ID</span>
-                    <span className={styles.propertyValue}><IdChip value={row.contributionId} label="contribution" /></span>
-                  </div>
-                  <div className={styles.propertyRow}>
-                    <span className={styles.propertyLabel}>Observation ID</span>
-                    <span className={styles.propertyValue}><IdChip value={row.id} label="observation" /></span>
-                  </div>
-                </div>
-              </details>
-            </div>
+          return (
+            <span className={observationStyles.compactRow}>
+              <ObservationVisual
+                row={row}
+                className={observationStyles.compactImageStage}
+                imageClassName={observationStyles.compactImage}
+              />
+              <span className={observationStyles.compactCopy}>
+                <span className={observationStyles.compactTitle}>{row.title}</span>
+                <span className={observationStyles.compactMeta}>
+                  {row.summary} · <RelativeTime iso={row.createdAt} />
+                </span>
+              </span>
+              <ChevronRight
+                className={observationStyles.compactCaret}
+                size={16}
+                aria-hidden="true"
+              />
+            </span>
+          );
+        }}
+        renderItemDetails={row => {
+          if (selection.pendingSelectionId === row.id) {
+            return <ObservationDetailSkeleton />;
+          }
 
-            {canDecide ? (
-              <form data-item-id={row.id} className={styles.decideSection} action={formAction}>
-                <input type="hidden" name="targetId" value={row.id} />
-                <h3 className={styles.sectionLabel}>Decision</h3>
-                {feedback}
-                <div className={styles.decideField}>
-                  <label htmlFor={`rationale-${row.id}`} className={styles.decideNoteLabel}>Note</label>
-                  <textarea
-                    id={`rationale-${row.id}`}
-                    className={styles.note}
-                    name="rationale"
-                    placeholder="Optional note"
-                    disabled={isDecisionPending}
+          const confirmationId = `reject-observation-${row.id}`;
+          const date = reportedDate(row.observedOn);
+          const feedback = actionState
+            && actionState.targetId === row.id
+            && !actionState.ok
+            ? (
+                <p
+                  role="alert"
+                  className={`${styles.permissionNote} ${observationStyles.errorNote}`}
+                >
+                  {actionState.error}
+                </p>
+              )
+            : null;
+
+          return (
+            <div className={styles.detailContent}>
+              <div className={styles.detailScroll}>
+                <section className={styles.productSummary} aria-label="Selected report">
+                  <ObservationVisual
+                    row={row}
+                    className={observationStyles.detailVisual}
+                    imageClassName={observationStyles.detailImage}
+                    iconSize={28}
+                    alt={row.identity.image ? row.title : ''}
                   />
-                </div>
-                <div className={styles.actionButtons} data-ops-decision-actions>
-                  <button className={`${styles.btn} ${styles.btnReject}`} type="submit" name="decision" value="reject" disabled={isDecisionPending} onClick={() => { pendingDecisionRef.current = 'reject'; }}>
-                    {isDecisionPending && pendingDecisionRef.current === 'reject' ? 'Rejecting…' : 'Reject'}
-                  </button>
-                  <button className={`${styles.btn} ${styles.btnApprove}`} type="submit" name="decision" value="approve" disabled={isDecisionPending} onClick={() => { pendingDecisionRef.current = 'approve'; }}>
-                    {isDecisionPending && pendingDecisionRef.current === 'approve' ? 'Approving…' : 'Approve'}
-                  </button>
-                </div>
-              </form>
-            ) : <p className={styles.permissionNote}>You do not have permission to decide observations.</p>}
-          </div>
-        );
-      }}
-    />
+                  <div className={styles.productCopy}>
+                    <h2 className={styles.detailTitle}>{row.title}</h2>
+                    <span>{row.identity.detail}</span>
+                    <div className={styles.detailMeta}>
+                      <StatusPill tone={row.kind === 'price' ? 'success' : 'warning'}>
+                        {row.kind === 'price' ? 'Price' : 'Experience'}
+                      </StatusPill>
+                      <RelativeTime iso={row.createdAt} />
+                    </div>
+                  </div>
+                </section>
+
+                <section className={styles.detailSection}>
+                  <h3 className={styles.sectionLabel}>Evidence</h3>
+                  <div className={styles.propertiesSection}>
+                    <div className={styles.propertyRow}>
+                      <span className={styles.propertyLabel}>
+                        {row.kind === 'price' ? 'Price' : 'Experience'}
+                      </span>
+                      <span className={styles.propertyValue}>
+                        {row.kind === 'price'
+                          ? <span className={styles.value}>{money(row.amountNgn)}</span>
+                          : row.outcome
+                            ? (
+                                <StatusPill tone={outcomeTone(row.outcome)}>
+                                  {outcomeLabel(row.outcome)}
+                                </StatusPill>
+                              )
+                            : 'Needs review'}
+                      </span>
+                    </div>
+                    {date ? (
+                      <div className={styles.propertyRow}>
+                        <span className={styles.propertyLabel}>Bought</span>
+                        <span className={styles.propertyValue}>{date}</span>
+                      </div>
+                    ) : null}
+                    <div className={styles.propertyRow}>
+                      <span className={styles.propertyLabel}>Reported</span>
+                      <span className={styles.propertyValue}>
+                        <RelativeTime iso={row.createdAt} />
+                      </span>
+                    </div>
+                  </div>
+                </section>
+
+                <details className={styles.metadataDisclosure}>
+                  <summary>Record details</summary>
+                  <div className={styles.metadataBody}>
+                    <div className={styles.propertyRow}>
+                      <span className={styles.propertyLabel}>Contribution</span>
+                      <span className={styles.propertyValue}>
+                        <IdChip value={row.contributionId} label="contribution" />
+                      </span>
+                    </div>
+                    <div className={styles.propertyRow}>
+                      <span className={styles.propertyLabel}>Report</span>
+                      <span className={styles.propertyValue}>
+                        <IdChip value={row.id} label="observation" />
+                      </span>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+              {canDecide ? (
+                <form
+                  data-item-id={row.id}
+                  className={styles.decideSection}
+                  action={formAction}
+                >
+                  <h3 className={styles.sectionLabel}>Decision</h3>
+                  {feedback}
+                  <p className={observationStyles.decisionBoundary}>
+                    This accepts the community report only.
+                  </p>
+                  <input type="hidden" name="targetId" value={row.id} />
+                  <div className={styles.decideField}>
+                    <label
+                      htmlFor={`rationale-${row.id}`}
+                      className={styles.decideNoteLabel}
+                    >
+                      Note
+                    </label>
+                    <textarea
+                      id={`rationale-${row.id}`}
+                      className={styles.note}
+                      name="rationale"
+                      placeholder="Optional note"
+                      disabled={isDecisionPending}
+                    />
+                  </div>
+                  {rejectConfirmId === row.id ? (
+                    <div
+                      className={observationStyles.rejectConfirmation}
+                      id={confirmationId}
+                    >
+                      <div>
+                        <strong>Reject this report?</strong>
+                        <span>This removes only this report from the review queue.</span>
+                      </div>
+                      <div className={styles.actionButtons} data-ops-decision-actions>
+                        <button
+                          className={styles.btn}
+                          type="button"
+                          disabled={isDecisionPending}
+                          onClick={() => setRejectConfirmId(null)}
+                        >
+                          Keep
+                        </button>
+                        <button
+                          className={`${styles.btn} ${styles.btnReject}`}
+                          type="submit"
+                          name="decision"
+                          value="reject"
+                          aria-describedby={confirmationId}
+                          disabled={isDecisionPending}
+                          onClick={() => {
+                            pendingDecisionRef.current = 'reject';
+                          }}
+                        >
+                          {isDecisionPending && pendingDecisionRef.current === 'reject'
+                            ? 'Rejecting…'
+                            : 'Reject'}
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.actionButtons} data-ops-decision-actions>
+                      <button
+                        className={`${styles.btn} ${styles.btnReject}`}
+                        type="button"
+                        disabled={isDecisionPending}
+                        onClick={() => setRejectConfirmId(row.id)}
+                      >
+                        Reject
+                      </button>
+                      <button
+                        className={`${styles.btn} ${styles.btnApprove}`}
+                        type="submit"
+                        name="decision"
+                        value="approve"
+                        disabled={isDecisionPending}
+                        onClick={() => {
+                          pendingDecisionRef.current = 'approve';
+                        }}
+                      >
+                        {isDecisionPending && pendingDecisionRef.current === 'approve'
+                          ? 'Approving…'
+                          : 'Approve'}
+                      </button>
+                    </div>
+                  )}
+                </form>
+              ) : (
+                <p className={`${styles.decideSection} ${styles.permissionNote}`}>
+                  You cannot make decisions on observations.
+                </p>
+              )}
+            </div>
+          );
+        }}
+      />
+      {queueState.hasMore ? (
+        <div ref={loadSentinelRef} className={observationStyles.loadMore}>
+          <button
+            type="button"
+            onClick={() => void loadMore()}
+            disabled={queueState.isLoading}
+          >
+            {queueState.isLoading
+              ? 'Loading…'
+              : queueState.loadError
+                ? 'Try again'
+                : 'Load more'}
+          </button>
+          {queueState.loadError ? (
+            <span role="alert">{queueState.loadError}</span>
+          ) : queueState.isLoading ? (
+            <span role="status" aria-live="polite">
+              Loading more observations.
+            </span>
+          ) : null}
+        </div>
+      ) : null}
+      <span
+        className={observationStyles.liveStatus}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {actionAnnouncement}
+      </span>
+    </>
   );
 }
