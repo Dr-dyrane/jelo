@@ -17,22 +17,22 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
+const researchAsOf = Date.parse('2026-07-27T16:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
   assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 37);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 39);
-  assert.equal(catalogueIntakeDecisions.length, 39);
+  assert.equal(catalogueIntakeCandidates.length, 40);
+  assert.equal(catalogueIntakeDecisions.length, 40);
   assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 36);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 20);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 21);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 36);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 3);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
@@ -73,6 +73,24 @@ test('the community-requested Mela B3 serum binds official identity, Nigerian pr
     evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T08:20:00Z')).stage,
     'approval-ready',
   );
+});
+
+test('the Prequel Gleanser lead retains two current Nigerian offers but fails closed without the official response capture', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'prequel-gleanser-glycolic-acid-cleanser-400ml'
+  ));
+  assert.ok(candidate);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(candidate.identity.gtin, '810129110562');
+  assert.equal(candidate.identity.officialEvidence, undefined);
+  assert.deepEqual(decision.freshExactOffers.map(offer => [offer.retailer, offer.priceNgn, offer.stock]), [
+    ['BuyBetter', 37_088, 'low-stock'],
+    ['Nihet Beauty', 96_000, 'in-stock'],
+  ]);
+  assert.equal(decision.excludedMarketObservations[0]?.retailer, 'Essentials Hub');
+  assert.equal(decision.stage, 'identity');
+  assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
+  assert.equal(decision.approvalDraftReady, false);
 });
 
 test('the Beauty Formulas serum binds its exact formula, Nigerian prices and reviewed render', () => {
@@ -1220,10 +1238,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 20);
+  assert.equal(observations.length, 21);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 73);
+  ), 0), 75);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

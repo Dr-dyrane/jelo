@@ -942,33 +942,6 @@
     },
     {
       "rank": 35,
-      "discoveryId": "c7bf0b9d6ca21eed6c5a8db9",
-      "title": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml",
-      "brandHint": "PREQUEL",
-      "size": "400ml",
-      "categoryHint": "Face care",
-      "lane": "gentle-cleansing",
-      "priorityScore": 152,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "00810129110562",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 36,
       "discoveryId": "e3a9885930837e6059c4f045",
       "title": "FACEFACTS Ceramide Blemish Treatment Gel 50ml",
       "brandHint": "FACEFACTS",
@@ -995,7 +968,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 37,
+      "rank": 36,
       "discoveryId": "7f5e4463688a37e008b523ff",
       "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
       "brandHint": "ANUA",
@@ -1021,7 +994,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 38,
+      "rank": 37,
       "discoveryId": "890e464299d1d3fa5a2ad9d0",
       "title": "BONDI SANDS Sweet Vanilla SPF50+ Sunscreen Lip Care 0.35 oz 10g",
       "brandHint": "BONDI SANDS",
@@ -1047,7 +1020,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 39,
+      "rank": 38,
       "discoveryId": "8ffd2a0f1336af9032d29942",
       "title": "BONDI SANDS Tropical Mango SPF50+ Sunscreen Lip Care 0.35 oz 10g",
       "brandHint": "BONDI SANDS",
@@ -1073,7 +1046,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 40,
+      "rank": 39,
       "discoveryId": "9e8f7ba306dec54f087b62f3",
       "title": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml",
       "brandHint": "FACEFACTS",
@@ -1100,7 +1073,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 41,
+      "rank": 40,
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -1127,7 +1100,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 42,
+      "rank": 41,
       "discoveryId": "8ac4f70510214db024b57c46",
       "title": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
       "brandHint": "BEAUTY FORMULA",
@@ -1138,6 +1111,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "05012251009423",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 42,
+      "discoveryId": "4e67e33c8599337cebdc132f",
+      "title": "BENTON Honest Cleansing Foam 150g",
+      "brandHint": "BENTON",
+      "size": "150g",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 142,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "08809540510251",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
