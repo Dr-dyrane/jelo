@@ -1,7 +1,15 @@
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
+import { getProductPriceTrends } from '@/lib/inventory/price-trends';
 import { summarizeMarket } from '@/modules/commerce/market-summary';
+import {
+  compactPriceMovementLabel,
+  describePriceMovement,
+  preferredPriceMovement,
+  selectRetailerPriceMovement,
+  type PriceMovement,
+} from '@/modules/commerce/price-trends';
 import { isShareableNgOffer } from '@/modules/commerce/shareable-offer';
-import type { ShareOffer, ShareView } from './share-card';
+import type { ShareOffer, SharePriceTrend, ShareView } from './share-card';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
 const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' });
@@ -12,6 +20,25 @@ export type ShareData = {
   headlineEmph: string | null;
   storeCount: number;
 };
+
+function sharePriceTrend(
+  movement: PriceMovement | null,
+  subject: string,
+  minimumComparableRetailers = 1,
+): SharePriceTrend | null {
+  const label = compactPriceMovementLabel(movement);
+  if (
+    !movement
+    || !label
+    || movement.direction === 'flat'
+    || (movement.comparableRetailerCount ?? 0) < minimumComparableRetailers
+  ) return null;
+  return {
+    label,
+    description: describePriceMovement(movement, subject),
+    direction: movement.direction,
+  };
+}
 
 /**
  * Builds the share view from the same verified offer data the product page uses:
@@ -28,6 +55,19 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
   if (offers.length === 0) return null;
 
   const summary = summarizeMarket(product.offers, 'NG');
+  const priceTrends = await getProductPriceTrends(
+    product.slug,
+    offers.map(offer => ({
+      market: 'NG',
+      retailer: offer.retailer,
+      url: offer.url,
+    })),
+  );
+  const marketTrend = sharePriceTrend(
+    preferredPriceMovement(priceTrends.NG),
+    'Market price',
+    2,
+  );
   const lowest = offers[0].priceNgn as number;
   const highest = offers[offers.length - 1].priceNgn as number;
   const spread = offers.length >= 2 ? highest - lowest : null;
@@ -47,6 +87,10 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
       when: stockLabel ? `${stockLabel} · ${dateLabel}` : dateLabel,
       isLowest: index === 0,
       isMarketplace: Boolean(offer.orderChannels?.includes('marketplace')),
+      trend: sharePriceTrend(
+        selectRetailerPriceMovement(priceTrends, 'NG', offer.retailer),
+        `${offer.retailer} price`,
+      ),
     };
   });
 
@@ -59,6 +103,7 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
     observedDate,
     spreadLabel: spread != null ? naira.format(spread) : null,
     storeCount: offers.length,
+    marketTrend,
     offers: shareOffers,
   };
 

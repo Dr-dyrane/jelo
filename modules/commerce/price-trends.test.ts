@@ -3,9 +3,13 @@ import test from 'node:test';
 import {
   calculateOfferPriceTrends,
   calculatePriceTrends,
+  compactPriceMovementLabel,
   describePriceMovement,
+  selectCurrentPriceObservations,
   selectRetailerPriceMovement,
+  type CurrentPriceObservation,
   type PriceObservation,
+  type PriceTrendOfferSnapshot,
 } from './price-trends';
 
 const asOf = new Date('2026-07-22T12:00:00Z');
@@ -28,6 +32,7 @@ test('compares the same exact offers across a seven-day window', () => {
     amountMinor: -1_000,
     percent: -6.3,
     comparableOfferCount: 2,
+    comparableRetailerCount: 2,
     fromAt: '2026-07-15T12:00:00Z',
     toAt: '2026-07-22T10:00:00Z',
   });
@@ -141,4 +146,203 @@ test('describes one-day evidence without broken plural copy', () => {
     describePriceMovement(result.recent!, 'Store price'),
     'Store price steady over 1 day. Based on 1 matching store.',
   );
+});
+
+function currentObservation(
+  offerId: string,
+  retailer: string,
+  url: string,
+  priceMinor: number,
+  observedAt: string,
+  overrides: Partial<CurrentPriceObservation> = {},
+): CurrentPriceObservation {
+  return {
+    offerId,
+    retailer,
+    url,
+    market: 'NG',
+    available: true,
+    inventoryStatus: 'in_stock',
+    verificationMethod: 'manual',
+    lastVerifiedAt: '2026-07-22T10:00:00Z',
+    verificationExpiresAt: '2026-07-23T10:00:00Z',
+    observedTitle: 'Exact product',
+    observedSize: '30 ml',
+    currentPriceMinor: 14_000,
+    currentCurrencyCode: 'NGN',
+    priceMinor,
+    observedAt,
+    ...overrides,
+  };
+}
+
+const exactSnapshot: PriceTrendOfferSnapshot[] = [{
+  market: 'NG',
+  retailer: 'Exact store',
+  url: 'https://example.com/exact-product',
+}];
+
+test('fails closed when no exact current offer snapshot is supplied', () => {
+  const row = currentObservation(
+    'exact',
+    'Exact store',
+    'https://example.com/exact-product',
+    14_000,
+    '2026-07-22T10:00:00Z',
+  );
+
+  assert.deepEqual(selectCurrentPriceObservations([row], undefined, asOf), []);
+  assert.deepEqual(selectCurrentPriceObservations([row], [], asOf), []);
+});
+
+test('keeps history only for the exact current market, retailer and URL snapshot', () => {
+  const selected = selectCurrentPriceObservations([
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      15_000,
+      '2026-07-15T12:00:00Z',
+    ),
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      '2026-07-22T10:00:00Z',
+    ),
+    currentObservation(
+      'wrong-url',
+      'Exact store',
+      'https://example.com/different-listing',
+      13_000,
+      '2026-07-22T10:00:00Z',
+    ),
+    currentObservation(
+      'wrong-market',
+      'Exact store',
+      'https://example.com/exact-product',
+      13_000,
+      '2026-07-22T10:00:00Z',
+      { market: 'US', currentCurrencyCode: 'USD' },
+    ),
+  ], exactSnapshot, asOf);
+
+  assert.deepEqual(selected.map(item => item.offerId), ['exact', 'exact']);
+});
+
+test('rejects unavailable and stale current listings even when their history matches the snapshot', () => {
+  const unavailable = selectCurrentPriceObservations([
+    currentObservation(
+      'unavailable',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      '2026-07-22T10:00:00Z',
+      { available: false },
+    ),
+  ], exactSnapshot, asOf);
+  const outOfStock = selectCurrentPriceObservations([
+    currentObservation(
+      'out-of-stock',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      '2026-07-22T10:00:00Z',
+      { inventoryStatus: 'out_of_stock' },
+    ),
+  ], exactSnapshot, asOf);
+  const stale = selectCurrentPriceObservations([
+    currentObservation(
+      'stale',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      '2026-07-22T10:00:00Z',
+      {
+        lastVerifiedAt: '2026-07-10T10:00:00Z',
+        verificationExpiresAt: '2026-07-17T10:00:00Z',
+      },
+    ),
+  ], exactSnapshot, asOf);
+
+  assert.deepEqual(unavailable, []);
+  assert.deepEqual(outOfStock, []);
+  assert.deepEqual(stale, []);
+});
+
+test('rejects current listings without complete public verification evidence', () => {
+  const imported = selectCurrentPriceObservations([
+    currentObservation(
+      'imported',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      '2026-07-22T10:00:00Z',
+      { verificationMethod: 'import' },
+    ),
+  ], exactSnapshot, asOf);
+  const incomplete = selectCurrentPriceObservations([
+    currentObservation(
+      'incomplete',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      '2026-07-22T10:00:00Z',
+      { observedSize: null },
+    ),
+  ], exactSnapshot, asOf);
+
+  assert.deepEqual(imported, []);
+  assert.deepEqual(incomplete, []);
+});
+
+test('market movement excludes a retailer with duplicate exact offer series', () => {
+  const result = calculatePriceTrends([
+    { ...observation('duplicate-a', 10_000, '2026-07-21T10:00:00Z'), retailer: 'Same store' },
+    { ...observation('duplicate-a', 8_000, '2026-07-22T10:00:00Z'), retailer: 'Same store' },
+    { ...observation('duplicate-b', 20_000, '2026-07-21T10:00:00Z'), retailer: ' same STORE ' },
+    { ...observation('duplicate-b', 30_000, '2026-07-22T10:00:00Z'), retailer: ' same STORE ' },
+    { ...observation('unambiguous', 15_000, '2026-07-21T10:00:00Z'), retailer: 'Other store' },
+    { ...observation('unambiguous', 14_000, '2026-07-22T10:00:00Z'), retailer: 'Other store' },
+  ], asOf);
+
+  assert.equal(result.recent?.direction, 'down');
+  assert.equal(result.recent?.percent, -6.7);
+  assert.equal(result.recent?.comparableOfferCount, 1);
+  assert.equal(result.recent?.comparableRetailerCount, 1);
+  assert.equal(
+    describePriceMovement(result.recent!, 'Market price'),
+    'Market price down over 1 day by 6.7 percent. Based on 1 matching store.',
+  );
+});
+
+test('formats only meaningful movement as a compact arrow, percent and duration', () => {
+  assert.equal(compactPriceMovementLabel({
+    days: 7,
+    direction: 'down',
+    amountMinor: -1_000,
+    percent: -6.3,
+    comparableOfferCount: 2,
+    fromAt: '2026-07-15T12:00:00Z',
+    toAt: '2026-07-22T10:00:00Z',
+  }), '↓ 6.3% · 7d');
+  assert.equal(compactPriceMovementLabel({
+    days: 30,
+    direction: 'up',
+    amountMinor: 800,
+    percent: 4,
+    comparableOfferCount: 1,
+    fromAt: '2026-06-22T12:00:00Z',
+    toAt: '2026-07-22T10:00:00Z',
+  }), '↑ 4% · 30d');
+  assert.equal(compactPriceMovementLabel({
+    days: 3,
+    direction: 'flat',
+    amountMinor: 0,
+    percent: 0.2,
+    comparableOfferCount: 1,
+    fromAt: '2026-07-19T12:00:00Z',
+    toAt: '2026-07-22T10:00:00Z',
+  }), null);
 });

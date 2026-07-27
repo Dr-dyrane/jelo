@@ -44,7 +44,8 @@ export default async function ShareIndex() {
                   <span className={styles.brand}>{drop.brand}</span>
                   <strong className={styles.name}>{drop.name}</strong>
                   <span className={styles.micro}>{drop.microtag}</span>
-                  <span className={styles.stat}>Down {naira.format(drop.amountNaira)} in {drop.days} days</span>
+                  <span className={`${styles.stat} ${styles.down}`}>{drop.trendLabel}</span>
+                  <span className={styles.sub}>{naira.format(drop.amountNaira)} lower · {drop.comparableStoreCount} stores</span>
                 </span>
                 <ArrowUpRight size={16} aria-hidden />
               </Link>

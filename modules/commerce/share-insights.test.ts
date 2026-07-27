@@ -35,7 +35,8 @@ function product(slug: string, offers: Offer[]): Product {
 
 function movement(over: Partial<PriceMovement>): ProductPriceTrends {
   const thirtyDay: PriceMovement = {
-    days: 30, direction: 'down', amountMinor: -1_000, percent: -6, comparableOfferCount: 2,
+    days: 30, direction: 'down', amountMinor: -1_000, percent: -6,
+    comparableOfferCount: 2, comparableRetailerCount: 2,
     fromAt: '2026-06-20', toAt: '2026-07-21', ...over,
   };
   return { NG: { sevenDay: null, thirtyDay } };
@@ -74,6 +75,7 @@ test('selectRecentDrops keeps a notable fall and reports it as positive naira', 
   assert.equal(drops.length, 1);
   assert.equal(drops[0].amountNaira, 1_200);
   assert.equal(drops[0].days, 30);
+  assert.equal(drops[0].trendLabel, '↓ 8% · 30d');
 });
 
 test('selectRecentDrops ignores rises, flat moves and sub-threshold falls', () => {
@@ -83,7 +85,46 @@ test('selectRecentDrops ignores rises, flat moves and sub-threshold falls', () =
   assert.equal(selectRecentDrops([rise, flat, tiny], now).length, 0);
 });
 
+test('selectRecentDrops never ranks a market signal backed by one retailer', () => {
+  const oneStore = {
+    product: product('one-store', [ngOffer('one', 14_500)]),
+    trends: movement({ comparableRetailerCount: 1 }),
+  };
+
+  assert.equal(selectRecentDrops([oneStore], now).length, 0);
+});
+
 test('selectRecentDrops ignores a product with no shareable offer', () => {
   const searchOnly = product('search', [observed({ retailer: 's', url: 'https://x', trust: 100, available: true, match: 'search', priceNgn: 9_000, checkedAt: '2026-07-21', location: ['NG'] } as Offer)]);
   assert.equal(selectRecentDrops([{ product: searchOnly, trends: movement({}) }], now).length, 0);
+});
+
+test('selectRecentDrops ranks by percentage movement before absolute naira change', () => {
+  const drops = selectRecentDrops([
+    {
+      product: product('larger-naira', [ngOffer('one', 80_000), ngOffer('two', 90_000)]),
+      trends: movement({ amountMinor: -8_000, percent: -8 }),
+    },
+    {
+      product: product('stronger-movement', [ngOffer('three', 10_000), ngOffer('four', 12_000)]),
+      trends: movement({ amountMinor: -2_000, percent: -20 }),
+    },
+  ], now);
+
+  assert.deepEqual(drops.map(drop => drop.slug), ['stronger-movement', 'larger-naira']);
+});
+
+test('selectRecentDrops uses wider retailer evidence to break equal trend ties', () => {
+  const drops = selectRecentDrops([
+    {
+      product: product('narrow-evidence', [ngOffer('one', 10_000), ngOffer('two', 12_000)]),
+      trends: movement({ percent: -8, comparableRetailerCount: 2 }),
+    },
+    {
+      product: product('wide-evidence', [ngOffer('three', 10_000), ngOffer('four', 12_000)]),
+      trends: movement({ percent: -8, comparableRetailerCount: 3 }),
+    },
+  ], now);
+
+  assert.deepEqual(drops.map(drop => drop.slug), ['wide-evidence', 'narrow-evidence']);
 });

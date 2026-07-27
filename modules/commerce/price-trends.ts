@@ -1,3 +1,5 @@
+import { isOfferFresh } from './offer-freshness';
+
 export type PriceObservation = {
   offerId: string;
   retailer: string;
@@ -5,12 +7,38 @@ export type PriceObservation = {
   observedAt: string;
 };
 
+export type PriceTrendOfferSnapshot = {
+  market: 'NG' | 'US';
+  retailer: string;
+  url: string;
+};
+
+export type CurrentPriceObservation = PriceObservation & {
+  market: 'NG' | 'US';
+  url: string;
+  available: boolean;
+  inventoryStatus: 'in_stock' | 'low_stock' | 'out_of_stock' | 'unknown';
+  verificationMethod: 'manual' | 'retailer_page' | 'api' | 'import';
+  lastVerifiedAt: string | null;
+  verificationExpiresAt: string | null;
+  observedTitle: string | null;
+  observedSize: string | null;
+  currentPriceMinor: number | null;
+  currentCurrencyCode: string | null;
+};
+
 export type PriceMovement = {
   days: number;
   direction: 'down' | 'flat' | 'up';
   amountMinor: number;
   percent: number;
+  /**
+   * Legacy compatibility field. Calculated movements now admit only one
+   * unambiguous exact offer per retailer, so this equals the retailer count.
+   */
   comparableOfferCount: number;
+  /** Distinct retailers represented by the market comparison. */
+  comparableRetailerCount?: number;
   fromAt: string;
   toAt: string;
 };
@@ -61,17 +89,127 @@ export function describePriceMovement(
   const value = Number.isInteger(amount) ? amount.toFixed(0) : amount.toFixed(1);
   const direction = movement.direction === 'flat' ? 'steady' : movement.direction;
   const dayUnit = movement.days === 1 ? 'day' : 'days';
+  const retailerCount = movement.comparableRetailerCount ?? movement.comparableOfferCount;
   return `${subject} ${direction} over ${movement.days} ${dayUnit}${
     movement.direction === 'flat' ? '' : ` by ${value} percent`
-  }. Based on ${movement.comparableOfferCount} ${
-    movement.comparableOfferCount === 1 ? 'matching store' : 'matching stores'
+  }. Based on ${retailerCount} ${
+    retailerCount === 1 ? 'matching store' : 'matching stores'
   }.`;
+}
+
+/**
+ * Compact visual notation for dense buying surfaces.
+ *
+ * Flat movement stays quiet: a steady label adds noise without helping someone
+ * choose. The full evidence sentence remains available through
+ * `describePriceMovement` for accessible names and tooltips.
+ */
+export function compactPriceMovementLabel(
+  movement: PriceMovement | null | undefined,
+) {
+  if (!movement || movement.direction === 'flat') return null;
+  const amount = Math.abs(movement.percent);
+  const value = Number.isInteger(amount) ? amount.toFixed(0) : amount.toFixed(1);
+  const arrow = movement.direction === 'down' ? '↓' : '↑';
+  return `${arrow} ${value}% · ${movement.days}d`;
 }
 
 function median(values: number[]) {
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
   return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+function normalizedRetailer(value: string) {
+  return value.trim().toLocaleLowerCase('en-NG');
+}
+
+function normalizedOfferUrl(value: string) {
+  try {
+    const url = new URL(value);
+    if (url.protocol !== 'https:') return null;
+    url.hash = '';
+    return url.href;
+  } catch {
+    return null;
+  }
+}
+
+function expectedCurrency(market: 'NG' | 'US') {
+  return market === 'NG' ? 'NGN' : 'USD';
+}
+
+/**
+ * Intersects history with the exact offer snapshot rendered by the caller and
+ * the current persisted offer state repeated on each history row.
+ *
+ * History is deliberately rejected when the DB listing has since become stale,
+ * unavailable, incomplete, or changed URL. This prevents a current card from
+ * borrowing movement from a different or no-longer-buyable listing.
+ */
+export function selectCurrentPriceObservations(
+  rows: CurrentPriceObservation[],
+  snapshot: readonly PriceTrendOfferSnapshot[] | undefined,
+  asOf: number | Date = Date.now(),
+): PriceObservation[] {
+  const current = typeof asOf === 'number' ? new Date(asOf) : asOf;
+  if (Number.isNaN(current.getTime()) || !snapshot?.length) return [];
+
+  const allowed = new Set(snapshot.flatMap(item => {
+    const url = normalizedOfferUrl(item.url);
+    const retailer = normalizedRetailer(item.retailer);
+    return url && retailer ? [`${item.market}\u0000${retailer}\u0000${url}`] : [];
+  }));
+  if (allowed.size === 0) return [];
+
+  return rows.flatMap(row => {
+    const url = normalizedOfferUrl(row.url);
+    const retailer = normalizedRetailer(row.retailer);
+    const key = url && retailer ? `${row.market}\u0000${retailer}\u0000${url}` : null;
+    const currentPrice = row.currentPriceMinor;
+    const hasCurrentEvidence = row.available
+      && (row.inventoryStatus === 'in_stock' || row.inventoryStatus === 'low_stock')
+      && ['manual', 'retailer_page', 'api'].includes(row.verificationMethod)
+      && Boolean(row.observedTitle?.trim())
+      && Boolean(row.observedSize?.trim())
+      && typeof currentPrice === 'number'
+      && Number.isFinite(currentPrice)
+      && currentPrice > 0
+      && row.currentCurrencyCode?.trim() === expectedCurrency(row.market)
+      && isOfferFresh({
+        checkedAt: row.lastVerifiedAt ?? undefined,
+        expiresAt: row.verificationExpiresAt ?? undefined,
+      }, current);
+
+    if (!key || !hasCurrentEvidence || !allowed.has(key)) return [];
+    return [{
+      offerId: row.offerId,
+      retailer: row.retailer,
+      priceMinor: row.priceMinor,
+      observedAt: row.observedAt,
+    }];
+  });
+}
+
+type ComparablePair = {
+  anchor: PriceObservation;
+  current: PriceObservation;
+};
+
+/**
+ * A retailer contributes at most one exact series to a market movement. If two
+ * offer IDs claim the same retailer, neither is safe to attach to its one public
+ * store row, so that retailer fails closed instead of receiving extra weight.
+ */
+function unambiguousRetailerPairs(pairs: ComparablePair[]) {
+  const byRetailer = new Map<string, ComparablePair[]>();
+  for (const pair of pairs) {
+    const anchorRetailer = normalizedRetailer(pair.anchor.retailer);
+    const currentRetailer = normalizedRetailer(pair.current.retailer);
+    if (!currentRetailer || anchorRetailer !== currentRetailer) continue;
+    byRetailer.set(currentRetailer, [...(byRetailer.get(currentRetailer) ?? []), pair]);
+  }
+  return [...byRetailer.values()].flatMap(entries => entries.length === 1 ? entries : []);
 }
 
 function movementForWindow(observations: PriceObservation[], days: 7 | 30, asOf: Date): PriceMovement | null {
@@ -88,7 +226,7 @@ function movementForWindow(observations: PriceObservation[], days: 7 | 30, asOf:
     grouped.set(observation.offerId, [...(grouped.get(observation.offerId) ?? []), observation]);
   }
 
-  const comparable = [...grouped.values()].flatMap(entries => {
+  const offerPairs = [...grouped.values()].flatMap(entries => {
     const ordered = entries.sort((a, b) => Date.parse(a.observedAt) - Date.parse(b.observedAt));
     const current = ordered.at(-1);
     if (!current || Date.parse(current.observedAt) < freshestCurrent) return [];
@@ -98,6 +236,7 @@ function movementForWindow(observations: PriceObservation[], days: 7 | 30, asOf:
     }).at(-1);
     return anchor ? [{ anchor, current }] : [];
   });
+  const comparable = unambiguousRetailerPairs(offerPairs);
 
   if (!comparable.length) return null;
   const anchorMedian = median(comparable.map(pair => pair.anchor.priceMinor));
@@ -115,6 +254,7 @@ function movementForWindow(observations: PriceObservation[], days: 7 | 30, asOf:
     amountMinor,
     percent,
     comparableOfferCount: comparable.length,
+    comparableRetailerCount: comparable.length,
     fromAt,
     toAt,
   };
@@ -135,7 +275,7 @@ function movementSinceLastCheck(
     grouped.set(observation.offerId, [...(grouped.get(observation.offerId) ?? []), observation]);
   }
 
-  const comparable = [...grouped.values()].flatMap(entries => {
+  const offerPairs = [...grouped.values()].flatMap(entries => {
     const ordered = entries.sort((a, b) => Date.parse(a.observedAt) - Date.parse(b.observedAt));
     const current = ordered.at(-1);
     if (!current || Date.parse(current.observedAt) < freshestCurrent) return [];
@@ -149,6 +289,7 @@ function movementSinceLastCheck(
 
     return anchor ? [{ anchor, current }] : [];
   });
+  const comparable = unambiguousRetailerPairs(offerPairs);
 
   if (!comparable.length) return null;
   const anchorMedian = median(comparable.map(pair => pair.anchor.priceMinor));
@@ -174,6 +315,7 @@ function movementSinceLastCheck(
     amountMinor,
     percent,
     comparableOfferCount: comparable.length,
+    comparableRetailerCount: comparable.length,
     fromAt,
     toAt,
   };

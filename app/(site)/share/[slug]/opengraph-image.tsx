@@ -52,8 +52,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             <div style={{ display: 'flex', width: 600, fontFamily: 'Italiana', fontSize: 46, lineHeight: 1.12, color: '#2d211f', marginTop: 10, paddingBottom: 6 }}>{view.name}</div>
             <div style={{ display: 'flex', fontSize: 21, fontStyle: 'italic', color: '#7a6b66', marginTop: 18 }}>{view.microtag}</div>
             {view.spreadLabel ? (
-              <div style={{ display: 'flex', alignItems: 'baseline', marginTop: 28 }}>
-                <span style={{ fontFamily: 'Italiana', fontSize: 58, color: '#6b3b35' }}>{ngn(view.spreadLabel)}</span>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: 28 }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontFamily: 'Italiana', fontSize: 58, color: '#6b3b35' }}>{ngn(view.spreadLabel)}</span>
+                  {view.marketTrend ? <span style={{ fontSize: 18, fontWeight: 600, color: view.marketTrend.direction === 'down' ? '#33704a' : '#9a3d35' }}>Market {view.marketTrend.label}</span> : null}
+                </div>
                 <span style={{ fontSize: 21, color: '#7a6b66', marginLeft: 18 }}>lowest to highest</span>
               </div>
             ) : null}
@@ -61,13 +64,19 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               {primary ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                   <span style={{ fontSize: 25, color: '#2d211f' }}>{primary.retailer}{primary.isLowest ? ' · lowest' : ''}</span>
-                  <span style={{ fontSize: 29, fontWeight: 600, color: '#2d211f' }}>{ngn(primary.priceLabel)}</span>
+                  <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontSize: 29, fontWeight: 600, color: '#2d211f' }}>
+                    {ngn(primary.priceLabel)}
+                    {primary.trend ? <span style={{ fontSize: 16, color: primary.trend.direction === 'down' ? '#33704a' : '#9a3d35' }}>{primary.trend.label}</span> : null}
+                  </span>
                 </div>
               ) : null}
               {secondary ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: 15, borderTop: '1px solid rgba(112,71,61,.14)', marginTop: 15 }}>
                   <span style={{ fontSize: 25, color: '#7a6b66' }}>{secondary.retailer}</span>
-                  <span style={{ fontSize: 29, fontWeight: 600, color: '#2d211f' }}>{ngn(secondary.priceLabel)}</span>
+                  <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontSize: 29, fontWeight: 600, color: '#2d211f' }}>
+                    {ngn(secondary.priceLabel)}
+                    {secondary.trend ? <span style={{ fontSize: 16, color: secondary.trend.direction === 'down' ? '#33704a' : '#9a3d35' }}>{secondary.trend.label}</span> : null}
+                  </span>
                 </div>
               ) : null}
             </div>

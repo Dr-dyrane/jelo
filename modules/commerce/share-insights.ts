@@ -1,6 +1,6 @@
 import type { Product } from '@/data/products';
 import { summarizeMarket } from './market-summary';
-import type { ProductPriceTrends } from './price-trends';
+import { compactPriceMovementLabel, type ProductPriceTrends } from './price-trends';
 import { hasShareableNgOffer } from './shareable-offer';
 
 // Honesty thresholds. Tunable, but deliberately conservative: a suggestion only
@@ -34,6 +34,9 @@ export type ShareDrop = {
   percent: number; // negative
   days: 7 | 30;
   lowestNaira: number | null;
+  trendLabel: string;
+  comparableStoreCount: number;
+  observedAt: string;
 };
 
 const microtag = (product: Product) => `${product.size} · ${product.category}`;
@@ -76,7 +79,9 @@ export function selectShareGaps(products: Product[], now: number | Date = Date.n
  * From products paired with their already-fetched price trends, keep the ones
  * whose observed NG price notably fell, ranked by the size of the fall. The
  * movement itself is produced by calculatePriceTrends, which already enforces the
- * "same offers at both ends, fresh current, dated anchor" rule.
+ * "same offers at both ends, fresh current, dated anchor" rule. Percentage
+ * movement leads the rank because it is comparable across price points; breadth
+ * of retailer evidence, freshness, then naira impact break ties.
  */
 export function selectRecentDrops(
   items: Array<{ product: Product; trends: ProductPriceTrends }>,
@@ -88,6 +93,10 @@ export function selectRecentDrops(
     if (!hasShareableNgOffer(product, now)) continue;
     const movement = trends.NG?.thirtyDay ?? trends.NG?.sevenDay ?? null;
     if (!movement || movement.direction !== 'down' || Math.abs(movement.percent) < DROP_MIN_PERCENT) continue;
+    const comparableStoreCount = movement.comparableRetailerCount ?? 0;
+    if (comparableStoreCount < 2) continue;
+    const trendLabel = compactPriceMovementLabel(movement);
+    if (!trendLabel) continue;
     const summary = summarizeMarket(product.offers, 'NG', now);
     drops.push({
       slug: product.slug,
@@ -103,8 +112,16 @@ export function selectRecentDrops(
       // campaign evidence.
       days: movement.days === 30 ? 30 : 7,
       lowestNaira: summary.lowestPrice,
+      trendLabel,
+      comparableStoreCount,
+      observedAt: movement.toAt,
     });
   }
 
-  return drops.sort((a, b) => b.amountNaira - a.amountNaira).slice(0, DROP_LIMIT);
+  return drops.sort((a, b) => (
+    Math.abs(b.percent) - Math.abs(a.percent)
+    || b.comparableStoreCount - a.comparableStoreCount
+    || Date.parse(b.observedAt) - Date.parse(a.observedAt)
+    || b.amountNaira - a.amountNaira
+  )).slice(0, DROP_LIMIT);
 }

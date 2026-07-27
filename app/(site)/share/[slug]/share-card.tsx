@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import styles from './share-card.module.css';
 
+export type SharePriceTrend = {
+  label: string;
+  description: string;
+  direction: 'down' | 'up';
+};
+
 export type ShareOffer = {
   retailer: string;
   priceLabel: string;
@@ -8,6 +14,7 @@ export type ShareOffer = {
   when: string;
   isLowest: boolean;
   isMarketplace: boolean;
+  trend: SharePriceTrend | null;
 };
 
 export type ShareView = {
@@ -19,8 +26,23 @@ export type ShareView = {
   observedDate: string;
   spreadLabel: string | null;
   storeCount: number;
+  marketTrend: SharePriceTrend | null;
   offers: ShareOffer[];
 };
+
+function PriceTrend({ trend, market = false }: { trend: SharePriceTrend | null; market?: boolean }) {
+  if (!trend) return null;
+  return (
+    <span
+      className={`${styles.trend} ${trend.direction === 'down' ? styles.trendDown : styles.trendUp}`}
+      aria-label={trend.description}
+      title={trend.description}
+    >
+      {market ? <span className={styles.trendSubject}>Market</span> : null}
+      {trend.label}
+    </span>
+  );
+}
 
 export function ShareCard({ view }: { view: ShareView }) {
   const productHref = `/products/${view.productSlug}`;
@@ -37,7 +59,10 @@ export function ShareCard({ view }: { view: ShareView }) {
 
       {view.spreadLabel ? (
         <div className={styles.spread}>
-          <b>{view.spreadLabel}</b>
+          <span className={styles.spreadValue}>
+            <b>{view.spreadLabel}</b>
+            <PriceTrend trend={view.marketTrend} market />
+          </span>
           <span><strong>Lowest</strong> to <strong>highest</strong>.</span>
         </div>
       ) : null}
@@ -49,7 +74,10 @@ export function ShareCard({ view }: { view: ShareView }) {
               <span className={`${styles.dot} ${offer.isLowest ? styles.low : ''}`} />
               {offer.retailer}
             </div>
-            <div className={styles.price}>{offer.priceLabel}</div>
+            <div className={styles.price}>
+              <span>{offer.priceLabel}</span>
+              <PriceTrend trend={offer.trend} />
+            </div>
             <div className={styles.meta}>
               {offer.isLowest ? <span className={`${styles.label} ${styles.low}`}>Lowest observed</span> : null}
               {offer.isMarketplace ? <span className={`${styles.label} ${styles.mkt}`}>Marketplace</span> : null}

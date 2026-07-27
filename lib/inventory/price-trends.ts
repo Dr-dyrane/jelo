@@ -4,14 +4,20 @@ import { hasPostgresConfig, getPostgresClient } from '@/lib/db/postgres';
 import {
   calculateOfferPriceTrends,
   calculatePriceTrends,
-  type PriceObservation,
+  selectCurrentPriceObservations,
+  type CurrentPriceObservation,
+  type PriceTrendOfferSnapshot,
   type ProductPriceTrends,
 } from '@/modules/commerce/price-trends';
 
-type ObservationRow = PriceObservation & { market: 'NG' | 'US' };
+type ObservationRow = CurrentPriceObservation;
 
-export async function getProductPriceTrends(slug: string): Promise<ProductPriceTrends> {
+export async function getProductPriceTrends(
+  slug: string,
+  snapshot: readonly PriceTrendOfferSnapshot[],
+): Promise<ProductPriceTrends> {
   if (!hasPostgresConfig()) return {};
+  if (snapshot.length === 0) return {};
 
   try {
     const sql = getPostgresClient();
@@ -19,9 +25,19 @@ export async function getProductPriceTrends(slug: string): Promise<ProductPriceT
       select
         o.id::text as "offerId",
         r.name as retailer,
+        o.url,
+        o.market_code as market,
+        o.available,
+        o.inventory_status as "inventoryStatus",
+        o.verification_method as "verificationMethod",
+        o.last_verified_at::text as "lastVerifiedAt",
+        o.verification_expires_at::text as "verificationExpiresAt",
+        o.observed_title as "observedTitle",
+        o.observed_size as "observedSize",
+        o.price_minor::double precision as "currentPriceMinor",
+        o.currency_code::text as "currentCurrencyCode",
         h.price_minor::double precision as "priceMinor",
-        h.observed_at::text as "observedAt",
-        o.market_code as market
+        h.observed_at::text as "observedAt"
       from offer_price_history h
       join offers o on o.id = h.offer_id
       join products p on p.id = o.product_id
@@ -33,14 +49,20 @@ export async function getProductPriceTrends(slug: string): Promise<ProductPriceT
         and h.observed_at >= now() - interval '46 days'
       order by h.observed_at asc
     `;
+    const observations = selectCurrentPriceObservations(rows, snapshot);
 
     const result: ProductPriceTrends = {};
     for (const market of ['NG', 'US'] as const) {
-      const observations = rows.filter(row => row.market === market);
-      if (!observations.length) continue;
+      const marketOfferIds = new Set(
+        rows.filter(row => row.market === market).map(row => row.offerId),
+      );
+      const marketObservations = observations.filter(
+        observation => marketOfferIds.has(observation.offerId),
+      );
+      if (!marketObservations.length) continue;
 
-      result[market] = calculatePriceTrends(observations);
-      const offerTrends = calculateOfferPriceTrends(observations);
+      result[market] = calculatePriceTrends(marketObservations);
+      const offerTrends = calculateOfferPriceTrends(marketObservations);
       if (offerTrends.length) {
         result.byOffer ??= {};
         result.byOffer[market] = offerTrends;

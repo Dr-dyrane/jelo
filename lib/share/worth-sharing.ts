@@ -2,7 +2,7 @@ import 'server-only';
 
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import { getProductPriceTrends } from '@/lib/inventory/price-trends';
-import { hasShareableNgOffer } from '@/modules/commerce/shareable-offer';
+import { hasShareableNgOffer, isShareableNgOffer } from '@/modules/commerce/shareable-offer';
 import { selectRecentDrops, selectShareGaps } from '@/modules/commerce/share-insights';
 
 export type { ShareGap, ShareDrop } from '@/modules/commerce/share-insights';
@@ -22,7 +22,14 @@ export async function listRecentDrops(now: number | Date = Date.now()) {
   const products = (await listCatalogueProducts()).filter(product => hasShareableNgOffer(product, now));
   const items = await Promise.all(products.map(async product => ({
     product,
-    trends: await getProductPriceTrends(product.slug),
+    trends: await getProductPriceTrends(
+      product.slug,
+      product.offers.filter(offer => isShareableNgOffer(offer, now)).map(offer => ({
+        market: 'NG',
+        retailer: offer.retailer,
+        url: offer.url,
+      })),
+    ),
   })));
   return selectRecentDrops(items, now);
 }

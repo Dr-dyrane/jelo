@@ -11,12 +11,18 @@ test('price movement stays compact, per-store, accessible, and evidence gated', 
   );
   const styles = await readFile(path.join(root, 'app/product-experience.css'), 'utf8');
   const repository = await readFile(path.join(root, 'lib/inventory/price-trends.ts'), 'utf8');
+  const productPage = await readFile(
+    path.join(root, 'app/(site)/products/[slug]/page.tsx'),
+    'utf8',
+  );
   const priceModel = await readFile(
     path.join(root, 'modules/commerce/price-trends.ts'),
     'utf8',
   );
 
   assert.match(repository, /calculateOfferPriceTrends/);
+  assert.match(productPage, /observedMarketPrice\(offer, market\)/);
+  assert.match(productPage, /getProductPriceTrends\(slug, trendSnapshot\)/);
   assert.match(component, /selectRetailerPriceMovement/);
   assert.match(component, /PriceTrend movement=\{movement\}/);
   assert.match(component, /aria-label=\{label\}/);

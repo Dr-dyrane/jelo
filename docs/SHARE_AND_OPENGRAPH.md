@@ -1,6 +1,6 @@
 # Share and OpenGraph
 
-Updated: 2026-07-24
+Updated: 2026-07-27
 
 Shareable cards let a reader pass on a specific piece of JeloCare — a product's observed prices, or a source-checked ingredient — as a link with a rich preview. Every card is evidence-scoped: it exists only when the underlying evidence supports it, and it never invents a number or a claim.
 
@@ -31,5 +31,5 @@ Three properties make previews reliable:
 ## Constraints
 
 - Never invent a number or a claim. Price cards carry "Prices change. A listing is not proof it is genuine."; ingredient and concern cards carry "education, not a diagnosis".
-- The `/share` index ranks by evidence-bound facts (spread size, verified movement, store count, freshness), never popularity or clicks.
+- The `/share` index ranks by evidence-bound facts, never popularity or clicks. Recent drops lead the queue and rank by percentage movement, then distinct-retailer evidence, freshness and naira impact. The visible signal stays compact (`↓ 8% · 30d`); unsupported or flat movement stays quiet.
 - Concern (health-shaped) topics stay a separate lane from the commercial cards.

@@ -13,6 +13,7 @@ import { SafeProductImage } from '@/components/products/safe-product-image';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
 import { listProductIngredientsSafe } from '@/lib/clinical/ingredients';
 import { getProductPriceTrends } from '@/lib/inventory/price-trends';
+import { observedMarketPrice } from '@/modules/commerce/offer-evidence';
 import { productStructuredData, serializeJsonLd } from '@/modules/commerce/product-structured-data';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
@@ -34,13 +35,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [product, products, priceTrends, productIngredients] = await Promise.all([
-    findCatalogueProduct(slug),
+  const product = await findCatalogueProduct(slug);
+  if (!product) notFound();
+
+  const trendSnapshot = product.offers.flatMap(offer => {
+    if (offer.match === 'search') return [];
+    return (['NG', 'US'] as const).flatMap(market => (
+      observedMarketPrice(offer, market) == null
+        ? []
+        : [{ market, retailer: offer.retailer, url: offer.url }]
+    ));
+  });
+  const [products, priceTrends, productIngredients] = await Promise.all([
     listCatalogueProducts(),
-    getProductPriceTrends(slug),
+    getProductPriceTrends(slug, trendSnapshot),
     listProductIngredientsSafe(slug),
   ]);
-  if (!product) notFound();
 
   const careReview = getReviewedProductCare(product.slug);
   const catalogueVerified = isPublishedIntakeProduct(product.slug);
