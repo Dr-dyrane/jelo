@@ -24,6 +24,8 @@ export function ShareButton({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+  // Share the canonical public page in every environment. Keeping this value
+  // deterministic also prevents the server and first client render disagreeing.
   const url = new URL(path, SITE).toString();
 
   function openSheet() {
