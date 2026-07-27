@@ -85,6 +85,55 @@ placed beside one another.
   album-like cards, oversized imagery, a player treatment, or a literal visual
   theme.
 
+## Insights monitor
+
+`/ops/activity` owns Insights and inference. It is a read-only Monitor route,
+not a moderation queue or a product and retailer management surface. Manual
+product and retailer CRUD remains on separate governed routes.
+
+- Separate observed facts, community-reported patterns, research outcomes, and
+  immutable operator decisions in both the read model and the presentation.
+- Name the denominator, time window, source, and material freshness for every
+  aggregate or comparison.
+- Count anonymous records as `notes` or `submissions`, never as people or
+  contributors.
+- Resolve visible pattern labels through the canonical option registry or an
+  accepted moderation mapping. Use one three-note release threshold for
+  purpose and retailer cells.
+- Scale pattern bars against all approved notes, not the largest visible item.
+  `Snapshot generated` is query time; source windows and all-time aggregates
+  must be labelled separately.
+- Treat sparse community patterns as research signals only. Do not infer
+  efficacy, safety, retailer trust, price quality, causality, or trends.
+- Visualize only a real typed series with sufficient sample and time coverage
+  for a stated question. Never fabricate, interpolate, or decorate missing
+  data into a chart.
+- Keep raw IDs out of the primary UI while retaining copyable audit metadata
+  in secondary disclosure.
+- A clear Contributions, Relationships, Observations, Vocabulary, or Retailers
+  queue stays on its own route and may link to `View insights`; it neither
+  duplicates this monitor nor redirects to it. Signals remains its own Monitor
+  route and does not use this queue-empty action.
+
+## Manage routes
+
+`/ops/operators` is a Manage route, not a dashboard or queue. It uses one
+scan-oriented directory and one contextual inspector because selection changes
+the available access decision.
+
+- Active team members use a quiet feature shelf; invitations and paused access
+  use compact rows.
+- `Add admin` asks for one email. It does not request an auth subject, display
+  name, or database identifier.
+- Invite and confirmation surfaces are a bottom sheet on phone, a centred modal
+  on larger temporary contexts, and never an inline form nested inside a card.
+- The inspector owns role and access actions. Self-lockout and last-admin
+  protections are server rules, not explanatory UI theatre.
+- A pending invitation and an active operator remain visibly distinct. Email
+  delivery failure is never presented as success.
+- Before the access migration is ready, existing operators remain readable,
+  the primary action explains that setup is pending, and mutations fail closed.
+
 ## Candidate anatomy
 
 Top-level workspace headers name the location once: `Overview`,
@@ -366,6 +415,20 @@ Loading fallbacks mirror the final shell rather than replacing it with a generic
 - Side-sheet and bottom-sheet breakpoints do not flash an inactive docked
   inspector while the route loads.
 - Motion preferences control shimmer behavior.
+
+## Failure states
+
+A route-level read or API failure becomes the primary workspace state. Keep the
+route title, then let one calm recovery surface span the full available
+workspace width. Do not trap a failed route inside a narrow card, a grid cell,
+or an empty inspector.
+
+- Say what could not load in human language.
+- Keep technical details in logs.
+- Keep one visible `Try again` action when retry is safe.
+- Preserve the shell and navigation.
+- Keep local action failures beside the action that failed; they do not replace
+  otherwise reliable page content.
 
 ## Synchronization and observability
 

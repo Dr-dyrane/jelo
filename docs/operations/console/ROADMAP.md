@@ -14,17 +14,19 @@ The roadmap is ordered by safety and dependency. Complete one phase's exit crite
 
 **Status:** shipped.
 
-**Outcome:** a private, allowlisted console with an independent private-shell visual system, role-aware navigation, queue read models, decision history, and read-only operator visibility.
+**Outcome:** a private, allowlisted console with an independent private-shell visual system, role-aware navigation, queue read models, decision history, and operator visibility.
 
 **Evidence:** [ADR 0007](../../adr/0007-internal-moderation-operations-console.md), [Operations shell](../../design/OPS_SHELL.md), and the current routes under `app/(ops)/`.
 
 ## Phase 1 — Adaptive workspace frame
 
-**Status:** next.
+**Status:** shipped.
 
 **Outcome:** a reusable workspace frame with page context, optional local tabs, a primary working plane, and an optional record-detail slot.
 
-**First slice:** desktop reference composition for one queue, with the semantic contract prepared for separate tablet and mobile compositions.
+**Evidence:** the shell now owns replaceable workspace and detail slots, with a
+docked desktop inspector, tablet side sheet, mobile bottom sheet, shared
+selection context, and route-owned loading, empty, error, and decision states.
 
 **Exit criteria:**
 
@@ -38,11 +40,13 @@ See [Workspace frame](./phases/01-workspace-frame.md).
 
 ## Phase 2 — One representative triage workflow
 
-**Status:** blocked by Phase 1.
+**Status:** shipped.
 
 **Outcome:** an operator can review one real queue item, inspect its evidence, record an allowed decision with rationale, and see the resulting state without leaving the queue.
 
-**Recommended first queue:** observations, because the current read model and decision boundaries are already narrow and explicit.
+**Reference workflow:** observations, because its read model and decision
+boundaries are narrow, explicit, and covered by the shared shell and route
+contracts.
 
 **Exit criteria:**
 
@@ -56,7 +60,7 @@ See [Triage workflows](./phases/02-triage-workflows.md).
 
 ## Phase 3 — Queue coverage and local workflow views
 
-**Status:** blocked by Phase 2.
+**Status:** in progress.
 
 **Outcome:** the workspace frame is adopted by the remaining queues only after their evidence and permitted actions are individually defined.
 
@@ -68,14 +72,16 @@ See [Retailer workflow](./phases/03-retailer-workflow.md).
 
 ## Phase 4 — Governance and operational readiness
 
-**Status:** blocked by Phase 2 for first-use feedback; some planning may proceed in parallel.
+**Status:** in progress.
 
 **Outcome:** operators and administrators can understand access, accountability, and console health without introducing an unsafe generic settings area.
 
 **Exit criteria:**
 
-- Operator directory uses production read data rather than a UI fixture where that data is available.
-- Access mutation remains absent until its dedicated ADR is accepted.
+- Operator directory uses production read data rather than a UI fixture.
+- Access begins with a pending email invitation and only activates after exact-mailbox Neon Auth verification.
+- Role and active-state changes are admin-only, protected against self-lockout and last-admin removal, and written to a separate append-only audit.
+- Pre-migration reads remain available while access mutations fail closed.
 - Decision history supports durable filters only when the query and URL contract exist.
 - Browser review covers desktop, tablet, and mobile task completion for every released workflow.
 - The runbook identifies the ownership and safe response for denied access, action failure, and audit inconsistency.
@@ -85,7 +91,7 @@ See [Governance and reliability](./phases/04-governance-and-reliability.md).
 ## Explicitly deferred
 
 - Canonical promotion execution without a new ADR.
-- Operator invites, role changes, deactivation, or emergency access without a new ADR.
+- Emergency or break-glass access outside the accepted invitation lifecycle.
 - Generic profile or settings screens without a real owned data contract.
 - Collapsible sidebar groups until console destination scale and evidence justify them.
 - Decorative tabs, dashboards, or generic admin widgets.

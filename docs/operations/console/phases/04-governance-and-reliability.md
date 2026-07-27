@@ -10,11 +10,11 @@ Make the console safe to operate repeatedly by clarifying access, accountability
 - Improve decision-history filtering only when filters are backed by stable queries and URLs.
 - Document and exercise responses to denied access, failed actions, and audit inconsistencies.
 - Review console release readiness across desktop, tablet, and mobile task flows.
-- Establish the next ADR boundary for operator access mutation before any role-changing control is built.
+- Operate the accepted email-invitation and access-lifecycle boundary without creating a generic settings surface.
 
 ## Operator visibility
 
-The existing operator directory remains read-only. It may show identity, role, active state, and activity summaries that the viewer is authorized to read. It must not imply that an administrator can change access until the access-lifecycle ADR is accepted and its audited action contract exists.
+The operator directory shows identity, role, active state, and activity summaries that the viewer is authorized to read. Admin access changes use one contextual inspector, not a generic settings page. A pending invitation is not an operator and grants no access. Activation occurs only after Neon Auth verifies the exact invited mailbox. Role changes, pause, restore, resend, and revoke are separately audited; self-demotion, self-deactivation, duplicates, and removal of the last active admin are rejected by the server.
 
 ## Reliability scenarios
 
@@ -26,6 +26,8 @@ The existing operator directory remains read-only. It may show identity, role, a
 | Decision transaction fails | Report failure without claiming an audit entry or state transition exists; allow a safe retry. |
 | Audit inconsistency is suspected | Stop related operation, preserve evidence, and investigate before corrective action. |
 | Read model is unavailable | Show an honest recoverable error state; do not render stale activity as current fact. |
+| Access-lifecycle migration is not ready | Keep the existing team directory readable, show that updates are not ready, and fail every mutation closed. |
+| Invitation email fails | Keep the pending invitation, record the failed delivery, and offer an explicit retry without claiming the email was sent. |
 
 ## Required documentation and tests
 
@@ -47,4 +49,4 @@ Before a console workflow is considered operationally ready:
 
 ## Explicit boundary
 
-Access lifecycle, role changes, deactivation, invitations, emergency access, retention, exports, and audit correction each require an accepted ADR before implementation. This phase prepares the evidence and operating practice for those decisions; it does not pre-authorize them.
+Emergency access outside the accepted invitation lifecycle, retention changes, exports, and audit correction each require a further accepted decision. Operator invitations and normal role/active-state changes remain bounded by ADR 0007 increment 5.

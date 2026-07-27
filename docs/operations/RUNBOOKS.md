@@ -84,6 +84,23 @@ Community and retailer intake should return a temporary unavailable response rat
 5. Otherwise add a new forward migration.
 6. Rehearse on a Neon branch before production.
 
+## Operator access cannot be changed
+
+1. Confirm the signed-in operator is an active admin. Do not bypass the role
+   check or edit an auth subject in the browser.
+2. Confirm migration `0025_operator_access_lifecycle.sql` is present in
+   `schema_migrations`. Before it is applied, the directory intentionally
+   remains readable and all access mutations fail closed.
+3. For a pending invitation, confirm the normalized invited email exactly
+   matches the mailbox Neon Auth verified. Never synthesize a subject from an
+   email address.
+4. If delivery failed, keep the pending invitation and retry from its inspector
+   after checking the configured mail transport. Do not create a duplicate.
+5. If a role or pause action is refused, check the self-lockout and last-active-
+   admin guards before investigating the database.
+6. Confirm the resulting event in `moderation_operator_access_audit`. Corrective
+   work is a new audited action; never rewrite the access trail.
+
 ## Catalogue count or queue drifts
 
 ```bash

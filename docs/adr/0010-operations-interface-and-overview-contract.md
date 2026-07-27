@@ -339,6 +339,57 @@ Overview reads a small purpose-built projection. It does not load and enrich
 only the first two pending records from the recommended actionable queue.
 Queue-level selection remains sufficient for the inspector.
 
+## Insights and inference monitor contract
+
+`/ops/activity` is the canonical owner of **Insights**: a read-only monitor for
+what the available evidence supports and what operators have decided. This
+responsibility does not make its current visual implementation canonical.
+Product and retailer CRUD, moderation, correction, publishing, and reversal
+remain separate governed Manage or Triage workflows.
+
+Insights keeps four evidence classes visibly distinct:
+
+| Evidence class | Meaning |
+| --- | --- |
+| Observed fact | A count, state, value, or timestamp read directly from its named source. |
+| Community-reported pattern | An aggregate over approved, retained anonymous notes; it remains reported experience, not established truth. |
+| Research outcome | A documented resolution, match, rejection, or completed research task with its own confidence and provenance. |
+| Operator decision | An immutable audit projection of an attributable action, target, rationale, and time. |
+
+Every aggregate or comparison names its denominator, time window, source, and
+freshness where those affect interpretation. Say `25 approved notes`, not `25
+people` or `25 contributors`: anonymous submissions do not prove unique
+humans. Mentions may prioritize research; they do not establish product
+efficacy or safety, retailer trust, price quality, causality, or a market
+trend. Sparse samples are labelled as early signals and are never promoted into
+trend language.
+
+Pattern labels come from the server-owned canonical option registry or from a
+custom value whose moderation state is `approved` or `mapped`. A parent note's
+approval never promotes an unreviewed or rejected custom label. Purpose and
+retailer mention cells use the same minimum release threshold: at least three
+distinct approved, retained notes. Ranked bars use all approved notes as their
+denominator; the largest visible cell is not silently treated as 100%.
+
+`Snapshot generated` may describe query time only. Source freshness uses the
+source timestamp: the community snapshot shows its first and latest approved
+note dates, while all-time research and audit aggregates say `all time`.
+
+A visualization appears only when a real, typed series has enough observations
+and time coverage to answer a stated operational question. Otherwise use exact
+counts and plain language. Fabricated examples, interpolated points, decorative
+charts, and implied trends are prohibited.
+
+Raw IDs and provider metadata remain out of the primary reading order. Preserve
+the immutable audit record and expose genuinely useful raw metadata secondarily
+through a collapsed, copyable disclosure.
+
+When Contributions, Relationships, Observations, Vocabulary, or Retailers has
+nothing awaiting review, that queue keeps its own quiet empty state and may
+link to `View insights`. It does not duplicate Insights content or redirect
+automatically to `/ops/activity`. Signals remains a separate Monitor route and
+does not use this queue-empty action.
+
 ## Overview contract
 
 `/ops` is a stable operational briefing. Its page identity never changes with
@@ -517,6 +568,11 @@ Each route owns states that preserve its final anatomy.
 - Say what could not load.
 - Offer `Try again` when retry is safe.
 - Preserve the shell and unaffected context.
+- A route-level read or API failure spans the full available workspace width
+  beneath the route title. It is the page state, not a narrow card inside a
+  grid, list, or inspector.
+- A local action failure stays beside the failed action so reliable page
+  content remains available.
 - Log technical detail privately; do not print a stack, digest, raw SQL, or
   secret in the interface.
 
@@ -635,9 +691,9 @@ is:
   lock the real workspace scroll owner, support Escape and safe outside
   dismissal, use one evidence scroll owner, and restore focus to the exact
   trigger. Source contracts and browser evidence must protect that behavior.
-- Shared empty and error primitives still use generic card, surface, elevation,
-  and pill tokens. A state-primitive lane should align them with the operations
-  surface and control grammar before declaring them canonical everywhere.
+- The shared error primitive now uses the operations surface and control
+  grammar. Route-level failures fill the workspace width; local action errors
+  remain contextual.
 - Observations presents the submitted evidence only. A retail-data lane must
   supply an eligible-market, exact-product, freshness-aware comparison before
   any typical-price or market-comparison claim can enter the inspector.

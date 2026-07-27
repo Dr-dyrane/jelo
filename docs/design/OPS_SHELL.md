@@ -73,7 +73,7 @@ When one is essential for diagnosis, disclose it deliberately under
 
 The sidebar names the `Operations` environment once, separates actionable `Triage` from read-only `Monitor` navigation, and keeps the account trigger person-first. Brand text does not appear inside the account trigger.
 
-`Triage` contains contributions, edges, observations, vocabulary, and retailer applications. `Monitor` contains queue overview, decision history, and commerce signals. Admins also receive a `Manage` group with the read-only operator directory; it does not expose access mutations until those actions can be audited under the console trust boundary.
+`Triage` contains contributions, edges, observations, vocabulary, and retailer applications. `Monitor` contains queue overview, decision history, and commerce signals. Admins also receive a `Manage` group with the operator directory. Its email invitations and access changes use the separately audited lifecycle accepted in ADR 0007; it is not a generic settings surface.
 
 Desktop sidebar identity, context, group labels, links, and selected links use medium weight. Selection is communicated by tone and surface, not a heavier face. Semibold is reserved for the small avatar initials, where compact glyphs need additional clarity.
 
