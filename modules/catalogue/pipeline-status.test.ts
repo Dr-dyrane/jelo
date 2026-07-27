@@ -40,6 +40,11 @@ test('reports pipeline stages without presenting discovery leads as live product
   assert.equal(status.liveProductCount, 15);
   assert.equal(status.retailerDiscoveryLeadCount, 1_000);
   assert.equal(status.exactNigeriaOfferReadyCount, 2);
+  assert.equal(status.identityResolvedPrivateCount, 3);
+  assert.deepEqual(
+    status.identityResolvedPrivateCandidateIds,
+    ['closest', 'needs-art', 'needs-market'],
+  );
   assert.equal(status.almostReadyCount, 1);
   assert.deepEqual(status.almostReadyCandidateIds, ['closest']);
 });

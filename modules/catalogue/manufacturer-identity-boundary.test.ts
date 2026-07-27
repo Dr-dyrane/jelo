@@ -153,6 +153,82 @@ function manufacturerCandidate(source: string) {
   } as unknown as CatalogueIntakeCandidate;
 }
 
+function manufacturerJsonCandidate(source: string) {
+  const extraction: CatalogueManufacturerSkuIdentityExtraction = {
+    schemaVersion: catalogueManufacturerSkuIdentityExtractionSchemaVersion,
+    candidateId,
+    sourceUrl: officialProductUrl,
+    responseUrl: `${officialProductUrl}.js?country=NG&currency=NGN&v=2`,
+    retrievedAt: '2026-07-22T07:55:00Z',
+    productRecord: retainedRecord(source, source, 'Complete official Shopify product response'),
+    fields: {
+      manufacturerBrand: {
+        value: 'CeraVe',
+        locator: 'Official product response vendor field',
+        sourceText: '"vendor":"CeraVe"',
+      },
+      manufacturerSku: {
+        value: 'CER-BARRIER-400-A',
+        label: 'SKU',
+        locator: 'Official product response variants[0].sku',
+        sourceText: '"sku":"CER-BARRIER-400-A"',
+      },
+      variant: {
+        value: 'Example Barrier Lotion',
+        locator: 'Official product response title field',
+        sourceText: '"title":"Example Barrier Lotion"',
+      },
+      size: {
+        value: '400 ml',
+        locator: 'Official product response option value',
+        sourceText: '"option1":"400 ml"',
+      },
+      packageVersion: {
+        value: 'Pump bottle 400 ml',
+        locator: 'Official product response package version field',
+        sourceText: '"package_version":"Pump bottle 400 ml"',
+      },
+      gtinPublicationStatus: {
+        value: 'not-published',
+        locator: 'Official product response variants[0].barcode null field',
+        sourceText: '"sku":"CER-BARRIER-400-A","barcode":null',
+      },
+    },
+    sourceResponseSha256: sha256(source),
+    sourceResponseMimeType: 'text/javascript',
+    sourceResponseByteSize: Buffer.byteLength(source),
+    sourceSnapshotPath: `data/catalogue-identity-source-evidence/${candidateId}.json`,
+    responseDigestScope: 'decoded-response-body',
+    method: 'reviewed-exact-official-manufacturer-sku-response',
+    reviewer: 'Identity reviewer',
+    reviewedAt: '2026-07-22T07:58:00Z',
+  };
+  const evidence: CatalogueOfficialManufacturerSkuIdentityEvidence = {
+    identityKind: 'manufacturer-sku',
+    url: officialProductUrl,
+    observedManufacturerSku: 'CER-BARRIER-400-A',
+    observedManufacturerSkuLabel: 'SKU',
+    observedVariant: 'Example Barrier Lotion',
+    observedSize: '400 ml',
+    observedPackageVersion: 'Pump bottle 400 ml',
+    snapshotKind: 'canonical-extraction',
+    snapshotPath: `data/catalogue-identity-evidence/${candidateId}.json`,
+    snapshotSha256: catalogueIdentityExtractionSha256(extraction),
+    snapshotMimeType: 'application/json',
+    snapshotByteSize: catalogueIdentityExtractionByteSize(extraction),
+    retrievedAt: extraction.retrievedAt,
+    canonicalExtraction: extraction,
+  };
+  return {
+    id: candidateId,
+    brand: 'CeraVe',
+    variant: 'Example Barrier Lotion',
+    size: '400 ml',
+    identity: { officialEvidence: evidence },
+    nigeria: { exactOffers: [] },
+  } as unknown as CatalogueIntakeCandidate;
+}
+
 async function writeIdentityArtifacts(
   repositoryRoot: string,
   candidate: CatalogueIntakeCandidate,
@@ -302,5 +378,50 @@ test('artifact verification rejects incidental brand prose and structured identi
   assert.equal(
     await verifyCatalogueIdentityEvidenceArtifacts([proseCandidate], repositoryRoot),
     1,
+  );
+});
+
+test('artifact verification retains an exact official JSON product response without synthetic DOM', async t => {
+  const repositoryRoot = await mkdtemp(
+    path.join(os.tmpdir(), 'jelocare-manufacturer-json-artifacts-'),
+  );
+  t.after(() => rm(repositoryRoot, { recursive: true, force: true }));
+
+  const source = JSON.stringify({
+    id: 123,
+    title: 'Example Barrier Lotion',
+    vendor: 'CeraVe',
+    package_version: 'Pump bottle 400 ml',
+    variants: [{
+      id: 456,
+      title: '400 ml',
+      option1: '400 ml',
+      sku: 'CER-BARRIER-400-A',
+      barcode: null,
+    }],
+  });
+  const candidate = manufacturerJsonCandidate(source);
+  await writeIdentityArtifacts(repositoryRoot, candidate, source);
+  assert.equal(
+    await verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot),
+    1,
+  );
+
+  const contradictorySource = source.replace(
+    '"barcode":null',
+    '"barcode":null,"gtin13":"4005808319695"',
+  );
+  const contradictoryCandidate = manufacturerJsonCandidate(contradictorySource);
+  await writeIdentityArtifacts(
+    repositoryRoot,
+    contradictoryCandidate,
+    contradictorySource,
+  );
+  await assert.rejects(
+    () => verifyCatalogueIdentityEvidenceArtifacts(
+      [contradictoryCandidate],
+      repositoryRoot,
+    ),
+    /publishes another identifier/,
   );
 });

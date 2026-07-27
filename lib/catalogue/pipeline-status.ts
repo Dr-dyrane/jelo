@@ -7,6 +7,8 @@ export type CataloguePipelineStatus = {
   retailerDiscoveryLeadCount: number;
   researchPriorityCount: number;
   deliberateIntakeCount: number;
+  identityResolvedPrivateCount: number;
+  identityResolvedPrivateCandidateIds: string[];
   identityAndCareReadyCount: number;
   exactNigeriaOfferReadyCount: number;
   almostReadyCount: number;
@@ -42,6 +44,10 @@ export function buildCataloguePipelineStatus(
     && decision.freshExactOffers.length > 0
     && decision.blockers.length === 1
   ));
+  const identityResolvedPrivate = decisions.filter(decision => (
+    decision.stage !== 'identity'
+    && !decision.approvalDraftReady
+  ));
   return {
     liveProductCount: nonNegativeInteger(counts.liveProductCount, 'Live product count'),
     reviewedResearchCount: nonNegativeInteger(counts.reviewedResearchCount, 'Reviewed research count'),
@@ -49,6 +55,9 @@ export function buildCataloguePipelineStatus(
     retailerDiscoveryLeadCount: nonNegativeInteger(counts.retailerDiscoveryLeadCount, 'Retailer discovery lead count'),
     researchPriorityCount: nonNegativeInteger(counts.researchPriorityCount, 'Research priority count'),
     deliberateIntakeCount: decisions.length,
+    identityResolvedPrivateCount: identityResolvedPrivate.length,
+    identityResolvedPrivateCandidateIds:
+      identityResolvedPrivate.map(decision => decision.candidate.id),
     identityAndCareReadyCount: decisions.filter(decision => !['identity', 'care'].includes(decision.stage)).length,
     exactNigeriaOfferReadyCount: decisions.filter(decision => decision.freshExactOffers.length > 0).length,
     almostReadyCount: almostReady.length,

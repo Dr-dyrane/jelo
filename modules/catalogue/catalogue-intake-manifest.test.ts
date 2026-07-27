@@ -20,7 +20,7 @@ import {
 const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 36);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 37);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
@@ -32,8 +32,8 @@ test('the deliberate intake cohort exposes readiness without treating NAFDAC as 
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 36);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 3);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 36);
@@ -147,12 +147,84 @@ test('community-priority Simple and DANG leads preserve live evidence without by
   assert.equal(azelaic.nigeria.excludedObservations[0]?.priceNgn, 20_421.5);
   assert.equal(niacinamide.identity.gtin, undefined);
   assert.equal(sunscreen.identity.gtin, undefined);
+  assert.equal(sunscreen.brand, 'Dang Lifestyle');
+  assert.deepEqual(sunscreen.identity.canonicalIdentifier, {
+    kind: 'manufacturer-sku',
+    value: 'DGL-SKC-051',
+    label: 'SKU',
+  });
+  assert.equal(
+    sunscreen.identity.officialEvidence?.canonicalExtraction.sourceResponseMimeType,
+    'text/javascript',
+  );
+  assert.equal(
+    sunscreen.identity.officialEvidence?.canonicalExtraction.sourceResponseSha256,
+    '6b0d07884cfb50b685ff723064642656d6e339e261e257ebf586de11ef112202',
+  );
+  assert.equal(sunscreen.identity.officialEvidence?.observedPackageVersion,
+    'Current turquoise carton with inverted turquoise tube');
+  assert.equal(sunscreen.identity.officialProductCrosswalk?.canonicalManufacturerProductKey.value,
+    'DGL-SKC-051');
+  assert.equal(sunscreen.identity.officialProductCrosswalk?.schemaVersion, 2);
+  assert.equal(sunscreen.nigeria.exactOffers.length, 0);
+  assert.equal(sunscreen.asset.rightsStatus, 'unresolved');
   assert.equal(niacinamide.nigeria.excludedObservations[0]?.retailer, 'Bracketts Beauty');
   assert.equal(sunscreen.nigeria.excludedObservations[0]?.priceNgn, 27_500);
   assert.equal(evaluateCatalogueIntakeCandidate(simple, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');
   assert.equal(evaluateCatalogueIntakeCandidate(azelaic, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');
   for (const candidate of [simple, azelaic, niacinamide, sunscreen]) {
     assert.equal(evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T15:20:00Z')).approvalDraftReady, false);
+  }
+  const sunscreenDecision = evaluateCatalogueIntakeCandidate(
+    sunscreen,
+    Date.parse('2026-07-27T15:10:00Z'),
+  );
+  assert.equal(sunscreenDecision.stage, 'care');
+  assert.equal(
+    sunscreenDecision.blockers.includes('identity-official-evidence-invalid'),
+    false,
+  );
+  assert.equal(sunscreenDecision.freshExactOffers.length, 0);
+  assert.equal(sunscreenDecision.approvalDraftReady, false);
+});
+
+test('the DANG manufacturer response route rejects unreviewed query and MIME widening', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'dang-hydra-glow-sun-protection-gel-60ml'
+  ));
+  assert.ok(candidate);
+  const evidence = candidate.identity.officialEvidence;
+  assert.ok(evidence && evidence.identityKind === 'manufacturer-sku');
+  if (!evidence || evidence.identityKind !== 'manufacturer-sku') return;
+  const extraction = evidence.canonicalExtraction;
+  assert.equal(extraction.schemaVersion, 8);
+  if (extraction.schemaVersion !== 8) return;
+
+  for (const changedExtraction of [
+    {
+      ...extraction,
+      responseUrl: `${extraction.sourceUrl}.js?country=NG&currency=NGN&v=2&preview=true`,
+    },
+    {
+      ...extraction,
+      sourceResponseMimeType: 'text/plain' as never,
+    },
+  ]) {
+    const changedEvidence = {
+      ...evidence,
+      canonicalExtraction: changedExtraction,
+      snapshotSha256: catalogueIdentityExtractionSha256(changedExtraction),
+      snapshotByteSize: catalogueIdentityExtractionByteSize(changedExtraction),
+    };
+    const decision = evaluateCatalogueIntakeCandidate({
+      ...candidate,
+      identity: {
+        ...candidate.identity,
+        officialEvidence: changedEvidence,
+      },
+    }, Date.parse('2026-07-27T15:10:00Z'));
+    assert.equal(decision.stage, 'identity');
+    assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
   }
 });
 
@@ -286,7 +358,8 @@ test('a bot-protected Dove page advances through a hash-bound browser DOM review
 
   const tampered = structuredClone(candidate);
   const tamperedExtraction = tampered.identity.officialEvidence!.canonicalExtraction;
-  assert.ok('browserCapture' in tamperedExtraction);
+  assert.ok('browserCapture' in tamperedExtraction && tamperedExtraction.browserCapture);
+  if (!('browserCapture' in tamperedExtraction) || !tamperedExtraction.browserCapture) return;
   tamperedExtraction.browserCapture.documentReadyState = 'interactive' as never;
   tampered.identity.officialEvidence!.snapshotSha256 = catalogueIdentityExtractionSha256(tamperedExtraction);
   tampered.identity.officialEvidence!.snapshotByteSize = catalogueIdentityExtractionByteSize(tamperedExtraction);

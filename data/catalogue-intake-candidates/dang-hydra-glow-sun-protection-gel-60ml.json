@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T22:35:00Z",
+  "updatedAt": "2026-07-27T15:04:52Z",
   "order": 34,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -9,12 +9,12 @@
   },
   "candidate": {
     "id": "dang-hydra-glow-sun-protection-gel-60ml",
-    "brand": "DANG",
+    "brand": "Dang Lifestyle",
     "name": "Hydra Glow Sun Protection Gel",
     "variant": "Hydra Glow Sun Protection Gel-60ml",
     "size": "60 ml",
     "category": "Face care",
-    "reason": "Community-priority daily sunscreen candidate. The official 60 ml SPF 50+ PA+++ page supplies an internal SKU but no public GTIN, EAN, UPC or barcode, so no retailer price may become an exact identity-bound offer. Bracketts Beauty and BuyBetter remain retained retailer-local-SKU observations. Beauty Hut Africa was also checked on 2026-07-26: its direct page showed ₦26,900 and in stock, but it is not yet in the reviewed retailer directory, so it remains demand evidence rather than a validator-recognised market observation.",
+    "reason": "Community-priority daily sunscreen candidate. The exact official 60 ml product response now binds the Dang Lifestyle manufacturer SKU and a null barcode to the current package. Nigerian retailer observations remain excluded until an exact manufacturer-SKU offer correlation is reviewed; the official response reported the product unavailable at capture time, which is not a Nigerian market release signal.",
     "priority": "essential",
     "gapIds": [
       "daily-sun-protection",
@@ -26,17 +26,114 @@
       "https://buybetter.ng/product/dang-hydra-glow-sun-protection-gel-60ml/"
     ],
     "identity": {
-      "officialProductUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml?v=c6a82504ceeb",
-      "checkedAt": "2026-07-26T15:20:00Z",
-      "basis": "official-brand"
+      "officialProductUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml",
+      "checkedAt": "2026-07-27T15:04:52Z",
+      "basis": "official-brand",
+      "packageVersion": "Current turquoise carton with inverted turquoise tube",
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-051",
+        "label": "SKU"
+      },
+      "officialProductCrosswalk": {
+        "schemaVersion": 2,
+        "canonicalManufacturerProductKey": {
+          "basis": "manufacturer-sku",
+          "value": "DGL-SKC-051",
+          "manufacturerHost": "danglifestyle.co",
+          "sourceLocator": "Official Shopify product response variants[0].sku",
+          "sourceText": "\"sku\":\"DGL-SKC-051\"",
+          "sourceTextSha256": "f35ac1619972a08152db0795e7a81eb4cf636e4c7f8319444a87202fc41cf0c8"
+        },
+        "officialSourceResponseSha256": "6b0d07884cfb50b685ff723064642656d6e339e261e257ebf586de11ef112202",
+        "officialProductUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml",
+        "variant": "Hydra Glow Sun Protection Gel-60ml",
+        "size": "60 ml",
+        "packageVersion": "Current turquoise carton with inverted turquoise tube"
+      },
+      "officialEvidence": {
+        "identityKind": "manufacturer-sku",
+        "url": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml",
+        "observedManufacturerSku": "DGL-SKC-051",
+        "observedManufacturerSkuLabel": "SKU",
+        "observedVariant": "Hydra Glow Sun Protection Gel-60ml",
+        "observedSize": "60 ml",
+        "observedPackageVersion": "Current turquoise carton with inverted turquoise tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/dang-hydra-glow-sun-protection-gel-60ml.json",
+        "snapshotSha256": "99993b4d0f2b6707939bbe5d2db5146e4c2205b0d0a0810e86a2cf3ca47e50f2",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 11545,
+        "retrievedAt": "2026-07-27T14:57:18Z",
+        "canonicalExtraction": {
+          "schemaVersion": 8,
+          "candidateId": "dang-hydra-glow-sun-protection-gel-60ml",
+          "sourceUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml",
+          "responseUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml.js?country=NG&currency=NGN&v=2",
+          "retrievedAt": "2026-07-27T14:57:18Z",
+          "productRecord": {
+            "locator": "Complete official Shopify product response root object",
+            "byteStart": 0,
+            "byteEnd": 8007,
+            "sourceText": "{\"id\":10201188008184,\"title\":\"Hydra Glow Sun Protection Gel-60ml\",\"handle\":\"hydra-glow-sun-protection-gel-60ml\",\"description\":\"Protect your skin with this transparent sunscreen for the face, uniquely formulated to give you maximum protection, deep hydration, and a flawless finish without an embarrassing white cast.\\n\\nIt is also enriched with hyaluronic acid, essential antioxidants, and an impressive SPF 50+ PA+++ rating. This gel shields your skin from 98% of harmful UVA and UVB rays. Step out in confidence, fully protected and with your glow on!\\n\\nKeep your skin fully protected with our full range of\\u003ca href=\\\"https:\\/\\/danglifestyle.co\\/product-category\\/skincare\\/sunscreens\\\"\\u003e sunscreens\\u003c\\/a\\u003e.\\n\\u003ch2\\u003e\\u003cstrong\\u003eIngredients In This Transparent Sunscreen For Face\\u003c\\/strong\\u003e\\u003c\\/h2\\u003e\\nHomosolate, Tinosorb S, Amiloxate, Bis-Ethylhexyloxphenol, Isoamyl P-Methoxycinnamate, Methoxphenyl Triazine, Octisalate, Avobenzone, Aqua, Glycerin, Caprylyl Methicone, Ethylhexyl Triazone, Butyloctyl Salicylate, Tocopheryl Acetate, Pentylene Glycol, Hyaluronic Acid Acrylates\\/Dimethicone Copolymer, Hydroxymethoxphenyl Decanone, Phenoxyethanol, Silica, Disodium EDTA, Chlorphenesin, and Glyceryl Stearate.\\n\\n\\u003cstrong\\u003eN\\/B:\\u003c\\/strong\\u003e Every ingredient list is specific to an individual product reference. All formulas are subject to change. While we endeavour to keep this ingredient list accurate, please also refer to the product’s outer packaging ingredient list for a complete, accurate, and up-to-date list.\\n\\u003ch3\\u003e\\u003cb\\u003eWhy Choose The HydraGlow Sun Protection Gel\\u003c\\/b\\u003e\\u003c\\/h3\\u003e\\n\\u003cul\\u003e\\n \\t\\u003cli\\u003e\\n\\u003cstrong\\u003eBroad-Spectrum Protection\\u003c\\/strong\\u003e: With an impressive SPF 50+ PA+++ rating, this gel shields your skin from 98% of harmful UVA and UVB rays, ensuring over 500 hours of sun protection.\\u003c\\/li\\u003e\\n \\t\\u003cli\\u003e\\n\\u003cstrong\\u003eHyaluronic Acid:\\u003c\\/strong\\u003e This sunscreen is enriched with hyaluronic acid. This locks in moisture, leaving your skin feeling soft, supple, and deeply hydrated.\\u003c\\/li\\u003e\\n \\t\\u003cli\\u003e\\n\\u003cstrong\\u003eAntioxidant Power:\\u003c\\/strong\\u003e Infused with powerful antioxidants, it helps combat free radicals, reducing the appearance of fine lines and wrinkles, and promoting healthier, more youthful-looking skin.\\u003c\\/li\\u003e\\n \\t\\u003cli\\u003e\\n\\u003cstrong\\u003eSuitable for all Skin Types: \\u003c\\/strong\\u003eThis water-based, clear sunscreen for face is suitable for all skin types.\\u003c\\/li\\u003e\\n\\u003c\\/ul\\u003e\\n\\u003cstrong\\u003eHow To Use \\u003c\\/strong\\u003e\\n\\u003cul\\u003e\\n \\t\\u003cli\\u003eCleanse your face with a \\u003ca title=\\\"Face wash\\\" href=\\\"https:\\/\\/danglifestyle.co\\/product\\/hydrating-face-wash\\/\\\"\\u003eface wash\\u003c\\/a\\u003e of your choice.\\u003c\\/li\\u003e\\n \\t\\u003cli\\u003eTo enhance the effectiveness of your product, go in with your preferred \\u003ca title=\\\"face toner \\\" href=\\\"https:\\/\\/danglifestyle.co\\/product\\/hydrating-face-toner\\/\\\"\\u003eface toner.\\u003c\\/a\\u003e\\n\\u003c\\/li\\u003e\\n \\t\\u003cli\\u003eYou should also consider including a \\u003ca title=\\\"face serums\\\" href=\\\"https:\\/\\/danglifestyle.co\\/product\\/collagen-serum\\/\\\"\\u003eface serum\\u003c\\/a\\u003e that targets specific skin issues, followed by your desired \\u003ca title=\\\"face moisturizer.\\\" href=\\\"https:\\/\\/danglifestyle.co\\/product\\/ceramide-cream-for-face\\/\\\"\\u003eface moisturizer.\\u003c\\/a\\u003e A well-known ingredient that pairs well with hyaluronic acid is niacinamide.\\u003c\\/li\\u003e\\n \\t\\u003cli\\u003eNow, this sunscreen should be the last step in your morning routine. Squeeze this sun gel onto your index, middle and ring fingers and apply it to all exposed areas (face, neck, and arms).\\u003c\\/li\\u003e\\n \\t\\u003cli\\u003eApply 15-30 minutes before going outside.\\u003c\\/li\\u003e\\n\\u003c\\/ul\\u003e\\n\\u003cstrong\\u003eReapply as Needed: \\u003c\\/strong\\u003eReapply every 2 hours or immediately after swimming or sweating.\\n\\n\\u003cstrong\\u003eCombine with Your Routine:\\u003c\\/strong\\u003e Use this clear sunscreen for your face as part of your daily skincare routine for enhanced hydration and protection.\\n\\nSize\\n\\n60ml\\n\\n\\u003cstrong\\u003eShelf Life\\u003c\\/strong\\u003e\\n\\n1 year from the date of first use.\\n\\u003ch3\\u003eFAQs: Transparent Sunscreen\\u003c\\/h3\\u003e\\n\\u003ch4\\u003eWhat is this transparent sunscreen, and how does it differ from regular sunscreen?\\u003c\\/h4\\u003e\\nClear sunscreen is formulated to be transparent upon application, avoiding the white cast that traditional mineral sunscreens can leave on the skin. It typically uses chemical filters that absorb UV rays rather than physical blockers like zinc oxide or titanium dioxide.\\n\\u003ch4\\u003eIs this transparent sunscreen effective against both UVA and UVB rays?\\u003c\\/h4\\u003e\\nYes, most clear sunscreens are designed to provide broad-spectrum protection, which means they defend against both UVA rays (which contribute to skin ageing) and UVB rays (which cause sunburn)\\n\\u003ch4\\u003eCan I wear makeup over this transparent sunscreen?\\u003c\\/h4\\u003e\\nYes, many clear sunscreens are designed to be lightweight and non-greasy, making them suitable as a base under makeup. Some products even enhance makeup application by providing a smooth finish.\\n\\u003ch4\\u003eDoes this clear sunscreen clog pores or cause breakouts?\\u003c\\/h4\\u003e\\nMany clear sunscreens are formulated to be non-comedogenic, meaning they are less likely to clog pores. However, it is essential to choose products labelled as oil-free and suitable for acne-prone skin if you are concerned about breakouts.\",\"published_at\":\"2026-07-13T07:39:53+01:00\",\"created_at\":\"2026-07-09T10:56:03+01:00\",\"vendor\":\"Dang Lifestyle\",\"type\":\"Skincare \\u003e Anti-Aging\",\"tags\":[\"sunscreen\"],\"price\":2500000,\"price_min\":2500000,\"price_max\":2500000,\"available\":false,\"price_varies\":false,\"compare_at_price\":null,\"compare_at_price_min\":0,\"compare_at_price_max\":0,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931556913400,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-051\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":false,\"name\":\"Hydra Glow Sun Protection Gel-60ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":2500000,\"weight\":600,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0837\\/2181\\/4264\\/files\\/Hydra-Glow-Protection-scaled.jpg?v=1783924796\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0837\\/2181\\/4264\\/files\\/Hydraglow.webp?v=1783924795\"],\"featured_image\":\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0837\\/2181\\/4264\\/files\\/Hydra-Glow-Protection-scaled.jpg?v=1783924796\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"\\/products\\/hydra-glow-sun-protection-gel-60ml\",\"media\":[{\"alt\":\"Hydra Glow Sun Protection Gel-60ml\",\"id\":41531937259768,\"position\":1,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2560,\"width\":2560,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0837\\/2181\\/4264\\/files\\/Hydra-Glow-Protection-scaled.jpg?v=1783924796\"},\"aspect_ratio\":1.0,\"height\":2560,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0837\\/2181\\/4264\\/files\\/Hydra-Glow-Protection-scaled.jpg?v=1783924796\",\"width\":2560},{\"alt\":\"Hydra Glow Sun Protection Gel-60ml\",\"id\":41531937292536,\"position\":2,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1000,\"width\":1000,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0837\\/2181\\/4264\\/files\\/Hydraglow.webp?v=1783924795\"},\"aspect_ratio\":1.0,\"height\":1000,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0837\\/2181\\/4264\\/files\\/Hydraglow.webp?v=1783924795\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}",
+            "sourceFragmentSha256": "6b0d07884cfb50b685ff723064642656d6e339e261e257ebf586de11ef112202"
+          },
+          "fields": {
+            "manufacturerBrand": {
+              "value": "Dang Lifestyle",
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor Dang Lifestyle"
+            },
+            "manufacturerSku": {
+              "value": "DGL-SKC-051",
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"DGL-SKC-051\""
+            },
+            "variant": {
+              "value": "Hydra Glow Sun Protection Gel-60ml",
+              "locator": "Official Shopify product response title",
+              "sourceText": "Hydra Glow Sun Protection Gel-60ml"
+            },
+            "size": {
+              "value": "60ml",
+              "locator": "Official Shopify product response title size suffix",
+              "sourceText": "Hydra Glow Sun Protection Gel-60ml"
+            },
+            "packageVersion": {
+              "value": "Current turquoise carton with inverted turquoise tube",
+              "locator": "Official Shopify product response media[0].src, visually reviewed",
+              "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hydra-Glow-Protection-scaled.jpg?v=1783924796",
+              "reviewedMedia": {
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hydra-Glow-Protection-scaled.jpg?v=1783924796",
+                "sourceAssetUrl": "https://danglifestyle.co/cdn/shop/files/Hydra-Glow-Protection-scaled.jpg?v=1783924796&width=2048",
+                "sourceAssetSha256": "b3a62b77974f4b8091c849a72c7310ad9380950a076248fcc39d44d5ed8d74df"
+              }
+            },
+            "gtinPublicationStatus": {
+              "value": "not-published",
+              "locator": "Complete official response structured identifier scan and variants[0].barcode",
+              "sourceText": "{\"id\":49931556913400,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-051\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":false,\"name\":\"Hydra Glow Sun Protection Gel-60ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":2500000,\"weight\":600,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}"
+            }
+          },
+          "sourceResponseSha256": "6b0d07884cfb50b685ff723064642656d6e339e261e257ebf586de11ef112202",
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseByteSize": 8007,
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-hydra-glow-sun-protection-gel-60ml.json",
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "reviewer": "JeloCare catalogue identity review",
+          "reviewedAt": "2026-07-27T15:04:52Z"
+        }
+      }
     },
     "care": {
       "status": "pending",
-      "formulaArchetype": "Manufacturer-stated sunscreen gel with Homosalate, Tinosorb S, Amiloxate, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Octisalate, Avobenzone, Ethylhexyl Triazone, glycerin and hyaluronic acid. Formula lists can change; the current official package and page are the only product-specific source retained here.",
+      "formulaArchetype": "The current exact official response lists Homosolate, Tinosorb S, Amiloxate, Bis-Ethylhexyloxphenol, Isoamyl P-Methoxycinnamate, Methoxphenyl Triazine, Octisalate, Avobenzone, Aqua, Glycerin, Caprylyl Methicone, Ethylhexyl Triazone, Butyloctyl Salicylate, Tocopheryl Acetate, Pentylene Glycol, Hyaluronic Acid Acrylates/Dimethicone Copolymer, Hydroxymethoxphenyl Decanone, Phenoxyethanol, Silica, Disodium EDTA, Chlorphenesin, and Glyceryl Stearate. Formula lists can change; the package remains the current source of truth.",
       "advisoryBoundary": "Sun-protection education only. SPF 50+ PA+++ and transparent-finish language are manufacturer-stated, not independently verified by JeloCare. Use the final AM step, apply before sun exposure, and reapply every two hours and after swimming or sweating as the manufacturer directs; do not infer suitability or protection performance from an unbound retailer listing.",
-      "manufacturerEvidenceUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml?v=c6a82504ceeb",
+      "manufacturerEvidenceUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml",
       "evidenceUrls": [
-        "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml?v=c6a82504ceeb"
+        "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml"
       ]
     },
     "nigeria": {
@@ -156,7 +253,7 @@
       ]
     },
     "asset": {
-      "rightsStatus": "documented",
+      "rightsStatus": "unresolved",
       "origin": "owned-identity-verified-render",
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/cdn/shop/files/Hydra-Glow-Protection-scaled.jpg?v=1783924796&width=2048",

@@ -27,6 +27,7 @@ else {
     retailerDiscoveryLeads: status.retailerDiscoveryLeadCount,
     prioritizedResearch: status.researchPriorityCount,
     deliberateIntake: status.deliberateIntakeCount,
+    identityResolvedPrivate: status.identityResolvedPrivateCount,
     identityAndCareReady: status.identityAndCareReadyCount,
     exactNigeriaOfferReady: status.exactNigeriaOfferReadyCount,
     almostReady: status.almostReadyCount,
@@ -36,5 +37,10 @@ else {
   });
   if (status.almostReadyCandidateIds.length) {
     console.log(`Almost ready: ${status.almostReadyCandidateIds.join(', ')}`);
+  }
+  if (status.identityResolvedPrivateCandidateIds.length) {
+    console.log(
+      `Identity resolved, still private: ${status.identityResolvedPrivateCandidateIds.join(', ')}`,
+    );
   }
 }

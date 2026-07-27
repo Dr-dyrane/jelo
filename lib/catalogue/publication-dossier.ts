@@ -158,34 +158,47 @@ function cloneOfficialIdentityExtraction(
   extraction: CatalogueOfficialIdentityExtraction,
 ): CatalogueOfficialIdentityExtraction {
   if (extraction.schemaVersion === catalogueManufacturerSkuIdentityExtractionSchemaVersion) {
+    const fields = {
+      manufacturerBrand: { ...extraction.fields.manufacturerBrand },
+      ...(extraction.fields.manufacturerBrandAliases
+        ? {
+          manufacturerBrandAliases:
+            extraction.fields.manufacturerBrandAliases.map(alias => ({ ...alias })),
+        }
+        : {}),
+      manufacturerSku: { ...extraction.fields.manufacturerSku },
+      variant: { ...extraction.fields.variant },
+      size: { ...extraction.fields.size },
+      packageVersion: {
+        ...extraction.fields.packageVersion,
+        ...(extraction.fields.packageVersion.reviewedMedia
+          ? { reviewedMedia: { ...extraction.fields.packageVersion.reviewedMedia } }
+          : {}),
+      },
+      gtinPublicationStatus: {
+        ...extraction.fields.gtinPublicationStatus,
+        ...(extraction.fields.gtinPublicationStatus.absenceProof
+          ? {
+            absenceProof: {
+              ...extraction.fields.gtinPublicationStatus.absenceProof,
+              searchedTerms: [...extraction.fields.gtinPublicationStatus.absenceProof.searchedTerms],
+            },
+          }
+          : {}),
+      },
+    };
+    if (extraction.sourceResponseMimeType === 'text/html') {
+      return {
+        ...extraction,
+        productRecord: { ...extraction.productRecord },
+        fields,
+        browserCapture: { ...extraction.browserCapture },
+      };
+    }
     return {
       ...extraction,
       productRecord: { ...extraction.productRecord },
-      fields: {
-        manufacturerBrand: { ...extraction.fields.manufacturerBrand },
-        ...(extraction.fields.manufacturerBrandAliases
-          ? {
-            manufacturerBrandAliases:
-              extraction.fields.manufacturerBrandAliases.map(alias => ({ ...alias })),
-          }
-          : {}),
-        manufacturerSku: { ...extraction.fields.manufacturerSku },
-        variant: { ...extraction.fields.variant },
-        size: { ...extraction.fields.size },
-        packageVersion: { ...extraction.fields.packageVersion },
-        gtinPublicationStatus: {
-          ...extraction.fields.gtinPublicationStatus,
-          ...(extraction.fields.gtinPublicationStatus.absenceProof
-            ? {
-              absenceProof: {
-                ...extraction.fields.gtinPublicationStatus.absenceProof,
-                searchedTerms: [...extraction.fields.gtinPublicationStatus.absenceProof.searchedTerms],
-              },
-            }
-            : {}),
-        },
-      },
-      browserCapture: { ...extraction.browserCapture },
+      fields,
     };
   }
   if (extraction.schemaVersion === 6) {

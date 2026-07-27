@@ -183,10 +183,11 @@ function retainedExplicitCatalogueBrandFieldPresent(
 }
 
 function verifyRetainedManufacturerSource(
-  candidateId: string,
+  candidate: CatalogueIntakeCandidate,
   extraction: CatalogueManufacturerSkuIdentityExtraction,
   bytes: Buffer,
 ) {
+  const candidateId = candidate.id;
   if (
     !sha256Pattern.test(extraction.sourceResponseSha256)
     || bytes.byteLength !== extraction.sourceResponseByteSize
@@ -202,23 +203,40 @@ function verifyRetainedManufacturerSource(
   }
   const productRecordSource = retainedRecord.toString('utf8');
   const fields = extraction.fields;
-  if (
-    !retainedExplicitCatalogueBrandFieldPresent(
+  const fieldChecks = {
+    manufacturerBrand: retainedExplicitCatalogueBrandFieldPresent(
       productRecordSource,
       fields.manufacturerBrand,
-    )
-    || !(fields.manufacturerBrandAliases ?? []).every(alias => (
+    ),
+    manufacturerBrandAliases: (fields.manufacturerBrandAliases ?? []).every(alias => (
       retainedExplicitCatalogueBrandFieldPresent(productRecordSource, alias)
-    ))
-    || !retainedExtractionFieldPresent(productRecordSource, fields.manufacturerSku)
-    || !normalizedRetainedText(fields.manufacturerSku.sourceText)
-      .includes(normalizedRetainedText(fields.manufacturerSku.label))
-    || !retainedExtractionFieldPresent(productRecordSource, fields.variant)
-    || !retainedExtractionFieldPresent(productRecordSource, fields.size)
-    || !retainedExtractionFieldPresent(productRecordSource, fields.packageVersion)
-  ) {
+    )),
+    manufacturerSku: (
+      retainedExtractionFieldPresent(productRecordSource, fields.manufacturerSku)
+      && normalizedRetainedText(fields.manufacturerSku.sourceText)
+        .includes(normalizedRetainedText(fields.manufacturerSku.label))
+    ),
+    variant: retainedExtractionFieldPresent(productRecordSource, fields.variant),
+    size: retainedExtractionFieldPresent(productRecordSource, fields.size),
+    packageVersion: fields.packageVersion.reviewedMedia
+      ? (
+        retainedTextSegments(productRecordSource).some(segment => (
+          segment.includes(normalizedRetainedText(fields.packageVersion.sourceText))
+        ))
+        && fields.packageVersion.sourceText === fields.packageVersion.reviewedMedia.sourceUrl
+        && candidate.asset.sourceUrl === fields.packageVersion.reviewedMedia.sourceAssetUrl
+        && candidate.asset.sourceAssetSha256
+          === fields.packageVersion.reviewedMedia.sourceAssetSha256
+      )
+      : retainedExtractionFieldPresent(productRecordSource, fields.packageVersion),
+  };
+  const missingFields = Object.entries(fieldChecks)
+    .filter(([, present]) => !present)
+    .map(([name]) => name);
+  if (missingFields.length > 0) {
     throw new Error(
-      `${candidateId} retained official identity source does not contain every claimed product field.`,
+      `${candidateId} retained official identity source does not contain every claimed product field: `
+      + `${missingFields.join(', ')}.`,
     );
   }
 
@@ -433,7 +451,11 @@ export async function verifyCatalogueIdentityEvidenceArtifacts(
     }
     const extraction = evidence.canonicalExtraction;
     if (extraction.schemaVersion === catalogueManufacturerSkuIdentityExtractionSchemaVersion) {
-      const expectedSourcePath = `data/catalogue-identity-source-evidence/${candidate.id}.html`;
+      const sourceExtension = extraction.sourceResponseMimeType === 'text/html'
+        ? 'html'
+        : 'json';
+      const expectedSourcePath =
+        `data/catalogue-identity-source-evidence/${candidate.id}.${sourceExtension}`;
       if (extraction.sourceSnapshotPath !== expectedSourcePath) {
         throw new Error(`${candidate.id} retained official identity source path is not canonical.`);
       }
@@ -442,7 +464,7 @@ export async function verifyCatalogueIdentityEvidenceArtifacts(
         throw new Error(`${candidate.id} retained official identity source escapes its directory.`);
       }
       const sourceBytes = await readFile(sourcePath);
-      verifyRetainedManufacturerSource(candidate.id, extraction, sourceBytes);
+      verifyRetainedManufacturerSource(candidate, extraction, sourceBytes);
       const officialBrandAliases = (
         extraction.fields.manufacturerBrandAliases ?? []
       ).map(alias => alias.value);

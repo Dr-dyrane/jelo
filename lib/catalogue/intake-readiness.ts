@@ -285,7 +285,7 @@ export type CatalogueAccessibleCorroboratedIdentityExtraction = {
   reviewedAt: string;
 };
 
-export type CatalogueManufacturerSkuIdentityExtraction = {
+type CatalogueManufacturerSkuIdentityExtractionBase = {
   schemaVersion: typeof catalogueManufacturerSkuIdentityExtractionSchemaVersion;
   candidateId: string;
   sourceUrl: string;
@@ -311,7 +311,16 @@ export type CatalogueManufacturerSkuIdentityExtraction = {
     };
     variant: { value: string; locator: string; sourceText: string };
     size: { value: string; locator: string; sourceText: string };
-    packageVersion: { value: string; locator: string; sourceText: string };
+    packageVersion: {
+      value: string;
+      locator: string;
+      sourceText: string;
+      reviewedMedia?: {
+        sourceUrl: string;
+        sourceAssetUrl: string;
+        sourceAssetSha256: string;
+      };
+    };
     gtinPublicationStatus: {
       value: 'not-published';
       locator: string;
@@ -320,20 +329,41 @@ export type CatalogueManufacturerSkuIdentityExtraction = {
     };
   };
   sourceResponseSha256: string;
-  sourceResponseMimeType: 'text/html';
   sourceResponseByteSize: number;
   sourceSnapshotPath: string;
-  responseDigestScope: 'rendered-dom-outerhtml';
-  method: 'reviewed-browser-dom-official-manufacturer-sku-identity';
-  browserCapture: {
-    surface: ReviewedBrowserCaptureSurface;
-    documentReadyState: 'complete';
-    pageTitle: string;
-  };
   supplementalResponses?: never;
   reviewer: string;
   reviewedAt: string;
 };
+
+/**
+ * Schema 8 retains the exact official representation used for a manufacturer-SKU route.
+ *
+ * A rendered product page remains useful when the manufacturer exposes the SKU only in its DOM.
+ * Shopify's canonical `/products/<handle>.js` response is stronger when it publishes `vendor`,
+ * `sku`, and `barcode` as structured fields, so it is retained as exact JSON rather than being
+ * transformed into synthetic HTML. Both routes bind one complete product record and fail closed
+ * when its bytes, URL, record range, or structured identifier scan changes.
+ */
+export type CatalogueManufacturerSkuIdentityExtraction =
+  CatalogueManufacturerSkuIdentityExtractionBase & (
+    | {
+      sourceResponseMimeType: 'text/html';
+      responseDigestScope: 'rendered-dom-outerhtml';
+      method: 'reviewed-browser-dom-official-manufacturer-sku-identity';
+      browserCapture: {
+        surface: ReviewedBrowserCaptureSurface;
+        documentReadyState: 'complete';
+        pageTitle: string;
+      };
+    }
+    | {
+      sourceResponseMimeType: 'application/json' | 'text/javascript';
+      responseDigestScope: 'decoded-response-body';
+      method: 'reviewed-exact-official-manufacturer-sku-response';
+      browserCapture?: never;
+    }
+  );
 
 export type CatalogueOfficialIdentityExtraction =
   | (CatalogueOfficialIdentityExtractionBase & (
@@ -715,6 +745,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   cecred: ['cecred.com'],
   delacruz: ['dlclabs.com'],
   dang: ['danglifestyle.co', 'international.danglifestyle.co'],
+  danglifestyle: ['danglifestyle.co', 'international.danglifestyle.co'],
   dove: ['www.dove.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
@@ -759,6 +790,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   cecred: ['cecred.com'],
   delacruz: ['dlclabs.com'],
   dang: ['danglifestyle.co', 'international.danglifestyle.co'],
+  danglifestyle: ['danglifestyle.co', 'international.danglifestyle.co'],
   dove: ['www.dove.com', 'assets.unileversolutions.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
@@ -1059,6 +1091,91 @@ function normalizedIdentity(candidate: CatalogueIntakeCandidate) {
 function sameUrl(left: string | undefined, right: string | undefined) {
   if (!validHttps(left) || !validHttps(right)) return false;
   return new URL(left ?? '').href === new URL(right ?? '').href;
+}
+
+function exactOfficialManufacturerResponseUrl(
+  extraction: CatalogueManufacturerSkuIdentityExtraction,
+  officialProductUrl: string,
+) {
+  if (!sameUrl(extraction.sourceUrl, officialProductUrl)) return false;
+  if (extraction.sourceResponseMimeType === 'text/html') {
+    return sameUrl(extraction.responseUrl, extraction.sourceUrl);
+  }
+  if (!validHttps(extraction.responseUrl)) return false;
+  const source = new URL(extraction.sourceUrl);
+  const response = new URL(extraction.responseUrl);
+  const productPath = source.pathname.replace(/\/+$/, '');
+  const parameters = Array.from(response.searchParams.entries());
+  const parameterNames = new Set(parameters.map(([name]) => name));
+  const validShopifyLocalization = parameters.length === 0 || (
+    parameters.length === 3
+    && parameterNames.size === 3
+    && parameterNames.has('country')
+    && parameterNames.has('currency')
+    && parameterNames.has('v')
+    && /^[A-Z]{2}$/.test(response.searchParams.get('country') ?? '')
+    && /^[A-Z]{3}$/.test(response.searchParams.get('currency') ?? '')
+    && /^\d+$/.test(response.searchParams.get('v') ?? '')
+  );
+  return source.origin === response.origin
+    && source.search === ''
+    && source.hash === ''
+    && response.pathname === `${productPath}.js`
+    && response.hash === ''
+    && validShopifyLocalization;
+}
+
+function manufacturerIdentityCaptureValid(
+  extraction: CatalogueManufacturerSkuIdentityExtraction,
+) {
+  if (
+    extraction.sourceResponseMimeType === 'application/json'
+    || extraction.sourceResponseMimeType === 'text/javascript'
+  ) {
+    return extraction.responseDigestScope === 'decoded-response-body'
+      && extraction.method === 'reviewed-exact-official-manufacturer-sku-response'
+      && !Object.prototype.hasOwnProperty.call(extraction, 'browserCapture');
+  }
+  return extraction.responseDigestScope === 'rendered-dom-outerhtml'
+    && extraction.method === 'reviewed-browser-dom-official-manufacturer-sku-identity'
+    && reviewedBrowserSurface(extraction.browserCapture.surface)
+    && extraction.browserCapture.documentReadyState === 'complete'
+    && extraction.browserCapture.pageTitle.trim().length >= 3;
+}
+
+function sameShopifyMediaRevision(left: string, right: string) {
+  if (!validHttps(left) || !validHttps(right)) return false;
+  const leftUrl = new URL(left);
+  const rightUrl = new URL(right);
+  const leftFile = leftUrl.pathname.split('/').at(-1);
+  const rightFile = rightUrl.pathname.split('/').at(-1);
+  const leftVersion = leftUrl.searchParams.get('v');
+  const rightVersion = rightUrl.searchParams.get('v');
+  return Boolean(
+    leftFile
+    && leftFile === rightFile
+    && leftVersion
+    && leftVersion === rightVersion,
+  );
+}
+
+function reviewedManufacturerPackageVersionValid(
+  candidate: CatalogueIntakeCandidate,
+  field: CatalogueManufacturerSkuIdentityExtraction['fields']['packageVersion'],
+) {
+  if (normalized(field.sourceText).includes(normalized(field.value))) return true;
+  const media = field.reviewedMedia;
+  return Boolean(
+    media
+    && validHttps(media.sourceUrl)
+    && validHttps(media.sourceAssetUrl)
+    && sameUrl(field.sourceText, media.sourceUrl)
+    && sameShopifyMediaRevision(media.sourceUrl, media.sourceAssetUrl)
+    && hashPattern.test(media.sourceAssetSha256)
+    && reviewedOfficialIdentitySource(candidate, media.sourceAssetUrl)
+    && sameUrl(candidate.asset.sourceUrl, media.sourceAssetUrl)
+    && candidate.asset.sourceAssetSha256 === media.sourceAssetSha256
+  );
 }
 
 function sameBrandOfficialCareSource(candidate: CatalogueIntakeCandidate, evidenceUrl: string | undefined) {
@@ -1426,21 +1543,19 @@ function manufacturerSkuIdentityEvidenceValid(
     && reviewedOfficialIdentitySource(candidate, evidence.url)
     && sameUrl(evidence.url, candidate.identity.officialProductUrl)
     && sameUrl(extraction.sourceUrl, evidence.url)
-    && sameUrl(extraction.responseUrl, extraction.sourceUrl)
+    && exactOfficialManufacturerResponseUrl(extraction, evidence.url)
     && extraction.candidateId === candidate.id
     && extraction.schemaVersion === catalogueManufacturerSkuIdentityExtractionSchemaVersion
-    && extraction.responseDigestScope === 'rendered-dom-outerhtml'
-    && extraction.method === 'reviewed-browser-dom-official-manufacturer-sku-identity'
-    && extraction.sourceResponseMimeType === 'text/html'
+    && manufacturerIdentityCaptureValid(extraction)
     && extraction.sourceSnapshotPath
-      === `data/catalogue-identity-source-evidence/${candidate.id}.html`
+      === (
+        `data/catalogue-identity-source-evidence/${candidate.id}.`
+        + (extraction.sourceResponseMimeType === 'text/html' ? 'html' : 'json')
+      )
     && catalogueRetainedRecordShapeValid(extraction.productRecord)
     && hashPattern.test(extraction.sourceResponseSha256)
     && Number.isSafeInteger(extraction.sourceResponseByteSize)
     && extraction.sourceResponseByteSize > 0
-    && reviewedBrowserSurface(extraction.browserCapture.surface)
-    && extraction.browserCapture.documentReadyState === 'complete'
-    && extraction.browserCapture.pageTitle.trim().length >= 3
     && extraction.retrievedAt === evidence.retrievedAt
     && validPastDate(extraction.retrievedAt, asOf)
     && validPastDate(extraction.reviewedAt, asOf)
@@ -1479,7 +1594,7 @@ function manufacturerSkuIdentityEvidenceValid(
     && identityExtractionFieldValid(packageVersion)
     && candidate.identity.packageVersion?.trim()
     && normalized(packageVersion.value) === normalized(candidate.identity.packageVersion)
-    && normalized(packageVersion.sourceText).includes(normalized(packageVersion.value))
+    && reviewedManufacturerPackageVersionValid(candidate, packageVersion)
     && identityExtractionFieldValid(gtinStatus)
     && gtinStatus.value === 'not-published'
     && (
