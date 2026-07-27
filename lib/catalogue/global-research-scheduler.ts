@@ -4,8 +4,10 @@ import type { CatalogueResearchQueue, CatalogueResearchQueueItem } from './resea
  * A private, read-only projection used to decide what research happens next.
  * It intentionally has no catalogue writer or publication capability.
  */
-export const globalResearchSchedulePolicy = 'community-first-private-research-v1' as const;
+export const globalResearchSchedulePolicy = 'community-products-first-retailer-parallel-v2' as const;
 export const globalResearchPublicationStatus = 'private-research-only' as const;
+export const globalResearchWorkstreams = ['product-catalogue', 'retailer-intelligence'] as const;
+export type GlobalResearchWorkstream = typeof globalResearchWorkstreams[number];
 
 export type ResearchIdentity = {
   /** The canonical JeloCare product slug, never a retailer SKU. */
@@ -38,6 +40,7 @@ export type GlobalResearchScheduleItem =
   | {
     rank: number;
     source: 'community';
+    workstream: GlobalResearchWorkstream;
     identity: ResearchIdentity;
     task: CommunityResearchPriorityTask;
     score: { signalCount: number; lastSeenAt: string };
@@ -46,6 +49,7 @@ export type GlobalResearchScheduleItem =
   | {
     rank: number;
     source: 'static';
+    workstream: 'product-catalogue';
     identity: ResearchIdentity;
     task: StaticResearchPriority;
     staticRank: number;
@@ -57,6 +61,8 @@ export type GlobalResearchSchedule = {
   publicationStatus: typeof globalResearchPublicationStatus;
   generatedFrom: {
     communityTaskCount: number;
+    communityProductTaskCount: number;
+    communityRetailerTaskCount: number;
     staticTaskCount: number;
     deduplicatedCommunityTaskCount: number;
     deduplicatedStaticTaskCount: number;
@@ -134,6 +140,10 @@ function taskKey(task: CommunityResearchPriorityTask) {
   return `task:${task.entityKind}:${normalized(task.entityRef)}:${task.taskKind}`;
 }
 
+function workstreamForCommunity(task: CommunityResearchPriorityTask): GlobalResearchWorkstream {
+  return task.entityKind === 'product' ? 'product-catalogue' : 'retailer-intelligence';
+}
+
 function compareCommunity(left: CommunityResearchPriorityTask, right: CommunityResearchPriorityTask) {
   return right.signalCount - left.signalCount
     || asIsoInstant(right.lastSeenAt) - asIsoInstant(left.lastSeenAt)
@@ -158,10 +168,13 @@ function assertPrivateStaticTask(task: StaticResearchPriority) {
 }
 
 /**
- * Builds the only cross-source priority order. Community material is ordered
- * by independent signal count then recency; unique static discovery priorities
- * retain their checked-in rank after it. The output is deliberately a research
- * projection, never an approval or catalogue input.
+ * Builds the only cross-source priority order for product throughput. Product
+ * requests from the community lead by independent signal count then recency;
+ * unique static product priorities retain their checked-in rank after them.
+ * Retailer work remains visible in the same projection but follows the product
+ * workstream, so a retailer-refresh backlog cannot stall catalogue expansion.
+ * The output is deliberately a research projection, never an approval or
+ * catalogue input.
  */
 export function buildGlobalResearchSchedule(
   communityTasks: readonly CommunityResearchPriorityTask[],
@@ -174,25 +187,32 @@ export function buildGlobalResearchSchedule(
   const items: GlobalResearchScheduleItem[] = [];
   let deduplicatedCommunityTaskCount = 0;
   let deduplicatedStaticTaskCount = 0;
+  const communityProductTasks = communityTasks.filter(task => task.entityKind === 'product');
+  const communityRetailerTasks = communityTasks.filter(task => task.entityKind === 'retailer');
 
-  for (const task of [...communityTasks].sort(compareCommunity)) {
-    assertPrivateCommunityTask(task);
-    const identity = identityForCommunity(task);
-    const keys = [taskKey(task), ...identityKeys(identity)];
-    if (keys.some(key => seen.has(key))) {
-      deduplicatedCommunityTaskCount += 1;
-      continue;
+  function appendCommunity(tasks: readonly CommunityResearchPriorityTask[]) {
+    for (const task of [...tasks].sort(compareCommunity)) {
+      assertPrivateCommunityTask(task);
+      const identity = identityForCommunity(task);
+      const keys = [taskKey(task), ...identityKeys(identity)];
+      if (keys.some(key => seen.has(key))) {
+        deduplicatedCommunityTaskCount += 1;
+        continue;
+      }
+      keys.forEach(key => seen.add(key));
+      items.push({
+        rank: items.length + 1,
+        source: 'community',
+        workstream: workstreamForCommunity(task),
+        identity,
+        task,
+        score: { signalCount: task.signalCount, lastSeenAt: task.lastSeenAt },
+        publicationStatus: globalResearchPublicationStatus,
+      });
     }
-    keys.forEach(key => seen.add(key));
-    items.push({
-      rank: items.length + 1,
-      source: 'community',
-      identity,
-      task,
-      score: { signalCount: task.signalCount, lastSeenAt: task.lastSeenAt },
-      publicationStatus: globalResearchPublicationStatus,
-    });
   }
+
+  appendCommunity(communityProductTasks);
 
   for (const task of staticTasks) {
     assertPrivateStaticTask(task);
@@ -206,6 +226,7 @@ export function buildGlobalResearchSchedule(
     items.push({
       rank: items.length + 1,
       source: 'static',
+      workstream: 'product-catalogue',
       identity,
       task,
       staticRank: task.rank ?? items.length + 1,
@@ -213,11 +234,15 @@ export function buildGlobalResearchSchedule(
     });
   }
 
+  appendCommunity(communityRetailerTasks);
+
   return {
     policy: globalResearchSchedulePolicy,
     publicationStatus: globalResearchPublicationStatus,
     generatedFrom: {
       communityTaskCount: communityTasks.length,
+      communityProductTaskCount: communityProductTasks.length,
+      communityRetailerTaskCount: communityRetailerTasks.length,
       staticTaskCount: staticTasks.length,
       deduplicatedCommunityTaskCount,
       deduplicatedStaticTaskCount,

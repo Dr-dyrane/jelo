@@ -51,6 +51,35 @@ test('community tasks lead by signal count, then recency, before static prioriti
   assert.equal(schedule.items.every(item => item.publicationStatus === 'private-research-only'), true);
 });
 
+test('retailer research remains visible without blocking the product workstream', () => {
+  const schedule = buildGlobalResearchSchedule([
+    community({
+      taskKind: 'retailer-refresh',
+      entityKind: 'retailer',
+      entityRef: 'retailer:example',
+      entityLabel: 'Example retailer',
+      entitySource: 'canonical',
+      signalCount: 20,
+    }),
+    community({
+      entityRef: 'custom:community-product',
+      entityLabel: 'Community product',
+      signalCount: 1,
+    }),
+  ], [staticTask()]);
+
+  assert.deepEqual(schedule.items.map(item => [
+    item.source,
+    item.workstream,
+  ]), [
+    ['community', 'product-catalogue'],
+    ['static', 'product-catalogue'],
+    ['community', 'retailer-intelligence'],
+  ]);
+  assert.equal(schedule.generatedFrom.communityProductTaskCount, 1);
+  assert.equal(schedule.generatedFrom.communityRetailerTaskCount, 1);
+});
+
 test('deduplicates canonical product slugs before static work', () => {
   const schedule = buildGlobalResearchSchedule([
     community({
