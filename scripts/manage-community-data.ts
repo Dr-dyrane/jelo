@@ -137,7 +137,7 @@ async function inspection(sql: Sql) {
       from community_research_tasks task
       join community_research_task_mentions mention on mention.task_id = task.id
       join community_contributions contribution on contribution.id = mention.contribution_id
-      where task.status <> 'dismissed'
+      where task.status in ('pending', 'in-progress')
         and contribution.moderation_status <> 'rejected'
         and contribution.retain_until > now()
       group by task.task_kind

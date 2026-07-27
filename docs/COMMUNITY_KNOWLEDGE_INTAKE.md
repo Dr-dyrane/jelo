@@ -52,6 +52,15 @@ Migration `0015_community_knowledge_intake.sql` keeps drafts, immutable contribu
 
 Migration `0017_community_first_research_queue.sql` makes the research priority durable. Every submitted product and retailer creates a private `community-first` task in the same transaction as the contribution. Existing retained, non-rejected submissions are backfilled. A custom product enters identity research; a product already in the public selector enters price-and-retailer refresh instead of creating a duplicate catalogue record. Repeated submissions add independent task mentions and increase the signal count without bypassing review.
 
+Migration `0023_community_research_resolutions.sql` adds one reviewed terminal
+resolution per product research task: existing canonical product, deliberate
+intake candidate, ambiguous family, bundle, or dismissed duplicate. The row is
+audit-attributed and permanently marked private-research-only with no canonical
+write. `npm run community:research:resolve` is dry-run by default and records the
+decision only with `--apply`; it never authors intake, dossiers, releases, offers,
+images, or products. Later mentions retain the terminal resolution instead of
+silently reopening the task.
+
 ## Metrics
 
 The system can derive completion, time-to-complete, repeat contributions, unknown values, retailers and products discovered. Input events record step, mode and result count. They do not store search queries.
