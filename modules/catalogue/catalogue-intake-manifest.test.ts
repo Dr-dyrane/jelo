@@ -246,6 +246,56 @@ test('the DANG manufacturer response route rejects unreviewed query and MIME wid
   }
 });
 
+test('the DANG manufacturer response requires a canonical one-handle product route', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'dang-hydra-glow-sun-protection-gel-60ml'
+  ));
+  assert.ok(candidate);
+  const evidence = candidate.identity.officialEvidence;
+  assert.ok(evidence && evidence.identityKind === 'manufacturer-sku');
+  if (!evidence || evidence.identityKind !== 'manufacturer-sku') return;
+  const extraction = evidence.canonicalExtraction;
+  assert.equal(extraction.schemaVersion, 8);
+  if (extraction.schemaVersion !== 8) return;
+
+  const validDecision = evaluateCatalogueIntakeCandidate(
+    candidate,
+    Date.parse('2026-07-27T15:10:00Z'),
+  );
+  assert.equal(validDecision.stage, 'care');
+  assert.equal(validDecision.blockers.includes('identity-official-evidence-invalid'), false);
+
+  const nonProductSourceUrl = 'https://danglifestyle.co/collections/not-a-product-route';
+  const changedExtraction = {
+    ...extraction,
+    sourceUrl: nonProductSourceUrl,
+    responseUrl: `${nonProductSourceUrl}.js?country=NG&currency=NGN&v=2`,
+  };
+  const changedEvidence = {
+    ...evidence,
+    url: nonProductSourceUrl,
+    canonicalExtraction: changedExtraction,
+    snapshotSha256: catalogueIdentityExtractionSha256(changedExtraction),
+    snapshotByteSize: catalogueIdentityExtractionByteSize(changedExtraction),
+  };
+  const changedIdentity = {
+    ...candidate.identity,
+    officialProductUrl: nonProductSourceUrl,
+    officialProductCrosswalk: {
+      ...candidate.identity.officialProductCrosswalk!,
+      officialProductUrl: nonProductSourceUrl,
+    },
+    officialEvidence: changedEvidence,
+  };
+  const decision = evaluateCatalogueIntakeCandidate({
+    ...candidate,
+    identity: changedIdentity,
+  }, Date.parse('2026-07-27T15:10:00Z'));
+
+  assert.equal(decision.stage, 'identity');
+  assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
+});
+
 test('the Cécred deep conditioner binds its exact full-size identity, two Nigerian prices and reviewed render', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'cecred-moisturizing-deep-conditioner-300ml');
   assert.ok(candidate);

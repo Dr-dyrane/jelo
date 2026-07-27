@@ -1095,6 +1095,10 @@ function sameUrl(left: string | undefined, right: string | undefined) {
   return new URL(left ?? '').href === new URL(right ?? '').href;
 }
 
+function canonicalOneHandleProductPath(pathname: string) {
+  return /^\/products\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(pathname);
+}
+
 function exactOfficialManufacturerResponseUrl(
   extraction: CatalogueManufacturerSkuIdentityExtraction,
   officialProductUrl: string,
@@ -1122,6 +1126,7 @@ function exactOfficialManufacturerResponseUrl(
   return source.origin === response.origin
     && source.search === ''
     && source.hash === ''
+    && canonicalOneHandleProductPath(productPath)
     && response.pathname === `${productPath}.js`
     && response.hash === ''
     && validShopifyLocalization;
