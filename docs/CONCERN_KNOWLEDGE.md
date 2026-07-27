@@ -18,6 +18,32 @@ Parity does not turn a guide into a diagnosis. Public pattern labels remain obse
 
 Tests must cover the representative pattern, a close alternative, the referral level and timing, and the API boundary (`modelCalls: 0` and no products) for any path that needs human review.
 
+## Prevention and stop-journey additions
+
+Reviewed 2026-07-26. This batch deliberately separates one ordinary prevention need from three observations where shopping must stop.
+
+| Public guide | Boundary | Primary guidance |
+| --- | --- | --- |
+| Daily sun protection | This is an ordinary Face concern, not a condition pattern. A product can appear only when its exact product-care record explicitly approves `daily-sun-protection`; catalogue names, SPF prose and retailer claims do not qualify it. The initial reviewed match is Eucerin Oil Control Sun Gel-Cream Dry Touch SPF 50+. | [AAD · How to apply sunscreen](https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen) |
+| Chemical splash or burn | An acid, alkali, bleach or other corrosive exposure with burning or skin injury routes to emergency first aid. Remove contaminated clothing if safe, brush off dry chemical, rinse under cool or lukewarm running water, and call emergency services. Creams and product browsing stop. | [NHS · Acid and chemical burns](https://www.nhs.uk/conditions/acid-and-chemical-burns/) |
+| Yellow skin or eyes | Yellowing in the skin or whites of the eyes routes to urgent medical assessment without naming a cause. Copy notes that yellow skin may be harder to see on brown or black skin, making the whites of the eyes an important inclusive cue. | [NHS · Jaundice](https://www.nhs.uk/conditions/jaundice/) |
+| Genital sore or unusual discharge | A genital sore, blister or unusual vaginal, penile or anal discharge routes to confidential sexual-health assessment and testing. Symptoms do not establish an infection; testing and clinical context do. | [WHO · Sexually transmitted infections](https://www.who.int/health-topics/sexually-transmitted-infections) and [NHS · Sexually transmitted infections](https://www.nhs.uk/conditions/sexually-transmitted-infections-stis/) |
+
+The three warning guides are observational `condition-pattern` records with `productTerms: []`. Their directed Ask Jelo routes return deterministic care, `modelCalls: 0`, and no products. The sun-protection concern remains matchable, but only through the explicit product-care manifest.
+
+## Fever-and-rash safety cluster
+
+Reviewed 2026-07-26. These two guides close a high-consequence gap where a person might otherwise treat a fever-associated rash as a skincare question.
+
+| Public guide | Boundary | Primary guidance |
+| --- | --- | --- |
+| Fever with a non-fading rash | A rash that does not fade when pressed is an emergency even without every other symptom. Fever with a stiff neck, confusion, a seizure, difficulty waking or a bulging soft spot in a baby also routes to emergency care; the path does not wait for a rash. | [NCDC · Cerebrospinal meningitis advisory](https://www.ncdc.gov.ng/news/535/3rd-march-2026-%7C-public-health-advisory-on-cerebrospinal-meningitis-%28csm%29), [WHO · Meningitis](https://www.who.int/news-room/fact-sheets/detail/meningitis) and [NHS · Meningitis](https://www.nhs.uk/conditions/meningitis/) |
+| Fever with a spreading rash | Fever with cough, a runny nose or red watery eyes followed by a rash beginning on the face or neck and spreading down routes to same-day medical assessment. The person is told to call before arriving and avoid close contact. A seizure, severe breathing difficulty, confusion, inability to stay awake or drink, a stiff neck or a non-fading rash routes to emergency care. | [WHO · Measles](https://www.who.int/news-room/fact-sheets/detail/measles), [NHS · Measles](https://www.nhs.uk/conditions/measles/) and [NCDC · Measles situation report, August 2025](https://www.ncdc.gov.ng/themes/common/files/sitreps/e6d703892b7d429fffc731ea539d1fed.pdf) |
+
+Both are observational `condition-pattern` guides with `productTerms: []`. Their Ask Jelo routes stop model and product output. Copy does not rely on redness: both guides note that a rash can be harder to see on brown or black skin. The measles route does not advise self-starting vitamin A or antibiotics.
+
+This cluster is Nigeria-relevant rather than number-driven. NCDC’s March 2026 advisory describes ongoing cerebrospinal meningitis risk and says bacterial meningitis can become fatal within hours. NCDC’s August 2025 measles report recorded 10,891 confirmed cases and 76 deaths from January through August, with outbreaks in 184 local government areas across 25 states. Those figures set priority; they are not presented as a diagnosis or individual risk estimate.
+
 ## Common cosmetic look-alikes
 
 Reviewed 2026-07-26. Three frequent-looking skincare questions now have explicit non-diagnostic boundaries:
@@ -32,15 +58,18 @@ All three are `condition-pattern` guides with no product terms. Their directed r
 
 ## Foot, nail and changing-mark checks
 
-Reviewed 2026-07-26. This small group closes three common gaps without turning JeloCare into a diagnostic service. Each is an observational `condition-pattern`, has `productTerms: []`, and stops model and catalogue output while a pharmacist or clinician checks the pattern.
+Reviewed 2026-07-26. This small group closes common foot, nail and changing-mark gaps without turning JeloCare into a diagnostic service. Each is an observational `condition-pattern`, has `productTerms: []`, and stops model and catalogue output while a pharmacist or clinician checks the pattern.
 
 | Public guide | Boundary | Primary guidance |
 | --- | --- | --- |
 | Itchy, peeling skin between the toes | Does not call a foot rash an infection. The route distinguishes toe-web itch, white or pale skin, peeling and cracking from a hot, painful or swollen foot, which stays on the same-day path. Diabetes or weakened immunity prompts clinician review. | [NHS · Athlete’s foot](https://www.nhs.uk/conditions/athletes-foot/) |
+| Foot change with diabetes | Requires both diabetes context and an active foot wound or change. A cut, blister, ulcer, colour or temperature change, swelling, leaking wound or visible injury without pain goes to urgent in-person foot assessment; fever with a wound, gangrene-like tissue or a cold pale, blue or black foot goes to emergency hospital care. | [WHO · Diabetes](https://www.who.int/news-room/fact-sheets/detail/diabetes), [NICE · Diabetic foot problems](https://www.nice.org.uk/guidance/ng19/chapter/Recommendations), and [NHS England · Looking after a diabetic foot ulcer](https://www.england.nhs.uk/north/wp-content/uploads/sites/5/2018/12/Looking-after-your-Diabetic-Foot-Ulcer.pdf) |
 | Thick or discoloured nail | Does not call every nail change fungal. It keeps dark or changing bands, around-nail pigment, splitting and a new bump on the prompt skin-examination path; pregnancy, breastfeeding, childhood, diabetes, immune suppression, pain or spread need clinician review. | [NHS · Fungal nail infection](https://www.nhs.uk/conditions/Fungal-nail-infection/) and [AAD · Nail fungus signs](https://www.aad.org/public/diseases/a-z/nail-fungus-symptoms) |
 | Changing, bleeding or non-healing skin mark | Keeps suspicious marks out of pigment, scar, wart and lightening-product shopping. The guide names visible change rather than a condition and reminds people to check palms, soles, nails, scalp, mouth and less-visible areas on every skin tone. | [AAD · Finding skin cancer in darker skin tones](https://www.aad.org/public/diseases/skin-cancer/find/skin-of-color) and [AAD · How to find skin cancer](https://www.aad.org/public/diseases/skin-cancer/find/know-how) |
 
 The changing-mark route is deliberately conservative. It asks for a prompt in-person skin examination without naming a diagnosis, and it never tells a person to use a cosmetic, wart-removal, lightening or scar product first.
+
+The diabetes-foot route is deliberately narrower and more urgent. Diabetes alone does not select it, and ordinary toe-web peeling remains in the athlete’s-foot pathway. WHO notes that nerve damage and poor blood flow can lead to foot ulcers and amputation. Nigeria’s national non-communicable disease action plan also made preventive foot care, appropriate footwear and multidisciplinary clinics an explicit diabetes intervention. Sources: [WHO · Diabetes](https://www.who.int/news-room/fact-sheets/detail/diabetes), [WHO · Nigeria diabetes profile](https://www.who.int/publications/m/item/diabetes-nga-country-profile-nigeria-2016), and [Federal Ministry of Health · National Multi-Sectoral Action Plan](https://www.health.gov.ng/wp-content/uploads/2025/06/NCDs_Multisectoral_Action_Plan.pdf).
 
 ## Infection-warning cluster
 

@@ -18,7 +18,10 @@ test('provides sourced concern guidance without turning condition patterns into 
       assert.ok(
         url.hostname === 'www.aad.org'
           || url.hostname === 'www.nhs.uk'
+          || url.hostname === 'www.england.nhs.uk'
+          || url.hostname === 'www.nice.org.uk'
           || url.hostname === 'www.who.int'
+          || url.hostname === 'www.ncdc.gov.ng'
           || url.hostname === 'nafdac.gov.ng'
           || url.hostname === 'www.nafdac.gov.ng',
         source.url,
@@ -44,6 +47,25 @@ test('every condition guide maps to a deterministic Ask Jelo pattern', () => {
       assert.ok(available.has(patternId), `${concern.slug} references missing pattern ${patternId}`);
     }
   }
+});
+
+test('sweat guidance separates everyday care from excessive or night sweating', () => {
+  const everyday = concerns.find(item => item.slug === 'sweat-body-odour');
+  assert.ok(everyday);
+  assert.equal(everyday.kind, 'concern');
+  assert.ok(everyday.productTerms.includes('deodorant'));
+  assert.ok(everyday.productTerms.includes('antiperspirant'));
+  assert.match(everyday.ingredients.join(' '), /deodorant for odour/i);
+  assert.match(everyday.ingredients.join(' '), /antiperspirant for sweat/i);
+
+  const excessive = concerns.find(item => item.slug === 'excessive-sweating-pattern');
+  assert.ok(excessive);
+  assert.equal(excessive.kind, 'condition-pattern');
+  assert.deepEqual(excessive.clinicalPatternIds, ['hyperhidrosis-like']);
+  assert.deepEqual(excessive.productTerms, []);
+  assert.match(excessive.escalation, /night sweats/i);
+  assert.match(excessive.escalation, /unexplained weight loss/i);
+  assert.match(excessive.escalation, /do not stop a prescribed medicine/i);
 });
 
 test('infection warning guides preserve time-sensitive referral and stop product matching', () => {
@@ -330,6 +352,93 @@ test('common cosmetic look-alikes remain observable, sourced and product-ineligi
   }
 });
 
+test('sun prevention is ordinary while new stop-journey guides remain product-ineligible', () => {
+  const sun = concerns.find(item => item.slug === 'daily-sun-protection');
+  assert.ok(sun);
+  assert.equal(sun.kind, 'concern');
+  assert.equal(sun.area, 'Face');
+  assert.deepEqual(sun.sources.map(source => source.url), [
+    'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+  ]);
+  const sunGuidance = `${sun.summary} ${sun.signals.join(' ')} ${sun.ingredients.join(' ')} ${sun.escalation}`.toLowerCase();
+  for (const term of ['broad-spectrum', 'spf 30 or higher', 'shade', 'protective clothing', 'reapplication']) {
+    assert.ok(sunGuidance.includes(term), `daily sun protection is missing ${term}`);
+  }
+
+  const warnings = [
+    {
+      slug: 'product-chemical-burn-pattern',
+      pattern: 'chemical-burn-exposure-like',
+      sources: ['https://www.nhs.uk/conditions/acid-and-chemical-burns/'],
+      terms: ['emergency services', 'brush dry chemical', 'cool or lukewarm running water', 'go to hospital'],
+    },
+    {
+      slug: 'yellow-skin-or-eyes-pattern',
+      pattern: 'jaundice-warning-like',
+      sources: ['https://www.nhs.uk/conditions/jaundice/'],
+      terms: ['urgent medical assessment today', 'whites of the eyes', 'brown or black skin', 'several possible causes'],
+    },
+    {
+      slug: 'genital-sore-discharge-pattern',
+      pattern: 'genital-symptom-warning-like',
+      sources: [
+        'https://www.who.int/health-topics/sexually-transmitted-infections',
+        'https://www.nhs.uk/conditions/sexually-transmitted-infections-stis/',
+      ],
+      terms: ['confidential sexual-health', 'testing', 'symptoms alone cannot identify', 'same-day urgent care'],
+    },
+  ];
+
+  for (const item of warnings) {
+    const concern = concerns.find(candidate => candidate.slug === item.slug);
+    assert.ok(concern, item.slug);
+    assert.equal(concern.kind, 'condition-pattern');
+    assert.deepEqual(concern.clinicalPatternIds, [item.pattern]);
+    assert.deepEqual(concern.productTerms, []);
+    assert.deepEqual(concern.sources.map(source => source.url), item.sources);
+    const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+    for (const term of item.terms) assert.ok(guidance.includes(term), `${item.slug} is missing ${term}`);
+    assert.doesNotMatch(guidance, /you have|diagnos|recommended product|buy now/i);
+  }
+});
+
+test('fever-and-rash safety guides are sourced, non-diagnostic and product-ineligible', () => {
+  const expected = [
+    {
+      slug: 'fever-non-fading-rash-pattern',
+      pattern: 'meningitis-sepsis-warning-like',
+      sources: [
+        'https://www.ncdc.gov.ng/news/535/3rd-march-2026-%7C-public-health-advisory-on-cerebrospinal-meningitis-%28csm%29',
+        'https://www.who.int/news-room/fact-sheets/detail/meningitis',
+        'https://www.nhs.uk/conditions/meningitis/',
+      ],
+      terms: ['do not fade when pressed', 'emergency hospital care now', 'harder to see on brown or black skin', 'do not wait for a rash'],
+    },
+    {
+      slug: 'fever-spreading-rash-pattern',
+      pattern: 'measles-rash-warning-like',
+      sources: [
+        'https://www.who.int/news-room/fact-sheets/detail/measles',
+        'https://www.nhs.uk/conditions/measles/',
+        'https://www.ncdc.gov.ng/themes/common/files/sitreps/e6d703892b7d429fffc731ea539d1fed.pdf',
+      ],
+      terms: ['cough or a runny nose', 'face or neck and spreading down', 'call before arriving', 'self-start vitamin a or antibiotics'],
+    },
+  ];
+
+  for (const item of expected) {
+    const concern = concerns.find(candidate => candidate.slug === item.slug);
+    assert.ok(concern, item.slug);
+    assert.equal(concern.kind, 'condition-pattern');
+    assert.deepEqual(concern.clinicalPatternIds, [item.pattern]);
+    assert.deepEqual(concern.productTerms, []);
+    assert.deepEqual(concern.sources.map(source => source.url), item.sources);
+    const guidance = `${concern.summary} ${concern.signals.join(' ')} ${concern.ingredients.join(' ')} ${concern.escalation}`.toLowerCase();
+    for (const term of item.terms) assert.ok(guidance.includes(term), `${item.slug} is missing ${term}`);
+    assert.doesNotMatch(guidance, /you have|diagnos|recommended product|buy now/i);
+  }
+});
+
 test('foot, nail and changing-mark guides are sourced, non-diagnostic and product-ineligible', () => {
   const expected = [
     {
@@ -337,6 +446,16 @@ test('foot, nail and changing-mark guides are sourced, non-diagnostic and produc
       pattern: 'tinea-pedis-like',
       sources: ['https://www.nhs.uk/conditions/athletes-foot/'],
       terms: ['between the toes', 'clean and dry', 'diabetes', 'same-day care'],
+    },
+    {
+      slug: 'diabetes-foot-change-pattern',
+      pattern: 'diabetes-foot-warning-like',
+      sources: [
+        'https://www.who.int/news-room/fact-sheets/detail/diabetes',
+        'https://www.nice.org.uk/guidance/ng19/chapter/Recommendations',
+        'https://www.england.nhs.uk/north/wp-content/uploads/sites/5/2018/12/Looking-after-your-Diabetic-Foot-Ulcer.pdf',
+      ],
+      terms: ['new foot wound', 'urgent in-person assessment today', 'even if it does not hurt', 'emergency hospital care now', 'corn or wart acids'],
     },
     {
       slug: 'thick-discoloured-nail-pattern',

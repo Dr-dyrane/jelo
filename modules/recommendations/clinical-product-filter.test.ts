@@ -25,9 +25,9 @@ test('the care manifest covers all 24 products with the audited state counts', (
 
   assert.equal(productSlugs.length, 24);
   assert.deepEqual(reviewSlugs, productSlugs);
-  assert.equal(states.filter(state => state === 'supportive_eligible').length, 2);
+  assert.equal(states.filter(state => state === 'supportive_eligible').length, 3);
   assert.equal(states.filter(state => state === 'pharmacist_review').length, 5);
-  assert.equal(states.filter(state => state === 'insufficient_data').length, 17);
+  assert.equal(states.filter(state => state === 'insufficient_data').length, 16);
 });
 
 test('every dossier-released product has an explicit post-publication care decision', () => {
@@ -35,10 +35,10 @@ test('every dossier-released product has an explicit post-publication care decis
   const reviewSlugs = Object.keys(publishedProductCareManifest).sort();
   const states = Object.values(publishedProductCareManifest).map(review => review.careState);
 
-  assert.equal(productSlugs.length, 35);
+  assert.equal(productSlugs.length, 36);
   assert.deepEqual(reviewSlugs, productSlugs);
   assert.equal(states.filter(state => state === 'supportive_eligible').length, 16);
-  assert.equal(states.filter(state => state === 'pharmacist_review').length, 13);
+  assert.equal(states.filter(state => state === 'pharmacist_review').length, 14);
   assert.equal(states.filter(state => state === 'insufficient_data').length, 6);
 });
 
@@ -93,6 +93,19 @@ test('supportive COSRX snail essence qualifies only for hydration and conditioni
   assert.deepEqual(hydration.approvedUseIds, ['hydration-conditioning']);
   assert.equal(darkSpots.eligible, false);
   assert.equal(barrierTreatment.eligible, false);
+});
+
+test('daily sun protection qualifies only the explicitly reviewed Eucerin sunscreen', () => {
+  const clinical = assessClinicalRoutine(
+    'I want reliable daily sun protection for my face.',
+    { concerns: ['sun protection'] },
+  );
+  const eligible = [...catalogue, ...publishedIntakeProducts]
+    .map(candidate => evaluateProductClinically(candidate, clinical))
+    .filter(decision => decision.eligible);
+
+  assert.deepEqual(eligible.map(decision => decision.slug), ['eucerin-oil-control-sun-gel-cream-spf50-50ml']);
+  assert.deepEqual(eligible[0]?.approvedUseIds, ['oily-skin-sun-protection']);
 });
 
 test('a reviewed retinoid remains blocked during pregnancy', () => {

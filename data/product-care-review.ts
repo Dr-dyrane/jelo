@@ -60,7 +60,18 @@ export const reviewedProductCareManifest = {
   },
   'dove-go-fresh-cucumber-green-tea-spray': {
     productSlug: 'dove-go-fresh-cucumber-green-tea-spray',
-    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'everyday-underarm-odour-control',
+      label: 'Everyday underarm odour control',
+      concernIds: ['body odour', 'underarm odour'],
+      concernSlugs: ['sweat-body-odour'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.dove.com/us/en/p/dove-0-aluminum-deodorant-spray-cucumber-green-tea.html/00079400482280',
+      'https://www.nhs.uk/symptoms/body-odour-bo/',
+    ],
+    reviewedAt: '2026-07-27',
   },
   'miracle-natural-hair-anti-dandruff-shampoo': {
     productSlug: 'miracle-natural-hair-anti-dandruff-shampoo',
@@ -199,8 +210,8 @@ export const publishedProductCareManifest = {
     approvedUses: [{
       id: 'oily-skin-sun-protection',
       label: 'Daily sun protection for oily skin',
-      concernIds: ['oiliness', 'shine'],
-      concernSlugs: ['oily-congested-skin'],
+      concernIds: ['sun protection', 'sunscreen', 'oiliness', 'shine'],
+      concernSlugs: ['daily-sun-protection', 'oily-congested-skin'],
       skinTypes: ['oily', 'acne-prone'],
     }],
     evidenceSourceUrls: [
@@ -566,6 +577,21 @@ export const publishedProductCareManifest = {
       'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
     ],
     reviewedAt: '2026-07-26',
+  },
+  'beauty-formulas-glowing-serum-2-vitamin-c-30ml': {
+    productSlug: 'beauty-formulas-glowing-serum-2-vitamin-c-30ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'vitamin-c-serum-review',
+      label: 'Vitamin C serum review',
+      concernIds: ['hyperpigmentation', 'dark spots', 'uneven tone'],
+      concernSlugs: ['dark-spots'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.beautyformulas.co.uk/_files/ugd/5daf87_d22610a867884559b34ef623b614f492.pdf',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-07-27',
   },
   'dang-azelaic-acid-serum-30ml': {
     productSlug: 'dang-azelaic-acid-serum-30ml',

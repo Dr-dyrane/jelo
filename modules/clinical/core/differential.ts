@@ -1,9 +1,20 @@
 import type { DifferentialAssessment, DifferentialPattern, PatientProfile } from './types';
+import {
+  hasAffirmedAlertnessOrSeizureWarning,
+  hasAffirmedFever,
+  hasAffirmedInfantMeningitisWarning,
+  hasAffirmedNamedDiagnosis,
+  hasAffirmedStiffNeck,
+  hasCurrentRash,
+  hasNonFadingRash,
+} from './fever-rash-signals';
 
 type PatternRule = {
   id: string;
   label: string;
-  positives: { terms: string[]; weight: number; reason: string }[];
+  requiredPatterns?: RegExp[];
+  requiredEvidence?: (text: string) => boolean;
+  positives: { terms: string[]; weight: number; reason: string; matches?: (text: string) => boolean }[];
   negatives?: { terms: string[]; weight: number; reason: string }[];
   missing: string[];
 };
@@ -37,6 +48,82 @@ const rules: PatternRule[] = [
     ],
     negatives: [{ terms: ['blackhead', 'whitehead'], weight: 10, reason: 'Comedones point more strongly toward acne.' }],
     missing: ['Did this begin after a new product or increased frequency?', 'Does water or moisturizer sting?', 'Is the rash limited to product-contact areas?'],
+  },
+  {
+    id: 'chemical-burn-exposure-like', label: 'Chemical-burn exposure warning pattern',
+    requiredEvidence: text => (
+      /\b(?:chemical|acid|alkali|bleach|caustic soda|drain cleaner|oven cleaner|battery acid|corrosive)\b/.test(text)
+      && /\b(?:burn|burning|stinging|pain|painful|blister|peel|splashed|spilled|exposed|on (?:my|the) skin)\b/.test(text)
+    ),
+    positives: [
+      { terms: ['chemical burn', 'acid burn', 'alkali burn', 'caustic burn'], weight: 82, reason: 'A named chemical burn was reported and needs emergency first aid.' },
+      {
+        terms: [],
+        weight: 62,
+        reason: 'A corrosive chemical was reported on the skin.',
+        matches: text => /\b(?:chemical|acid|alkali|bleach|caustic soda|drain cleaner|oven cleaner|battery acid|corrosive)\b.{0,96}\b(?:splashed|spilled|exposed|on (?:my|the) skin|burn|burning|stinging|pain)\b/.test(text)
+          || /\b(?:splashed|spilled|exposed|on (?:my|the) skin)\b.{0,96}\b(?:chemical|acid|alkali|bleach|caustic soda|drain cleaner|oven cleaner|battery acid|corrosive)\b/.test(text),
+      },
+      { terms: ['skin is burning', 'skin started burning', 'chemical is still on my skin', 'blistering after a chemical splash', 'peeling after a chemical splash'], weight: 28, reason: 'Ongoing burning or skin injury after the exposure increases concern.' },
+    ],
+    negatives: [
+      { terms: ['over-exfoliated', 'mild stinging after skincare', 'ordinary moisturizer stings'], weight: 46, reason: 'A milder skincare-irritation description needs a different pathway.' },
+    ],
+    missing: ['What chemical touched the skin?', 'Has contaminated clothing been removed?', 'Is it a dry chemical that should be brushed off before rinsing?', 'Has rinsing under cool or lukewarm running water started?', 'Are the eyes, face, airway or a large area involved?'],
+  },
+  {
+    id: 'jaundice-warning-like', label: 'Yellow-skin-or-eyes warning pattern',
+    requiredEvidence: text => (
+      /\bjaundice\b/.test(text)
+      || /\b(?:yellow|yellowing|yellowed)\b.{0,48}\b(?:skin|eyes?|whites? of (?:my|the) eyes?)\b/.test(text)
+      || /\b(?:skin|eyes?|whites? of (?:my|the) eyes?)\b.{0,48}\b(?:yellow|yellowing|yellowed)\b/.test(text)
+    ),
+    positives: [
+      { terms: ['jaundice'], weight: 72, reason: 'A named yellow-skin-or-eyes concern was reported and needs urgent assessment.' },
+      {
+        terms: [],
+        weight: 66,
+        reason: 'Yellowing in the whites of the eyes was reported.',
+        matches: text => /\b(?:yellow|yellowing|yellowed)\b.{0,40}\b(?:eyes?|whites? of (?:my|the) eyes?)\b/.test(text)
+          || /\b(?:eyes?|whites? of (?:my|the) eyes?)\b.{0,40}\b(?:yellow|yellowing|yellowed)\b/.test(text),
+      },
+      { terms: ['yellow skin', 'skin looks yellow', 'skin is yellow', 'yellowing of my skin', 'yellowing of the skin'], weight: 52, reason: 'Yellowing of the skin was reported.' },
+      { terms: ['dark urine', 'pale stool', 'pale stools', 'pale poo', 'itch with yellowing'], weight: 18, reason: 'Another symptom that can accompany this colour change was reported.' },
+    ],
+    negatives: [
+      { terms: ['thick yellow toenail', 'yellow thick toenail', 'yellow nail'], weight: 76, reason: 'An isolated yellow nail needs the nail-change pathway.' },
+      { terms: ['raised yellow lesions', 'yellow skin lesions', 'yellow scale'], weight: 70, reason: 'A localized raised or scaly yellow lesion needs a skin-pattern pathway.' },
+    ],
+    missing: ['Are the whites of the eyes yellow?', 'When did the colour change begin?', 'Is there dark urine, pale stool, itch, pain, fever or vomiting?', 'Is this affecting a newborn?'],
+  },
+  {
+    id: 'genital-symptom-warning-like', label: 'Genital-symptom testing pattern',
+    requiredEvidence: text => {
+      if (/\b(?:normal|usual)\s+(?:vaginal\s+)?discharge\b/.test(text) && !/\b(?:changed|unusual|smelly|strong smell|green|yellow|bloody)\b/.test(text)) return false;
+      const genitalArea = /\b(?:genital|genitals|vagina|vaginal|vulva|penis|penile|urethra|urethral|anus|anal)\b/.test(text);
+      const relevantSymptom = /\b(?:unusual|changed|smelly|strong-smelling|green|yellow|bloody)?\s*discharge\b/.test(text)
+        || /\b(?:sore|sores|ulcer|ulcers|blister|blisters)\b/.test(text);
+      return genitalArea && relevantSymptom;
+    },
+    positives: [
+      { terms: ['genital ulcer', 'genital ulcers', 'genital sore', 'genital sores', 'genital blister', 'genital blisters'], weight: 62, reason: 'A genital sore, ulcer or blister was reported and needs clinical testing.' },
+      { terms: ['urethral discharge', 'discharge from my penis', 'discharge from the penis', 'unusual vaginal discharge', 'changed vaginal discharge', 'unusual discharge from my anus', 'anal discharge'], weight: 58, reason: 'An unusual genital or anal discharge was reported and needs clinical testing.' },
+      {
+        terms: [],
+        weight: 56,
+        reason: 'A sore or unusual discharge was reported in the genital or anal area.',
+        matches: text => /\b(?:genital|genitals|vagina|vaginal|vulva|penis|penile|urethra|urethral|anus|anal)\b.{0,64}\b(?:discharge|sore|sores|ulcer|ulcers|blister|blisters)\b/.test(text)
+          || /\b(?:unusual|changed|smelly|strong-smelling|green|yellow|bloody)?\s*(?:discharge|sore|sores|ulcer|ulcers|blister|blisters)\b.{0,64}\b(?:genital|genitals|vagina|vaginal|vulva|penis|penile|urethra|urethral|anus|anal)\b/.test(text),
+      },
+      { terms: ['pain when peeing', 'burning when peeing', 'painful urination', 'burning urination'], weight: 16, reason: 'Urinary discomfort adds support to this testing pathway.' },
+      { terms: ['partner has symptoms', 'sex without a condom', 'unprotected sex'], weight: 12, reason: 'A recent sexual-health context adds support without identifying a cause.' },
+    ],
+    negatives: [
+      { terms: ['mouth sore', 'cold sore', 'sore throat'], weight: 44, reason: 'A sore outside the genital or anal area needs another pathway.' },
+      { terms: ['normal vaginal discharge', 'usual vaginal discharge'], weight: 58, reason: 'Discharge described as normal or unchanged is not specific for this pathway.' },
+      { terms: ['target-like rash', 'rash after a new medicine', 'rash after starting a medicine', 'new medicine'], weight: 72, reason: 'A medicine-linked rash with mucosal sores needs the severe medicine-reaction pathway.' },
+    ],
+    missing: ['Is there a sore, blister, ulcer or unusual discharge?', 'Is there pain when passing urine, lower-abdominal pain, fever or testicular pain?', 'When was the most recent sexual contact?', 'Would a private sexual-health clinic feel safest for testing?'],
   },
   {
     id: 'seborrhoeic-dermatitis', label: 'Seborrhoeic dermatitis-like pattern',
@@ -219,6 +306,26 @@ const rules: PatternRule[] = [
     missing: ['Is skin between the toes itchy, white or flaky?', 'Is it peeling, cracking or bleeding?', 'Is the foot hot, painful or swollen, or is there diabetes or weakened immunity?'],
   },
   {
+    id: 'diabetes-foot-warning-like', label: 'Diabetes-related foot-change warning pattern',
+    requiredPatterns: [
+      /\b(?:diabetes|diabetic)\b/,
+      /\b(?:foot|feet|toe|toes|heel)\b/,
+      /\b(?:wound|cut|blister|ulcer|broken skin|swollen|swelling|colou?r|hot|cold|black|pus|leaking|smell)\b/,
+    ],
+    positives: [
+      { terms: ['diabetic foot', 'diabetic foot ulcer', 'diabetes foot ulcer'], weight: 66, reason: 'A named diabetes-related foot problem was reported and needs urgent assessment.' },
+      { terms: ['diabetes', 'diabetic'], weight: 20, reason: 'Diabetes raises the risk from a new foot injury or change.' },
+      { terms: ['foot wound', 'wound on my foot', 'wound on the foot', 'cut on my foot', 'cut on the foot', 'foot cut', 'foot blister', 'blister on my foot', 'blister on the foot', 'foot ulcer', 'ulcer on my foot', 'ulcer on the foot', 'broken skin on my foot', 'broken skin on the foot'], weight: 48, reason: 'A break in the skin on the foot needs urgent assessment in this context.' },
+      { terms: ['foot is hot and swollen', 'hot swollen foot', 'foot changed colour', 'foot changed color', 'foot is changing colour', 'foot is changing color', 'foot feels colder', 'cold pale foot', 'cold blue foot', 'toe turned black', 'foot turned black'], weight: 44, reason: 'A temperature, swelling or colour change can signal an active foot problem.' },
+      { terms: ['foot wound does not hurt', 'foot wound doesn\'t hurt', 'cannot feel the foot wound', 'can\'t feel the foot wound', 'numb foot with a wound', 'foot wound with no pain'], weight: 34, reason: 'Visible damage without pain can still be serious when feeling is reduced.' },
+      { terms: ['foot wound smells', 'bad smell from my foot', 'pus from my foot', 'foot wound leaking fluid'], weight: 34, reason: 'Fluid, pus or an unusual smell can accompany infection.' },
+    ],
+    negatives: [
+      { terms: ['itchy peeling between my toes', 'itchy white peeling skin between my toes'], weight: 26, reason: 'Toe-web itch and peeling without a wound or sudden foot change fits a different pathway.' },
+    ],
+    missing: ['Is there a cut, blister, wound, ulcer or broken skin?', 'Has the foot changed colour, temperature, shape or size?', 'Is there fluid, pus, an unusual smell or fever?', 'Can you feel the affected area normally?'],
+  },
+  {
     id: 'nail-change-like', label: 'Thick or discoloured nail pattern',
     positives: [
       { terms: ['fungal nail infection', 'nail fungus', 'onychomycosis'], weight: 58, reason: 'A named nail condition was reported and needs confirmation.' },
@@ -317,12 +424,71 @@ const rules: PatternRule[] = [
     missing: ['Are lesions firm, painful or changing from bumps to blisters or crusts?', 'Are there swollen glands, fever, headache or body aches?', 'Has there been close contact with someone with a similar rash?'],
   },
   {
+    id: 'meningitis-sepsis-warning-like', label: 'Fever-with-non-fading-rash warning pattern',
+    requiredEvidence: text => {
+      const named = hasAffirmedNamedDiagnosis(text, /\b(?:meningitis|meningococcal(?: meningitis| sepsis)?)\b/);
+      const neurologicalWarning = hasAffirmedStiffNeck(text)
+        || hasAffirmedAlertnessOrSeizureWarning(text)
+        || hasAffirmedInfantMeningitisWarning(text);
+      const severeHeadache = /\bsevere headache\b/.test(text)
+        && !/\b(?:no|without|not having)\s+(?:a\s+)?severe headache\b/.test(text);
+      return named || hasNonFadingRash(text) || ((hasAffirmedFever(text) || severeHeadache) && neurologicalWarning);
+    },
+    positives: [
+      { terms: [], matches: text => hasAffirmedNamedDiagnosis(text, /\b(?:meningitis|meningococcal(?: meningitis| sepsis)?)\b/), weight: 92, reason: 'A named medical emergency was reported.' },
+      { terms: [], matches: hasNonFadingRash, weight: 92, reason: 'A non-fading rash needs emergency assessment.' },
+      { terms: [], matches: hasAffirmedFever, weight: 18, reason: 'Fever adds concern when a neurological or non-fading-rash warning sign is present.' },
+      { terms: [], matches: hasAffirmedStiffNeck, weight: 56, reason: 'Neck stiffness with fever or severe headache needs emergency assessment.' },
+      { terms: [], matches: hasAffirmedAlertnessOrSeizureWarning, weight: 58, reason: 'A change in alertness or a seizure is an emergency warning sign.' },
+      { terms: [], matches: hasAffirmedInfantMeningitisWarning, weight: 58, reason: 'A serious warning sign was reported in a baby.' },
+      { terms: ['severe headache'], weight: 18, reason: 'A severe headache adds concern when another meningitis warning sign is present.' },
+    ],
+    missing: [],
+  },
+  {
+    id: 'measles-rash-warning-like', label: 'Fever-with-spreading-rash pattern',
+    requiredEvidence: text => {
+      const named = hasAffirmedNamedDiagnosis(text, /\bmeasles\b/);
+      const respiratoryOrEyeSignal = /\b(?:cough|runny nose|blocked nose|red (?:and )?watery eyes)\b/.test(text);
+      const faceOrNeckStart = /\brash (?:started|began) (?:on|at) (?:my |the )?(?:face|neck)\b/.test(text);
+      return named || (hasAffirmedFever(text) && hasCurrentRash(text) && (respiratoryOrEyeSignal || faceOrNeckStart));
+    },
+    positives: [
+      { terms: [], matches: text => hasAffirmedNamedDiagnosis(text, /\bmeasles\b/), weight: 80, reason: 'A named contagious illness was reported and needs medical assessment.' },
+      { terms: [], matches: hasAffirmedFever, weight: 18, reason: 'Fever was reported with a spreading-rash pattern.' },
+      { terms: [], matches: hasCurrentRash, weight: 18, reason: 'A rash was reported with fever and respiratory or eye symptoms.' },
+      { terms: ['cough', 'runny nose', 'blocked nose', 'red watery eyes', 'red and watery eyes', 'watery eyes'], weight: 24, reason: 'Cough, nasal symptoms or watery eyes add support to this contagious-rash pattern.' },
+      { terms: ['rash started on my face', 'rash started on the face', 'rash began on my face', 'rash began on the face', 'rash started on my neck', 'rash began on my neck', 'spread down', 'spreading down'], weight: 40, reason: 'A rash beginning on the face or neck and spreading down adds support.' },
+      { terms: ['white spots inside my cheeks', 'small white spots inside the cheeks', 'white spots in my mouth'], weight: 24, reason: 'Small white mouth spots can accompany this fever-and-rash pattern.' },
+    ],
+    negatives: [
+      { terms: ['no rash', 'without a rash', 'rash has not appeared', 'rash hasn\'t appeared'], weight: 80, reason: 'No current rash makes this specific rash pathway less certain.' },
+      { terms: ['rash after a new medicine', 'rash after starting a medicine', 'mouth sores after medicine'], weight: 70, reason: 'A medicine-linked rash needs a different safety pathway.' },
+    ],
+    missing: [],
+  },
+  {
     id: 'severe-medicine-reaction-like', label: 'Severe medicine-reaction warning pattern',
     positives: [
       { terms: ['sjs', 'stevens-johnson syndrome', 'stevens johnson syndrome', 'toxic epidermal necrolysis'], weight: 70, reason: 'A named medical emergency was reported.' },
       { terms: ['rash after starting a new medicine', 'rash after a new medicine', 'rash after taking antibiotics', 'rash after taking a painkiller'], weight: 38, reason: 'A rash beginning after a medicine needs medicine-reaction assessment.' },
+      {
+        terms: [],
+        weight: 44,
+        reason: 'The reported rash followed a medicine.',
+        matches: text => /\b(?:rash|skin change|skin reaction)\b.{0,80}\b(?:after|since|following)\b.{0,32}\b(?:new )?(?:medicine|medication|drug|antibiotic|painkiller)\b/.test(text)
+          || /\b(?:after|since|following)\b.{0,32}\b(?:new )?(?:medicine|medication|drug|antibiotic|painkiller)\b.{0,80}\b(?:rash|skin change|skin reaction)\b/.test(text),
+      },
       { terms: ['circular target-like patches', 'target-like rash', 'darker in the middle'], weight: 34, reason: 'Target-like circular patches can be a warning sign.' },
       { terms: ['medicine rash with blisters', 'medicine rash with peeling', 'mouth sores after medicine', 'eye sores after medicine'], weight: 42, reason: 'Blistering, peeling or mucosal sores after a medicine are emergency warning signs.' },
+      {
+        terms: [],
+        weight: 46,
+        reason: 'A medicine-linked rash with mucosal sores needs the emergency pathway.',
+        matches: text => /\b(?:medicine|medication|drug|antibiotic|painkiller)\b/.test(text)
+          && /\b(?:rash|skin change|skin reaction)\b/.test(text)
+          && /\b(?:mouth|eye|throat|genital)\s+(?:sore|sores|blister|blisters)\b/.test(text),
+      },
     ],
     missing: ['Did this begin after starting a medicine?', 'Is the rash spreading, painful, blistering or peeling?', 'Are the mouth, eyes, throat or genitals sore or blistered?'],
   },
@@ -502,6 +668,29 @@ const rules: PatternRule[] = [
     missing: ['Did this begin after heat or heavy sweating?', 'Does cooling the skin help?', 'Is there fever, pain, pus or rapid spread?'],
   },
   {
+    id: 'hyperhidrosis-like', label: 'Excessive-sweating assessment pattern',
+    requiredEvidence: text => (
+      /\b(?:hyperhidrosis|excessive sweating|sweating too much|sweat too much|soaking (?:my )?(?:clothes|shirt|bedding|sheets)|night sweats?|sweating (?:during|in) (?:my )?sleep|sweating in a cool room|sudden(?:ly)? (?:started )?sweating)\b/.test(text)
+      || (
+        /\b(?:sweat|sweating)\b/.test(text)
+        && /\b(?:disrupts?|affects?)\b.{0,32}\b(?:daily life|work|school|sleep)\b/.test(text)
+      )
+    ),
+    positives: [
+      { terms: ['hyperhidrosis'], weight: 58, reason: 'A named excessive-sweating concern was reported and needs confirmation.' },
+      { terms: ['excessive sweating', 'sweating too much', 'sweat too much'], weight: 44, reason: 'Sweating much more than expected was reported.' },
+      { terms: ['night sweat', 'night sweats', 'sweating during my sleep', 'sweating in my sleep'], weight: 52, reason: 'Sweating during sleep needs cause-finding rather than a product assumption.' },
+      { terms: ['soaking my clothes', 'soaking clothes', 'soaking my shirt', 'soaking bedding', 'soaking my sheets', 'sweating in a cool room'], weight: 34, reason: 'Soaking or unexpected sweating adds support.' },
+      { terms: ['suddenly started sweating', 'sudden sweating', 'sweating affects daily life', 'sweating disrupts daily life', 'sweating disrupts my work', 'sweating disrupts my sleep'], weight: 30, reason: 'A sudden or disruptive change needs clinical review.' },
+      { terms: ['started after a medicine', 'began after a medicine', 'started after medication', 'began after medication'], weight: 20, reason: 'A medicine-linked change should be reviewed without stopping treatment independently.' },
+    ],
+    negatives: [
+      { terms: ['after exercise', 'after a workout', 'during exercise', 'during a workout', 'hot weather', 'very hot day'], weight: 48, reason: 'Expected sweating during heat or exercise does not by itself support an excessive-sweating pattern.' },
+      { terms: ['prickly bumps', 'prickly rash', 'heat rash', 'sweat rash'], weight: 40, reason: 'A prickly bump pattern after heat supports the heat-rash pathway instead.' },
+    ],
+    missing: ['Did this change suddenly?', 'Does it happen during sleep or in a cool setting?', 'How often does it soak clothing or interrupt daily life?', 'Did it begin after a medicine?', 'Is there fever, cough, diarrhoea or unexplained weight loss?'],
+  },
+  {
     id: 'onchocerciasis-like', label: 'Severe itch-with-nodule or eye-change warning pattern',
     positives: [
       { terms: ['onchocerciasis', 'river blindness'], weight: 64, reason: 'A named eye-and-skin infection was reported and needs clinical confirmation.' },
@@ -571,15 +760,20 @@ function includesAny(text: string, terms: string[]) {
 
 export function assessDifferential(text: string, profile: PatientProfile): DifferentialAssessment {
   const normalized = text.toLowerCase();
-  const scored: DifferentialPattern[] = rules.map(rule => {
-    const supporting: string[] = [];
-    const opposing: string[] = [];
-    let score = 0;
-    for (const item of rule.positives) if (includesAny(normalized, item.terms)) { score += item.weight; supporting.push(item.reason); }
-    for (const item of rule.negatives ?? []) if (includesAny(normalized, item.terms)) { score -= item.weight; opposing.push(item.reason); }
-    if (profile.sensitiveSkin && ['irritant-contact-dermatitis', 'rosacea'].includes(rule.id)) score += 6;
-    return { id: rule.id, label: rule.label, confidence: Math.max(0, Math.min(92, score)), supporting, opposing, missing: rule.missing };
-  }).filter(item => item.confidence >= 12).sort((a, b) => b.confidence - a.confidence);
+  const scored: DifferentialPattern[] = rules
+    .filter(rule => (
+      (rule.requiredPatterns?.every(pattern => pattern.test(normalized)) ?? true)
+      && (rule.requiredEvidence?.(normalized) ?? true)
+    ))
+    .map(rule => {
+      const supporting: string[] = [];
+      const opposing: string[] = [];
+      let score = 0;
+      for (const item of rule.positives) if (item.matches?.(normalized) ?? includesAny(normalized, item.terms)) { score += item.weight; supporting.push(item.reason); }
+      for (const item of rule.negatives ?? []) if (includesAny(normalized, item.terms)) { score -= item.weight; opposing.push(item.reason); }
+      if (profile.sensitiveSkin && ['irritant-contact-dermatitis', 'rosacea'].includes(rule.id)) score += 6;
+      return { id: rule.id, label: rule.label, confidence: Math.max(0, Math.min(92, score)), supporting, opposing, missing: rule.missing };
+    }).filter(item => item.confidence >= 12).sort((a, b) => b.confidence - a.confidence);
 
   const primary = scored[0];
   const alternatives = scored.slice(1, 4);
