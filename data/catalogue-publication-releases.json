@@ -173,7 +173,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
-      "dossierFingerprint": "0f4758c63cad7f874a7cbb658962497ebbbca7b7714aa723406cddd56b47339d",
+      "dossierFingerprint": "c1aaa58884a084938322e72dc8b1adc435374380d18123fe17298b5c0ecd9c19",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -192,7 +192,7 @@
         "reviewer": "JeloCare catalogue publication review",
         "publishedAt": "2026-07-23T05:33:25Z"
       },
-      "releaseFingerprint": "27ff24df5b57878b7ad8170cf4c1e7288da27c5cd50f7b38acbbcd6d3eea40bd"
+      "releaseFingerprint": "9a3b4997368234abb0833a81522289d31e2536fde40ee360567df29c10e61549"
     },
     {
       "schemaVersion": 2,
@@ -557,7 +557,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "facefacts-vitamin-c-body-lotion-400ml",
-      "dossierFingerprint": "d0c94c8cd0348827aa0e15205fb9b913429451eef6fe3d3c3f7f55fa4d15b556",
+      "dossierFingerprint": "33d9de1f3cfab983b8043f29ff63c43e78e09d8b0d13b6355c83e992ee60818f",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -576,7 +576,7 @@
         "reviewer": "JeloCare catalogue release reviewer",
         "publishedAt": "2026-07-23T18:00:10Z"
       },
-      "releaseFingerprint": "a61bc30ef7d25cfbb35b9422b111663702bfccada7ead80326a262000f26b98f"
+      "releaseFingerprint": "04a5aad76f7bdb158c9e63c8a452809dce603b724f5abc39ab660abdcc647473"
     },
     {
       "schemaVersion": 2,
@@ -721,6 +721,126 @@
         "publishedAt": "2026-07-26T08:21:00Z"
       },
       "releaseFingerprint": "f37c3f028295394bd8f5fbc632fe57e48b1a2be1083658f08ee8b438cfbd1fd0"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "dossierFingerprint": "2a9785757bbdc9ffb858ef67734b5037de41fd3c8e74c2c6f4949434a18f94e2",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid and niacinamide · 30 ml",
+        "usage": "Dispense 2–3 drops onto clean, dry skin and press over the face, neck and décolletage, avoiding the eye area. Follow with moisturiser and use SPF 30+ in the daytime. Begin three nights a week, then build as tolerated.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T19:52:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T19:53:00Z"
+      },
+      "releaseFingerprint": "5c8008d5da3b2eac89f7802331120b5bf86f5a72af63f3c1c04e2c0032ee2853"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily body moisture · 400 ml",
+        "usage": "Apply over the body. Allow it to absorb before dressing, and store in a cool, dry place.",
+        "manufacturerDirectionsUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T19:52:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T19:53:10Z"
+      },
+      "releaseFingerprint": "42b37ccaf51cf8f92dc180baed060e29ff67910e844035e82d34782053fc6b01"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "dossierFingerprint": "0e63cc3be67396be6fa4d18a47112fde5f422a8698017b8dd201dc215268d08a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Soap-free daily cleanse · 150 ml",
+        "usage": "Massage over wet facial skin in gentle circular motions, then rinse well with tepid water. Avoid the eye area and follow with moisturiser.",
+        "manufacturerDirectionsUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T19:52:20Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T19:53:20Z"
+      },
+      "releaseFingerprint": "5467c08dec630a922733fcc931a8758f33d7b964ff34ff52bd8499260edc272b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "dossierFingerprint": "9fbff126ef67ad1dd11f7add2de1134b9767e4f3e6765cdc25897396438eb465",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "10% azelaic acid · 30 ml",
+        "usage": "Start once or twice weekly with 1–2 drops. Build only as tolerated; use SPF 30+ by day.",
+        "manufacturerDirectionsUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T21:52:02Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T21:52:10Z"
+      },
+      "releaseFingerprint": "74d8804c6402107eaae068360baa29ed26b277eb961dc87f8f2452f1d3d6c23b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+      "dossierFingerprint": "061eddd7aba49fdea2cc5d1ed289316ab1d4f33885c9a257ad2aa9d7ebe7add2",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Light moisture for blemish-prone skin.",
+        "usage": "After cleansing and toning, apply a small amount and massage in. Do not rinse.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-26T23:13:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-26T23:14:00Z"
+      },
+      "releaseFingerprint": "2d3773f114cedd984953bed6fcccac65ef594197657c6060ceba54ce905308be"
     }
   ]
 }

@@ -435,33 +435,6 @@
     },
     {
       "rank": 16,
-      "discoveryId": "2c6d463cc24ed30e0826c48f",
-      "title": "FACEFACTS Vitamin C Body Lotion 400ml",
-      "brandHint": "FACEFACTS",
-      "size": "400ml",
-      "categoryHint": "Body care",
-      "lane": "moisture-barrier",
-      "priorityScore": 175,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "05031413929089",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 17,
       "discoveryId": "9a010c0186b1418272fce5bb",
       "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
       "brandHint": "ADVANCED",
@@ -488,7 +461,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "discoveryId": "f1ebe655a947668241b4d240",
       "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -499,6 +472,32 @@
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
       "identityLead": "06156000469782",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 18,
+      "discoveryId": "4b13a12fadc04b34d8290d5b",
+      "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
+      "brandHint": "AQUA RICH",
+      "size": "500ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 170,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "04897073187532",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -541,32 +540,6 @@
     },
     {
       "rank": 20,
-      "discoveryId": "7e605cd6690ac73d599d9c2b",
-      "title": "AQUA RICH Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract) 1000ml",
-      "brandHint": "AQUA RICH",
-      "size": "1000ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "04897073187587",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 21,
       "discoveryId": "07638932c92af511bdf56019",
       "title": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
       "brandHint": "Dr Teals",
@@ -592,7 +565,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
+      "rank": 21,
       "discoveryId": "e3e002f6425926e8343cb8e9",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
       "brandHint": "EOS",
@@ -618,7 +591,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 22,
       "discoveryId": "af4cf984d6ae1296e4ffd1b0",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
       "brandHint": "EOS",
@@ -629,6 +602,32 @@
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
       "identityLead": "00840044714163",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 23,
+      "discoveryId": "0b79938ca156f8c9fac4469f",
+      "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
+      "brandHint": "EOS",
+      "size": "473ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 158,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "00840044714101",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -699,33 +698,6 @@
     },
     {
       "rank": 26,
-      "discoveryId": "a8e9f195ed3dad2fa45a0209",
-      "title": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml",
-      "brandHint": "ANUA",
-      "size": "30ml",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 156,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "08809640737190",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 27,
       "discoveryId": "4904b1d7b96c2c0886d65ad9",
       "title": "BIOBALANCE Super (BETA SOLUTION PURE SALICYLIC ACID 2% Serums 30ML",
       "brandHint": "BIOBALANCE",
@@ -752,7 +724,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 28,
+      "rank": 27,
       "discoveryId": "f87e67c0fb61e9574f74ef21",
       "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
       "brandHint": "Garnier",
@@ -779,7 +751,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 29,
+      "rank": 28,
       "discoveryId": "f6fdad85c61090e67bea6ec9",
       "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
       "brandHint": "NINELESS",
@@ -806,7 +778,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 29,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -833,7 +805,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 30,
       "discoveryId": "005fe384576be5e38689857f",
       "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
       "brandHint": "Replenix",
@@ -860,7 +832,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 31,
       "discoveryId": "cd29efd703d9f5ad9192bf01",
       "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
       "brandHint": "SKIN BY ZARON",
@@ -887,7 +859,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 33,
+      "rank": 32,
       "discoveryId": "b9f9c3fe07895c6ce9945f8a",
       "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
       "brandHint": "GLAMFOX",
@@ -914,7 +886,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 34,
+      "rank": 33,
       "discoveryId": "11d3a6116ccfc1cbce191430",
       "title": "LA ROCHE-POSAY PURE VITAMIN C Cleanser 200ml",
       "brandHint": "La Roche Posay",
@@ -941,7 +913,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 35,
+      "rank": 34,
       "discoveryId": "980f4a6663d7e3bdca521609",
       "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
       "brandHint": "MEDICUBE",
@@ -968,7 +940,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 36,
+      "rank": 35,
       "discoveryId": "c7bf0b9d6ca21eed6c5a8db9",
       "title": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml",
       "brandHint": "PREQUEL",
@@ -979,6 +951,33 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "00810129110562",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 36,
+      "discoveryId": "e3a9885930837e6059c4f045",
+      "title": "FACEFACTS Ceramide Blemish Treatment Gel 50ml",
+      "brandHint": "FACEFACTS",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 151,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "05031413935752",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

@@ -41,7 +41,10 @@ Run the offline integrity audit before using the batch:
 npm run catalogue:discovery:audit
 ```
 
-Only a deliberately selected lead is copied into `data/catalogue-intake.json`. The existing exact-SKU chronology starts there and remains unchanged.
+Only a deliberately selected lead is authored into its own packet-bound
+`data/catalogue-intake-candidates/<candidate-id>.json` source. The compiler
+preserves the existing exact-SKU chronology in the generated
+`data/catalogue-intake.json` runtime projection.
 
 ### Research priority queue
 
@@ -57,7 +60,14 @@ The verifier recomputes the queue from the exact discovery snapshot bytes and fa
 
 ## Deliberate intake queue
 
-New research starts in `data/catalogue-intake.json`, one exact SKU at a time. Run `npm run catalogue:intake:audit` to see the ordered private queue, current gate and next action. The queue is research-only: importing it does not add products to either public catalogue source and even an `approval-ready` result means only that an identity-bound approval can be drafted.
+New research starts in one packet-bound
+`data/catalogue-intake-candidates/<candidate-id>.json` source envelope per exact
+SKU. `data/catalogue-intake.json` is its generated runtime projection; verify it
+with `npm run catalogue:intake:verify` and never hand-edit it. Run
+`npm run catalogue:intake:audit` to see the ordered private queue, current gate
+and next action. The queue is research-only: importing it does not add products
+to either public catalogue source and even an `approval-ready` result means only
+that an identity-bound approval can be drafted.
 
 Research can fan out across independent exact-SKU dossiers in parallel. The gates inside each dossier remain sequential and fail-closed: identity is locked before care, exact-offer review and final art review; approval follows every bound publication-evidence timestamp. NAFDAC research may continue in parallel as context. Evidence from one SKU cannot satisfy another, and a manifest update is merged only after the checked-in artifact bytes, locators, hashes and decision are verified locally.
 

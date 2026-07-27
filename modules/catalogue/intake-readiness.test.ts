@@ -1410,6 +1410,74 @@ test('an exact variant and size can bind a price without pretending a retailer S
   }
 });
 
+test('a reviewed offer title alias can bind a shortened retailer title without weakening variant or size checks', () => {
+  const base = completeCandidate();
+  const officialEvidence = base.identity.officialEvidence!;
+  const canonicalExtraction = structuredClone(officialEvidence.canonicalExtraction);
+  canonicalExtraction.fields.variant = {
+    ...canonicalExtraction.fields.variant,
+    value: 'Example Daily Barrier Lotion',
+    sourceText: 'Example Daily Barrier Lotion',
+  };
+  const original = base.nigeria.exactOffers[0];
+  const evidence = original.evidence!;
+  const shortenedTitleOffer: CatalogueIntakeOffer = {
+    ...original,
+    observedTitle: 'Example Barrier Lotion',
+    reviewedTitleAlias: 'Example Barrier Lotion',
+    observedGtin: undefined,
+    observedGtinBasis: 'exact-variant-and-size',
+    evidence: {
+      ...evidence,
+      fields: {
+        ...evidence.fields,
+        gtin: {
+          label: 'GTIN',
+          value: base.identity.gtin!,
+          locator: 'Bound official catalogue identity snapshot',
+          sourceText: `Official catalogue identity GTIN ${base.identity.gtin}`,
+          responseRole: 'official-identity-correlation',
+        },
+        title: {
+          value: 'Example Barrier Lotion',
+          locator: 'HTML h1 product title',
+          sourceText: 'Example Barrier Lotion',
+        },
+      },
+    },
+  };
+  const candidate: CatalogueIntakeCandidate = {
+    ...base,
+    name: 'Example Daily Barrier Lotion',
+    variant: 'Example Daily Barrier Lotion',
+    identity: {
+      ...base.identity,
+      officialEvidence: withCanonicalExtraction({
+        ...officialEvidence,
+        observedVariant: 'Example Daily Barrier Lotion',
+      }, canonicalExtraction),
+    },
+    nigeria: { ...base.nigeria, exactOffers: [shortenedTitleOffer] },
+  };
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, asOf);
+  assert.equal(decision.freshExactOffers.length, 1);
+  assert.equal(decision.stage, 'approval-ready');
+
+  for (const invalidOffer of [
+    { ...shortenedTitleOffer, reviewedTitleAlias: undefined },
+    { ...shortenedTitleOffer, reviewedTitleAlias: 'Barrier Lotion' },
+    { ...shortenedTitleOffer, reviewedTitleAlias: 'Example Facial Wash' },
+    { ...shortenedTitleOffer, observedSize: '200 ml' },
+  ]) {
+    const invalid = evaluateCatalogueIntakeCandidate({
+      ...candidate,
+      nigeria: { ...candidate.nigeria, exactOffers: [invalidOffer] },
+    }, asOf);
+    assert.equal(invalid.freshExactOffers.length, 0);
+  }
+});
+
 test('browser offer evidence recognizes explicit marketplace low-stock counts', () => {
   const base = completeCandidate();
   const original = base.nigeria.exactOffers[0];
@@ -1482,6 +1550,10 @@ test('browser accessibility evidence qualifies anti-bot retailer pages without w
           locator: 'Bound official catalogue identity snapshot',
           sourceText: `Official catalogue identity GTIN ${base.identity.gtin}`,
           responseRole: 'official-identity-correlation',
+        },
+        price: {
+          ...evidence.fields.price,
+          sourceText: 'NGN12,500',
         },
       },
     },

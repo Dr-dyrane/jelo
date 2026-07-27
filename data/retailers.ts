@@ -269,6 +269,17 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Direct Nigeria catalogue with visible product pages.',
   },
   {
+    name: 'Bracketts Beauty',
+    homepage: 'https://www.brackettsbeauty.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 86,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    searchUrl: query => `https://www.brackettsbeauty.com/search?q=${encodeURIComponent(query)}`,
+    note: 'Nigeria direct Shopify catalogue with product-level Naira pricing and stock status; links remain advisory only.',
+  },
+  {
     name: 'Allure Beauty',
     homepage: 'https://allure.com.ng/',
     market: 'NG',

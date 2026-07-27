@@ -151,9 +151,34 @@ npm run assets:verify
 
 ## 8. Update the deliberate intake
 
-The candidate lives in `data/catalogue-intake.json`. Keep its identity, care, Nigerian, rights, editorial, and asset fields internally consistent.
+Each private candidate has one authoritative source envelope at
+`data/catalogue-intake-candidates/<candidate-id>.json`. Keep its identity,
+care, Nigerian, rights, editorial, and asset fields internally consistent.
+Bind a new source to the static research packet or aggregate community packet
+that caused the deliberate research; community origins retain only packet and
+report hashes, never contributor or session identifiers.
+The original 35 records retain their fixed migration origin and ordering. A new
+record cannot claim that legacy origin.
 
-Validate:
+`data/catalogue-intake.json` is now the deterministic runtime projection. Do
+not hand-edit it. Build is a dry-run unless `--write` is explicit:
+
+```bash
+npm run catalogue:intake:build
+npm run catalogue:intake:verify
+
+# After reviewing a clean dry-run
+npm run catalogue:intake:build -- --write
+```
+
+The compiler rejects filename/ID mismatches, unsupported or duplicate origins,
+duplicate identities and GTINs, timestamps that predate evidence, deletions,
+and writes larger than 12 changed/new candidates. Before an atomic write it
+rechecks source and projection digests and verifies canonical identity
+artifacts plus every existing dossier and release binding. It never creates or
+changes a dossier, release, public image, or public product.
+
+Validate the wider contract:
 
 ```bash
 npm run catalogue:intake:audit
@@ -237,5 +262,7 @@ After push, verify the exact production deployment and custom domain before call
 - Treat a retailer SKU as the manufacturer barcode.
 - Repair a clipped or conflicting image into false evidence.
 - Edit a deterministic research projection by hand.
+- Add a candidate without one packet-bound per-SKU intake source.
+- Use an intake compile to imply approval, release, or public exposure.
 - Treat a private evidence packet as an intake candidate, dossier, release, or public product.
 - Remove a failing gate to release faster.

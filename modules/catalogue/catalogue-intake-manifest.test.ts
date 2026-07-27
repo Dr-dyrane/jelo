@@ -20,23 +20,23 @@ import {
 const researchAsOf = Date.parse('2026-07-23T18:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 30);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 35);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 31);
-  assert.equal(catalogueIntakeDecisions.length, 31);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 30);
-  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 15);
+  assert.equal(catalogueIntakeCandidates.length, 38);
+  assert.equal(catalogueIntakeDecisions.length, 38);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 35);
+  assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 19);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 30);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 35);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 3);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 30);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 35);
 });
 
 test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
@@ -95,10 +95,7 @@ test('the Simple replenishing moisturiser binds UK identity while holding formul
   assert.equal(candidate.asset.sourceAssetSha256, '0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992');
   assert.deepEqual([candidate.asset.sourceAssetWidth, candidate.asset.sourceAssetHeight], [2880, 2880]);
   assert.equal(candidate.asset.sourceAssetRetrievedAt, undefined);
-  assert.equal(candidate.nigeria.exactOffers.length, 1);
-  assert.equal(candidate.nigeria.exactOffers[0]?.retailer, 'Nectar Beauty Hub');
-  assert.equal(candidate.nigeria.exactOffers[0]?.priceNgn, 4799);
-  assert.equal(candidate.nigeria.exactOffers[0]?.evidence, undefined);
+  assert.equal(candidate.nigeria.exactOffers.length, 0);
   assert.equal(candidate.nigeria.excludedObservations.length, 2);
   assert.equal(candidate.nigeria.excludedObservations[0]?.retailer, 'BuyBetter');
   assert.equal(candidate.nigeria.excludedObservations[0]?.evidence.fields.retailerIdentifier?.value, '5011451103948');
@@ -111,6 +108,28 @@ test('the Simple replenishing moisturiser binds UK identity while holding formul
   assert.equal(decision?.stage, 'identity');
   assert.equal(decision?.approvalDraftReady, false);
   assert.equal(decision?.freshExactOffers.length, 0);
+});
+
+test('community-priority Simple and DANG leads preserve live evidence without bypassing the release gates', () => {
+  const simple = catalogueIntakeCandidates.find(item => item.id === 'simple-kind-to-skin-refreshing-facial-gel-wash-150ml');
+  const azelaic = catalogueIntakeCandidates.find(item => item.id === 'dang-azelaic-acid-serum-30ml');
+  const niacinamide = catalogueIntakeCandidates.find(item => item.id === 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml');
+  const sunscreen = catalogueIntakeCandidates.find(item => item.id === 'dang-hydra-glow-sun-protection-gel-60ml');
+  assert.ok(simple && azelaic && niacinamide && sunscreen);
+  assert.equal(simple.identity.gtin, '5011451103863');
+  assert.deepEqual(simple.nigeria.exactOffers.map(offer => offer.priceNgn), [4_999, 4_800]);
+  assert.equal(azelaic.identity.gtin, '6154000333867');
+  assert.deepEqual(azelaic.nigeria.exactOffers.map(offer => offer.priceNgn), [38_700, 19_050]);
+  assert.equal(azelaic.nigeria.excludedObservations[0]?.priceNgn, 20_421.5);
+  assert.equal(niacinamide.identity.gtin, undefined);
+  assert.equal(sunscreen.identity.gtin, undefined);
+  assert.equal(niacinamide.nigeria.excludedObservations[0]?.retailer, 'Bracketts Beauty');
+  assert.equal(sunscreen.nigeria.excludedObservations[0]?.priceNgn, 27_500);
+  assert.equal(evaluateCatalogueIntakeCandidate(simple, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');
+  assert.equal(evaluateCatalogueIntakeCandidate(azelaic, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');
+  for (const candidate of [simple, azelaic, niacinamide, sunscreen]) {
+    assert.equal(evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T15:20:00Z')).approvalDraftReady, false);
+  }
 });
 
 test('the Cécred deep conditioner binds its exact full-size identity, two Nigerian prices and reviewed render', () => {
@@ -1104,10 +1123,10 @@ test('provisional Slique evidence is retained but cannot become independent Tier
 
 test('excluded market observations are durable evidence and never exact offers', () => {
   const observations = catalogueIntakeCandidates.flatMap(candidate => candidate.nigeria.excludedObservations);
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 19);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 60);
+  ), 0), 70);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
@@ -1192,6 +1211,36 @@ test('the UK/EU SA cleanser binds its 473 ml identity to two exact Nigerian offe
   assert.equal(decision.blockers.includes('care-independent-guidance-missing'), false);
   assert.equal(decision.blockers.includes('nigeria-market-route-insufficient'), false);
   assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
+});
+
+test('the ANUA azelaic serum binds an official v4 identity capture, exact offers and staged packshot', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml'
+  ));
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '8809640737190');
+  assert.equal(candidate.identity.officialProductUrl, 'https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.schemaVersion, 4);
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.method, 'reviewed-browser-dom-identity-field-extraction');
+  assert.equal(candidate.care.manufacturerEvidenceUrl, candidate.identity.officialProductUrl);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['in-stock', 'out-of-stock']);
+  assert.equal(candidate.nigeria.exactOffers.every(offer => (
+    offer.observedGtin === undefined
+    && offer.observedGtinBasis === 'exact-variant-and-size'
+    && offer.evidence?.fields.gtin.responseRole === 'official-identity-correlation'
+  )), true);
+  assert.equal(candidate.asset.publicImageSha256, 'a20069cb6878945db3b498a247f943d414a601fe31e3c3a74e3029e54ef4f8db');
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...generationContent } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T22:00:00Z'));
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.nigeriaMarketRoute, 'tier-a');
+  assert.equal(decision.freshExactOffers.length, 2);
+  assert.deepEqual(decision.blockers, []);
 });
 
 test('no private intake candidate leaks into either public catalogue source', () => {

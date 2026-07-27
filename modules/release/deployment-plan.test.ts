@@ -15,7 +15,7 @@ test('preview and local builds stay on the fast Next build path', () => {
   assert.deepEqual(createDeploymentPlan({
     isVercelProduction: false,
     migrationsDisabled: false,
-    seedCatalogue: true,
+    seedExternalCatalogue: true,
   }), ['build-next']);
 });
 
@@ -23,7 +23,7 @@ test('production verifies and builds before any external mutation', () => {
   const plan = createDeploymentPlan({
     isVercelProduction: true,
     migrationsDisabled: false,
-    seedCatalogue: true,
+    seedExternalCatalogue: true,
   });
   const firstMutation = plan.findIndex(step => externalMutations.has(step));
 
@@ -42,20 +42,21 @@ test('the emergency migration control cannot bypass production verification', ()
   assert.deepEqual(createDeploymentPlan({
     isVercelProduction: true,
     migrationsDisabled: true,
-    seedCatalogue: true,
+    seedExternalCatalogue: true,
   }), ['verify-release', 'build-next']);
 });
 
-test('routine production releases omit one-time catalogue seeds', () => {
+test('routine production releases sync reviewed products without reseeding external discovery', () => {
   assert.deepEqual(createDeploymentPlan({
     isVercelProduction: true,
     migrationsDisabled: false,
-    seedCatalogue: false,
+    seedExternalCatalogue: false,
   }), [
     'verify-release',
     'build-next',
     'promote-staged-assets',
     'migrate-database',
+    'seed-catalogue',
     'seed-product-assets',
     'seed-editorial-assets',
   ]);

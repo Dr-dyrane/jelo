@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T15:18:00Z",
+  "order": 13,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "nineless-a-control-10-azelaic-acid-serum-30ml"
+  },
+  "candidate": {
+    "id": "nineless-a-control-10-azelaic-acid-serum-30ml",
+    "brand": "NINELESS",
+    "brandAliases": [
+      "NINE LESS"
+    ],
+    "name": "A-Control 10% Azelaic Acid Serum",
+    "variant": "A-Control 10% Azelaic Acid Serum",
+    "size": "30 ml",
+    "category": "Face care",
+    "reason": "Adds a locally observed 10% azelaic-acid serum while preserving the exact package generation Nigerians can currently buy. NINELESS identifies the original green dropper pack and its later pump-and-formula renewal but publishes no barcode. Happii and Qudo independently bind EAN 8809875270073 to the same 30 ml product. Beauty by Daz and BuyBetter each show the original dropper pack with current Nigerian prices. Retailer identifiers remain retailer-local; the composite identity route records the absent manufacturer barcode, both independent EAN sources, and the official package-version comparison.",
+    "priority": "essential",
+    "gapIds": [
+      "mild-blemish-support",
+      "post-blemish-mark-support",
+      "azelaic-acid-options"
+    ],
+    "demandEvidenceUrls": [
+      "https://beautybydaz.com/shop/face/nine-less-a-control-10-azelaic-acid-serum-30ml/",
+      "https://buybetter.ng/product/nineless-a-control-10-azelaic-acid-serum-30ml-2/",
+      "https://sliquebeautylimited.com/product/nineless-a-control-azelaic-acid-serum-30ml/"
+    ],
+    "identity": {
+      "gtin": "8809875270073",
+      "officialProductUrl": "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+      "checkedAt": "2026-07-23T08:23:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Original green dropper bottle",
+      "officialEvidence": {
+        "url": "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+        "observedGtin": "8809875270073",
+        "observedVariant": "A-Control 10% Azelaic Acid Serum",
+        "observedSize": "30 ml",
+        "observedPackageVersion": "Original green dropper bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/nineless-a-control-10-azelaic-acid-serum-30ml.json",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "[A-CONTROL] 10% Azelaic Acid Serum 30ml – NINELESS",
+            "surface": "Codex in-app browser"
+          },
+          "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
+          "fields": {
+            "gtin": {
+              "locator": "identifierCorroborations[*].fields.gtin",
+              "sourceText": "EAN 8809875270073 is independently corroborated by Happii and Qudo; the official NINELESS product variant publishes no barcode.",
+              "value": "8809875270073"
+            },
+            "manufacturerIdentifierStatus": {
+              "locator": "Rendered official Shopify product variant object",
+              "sourceText": "Official Shopify product variant: \"sku\":\"\",\"barcode\":null",
+              "value": "not-published"
+            },
+            "packageVersion": {
+              "evidenceUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_c67199d4-aed7-4f95-8262-c3e7ed690dd5_1024x1024@2x.png?v=1781860295",
+              "locator": "Official renewal comparison image, left-hand package",
+              "sourceText": "The official renewal comparison shows the original A-CONTROL 10% Azelaic Acid Serum 30 ml green dropper bottle upgrading to a renewed opaque pump bottle.",
+              "value": "Original green dropper bottle"
+            },
+            "size": {
+              "locator": "Rendered official HTML product title size",
+              "sourceText": "[A-CONTROL] 10% Azelaic Acid Serum 30ml",
+              "value": "30 ml"
+            },
+            "variant": {
+              "locator": "Rendered official HTML product title",
+              "sourceText": "[A-CONTROL] 10% Azelaic Acid Serum 30ml – NINELESS",
+              "value": "A-Control 10% Azelaic Acid Serum"
+            }
+          },
+          "identifierCorroborations": [
+            {
+              "browserCapture": {
+                "documentReadyState": "complete",
+                "pageTitle": "Nineless A-Control 10% Azelaic Acid Serum 30 ml | På lager | Billig",
+                "surface": "Codex in-app browser"
+              },
+              "fields": {
+                "gtin": {
+                  "locator": "Rendered HTML product specification row labelled Ean",
+                  "sourceText": "Model 8809875270073; Ean 8809875270073",
+                  "value": "8809875270073"
+                },
+                "size": {
+                  "locator": "Rendered HTML product h1 size suffix",
+                  "sourceText": "Nineless A-Control 10% Azelaic Acid Serum 30 ml",
+                  "value": "30 ml"
+                },
+                "variant": {
+                  "locator": "Rendered HTML product h1",
+                  "sourceText": "Nineless A-Control 10% Azelaic Acid Serum 30 ml",
+                  "value": "Nineless A-Control 10% Azelaic Acid Serum 30 ml"
+                }
+              },
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseUrl": "https://www.happii.dk/Ansigtspleje/Nineless-A-Control-10-Azelaic-Acid-Serum-30-ml/3353734",
+              "retrievedAt": "2026-07-23T08:18:00Z",
+              "reviewedAt": "2026-07-23T08:22:00Z",
+              "reviewer": "JeloCare catalogue evidence review",
+              "sourceResponseByteSize": 62495,
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseSha256": "bcfc6274e0217992a2b2aba5a2330d2ba9edc4bf90841053f52b01b7772cb8e6",
+              "sourceUrl": "https://www.happii.dk/Ansigtspleje/Nineless-A-Control-10-Azelaic-Acid-Serum-30-ml/3353734"
+            },
+            {
+              "browserCapture": {
+                "documentReadyState": "complete",
+                "pageTitle": "NINE LESS - a-Control 10% Azelaic Acid Serum - 30ml - Qudo Beauty",
+                "surface": "Codex in-app browser"
+              },
+              "fields": {
+                "gtin": {
+                  "locator": "Rendered HTML h2.qudo-ean",
+                  "sourceText": "EAN: 8809875270073",
+                  "value": "8809875270073"
+                },
+                "size": {
+                  "locator": "Rendered HTML product title size suffix",
+                  "sourceText": "NINE LESS – a-Control 10% Azelaic Acid Serum – 30ml",
+                  "value": "30 ml"
+                },
+                "variant": {
+                  "locator": "Rendered HTML h1.product_title",
+                  "sourceText": "NINE LESS – a-Control 10% Azelaic Acid Serum – 30ml",
+                  "value": "NINE LESS A-Control 10% Azelaic Acid Serum 30ml"
+                }
+              },
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseUrl": "https://qudobeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/",
+              "retrievedAt": "2026-07-23T08:18:00Z",
+              "reviewedAt": "2026-07-23T08:22:00Z",
+              "reviewer": "JeloCare catalogue evidence review",
+              "sourceResponseByteSize": 200152,
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseSha256": "44edc73f666cba39722023d5bf1aa134cebe976d0b16d9703bab9fa65e433eed",
+              "sourceUrl": "https://qudobeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/"
+            }
+          ],
+          "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+          "retrievedAt": "2026-07-23T08:19:00Z",
+          "reviewedAt": "2026-07-23T08:22:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 5,
+          "sourceResponseByteSize": 165168,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "4f8b60512a6149b4fb47cf14682157ccdf466a9b8f47b4efa53fa1e03879f9af",
+          "sourceUrl": "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 313799,
+              "responseMimeType": "image/png",
+              "responseSha256": "6bb99bf8a03875f1a6090dde74c1118773b9401fd0a0b5d4c0bfdd240550d0d3",
+              "responseUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_c67199d4-aed7-4f95-8262-c3e7ed690dd5_1024x1024@2x.png?v=1781860295",
+              "retrievedAt": "2026-07-23T08:19:00Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_c67199d4-aed7-4f95-8262-c3e7ed690dd5_1024x1024@2x.png?v=1781860295"
+            }
+          ]
+        },
+        "snapshotSha256": "604ebc30c9d6eb4639ab44a33f4b5a163adc1f36821bdda2e43aab2b1765ce0f",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 4922,
+        "retrievedAt": "2026-07-23T08:19:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Original 10% azelaic-acid cosmetic serum in a green dropper bottle; the manufacturer has since renewed both formula and packaging",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "The official renewal material identifies this original dropper as a 10% azelaic-acid serum and also confirms that its formula and pack were later changed. Current manufacturer ingredients must not be applied to this older stock. Dermatology guidance supports azelaic acid as one option for mild acne, but that does not validate this exact cosmetic serum or make it suitable for every skin. Patch test, introduce slowly, avoid already-irritated skin, and stop if burning or a persistent rash develops. Deep, painful, scarring, widespread, sudden, or persistent breakouts need a pharmacist or clinician.",
+      "manufacturerEvidenceUrl": "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
+      "evidenceUrls": [
+        "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+        "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
+      ],
+      "reviewedAt": "2026-07-23T08:24:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://ninelessshop.com/products/a-control-10-azelaic-acid-serum",
+      "exactOffers": [
+        {
+          "retailer": "Beauty by Daz",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://beautybydaz.com/shop/face/nine-less-a-control-10-azelaic-acid-serum-30ml/",
+          "observedAt": "2026-07-23T08:20:00Z",
+          "observedTitle": "Nineless A Control 10% Azelaic Acid Serum – 30ml",
+          "observedSize": "30 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Original green dropper bottle",
+          "retailerSku": "609-1-byd",
+          "priceNgn": 12500,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://beautybydaz.com/shop/face/nine-less-a-control-10-azelaic-acid-serum-30ml/",
+            "responseUrl": "https://beautybydaz.com/shop/face/nine-less-a-control-10-azelaic-acid-serum-30ml/",
+            "responseSha256": "8ebacaa4266c39d04ab7ed7f020dc206b5f39d1c23f5627d4accf3c2ef47964f",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200082,
+            "retrievedAt": "2026-07-23T08:20:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Shop the Nineless Azelaic Acid Serum Online"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "8809875270073",
+                "locator": "Bound composite catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 8809875270073",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Nineless A Control 10% Azelaic Acid Serum – 30ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "Nineless A Control 10% Azelaic Acid Serum – 30ml"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "Nineless A Control 10% Azelaic Acid Serum – 30ml"
+              },
+              "packageVersion": {
+                "value": "Original green dropper bottle",
+                "locator": "Rendered product gallery primary image",
+                "sourceText": "Original green dropper bottle shown with its white bulb and collar"
+              },
+              "price": {
+                "value": 12500,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦12,500.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM availability status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T08:24:00Z"
+          }
+        },
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/nineless-a-control-10-azelaic-acid-serum-30ml-2/",
+          "observedAt": "2026-07-23T08:20:00Z",
+          "observedTitle": "NINELESS A-CONTROL (10% Azelaic Acid) Serum 30ml",
+          "observedSize": "30 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Original green dropper bottle",
+          "retailerSku": "8809875270073",
+          "priceNgn": 14500,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/nineless-a-control-10-azelaic-acid-serum-30ml-2/",
+            "responseUrl": "https://buybetter.ng/product/nineless-a-control-10-azelaic-acid-serum-30ml-2/",
+            "responseSha256": "70134336c7615395d84fcd428dd672f0d7f9bb3950135459c0ce95a3cfd62cd7",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200092,
+            "retrievedAt": "2026-07-23T08:20:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "NINELESS A-CONTROL (10% Azelaic Acid) Serum 30ml – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "8809875270073",
+                "locator": "Bound composite catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 8809875270073",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "NINELESS A-CONTROL (10% Azelaic Acid) Serum 30ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "NINELESS A-CONTROL (10% Azelaic Acid) Serum 30ml"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "NINELESS A-CONTROL (10% Azelaic Acid) Serum 30ml"
+              },
+              "packageVersion": {
+                "value": "Original green dropper bottle",
+                "locator": "Rendered product gallery primary image",
+                "sourceText": "Original green dropper bottle shown with its white bulb and collar"
+              },
+              "price": {
+                "value": 14500,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦14,500.00 NG"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM stock count",
+                "sourceText": "24 in stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T08:24:00Z"
+          }
+        }
+      ],
+      "excludedObservations": [
+        {
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/nineless-a-control-azelaic-acid-serum-30ml/",
+          "observedAt": "2026-07-23T08:33:00Z",
+          "observedTitle": "NINELESS A-CONTROL AZELAIC ACID SERUM 30ML",
+          "observedSize": "30 ml",
+          "priceNgn": 17850,
+          "stock": "in-stock",
+          "disposition": "excluded-from-exact-comparison",
+          "exclusionReasons": [
+            "manufacturer-identifier-mismatch",
+            "retailer-provisional"
+          ],
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-retailer-observation",
+            "responseUrl": "https://sliquebeautylimited.com/product/nineless-a-control-azelaic-acid-serum-30ml/",
+            "responseSha256": "e6a429157a6afa3f2101f355ff67ebd74772cfad2101a3c51aa27c9b3959e7aa",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 309412,
+            "retrievedAt": "2026-07-23T08:33:00Z",
+            "fields": {
+              "title": {
+                "value": "NINELESS A-CONTROL AZELAIC ACID SERUM 30ML",
+                "locator": "HTML h1.product_title",
+                "sourceText": "NINELESS A-CONTROL AZELAIC ACID SERUM 30ML"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "HTML h1.product_title size token",
+                "sourceText": "NINELESS A-CONTROL AZELAIC ACID SERUM 30ML"
+              },
+              "price": {
+                "value": 17850,
+                "currency": "NGN",
+                "locator": "HTML p.price",
+                "sourceText": "₦17,850"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "HTML p.stock",
+                "sourceText": "Availability: In stock"
+              },
+              "retailerIdentifier": {
+                "label": "EAN",
+                "value": "2000000216256",
+                "locator": "HTML product_meta EAN row",
+                "sourceText": "EAN: 2000000216256"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T08:34:00Z"
+          }
+        }
+      ]
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/04/Nine-Less-optimized.jpg?fit=1280%2C1280&quality=89&ssl=1",
+      "sourceAssetSha256": "1b2a8cef6632456e17996a7c1ddf2755bf6d5fe2bf98ea4d42cfead132de3710",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 56600,
+      "sourceAssetWidth": 1280,
+      "sourceAssetHeight": 1280,
+      "sourceAssetRetrievedAt": "2026-07-23T08:20:00Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: product-mockup and precise-object-edit\nAsset type: JeloCare catalogue packshot source for background removal\nInput images: Image 1 is the exact Nigerian retail pack and primary identity reference; Image 2 is the official NINELESS before/after renewal comparison proving the left-hand original dropper package.\nPrimary request: preserve and recreate only the exact ORIGINAL pre-renewal NINELESS A-CONTROL 10% Azelaic Acid Serum 30 ml green glass dropper bottle shown in Image 1 and on the left of Image 2. One complete upright bottle, centered, front-facing, crisp Vogue-quality studio realism. Preserve the original package, not the renewed pump: white rubber bulb, wide white dropper collar, translucent emerald-green cylindrical glass bottle with rounded base, exact proportions and label layout. Keep the physical label identity faithful: NINE LESS wordmark, vertical A-CONTROL, 10% AZELAIC ACID SERUM, TARGETED ACNE PRONE SKIN, Niacinamide 20,000ppm, Panthenol 10,000ppm, Snail Secretion Filtrate 9,800ppm, Spanish block, and 30 ml / 1.01 fl.oz where legible.\nScene/backdrop: perfectly flat, uniform solid chroma-magenta #ff00ff for local background removal.\nComposition/framing: square 2000x2000; one fully visible bottle with generous even margin; product does not touch any edge.\nLighting/mood: premium soft studio light contained on the product only.\nConstraints: change the background while preserving the original dropper-pack identity; no renewed pump bottle; no carton; no hands; no people; no props; no pedestal; no floor plane; no cast shadow; no contact shadow; no reflection; no glow; no duplicate; no detached text; no watermark. Background must have no gradient, texture, vignette, or lighting variation. Do not invent or alter package text, color, cap, size, or claims.",
+        "inputs": [
+          {
+            "url": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/04/Nine-Less-optimized.jpg?fit=1280%2C1280&quality=89&ssl=1",
+            "sha256": "1b2a8cef6632456e17996a7c1ddf2755bf6d5fe2bf98ea4d42cfead132de3710"
+          },
+          {
+            "url": "https://ninelessshop.com/cdn/shop/files/0.Renewal_c67199d4-aed7-4f95-8262-c3e7ed690dd5_1024x1024@2x.png?v=1781860295",
+            "sha256": "6bb99bf8a03875f1a6090dde74c1118773b9401fd0a0b5d4c0bfdd240550d0d3"
+          }
+        ],
+        "outputSha256": "d5141014189b67ba0d60045cfda6e7f29d21def48303bd4a2306b5d6be3db155",
+        "generatedAt": "2026-07-23T08:28:00Z",
+        "recordSha256": "3c6c668aba079b9052ae0b5a3fab9f6868d3f6e7690733445ec1378d4c22a281"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-a-control-10-azelaic-acid-serum-30ml/packshot-v1-d5141014189b67ba.png",
+      "publicImageSha256": "d5141014189b67ba0d60045cfda6e7f29d21def48303bd4a2306b5d6be3db155",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 806089,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-23T08:30:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

@@ -262,7 +262,7 @@ function priceSourceMatches(sourceText: string, priceNgn: number) {
     minimumFractionDigits: Number.isInteger(priceNgn) ? 0 : 2,
     maximumFractionDigits: 2,
   }).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return new RegExp(`(?:\\bNGN\\b|₦)\\s*(?:${plain}|${grouped})(?:\\.00)?(?![\\d.,])`, 'i').test(sourceText);
+  return new RegExp(`(?:\\bNGN(?=\\s*\\d)|₦)\\s*(?:${plain}|${grouped})(?:\\.00)?(?![\\d.,])`, 'i').test(sourceText);
 }
 
 function expectedLabel(basis: ExactOfferGtinBasis | undefined): ExactOfferGtinLabel | undefined {

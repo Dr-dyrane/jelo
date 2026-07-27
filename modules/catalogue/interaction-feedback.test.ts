@@ -3,6 +3,27 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 
+function ruleDeclarations(styles: string, selector: string): string {
+  const match = styles.match(new RegExp(`${selector.replace('.', '\\.') }\\s*\\{([^}]*)\\}`));
+  assert.ok(match, `Missing ${selector} rule.`);
+  return match[1];
+}
+
+function firstMediaBlock(styles: string, query: string): string {
+  const start = styles.indexOf(query);
+  assert.notEqual(start, -1, `Missing ${query} media query.`);
+  const openingBrace = styles.indexOf('{', start);
+  let depth = 0;
+  for (let index = openingBrace; index < styles.length; index += 1) {
+    if (styles[index] === '{') depth += 1;
+    if (styles[index] === '}') {
+      depth -= 1;
+      if (depth === 0) return styles.slice(openingBrace + 1, index);
+    }
+  }
+  throw new Error(`Unclosed ${query} media query.`);
+}
+
 test('catalogue and concern filters acknowledge changes and stay reversible', async () => {
   const root = process.cwd();
   const catalogue = await readFile(path.join(root, 'app/(site)/products/page.tsx'), 'utf8');
@@ -15,6 +36,7 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   const concernsPage = await readFile(path.join(root, 'app/(site)/concerns/page.tsx'), 'utf8');
   const concernGuide = await readFile(path.join(root, 'app/(site)/concerns/[slug]/page.tsx'), 'utf8');
   const productPanel = await readFile(path.join(root, 'components/products/product-quick-panel.tsx'), 'utf8');
+  const productPanelStyles = await readFile(path.join(root, 'app/product-panel.css'), 'utf8');
   const navigation = await readFile(path.join(root, 'components/navigation/site-header.tsx'), 'utf8');
   const layout = await readFile(path.join(root, 'app/(site)/layout.tsx'), 'utf8');
   const catalogueStyles = await readFile(path.join(root, 'app/(site)/products/products.module.css'), 'utf8');
@@ -40,9 +62,12 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(search, /recordCatalogueTransition/);
   assert.match(search, /href=\{marketHrefs\.NG\}/);
   assert.match(search, /href=\{marketHrefs\.US\}/);
-  assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*position: fixed/);
-  assert.match(searchStyles, /\.shell\s*\{[\s\S]*position: sticky;[\s\S]*top: 5\.35rem;/);
-  assert.match(searchStyles, /@media \(max-width: 640px\)[\s\S]*\.shell\s*\{[\s\S]*position: relative;[\s\S]*top: auto;/);
+  assert.match(ruleDeclarations(searchStyles, '.shell'), /position:\s*sticky;/);
+  assert.match(ruleDeclarations(searchStyles, '.shell'), /top:\s*5\.35rem;/);
+  const mobileSearchStyles = firstMediaBlock(searchStyles, '@media (max-width: 640px)');
+  assert.match(ruleDeclarations(mobileSearchStyles, '.suggestions'), /position:\s*fixed;/);
+  assert.match(ruleDeclarations(mobileSearchStyles, '.shell'), /position:\s*relative;/);
+  assert.match(ruleDeclarations(mobileSearchStyles, '.shell'), /top:\s*auto;/);
   assert.match(searchStyles, /scrollbar-width: none/);
   assert.match(catalogueStyles, /^\.page\{overflow:clip;/);
   assert.doesNotMatch(search, /[😀-🙏]/u);
@@ -63,6 +88,10 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(productPanel, /How to use/);
   assert.doesNotMatch(productPanel, /Check the pack before use/);
   assert.doesNotMatch(productPanel, /Buy options|See prices/);
+  assert.match(productPanelStyles, /\.product-panel-dialog\s*\{[\s\S]*inset: 0 0 0 auto;[\s\S]*box-sizing: border-box;/);
+  assert.match(productPanelStyles, /@media \(max-width: 620px\)[\s\S]*\.product-panel-dialog\s*\{[\s\S]*inset: auto 0 0;[\s\S]*max-width: 100vw;/);
+  assert.match(productPanelStyles, /@media \(max-width: 620px\)[\s\S]*\.product-panel-header h2\s*\{[\s\S]*overflow-wrap: anywhere;/);
+  assert.match(productPanelStyles, /@media \(max-width: 620px\)[\s\S]*\.product-panel-tabs\s*\{[\s\S]*overflow: hidden;/);
   assert.match(navigation, /href="\/contribute"[^>]*>Share skincare/);
   assert.match(navigation, /label: 'Share skincare', detail: 'Tell us what you use'/);
   assert.match(layout, /href="\/contribute">Share skincare/);

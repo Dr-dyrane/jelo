@@ -70,7 +70,10 @@ Do not run two manual migration operators against the same database.
 - Vercel production builds first run the shared release preflight and complete
   the Next build. Only then may they promote staged assets, apply pending
   migrations, and seed product and editorial asset metadata.
-- `SEED_CATALOGUE_ON_BUILD=1` additionally runs catalogue and external-catalogue seeds. Use it only for an intentional one-time operation.
+- Reviewed public catalogue sync runs in every normal production release.
+  `SEED_EXTERNAL_CATALOGUE_ON_BUILD=1` is the separate, one-time external
+  discovery pathway; it must never be enabled by the legacy
+  `SEED_CATALOGUE_ON_BUILD` flag.
 - `SKIP_DATABASE_MIGRATIONS=1` suppresses production mutations but never skips
   production verification or the Next build. This is an emergency control, not
   the normal release path.

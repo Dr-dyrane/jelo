@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T15:18:00Z",
+  "order": 21,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml"
+  },
+  "candidate": {
+    "id": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+    "brand": "SheaMoisture",
+    "name": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
+    "variant": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
+    "size": "13 oz",
+    "category": "Hair & scalp",
+    "reason": "Adds a current exact-SKU rinse-off shampoo for damaged, chemically processed and textured-hair catalogue coverage. SheaMoisture binds the named 13 oz bottle to GTIN-14 00764302215837, while BuyBetter and Perfect Trust Beauty each show the equivalent 384 ml Nigerian pack, the matching UPC digits and a current Naira price. AAD guidance independently supports careful shampoo selection and scalp-focused washing without turning the catalogue profile into treatment advice.",
+    "priority": "essential",
+    "gapIds": [
+      "textured-hair-cleansing",
+      "damaged-hair-shampoo",
+      "hair-scalp-daily-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
+      "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml"
+    ],
+    "identity": {
+      "gtin": "00764302215837",
+      "officialProductUrl": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+      "checkedAt": "2026-07-23T16:39:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+        "observedGtin": "00764302215837",
+        "observedVariant": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
+        "observedSize": "13 oz",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/sheamoisture-jamaican-black-castor-oil-shampoo-384ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+          "sourceUrl": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+          "responseUrl": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-07-23T16:35:06Z",
+          "fields": {
+            "gtin": {
+              "value": "00764302215837",
+              "locator": "Official Product JSON-LD gtin14 and gs1:gtin",
+              "sourceText": "Product JSON-LD: gtin14 00764302215837; gs1:gtin 00764302215837"
+            },
+            "variant": {
+              "value": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
+              "locator": "Official Product JSON-LD productName and page heading",
+              "sourceText": "Jamaican Black Castor Oil Strengthen & Restore Shampoo"
+            },
+            "size": {
+              "value": "13 oz",
+              "locator": "Official encoded product analytics productVariants field",
+              "sourceText": "&quot;productVariants&quot;:&quot;13 oz&quot;"
+            }
+          },
+          "sourceResponseSha256": "9bfdd097cc9506ec473de4d8d9bccfb21fe09ed0b6fbf7ba0a21e7c30494be7a",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 1816643,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://assets.unileversolutions.com/v1/132334275.png?im=Resize=(1200,1200)",
+              "responseUrl": "https://assets.unileversolutions.com/v1/132334275.png?im=Resize=(1200,1200)",
+              "retrievedAt": "2026-07-23T16:16:21Z",
+              "responseSha256": "276f4c7fb954af6be5f09155b197cb67a4670d80bd23e5e74ee124c802c8190d",
+              "responseMimeType": "image/png",
+              "responseByteSize": 528576
+            }
+          ],
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-23T16:38:00Z"
+        },
+        "snapshotSha256": "2e9d47f2c68ede2ceb97be658ef9a9cd7b722723842df8f3407948125a62e2e3",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1692,
+        "retrievedAt": "2026-07-23T16:35:06Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Sulfate-free rinse-off clarifying shampoo with decyl glucoside, sodium lauroyl lactylate, glycerin, panthenol, hydrolysed proteins, shea butter, castor oil, peppermint extract and fragrance",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports rinse-off cleansing and removal of buildup for damaged or chemically processed hair as described by the manufacturer. It does not diagnose or treat hair loss, scalp disease, dandruff or the causes of breakage. Fragrance, peppermint and protein-containing formulas may not suit everyone; avoid the eyes, stop if irritation occurs, and seek clinical assessment for sudden shedding, scalp pain, inflammation, pus or patchy loss.",
+      "manufacturerEvidenceUrl": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+      "evidenceUrls": [
+        "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+        "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
+      ],
+      "reviewedAt": "2026-07-23T16:40:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
+          "observedAt": "2026-07-23T16:35:06Z",
+          "observedTitle": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml",
+          "observedSize": "13 oz / 384 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "764302215837",
+          "priceNgn": 12685,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
+            "responseUrl": "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
+            "responseSha256": "8d08b93f47d5ab4399710f651a0109388b88d30086ef919f8d37320ae7afe45a",
+            "responseDigestScope": "rendered-accessibility-tree",
+            "responseMimeType": "text/html",
+            "responseByteSize": 10530,
+            "retrievedAt": "2026-07-23T16:35:06Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "00764302215837",
+                "locator": "Bound official SheaMoisture catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 00764302215837",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml",
+                "locator": "Rendered accessibility heading level 1",
+                "sourceText": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml"
+              },
+              "size": {
+                "value": "13 oz / 384 ml",
+                "locator": "Rendered accessibility product heading size suffix",
+                "sourceText": "13 oz 384ml"
+              },
+              "price": {
+                "value": 12685,
+                "currency": "NGN",
+                "locator": "Rendered accessibility product price",
+                "sourceText": "₦12,685.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered accessibility stock count",
+                "sourceText": "6 in stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T16:41:00Z"
+          }
+        },
+        {
+          "retailer": "Perfect Trust Beauty",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml",
+          "observedAt": "2026-07-23T16:35:06Z",
+          "observedTitle": "Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml",
+          "observedSize": "384 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "764302215837",
+          "priceNgn": 13300,
+          "stock": "low-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "listingUrl": "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml",
+            "responseUrl": "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml",
+            "responseSha256": "bc2caaf0641901d93edd444585f9342090443045a4ea0c353ac33fe975f8b35d",
+            "responseDigestScope": "rendered-accessibility-tree",
+            "responseMimeType": "text/html",
+            "responseByteSize": 15021,
+            "retrievedAt": "2026-07-23T16:35:06Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml | Best Online Prices in Nigeria"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "00764302215837",
+                "locator": "Bound official SheaMoisture catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 00764302215837",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml",
+                "locator": "Rendered accessibility heading level 1",
+                "sourceText": "Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml"
+              },
+              "size": {
+                "value": "384 ml",
+                "locator": "Rendered accessibility product heading size suffix",
+                "sourceText": "384ml"
+              },
+              "price": {
+                "value": 13300,
+                "currency": "NGN",
+                "locator": "Rendered accessibility product price",
+                "sourceText": "₦13,300.00"
+              },
+              "stock": {
+                "value": "low-stock",
+                "locator": "Rendered accessibility low-stock status",
+                "sourceText": "Only 3 left"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T16:41:00Z"
+          }
+        }
+      ],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://assets.unileversolutions.com/v1/132334275.png?im=Resize=(1200,1200)",
+      "sourceAssetSha256": "276f4c7fb954af6be5f09155b197cb67a4670d80bd23e5e74ee124c802c8190d",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 528576,
+      "sourceAssetWidth": 1200,
+      "sourceAssetHeight": 1200,
+      "sourceAssetRetrievedAt": "2026-07-23T16:16:21Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: product-mockup\nAsset type: JeloCare catalogue transparent packshot source\nInput images: Image 1 is the sole exact product-identity and packaging reference.\nPrimary request: Create a faithful, premium catalogue render of the exact current SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo bottle shown in Image 1.\nScene/backdrop: perfectly flat solid #ff00ff chroma-key background for local background removal. The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation.\nSubject: one upright dark amber-brown rounded shampoo bottle with its complete metallic gold cap, clear neck, full rounded base, pale yellow wrap label, and the same front-facing proportions as Image 1.\nStyle/medium: high-end realistic product render, clean and display-worthy, preserving the exact SKU identity.\nComposition/framing: centered, straight-on, full bottle visible with generous even padding on every side; no clipping; no perspective tilt.\nLighting/mood: clean controlled product lighting on the bottle only; no cast shadow or contact shadow.\nText (verbatim): preserve the visible label identity and hierarchy from Image 1, especially \"SheaMoisture\", \"JAMAICAN BLACK CASTOR OIL\", \"strengthen & restore\", \"SHAMPOO\", \"SHEA BUTTER, PEPPERMINT, & APPLE CIDER VINEGAR\", and \"3X less breakage on damaged hair\".\nConstraints: Image 1 is authoritative. Preserve bottle shape, cap shape, dark amber color, label color, label placement, logo hierarchy, and product variant. Keep cap and base fully complete. Do not invent a pump, carton, props, extra bottles, badges, or alternate packaging. Do not use #ff00ff anywhere in the subject. No halo, no watermark, no floor, no reflection, no shadow, no extra text.\nAvoid: stylization, label redesign, spelling drift, cropped geometry, white background, pink spill on the bottle, overlapping geometry.",
+        "inputs": [
+          {
+            "url": "https://assets.unileversolutions.com/v1/132334275.png?im=Resize=(1200,1200)",
+            "sha256": "276f4c7fb954af6be5f09155b197cb67a4670d80bd23e5e74ee124c802c8190d"
+          }
+        ],
+        "outputSha256": "a4b3e9dc07c29db0408fab3095e31826fd644075650587d201c0ddbc898b8be9",
+        "generatedAt": "2026-07-23T16:32:23Z",
+        "recordSha256": "eddce6b3d2db76c29f8f53fc6970d9bbc14950e862f84b5797340aedf96ffd54"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/sheamoisture/sheamoisture-jamaican-black-castor-oil-shampoo-384ml/packshot-v1-a4b3e9dc07c29db0.png",
+      "publicImageSha256": "a4b3e9dc07c29db0408fab3095e31826fd644075650587d201c0ddbc898b8be9",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1217871,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-23T16:44:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

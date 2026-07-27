@@ -67,6 +67,7 @@ test('indexes only manifest-approved supportive discovery terms', () => {
   const barrier = queryInventoryRecords(products, { q: 'barrier', review: 'reviewed' });
   assert.deepEqual(barrier.items.map(item => item.id), [
     'reviewed:cerave-pm-facial-moisturising-lotion-52ml',
+    'reviewed:simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
   ]);
 
   const approvedUse = queryInventoryRecords(products, { q: 'oiliness', review: 'reviewed' });
@@ -83,12 +84,15 @@ test('indexes only manifest-approved supportive discovery terms', () => {
 test('concern browsing includes explicit reviewed references without turning them into direct recommendations', () => {
   const concern = queryInventoryRecords(products, { concern: 'acne-breakouts' });
   assert.deepEqual(concern.items.map(item => item.id), [
+    'reviewed:anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml',
     'reviewed:balance-niacinamide-blemish-recovery-serum-30ml',
     'reviewed:balance-salicylic-acid-zinc-clarifying-toner-200ml',
     'reviewed:cerave-acne-foaming-cream-cleanser-4-150ml',
     'reviewed:cerave-acne-foaming-cream-wash-10-150ml',
     'reviewed:cerave-blemish-control-cleanser',
+    'reviewed:dang-azelaic-acid-serum-30ml',
     'reviewed:de-la-cruz-acne-treatment-10-sulfur-73-7g',
+    'reviewed:facefacts-ceramide-blemish-gel-moisturiser-50ml',
     'reviewed:nineless-a-control-10-azelaic-acid-serum-30ml',
     'reviewed:panoxyl-acne-foaming-wash-10-benzoyl-peroxide',
     'reviewed:the-ordinary-azelaic-acid-suspension-10',
@@ -110,11 +114,11 @@ test('concern browsing includes explicit reviewed references without turning the
   assert.deepEqual(
     queryInventoryRecords(products).facets.concerns.map(facet => [facet.value, facet.total]),
     [
-      ['acne-breakouts', 9],
-      ['dark-spots', 4],
-      ['sensitive-barrier', 1],
+      ['acne-breakouts', 12],
+      ['dark-spots', 5],
+      ['sensitive-barrier', 2],
       ['dry-dehydrated-skin', 4],
-      ['dry-rough-body-skin', 5],
+      ['dry-rough-body-skin', 6],
       ['oily-congested-skin', 5],
       ['dandruff-itchy-scalp', 1],
       ['dry-frizzy-hair', 4],

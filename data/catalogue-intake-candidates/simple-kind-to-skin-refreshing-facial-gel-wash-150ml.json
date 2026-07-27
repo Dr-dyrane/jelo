@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-26T19:47:16Z",
+  "order": 31,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml"
+  },
+  "candidate": {
+    "id": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+    "brand": "Simple",
+    "name": "Kind to Skin Refreshing Facial Gel Wash",
+    "variant": "Kind to Skin Refreshing Facial Gel Wash",
+    "size": "150 ml",
+    "category": "Face care",
+    "reason": "Community-priority facial cleanser with an official current GTIN-13 and two live Nigerian listings. Its identity-verified 150 ml tube render passed label, packaging and multi-surface review.",
+    "priority": "essential",
+    "gapIds": [
+      "daily-facial-cleansing",
+      "sensitive-skin-routine-coverage"
+    ],
+    "demandEvidenceUrls": [
+      "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
+      "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/"
+    ],
+    "identity": {
+      "gtin": "5011451103863",
+      "officialProductUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+      "checkedAt": "2026-07-26T14:52:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+        "observedGtin": "5011451103863",
+        "observedVariant": "Kind to Skin Refreshing Facial Gel Wash",
+        "observedSize": "150 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/simple-kind-to-skin-refreshing-facial-gel-wash-150ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+          "sourceUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+          "responseUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+          "retrievedAt": "2026-07-26T14:50:00Z",
+          "fields": {
+            "gtin": {
+              "value": "5011451103863",
+              "locator": "Official product URL GTIN-13 suffix",
+              "sourceText": "Official product URL GTIN-13 5011451103863"
+            },
+            "variant": {
+              "value": "Kind to Skin Refreshing Facial Gel Wash",
+              "locator": "Official product heading",
+              "sourceText": "Kind to Skin Refreshing Facial Gel Wash"
+            },
+            "size": {
+              "value": "150 ml",
+              "locator": "Official product size label",
+              "sourceText": "150 ml"
+            }
+          },
+          "sourceResponseSha256": "95acd53a9510f3f88b64566fd2279a4e1e5b8bfc1648e8734cd94f1dc7296e9a",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 1085598,
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-26T14:52:00Z"
+        },
+        "snapshotSha256": "8c5767a2ca7c30ec3bca5dda1b366f2ce6f92ecb41c00aa574bb1996e22c7eaf",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1082,
+        "retrievedAt": "2026-07-26T14:50:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Soap-free rinse-off facial gel cleanser for daily cleansing",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Daily cleansing support only; it does not diagnose or treat acne, dermatitis or another skin condition. Avoid the eyes, rinse well and stop use if irritation persists.",
+      "manufacturerEvidenceUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-07-26T14:53:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+      "exactOffers": [
+        {
+          "retailer": "Teeka4",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
+          "observedAt": "2026-07-26T14:53:00Z",
+          "observedTitle": "Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml",
+          "observedSize": "150 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "TK-0881",
+          "priceNgn": 4999,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-exact-offer-field-extraction",
+            "listingUrl": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
+            "responseUrl": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
+            "responseSha256": "582ca15f986e6e62eb889fd283f6b1c387c168b35fbfc52be56c273673fe7cb8",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 357760,
+            "retrievedAt": "2026-07-26T14:53:00Z",
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5011451103863",
+                "locator": "Bound official Simple catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5011451103863",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml",
+                "locator": "HTML document title and JSON-LD Product.name",
+                "sourceText": "Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml"
+              },
+              "size": {
+                "value": "150 ml",
+                "locator": "HTML document title size suffix",
+                "sourceText": "5.1fl oz / 150ml"
+              },
+              "price": {
+                "value": 4999,
+                "currency": "NGN",
+                "locator": "Open Graph product:price:amount",
+                "sourceText": "₦4,999"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Twitter product availability meta",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T14:53:30Z"
+          }
+        },
+        {
+          "retailer": "CSi Grocery",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/",
+          "observedAt": "2026-07-26T15:16:22.527Z",
+          "observedTitle": "Simple Refreshing Facial Wash – 150ml",
+          "reviewedTitleAlias": "Refreshing Facial Wash",
+          "observedSize": "150 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 4800,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/",
+            "responseUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/",
+            "responseSha256": "3b2b5864ba3f8246d360d6af89f7a7ea674f5f94b548c7864cc3416509146c3c",
+            "responseDigestScope": "rendered-accessibility-tree",
+            "responseMimeType": "text/html",
+            "responseByteSize": 11759,
+            "retrievedAt": "2026-07-26T15:16:22.527Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Simple Refreshing Facial Wash - 150ml @ Best Price | CSi Grocery"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5011451103863",
+                "locator": "Bound official Simple catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5011451103863",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Simple Refreshing Facial Wash – 150ml",
+                "locator": "Rendered accessibility heading level 1",
+                "sourceText": "Simple Refreshing Facial Wash – 150ml"
+              },
+              "size": {
+                "value": "150 ml",
+                "locator": "Rendered accessibility product heading size suffix",
+                "sourceText": "Simple Refreshing Facial Wash – 150ml"
+              },
+              "price": {
+                "value": 4800,
+                "currency": "NGN",
+                "locator": "Rendered accessibility product price",
+                "sourceText": "₦4,800.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered accessibility availability status",
+                "sourceText": "Availability: In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T15:18:00Z"
+          }
+        }
+      ],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://assets.unileversolutions.com/v1/1528271.png",
+      "sourceAssetSha256": "7f5d9ee47adb02739544ff12b46aa13a580c5db49a1bf794d344d67808fafb6c",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 317604,
+      "sourceAssetWidth": 2880,
+      "sourceAssetHeight": 2880,
+      "sourceAssetRetrievedAt": "2026-07-26T14:50:00Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the exact Simple Kind to Skin Refreshing Facial Gel Wash 150 ml front pack and the sole authority for product identity, tube geometry, cap, transparency, label layout, wording, colours, variant and size.\nPrimary request: recreate the exact single Simple Kind to Skin Refreshing Facial Gel Wash tube shown in Image 1. Produce one complete upright pale translucent mint-green 150 ml inverted squeeze tube, centered, perfectly front-facing, crisp, photorealistic and premium catalogue quality. Preserve the sealed top crimp, broad shoulders, green Simple wordmark, top N°1 UK facial skincare brand badge, SENSITIVE SKIN EXPERTS line, bright-green KIND TO SKIN bar, refreshing facial wash title, 100% SOAP FREE GEL line, green botanical swoosh, lower claim lines, exact 150 ml ℮ size and complete translucent pale-green bottom flip cap.\nText, verbatim where visible: “N°1 UK FACIAL SKINCARE BRAND”; “Simple”; “SENSITIVE SKIN EXPERTS”; “KIND TO SKIN”; “refreshing facial wash”; “100% SOAP FREE GEL”; “NO ARTIFICIAL PERFUME OR COLOUR”; “NO HARSH CHEMICALS THAT CAN UPSET YOUR SKIN”; “150 ml ℮”.\nComposition: square; full crimp, shoulders, tube and complete flip-cap base visible; generous even clear margin on all sides; product occupies about 76% of canvas height; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nLighting: soft clean frontal product light that preserves the translucent mint tube and cap without bleaching the green print.\nScene/backdrop: perfectly flat uniform solid #ff00ff chroma-magenta for local removal, with no gradient, texture, vignette, spill, floor plane or lighting variation.\nConstraints: Image 1 overrides every generated assumption. Preserve the exact current label, printed size, package geometry, translucent material and colour placement. Do not invent or alter any text, barcode or GTIN. Use no #ff00ff anywhere on the product.",
+        "inputs": [
+          {
+            "url": "https://assets.unileversolutions.com/v1/1528271.png",
+            "sha256": "7f5d9ee47adb02739544ff12b46aa13a580c5db49a1bf794d344d67808fafb6c"
+          }
+        ],
+        "outputSha256": "cc41a43106398a8d9d9418d1a7c9fd6cf1c5cfd492d534d6c7b33fbf9a811050",
+        "generatedAt": "2026-07-26T19:11:17Z",
+        "recordSha256": "7c35dbb4af873155bd94ce73ae2a51f39bbe38d2affb7b43b81e1a6b204794b4"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/simple/simple-kind-to-skin-refreshing-facial-gel-wash-150ml/packshot-v1-cc41a43106398a8d.png",
+      "publicImageSha256": "cc41a43106398a8d9d9418d1a7c9fd6cf1c5cfd492d534d6c7b33fbf9a811050",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1630441,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-26T19:47:16Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

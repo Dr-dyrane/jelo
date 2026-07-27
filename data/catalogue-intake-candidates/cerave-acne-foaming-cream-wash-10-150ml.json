@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-27T01:18:26Z",
+  "order": 6,
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "cerave-acne-foaming-cream-wash-10-150ml"
+  },
+  "candidate": {
+    "id": "cerave-acne-foaming-cream-wash-10-150ml",
+    "brand": "CeraVe",
+    "name": "Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+    "variant": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+    "size": "150 ml",
+    "category": "Face care",
+    "reason": "A strong acne-wash candidate for inflammatory facial and body-breakout coverage. Care review is complete, and Beauty by Daz plus Teeka4 each show the exact 10% / 150 ml variant with a current Nigerian price.",
+    "priority": "important",
+    "gapIds": [
+      "inflammatory-acne-wash",
+      "body-acne-support"
+    ],
+    "demandEvidenceUrls": [
+      "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+      "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/"
+    ],
+    "identity": {
+      "gtin": "3606000604520",
+      "officialProductUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+      "checkedAt": "2026-07-22T18:50:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+        "observedGtin": "3606000604520",
+        "observedVariant": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+        "observedSize": "150 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/cerave-acne-foaming-cream-wash-10-150ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
+          "sourceUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+          "responseUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-07-22T18:48:46Z",
+          "fields": {
+            "gtin": {
+              "value": "3606000604520",
+              "locator": "Product JSON-LD sku and mpn on the official CeraVe product page",
+              "sourceText": "sku: 3606000604520; mpn: 3606000604520"
+            },
+            "variant": {
+              "value": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+              "locator": "Official page h1 plus 10% Benzoyl Peroxide feature and front-pack label",
+              "sourceText": "CeraVe Acne Foaming Cream Wash 10% BENZOYL PEROXIDE ACNE TREATMENT"
+            },
+            "size": {
+              "value": "150 ml",
+              "locator": "Revisioned official front-pack image, bottom tube label",
+              "sourceText": "5 FL OZ (150 ml)"
+            }
+          },
+          "sourceResponseSha256": "bd50c7ae41fed61ea157e4041ee48bdcff15f17c2382376853e283ce03e2628e",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 370407,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.cerave.com/-/media/project/loreal/brand-sites/cerave/americas/us/skincare/acne/acne/foaming-cream-wash/acne-foaming-cream-wash_front.jpg?rev=29d8cad388dc4f11a8fd0f27775d9384",
+              "responseUrl": "https://www.cerave.com/-/media/project/loreal/brand-sites/cerave/americas/us/skincare/acne/acne/foaming-cream-wash/acne-foaming-cream-wash_front.jpg?rev=29d8cad388dc4f11a8fd0f27775d9384",
+              "retrievedAt": "2026-07-22T18:48:46Z",
+              "responseSha256": "d15176d49176e2ce1844b6897a272ef22ed89fc812f6dda79bb1dd5e0f66dcb1",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 76763
+            }
+          ],
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-22T18:50:00Z"
+        },
+        "snapshotSha256": "383558294dd20d9a77ace2e89e8faa33b5bc16c56fc495bb2dd4bc21d49b1854",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1833,
+        "retrievedAt": "2026-07-22T18:48:46Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "rinse-off 10% benzoyl peroxide acne wash",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Catalogue context only, not a diagnosis or personal treatment plan. Ten-percent benzoyl peroxide can irritate skin and bleach fabrics; follow the label, reduce frequency if irritation develops, and seek professional care for painful, scarring, widespread, or persistent acne.",
+      "manufacturerEvidenceUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+      "independentClinicalGuidanceUrl": "https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/",
+      "evidenceUrls": [
+        "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+        "https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/"
+      ],
+      "reviewedAt": "2026-07-22T19:00:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
+      "exactOffers": [
+        {
+          "retailer": "Beauty by Daz",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+          "observedAt": "2026-07-23T05:20:00Z",
+          "observedTitle": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)",
+          "observedSize": "150 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "CAFC",
+          "priceNgn": 23850,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+            "responseUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+            "responseSha256": "7e7a313dbe38fe4e4976c2276f8b81f269021ac47a0c028e1c8b1cb3a56755c3",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200071,
+            "retrievedAt": "2026-07-23T05:20:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "3606000604520",
+                "locator": "Bound official CeraVe 150 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 3606000604520",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)"
+              },
+              "size": {
+                "value": "150 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)"
+              },
+              "price": {
+                "value": 23850,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦23,850.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM availability status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T05:27:30Z"
+          }
+        },
+        {
+          "retailer": "Teeka4",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/",
+          "observedAt": "2026-07-23T05:20:00Z",
+          "observedTitle": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml",
+          "observedSize": "150 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "TK-1434",
+          "priceNgn": 24500,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/",
+            "responseUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/",
+            "responseSha256": "d1c8606933e1148de4229a6e394bc0eede3bbc1d2f88fa94ad70e3489d2bcc3c",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200030,
+            "retrievedAt": "2026-07-23T05:20:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml in Nigeria | Teeka4"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "3606000604520",
+                "locator": "Bound official CeraVe 150 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 3606000604520",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml"
+              },
+              "size": {
+                "value": "150 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml"
+              },
+              "price": {
+                "value": 24500,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦24,500.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM availability status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T05:27:30Z"
+          }
+        }
+      ],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://www.cerave.com/-/media/project/loreal/brand-sites/cerave/americas/us/skincare/acne/acne/foaming-cream-wash/acne-foaming-cream-wash_front.jpg?rev=29d8cad388dc4f11a8fd0f27775d9384",
+      "sourceAssetSha256": "d15176d49176e2ce1844b6897a272ef22ed89fc812f6dda79bb1dd5e0f66dcb1",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 76763,
+      "sourceAssetWidth": 1440,
+      "sourceAssetHeight": 1800,
+      "sourceAssetRetrievedAt": "2026-07-23T05:22:00Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: background-extraction and precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact identity reference and edit target for CeraVe Acne Foaming Cream Wash, 10% Benzoyl Peroxide Acne Treatment, 5 FL OZ (150 ml).\nPrimary request: Create one faithful, high-resolution, centered, straight-on render of the complete tube from Image 1. Preserve the exact upright white squeeze tube, white flip cap, complete silhouette, proportions, teal and navy graphics, small red NEW badge, and all visible identity text including “CeraVe”, “Acne Foaming Cream Wash”, “10% BENZOYL PEROXIDE ACNE TREATMENT”, “MAXIMUM STRENGTH”, “MAX STRENGTH 10% BPO”, and “5 FL OZ (150 ml)”.\nComposition: one full tube only, front-facing, upright, centered, generous even padding on every side, no crop, no tilt, no carton, no base or platform.\nBackground: perfectly uniform solid #00ff00 chroma green, one flat color only; no gradient, texture, floor plane, vignette, reflection, cast shadow, contact shadow, or lighting variation.\nConstraints: brand, product name, active strength, size, tube shape, cap shape, label layout, colors, and proportions must match the reference. No redesign, no alternate package, no extra product, no props, no watermark, no added text. Do not use #00ff00 anywhere on the product.",
+        "inputs": [
+          {
+            "url": "https://www.cerave.com/-/media/project/loreal/brand-sites/cerave/americas/us/skincare/acne/acne/foaming-cream-wash/acne-foaming-cream-wash_front.jpg?rev=29d8cad388dc4f11a8fd0f27775d9384",
+            "sha256": "d15176d49176e2ce1844b6897a272ef22ed89fc812f6dda79bb1dd5e0f66dcb1"
+          }
+        ],
+        "outputSha256": "3da215659684e6824c5c56a21789f05d5535c556427c6a23a8036f93dd961a6f",
+        "generatedAt": "2026-07-23T05:25:00Z",
+        "recordSha256": "f0d95db4a69849e2a071ec0ef57879156ad9d9f244602c25305af81947b1db11"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-acne-foaming-cream-wash-10-150ml/packshot-v1-3da215659684e682.png",
+      "publicImageSha256": "3da215659684e6824c5c56a21789f05d5535c556427c6a23a8036f93dd961a6f",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 696318,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-23T05:28:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}
