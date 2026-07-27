@@ -82,6 +82,44 @@ export async function decideEdgeAction(_prevState: unknown, formData: FormData):
 
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
+export async function fetchMoreContributionsAction(
+  afterSubmittedAt: string,
+  afterId: string,
+  limit = 40,
+) {
+  await requireConsoleOperator();
+
+  const parsedDate = new Date(afterSubmittedAt);
+  if (!Number.isFinite(parsedDate.valueOf()) || !uuidPattern.test(afterId)) {
+    throw new Error('Invalid contribution cursor.');
+  }
+
+  const requestedLimit = Number.isFinite(limit) ? Math.trunc(limit) : 40;
+  const safeLimit = Math.min(Math.max(requestedLimit, 1), 100);
+  const { listPendingContributions } = await import('@/lib/moderation/queues');
+  const { contributionReviewItem } = await import(
+    '@/lib/moderation/contribution-presentation'
+  );
+  const fetchedRows = await listPendingContributions(
+    getPostgresClient(),
+    safeLimit + 1,
+    {
+      submittedAt: afterSubmittedAt,
+      id: afterId,
+    },
+  );
+  const rows = fetchedRows.slice(0, safeLimit);
+  const lastRow = rows.at(-1);
+
+  return {
+    items: rows.map(contributionReviewItem),
+    hasMore: fetchedRows.length > safeLimit,
+    nextCursor: lastRow
+      ? { submittedAt: lastRow.submittedAt, id: lastRow.id }
+      : null,
+  };
+}
+
 export async function fetchMoreRelationshipsAction(
   afterCreatedAt: string,
   afterId: string,
@@ -94,14 +132,15 @@ export async function fetchMoreRelationshipsAction(
     throw new Error('Invalid relationship cursor.');
   }
 
-  const safeLimit = Math.min(Math.max(Math.trunc(limit), 1), 100);
+  const requestedLimit = Number.isFinite(limit) ? Math.trunc(limit) : 40;
+  const safeLimit = Math.min(Math.max(requestedLimit, 1), 100);
   const { listPendingEdges } = await import('@/lib/moderation/queues');
   const { edgeReviewItem } = await import('@/lib/moderation/edge-presentation');
   const fetchedRows = await listPendingEdges(
     getPostgresClient(),
     safeLimit + 1,
     {
-      createdAt: parsedDate.toISOString(),
+      createdAt: afterCreatedAt,
       id: afterId,
     },
   );
@@ -132,20 +171,50 @@ export async function decideObservationAction(_prevState: unknown, formData: For
   }
 }
 
-export async function fetchMoreObservationsAction(offset: number, limit = 50) {
+export async function fetchMoreObservationsAction(
+  afterCreatedAt: string,
+  afterId: string,
+  limit = 40,
+) {
   await requireConsoleOperator();
+
+  const parsedDate = new Date(afterCreatedAt);
+  if (!Number.isFinite(parsedDate.valueOf()) || !uuidPattern.test(afterId)) {
+    throw new Error('Invalid observation cursor.');
+  }
+
+  const requestedLimit = Number.isFinite(limit) ? Math.trunc(limit) : 40;
+  const safeLimit = Math.min(Math.max(requestedLimit, 1), 100);
   const { listPendingObservations } = await import('@/lib/moderation/queues');
-  const { findCatalogueProduct } = await import('@/lib/catalogue/repository');
-  const rows = await listPendingObservations(getPostgresClient(), limit, offset);
-  const enrichedRows = await Promise.all(rows.map(async row => {
-    if (row.subjectKind === 'product') {
-      const slug = row.subjectRef.startsWith('product:') ? row.subjectRef.slice(8) : row.subjectRef;
-      const product = await findCatalogueProduct(slug);
-      return { ...row, product };
-    }
-    return row;
-  }));
-  return enrichedRows;
+  const { listCatalogueProducts } = await import('@/lib/catalogue/repository');
+  const {
+    observationProductSlug,
+    observationReviewItem,
+  } = await import('@/lib/moderation/observation-presentation');
+  const fetchedRows = await listPendingObservations(
+    getPostgresClient(),
+    safeLimit + 1,
+    {
+      createdAt: afterCreatedAt,
+      id: afterId,
+    },
+  );
+  const rows = fetchedRows.slice(0, safeLimit);
+  const catalogue = await listCatalogueProducts();
+  const productsBySlug = new Map(catalogue.map(product => [product.slug, product]));
+  const items = rows.map(row => {
+    const slug = observationProductSlug(row);
+    return observationReviewItem(row, slug ? productsBySlug.get(slug) : undefined);
+  });
+  const lastRow = rows.at(-1);
+
+  return {
+    items,
+    hasMore: fetchedRows.length > safeLimit,
+    nextCursor: lastRow
+      ? { createdAt: lastRow.createdAt, id: lastRow.id }
+      : null,
+  };
 }
 
 export async function fetchMoreVocabularyAction(
@@ -174,7 +243,7 @@ export async function fetchMoreVocabularyAction(
     safeLimit + 1,
     {
       activeMentionCount: afterActiveMentionCount,
-      firstSeenAt: parsedDate.toISOString(),
+      firstSeenAt: afterFirstSeenAt,
       id: afterId,
     },
   );

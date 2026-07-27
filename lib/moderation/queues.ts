@@ -77,7 +77,24 @@ export type PendingObservation = {
   createdAt: string;
 };
 
-export async function listPendingObservations(sql: Sql, limit = 100, offset = 0): Promise<PendingObservation[]> {
+export type PendingObservationCursor = {
+  createdAt: string;
+  id: string;
+};
+
+export async function listPendingObservations(
+  sql: Sql,
+  limit = 100,
+  after?: PendingObservationCursor,
+): Promise<PendingObservation[]> {
+  const afterCursor = after
+    ? sql`
+        and (observation.created_at, observation.id) > (
+          ${after.createdAt}::text::timestamptz,
+          ${after.id}::uuid
+        )
+      `
+    : sql``;
   const rows = await sql<{
     id: string;
     contribution_id: string;
@@ -98,8 +115,9 @@ export async function listPendingObservations(sql: Sql, limit = 100, offset = 0)
     where observation.moderation_status = 'pending'
       and contribution.moderation_status <> 'rejected'
       and contribution.retain_until > now()
-    order by observation.created_at asc
-    limit ${boundedLimit(limit)} offset ${Math.max(0, Math.trunc(offset))}
+      ${afterCursor}
+    order by observation.created_at asc, observation.id asc
+    limit ${boundedLimit(limit)}
   `;
   return rows.map(row => ({
     id: row.id,
@@ -112,6 +130,46 @@ export async function listPendingObservations(sql: Sql, limit = 100, offset = 0)
     observedOn: row.observed_on,
     createdAt: row.created_at,
   }));
+}
+
+export async function findPendingObservation(
+  sql: Sql,
+  id: string,
+): Promise<PendingObservation | null> {
+  const [row] = await sql<{
+    id: string;
+    contribution_id: string;
+    observation_kind: 'price' | 'outcome';
+    subject_kind: string;
+    subject_ref: string;
+    amount_ngn: number | null;
+    outcome: string | null;
+    observed_on: string | null;
+    created_at: string;
+  }[]>`
+    select observation.id, observation.contribution_id, observation.observation_kind,
+           observation.subject_kind, observation.subject_ref, observation.amount_ngn,
+           observation.outcome, observation.observed_on::text as observed_on,
+           observation.created_at::text as created_at
+    from community_observations observation
+    join community_contributions contribution on contribution.id = observation.contribution_id
+    where observation.moderation_status = 'pending'
+      and contribution.moderation_status <> 'rejected'
+      and contribution.retain_until > now()
+      and observation.id = ${id}
+    limit 1
+  `;
+  return row ? {
+    id: row.id,
+    contributionId: row.contribution_id,
+    kind: row.observation_kind,
+    subjectKind: row.subject_kind,
+    subjectRef: row.subject_ref,
+    amountNgn: row.amount_ngn,
+    outcome: row.outcome,
+    observedOn: row.observed_on,
+    createdAt: row.created_at,
+  } : null;
 }
 
 export type PendingContribution = {
@@ -129,7 +187,24 @@ export type PendingContribution = {
   } | null;
 };
 
-export async function listPendingContributions(sql: Sql, limit = 100): Promise<PendingContribution[]> {
+export type PendingContributionCursor = {
+  submittedAt: string;
+  id: string;
+};
+
+export async function listPendingContributions(
+  sql: Sql,
+  limit = 100,
+  after?: PendingContributionCursor,
+): Promise<PendingContribution[]> {
+  const afterCursor = after
+    ? sql`
+        and (contribution.submitted_at, contribution.id) > (
+          ${after.submittedAt}::text::timestamptz,
+          ${after.id}::uuid
+        )
+      `
+    : sql``;
   const rows = await sql<{
     id: string;
     contribution_kind: PendingContribution['kind'];
@@ -165,7 +240,8 @@ export async function listPendingContributions(sql: Sql, limit = 100): Promise<P
       on attribution.draft_id = contribution.draft_id
     where contribution.moderation_status = 'pending'
       and contribution.retain_until > now()
-    order by contribution.submitted_at asc
+      ${afterCursor}
+    order by contribution.submitted_at asc, contribution.id asc
     limit ${boundedLimit(limit)}
   `;
   return rows.map(row => ({
@@ -271,7 +347,7 @@ export async function listPendingEdges(
   const afterCursor = after
     ? sql`
         and (edge.created_at, edge.id) > (
-          ${after.createdAt}::timestamptz,
+          ${after.createdAt}::text::timestamptz,
           ${after.id}::uuid
         )
       `
@@ -409,7 +485,7 @@ export async function listPendingModerationValues(
           or (
             active.active_mention_count = ${after.activeMentionCount}
             and (active.first_seen_at, value.id) > (
-              ${after.firstSeenAt}::timestamptz,
+              ${after.firstSeenAt}::text::timestamptz,
               ${after.id}::uuid
             )
           )
@@ -586,12 +662,29 @@ export type PendingRetailerApplication = {
   emailVerifiedAt: string | null;
   contactConsentAt: string;
   payload: Record<string, unknown>;
-  submittedAt: string | null;
+  submittedAt: string;
+};
+
+export type PendingRetailerApplicationCursor = {
+  submittedAt: string;
+  id: string;
 };
 
 // Never selects edit_secret_hash: the console reviews an application, it does not
 // authenticate as the retailer.
-export async function listPendingRetailerApplications(sql: Sql, limit = 100): Promise<PendingRetailerApplication[]> {
+export async function listPendingRetailerApplications(
+  sql: Sql,
+  limit = 100,
+  after?: PendingRetailerApplicationCursor,
+): Promise<PendingRetailerApplication[]> {
+  const afterCursor = after
+    ? sql`
+        and (application.submitted_at, application.id) > (
+          ${after.submittedAt}::text::timestamptz,
+          ${after.id}::uuid
+        )
+      `
+    : sql``;
   const rows = await sql<{
     id: string;
     store_name: string;
@@ -599,13 +692,17 @@ export async function listPendingRetailerApplications(sql: Sql, limit = 100): Pr
     email_verified_at: string | null;
     contact_consent_at: string;
     payload: Record<string, unknown>;
-    submitted_at: string | null;
+    submitted_at: string;
   }[]>`
-    select id, store_name, email, email_verified_at::text as email_verified_at,
-           contact_consent_at::text as contact_consent_at, payload, submitted_at::text as submitted_at
-    from retailer_partnership_applications
-    where status = 'submitted'
-    order by updated_at desc
+    select application.id, application.store_name, application.email,
+           application.email_verified_at::text as email_verified_at,
+           application.contact_consent_at::text as contact_consent_at,
+           application.payload, application.submitted_at::text as submitted_at
+    from retailer_partnership_applications application
+    where application.status = 'submitted'
+      and application.submitted_at is not null
+      ${afterCursor}
+    order by application.submitted_at asc, application.id asc
     limit ${boundedLimit(limit)}
   `;
   return rows.map(row => ({
@@ -630,13 +727,16 @@ export async function findPendingRetailerApplication(
     email_verified_at: string | null;
     contact_consent_at: string;
     payload: Record<string, unknown>;
-    submitted_at: string | null;
+    submitted_at: string;
   }[]>`
-    select id, store_name, email, email_verified_at::text as email_verified_at,
-           contact_consent_at::text as contact_consent_at, payload, submitted_at::text as submitted_at
-    from retailer_partnership_applications
-    where status = 'submitted'
-      and id = ${id}
+    select application.id, application.store_name, application.email,
+           application.email_verified_at::text as email_verified_at,
+           application.contact_consent_at::text as contact_consent_at,
+           application.payload, application.submitted_at::text as submitted_at
+    from retailer_partnership_applications application
+    where application.status = 'submitted'
+      and application.submitted_at is not null
+      and application.id = ${id}
     limit 1
   `;
 
