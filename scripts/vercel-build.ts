@@ -61,6 +61,9 @@ async function main() {
     }
     const [command, args] = commands[step];
     await run(command, args);
+    if (step === 'build-next') {
+      await run('npm', ['run', 'catalogue:search:bundle:verify']);
+    }
   }
 
   if (isVercelProduction && migrationsDisabled) {

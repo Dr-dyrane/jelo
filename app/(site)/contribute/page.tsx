@@ -3,13 +3,12 @@ import { ContributionExperience } from '@/components/contribute/contribution-exp
 import { ContributionTrustSignals } from '@/components/contribute/contribution-trust-signals';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import type { AdaptiveOption } from '@/components/ui/adaptive-selector';
-import { concerns } from '@/data/knowledge';
 import { editorialAsset } from '@/data/editorial';
 import { nigeriaRetailers } from '@/data/retailers';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import {
   communityOptionId,
-  communityPurposeLabels,
+  communityPurposeOptions,
 } from '@/lib/community-intake/canonical-options';
 import { catalogueSearchProductPrefill } from '@/lib/community-intake/catalogue-search-handoff';
 import styles from './contribute.module.css';
@@ -43,12 +42,7 @@ export default async function ContributePage({ searchParams }: { searchParams: P
     label: retailer.name,
     detail: retailer.kind === 'marketplace' ? 'Marketplace' : 'Nigeria',
   }));
-  const concernAliases = new Map(concerns.map(concern => [concern.name.toLocaleLowerCase('en-NG'), concern.signals]));
-  const purposes: AdaptiveOption[] = communityPurposeLabels.map(label => ({
-    id: communityOptionId('purpose', label),
-    label,
-    aliases: concernAliases.get(label.toLocaleLowerCase('en-NG')),
-  }));
+  const purposes: AdaptiveOption[] = communityPurposeOptions.map(option => ({ ...option }));
 
   return <main className={styles.page}>
     <section className={styles.hero}>

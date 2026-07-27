@@ -136,6 +136,30 @@
 
 .suggestionList::-webkit-scrollbar { display: none; }
 
+.loadingSuggestion {
+  min-height: 4rem;
+  padding: .7rem .85rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: var(--muted);
+}
+
+.loadingSuggestion span {
+  width: .85rem;
+  height: .85rem;
+  flex: 0 0 auto;
+  border: 1.5px solid rgba(107, 59, 53, .2);
+  border-top-color: var(--wine);
+  border-radius: 50%;
+  animation: catalogue-search-spin .8s linear infinite;
+}
+
+.loadingSuggestion strong {
+  font-size: .72rem;
+  font-weight: var(--weight-regular);
+}
+
 .suggestionList a {
   min-height: 4rem;
   padding: .7rem .75rem;
@@ -228,6 +252,7 @@
 :global(html[data-theme="dark"]) .market a.active { background: var(--rose); }
 :global(html[data-theme="dark"]) .suggestions { background: rgba(36, 29, 27, .96); }
 :global(html[data-theme="dark"]) .suggestionHeading button { background: rgba(138, 95, 87, .5); }
+:global(html[data-theme="dark"]) .loadingSuggestion span { border-color: rgba(232, 187, 180, .22); border-top-color: var(--rose); }
 :global(html[data-theme="dark"]) .suggestionList a:hover,
 :global(html[data-theme="dark"]) .suggestionList a[aria-selected='true'] { background: rgba(138, 95, 87, .5); }
 @media (prefers-color-scheme: dark) {
@@ -238,6 +263,15 @@
   :global(html:not([data-theme="light"])) .market a.active { background: var(--rose); }
   :global(html:not([data-theme="light"])) .suggestions { background: rgba(36, 29, 27, .96); }
   :global(html:not([data-theme="light"])) .suggestionHeading button { background: rgba(138, 95, 87, .5); }
+  :global(html:not([data-theme="light"])) .loadingSuggestion span { border-color: rgba(232, 187, 180, .22); border-top-color: var(--rose); }
   :global(html:not([data-theme="light"])) .suggestionList a:hover,
   :global(html:not([data-theme="light"])) .suggestionList a[aria-selected='true'] { background: rgba(138, 95, 87, .5); }
+}
+
+@keyframes catalogue-search-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loadingSuggestion span { animation: none; }
 }

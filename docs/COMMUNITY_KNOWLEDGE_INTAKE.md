@@ -36,6 +36,14 @@ Custom values are explicitly marked and never mutate canonical data.
 
 This is a shared interaction primitive, not a universal replacement for every field in JeloCare. Use it where people choose from open or evolving vocabularies such as products, brands, retailers and concerns. Price, dates, free text and other constrained data keep controls suited to their data type. Domain-specific validation, ranking and data providers stay outside the visual primitive.
 
+The eight purpose choices and their search aliases live in
+`lib/community-intake/canonical-options.ts`. Acne, dark spots, oily skin, dry
+skin and sensitive skin map explicitly to reviewed concern guides and use only
+the canonical guide name as an alias. Normal skin is a profile; Hair and Body
+are areas. Those three do not inherit concern aliases. Clinical signs and
+symptoms are never search aliases, and a custom term keeps the contributor's
+raw label for moderation.
+
 AI may propose related terms later, but a person must confirm the suggestion and moderation must approve any canonical alias or clinical relationship. Search behavior never learns directly from an unreviewed submission.
 
 ## Persistence

@@ -1,0 +1,422 @@
+{
+  "schemaVersion": 1,
+  "exposure": "public-catalogue-search",
+  "products": [
+    {
+      "slug": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "brand": "ANUA",
+      "name": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
+      "size": "30 ml",
+      "approvedGtin": "8809640737190",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "anua-niacinamide-10-txa-4-serum",
+      "brand": "ANUA",
+      "name": "Niacinamide 10% + TXA 4% Serum",
+      "size": "30 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "aqua-rich-ceramide-body-lotion-500ml",
+      "brand": "Aqua Rich",
+      "name": "Hydrate + Protect Body Lotion",
+      "size": "500 ml",
+      "approvedGtin": "4897073187549",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "brand": "Aqua Rich",
+      "name": "Turmeric and Vitamin C Body Lotion",
+      "size": "500 ml",
+      "approvedGtin": "4897073186542",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "balance-niacinamide-blemish-recovery-serum-30ml",
+      "brand": "Balance Active Formula",
+      "name": "Niacinamide Blemish Recovery Serum",
+      "size": "30 ml",
+      "approvedGtin": "5015833328165",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "brand": "Balance Active Formula",
+      "name": "Salicylic Acid + Zinc Clarifying Toner",
+      "size": "200 ml",
+      "approvedGtin": "5015833000351",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+      "brand": "Beauty Formulas",
+      "name": "Glowing Serum 2% Vitamin C",
+      "size": "30 ml",
+      "approvedGtin": "5012251013611",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cecred-moisturizing-deep-conditioner-300ml",
+      "brand": "Cécred",
+      "name": "Moisturizing Deep Conditioner",
+      "size": "300 ml / 10 fl oz",
+      "approvedGtin": "850044935406",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cerave-acne-foaming-cream-cleanser-4-150ml",
+      "brand": "CeraVe",
+      "name": "Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
+      "size": "150 ml",
+      "approvedGtin": "3606000512238",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cerave-acne-foaming-cream-wash-10-150ml",
+      "brand": "CeraVe",
+      "name": "Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+      "size": "150 ml",
+      "approvedGtin": "3606000604520",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cerave-blemish-control-cleanser",
+      "brand": "CeraVe",
+      "name": "Blemish Control Cleanser",
+      "size": "236 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "cerave-foaming-facial-cleanser",
+      "brand": "CeraVe",
+      "name": "Foaming Facial Cleanser",
+      "size": "355 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "cerave-hydrating-cleanser-473ml",
+      "brand": "CeraVe",
+      "name": "Hydrating Cleanser",
+      "size": "473 ml",
+      "approvedGtin": "3337875597333",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cerave-moisturising-cream-454g",
+      "brand": "CeraVe",
+      "name": "Moisturising Cream Pot",
+      "size": "454 g",
+      "approvedGtin": "3337875597388",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cerave-pm-facial-moisturising-lotion-52ml",
+      "brand": "CeraVe",
+      "name": "PM Facial Moisturising Lotion",
+      "size": "52 ml",
+      "approvedGtin": "3337875597449",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cerave-sa-smoothing-cleanser-473ml",
+      "brand": "CeraVe",
+      "name": "SA Smoothing Cleanser",
+      "size": "473 ml",
+      "approvedGtin": "3337875795456",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "cosrx-advanced-snail-96-mucin-power-essence",
+      "brand": "COSRX",
+      "name": "Advanced Snail 96 Mucin Power Essence",
+      "size": "100 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "cosrx-salicylic-acid-daily-gentle-cleanser",
+      "brand": "COSRX",
+      "name": "Salicylic Acid Daily Gentle Cleanser",
+      "size": "150 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "dang-azelaic-acid-serum-30ml",
+      "brand": "DANG",
+      "name": "Azelaic Acid Serum",
+      "size": "30 ml",
+      "approvedGtin": "6154000333867",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
+      "brand": "De La Cruz",
+      "name": "Acne Treatment Ointment",
+      "size": "2.6 oz / 73.7 g",
+      "approvedGtin": "024286150426",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dove-calming-moisture-body-wash-547ml",
+      "brand": "Dove",
+      "name": "Calming Moisture 3% Body Wash",
+      "size": "18.5 fl oz / 547 ml",
+      "approvedGtin": "00011111049437",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dove-go-fresh-cucumber-green-tea-spray",
+      "brand": "DOVE",
+      "name": "Aluminum Free Deodorant Spray Cucumber & Green Tea",
+      "size": "4 oz / 113 g",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "dove-melanin-even-tone-body-wash-18-5oz",
+      "brand": "Dove",
+      "name": "Melanin Even Tone 5% Body Wash",
+      "size": "18.5 oz",
+      "approvedGtin": "00011111040090",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dove-moroccan-argan-oil-beauty-bar",
+      "brand": "DOVE",
+      "name": "Dry Oil Beauty Bar with Moroccan Argan Oil",
+      "size": "6 pack",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "dove-skin-replenish-serum-body-wash-547ml",
+      "brand": "Dove",
+      "name": "Skin Replenish 2% Body Wash",
+      "size": "18.5 fl oz / 547 ml",
+      "approvedGtin": "00011111055230",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+      "brand": "Eucerin",
+      "name": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
+      "size": "50 ml",
+      "approvedGtin": "8850029013671",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
+      "brand": "Eucerin",
+      "name": "UreaRepair PLUS 10% Urea Body Lotion",
+      "size": "250 ml",
+      "approvedGtin": "6001051001606",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "face-facts-wonder-cream-fragrance-free",
+      "brand": "FACE FACTS",
+      "name": "Wonder Cream Fragrance Free",
+      "size": "50 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+      "brand": "FACE FACTS",
+      "name": "Ceramide Blemish Gel Moisturiser",
+      "size": "50 ml",
+      "approvedGtin": "5031413935691",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "facefacts-ceramide-foaming-cleanser-400ml",
+      "brand": "FACE FACTS",
+      "name": "Ceramide Foaming Cleanser",
+      "size": "400 ml",
+      "approvedGtin": "5031413936636",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "brand": "FACE FACTS",
+      "name": "Ceramide Hydrating Gentle Cleanser",
+      "size": "400 ml",
+      "approvedGtin": "5031413928662",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "brand": "FACE FACTS",
+      "name": "Ceramide Oil Control Foaming Cleanser",
+      "size": "400 ml",
+      "approvedGtin": "5031413953923",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "facefacts-vitamin-c-body-lotion-400ml",
+      "brand": "FACE FACTS",
+      "name": "Vitamin C Body Lotion",
+      "size": "400 ml",
+      "approvedGtin": "5031413929089",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "garnier-vitamin-c-brightening-day-cream-50ml",
+      "brand": "Garnier",
+      "name": "Vitamin C Brightening Day Cream",
+      "size": "50 ml",
+      "approvedGtin": "3600542453110",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "keracare-dry-itchy-scalp-conditioner-950ml",
+      "brand": "KeraCare",
+      "name": "Dry & Itchy Conditioner",
+      "size": "32 oz",
+      "approvedGtin": "850068103058",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+      "brand": "La Roche-Posay",
+      "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
+      "size": "50 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "la-roche-posay-toleriane-double-repair-matte",
+      "brand": "La Roche-Posay",
+      "name": "Toleriane Double Repair Matte Moisturizer",
+      "size": "75 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "la-roche-posay-toleriane-double-repair-spf30",
+      "brand": "La Roche-Posay",
+      "name": "Toleriane Double Repair Face Moisturizer UV SPF 30",
+      "size": "100 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "laroche-posay-mela-b3-serum-30ml",
+      "brand": "La Roche-Posay",
+      "name": "Mela B3 Serum",
+      "size": "30 ml",
+      "approvedGtin": "3337875890021",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "nineless-a-control-10-azelaic-acid-serum-30ml",
+      "brand": "NINELESS",
+      "name": "A-Control 10% Azelaic Acid Serum",
+      "size": "30 ml",
+      "approvedGtin": "8809875270073",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "nineless-mela-pro-rice-txa-toner-200ml",
+      "brand": "NINELESS",
+      "name": "Mela-Pro Rice & TXA Toner",
+      "size": "200 ml",
+      "approvedGtin": "8809875270172",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "nivea-perfect-radiant-body-lotion-400ml",
+      "brand": "NIVEA",
+      "name": "Perfect & Radiant Body Lotion",
+      "size": "400 ml",
+      "approvedGtin": "4005900378606",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "ogx-renewing-argan-oil-of-morocco",
+      "brand": "OGX",
+      "name": "Renewing + Argan Oil of Morocco Extra Penetrating Oil",
+      "size": "100 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "olay-super-serum-body-wash-normal-skin-547ml",
+      "brand": "Olay",
+      "name": "Super Serum Body Wash, Normal Skin",
+      "size": "18.5 fl oz / 547 ml",
+      "approvedGtin": "00030772160350",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "panoxyl-acne-foaming-wash-10-benzoyl-peroxide",
+      "brand": "PanOxyl",
+      "name": "Acne Foaming Wash 10% Benzoyl Peroxide",
+      "size": "156 g",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+      "brand": "SheaMoisture",
+      "name": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
+      "size": "13 oz",
+      "approvedGtin": "00764302215837",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "brand": "SheaMoisture",
+      "name": "Raw Shea Butter Deep Moisturizing Conditioner",
+      "size": "13 fl oz / 384 ml",
+      "approvedGtin": "00764302280217",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "brand": "Simple",
+      "name": "Kind to Skin Refreshing Facial Gel Wash",
+      "size": "150 ml",
+      "approvedGtin": "5011451103863",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "skin-by-zaron-vitamin-c-body-lotion-500ml",
+      "brand": "Skin by Zaron",
+      "name": "Vitamin C Brightening/Moisturizing Body Lotion",
+      "size": "500 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "some-by-mi-aha-bha-pha-miracle-toner",
+      "brand": "SOME BY MI",
+      "name": "AHA·BHA·PHA 30 Days Miracle Toner",
+      "size": "150 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "the-ordinary-azelaic-acid-suspension-10",
+      "brand": "The Ordinary",
+      "name": "Azelaic Acid Suspension 10%",
+      "size": "30 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "tresemme-keratin-smooth-weightless-conditioner-828ml",
+      "brand": "TRESemmé",
+      "name": "Keratin Smooth Weightless Conditioner",
+      "size": "28 fl oz / 828 ml",
+      "approvedGtin": "00022400011738",
+      "source": "dossier-release"
+    }
+  ]
+}

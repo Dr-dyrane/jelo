@@ -11,6 +11,7 @@ const releaseGates: ReleaseGate[] = [
   { label: 'Node tests', script: 'test' },
   { label: 'Documentation', script: 'docs:check' },
   { label: 'Per-SKU catalogue intake projection', script: 'catalogue:intake:verify' },
+  { label: 'Public catalogue search projection', script: 'catalogue:search:verify' },
   { label: 'Private publication dossiers', script: 'catalogue:publication:verify' },
   { label: 'Explicit catalogue releases', script: 'catalogue:publication:releases:verify' },
   { label: 'Private catalogue research priorities', script: 'catalogue:research:verify' },

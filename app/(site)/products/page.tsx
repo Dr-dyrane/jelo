@@ -153,13 +153,6 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         detail: `${company.count} ${company.count === 1 ? 'product' : 'products'}`,
         href: inventoryShortcutHref(market, 'brand', company.label),
       })),
-    ...reviewedProducts.slice(0, 24).map(product => ({
-      kind: 'product' as const,
-      label: product.name,
-      detail: product.brand,
-      href: `/products/${product.slug}`,
-      keywords: [product.size],
-    })),
   ];
   const paginationParams = queryFrom(params);
   const currentSuffix = paginationParams.toString();

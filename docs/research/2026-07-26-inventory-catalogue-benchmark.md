@@ -1,8 +1,8 @@
 # Inventory catalogue benchmark
 
-**Date:** 2026-07-26
+**Date:** 2026-07-26; revalidated 2026-07-27
 **Scope:** Apple Store catalogue pages, the Shop/Shop app discovery model, and JeloCare `/products`
-**Status:** Research contract; P0 continuation and contextual refinements implemented
+**Status:** Research contract; P0 continuation, contextual refinement, and bounded full-catalogue typeahead implemented
 
 ## Executive decision
 
@@ -40,6 +40,14 @@ disclosure. Query text changes only non-clinical group order; it never creates
 or promotes a concern relationship. The existing right sheet, mobile bottom
 sheet, URL state, applied-filter removal, Undo, Clear and focus return remain
 unchanged.
+
+The search control now keeps only compact category, guide, and company starting
+points in the initial page payload. Once a person types two characters, a
+same-origin endpoint returns at most seven deterministic product/company
+matches. The Neon query is bounded before ranking and falls back to the
+verified public snapshot. This removes the former first-24-product suggestion
+ceiling without hydrating the eventual 1,000-product catalogue into the
+browser.
 
 ## Method and limits
 
@@ -106,8 +114,9 @@ This section is an **observed code snapshot**, not a proposed redesign.
   fresh exact market price/store-count label when one exists.
 - `lib/catalogue/inventory-shelves.ts` excludes search-result listings, stale
   prices, and wrong-market offers from its price shelves.
-- The current result grid is four columns on wide screens, then three, two,
-  and one. Horizontal shelves use snap scrolling with hidden scrollbars.
+- The current result grid is four columns on wide screens, then three and two.
+  The compact two-column grammar is preserved on phones. Horizontal shelves
+  use snap scrolling with hidden scrollbars.
 - Results continue progressively in bounded server pages. Two pages may append
   automatically before the explicit **Load more** fallback becomes the only
   continuation.
@@ -143,6 +152,7 @@ inventory work.
 | P0 | Implemented | Replace numbered result pages with bounded progressive continuation. | At hundreds of products, repeated page replacement interrupts comparison and loses spatial continuity. |
 | P0 | Implemented | Declare and remove alternatives to the canonical active result path. | New work can otherwise accidentally fix an unused path or create conflicting interaction rules. |
 | P0 | Implemented | Make comprehensive facets contextual while preserving active selections. | Query- and browse-aware ordering keeps the first filter view useful without hiding reversible state. |
+| P0 | Implemented | Replace the first-24-product suggestion payload with bounded server-backed search. | Every reviewed product remains findable while the initial route stays compact enough for a 1,000-product catalogue. |
 | P1 | Open | Inventory has no dedicated quick look. | Apple's model demonstrates a secondary “closer look” path that can reduce unnecessary product-page navigation. |
 | P1 | Open | Search suggestions are grouped but do not expose canonical alias provenance. | Community vocabulary can improve search without turning unknown language into an unreviewed clinical claim. |
 | P1 | Open | Shelf rules are factual but not presented as a reusable shelf contract. | More products will tempt teams to add popularity-like shelves without evidence. |
@@ -346,7 +356,7 @@ The implementation lane must record screenshots and interaction evidence for:
 
 | View | Required proof |
 | --- | --- |
-| 390 × 844 | One-column cards; reachable bottom sheet; explicit Load more; no horizontal page overflow; footer reachable; tap targets at least 44px. |
+| 390 × 844 | Stable two-column inventory cards; reachable bottom sheet; explicit Load more; no horizontal page overflow; footer reachable; tap targets at least 44px. |
 | 768 × 1024 | Stable two-column inventory; sheet does not become an awkward in-page panel; rails expose continuation without showing a scrollbar. |
 | 1280 × 800 | Four-column inventory where space permits; right sheet preserves catalogue context; no card compression during continuation. |
 | 200% browser zoom | No clipped search, filters, card identity, pagination/continuation, or sheet footer. |

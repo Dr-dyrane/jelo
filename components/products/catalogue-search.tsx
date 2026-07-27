@@ -4,6 +4,7 @@ import { ChevronRight, Search, X } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { catalogueSuggestionMinimumQueryLength } from '@/lib/catalogue/catalogue-search-request';
 import { recordCatalogueTransition } from './catalogue-transition-tracker';
 import {
   matchingCatalogueSearchSuggestions,
@@ -18,6 +19,31 @@ const kindLabels: Record<CatalogueSearchSuggestionKind, string> = {
   category: 'Category',
   guide: 'Guide',
 };
+
+function validRemoteSuggestions(value: unknown): CatalogueSearchSuggestion[] {
+  if (!value || typeof value !== 'object' || !('suggestions' in value) || !Array.isArray(value.suggestions)) return [];
+  return value.suggestions.filter((suggestion): suggestion is CatalogueSearchSuggestion => (
+    suggestion != null
+    && typeof suggestion === 'object'
+    && 'kind' in suggestion
+    && ['product', 'company', 'category', 'guide'].includes(String(suggestion.kind))
+    && 'label' in suggestion
+    && typeof suggestion.label === 'string'
+    && 'detail' in suggestion
+    && typeof suggestion.detail === 'string'
+    && 'href' in suggestion
+    && typeof suggestion.href === 'string'
+    && (
+      !('keywords' in suggestion)
+      || suggestion.keywords === undefined
+      || (Array.isArray(suggestion.keywords) && suggestion.keywords.every((keyword: unknown) => typeof keyword === 'string'))
+    )
+    && (
+      suggestion.href.startsWith('/products')
+      || suggestion.href.startsWith('/concerns/')
+    )
+  ));
+}
 
 type Props = {
   defaultValue: string;
@@ -34,13 +60,22 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
   const [value, setValue] = useState(defaultValue);
   const [expanded, setExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [remoteSuggestions, setRemoteSuggestions] = useState<CatalogueSearchSuggestion[]>([]);
+  const [remoteQuery, setRemoteQuery] = useState('');
+  const [loading, setLoading] = useState(false);
   const listboxId = `${useId().replace(/:/g, '')}-catalogue-suggestions`;
+  const requestQuery = value.trim().replace(/\s+/g, ' ');
   const matches = useMemo(
-    () => matchingCatalogueSearchSuggestions(suggestions, value),
-    [suggestions, value],
+    () => matchingCatalogueSearchSuggestions([
+      ...suggestions,
+      ...(remoteQuery === requestQuery ? remoteSuggestions : []),
+    ], value),
+    [remoteQuery, remoteSuggestions, requestQuery, suggestions, value],
   );
+  const isLoading = requestQuery.length >= catalogueSuggestionMinimumQueryLength
+    && (loading || remoteQuery !== requestQuery);
   const currentActiveIndex = activeIndex >= 0 && activeIndex < matches.length ? activeIndex : -1;
-  const showSuggestions = expanded && matches.length > 0;
+  const showSuggestions = expanded && (matches.length > 0 || isLoading);
 
   useEffect(() => {
     function closeOnOutsidePointer(event: PointerEvent) {
@@ -52,6 +87,41 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
     document.addEventListener('pointerdown', closeOnOutsidePointer);
     return () => document.removeEventListener('pointerdown', closeOnOutsidePointer);
   }, []);
+
+  useEffect(() => {
+    if (requestQuery.length < catalogueSuggestionMinimumQueryLength) return;
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams({ q: requestQuery, market });
+        const response = await fetch(`/api/products/suggestions?${params.toString()}`, {
+          headers: { Accept: 'application/json' },
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error(`Catalogue search returned ${response.status}.`);
+        const payload: unknown = await response.json();
+        if (!controller.signal.aborted) {
+          setRemoteSuggestions(validRemoteSuggestions(payload));
+          setRemoteQuery(requestQuery);
+        }
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error('Catalogue suggestions unavailable.', error);
+          setRemoteSuggestions([]);
+          setRemoteQuery(requestQuery);
+        }
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    }, 140);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [market, requestQuery]);
 
   function openSuggestions() {
     setExpanded(true);
@@ -147,14 +217,20 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
       </form>
 
       <p className="sr-only" role="status" aria-live="polite">
-        {expanded ? `${matches.length} ${matches.length === 1 ? 'suggestion' : 'suggestions'}.` : ''}
+        {expanded
+          ? `${matches.length} ${matches.length === 1 ? 'suggestion' : 'suggestions'}.${isLoading ? ' Finding matches.' : ''}`
+          : ''}
       </p>
-      {showSuggestions ? <section className={styles.suggestions} aria-label="Search suggestions">
+      {showSuggestions ? <section className={styles.suggestions} aria-label="Search suggestions" aria-busy={isLoading}>
         <div className={styles.suggestionHeading}>
           <span>{value.trim() ? 'Suggestions' : 'Start here'}</span>
           <button type="button" onClick={closeSuggestions} aria-label="Close suggestions"><X size={17} aria-hidden="true" /></button>
         </div>
         <div className={styles.suggestionList} id={listboxId} role="listbox">
+          {isLoading && matches.length === 0 ? <div className={styles.loadingSuggestion} role="option" aria-disabled="true" aria-selected="false">
+            <span aria-hidden="true" />
+            <strong>Finding matches</strong>
+          </div> : null}
           {matches.map((suggestion, index) => <Link
             id={`${listboxId}-${index}`}
             role="option"

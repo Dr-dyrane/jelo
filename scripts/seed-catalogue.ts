@@ -2,10 +2,16 @@ import postgres from 'postgres';
 import { products as catalogue } from '../data/catalogue';
 import { isPublishedIntakeProduct } from '../data/published-intake-products';
 import productAssets from '../data/product-assets.json';
+import publicCatalogueSearchProjectionJson from '../data/public-catalogue-search.json';
 import {
   ingredientSeeds,
   verifiedProductIngredients,
 } from '../data/product-ingredients';
+import {
+  parsePublicCatalogueSearchArtifact,
+  publicCatalogueSearchText,
+  type PublicCatalogueSearchProduct,
+} from '../lib/catalogue/public-catalogue-search';
 import {
   catalogueSyncTimeouts,
   assertCatalogueRetirementSafety,
@@ -27,7 +33,53 @@ type ProductAssetRecord = {
   contentHash: string;
 };
 
+function publicSearchProjectionBySlug() {
+  const projection = parsePublicCatalogueSearchArtifact(
+    publicCatalogueSearchProjectionJson,
+  );
+  const catalogueBySlug = new Map(
+    catalogue.map((product) => [product.slug, product]),
+  );
+
+  if (projection.products.length !== catalogueBySlug.size) {
+    throw new Error(
+      `Public catalogue search projection has ${projection.products.length} products; reviewed catalogue has ${catalogueBySlug.size}. Rebuild the projection before seeding.`,
+    );
+  }
+
+  const projectionBySlug = new Map<string, PublicCatalogueSearchProduct>();
+  for (const projectedProduct of projection.products) {
+    const reviewedProduct = catalogueBySlug.get(projectedProduct.slug);
+    if (!reviewedProduct) {
+      throw new Error(
+        `Public catalogue search projection includes unknown product ${projectedProduct.slug}.`,
+      );
+    }
+    if (
+      projectedProduct.brand !== reviewedProduct.brand ||
+      projectedProduct.name !== reviewedProduct.name ||
+      projectedProduct.size !== reviewedProduct.size
+    ) {
+      throw new Error(
+        `Public catalogue search projection is stale for ${projectedProduct.slug}. Rebuild it before seeding.`,
+      );
+    }
+    projectionBySlug.set(projectedProduct.slug, projectedProduct);
+  }
+
+  for (const slug of catalogueBySlug.keys()) {
+    if (!projectionBySlug.has(slug)) {
+      throw new Error(
+        `Public catalogue search projection is missing reviewed product ${slug}.`,
+      );
+    }
+  }
+
+  return projectionBySlug;
+}
+
 async function main() {
+  const searchProjectionBySlug = publicSearchProjectionBySlug();
   const connectionString =
     process.env.DATABASE_URL_UNPOOLED ??
     process.env.POSTGRES_URL_NON_POOLING ??
@@ -86,6 +138,13 @@ async function main() {
     );
     for (const [productIndex, product] of selectedCatalogue.entries()) {
       const startedAt = Date.now();
+      const searchProjection = searchProjectionBySlug.get(product.slug);
+      if (!searchProjection) {
+        throw new Error(
+          `Public catalogue search projection is missing selected product ${product.slug}.`,
+        );
+      }
+      const searchText = publicCatalogueSearchText(searchProjection);
       console.log(
         `[${productIndex + 1}/${selectedCatalogue.length}] ${product.slug}`,
       );
@@ -113,12 +172,14 @@ async function main() {
         const [savedProduct] = await tx<{ id: string }[]>`
         insert into products (
           brand_id, slug, name, size, category, routine_step, display_line,
-          usage, evidence, sensitive_friendly, is_published, source_version
+          usage, evidence, sensitive_friendly, is_published, source_version,
+          approved_gtin, search_text
         ) values (
           ${brand.id}, ${product.slug}, ${product.name}, ${product.size},
           ${product.category}, ${product.step}, ${product.displayLine}, ${product.usage},
           ${product.evidence}, ${product.sensitiveFriendly}, ${!isPlaceholder},
-          ${isPublishedIntakeProduct(product.slug) ? 'published-intake-v1' : 'static-v1'}
+          ${isPublishedIntakeProduct(product.slug) ? 'published-intake-v1' : 'static-v1'},
+          ${searchProjection.approvedGtin}, ${searchText}
         )
         on conflict (slug) do update set
           brand_id = excluded.brand_id,
@@ -132,6 +193,8 @@ async function main() {
           sensitive_friendly = excluded.sensitive_friendly,
           is_published = excluded.is_published,
           source_version = excluded.source_version,
+          approved_gtin = excluded.approved_gtin,
+          search_text = excluded.search_text,
           updated_at = now()
         returning id
       `;
