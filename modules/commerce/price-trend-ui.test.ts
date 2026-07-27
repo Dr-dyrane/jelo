@@ -21,7 +21,7 @@ test('price movement stays compact, per-store, accessible, and evidence gated', 
   );
 
   assert.match(repository, /calculateOfferPriceTrends/);
-  assert.match(productPage, /observedMarketPrice\(offer, market\)/);
+  assert.match(productPage, /priceTrendOfferSnapshot\(offer, market\)/);
   assert.match(productPage, /getProductPriceTrends\(slug, trendSnapshot\)/);
   assert.match(component, /selectRetailerPriceMovement/);
   assert.match(component, /PriceTrend movement=\{movement\}/);
@@ -30,6 +30,9 @@ test('price movement stays compact, per-store, accessible, and evidence gated', 
   assert.match(component, /movement\.direction === 'flat'\) return null/);
   assert.match(component, /const Icon = movement\.direction === 'down' \? ArrowDown : ArrowUp/);
   assert.match(priceModel, /movement\.comparableOfferCount/);
+  assert.match(priceModel, /currentPrice !== expected\.priceMinor/);
+  assert.match(priceModel, /currentObservedAt !== expected\.observedAt/);
+  assert.match(priceModel, /latest\.observation\.priceMinor !== latest\.snapshot\.priceMinor/);
   assert.match(styles, /\.price-trend\s*\{[\s\S]*display:\s*inline-flex/);
   assert.doesNotMatch(styles, /@media \(max-width: 383px\)/);
   assert.doesNotMatch(component, /Steady|movement\.days\}d|lowestMovement/);

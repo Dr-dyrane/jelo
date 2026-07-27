@@ -91,10 +91,16 @@ export function selectRecentDrops(
 
   for (const { product, trends } of items) {
     if (!hasShareableNgOffer(product, now)) continue;
-    const movement = trends.NG?.thirtyDay ?? trends.NG?.sevenDay ?? null;
-    if (!movement || movement.direction !== 'down' || Math.abs(movement.percent) < DROP_MIN_PERCENT) continue;
+    const movement = [
+      trends.NG?.thirtyDay,
+      trends.NG?.sevenDay,
+    ].find(candidate => (
+      candidate?.direction === 'down'
+      && Math.abs(candidate.percent) >= DROP_MIN_PERCENT
+      && (candidate.comparableRetailerCount ?? 0) >= 2
+    ));
+    if (!movement) continue;
     const comparableStoreCount = movement.comparableRetailerCount ?? 0;
-    if (comparableStoreCount < 2) continue;
     const trendLabel = compactPriceMovementLabel(movement);
     if (!trendLabel) continue;
     const summary = summarizeMarket(product.offers, 'NG', now);

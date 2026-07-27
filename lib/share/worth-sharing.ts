@@ -4,6 +4,7 @@ import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import { getProductPriceTrends } from '@/lib/inventory/price-trends';
 import { hasShareableNgOffer, isShareableNgOffer } from '@/modules/commerce/shareable-offer';
 import { selectRecentDrops, selectShareGaps } from '@/modules/commerce/share-insights';
+import { priceTrendOfferSnapshot } from '@/modules/commerce/price-trends';
 
 export type { ShareGap, ShareDrop } from '@/modules/commerce/share-insights';
 
@@ -24,11 +25,10 @@ export async function listRecentDrops(now: number | Date = Date.now()) {
     product,
     trends: await getProductPriceTrends(
       product.slug,
-      product.offers.filter(offer => isShareableNgOffer(offer, now)).map(offer => ({
-        market: 'NG',
-        retailer: offer.retailer,
-        url: offer.url,
-      })),
+      product.offers.filter(offer => isShareableNgOffer(offer, now)).flatMap(offer => {
+        const snapshot = priceTrendOfferSnapshot(offer, 'NG', now);
+        return snapshot ? [snapshot] : [];
+      }),
     ),
   })));
   return selectRecentDrops(items, now);

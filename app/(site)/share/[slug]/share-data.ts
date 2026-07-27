@@ -4,6 +4,7 @@ import { summarizeMarket } from '@/modules/commerce/market-summary';
 import {
   compactPriceMovementLabel,
   describePriceMovement,
+  priceTrendOfferSnapshot,
   preferredPriceMovement,
   selectRetailerPriceMovement,
   type PriceMovement,
@@ -49,22 +50,28 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
   const product = await findCatalogueProduct(slug);
   if (!product) return null;
 
+  const now = Date.now();
   const offers = product.offers
-    .filter(offer => isShareableNgOffer(offer))
+    .filter(offer => isShareableNgOffer(offer, now))
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
-  const summary = summarizeMarket(product.offers, 'NG');
+  const summary = summarizeMarket(product.offers, 'NG', now);
   const priceTrends = await getProductPriceTrends(
     product.slug,
-    offers.map(offer => ({
-      market: 'NG',
-      retailer: offer.retailer,
-      url: offer.url,
-    })),
+    offers.flatMap(offer => {
+      const snapshot = priceTrendOfferSnapshot(offer, 'NG', now);
+      return snapshot ? [snapshot] : [];
+    }),
   );
   const marketTrend = sharePriceTrend(
-    preferredPriceMovement(priceTrends.NG),
+    preferredPriceMovement(
+      priceTrends.NG,
+      movement => (
+        movement.direction !== 'flat'
+        && (movement.comparableRetailerCount ?? 0) >= 2
+      ),
+    ),
     'Market price',
     2,
   );

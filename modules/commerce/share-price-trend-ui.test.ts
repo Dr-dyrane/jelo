@@ -21,12 +21,16 @@ test('share cards carry compact market and exact-store movement without steady n
     path.join(root, 'lib/inventory/price-trends.ts'),
     'utf8',
   );
+  const priceModel = await readFile(
+    path.join(root, 'modules/commerce/price-trends.ts'),
+    'utf8',
+  );
 
-  assert.match(data, /getProductPriceTrends\(\s*product\.slug,\s*offers\.map/);
-  assert.match(data, /preferredPriceMovement\(priceTrends\.NG\)/);
+  assert.match(data, /getProductPriceTrends\(\s*product\.slug,\s*offers\.flatMap/);
+  assert.match(data, /priceTrendOfferSnapshot\(offer, 'NG', now\)/);
+  assert.match(data, /preferredPriceMovement\(\s*priceTrends\.NG,\s*movement =>/);
   assert.match(data, /movement\.comparableRetailerCount \?\? 0/);
   assert.match(data, /'Market price',\s*2,/);
-  assert.match(data, /offers\.map\(offer => \(\{[\s\S]*market: 'NG',[\s\S]*retailer: offer\.retailer,[\s\S]*url: offer\.url,/);
   assert.match(data, /selectRetailerPriceMovement\(priceTrends, 'NG', offer\.retailer\)/);
   assert.match(data, /compactPriceMovementLabel\(movement\)/);
   assert.match(card, /aria-label=\{trend\.description\}/);
@@ -37,5 +41,9 @@ test('share cards carry compact market and exact-store movement without steady n
   assert.match(repository, /o\.available/);
   assert.match(repository, /o\.inventory_status as "inventoryStatus"/);
   assert.match(repository, /o\.verification_expires_at::text as "verificationExpiresAt"/);
+  assert.match(priceModel, /priceMinor:\s*number/);
+  assert.match(priceModel, /currencyCode:\s*'NGN' \| 'USD'/);
+  assert.match(priceModel, /observedTitle:\s*string/);
+  assert.match(priceModel, /observedSize:\s*string/);
   assert.doesNotMatch(card, /Steady|Median|Average/);
 });

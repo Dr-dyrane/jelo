@@ -94,6 +94,37 @@ test('selectRecentDrops never ranks a market signal backed by one retailer', () 
   assert.equal(selectRecentDrops([oneStore], now).length, 0);
 });
 
+test('selectRecentDrops falls through weak 30-day evidence to a valid seven-day drop', () => {
+  const thirtyDay: PriceMovement = {
+    days: 30,
+    direction: 'down',
+    amountMinor: -2_000,
+    percent: -12,
+    comparableOfferCount: 1,
+    comparableRetailerCount: 1,
+    fromAt: '2026-06-20',
+    toAt: '2026-07-21',
+  };
+  const sevenDay: PriceMovement = {
+    days: 7,
+    direction: 'down',
+    amountMinor: -1_000,
+    percent: -7,
+    comparableOfferCount: 2,
+    comparableRetailerCount: 2,
+    fromAt: '2026-07-14',
+    toAt: '2026-07-21',
+  };
+  const drops = selectRecentDrops([{
+    product: product('valid-seven-day', [ngOffer('one', 14_500), ngOffer('two', 17_500)]),
+    trends: { NG: { thirtyDay, sevenDay } },
+  }], now);
+
+  assert.equal(drops.length, 1);
+  assert.equal(drops[0].days, 7);
+  assert.equal(drops[0].trendLabel, '↓ 7% · 7d');
+});
+
 test('selectRecentDrops ignores a product with no shareable offer', () => {
   const searchOnly = product('search', [observed({ retailer: 's', url: 'https://x', trust: 100, available: true, match: 'search', priceNgn: 9_000, checkedAt: '2026-07-21', location: ['NG'] } as Offer)]);
   assert.equal(selectRecentDrops([{ product: searchOnly, trends: movement({}) }], now).length, 0);

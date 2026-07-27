@@ -5,6 +5,7 @@ import {
   calculatePriceTrends,
   compactPriceMovementLabel,
   describePriceMovement,
+  preferredPriceMovement,
   selectCurrentPriceObservations,
   selectRetailerPriceMovement,
   type CurrentPriceObservation,
@@ -137,6 +138,27 @@ test('selects movement only for one unambiguous exact retailer offer', () => {
   assert.equal(movement?.percent, -6.7);
 });
 
+test('preferred movement falls through a weak long window to valid shorter evidence', () => {
+  const thirtyDay = calculatePriceTrends([
+    observation('one', 15_000, '2026-06-21T12:00:00Z'),
+    observation('one', 14_000, '2026-07-22T10:00:00Z'),
+  ], asOf).thirtyDay!;
+  const sevenDay = calculatePriceTrends([
+    observation('one', 15_000, '2026-07-14T12:00:00Z'),
+    observation('one', 14_000, '2026-07-22T10:00:00Z'),
+    observation('two', 17_000, '2026-07-15T12:00:00Z'),
+    observation('two', 16_000, '2026-07-22T09:00:00Z'),
+  ], asOf).sevenDay!;
+
+  const selected = preferredPriceMovement(
+    { thirtyDay, sevenDay },
+    movement => (movement.comparableRetailerCount ?? 0) >= 2,
+  );
+
+  assert.equal(selected?.days, 7);
+  assert.equal(selected?.comparableRetailerCount, 2);
+});
+
 test('describes one-day evidence without broken plural copy', () => {
   const result = calculatePriceTrends([
     observation('one', 10_000, '2026-07-21T10:00:00Z'),
@@ -180,6 +202,11 @@ const exactSnapshot: PriceTrendOfferSnapshot[] = [{
   market: 'NG',
   retailer: 'Exact store',
   url: 'https://example.com/exact-product',
+  priceMinor: 14_000,
+  currencyCode: 'NGN',
+  observedAt: '2026-07-22T10:00:00Z',
+  observedTitle: 'Exact product',
+  observedSize: '30 ml',
 }];
 
 test('fails closed when no exact current offer snapshot is supplied', () => {
@@ -229,6 +256,84 @@ test('keeps history only for the exact current market, retailer and URL snapshot
   ], exactSnapshot, asOf);
 
   assert.deepEqual(selected.map(item => item.offerId), ['exact', 'exact']);
+});
+
+test('rejects history that is not bound to the rendered price, observation or SKU identity', () => {
+  const rows = [
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      15_000,
+      '2026-07-15T12:00:00Z',
+    ),
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      '2026-07-22T10:00:00Z',
+    ),
+  ];
+
+  const mismatches: PriceTrendOfferSnapshot[] = [
+    { ...exactSnapshot[0], priceMinor: 13_500 },
+    { ...exactSnapshot[0], currencyCode: 'USD' },
+    { ...exactSnapshot[0], observedAt: '2026-07-22T09:00:00Z' },
+    { ...exactSnapshot[0], observedTitle: 'Sibling product' },
+    { ...exactSnapshot[0], observedSize: '50 ml' },
+  ];
+
+  for (const mismatch of mismatches) {
+    assert.deepEqual(
+      selectCurrentPriceObservations(rows, [mismatch], asOf),
+      [],
+    );
+  }
+});
+
+test('rejects a refresh race when history does not end at the rendered observation', () => {
+  const rows = [
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      15_000,
+      '2026-07-15T12:00:00Z',
+    ),
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      13_000,
+      '2026-07-22T09:00:00Z',
+    ),
+  ];
+
+  assert.deepEqual(
+    selectCurrentPriceObservations(rows, exactSnapshot, asOf),
+    [],
+  );
+});
+
+test('rejects ambiguous rendered snapshots for the same exact listing', () => {
+  const row = currentObservation(
+    'exact',
+    'Exact store',
+    'https://example.com/exact-product',
+    14_000,
+    '2026-07-22T10:00:00Z',
+  );
+
+  assert.deepEqual(
+    selectCurrentPriceObservations([
+      row,
+    ], [
+      exactSnapshot[0],
+      { ...exactSnapshot[0], priceMinor: 13_500 },
+    ], asOf),
+    [],
+  );
 });
 
 test('rejects unavailable and stale current listings even when their history matches the snapshot', () => {

@@ -1,3 +1,6 @@
+import type { Market } from '@/data/prices';
+import type { Offer } from '@/data/products';
+import { observedMarketPrice } from './offer-evidence';
 import { isOfferFresh } from './offer-freshness';
 
 export type PriceObservation = {
@@ -11,6 +14,11 @@ export type PriceTrendOfferSnapshot = {
   market: 'NG' | 'US';
   retailer: string;
   url: string;
+  priceMinor: number;
+  currencyCode: 'NGN' | 'USD';
+  observedAt: string;
+  observedTitle: string;
+  observedSize: string;
 };
 
 export type CurrentPriceObservation = PriceObservation & {
@@ -60,8 +68,13 @@ export type ProductPriceTrends = Partial<Record<'NG' | 'US', MarketPriceTrends>>
 
 export function preferredPriceMovement(
   trends?: MarketPriceTrends,
+  accepts: (movement: PriceMovement) => boolean = () => true,
 ): PriceMovement | null {
-  return trends?.thirtyDay ?? trends?.sevenDay ?? trends?.recent ?? null;
+  return [
+    trends?.thirtyDay,
+    trends?.sevenDay,
+    trends?.recent,
+  ].find((movement): movement is PriceMovement => Boolean(movement && accepts(movement))) ?? null;
 }
 
 export function selectRetailerPriceMovement(
@@ -78,7 +91,10 @@ export function selectRetailerPriceMovement(
   // The public offer card is retailer-level while history is exact-offer-level.
   // Never attach one listing's movement to a different listing from the same store.
   if (matches.length !== 1) return null;
-  return preferredPriceMovement(matches[0]);
+  return preferredPriceMovement(
+    matches[0],
+    movement => movement.direction !== 'flat',
+  );
 }
 
 export function describePriceMovement(
@@ -139,6 +155,46 @@ function expectedCurrency(market: 'NG' | 'US') {
   return market === 'NG' ? 'NGN' : 'USD';
 }
 
+function normalizedTimestamp(value: string | null | undefined) {
+  if (!value) return null;
+  const timestamp = Date.parse(value);
+  return Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : null;
+}
+
+export function priceTrendOfferSnapshot(
+  offer: Offer,
+  market: Market,
+  now: number | Date = Date.now(),
+): PriceTrendOfferSnapshot | null {
+  const price = observedMarketPrice(offer, market, now);
+  const observation = offer.priceObservation;
+  const observedAt = normalizedTimestamp(observation?.observedAt);
+  const priceMinor = market === 'US' ? Math.round((price ?? 0) * 100) : price;
+  const currencyCode = expectedCurrency(market);
+
+  if (
+    price == null
+    || !observation
+    || !observedAt
+    || !observation.variant.trim()
+    || !observation.size.trim()
+    || typeof priceMinor !== 'number'
+    || !Number.isSafeInteger(priceMinor)
+    || priceMinor <= 0
+  ) return null;
+
+  return {
+    market,
+    retailer: offer.retailer,
+    url: offer.url,
+    priceMinor,
+    currencyCode,
+    observedAt,
+    observedTitle: observation.variant.trim(),
+    observedSize: observation.size.trim(),
+  };
+}
+
 /**
  * Intersects history with the exact offer snapshot rendered by the caller and
  * the current persisted offer state repeated on each history row.
@@ -155,18 +211,43 @@ export function selectCurrentPriceObservations(
   const current = typeof asOf === 'number' ? new Date(asOf) : asOf;
   if (Number.isNaN(current.getTime()) || !snapshot?.length) return [];
 
-  const allowed = new Set(snapshot.flatMap(item => {
+  const snapshotEntries = snapshot.flatMap(item => {
     const url = normalizedOfferUrl(item.url);
     const retailer = normalizedRetailer(item.retailer);
-    return url && retailer ? [`${item.market}\u0000${retailer}\u0000${url}`] : [];
-  }));
+    const observedAt = normalizedTimestamp(item.observedAt);
+    const title = item.observedTitle.trim();
+    const size = item.observedSize.trim();
+    const expected = expectedCurrency(item.market);
+    return (
+      url
+      && retailer
+      && observedAt
+      && title
+      && size
+      && item.currencyCode === expected
+      && Number.isSafeInteger(item.priceMinor)
+      && item.priceMinor > 0
+    ) ? [[
+      `${item.market}\u0000${retailer}\u0000${url}`,
+      { ...item, observedAt, observedTitle: title, observedSize: size },
+    ] as const] : [];
+  });
+  const allowed = new Map<string, PriceTrendOfferSnapshot>();
+  for (const [key, item] of snapshotEntries) {
+    // One rendered store card must bind one exact series. Ambiguous snapshots
+    // fail closed instead of allowing array order to select a price identity.
+    if (allowed.has(key)) return [];
+    allowed.set(key, item);
+  }
   if (allowed.size === 0) return [];
 
-  return rows.flatMap(row => {
+  const candidates = rows.flatMap(row => {
     const url = normalizedOfferUrl(row.url);
     const retailer = normalizedRetailer(row.retailer);
     const key = url && retailer ? `${row.market}\u0000${retailer}\u0000${url}` : null;
+    const expected = key ? allowed.get(key) : undefined;
     const currentPrice = row.currentPriceMinor;
+    const currentObservedAt = normalizedTimestamp(row.lastVerifiedAt);
     const hasCurrentEvidence = row.available
       && (row.inventoryStatus === 'in_stock' || row.inventoryStatus === 'low_stock')
       && ['manual', 'retailer_page', 'api'].includes(row.verificationMethod)
@@ -181,13 +262,47 @@ export function selectCurrentPriceObservations(
         expiresAt: row.verificationExpiresAt ?? undefined,
       }, current);
 
-    if (!key || !hasCurrentEvidence || !allowed.has(key)) return [];
+    if (
+      !expected
+      || !hasCurrentEvidence
+      || currentPrice !== expected.priceMinor
+      || row.currentCurrencyCode !== expected.currencyCode
+      || currentObservedAt !== expected.observedAt
+      || row.observedTitle?.trim() !== expected.observedTitle
+      || row.observedSize?.trim() !== expected.observedSize
+    ) return [];
+
     return [{
-      offerId: row.offerId,
-      retailer: row.retailer,
-      priceMinor: row.priceMinor,
-      observedAt: row.observedAt,
+      snapshot: expected,
+      observation: {
+        offerId: row.offerId,
+        retailer: row.retailer,
+        priceMinor: row.priceMinor,
+        observedAt: row.observedAt,
+      },
     }];
+  });
+
+  const byOffer = new Map<string, typeof candidates>();
+  for (const candidate of candidates) {
+    const offerId = candidate.observation.offerId;
+    byOffer.set(offerId, [...(byOffer.get(offerId) ?? []), candidate]);
+  }
+
+  return [...byOffer.values()].flatMap(entries => {
+    const ordered = [...entries].sort(
+      (a, b) => Date.parse(a.observation.observedAt) - Date.parse(b.observation.observedAt),
+    );
+    const latest = ordered.at(-1);
+    if (!latest) return [];
+
+    const latestAt = normalizedTimestamp(latest.observation.observedAt);
+    if (
+      latest.observation.priceMinor !== latest.snapshot.priceMinor
+      || latestAt !== latest.snapshot.observedAt
+    ) return [];
+
+    return ordered.map(entry => entry.observation);
   });
 }
 

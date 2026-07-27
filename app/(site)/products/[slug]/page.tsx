@@ -13,7 +13,7 @@ import { SafeProductImage } from '@/components/products/safe-product-image';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
 import { listProductIngredientsSafe } from '@/lib/clinical/ingredients';
 import { getProductPriceTrends } from '@/lib/inventory/price-trends';
-import { observedMarketPrice } from '@/modules/commerce/offer-evidence';
+import { priceTrendOfferSnapshot } from '@/modules/commerce/price-trends';
 import { productStructuredData, serializeJsonLd } from '@/modules/commerce/product-structured-data';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
@@ -40,11 +40,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const trendSnapshot = product.offers.flatMap(offer => {
     if (offer.match === 'search') return [];
-    return (['NG', 'US'] as const).flatMap(market => (
-      observedMarketPrice(offer, market) == null
-        ? []
-        : [{ market, retailer: offer.retailer, url: offer.url }]
-    ));
+    return (['NG', 'US'] as const).flatMap(market => {
+      const snapshot = priceTrendOfferSnapshot(offer, market);
+      return snapshot ? [snapshot] : [];
+    });
   });
   const [products, priceTrends, productIngredients] = await Promise.all([
     listCatalogueProducts(),
