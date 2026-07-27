@@ -20,6 +20,7 @@ type ContributionExperienceProps = {
   products: AdaptiveOption[];
   brands: AdaptiveOption[];
   retailers: AdaptiveOption[];
+  initialProduct?: AdaptiveValue | null;
 };
 
 type FlowStep = 'kind' | 'purposes' | 'products' | 'brand' | 'retailer' | 'purchase' | 'outcome' | 'review';
@@ -38,11 +39,14 @@ const outcomeOptions: AdaptiveOption[] = [
   { id: 'didnt-help', label: 'Didn’t help' },
 ];
 
-function flowFor(draft: ContributionDraft, hasKind: boolean): FlowStep[] {
+function flowFor(draft: ContributionDraft, hasKind: boolean, catalogueHandoff: boolean): FlowStep[] {
   if (!hasKind) return ['kind'];
   if (draft.kind === 'routine') return ['kind', 'purposes', 'products', 'outcome', 'review'];
   if (draft.kind === 'store') return ['kind', 'purposes', 'retailer', 'review'];
   const needsBrand = draft.products.length === 0 || draft.products[0]?.source === 'custom';
+  if (catalogueHandoff) {
+    return ['products', ...(needsBrand ? ['brand' as const] : []), 'purposes', 'retailer', 'purchase', 'outcome', 'review'];
+  }
   return ['kind', 'purposes', 'products', ...(needsBrand ? ['brand' as const] : []), 'retailer', 'purchase', 'outcome', 'review'];
 }
 
@@ -72,9 +76,12 @@ function restoredState() {
   }
 }
 
-export function ContributionExperience({ purposes, products, brands, retailers }: ContributionExperienceProps) {
-  const [draft, setDraft] = useState<ContributionDraft>(() => emptyContributionDraft());
-  const [hasKind, setHasKind] = useState(false);
+export function ContributionExperience({ purposes, products, brands, retailers, initialProduct = null }: ContributionExperienceProps) {
+  const [draft, setDraft] = useState<ContributionDraft>(() => initialProduct
+    ? { ...emptyContributionDraft('product'), products: [initialProduct] }
+    : emptyContributionDraft());
+  const [hasKind, setHasKind] = useState(Boolean(initialProduct));
+  const [catalogueHandoff, setCatalogueHandoff] = useState(Boolean(initialProduct));
   const [stepIndex, setStepIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>('idle');
@@ -88,12 +95,12 @@ export function ContributionExperience({ purposes, products, brands, retailers }
   const saveQueueRef = useRef<Promise<void>>(Promise.resolve());
   const pendingEventsRef = useRef<IntakeEvent[]>([]);
   const lastStepRef = useRef<FlowStep | null>(null);
-  const flow = useMemo(() => flowFor(draft, hasKind), [draft, hasKind]);
+  const flow = useMemo(() => flowFor(draft, hasKind, catalogueHandoff), [catalogueHandoff, draft, hasKind]);
   const currentStep = flow[Math.min(stepIndex, flow.length - 1)] ?? 'kind';
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const restored = restoredState();
+      const restored = initialProduct ? null : restoredState();
       if (restored?.draft) {
         const parsed = contributionDraftSchema.safeParse(restored.draft);
         const partial = parsed.success ? parsed.data : null;
@@ -110,7 +117,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
       setHydrated(true);
     });
     return () => window.cancelAnimationFrame(frame);
-  }, []);
+  }, [initialProduct]);
 
   const recordEvent = useCallback((type: IntakeEvent['type'], inputMode: IntakeEvent['inputMode'], resultsCount: number | null) => {
     pendingEventsRef.current.push({
@@ -248,6 +255,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     if (!value) return;
     const kind = value.id as ContributionKind;
     const next = emptyContributionDraft(kind);
+    setCatalogueHandoff(false);
     setHasKind(true);
     replaceDraft(next);
   }
@@ -313,6 +321,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     const next = emptyContributionDraft();
     setDraft(next);
     setHasKind(false);
+    setCatalogueHandoff(false);
     setStepIndex(0);
     setComplete(false);
     setError('');
@@ -321,6 +330,7 @@ export function ContributionExperience({ purposes, products, brands, retailers }
     revisionRef.current = 0;
     submitKeyRef.current = crypto.randomUUID();
     window.localStorage.removeItem(localDraftKey);
+    if (catalogueHandoff) window.history.replaceState(null, '', '/contribute#contribution-form');
   }
 
   if (!hydrated) return <div className={styles.loading} aria-label="Loading">Loading…</div>;

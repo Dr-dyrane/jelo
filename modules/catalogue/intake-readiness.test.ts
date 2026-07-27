@@ -29,7 +29,7 @@ import {
   type ReviewedRegulatoryEvidence,
 } from '@/lib/catalogue/market-evidence';
 
-const asOf = Date.parse('2026-07-22T17:05:00Z');
+const asOf = Date.parse('2026-07-27T01:00:00Z');
 const hash = 'a'.repeat(64);
 const sourceHash = 'b'.repeat(64);
 
@@ -806,6 +806,33 @@ test('reviewed official care hosts are exact and reject brand-shaped spoof subdo
 
   assert.equal(official.blockers.includes('care-independent-guidance-missing'), false);
   assert.equal(spoof.stage, 'care');
+  assert.ok(spoof.blockers.includes('care-independent-guidance-missing'));
+});
+
+test('Beauty Formulas uses its exact reviewed brand host for identity and care evidence', () => {
+  const officialUrl = 'https://www.beautyformulas.co.uk/_files/catalogue.pdf';
+  const spoofUrl = 'https://beautyformulas.co.uk.attacker.example/catalogue.pdf';
+  const base = completeCandidate({ brand: 'Beauty Formulas' });
+  const candidateWith = (url: string): CatalogueIntakeCandidate => ({
+    ...base,
+    identity: {
+      ...base.identity,
+      officialProductUrl: url,
+      officialEvidence: identityEvidence({ url }),
+    },
+    care: {
+      ...base.care,
+      manufacturerEvidenceUrl: url,
+      evidenceUrls: [url, base.care.independentClinicalGuidanceUrl!],
+    },
+  });
+
+  const official = evaluateCatalogueIntakeCandidate(candidateWith(officialUrl), asOf);
+  const spoof = evaluateCatalogueIntakeCandidate(candidateWith(spoofUrl), asOf);
+
+  assert.equal(official.blockers.includes('identity-official-evidence-invalid'), false);
+  assert.equal(official.blockers.includes('care-independent-guidance-missing'), false);
+  assert.ok(spoof.blockers.includes('identity-official-evidence-invalid'));
   assert.ok(spoof.blockers.includes('care-independent-guidance-missing'));
 });
 

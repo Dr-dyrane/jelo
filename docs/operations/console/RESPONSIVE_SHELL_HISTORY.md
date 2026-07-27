@@ -56,9 +56,9 @@ The tablet experience was not a compressed desktop; it was rebuilt as its own co
 | Breakpoint | Range | Shell |
 | --- | --- | --- |
 | Phone | `< 430px` | Bottom-sheet menu, floating bottom bar, detail as bottom sheet |
-| Touch | `430px - 819px` | Left overlay sidebar, two-column or overlay detail |
+| Touch | `430px - 819px` | Left overlay sidebar, content-driven one/two-column workspace, bottom-sheet detail |
 | Compact | `820px - 1179px` | Persistent sidebar, right overlay sheet |
-| Balanced | `1180px - 1439px` | Persistent sidebar, docked or overlay detail |
+| Balanced | `1180px - 1439px` | Persistent sidebar, workspace, and docked detail |
 | Expanded | `≥ 1440px` | Persistent sidebar, three-column docked detail |
 
 Later commits (`6447115`, `bd72614`) aligned the collection and inspector across these bands.
@@ -94,6 +94,12 @@ After `e09ff75`, the final visual details were tuned interactively. These are no
 - Drag handle removed from the menu sheet.
 - Desktop sidebar navigation radius (`var(--ops-instrument-inner-radius)`) and selected tone (`var(--ops-accent-subtle)`) applied to mobile and tablet navigation.
 - Detail pane action buttons use `var(--ops-instrument-inner-radius)`.
+- The contextual `56px` FAB remains available across every temporary-inspector
+  width below `1180px`; it is not phone-only.
+- Temporary inspectors make the workspace and navigation inert, use the exact
+  selected subject as their accessible name, and restore focus to the trigger.
+- The inspector shell and overlay body do not scroll. One evidence region owns
+  vertical scrolling while the decision region remains anchored.
 
 ## File ownership
 
@@ -116,7 +122,7 @@ After `e09ff75`, the final visual details were tuned interactively. These are no
 | Menu sheet height | `96dvh` | `.sidebarLayer` in phone media query |
 | Detail sheet height | `88dvh` | `.tabletInspector` in `inbox-tablet.module.css` |
 | Bottom bar height | `56px` | `.bottomBar` |
-| Right FAB size | `56px` | `.bottomBarAction` |
+| Contextual FAB range and size | `<1180px`, `56px` | `.bottomBarAction` |
 | Bottom bar right inset | `calc(56px + (var(--space-3) * 2))` | `.bottomBar` |
 | Bottom tab icon size | `24px` | `OpsChrome.tsx` |
 | Bottom tab label size | `9px` | `.bottomBarItem` |
@@ -130,3 +136,6 @@ After `e09ff75`, the final visual details were tuned interactively. These are no
 - If changing a bottom-bar constant, mirror the same value in `.bottomBar` and `.bottomBarAction` so the droplet stays aligned.
 - Sheet z-index must stay above `.bottomBar` and `.bottomBarAction`.
 - Navigation selected-state styling is owned in `app/(ops)/ops.module.css` base now; changing it affects all viewports.
+- Route-owned CSS must not retune shell plane widths, breakpoints, or scroll
+  ownership. Existing observation-specific shell selectors are migration debt,
+  not a pattern for new routes.

@@ -1,6 +1,24 @@
 # Dyrane Ops UI Candidate Contract
 
-Status: Draft — Observations is under joint product review
+Status: Candidate contract — no queue page is canonical yet
+
+## Authority and maturity
+
+Use these documents in this order:
+
+1. [ADR 0009](./adr/0009-ui-ux-lane-contract.md) is accepted and governs lane
+   ownership, evidence, and handoff.
+2. [Operations shell](./design/OPS_SHELL.md) governs the implemented shell
+   planes, breakpoints, scrolling, overlays, and contextual action.
+3. [ADR 0010](./adr/0010-operations-interface-and-overview-contract.md) is a
+   proposed route grammar under product review.
+4. This file records reusable candidate behavior observed in real routes. It
+   cannot promote a route to canon.
+
+`/ops/observations`, `/ops`, and `/ops/contributions` are evidence at different
+stages. A route becomes canonical only after explicit product acceptance and
+the declared browser, state, accessibility, and automated gates pass. Visual
+similarity or a successful agent handoff is not acceptance.
 
 ## Reference candidate
 
@@ -16,7 +34,7 @@ and manage routes reuse its typography, surfaces, state integrity, and
 responsive discipline. A route earns a collection and inspector only when a
 selection materially changes the operator's next decision.
 
-[`/ops` Overview has its own accepted contract](./adr/0010-operations-interface-and-overview-contract.md).
+[`/ops` Overview has its own candidate contract](./adr/0010-operations-interface-and-overview-contract.md).
 It uses the same split-view grammar at **queue level**: selectable queue rows
 in the workspace and the selected queue's context in the inspector. A maximum
 two-record `Up next` shelf may preview real records from the recommended queue;
@@ -34,6 +52,9 @@ Desktop, tablet, and mobile consume the same operational primitives but use diff
   context opens in a right side sheet. It is not a compressed third column.
 - Mobile and touch (`<820px`) retain one primary plane. Selected context opens
   in a bottom sheet; no side sheet is squeezed into the page.
+- Every width below `1180px` keeps the route's contextual `56 × 56` action
+  reachable while its temporary inspector is closed. Queue routes open the
+  current selection; a real route-labelled refresh is the safe fallback.
 
 Shared primitives remain stable across shells:
 
@@ -63,6 +84,55 @@ placed beside one another.
   density, and contextual side area. It must not be copied as a gallery of
   album-like cards, oversized imagery, a player treatment, or a literal visual
   theme.
+
+## Insights monitor
+
+`/ops/activity` owns Insights and inference. It is a read-only Monitor route,
+not a moderation queue or a product and retailer management surface. Manual
+product and retailer CRUD remains on separate governed routes.
+
+- Separate observed facts, community-reported patterns, research outcomes, and
+  immutable operator decisions in both the read model and the presentation.
+- Name the denominator, time window, source, and material freshness for every
+  aggregate or comparison.
+- Count anonymous records as `notes` or `submissions`, never as people or
+  contributors.
+- Resolve visible pattern labels through the canonical option registry or an
+  accepted moderation mapping. Use one three-note release threshold for
+  purpose and retailer cells.
+- Scale pattern bars against all approved notes, not the largest visible item.
+  `Snapshot generated` is query time; source windows and all-time aggregates
+  must be labelled separately.
+- Treat sparse community patterns as research signals only. Do not infer
+  efficacy, safety, retailer trust, price quality, causality, or trends.
+- Visualize only a real typed series with sufficient sample and time coverage
+  for a stated question. Never fabricate, interpolate, or decorate missing
+  data into a chart.
+- Keep raw IDs out of the primary UI while retaining copyable audit metadata
+  in secondary disclosure.
+- A clear Contributions, Relationships, Observations, Vocabulary, or Retailers
+  queue stays on its own route and may link to `View insights`; it neither
+  duplicates this monitor nor redirects to it. Signals remains its own Monitor
+  route and does not use this queue-empty action.
+
+## Manage routes
+
+`/ops/operators` is a Manage route, not a dashboard or queue. It uses one
+scan-oriented directory and one contextual inspector because selection changes
+the available access decision.
+
+- Active team members use a quiet feature shelf; invitations and paused access
+  use compact rows.
+- `Add admin` asks for one email. It does not request an auth subject, display
+  name, or database identifier.
+- Invite and confirmation surfaces are a bottom sheet on phone, a centred modal
+  on larger temporary contexts, and never an inline form nested inside a card.
+- The inspector owns role and access actions. Self-lockout and last-admin
+  protections are server rules, not explanatory UI theatre.
+- A pending invitation and an active operator remain visibly distinct. Email
+  delivery failure is never presented as success.
+- Before the access migration is ready, existing operators remain readable,
+  the primary action explains that setup is pending, and mutations fail closed.
 
 ## Candidate anatomy
 
@@ -206,11 +276,18 @@ not a new layer of nested DOM panels.
 | Mobile and touch (`<820px`) | Bottom sheet; preserve the current page and safe-area space. |
 
 Every sheet or modal has a visible title and close control, traps focus while
-open, locks background scrolling, dismisses with Escape where a keyboard is
-present, supports safe outside dismissal when the task is not destructive,
-keeps its own body scrollable, respects reduced motion, and returns focus to
-the exact trigger. A control that opens an overlay must expose that relationship
-and must remain reachable at keyboard, touch, and 200% zoom.
+open, makes the underlying workspace and navigation inert, locks the actual
+background scroll owner, dismisses with Escape where a keyboard is present,
+supports safe outside dismissal when the task is not destructive, respects
+reduced motion, and returns focus to the exact trigger. Its accessible name
+uses the selected subject, not only `Contribution`, `Observation`, or another
+generic record type. A control that opens an overlay must expose that
+relationship and must remain reachable at keyboard, touch, and 200% zoom.
+
+An inspector has exactly one vertical evidence scroll owner. The shell and
+overlay body hide overflow; the evidence region scrolls; the decision region
+remains an anchored sibling. Nested vertical scroll containers inside one
+inspector are a regression.
 
 ## Inspector
 
@@ -329,12 +406,29 @@ Loading fallbacks mirror the final shell rather than replacing it with a generic
   placeholders, compact price rows, and the experience rail.
 - The inspector skeleton portals into `#ops-detail-pane` and mirrors subject
   identity, evidence, metadata, and the anchored decision region.
+- A populated auto-selecting queue reserves that desktop plane from route
+  intent. It does not wait for an `id` that is created only after the route
+  resolves. Side and bottom sheets remain closed until a real interaction.
 - Selecting a row updates its selected state and mounts that same inspector
   skeleton in the current pane immediately. URL-backed content replaces it
   when navigation resolves; a click never leaves an unexplained blank pane.
 - Side-sheet and bottom-sheet breakpoints do not flash an inactive docked
   inspector while the route loads.
 - Motion preferences control shimmer behavior.
+
+## Failure states
+
+A route-level read or API failure becomes the primary workspace state. Keep the
+route title, then let one calm recovery surface span the full available
+workspace width. Do not trap a failed route inside a narrow card, a grid cell,
+or an empty inspector.
+
+- Say what could not load in human language.
+- Keep technical details in logs.
+- Keep one visible `Try again` action when retry is safe.
+- Preserve the shell and navigation.
+- Keep local action failures beside the action that failed; they do not replace
+  otherwise reliable page content.
 
 ## Synchronization and observability
 

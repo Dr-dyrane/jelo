@@ -24,14 +24,19 @@ Create one task packet before editing. It may live in a pull request description
 Title:
 Roadmap phase and outcome:
 Governing ADRs and documents:
+Contract maturity and precedence:
 User and role:
+Route mode and operator question:
 Queue or operational data involved:
 Read model and source of truth:
 Allowed actions:
 Forbidden actions:
+Content hierarchy and exact interface vocabulary:
+Implementation terms prohibited from visible copy:
 Desktop composition:
 Tablet composition:
 Mobile composition:
+Scroll owner, inspector form, contextual action, and focus return:
 URL and selection state:
 Loading, empty, denied, error, success, retry, and undo behavior:
 Accessibility requirements:
@@ -82,6 +87,12 @@ Task packet: [packet]
 Constraints: private-shell tokens; sidebar is top-level navigation; local tabs are URL-backed sibling views; desktop, tablet, and mobile use task-appropriate compositions rather than scaled copies.
 
 Return the information hierarchy, states, keyboard flow, responsive composition, and visual-token usage. Preserve one primary operator task per small viewport. Do not add decorative widgets, generic settings, or tabs without distinct workflow responsibility.
+
+Start from the route's operator question and typed display facts, not the
+database table. Keep one concise page title. Name every inspector scroll owner,
+temporary overlay, contextual action, and return-focus target. Translate
+schema, statistics, identifiers, and provider terms into exact human interface
+language; keep genuinely needed implementation facts under Metadata.
 ```
 
 ### Implementer
@@ -104,6 +115,11 @@ Task packet: [packet]
 Diff and tests: [links or summary]
 
 Check authorization, data ownership, auditability, idempotency, URL state, failure handling, focus behavior, responsive composition, token use, and documentation. Reject hidden scope expansion, unowned generic abstractions, fake tabs, unimplemented links, or any canonical write outside the accepted action boundary.
+
+Also reject a route that copies a candidate page without proving its own
+operator question, content hierarchy, typed projection, long-content state,
+loading geometry, one-owner scrolling, contextual action, and full responsive
+matrix. A screenshot is supporting evidence, never acceptance by itself.
 ```
 
 ## Creative engineering boundary

@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { useContextFab } from '@/components/ops/shell/OpsShellContext';
+import { useOpsOverlay } from '@/components/ops/shell/use-ops-overlay';
+import { OpsRecordVisual } from '@/components/ops/visuals/OpsRecordVisual';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import type { OverviewBriefingReadModel, OverviewQueue } from './overview-briefing';
 import styles from './overview.module.css';
@@ -37,6 +39,12 @@ const QUEUE_ITEM_LABELS: Record<OverviewQueue['kind'], string> = {
   vocabulary: 'Vocabulary',
   retailers: 'Retailer',
 };
+
+const OVERVIEW_OVERLAY_INERT_TARGETS = [
+  '[data-ops-workspace]',
+  '[data-ops-sidebar-layer]',
+  '[data-ops-menu-fab]',
+] as const;
 
 function subscribeToDetailPane(onStoreChange: () => void) {
   const observer = new MutationObserver(onStoreChange);
@@ -140,15 +148,25 @@ export function OverviewBriefing({ briefing }: { briefing: OverviewBriefingReadM
   const [overlayOpen, setOverlayOpen] = useState(false);
   const queueButtons = useRef<Record<string, HTMLButtonElement | null>>({});
   const lastTrigger = useRef<HTMLButtonElement | null>(null);
-  const overlayInspectorRef = useRef<HTMLElement | null>(null);
+  const overlayDialogRef = useRef<HTMLDivElement | null>(null);
   const detailPortalTarget = useSyncExternalStore(subscribeToDetailPane, getDetailPaneSnapshot, () => null);
   const isDesktop = useSyncExternalStore(subscribeToDesktopViewport, getDesktopViewportSnapshot, () => true);
   const selectedQueue = briefing.queues.find(queue => queue.kind === selectedKind) ?? briefing.queues[0] ?? null;
+  const overlayActive = !isDesktop && overlayOpen;
+  const overlayMounted = overlayActive && detailPortalTarget != null;
 
   const closeInspector = useCallback(() => {
     setOverlayOpen(false);
-    requestAnimationFrame(() => lastTrigger.current?.focus());
   }, []);
+
+  useOpsOverlay({
+    open: overlayMounted,
+    onClose: closeInspector,
+    dialogRef: overlayDialogRef,
+    returnFocusRef: lastTrigger,
+    inertTargetSelectors: OVERVIEW_OVERLAY_INERT_TARGETS,
+    initialFocusSelector: '#queue-inspector-heading',
+  });
 
   const openSelectedQueueContext = useCallback(() => {
     if (!selectedQueue) return;
@@ -174,45 +192,19 @@ export function OverviewBriefing({ briefing }: { briefing: OverviewBriefingReadM
   }, [openSelectedQueueContext, selectedQueue, setContextFab]);
 
   useEffect(() => {
-    if (isDesktop || !overlayOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closeInspector();
-        return;
-      }
-      if (event.key !== 'Tab') return;
-
-      const focusable = overlayInspectorRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusable?.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+    const desktopViewport = window.matchMedia('(min-width: 1180px)');
+    const closeAtDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) closeInspector();
     };
-    const focusFrame = requestAnimationFrame(() => overlayInspectorRef.current?.querySelector<HTMLElement>('#queue-inspector-heading')?.focus());
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      cancelAnimationFrame(focusFrame);
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [closeInspector, isDesktop, overlayOpen]);
+
+    desktopViewport.addEventListener('change', closeAtDesktop);
+    return () => desktopViewport.removeEventListener('change', closeAtDesktop);
+  }, [closeInspector]);
 
   function selectQueue(queue: OverviewQueue, trigger?: HTMLButtonElement) {
     setSelectedKind(queue.kind);
     if (trigger) lastTrigger.current = trigger;
     if (!isDesktop) setOverlayOpen(true);
-    queueButtons.current[queue.kind]?.focus();
   }
 
   function handleQueueKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>, index: number) {
@@ -228,16 +220,16 @@ export function OverviewBriefing({ briefing }: { briefing: OverviewBriefingReadM
       : Math.min(Math.max(index + direction, 0), briefing.queues.length - 1);
     const nextQueue = briefing.queues[nextIndex];
     if (!nextQueue) return;
-    selectQueue(nextQueue, event.currentTarget);
+    const nextTrigger = queueButtons.current[nextQueue.kind] ?? event.currentTarget;
+    nextTrigger.focus();
+    selectQueue(nextQueue, nextTrigger);
   }
 
   const inspector = selectedQueue ? <QueueInspector briefing={briefing} queue={selectedQueue} /> : null;
   const mobileInspector = selectedQueue ? <QueueInspector briefing={briefing} queue={selectedQueue} onClose={closeInspector} /> : null;
 
   return (
-    <div className={styles.briefing} onKeyDown={event => {
-      if (event.key === 'Escape' && overlayOpen) closeInspector();
-    }}>
+    <div className={styles.briefing}>
       <header className={styles.context}>
         <h1 id="overview-heading">Overview</h1>
       </header>
@@ -358,9 +350,12 @@ export function OverviewBriefing({ briefing }: { briefing: OverviewBriefingReadM
                 const DecisionIcon = decision.queueKind ? QUEUE_ICONS[decision.queueKind] : Activity;
                 return (
                   <li key={decision.id}>
-                    <span className={styles.recentVisual} aria-hidden="true">
-                      <DecisionIcon size={18} strokeWidth={1.7} />
-                    </span>
+                    <OpsRecordVisual
+                      image={decision.image}
+                      className={styles.recentVisual}
+                      imageClassName={styles.recentImage}
+                      fallback={<DecisionIcon size={18} strokeWidth={1.7} />}
+                    />
                     <span className={styles.recentCopy}>
                       <span className={styles.recentDescription}>{decision.description}</span>
                       <span className={styles.recentOperator}>{decision.targetLabel} · {decision.operatorName}</span>
@@ -382,11 +377,18 @@ export function OverviewBriefing({ briefing }: { briefing: OverviewBriefingReadM
         ? createPortal(inspector, detailPortalTarget)
         : null}
 
-      {!isDesktop && overlayOpen && mobileInspector && detailPortalTarget
+      {overlayMounted && mobileInspector && detailPortalTarget
         ? createPortal(
-            <div className={styles.overlayStage} role="dialog" aria-modal="true" aria-labelledby="queue-inspector-heading">
-              <button type="button" className={styles.overlayScrim} onClick={closeInspector} aria-label="Close queue details" />
-              <section ref={overlayInspectorRef} className={styles.overlayInspector}>{mobileInspector}</section>
+            <div
+              ref={overlayDialogRef}
+              className={styles.overlayStage}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${selectedQueue?.label ?? 'Queue'} context`}
+              tabIndex={-1}
+            >
+              <button type="button" className={styles.overlayScrim} onClick={closeInspector} tabIndex={-1} aria-hidden="true" />
+              <section className={styles.overlayInspector}>{mobileInspector}</section>
             </div>,
             detailPortalTarget,
           )

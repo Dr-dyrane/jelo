@@ -576,6 +576,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   anua: ['anua.com'],
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
+  beautyformulas: ['www.beautyformulas.co.uk'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   cecred: ['cecred.com'],
   delacruz: ['dlclabs.com'],
@@ -614,6 +615,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   anua: ['anua.com'],
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
+  beautyformulas: ['www.beautyformulas.co.uk'],
   cerave: [
     'africa.cerave.com',
     'www.cerave.com',

@@ -1,7 +1,11 @@
 import 'server-only';
 
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
-import { queryInventoryRecords, type InventoryQuery } from './inventory-query';
+import {
+  queryInventoryRecordPages,
+  queryInventoryRecords,
+  type InventoryQuery,
+} from './inventory-query';
 
 export {
   inventoryCategories,
@@ -9,6 +13,7 @@ export {
   type InventoryCommunityItem,
   type InventoryAvailabilityFilter,
   type InventoryItem,
+  type InventoryPageRangeResult,
   type InventoryPriceFilter,
   type InventoryQuery,
   type InventoryResult,
@@ -20,4 +25,13 @@ export {
 export async function queryInventory(input: InventoryQuery = {}) {
   const reviewedProducts = await listCatalogueProducts();
   return queryInventoryRecords(reviewedProducts, input);
+}
+
+export async function queryInventoryPages(
+  input: InventoryQuery,
+  fromPage: number,
+  toPage: number,
+) {
+  const reviewedProducts = await listCatalogueProducts();
+  return queryInventoryRecordPages(reviewedProducts, input, fromPage, toPage);
 }

@@ -5,7 +5,11 @@ import {
   resolveHostingerMailboxResourceId,
   sendHostingerMailViaApi,
 } from './hostinger-mail-api';
-import { operatorOtpEmail, retailerMagicLinkEmail } from './templates';
+import {
+  operatorInvitationEmail,
+  operatorOtpEmail,
+  retailerMagicLinkEmail,
+} from './templates';
 
 function mailAddress() {
   return process.env.EMAIL_FROM_ADDRESS ?? 'hello@jelocare.com';
@@ -108,4 +112,11 @@ export async function sendRetailerMagicLink(input: {
 // operator sign-in code through JeloCare's own branded transport.
 export async function sendOperatorOtp(input: { to: string; code: string; type?: string }) {
   return deliver(input.to, operatorOtpEmail({ code: input.code, type: input.type }));
+}
+
+export async function sendOperatorInvitation(input: { to: string; signInLink: string }) {
+  return deliver(input.to, operatorInvitationEmail({
+    email: input.to,
+    signInLink: input.signInLink,
+  }));
 }

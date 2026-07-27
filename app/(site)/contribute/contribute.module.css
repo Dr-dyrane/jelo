@@ -1,7 +1,7 @@
 .page{min-height:100vh;overflow:clip;background:linear-gradient(180deg,var(--card-2) 0,#fbe9e3 48%,var(--cream) 100%)}
 .hero{min-height:78svh;display:grid;grid-template-columns:1.08fr .92fr;padding:7.5rem 4vw 3rem;gap:clamp(1rem,3vw,3rem)}
 .heroCopy{display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(2rem,5vw,5rem);border-radius:2.8rem;background:rgba(255,253,249,.76)}
-.heroCopy>p,.review>div>p,.purchase>div>p,.complete>p:first-of-type{margin:0;color:var(--wine);font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.heroCopy>p,.review>div>p,.purchase>div>p,.complete>p:first-of-type{margin:0;color:var(--wine);font-size:.68rem;font-weight:var(--weight-regular)}
 .heroCopy h1{max-width:12ch;margin:1rem 0 1.2rem;font-family:var(--font-display),serif;font-size:clamp(4rem,8vw,8.2rem);font-weight:400;line-height:.82;letter-spacing:-.045em}
 .heroCopy>span{color:var(--muted);font-size:clamp(1rem,1.4vw,1.2rem)}
 .heroImage{min-height:35rem;overflow:hidden;border-radius:2.8rem;background:var(--peach)}
@@ -46,7 +46,7 @@
 .complete a{background:var(--peach)}
 .loading{width:min(46rem,calc(100% - 2rem));min-height:30rem;margin:6rem auto;display:grid;place-items:center;color:var(--muted)}
 .boundary{max-width:76rem;margin:0 auto;padding:8vw 4vw 11vw;text-align:center}
-.boundary p{margin:0;color:var(--wine);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
+.boundary p{margin:0;color:var(--wine);font-size:.7rem;font-weight:var(--weight-regular)}
 .boundary h2{max-width:15ch;margin:1rem auto}
 @keyframes question-in{0%{opacity:0;transform:translateY(8px)}
 to{opacity:1;transform:none}

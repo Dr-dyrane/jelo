@@ -2,6 +2,10 @@ import 'server-only';
 
 import type { Sql } from 'postgres';
 import { getAuthSubject } from '@/lib/auth/subject';
+import {
+  claimPendingOperatorInvitation,
+  isOperatorAccessLifecycleUnavailable,
+} from './operator-access';
 
 export type ModerationRole = 'moderator' | 'operator' | 'admin';
 
@@ -48,8 +52,23 @@ export async function resolveActiveOperator(sql: Sql, authSubject: string | null
 }
 
 export async function currentOperator(sql: Sql): Promise<ModerationOperator | null> {
-  const subject = await operatorAuthSubject();
-  return resolveActiveOperator(sql, subject);
+  const identity = await getAuthSubject();
+  const existing = await resolveActiveOperator(sql, identity?.subject ?? null);
+  if (existing || !identity) return existing;
+
+  // A pending invitation is only claimed after Neon Auth has verified the exact
+  // mailbox and supplied its stable subject. The invitation itself never grants a
+  // session and an unverified email can never enter this path.
+  try {
+    const claimed = await claimPendingOperatorInvitation(sql, identity);
+    if (claimed) return claimed;
+    // A concurrent request may have accepted the same invitation while this
+    // request waited on the normalized-email lock.
+    return resolveActiveOperator(sql, identity.subject);
+  } catch (error) {
+    if (isOperatorAccessLifecycleUnavailable(error)) return null;
+    throw error;
+  }
 }
 
 // Gate for every console entry point. Throws unless the request carries a verified,

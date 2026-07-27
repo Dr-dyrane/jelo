@@ -191,7 +191,10 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
           update community_research_tasks
           set signal_count = signal_count + 1,
               last_seen_at = now(),
-              status = case when status = 'dismissed' then status else 'pending' end,
+              status = case
+                when status in ('completed', 'dismissed') then status
+                else 'pending'
+              end,
               updated_at = now()
           where id = ${researchTask.id}
         `;

@@ -110,9 +110,7 @@
 .suggestionHeading > span {
   color: var(--wine);
   font-size: .62rem;
-  font-weight: 600;
-  letter-spacing: .13em;
-  text-transform: uppercase;
+  font-weight: var(--weight-regular);
 }
 
 .suggestionHeading button {
@@ -167,9 +165,7 @@
   width: 4.3rem;
   color: var(--wine);
   font-size: .57rem;
-  font-weight: 600;
-  letter-spacing: .09em;
-  text-transform: uppercase;
+  font-weight: var(--weight-regular);
 }
 
 .suggestionList strong {

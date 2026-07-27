@@ -24,9 +24,15 @@ type ClaimedJob = {
   attempt_count: number;
   url: string;
   market_code: string;
+  product_slug: string;
   product_name: string;
   product_size: string;
   brand_name: string;
+};
+
+const VERIFIED_PRODUCT_TITLE_ALIASES: Record<string, string[]> = {
+  'anua-niacinamide-10-txa-4-serum': ['Niacinamide 10% + TXA 4% Serum'],
+  'eucerin-urearepair-plus-10-urea-body-lotion-250ml': ['UreaRepair PLUS 10% Urea Body Lotion'],
 };
 
 let inventoryRefreshClient: ReturnType<typeof postgres> | undefined;
@@ -76,6 +82,7 @@ async function claimJob(): Promise<ClaimedJob | undefined> {
       claimed.attempt_count,
       o.url,
       o.market_code,
+      p.slug as product_slug,
       p.name as product_name,
       p.size as product_size,
       b.name as brand_name
@@ -189,6 +196,7 @@ export async function processNextInventoryRefreshJob(): Promise<InventoryRefresh
       responseUrl: observation.responseUrl,
       canonicalUrl: observation.canonicalUrl,
       expectedTitle: `${job.brand_name} ${job.product_name}`,
+      expectedTitleAliases: VERIFIED_PRODUCT_TITLE_ALIASES[job.product_slug],
       expectedSize: job.product_size,
       observedTitle: observation.productTitle,
       observedSize: observation.productSize,

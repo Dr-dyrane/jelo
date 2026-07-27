@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+    "candidateFingerprint": "b19482e23a788115392a7ff00725ed9fb2196f62b81c2859170ca7e6ff0c7836",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "8850029013671",
+      "brand": "Eucerin",
+      "name": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
+      "variant": "Eucerin Sun Oil Control Gel-Cream SPF 50+",
+      "size": "50 ml",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+      "officialIdentity": {
+        "url": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+        "observedGtin": "8850029013671",
+        "observedVariant": "Eucerin Sun Oil Control Gel-Cream SPF 50+",
+        "observedSize": "50 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/eucerin-oil-control-sun-gel-cream-spf50-50ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+          "sourceUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+          "responseUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-07-22T15:01:51Z",
+          "fields": {
+            "gtin": {
+              "value": "8850029013671",
+              "locator": "HTML Product JSON-LD gtin13",
+              "sourceText": "\"gtin13\":\"8850029013671\""
+            },
+            "variant": {
+              "value": "Eucerin Sun Oil Control Gel-Cream SPF 50+",
+              "locator": "HTML Buy Online component productName",
+              "sourceText": "Eucerin Sun Oil Control Gel-Cream SPF 50+"
+            },
+            "size": {
+              "value": "50 ml",
+              "locator": "HTML .pdp-variant-section .size-value",
+              "sourceText": "SPF 50+, 50 ml"
+            }
+          },
+          "sourceResponseSha256": "3377773181ca4dafd5ada6cf8b7890cbac7fefcaa266bb632864741a3d53dcb2",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 308784,
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-22T17:03:25Z"
+        },
+        "snapshotSha256": "e7f43e18de51d084062aab7b1479516314d2d528a70538670c478634d4c56045",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1069,
+        "retrievedAt": "2026-07-22T15:01:51Z"
+      },
+      "checkedAt": "2026-07-22T17:03:25Z",
+      "demandEvidenceUrls": [
+        "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+        "https://buybetter.ng/product/eucerin-oil-control-dry-touch-sun-gel-cream-50ml/",
+        "https://girlyessentials.com.ng/product/eucerin-oil-control-sun-gel-cream-dry-touch-spf50/",
+        "https://www.jumia.com.ng/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml-350932893.html"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Non-tinted SPF 50+ facial sunscreen gel-cream for oily and acne-prone skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports daily sun protection. It is not an acne treatment, a diagnosis, or a substitute for shade, protective clothing, and clinician-directed care.",
+      "manufacturerEvidenceUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+      "evidenceUrls": [
+        "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+        "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+      ],
+      "reviewedAt": "2026-07-22T17:04:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "tier-a",
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+      "exactOffers": [
+        {
+          "retailer": "Beauty by Daz",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+          "observedAt": "2026-07-23T02:50:09.999Z",
+          "observedTitle": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
+          "observedSize": "50 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "328-1-byd",
+          "priceNgn": 18850,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+            "responseUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+            "responseSha256": "a4029e2d9f26e239a3b18604efd92eadb928cefd9916b5fae993007cb19dbe6d",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200069,
+            "retrievedAt": "2026-07-23T02:50:09.999Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "8850029013671",
+                "locator": "Bound official catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 8850029013671",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml"
+              },
+              "price": {
+                "value": 18850,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦18,850.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM stock status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T02:51:00Z"
+          }
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://nectarbeautyhub.com/products/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml",
+          "observedAt": "2026-07-23T02:52:25.450Z",
+          "observedTitle": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml",
+          "observedSize": "50 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "nectar-eucerin-oil-control-50ml",
+          "priceNgn": 17363,
+          "stock": "out-of-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://nectarbeautyhub.com/products/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml",
+            "responseUrl": "https://nectarbeautyhub.com/products/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml",
+            "responseSha256": "4a176a3a5deb8d7c86414914351323ff77ca4c16356e37a4782965a0cb730a8f",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200439,
+            "retrievedAt": "2026-07-23T02:52:25.450Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Eucerin Face Sunscreen Oil Control Gel-Cream Dry Touch, SPF 50+, 50ml – Nectar Beauty Hub"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "8850029013671",
+                "locator": "Bound official catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 8850029013671",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml"
+              },
+              "price": {
+                "value": 17363,
+                "currency": "NGN",
+                "locator": "Rendered DOM sale price",
+                "sourceText": "₦17,363.00"
+              },
+              "stock": {
+                "value": "out-of-stock",
+                "locator": "Rendered DOM availability status",
+                "sourceText": "Out Of Stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T02:53:00Z"
+          }
+        }
+      ],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://images-1.eucerin.com/~/media/eucerin%20relaunch%20media/media-center-items/a/8/3/5c72a26436cd4a83b55559c571dd45a9-screen.jpg?mw=830&hash=83bd42a3759e9aa4302182434a5c42cd",
+        "sha256": "eb8f423d045c0f1aa5042534d8909182e97ed0cbda291fb747d1297d1f5d07ce",
+        "mimeType": "image/jpeg",
+        "byteSize": 18920,
+        "width": 830,
+        "height": 830,
+        "retrievedAt": "2026-07-23T02:54:45Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: product-mockup and precise-object-edit\nAsset type: JeloCare catalogue packshot source for background removal\nInput image: official Eucerin CEWA reference for the exact 50 ml Sun Oil Control Gel-Cream SPF 50+ bottle.\nPrimary request: create one faithful, centered, front-facing render of the complete slim white airless pump bottle with orange cap; preserve the Eucerin wordmark, Sun Protection line, SPF 50+ mark, orange Oil Control band, grey Advanced Spectral Technology band, oily acne-prone skin line, Dry Touch Sun Gel-Cream Ultra Light name and 50 ml proportions.\nIteration: make the orange cap and Oil Control band fully opaque with no background color contamination, while keeping all identity details unchanged.\nFinal background edit: change only the background to a perfectly uniform solid #00ff00 chroma green with no gradient, texture, floor, reflection, vignette, cast shadow or contact shadow. Keep generous padding and the full cap and base.\nConstraints: no extra objects, detached size caption, hands, scenery, border, watermark, duplicate bottle, invented claims, different package, different SPF or different size.",
+        "inputs": [
+          {
+            "url": "https://images-1.eucerin.com/~/media/eucerin%20relaunch%20media/media-center-items/a/8/3/5c72a26436cd4a83b55559c571dd45a9-screen.jpg?mw=830&hash=83bd42a3759e9aa4302182434a5c42cd",
+            "sha256": "eb8f423d045c0f1aa5042534d8909182e97ed0cbda291fb747d1297d1f5d07ce"
+          }
+        ],
+        "outputSha256": "5e28c36ad21991263a3c7e4142d508ada05dd97097bbb0ef57308f18b62138e2",
+        "generatedAt": "2026-07-23T03:02:46Z",
+        "recordSha256": "6ee70cd6224f29bf28a444e39cddcb8a49d24d94e558823b552e5ac70f5cffe7"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eucerin/eucerin-oil-control-sun-gel-cream-spf50-50ml/packshot-v1-5e28c36ad2199126.png",
+      "sha256": "5e28c36ad21991263a3c7e4142d508ada05dd97097bbb0ef57308f18b62138e2",
+      "mimeType": "image/png",
+      "byteSize": 843687,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-07-23T03:04:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-retail-rights-and-final-image",
+      "reviewer": "JeloCare catalogue approval review",
+      "approvedAt": "2026-07-23T03:05:00Z"
+    },
+    "dossierFingerprint": "d83055ca6ce1a726c1815aae9a4e11e98cf8100df27240d3b3351c9e3e4acdfa"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+    "dossierFingerprint": "d83055ca6ce1a726c1815aae9a4e11e98cf8100df27240d3b3351c9e3e4acdfa",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Protect",
+      "displayLine": "Daily high protection.",
+      "usage": "Apply generously before sun exposure and reapply often.",
+      "manufacturerDirectionsUrl": "https://www.eucerin-cewa.com/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+      "reviewer": "JeloCare catalogue presentation review",
+      "reviewedAt": "2026-07-23T03:05:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue publication review",
+      "publishedAt": "2026-07-23T03:06:00Z"
+    },
+    "releaseFingerprint": "5d0a69985e4686ad0fa52b9fd2c9ea45d0ef28280a693462aff39fd7ceb95695"
+  }
+}

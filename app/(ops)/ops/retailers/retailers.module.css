@@ -1,0 +1,212 @@
+.retailerRow {
+  display: grid;
+  min-height: 68px;
+  grid-template-columns: 52px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--ops-control-radius);
+  width: 100%;
+}
+
+.retailerVisual {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: calc(var(--ops-control-radius) - 3px);
+  background: color-mix(in srgb, var(--ops-surface-subtle) 86%, transparent);
+  color: var(--ops-accent);
+}
+
+.retailerCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.retailerTitle {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: var(--text-cell);
+  font-weight: var(--weight-medium);
+  line-height: 1.28;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.retailerMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.3;
+}
+
+.retailerCaret {
+  color: var(--muted);
+  opacity: .5;
+}
+
+.identitySummary {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: 0 0 var(--space-6);
+}
+
+.identityVisual {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: calc(var(--ops-control-radius) - 3px);
+  background: color-mix(in srgb, var(--ops-surface-subtle) 86%, transparent);
+  color: var(--ops-accent);
+}
+
+.identityCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.identityCopy h2 {
+  overflow: hidden;
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-cell);
+  font-weight: var(--weight-semibold);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.identityEmail {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-caption);
+}
+
+.identityMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.link {
+  color: var(--ops-accent);
+  text-decoration: underline;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--ink);
+}
+
+.multilineValue {
+  overflow: visible;
+  padding-block: var(--space-2);
+  line-height: 1.4;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.rejectConfirmation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rejectConfirmation > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rejectConfirmation strong {
+  color: var(--ink);
+  font-size: var(--text-cell);
+  font-weight: var(--weight-semibold);
+  line-height: 1.3;
+}
+
+.rejectConfirmation span {
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+}
+
+.errorNote {
+  color: var(--state-danger);
+}
+
+.liveStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.loadMore {
+  display: flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-6) var(--space-7);
+}
+
+.loadMore button {
+  min-width: 88px;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: transparent;
+  color: var(--ops-accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+}
+
+.loadMore button:hover {
+  background: var(--ops-accent-subtle);
+}
+
+.loadMore button:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
+
+.loadMore button:disabled {
+  cursor: wait;
+  opacity: .58;
+}
+
+.loadMore span {
+  color: var(--muted);
+  font-size: var(--text-caption);
+}
+
+@media (max-width: 429px) {
+  .identityCopy h2 {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}

@@ -219,5 +219,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "9df96be464b016371d9c40db5ad143b1f9af0536bd1bc567564458c731305ef3"
+  },
+  {
+    "id": "beauty-formulas-glowing-serum-2-vitamin-c-30ml-packshot-v2",
+    "active": true,
+    "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+    "destination": "publication",
+    "publicationBrandSlug": "beauty-formulas",
+    "sourceUrl": "https://www.csigrocery.com/wp-content/uploads/2025/10/Beauty-Formulas-Glowing-Serum-2-Vitamin-C-%E2%80%94-30ml.avif",
+    "localPath": "data/catalogue-intake-assets/beauty-formulas-glowing-serum-2-vitamin-c-30ml/packshot-v2-420f76cf802a.png",
+    "blobPath": "products/beauty-formulas/beauty-formulas-glowing-serum-2-vitamin-c-30ml/packshot-v2-420f76cf802aab4c.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/beauty-formulas/beauty-formulas-glowing-serum-2-vitamin-c-30ml/packshot-v2-420f76cf802aab4c.png",
+    "contentType": "image/png",
+    "byteSize": 1508086,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "420f76cf802aab4c8328b9b8d10830add8496cb8efd10f6152da5bad84532329"
   }
 ]

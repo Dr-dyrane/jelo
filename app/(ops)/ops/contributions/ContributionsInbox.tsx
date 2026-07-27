@@ -1,11 +1,23 @@
 'use client';
 
-import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import { ChevronRight, Layers3, PackageOpen, Store } from 'lucide-react';
-import type { ContributionReviewItem } from '@/lib/moderation/contribution-presentation';
+import type {
+  ContributionDisplayValue,
+  ContributionReviewItem,
+} from '@/lib/moderation/contribution-presentation';
 import { money } from '@/lib/format/money';
 import { outcomeLabel, outcomeTone } from '@/lib/humanize/outcomes';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { EmptyState } from '@/components/ops/state/EmptyState';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { IdChip } from '@/components/ops/chips/IdChip';
@@ -15,7 +27,10 @@ import {
   type OpsInboxController,
 } from '@/components/ops/inbox/InboxContainer';
 import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
-import { decideContributionAction } from '../actions';
+import {
+  decideContributionAction,
+  fetchMoreContributionsAction,
+} from '../actions';
 import { ContributionDetailSkeleton } from './ContributionDetailSkeleton';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import contributionStyles from './contributions.module.css';
@@ -23,6 +38,86 @@ import contributionStyles from './contributions.module.css';
 interface ContributionsInboxProps {
   rows: ContributionReviewItem[];
   canDecide: boolean;
+  initialHasMore: boolean;
+  initialCursor: ContributionCursor | null;
+}
+
+type ContributionCursor = {
+  submittedAt: string;
+  id: string;
+};
+
+type QueueRuntimeState = {
+  extraRows: ContributionReviewItem[];
+  settledIds: string[];
+  cursor: ContributionCursor | null;
+  hasMore: boolean;
+  isLoading: boolean;
+  loadError: string | null;
+};
+
+type QueueRuntimeAction =
+  | { type: 'load-start' }
+  | {
+      type: 'load-success';
+      rows: ContributionReviewItem[];
+      cursor: ContributionCursor | null;
+      hasMore: boolean;
+    }
+  | { type: 'load-error' }
+  | { type: 'settled'; id: string };
+
+function queueRuntimeReducer(
+  state: QueueRuntimeState,
+  action: QueueRuntimeAction,
+): QueueRuntimeState {
+  if (action.type === 'load-start') {
+    return { ...state, isLoading: true, loadError: null };
+  }
+  if (action.type === 'load-error') {
+    return {
+      ...state,
+      isLoading: false,
+      loadError: 'Couldn’t load more contributions.',
+    };
+  }
+  if (action.type === 'settled') {
+    return {
+      ...state,
+      extraRows: state.extraRows.filter(row => row.id !== action.id),
+      settledIds: state.settledIds.includes(action.id)
+        ? state.settledIds
+        : [...state.settledIds, action.id],
+    };
+  }
+
+  const settled = new Set(state.settledIds);
+  const knownIds = new Set(state.extraRows.map(row => row.id));
+  const newRows = action.rows.filter(row => {
+    if (settled.has(row.id) || knownIds.has(row.id)) return false;
+    knownIds.add(row.id);
+    return true;
+  });
+  return {
+    ...state,
+    extraRows: [...state.extraRows, ...newRows],
+    cursor: action.cursor,
+    hasMore: action.hasMore,
+    isLoading: false,
+    loadError: null,
+  };
+}
+
+function contributionRows(
+  initialRows: ContributionReviewItem[],
+  state: QueueRuntimeState,
+) {
+  const settled = new Set(state.settledIds);
+  const byId = new Map<string, ContributionReviewItem>();
+  [...initialRows, ...state.extraRows].forEach(row => {
+    if (!settled.has(row.id)) byId.set(row.id, row);
+  });
+  return [...byId.values()];
 }
 
 function ContributionVisual({
@@ -46,20 +141,73 @@ function ContributionVisual({
   );
 }
 
-function joined(values: string[]) {
-  return values.join(', ');
+function SubmittedValues({ values }: { values: ContributionDisplayValue[] }) {
+  return (
+    <span className={contributionStyles.submittedValues}>
+      {values.map((value, index) => (
+        <span key={`${value.label}-${index}`} className={contributionStyles.submittedValue}>
+          <span>{value.label}</span>
+          {value.match === 'new' ? (
+            <span className={contributionStyles.newValue}>New</span>
+          ) : null}
+        </span>
+      ))}
+    </span>
+  );
 }
 
-export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps) {
+function SummaryAndTime({
+  summary,
+  submittedAt,
+}: {
+  summary: string;
+  submittedAt: string;
+}) {
+  return (
+    <>
+      {summary ? (
+        <>
+          <span>{summary}</span>
+          <span aria-hidden="true">·</span>
+        </>
+      ) : null}
+      <RelativeTime iso={submittedAt} />
+    </>
+  );
+}
+
+export function ContributionsInbox({
+  rows,
+  canDecide,
+  initialHasMore,
+  initialCursor,
+}: ContributionsInboxProps) {
   const selection = useUrlInboxSelection();
   const [actionState, formAction, isPending] = useActionState(decideContributionAction, null);
   const [rejectConfirmId, setRejectConfirmId] = useState<string | null>(null);
+  const [queueState, dispatchQueue] = useReducer(queueRuntimeReducer, {
+    extraRows: [],
+    settledIds: [],
+    cursor: initialCursor,
+    hasMore: initialHasMore,
+    isLoading: false,
+    loadError: null,
+  });
   const pendingDecisionRef = useRef<string | null>(null);
+  const loadPendingRef = useRef(false);
+  const loadSentinelRef = useRef<HTMLDivElement | null>(null);
   const inboxControllerRef = useRef<OpsInboxController | null>(null);
+  const loadedRows = useMemo(
+    () => contributionRows(rows, queueState),
+    [queueState, rows],
+  );
   const orderedRows = useMemo(() => {
-    const chronological = [...rows].sort(
-      (left, right) => new Date(left.submittedAt).getTime() - new Date(right.submittedAt).getTime(),
-    );
+    const chronological = [...loadedRows].sort((left, right) => {
+      if (left.submittedAt !== right.submittedAt) {
+        return left.submittedAt < right.submittedAt ? -1 : 1;
+      }
+      return left.id.localeCompare(right.id, 'en-NG');
+    });
     const upNext = chronological.slice(0, 2);
     const remaining = chronological.slice(2);
     return [
@@ -68,7 +216,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
       ...remaining.filter(row => row.kind === 'routine'),
       ...remaining.filter(row => row.kind === 'store'),
     ];
-  }, [rows]);
+  }, [loadedRows]);
   const sections = useMemo<InboxCollectionSection<ContributionReviewItem>[]>(() => [
     {
       id: 'up-next',
@@ -99,15 +247,82 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
     },
   ], [orderedRows]);
 
+  const loadMore = useCallback(async () => {
+    if (
+      loadPendingRef.current
+      || queueState.isLoading
+      || !queueState.hasMore
+      || !queueState.cursor
+    ) {
+      return;
+    }
+
+    loadPendingRef.current = true;
+    dispatchQueue({ type: 'load-start' });
+    try {
+      const result = await fetchMoreContributionsAction(
+        queueState.cursor.submittedAt,
+        queueState.cursor.id,
+      );
+      dispatchQueue({
+        type: 'load-success',
+        rows: result.items,
+        cursor: result.nextCursor,
+        hasMore: result.hasMore,
+      });
+    } catch (error) {
+      console.error('Could not load more contributions.', error);
+      dispatchQueue({ type: 'load-error' });
+    } finally {
+      loadPendingRef.current = false;
+    }
+  }, [
+    queueState.cursor,
+    queueState.hasMore,
+    queueState.isLoading,
+  ]);
+
+  useEffect(() => {
+    if (
+      !queueState.hasMore
+      || queueState.loadError
+      || !loadSentinelRef.current
+    ) {
+      return;
+    }
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0]?.isIntersecting) void loadMore();
+    }, {
+      root: document.querySelector<HTMLElement>('[data-ops-main]'),
+      rootMargin: '240px 0px',
+      threshold: 0.01,
+    });
+    observer.observe(loadSentinelRef.current);
+    return () => observer.disconnect();
+  }, [loadMore, queueState.hasMore, queueState.loadError]);
+
   useEffect(() => {
     if (!actionState?.ok) return;
     inboxControllerRef.current?.settleItem(actionState.targetId);
+    dispatchQueue({ type: 'settled', id: actionState.targetId });
     pendingDecisionRef.current = null;
   }, [actionState]);
 
   const actionAnnouncement = actionState?.ok
     ? `Contribution ${actionState.decision === 'approve' ? 'approved' : 'rejected'}.`
     : '';
+
+  if (orderedRows.length === 0 && !queueState.hasMore) {
+    return (
+      <EmptyState
+        title="You’re caught up."
+        body="There’s nothing waiting."
+        action={{ href: '/ops/activity', label: 'View insights' }}
+      />
+    );
+  }
 
   return (
     <>
@@ -116,6 +331,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
         items={orderedRows}
         sections={sections}
         itemTypeLabel="contribution"
+        getItemLabel={item => item.title}
         selectedId={selection.selectedId}
         pendingSelectionId={selection.pendingSelectionId}
         onSelect={item => {
@@ -141,9 +357,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                   <span className={contributionStyles.featureEyebrow}>{row.kindLabel}</span>
                   <span className={contributionStyles.featureTitle}>{row.title}</span>
                   <span className={contributionStyles.featureMeta}>
-                    <span>{row.summary}</span>
-                    <span aria-hidden="true">·</span>
-                    <RelativeTime iso={row.submittedAt} />
+                    <SummaryAndTime summary={row.summary} submittedAt={row.submittedAt} />
                   </span>
                 </span>
               </span>
@@ -162,7 +376,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                 <span className={contributionStyles.routineCopy}>
                   <span className={contributionStyles.routineTitle}>{row.title}</span>
                   <span className={contributionStyles.routineMeta}>
-                    {row.summary} · <RelativeTime iso={row.submittedAt} />
+                    <SummaryAndTime summary={row.summary} submittedAt={row.submittedAt} />
                   </span>
                 </span>
               </span>
@@ -180,7 +394,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
               <span className={contributionStyles.compactCopy}>
                 <span className={contributionStyles.compactTitle}>{row.title}</span>
                 <span className={contributionStyles.compactMeta}>
-                  {row.summary} · <RelativeTime iso={row.submittedAt} />
+                  <SummaryAndTime summary={row.summary} submittedAt={row.submittedAt} />
                 </span>
               </span>
               <ChevronRight size={16} className={contributionStyles.compactCaret} aria-hidden="true" />
@@ -210,7 +424,6 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                     <h2>{row.title}</h2>
                     <span>{row.kindLabel}</span>
                     <div className={contributionStyles.identityMeta}>
-                      {row.needsMatching ? <StatusPill tone="info">Needs matching</StatusPill> : null}
                       <RelativeTime iso={row.submittedAt} />
                     </div>
                   </div>
@@ -219,35 +432,35 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                 <section className={styles.detailSection}>
                   <h3 className={styles.sectionLabel}>Submitted details</h3>
                   <div className={styles.propertiesSection}>
-                    {row.brandNames.length > 0 ? (
+                    {row.brandValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>Brand</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.brandNames)}
+                          <SubmittedValues values={row.brandValues} />
                         </span>
                       </div>
                     ) : null}
-                    {row.productNames.length > 0 ? (
+                    {row.productValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>{row.kind === 'routine' ? 'Products' : 'Product'}</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.productNames)}
+                          <SubmittedValues values={row.productValues} />
                         </span>
                       </div>
                     ) : null}
-                    {row.storeNames.length > 0 ? (
+                    {row.storeValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>Store</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.storeNames)}
+                          <SubmittedValues values={row.storeValues} />
                         </span>
                       </div>
                     ) : null}
-                    {row.purposeNames.length > 0 ? (
+                    {row.purposeValues.length > 0 ? (
                       <div className={styles.propertyRow}>
                         <span className={styles.propertyLabel}>Used for</span>
                         <span className={`${styles.propertyValue} ${contributionStyles.multilineValue}`}>
-                          {joined(row.purposeNames)}
+                          <SubmittedValues values={row.purposeValues} />
                         </span>
                       </div>
                     ) : null}
@@ -342,7 +555,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                           </span>
                         ) : null}
                       </div>
-                      <div className={styles.actionButtons}>
+                      <div className={styles.actionButtons} data-ops-decision-actions>
                         <button
                           className={styles.btn}
                           type="button"
@@ -365,7 +578,7 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
                       </div>
                     </div>
                   ) : (
-                    <div className={styles.actionButtons}>
+                    <div className={styles.actionButtons} data-ops-decision-actions>
                       <button
                         className={`${styles.btn} ${styles.btnReject}`}
                         type="button"
@@ -394,6 +607,28 @@ export function ContributionsInbox({ rows, canDecide }: ContributionsInboxProps)
           );
         }}
       />
+      {queueState.hasMore ? (
+        <div ref={loadSentinelRef} className={contributionStyles.loadMore}>
+          <button
+            type="button"
+            onClick={() => void loadMore()}
+            disabled={queueState.isLoading}
+          >
+            {queueState.isLoading
+              ? 'Loading…'
+              : queueState.loadError
+                ? 'Try again'
+                : 'Load more'}
+          </button>
+          {queueState.loadError ? (
+            <span role="alert">{queueState.loadError}</span>
+          ) : queueState.isLoading ? (
+            <span role="status" aria-live="polite">
+              Loading more contributions.
+            </span>
+          ) : null}
+        </div>
+      ) : null}
       <span className={contributionStyles.liveStatus} role="status" aria-live="polite" aria-atomic="true">
         {actionAnnouncement}
       </span>

@@ -11,6 +11,7 @@ import {
   contributionSignalView,
 } from '@/lib/moderation/signals-presentation';
 import { SignalsMonitor } from './SignalsMonitor';
+import { SignalsRefreshControl } from './SignalsRefreshControl';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,14 +29,13 @@ export default async function SignalsView() {
   const products = (await Promise.all(
     [...productSlugs].map(slug => findCatalogueProduct(slug)),
   )).filter(product => product != null);
-  const view = commerceSignalView(monitor, products);
+  const commerce = commerceSignalView(monitor, products);
+  const contributions = contributionSignalView(contributionMonitor);
 
   return (
     <OpsWorkspace title="Signals">
-      <SignalsMonitor
-        commerce={view}
-        contributions={contributionSignalView(contributionMonitor)}
-      />
+      <SignalsRefreshControl />
+      <SignalsMonitor commerce={commerce} contributions={contributions} />
     </OpsWorkspace>
   );
 }

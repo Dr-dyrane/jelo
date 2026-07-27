@@ -35,7 +35,7 @@
   margin: 0 0 var(--space-2);
   color: var(--ops-accent);
   font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-regular);
   line-height: 1.2;
 }
 
@@ -150,6 +150,112 @@
   height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 8px 12px rgba(72, 40, 38, .06));
+}
+
+.visualPlaceholder {
+  color: var(--ops-accent);
+}
+
+.detailVisual {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: calc(var(--ops-control-radius) - 3px);
+  background: var(--ops-surface-subtle);
+}
+
+.detailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.decisionBoundary {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.35;
+}
+
+.rejectConfirmation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rejectConfirmation > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rejectConfirmation strong {
+  color: var(--ink);
+  font-size: var(--text-cell);
+  font-weight: var(--weight-semibold);
+  line-height: 1.3;
+}
+
+.rejectConfirmation span {
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+}
+
+.errorNote {
+  color: var(--state-danger);
+}
+
+.loadMore {
+  display: flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-6) var(--space-7);
+}
+
+.loadMore button {
+  min-width: 88px;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: transparent;
+  color: var(--ops-accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+}
+
+.loadMore button:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
+
+.loadMore button:disabled {
+  cursor: wait;
+  opacity: .58;
+}
+
+.loadMore span {
+  color: var(--muted);
+  font-size: var(--text-caption);
+}
+
+.liveStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .experienceCopy {

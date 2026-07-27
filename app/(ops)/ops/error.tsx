@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import styles from './overview.module.css';
+import { ErrorState } from '@/components/ops/state/ErrorState';
+import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 
 export default function OverviewError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
@@ -9,16 +10,12 @@ export default function OverviewError({ error, reset }: { error: Error & { diges
   }, [error]);
 
   return (
-    <div className={styles.briefing}>
-      <header className={styles.context}>
-        <h1>Overview</h1>
-        <p>Couldn’t load this view.</p>
-      </header>
-      <section className={styles.errorState} aria-labelledby="overview-error-heading">
-        <h2 id="overview-error-heading">Try again</h2>
-        <p>Something interrupted the queue read. No review decisions were made.</p>
-        <button type="button" className={styles.retryButton} onClick={reset}>Try again</button>
-      </section>
-    </div>
+    <OpsWorkspace title="Overview">
+      <ErrorState
+        title="Couldn’t load the overview"
+        detail="Nothing changed. Try again."
+        onRetry={reset}
+      />
+    </OpsWorkspace>
   );
 }

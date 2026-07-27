@@ -1,3 +1,5 @@
+import { mkdir, rename, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import postgres from 'postgres';
 import staticResearchQueue from '@/data/catalogue-research-queue.json';
 import {
@@ -5,6 +7,7 @@ import {
   type CommunityResearchPriorityTask,
 } from '@/lib/catalogue/global-research-scheduler';
 import type { CatalogueResearchQueue } from '@/lib/catalogue/research-priority';
+import { firstSubmittedBrandLabel } from '@/lib/community-intake/research-signals';
 
 type CountRow = { count: number };
 type ContributionKindRow = { kind: 'product' | 'routine' | 'store'; count: number };
@@ -36,10 +39,32 @@ type ResearchTaskRow = {
   status: string;
   last_seen_at: Date;
   canonical_slug: string | null;
-  identity_brand: string | null;
+  canonical_brand: string | null;
+  submitted_brand_values: unknown;
   identity_name: string | null;
   identity_size: string | null;
 };
+
+function option(name: string) {
+  const index = process.argv.indexOf(`--${name}`);
+  const value = index >= 0 ? process.argv[index + 1] : undefined;
+  if (index < 0) return undefined;
+  if (!value || value.startsWith('--')) throw new Error(`Missing --${name}.`);
+  return value;
+}
+
+async function writeCacheReport(filename: string, value: unknown) {
+  const repositoryRoot = process.cwd();
+  const cacheRoot = path.join(repositoryRoot, '.cache');
+  const resolved = path.resolve(repositoryRoot, filename);
+  if (!resolved.startsWith(`${cacheRoot}${path.sep}`)) {
+    throw new Error('Community aggregate reports may be written only below .cache and are never checked in.');
+  }
+  await mkdir(path.dirname(resolved), { recursive: true });
+  const temporary = `${resolved}.tmp-${process.pid}`;
+  await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
+  await rename(temporary, resolved);
+}
 
 function connectionString() {
   const value = process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
@@ -113,7 +138,9 @@ async function readCommunityResearchSignals(limit = 100) {
                count(distinct mention.contribution_id)::integer as signal_count,
                task.status, max(contribution.submitted_at) as last_seen_at,
                max(canonical_product.slug) as canonical_slug,
-               coalesce(max(canonical_brand.name), min(mention.context -> 'brands' ->> 0)) as identity_brand,
+               max(canonical_brand.name) as canonical_brand,
+               jsonb_agg(mention.context -> 'brands' -> 0 order by contribution.submitted_at desc)
+                 filter (where mention.context -> 'brands' -> 0 is not null) as submitted_brand_values,
                max(canonical_product.name) as identity_name,
                max(canonical_product.size) as identity_size
         from community_research_tasks task
@@ -124,7 +151,7 @@ async function readCommunityResearchSignals(limit = 100) {
           and task.entity_source = 'canonical'
           and canonical_product.slug = regexp_replace(task.entity_ref, '^product:', '')
         left join brands canonical_brand on canonical_brand.id = canonical_product.brand_id
-        where task.status <> 'dismissed'
+        where task.status in ('pending', 'in-progress')
           and contribution.moderation_status <> 'rejected'
           and contribution.retain_until > now()
         group by task.id
@@ -182,7 +209,7 @@ async function readCommunityResearchSignals(limit = 100) {
         publicationStatus: 'private-research-only' as const,
         identity: {
           canonicalSlug: row.canonical_slug,
-          brand: row.identity_brand,
+          brand: row.canonical_brand ?? firstSubmittedBrandLabel(row.submitted_brand_values),
           name: row.identity_name,
           size: row.identity_size,
         },
@@ -199,8 +226,11 @@ async function main() {
     signals.researchQueue,
     staticResearchQueue as CatalogueResearchQueue,
   );
+  const report = { ...signals, globalResearchSchedule };
+  const output = option('out');
+  if (output) await writeCacheReport(output, report);
   if (process.argv.includes('--json')) {
-    console.log(JSON.stringify({ ...signals, globalResearchSchedule }, null, 2));
+    console.log(JSON.stringify(report, null, 2));
     return;
   }
   console.log('Community research signals');
@@ -243,6 +273,7 @@ async function main() {
     console.log('Pending vocabulary');
     console.table(signals.unknownValues);
   }
+  if (output) console.log(`Private aggregate report written to ${output}.`);
 }
 
 main().catch(error => {

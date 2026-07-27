@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+    "candidateFingerprint": "0f17c8cf3a6048ed279092b475a28fa45835f005bfa6896fd208826d712fe06d",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "5015833328165",
+      "brand": "Balance Active Formula",
+      "name": "Niacinamide Blemish Recovery Serum",
+      "variant": "Skincare Niacinamide Blemish Recovery Serum",
+      "size": "30 ml",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+      "officialIdentity": {
+        "url": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+        "observedGtin": "5015833328165",
+        "observedVariant": "Skincare Niacinamide Blemish Recovery Serum",
+        "observedSize": "30 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/balance-niacinamide-blemish-recovery-serum-30ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+          "sourceUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+          "responseUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-07-23T07:47:36.663Z",
+          "fields": {
+            "gtin": {
+              "value": "5015833328165",
+              "locator": "Rendered product JSON-LD Product gtin",
+              "sourceText": "Product gtin: 5015833328165; sku: BV0007"
+            },
+            "variant": {
+              "value": "Skincare Niacinamide Blemish Recovery Serum",
+              "locator": "Rendered DOM h1 product heading",
+              "sourceText": "Skincare Niacinamide Blemish Recovery Serum"
+            },
+            "size": {
+              "value": "30 ml",
+              "locator": "Official gallery front-pack net-contents line",
+              "sourceText": "30 mL / 1 FL.OZ."
+            }
+          },
+          "sourceResponseSha256": "c106deb212eced22533def6f81eb3085e7600d6e9843c5681b42dffd4a1edea1",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 381906,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.balanceactiveformula.com/cdn/shop/files/BALANCE_NIACINAMIDE_SERUM_CARTON_FOP.jpg?v=1683707278",
+              "responseUrl": "https://www.balanceactiveformula.com/cdn/shop/files/BALANCE_NIACINAMIDE_SERUM_CARTON_FOP.jpg?v=1683707278",
+              "retrievedAt": "2026-07-23T07:47:36.663Z",
+              "responseSha256": "d7700132166f5d529c67866a0d62962606cd9fb0faf393db7416441aff2da51c",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 68014
+            }
+          ],
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Balance Active Formula Blemish Recovery Serum"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-23T07:49:15Z"
+        },
+        "snapshotSha256": "d3aefcc5282e29cfc9868a16de727e4f891e32cc55b9d443721222337d9d934d",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1804,
+        "retrievedAt": "2026-07-23T07:47:36.663Z"
+      },
+      "checkedAt": "2026-07-23T07:49:15Z",
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
+        "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
+        "https://sliquebeautylimited.com/product/balance-niacinamide-blemish-recovery-serum-30ml/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Water-based leave-on facial serum with a manufacturer-disclosed 15% niacinamide concentration and complete ingredient list",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports cosmetic care for blemish-prone appearance and uneven-feeling texture. Independent niacinamide literature covers other concentrations and formulations; it does not validate this exact 15% serum as acne treatment. Do not present it as treating acne, hyperpigmentation, infection, or as a replacement for proven acne care. Introduce gradually, patch test, and stop if persistent irritation develops. Painful, scarring, widespread, or persistent acne needs a pharmacist or clinician.",
+      "manufacturerEvidenceUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+      "independentClinicalGuidanceUrl": "https://pubmed.ncbi.nlm.nih.gov/38722460/",
+      "evidenceUrls": [
+        "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+        "https://pubmed.ncbi.nlm.nih.gov/38722460/"
+      ],
+      "reviewedAt": "2026-07-23T07:50:30Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "tier-a",
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
+          "observedAt": "2026-07-23T07:47:36.663Z",
+          "observedTitle": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
+          "observedSize": "30 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "5015833328165",
+          "priceNgn": 8400,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
+            "responseUrl": "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
+            "responseSha256": "04de9d3a9e1d04839cdcff9c02e2c0ab5390540fa1aea4f6f911e8b89fafdf7c",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 804498,
+            "retrievedAt": "2026-07-23T07:47:36.663Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5015833328165",
+                "locator": "Bound official Balance Active Formula 30 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5015833328165",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml"
+              },
+              "price": {
+                "value": 8400,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦8,400.00 NG"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM stock count",
+                "sourceText": "12 IN STOCK"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T07:50:00Z"
+          }
+        },
+        {
+          "retailer": "CSi Grocery",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
+          "observedAt": "2026-07-23T07:47:36.663Z",
+          "observedTitle": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z",
+          "observedSize": "30 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 10700,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
+            "responseUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
+            "responseSha256": "fba917a58e2fd337a9abf01f4344c0e1efecaeda6e92a822f20068a201b9da48",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 476030,
+            "retrievedAt": "2026-07-23T07:47:36.663Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Balance Niacinamide Calm & Clear Blemish Recovery Serum - 30ml/ 1FL.0Z @ Best Price | CSi Grocery"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5015833328165",
+                "locator": "Bound official Balance Active Formula 30 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5015833328165",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z",
+                "locator": "Rendered DOM h1 product heading",
+                "sourceText": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Rendered DOM h1 size suffix",
+                "sourceText": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z"
+              },
+              "price": {
+                "value": 10700,
+                "currency": "NGN",
+                "locator": "Rendered DOM product price",
+                "sourceText": "₦10,700"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered DOM availability status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T07:50:00Z"
+          }
+        }
+      ],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://www.balanceactiveformula.com/cdn/shop/files/BALANCE_NIACINAMIDE_SERUM_CARTON_FOP.jpg?v=1683707278",
+        "sha256": "d7700132166f5d529c67866a0d62962606cd9fb0faf393db7416441aff2da51c",
+        "mimeType": "image/jpeg",
+        "byteSize": 68014,
+        "width": 1000,
+        "height": 1000,
+        "retrievedAt": "2026-07-23T07:47:36.663Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
+        "model": "gpt-image-2",
+        "prompt": "Create an exact, premium catalogue packshot of the real Balance Active Formula Niacinamide Blemish Recovery Serum 30 ml shown in the references. Show one complete upright amber glass cylindrical dropper bottle, fully visible from the white rubber bulb and white collar to the rounded glass base, centered and front-facing with a very slight three-quarter angle only if needed for realism. Preserve the product identity faithfully: BALANCE ACTIVE FORMULA wordmark, small orange triangle mark, turquoise label bands, “Niacinamide”, “BLEMISH RECOVERY SERUM”, “CALM & CLEAR”, “15% ACTIVE NIACINAMIDE”, and “30 ml / 1 fl oz” where legible. Keep the bottle proportions, amber tone, white dropper, label placement, and typography as close to the references as possible. Product spotlight only: no carton, no hands, no people, no props, no pedestal, no ground plane, no reflections, no shadow, no overlapping geometry, no extra text outside the physical label. Place it on a perfectly flat uniform chroma-magenta background #ff00ff with no gradient, texture, glow, or antialias contamination beyond the true product edge. The bottle must be complete and must not touch or cross any canvas edge. Square 2000x2000 composition, generous clear margin, Vogue-quality studio realism suitable for background removal and a luxury Apple-like product catalogue.",
+        "inputs": [
+          {
+            "url": "https://www.balanceactiveformula.com/cdn/shop/files/BALANCE_NIACINAMIDE_SERUM_CARTON_FOP.jpg?v=1683707278",
+            "sha256": "d7700132166f5d529c67866a0d62962606cd9fb0faf393db7416441aff2da51c"
+          },
+          {
+            "url": "https://www.csigrocery.com/wp-content/uploads/2025/03/1000224994.png",
+            "sha256": "e3983ffd0adee00dd0e7332091e6cf88e60e55ba66886814d9b130d8c6b696f2"
+          },
+          {
+            "url": "https://www.csigrocery.com/wp-content/uploads/2025/03/1000224995.png",
+            "sha256": "6c76c4e2a90dff0c96d5c1ab2c201ee7ee7aef1c2553f432b0df1dec0ead7f88"
+          }
+        ],
+        "outputSha256": "b6269078ce4e917ed02bf26104853c5a9103f53d41e788c1502f59fc60d0b467",
+        "generatedAt": "2026-07-23T07:54:30Z",
+        "recordSha256": "b4368c408413d96c17870440f405d249d228079df5d5880912e56df54498d144"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/balance/balance-niacinamide-blemish-recovery-serum-30ml/packshot-v1-b6269078ce4e917e.png",
+      "sha256": "b6269078ce4e917ed02bf26104853c5a9103f53d41e788c1502f59fc60d0b467",
+      "mimeType": "image/png",
+      "byteSize": 849517,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-07-23T07:55:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-retail-rights-and-final-image",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-07-23T08:00:00Z"
+    },
+    "dossierFingerprint": "9f7261c4cd5b4c6d828de3a326403cd5f0247cca35903d88185fa0f2cd2cbd57"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+    "dossierFingerprint": "9f7261c4cd5b4c6d828de3a326403cd5f0247cca35903d88185fa0f2cd2cbd57",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "15% niacinamide for blemish-prone skin.",
+      "usage": "Smooth over face and neck, morning and night. Start slowly if sensitive.",
+      "manufacturerDirectionsUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-07-23T08:00:15Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-07-23T08:00:30Z"
+    },
+    "releaseFingerprint": "7849bf1481bf553ff035b8aa1aa21a161f4814c7158a514ed9977e187485785f"
+  }
+}

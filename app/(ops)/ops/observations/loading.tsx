@@ -117,6 +117,7 @@ export default function LoadingObservations() {
           </section>
         </div>
       </OpsWorkspace>
+      <span hidden data-ops-reserve-detail />
       <DetailSkeleton />
     </>
   );

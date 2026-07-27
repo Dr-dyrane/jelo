@@ -20,7 +20,7 @@ The console exists to turn private community, retailer, and commerce signals int
 ## Current position
 
 The console safety spine, authentication integration, role-aware navigation,
-decision history, and read-only operator directory are shipped. Every new
+decision history, and audited operator access lifecycle are shipped. Every new
 operations route now starts from the native split-view contract: sidebar → main
 workspace → contextual inspector on desktop; right side sheet on tablet;
 bottom sheet on mobile/touch. Observations is the current record-triage

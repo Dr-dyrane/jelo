@@ -1,22 +1,33 @@
-import { readFile, rename, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   cataloguePublicationApprovalScope,
   createCataloguePublicationDossier,
-  verifyCataloguePublicationDossierManifest,
   type CataloguePublicationDossierManifest,
 } from '@/lib/catalogue/publication-dossier';
 import {
   cataloguePublicationReleaseApprovalScope,
   createCataloguePublicationRelease,
-  verifyCataloguePublicationReleaseManifest,
   type CataloguePublicationPresentation,
-  type CataloguePublicationReleaseManifest,
 } from '@/lib/catalogue/publication-release';
 import type {
   CatalogueIntakeCandidate,
   CatalogueIntakeManifest,
 } from '@/lib/catalogue/intake-readiness';
+import {
+  assertCataloguePublicationWriteBoundary,
+  cataloguePublicationBytesSha256,
+  cataloguePublicationProjectionDiff,
+  cataloguePublicationSourceRecord,
+  cataloguePublicationSourceSnapshotSha256,
+  compileCataloguePublicationSources,
+  readCataloguePublicationSourceFiles,
+  stableCataloguePublicationJson,
+  writeCataloguePublicationProjectionsAtomically,
+  writeCataloguePublicationSourceAtomically,
+  type CataloguePublicationCompilation,
+} from '@/lib/catalogue/publication-source';
+import type { CataloguePublicationReleaseManifest } from '@/lib/catalogue/publication-release';
 
 const root = process.cwd();
 const intakePath = path.join(root, 'data/catalogue-intake.json');
@@ -42,18 +53,57 @@ function parsedTimestamp(value: string, label: string) {
   return parsed;
 }
 
-async function readJson<T>(filename: string): Promise<T> {
-  return JSON.parse(await readFile(filename, 'utf8')) as T;
+function isRetryableCompilerRace(error: unknown) {
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    message.includes('changed after compilation')
+    || message.includes('compiler is already running')
+  );
 }
 
-function json(value: unknown) {
-  return `${JSON.stringify(value, null, 2)}\n`;
-}
+async function synchronizePublicationProjections(
+  candidates: readonly CatalogueIntakeCandidate[],
+  asOf: number,
+): Promise<{ compilation: CataloguePublicationCompilation; wrote: boolean }> {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const [sourceFiles, dossierBytes, releaseBytes] = await Promise.all([
+      readCataloguePublicationSourceFiles(root),
+      readFile(dossierPath, 'utf8'),
+      readFile(releasePath, 'utf8'),
+    ]);
+    const compilation = compileCataloguePublicationSources(candidates, sourceFiles, asOf);
+    const currentDossiers = JSON.parse(dossierBytes) as CataloguePublicationDossierManifest;
+    const currentReleases = JSON.parse(releaseBytes) as CataloguePublicationReleaseManifest;
+    const diff = cataloguePublicationProjectionDiff(
+      currentDossiers,
+      currentReleases,
+      compilation,
+    );
+    assertCataloguePublicationWriteBoundary(diff);
+    const changed = (
+      stableCataloguePublicationJson(currentDossiers)
+        !== stableCataloguePublicationJson(compilation.dossierManifest)
+      || stableCataloguePublicationJson(currentReleases)
+        !== stableCataloguePublicationJson(compilation.releaseManifest)
+    );
+    if (!changed) return { compilation, wrote: false };
 
-async function writeAtomically(filename: string, value: unknown) {
-  const temporary = `${filename}.tmp-${process.pid}`;
-  await writeFile(temporary, json(value), 'utf8');
-  await rename(temporary, filename);
+    try {
+      await writeCataloguePublicationProjectionsAtomically({
+        repositoryRoot: root,
+        dossierManifest: compilation.dossierManifest,
+        releaseManifest: compilation.releaseManifest,
+        expectedDossierProjectionSha256: cataloguePublicationBytesSha256(dossierBytes),
+        expectedReleaseProjectionSha256: cataloguePublicationBytesSha256(releaseBytes),
+        expectedSourceSnapshotSha256: cataloguePublicationSourceSnapshotSha256(sourceFiles),
+      });
+      return { compilation, wrote: true };
+    } catch (error) {
+      if (!isRetryableCompilerRace(error) || attempt === 3) throw error;
+      await new Promise(resolve => setTimeout(resolve, 25 * (attempt + 1)));
+    }
+  }
+  throw new Error('Catalogue publication projections could not be synchronized.');
 }
 
 async function main() {
@@ -86,17 +136,10 @@ async function main() {
     > parsedTimestamp(publishedAt, 'Publication')
   ) throw new Error('Publication must not predate presentation review.');
 
-  const intake = await readJson<CatalogueIntakeManifest>(intakePath);
-  const dossierManifest = await readJson<CataloguePublicationDossierManifest>(dossierPath);
-  const releaseManifest = await readJson<CataloguePublicationReleaseManifest>(releasePath);
+  const intake = JSON.parse(await readFile(intakePath, 'utf8')) as CatalogueIntakeManifest;
+  const sourceFiles = await readCataloguePublicationSourceFiles(root);
   const candidate = intake.candidates.find(item => item.id === candidateId);
   if (!candidate) throw new Error(`Unknown catalogue candidate: ${candidateId}`);
-  if (dossierManifest.dossiers.some(item => item.candidateId === candidateId)) {
-    throw new Error(`${candidateId} already has a publication dossier.`);
-  }
-  if (releaseManifest.releases.some(item => item.candidateId === candidateId)) {
-    throw new Error(`${candidateId} already has a publication release.`);
-  }
 
   const dossier = createCataloguePublicationDossier(
     candidate as CatalogueIntakeCandidate,
@@ -117,21 +160,39 @@ async function main() {
     },
     asOf,
   );
-  const nextDossiers: CataloguePublicationDossierManifest = {
-    ...dossierManifest,
-    dossiers: [...dossierManifest.dossiers, dossier],
-  };
-  const nextReleases: CataloguePublicationReleaseManifest = {
-    ...releaseManifest,
-    releases: [...releaseManifest.releases, release],
-  };
-
-  verifyCataloguePublicationDossierManifest(intake.candidates, nextDossiers, asOf);
-  verifyCataloguePublicationReleaseManifest(intake.candidates, nextDossiers, nextReleases, asOf);
+  const source = cataloguePublicationSourceRecord(dossier, release);
+  const sourceFilename = `${candidateId}.json`;
+  const existingSource = sourceFiles.find(file => file.filename === sourceFilename);
+  if (
+    existingSource
+    && stableCataloguePublicationJson(existingSource.value)
+      !== stableCataloguePublicationJson(source)
+  ) {
+    throw new Error(`${candidateId} already has a different immutable publication source.`);
+  }
+  compileCataloguePublicationSources(
+    intake.candidates,
+    existingSource
+      ? sourceFiles
+      : [...sourceFiles, { filename: sourceFilename, value: source }],
+    asOf,
+  );
 
   if (write) {
-    await writeAtomically(dossierPath, nextDossiers);
-    await writeAtomically(releasePath, nextReleases);
+    const sourceWrite = await writeCataloguePublicationSourceAtomically(source, root);
+    const synchronized = await synchronizePublicationProjections(
+      intake.candidates,
+      asOf,
+    );
+    if (!synchronized.compilation.sourceByCandidateId.has(candidateId)) {
+      throw new Error(`${candidateId} was not retained by the publication compiler.`);
+    }
+    console.log(sourceWrite.created
+      ? `Created immutable source data/catalogue-publication-sources/${candidateId}.json.`
+      : `Reused matching immutable source data/catalogue-publication-sources/${candidateId}.json.`);
+    console.log(synchronized.wrote
+      ? 'Rebuilt both publication projections under the compiler lock.'
+      : 'Publication projections already matched.');
   }
 
   console.log(`${write ? 'Released' : 'Validated'} ${candidateId}.`);

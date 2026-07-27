@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-07-26T19:03:15Z",
+  "method": "direct-retailer-product-page-review",
+  "scope": "fresh-ng-offer-gap",
+  "products": [
+    {
+      "slug": "dove-moroccan-argan-oil-beauty-bar",
+      "catalogueVariant": "DOVE Dry Oil Beauty Bar with Moroccan Argan Oil",
+      "catalogueSize": "6 pack",
+      "retailer": "Jumia",
+      "retailerDirectoryStatus": "directory-listed",
+      "requestedUrl": "https://www.jumia.com.ng/cream-oil-beauty-bar-soap-with-moroccan-argan-oil-x4-dove-mpg1714636.html",
+      "finalUrl": "https://www.jumia.com.ng/cream-oil-beauty-bar-soap-with-moroccan-argan-oil-x4-dove-mpg1714636.html",
+      "observedTitle": "Dove Cream Oil Beauty Bar Soap With Moroccan Argan Oil X4",
+      "observedSize": "4 x 100 g",
+      "priceNgn": 9500,
+      "stock": "in-stock",
+      "sellerName": "Glow-Empire",
+      "sellerScore": 88,
+      "disposition": "withheld",
+      "reasons": ["catalogue-pack-count-mismatch", "four-bars-observed-six-bars-required"]
+    },
+    {
+      "slug": "dove-go-fresh-cucumber-green-tea-spray",
+      "catalogueVariant": "DOVE Aluminum Free Deodorant Spray Cucumber & Green Tea",
+      "catalogueSize": "4 oz / 113 g",
+      "retailer": "Ubuy",
+      "retailerDirectoryStatus": "not-listed",
+      "requestedUrl": "https://www.u-buy.com.ng/product/1N79UP9TG-dove-0-aluminum-deodorant-spray-cucumber-green-tea-aluminum-free-4-oz",
+      "finalUrl": "https://www.u-buy.com.ng/product/1N79UP9TG-dove-0-aluminum-deodorant-spray-cucumber-green-tea-aluminum-free-4-oz",
+      "observedTitle": "Dove Cucumber & Green Tea Deodorant Spray - 48 Hour Protection, 4 oz",
+      "observedSize": "4 oz",
+      "priceNgn": 92339,
+      "stock": "in-stock",
+      "disposition": "withheld",
+      "reasons": [
+        "retailer-not-directory-listed",
+        "cross-border-import-from-usa",
+        "not-fulfilled-by-retailer",
+        "landed-cost-not-established"
+      ]
+    },
+    {
+      "slug": "la-roche-posay-toleriane-double-repair-spf30",
+      "catalogueVariant": "La Roche-Posay Toleriane Double Repair Face Moisturizer UV SPF 30",
+      "catalogueSize": "100 ml",
+      "retailer": "MakeupAlleyNG",
+      "retailerDirectoryStatus": "directory-listed",
+      "requestedUrl": "https://makeupalleyng.com/products/la-roche-posay-double-repair-moisturizer-spf30",
+      "finalUrl": "https://makeupalleyng.com/products/la-roche-posay-double-repair-moisturizer-spf30",
+      "observedTitle": "La Roche Posay Double Repair Moisturizer SPF30",
+      "observedSize": null,
+      "priceNgn": 48500,
+      "stock": "out-of-stock",
+      "disposition": "withheld",
+      "reasons": ["catalogue-size-not-visible-on-product-page", "one-hundred-millilitre-identity-not-established"]
+    },
+    {
+      "slug": "la-roche-posay-toleriane-double-repair-matte",
+      "catalogueVariant": "La Roche-Posay Toleriane Double Repair Matte Moisturizer",
+      "catalogueSize": "75 ml",
+      "retailer": "Jumia",
+      "retailerDirectoryStatus": "directory-listed",
+      "requestedUrl": "https://www.jumia.com.ng/la-roche-posay-toleriane-double-repair-matte-moisturizer-for-oily-and-combination-skin.-419141089.html",
+      "finalUrl": "https://www.jumia.com.ng/la-roche-posay-toleriane-double-repair-matte-moisturizer-for-oily-and-combination-skin.-419141089.html",
+      "observedTitle": "LA ROCHE-POSAY Toleriane Double Repair Matte Moisturizer for oily and combination skin.",
+      "observedSize": null,
+      "priceNgn": 65000,
+      "stock": "low-stock",
+      "sellerName": "luxury skin care",
+      "sellerScore": 92,
+      "disposition": "withheld",
+      "reasons": ["catalogue-size-not-visible-on-product-page", "seventy-five-millilitre-identity-not-established"]
+    }
+  ]
+}

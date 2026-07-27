@@ -46,6 +46,32 @@ Pending `community-first` tasks precede the bulk discovery leads. The shared pri
 
 `data/catalogue-research-queue.json` is a deterministic projection. Do not hand-edit its status.
 
+After identity research, record exactly one reviewed outcome. The command is a
+dry-run unless `--apply` is present and requires the allowlisted
+`MODERATION_OPERATOR_EMAIL`.
+
+```bash
+# Bind to an existing canonical product
+npm run community:research:resolve -- \
+  --task-id <uuid> \
+  --outcome existing-canonical-product \
+  --canonical-slug <product-slug> \
+  --rationale "<review basis>"
+
+# Hand off to deliberate intake authoring
+npm run community:research:resolve -- \
+  --task-id <uuid> \
+  --outcome deliberate-intake-candidate \
+  --candidate-id <candidate-id> \
+  --rationale "<review basis>"
+```
+
+The other terminal outcomes are `ambiguous-family`, `bundle`, and
+`dismissed-duplicate`. Add `--apply` only after the dry-run is correct. A
+resolution stores the reviewer, rationale, bounded audit metadata, and optional
+target reference. It does not create an intake candidate or write a product,
+dossier, release, offer, image, or public catalogue record.
+
 Choose a candidate for:
 
 - clinical or routine usefulness;

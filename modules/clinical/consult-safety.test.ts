@@ -359,6 +359,111 @@ test('new look-alike patterns fail closed at higher-risk boundaries', async () =
   }
 });
 
+test('excessive or night sweating routes to cause-finding without products', async () => {
+  const response = await POST(request({
+    query: 'Night sweats keep soaking my sheets even when the room is cool.',
+    market: 'NG',
+  }));
+  const payload = await response.json();
+  assert.equal(payload.clinical.differential.primary?.id, 'hyperhidrosis-like');
+  assert.equal(payload.clinical.referral.level, 'primary-care');
+  assert.equal(payload.meta.safetyLevel, 'clinician-review');
+  assert.equal(payload.meta.modelCalls, 0);
+  assert.equal(payload.meta.safetyInterrupt, true);
+  assert.deepEqual(payload.products, []);
+  assert.match(payload.report.summary, /look for a cause/i);
+  assert.doesNotMatch(payload.report.pattern, /you have|diagnos/i);
+});
+
+test('diabetes-related foot changes never reach AI or product guidance', async () => {
+  const cases = [
+    ['I have diabetes and a new wound on my foot.', 'urgent', /urgent in-person foot assessment today/i],
+    ['I have diabetes and a foot ulcer with fever.', 'emergency', /emergency hospital care now/i],
+  ] as const;
+
+  for (const [query, safetyLevel, action] of cases) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+    assert.equal(payload.clinical.differential.primary?.id, 'diabetes-foot-warning-like', query);
+    assert.equal(payload.meta.safetyLevel, safetyLevel, query);
+    assert.equal(payload.meta.modelCalls, 0, query);
+    assert.equal(payload.meta.safetyInterrupt, true, query);
+    assert.deepEqual(payload.products, [], query);
+    assert.match(payload.report.summary, action, query);
+    assert.doesNotMatch(payload.report.pattern, /you have|diagnos/i, query);
+  }
+});
+
+test('chemical, jaundice and genital warning patterns never reach AI or products', async () => {
+  const cases = [
+    [
+      'Bleach splashed on my arm and my skin is burning.',
+      'chemical-burn-exposure-like',
+      'emergency',
+      /rinse[\s\S]*running water[\s\S]*hospital/i,
+    ],
+    [
+      'The whites of my eyes look yellow and my skin looks yellow.',
+      'jaundice-warning-like',
+      'urgent',
+      /urgent medical assessment today[\s\S]*whites of the eyes/i,
+    ],
+    [
+      'I have a genital sore and unusual discharge.',
+      'genital-symptom-warning-like',
+      'clinician-review',
+      /confidential[\s\S]*assessment and testing/i,
+    ],
+  ] as const;
+
+  for (const [query, patternId, safetyLevel, action] of cases) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+    assert.equal(payload.clinical.differential.primary?.id, patternId, query);
+    assert.equal(payload.meta.safetyLevel, safetyLevel, query);
+    assert.equal(payload.meta.modelCalls, 0, query);
+    assert.equal(payload.meta.safetyInterrupt, true, query);
+    assert.deepEqual(payload.products, [], query);
+    assert.match(payload.report.summary, action, query);
+    assert.doesNotMatch(payload.report.pattern, /you have|diagnos/i, query);
+  }
+});
+
+test('fever-and-rash warning patterns never reach AI or product guidance', async () => {
+  const cases = [
+    [
+      'A purple rash does not fade when pressed and I have a fever and stiff neck.',
+      'meningitis-sepsis-warning-like',
+      'emergency',
+      /emergency hospital care now/i,
+    ],
+    [
+      'My rash does not disappear when I press a glass on it.',
+      'meningitis-sepsis-warning-like',
+      'emergency',
+      /emergency hospital care now/i,
+    ],
+    [
+      'High fever, cough, runny nose and red watery eyes came before a rash that started on my face and spread down.',
+      'measles-rash-warning-like',
+      'urgent',
+      /call the health facility before arriving/i,
+    ],
+  ] as const;
+
+  for (const [query, patternId, safetyLevel, action] of cases) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+    assert.equal(payload.clinical.differential.primary?.id, patternId, query);
+    assert.equal(payload.meta.safetyLevel, safetyLevel, query);
+    assert.equal(payload.meta.modelCalls, 0, query);
+    assert.equal(payload.meta.safetyInterrupt, true, query);
+    assert.deepEqual(payload.products, [], query);
+    assert.match(payload.report.summary, action, query);
+    assert.doesNotMatch(payload.report.pattern, /you have|diagnos/i, query);
+  }
+});
+
 test('rapid mouth-to-face warning signs never reach AI or products', async () => {
   const cases = [
     ['A gum sore is spreading into the cheek and the mouth tissue is turning dark.', 'urgent'],

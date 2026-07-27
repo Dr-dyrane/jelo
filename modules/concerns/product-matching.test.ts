@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { reviewedProductRecords } from '@/data/catalogue';
+import { products as catalogueProducts, reviewedProductRecords } from '@/data/catalogue';
 import { concernBySlug, concerns } from '@/data/knowledge';
 import {
   isProductMatchConcern,
@@ -29,6 +29,16 @@ test('concern matching uses approved supportive uses, not catalogue concern pros
 
   const snail = product('cosrx-advanced-snail-96-mucin-power-essence');
   assert.equal(productMatchesConcern(snail, concern('sensitive-barrier')), false);
+});
+
+test('daily sun protection matches only the explicitly reviewed sunscreen', () => {
+  const dailySun = concern('daily-sun-protection');
+  const references = catalogueProducts.filter(candidate => productReferencesConcern(candidate, dailySun));
+  const matches = catalogueProducts.filter(candidate => productMatchesConcern(candidate, dailySun));
+
+  assert.equal(dailySun.kind, 'concern');
+  assert.deepEqual(references.map(candidate => candidate.slug), ['eucerin-oil-control-sun-gel-cream-spf50-50ml']);
+  assert.deepEqual(matches.map(candidate => candidate.slug), ['eucerin-oil-control-sun-gel-cream-spf50-50ml']);
 });
 
 test('pharmacist-review products never enter direct concern matches', () => {

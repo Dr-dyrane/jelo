@@ -25,12 +25,21 @@ export type ContributionReviewRecord = {
   attribution: ContributionAttribution | null;
 };
 
+export type ContributionDisplayValue = {
+  label: string;
+  match: 'known' | 'new';
+};
+
 export type ContributionReviewItem = {
   id: string;
   kind: ContributionReviewRecord['kind'];
   kindLabel: string;
   title: string;
   summary: string;
+  brandValues: ContributionDisplayValue[];
+  productValues: ContributionDisplayValue[];
+  storeValues: ContributionDisplayValue[];
+  purposeValues: ContributionDisplayValue[];
   brandNames: string[];
   productNames: string[];
   storeNames: string[];
@@ -102,6 +111,19 @@ function titleWithBrand(productName: string, brandName: string) {
   return `${brandName} ${productName}`.trim();
 }
 
+function displayValue(label: string, source: AdaptiveItem['source']): ContributionDisplayValue {
+  return {
+    label,
+    match: source === 'custom' ? 'new' : 'known',
+  };
+}
+
+function routineTitle(productNames: string[]) {
+  const first = productNames[0];
+  if (!first || productNames.length === 1) return first ?? '';
+  return `${first} + ${productNames.length - 1} more`;
+}
+
 function titleCaseToken(value: string) {
   return value
     .replace(/[._-]+/g, ' ')
@@ -163,11 +185,11 @@ function summaryFor(input: {
     return input.outcome ? `${products} · ${outcomeLabel(input.outcome)}` : products;
   }
   if (input.kind === 'store') {
-    return input.purposeNames.join(', ') || 'Store submission';
+    return input.purposeNames.join(', ');
   }
   if (input.priceNgn != null) return money(input.priceNgn);
   if (input.outcome) return outcomeLabel(input.outcome);
-  return input.storeNames.join(', ') || 'Community report';
+  return input.storeNames.join(', ');
 }
 
 export function contributionReviewItem(row: ContributionReviewRecord): ContributionReviewItem {
@@ -176,21 +198,34 @@ export function contributionReviewItem(row: ContributionReviewRecord): Contribut
   const retailers = adaptiveItems(row.payload.retailers);
   const purposes = adaptiveItems(row.payload.purposes);
   const primaryProduct = canonicalProduct(products[0] ?? null);
-  const submittedBrandNames = brands.map(item => item.label);
-  const submittedProductNames = products.map(item => item.label);
-  const brandNames = primaryProduct?.brand
-    ? [primaryProduct.brand, ...submittedBrandNames.filter(name => name !== primaryProduct.brand)]
-    : submittedBrandNames;
-  const productNames = primaryProduct
-    ? [primaryProduct.name, ...submittedProductNames.slice(1)]
-    : submittedProductNames;
-  const storeNames = retailers.map(item => item.label);
-  const purposeNames = purposes.map(item => item.label);
+  const brandValues = primaryProduct?.brand
+    ? [
+        displayValue(primaryProduct.brand, 'canonical'),
+        ...brands
+          .filter(item => item.label !== primaryProduct.brand)
+          .map(item => displayValue(item.label, item.source)),
+      ]
+    : brands.map(item => displayValue(item.label, item.source));
+  const productValues = primaryProduct
+    ? [
+        displayValue(primaryProduct.name, 'canonical'),
+        ...products.slice(1).map(item => displayValue(item.label, item.source)),
+      ]
+    : products.map(item => displayValue(item.label, item.source));
+  const storeValues = retailers.map(item => displayValue(item.label, item.source));
+  const purposeValues = purposes.map(item => displayValue(item.label, item.source));
+  const brandNames = brandValues.map(item => item.label);
+  const productNames = productValues.map(item => item.label);
+  const storeNames = storeValues.map(item => item.label);
+  const purposeNames = purposeValues.map(item => item.label);
   const priceNgn = typeof row.payload.priceNgn === 'number' ? row.payload.priceNgn : null;
   const outcome = typeof row.payload.outcome === 'string' ? row.payload.outcome : null;
   const purchaseDate = typeof row.payload.purchaseDate === 'string' ? row.payload.purchaseDate : null;
-  const title = productNames.length > 0
-    ? titleWithBrand(productNames.join(', '), brandNames[0] ?? '')
+  const productTitle = row.kind === 'routine'
+    ? routineTitle(productNames)
+    : productNames.join(', ');
+  const title = productTitle
+    ? titleWithBrand(productTitle, brandNames[0] ?? '')
     : storeNames.join(', ') || purposeNames.join(', ') || 'Community submission';
   const attribution = attributionLabels(row.attribution);
 
@@ -207,6 +242,10 @@ export function contributionReviewItem(row: ContributionReviewRecord): Contribut
       outcome,
       storeNames,
     }),
+    brandValues,
+    productValues,
+    storeValues,
+    purposeValues,
     brandNames,
     productNames,
     storeNames,
@@ -218,8 +257,12 @@ export function contributionReviewItem(row: ContributionReviewRecord): Contribut
     image: row.kind === 'product' && primaryProduct?.displayApproved
       ? primaryProduct.image ?? null
       : null,
-    needsMatching: [...products, ...brands, ...retailers, ...purposes]
-      .some(item => item.source === 'custom'),
+    needsMatching: [
+      ...brandValues,
+      ...productValues,
+      ...storeValues,
+      ...purposeValues,
+    ].some(item => item.match === 'new'),
     pendingLinkedReportCount: row.pendingEdgeCount + row.pendingObservationCount,
     submittedAt: row.submittedAt,
     retainUntil: row.retainUntil,

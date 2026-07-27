@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, RefreshCw, Store, UsersRound, X } from 'lucide-react';
@@ -10,8 +10,15 @@ import type { QueueCounts } from '@/lib/moderation/queues';
 import type { OpsSidebarSummary } from '@/lib/moderation/sidebar-summary';
 import { OpsSidebar, type OpsNavigationSection } from './OpsSidebar';
 import { ShellContext, type ContextFabConfig } from './OpsShellContext';
+import { useOpsOverlay } from './use-ops-overlay';
 import styles from '@/app/(ops)/ops.module.css';
 import adaptive from './ops-tablet.module.css';
+
+const SIDEBAR_INERT_TARGETS = [
+  '[data-ops-workspace]',
+  '[data-ops-detail]',
+  '[data-ops-menu-fab]',
+] as const;
 
 interface OpsChromeProps {
   operator: ModerationOperator;
@@ -26,6 +33,28 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [sidebarOpenPath, setSidebarOpenPath] = useState<string | null>(null);
   const sidebarOpen = sidebarOpenPath === pathname;
+  const sidebarLayerRef = useRef<HTMLDivElement | null>(null);
+  const sidebarTriggerRef = useRef<HTMLButtonElement | null>(null);
+
+  const closeSidebar = useCallback(() => setSidebarOpenPath(null), []);
+
+  const toggleSidebar = useCallback((trigger: HTMLButtonElement) => {
+    if (sidebarOpen) {
+      closeSidebar();
+      return;
+    }
+
+    sidebarTriggerRef.current = trigger;
+    setSidebarOpenPath(pathname);
+  }, [closeSidebar, pathname, sidebarOpen]);
+
+  useOpsOverlay({
+    open: sidebarOpen,
+    onClose: closeSidebar,
+    dialogRef: sidebarLayerRef,
+    returnFocusRef: sidebarTriggerRef,
+    inertTargetSelectors: SIDEBAR_INERT_TARGETS,
+  });
 
   useEffect(() => {
     const activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -34,13 +63,14 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   }, []);
 
   useEffect(() => {
-    if (!sidebarOpen) return;
-    function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') setSidebarOpenPath(null);
-    }
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [sidebarOpen]);
+    const overlayViewport = window.matchMedia('(max-width: 819px)');
+    const closePersistentSidebar = () => {
+      if (!overlayViewport.matches) closeSidebar();
+    };
+
+    overlayViewport.addEventListener('change', closePersistentSidebar);
+    return () => overlayViewport.removeEventListener('change', closePersistentSidebar);
+  }, [closeSidebar]);
 
   const toggleTheme = (targetTheme: 'light' | 'dark') => {
     document.documentElement.setAttribute('data-theme', targetTheme);
@@ -72,9 +102,9 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
 
   function defaultContextFab(): ContextFabConfig {
     const label = pathname === '/ops/activity'
-      ? 'Refresh decision history'
+      ? 'Refresh insights'
       : pathname === '/ops/signals'
-        ? 'Refresh commerce signals'
+        ? 'Refresh signals'
         : pathname === '/ops/operators'
           ? 'Refresh operators'
           : pathname === '/ops'
@@ -109,7 +139,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
 
   const monitorItems = [
     { href: '/ops', label: 'Queue overview', icon: Home, count: null },
-    { href: '/ops/activity', label: 'Decision history', icon: History, count: null },
+    { href: '/ops/activity', label: 'Insights', icon: History, count: null },
     { href: '/ops/signals', label: 'Signals', icon: Activity, count: null },
   ];
 
@@ -133,19 +163,28 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
     { href: '/ops', label: 'Home', icon: Home },
     { href: '/ops/contributions', label: 'Queue', icon: Inbox },
     { href: '/ops/observations', label: 'Review', icon: Eye },
-    { href: '/ops/activity', label: 'Activity', icon: History },
+    { href: '/ops/activity', label: 'Insights', icon: History },
   ];
 
   return (
     <div className={styles.body}>
       <div className={styles.container} data-ops-shell data-sidebar-open={sidebarOpen ? 'true' : 'false'}>
-        <div className={adaptive.sidebarLayer} data-ops-sidebar-layer>
+        <div
+          id="ops-navigation-panel"
+          ref={sidebarLayerRef}
+          className={adaptive.sidebarLayer}
+          data-ops-sidebar-layer
+          role={sidebarOpen ? 'dialog' : undefined}
+          aria-modal={sidebarOpen ? 'true' : undefined}
+          aria-labelledby={sidebarOpen ? 'ops-navigation-heading' : undefined}
+          tabIndex={sidebarOpen ? -1 : undefined}
+        >
           <div className={adaptive.sheetHeader}>
-            <h2 className={adaptive.sheetTitle}>Account</h2>
+            <h2 id="ops-navigation-heading" className={adaptive.sheetTitle}>Menu</h2>
             <button
               type="button"
               className={adaptive.sheetClose}
-              onClick={() => setSidebarOpenPath(null)}
+              onClick={closeSidebar}
               aria-label="Close navigation"
             >
               <X size={18} />
@@ -165,17 +204,19 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
         <button
           type="button"
           className={adaptive.sidebarScrim}
-          onClick={() => setSidebarOpenPath(null)}
-          aria-label="Close navigation"
-          tabIndex={sidebarOpen ? 0 : -1}
+          onClick={closeSidebar}
+          tabIndex={-1}
+          aria-hidden="true"
         />
 
         <button
           type="button"
+          data-ops-menu-fab
           className={adaptive.menuFab}
-          onClick={() => setSidebarOpenPath(openPath => openPath === pathname ? null : pathname)}
+          onClick={event => toggleSidebar(event.currentTarget)}
           aria-label={sidebarOpen ? 'Close navigation' : 'Open navigation'}
           aria-expanded={sidebarOpen}
+          aria-controls="ops-navigation-panel"
         >
           <span className={`${styles.operatorAvatar} ${adaptive.menuFabAvatar}`} aria-hidden="true">{initials}</span>
         </button>
@@ -185,9 +226,10 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
             <button
               type="button"
               className={adaptive.islandMenu}
-              onClick={() => setSidebarOpenPath(openPath => openPath === pathname ? null : pathname)}
+              onClick={event => toggleSidebar(event.currentTarget)}
               aria-label={sidebarOpen ? 'Close navigation' : 'Open navigation'}
               aria-expanded={sidebarOpen}
+              aria-controls="ops-navigation-panel"
             >
               <span className={`${styles.operatorAvatar} ${adaptive.islandAvatar}`} aria-hidden="true">{initials}</span>
             </button>
@@ -228,6 +270,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
             return (
               <button
                 type="button"
+                data-ops-context-fab
                 className={adaptive.bottomBarAction}
                 onClick={contextFab.onClick}
                 aria-label={contextFab.label}
@@ -242,7 +285,6 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
           data-ops-detail
           id="ops-detail-pane"
           className={`${styles.detailPane} ${adaptive.detailPane}`}
-          aria-live="polite"
         />
       </div>
     </div>

@@ -15,6 +15,7 @@ import {
   useState,
 } from 'react';
 import { useModalDialog } from '@/components/ui/use-modal-dialog';
+import { OPS_MODAL_DIALOG_OPTIONS } from '@/components/ops/shell/use-ops-overlay';
 import {
   rankVocabularyTargets,
   vocabularyDisplayTarget,
@@ -64,7 +65,7 @@ export function VocabularyTargetPicker({
     triggerRef,
     open,
     close,
-  } = useModalDialog();
+  } = useModalDialog(OPS_MODAL_DIALOG_OPTIONS);
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);

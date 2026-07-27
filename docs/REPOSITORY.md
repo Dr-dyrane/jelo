@@ -42,7 +42,8 @@ This is a responsibility map, not a GitHub CODEOWNERS enforcement file.
 | `.env*` | Secret/local; never commit |
 | `data/catalogue-research-queue.json` | Checked-in deterministic projection; rebuild by script |
 | `data/catalogue-discovery-screening.json` | Checked-in private research snapshot |
-| `data/catalogue-intake.json` | Checked-in deliberate private review manifest |
+| `data/catalogue-intake-candidates/` | Authoritative packet-bound private review sources, one exact SKU per file |
+| `data/catalogue-intake.json` | Checked-in deterministic runtime projection; rebuild by script |
 | Dossier and release manifests | Checked-in immutable publication evidence |
 | Raw retailer captures | Keep private unless their exact checked-in role and rights are documented |
 | Community and retailer submissions | Database only; never copy into fixtures or docs |

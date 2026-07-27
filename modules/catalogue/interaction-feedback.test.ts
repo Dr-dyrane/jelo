@@ -81,6 +81,10 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.doesNotMatch(sheet, /datalist|companyLogo|avatar/i);
   assert.match(sheet, /count > 0 \|\| filters\.category === value/);
   assert.match(sheet, /count > 0 \|\| filters\.review === value/);
+  assert.match(sheet, /Boolean\(filters\.step\)/);
+  assert.match(sheet, /facets\.steps\.filter\(\(\{ value, count \}\) => count > 0 \|\| filters\.step === value\)/);
+  assert.match(sheet, /name="step" value="" defaultChecked=\{!filters\.step\}/);
+  assert.match(sheet, /name="step" value=\{value\} defaultChecked=\{filters\.step === value\}/);
   assert.match(sheet, /Search companies/);
   assert.match(concerns, /role="status" aria-live="polite"/);
   assert.match(concerns, /Last change undone/);

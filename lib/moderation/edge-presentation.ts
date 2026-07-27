@@ -185,7 +185,9 @@ function contributionContext(row: EdgeReviewRecord): ContributionContext {
       kind: row.contributionKind,
       kindLabel: 'Routine contribution',
       title,
-      image: null,
+      image: products.length === 1 && product?.displayApproved
+        ? product.image ?? null
+        : null,
       products,
       brands,
       retailers,
@@ -309,14 +311,20 @@ function relationshipValue(
 
   const submitted = submittedValue(context, kind, ref);
   const inferredCustom = ref.startsWith('custom:');
+  const exactProduct = kind === 'product'
+    ? humanizeRef(qualifiedRef(kind, ref))
+    : null;
+  const hasExactPublishedProduct = exactProduct?.kind === 'product'
+    && exactProduct.displayApproved;
   const matchState: RelationshipMatchState = submitted?.source === 'canonical'
+    || hasExactPublishedProduct
     ? 'linked'
     : submitted?.source === 'custom' || inferredCustom
       ? 'needs_matching'
       : 'unresolved';
 
-  if (kind === 'product' && submitted?.source === 'canonical') {
-    const resolved = humanizeRef(qualifiedRef(kind, submitted.id));
+  if (kind === 'product' && exactProduct?.kind === 'product') {
+    const resolved = exactProduct;
     if (resolved.kind === 'product') {
       return {
         label: titleWithBrand(resolved.name, resolved.brand ?? ''),
@@ -452,7 +460,7 @@ export function edgeReviewItem(row: EdgeReviewRecord): EdgeReviewItem {
     decisionScope: {
       approve: 'Approve this relationship only.',
       reject: 'Reject this relationship only.',
-      boundary: 'Neither action publishes or verifies catalogue or clinical data.',
+      boundary: 'This accepts the connection only. It does not verify a product, store, price or result.',
     },
     createdAt: row.createdAt,
     metadata: {

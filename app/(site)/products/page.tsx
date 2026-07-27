@@ -3,11 +3,10 @@ import Link from 'next/link';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import { CatalogueSearch } from '@/components/products/catalogue-search';
 import type { CatalogueSearchSuggestion } from '@/components/products/catalogue-search-suggestions';
-import { InventoryCard } from '@/components/products/inventory-card';
 import { CatalogueTransitionTracker } from '@/components/products/catalogue-transition-tracker';
 import { CatalogueFilterFeedback } from '@/components/products/filter-feedback-actions';
 import { InventoryFilterSheet } from '@/components/products/inventory-filter-sheet';
-import { InventoryPagination } from '@/components/products/inventory-pagination';
+import { InventoryResults } from '@/components/products/inventory-results';
 import { ProductRail } from '@/components/products/product-grid';
 import { editorialAsset } from '@/data/editorial';
 import { externalProducts } from '@/data/external-catalogue';
@@ -19,8 +18,10 @@ import {
   selectProductsBelowPrice,
   selectRecentlyCheckedProducts,
 } from '@/lib/catalogue/inventory-shelves';
+import { inventoryContinuationTargetPage } from '@/lib/catalogue/inventory-continuation';
 import { queryInventory } from '@/lib/catalogue/inventory-repository';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
+import { catalogueSearchHandoffHref } from '@/lib/community-intake/catalogue-search-handoff';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 import styles from './products.module.css';
 import feedbackStyles from './catalogue-feedback.module.css';
@@ -85,23 +86,24 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   const params = await searchParams;
   const market: Market = value(params, 'market') === 'US' ? 'US' : 'NG';
   const browse = ['concern', 'category', 'routine'].includes(value(params, 'browse')) ? value(params, 'browse') : 'category';
+  const inventoryQuery = {
+    q: value(params, 'q'),
+    category: value(params, 'category'),
+    review: value(params, 'review'),
+    sort: value(params, 'sort'),
+    concern: value(params, 'concern'),
+    step: value(params, 'step'),
+    brand: value(params, 'brand'),
+    availability: value(params, 'availability'),
+    price: value(params, 'price'),
+    market,
+  };
   const [result, reviewedProducts, supportiveProducts] = await Promise.all([
-    queryInventory({
-      q: value(params, 'q'),
-      category: value(params, 'category'),
-      review: value(params, 'review'),
-      sort: value(params, 'sort'),
-      concern: value(params, 'concern'),
-      step: value(params, 'step'),
-      brand: value(params, 'brand'),
-      availability: value(params, 'availability'),
-      price: value(params, 'price'),
-      market,
-      page: value(params, 'page'),
-    }),
+    queryInventory(inventoryQuery),
     listCatalogueProducts(),
     listRecommendationEligibleProducts(),
   ]);
+  const requestedPage = inventoryContinuationTargetPage(value(params, 'page'), result.pageCount);
   const recentlyChecked = selectRecentlyCheckedProducts(reviewedProducts, market);
   const accessiblePriceCeiling = market === 'NG' ? 10_000 : 15;
   const accessiblePriceProducts = selectProductsBelowPrice(
@@ -184,26 +186,48 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   ].filter((filter): filter is { key: string; label: string } => Boolean(filter));
   const linkedFilters = appliedFilters.map(filter => ({ ...filter, href: href(params, { [filter.key]: null }, 'all-products') }));
   const concernGuides = matchingCatalogueConcerns(concerns, result.filters.q);
-  const hasActiveIntent = appliedFilters.length > 0 || result.page > 1 || market === 'US';
+  const hasActiveIntent = appliedFilters.length > 0 || market === 'US';
+  const researchHandoffHref = result.total === 0 && result.filters.q
+    ? catalogueSearchHandoffHref(result.filters.q)
+    : null;
+  const clearSearchHref = href(params, { q: null }, 'all-products');
+  const continuationQuery = {
+    q: result.filters.q,
+    category: result.filters.category,
+    review: result.filters.review,
+    sort: result.filters.sort,
+    concern: result.filters.concern,
+    step: result.filters.step,
+    brand: result.filters.brand,
+    availability: result.filters.availability,
+    price: result.filters.price,
+    market: result.filters.market,
+  };
+  const continuationKey = JSON.stringify(continuationQuery);
 
   return <main className={styles.page}>
     <CatalogueTransitionTracker currentHref={currentHref}/>
-    <section className={styles.hero}>
-      <div className={styles.heroCopy}>
-        <p className={styles.kicker}>The catalogue</p>
-        <h1>Browse the shelf.</h1>
-      </div>
-      <div className={styles.heroImage}><SafeEditorialImage asset={heroAsset} alt={heroAsset.altText} priority sizes="(max-width: 760px) 100vw, 58vw"/></div>
-    </section>
+    <div className={styles.heroStage}>
+      <section className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <p className={styles.kicker}>The catalogue</p>
+          <h1>Browse the shelf.</h1>
+        </div>
+        <figure className={styles.heroImage}>
+          <SafeEditorialImage asset={heroAsset} alt={heroAsset.altText} priority sizes="(max-width: 760px) calc(100vw - 2rem), 58vw"/>
+          <figcaption>Care that starts with you.</figcaption>
+        </figure>
+      </section>
 
-    <CatalogueSearch
-      key={`${market}:${result.filters.q}`}
-      defaultValue={result.filters.q}
-      clearHref={href(params, { q: null }, 'all-products')}
-      market={market}
-      marketHrefs={marketHrefs}
-      suggestions={searchSuggestions}
-    />
+      <CatalogueSearch
+        key={`${market}:${result.filters.q}`}
+        defaultValue={result.filters.q}
+        clearHref={href(params, { q: null }, 'all-products')}
+        market={market}
+        marketHrefs={marketHrefs}
+        suggestions={searchSuggestions}
+      />
+    </div>
 
     {!hasActiveIntent ? <><section className={styles.browse} id="browse">
       <div className={styles.sectionHeading}>
@@ -254,15 +278,30 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         <InventoryFilterSheet filters={result.filters} facets={result.facets} market={market} browse={browse} total={result.total}/>
       </div>
       <CatalogueFilterFeedback appliedFilters={linkedFilters} clearHref={clearHref} currentHref={currentHref} total={result.total}/>
-      {result.items.length ? <div className={styles.grid}>{result.items.map(item => <InventoryCard item={item} market={market} key={item.id}/>)}</div> : <div className={styles.empty}><h3>Nothing exact.</h3><p>Try fewer filters.</p><Link href="/products">Show all products</Link></div>}
-      <InventoryPagination page={result.page} pageCount={result.pageCount} params={paginationParams}/>
+      {result.items.length ? <InventoryResults
+        gridClassName={styles.grid}
+        initialItems={result.items}
+        key={continuationKey}
+        market={market}
+        pageCount={result.pageCount}
+        query={continuationQuery}
+        requestedPage={requestedPage}
+        total={result.total}
+        url={currentHref}
+      /> : researchHandoffHref ? <div className={styles.empty}>
+        <h3>Not here yet.</h3>
+        <p>Ask us to find “{result.filters.q}”.</p>
+        <div className={styles.emptyActions}>
+          <Link href={researchHandoffHref}>Ask us to find it <ArrowRight size={15} aria-hidden="true"/></Link>
+          <Link className={styles.emptySecondary} href={clearSearchHref}>Clear search</Link>
+        </div>
+      </div> : <div className={styles.empty}><h3>Nothing exact.</h3><p>Try fewer filters.</p><Link href="/products">Show all products</Link></div>}
     </section>
 
     <aside className={styles.sourceNote}>
       <div><p className={styles.kicker}>{externalProducts.length ? 'Two catalogue sources' : 'Catalogue context'}</p><h2>Know what you see.</h2></div>
       <div>
-        <p>Profiles show reviewed product records.</p>
-        <p>Current prices appear when verified.</p>
+        <p>Profiles show products and prices.</p>
         <p>Supportive use adds a care review.</p>
         <Link href="/share">Worth sharing <ArrowRight size={15} aria-hidden="true" /></Link>
         {externalProducts.length ? <a href="https://world.openbeautyfacts.org/data" target="_blank" rel="noreferrer">Open Beauty Facts · ODbL / CC BY-SA <ArrowRight size={15} aria-hidden="true"/></a> : null}

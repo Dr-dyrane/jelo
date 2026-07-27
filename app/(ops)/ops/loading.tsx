@@ -24,7 +24,15 @@ export default function LoadingOverview() {
         <div className={styles.recentSection} aria-hidden="true">
           <div className={styles.skeletonHeading} />
           <div className={styles.skeletonRecentRows}>
-            {Array.from({ length: 2 }).map((_, index) => <div key={index} className={styles.skeletonRecentRow} />)}
+            {Array.from({ length: 2 }).map((_, index) => (
+              <div key={index} className={styles.skeletonRecentRow}>
+                <span className={styles.skeletonRecentVisual} />
+                <span className={styles.skeletonRecentCopy}>
+                  <span className={styles.skeletonRecentLine} />
+                  <span className={styles.skeletonRecentLine} data-short />
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

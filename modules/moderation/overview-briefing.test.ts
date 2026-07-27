@@ -174,12 +174,14 @@ test('recent audit activity is a compact five-entry projection', () => {
       action: 'approve' as const,
       queue: 'community_observation' as const,
       createdAt: `2026-07-25T12:0${index}:00.000Z`,
+      image: index === 0 ? '/products/cerave.png' : null,
     })),
   });
 
   assert.equal(briefing.recentDecisions.length, 5);
   assert.equal(briefing.recentDecisions[0]?.description, 'Approved observation');
   assert.equal(briefing.recentDecisions[0]?.queueKind, 'observations');
+  assert.equal(briefing.recentDecisions[0]?.image, '/products/cerave.png');
 });
 
 test('queue activity is projected independently from the global five-entry window', () => {

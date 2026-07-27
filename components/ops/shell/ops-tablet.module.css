@@ -31,8 +31,8 @@
  * >= 1440: sidebar + 3 columns + docked pane
  * 1180-1439: sidebar + 2 columns + docked pane
  * 820-1179: sidebar + 2 columns + right overlay sheet
- * 430-819: left overlay sidebar + 2 columns + right overlay sheet
- * < 430: left overlay sidebar + 1 column + right overlay sheet
+ * 430-819: overlay navigation + 2 columns + bottom sheet
+ * < 430: overlay navigation + 1 column + bottom sheet
  */
 
 /* Persistent-sidebar shells. */
@@ -77,8 +77,9 @@
     position: fixed;
     inset: 0 auto 0 0;
     z-index: calc(var(--z-palette) + 6);
-    display: block;
+    display: flex;
     width: var(--ops-sidebar-width);
+    flex-direction: column;
     padding: var(--space-3);
     visibility: hidden;
     transform: translateX(calc(-100% - var(--space-4)));
@@ -90,7 +91,44 @@
 
   .sidebarLayer > :global(aside) {
     display: flex !important;
-    height: 100% !important;
+    height: auto !important;
+    min-height: 0;
+    flex: 1;
+  }
+
+  .sheetHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 var(--space-3);
+  }
+
+  .sheetTitle {
+    display: flex;
+    margin: 0;
+    font-size: var(--text-heading-3);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.2;
+  }
+
+  .sheetClose {
+    display: grid;
+    width: var(--touch-min);
+    height: var(--touch-min);
+    place-items: center;
+    flex: 0 0 auto;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--ops-ink) 8%, transparent);
+    color: var(--ops-ink);
+    cursor: pointer;
+  }
+
+  .sheetClose:focus-visible {
+    outline: 2px solid var(--ops-focus-ring);
+    outline-offset: 2px;
   }
 
   :global([data-ops-shell][data-sidebar-open='true']) .sidebarLayer {
@@ -215,6 +253,36 @@
 
 }
 
+/* Touch and compact widths keep the route's real contextual action reachable.
+   The inspector stage sits above it while open, so actions never stack. */
+@media (min-width: 430px) and (max-width: 1179px) {
+  .bottomBarAction {
+    position: fixed;
+    right: max(var(--space-4), env(safe-area-inset-right));
+    bottom: max(var(--space-4), env(safe-area-inset-bottom));
+    z-index: calc(var(--z-palette) + 2);
+    display: flex;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ops-instrument);
+    color: var(--ops-ink);
+    cursor: pointer;
+    box-shadow: var(--ops-floating-shadow);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+  }
+
+  .bottomBarAction:focus-visible {
+    outline: 2px solid var(--ops-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
 /* Phone shell: bottom tab bar, floating account menu orb, nav as bottom sheet. */
 @media (max-width: 429px) {
   .tabletIsland {
@@ -306,35 +374,6 @@
     cursor: pointer;
   }
 
-  .sheetHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 0 var(--space-3);
-  }
-
-  .sheetTitle {
-    display: flex;
-    margin: 0;
-    font-size: var(--text-heading-3);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-tight);
-    line-height: 1.2;
-  }
-
-  .sheetClose {
-    display: grid;
-    width: var(--touch-min);
-    height: var(--touch-min);
-    place-items: center;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: color-mix(in srgb, var(--ops-ink) 8%, transparent);
-    color: var(--ops-ink);
-    cursor: pointer;
-  }
-
   .main {
     padding-top: 0;
     padding-bottom: calc(56px + var(--space-6));
@@ -402,7 +441,7 @@
     padding: 0 var(--space-3);
     color: var(--ops-muted);
     font-size: var(--text-caption);
-    font-weight: var(--weight-semibold);
+    font-weight: var(--weight-regular);
   }
 
   .sidebarLayer > :global(aside) > :global([data-ops-sidebar-footer]) :global([data-ops-theme-toggle]) {

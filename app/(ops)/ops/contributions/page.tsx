@@ -14,11 +14,10 @@ import { contributionReviewItem } from '@/lib/moderation/contribution-presentati
 import { EmptyState } from '@/components/ops/state/EmptyState';
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import { ContributionsInbox } from './ContributionsInbox';
-import styles from '@/components/ops/inbox/inbox.module.css';
 
 export const dynamic = 'force-dynamic';
 
-const LIMIT = 100;
+const PAGE_SIZE = 40;
 
 export default async function ContributionsQueue({
   searchParams,
@@ -29,29 +28,34 @@ export default async function ContributionsQueue({
   const canDecide = can(operator.role, 'contributions.decide');
   const selectedId = selectedQueueItemId(await searchParams);
   const sql = getPostgresClient();
-  const fetchedRows = await listPendingContributions(sql, LIMIT + 1);
-  const recentRows = fetchedRows.slice(0, LIMIT);
-  const hasMore = fetchedRows.length > LIMIT;
+  const fetchedRows = await listPendingContributions(sql, PAGE_SIZE + 1);
+  const recentRows = fetchedRows.slice(0, PAGE_SIZE);
+  const hasMore = fetchedRows.length > PAGE_SIZE;
   const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
     ? await findPendingContribution(sql, selectedId)
     : null;
   const rows = includeSelectedQueueItem(recentRows, selectedRow);
   const reviewItems = rows.map(contributionReviewItem);
+  const lastQueueRow = recentRows.at(-1);
+  const nextCursor = lastQueueRow
+    ? { submittedAt: lastQueueRow.submittedAt, id: lastQueueRow.id }
+    : null;
 
   return (
     <OpsWorkspace title="Contributions">
       {rows.length === 0 ? (
         <EmptyState
-          title="Nothing awaiting review"
-          body="New contributions will appear here."
+          title="You’re caught up."
+          body="There’s nothing waiting."
+          action={{ href: '/ops/activity', label: 'View insights' }}
         />
       ) : (
-        <>
-          <ContributionsInbox rows={reviewItems} canDecide={canDecide} />
-          {hasMore ? (
-            <p className={styles.partial}>This view starts with the oldest {LIMIT}. More are waiting.</p>
-          ) : null}
-        </>
+        <ContributionsInbox
+          rows={reviewItems}
+          canDecide={canDecide}
+          initialHasMore={hasMore}
+          initialCursor={nextCursor}
+        />
       )}
     </OpsWorkspace>
   );

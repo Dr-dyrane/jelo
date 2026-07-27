@@ -28,6 +28,10 @@ const inboxStyles = readFileSync(
   join(root, 'components/ops/inbox/inbox.module.css'),
   'utf8',
 );
+const selectionSource = readFileSync(
+  join(root, 'components/ops/inbox/use-url-inbox-selection.ts'),
+  'utf8',
+);
 const shareStyles = readFileSync(
   join(root, 'app/(site)/share/share-index.module.css'),
   'utf8',
@@ -118,11 +122,12 @@ describe('Observation list visual integrity', () => {
   });
 
   it('acknowledges selection before URL navigation finishes', () => {
-    assert.match(observationSource, /useOptimistic\(/);
-    assert.match(observationSource, /startSelectionTransition\(\(\) => \{[\s\S]*setOptimisticSelectedId\(id\);[\s\S]*router\.replace/);
-    assert.match(observationSource, /isSelectionNavigating = isSelectionPending && selectedId !== routeSelectedId/);
-    assert.match(observationSource, /pendingSelectionId=\{isSelectionNavigating \? selectedId : null\}/);
-    assert.match(observationSource, /isSelectionNavigating && selectedId === row\.id[\s\S]*<ObservationDetailSkeleton/);
+    assert.match(observationSource, /useUrlInboxSelection\(\)/);
+    assert.match(selectionSource, /useOptimistic\(/);
+    assert.match(selectionSource, /startSelectionTransition\(\(\) => \{[\s\S]*setOptimisticSelectedId\(nextId\);[\s\S]*router\.replace/);
+    assert.match(selectionSource, /isSelectionPending && selectedId !== routeSelectedId/);
+    assert.match(observationSource, /pendingSelectionId=\{selection\.pendingSelectionId\}/);
+    assert.match(observationSource, /selection\.pendingSelectionId === row\.id[\s\S]*<ObservationDetailSkeleton/);
     assert.match(inboxSource, /aria-busy=\{pendingSelectionId === item\.id \? 'true' : undefined\}/);
   });
 });
@@ -131,9 +136,11 @@ describe('Observation list progressive loading integrity', () => {
   it('uses a deduped observer threshold with a keyboard fallback and live status', () => {
     assert.match(inboxSource, /new IntersectionObserver/);
     assert.match(inboxSource, /loadPendingRef\.current/);
-    assert.match(inboxSource, /onClick=\{loadMore\}/);
-    assert.match(inboxSource, /role=\{isLoading \? 'status' : undefined\}/);
-    assert.match(inboxSource, /aria-live=\{isLoading \? 'polite' : undefined\}/);
+    assert.match(inboxSource, /onClick=\{showMore\}/);
+    assert.match(inboxSource, />\s*Show more\s*<\/button>/);
+    assert.match(inboxSource, /role="status"/);
+    assert.match(inboxSource, /aria-live="polite"/);
+    assert.match(inboxSource, /aria-atomic="true"/);
   });
 
   it('keeps the initial observation reveal deliberately small', () => {

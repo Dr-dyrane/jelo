@@ -9,6 +9,15 @@ const equivalentTitleTokens: Record<string, string> = {
   moisturising: 'moisturizing',
 };
 
+function normalizeKnownBrandPhrases(value: string) {
+  return value
+    .replace(/\bCeraVe\b/gi, 'cerave')
+    .replace(/\bPanOxyl\b/gi, 'panoxyl')
+    .replace(/\bKeraCare\b/gi, 'keracare')
+    .replace(/\bSheaMoisture\b/gi, 'sheamoisture')
+    .replace(/\bBalance Active Formula\b/gi, 'balance');
+}
+
 function hostKey(url: URL) {
   return url.hostname.toLowerCase().replace(/^www\./, '');
 }
@@ -23,7 +32,7 @@ function sameProductRoute(left: URL, right: URL) {
 }
 
 function titleTokens(value: string) {
-  return Array.from(new Set(value
+  return Array.from(new Set(normalizeKnownBrandPhrases(value)
     .replace(/\burea(?=repair\b)/gi, 'urea ')
     .replace(/\btxa\b/gi, 'tranexamic acid')
     .replace(/([a-z])([A-Z])/g, '$1 $2')

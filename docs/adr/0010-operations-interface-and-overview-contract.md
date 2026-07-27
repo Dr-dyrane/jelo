@@ -83,6 +83,31 @@ A route may link to another mode. It must not quietly absorb that mode's entire
 workflow. New work declares its mode in the lane contract before visual design
 begins.
 
+### Authority and maturity
+
+This ADR is proposed. It can govern an implementation trial without declaring
+that trial canonical. [ADR 0009](0009-ui-ux-lane-contract.md) remains
+authoritative for lane ownership and evidence; the implemented
+[operations shell](../design/OPS_SHELL.md) remains authoritative for shared
+planes, breakpoints, scrolling, overlays, and contextual actions. This ADR and
+the [Ops UI candidate contract](../OPS_UI_CANON.md) may specialize route
+content, but they may not silently override those accepted or shared
+contracts.
+
+The current maturity is:
+
+| Surface | Maturity |
+| --- | --- |
+| Shared Ops shell | Implemented contract; changes require a shell-owned lane. |
+| Observations | Interaction and density reference candidate. |
+| Overview | Briefing candidate under product review. |
+| Contributions | First triage transfer candidate; browser and automated evidence recorded, product acceptance still required. |
+| Relationships | Next transfer trial; not accepted by resemblance alone. |
+
+Words such as `current`, `resolved`, or `accepted correction` inside historical
+notes describe the direction of that draft, not product acceptance. Only an
+explicit acceptance record may change a candidate's maturity.
+
 ### What the Observations candidate contributes
 
 Other operations pages reuse these principles:
@@ -314,6 +339,57 @@ Overview reads a small purpose-built projection. It does not load and enrich
 only the first two pending records from the recommended actionable queue.
 Queue-level selection remains sufficient for the inspector.
 
+## Insights and inference monitor contract
+
+`/ops/activity` is the canonical owner of **Insights**: a read-only monitor for
+what the available evidence supports and what operators have decided. This
+responsibility does not make its current visual implementation canonical.
+Product and retailer CRUD, moderation, correction, publishing, and reversal
+remain separate governed Manage or Triage workflows.
+
+Insights keeps four evidence classes visibly distinct:
+
+| Evidence class | Meaning |
+| --- | --- |
+| Observed fact | A count, state, value, or timestamp read directly from its named source. |
+| Community-reported pattern | An aggregate over approved, retained anonymous notes; it remains reported experience, not established truth. |
+| Research outcome | A documented resolution, match, rejection, or completed research task with its own confidence and provenance. |
+| Operator decision | An immutable audit projection of an attributable action, target, rationale, and time. |
+
+Every aggregate or comparison names its denominator, time window, source, and
+freshness where those affect interpretation. Say `25 approved notes`, not `25
+people` or `25 contributors`: anonymous submissions do not prove unique
+humans. Mentions may prioritize research; they do not establish product
+efficacy or safety, retailer trust, price quality, causality, or a market
+trend. Sparse samples are labelled as early signals and are never promoted into
+trend language.
+
+Pattern labels come from the server-owned canonical option registry or from a
+custom value whose moderation state is `approved` or `mapped`. A parent note's
+approval never promotes an unreviewed or rejected custom label. Purpose and
+retailer mention cells use the same minimum release threshold: at least three
+distinct approved, retained notes. Ranked bars use all approved notes as their
+denominator; the largest visible cell is not silently treated as 100%.
+
+`Snapshot generated` may describe query time only. Source freshness uses the
+source timestamp: the community snapshot shows its first and latest approved
+note dates, while all-time research and audit aggregates say `all time`.
+
+A visualization appears only when a real, typed series has enough observations
+and time coverage to answer a stated operational question. Otherwise use exact
+counts and plain language. Fabricated examples, interpolated points, decorative
+charts, and implied trends are prohibited.
+
+Raw IDs and provider metadata remain out of the primary reading order. Preserve
+the immutable audit record and expose genuinely useful raw metadata secondarily
+through a collapsed, copyable disclosure.
+
+When Contributions, Relationships, Observations, Vocabulary, or Retailers has
+nothing awaiting review, that queue keeps its own quiet empty state and may
+link to `View insights`. It does not duplicate Insights content or redirect
+automatically to `/ops/activity`. Signals remains a separate Monitor route and
+does not use this queue-empty action.
+
 ## Overview contract
 
 `/ops` is a stable operational briefing. Its page identity never changes with
@@ -492,6 +568,11 @@ Each route owns states that preserve its final anatomy.
 - Say what could not load.
 - Offer `Try again` when retry is safe.
 - Preserve the shell and unaffected context.
+- A route-level read or API failure spans the full available workspace width
+  beneath the route title. It is the page state, not a narrow card inside a
+  grid, list, or inspector.
+- A local action failure stays beside the failed action so reliable page
+  content remains available.
 - Log technical detail privately; do not print a stack, digest, raw SQL, or
   secret in the interface.
 
@@ -527,10 +608,17 @@ must not weaken it to make an error screen easier to demo.
 ## Bounded queue pagination
 
 Long operations queues use progressive revelation without changing the queue's
-authority. The server still owns the ordered, permission-filtered result set
-and its explicit cap or cursor. A client may reveal that already-authorized set
-in small pages; it must not refetch, reorder, merge, or imply that the local
-end state is the database's global end state.
+authority. Two mechanisms must stay visibly and technically distinct:
+
+- **Client reveal** mounts more rows that the server already returned. Its
+  fallback says `Show more`; it is not a network loading state.
+- **Server continuation** requests the next permission-filtered cursor page.
+  Its fallback may say `Load more` and must expose pending, retry, stale
+  response, and terminal states.
+
+The server still owns the ordered, permission-filtered result set and its
+explicit cap or cursor. A client reveal must not refetch, reorder, merge, or
+imply that the local bounded end is the database's global end.
 
 - Start with a small task-shaped page. Choose the count from the presentation's
   scan density, not from the maximum server limit.
@@ -544,16 +632,20 @@ end state is the database's global end state.
 - One section owns at most one pending reveal. Deduplicate observer and button
   requests, stop at the bounded end, and re-arm automatic loading only after
   the sentinel leaves the threshold.
-- Keep a visible, keyboard-operable `Load more` control whenever more bounded
-  records remain. Intersection Observer is an enhancement, not the only path.
-- Announce loading, visible count, and end state through one concise polite
-  status. Do not make the full collection live.
+- Keep a visible, keyboard-operable `Show more` control while an already-loaded
+  bounded set has hidden rows. Keep a `Load more` control only when a typed
+  server cursor exists. Intersection Observer is an enhancement, not the only
+  path.
+- A client reveal announces the new visible count and bounded end through one
+  concise polite status. A server continuation additionally announces its
+  pending or retry state. Do not make the full collection live.
 - A URL-selected inspector record outside the initial page reveals its
   containing page. Selection, focus order, auto-advance, and the canonical URL
   survive pagination.
 - Initial skeletons mirror only the initial reveal and every ready-state
-  presentation. Loading another page does not replace settled rows or block the
-  inspector.
+  presentation. A client reveal needs no fake loading skeleton. A real server
+  continuation appends matching skeleton geometry without replacing settled
+  rows or blocking the inspector.
 - Selection feedback is optimistic but content is not: the selected row changes
   state immediately and the canonical inspector skeleton mounts in the same
   frame. Only the URL-resolved record may replace that skeleton with evidence
@@ -562,10 +654,12 @@ end state is the database's global end state.
   permission-aware cursor contract and tests request deduplication, stale
   responses, retry, and terminal state before implementation.
 
-## Audit of the current Overview draft
+## Historical audit of the superseded Overview draft
 
-The active draft in `app/(ops)/ops/page.tsx` is not an accepted implementation
-of this ADR.
+The draft reviewed from the `6a70033` baseline was not an accepted
+implementation of this ADR. The table is retained as design history; it is not
+a description of the current route and must not override the later candidate
+contract.
 
 | Finding | Why it breaks integrity | Required correction |
 | --- | --- | --- |
@@ -585,30 +679,33 @@ independent review lane and must not be changed merely to make Overview easier
 to compose. Product review may still change its hierarchy, density, grouping,
 or inspector anatomy.
 
-### Cross-route debt found during the audit
+### Cross-route findings from that audit
 
-These findings do not belong in the Overview route diff. They need separately
-owned lanes:
+These findings never belonged in the Overview route diff. Their current state
+is:
 
-- `OpsChrome.defaultContextFab` currently creates action-shaped `Stats`,
-  `Export`, `Invite`, `New`, and `Signal` controls with no-op handlers. The
-  shell lane must remove each placeholder or connect it to a real,
-  permission-aware workflow.
-- `InboxContainer` presents overlay inspectors with dialog semantics and Escape
-  handling, but the source does not itself establish focus containment, body
-  scroll lock, or trigger-focus restoration. A shared-interaction lane must
-  prove and complete those behaviors before more routes inherit the primitive.
-- Shared empty and error primitives still use generic card, surface, elevation,
-  and pill tokens. A state-primitive lane should align them with the operations
-  surface and control grammar before declaring them canonical everywhere.
+- The placeholder floating actions were replaced by a route-labelled refresh
+  fallback and a route-registered real contextual action. No future route may
+  reintroduce an action-shaped no-op.
+- Shared temporary inspectors now contain focus, make the background inert,
+  lock the real workspace scroll owner, support Escape and safe outside
+  dismissal, use one evidence scroll owner, and restore focus to the exact
+  trigger. Source contracts and browser evidence must protect that behavior.
+- The shared error primitive now uses the operations surface and control
+  grammar. Route-level failures fill the workspace width; local action errors
+  remain contextual.
 - Observations presents the submitted evidence only. A retail-data lane must
   supply an eligible-market, exact-product, freshness-aware comparison before
   any typical-price or market-comparison claim can enter the inspector.
-- Only Observations currently has route-specific loading and error files.
-  Other operations routes adopt their own task-shaped states as their lanes are
-  completed; they do not copy the observation inspector skeleton by default.
+- Observations, Contributions, and Relationships now have task-shaped loading
+  states. Other operations routes still need route-owned states; they do not
+  copy another queue's inspector merely to fill the shell.
 
-## Prioritized implementation brief
+## Historical implementation brief
+
+This brief records the correction issued against the superseded draft. The
+current Overview candidate contract below is authoritative for the active
+trial.
 
 ### P0 — Restore a truthful page identity
 
@@ -648,11 +745,12 @@ widgets as polish.
 
 ## Overview lane contract
 
-### 2026-07-26 correction — accepted Overview composition
+### 2026-07-26 correction — current Overview candidate
 
 The audit and P0/P1 brief immediately above record an earlier correction away
 from a tile dashboard and embedded record triage. The following rule
-**supersedes any conflicting wording in that historical audit and brief**:
+**supersedes any conflicting wording in that historical audit and brief for
+the current trial**. It does not mark Overview as product-accepted:
 
 `/ops` is a stable briefing presented as a queue-level split view. On desktop it
 is **sidebar → selectable queue workspace → contextual queue inspector**. The
@@ -913,6 +1011,15 @@ tests, button and surface source contracts, and the complete browser matrix
 above. Until product review accepts that evidence, agents may inspect the
 trial's principles but must not cite its route-specific sections, copy, or
 geometry as canonical.
+
+Implementation evidence recorded on 2026-07-26: focused and complete automated
+tests, documentation checks, type checking, lint, and production build passed;
+browser review covered `320`, `390`, `500`, `1000`, `1300`, and `1440` widths,
+light and dark appearance, exact-subject side and bottom sheets, the contextual
+FAB, inert background, one-owner inspector scrolling, reject confirmation,
+custom-value `New` labels, and exact trigger-focus return. No moderation
+decision was submitted during browser review. This is evidence for product
+review, not acceptance.
 
 ## Cross-route adoption harness
 

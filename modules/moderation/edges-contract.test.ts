@@ -91,11 +91,12 @@ test('relationship sections follow operator context and loading preserves the sa
 });
 
 test('the relationship queue is oldest-first and continues past its initial server window', async () => {
-  const [page, queues, inbox, actions] = await Promise.all([
+  const [page, queues, inbox, actions, migration] = await Promise.all([
     readSource('app/(ops)/ops/edges/page.tsx'),
     readSource('lib/moderation/queues.ts'),
     readSource('app/(ops)/ops/edges/EdgesInbox.tsx'),
     readSource('app/(ops)/ops/actions.ts'),
+    readSource('db/migrations/0028_moderation_queue_fifo_indexes.sql'),
   ]);
   const edgeQueue = sourceBetween(
     queues,
@@ -104,7 +105,14 @@ test('the relationship queue is oldest-first and continues past its initial serv
   );
 
   assert.match(edgeQueue, /order by edge\.created_at asc,\s*edge\.id asc/);
-  assert.match(edgeQueue, /\(edge\.created_at,\s*edge\.id\)\s*>\s*\(/);
+  assert.match(
+    edgeQueue,
+    /\(edge\.created_at,\s*edge\.id\)\s*>\s*\([\s\S]*?\$\{after\.createdAt\}::text::timestamptz,[\s\S]*?\$\{after\.id\}::uuid/,
+  );
+  assert.match(
+    migration,
+    /on community_knowledge_edges \(moderation_status, created_at asc, id asc\)[\s\S]*?where moderation_status = 'pending'/,
+  );
   assert.match(page, /listPendingEdges\(sql,\s*LIMIT\s*\+\s*1\)/);
   assert.match(page, /\.slice\(0,\s*LIMIT\)/);
   assert.match(page, /\.length\s*>\s*LIMIT/);
@@ -112,9 +120,20 @@ test('the relationship queue is oldest-first and continues past its initial serv
   assert.match(page, /initialHasMore=\{hasMore\}/);
   assert.match(page, /initialCursor=\{nextCursor\}/);
   assert.match(page, /includeSelectedQueueItem\(/);
-  assert.match(actions, /export async function fetchMoreRelationshipsAction/);
-  assert.match(actions, /listPendingEdges\([\s\S]*?safeLimit \+ 1,[\s\S]*?createdAt:[\s\S]*?id:/);
+  const continuation = sourceBetween(
+    actions,
+    'export async function fetchMoreRelationshipsAction',
+    'export async function decideObservationAction',
+  );
+  assert.match(continuation, /Number\.isFinite\(limit\) \? Math\.trunc\(limit\) : 40/);
+  assert.match(continuation, /listPendingEdges\([\s\S]*?safeLimit \+ 1,[\s\S]*?createdAt: afterCreatedAt,[\s\S]*?id:/);
+  assert.doesNotMatch(continuation, /createdAt: parsedDate\.toISOString\(\)/);
   assert.match(inbox, /fetchMoreRelationshipsAction\(/);
+  assert.match(inbox, /left\.createdAt < right\.createdAt \? -1 : 1/);
+  assert.doesNotMatch(inbox, /new Date\(left\.createdAt\)/);
+  assert.match(inbox, /left\.id < right\.id \? -1 : 1/);
+  assert.doesNotMatch(inbox, /left\.id\.localeCompare/);
+  assert.match(inbox, /settled\.has\(row\.id\) \|\| knownIds\.has\(row\.id\)/);
   assert.match(inbox, /new IntersectionObserver/);
   assert.match(inbox, /ref=\{loadSentinelRef\}/);
   assert.match(inbox, /:\s*'Load more'/);
@@ -164,14 +183,17 @@ test('responsive inspectors are siblings or overlays with complete focus recover
   assert.match(sharedInbox, /usesDockedInspector/);
   assert.match(sharedInbox, /usesOverlayInspector/);
   assert.match(sharedInbox, /createPortal\(/);
-  assert.match(sharedInbox, /role="dialog" aria-modal="true"/);
-  assert.match(sharedInbox, /document\.body\.style\.overflow = 'hidden'/);
-  assert.match(sharedInbox, /event\.key === 'Escape'/);
-  assert.match(sharedInbox, /lastTriggerRef\.current\?\.focus/);
-  assert.match(sharedInbox, /button:not\(\[disabled\]\):not\(\[tabindex="-1"\]\)/);
+  assert.match(sharedInbox, /role="dialog"[\s\S]{0,100}aria-modal="true"/);
+  assert.match(sharedInbox, /getItemLabel\?\.\(activeItem\) \?\? itemTypeLabel/);
+  assert.match(sharedInbox, /useOpsOverlay\(\{/);
+  assert.match(sharedInbox, /inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS/);
+  assert.match(sharedInbox, /returnFocusRef: lastTriggerRef/);
+  assert.doesNotMatch(sharedInbox, /document\.body\.style\.overflow = 'hidden'/);
+  assert.doesNotMatch(sharedInbox, /handleOverlayKeyDown/);
   assert.match(inspectorCss, /@media \(max-width: 819px\)[\s\S]*?align-items: flex-end;/);
+  assert.match(inspectorCss, /\.tabletInspectorBody \{[\s\S]*?overflow: hidden;/);
   assert.match(shellCss, /@media \(max-width: 819px\)[\s\S]*?\.detailPane \{[\s\S]*?inset: 0;/);
-  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow-y: auto;/);
+  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow: hidden;/);
 });
 
 test('touch actions and the phone contextual FAB stay reachable', async () => {
@@ -211,8 +233,9 @@ test('empty and error states remain quiet, route-owned, and diagnostic-safe', as
   ]);
   const emptyRule = sourceBetween(stateCss, '.empty {', '.emptyTitle');
 
-  assert.match(page, /title="Nothing awaiting review"/);
-  assert.match(page, /body="New relationships will appear here\."/);
+  assert.match(page, /title="You’re caught up\."/);
+  assert.match(page, /body="There’s nothing waiting\."/);
+  assert.match(page, /action=\{\{ href: '\/ops\/activity', label: 'View insights' \}\}/);
   assert.match(errorRoute, /title="Couldn’t load relationships"/);
   assert.match(errorRoute, /onRetry=\{reset\}/);
   assert.doesNotMatch(errorRoute, /\{error\.(?:message|stack)\}/);
@@ -242,10 +265,14 @@ test('relationship cards surface only approved imagery and preserve readable lon
 });
 
 test('the shell clips the viewport while workspace and inspector own their scroll', async () => {
-  const opsCss = await readSource('app/(ops)/ops.module.css');
+  const [opsCss, inboxCss] = await Promise.all([
+    readSource('app/(ops)/ops.module.css'),
+    readSource('components/ops/inbox/inbox.module.css'),
+  ]);
 
   assert.match(opsCss, /\.body \{[\s\S]*?height: 100dvh;[\s\S]*?overflow: clip;/);
   assert.match(opsCss, /@media \(min-width: 820px\)[\s\S]*?\.contentWrapper \{[\s\S]*?overflow: clip;/);
   assert.match(opsCss, /@media \(min-width: 820px\)[\s\S]*?\.main \{[\s\S]*?min-height: 0;[\s\S]*?overflow: auto;/);
-  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow-y: auto;/);
+  assert.match(opsCss, /@media \(min-width: 1180px\)[\s\S]*?\.detailPane \{[\s\S]*?overflow: hidden;/);
+  assert.match(inboxCss, /\.detailScroll \{[\s\S]*?overflow-y: auto;/);
 });

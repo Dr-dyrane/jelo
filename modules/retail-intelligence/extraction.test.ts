@@ -46,6 +46,37 @@ test('uses a product-scoped WooCommerce stock marker when structured stock is ab
   assert.ok(result.extraction.evidence.includes('WooCommerce product stock marker'));
 });
 
+test('reads the main WooCommerce product price without taking a related-product price', () => {
+  const html = `<!doctype html><html><head>
+    <link rel="canonical" href="https://buybetter.ng/product/example-150ml/">
+  </head><body>
+    <aside><p class="price"><span class="woocommerce-Price-amount"><bdi>&#8358;99,999.00</bdi></span></p></aside>
+    <h1 class="product_title entry-title">Example Cleanser 150ml</h1>
+    <p class="price"><span class="woocommerce-Price-amount"><bdi><span class="woocommerce-Price-currencySymbol">&#8358;</span>15,265.00</bdi></span> <small>NG</small></p>
+    <p class="stock out-of-stock">Out of stock</p>
+  </body></html>`;
+  const result = extractRetailerPage({ url: new URL('https://buybetter.ng/product/example-150ml/'), html });
+
+  assert.equal(result.adapterKey, 'buybetter');
+  assert.equal(result.extraction.priceMinor, 15_265);
+  assert.equal(result.extraction.currencyCode, 'NGN');
+  assert.equal(result.extraction.inventoryStatus, 'out_of_stock');
+  assert.ok(result.extraction.evidence.includes('WooCommerce product price'));
+});
+
+test('uses the active WooCommerce sale price instead of concatenating two amounts', () => {
+  const html = `<!doctype html><html><body>
+    <h1 class="product_title">Example Cleanser 150ml</h1>
+    <p class="price">
+      <del><span><bdi>&#8358;20,000.00</bdi></span></del>
+      <ins><span><bdi>&#8358;15,000.00</bdi></span></ins>
+    </p>
+  </body></html>`;
+  const result = extractRetailerPage({ url: new URL('https://buybetter.ng/product/example-150ml/'), html });
+
+  assert.equal(result.extraction.priceMinor, 15_000);
+});
+
 test('does not treat unrelated add-to-cart text as product availability', () => {
   const result = extractRetailerPage({
     url: new URL('https://unknown.example/products/example'),
@@ -160,6 +191,48 @@ test('falls back to a measurable size in the observed product title', () => {
 
   assert.equal(result.extraction.productSize, '1.7 fl oz / 50 ml');
   assert.ok(result.extraction.evidence.includes('Product title size'));
+});
+
+test('uses one product-scoped Open Graph image size when the title omits it', () => {
+  const html = `<!doctype html><html><head>
+    <meta property="og:title" content="Example Weightless Conditioner">
+    <meta property="og:image:alt" content="Example Weightless Conditioner 828 ml">
+  </head></html>`;
+  const result = extractRetailerPage({ url: new URL('https://beautybydaz.com/shop/example/'), html });
+
+  assert.equal(result.extraction.productSize, '828 ml');
+  assert.ok(result.extraction.evidence.includes('Open Graph product image size'));
+});
+
+test('uses one product-scoped description size when stronger evidence omits it', () => {
+  const html = `<!doctype html><html><head>
+    <meta property="og:title" content="Example Treatment Ointment">
+    <meta name="description" content="Example Treatment Ointment 2.6oz is available now.">
+  </head></html>`;
+  const result = extractRetailerPage({ url: new URL('https://beautybydaz.com/shop/example/'), html });
+
+  assert.equal(result.extraction.productSize, '2.6oz');
+  assert.ok(result.extraction.evidence.includes('Product description size'));
+});
+
+test('does not use an ambiguous description containing several package sizes', () => {
+  const html = `<!doctype html><html><head>
+    <meta property="og:title" content="Example Treatment Ointment">
+    <meta name="description" content="Available in 30 ml and 50 ml sizes.">
+  </head></html>`;
+  const result = extractRetailerPage({ url: new URL('https://beautybydaz.com/shop/example/'), html });
+
+  assert.equal(result.extraction.productSize, undefined);
+});
+
+test('uses one measurable size from the exact product route as a final fallback', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://beautybydaz.com/shop/example-conditioner-828-ml/'),
+    html: '<meta property="og:title" content="Example Conditioner">',
+  });
+
+  assert.equal(result.extraction.productSize, '828 ml');
+  assert.ok(result.extraction.evidence.includes('Product route size'));
 });
 
 test('does not manufacture a product size when the retailer omits it', () => {

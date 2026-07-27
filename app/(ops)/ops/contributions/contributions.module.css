@@ -1,6 +1,7 @@
 .featureCard {
   display: grid;
   width: 100%;
+  height: 100%;
   min-height: 164px;
   grid-template-columns: minmax(96px, .84fr) minmax(0, 1.16fr);
   align-items: stretch;
@@ -40,7 +41,7 @@
   margin: 0 0 var(--space-2);
   color: var(--ops-accent);
   font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-regular);
   line-height: 1.2;
 }
 
@@ -225,6 +226,34 @@
   white-space: normal;
 }
 
+.submittedValues {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+}
+
+.submittedValue {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.submittedValue > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.newValue {
+  flex: 0 0 auto;
+  color: var(--ops-accent);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+}
+
 .rejectConfirmation {
   display: flex;
   flex-direction: column;
@@ -248,6 +277,52 @@
   color: var(--muted);
   font-size: var(--text-caption);
   line-height: 1.4;
+}
+
+.loadMore {
+  display: flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-6) var(--space-7);
+}
+
+.loadMore button {
+  min-width: 88px;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--ops-control-radius);
+  background: transparent;
+  color: var(--ops-accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}
+
+.loadMore button:hover {
+  background: var(--ops-accent-subtle);
+}
+
+.loadMore button:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
+
+.loadMore button:disabled {
+  cursor: wait;
+  opacity: .58;
+}
+
+.loadMore span {
+  color: var(--muted);
+  font-size: var(--text-caption);
+}
+
+.loadMore span[role='alert'] {
+  color: var(--state-danger);
 }
 
 .liveStatus {
@@ -279,6 +354,41 @@
   }
 }
 
+@media (min-width: 430px) and (max-width: 599px) {
+  .featureVisual {
+    padding: var(--space-1);
+  }
+
+  .featureCopy {
+    padding: var(--space-2);
+  }
+
+  .featureTitle {
+    font-size: .94rem;
+  }
+
+  .featureMeta {
+    flex-wrap: wrap;
+    gap: 2px var(--space-1);
+    font-size: var(--text-label);
+  }
+
+  .featureMeta > span,
+  .featureMeta time {
+    white-space: nowrap;
+  }
+
+  .compactTitle,
+  .routineTitle {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
+
 @media (max-width: 429px) {
   .featureCard {
     min-height: 116px;
@@ -294,5 +404,19 @@
     font-size: .92rem;
     -webkit-line-clamp: 2;
     line-clamp: 2;
+  }
+
+  .identityCopy h2 {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .loadMore {
+    padding-inline: var(--space-3);
+    padding-bottom: calc(var(--space-9) + var(--touch-min));
   }
 }

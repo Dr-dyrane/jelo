@@ -26,6 +26,9 @@ const patternCases = [
   ['A scaly scalp patch has broken hairs, black dots and patchy hair loss.', 'tinea-capitis-like'],
   ['A firm raised scar grew beyond the edge of my old piercing.', 'keloid-scar-like'],
   ['Firm painful lesions are blistering and I have swollen lymph nodes after close contact with mpox.', 'mpox-like'],
+  ['A purple rash does not fade when pressed and I have a fever and stiff neck.', 'meningitis-sepsis-warning-like'],
+  ['High fever, cough, runny nose and red watery eyes came before a rash that started on my face and spread down.', 'measles-rash-warning-like'],
+  ['Night sweats keep soaking my sheets even when the room is cool.', 'hyperhidrosis-like'],
   ['A spreading target-like rash appeared after starting a new medicine.', 'severe-medicine-reaction-like'],
   ['A painless swelling on my arm turned into an ulcer and keeps enlarging without fever.', 'painless-ulcer-like'],
   ['Severe itching with firm lumps under my skin and my vision is getting worse.', 'onchocerciasis-like'],
@@ -35,10 +38,14 @@ const patternCases = [
   ['Sudden itchy same-size bumps centred on hairs after sweating in tight clothing.', 'folliculitis'],
   ['A hard painful lump has a soft centre and is leaking pus.', 'boil-abscess-like'],
   ['I used an unlabelled bleaching cream and the label mentions mercury.', 'skin-lightening-exposure-like'],
+  ['Bleach splashed on my arm and my skin is burning.', 'chemical-burn-exposure-like'],
+  ['The whites of my eyes look yellow and my skin looks yellow.', 'jaundice-warning-like'],
+  ['I have a genital sore and unusual discharge.', 'genital-symptom-warning-like'],
   ['Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.', 'periorificial-dermatitis-like'],
   ['Raised itchy patches appear and disappear within hours and move around my body.', 'urticaria-like'],
   ['Tingling came before small fluid-filled blisters on my lip that crusted into a scab.', 'cold-sore-like'],
   ['Itchy white peeling skin is cracked between my toes.', 'tinea-pedis-like'],
+  ['I have diabetes and a new wound on my foot.', 'diabetes-foot-warning-like'],
   ['My thick yellow toenail is crumbly and lifting.', 'nail-change-like'],
   ['A mole is changing and bleeding.', 'changing-skin-mark-like'],
 ] as const;
@@ -80,12 +87,68 @@ test('routes higher-risk patterns to appropriate human review', () => {
   assert.equal(assessClinicalRoutine('Sudden itchy same-size bumps centred on hairs after sweating in tight clothing.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('A hard painful lump has a soft centre and is leaking pus.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('I used an unlabelled bleaching cream and the label mentions mercury.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('Bleach splashed on my arm and my skin is burning.').referral.level, 'emergency');
+  assert.equal(assessClinicalRoutine('The whites of my eyes look yellow and my skin looks yellow.').referral.level, 'urgent');
+  assert.equal(assessClinicalRoutine('I have a genital sore and unusual discharge.').referral.level, 'primary-care');
+  assert.equal(assessClinicalRoutine('Night sweats keep soaking my sheets even when the room is cool.').referral.level, 'primary-care');
   assert.equal(assessClinicalRoutine('Many small acne-like bumps around my mouth burn and flake after hydrocortisone on my face.').referral.level, 'dermatology');
   assert.equal(assessClinicalRoutine('Raised itchy patches appear and disappear within hours and move around my body.').referral.level, 'pharmacist');
   assert.equal(assessClinicalRoutine('Tingling came before small fluid-filled blisters on my lip that crusted into a scab.').referral.level, 'pharmacist');
   assert.equal(assessClinicalRoutine('Itchy white peeling skin is cracked between my toes.').referral.level, 'pharmacist');
   assert.equal(assessClinicalRoutine('My thick yellow toenail is crumbly and lifting.').referral.level, 'pharmacist');
   assert.equal(assessClinicalRoutine('A mole is changing and bleeding.').referral.level, 'dermatology');
+});
+
+test('excessive sweating routes cause-finding without medicalising expected heat or exercise sweat', () => {
+  const nightSweats = assessClinicalRoutine('Night sweats keep soaking my sheets even when the room is cool.');
+  assert.equal(nightSweats.differential.primary?.id, 'hyperhidrosis-like');
+  assert.equal(nightSweats.referral.level, 'primary-care');
+  assert.equal(nightSweats.referral.urgency, 'soon');
+  assert.match(nightSweats.referral.action, /look for a cause/i);
+
+  const medicineLinked = assessClinicalRoutine('My excessive sweating started after a medicine and disrupts my work.');
+  assert.equal(medicineLinked.differential.primary?.id, 'hyperhidrosis-like');
+  assert.equal(medicineLinked.referral.level, 'primary-care');
+  assert.match(medicineLinked.referral.action, /do not stop a prescribed medicine/i);
+
+  const expectedSweat = assessClinicalRoutine('I sweat after exercise on a very hot day.');
+  assert.notEqual(expectedSweat.differential.primary?.id, 'hyperhidrosis-like');
+
+  const heatRash = assessClinicalRoutine('Prickly bumps after sweating in hot weather.');
+  assert.equal(heatRash.differential.primary?.id, 'miliaria-like');
+  assert.notEqual(heatRash.differential.primary?.id, 'hyperhidrosis-like');
+});
+
+test('chemical, jaundice and genital warning paths preserve close alternatives', () => {
+  const chemical = assessClinicalRoutine('I spilled drain cleaner on my hand and it started burning.');
+  assert.equal(chemical.differential.primary?.id, 'chemical-burn-exposure-like');
+  assert.equal(chemical.referral.level, 'emergency');
+  assert.equal(chemical.referral.urgency, 'immediate');
+  assert.match(chemical.referral.action, /rinse.*running water/i);
+  assert.match(chemical.referral.action, /hospital/i);
+
+  const skincareIrritation = assessClinicalRoutine('A mild new face cream stings and makes me flaky.');
+  assert.notEqual(skincareIrritation.differential.primary?.id, 'chemical-burn-exposure-like');
+
+  const yellowEyes = assessClinicalRoutine('The whites of my eyes have turned yellow and my urine is dark.');
+  assert.equal(yellowEyes.differential.primary?.id, 'jaundice-warning-like');
+  assert.equal(yellowEyes.referral.level, 'urgent');
+  assert.equal(yellowEyes.referral.urgency, 'same-day');
+  assert.match(yellowEyes.referral.action, /brown or black skin/i);
+
+  assert.equal(assessClinicalRoutine('My thick yellow toenail is crumbly.').differential.primary?.id, 'nail-change-like');
+  assert.notEqual(assessClinicalRoutine('Several raised yellow lesions appeared on one leg.').differential.primary?.id, 'jaundice-warning-like');
+
+  const genital = assessClinicalRoutine('There is an unusual discharge from my penis and a genital sore.');
+  assert.equal(genital.differential.primary?.id, 'genital-symptom-warning-like');
+  assert.equal(genital.referral.level, 'primary-care');
+  assert.equal(genital.referral.urgency, 'soon');
+  assert.match(genital.referral.action, /confidential.*testing/i);
+  assert.notEqual(assessClinicalRoutine('My usual vaginal discharge is normal.').differential.primary?.id, 'genital-symptom-warning-like');
+
+  const medicineReaction = assessClinicalRoutine('A target-like rash with genital sores appeared after a new medicine.');
+  assert.equal(medicineReaction.differential.primary?.id, 'severe-medicine-reaction-like');
+  assert.equal(medicineReaction.referral.level, 'emergency');
 });
 
 test('wart-like ulcer warnings stop skincare without swallowing nearby patterns', () => {
@@ -190,6 +253,78 @@ test('medicine-reaction warnings are emergencies while negated fever does not in
     assert.notEqual(mildMedicineRash.referral.level, 'emergency', description);
     assert.equal(mildMedicineRash.referral.level, 'primary-care', description);
   }
+});
+
+test('fever-and-rash warnings fail closed without swallowing ordinary rashes', () => {
+  for (const description of [
+    'A purple rash does not fade when pressed.',
+    'My rash does not disappear when I press a glass on it.',
+    'I have a high fever with a stiff neck and I am difficult to wake.',
+    'I have a fever and I am confused about where I am.',
+  ]) {
+    const assessment = assessClinicalRoutine(description);
+    assert.equal(assessment.differential.primary?.id, 'meningitis-sepsis-warning-like', description);
+    assert.equal(assessment.referral.level, 'emergency', description);
+    assert.equal(assessment.referral.urgency, 'immediate', description);
+    assert.match(assessment.referral.action, /emergency hospital care now/i, description);
+  }
+
+  const spreadingRash = assessClinicalRoutine(
+    'High fever, cough, runny nose and red watery eyes came before a rash that started on my face and spread down.',
+  );
+  assert.equal(spreadingRash.differential.primary?.id, 'measles-rash-warning-like');
+  assert.equal(spreadingRash.referral.level, 'urgent');
+  assert.equal(spreadingRash.referral.urgency, 'same-day');
+  assert.match(spreadingRash.referral.action, /call the health facility before arriving/i);
+
+  const unresolvedMeasles = assessClinicalRoutine('Doctor could not rule out measles after examining this rash.');
+  assert.equal(unresolvedMeasles.differential.primary?.id, 'measles-rash-warning-like');
+  assert.equal(unresolvedMeasles.referral.level, 'urgent');
+
+  for (const description of [
+    'Doctor says this is measles, but there is no confusion, no seizure and no stiff neck. I can drink.',
+    'I may have measles and I am confused about which clinic to call, but I have no stiff neck.',
+  ]) {
+    const assessment = assessClinicalRoutine(description);
+    assert.equal(assessment.differential.primary?.id, 'measles-rash-warning-like', description);
+    assert.equal(assessment.referral.level, 'urgent', description);
+    assert.equal(assessment.referral.urgency, 'same-day', description);
+  }
+
+  const measlesAlertnessEmergency = assessClinicalRoutine(
+    'I may have measles and I cannot stay awake.',
+  );
+  assert.equal(measlesAlertnessEmergency.differential.primary?.id, 'measles-rash-warning-like');
+  assert.equal(measlesAlertnessEmergency.referral.level, 'emergency');
+
+  const unresolvedMeningitis = assessClinicalRoutine('Meningitis has not been ruled out.');
+  assert.equal(unresolvedMeningitis.differential.primary?.id, 'meningitis-sepsis-warning-like');
+  assert.equal(unresolvedMeningitis.referral.level, 'emergency');
+
+  for (const description of [
+    'A mild itchy rash appeared exactly where a new soap touched, with no fever.',
+    'My child has a high fever and cough but no rash.',
+    'My flat dark spots after acne do not fade.',
+    'I am confused about an itchy rash from soap, but I have no fever or stiff neck.',
+    'I have no fever, a contact rash, and a cough from asthma.',
+    'I have no fever, an allergy rash, and a runny nose from hay fever.',
+    'Doctor ruled out measles; I have a mild rash from soap.',
+    'Doctor ruled out meningitis; I have a mild rash from soap.',
+    'I do not have measles; I have a mild rash from soap.',
+  ]) {
+    const assessment = assessClinicalRoutine(description);
+    assert.notEqual(assessment.differential.primary?.id, 'meningitis-sepsis-warning-like', description);
+    assert.notEqual(assessment.differential.primary?.id, 'measles-rash-warning-like', description);
+    assert.notEqual(assessment.referral.level, 'emergency', description);
+    if (!description.includes('high fever')) assert.notEqual(assessment.referral.level, 'urgent', description);
+  }
+
+  const higherRiskBoundary = assessClinicalRoutine(
+    'I was told this could be measles, but the purple rash does not fade when pressed and my neck is stiff.',
+  );
+  assert.equal(higherRiskBoundary.differential.primary?.id, 'meningitis-sepsis-warning-like');
+  assert.equal(higherRiskBoundary.referral.level, 'emergency');
+  assert.equal(higherRiskBoundary.referral.urgency, 'immediate');
 });
 
 test('new guide-parity patterns preserve time-sensitive and higher-risk referral boundaries', () => {
@@ -442,6 +577,50 @@ test('new foot and nail patterns preserve close alternatives and fail closed at 
   assert.notEqual(assessClinicalRoutine('A smooth bald patch with no scale.').differential.primary?.id, 'tinea-pedis-like');
   assert.notEqual(assessClinicalRoutine('One stable normal toenail has not changed.').differential.primary?.id, 'nail-change-like');
   assert.notEqual(assessClinicalRoutine('One stable ordinary mole has not changed.').differential.primary?.id, 'changing-skin-mark-like');
+});
+
+test('diabetes-related foot changes route urgently without swallowing ordinary foot concerns', () => {
+  for (const description of [
+    'I have diabetes and a new cut on my foot.',
+    'I am diabetic and a blister on my foot does not hurt.',
+    'My diabetic foot ulcer is leaking fluid.',
+  ]) {
+    const assessment = assessClinicalRoutine(description);
+    assert.equal(assessment.differential.primary?.id, 'diabetes-foot-warning-like', description);
+    assert.equal(assessment.referral.level, 'urgent', description);
+    assert.equal(assessment.referral.urgency, 'same-day', description);
+    assert.match(assessment.referral.action, /urgent in-person foot assessment today/i, description);
+  }
+
+  for (const description of [
+    'I have diabetes and a foot wound with fever.',
+    'I have diabetes and my toe turned black.',
+  ]) {
+    const assessment = assessClinicalRoutine(description);
+    assert.equal(assessment.differential.primary?.id, 'diabetes-foot-warning-like', description);
+    assert.equal(assessment.referral.level, 'emergency', description);
+    assert.equal(assessment.referral.urgency, 'immediate', description);
+    assert.match(assessment.referral.action, /emergency hospital care now/i, description);
+  }
+
+  assert.equal(
+    assessClinicalRoutine('I have diabetes and itchy white peeling skin cracked between my toes.').differential.primary?.id,
+    'tinea-pedis-like',
+  );
+  assert.notEqual(
+    assessClinicalRoutine('One small friction blister on my heel after new shoes.').differential.primary?.id,
+    'diabetes-foot-warning-like',
+  );
+  for (const description of [
+    'I have diabetes and my feet are fine.',
+    'I have prediabetes and one friction blister on my heel after new shoes.',
+  ]) {
+    assert.notEqual(
+      assessClinicalRoutine(description).differential.primary?.id,
+      'diabetes-foot-warning-like',
+      description,
+    );
+  }
 });
 
 test('eye and infection warning terms interrupt ordinary guidance', () => {

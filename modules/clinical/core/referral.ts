@@ -1,4 +1,12 @@
 import type { BarrierAssessment, ClinicalFinding, DifferentialAssessment, PatientProfile, ReferralAssessment } from './types';
+import {
+  hasAffirmedAlertnessOrSeizureWarning,
+  hasAffirmedFever,
+  hasAffirmedInfantMeningitisWarning,
+  hasAffirmedNamedDiagnosis,
+  hasAffirmedStiffNeck,
+  hasNonFadingRash,
+} from './fever-rash-signals';
 
 const emergencyTerms = ['trouble breathing', 'difficulty breathing', 'struggling to breathe', 'swollen tongue', 'tongue is swollen', 'swollen throat', 'throat is swollen', 'fainting', 'anaphylaxis'];
 const urgentTerms = ['rapidly spreading', 'severe pain', 'eye swelling', 'face swelling', 'blistering', 'skin peeling', 'fever', 'infected', 'painful rash', 'eye pain', 'blurred vision', 'light sensitivity', 'red eye', 'hot and swollen', 'chills', 'shivery'];
@@ -34,6 +42,25 @@ const medicineMention = /\b(?:medicine|medication|drug|antibiotic|painkiller)\b/
 const rapidMouthFaceEmergency = /\b(?:gum|gums|mouth)\b.{0,120}\b(?:cheek|face|facial|tissue)\b/i;
 const cannotSwallowOrDrink = /\b(?:(?:cannot|can't|could not|couldn't|unable to)\s+(?:swallow|drink)|(?:difficulty|trouble)\s+(?:with\s+)?(?:swallowing|drinking)|(?:difficult|hard|very\s+hard)\s+to\s+(?:swallow|drink))\b/i;
 const severeMouthFaceDecline = /\b(?:confusion|confused|collapse|collapsed|severe weakness|very weak)\b/i;
+const chemicalBurnExposure = /\b(?:chemical burn|acid burn|alkali burn|caustic burn)\b/i;
+const corrosiveSkinExposure = (
+  /\b(?:chemical|acid|alkali|bleach|caustic soda|drain cleaner|oven cleaner|battery acid|corrosive)\b.{0,96}\b(?:splashed|spilled|exposed|on (?:my|the) skin|burn|burning|stinging|pain)\b/i
+);
+function hasYellowSkinOrEyes(text: string) {
+  const normalized = text.toLowerCase();
+  if (/\b(?:raised yellow (?:skin )?lesions?|yellow (?:skin )?lesions?|yellow scale|yellow nail|thick yellow toenail)\b/.test(normalized)) return false;
+  return /\b(?:yellow|yellowing|yellowed)\b.{0,48}\b(?:skin|eyes?|whites? of (?:my|the) eyes?)\b/.test(normalized)
+    || /\b(?:skin|eyes?|whites? of (?:my|the) eyes?)\b.{0,48}\b(?:yellow|yellowing|yellowed)\b/.test(normalized);
+}
+
+function hasGenitalSymptom(text: string) {
+  const normalized = text.toLowerCase();
+  if (/\b(?:normal|usual)\s+(?:vaginal\s+)?discharge\b/.test(normalized) && !/\b(?:changed|unusual|smelly|strong smell|green|yellow|bloody)\b/.test(normalized)) return false;
+  const genitalArea = /\b(?:genital|genitals|vagina|vaginal|vulva|penis|penile|urethra|urethral|anus|anal)\b/.test(normalized);
+  const relevantSymptom = /\b(?:unusual|changed|smelly|strong-smelling|green|yellow|bloody)?\s*discharge\b/.test(normalized)
+    || /\b(?:sore|sores|ulcer|ulcers|blister|blisters)\b/.test(normalized);
+  return genitalArea && relevantSymptom;
+}
 
 function hasSevereMedicineReactionWarning(text: string) {
   if (namedSevereMedicineReaction.test(text)) return true;
@@ -73,6 +100,7 @@ export function assessReferral(input: {
   differential: DifferentialAssessment;
 }): ReferralAssessment {
   const normalized = input.text.toLowerCase();
+  const primaryId = input.differential.primary?.id;
   if (strokeWarningPatterns.some(pattern => pattern.test(input.text))) return {
     level: 'emergency', urgency: 'immediate', reasons: ['Sudden weakness or speech trouble was reported.'],
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
@@ -99,6 +127,15 @@ export function assessReferral(input: {
   };
 
   if (
+    primaryId === 'chemical-burn-exposure-like'
+    || chemicalBurnExposure.test(input.text)
+    || corrosiveSkinExposure.test(input.text)
+  ) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['A chemical splash or chemical-burn warning pattern was reported.'],
+    action: 'Call emergency services now. Remove contaminated clothing if safe, brush dry chemical off before using water, then rinse with plenty of cool or lukewarm running water while help is arranged. Do not apply cream or another chemical; go to hospital.',
+  };
+
+  if (
     rapidMouthFaceEmergency.test(input.text)
     && (cannotSwallowOrDrink.test(input.text) || severeMouthFaceDecline.test(input.text))
   ) return {
@@ -106,11 +143,73 @@ export function assessReferral(input: {
     action: 'Seek emergency hospital care now. Do not wait for skincare, mouthwash or home treatment to work.',
   };
 
+  const nonFadingRash = hasNonFadingRash(normalized);
+  const severeHeadache = /\bsevere headache\b/.test(normalized)
+    && !/\b(?:no|without|not having)\s+(?:a\s+)?severe headache\b/.test(normalized);
+  const feverOrSevereHeadache = hasAffirmedFever(normalized) || severeHeadache;
+  const neurologicalWarning = hasAffirmedStiffNeck(normalized)
+    || hasAffirmedAlertnessOrSeizureWarning(normalized)
+    || hasAffirmedInfantMeningitisWarning(normalized);
+  const meningitisWarning = (
+    primaryId === 'meningitis-sepsis-warning-like'
+    || hasAffirmedNamedDiagnosis(normalized, /\b(?:meningitis|meningococcal(?: meningitis| sepsis)?)\b/)
+    || nonFadingRash
+    || (feverOrSevereHeadache && neurologicalWarning)
+  );
+  if (meningitisWarning) return {
+    level: 'emergency', urgency: 'immediate', reasons: ['A non-fading rash or another meningitis warning pattern was reported.'],
+    action: 'Seek emergency hospital care now. Do not wait for every symptom or for a rash, and do not rely on skincare or self-treatment.',
+  };
+
   const emergency = hits(normalized, emergencyTerms);
   if (emergency.length) return {
     level: 'emergency', urgency: 'immediate', reasons: emergency.map(term => `Reported ${term}.`),
     action: 'Seek emergency care now. Do not rely on skincare self-treatment.',
   };
+
+  const measlesWarning = primaryId === 'measles-rash-warning-like'
+    || hasAffirmedNamedDiagnosis(normalized, /\bmeasles\b/);
+  if (measlesWarning) {
+    const emergencyWarning = (
+      hasAffirmedAlertnessOrSeizureWarning(normalized)
+      || hasAffirmedStiffNeck(normalized)
+      || cannotSwallowOrDrink.test(normalized)
+      || /\b(?:cannot|can't|unable to)\s+(?:drink|keep fluids down)\b/.test(normalized)
+      || /\b(?:severe difficulty breathing|struggling to breathe)\b/.test(normalized)
+    );
+    return emergencyWarning ? {
+      level: 'emergency', urgency: 'immediate', reasons: ['A fever-and-spreading-rash pattern with an emergency warning sign was reported.'],
+      action: 'Seek emergency hospital care now. Call ahead if possible, avoid close contact, and do not rely on skincare or self-treatment.',
+    } : {
+      level: 'urgent', urgency: 'same-day', reasons: ['A contagious fever-and-spreading-rash pattern was reported.'],
+      action: 'Arrange same-day medical assessment and call the health facility before arriving. Avoid close contact and do not rely on skincare or self-start vitamin A or antibiotics.',
+    };
+  }
+
+  if (
+    primaryId === 'jaundice-warning-like'
+    || hasAffirmedNamedDiagnosis(normalized, /\bjaundice\b/)
+    || hasYellowSkinOrEyes(input.text)
+  ) return {
+    level: 'urgent', urgency: 'same-day', reasons: ['Yellowing of the skin or whites of the eyes was reported.'],
+    action: 'Arrange urgent medical assessment today. Yellow skin can be harder to see on brown or black skin, so yellowing in the whites of the eyes is an important cue. Do not wait for skincare to change it.',
+  };
+
+  if (primaryId === 'genital-symptom-warning-like' || hasGenitalSymptom(input.text)) {
+    const sameDayWarning = (
+      hasAffirmedFever(normalized)
+      || /\bsevere\s+(?:lower[- ]abdominal|pelvic|testicular)\s+pain\b/.test(normalized)
+      || /\b(?:sudden severe|severely painful)\b.{0,32}\b(?:testicle|testicles|scrotum)\b/.test(normalized)
+      || /\b(?:testicle|testicles|scrotum)\b.{0,32}\b(?:sudden severe pain|severely painful|swollen)\b/.test(normalized)
+    );
+    return sameDayWarning ? {
+      level: 'urgent', urgency: 'same-day', reasons: ['A genital symptom with fever or severe pain was reported.'],
+      action: 'Arrange same-day urgent in-person care. Ask for a private sexual-health assessment and testing; symptoms alone cannot identify the cause.',
+    } : {
+      level: 'primary-care', urgency: 'soon', reasons: ['A genital sore, blister or unusual discharge was reported.'],
+      action: 'Arrange a confidential sexual-health or clinician assessment and testing promptly. Symptoms alone cannot identify the cause. Avoid sex without a condom until you have been assessed.',
+    };
+  }
 
   if (
     suddenOneSidedLimbSwelling.test(input.text)
@@ -120,7 +219,6 @@ export function assessReferral(input: {
     action: 'Arrange same-day in-person medical assessment for a serious cause. Do not rely on skincare self-treatment.',
   };
 
-  const primaryId = input.differential.primary?.id;
   const hivesPattern = primaryId === 'urticaria-like' || mentionsNamedPattern(normalized, /\b(?:hives|urticaria|nettle rash)\b/);
   if (
     hivesPattern
@@ -134,6 +232,27 @@ export function assessReferral(input: {
     level: 'urgent', urgency: 'same-day', reasons: ['A rapidly worsening gum-to-face warning pattern was reported.'],
     action: 'Arrange urgent in-person medical assessment today. Do not wait for skincare, mouthwash or home treatment to work.',
   };
+
+  const diabetesFootChange = primaryId === 'diabetes-foot-warning-like' || (
+    /\b(?:diabetes|diabetic)\b/.test(normalized)
+    && /\b(?:foot|feet|toe|toes|heel)\b/.test(normalized)
+    && /\b(?:wound|cut|blister|ulcer|broken skin|changing colou?r|changed colou?r|hot and swollen|cold and pale|cold and blue|turned black|pus|leaking fluid|bad smell)\b/.test(normalized)
+  );
+  if (diabetesFootChange) {
+    const limbOrLifeThreat = /\b(?:gangrene|black tissue|confusion|fast breathing)\b/.test(normalized)
+      || /\b(?:foot|toe)\b.{0,48}\b(?:turned black|cold and pale|cold and blue)\b/.test(normalized)
+      || (
+        /\b(?:wound|ulcer|broken skin)\b/.test(normalized)
+        && hits(normalized, ['fever']).length > 0
+      );
+    return limbOrLifeThreat ? {
+      level: 'emergency', urgency: 'immediate', reasons: ['A diabetes-related foot change with a limb- or life-threatening warning sign was reported.'],
+      action: 'Seek emergency hospital care now. Keep weight off the foot and do not cut the area or apply corn, wart or skincare treatment.',
+    } : {
+      level: 'urgent', urgency: 'same-day', reasons: ['An active foot wound or change was reported in a person with diabetes.'],
+      action: 'Arrange urgent in-person foot assessment today. Keep weight off the foot, cover broken skin with a clean dry dressing, and do not burst, cut or apply corn or wart acids.',
+    };
+  }
 
   const urgent = hits(normalized, urgentTerms);
   if (urgent.length || input.findings.some(item => item.severity === 'urgent')) return {
@@ -159,6 +278,11 @@ export function assessReferral(input: {
       action: 'Arrange a prompt in-person medical examination, including an eye assessment. Do not start treatment on your own.',
     };
   }
+
+  if (primaryId === 'hyperhidrosis-like' || mentionsNamedPattern(normalized, /\bhyperhidrosis\b/)) return {
+    level: 'primary-care', urgency: 'soon', reasons: ['A sudden, persistent, night-time or daily-life-limiting sweating pattern was reported.'],
+    action: 'Arrange a clinician or pharmacist review to look for a cause and discuss safe options. Do not stop a prescribed medicine on your own.',
+  };
 
   if (primaryId === 'chronic-lymphoedema-like' || mentionsNamedPattern(normalized, /\b(?:lymphatic filariasis|elephantiasis|lymphoedema|lymphedema)\b/)) return {
     level: 'primary-care', urgency: 'soon', reasons: ['A persistent swelling-with-skin-change pattern was reported.'],

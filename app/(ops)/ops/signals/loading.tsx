@@ -1,99 +1,77 @@
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from './signals.module.css';
 
-function SkeletonLine({ width = 'full' }: { width?: 'short' | 'medium' | 'full' }) {
+function SkeletonLine({ width }: { width: 'short' | 'medium' | 'full' }) {
   return <span className={styles.skeletonLine} data-width={width} />;
 }
 
 export default function LoadingSignals() {
   return (
     <OpsWorkspace title="Signals">
-      <div className={styles.monitor} role="status" aria-label="Loading signals">
-        <section className={styles.summary} aria-hidden="true">
-          <div className={styles.skeletonStack}>
-            <SkeletonLine width="short" />
-            <SkeletonLine width="medium" />
-            <span className={styles.skeletonTotal} />
-          </div>
-          <div className={`${styles.skeletonStack} ${styles.skeletonComparison}`}>
-            <SkeletonLine width="medium" />
-            <SkeletonLine width="full" />
-            <SkeletonLine width="short" />
-          </div>
-        </section>
-        <section className={styles.section} aria-hidden="true">
-          <div className={styles.skeletonHeading}>
-            <div className={styles.skeletonStack}>
+      <div className={styles.surface} role="status" aria-label="Loading signals">
+        <section className={styles.featureRail} aria-hidden="true">
+          {Array.from({ length: 2 }).map((_, card) => (
+            <span className={styles.skeletonCard} key={card}>
+              <SkeletonLine width="short" />
               <SkeletonLine width="medium" />
+              <span className={styles.skeletonNumber} />
               <SkeletonLine width="full" />
-            </div>
-            <SkeletonLine width="short" />
-          </div>
-          <div className={styles.skeletonCampaigns}>
+              <SkeletonLine width="medium" />
+            </span>
+          ))}
+        </section>
+
+        <section className={styles.section} aria-hidden="true">
+          <span className={styles.skeletonHeading} />
+          <div className={styles.skeletonSources}>
             {Array.from({ length: 4 }).map((_, row) => (
               <span className={styles.skeletonRow} key={row} />
             ))}
           </div>
         </section>
-        <section className={styles.summary} aria-hidden="true">
-          <div className={styles.skeletonStack}>
-            <SkeletonLine width="short" />
-            <SkeletonLine width="medium" />
-            <span className={styles.skeletonTotal} />
-          </div>
-          <div className={`${styles.skeletonStack} ${styles.skeletonComparison}`}>
-            <SkeletonLine width="medium" />
-            <SkeletonLine width="full" />
-            <SkeletonLine width="short" />
-          </div>
-        </section>
+
         <section className={styles.section} aria-hidden="true">
-          <div className={styles.skeletonHeading}>
-            <div className={styles.skeletonStack}>
-              <SkeletonLine width="medium" />
-              <SkeletonLine width="full" />
-            </div>
-            <SkeletonLine width="short" />
-          </div>
-          <div className={styles.choiceList}>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div className={styles.skeletonStack} key={index}>
-                <SkeletonLine width="full" />
-                <SkeletonLine width="short" />
-                <span className={styles.skeletonBar} />
-              </div>
+          <span className={styles.skeletonHeading} />
+          <div className={styles.skeletonPositions}>
+            {Array.from({ length: 5 }).map((_, item) => (
+              <span className={styles.skeletonBar} key={item} />
             ))}
           </div>
         </section>
+
         <div className={styles.rankedColumns} aria-hidden="true">
           {Array.from({ length: 2 }).map((_, column) => (
             <section className={styles.section} key={column}>
-              <div className={styles.skeletonStack}>
-                <SkeletonLine width="medium" />
-                <SkeletonLine width="full" />
-              </div>
+              <span className={styles.skeletonHeading} />
               <div className={styles.skeletonRows}>
-                {Array.from({ length: 5 }).map((_, row) => (
+                {Array.from({ length: 5 }).map((__, row) => (
                   <span className={styles.skeletonRow} key={row} />
                 ))}
               </div>
             </section>
           ))}
         </div>
+
         <section className={styles.section} aria-hidden="true">
-          <div className={styles.skeletonHeading}>
-            <div className={styles.skeletonStack}>
-              <SkeletonLine width="medium" />
-              <SkeletonLine width="full" />
-            </div>
-            <SkeletonLine width="short" />
-          </div>
-          <div className={styles.skeletonRows}>
-            {Array.from({ length: 5 }).map((_, row) => (
-              <span className={styles.skeletonRow} key={row} />
+          <span className={styles.skeletonHeading} />
+          <div className={styles.skeletonRecent}>
+            {Array.from({ length: 8 }).map((_, row) => (
+              <span className={styles.skeletonRecentRow} key={row}>
+                <span className={styles.skeletonRecentVisual} />
+                <span className={styles.skeletonRecentCopy}>
+                  <SkeletonLine width="full" />
+                  <SkeletonLine width="medium" />
+                  <SkeletonLine width="short" />
+                </span>
+              </span>
             ))}
           </div>
         </section>
+
+        <div className={styles.boundary} aria-hidden="true">
+          <span className={styles.skeletonBoundary} />
+          <span className={styles.skeletonBoundary} />
+        </div>
       </div>
     </OpsWorkspace>
   );

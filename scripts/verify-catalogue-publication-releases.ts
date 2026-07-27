@@ -1,9 +1,26 @@
 import dossierManifest from '../data/catalogue-publication-dossiers.json';
 import releaseManifest from '../data/catalogue-publication-releases.json';
 import { catalogueIntakeCandidates } from '../data/catalogue-intake';
+import type { CataloguePublicationDossierManifest } from '../lib/catalogue/publication-dossier';
 import { verifyCataloguePublicationReleaseManifest } from '../lib/catalogue/publication-release';
+import type { CataloguePublicationReleaseManifest } from '../lib/catalogue/publication-release';
+import {
+  assertCataloguePublicationProjectionMatches,
+  compileCataloguePublicationSources,
+  readCataloguePublicationSourceFiles,
+} from '../lib/catalogue/publication-source';
 
-function main() {
+async function main() {
+  const sourceFiles = await readCataloguePublicationSourceFiles();
+  const compilation = compileCataloguePublicationSources(
+    catalogueIntakeCandidates,
+    sourceFiles,
+  );
+  assertCataloguePublicationProjectionMatches(
+    dossierManifest as CataloguePublicationDossierManifest,
+    releaseManifest as CataloguePublicationReleaseManifest,
+    compilation,
+  );
   const report = verifyCataloguePublicationReleaseManifest(
     catalogueIntakeCandidates,
     dossierManifest,
@@ -28,11 +45,12 @@ function main() {
 
   console.log(`Verified ${report.releaseCount} explicit public catalogue releases.`);
   console.log(`Materialized ${report.products.length} dossier-bound public products.`);
+  console.log(
+    `${compilation.sources.length} immutable per-SKU sources compile to both checked-in projections.`,
+  );
 }
 
-try {
-  main();
-} catch (error) {
-  console.error(error);
+main().catch(error => {
+  console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
-}
+});
