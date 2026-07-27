@@ -82,7 +82,12 @@ CI runs `npm run assets:verify` against every product and editorial Blob. `/imag
 
 ### Exact-SKU private review runtime
 
-New exact-SKU work begins in `data/catalogue-intake.json` and is inspected with `npm run catalogue:intake:audit`. Build its dedicated environment at a path that is never shared with the frozen bulk pipeline:
+New exact-SKU work begins in one
+`data/catalogue-intake-candidates/<candidate-id>.json` source envelope. The
+compiler verifies and projects those records into `data/catalogue-intake.json`;
+inspect the projection with `npm run catalogue:intake:verify` and
+`npm run catalogue:intake:audit`. Build its dedicated environment at a path that
+is never shared with the frozen bulk pipeline:
 
 ```bash
 python3.12 -m venv .cache/reviewed-packshot-venv

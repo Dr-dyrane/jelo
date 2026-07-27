@@ -29,6 +29,7 @@ This is the entry point for product, engineering, data, and operations.
 ## Product systems
 
 - [Inventory experience](./INVENTORY_EXPERIENCE.md)
+- [2026 catalogue benchmark](./research/2026-07-26-inventory-catalogue-benchmark.md)
 - [Retail intelligence](./RETAIL_INTELLIGENCE.md)
 - [Nigeria retailer reference](./NIGERIA_RETAILERS.md)
 - [Smart store guide](./retailers/SMART_STORE_GUIDE.md)
@@ -43,6 +44,7 @@ This is the entry point for product, engineering, data, and operations.
 ## Publication and media
 
 - [Catalogue publication gate](./CATALOGUE_PUBLICATION_GATE.md)
+- [Exact-SKU packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md)
 - [Product image workflow](./PRODUCT_IMAGE_WORKFLOW.md)
 - [Infrastructure](./INFRASTRUCTURE.md)
 
@@ -67,7 +69,7 @@ Documentation explains the system. Code and checked-in manifests enforce it.
 | --- | --- |
 | Public catalogue records | `data/catalogue.ts`, `data/published-intake-products.ts`, and `lib/catalogue/repository.ts` |
 | Catalogue pipeline counts | `npm run catalogue:pipeline:status` |
-| Candidate readiness | `data/catalogue-intake.json` and `lib/catalogue/intake-readiness.ts` |
+| Candidate source and readiness | `data/catalogue-intake-candidates/`, generated `data/catalogue-intake.json`, and `lib/catalogue/intake-readiness.ts` |
 | Explicit publication | `data/catalogue-publication-dossiers.json` and `data/catalogue-publication-releases.json` |
 | Database shape | Ordered files in `db/migrations/` |
 | Environment names | `.env.example` plus direct `process.env` reads |
