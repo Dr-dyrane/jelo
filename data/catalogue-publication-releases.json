@@ -937,6 +937,54 @@
         "publishedAt": "2026-07-28T14:25:00Z"
       },
       "releaseFingerprint": "15876b9c9c97b937cfe70195463e3ea0e778369e8ca76049725dd111c46204e9"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-hydra-glow-sun-protection-gel-60ml",
+      "dossierFingerprint": "57d2c25fc01fa1ec7b017ec6c6b4163f855da3927cda8299706839559aa12441",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Transparent daily sun protection.",
+        "usage": "Apply as the final morning step 15 minutes before sun exposure. Reapply every two hours and after swimming or sweating.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-28T15:52:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-28T15:52:00Z"
+      },
+      "releaseFingerprint": "b5139aeb056bbc916b452d26d20a9b429c818cd47ba1d5a72b650c410e45a69e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "dossierFingerprint": "7acb8c9050ce2a8c5cda4387c09dd4ba0048a79354788ed5c58907ba2b8b0e88",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Lightweight niacinamide hydration.",
+        "usage": "Shake well. Apply a few drops to clean, dry skin morning or evening and massage until absorbed.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-28T15:52:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-28T15:52:00Z"
+      },
+      "releaseFingerprint": "517a816fbab7f4dee433e29b38fa249b7dca1664f005f57a5f25844d11d32057"
     }
   ]
 }

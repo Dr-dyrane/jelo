@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   cataloguePublicationApprovalScope,
+  catalogueReferencePublicationApprovalScope,
   createVerifiedCataloguePublicationDossier,
   type CataloguePublicationDossierManifest,
 } from '@/lib/catalogue/publication-dossier';
@@ -124,6 +125,7 @@ async function main() {
     ?? 'JeloCare catalogue publication reviewer';
   const releaseReviewer = optionalOption('release-reviewer')
     ?? 'JeloCare catalogue release reviewer';
+  const referenceOnly = process.argv.includes('--reference-only');
   const write = process.argv.includes('--write');
   const asOf = Date.now();
 
@@ -144,7 +146,9 @@ async function main() {
   const dossier = await createVerifiedCataloguePublicationDossier(
     candidate as CatalogueIntakeCandidate,
     {
-      scope: cataloguePublicationApprovalScope,
+      scope: referenceOnly
+        ? catalogueReferencePublicationApprovalScope
+        : cataloguePublicationApprovalScope,
       reviewer: approvalReviewer,
       approvedAt,
     },

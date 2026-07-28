@@ -15,6 +15,7 @@ const status = buildCataloguePipelineStatus({
   researchPriorityCount: researchQueue.selectedCount,
   privateDossierCount: dossierManifest.dossiers.length,
   explicitReleaseCount: releaseManifest.releases.length,
+  releasedCandidateIds: releaseManifest.releases.map(release => release.candidateId),
 }, catalogueIntakeDecisions);
 
 if (process.argv.includes('--json')) console.log(JSON.stringify(status, null, 2));

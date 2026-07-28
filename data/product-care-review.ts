@@ -714,6 +714,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-28',
   },
+  'dang-hydra-glow-sun-protection-gel-60ml': {
+    productSlug: 'dang-hydra-glow-sun-protection-gel-60ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml',
+      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+    ],
+    reviewedAt: '2026-07-28',
+  },
+  'facefacts-soothe-glow-niacinamide-serum-30ml': {
+    productSlug: 'facefacts-soothe-glow-niacinamide-serum-30ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://facefacts.me/products/soothe-glow-niacinamide-serum',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-07-28',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

@@ -19,9 +19,10 @@ Retailer discovery
   -> deliberate per-SKU intake
   -> identity and package evidence
   -> bounded care review
-  -> exact Nigerian offer evidence
   -> rights and image review
-  -> approval-ready candidate
+  -> choose release route
+       -> current-market: exact Nigerian offers
+       -> reference-only: no market claims
   -> private dossier
   -> immutable release
   -> public catalogue
@@ -251,7 +252,11 @@ Use exactly one canonical route. Keep the GTIN route whenever the manufacturer p
 
 Verification reopens the retained bytes and requires the manufacturer brand, reviewed aliases, manufacturer SKU, variant, size and package together in that record. Brand and aliases must come from explicit `Brand`, `Vendor`, or `Manufacturer` fields or labels, not descriptive copy. The complete representation is scanned for structured identifier keys; a null-barcode claim cannot coexist with another structured identifier. Persist the exact package and capture binding in the schema-2 manufacturer crosswalk. Duplicate checks use the stable manufacturer-owned key, size and package, with a second official-route/size/package guard against mixed GTIN and manufacturer-SKU admission.
 
-An identity resolution does not imply a release. `catalogue:pipeline:status` keeps candidates whose identity passed but whose care, Nigerian offer, rights, editorial, or approval gates remain open in the `identityResolvedPrivate` lane. This is the durable handoff for terminal research: operators can see that identity work is complete without mistaking the candidate for a public product.
+An identity resolution does not imply a release. `catalogue:pipeline:status`
+keeps candidates whose identity passed but whose care, rights, provenance,
+final-image, editorial, or approval gates remain open in the
+`identityResolvedPrivate` lane. Missing Nigerian offers alone should route the
+product to reference-only publication, not leave it private.
 
 Retailer SKUs remain retailer-local. Never promote one into a manufacturer GTIN or manufacturer SKU. Identity artifacts are checked against their exact retained bytes and hashes. Package revisions must stay distinct.
 
@@ -266,7 +271,12 @@ Care review establishes a narrow role, not a marketing claim.
 - NAFDAC status is useful context; pending status is not a publication blocker.
 - Keep neutral catalogue references out of clinical matching.
 
-## 6. Capture Nigerian offers
+## 6. Capture Nigerian offers when making market claims
+
+Exact Nigerian offers are required only for price, store, stock, ranking, and
+share-priority claims. If identity, care, rights/provenance, and final-image
+review pass but current offers do not, use the reference-only release in step
+9. It materializes no offers and market research may continue independently.
 
 An exact observation binds:
 
@@ -376,7 +386,11 @@ npm run catalogue:intake:audit
 npm test
 ```
 
-An approval-ready result means the code gate found no blocker. It is not public yet.
+An approval-ready result means the full market route passed. A candidate whose
+only blockers are `nigeria-exact-offer-missing`,
+`nigeria-offer-identity-unbound`, or
+`nigeria-market-route-insufficient` may use reference-only instead. Neither
+state is public until the explicit release succeeds.
 
 ## 9. Create the dossier and release
 
@@ -405,6 +419,29 @@ Review the fingerprints, then repeat with `--write`. The operator reopens all
 retained identity and offer artifacts, writes the dossier and release manifests
 atomically, and rejects duplicate canonical identities and cross-route package
 collisions.
+
+When only the allowed Nigerian market blockers remain, append
+`--reference-only`:
+
+```bash
+npm run catalogue:publication:release -- \
+  --candidate <candidate-id> \
+  --approved-at <ISO-time> \
+  --presentation-reviewed-at <ISO-time> \
+  --published-at <ISO-time> \
+  --category <Face-or-Hair-or-Body> \
+  --routine-step <step> \
+  --display-line <short-line> \
+  --usage <bounded-directions> \
+  --directions-url <official-url> \
+  --reference-only
+```
+
+This route records `marketRoute: "reference-only"` and `exactOffers: []`.
+Public UI must not infer a price, retailer, stock state, offer order, trend, or
+share priority. Later exact identity-bound persisted offers may enrich the
+product through the publication boundary without changing its verified
+identity, care, rights, or image approval.
 
 Regenerate the research projection:
 

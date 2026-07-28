@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+    "candidateFingerprint": "5ed3181ac91956b6a43c3f78d5264eda19cb795a809dfe6d28eadadb1b9a40b5",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "43771-150",
+        "label": "SKU"
+      },
+      "officialProductCrosswalk": {
+        "schemaVersion": 2,
+        "canonicalManufacturerProductKey": {
+          "basis": "manufacturer-sku",
+          "value": "43771-150",
+          "manufacturerHost": "facefacts.me",
+          "sourceLocator": "Official Shopify product response variants[0].sku",
+          "sourceText": "\"sku\":\"43771-150\"",
+          "sourceTextSha256": "f0964bfe0f1d8ec2714a1c2cfd0716f92efc42d35808cc4596e86a0519024ad4"
+        },
+        "officialSourceResponseSha256": "066b8f231925a207075fc7b2c323c61b0f50f8cb0094a35f975503645b9acac7",
+        "officialProductUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+        "variant": "Soothe \\u0026 Glow Niacinamide Facial Serum",
+        "size": "30 ml",
+        "packageVersion": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork"
+      },
+      "brand": "FaceFacts",
+      "name": "Soothe & Glow Niacinamide Facial Serum",
+      "variant": "Soothe \\u0026 Glow Niacinamide Facial Serum",
+      "size": "30 ml",
+      "packageVersion": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+      "officialIdentity": {
+        "identityKind": "manufacturer-sku",
+        "url": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+        "observedManufacturerSku": "43771-150",
+        "observedManufacturerSkuLabel": "SKU",
+        "observedVariant": "Soothe \\u0026 Glow Niacinamide Facial Serum",
+        "observedSize": "30 ml",
+        "observedPackageVersion": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/facefacts-soothe-glow-niacinamide-serum-30ml.json",
+        "snapshotSha256": "c7b3d15dae17a6bca3b076fe37e754c71085c78a6c04ceca249aea5a189088d1",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 6440,
+        "retrievedAt": "2026-07-28T12:32:27Z",
+        "canonicalExtraction": {
+          "schemaVersion": 8,
+          "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+          "sourceUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+          "responseUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum.js",
+          "retrievedAt": "2026-07-28T12:32:27Z",
+          "productRecord": {
+            "locator": "Complete official localized Shopify product response root object",
+            "byteStart": 0,
+            "byteEnd": 3102,
+            "sourceText": "{\"id\":7400205418705,\"title\":\"Soothe \\u0026 Glow Niacinamide Facial Serum\",\"handle\":\"soothe-glow-niacinamide-serum\",\"description\":\"\\u003cp\\u003e\\u003cstrong\\u003e\\u003cspan style=\\\"font-size: 0.875rem;\\\"\\u003eSoothe \\u0026amp; Glow \\u003c\\/span\\u003e\\u003c\\/strong\\u003e\\u003c\\/p\\u003e\\n\\u003cp\\u003e\\u003cspan style=\\\"font-size: 0.875rem;\\\"\\u003eBoost your skin's radiance with our Niacinamide Serum. Blending multi-tasking niacinamide with skin-hydrator betaine, it restores dull, overworked complexions while protecting against environmental aggressors. Infused with amino acids, it also gives your skin a shot of lightweight, silky hydration. Vegan friendly.\\u003c\\/span\\u003e\\u003c\\/p\\u003e\\n\\u003cul\\u003e\\n\\u003cli\\u003e\\u003cspan style=\\\"font-size: 0.875rem;\\\"\\u003e30ml\\u003c\\/span\\u003e\\u003c\\/li\\u003e\\n\\u003cli\\u003e\\u003cspan style=\\\"font-size: 0.875rem;\\\"\\u003eVegan\\u003c\\/span\\u003e\\u003c\\/li\\u003e\\n\\u003c\\/ul\\u003e\\n\\u003cul\\u003e\\u003c\\/ul\\u003e\",\"published_at\":\"2024-04-23T08:21:01+01:00\",\"created_at\":\"2024-04-23T08:12:42+01:00\",\"vendor\":\"FaceFacts\",\"type\":\"Facial Serums\",\"tags\":[\"face facts\"],\"price\":599,\"price_min\":599,\"price_max\":599,\"available\":true,\"price_varies\":false,\"compare_at_price\":0,\"compare_at_price_min\":0,\"compare_at_price_max\":0,\"compare_at_price_varies\":false,\"variants\":[{\"id\":42060636356817,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"43771-150\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Soothe \\u0026 Glow Niacinamide Facial Serum\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":599,\"weight\":5,\"compare_at_price\":0,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/43771-150_fr2.jpg?v=1774528892\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/43771-150_fr1.jpg?v=1774528892\"],\"featured_image\":\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/43771-150_fr2.jpg?v=1774528892\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"\\/products\\/soothe-glow-niacinamide-serum\",\"media\":[{\"alt\":null,\"id\":69549399474555,\"position\":1,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2000,\"width\":2000,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/43771-150_fr2.jpg?v=1774528892\"},\"aspect_ratio\":1.0,\"height\":2000,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/43771-150_fr2.jpg?v=1774528892\",\"width\":2000},{\"alt\":null,\"id\":69549399507323,\"position\":2,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2000,\"width\":2000,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/43771-150_fr1.jpg?v=1774528892\"},\"aspect_ratio\":1.0,\"height\":2000,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/43771-150_fr1.jpg?v=1774528892\",\"width\":2000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}",
+            "sourceFragmentSha256": "066b8f231925a207075fc7b2c323c61b0f50f8cb0094a35f975503645b9acac7"
+          },
+          "fields": {
+            "manufacturerBrand": {
+              "value": "FaceFacts",
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor FaceFacts"
+            },
+            "manufacturerSku": {
+              "value": "43771-150",
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"43771-150\""
+            },
+            "variant": {
+              "value": "Soothe \\u0026 Glow Niacinamide Facial Serum",
+              "locator": "Raw official Shopify product response title representation; \\u0026 decodes to &",
+              "sourceText": "Soothe \\u0026 Glow Niacinamide Facial Serum"
+            },
+            "size": {
+              "value": "30ml",
+              "locator": "Official Shopify product response description size declaration",
+              "sourceText": "30ml"
+            },
+            "packageVersion": {
+              "value": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork",
+              "locator": "Official Shopify product response media[0].src, visually reviewed",
+              "sourceText": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/43771-150_fr2.jpg?v=1774528892",
+              "reviewedMedia": {
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/43771-150_fr2.jpg?v=1774528892",
+                "sourceAssetUrl": "https://facefacts.me/cdn/shop/files/43771-150_fr2.jpg?v=1774528892&width=2048",
+                "sourceAssetSha256": "c550f96114d850c9549aac2cc24c4c2d021d8d0886a86c1213aa769c916e0560"
+              }
+            },
+            "gtinPublicationStatus": {
+              "value": "not-published",
+              "locator": "Complete official response structured identifier scan and variants[0].barcode",
+              "sourceText": "{\"id\":42060636356817,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"43771-150\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Soothe & Glow Niacinamide Facial Serum\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1677,\"weight\":5,\"compare_at_price\":0,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}"
+            }
+          },
+          "sourceResponseSha256": "066b8f231925a207075fc7b2c323c61b0f50f8cb0094a35f975503645b9acac7",
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseByteSize": 3102,
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/facefacts-soothe-glow-niacinamide-serum-30ml.json",
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "reviewer": "JeloCare catalogue identity review",
+          "reviewedAt": "2026-07-28T12:39:00Z"
+        }
+      },
+      "checkedAt": "2026-07-28T12:39:30Z",
+      "demandEvidenceUrls": [
+        "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+        "https://skintoc.com/products/face-facts-niacinamide-serum-sooth-glow-30ml",
+        "https://www.eapollowholesale.co.uk/face-facts-soothe-glow-niacinamide-serum-30ml.html",
+        "https://teeka4.com/shop/facefacts-soothe-glow-niacinamide-serum-30ml/",
+        "https://www.csigrocery.com/shop/skincare/face-facts-niacinamide-serum-30ml/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on 30 ml niacinamide and betaine facial serum with glycerin, sodium hyaluronate, arginine, a phenoxyethanol-based preservative system and fragrance.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports a lightweight hydrating and radiance-focused cosmetic routine. It does not diagnose or treat acne, hyperpigmentation, rosacea, dermatitis or another condition. Shake well; apply a few drops to clean, dry skin morning or evening and massage until absorbed. Fragrance and leave-on ingredients may not suit every reactive skin: patch test, stop if burning, stinging or rash develops, and seek clinical advice for persistent, painful, spreading, infected or rapidly changing symptoms.",
+      "manufacturerEvidenceUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-07-28T12:39:45Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://facefacts.me/cdn/shop/files/43771-150_fr2.jpg?v=1774528892&width=2048",
+        "sha256": "c550f96114d850c9549aac2cc24c4c2d021d8d0886a86c1213aa769c916e0560",
+        "mimeType": "image/jpeg",
+        "byteSize": 73646,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-07-28T04:55:00Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot\nPrimary request: isolate the exact Face Facts Soothe + Glow Niacinamide Serum 30 ml retail carton shown in Image 1 onto a perfectly flat solid #00ff00 chroma-key background for local background removal.\nInput images: Image 1 is the edit target and sole authoritative product-identity and package reference.\nScene/backdrop: one perfectly uniform flat #00ff00 field; no gradient, texture, floor plane, shadow, reflection, glow, halo, or lighting variation.\nSubject: one complete upright rectangular 30 ml Face Facts Soothe + Glow Niacinamide Serum carton, including its full top, both vertical edges, bottom flap, and every visible front-pack detail. The printed dropper bottle artwork is part of the carton and must remain exactly as shown; do not turn it into a separate physical bottle.\nStyle/medium: source-faithful premium studio product photography; preserve the real package exactly.\nComposition/framing: centered, straight-on, full carton visible with generous even padding on every side; no clipping, tilt, rotation, or perspective change.\nText (verbatim): preserve every existing package word, number, symbol, line break, color, font relationship, and placement exactly as shown in Image 1, especially “facefacts.”, “SOOTHE + GLOW”, “NIACINAMIDE SERUM”, “improves radiance & uneven skin texture”, “Rejuvenating”, “Niacinamide + Betaine”, “AM + PM”, “for stressed & overworked skin”, “VEGAN”, and “30ml e / 1.01 fl. oz.”\nConstraints: change only the white background and remove the original floor/contact shadow. Preserve the carton silhouette, proportions, pale pink/purple/white colors, printed black dropper-bottle artwork, label hierarchy, icons, and all packaging details. Do not invent, correct, simplify, sharpen into new text, or restyle any label content. Do not use #00ff00 anywhere in the product.\nAvoid: redesigned label, spelling drift, missing text, cropped top or bottom, separate bottle, props, badge, extra object, watermark, cast shadow, contact shadow, reflection, floor, glow, halo, gradient, or stylization.",
+        "inputs": [
+          {
+            "url": "https://facefacts.me/cdn/shop/files/43771-150_fr2.jpg?v=1774528892&width=2048",
+            "sha256": "c550f96114d850c9549aac2cc24c4c2d021d8d0886a86c1213aa769c916e0560"
+          }
+        ],
+        "outputSha256": "938fa1f1a254cc909a5a067384f77a728b8af278d7f93a63e34445aa7cdea3fb",
+        "generatedAt": "2026-07-28T05:05:00Z",
+        "recordSha256": "446747cc526307c41a8e449b4b5a72a9f9414f1e7dc863dff51059bb57ffe26a"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-soothe-glow-niacinamide-serum-30ml/packshot-v1-938fa1f1a254cc90.png",
+      "sha256": "938fa1f1a254cc909a5a067384f77a728b8af278d7f93a63e34445aa7cdea3fb",
+      "mimeType": "image/png",
+      "byteSize": 1351170,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-07-28T12:40:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-07-28T15:52:00Z"
+    },
+    "dossierFingerprint": "7acb8c9050ce2a8c5cda4387c09dd4ba0048a79354788ed5c58907ba2b8b0e88"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+    "dossierFingerprint": "7acb8c9050ce2a8c5cda4387c09dd4ba0048a79354788ed5c58907ba2b8b0e88",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Lightweight niacinamide hydration.",
+      "usage": "Shake well. Apply a few drops to clean, dry skin morning or evening and massage until absorbed.",
+      "manufacturerDirectionsUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-07-28T15:52:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-07-28T15:52:00Z"
+    },
+    "releaseFingerprint": "517a816fbab7f4dee433e29b38fa249b7dca1664f005f57a5f25844d11d32057"
+  }
+}

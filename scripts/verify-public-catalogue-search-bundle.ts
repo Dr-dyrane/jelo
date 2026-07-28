@@ -1,5 +1,6 @@
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { privateCatalogueSearchBundleMarkers } from '../lib/catalogue/public-search-bundle-boundary';
 
 type NextTrace = {
   version: number;
@@ -17,6 +18,11 @@ const routePath = path.join(
   'route.js',
 );
 const tracePath = `${routePath}.nft.json`;
+const publicationReleasePath = path.join(
+  process.cwd(),
+  'data',
+  'catalogue-publication-releases.json',
+);
 
 // These ceilings deliberately leave room for the public projection to grow
 // toward 1,000 products while rejecting the former private research graph.
@@ -32,15 +38,6 @@ const forbiddenPathFragments = [
   '/data/catalogue-identity',
   '/data/external-catalogue',
   '/data/external-products',
-];
-
-// Both unreleased products are stable canaries for the private intake graph
-// that previously entered this endpoint's server chunk.
-const forbiddenContent = [
-  'dang-niacinamide-n-acetyl-glucosamine-serum-30ml',
-  'dang-hydra-glow-sun-protection-gel-60ml',
-  'catalogue-publication-dossiers',
-  'catalogue-intake-candidates',
 ];
 
 function parseTrace(value: unknown): NextTrace {
@@ -59,6 +56,13 @@ function parseTrace(value: unknown): NextTrace {
 }
 
 async function main() {
+  const releaseManifest = JSON.parse(
+    await readFile(publicationReleasePath, 'utf8'),
+  ) as unknown;
+  const forbiddenContent = privateCatalogueSearchBundleMarkers(
+    releaseManifest,
+  );
+
   const trace = parseTrace(JSON.parse(await readFile(tracePath, 'utf8')) as unknown);
   if (trace.files.length > maximumTraceFiles) {
     throw new Error(

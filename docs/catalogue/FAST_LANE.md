@@ -4,7 +4,9 @@ Updated: 2026-07-28
 
 Use this lane for a routine exact-SKU addition that follows the already proven
 catalogue contract. Faster means removing repeated global verification, not
-removing identity, price, care, or image evidence.
+removing identity, care, rights, provenance, or final-image evidence. Missing
+current Nigerian price or store evidence is an enrichment constraint, not a
+reason to keep an otherwise verified product private.
 
 ## Default operating mode
 
@@ -17,6 +19,20 @@ removing identity, price, care, or image evidence.
 Do not open a PR for a routine data-only SKU. Use a PR when the change alters a
 shared schema, publication gate, security boundary, migration, or runtime
 contract.
+
+## Choose the publication route
+
+- Use the full market route when exact Nigerian offers pass. Those approved
+  offers may support price, store, stock, ranking, and sharing signals.
+- Use `--reference-only` when the exact identity and package, bounded care
+  review, rights/provenance, and reviewed final image pass, and the only
+  remaining blockers are missing or unbound Nigerian offers or an insufficient
+  Nigerian market route.
+
+A reference-only release writes `marketRoute: "reference-only"` and
+`exactOffers: []`. It publishes the product reference without price, store,
+stock, offer ranking, or share-priority claims. Exact identity-bound persisted
+offers may enrich it later through the existing publication boundary.
 
 ## Token and agent budget
 
@@ -58,7 +74,15 @@ npm run catalogue:research:offers:verify
 
 Run `npm run catalogue:publication:images:verify` when a new publication image
 is uploaded or its binding changes. Run the release command as a dry run before
-using `--write`.
+using `--write`. For a product whose only open evidence is Nigerian market
+enrichment, append `--reference-only` to both the dry run and write:
+
+```bash
+npm run catalogue:publication:release -- \
+  --candidate <candidate-id> \
+  <presentation-and-timestamp-options> \
+  --reference-only
+```
 
 Never omit the projection rebuilds. The release manifests and public catalogue
 can be current while the checked-in search artifact is one product behind or
@@ -89,9 +113,10 @@ CI remains the independent full check after a direct push.
   candidate-scoped sources agree on the identifier and exact variant/size.
   Adding those URLs to the candidate corroboration allowlist is an evidence
   admission, so run the full release verification once for that change.
-- Use the manufacturer-SKU route only when current retailer responses can bind
-  the official manufacturer variant under that route's exact title, brand,
-  size, and package contract.
+- Use the manufacturer-SKU route only when the official source binds the exact
+  manufacturer variant, brand, size, package, and manufacturer-owned code and
+  publishes no GTIN. Retailer binding is required for market claims, not for a
+  reference-only product.
 - Do not rewrite the official variant, pretend a retailer SKU is a manufacturer
   identifier, or relax a title matcher to rescue one product. Preserve the
   candidate as blocked and move to the next lane when neither route is proven.
@@ -101,14 +126,17 @@ CI remains the independent full check after a direct push.
 Stop and resolve the evidence when:
 
 - manufacturer identity, variant, size, or package is ambiguous;
-- a retailer listing does not bind the exact product, current NGN price, and
-  stock state;
-- care copy exceeds the reviewed supportive-care boundary;
-- image rights, label fidelity, alpha, or package integrity are uncertain;
+- care or safety copy exceeds the reviewed supportive-care boundary;
+- image rights or source provenance are uncertain;
+- final-image integrity, hash, label fidelity, alpha, or package integrity are
+  uncertain;
 - a source or artifact hash changed unexpectedly; or
-- progress would require weakening a publication gate.
+- a retained artifact required by the chosen scope is contradictory or cannot
+  be reopened.
 
-NAFDAC context can guide research but is not a publication blocker.
+Do not weaken those gates. Missing Nigerian price, store, or stock evidence is
+not in this list: use reference-only and continue market research as
+enrichment. NAFDAC context can guide research but is not a publication blocker.
 
 ## Commit boundary
 

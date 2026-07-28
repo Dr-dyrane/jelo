@@ -26,6 +26,7 @@ type PipelineCounts = {
   researchPriorityCount: number;
   privateDossierCount: number;
   explicitReleaseCount: number;
+  releasedCandidateIds: readonly string[];
 };
 
 function nonNegativeInteger(value: number, label: string) {
@@ -39,6 +40,11 @@ export function buildCataloguePipelineStatus(
 ): CataloguePipelineStatus {
   const decisionIds = decisions.map(decision => decision.candidate.id);
   if (new Set(decisionIds).size !== decisionIds.length) throw new Error('Catalogue intake decisions are not unique.');
+  const releasedCandidateIds = new Set(counts.releasedCandidateIds);
+  if (
+    releasedCandidateIds.size !== counts.releasedCandidateIds.length
+    || releasedCandidateIds.size !== counts.explicitReleaseCount
+  ) throw new Error('Released catalogue candidate IDs do not match the explicit release count.');
   const almostReady = decisions.filter(decision => (
     !decision.approvalDraftReady
     && decision.freshExactOffers.length > 0
@@ -47,6 +53,7 @@ export function buildCataloguePipelineStatus(
   const identityResolvedPrivate = decisions.filter(decision => (
     decision.stage !== 'identity'
     && !decision.approvalDraftReady
+    && !releasedCandidateIds.has(decision.candidate.id)
   ));
   return {
     liveProductCount: nonNegativeInteger(counts.liveProductCount, 'Live product count'),

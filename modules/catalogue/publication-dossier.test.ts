@@ -19,6 +19,7 @@ import {
 } from '@/lib/catalogue/intake-readiness';
 import {
   cataloguePublicationApprovalScope,
+  catalogueReferencePublicationApprovalScope,
   cataloguePublicationDossierSchemaVersion,
   cataloguePublicationExposure,
   createCataloguePublicationDossier,
@@ -368,7 +369,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 39);
+  assert.equal(result.dossierCount, 41);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -813,6 +814,57 @@ test('cross-brand retailer authorization cannot enter a candidate dossier', () =
   }
 });
 
+test('a reference-only dossier may publish a fully reviewed product without market claims', () => {
+  const candidate = readyCandidate({
+    nigeria: {
+      regulatoryStatus: 'pending',
+      tierAIdentityEvidenceUrl: 'https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream',
+      exactOffers: [],
+      excludedObservations: [],
+    },
+  });
+  const dossier = createCataloguePublicationDossier(
+    candidate,
+    approval({ scope: catalogueReferencePublicationApprovalScope }),
+    asOf,
+  );
+
+  assert.equal(dossier.nigeria.marketRoute, 'reference-only');
+  assert.deepEqual(dossier.nigeria.exactOffers, []);
+  assert.deepEqual(dossier.nigeria.brandSellerAuthorizationEvidence, []);
+});
+
+test('reference-only publication cannot bypass non-market blockers', () => {
+  const candidate = readyCandidate({
+    care: {
+      status: 'pending',
+      formulaArchetype: '',
+      careTier: 'daily-care',
+      reviewScope: 'catalogue-supportive-care',
+      advisoryBoundary: '',
+      manufacturerEvidenceUrl: '',
+      independentClinicalGuidanceUrl: '',
+      evidenceUrls: [],
+      reviewedAt: '',
+      reviewer: '',
+    },
+    nigeria: {
+      regulatoryStatus: 'pending',
+      exactOffers: [],
+      excludedObservations: [],
+    },
+  });
+
+  assert.throws(
+    () => createCataloguePublicationDossier(
+      candidate,
+      approval({ scope: catalogueReferencePublicationApprovalScope }),
+      asOf,
+    ),
+    /not approval-ready.*care/,
+  );
+});
+
 test('a dossier cannot bypass research context, coverage-gap or demand-evidence invariants', () => {
   const candidate = readyCandidate();
   const invalidCandidates: Array<[CatalogueIntakeCandidate, RegExp]> = [
@@ -910,7 +962,19 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 39);
+  assert.equal(report.releaseCount, 41);
+  assert.deepEqual(
+    report.products.find(product => (
+      product.slug === 'dang-hydra-glow-sun-protection-gel-60ml'
+    ))?.offers,
+    [],
+  );
+  assert.deepEqual(
+    report.products.find(product => (
+      product.slug === 'facefacts-soothe-glow-niacinamide-serum-30ml'
+    ))?.offers,
+    [],
+  );
   assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
   assert.equal(report.products[0].offers[0].priceNgn, 15_265);
   assert.equal(report.products[1].slug, 'cerave-moisturising-cream-454g');

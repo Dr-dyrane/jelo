@@ -1,6 +1,6 @@
 # Catalogue publication gate
 
-Updated: 2026-07-23
+Updated: 2026-07-28
 
 ## Why the old pipeline drifted
 
@@ -12,11 +12,22 @@ This made availability in the source dataset—and the need to fill a count—ac
 
 `data/external-products.json` is a checked-in legacy research artifact. It is visible in the public repository but never enters the public catalogue by itself. The legacy approval manifest must remain empty: `gateExternalCatalogue` rejects every non-empty manifest. New exact-SKU work can advance only through the private intake dossier described below.
 
-This full publication gate governs new intake. Community bulk approvals are retired and hard-disabled. The smaller legacy static catalogue has a separate display-quality approval in `data/product-display-approvals.ts`; those records explicitly say `rightsStatus: not-verified` and must not be represented as licensed. A known reuse prohibition still causes an immediate hold.
+This publication gate governs new intake. Community bulk approvals are retired
+and hard-disabled. A verified product may use either the full market scope or
+the reference-only scope described below. Both require exact identity, bounded
+care review, rights/provenance, and a reviewed final image. The smaller legacy
+static catalogue has a separate display-quality approval in
+`data/product-display-approvals.ts`; those records explicitly say
+`rightsStatus: not-verified` and must not be represented as licensed. A known
+reuse prohibition still causes an immediate hold.
 
 The gate is fail-closed:
 
-1. Hard gates run before scoring. Score and demand can order only records that already pass.
+1. Hard gates run before scoring. They are exact identity and package, safety
+   and bounded care, rights and provenance, final-image integrity and hash, and
+   retained-evidence integrity. Score and demand can order only records that
+   already pass. Missing current Nigerian market evidence is enrichment, not a
+   hard blocker.
 2. Exact product approval binds one canonical manufacturer identity route, label/variant, measured size and package version to checked-in reviewed evidence. The established route remains the manufacturer's GTIN/EAN/UPC. Its extraction records the requested and final response URL, decoded-response-body digest scope, exact field locators and excerpts, retrieval and review times, response MIME type, byte size and SHA-256. When an official brand page blocks unattended HTTP retrieval but renders in the reviewed browser, the browser-DOM route may bind the complete rendered `document.outerHTML`, page title, complete-document state and browser surface. It cannot use a partial page, non-HTML response or redirected final response. Existing GTIN candidates and fingerprints remain unchanged. A retailer's internal SKU is store metadata only and cannot establish canonical identity.
 
    A manufacturer-SKU route is additive and allowed only when the exact official product record explicitly labels a manufacturer-owned `SKU`, `Manufacturer SKU`, or `Product code` and publishes no GTIN. It requires extraction schema 8, an exact variant, measured size, package version, an attributed review, and machine-recheckable no-GTIN proof. A complete rendered DOM is retained as `data/catalogue-identity-source-evidence/<candidate>.html`; an exact official JSON product response is retained byte-for-byte at the corresponding `.json` path. The structured route is allowed only for the same-origin canonical `/products/<handle>.js` endpoint derived from the reviewed human product page, with either JSON MIME or Shopify's `text/javascript` JSON response. A captured localization query must contain only `country`, `currency`, and numeric `v` parameters. The response is never transformed into synthetic HTML. The evidence binds the exact byte count and SHA-256 plus the byte range and fragment hash for the one product record used. Verification reopens those exact bytes. Manufacturer brand, accepted aliases, manufacturer SKU, variant, size and package must occur together in that record, and the brand or alias must be an explicit `Brand`, `Vendor`, or `Manufacturer` field or label rather than descriptive prose. A visually reviewed package description may bind to a versioned official media URL in that same response and its already hash-bound source asset; this is identity evidence, not an image-rights claim.
@@ -26,7 +37,28 @@ The gate is fail-closed:
 4. NAFDAC research is contextual, never a catalogue publication gate. When a match is recorded, it remains typed, reviewer-attributed and bound to the authority response and exact candidate so JeloCare does not overstate what was observed. Missing, pending or stale NAFDAC evidence does not hide an otherwise verified product, price or image. It also cannot create a clinical claim, recommendation or seller-authenticity claim.
 
 An unresolved public registry search is durable context. The intake record may retain the exact query, decoded response hash, MIME type, byte size, retrieval and review time, and zero-result counts. Its caveat must state that no active public match is not proof of non-registration.
-5. Market evidence must declare exactly one route: Tier-A identity evidence plus two independent fresh exact Nigerian offers, or brand-confirmed Nigerian authorization plus one fresh exact offer. Conflicting optional route claims fail closed. Every qualifying offer binds its exact listing/final response URL, decoded-body digest metadata, retrieval and review times, title, size, package when required, NGN price and stock excerpts. GTIN candidates retain explicit GTIN/EAN/UPC correlation. A product-gallery back label may supply that identifier only when the exact image response, byte hash, MIME type, listing locator, barcode symbology and decoded digits are bound to the listing; title, size, price and stock still come from the listing response.
+5. Market evidence declares one of three routes. The full market scope uses
+   Tier-A identity evidence plus two independent fresh exact Nigerian offers,
+   or brand-confirmed Nigerian authorization plus one fresh exact offer. The
+   reference-only scope is allowed when all hard gates pass and the only
+   remaining blockers are `nigeria-exact-offer-missing`,
+   `nigeria-offer-identity-unbound`, or
+   `nigeria-market-route-insufficient`. It records
+   `marketRoute: "reference-only"` and `exactOffers: []`.
+
+   Reference-only publishes the verified product, not a market claim. It cannot
+   show or imply price, retailer, stock, offer ranking, price trend, or
+   share-priority evidence. Exact identity-bound persisted offers may enrich
+   the public record later through the existing publication boundary. If full
+   market evidence already passes, the full scope is required.
+
+   Every qualifying full-scope offer binds its exact listing/final response
+   URL, decoded-body digest metadata, retrieval and review times, title, size,
+   package when required, NGN price and stock excerpts. GTIN candidates retain
+   explicit GTIN/EAN/UPC correlation. A product-gallery back label may supply
+   that identifier only when the exact image response, byte hash, MIME type,
+   listing locator, barcode symbology and decoded digits are bound to the
+   listing; title, size, price and stock still come from the listing response.
 
    Manufacturer-SKU candidates use exact-offer schema 3. The complete retailer response is retained at `data/catalogue-offer-source-evidence/<candidate>--<retailer>.html` or the corresponding `.json` path, with its byte count and SHA-256 plus the byte range and fragment hash for one exact offer record. Brand, title, size, package, price and stock must all occur in that same record. The correlation binds the offer to the immutable official identity snapshot and canonical manufacturer SKU. Retailer brand evidence must be an explicit `Brand`, `Vendor`, or `Manufacturer` field or label, equal to the official manufacturer brand or an alias retained inside the official product record. Incidental prose and unreviewed candidate aliases cannot authorize an offer. A variant-only retailer title is accepted only beside that explicit same-record brand field; foreign and dual-brand listings fail even when their variant, size and package happen to match. The retailer's own SKU remains untrusted local metadata and never participates in equality.
 
@@ -35,7 +67,10 @@ An unresolved public registry search is durable context. The intake record may r
 7. Untouched licensed photography, permitted official brand media, owned editorial photography, or a JeloCare-owned identity-verified render may pass. Source-pixel isolation remains private until a checked-in typed record binds the source and output hashes, pipeline, model, runtime, audit and reviewer chronology into the dossier. Styled composites are not a packshot origin and are rejected even if their background treatment is relabelled.
 8. A generated render is a valid route around source-image reuse restrictions, not around identity review. Its canonical content-addressed generation record names the provider, model, full prompt, every input URL and SHA-256, exact output SHA-256 and generation time. The gate recomputes the record hash, requires the immutable source asset among its inputs, rejects an input reused as the output, and enforces source retrieval → generation → full-resolution art review → publication approval. Label, variant, size, packaging geometry and required marks must match the manufacturer product, and packaging cannot be invented.
 9. Unreviewed automated output cannot pass. A transparent isolation or generated render needs full-resolution side-by-side review, clean edges on every product surface, and no altered label or chroma fringe; manual checks alone do not replace the missing durable isolation record.
-10. Any source identity, evidence, market observation, or final-image change invalidates approval.
+10. Any bound source identity, care, rights, provenance, static offer evidence,
+    or final-image change invalidates its approval. Later persisted offers are
+    separately reconciled at the publication boundary and do not rewrite a
+    reference-only dossier.
 
 ## Batch discovery screen
 
@@ -87,9 +122,22 @@ and next action. The queue is research-only: importing it does not add products
 to either public catalogue source and even an `approval-ready` result means only
 that an identity-bound approval can be drafted.
 
-Research can fan out across independent exact-SKU dossiers in parallel. The gates inside each dossier remain sequential and fail-closed: identity is locked before care, exact-offer review and final art review; approval follows every bound publication-evidence timestamp. NAFDAC research may continue in parallel as context. Evidence from one SKU cannot satisfy another, and a manifest update is merged only after the checked-in artifact bytes, locators, hashes and decision are verified locally.
+Research can fan out across independent exact-SKU dossiers in parallel. The
+hard gates inside each dossier remain sequential and fail-closed: identity is
+locked before care and final art review; full-scope offer review runs before a
+market release. Approval follows every bound publication-evidence timestamp.
+NAFDAC and market enrichment may continue in parallel as context. Evidence
+from one SKU cannot satisfy another, and a manifest update is merged only
+after the checked-in artifact bytes, locators, hashes and decision are verified
+locally.
 
-Each candidate must explain the coverage gap, cite demand evidence, lock the exact identity and measured size to a checked-in official-source extraction and raw-response digest, complete a care review, bind any displayed Nigerian price to the exact product, document either source-image permission or verifiable owned-generation provenance, and finish a manually checked transparent packshot. A candidate stops at its earliest incomplete publication gate.
+Each candidate must explain the coverage gap, cite demand evidence, lock the
+exact identity and measured size to a checked-in official-source extraction and
+raw-response digest, complete a care review, bind any displayed Nigerian price
+to the exact product, document either source-image permission or verifiable
+owned-generation provenance, and finish a manually checked transparent
+packshot. A hard-gate failure keeps it private. Missing market enrichment
+routes it to reference-only instead.
 
 Provisional retailers may remain as dated price and stock observations. They do not count toward the Tier-A route requiring two independent directory-listed Nigerian retailers on distinct hosts. The separate brand-authorization route requires a directory-listed seller explicitly named by that exact reviewed brand source; an unrelated seller cannot borrow the authorization.
 
@@ -99,7 +147,21 @@ The initial approval manifest is intentionally empty. This preserves the legacy 
 
 ## Private publication dossiers
 
-`data/catalogue-publication-dossiers.json` is the source-agnostic handoff for candidates that clear every publication gate. It contains one immutable neutral-reference dossier per approved exact SKU. `createCataloguePublicationDossier` remains the deterministic structural compiler primitive. Production release tooling uses `createVerifiedCataloguePublicationDossier` and `verifyCataloguePublicationDossierManifestWithArtifacts`, which reopen every retained official and retailer representation before allowing the dossier boundary. The dossier binds the canonical identity and crosswalk, official snapshot, demand sources, care review, optional NAFDAC context, complete exact-offer evidence, current seller-authorization snapshot when used, immutable source-asset bytes, permission or the complete hashed generation record, final packshot URL/hash/type/bytes/dimensions, reviewer and causally ordered approval time into candidate and dossier fingerprints. A retailer-registry authorization change invalidates an existing dossier.
+`data/catalogue-publication-dossiers.json` is the source-agnostic handoff for
+candidates that clear the hard gates. It contains one immutable
+neutral-reference dossier per approved exact SKU.
+`createCataloguePublicationDossier` remains the deterministic structural
+compiler primitive. Production release tooling uses
+`createVerifiedCataloguePublicationDossier` and
+`verifyCataloguePublicationDossierManifestWithArtifacts`, which reopen every
+retained representation required by the selected scope before allowing the
+dossier boundary. Every dossier binds canonical identity and crosswalk,
+official snapshot, demand sources, care review, optional NAFDAC context,
+immutable source-asset bytes, permission or the complete hashed generation
+record, final packshot URL/hash/type/bytes/dimensions, reviewer, and causally
+ordered approval time. Full-scope dossiers also bind complete exact-offer
+evidence and current seller authorization when used; reference-only dossiers
+bind no offers.
 
 The dossier remains a private, non-recommendation artifact. No dossier publishes itself. Any candidate, evidence, rights, image or approval change invalidates the stored fingerprints. Verify the checked-in structure offline with:
 
@@ -111,9 +173,31 @@ npm run catalogue:publication:verify
 
 `data/catalogue-publication-releases.json` is the only handoff from a verified private dossier to the public catalogue. A release binds the current dossier fingerprint, mapped public category, concise routine step and display line, manufacturer-sourced usage directions, presentation reviewer, publication reviewer and causally ordered timestamps into a separate immutable release fingerprint.
 
-The release verifier always re-verifies the candidate and dossier first. Production release and verification commands use the artifact-aware APIs, so retained official and retailer bytes are re-opened before a release can pass. A missing artifact or dossier, stale offer evidence, changed byte range or hash, candidate or image change, unsupported category, unreviewed usage source, changed presentation or publication chronology fails closed. Dossier identity, final image and exact Nigerian offers are materialized directly; they cannot be rewritten by the release record. Suitability arrays remain empty, `sensitiveFriendly` remains false and `recommendationEligible` remains false until a separate clinical recommendation review exists.
+The release verifier always re-verifies the candidate and dossier first.
+Production release and verification commands use the artifact-aware APIs, so
+all retained bytes required by the selected scope are re-opened before a
+release can pass. A missing artifact or dossier, stale bound offer evidence,
+changed byte range or hash, candidate or image change, unsupported category,
+unreviewed usage source, or changed chronology fails closed. Dossier identity,
+final image, and any approved static offers are materialized directly; the
+release record cannot rewrite them. Suitability arrays remain empty,
+`sensitiveFriendly` remains false and `recommendationEligible` remains false
+until a separate clinical recommendation review exists.
 
-`npm run catalogue:publication:release` removes manual JSON assembly from this boundary. It requires the exact candidate, public category, routine step, display line, manufacturer-bound directions URL, usage copy and ordered approval/review/publication timestamps. The command creates the dossier and release together, rejects existing candidate records, verifies both complete next-state manifests in memory, and writes only with `--write`.
+`npm run catalogue:publication:release` removes manual JSON assembly from this
+boundary. It requires the exact candidate, public category, routine step,
+display line, manufacturer-bound directions URL, usage copy and ordered
+approval/review/publication timestamps. Append `--reference-only` when only the
+three allowed Nigerian market blockers remain. The command creates the dossier
+and release together, rejects existing candidate records, verifies both
+complete next-state manifests in memory, and writes only with `--write`.
+
+```bash
+npm run catalogue:publication:release -- \
+  --candidate <candidate-id> \
+  <presentation-and-timestamp-options> \
+  --reference-only
+```
 
 ```bash
 npm run catalogue:publication:releases:verify

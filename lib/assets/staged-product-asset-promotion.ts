@@ -290,6 +290,7 @@ export async function verifyCatalogueIntakePromotionBinding(
     candidate?: {
       id?: unknown;
       brand?: unknown;
+      brandAliases?: unknown;
       asset?: { sourceUrl?: unknown };
     };
   };
@@ -304,7 +305,14 @@ export async function verifyCatalogueIntakePromotionBinding(
     target.kind === 'catalogue-publication'
     && (
       typeof source.candidate.brand !== 'string'
-      || catalogueBrandSlug(source.candidate.brand) !== target.brandSlug
+      || ![
+        source.candidate.brand,
+        ...(Array.isArray(source.candidate.brandAliases)
+          ? source.candidate.brandAliases.filter(
+              (alias): alias is string => typeof alias === 'string',
+            )
+          : []),
+      ].some(brand => catalogueBrandSlug(brand) === target.brandSlug)
     )
   ) {
     throw new Error(`${promotion.id}: publication brand binding is invalid`);

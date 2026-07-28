@@ -29,6 +29,7 @@ const counts = {
   researchPriorityCount: 48,
   privateDossierCount: 0,
   explicitReleaseCount: 0,
+  releasedCandidateIds: [],
 };
 
 test('reports pipeline stages without presenting discovery leads as live products', () => {
@@ -47,6 +48,19 @@ test('reports pipeline stages without presenting discovery leads as live product
   );
   assert.equal(status.almostReadyCount, 1);
   assert.deepEqual(status.almostReadyCandidateIds, ['closest']);
+});
+
+test('does not report a reference-only public release as still private', () => {
+  const status = buildCataloguePipelineStatus({
+    ...counts,
+    explicitReleaseCount: 1,
+    releasedCandidateIds: ['needs-market'],
+  }, [
+    decision('needs-market', ['nigeria-exact-offer-missing'], 0),
+  ]);
+
+  assert.equal(status.identityResolvedPrivateCount, 0);
+  assert.deepEqual(status.identityResolvedPrivateCandidateIds, []);
 });
 
 test('fails closed on duplicate decisions or impossible counts', () => {

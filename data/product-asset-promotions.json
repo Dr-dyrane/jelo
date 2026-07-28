@@ -222,6 +222,23 @@
     "contentHash": "9df96be464b016371d9c40db5ad143b1f9af0536bd1bc567564458c731305ef3"
   },
   {
+    "id": "facefacts-soothe-glow-niacinamide-serum-30ml-packshot-v1",
+    "active": true,
+    "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+    "destination": "publication",
+    "publicationBrandSlug": "face-facts",
+    "sourceUrl": "https://facefacts.me/cdn/shop/files/43771-150_fr2.jpg?v=1774528892&width=2048",
+    "localPath": "data/catalogue-intake-assets/facefacts-soothe-glow-niacinamide-serum-30ml/packshot-v1-938fa1f1a254.png",
+    "blobPath": "products/face-facts/facefacts-soothe-glow-niacinamide-serum-30ml/packshot-v1-938fa1f1a254cc90.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-soothe-glow-niacinamide-serum-30ml/packshot-v1-938fa1f1a254cc90.png",
+    "contentType": "image/png",
+    "byteSize": 1351170,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "938fa1f1a254cc909a5a067384f77a728b8af278d7f93a63e34445aa7cdea3fb"
+  },
+  {
     "id": "prequel-gleanser-glycolic-acid-cleanser-400ml-packshot-v2",
     "active": true,
     "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",

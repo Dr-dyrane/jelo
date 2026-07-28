@@ -3,9 +3,11 @@ import { spawnSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
+import publicationReleaseManifest from '@/data/catalogue-publication-releases.json';
 import publicCatalogueSearchArtifact from '@/data/public-catalogue-search.json';
 import { catalogueSearchRetryAfterSeconds } from '@/lib/catalogue/catalogue-search-rate-limit-policy';
 import { parsePublicCatalogueSearchArtifact } from '@/lib/catalogue/public-catalogue-search';
+import { privateCatalogueSearchBundleMarkers } from '@/lib/catalogue/public-search-bundle-boundary';
 
 const root = process.cwd();
 const sourceExtensions = ['', '.ts', '.tsx', '.json'];
@@ -101,6 +103,55 @@ test('the endpoint transitive source graph is isolated from private catalogue ar
       `runtime source graph crossed private boundary: ${privateBoundary}`,
     );
   }
+});
+
+test('bundle content canaries exclude explicit releases and retain unreleased intake', async () => {
+  const markers = privateCatalogueSearchBundleMarkers(
+    publicationReleaseManifest,
+  );
+
+  assert.equal(
+    markers.includes('dang-hydra-glow-sun-protection-gel-60ml'),
+    false,
+  );
+  assert.equal(
+    markers.includes('dang-niacinamide-n-acetyl-glucosamine-serum-30ml'),
+    true,
+  );
+  assert.equal(markers.includes('catalogue-publication-dossiers'), true);
+  assert.equal(markers.includes('catalogue-intake-candidates'), true);
+});
+
+test('bundle content canaries fail closed on an invalid release record', () => {
+  assert.throws(
+    () => privateCatalogueSearchBundleMarkers(
+      {
+        exposure: 'public-catalogue',
+        releases: [{
+          candidateId: 'private-intake-product',
+          exposure: 'public-catalogue',
+          publicationStatus: 'draft',
+        }],
+      },
+    ),
+    /release manifest is malformed/,
+  );
+});
+
+test('bundle content canaries stop treating a canary as private once explicitly released', () => {
+  const markers = privateCatalogueSearchBundleMarkers({
+    exposure: 'public-catalogue',
+    releases: [{
+      candidateId: 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml',
+      exposure: 'public-catalogue',
+      publicationStatus: 'published',
+    }],
+  });
+
+  assert.equal(
+    markers.includes('dang-niacinamide-n-acetyl-glucosamine-serum-30ml'),
+    false,
+  );
 });
 
 test('the public projection has a deterministic drift check in the release gate', async () => {

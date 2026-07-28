@@ -30,11 +30,14 @@ import { verifyCatalogueIdentityEvidenceArtifacts } from './identity-evidence-ar
 
 export const cataloguePublicationDossierSchemaVersion = 8 as const;
 export const cataloguePublicationApprovalScope = 'exact-identity-source-care-retail-rights-and-final-image' as const;
+export const catalogueReferencePublicationApprovalScope = 'exact-identity-source-care-rights-and-final-image-reference-only' as const;
 export const cataloguePublicationExposure = 'private-only' as const;
 export const cataloguePublicationScope = 'neutral-reference' as const;
 
 export type CataloguePublicationApproval = {
-  scope: typeof cataloguePublicationApprovalScope;
+  scope:
+    | typeof cataloguePublicationApprovalScope
+    | typeof catalogueReferencePublicationApprovalScope;
   reviewer: string;
   approvedAt: string;
 };
@@ -88,7 +91,7 @@ export type CataloguePublicationDossier = {
     reviewer: string;
   };
   nigeria: {
-    marketRoute: CatalogueNigeriaMarketRoute;
+    marketRoute: CatalogueNigeriaMarketRoute | 'reference-only';
     regulatoryStatus: 'matched' | 'not-required' | 'pending';
     regulatoryEvidence?: ReviewedRegulatoryEvidence;
     tierAIdentityEvidenceUrl?: string;
@@ -391,10 +394,28 @@ function createCataloguePublicationDossierCore(
 ): CataloguePublicationDossier {
   auditCatalogueIntakeCandidates([candidate], asOf);
   const decision = evaluateCatalogueIntakeCandidate(candidate, asOf);
-  if (!decision.approvalDraftReady) {
+  const referenceOnly = approval.scope === catalogueReferencePublicationApprovalScope;
+  const referenceOnlyMarketBlockers = new Set([
+    'nigeria-exact-offer-missing',
+    'nigeria-offer-identity-unbound',
+    'nigeria-market-route-insufficient',
+  ]);
+  const referenceOnlyReady = (
+    referenceOnly
+    && decision.stage === 'nigeria'
+    && decision.blockers.length > 0
+    && decision.blockers.every(blocker => referenceOnlyMarketBlockers.has(blocker))
+  );
+  if (!decision.approvalDraftReady && !referenceOnlyReady) {
     throw new Error(`${candidate.id} is not approval-ready (${decision.stage}: ${decision.blockers.join(', ')}).`);
   }
-  if (approval.scope !== cataloguePublicationApprovalScope) throw new Error(`${candidate.id} has an invalid approval scope.`);
+  if (
+    approval.scope !== cataloguePublicationApprovalScope
+    && approval.scope !== catalogueReferencePublicationApprovalScope
+  ) throw new Error(`${candidate.id} has an invalid approval scope.`);
+  if (referenceOnly && decision.approvalDraftReady) {
+    throw new Error(`${candidate.id} has verified market evidence and must use the full publication scope.`);
+  }
   if (approval.reviewer.trim().length < 2) throw new Error(`${candidate.id} approval reviewer is missing.`);
 
   const approvedAt = parsedDate(approval.approvedAt, `${candidate.id} approval timestamp`, asOf);
@@ -424,13 +445,17 @@ function createCataloguePublicationDossierCore(
   if (candidate.nigeria.regulatoryStatus !== 'pending' && !regulatoryEvidence) {
     throw new Error(`${candidate.id} regulatory evidence is required.`);
   }
-  const nigeriaMarketRoute = required(decision.nigeriaMarketRoute, `${candidate.id} Nigeria market route`);
-  const brandSellerAuthorizationEvidence = boundBrandSellerEvidence(
-    candidate,
-    decision.freshExactOffers,
-    nigeriaMarketRoute,
-    asOf,
-  );
+  const nigeriaMarketRoute = referenceOnly
+    ? 'reference-only' as const
+    : required(decision.nigeriaMarketRoute, `${candidate.id} Nigeria market route`);
+  const brandSellerAuthorizationEvidence = nigeriaMarketRoute === 'reference-only'
+    ? []
+    : boundBrandSellerEvidence(
+        candidate,
+        decision.freshExactOffers,
+        nigeriaMarketRoute,
+        asOf,
+      );
   if (identityEvidenceRetrievedTimestamp > identityCheckedTimestamp) {
     throw new Error(`${candidate.id} identity review predates its official evidence snapshot.`);
   }
@@ -538,7 +563,9 @@ function createCataloguePublicationDossierCore(
       marketRoute: nigeriaMarketRoute,
       regulatoryStatus: candidate.nigeria.regulatoryStatus,
       ...(regulatoryEvidence ? { regulatoryEvidence: structuredClone(regulatoryEvidence) } : {}),
-      ...(nigeriaMarketRoute === 'tier-a'
+      ...(nigeriaMarketRoute === 'reference-only'
+        ? {}
+        : nigeriaMarketRoute === 'tier-a'
         ? { tierAIdentityEvidenceUrl: required(candidate.nigeria.tierAIdentityEvidenceUrl, `${candidate.id} Tier-A evidence`) }
         : {
           brandAuthorizationEvidenceUrl: required(
@@ -546,7 +573,9 @@ function createCataloguePublicationDossierCore(
             `${candidate.id} brand authorization evidence`,
           ),
         }),
-      exactOffers: decision.freshExactOffers.map(offer => structuredClone(offer)),
+      exactOffers: nigeriaMarketRoute === 'reference-only'
+        ? []
+        : decision.freshExactOffers.map(offer => structuredClone(offer)),
       brandSellerAuthorizationEvidence,
     },
     rights: {
@@ -627,7 +656,10 @@ function objectRecord(value: unknown, label: string): Record<string, unknown> {
 function approvalFromStoredDossier(value: Record<string, unknown>, candidateId: string): CataloguePublicationApproval {
   const approval = objectRecord(value.approval, `${candidateId} approval`);
   if (
-    approval.scope !== cataloguePublicationApprovalScope
+    (
+      approval.scope !== cataloguePublicationApprovalScope
+      && approval.scope !== catalogueReferencePublicationApprovalScope
+    )
     || typeof approval.reviewer !== 'string'
     || typeof approval.approvedAt !== 'string'
   ) throw new Error(`${candidateId} approval metadata is invalid.`);
