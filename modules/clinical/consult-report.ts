@@ -1,11 +1,9 @@
-import { concernBySlug } from '@/data/knowledge';
-import type { Product } from '@/data/products';
+import { concernBySlug, concerns, type Concern } from '@/data/knowledge';
 import {
   type OrdinaryCareIntent,
 } from '@/modules/clinical/core/care-intent';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import type { RoutineStep } from '@/modules/clinical/core/types';
-import type { ClinicalProductDecision } from '@/modules/recommendations/clinical-product-filter';
 
 export type ConsultReport = {
   title: string;
@@ -20,19 +18,18 @@ export type ConsultReport = {
   followUp: string;
 };
 
-export function buildConsultProductCandidate(
-  product: Product,
-  decision: ClinicalProductDecision,
-) {
-  return {
-    slug: product.slug,
-    brand: product.brand,
-    name: product.name,
-    approvedUseIds: decision.approvedUseIds,
-    clinicalReasons: decision.reasons,
-    ingredientIds: decision.ingredientIds,
-  };
-}
+export type PublicConcernGuide = Pick<
+  Concern,
+  'slug' | 'name' | 'area' | 'summary' | 'escalation' | 'sources'
+>;
+
+const ordinaryGuideByPatternId: Readonly<Record<string, string>> = {
+  'acne-vulgaris': 'acne-breakouts',
+  'comedonal-acne': 'acne-breakouts',
+  'post-inflammatory-hyperpigmentation': 'dark-spots',
+  'seborrhoeic-dermatitis': 'dandruff-itchy-scalp',
+  xerosis: 'dry-dehydrated-skin',
+};
 
 function publicRoutineStep(step: RoutineStep) {
   const time: 'Morning' | 'Evening' | 'Weekly' = step.time === 'morning'
@@ -58,6 +55,64 @@ export function compactRoutine(
   return [...plan.morning, ...plan.evening, ...plan.weekly]
     .slice(0, 10)
     .map(publicRoutineStep);
+}
+
+export function concernGuideForPatternId(
+  patternId: string,
+): PublicConcernGuide | undefined {
+  const conditionGuide = concerns.find(concern => (
+    concern.kind === 'condition-pattern'
+    && concern.clinicalPatternIds.includes(patternId)
+  ));
+  const guide = conditionGuide ?? concernBySlug(ordinaryGuideByPatternId[patternId] ?? '');
+  if (!guide) return undefined;
+
+  return {
+    slug: guide.slug,
+    name: guide.name,
+    area: guide.area,
+    summary: guide.summary,
+    escalation: guide.escalation,
+    sources: guide.sources.map(source => ({
+      title: source.title,
+      url: source.url,
+    })),
+  };
+}
+
+export function concernGuideForClinicalAssessment(
+  clinical: ReturnType<typeof assessClinicalRoutine>,
+): PublicConcernGuide | undefined {
+  const patternId = clinical.differential.primary?.id;
+  return patternId ? concernGuideForPatternId(patternId) : undefined;
+}
+
+function guidanceAction(value: string) {
+  const trimmed = value.trim().replace(/[.]+$/, '');
+  return `${trimmed.charAt(0).toUpperCase()}${trimmed.slice(1)}.`;
+}
+
+export function buildDeterministicConditionGuideReport(
+  clinical: ReturnType<typeof assessClinicalRoutine>,
+  guide: PublicConcernGuide,
+): ConsultReport {
+  const canonicalGuide = concernBySlug(guide.slug);
+  const routine = (canonicalGuide?.ingredients ?? []).slice(0, 4).map(action => ({
+    time: 'Any time' as const,
+    action: guidanceAction(action),
+  }));
+
+  return {
+    title: guide.name,
+    summary: guide.summary,
+    pattern: `What you described may fit this care guide. This is not a diagnosis.`,
+    routine,
+    cautions: [guide.escalation],
+    productSlugs: [],
+    followUp: clinical.referral.level === 'self-care'
+      ? guide.escalation
+      : clinical.referral.action,
+  };
 }
 
 export function buildDeterministicConsultReport(

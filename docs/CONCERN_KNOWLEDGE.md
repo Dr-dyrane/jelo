@@ -7,7 +7,9 @@ JeloCare concern guides describe observable patterns. They do not identify a con
 - Write signs a person can observe without relying on redness alone; colour changes can be harder to see on brown and black skin.
 - Use a plain-language name and keep the clinical label in the slug or source, not as a diagnosis.
 - Every condition pattern must have `productTerms: []`. Product matching also rejects every `condition-pattern`, regardless of catalogue copy.
-- Put time-sensitive care and emergency warning signs in `escalation`; do not bury them among skincare options.
+- Keep the full safety boundary in `escalation`. When the observed pattern itself needs same-day or emergency care, also add an explicit `urgentAction` with the timing and the first action to take.
+- The guide renders `urgentAction` before signs, optional care and product content under the sentence-case heading “What to do now”. Conditional warning signs remain in `escalation` and do not manufacture urgency for a calm self-care pattern.
+- Condition-pattern guides do not render a generic empty product shortlist. Their care and sources are the complete public journey.
 - Prefer current public guidance from official health systems, professional societies and public-health agencies. Record the review date with the guide.
 
 ## Guide and Ask Jelo parity
@@ -16,7 +18,9 @@ Every published `condition-pattern` declares one or more `clinicalPatternIds`. E
 
 Parity does not turn a guide into a diagnosis. Public pattern labels remain observational, the engine asks distinguishing questions, and a directed referral stops model and product guidance. A condition pattern keeps `productTerms: []` even when Ask Jelo can recognize the reported signals.
 
-Tests must cover the representative pattern, a close alternative, the referral level and timing, and the API boundary (`modelCalls: 0` and no products) for any path that needs human review.
+Static and interactive urgency must also agree. An `urgentAction` marked `emergency` maps to an immediate emergency referral; `same-day` maps to a same-day urgent referral. A routine self-care pattern has no urgent action. Tests hold representative chemical-exposure, non-fading-rash, yellow-eye and heat-or-sweat observations to this boundary.
+
+Tests must cover the representative pattern, a close alternative, the referral level and timing, and the API boundary for any path that needs human review. Those tests prove that the route remains deterministic, invokes no model, and returns no products; invocation diagnostics stay server-side rather than becoming public response fields.
 
 ## Canonical everyday-care intents
 
@@ -41,7 +45,11 @@ Reviewed 2026-07-26. This batch deliberately separates one ordinary prevention n
 | Yellow skin or eyes | Yellowing in the skin or whites of the eyes routes to urgent medical assessment without naming a cause. Copy notes that yellow skin may be harder to see on brown or black skin, making the whites of the eyes an important inclusive cue. | [NHS · Jaundice](https://www.nhs.uk/conditions/jaundice/) |
 | Genital sore or unusual discharge | A genital sore, blister or unusual vaginal, penile or anal discharge routes to confidential sexual-health assessment and testing. Symptoms do not establish an infection; testing and clinical context do. | [WHO · Sexually transmitted infections](https://www.who.int/health-topics/sexually-transmitted-infections) and [NHS · Sexually transmitted infections](https://www.nhs.uk/conditions/sexually-transmitted-infections-stis/) |
 
-The three warning guides are observational `condition-pattern` records with `productTerms: []`. Their directed Ask Jelo routes return deterministic care, `modelCalls: 0`, and no products. The sun-protection concern remains matchable, but only through the explicit product-care manifest.
+The three warning guides are observational `condition-pattern` records with `productTerms: []`. Their directed Ask Jelo routes return deterministic care and no products, while contract tests prove that they invoke no model. The sun-protection concern remains matchable, but only through the explicit product-care manifest.
+
+The genital-sore guide asks a person to avoid sexual contact until they have been assessed and symptoms have resolved. It does not imply that a condom makes contact with an active sore safe.
+
+The acne guide keeps adapalene behind clinical guidance and places “do not use during pregnancy” directly in the option label, supported by [NHS · Acne treatment](https://www.nhs.uk/conditions/acne/treatment/).
 
 ## Fever-and-rash safety cluster
 

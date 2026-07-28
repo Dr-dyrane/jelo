@@ -7,7 +7,7 @@ Ask Jelo is a guided education canvas, not a chat transcript, diagnosis tool, or
 - Show one active question at a time.
 - Keep a compact trail of completed answers.
 - Let people edit an earlier answer and invalidate only dependent answers.
-- Run safety checks before products or AI.
+- Run safety checks before products or any optional language layer.
 - Use structured choices first. Free text is optional context.
 - Show a short review before building guidance.
 - Keep results action-first: **Now**, **Routine**, **Products**, **Why**.
@@ -27,13 +27,22 @@ Ask Jelo is a guided education canvas, not a chat transcript, diagnosis tool, or
 9. Review and edit
 10. Results workspace
 
-A red flag replaces the normal journey with a concise care action. It makes zero model calls and returns zero products.
+A red flag replaces the normal journey with a concise care action and returns
+zero products.
+
+The current Ask Jelo route is fully deterministic. Every path makes zero model
+calls: safety and condition paths project reviewed guidance, everyday-care
+paths use reviewed product authority, and unclear descriptions ask for more
+detail.
 
 ## Everyday care requests
 
 An explicit, non-diagnostic request for everyday care does not need a disease-pattern result. Ask Jelo can route daily sun protection, ordinary sweat or body odour, dry or rough body skin, dry or frizzy hair, dry facial skin, sensitive-feeling skin, and oily skin to their canonical concern guides.
 
-This path is deterministic and makes zero model calls. Products appear only when an explicit `supportive_eligible` product-care record names the same canonical concern slug. Legacy concern words, product names, catalogue copy, retailer claims, and condition-pattern slugs cannot create a match.
+Products appear only when an explicit `supportive_eligible` product-care record
+names the same canonical concern slug and its area and requested product step
+are compatible. Legacy concern words, product names, catalogue copy, retailer
+claims, and condition-pattern slugs cannot create a match.
 
 The precedence is fixed:
 
@@ -52,12 +61,20 @@ directed-care path handles that description without ordinary-care products.
 
 ## Launch safety contract
 
-- Emergency and urgent care copy is deterministic. Model output cannot replace it.
+- Emergency, condition-guide, ordinary-care, clarification, and referral copy is deterministic.
 - Serious working patterns surface their pharmacist, primary-care, or dermatology referral before clarification.
-- A person under 18, including age stated in prose, stops before AI and products.
-- Submitted allergies or medicines stop before AI and products because JeloCare does not evaluate allergy or medicine interactions.
-- The model may choose only from a rule-filtered catalogue shortlist. It does not write the displayed pattern, care action, routine, or referral.
-- Public results describe reported signals and internal guidance notes. They do not present an exact barrier score or claim external clinical review.
+- A person under 18, including age stated in prose, stops before product guidance.
+- Submitted allergies or medicines stop before product guidance because JeloCare does not evaluate allergy or medicine interactions.
+- Reviewed server rules, not model output, resolve guides, authorize products, set urgency, and compose the public result.
+- Public results contain only the guide, care steps, safe product fields,
+  canonical source links, and session-only check-in fields. Rule identifiers,
+  scores, ingredient internals, and recommendation diagnostics stay server-side.
+
+There is no current model-selection or AI Gateway runtime. Any future
+language-only lane requires a separate reviewed architecture decision,
+abuse-cost controls, privacy review, regression evidence, and a contract that
+keeps guide resolution, product authority, urgency, and displayed care outside
+the model.
 
 The initial red-flag vocabulary follows public guidance from [NHS anaphylaxis](https://www.nhs.uk/conditions/anaphylaxis/), [AAD Rash 101](https://www.aad.org/public/everyday-care/itchy-skin/rash/rash-101), and [NHS vision loss](https://www.nhs.uk/conditions/vision-loss/). These references support emergency action for breathing or throat/tongue symptoms and prompt in-person care for relevant swelling, eye symptoms, rapid spread, blistering, pain, or fever. The checked phrase corpus remains deliberately conservative and must expand through qualified review.
 
@@ -89,7 +106,7 @@ Mobile keeps one question in the usable viewport. Completed nodes become a compa
 
 ## Implementation phases
 
-1. Unify safety and privacy. Remove automatic health-data persistence, stop urgent requests before AI, and let one safety decision gate products.
+1. Unify safety and privacy. Remove automatic health-data persistence, stop urgent requests before product guidance, and let one safety decision gate products.
 2. Add a typed assessment graph and reducer with answer, back, edit, invalidate, interrupt, and complete transitions.
 3. Replace the long result stack with Now, Routine, Products, and Why views.
 4. Add contextual people photography and reduced-motion/reduced-transparency behavior.

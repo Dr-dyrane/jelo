@@ -7,30 +7,35 @@ import { rankProducts } from './product-ranker';
 
 const catalogue = [...coreProducts, ...expandedProducts];
 
-test('ranking uses approved supportive uses instead of catalogue concern copy', () => {
+test('ranking requires canonical concern slugs instead of raw lexicon concern ids', () => {
   assert.deepEqual(
-    rankProducts(catalogue, { concerns: ['oiliness'] }).map(product => product.slug),
+    rankProducts(catalogue, { concernSlugs: ['oily-congested-skin'] }).map(product => product.slug),
     ['cerave-foaming-facial-cleanser'],
   );
   assert.deepEqual(
-    rankProducts(catalogue, { concerns: ['dryness'] }).map(product => product.slug),
+    rankProducts(catalogue, { concernSlugs: ['dry-dehydrated-skin'] }).map(product => product.slug),
     ['cosrx-advanced-snail-96-mucin-power-essence'],
   );
-  assert.deepEqual(rankProducts(catalogue, { concerns: ['dark spots'] }), []);
-  assert.deepEqual(rankProducts(catalogue, { concerns: ['acne'] }), []);
+  assert.deepEqual(
+    rankProducts(catalogue, { concernSlugs: ['oiliness'] }),
+    [],
+  );
+  assert.deepEqual(
+    rankProducts(catalogue, { concernSlugs: ['dryness'] }),
+    [],
+  );
 });
 
-test('normal skin can match the cleanser through its reviewed use, not product skin-type copy', () => {
+test('skin-type copy cannot authorize a product without a canonical care concern', () => {
   assert.deepEqual(
-    rankProducts(catalogue, { concerns: [], skinType: 'normal' }).map(product => product.slug),
-    ['cerave-foaming-facial-cleanser'],
+    rankProducts(catalogue, { concernSlugs: ['normal'] }),
+    [],
   );
 });
 
 test('canonical concern slugs rank only explicitly reviewed supportive uses', () => {
   assert.deepEqual(
     rankProducts(catalogue, {
-      concerns: [],
       concernSlugs: ['daily-sun-protection'],
     }).map(product => product.slug),
     [],
@@ -38,8 +43,29 @@ test('canonical concern slugs rank only explicitly reviewed supportive uses', ()
 
   assert.deepEqual(
     rankProducts([...catalogue, ...publishedIntakeProducts], {
-      concerns: [],
       concernSlugs: ['daily-sun-protection'],
+    }).map(product => product.slug),
+    ['eucerin-oil-control-sun-gel-cream-spf50-50ml'],
+  );
+});
+
+test('an explicit product step narrows otherwise eligible products', () => {
+  const fullCatalogue = [...catalogue, ...publishedIntakeProducts];
+
+  assert.deepEqual(
+    rankProducts(fullCatalogue, {
+      concernSlugs: ['oily-congested-skin'],
+      productSteps: ['Cleanse'],
+    }).map(product => product.slug),
+    [
+      'cerave-foaming-facial-cleanser',
+      'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
+    ],
+  );
+  assert.deepEqual(
+    rankProducts(fullCatalogue, {
+      concernSlugs: ['oily-congested-skin'],
+      productSteps: ['Protect'],
     }).map(product => product.slug),
     ['eucerin-oil-control-sun-gel-cream-spf50-50ml'],
   );

@@ -1,10 +1,10 @@
 import type { Product } from '@/data/products';
 import { getReviewedProductCare, matchingApprovedProductUses } from '@/data/product-care-review';
+import { approvedUseMatchesProductArea } from './product-concern-authority';
 
 type MatchInput = {
-  concerns: string[];
-  concernSlugs?: readonly string[];
-  skinType?: string;
+  concernSlugs: readonly string[];
+  productSteps?: readonly string[];
   sensitive?: boolean;
   location?: string;
 };
@@ -15,10 +15,13 @@ export function rankProducts(products: Product[], input: MatchInput) {
       const review = getReviewedProductCare(product.slug);
       const approvedUses = review
         ? matchingApprovedProductUses(review, {
-            concerns: input.concerns,
             concernSlugs: input.concernSlugs,
-            skinType: input.skinType,
-          })
+          }).filter(use => approvedUseMatchesProductArea(
+            product,
+            use,
+            input.concernSlugs,
+            input.productSteps,
+          ))
         : [];
       const score = review?.careState === 'supportive_eligible' ? approvedUses.length * 24 : 0;
 

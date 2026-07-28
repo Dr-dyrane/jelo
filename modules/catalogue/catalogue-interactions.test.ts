@@ -9,6 +9,8 @@ import {
   matchingCatalogueConcerns,
   matchingCompanies,
   parseCatalogueTransition,
+  resolvedCatalogueGuides,
+  shouldOfferCatalogueResearchHandoff,
 } from '@/lib/catalogue/catalogue-interactions';
 
 test('market links preserve catalogue intent and reset only pagination', () => {
@@ -107,4 +109,17 @@ test('search can offer compact concern guidance without changing product matchin
   const eczema = matchingCatalogueConcerns(concerns, 'eczema');
   assert.equal(eczema[0]?.slug, 'atopic-eczema-pattern');
   assert.deepEqual(matchingCatalogueConcerns(concerns, 'not a real concern'), []);
+});
+
+test('an explicit guide slug resolves first and blocks a missing-product research handoff', () => {
+  const resolved = resolvedCatalogueGuides(
+    concerns,
+    '',
+    'hidradenitis-pattern',
+  );
+
+  assert.equal(resolved[0]?.slug, 'hidradenitis-pattern');
+  assert.equal(shouldOfferCatalogueResearchHandoff(0, 'hidradenitis', resolved), false);
+  assert.equal(shouldOfferCatalogueResearchHandoff(0, 'unknown product', []), true);
+  assert.equal(shouldOfferCatalogueResearchHandoff(1, 'unknown product', []), false);
 });

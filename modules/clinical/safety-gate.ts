@@ -1,4 +1,5 @@
 import type { PatientProfile, ReferralAssessment } from './core/types';
+import { hasMedicineUseContext } from './core/ingredients';
 
 const emergencyPatterns = [
   { pattern: /\b(?:difficulty|trouble)\s+(?:with\s+)?breathing\b|\b(?:difficult|hard|very\s+hard)\s+to\s+breathe\b|\bshort(?:ness)?\s+of\s+breath\b|\b(?:cannot|can't|cant|unable to|struggling to)\s+breathe\b/i, label: 'breathing difficulty' },
@@ -85,6 +86,7 @@ export function assessConsultSafety(input: {
   const unsupportedContext = [
     input.profile.allergies?.length ? 'allergies were provided' : '',
     input.profile.medications?.length ? 'medications were provided' : '',
+    hasMedicineUseContext(input.text) ? 'medicine use was described' : '',
   ].filter(Boolean);
   const profileSignals = [
     input.profile.pregnant ? 'pregnant' : '',
@@ -117,7 +119,9 @@ export function assessConsultSafety(input: {
       : directedReferral
         ? input.referral.action
       : unsupportedContext.length
-        ? 'JeloCare does not check allergies or medicine interactions. Review these details with a pharmacist or clinician before choosing treatment products.'
+        ? hasMedicineUseContext(input.text)
+          ? 'Do not apply, stop or change a tablet, capsule, oral or prescribed medicine based on skincare guidance. Check with the prescriber or a pharmacist.'
+          : 'JeloCare does not check allergies or medicine interactions. Review these details with a pharmacist or clinician before choosing treatment products.'
         : redFlags.level === 'clinician-review'
           ? redFlags.instruction
           : referralLevel !== 'self-care'
@@ -127,7 +131,9 @@ export function assessConsultSafety(input: {
   return {
     level,
     stopJourney,
-    allowModel: !stopJourney,
+    // Clinical authority stays deterministic. The consult route may render this
+    // decision, but a general-purpose model must never authorize care or products.
+    allowModel: false,
     allowProducts,
     reasons: Array.from(new Set([...redFlags.matchedSignals, ...unsupportedContext, ...input.referral.reasons])),
     action,

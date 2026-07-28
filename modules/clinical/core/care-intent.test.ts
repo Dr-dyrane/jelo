@@ -15,19 +15,28 @@ import { assessClinicalRoutine } from './engine';
 
 test('explicit everyday requests resolve to canonical concern slugs', () => {
   const cases = [
-    ['I need sunscreen for every day.', ['daily-sun-protection']],
-    ['I want a deodorant for ordinary underarm odour.', ['sweat-body-odour']],
-    ['I need a moisturiser for dry body skin.', ['dry-rough-body-skin']],
-    ['I want shampoo and conditioner for dry frizzy hair.', ['dry-frizzy-hair']],
-    ['I need a gentle moisturiser for dry face skin.', ['dry-dehydrated-skin']],
-    ['I want a gentle routine for sensitive skin.', ['sensitive-barrier']],
-    ['I need a cleanser for oily skin.', ['oily-congested-skin']],
+    ['I need sunscreen for every day.', ['daily-sun-protection'], ['Protect']],
+    ['I want a deodorant for ordinary underarm odour.', ['sweat-body-odour'], ['Protect']],
+    ['I need a moisturiser for dry body skin.', ['dry-rough-body-skin'], ['Moisturize']],
+    ['I want shampoo and conditioner for dry frizzy hair.', ['dry-frizzy-hair'], ['Cleanse', 'Condition']],
+    ['I need a gentle moisturiser for dry face skin.', ['dry-dehydrated-skin'], ['Moisturize']],
+    ['I want a gentle routine for sensitive skin.', ['sensitive-barrier'], []],
+    ['I need a cleanser for oily skin.', ['oily-congested-skin'], ['Cleanse']],
+    ['I need a cleansing balm for oily skin.', ['oily-congested-skin'], ['Cleanse']],
+    ['I need a finishing oil for dry frizzy hair.', ['dry-frizzy-hair'], ['Finish']],
+    [
+      'I need a moisturising sunscreen for oily skin.',
+      ['daily-sun-protection', 'oily-congested-skin'],
+      ['Protect'],
+    ],
+    ['I need a moisturising body wash for dry body skin.', ['dry-rough-body-skin'], ['Cleanse']],
   ] as const;
 
-  for (const [query, expected] of cases) {
+  for (const [query, expectedConcerns, expectedSteps] of cases) {
     const clinical = assessClinicalRoutine(query);
     const intent = assessOrdinaryCareIntent(query, clinical.differential);
-    assert.deepEqual(intent?.concernSlugs, expected, query);
+    assert.deepEqual(intent?.concernSlugs, expectedConcerns, query);
+    assert.deepEqual(intent?.productSteps, expectedSteps, query);
     assert.ok(intent?.routine.length, query);
   }
 });

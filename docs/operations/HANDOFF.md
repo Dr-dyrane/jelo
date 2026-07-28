@@ -1,6 +1,6 @@
 # Team handoff
 
-Updated: 2026-07-23
+Updated: 2026-07-27
 
 This checklist transfers operating knowledge without transferring assumptions.
 
@@ -37,7 +37,6 @@ Do not paste credentials into the handoff.
 - Neon project and branch access;
 - Upstash Redis access;
 - Hostinger mailbox, Agentic Mail API, and SMTP administration;
-- AI Gateway access;
 - domain and DNS administration;
 - retailer and clinical review contacts.
 
@@ -57,6 +56,7 @@ The outgoing team should provide:
 - active incidents and temporary controls;
 - current product candidate and its next blocker;
 - community moderation and retailer application queue sizes;
+- Ask Jelo limiter configuration and recent 403, 413, or 429 signals;
 - any secret rotation in progress.
 
 ## Workstream ownership
@@ -68,7 +68,7 @@ Keep these lanes independent:
 | Product and design | Journeys, copy, accessibility, visual contract |
 | Catalogue research | Identity, care, offer, rights, and candidate evidence |
 | Media | Exact-SKU package integrity, transparency, Blob publication |
-| Clinical | Evidence, safety rules, concern parity, recommendation eligibility |
+| Clinical | Evidence, deterministic Ask Jelo rules, concern parity, recommendation eligibility |
 | Retail operations | Retailer registry, refresh, price history, confidence |
 | Community operations | Moderation and research signals |
 | Partnerships | Private retailer applications and verification |
@@ -93,9 +93,14 @@ A change is complete when:
 - Which records are public, recommendation-eligible, or research-only?
 - How is an exact retailer offer proven?
 - What prevents community data from becoming fact?
-- What happens when Neon or the model is unavailable?
+- What happens when Neon or the Ask Jelo limiter is unavailable?
 - Which build steps can mutate production data?
 - How is a bad public product or migration repaired?
 - Who may approve clinical, catalogue, and retailer evidence?
 
 If those answers are unclear, the handoff is not complete.
+
+Ask Jelo has no current model runtime or AI Gateway access requirement. Do not
+add provider credentials as a handoff shortcut. Any future language-only lane
+needs a separate reviewed architecture decision and must preserve deterministic
+guide, product-authority, urgency, care, privacy, and abuse-cost boundaries.

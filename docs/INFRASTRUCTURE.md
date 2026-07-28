@@ -9,8 +9,7 @@ This document is the source of truth for provisioned platform services, environm
 | Public media | Vercel Blob | Canonical product, brand, editorial and campaign assets |
 | Durable data | Neon PostgreSQL | Catalogue, offers, clinical metadata and asset records |
 | Runtime flags | Vercel Edge Config | Feature flags, campaigns, maintenance state and rollout controls |
-| Cache | Upstash Redis | Search, AI, rate-limit and short-lived computed data |
-| AI | Vercel AI Gateway | Provider routing for the consultation experience |
+| Cache | Upstash Redis | Search, rate-limit and short-lived computed data |
 | Monitoring | Vercel Observability and Analytics | Requests, functions, compute, traffic and product analytics |
 
 ## Rules
@@ -183,17 +182,40 @@ KV_REST_API_URL=
 KV_REST_API_TOKEN=
 KV_REST_API_READ_ONLY_TOKEN=
 REDIS_URL=
+CONSULT_RATE_LIMIT_SECRET=
 ```
 
 Approved uses:
 
 - rate limiting;
 - search suggestion cache;
-- short-lived AI result cache;
+- short-lived computed result cache;
 - transient recommendation results;
 - idempotency and operational locks.
 
 Every Redis-backed feature must work correctly after cache eviction.
+
+### Ask Jelo request protection
+
+`/api/consult` is public, rejects cross-site browser requests when Origin or
+Fetch Metadata is present, accepts origin-less server/native clients, accepts
+at most 64 KiB of JSON, and
+uses an Upstash sliding-window limit of 20 requests per hour for each
+HMAC-derived network key.
+
+Every production-mode runtime must provide both `KV_REST_API_URL` and
+`KV_REST_API_TOKEN`. That includes Vercel Production, Vercel Preview, and local
+`next start`. Ask Jelo fails closed when either value is missing or the
+configured limiter is unavailable. Only `next dev` and tests may run without
+Upstash.
+`CONSULT_RATE_LIMIT_SECRET` is the dedicated server-only HMAC salt. A database
+URL is a compatibility fallback, but production should set the dedicated value
+so network identifiers are not coupled to database credential rotation.
+
+Ask Jelo has no current model runtime or AI Gateway dependency. A future
+language-only lane must be introduced through a separate reviewed architecture,
+privacy, abuse-cost, and safety boundary before any provider credential is
+added.
 
 ## Environment coverage
 

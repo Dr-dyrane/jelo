@@ -74,19 +74,25 @@ test('unsupported text-derived active never qualifies or enters ingredient evide
   assert.match(decision.exclusions.join(' '), /insufficient/i);
 });
 
-test('supportive CeraVe cleanser qualifies only for its normal-or-oily cleansing use', () => {
+test('supportive CeraVe cleanser qualifies only through its canonical oily-skin concern', () => {
   const cleanser = product('cerave-foaming-facial-cleanser');
   const oily = evaluateProductClinically(
     cleanser,
     assessClinicalRoutine('My face gets oily through the day.', { concerns: ['oiliness'] }),
+    [],
+    { concernSlugs: ['oily-congested-skin'] },
   );
   const acne = evaluateProductClinically(
     cleanser,
     assessClinicalRoutine('I have inflamed acne.', { concerns: ['acne'] }),
+    [],
+    { concernSlugs: ['acne-breakouts'] },
   );
   const barrier = evaluateProductClinically(
     cleanser,
     assessClinicalRoutine('My skin barrier feels damaged.', { concerns: ['barrier'] }),
+    [],
+    { concernSlugs: ['sensitive-barrier'] },
   );
 
   assert.equal(oily.eligible, true);
@@ -100,14 +106,20 @@ test('supportive COSRX snail essence qualifies only for hydration and conditioni
   const hydration = evaluateProductClinically(
     essence,
     assessClinicalRoutine('My face feels dry and tight.', { concerns: ['dryness'] }),
+    [],
+    { concernSlugs: ['dry-dehydrated-skin'] },
   );
   const darkSpots = evaluateProductClinically(
     essence,
     assessClinicalRoutine('I have dark marks after spots.', { concerns: ['hyperpigmentation', 'dark spots'] }),
+    [],
+    { concernSlugs: ['dark-spots'] },
   );
   const barrierTreatment = evaluateProductClinically(
     essence,
     assessClinicalRoutine('I damaged my skin barrier.', { concerns: ['barrier'] }),
+    [],
+    { concernSlugs: ['sensitive-barrier'] },
   );
 
   assert.equal(hydration.eligible, true);
@@ -122,7 +134,12 @@ test('daily sun protection qualifies only the explicitly reviewed Eucerin sunscr
     { concerns: ['sun protection'] },
   );
   const eligible = [...catalogue, ...publishedIntakeProducts]
-    .map(candidate => evaluateProductClinically(candidate, clinical))
+    .map(candidate => evaluateProductClinically(
+      candidate,
+      clinical,
+      [],
+      { concernSlugs: ['daily-sun-protection'] },
+    ))
     .filter(decision => decision.eligible);
 
   assert.deepEqual(eligible.map(decision => decision.slug), ['eucerin-oil-control-sun-gel-cream-spf50-50ml']);
@@ -146,6 +163,43 @@ test('canonical concern slugs reach reviewed uses without becoming legacy concer
   assert.equal(withoutSlug.eligible, false);
   assert.equal(withSlug.eligible, true);
   assert.deepEqual(withSlug.approvedUseIds, ['oily-skin-sun-protection']);
+});
+
+test('a canonical concern cannot authorize a product in the wrong body area', () => {
+  const cleanser = product('cerave-foaming-facial-cleanser');
+  const wrongAreaProduct = {
+    ...cleanser,
+    category: 'Hair' as const,
+  };
+  const decision = evaluateProductClinically(
+    wrongAreaProduct,
+    assessClinicalRoutine('My face gets oily through the day.', { concerns: ['oiliness'] }),
+    [],
+    { concernSlugs: ['oily-congested-skin'] },
+  );
+
+  assert.equal(decision.eligible, false);
+  assert.deepEqual(decision.approvedUseIds, []);
+});
+
+test('a canonical concern cannot override an explicit product-step request', () => {
+  const cleanser = product('cerave-foaming-facial-cleanser');
+  const matchingStep = evaluateProductClinically(
+    cleanser,
+    assessClinicalRoutine('I need a cleanser for oily skin.', { concerns: ['oiliness'] }),
+    [],
+    { concernSlugs: ['oily-congested-skin'], productSteps: ['Cleanse'] },
+  );
+  const wrongStep = evaluateProductClinically(
+    cleanser,
+    assessClinicalRoutine('I need sunscreen for oily skin.', { concerns: ['oiliness'] }),
+    [],
+    { concernSlugs: ['oily-congested-skin'], productSteps: ['Protect'] },
+  );
+
+  assert.equal(matchingStep.eligible, true);
+  assert.equal(wrongStep.eligible, false);
+  assert.deepEqual(wrongStep.approvedUseIds, []);
 });
 
 test('a reviewed retinoid remains blocked during pregnancy', () => {

@@ -1,5 +1,10 @@
 export type ConcernSource = { title: string; url: string };
 
+export type ConcernUrgentAction = {
+  urgency: 'same-day' | 'emergency';
+  guidance: string;
+};
+
 type ConcernBase = {
   slug: string;
   name: string;
@@ -7,8 +12,10 @@ type ConcernBase = {
   summary: string;
   signals: string[];
   ingredients: string[];
+  ingredientSources?: Record<string, ConcernSource>;
   productTerms: string[];
   escalation: string;
+  urgentAction?: ConcernUrgentAction;
   sources: ConcernSource[];
   reviewedAt: string;
 };
@@ -25,10 +32,19 @@ export const concerns: Concern[] = [
     slug: 'acne-breakouts', name: 'Acne & breakouts', area: 'Face', kind: 'concern',
     summary: 'Blackheads, spots and recurring breakouts.',
     signals: ['blackheads', 'whiteheads', 'inflamed spots', 'oiliness'],
-    ingredients: ['salicylic acid', 'azelaic acid', 'benzoyl peroxide', 'adapalene with clinical guidance'],
+    ingredients: ['salicylic acid', 'azelaic acid', 'benzoyl peroxide', 'adapalene — do not use during pregnancy; ask a clinician first'],
+    ingredientSources: {
+      'adapalene — do not use during pregnancy; ask a clinician first': {
+        title: 'NHS guidance',
+        url: 'https://www.nhs.uk/conditions/acne/treatment/',
+      },
+    },
     productTerms: ['acne', 'blackheads', 'whiteheads', 'oiliness'],
     escalation: 'Get clinical help for deep pain, nodules, scarring, sudden severe acne or acne that is not improving.',
-    sources: [{ title: 'American Academy of Dermatology · Acne', url: 'https://www.aad.org/public/diseases/acne' }], reviewedAt,
+    sources: [
+      { title: 'American Academy of Dermatology · Acne', url: 'https://www.aad.org/public/diseases/acne' },
+      { title: 'NHS · Acne treatment and pregnancy', url: 'https://www.nhs.uk/conditions/acne/treatment/' },
+    ], reviewedAt,
   },
   {
     slug: 'dark-spots', name: 'Dark spots', area: 'Face', kind: 'concern',
@@ -191,6 +207,10 @@ export const concerns: Concern[] = [
     ingredients: ['urgent same-day assessment', 'keep cuts and wounds clean', 'do not delay care for skincare'],
     productTerms: [],
     escalation: 'Seek urgent same-day care for painful, hot and swollen skin. Use emergency services for shaking, fast breathing or heartbeat, purple patches, dizziness, confusion, cold clammy skin or collapse.',
+    urgentAction: {
+      urgency: 'same-day',
+      guidance: 'Arrange urgent medical care today. If you are shaking, breathing fast, confused, faint or collapsing, use emergency services now.',
+    },
     sources: [{ title: 'NHS · Cellulitis', url: 'https://www.nhs.uk/conditions/cellulitis/' }], reviewedAt,
   },
   {
@@ -330,7 +350,7 @@ export const concerns: Concern[] = [
     ], reviewedAt,
   },
   {
-    slug: 'heat-rash-pattern', name: 'Heat rash', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['miliaria-like'],
+    slug: 'heat-rash-pattern', name: 'Prickly bumps after heat or sweating', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['miliaria-like'],
     summary: 'Small prickly bumps after heavy sweating.',
     signals: ['small raised spots', 'prickly itch', 'mild swelling', 'heat or sweat trigger'],
     ingredients: ['cool the skin', 'loose cotton clothing', 'avoid perfumed products', 'pharmacist advice'],
@@ -390,6 +410,10 @@ export const concerns: Concern[] = [
     ingredients: ['emergency hospital assessment now', 'do not wait for every symptom or for a rash', 'do not self-medicate or rely on skincare'],
     productTerms: [],
     escalation: 'Seek emergency hospital care now for a rash that does not fade when pressed, or fever with a stiff neck, confusion, a seizure, severe worsening headache, unusual sleepiness or difficulty waking. A rash can be harder to see on brown or black skin, and serious illness may happen without one, so do not wait for a rash or every symptom.',
+    urgentAction: {
+      urgency: 'emergency',
+      guidance: 'Get emergency hospital care now. Do not wait for every symptom or for the rash to become easier to see.',
+    },
     sources: [
       { title: 'Nigeria Centre for Disease Control and Prevention · Cerebrospinal meningitis advisory', url: 'https://www.ncdc.gov.ng/news/535/3rd-march-2026-%7C-public-health-advisory-on-cerebrospinal-meningitis-%28csm%29' },
       { title: 'World Health Organization · Meningitis', url: 'https://www.who.int/news-room/fact-sheets/detail/meningitis' },
@@ -404,6 +428,10 @@ export const concerns: Concern[] = [
     ingredients: ['call a health facility before arriving', 'avoid close contact, especially with babies, pregnant people or people with weakened immunity', 'rest and drink fluids if able'],
     productTerms: [],
     escalation: 'Arrange same-day medical advice and call before arriving because this pattern can spread easily. Emergency care is needed for a seizure, severe breathing difficulty, confusion, inability to stay awake or drink, a stiff neck, or a rash that does not fade when pressed. Do not rely on skincare or self-start vitamin A or antibiotics.',
+    urgentAction: {
+      urgency: 'same-day',
+      guidance: 'Call a health facility for medical advice today before going in, and avoid close contact while you arrange care.',
+    },
     sources: [
       { title: 'World Health Organization · Measles', url: 'https://www.who.int/news-room/fact-sheets/detail/measles' },
       { title: 'NHS · Measles', url: 'https://www.nhs.uk/conditions/measles/' },
@@ -418,6 +446,10 @@ export const concerns: Concern[] = [
     ingredients: ['emergency assessment', 'bring all medicines to the hospital', 'do not rely on skincare treatment'],
     productTerms: [],
     escalation: 'A spreading or painful rash, circular target-like patches, blisters, peeling skin, or mouth, eye, throat or genital sores after a medicine needs emergency hospital care now.',
+    urgentAction: {
+      urgency: 'emergency',
+      guidance: 'Get emergency hospital care now and take every medicine or medicine pack with you.',
+    },
     sources: [{ title: 'NHS · Stevens-Johnson syndrome', url: 'https://www.nhs.uk/conditions/stevens-johnson-syndrome/' }], reviewedAt,
   },
   {
@@ -485,6 +517,10 @@ export const concerns: Concern[] = [
     ingredients: ['same-day medical assessment', 'mouth and facial examination', 'clinician-directed treatment and nutrition support'],
     productTerms: [],
     escalation: 'Get same-day medical care for a gum sore with quickly increasing cheek or facial swelling, dark or breaking-down tissue, or difficulty eating. Breathing or swallowing difficulty, inability to drink, confusion, collapse or severe weakness needs emergency care now. Do not wait for skincare, mouthwash or home treatment to work.',
+    urgentAction: {
+      urgency: 'same-day',
+      guidance: 'Get medical care today. Breathing or swallowing difficulty, inability to drink, confusion, collapse or severe weakness needs emergency care now.',
+    },
     sources: [{ title: 'World Health Organization · Noma', url: 'https://www.who.int/news-room/fact-sheets/detail/noma/' }],
     reviewedAt: '2026-07-23',
   },
@@ -532,6 +568,10 @@ export const concerns: Concern[] = [
     ingredients: ['call emergency services', 'remove contaminated clothing if safe', 'brush off dry chemical before rinsing', 'rinse under cool or lukewarm running water'],
     productTerms: [],
     escalation: 'Call emergency services and start first aid now. Remove contaminated clothing if safe, brush dry chemical off before using water, then rinse with plenty of cool or lukewarm running water while help is arranged. Do not apply cream or another chemical, and go to hospital even if the area initially looks small.',
+    urgentAction: {
+      urgency: 'emergency',
+      guidance: 'Call emergency services and start rinsing now. Remove contaminated clothing if safe, brush off dry chemical first, then use plenty of cool or lukewarm running water.',
+    },
     sources: [{ title: 'NHS · Acid and chemical burns', url: 'https://www.nhs.uk/conditions/acid-and-chemical-burns/' }],
     reviewedAt: '2026-07-26',
   },
@@ -542,6 +582,10 @@ export const concerns: Concern[] = [
     ingredients: ['urgent in-person medical assessment', 'note when the colour change began', 'do not rely on skincare or lightening products'],
     productTerms: [],
     escalation: 'Arrange urgent medical assessment today. Yellow skin can be harder to see on brown or black skin, so yellowing in the whites of the eyes is an important cue. This observation has several possible causes and JeloCare cannot identify one; do not wait for skincare to change it.',
+    urgentAction: {
+      urgency: 'same-day',
+      guidance: 'Arrange an urgent in-person medical assessment today. Do not wait for skincare to change the colour.',
+    },
     sources: [{ title: 'NHS · Jaundice', url: 'https://www.nhs.uk/conditions/jaundice/' }],
     reviewedAt: '2026-07-26',
   },
@@ -549,7 +593,7 @@ export const concerns: Concern[] = [
     slug: 'genital-sore-discharge-pattern', name: 'Genital sore or unusual discharge', area: 'Body', kind: 'condition-pattern', clinicalPatternIds: ['genital-symptom-warning-like'],
     summary: 'A genital sore, blister or unusual discharge needs private, non-judgemental clinical assessment and testing.',
     signals: ['an unusual discharge from the vagina, penis or anus', 'a blister, sore or ulcer around the genitals or anus', 'pain or burning when passing urine', 'a recent sexual-health concern or a partner with symptoms'],
-    ingredients: ['confidential sexual-health assessment', 'testing to identify the cause', 'avoid sex without a condom until assessed'],
+    ingredients: ['confidential sexual-health assessment', 'testing to identify the cause', 'avoid sexual contact until assessed and symptoms have resolved'],
     productTerms: [],
     escalation: 'Arrange a confidential sexual-health or clinician assessment and testing promptly. Symptoms alone cannot identify the cause, and many infections cause no symptoms. Fever, severe lower-abdominal or pelvic pain, or sudden severe testicular pain or swelling needs same-day urgent care.',
     sources: [
@@ -614,6 +658,10 @@ export const concerns: Concern[] = [
     ingredients: ['urgent in-person foot assessment', 'keep weight off the affected foot', 'cover broken skin with a clean dry dressing'],
     productTerms: [],
     escalation: 'Arrange urgent in-person assessment today for a new foot wound, blister, ulcer, colour change, swelling, unusual heat or cold, or unexplained pain in someone living with diabetes, even if it does not hurt. Fever with a wound, confusion, fast breathing, black tissue, or a cold pale or blue foot needs emergency hospital care now. Do not burst blisters, cut hard skin, apply corn or wart acids, or rely on skincare treatment.',
+    urgentAction: {
+      urgency: 'same-day',
+      guidance: 'Get an urgent in-person foot assessment today, even if the change does not hurt. Fever, confusion, fast breathing, black tissue, or a cold pale or blue foot needs emergency hospital care now.',
+    },
     sources: [
       { title: 'World Health Organization · Diabetes', url: 'https://www.who.int/news-room/fact-sheets/detail/diabetes' },
       { title: 'NICE · Diabetic foot problems', url: 'https://www.nice.org.uk/guidance/ng19/chapter/Recommendations' },

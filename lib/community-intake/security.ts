@@ -4,11 +4,10 @@ import { createHash, createHmac, randomBytes } from 'node:crypto';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import type { NextRequest } from 'next/server';
-import { isAllowedCommunityRequest } from './request-origin';
+export { readBoundedJson, sameSiteRequest } from './request-security';
 
 export const contributionCookieName = 'jelocare_contribution_edit';
 export const contributionCookieMaxAge = 60 * 60 * 24 * 30;
-const maxJsonBytes = 64 * 1024;
 
 export function createEditSecret() {
   return randomBytes(32).toString('base64url');
@@ -29,22 +28,6 @@ export function editSecretFromRequest(request: NextRequest, draftId: string) {
   if (separator < 1 || value.slice(0, separator) !== draftId) return null;
   const secret = value.slice(separator + 1);
   return secret.length >= 32 ? secret : null;
-}
-
-export function sameSiteRequest(request: NextRequest) {
-  return isAllowedCommunityRequest(request.headers, request.nextUrl.origin);
-}
-
-export async function readBoundedJson(request: NextRequest) {
-  const declared = Number(request.headers.get('content-length') ?? 0);
-  if (declared > maxJsonBytes) throw new Error('payload_too_large');
-  const text = await request.text();
-  if (Buffer.byteLength(text, 'utf8') > maxJsonBytes) throw new Error('payload_too_large');
-  try {
-    return JSON.parse(text) as unknown;
-  } catch {
-    throw new Error('invalid_json');
-  }
 }
 
 type CommunityAction = 'create' | 'save' | 'submit';
