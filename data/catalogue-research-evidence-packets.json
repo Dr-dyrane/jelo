@@ -9,7 +9,7 @@
     "requestedCount": 12
   },
   "source": {
-    "staticQueueSha256": "5fd572db103f6b1294f03fdd85441ce44f8d5509cd20a9d72e656874d3f4cfd5",
+    "staticQueueSha256": "df62c25098cc413236f25113c5b9dc28e669db8b12383983cce282cef39c9c4e",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "packets": [
@@ -1512,161 +1512,11 @@
       }
     },
     {
-      "id": "4323e023edf4327416844566",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 11,
-        "lane": "pigment-support",
-        "priorityScore": 176,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "multi-retailer-observed",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "41ed533ef6415b6cea8ea251",
-        "title": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
-        "brandHint": "SKIN BY ZARON",
-        "size": "650ml",
-        "categoryHint": "Body care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
-            "sourceProductId": 330838,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330838",
-            "observedAt": "2026-07-27T18:11:07.194Z",
-            "observedTitle": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
-            "observedSize": "650ml",
-            "priceNgn": 11718,
-            "stock": "in-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/08/k98a32mb.png?fit=1200%2C1200&quality=80&ssl=1",
-            "response": {
-              "id": "f0661b04a8bbd02e29588c5e",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:07.194Z",
-              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
-              "responseByteSize": 652018,
-              "responseMimeType": "application/json"
-            }
-          },
-          {
-            "retailer": "Slique Beauty",
-            "retailerStatus": "provisional",
-            "listingUrl": "https://sliquebeautylimited.com/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
-            "sourceProductId": 5221,
-            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/5221",
-            "observedAt": "2026-07-27T18:11:19.068Z",
-            "observedTitle": "SKIN BY ZARON VITAMIN C BODY WASH 650ML",
-            "observedSize": "650ml",
-            "priceNgn": 12850,
-            "stock": "in-stock",
-            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/zaron-Vitamin-C-wash.jpg",
-            "response": {
-              "id": "4774da31ec9d4b1e90868d54",
-              "retailer": "Slique Beauty",
-              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=19&orderby=id&order=desc",
-              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=19&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:19.068Z",
-              "responseSha256": "5a1a5531fe5bc146952c50ef9d3a683a34022cf407e9cb3e62ad658753bae79e",
-              "responseByteSize": 514457,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "6908137011248",
-            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          },
-          {
-            "retailer": "Slique Beauty",
-            "value": "6908137011248",
-            "responseEvidenceId": "4774da31ec9d4b1e90868d54",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
       "id": "42f32d48d0fbcf7e7f56607a",
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 12,
+        "rank": 11,
         "lane": "moisture-barrier",
         "priorityScore": 175,
         "reasons": [
@@ -1753,6 +1603,156 @@
             "retailer": "Slique Beauty",
             "value": "811068019237",
             "responseEvidenceId": "667b614acf73bef523fb2949",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "f020ac8386430486b94e1ce2",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 12,
+        "lane": "pigment-support",
+        "priorityScore": 171,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "9a010c0186b1418272fce5bb",
+        "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
+        "brandHint": "ADVANCED",
+        "size": "52ml",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/advanced-clinicals-vitamin-c-anti-aging-serum-52ml/",
+            "sourceProductId": 328949,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328949",
+            "observedAt": "2026-07-27T18:11:09.743Z",
+            "observedTitle": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
+            "observedSize": "52ml",
+            "priceNgn": 12000,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2020/01/1v4jbdy3-1.png?fit=1900%2C1900&quality=80&ssl=1",
+            "response": {
+              "id": "0bf15cb6dd6d62eb74bb1d6f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:09.743Z",
+              "responseSha256": "0e38e61afa2e4789c3dc73cc44498bb5b46d3fc3290dc77412dfa81dd916f129",
+              "responseByteSize": 399695,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/advanced-clinicals-vitamin-c-serum-52ml/",
+            "sourceProductId": 14053,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14053",
+            "observedAt": "2026-07-27T18:11:16.237Z",
+            "observedTitle": "ADVANCED CLINICALS VITAMIN C SERUM 52ML",
+            "observedSize": "52ml",
+            "priceNgn": 17000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/08/Advanced-Clinicals-Vitamin-C-Serum.webp",
+            "response": {
+              "id": "4bee98259641cd37ef156ea7",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=12&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=12&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:16.237Z",
+              "responseSha256": "324161734c3e57523e40b9801ed6a27bed02e73d703ff914effbe4ee8bc01ea0",
+              "responseByteSize": 489590,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "819265008016",
+            "responseEvidenceId": "0bf15cb6dd6d62eb74bb1d6f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "819265008016",
+            "responseEvidenceId": "4bee98259641cd37ef156ea7",
             "treatment": "retailer-local-code-not-manufacturer-identity"
           }
         ]

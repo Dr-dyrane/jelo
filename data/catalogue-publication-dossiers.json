@@ -11359,6 +11359,395 @@
         "approvedAt": "2026-07-28T10:29:00Z"
       },
       "dossierFingerprint": "1833db56c77e66ad5a4bc78a507d06e8e5a398c4e85ef8249f37bd431c4e7b19"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "skin-by-zaron-vitamin-c-body-wash-650ml",
+      "candidateFingerprint": "5e4c6775d9d93f96df0ce367c0c65fe9963d112cfab3c80fab91e90dd5f8ac76",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "6908137011248",
+        "brand": "Skin by Zaron",
+        "name": "Vitamin C Body Wash",
+        "variant": "Vitamin C Body Wash",
+        "size": "650 ml",
+        "packageVersion": "Skin by Zaron Vitamin C Body Wash 650ml",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+        "officialIdentity": {
+          "url": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+          "observedGtin": "6908137011248",
+          "observedVariant": "Vitamin C Body Wash",
+          "observedSize": "650 ml",
+          "observedPackageVersion": "Skin by Zaron Vitamin C Body Wash 650ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/skin-by-zaron-vitamin-c-body-wash-650ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 5,
+            "candidateId": "skin-by-zaron-vitamin-c-body-wash-650ml",
+            "sourceUrl": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+            "responseUrl": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+            "retrievedAt": "2026-07-28T12:59:51Z",
+            "fields": {
+              "gtin": {
+                "value": "6908137011248",
+                "locator": "identifierCorroborations[*].fields.gtin",
+                "sourceText": "GTIN/EAN 6908137011248 is independently corroborated by Lami Fragrance and CSi Grocery; the complete rendered official Zaron page publishes the exact product and current 650 ml pack but no barcode, EAN, GTIN or UPC."
+              },
+              "variant": {
+                "value": "Vitamin C Body Wash",
+                "locator": "Rendered official product heading",
+                "sourceText": "Vitamin C Body Wash"
+              },
+              "size": {
+                "value": "650 ml",
+                "locator": "Official bottle principal display panel in supplemental response",
+                "sourceText": "650 ml / 21.98 fl oz"
+              },
+              "manufacturerIdentifierStatus": {
+                "value": "not-published",
+                "locator": "Complete rendered DOM outerHTML whole-word identifier absence search",
+                "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
+                "absenceProof": {
+                  "searchScope": "complete-rendered-dom-outerhtml",
+                  "searchedTerms": [
+                    "barcode",
+                    "ean",
+                    "gtin",
+                    "upc"
+                  ],
+                  "matchStrategy": "whole-word",
+                  "caseInsensitive": true,
+                  "matchCount": 0
+                }
+              },
+              "packageVersion": {
+                "value": "Skin by Zaron Vitamin C Body Wash 650ml",
+                "locator": "Official manufacturer main product image",
+                "sourceText": "The current official image shows the complete Skin by Zaron Vitamin C Body Wash 650 ml bottle with its wide white flip-top cap.",
+                "evidenceUrl": "https://zaronproducts.nyc3.cdn.digitaloceanspaces.com/zaronproducts/products/main-product-63-1725059640558.webp"
+              }
+            },
+            "sourceResponseSha256": "ce4fffeedeb8a28b532ddf73f5b5fafe61b40b1a241de2e74b929c30020f4ca9",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 57121,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://zaronproducts.nyc3.cdn.digitaloceanspaces.com/zaronproducts/products/main-product-63-1725059640558.webp",
+                "responseUrl": "https://zaronproducts.nyc3.cdn.digitaloceanspaces.com/zaronproducts/products/main-product-63-1725059640558.webp",
+                "retrievedAt": "2026-07-28T12:48:42Z",
+                "responseSha256": "25840a9b8c2b5965922c7a549891dfc47585736aada770e6e0572c2e085b6fc3",
+                "responseMimeType": "image/webp",
+                "responseByteSize": 18706
+              }
+            ],
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Vitamin C Body Wash - Zaron Cosmetics"
+            },
+            "identifierCorroborations": [
+              {
+                "sourceUrl": "https://lamifragrance.com/product/skin-by-zaron-vitamin-c-body-wash/",
+                "responseUrl": "https://lamifragrance.com/product/skin-by-zaron-vitamin-c-body-wash/",
+                "retrievedAt": "2026-07-28T13:01:00Z",
+                "fields": {
+                  "gtin": {
+                    "value": "6908137011248",
+                    "locator": "Rendered product metadata line labelled GTIN",
+                    "sourceText": "GTIN: 6908137011248"
+                  },
+                  "variant": {
+                    "value": "Skin by Zaron Vitamin C Body Wash 650ml",
+                    "locator": "Rendered h1 product heading",
+                    "sourceText": "Skin by Zaron Vitamin C Body Wash 650ml"
+                  },
+                  "size": {
+                    "value": "650 ml",
+                    "locator": "Rendered h1 product heading size suffix",
+                    "sourceText": "Skin by Zaron Vitamin C Body Wash 650ml"
+                  }
+                },
+                "sourceResponseSha256": "f875c55d16b340f8b13238f666ea18f33d992f27e2d2fcd02b0ed05a9cd56d63",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 200068,
+                "responseDigestScope": "rendered-dom-outerhtml",
+                "method": "reviewed-browser-dom-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "Skin by Zaron Vitamin C Body Wash | Lami Fragrance"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-28T13:04:00Z"
+              },
+              {
+                "sourceUrl": "https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/",
+                "responseUrl": "https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/",
+                "retrievedAt": "2026-07-28T13:02:00Z",
+                "fields": {
+                  "gtin": {
+                    "value": "6908137011248",
+                    "locator": "Rendered Product JSON-LD gtin13",
+                    "sourceText": "\"gtin13\":\"6908137011248\""
+                  },
+                  "variant": {
+                    "value": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz",
+                    "locator": "Rendered h1 product heading",
+                    "sourceText": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz"
+                  },
+                  "size": {
+                    "value": "650 ml",
+                    "locator": "Rendered h1 product heading size token",
+                    "sourceText": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz"
+                  }
+                },
+                "sourceResponseSha256": "05bdca4365daac549609b958da8d45b8361fea336a5b84aa258fc80e12d39575",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 200048,
+                "responseDigestScope": "rendered-dom-outerhtml",
+                "method": "reviewed-browser-dom-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz - Imported Grocery, Baby & Skincare Online in Nigeria| CSi Grocery"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-28T13:04:00Z"
+              }
+            ],
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-28T13:04:00Z"
+          },
+          "snapshotSha256": "10e79b328c4acf1a7b8e4abf60ee0796a2fcd34cdf1f4d6fb4d80a3c724115a5",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 5124,
+          "retrievedAt": "2026-07-28T12:59:51Z"
+        },
+        "checkedAt": "2026-07-28T13:04:30Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
+          "https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described rinse-off body cleanser with vitamin C, glycolic acid and castor oil.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off body cleanser, not treatment for dark spots, acne, dermatitis or persistent texture change. Glycolic acid may sting irritated or broken skin. Avoid the eyes, stop if burning or a lasting rash develops, and use sun protection on exposed skin. Seek clinical advice for painful, worsening or unexplained skin changes.",
+        "manufacturerEvidenceUrl": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-07-28T13:05:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
+            "observedAt": "2026-07-28T12:49:00Z",
+            "observedTitle": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
+            "observedSize": "650 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Skin by Zaron Vitamin C Body Wash 650ml",
+            "retailerSku": "6908137011248",
+            "priceNgn": 11718,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 4,
+              "method": "reviewed-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330838",
+              "responseSha256": "0479012b0407c2f738c2200ff0130d3de00cfc08826e85485b0bd79aa78f000f",
+              "responseDigestScope": "decoded-response-body",
+              "responseMimeType": "application/json",
+              "responseByteSize": 5139,
+              "retrievedAt": "2026-07-28T12:49:00Z",
+              "responseSnapshotPath": "data/catalogue-offer-source-evidence/skin-by-zaron-vitamin-c-body-wash-650ml--buybetter.json",
+              "offerRecord": {
+                "locator": "Complete exact Woo Store API product response",
+                "byteStart": 0,
+                "byteEnd": 5139,
+                "sourceText": "{\"id\":330838,\"name\":\"SKIN BY ZARON VITAMIN C Body Wash 650ml\",\"slug\":\"skin-by-zaron-vitamin-c-body-wash-650ml\",\"parent\":0,\"type\":\"simple\",\"variation\":\"\",\"permalink\":\"https:\\/\\/buybetter.ng\\/product\\/skin-by-zaron-vitamin-c-body-wash-650ml\\/\",\"sku\":\"6908137011248\",\"short_description\":\"\",\"description\":\"<h3 data-start=\\\"118\\\" data-end=\\\"220\\\">SKIN BY ZARON Vitamin C Body Wash 650ml \\u2013 Brightening Cleanser | BuyBetter Nigeria<\\/h3>\\n<p>Skin By Zaron Vitamin C Body Wash is a soothing, creamy formula that cleanses, brightens, and moisturizes. Contains Vitamin C, Glycolic Acid and Castor Oil which brightens, exfoliates, and moisturizes the skin, taking away dullness and leaving skin smoother, brighter, nourished, and healthier looking.<\\/p>\",\"on_sale\":false,\"prices\":{\"price\":\"1171800\",\"regular_price\":\"1171800\",\"sale_price\":\"1171800\",\"price_range\":null,\"currency_code\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"currency_minor_unit\":2,\"currency_decimal_separator\":\".\",\"currency_thousand_separator\":\",\",\"currency_prefix\":\"\\u20a6\",\"currency_suffix\":\"\"},\"price_html\":\"<span class=\\\"woocommerce-Price-amount amount\\\"><span class=\\\"woocommerce-Price-currencySymbol\\\">&#8358;<\\/span>11,718.00<\\/span> <small class=\\\"woocommerce-price-suffix\\\">NG<\\/small>\",\"average_rating\":\"0\",\"review_count\":0,\"images\":[{\"id\":281508,\"src\":\"https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?fit=1200%2C1200&quality=80&ssl=1\",\"thumbnail\":\"https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=800%2C800&quality=80&ssl=1\",\"srcset\":\"https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?w=1200&quality=80&ssl=1 1200w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=800%2C800&quality=80&ssl=1 800w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=100%2C100&quality=80&ssl=1 100w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=64%2C64&quality=80&ssl=1 64w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=300%2C300&quality=80&ssl=1 300w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=1024%2C1024&quality=80&ssl=1 1024w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=150%2C150&quality=80&ssl=1 150w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=768%2C768&quality=80&ssl=1 768w\",\"sizes\":\"(max-width: 1200px) 100vw, 1200px\",\"thumbnail_srcset\":\"https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?w=1200&quality=80&ssl=1 1200w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=800%2C800&quality=80&ssl=1 800w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=100%2C100&quality=80&ssl=1 100w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=64%2C64&quality=80&ssl=1 64w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=300%2C300&quality=80&ssl=1 300w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=1024%2C1024&quality=80&ssl=1 1024w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=150%2C150&quality=80&ssl=1 150w, https:\\/\\/i0.wp.com\\/buybetter.ng\\/wp-content\\/uploads\\/2024\\/08\\/k98a32mb.png?resize=768%2C768&quality=80&ssl=1 768w\",\"thumbnail_sizes\":\"(max-width: 800px) 100vw, 800px\",\"name\":\"k98a32mb.png\",\"alt\":\"SKIN BY ZARON -VITAMIN C Body Wash 650ml | buy in Nigeria at wordpress-538548-5635675.cloudwaysapps.com\"}],\"categories\":[{\"id\":517,\"name\":\"Brightening\",\"slug\":\"brightening-skincare\",\"link\":\"https:\\/\\/buybetter.ng\\/product-category\\/brightening-skincare\\/\"},{\"id\":810,\"name\":\"SKIN BY ZARON\",\"slug\":\"skin-by-zaron\",\"link\":\"https:\\/\\/buybetter.ng\\/product-category\\/skin-by-zaron\\/\"},{\"id\":560,\"name\":\"Vitamin C\",\"slug\":\"vitamin-c\",\"link\":\"https:\\/\\/buybetter.ng\\/product-category\\/vitamin-c\\/\"}],\"tags\":[],\"brands\":[],\"attributes\":[],\"variations\":[],\"grouped_products\":[],\"has_options\":false,\"is_purchasable\":true,\"is_in_stock\":true,\"is_on_backorder\":false,\"low_stock_remaining\":null,\"stock_availability\":{\"text\":\"33 in stock\",\"class\":\"in-stock\"},\"sold_individually\":false,\"weight\":\"0\",\"dimensions\":{\"length\":\"0\",\"width\":\"0\",\"height\":\"0\"},\"formatted_weight\":\"N\\/A\",\"formatted_dimensions\":\"N\\/A\",\"add_to_cart\":{\"text\":\"Add to basket\",\"description\":\"Add to basket: &ldquo;SKIN BY ZARON VITAMIN C Body Wash 650ml&rdquo;\",\"url\":\"\\/wp-json\\/wc\\/store\\/v1\\/products\\/330838?add-to-cart=330838\",\"single_text\":\"Add to basket\",\"minimum\":1,\"maximum\":33,\"multiple_of\":1},\"is_password_protected\":false,\"extensions\":{},\"_links\":{\"self\":[{\"href\":\"https:\\/\\/buybetter.ng\\/wp-json\\/wc\\/store\\/v1\\/products\\/330838\",\"targetHints\":{\"allow\":[\"GET\"]}}],\"collection\":[{\"href\":\"https:\\/\\/buybetter.ng\\/wp-json\\/wc\\/store\\/v1\\/products\"}],\"related\":[{\"embeddable\":true,\"href\":\"https:\\/\\/buybetter.ng\\/wp-json\\/wc\\/store\\/v1\\/products?related=330838&per_page=10\"}]}}\n",
+                "sourceFragmentSha256": "0479012b0407c2f738c2200ff0130d3de00cfc08826e85485b0bd79aa78f000f"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "6908137011248",
+                  "locator": "Reviewed official catalogue identity",
+                  "sourceText": "Official catalogue identity GTIN 6908137011248",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
+                  "locator": "Woo product name",
+                  "sourceText": "SKIN BY ZARON VITAMIN C Body Wash 650ml"
+                },
+                "size": {
+                  "value": "650 ml",
+                  "locator": "Measured size in Woo product name",
+                  "sourceText": "SKIN BY ZARON VITAMIN C Body Wash 650ml"
+                },
+                "packageVersion": {
+                  "value": "Skin by Zaron Vitamin C Body Wash 650ml",
+                  "locator": "Woo product name",
+                  "sourceText": "SKIN BY ZARON VITAMIN C Body Wash 650ml"
+                },
+                "price": {
+                  "value": 11718,
+                  "currency": "NGN",
+                  "locator": "Woo prices object",
+                  "sourceText": "{\"price\":\"1171800\",\"regular_price\":\"1171800\",\"sale_price\":\"1171800\",\"price_range\":null,\"currency_code\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"currency_minor_unit\":2,\"currency_decimal_separator\":\".\",\"currency_thousand_separator\":\",\",\"currency_prefix\":\"\\u20a6\",\"currency_suffix\":\"\"}"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Woo stock availability text",
+                  "sourceText": "33 in stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-28T13:05:30Z"
+            }
+          },
+          {
+            "retailer": "CSi Grocery",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/",
+            "observedAt": "2026-07-28T13:02:00Z",
+            "observedTitle": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz",
+            "observedSize": "650 ml",
+            "observedGtin": "6908137011248",
+            "observedGtinBasis": "explicit-gtin",
+            "observedPackageVersion": "Skin by Zaron Vitamin C Body Wash 650ml",
+            "retailerSku": "6908137011248",
+            "priceNgn": 12500,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/",
+              "responseUrl": "https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/",
+              "responseSha256": "05bdca4365daac549609b958da8d45b8361fea336a5b84aa258fc80e12d39575",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 200048,
+              "retrievedAt": "2026-07-28T13:02:00Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz - Imported Grocery, Baby & Skincare Online in Nigeria| CSi Grocery"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "6908137011248",
+                  "locator": "Rendered Product JSON-LD gtin13",
+                  "sourceText": "\"gtin13\":\"6908137011248\""
+                },
+                "title": {
+                  "value": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz"
+                },
+                "size": {
+                  "value": "650 ml",
+                  "locator": "Rendered h1 product heading size token",
+                  "sourceText": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz"
+                },
+                "packageVersion": {
+                  "value": "Skin by Zaron Vitamin C Body Wash 650ml",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Skin By Zaron Vitamin C Body Wash - 650ml / 21.98 Fl Oz"
+                },
+                "price": {
+                  "value": 12500,
+                  "currency": "NGN",
+                  "locator": "Rendered Product JSON-LD Offer price",
+                  "sourceText": "NGN 12500"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered Product JSON-LD Offer availability",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-28T13:05:30Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://zaronproducts.nyc3.cdn.digitaloceanspaces.com/zaronproducts/products/main-product-63-1725059640558.webp",
+          "sha256": "25840a9b8c2b5965922c7a549891dfc47585736aada770e6e0572c2e085b6fc3",
+          "mimeType": "image/webp",
+          "byteSize": 18706,
+          "width": 800,
+          "height": 1000,
+          "retrievedAt": "2026-07-28T12:48:42Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot source for transparent-background publication\nPrimary request: Edit the supplied official manufacturer image so the exact Skin by Zaron Vitamin C Body Wash 650 ml bottle remains unchanged, while replacing only the existing pale studio background and floor shadow with one perfectly flat, uniform solid #ff00ff chroma-magenta field for local background removal.\nInput images: Image 1 is the edit target and sole authoritative product-identity reference.\nSubject: one complete upright matte-white 650 ml curved bottle with its original wide white flip-top cap. Preserve the exact silhouette, proportions, cap, white plastic, front artwork, thin botanical line drawings, black/red typography, label hierarchy, and placement.\nIdentity-critical text (verbatim): preserve “SKIN BY ZARON”, “Vitamin C”, “BODY WASH”, “VITAMIN C”, “GLYCOLIC ACID”, “CASTOR OIL”, “FOR ALL SKIN TYPES”, “Brightening”, “Exfoliating | Anti-aging”, “Hydrating | Anti-oxidant”, and “Net Wt 650ml e 21.98 fl. oz” exactly as shown. Do not invent, correct, omit, restyle, or move text.\nComposition/framing: one centered, straight-on full bottle; complete cap and rounded base visible; generous even padding on all four sides; square crop; bottle must not touch an edge.\nScene/backdrop: perfectly uniform #ff00ff only—no gradient, texture, floor, horizon, shadow, reflection, glow, vignette, or lighting variation outside the bottle.\nStyle/medium: source-faithful premium studio product photography, not a redesign or illustration.\nConstraints: change only the background and remove the existing floor/cast shadow. Do not use #ff00ff anywhere on the product. Do not transform the cap into a pump. No carton, props, hands, people, extra objects, duplicate bottle, badges, detached text, or watermark.\nAvoid: altered lettering, misspelled brand or size, invented claims, softened label, cropped cap/base, package redesign, perspective change, contact shadow, reflection, halo, gradient, or stylization.",
+          "inputs": [
+            {
+              "url": "https://zaronproducts.nyc3.cdn.digitaloceanspaces.com/zaronproducts/products/main-product-63-1725059640558.webp",
+              "sha256": "25840a9b8c2b5965922c7a549891dfc47585736aada770e6e0572c2e085b6fc3"
+            }
+          ],
+          "outputSha256": "ce55d84c730459e33710a8db9adbc13e66bb23f1191de6b3897be215d9997f1b",
+          "generatedAt": "2026-07-28T14:13:00Z",
+          "recordSha256": "1425a9dc0ab3df53a62d23ce1e35b79b537d32a2165fcda73e6f32d157688bc1"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/skin-by-zaron/skin-by-zaron-vitamin-c-body-wash-650ml/packshot-v1-ce55d84c730459e3.png",
+        "sha256": "ce55d84c730459e33710a8db9adbc13e66bb23f1191de6b3897be215d9997f1b",
+        "mimeType": "image/png",
+        "byteSize": 1461121,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-28T14:19:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-07-28T14:23:00Z"
+      },
+      "dossierFingerprint": "a9929304ab79f58971256005ca6e32f537fcb8585cae77dcb1c316470c9621c9"
     }
   ]
 }

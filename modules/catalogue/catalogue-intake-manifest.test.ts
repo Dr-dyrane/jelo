@@ -17,26 +17,26 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-28T10:31:00Z');
+const researchAsOf = Date.parse('2026-07-28T15:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 39);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 41);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 41);
-  assert.equal(catalogueIntakeDecisions.length, 41);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 38);
+  assert.equal(catalogueIntakeCandidates.length, 43);
+  assert.equal(catalogueIntakeDecisions.length, 43);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 39);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 21);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 38);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 39);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 2);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 1);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 2);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 38);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 39);
 });
 
 test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
@@ -1353,7 +1353,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 21);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 77);
+  ), 0), 79);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

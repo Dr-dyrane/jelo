@@ -758,6 +758,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   prequel: ['prequelskin.com', 'www.prequelskin.com'],
   sheamoisture: ['www.sheamoisture.com'],
   simple: ['www.simpleskincare.com', 'www.simple.co.uk'],
+  skinbyzaron: ['www.zaroncosmetics.com'],
   tresemme: ['www.tresemme.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
@@ -810,6 +811,10 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   prequel: ['prequelskin.com', 'www.prequelskin.com'],
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],
   simple: ['www.simpleskincare.com', 'www.simple.co.uk', 'assets.unileversolutions.com'],
+  skinbyzaron: [
+    'www.zaroncosmetics.com',
+    'zaronproducts.nyc3.cdn.digitaloceanspaces.com',
+  ],
   tresemme: ['www.tresemme.com', 'assets.unileversolutions.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
@@ -828,6 +833,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
   'nineless-mela-pro-rice-txa-toner-200ml': [
     'https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/',
     'https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm',
+  ],
+  'skin-by-zaron-vitamin-c-body-wash-650ml': [
+    'https://lamifragrance.com/product/skin-by-zaron-vitamin-c-body-wash/',
+    'https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/',
   ],
   'facefacts-ceramide-oil-control-foaming-cleanser-400ml': [
     'https://sianwholesale.com/brands/face_facts?p=2',

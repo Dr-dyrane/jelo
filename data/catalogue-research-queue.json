@@ -300,33 +300,6 @@
     },
     {
       "rank": 11,
-      "discoveryId": "41ed533ef6415b6cea8ea251",
-      "title": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
-      "brandHint": "SKIN BY ZARON",
-      "size": "650ml",
-      "categoryHint": "Body care",
-      "lane": "pigment-support",
-      "priorityScore": 176,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "06908137011248",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 12,
       "discoveryId": "17bd496cb38c558d4e8a56f9",
       "title": "DR TEALS (Vitamin C And Citrus) Body Lotion with Essential oil 532ml",
       "brandHint": "DR",
@@ -353,7 +326,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 13,
+      "rank": 12,
       "discoveryId": "9a010c0186b1418272fce5bb",
       "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
       "brandHint": "ADVANCED",
@@ -380,7 +353,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 14,
+      "rank": 13,
       "discoveryId": "fd07898619801a68999f2850",
       "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
       "brandHint": "FACEFACTS",
@@ -407,7 +380,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 15,
+      "rank": 14,
       "discoveryId": "6635e9027b7821ef2ff04dbd",
       "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
       "brandHint": "Advanced Korean Skin",
@@ -433,7 +406,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 16,
+      "rank": 15,
       "discoveryId": "f1ebe655a947668241b4d240",
       "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -459,7 +432,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 17,
+      "rank": 16,
       "discoveryId": "b7c8a1240541dd5a7869b2eb",
       "title": "ADVANCED KOREAN SKIN Bright And Smooth Body Lotion 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -485,7 +458,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "discoveryId": "4b13a12fadc04b34d8290d5b",
       "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "brandHint": "AQUA RICH",
@@ -506,6 +479,34 @@
       ],
       "cautions": [
         "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 18,
+      "discoveryId": "814c2d49e6ef3327cebd67d5",
+      "title": "DR TEALS Shea Sugar Scrub (Citrus Essential Oils With Vitamin C) 538g",
+      "brandHint": "Dr Teals",
+      "size": "538g",
+      "categoryHint": "Body care",
+      "lane": "pigment-support",
+      "priorityScore": 168,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "00810021207254",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "retailer-code-unverified",
+        "abrasive-or-peel-review"
       ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"

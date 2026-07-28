@@ -684,6 +684,20 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-28',
   },
+  'skin-by-zaron-vitamin-c-body-wash-650ml': {
+    productSlug: 'skin-by-zaron-vitamin-c-body-wash-650ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'glycolic-acid-body-wash-review',
+      label: 'Glycolic-acid body-wash review',
+      concernIds: ['rough texture', 'body cleansing', 'cosmetic exfoliation'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.zaroncosmetics.com/product/vitamin-c-body-wash',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-07-28',
+  },
   'facefacts-ceramide-moisturising-gel-cream-50ml': {
     productSlug: 'facefacts-ceramide-moisturising-gel-cream-50ml',
     careState: 'supportive_eligible',

@@ -80,6 +80,22 @@ routine SKU. Run `npm run verify:release`:
 
 CI remains the independent full check after a direct push.
 
+## Choose the identity route before building the candidate
+
+- Use a manufacturer-published GTIN when the official source binds it to the
+  exact variant, size, and current package.
+- When the official source publishes the exact product but no GTIN, the
+  independently corroborated GTIN route is valid only when two reviewed,
+  candidate-scoped sources agree on the identifier and exact variant/size.
+  Adding those URLs to the candidate corroboration allowlist is an evidence
+  admission, so run the full release verification once for that change.
+- Use the manufacturer-SKU route only when current retailer responses can bind
+  the official manufacturer variant under that route's exact title, brand,
+  size, and package contract.
+- Do not rewrite the official variant, pretend a retailer SKU is a manufacturer
+  identifier, or relax a title matcher to rescue one product. Preserve the
+  candidate as blocked and move to the next lane when neither route is proven.
+
 ## Never fast-path these decisions
 
 Stop and resolve the evidence when:

@@ -3,9 +3,9 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-07-27T18:20:33.441Z",
+  "generatedAt": "2026-07-28T14:40:38.455Z",
   "source": {
-    "researchPacketsSha256": "3dfb0fa101b5cadf44fdbc9963d1214cf2df195ef38964a3ddd103861f1d3a94",
+    "researchPacketsSha256": "356af8e076c3cabe22bf6ace46659603a7623eb37e9aa65c845c1751d63e6f95",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
@@ -21,8 +21,8 @@
       "5e5eaf99bf5cf8c6218633cd",
       "40b98e378e2d706b14d203c6",
       "95ae7ea127cc3fa98e364ebf",
-      "4323e023edf4327416844566",
-      "42f32d48d0fbcf7e7f56607a"
+      "42f32d48d0fbcf7e7f56607a",
+      "f020ac8386430486b94e1ce2"
     ],
     "responseCount": 24
   },
@@ -36,12 +36,12 @@
       "reviewedAt": "2026-07-28T05:40:00.000Z"
     },
     {
-      "captureId": "46987401d2061ba37fd32650",
-      "responseSha256": "064d80380c36b148595168757cfcd49f6c3e850219b71a6a7a0915088be4382c",
+      "captureId": "2a1f7245fffeb3274122aa4c",
+      "responseSha256": "170ba0d49a6cad49acef90874bfa6e2bcc9b30f2463bd74b3a13e0611591aa9a",
       "kind": "description-size-conflict",
       "disposition": "exclude-description-from-identity-care-and-public-copy",
       "basis": "retained-response-and-live-listing-review",
-      "reviewedAt": "2026-07-28T05:40:00.000Z"
+      "reviewedAt": "2026-07-28T14:44:00.000Z"
     },
     {
       "captureId": "aeaa77f6f17ce6948e1cfc7b",
@@ -54,7 +54,7 @@
   ],
   "captures": [
     {
-      "id": "b106c28adec688cd927a8b23",
+      "id": "f05c843ef06fbfbb6b2524b3",
       "packetId": "1920014afae80ba00e4169ca",
       "discoveryId": "138dd87819a57f6a7a3f68ca",
       "retailer": "BuyBetter",
@@ -68,8 +68,8 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330632",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330632",
         "listingUrl": "https://buybetter.ng/product/disaar-vitamin-c-skin-brightening-body-lotion-480ml/",
-        "capturedAt": "2026-07-27T18:20:26.128Z",
-        "responseSha256": "6eb4b1e9e3c909556b6085ce879d8ef0f53634deba50d08631d1170f7f5b73d6",
+        "capturedAt": "2026-07-28T14:40:31.400Z",
+        "responseSha256": "859ca5ba9b67228fa9046df9a33b4329b114a87238a77eb3e9925a683930cdda",
         "responseByteSize": 5442,
         "responseMimeType": "application/json"
       },
@@ -102,7 +102,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4636",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4636",
         "listingUrl": "https://sliquebeautylimited.com/product/disaar-vitamin-c-body-lotion-480ml/",
-        "capturedAt": "2026-07-27T18:20:24.440Z",
+        "capturedAt": "2026-07-28T14:40:29.988Z",
         "responseSha256": "d9df30bcc89a98fd20c5e1dfa29a8e8abad847dc14dbfee2252ad64479885f51",
         "responseByteSize": 5147,
         "responseMimeType": "application/json"
@@ -122,7 +122,7 @@
       }
     },
     {
-      "id": "12b527cd123ca3a1c784e1bd",
+      "id": "669c2d22d7752c3156bfc07c",
       "packetId": "37a75aa63b334a44df82d6c2",
       "discoveryId": "73f96c6c3931cdc9b240b758",
       "retailer": "BuyBetter",
@@ -136,9 +136,9 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330775",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330775",
         "listingUrl": "https://buybetter.ng/product/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/",
-        "capturedAt": "2026-07-27T18:20:29.334Z",
-        "responseSha256": "6a15f8244a338ee3a09a1399a60e7c3dba51b5514802983c24759b829d84542a",
-        "responseByteSize": 5503,
+        "capturedAt": "2026-07-28T14:40:35.284Z",
+        "responseSha256": "60bf67663c08347f5f316177b610caef05e5114b14f2c9da1620a269cf64c86d",
+        "responseByteSize": 5544,
         "responseMimeType": "application/json"
       },
       "offer": {
@@ -148,7 +148,7 @@
           "amount": 3548,
           "currency": "NGN"
         },
-        "stock": "low-stock",
+        "stock": "out-of-stock",
         "retailerSku": {
           "value": "6971764154558",
           "treatment": "retailer-local-code-not-manufacturer-identity"
@@ -170,7 +170,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4448",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4448",
         "listingUrl": "https://sliquebeautylimited.com/product/estelin-sunscreen-ultra-light-50g/",
-        "capturedAt": "2026-07-27T18:20:28.730Z",
+        "capturedAt": "2026-07-28T14:40:34.021Z",
         "responseSha256": "5899d5e21f7bbe63ed76ae593edcbdf1e9da7ce33d7c7ef00f15d07a5c1777f1",
         "responseByteSize": 5864,
         "responseMimeType": "application/json"
@@ -204,7 +204,7 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
         "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrating-bright-body-gel-wash-1000ml/",
-        "capturedAt": "2026-07-27T18:20:30.469Z",
+        "capturedAt": "2026-07-28T14:40:36.349Z",
         "responseSha256": "65cf621609602181a7cc75e139012a42bde11e6a901b40a073472e8e94b8dcf2",
         "responseByteSize": 11492,
         "responseMimeType": "application/json"
@@ -238,7 +238,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
         "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-hydrating-bright/",
-        "capturedAt": "2026-07-27T18:20:29.836Z",
+        "capturedAt": "2026-07-28T14:40:35.788Z",
         "responseSha256": "23e0cc3774c4f34bb3e650290c6607eafdf73fa188a0cdd6cbcde579d92afd57",
         "responseByteSize": 4106,
         "responseMimeType": "application/json"
@@ -272,7 +272,7 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329372",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329372",
         "listingUrl": "https://buybetter.ng/product/dr-teals-body-lotion-with-vitamin-c-532ml/",
-        "capturedAt": "2026-07-27T18:20:33.441Z",
+        "capturedAt": "2026-07-28T14:40:38.159Z",
         "responseSha256": "475dc2d958c1d42bd01229210731c143c7de88230cdf52ea254898c87cc92518",
         "responseByteSize": 12684,
         "responseMimeType": "application/json"
@@ -306,7 +306,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4488",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4488",
         "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-glow-radiance-body-lotion-citrus/",
-        "capturedAt": "2026-07-27T18:20:32.219Z",
+        "capturedAt": "2026-07-28T14:40:36.813Z",
         "responseSha256": "84602f0ed8250f46b0b06e26ebf56081a801f76ef872ee91f26e852b0633525d",
         "responseByteSize": 5623,
         "responseMimeType": "application/json"
@@ -326,75 +326,7 @@
       }
     },
     {
-      "id": "f661492643840729e9b41048",
-      "packetId": "4323e023edf4327416844566",
-      "discoveryId": "41ed533ef6415b6cea8ea251",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/41ed533ef6415b6cea8ea251--buybetter.json",
-      "source": {
-        "productId": 330838,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330838",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330838",
-        "listingUrl": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
-        "capturedAt": "2026-07-27T18:20:31.675Z",
-        "responseSha256": "45442ed50cdda15baccb457d6fa7db73f53afc85fb1265e4b926a6b7d8e43359",
-        "responseByteSize": 5138,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
-        "size": "650ml",
-        "price": {
-          "amount": 11718,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "6908137011248",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "8d8182d7428739a8d5a6215b",
-      "packetId": "4323e023edf4327416844566",
-      "discoveryId": "41ed533ef6415b6cea8ea251",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/41ed533ef6415b6cea8ea251--slique-beauty.json",
-      "source": {
-        "productId": 5221,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/5221",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/5221",
-        "listingUrl": "https://sliquebeautylimited.com/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
-        "capturedAt": "2026-07-27T18:20:31.557Z",
-        "responseSha256": "fd1923c36c8f45f4b0243f8b6fabac708119b96bd57f3ba5dac684cd91b32602",
-        "responseByteSize": 5724,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "SKIN BY ZARON VITAMIN C BODY WASH 650ML",
-        "size": "650ml",
-        "price": {
-          "amount": 12850,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "6908137011248",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "46987401d2061ba37fd32650",
+      "id": "2a1f7245fffeb3274122aa4c",
       "packetId": "5e5eaf99bf5cf8c6218633cd",
       "discoveryId": "f8248dfef755c72bc5ba70a1",
       "retailer": "BuyBetter",
@@ -408,8 +340,8 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
         "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-balance-body-gel-wash-1000ml/",
-        "capturedAt": "2026-07-27T18:20:29.867Z",
-        "responseSha256": "064d80380c36b148595168757cfcd49f6c3e850219b71a6a7a0915088be4382c",
+        "capturedAt": "2026-07-28T14:40:35.789Z",
+        "responseSha256": "170ba0d49a6cad49acef90874bfa6e2bcc9b30f2463bd74b3a13e0611591aa9a",
         "responseByteSize": 14045,
         "responseMimeType": "application/json"
       },
@@ -442,7 +374,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
         "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-balance/",
-        "capturedAt": "2026-07-27T18:20:29.250Z",
+        "capturedAt": "2026-07-28T14:40:34.741Z",
         "responseSha256": "988fa3e610c644374a309f7ebe8c79667bca6dd1f5d959e142fb51b93ad32903",
         "responseByteSize": 4085,
         "responseMimeType": "application/json"
@@ -462,7 +394,7 @@
       }
     },
     {
-      "id": "6b1bd733f16d4354626c24f4",
+      "id": "f9f11b939598087db8f2fc39",
       "packetId": "9461a4a54aec53613167f7c5",
       "discoveryId": "0f6340275dfe1257901f0bf0",
       "retailer": "BuyBetter",
@@ -476,9 +408,9 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330970",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330970",
         "listingUrl": "https://buybetter.ng/product/estelin-all-in-one-multi-defense-tinted-sunscreen-spf-70-50g/",
-        "capturedAt": "2026-07-27T18:20:28.646Z",
-        "responseSha256": "8486912dafc38c92aded774e159cc19bd0d66d1c0e8036e55554a142768a802c",
-        "responseByteSize": 5889,
+        "capturedAt": "2026-07-28T14:40:34.368Z",
+        "responseSha256": "c62bf029392f0f88b4d3b9b7ea347a6ea792dac7cd40b259d1cd85fe316d1ae2",
+        "responseByteSize": 5887,
         "responseMimeType": "application/json"
       },
       "offer": {
@@ -488,7 +420,7 @@
           "amount": 3548,
           "currency": "NGN"
         },
-        "stock": "in-stock",
+        "stock": "low-stock",
         "retailerSku": {
           "value": "6971764154589",
           "treatment": "retailer-local-code-not-manufacturer-identity"
@@ -510,7 +442,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4449",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4449",
         "listingUrl": "https://sliquebeautylimited.com/product/estelin-sunsreen-all-in-one-50g/",
-        "capturedAt": "2026-07-27T18:20:28.132Z",
+        "capturedAt": "2026-07-28T14:40:33.541Z",
         "responseSha256": "d6f77dc0a014fb483920cdb11ffd98a474de856a0e97b3e0ce4c8da36dfcfcd3",
         "responseByteSize": 5574,
         "responseMimeType": "application/json"
@@ -544,7 +476,7 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331028",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331028",
         "listingUrl": "https://buybetter.ng/product/niu-skin-glowing-niacinamide-vitamin-c-aha-body-wash-800ml/",
-        "capturedAt": "2026-07-27T18:20:31.193Z",
+        "capturedAt": "2026-07-28T14:40:37.494Z",
         "responseSha256": "86972522b4a0ff0636831ffe9e8651b074ea81577d4c4042216ae832177ec665",
         "responseByteSize": 7159,
         "responseMimeType": "application/json"
@@ -578,7 +510,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/17014",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/17014",
         "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-glowing-body-wash-800ml/",
-        "capturedAt": "2026-07-27T18:20:30.729Z",
+        "capturedAt": "2026-07-28T14:40:36.301Z",
         "responseSha256": "a75bf817838776b39dcb85de2dde6bc138aa996f3a324548d1edca9483f158bb",
         "responseByteSize": 4392,
         "responseMimeType": "application/json"
@@ -598,7 +530,7 @@
       }
     },
     {
-      "id": "43780caf9c2be24b80562ba6",
+      "id": "bc59a2b6fb87d30258c91194",
       "packetId": "b55494943c535dd1b7f63929",
       "discoveryId": "d67dbac2f6d48cf84f59a3a7",
       "retailer": "BuyBetter",
@@ -612,8 +544,8 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/359537",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/359537",
         "listingUrl": "https://buybetter.ng/product/estelin-hyaluronic-acid-moisturizing-toner-400ml/",
-        "capturedAt": "2026-07-27T18:20:25.581Z",
-        "responseSha256": "b75485d8e37185364d54941977637830ead4c8979300af0e0d5ee1bc2aa8411a",
+        "capturedAt": "2026-07-28T14:40:31.157Z",
+        "responseSha256": "7f5ab7a6ebb86d2c84aeac97b54ee58efd073ac341678db3e3540444f154f1ba",
         "responseByteSize": 5413,
         "responseMimeType": "application/json"
       },
@@ -646,7 +578,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21554",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21554",
         "listingUrl": "https://sliquebeautylimited.com/product/estelin-5d-hyaluronic-acid-moisturizing-toner-400ml/",
-        "capturedAt": "2026-07-27T18:20:25.155Z",
+        "capturedAt": "2026-07-28T14:40:30.428Z",
         "responseSha256": "88095e41cb75f974ae549cb68cd7068e5755b15e241ebd034335dd93fc5fd829",
         "responseByteSize": 4078,
         "responseMimeType": "application/json"
@@ -680,7 +612,7 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330518",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330518",
         "listingUrl": "https://buybetter.ng/product/niu-skin-with-alpha-arbutin-niacinamide-and-vitamin-c-body-lotion-480ml-no-5/",
-        "capturedAt": "2026-07-27T18:20:27.341Z",
+        "capturedAt": "2026-07-28T14:40:33.111Z",
         "responseSha256": "7fab5173c6e019aa345b377d28a4e01d13f109d6c04479e31ffc56ab9f027ae8",
         "responseByteSize": 5285,
         "responseMimeType": "application/json"
@@ -714,7 +646,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4769",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4769",
         "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-vitamins-extra-radiance-perfumed-body-lotion-480ml/",
-        "capturedAt": "2026-07-27T18:20:27.022Z",
+        "capturedAt": "2026-07-28T14:40:32.018Z",
         "responseSha256": "5bbf4a06cd0446897eb49d7f394cdc521ffef24133b575c1cbb86243f803624a",
         "responseByteSize": 4870,
         "responseMimeType": "application/json"
@@ -734,7 +666,7 @@
       }
     },
     {
-      "id": "dc5e0de3fd59fa506c116c50",
+      "id": "cbef154c092bb432d43aec7e",
       "packetId": "d4f0fa500b7c661235f056d8",
       "discoveryId": "a8e84b742d88d567a304c6f6",
       "retailer": "BuyBetter",
@@ -748,8 +680,8 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330530",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330530",
         "listingUrl": "https://buybetter.ng/product/niu-skin-extra-plant-extracts-more-luminous-480ml/",
-        "capturedAt": "2026-07-27T18:20:26.820Z",
-        "responseSha256": "096b5507e5faec3f999ee14353b1345333a46b4113a84829a757133b0b80acd1",
+        "capturedAt": "2026-07-28T14:40:32.305Z",
+        "responseSha256": "443fc232130a8a5274fcef01ad46bf35fa59eda7d361028ff94b4581a2280b86",
         "responseByteSize": 4893,
         "responseMimeType": "application/json"
       },
@@ -782,7 +714,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4767",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4767",
         "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-extra-plant-extracts-perfumed-body-lotion-oud-wood-480ml/",
-        "capturedAt": "2026-07-27T18:20:26.235Z",
+        "capturedAt": "2026-07-28T14:40:31.578Z",
         "responseSha256": "b92517e330f8ddabb3942ee898024bde72e4a1d052dd7194ecac47c05e3569cd",
         "responseByteSize": 4734,
         "responseMimeType": "application/json"
@@ -816,7 +748,7 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433168",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433168",
         "listingUrl": "https://buybetter.ng/product/pro-lab-skin-barrier-repair-ceramide-body-lotion-500ml/",
-        "capturedAt": "2026-07-27T18:20:28.040Z",
+        "capturedAt": "2026-07-28T14:40:33.637Z",
         "responseSha256": "699d536b2b615a34ecb324d8e1283a60aca2146ac4545bf59e2ba9ebbd12465f",
         "responseByteSize": 5896,
         "responseMimeType": "application/json"
@@ -850,7 +782,7 @@
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/27061",
         "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/27061",
         "listingUrl": "https://sliquebeautylimited.com/product/pro-lab-ceramide-body-lotion-500ml/",
-        "capturedAt": "2026-07-27T18:20:27.560Z",
+        "capturedAt": "2026-07-28T14:40:32.732Z",
         "responseSha256": "14ef4e9abd7d1175955ab72af1f55351a5c090aa47b16e039eb9c1b36e616b51",
         "responseByteSize": 3424,
         "responseMimeType": "application/json"
@@ -865,6 +797,74 @@
         "stock": "in-stock",
         "retailerSku": {
           "value": "8804435184562",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "3a49d7c749e324a75405b616",
+      "packetId": "f020ac8386430486b94e1ce2",
+      "discoveryId": "9a010c0186b1418272fce5bb",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/9a010c0186b1418272fce5bb--buybetter.json",
+      "source": {
+        "productId": 328949,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328949",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328949",
+        "listingUrl": "https://buybetter.ng/product/advanced-clinicals-vitamin-c-anti-aging-serum-52ml/",
+        "capturedAt": "2026-07-28T14:40:38.452Z",
+        "responseSha256": "2a29190bb31c3b768e5fa70298a9e1ddb32a684eb3055e166968004d4fc5b72c",
+        "responseByteSize": 6796,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
+        "size": "52ml",
+        "price": {
+          "amount": 12000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "819265008016",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "4badbed9bd9f731119a73270",
+      "packetId": "f020ac8386430486b94e1ce2",
+      "discoveryId": "9a010c0186b1418272fce5bb",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/9a010c0186b1418272fce5bb--slique-beauty.json",
+      "source": {
+        "productId": 14053,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14053",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14053",
+        "listingUrl": "https://sliquebeautylimited.com/product/advanced-clinicals-vitamin-c-serum-52ml/",
+        "capturedAt": "2026-07-28T14:40:37.938Z",
+        "responseSha256": "d968abc93d51701cd16cf6811ac7a7d647afc3973485108691fe95e35e4c8e4c",
+        "responseByteSize": 5502,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED CLINICALS VITAMIN C SERUM 52ML",
+        "size": "52ml",
+        "price": {
+          "amount": 17000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "819265008016",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

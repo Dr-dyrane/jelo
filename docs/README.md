@@ -32,6 +32,8 @@ This is the entry point for product, engineering, data, and operations.
 - [Inventory experience](./INVENTORY_EXPERIENCE.md)
 - [2026 catalogue benchmark](./research/2026-07-26-inventory-catalogue-benchmark.md)
 - [Next community-priority SKU evidence](./research/2026-07-27-next-community-sku-evidence.md)
+- [ANUA Zero-cast evidence blocker](./research/2026-07-28-anua-zero-cast-sunscreen-evidence-blocker.md)
+- [DANG Hydra Glow offer blocker](./research/2026-07-28-dang-hydra-glow-nigeria-offer-blocker.md)
 - [Retail intelligence](./RETAIL_INTELLIGENCE.md)
 - [Nigeria retailer reference](./NIGERIA_RETAILERS.md)
 - [Smart store guide](./retailers/SMART_STORE_GUIDE.md)
