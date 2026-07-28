@@ -47,6 +47,12 @@ export type DiscoveryRetailerObservation = {
   retailer: string;
   retailerStatus: CatalogueDiscoverySource['reviewStatus'];
   listingUrl: string;
+  /**
+   * Retailer-owned Woo record identity. This is a retrieval locator only and
+   * can never satisfy manufacturer product identity.
+   */
+  sourceProductId?: number;
+  sourceProductApiUrl?: string;
   observedAt: string;
   observedTitle: string;
   observedSize: string;
@@ -159,6 +165,15 @@ function exactProductUrl(value: unknown, source: CatalogueDiscoverySource) {
   }
 }
 
+function exactProductApiUrl(source: CatalogueDiscoverySource, productId: number) {
+  if (!Number.isSafeInteger(productId) || productId <= 0) return undefined;
+  const url = new URL(source.endpoint);
+  url.search = '';
+  url.hash = '';
+  url.pathname = `${url.pathname.replace(/\/+$/, '')}/${productId}`;
+  return url.toString();
+}
+
 function measuredSize(value: string) {
   const matches = Array.from(decodeHtml(value).matchAll(
     /\b\d+(?:[.,]\d+)?\s*(?:fl\.?\s*oz|ml|cl|l|mg|kg|g|oz|count|pcs?|pieces?|pack)\b/gi,
@@ -258,6 +273,8 @@ export function screenDiscoveryProduct(input: DiscoveryProductInput): { seed?: C
   if (title.length < 3) return { rejection: 'title-missing' };
   const listingUrl = exactProductUrl(input.product.permalink, input.source);
   if (!listingUrl) return { rejection: 'product-route-invalid' };
+  const sourceProductApiUrl = exactProductApiUrl(input.source, input.product.id);
+  if (!sourceProductApiUrl) return { rejection: 'source-product-id-invalid' };
   const size = measuredSize(title);
   if (!size) return { rejection: 'size-missing' };
   const price = priceNgn(input.product);
@@ -274,6 +291,8 @@ export function screenDiscoveryProduct(input: DiscoveryProductInput): { seed?: C
     retailer: input.source.retailer,
     retailerStatus: input.source.reviewStatus,
     listingUrl,
+    sourceProductId: input.product.id,
+    sourceProductApiUrl,
     observedAt: input.observedAt,
     observedTitle: title,
     observedSize: size,
@@ -523,6 +542,16 @@ export function auditCatalogueDiscoverySnapshot(value: unknown) {
         throw new Error('Discovery observation URL is invalid.');
       }
       const key = `${observation.retailer}\n${listing.href}`;
+      const hasSourceProductId = observation.sourceProductId != null;
+      const hasSourceProductApiUrl = observation.sourceProductApiUrl != null;
+      let sourceProductApi: URL | undefined;
+      if (hasSourceProductApiUrl) {
+        try {
+          sourceProductApi = new URL(observation.sourceProductApiUrl!);
+        } catch {
+          throw new Error('Discovery source product API URL is invalid.');
+        }
+      }
       if (
         !response
         || response.retailer !== observation.retailer
@@ -540,6 +569,20 @@ export function auditCatalogueDiscoverySnapshot(value: unknown) {
         || observation.priceNgn <= 0
         || !['in-stock', 'low-stock', 'out-of-stock', 'unknown'].includes(observation.stock)
         || !['valid-gtin-shaped', 'other', 'missing'].includes(observation.retailerSkuShape)
+        || hasSourceProductId !== hasSourceProductApiUrl
+        || (
+          hasSourceProductId
+          && (
+            !Number.isSafeInteger(observation.sourceProductId)
+            || observation.sourceProductId! <= 0
+            || sourceProductApi?.protocol !== 'https:'
+            || hostKey(sourceProductApi.hostname) !== hostKey(source.hostname)
+            || sourceProductApi.search !== ''
+            || sourceProductApi.hash !== ''
+            || sourceProductApi.pathname
+              !== `${source.pathname.replace(/\/+$/, '')}/${observation.sourceProductId}`
+          )
+        )
       ) throw new Error('Discovery retailer observation is invalid.');
       observationKeys.add(key);
       if (observation.imageUrl) {

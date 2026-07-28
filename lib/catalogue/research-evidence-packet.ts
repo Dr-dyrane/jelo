@@ -106,6 +106,8 @@ export type StaticResearchEvidencePacket = {
       retailer: string;
       retailerStatus: 'directory-listed' | 'provisional';
       listingUrl: string;
+      sourceProductId: number;
+      sourceProductApiUrl: string;
       observedAt: string;
       observedTitle: string;
       observedSize: string;
@@ -296,13 +298,22 @@ function staticPacket(
   }
   const observations = candidate.retailerObservations.map(observation => {
     const response = sourceResponse(snapshot, observation.responseEvidenceId);
-    if (!validHttps(observation.listingUrl) || !validIso(observation.observedAt) || observation.priceNgn <= 0) {
+    if (
+      !validHttps(observation.listingUrl)
+      || !Number.isSafeInteger(observation.sourceProductId)
+      || (observation.sourceProductId ?? 0) <= 0
+      || !validHttps(observation.sourceProductApiUrl ?? '')
+      || !validIso(observation.observedAt)
+      || observation.priceNgn <= 0
+    ) {
       throw new Error(`${candidate.discoveryId} has an untraceable retailer observation.`);
     }
     return {
       retailer: observation.retailer,
       retailerStatus: observation.retailerStatus,
       listingUrl: observation.listingUrl,
+      sourceProductId: observation.sourceProductId!,
+      sourceProductApiUrl: observation.sourceProductApiUrl!,
       observedAt: observation.observedAt,
       observedTitle: observation.observedTitle,
       observedSize: observation.observedSize,
@@ -566,6 +577,30 @@ export function assertPrivateResearchEvidencePacketManifest(manifest: CatalogueR
         throw new Error('Static research packet source is invalid.');
       }
       if (!packet.discoveryEvidence.observations.length) throw new Error('Static research packet lacks source observations.');
+      for (const observation of packet.discoveryEvidence.observations) {
+        if (
+          !validHttps(observation.listingUrl)
+          || !Number.isSafeInteger(observation.sourceProductId)
+          || observation.sourceProductId <= 0
+          || !validHttps(observation.sourceProductApiUrl)
+          || !validIso(observation.observedAt)
+          || !Number.isSafeInteger(observation.priceNgn)
+          || observation.priceNgn <= 0
+        ) {
+          throw new Error('Static research packet contains an invalid exact retailer retrieval locator.');
+        }
+        const listing = new URL(observation.listingUrl);
+        const api = new URL(observation.sourceProductApiUrl);
+        if (
+          listing.hostname.replace(/^www\./, '').toLowerCase()
+            !== api.hostname.replace(/^www\./, '').toLowerCase()
+          || api.search
+          || api.hash
+          || !api.pathname.endsWith(`/wp-json/wc/store/v1/products/${observation.sourceProductId}`)
+        ) {
+          throw new Error('Static research packet exact retailer retrieval locator is not scoped to its listing.');
+        }
+      }
       for (const lead of packet.discoveryEvidence.retailerCodeLeads) {
         if (lead.treatment !== 'retailer-local-code-not-manufacturer-identity') {
           throw new Error('Retailer code lead was promoted to product identity.');

@@ -1,9 +1,12 @@
 import { createHash } from 'node:crypto';
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { catalogueDiscoverySources, type CatalogueDiscoverySource } from '@/data/catalogue-discovery-sources';
+import { reviewCatalogueDiscoveryRefresh } from '@/lib/catalogue/discovery-refresh';
 import {
+  auditCatalogueDiscoverySnapshot,
   buildCatalogueDiscoverySnapshot,
+  type CatalogueDiscoverySnapshot,
   type DiscoveryProductInput,
   type DiscoveryResponseEvidence,
   type WooStoreProduct,
@@ -31,6 +34,38 @@ function numericArg(name: string, fallback: number) {
 
 function writeArg() {
   return process.argv.find(argument => argument.startsWith('--write='))?.slice('--write='.length);
+}
+
+function stringArg(name: string) {
+  return process.argv.find(argument => argument.startsWith(`--${name}=`))
+    ?.slice(`--${name}=`.length);
+}
+
+function directDataJson(repositoryRoot: string, value: string, label: string) {
+  const dataRoot = path.resolve(repositoryRoot, 'data');
+  const filename = path.resolve(repositoryRoot, value);
+  if (path.dirname(filename) !== dataRoot || !filename.endsWith('.json')) {
+    throw new Error(`${label} must be a direct JSON file inside data/.`);
+  }
+  return filename;
+}
+
+async function optionalSnapshot(filename: string | undefined) {
+  if (!filename) return undefined;
+  try {
+    const bytes = await readFile(filename);
+    const snapshot = JSON.parse(bytes.toString('utf8')) as CatalogueDiscoverySnapshot;
+    auditCatalogueDiscoverySnapshot(snapshot);
+    return snapshot;
+  } catch (error) {
+    if (
+      error
+      && typeof error === 'object'
+      && 'code' in error
+      && error.code === 'ENOENT'
+    ) return undefined;
+    throw error;
+  }
 }
 
 function hostKey(value: string) {
@@ -135,6 +170,22 @@ async function concurrentMap<T, R>(items: T[], worker: (item: T) => Promise<R>) 
 async function main() {
   const targetCount = numericArg('target', 1000);
   const maxPages = numericArg('max-pages', 100);
+  const repositoryRoot = process.cwd();
+  const output = writeArg();
+  const baseline = stringArg('baseline');
+  const acceptedRefresh = stringArg('accept-refresh');
+  if (acceptedRefresh && !output) {
+    throw new Error('--accept-refresh requires --write.');
+  }
+  const outputPath = output
+    ? directDataJson(repositoryRoot, output, '--write')
+    : undefined;
+  const baselinePath = baseline
+    ? directDataJson(repositoryRoot, baseline, '--baseline')
+    : outputPath;
+  const previous = await optionalSnapshot(baselinePath);
+  if (baseline && !previous) throw new Error('--baseline does not exist.');
+
   const firstPages = await concurrentMap([...catalogueDiscoverySources], source => fetchPage(source, 1));
   const remaining = catalogueDiscoverySources.flatMap((source, sourceIndex) => {
     const totalPages = Math.min(firstPages[sourceIndex].totalPages, maxPages);
@@ -147,14 +198,22 @@ async function main() {
   const generatedAt = new Date().toISOString();
   const snapshot = buildCatalogueDiscoverySnapshot({ products, sourceResponses, generatedAt, targetCount });
 
-  const output = writeArg();
+  const refreshReview = previous
+    ? reviewCatalogueDiscoveryRefresh(previous, snapshot)
+    : undefined;
+
   if (output) {
-    const repositoryRoot = process.cwd();
-    const dataRoot = path.resolve(repositoryRoot, 'data');
-    const outputPath = path.resolve(repositoryRoot, output);
-    if (path.dirname(outputPath) !== dataRoot) throw new Error('--write must target a direct JSON file inside data/.');
-    if (!outputPath.endsWith('.json')) throw new Error('--write must target a JSON file.');
-    await writeFile(outputPath, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');
+    if (
+      refreshReview
+      && acceptedRefresh !== refreshReview.acceptanceToken
+    ) {
+      console.log(JSON.stringify({ refreshReview }, null, 2));
+      throw new Error(
+        'Refusing to replace the private discovery snapshot without its exact '
+        + `review token. Re-run with --accept-refresh=${refreshReview.acceptanceToken}`,
+      );
+    }
+    await writeFile(outputPath!, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');
   }
 
   const sourceSummary = catalogueDiscoverySources.map((source, index) => ({
@@ -175,6 +234,7 @@ async function main() {
     eligibleCandidateCount: snapshot.eligibleCandidateCount,
     rejected: snapshot.rejected,
     sources: sourceSummary,
+    refreshReview: refreshReview ?? null,
     output: output ?? null,
   }, null, 2));
 }

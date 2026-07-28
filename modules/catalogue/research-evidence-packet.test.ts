@@ -50,12 +50,12 @@ test('prepares a bounded, traceable static batch while keeping retailer codes ou
     discoverySnapshot as CatalogueDiscoverySnapshot,
     catalogueResearchQueueDigest(queueBytes),
     catalogueResearchQueueDigest(snapshotBytes),
-    { mode: 'batch', count: 8 },
+    { mode: 'batch', count: 12 },
   );
 
   assert.equal(manifest.policy, 'private-evidence-packet-only');
   assert.equal(manifest.publicationStatus, catalogueResearchEvidencePacketPublicationStatus);
-  assert.equal(manifest.packets.length, 8);
+  assert.equal(manifest.packets.length, 12);
   assert.equal(manifest.packets.every(packet => packet.source === 'static-priority'), true);
   assert.doesNotThrow(() => assertPrivateResearchEvidencePacketManifest(manifest));
 
@@ -148,7 +148,7 @@ test('the checked-in first batch is deterministic and invisible to public catalo
     discoverySnapshot as CatalogueDiscoverySnapshot,
     catalogueResearchQueueDigest(queueBytes),
     catalogueResearchQueueDigest(snapshotBytes),
-    { mode: 'batch', count: 8 },
+    { mode: 'batch', count: 12 },
   );
   assert.deepEqual(stored, expected);
   assert.doesNotThrow(() => assertPrivateResearchEvidencePacketManifest(stored));
