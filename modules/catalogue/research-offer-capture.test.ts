@@ -9,6 +9,7 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { catalogueDiscoverySources } from '@/data/catalogue-discovery-sources';
 import discoverySnapshot from '@/data/catalogue-discovery-screening.json';
 import packetManifest from '@/data/catalogue-research-evidence-packets.json';
 import {
@@ -31,14 +32,14 @@ function planItem(overrides: Partial<ResearchOfferCapturePlanItem> = {}): Resear
   return {
     packetId: 'a'.repeat(24),
     discoveryId: 'b'.repeat(24),
-    retailer: 'Directory Store',
+    retailer: 'BuyBetter',
     retailerStatus: 'directory-listed',
-    listingUrl: 'https://directory.example/product/cerave-hydrating-cleanser-473ml/',
+    listingUrl: 'https://buybetter.ng/product/cerave-hydrating-cleanser-473ml/',
     sourceProductId: 421,
-    sourceProductApiUrl: 'https://directory.example/wp-json/wc/store/v1/products/421',
+    sourceProductApiUrl: 'https://buybetter.ng/wp-json/wc/store/v1/products/421',
     expectedTitle: 'CeraVe Hydrating Cleanser 473 ml',
     expectedSize: '473 ml',
-    evidencePath: `data/catalogue-offer-source-evidence/${'b'.repeat(24)}--directory-store.json`,
+    evidencePath: `data/catalogue-offer-source-evidence/${'b'.repeat(24)}--buybetter.json`,
     ...overrides,
   };
 }
@@ -48,7 +49,7 @@ function product(overrides: Record<string, unknown> = {}) {
     id: 421,
     name: 'CeraVe Hydrating Cleanser 473 ml',
     slug: 'cerave-hydrating-cleanser-473ml',
-    permalink: 'https://directory.example/product/cerave-hydrating-cleanser-473ml/',
+    permalink: 'https://buybetter.ng/product/cerave-hydrating-cleanser-473ml/',
     sku: '3337875597333',
     prices: { price: '1526500', currency_code: 'NGN', currency_minor_unit: 2 },
     stock_availability: { text: 'Low stock', class: 'low-stock' },
@@ -154,6 +155,46 @@ test('captures exact JSON bytes while keeping retailer SKU local and publication
   );
 });
 
+test('retains source bytes only under an explicit private, no-reuse source grant', async () => {
+  const grantedSourceKeys = catalogueDiscoverySources
+    .filter(source => (
+      source.privateSourceByteRetention.capability
+      === 'private-exact-product-response-audit'
+    ))
+    .map(source => source.key);
+  assert.deepEqual(grantedSourceKeys, ['buybetter', 'slique-beauty']);
+
+  for (const source of catalogueDiscoverySources) {
+    assert.equal(source.privateSourceByteRetention.publicContentReuse, 'none');
+    assert.equal(source.privateSourceByteRetention.publicImageReuse, 'none');
+    assert.equal(source.contentUse, 'link-only');
+  }
+  const lux = catalogueDiscoverySources.find(source => source.key === 'lux-beauty-ng');
+  assert.equal(lux?.privateSourceByteRetention.capability, 'none');
+  assert.equal(lux?.privateSourceByteRetention.retentionBoundary, 'none');
+
+  let fetchCalled = false;
+  const denied = planItem({
+    retailer: 'Lux Beauty',
+    listingUrl:
+      'https://www.luxbeautyng.com/product/cerave-hydrating-cleanser-473ml/',
+    sourceProductApiUrl:
+      'https://www.luxbeautyng.com/wp-json/wc/store/v1/products/421',
+    evidencePath:
+      `data/catalogue-offer-source-evidence/${'b'.repeat(24)}--lux-beauty.json`,
+  });
+  await assert.rejects(
+    () => captureResearchOfferResponse(denied, {
+      fetchImpl: (async () => {
+        fetchCalled = true;
+        return responseFor(product()).response;
+      }) as typeof fetch,
+    }),
+    /private source-byte retention is not explicitly granted/,
+  );
+  assert.equal(fetchCalled, false);
+});
+
 test('rejects route, product, permalink, title, size, price and response-boundary drift', async () => {
   const item = planItem();
   await assert.rejects(
@@ -170,7 +211,7 @@ test('rejects route, product, permalink, title, size, price and response-boundar
   await assert.rejects(
     captureResearchOfferResponse(item, {
       fetchImpl: fetchResponse(responseFor(product({
-        permalink: 'https://directory.example/product/a-different-product/',
+        permalink: 'https://buybetter.ng/product/a-different-product/',
       })).response),
     }),
     /permalink does not match/,

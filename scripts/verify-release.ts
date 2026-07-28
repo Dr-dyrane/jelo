@@ -15,8 +15,6 @@ const releaseGates: ReleaseGate[] = [
   { label: 'Private publication dossiers', script: 'catalogue:publication:verify' },
   { label: 'Explicit catalogue releases', script: 'catalogue:publication:releases:verify' },
   { label: 'Private catalogue research priorities', script: 'catalogue:research:verify' },
-  { label: 'Private catalogue research packets', script: 'catalogue:research:packets:verify' },
-  { label: 'Retained private offer responses', script: 'catalogue:research:offers:verify' },
   { label: 'Private publication image bytes', script: 'catalogue:publication:images:verify' },
   { label: 'Canonical media', script: 'assets:verify' },
 ];

@@ -14,6 +14,10 @@ const asOf = Date.parse('2026-07-27T12:00:00Z');
 const gtin = '4005808319695';
 const listingUrl = 'https://medplusnig.com/product/example-barrier-lotion';
 
+function sha256(value: string) {
+  return createHash('sha256').update(value).digest('hex');
+}
+
 function fields() {
   return {
     gtin: {
@@ -65,26 +69,50 @@ function legacyEvidence(): ReviewedExactOfferEvidence {
 
 function retainedEvidence(): ReviewedRetainedGtinExactOfferEvidence {
   const sourceText = JSON.stringify({
+    id: 1842,
+    permalink: listingUrl,
     gtin,
     title: 'Example Barrier Lotion',
     size: '400 ml',
     price: 'NGN 12,500',
     stock: 'In stock',
   });
-  const byteStart = 128;
+  const responseByteSize = Buffer.byteLength(sourceText, 'utf8');
   return {
     ...legacyEvidence(),
     schemaVersion: catalogueExactOfferRetainedGtinEvidenceSchemaVersion,
     responseUrl:
       'https://medplusnig.com/wp-json/wc/store/v1/products/1842',
+    responseSha256: sha256(sourceText),
+    responseByteSize,
     responseSnapshotPath:
       'data/catalogue-offer-source-evidence/example-barrier-lotion--medplus.json',
     offerRecord: {
-      locator: 'JSON products[0] exact offer record',
-      byteStart,
-      byteEnd: byteStart + Buffer.byteLength(sourceText, 'utf8'),
+      locator: 'Complete exact Woo Store API product response',
+      byteStart: 0,
+      byteEnd: responseByteSize,
       sourceText,
-      sourceFragmentSha256: createHash('sha256').update(sourceText).digest('hex'),
+      sourceFragmentSha256: sha256(sourceText),
+    },
+  };
+}
+
+function withCompleteBody(
+  evidence: ReviewedRetainedGtinExactOfferEvidence,
+  sourceText: string,
+) {
+  const responseByteSize = Buffer.byteLength(sourceText, 'utf8');
+  const responseSha256 = sha256(sourceText);
+  return {
+    ...evidence,
+    responseSha256,
+    responseByteSize,
+    offerRecord: {
+      ...evidence.offerRecord,
+      byteStart: 0,
+      byteEnd: responseByteSize,
+      sourceText,
+      sourceFragmentSha256: responseSha256,
     },
   };
 }
@@ -113,7 +141,7 @@ test('schema 1 GTIN exact-offer evidence remains valid without retained response
   assert.equal(reviewedExactOfferEvidenceValid(offer(evidence), gtin, asOf), true);
 });
 
-test('schema 4 accepts a canonical snapshot path and hash-bound bounded offer record', () => {
+test('schema 4 accepts a canonical snapshot path and hash-bound complete product body', () => {
   const evidence = retainedEvidence();
 
   assert.equal(
@@ -260,16 +288,20 @@ test('schema 1 keeps requiring the response URL to equal the listing URL', () =>
   assert.equal(reviewedExactOfferEvidenceValid(offer(evidence), gtin, asOf), false);
 });
 
-test('schema 4 rejects out-of-bounds, length-mismatched, or digest-mismatched offer records', () => {
+test('schema 4 rejects partial, out-of-bounds, length-mismatched, or digest-mismatched records', () => {
   const valid = retainedEvidence();
   const invalidRecords = [
+    {
+      ...valid.offerRecord,
+      byteStart: 1,
+    },
     {
       ...valid.offerRecord,
       byteEnd: valid.responseByteSize + 1,
     },
     {
       ...valid.offerRecord,
-      byteEnd: valid.offerRecord.byteEnd + 1,
+      byteEnd: valid.offerRecord.byteEnd - 1,
     },
     {
       ...valid.offerRecord,
@@ -293,17 +325,44 @@ test('schema 4 rejects out-of-bounds, length-mismatched, or digest-mismatched of
   }
 });
 
+test('schema 4 rejects a sliced product inside a wrapper, an array, and invalid surrounding bytes', () => {
+  const valid = retainedEvidence();
+  const productSource = valid.offerRecord.sourceText;
+  const prefix = '{"result":';
+  const wrappedSource = `${prefix}${productSource}}`;
+  const sliced = {
+    ...valid,
+    responseSha256: sha256(wrappedSource),
+    responseByteSize: Buffer.byteLength(wrappedSource, 'utf8'),
+    offerRecord: {
+      ...valid.offerRecord,
+      byteStart: Buffer.byteLength(prefix, 'utf8'),
+      byteEnd: Buffer.byteLength(prefix + productSource, 'utf8'),
+    },
+  };
+  assert.equal(reviewedExactOfferEvidenceValid(offer(sliced), gtin, asOf), false);
+
+  const product = JSON.parse(productSource) as Record<string, unknown>;
+  for (const sourceText of [
+    JSON.stringify({ result: product }),
+    JSON.stringify([product]),
+    `${productSource}\nnot-json`,
+  ]) {
+    const evidence = withCompleteBody(valid, sourceText);
+    assert.equal(
+      reviewedExactOfferEvidenceValid(offer(evidence), gtin, asOf),
+      false,
+      sourceText,
+    );
+  }
+});
+
 test('schema 4 byte bounds use encoded UTF-8 size instead of JavaScript string length', () => {
   const evidence = retainedEvidence();
-  const sourceText = `${evidence.offerRecord.sourceText} · ₦12,500`;
-  const byteStart = evidence.offerRecord.byteStart;
-  evidence.offerRecord = {
-    ...evidence.offerRecord,
-    byteEnd: byteStart + Buffer.byteLength(sourceText, 'utf8'),
-    sourceText,
-    sourceFragmentSha256: createHash('sha256').update(sourceText).digest('hex'),
-  };
+  const product = JSON.parse(evidence.offerRecord.sourceText) as Record<string, unknown>;
+  const sourceText = JSON.stringify({ ...product, note: '· ₦12,500' });
+  const rebound = withCompleteBody(evidence, sourceText);
 
   assert.notEqual(Buffer.byteLength(sourceText, 'utf8'), sourceText.length);
-  assert.equal(reviewedExactOfferEvidenceValid(offer(evidence), gtin, asOf), true);
+  assert.equal(reviewedExactOfferEvidenceValid(offer(rebound), gtin, asOf), true);
 });

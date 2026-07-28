@@ -557,20 +557,48 @@ function retainedOfferSnapshotPathValid(
     ).test(snapshotPath);
 }
 
-function retainedOfferRecordMetadataValid(
+function retainedCompleteWooProductMetadataValid(
   record: CatalogueRetainedRecord | undefined,
   responseByteSize: number,
+  responseSha256: string,
+  responseUrl: unknown,
+  listingUrl: unknown,
 ) {
   if (
     !record
     || !catalogueRetainedRecordShapeValid(record)
-    || record.byteEnd > responseByteSize
+    || record.byteStart !== 0
+    || record.byteEnd !== responseByteSize
+    || !hashPattern.test(responseSha256)
+    || !exactWooStoreApiProductResponseUrl(responseUrl, listingUrl)
   ) return false;
 
   const retainedByteSize = Buffer.byteLength(record.sourceText, 'utf8');
-  return record.byteEnd - record.byteStart === retainedByteSize
-    && createHash('sha256').update(record.sourceText).digest('hex')
-      === record.sourceFragmentSha256;
+  const retainedSha256 = createHash('sha256')
+    .update(record.sourceText)
+    .digest('hex');
+  if (
+    retainedByteSize !== responseByteSize
+    || retainedSha256 !== record.sourceFragmentSha256
+    || retainedSha256 !== responseSha256
+  ) return false;
+
+  let product: Record<string, unknown>;
+  try {
+    const parsed = JSON.parse(record.sourceText) as unknown;
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return false;
+    product = parsed as Record<string, unknown>;
+  } catch {
+    return false;
+  }
+  const productId = Number(
+    new URL(responseUrl as string).pathname.split('/').filter(Boolean).at(-1),
+  );
+  return (
+    product.id === productId
+    && typeof product.permalink === 'string'
+    && sameUrl(product.permalink, listingUrl)
+  );
 }
 
 export function reviewedExactOfferEvidenceValid(
@@ -752,9 +780,12 @@ export function reviewedExactOfferEvidenceValid(
         evidence.responseSnapshotPath,
         evidence.responseMimeType,
       )
-      && retainedOfferRecordMetadataValid(
+      && retainedCompleteWooProductMetadataValid(
         evidence.offerRecord,
         evidence.responseByteSize,
+        evidence.responseSha256,
+        evidence.responseUrl,
+        offer.listingUrl,
       )
     );
   return Boolean(

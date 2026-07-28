@@ -51,7 +51,7 @@ measurable size, positive NGN price or usable category. Selection is
 quality-first and category-balanced; it does not fill a category with weaker
 records merely to meet its target.
 
-The checked-in screen currently holds 1,000 private leads selected from 3,794 retailer records and 39 response captures. It records retailer price, stock, image URL and SKU fields only as discovery observations. A checksum-valid number in a retailer `sku` field is explicitly labelled `retailer-sku-is-not-manufacturer-identity`; it can prioritize official research but cannot satisfy identity, exact-offer, regulatory, rights, care or publication gates. Slique remains provisional and cannot gain Tier-A status through volume or duplication with another store.
+The checked-in screen currently holds 1,000 private leads selected from 3,731 retailer records and 38 response captures. It records retailer price, stock, image URL and SKU fields only as discovery observations. A checksum-valid number in a retailer `sku` field is explicitly labelled `retailer-sku-is-not-manufacturer-identity`; it can prioritize official research but cannot satisfy identity, exact-offer, regulatory, rights, care or publication gates. Slique remains provisional and cannot gain Tier-A status through volume or duplication with another store.
 
 Run the offline integrity audit before using the batch:
 

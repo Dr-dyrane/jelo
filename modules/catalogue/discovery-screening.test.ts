@@ -19,6 +19,13 @@ const directorySource: CatalogueDiscoverySource = {
   reviewStatus: 'directory-listed',
   trust: 95,
   contentUse: 'link-only',
+  privateSourceByteRetention: {
+    capability: 'private-exact-product-response-audit',
+    rationale: 'reopen-dated-offer-fields-and-verify-response-integrity',
+    retentionBoundary: 'private-evidence-repository-only',
+    publicContentReuse: 'none',
+    publicImageReuse: 'none',
+  },
 };
 
 const provisionalSource: CatalogueDiscoverySource = {

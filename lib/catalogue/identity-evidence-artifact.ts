@@ -912,13 +912,21 @@ function verifyRetainedGtinOfferSource(
     throw new Error(`${candidate.id} retained ${retailer} GTIN offer response bytes changed.`);
   }
 
-  const retainedRecord = verifiedCatalogueRetainedRecord(bytes, evidence.offerRecord);
+  const completeRecord = (
+    evidence.offerRecord.byteStart === 0
+    && evidence.offerRecord.byteEnd === bytes.byteLength
+    && evidence.offerRecord.sourceText === bytes.toString('utf8')
+    && evidence.offerRecord.sourceFragmentSha256 === evidence.responseSha256
+  );
+  const retainedRecord = completeRecord
+    ? verifiedCatalogueRetainedRecord(bytes, evidence.offerRecord)
+    : undefined;
   if (!retainedRecord) {
     throw new Error(
-      `${candidate.id} retained ${retailer} GTIN offer record changed or is out of bounds.`,
+      `${candidate.id} retained ${retailer} GTIN offer record must bind the complete response bytes.`,
     );
   }
-  const source = retainedRecord.toString('utf8');
+  const source = bytes.toString('utf8');
   let product: Record<string, unknown>;
   try {
     const parsed = JSON.parse(source) as unknown;

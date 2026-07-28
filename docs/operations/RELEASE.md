@@ -1,6 +1,6 @@
 # Release process
 
-Updated: 2026-07-23
+Updated: 2026-07-27
 
 Release small, auditable changes. A push is not complete until CI and the exact production deployment are verified.
 
@@ -56,6 +56,10 @@ npm run build
 It runs lint, typecheck, all Node tests, documentation checks, catalogue
 publication and research checks, publication image verification, and canonical
 asset verification. Run every additional domain gate touched by the change.
+Private research packet and retained response integrity is deliberately separate:
+run `npm run verify:research-integrity` for research changes. CI runs it as an
+independent check, but Vercel production deploys do not, so unrelated mutable
+research captures cannot block a reviewed public release.
 Catalogue publication requires the full sequence in
 [Catalogue operations](../catalogue/OPERATIONS.md).
 
@@ -67,7 +71,8 @@ The validation job runs:
 
 1. `npm ci`
 2. the shared `verify:release` preflight
-3. build with migrations disabled
+3. the separate private `verify:research-integrity` check
+4. build with migrations disabled
 
 A second job installs the hash-locked Python 3.12 CPU runtime and verifies the exact-SKU packshot operator.
 

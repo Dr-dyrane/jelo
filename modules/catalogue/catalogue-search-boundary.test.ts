@@ -92,6 +92,7 @@ test('the endpoint transitive source graph is isolated from private catalogue ar
     'data/external-products',
     'data/published-intake-products',
     'data/catalogue-publication',
+    'data/catalogue-offer-source-evidence',
     'data/catalogue-research',
     'data/catalogue-discovery',
     'data/catalogue-identity',
@@ -116,6 +117,7 @@ test('the public projection has a deterministic drift check in the release gate'
   assert.match(buildSource, /step === 'build-next'[\s\S]*catalogue:search:bundle:verify/);
   assert.match(bundleVerifier, /tracePath = `\$\{routePath\}\.nft\.json`/);
   assert.match(bundleVerifier, /maximumTraceBytes/);
+  assert.ok(bundleVerifier.includes("'/data/catalogue-offer-source-evidence'"));
   assert.match(bundleVerifier, /private graph absent/);
 
   const verification = spawnSync(

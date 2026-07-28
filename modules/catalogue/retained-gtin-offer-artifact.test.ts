@@ -176,6 +176,59 @@ test('reopens a schema-4 GTIN offer and binds one exact Woo record to its listin
   );
 });
 
+test('rejects a product slice, wrapper, or invalid bytes around a claimed complete response', async t => {
+  const repositoryRoot = await mkdtemp(path.join(os.tmpdir(), 'jelocare-retained-gtin-'));
+  t.after(() => rm(repositoryRoot, { recursive: true, force: true }));
+  const candidate = await sourceCandidate();
+  const source = exactWooSource(candidate);
+  await writeFixture(repositoryRoot, candidate, source);
+
+  const offer = candidate.nigeria.exactOffers[0];
+  assert.ok(offer?.evidence);
+  const evidence = offer.evidence as ReviewedRetainedGtinExactOfferEvidence;
+  const retainedPath = path.join(
+    repositoryRoot,
+    `data/catalogue-offer-source-evidence/${candidateId}--buybetter.json`,
+  );
+  const bindResponse = async (
+    responseSource: string,
+    recordSource: string,
+    byteStart: number,
+  ) => {
+    evidence.responseSha256 = sha256(responseSource);
+    evidence.responseByteSize = Buffer.byteLength(responseSource);
+    evidence.offerRecord = {
+      ...evidence.offerRecord,
+      byteStart,
+      byteEnd: byteStart + Buffer.byteLength(recordSource),
+      sourceText: recordSource,
+      sourceFragmentSha256: sha256(recordSource),
+    };
+    await writeFile(retainedPath, responseSource);
+  };
+
+  const prefix = '{"result":';
+  const wrapped = `${prefix}${source}}`;
+  await bindResponse(wrapped, source, Buffer.byteLength(prefix));
+  await assert.rejects(
+    () => verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot),
+    /must bind the complete response bytes/,
+  );
+
+  await bindResponse(wrapped, wrapped, 0);
+  await assert.rejects(
+    () => verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot),
+    /does not bind its API record to the listing/,
+  );
+
+  const invalid = `${source}\nnot-json`;
+  await bindResponse(invalid, invalid, 0);
+  await assert.rejects(
+    () => verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot),
+    /not one JSON product record/,
+  );
+});
+
 test('rejects a foreign listing record and a symlinked retained response', async t => {
   const repositoryRoot = await mkdtemp(path.join(os.tmpdir(), 'jelocare-retained-gtin-'));
   t.after(() => rm(repositoryRoot, { recursive: true, force: true }));

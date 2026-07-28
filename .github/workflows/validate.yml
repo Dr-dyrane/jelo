@@ -29,6 +29,9 @@ jobs:
       - name: Verify release integrity
         run: npm run verify:release
 
+      - name: Verify private research integrity
+        run: npm run verify:research-integrity
+
       - name: Build
         run: npm run build
         env:

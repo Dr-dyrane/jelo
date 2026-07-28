@@ -12,6 +12,7 @@
     "test": "tsx --test modules/**/*.test.ts test/**/*.test.ts",
     "docs:check": "tsx scripts/check-documentation.ts",
     "verify:release": "tsx scripts/verify-release.ts",
+    "verify:research-integrity": "npm run catalogue:research:verify && npm run catalogue:research:packets:verify && npm run catalogue:research:offers:verify",
     "validate": "npm run verify:release && npm run build",
     "assets:audit": "tsx scripts/audit-catalogue-assets.ts",
     "assets:import": "node scripts/import-product-assets.mjs",

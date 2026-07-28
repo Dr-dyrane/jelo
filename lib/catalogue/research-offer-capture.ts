@@ -9,6 +9,10 @@ import {
 } from 'node:fs/promises';
 import path from 'node:path';
 import {
+  catalogueDiscoverySources,
+  type CatalogueDiscoverySource,
+} from '@/data/catalogue-discovery-sources';
+import {
   auditCatalogueDiscoverySnapshot,
   type CatalogueDiscoverySnapshot,
   type DiscoveryRetailerObservation,
@@ -200,6 +204,44 @@ function assertCaptureRoute(item: ResearchOfferCapturePlanItem) {
   }
 }
 
+function privateSourceByteRetentionGranted(source: CatalogueDiscoverySource) {
+  const policy = source.privateSourceByteRetention;
+  return (
+    source.contentUse === 'link-only'
+    && policy?.capability === 'private-exact-product-response-audit'
+    && policy.rationale === 'reopen-dated-offer-fields-and-verify-response-integrity'
+    && policy.retentionBoundary === 'private-evidence-repository-only'
+    && policy.publicContentReuse === 'none'
+    && policy.publicImageReuse === 'none'
+  );
+}
+
+/**
+ * Re-resolves the plan item against the canonical source registry. A packet,
+ * snapshot, or hand-built plan cannot grant itself permission to retain bytes.
+ */
+function assertPrivateSourceByteRetention(item: ResearchOfferCapturePlanItem) {
+  const api = new URL(item.sourceProductApiUrl);
+  const source = catalogueDiscoverySources.find(candidate => {
+    const endpoint = new URL(candidate.endpoint);
+    return (
+      candidate.retailer === item.retailer
+      && normalizedHost(endpoint.hostname) === normalizedHost(api.hostname)
+      && endpoint.protocol === api.protocol
+      && endpoint.port === api.port
+      && api.pathname === (
+        `${endpoint.pathname.replace(/\/+$/, '')}/${item.sourceProductId}`
+      )
+    );
+  });
+  if (!source || !privateSourceByteRetentionGranted(source)) {
+    throw new Error(
+      `${item.discoveryId}/${item.retailer} private source-byte retention is not explicitly granted.`,
+    );
+  }
+  return source;
+}
+
 function expectedEvidencePath(discoveryId: string, retailer: string) {
   const slug = retailerSlug(retailer);
   if (!slug) throw new Error('Retailer name cannot form an evidence path.');
@@ -282,6 +324,7 @@ export function buildResearchOfferCapturePlan(
         evidencePath: expectedEvidencePath(candidate.discoveryId, observation.retailer),
       };
       assertCaptureRoute(item);
+      assertPrivateSourceByteRetention(item);
       if (evidencePaths.has(item.evidencePath)) {
         throw new Error(`${item.discoveryId}/${item.retailer} collides with another retained evidence path.`);
       }
@@ -359,6 +402,7 @@ export async function captureResearchOfferResponse(
   } = {},
 ): Promise<CapturedResearchOfferResponse> {
   assertCaptureRoute(item);
+  assertPrivateSourceByteRetention(item);
   const fetchImpl = options.fetchImpl ?? fetch;
   const maximumResponseBytes = options.maximumResponseBytes ?? maximumResearchOfferResponseBytes;
   if (!Number.isSafeInteger(maximumResponseBytes) || maximumResponseBytes < 1) {
@@ -556,6 +600,18 @@ function assertCaptureRecord(capture: ResearchOfferCaptureRecord, packetIds: Set
     throw new Error('Private offer capture record is invalid or has publication authority.');
   }
   assertCaptureRoute({
+    packetId: capture.packetId,
+    discoveryId: capture.discoveryId,
+    retailer: capture.retailer,
+    retailerStatus: capture.retailerStatus,
+    listingUrl: capture.source.listingUrl,
+    sourceProductId: capture.source.productId,
+    sourceProductApiUrl: capture.source.requestedUrl,
+    expectedTitle: capture.offer.title,
+    expectedSize: capture.offer.size,
+    evidencePath: capture.evidencePath,
+  });
+  assertPrivateSourceByteRetention({
     packetId: capture.packetId,
     discoveryId: capture.discoveryId,
     retailer: capture.retailer,

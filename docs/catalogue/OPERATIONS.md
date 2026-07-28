@@ -186,6 +186,16 @@ is retained only as `retailer-local-code-not-manufacturer-identity`, even when
 it is GTIN-shaped. These artifacts do not change `data/catalogue-intake.json`,
 create a dossier, create an offer, choose an image, or publish a product.
 
+Raw response retention is a separate, explicit per-source capability. Its only
+rationale is to reopen dated factual offer fields and verify response
+integrity. A grant is bounded to exact product-response bytes in the private
+evidence repository; an absent or denied grant fails before a request is made.
+It does not change the source's `link-only` content policy and grants no public
+description, page-content, image-download, image-reuse, or redistribution
+right. BuyBetter and Slique have this narrow grant for the checked-in evidence;
+Lux Beauty remains explicitly denied until a reviewed retained capture needs
+one.
+
 ## 4. Lock identity
 
 Record the exact brand, variant, size, package version, and manufacturer identifier.
@@ -234,10 +244,12 @@ GTIN-bound Woo offer can use schema 4 when its exact raw JSON product response
 is retained. Schema 4 requires a queryless same-retailer
 `/wp-json/wc/store/v1/products/<positive-id>` response, canonical
 `data/catalogue-offer-source-evidence/<candidate>--<retailer>.json` path,
-complete response byte count and SHA-256, and a bounded offer-record range and
-fragment hash. Verification reopens the regular, non-symlinked file and binds
-the API product ID and permalink to the listing before checking title, size,
-price, stock, and the candidate's already reviewed official GTIN. If the
+complete response byte count and SHA-256, and one record whose byte range,
+source text, and fragment hash cover that complete body. Verification parses
+the complete regular, non-symlinked file as one top-level product object and
+binds the API product ID and permalink to the listing before checking title,
+size, price, stock, and the candidate's already reviewed official GTIN.
+Wrappers, arrays, product slices, and invalid surrounding bytes fail. If the
 retailer response does not publish the GTIN, the GTIN field must explicitly be
 an official-identity correlation; the retailer SKU never fills that role.
 
