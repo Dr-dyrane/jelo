@@ -25,6 +25,10 @@ test('share cards carry compact market and exact-store movement without steady n
     path.join(root, 'modules/commerce/price-trends.ts'),
     'utf8',
   );
+  const worthSharing = await readFile(
+    path.join(root, 'lib/share/worth-sharing.ts'),
+    'utf8',
+  );
 
   assert.match(data, /getProductPriceTrends\(\s*product\.slug,\s*offers\.flatMap/);
   assert.match(data, /priceTrendOfferSnapshot\(offer, 'NG', now\)/);
@@ -41,6 +45,12 @@ test('share cards carry compact market and exact-store movement without steady n
   assert.match(repository, /o\.available/);
   assert.match(repository, /o\.inventory_status as "inventoryStatus"/);
   assert.match(repository, /o\.verification_expires_at::text as "verificationExpiresAt"/);
+  assert.match(repository, /export async function getProductsPriceTrends/);
+  assert.match(repository, /p\.slug::text as "productSlug"/);
+  assert.match(repository, /where p\.slug = any\(\$\{slugs\}::text\[\]\)/);
+  assert.match(worthSharing, /getProductsPriceTrends\(products\.map\(product =>/);
+  assert.match(worthSharing, /priceTrendOfferSnapshot\(offer, 'NG', now\)/);
+  assert.doesNotMatch(worthSharing, /Promise\.all\(products\.map\(async product/);
   assert.match(priceModel, /priceMinor:\s*number/);
   assert.match(priceModel, /currencyCode:\s*'NGN' \| 'USD'/);
   assert.match(priceModel, /observedTitle:\s*string/);

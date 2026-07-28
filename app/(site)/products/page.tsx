@@ -11,16 +11,15 @@ import { ProductRail } from '@/components/products/product-grid';
 import { editorialAsset } from '@/data/editorial';
 import { externalProducts } from '@/data/external-catalogue';
 import { concerns } from '@/data/knowledge';
+import { getReviewedProductCare } from '@/data/product-care-review';
 import type { Market } from '@/data/prices';
 import type { ReviewedProduct } from '@/data/products';
 import { catalogueMarketHref, matchingCatalogueConcerns } from '@/lib/catalogue/catalogue-interactions';
 import {
-  selectProductsBelowPrice,
   selectRecentlyCheckedProducts,
 } from '@/lib/catalogue/inventory-shelves';
 import { inventoryContinuationTargetPage } from '@/lib/catalogue/inventory-continuation';
-import { queryInventory } from '@/lib/catalogue/inventory-repository';
-import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
+import { loadInventory } from '@/lib/catalogue/inventory-repository';
 import { catalogueSearchHandoffHref } from '@/lib/community-intake/catalogue-search-handoff';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 import styles from './products.module.css';
@@ -98,21 +97,12 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     price: value(params, 'price'),
     market,
   };
-  const [result, reviewedProducts, supportiveProducts] = await Promise.all([
-    queryInventory(inventoryQuery),
-    listCatalogueProducts(),
-    listRecommendationEligibleProducts(),
-  ]);
+  const { result, reviewedProducts } = await loadInventory(inventoryQuery);
+  const supportiveProducts = reviewedProducts.filter(
+    product => getReviewedProductCare(product.slug)?.careState === 'supportive_eligible',
+  );
   const requestedPage = inventoryContinuationTargetPage(value(params, 'page'), result.pageCount);
   const recentlyChecked = selectRecentlyCheckedProducts(reviewedProducts, market);
-  const accessiblePriceCeiling = market === 'NG' ? 10_000 : 15;
-  const accessiblePriceProducts = selectProductsBelowPrice(
-    reviewedProducts,
-    market,
-    accessiblePriceCeiling,
-  );
-  const faceCare = reviewedProducts.filter(product => product.category === 'Face');
-  const hairAndScalp = reviewedProducts.filter(product => product.category === 'Hair');
   const approvedConcerns = concerns.filter(concern => supportiveProducts.some(product => productMatchesConcern(product, concern)));
   const publicSearchRecords = [
     ...reviewedProducts.map(product => ({ brand: product.brand, category: inventoryCategory(product) })),
@@ -237,29 +227,19 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       {browse === 'concern' ? <p className={styles.reviewNote}>Only approved supportive uses appear here.</p> : null}
     </section>
 
-    <section className={styles.stories} aria-label="Care stories">
-      <article><div className={styles.storyImage}><SafeEditorialImage asset={allSkinAsset} alt={allSkinAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Every skin</p><h2>No one palette.</h2><Link href="/concerns">Explore concerns <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
-      <article><div className={styles.storyImage}><SafeEditorialImage asset={scalpAsset} alt={scalpAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Hair & scalp</p><h2>Start at the root.</h2><Link href="/concerns/dandruff-itchy-scalp">Read the scalp guide <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
-      <article><div className={styles.storyImage}><SafeEditorialImage asset={ageAsset} alt={ageAsset.altText} sizes="(max-width: 760px) 100vw, 33vw"/></div><div className={styles.storyCopy}><p>Simple care</p><h2>Made for change.</h2><Link href="/consult">Ask JeloCare <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
-    </section>
-
     <DiscoveryRail
       eyebrow={market === 'NG' ? 'Checked in Nigeria' : 'Checked in the US'}
-      title="Fresh price checks."
+      title="Fresh prices near you."
       products={recentlyChecked}
       market={market}
       href={href(params, { review: 'reviewed', availability: 'priced', sort: 'newest' }, 'all-products')}
     />
-    <DiscoveryRail
-      eyebrow="Current prices"
-      title={market === 'NG' ? 'Under ₦10,000.' : 'Under $15.'}
-      products={accessiblePriceProducts}
-      market={market}
-      href={href(params, { review: 'reviewed', availability: 'priced', price: 'low' }, 'all-products')}
-    />
-    <DiscoveryRail eyebrow="Supportive use" title="Supportive care." products={supportiveProducts} market={market} href={href(params, { review: 'supportive' }, 'all-products')}/>
-    <DiscoveryRail eyebrow="Face care" title="Browse the category." products={faceCare} market={market} href={href(params, { review: 'reviewed', category: 'Face care', browse: 'category' }, 'all-products')}/>
-    <DiscoveryRail eyebrow="Hair & scalp" title="Browse the category." products={hairAndScalp} market={market} href={href(params, { review: 'reviewed', category: 'Hair & scalp', browse: 'category' }, 'all-products')}/></> : null}
+
+    <section className={styles.stories} aria-label="Care stories">
+      <article><div className={styles.storyImage}><SafeEditorialImage asset={allSkinAsset} alt={allSkinAsset.altText} sizes="(max-width: 820px) 82vw, 33vw"/></div><div className={styles.storyCopy}><p>Every skin</p><h2>No one palette.</h2><Link href="/concerns">Explore concerns <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
+      <article><div className={styles.storyImage}><SafeEditorialImage asset={scalpAsset} alt={scalpAsset.altText} sizes="(max-width: 820px) 82vw, 33vw"/></div><div className={styles.storyCopy}><p>Hair & scalp</p><h2>Start at the root.</h2><Link href="/concerns/dandruff-itchy-scalp">Read the scalp guide <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
+      <article><div className={styles.storyImage}><SafeEditorialImage asset={ageAsset} alt={ageAsset.altText} sizes="(max-width: 820px) 82vw, 33vw"/></div><div className={styles.storyCopy}><p>Simple care</p><h2>Made for change.</h2><Link href="/consult">Ask JeloCare <ArrowRight size={15} aria-hidden="true"/></Link></div></article>
+    </section></> : null}
 
     <section className={`${styles.catalogue} ${feedbackStyles.catalogueState} ${appliedFilters.length ? feedbackStyles.filtered : ''}`} id="all-products">
       {concernGuides.length ? <aside className={styles.concernGuide} aria-label="Concern guidance">

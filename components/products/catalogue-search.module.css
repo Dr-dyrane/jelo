@@ -43,8 +43,8 @@
 }
 
 .clear {
-  width: 2.35rem;
-  height: 2.35rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -61,6 +61,7 @@
 }
 
 .submit {
+  min-height: 2.75rem;
   padding: .85rem 1.05rem;
   border-radius: 999px;
   background: var(--ink);
@@ -76,7 +77,10 @@
 }
 
 .market a {
+  min-height: 2.75rem;
   padding: .62rem .75rem;
+  display: grid;
+  place-items: center;
   border-radius: 999px;
   color: var(--muted);
   font-size: .67rem;
@@ -114,8 +118,8 @@
 }
 
 .suggestionHeading button {
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display: grid;
   place-items: center;
   border: 0;
@@ -211,12 +215,47 @@
 
 .suggestionList > a > svg { flex: 0 0 auto; color: var(--wine); }
 
+.searchFallback {
+  min-height: 3.5rem;
+  margin-top: .35rem;
+  padding: .35rem .4rem .35rem .85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .8rem;
+  border-top: 1px solid rgba(107, 59, 53, .1);
+}
+
+.searchFallback p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .7rem;
+}
+
+.searchFallback a {
+  min-height: 2.75rem;
+  padding: .55rem .75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: .68rem;
+}
+
+.searchFallback a:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 2px;
+}
+
 @media (max-width: 640px) {
   .shell { position: relative; z-index: 12; top: auto; width: calc(100% - 1.2rem); margin-top: -1.5rem; }
   .searchBar { grid-template-columns: auto minmax(0, 1fr) auto auto; }
   .submit {
-    width: 2.7rem;
-    height: 2.7rem;
+    width: 2.75rem;
+    height: 2.75rem;
     padding: 0;
     font-size: 0;
   }
@@ -228,10 +267,21 @@
     z-index: 80;
     inset: auto .6rem .6rem;
     max-height: min(66svh, 34rem);
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
     border-radius: 1.8rem;
   }
-  .suggestionList { max-height: calc(min(66svh, 34rem) - 3.5rem); }
+  .suggestionList { min-height: 0; max-height: none; }
   .suggestionList a { min-height: 4.25rem; }
+  .searchFallback {
+    padding-left: .65rem;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .searchFallback a {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -253,6 +303,8 @@
 :global(html[data-theme="dark"]) .suggestions { background: rgba(36, 29, 27, .96); }
 :global(html[data-theme="dark"]) .suggestionHeading button { background: rgba(138, 95, 87, .5); }
 :global(html[data-theme="dark"]) .loadingSuggestion span { border-color: rgba(232, 187, 180, .22); border-top-color: var(--rose); }
+:global(html[data-theme="dark"]) .searchFallback { border-top-color: rgba(232, 187, 180, .13); }
+:global(html[data-theme="dark"]) .searchFallback a { color: var(--cream); }
 :global(html[data-theme="dark"]) .suggestionList a:hover,
 :global(html[data-theme="dark"]) .suggestionList a[aria-selected='true'] { background: rgba(138, 95, 87, .5); }
 @media (prefers-color-scheme: dark) {
@@ -264,6 +316,8 @@
   :global(html:not([data-theme="light"])) .suggestions { background: rgba(36, 29, 27, .96); }
   :global(html:not([data-theme="light"])) .suggestionHeading button { background: rgba(138, 95, 87, .5); }
   :global(html:not([data-theme="light"])) .loadingSuggestion span { border-color: rgba(232, 187, 180, .22); border-top-color: var(--rose); }
+  :global(html:not([data-theme="light"])) .searchFallback { border-top-color: rgba(232, 187, 180, .13); }
+  :global(html:not([data-theme="light"])) .searchFallback a { color: var(--cream); }
   :global(html:not([data-theme="light"])) .suggestionList a:hover,
   :global(html:not([data-theme="light"])) .suggestionList a[aria-selected='true'] { background: rgba(138, 95, 87, .5); }
 }
