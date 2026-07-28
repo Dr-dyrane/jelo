@@ -14,6 +14,7 @@ import {
   type CapturedResearchOfferResponse,
   type ResearchOfferCaptureManifest,
   type ResearchOfferCapturePlanItem,
+  type ResearchOfferQualityCaution,
 } from '@/lib/catalogue/research-offer-capture';
 import {
   assertPrivateResearchEvidencePacketManifest,
@@ -146,6 +147,31 @@ async function verifyStored(input: Awaited<ReturnType<typeof loadInputs>>) {
   return verifyResearchOfferCaptureBundle(repositoryRoot, manifest);
 }
 
+async function retainedQualityCautions(
+  captured: CapturedResearchOfferResponse[],
+): Promise<ResearchOfferQualityCaution[]> {
+  try {
+    const stored = JSON.parse(
+      await readFile(path.join(repositoryRoot, researchOfferCaptureManifestPath), 'utf8'),
+    ) as ResearchOfferCaptureManifest;
+    assertPrivateResearchOfferCaptureManifest(stored);
+    const currentById = new Map(captured.map(item => [
+      item.record.id,
+      item.record.source.responseSha256,
+    ]));
+    return stored.qualityCautions.filter(caution =>
+      currentById.get(caution.captureId) === caution.responseSha256);
+  } catch (error) {
+    if (
+      error
+      && typeof error === 'object'
+      && 'code' in error
+      && error.code === 'ENOENT'
+    ) return [];
+    throw error;
+  }
+}
+
 async function main() {
   if (process.argv.includes('--help')) return help();
   const write = process.argv.includes('--write');
@@ -169,12 +195,16 @@ async function main() {
   const count = batchCount(option('batch'), input.packets.packets.length);
   const plan = buildResearchOfferCapturePlan(input.packets, input.snapshot, count);
   const captured = await concurrentCapture(plan);
+  const qualityCautions = write
+    ? await retainedQualityCautions(captured)
+    : [];
   const packetIds = input.packets.packets.slice(0, count).map(packet => packet.id);
   const manifest = buildResearchOfferCaptureManifest({
     researchPacketsSha256: input.packetSha256,
     discoverySnapshotSha256: input.snapshotSha256,
     packetIds,
     captured,
+    qualityCautions,
   });
   if (write) await writeResearchOfferCaptureBundle(repositoryRoot, manifest, captured);
 

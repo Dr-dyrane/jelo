@@ -23,7 +23,7 @@ import {
   type CatalogueResearchEvidencePacketManifest,
 } from './research-evidence-packet';
 
-export const researchOfferCaptureSchemaVersion = 1 as const;
+export const researchOfferCaptureSchemaVersion = 2 as const;
 export const researchOfferCapturePolicy = 'private-retained-offer-source-evidence-only' as const;
 export const researchOfferCapturePublicationAuthority = 'none' as const;
 export const researchOfferCapturePublicationStatus = 'not-a-catalogue-candidate' as const;
@@ -91,6 +91,17 @@ export type ResearchOfferCaptureRecord = {
   };
 };
 
+export type ResearchOfferQualityCaution = {
+  captureId: string;
+  responseSha256: string;
+  kind: 'cross-product-visual' | 'description-size-conflict';
+  disposition:
+    | 'exclude-source-visual-from-all-use'
+    | 'exclude-description-from-identity-care-and-public-copy';
+  basis: 'retained-response-and-live-listing-review';
+  reviewedAt: string;
+};
+
 export type CapturedResearchOfferResponse = {
   record: ResearchOfferCaptureRecord;
   responseBytes: Buffer;
@@ -111,6 +122,7 @@ export type ResearchOfferCaptureManifest = {
     packetIds: string[];
     responseCount: number;
   };
+  qualityCautions: ResearchOfferQualityCaution[];
   captures: ResearchOfferCaptureRecord[];
 };
 
@@ -500,6 +512,7 @@ export function buildResearchOfferCaptureManifest(input: {
   discoverySnapshotSha256: string;
   packetIds: string[];
   captured: CapturedResearchOfferResponse[];
+  qualityCautions?: ResearchOfferQualityCaution[];
   generatedAt?: string;
 }): ResearchOfferCaptureManifest {
   const generatedAt = input.generatedAt ?? new Date().toISOString();
@@ -522,6 +535,9 @@ export function buildResearchOfferCaptureManifest(input: {
       packetIds: [...input.packetIds],
       responseCount: captures.length,
     },
+    qualityCautions: [...(input.qualityCautions ?? [])].sort((left, right) =>
+      left.captureId.localeCompare(right.captureId)
+      || left.kind.localeCompare(right.kind)),
     captures,
   };
   return assertPrivateResearchOfferCaptureManifest(manifest);
@@ -623,8 +639,14 @@ function assertCaptureRecord(capture: ResearchOfferCaptureRecord, packetIds: Set
     expectedSize: capture.offer.size,
     evidencePath: capture.evidencePath,
   });
-  const responseRoute = new URL(capture.source.responseUrl);
-  const requestedRoute = new URL(capture.source.requestedUrl);
+  let responseRoute: URL;
+  let requestedRoute: URL;
+  try {
+    responseRoute = new URL(capture.source.responseUrl);
+    requestedRoute = new URL(capture.source.requestedUrl);
+  } catch {
+    throw new Error('Private offer capture response route or digest binding is invalid.');
+  }
   if (
     normalizedHost(responseRoute.hostname) !== normalizedHost(requestedRoute.hostname)
     || responseRoute.protocol !== 'https:'
@@ -668,6 +690,7 @@ export function assertPrivateResearchOfferCaptureManifest(value: ResearchOfferCa
     || !Array.isArray(value.captures)
     || value.captures.length < 1
     || value.selection.responseCount !== value.captures.length
+    || !Array.isArray(value.qualityCautions)
   ) throw new Error('Offer capture manifest is invalid or has publication authority.');
 
   const packetIds = new Set(value.selection.packetIds);
@@ -684,6 +707,29 @@ export function assertPrivateResearchOfferCaptureManifest(value: ResearchOfferCa
     }
     captureIds.add(capture.id);
     evidencePaths.add(capture.evidencePath);
+  }
+  const capturesById = new Map(value.captures.map(capture => [capture.id, capture]));
+  const qualityCautionKeys = new Set<string>();
+  for (const caution of value.qualityCautions) {
+    const capture = capturesById.get(caution.captureId);
+    const expectedDisposition = caution.kind === 'cross-product-visual'
+      ? 'exclude-source-visual-from-all-use'
+      : caution.kind === 'description-size-conflict'
+        ? 'exclude-description-from-identity-care-and-public-copy'
+        : null;
+    const key = `${caution.captureId}:${caution.kind}`;
+    if (
+      !capture
+      || capture.source.responseSha256 !== caution.responseSha256
+      || expectedDisposition == null
+      || caution.disposition !== expectedDisposition
+      || caution.basis !== 'retained-response-and-live-listing-review'
+      || !validIso(caution.reviewedAt)
+      || qualityCautionKeys.has(key)
+    ) {
+      throw new Error('Offer capture source-quality caution is invalid or stale.');
+    }
+    qualityCautionKeys.add(key);
   }
   if (Array.from(packetIds).some(id => !value.captures.some(capture => capture.packetId === id))) {
     throw new Error('Offer capture selection contains a packet without retained evidence.');

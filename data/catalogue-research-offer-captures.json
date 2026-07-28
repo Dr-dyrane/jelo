@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
@@ -26,6 +26,32 @@
     ],
     "responseCount": 24
   },
+  "qualityCautions": [
+    {
+      "captureId": "3801ffc016844c6b85c3d273",
+      "responseSha256": "475dc2d958c1d42bd01229210731c143c7de88230cdf52ea254898c87cc92518",
+      "kind": "cross-product-visual",
+      "disposition": "exclude-source-visual-from-all-use",
+      "basis": "retained-response-and-live-listing-review",
+      "reviewedAt": "2026-07-28T05:40:00.000Z"
+    },
+    {
+      "captureId": "46987401d2061ba37fd32650",
+      "responseSha256": "064d80380c36b148595168757cfcd49f6c3e850219b71a6a7a0915088be4382c",
+      "kind": "description-size-conflict",
+      "disposition": "exclude-description-from-identity-care-and-public-copy",
+      "basis": "retained-response-and-live-listing-review",
+      "reviewedAt": "2026-07-28T05:40:00.000Z"
+    },
+    {
+      "captureId": "aeaa77f6f17ce6948e1cfc7b",
+      "responseSha256": "5bbf4a06cd0446897eb49d7f394cdc521ffef24133b575c1cbb86243f803624a",
+      "kind": "cross-product-visual",
+      "disposition": "exclude-source-visual-from-all-use",
+      "basis": "retained-response-and-live-listing-review",
+      "reviewedAt": "2026-07-28T05:40:00.000Z"
+    }
+  ],
   "captures": [
     {
       "id": "b106c28adec688cd927a8b23",

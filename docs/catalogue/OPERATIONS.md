@@ -196,6 +196,16 @@ right. BuyBetter and Slique have this narrow grant for the checked-in evidence;
 Lux Beauty remains explicitly denied until a reviewed retained capture needs
 one.
 
+The capture manifest may also contain hash-bound source-quality cautions.
+These preserve the exact retailer bytes while quarantining a known bad field:
+`cross-product-visual` excludes that source image from every use, and
+`description-size-conflict` excludes the description from identity, care
+review, and public copy. The checked-in batch records both defects found during
+the 2026-07-28 retained-response and live-listing review. A recapture carries a
+caution forward only when both the capture ID and full response digest remain
+unchanged; changed bytes require a new review. Never “fix” the retailer's raw
+JSON by hand.
+
 ## 4. Lock identity
 
 Record the exact brand, variant, size, package version, and manufacturer identifier.

@@ -123,7 +123,8 @@ stable set of grouped intentions:
 1. **Products** — exact product and approved company/alias matches;
 2. **Guides** — reviewed concern, routine, and ingredient education;
 3. **Stores** — retailer discovery and current eligible offers;
-4. **Companies and ingredients** — canonical reference destinations.
+4. **Companies** — canonical company and brand destinations;
+5. **Ingredients** — reviewed ingredient reference destinations.
 
 A query may retrieve several groups. It must not use guide-language similarity
 as evidence that a product suits a condition.
@@ -164,9 +165,13 @@ with stricter provenance:
 Apple distinguishes Apple-direct, authorized-reseller, and Certified
 Refurbished channels and attaches the relevant warranty, testing, delivery, or
 availability language to the channel. JeloCare must name the retailer and
-market, show checked time/freshness where price is shown, and preserve the
-exact listing behind the offer. “Verified” cannot float as a general product
-badge when it actually describes one retailer observation.
+market and show checked time/freshness where price is shown. The exact source
+listing and response bytes remain private under the research-evidence contract
+and are never reused publicly. Public output may contain only reviewed,
+normalized offer facts — retailer, market, price, currency, stock state,
+package size, checked time, freshness, and the outbound listing reference —
+after product identity and publication gates pass. “Verified” cannot float as
+a general product badge when it actually describes one retailer observation.
 
 ### Personalization must explain itself
 

@@ -596,7 +596,8 @@ export function assertPrivateResearchEvidencePacketManifest(manifest: CatalogueR
             !== api.hostname.replace(/^www\./, '').toLowerCase()
           || api.search
           || api.hash
-          || !api.pathname.endsWith(`/wp-json/wc/store/v1/products/${observation.sourceProductId}`)
+          || api.pathname.replace(/\/+$/, '')
+            !== `/wp-json/wc/store/v1/products/${observation.sourceProductId}`
         ) {
           throw new Error('Static research packet exact retailer retrieval locator is not scoped to its listing.');
         }

@@ -142,6 +142,7 @@ test('captures exact JSON bytes while keeping retailer SKU local and publication
   });
   assert.doesNotThrow(() => assertPrivateResearchOfferCaptureManifest(manifest));
   assert.equal(manifest.publicationAuthority, 'none');
+  assert.deepEqual(manifest.qualityCautions, []);
   assert.equal(manifest.captures[0].publicationStatus, 'not-a-catalogue-candidate');
   assert.doesNotThrow(() => (
     assertResearchOfferCaptureManifestMatchesPlan(manifest, [item])
@@ -152,6 +153,38 @@ test('captures exact JSON bytes while keeping retailer SKU local and publication
       expectedTitle: 'A different product title 473 ml',
     }]),
     /packet-derived capture plan/,
+  );
+});
+
+test('binds source-quality cautions to the exact retained response digest', async () => {
+  const item = planItem();
+  const captured = await captureResearchOfferResponse(item, {
+    fetchImpl: fetchResponse(responseFor(product()).response),
+    capturedAt: '2026-07-27T16:00:00.000Z',
+  });
+  const caution = {
+    captureId: captured.record.id,
+    responseSha256: captured.record.source.responseSha256,
+    kind: 'cross-product-visual' as const,
+    disposition: 'exclude-source-visual-from-all-use' as const,
+    basis: 'retained-response-and-live-listing-review' as const,
+    reviewedAt: '2026-07-28T05:40:00.000Z',
+  };
+  const manifest = buildResearchOfferCaptureManifest({
+    researchPacketsSha256: 'c'.repeat(64),
+    discoverySnapshotSha256: 'd'.repeat(64),
+    packetIds: [item.packetId],
+    captured: [captured],
+    qualityCautions: [caution],
+    generatedAt: '2026-07-27T16:00:01.000Z',
+  });
+  assert.deepEqual(manifest.qualityCautions, [caution]);
+
+  const stale = structuredClone(manifest);
+  stale.qualityCautions[0].responseSha256 = 'e'.repeat(64);
+  assert.throws(
+    () => assertPrivateResearchOfferCaptureManifest(stale),
+    /source-quality caution is invalid or stale/,
   );
 });
 
@@ -334,5 +367,30 @@ test('manifest verification rejects publication authority and retailer identity 
   assert.throws(
     () => assertPrivateResearchOfferCaptureManifest(promoted),
     /Retailer SKU was promoted/,
+  );
+});
+
+test('manifest verification normalizes malformed response route failures', async () => {
+  const item = planItem();
+  const captured = await captureResearchOfferResponse(item, {
+    fetchImpl: fetchResponse(responseFor(product()).response),
+    capturedAt: '2026-07-27T16:00:00.000Z',
+  });
+  const manifest = buildResearchOfferCaptureManifest({
+    researchPacketsSha256: 'c'.repeat(64),
+    discoverySnapshotSha256: 'd'.repeat(64),
+    packetIds: [item.packetId],
+    captured: [captured],
+    generatedAt: '2026-07-27T16:00:01.000Z',
+  });
+  manifest.captures[0].source.responseUrl = 'not a URL';
+
+  assert.throws(
+    () => assertPrivateResearchOfferCaptureManifest(manifest),
+    error => (
+      error instanceof Error
+      && error.message === 'Private offer capture response route or digest binding is invalid.'
+      && error.name === 'Error'
+    ),
   );
 });

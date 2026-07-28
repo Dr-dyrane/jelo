@@ -1,8 +1,11 @@
 import { createHash } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
-import path from 'node:path';
+import { readFile } from 'node:fs/promises';
 import { catalogueDiscoverySources, type CatalogueDiscoverySource } from '@/data/catalogue-discovery-sources';
 import { reviewCatalogueDiscoveryRefresh } from '@/lib/catalogue/discovery-refresh';
+import {
+  resolveDirectDataJson,
+  writeDirectDataJsonAtomically,
+} from '@/lib/catalogue/private-data-json';
 import {
   auditCatalogueDiscoverySnapshot,
   buildCatalogueDiscoverySnapshot,
@@ -39,15 +42,6 @@ function writeArg() {
 function stringArg(name: string) {
   return process.argv.find(argument => argument.startsWith(`--${name}=`))
     ?.slice(`--${name}=`.length);
-}
-
-function directDataJson(repositoryRoot: string, value: string, label: string) {
-  const dataRoot = path.resolve(repositoryRoot, 'data');
-  const filename = path.resolve(repositoryRoot, value);
-  if (path.dirname(filename) !== dataRoot || !filename.endsWith('.json')) {
-    throw new Error(`${label} must be a direct JSON file inside data/.`);
-  }
-  return filename;
 }
 
 async function optionalSnapshot(filename: string | undefined) {
@@ -178,10 +172,10 @@ async function main() {
     throw new Error('--accept-refresh requires --write.');
   }
   const outputPath = output
-    ? directDataJson(repositoryRoot, output, '--write')
+    ? await resolveDirectDataJson(repositoryRoot, output, '--write')
     : undefined;
   const baselinePath = baseline
-    ? directDataJson(repositoryRoot, baseline, '--baseline')
+    ? await resolveDirectDataJson(repositoryRoot, baseline, '--baseline')
     : outputPath;
   const previous = await optionalSnapshot(baselinePath);
   if (baseline && !previous) throw new Error('--baseline does not exist.');
@@ -213,7 +207,10 @@ async function main() {
         + `review token. Re-run with --accept-refresh=${refreshReview.acceptanceToken}`,
       );
     }
-    await writeFile(outputPath!, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');
+    await writeDirectDataJsonAtomically(
+      outputPath!,
+      `${JSON.stringify(snapshot, null, 2)}\n`,
+    );
   }
 
   const sourceSummary = catalogueDiscoverySources.map((source, index) => ({

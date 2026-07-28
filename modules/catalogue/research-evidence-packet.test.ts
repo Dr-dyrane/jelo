@@ -89,6 +89,29 @@ test('rejects stale static source hashes and oversized batches', async () => {
   ), /between 1 and/);
 });
 
+test('requires an exact retailer product API pathname', async () => {
+  const { snapshotBytes, queueBytes } = await staticInputs();
+  const manifest = buildStaticResearchEvidencePacketManifest(
+    researchQueue as CatalogueResearchQueue,
+    discoverySnapshot as CatalogueDiscoverySnapshot,
+    catalogueResearchQueueDigest(queueBytes),
+    catalogueResearchQueueDigest(snapshotBytes),
+    { mode: 'batch', count: 1 },
+  );
+  const packet = manifest.packets[0];
+  assert.equal(packet.source, 'static-priority');
+  if (packet.source !== 'static-priority') throw new Error('Expected static packet.');
+  const observation = packet.discoveryEvidence.observations[0];
+  const route = new URL(observation.sourceProductApiUrl);
+  route.pathname = `/prefixed${route.pathname}`;
+  observation.sourceProductApiUrl = route.toString();
+
+  assert.throws(
+    () => assertPrivateResearchEvidencePacketManifest(manifest),
+    /not scoped to its listing/,
+  );
+});
+
 test('accepts aggregate community tasks without retaining contributor identifiers', () => {
   const report = communityReport();
   const raw = JSON.stringify(report);
