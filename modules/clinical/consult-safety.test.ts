@@ -292,6 +292,7 @@ test('ordinary care reaches canonical concerns and reviewed products without a m
       concernSlug: 'dry-dehydrated-skin',
       productSlugs: [
         'cerave-pm-facial-moisturising-lotion-52ml',
+        'facefacts-ceramide-moisturising-gel-cream-50ml',
       ],
       routinePattern: /reviewed moisturiser/i,
     },
@@ -300,6 +301,7 @@ test('ordinary care reaches canonical concerns and reviewed products without a m
       concernSlug: 'sensitive-barrier',
       productSlugs: [
         'cerave-pm-facial-moisturising-lotion-52ml',
+        'facefacts-ceramide-moisturising-gel-cream-50ml',
         'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
       ],
       routinePattern: /routine short/i,

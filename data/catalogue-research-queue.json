@@ -354,33 +354,6 @@
     },
     {
       "rank": 13,
-      "discoveryId": "2a187a80b6e379d729664032",
-      "title": "FACEFACTS Ceramide Moisturizing Gel Cream 50ml",
-      "brandHint": "FACEFACTS",
-      "size": "50ml",
-      "categoryHint": "Face care",
-      "lane": "moisture-barrier",
-      "priorityScore": 175,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "05031413928570",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 14,
       "discoveryId": "9a010c0186b1418272fce5bb",
       "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
       "brandHint": "ADVANCED",
@@ -407,7 +380,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 15,
+      "rank": 14,
       "discoveryId": "fd07898619801a68999f2850",
       "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
       "brandHint": "FACEFACTS",
@@ -434,7 +407,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 16,
+      "rank": 15,
       "discoveryId": "6635e9027b7821ef2ff04dbd",
       "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
       "brandHint": "Advanced Korean Skin",
@@ -460,7 +433,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 17,
+      "rank": 16,
       "discoveryId": "f1ebe655a947668241b4d240",
       "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -486,7 +459,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "discoveryId": "b7c8a1240541dd5a7869b2eb",
       "title": "ADVANCED KOREAN SKIN Bright And Smooth Body Lotion 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -497,6 +470,32 @@
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
       "identityLead": "06156000469751",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 18,
+      "discoveryId": "4b13a12fadc04b34d8290d5b",
+      "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
+      "brandHint": "AQUA RICH",
+      "size": "500ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 170,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "04897073187532",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -539,32 +538,6 @@
     },
     {
       "rank": 20,
-      "discoveryId": "7e605cd6690ac73d599d9c2b",
-      "title": "AQUA RICH Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract) 1000ml",
-      "brandHint": "AQUA RICH",
-      "size": "1000ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "04897073187587",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 21,
       "discoveryId": "07638932c92af511bdf56019",
       "title": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
       "brandHint": "Dr Teals",
@@ -590,7 +563,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
+      "rank": 21,
       "discoveryId": "e3e002f6425926e8343cb8e9",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
       "brandHint": "EOS",
@@ -616,7 +589,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 22,
       "discoveryId": "af4cf984d6ae1296e4ffd1b0",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
       "brandHint": "EOS",
@@ -627,6 +600,32 @@
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
       "identityLead": "00840044714163",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 23,
+      "discoveryId": "0b79938ca156f8c9fac4469f",
+      "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
+      "brandHint": "EOS",
+      "size": "473ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 158,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "00840044714101",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

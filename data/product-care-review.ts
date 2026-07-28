@@ -670,6 +670,36 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-26',
   },
+  'prequel-gleanser-glycolic-acid-cleanser-400ml': {
+    productSlug: 'prequel-gleanser-glycolic-acid-cleanser-400ml',
+    careState: 'pharmacist_review',
+    approvedUses: [{
+      id: 'glycolic-acid-cleanser-review',
+      label: 'Glycolic-acid cleanser review',
+      concernIds: ['rough texture', 'uneven tone', 'cosmetic exfoliation'],
+    }],
+    evidenceSourceUrls: [
+      'https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-07-28',
+  },
+  'facefacts-ceramide-moisturising-gel-cream-50ml': {
+    productSlug: 'facefacts-ceramide-moisturising-gel-cream-50ml',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-sensitive-feeling-moisturising',
+      label: 'Daily moisture for dry or sensitive-feeling skin',
+      concernIds: ['dryness', 'dehydration', 'sensitivity', 'tightness'],
+      concernSlugs: ['dry-dehydrated-skin', 'sensitive-barrier'],
+      skinTypes: ['dry', 'sensitive'],
+    }],
+    evidenceSourceUrls: [
+      'https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer',
+    ],
+    reviewedAt: '2026-07-28',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

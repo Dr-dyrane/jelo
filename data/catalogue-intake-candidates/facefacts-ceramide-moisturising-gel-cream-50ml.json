@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-07-28T10:23:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "42a3013f63978f4a1810165d",
+    "discoveryId": "2a187a80b6e379d729664032",
+    "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "candidate": {
+    "id": "facefacts-ceramide-moisturising-gel-cream-50ml",
+    "brand": "FACE FACTS",
+    "brandAliases": [
+      "FACEFACTS",
+      "Face Facts"
+    ],
+    "name": "Ceramide Moisturising Gel Cream",
+    "variant": "Ceramide Moisturising Gel Cream",
+    "size": "50 ml",
+    "category": "Face care",
+    "reason": "Adds a current fragrance-free 50 ml daily facial moisturiser with exact official variant and size, independently corroborated EAN 5031413928570, two current Nigerian offers, a reviewed non-diagnostic care boundary, and an identity-verified transparent packshot.",
+    "priority": "essential",
+    "gapIds": [
+      "sensitive-barrier",
+      "dry-dehydrated-skin",
+      "lightweight-moisturising"
+    ],
+    "demandEvidenceUrls": [
+      "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+      "https://buybetter.ng/product/facefacts-ceramide-moisturizing-gel-cream/",
+      "https://www.csigrocery.com/shop/skincare/body-oils-moisturizers/face-facts-moisturising-cream/"
+    ],
+    "identity": {
+      "gtin": "5031413928570",
+      "officialProductUrl": "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+      "checkedAt": "2026-07-28T10:22:40Z",
+      "basis": "official-brand",
+      "packageVersion": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap",
+      "officialEvidence": {
+        "url": "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+        "observedGtin": "5031413928570",
+        "observedVariant": "Ceramide Moisturising Gel Cream",
+        "observedSize": "50 ml",
+        "observedPackageVersion": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/facefacts-ceramide-moisturising-gel-cream-50ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 5,
+          "candidateId": "facefacts-ceramide-moisturising-gel-cream-50ml",
+          "sourceUrl": "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+          "responseUrl": "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+          "retrievedAt": "2026-07-28T10:10:30Z",
+          "fields": {
+            "gtin": {
+              "value": "5031413928570",
+              "locator": "identifierCorroborations[*].fields.gtin",
+              "sourceText": "EAN 5031413928570 is independently corroborated by Icosmo and SKINTOC; the rendered manufacturer page publishes the exact product and 50 ml pack but no GTIN/EAN."
+            },
+            "manufacturerIdentifierStatus": {
+              "value": "not-published",
+              "locator": "Complete rendered DOM outerHTML whole-word identifier absence search",
+              "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
+              "absenceProof": {
+                "searchScope": "complete-rendered-dom-outerhtml",
+                "searchedTerms": [
+                  "barcode",
+                  "ean",
+                  "gtin",
+                  "upc"
+                ],
+                "matchStrategy": "whole-word",
+                "caseInsensitive": true,
+                "matchCount": 0
+              }
+            },
+            "variant": {
+              "value": "Ceramide Moisturising Gel Cream",
+              "locator": "Rendered DOM meta[property='og:title']",
+              "sourceText": "<meta property=\"og:title\" content=\"Ceramide Moisturising Gel Cream\">"
+            },
+            "size": {
+              "value": "50 ml",
+              "locator": "Official carton principal display panel in supplemental response",
+              "sourceText": "50ml e / 1.69 fl. oz."
+            },
+            "packageVersion": {
+              "value": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap",
+              "locator": "Official manufacturer primary product image",
+              "sourceText": "The current official image shows a white 50 ml squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and a translucent white flip cap.",
+              "evidenceUrl": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_1.jpg?v=1775040771&width=1800"
+            }
+          },
+          "sourceResponseSha256": "e28e1247d20269cd5549bd06440a8d62a03ea73aaa2a386a923e669f34f2aef6",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 200182,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_1.jpg?v=1775040771&width=1800",
+              "responseUrl": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_1.jpg?v=1775040771&width=1800",
+              "retrievedAt": "2026-07-28T09:31:02Z",
+              "responseSha256": "42d6c51bd4909c15bdcc12679663ac8dfb9d9f3d5198067081abbf00625800eb",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 53230
+            },
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_2.jpg?v=1775040771&width=1800",
+              "responseUrl": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_2.jpg?v=1775040771&width=1800",
+              "retrievedAt": "2026-07-28T09:36:50Z",
+              "responseSha256": "bc1ed4223936d2111b8a4f5d21cefd5637d8d197b649bb183dec61c7fa95ac2c",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 69473
+            }
+          ],
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Ceramide Moisturising Gel Face Cream | Ideal for Dry & Sensitive Skin – FaceFacts"
+          },
+          "identifierCorroborations": [
+            {
+              "sourceUrl": "https://icosmo.com.ua/ru/face-facts/421327",
+              "responseUrl": "https://icosmo.com.ua/ru/face-facts/421327",
+              "retrievedAt": "2026-07-28T10:22:00Z",
+              "fields": {
+                "gtin": {
+                  "value": "5031413928570",
+                  "locator": "Rendered DOM Product JSON-LD gtin",
+                  "sourceText": "\"gtin\":\"5031413928570\""
+                },
+                "variant": {
+                  "value": "Face Facts Ceramide Moisturising Gel Cream",
+                  "locator": "Rendered DOM Product JSON-LD name",
+                  "sourceText": "\"name\":\"Увлажняющий гель-крем с керамидами - Face Facts Ceramide Moisturising Gel Cream, 50мл\""
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "Rendered DOM product characteristics volume value",
+                  "sourceText": "<div class=\"txt\">50ml</div>"
+                }
+              },
+              "sourceResponseSha256": "823bd5cacf3431f033aaccc2952b8d563adc44a180958c15b83b0a902d5f85ee",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseByteSize": 212266,
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Face Facts Ceramide Moisturising Gel Cream - Увлажняющий гель-крем с керамидами, 50мл - купить, цена, отзывы - Icosmo"
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-28T10:22:30Z"
+            },
+            {
+              "sourceUrl": "https://skintoc.com/products/face-facts-ceramide-moisturising-gel-cream-50-ml",
+              "responseUrl": "https://skintoc.com/products/face-facts-ceramide-moisturising-gel-cream-50-ml",
+              "retrievedAt": "2026-07-28T10:08:30Z",
+              "fields": {
+                "gtin": {
+                  "value": "5031413928570",
+                  "locator": "Rendered DOM Shopify product JSON barcode",
+                  "sourceText": "\"barcode\":\"5031413928570\""
+                },
+                "variant": {
+                  "value": "Face Facts Ceramide Moisturising Gel Cream 50 Ml",
+                  "locator": "Rendered DOM Shopify product JSON variant name",
+                  "sourceText": "\"name\":\"Face Facts Ceramide Moisturising Gel Cream 50 Ml\""
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "Rendered DOM Shopify product JSON variant name size token",
+                  "sourceText": "\"name\":\"Face Facts Ceramide Moisturising Gel Cream 50 Ml\""
+                }
+              },
+              "sourceResponseSha256": "4e79b84d7e066c62325dabe5bafa61d84f0892826235670692534c573c421dd7",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseByteSize": 200041,
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Face Facts Ceramide Moisturising Gel Cream. Order Now – SKINTOC"
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-07-28T10:22:30Z"
+            }
+          ],
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-07-28T10:22:30Z"
+        },
+        "snapshotSha256": "77223ed59261df481f273907bb1f27c3683a73490d7abda432afd7e7fcb73dd3",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 5963,
+        "retrievedAt": "2026-07-28T10:10:30Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Fragrance-free leave-on facial moisturising gel cream with glycerin, mineral oil, five ceramides, oat kernel extract, sodium hyaluronate and vitamin E",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday facial moisturising and moisture-barrier comfort for dry or sensitive-feeling skin. It does not diagnose or treat eczema, dermatitis, acne, rosacea or another skin condition. Apply a small amount after cleansing and do not rinse. Fragrance-free labelling and ceramide ingredients do not guarantee tolerance for every person: patch test if reactive, stop if burning, stinging or rash develops, and seek clinical advice for persistent, painful, cracked, infected or widespread symptoms.",
+      "manufacturerEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+      "evidenceUrls": [
+        "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+      ],
+      "reviewedAt": "2026-07-28T10:22:50Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-moisturizing-gel-cream/",
+          "observedAt": "2026-07-28T09:46:00Z",
+          "observedTitle": "FACEFACTS Ceramide Moisturizing Gel Cream 50ml",
+          "reviewedTitleAlias": "Ceramide Gel Cream",
+          "observedSize": "50 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap",
+          "retailerSku": "5031413928570",
+          "priceNgn": 3655,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-moisturizing-gel-cream/",
+            "responseUrl": "https://buybetter.ng/product/facefacts-ceramide-moisturizing-gel-cream/",
+            "responseSha256": "2594ef24ba796412851d60fe25b230a9cfae8b3d1b546c2f69b0b5ac564734fb",
+            "responseDigestScope": "rendered-accessibility-tree",
+            "responseMimeType": "text/html",
+            "responseByteSize": 15063,
+            "retrievedAt": "2026-07-28T09:46:00Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "FACEFACTS Ceramide Moisturizing Gel Cream 50ml – Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5031413928570",
+                "locator": "Bound official Face Facts 50 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5031413928570",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "FACEFACTS Ceramide Moisturizing Gel Cream 50ml",
+                "locator": "Rendered accessibility product heading",
+                "sourceText": "FACEFACTS Ceramide Moisturizing Gel Cream 50ml"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered accessibility product heading size token",
+                "sourceText": "FACEFACTS Ceramide Moisturizing Gel Cream 50ml"
+              },
+              "packageVersion": {
+                "value": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap",
+                "locator": "Rendered primary product gallery image",
+                "sourceText": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap"
+              },
+              "price": {
+                "value": 3655,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦3,655.00 NG"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered stock message",
+                "sourceText": "24 in stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-28T10:22:50Z"
+          }
+        },
+        {
+          "retailer": "CSi Grocery",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.csigrocery.com/shop/skincare/body-oils-moisturizers/face-facts-moisturising-cream/",
+          "observedAt": "2026-07-28T09:56:30Z",
+          "observedTitle": "Face Facts Ceramide Moisturising Gel Cream - (50mL/1.69 fl. oz.)",
+          "observedSize": "50 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap",
+          "retailerSku": "5031413928570",
+          "priceNgn": 3600,
+          "stock": "low-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/body-oils-moisturizers/face-facts-moisturising-cream/",
+            "responseUrl": "https://www.csigrocery.com/shop/skincare/body-oils-moisturizers/face-facts-moisturising-cream/",
+            "responseSha256": "df62bc87cb47febbc826e3f08e8c6aa1f442e6142eb0b53ddd9c3ed31464eb98",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 200052,
+            "retrievedAt": "2026-07-28T09:56:30Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Face Facts Ceramide Moisturising Gel Cream - (50mL/1.69 fl. oz.) - Imported Grocery, Baby & Skincare Online in Nigeria| CSi Grocery"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "5031413928570",
+                "locator": "Bound official Face Facts 50 ml identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 5031413928570",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Face Facts Ceramide Moisturising Gel Cream - (50mL/1.69 fl. oz.)",
+                "locator": "Rendered DOM h1.product_title",
+                "sourceText": "Face Facts Ceramide Moisturising Gel Cream - (50mL/1.69 fl. oz.)"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered DOM h1.product_title size token",
+                "sourceText": "Face Facts Ceramide Moisturising Gel Cream - (50mL/1.69 fl. oz.)"
+              },
+              "packageVersion": {
+                "value": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap",
+                "locator": "Rendered primary product gallery image",
+                "sourceText": "Current 50 ml white squeeze tube with green and charcoal Ceramide Moisturising Gel Cream front label and translucent white flip cap"
+              },
+              "price": {
+                "value": 3600,
+                "currency": "NGN",
+                "locator": "Rendered DOM p.price.wcmlim_product_price",
+                "sourceText": "₦3,600.00"
+              },
+              "stock": {
+                "value": "low-stock",
+                "locator": "Rendered DOM Lagos location-stock-item",
+                "sourceText": "3 In Stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-28T10:22:50Z"
+          }
+        }
+      ],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "sourceUrl": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_1.jpg?v=1775040771&width=1800",
+      "sourceAssetSha256": "42d6c51bd4909c15bdcc12679663ac8dfb9d9f3d5198067081abbf00625800eb",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 53230,
+      "sourceAssetWidth": 1800,
+      "sourceAssetHeight": 1800,
+      "sourceAssetRetrievedAt": "2026-07-28T09:31:02Z",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal, edge contraction, and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot\nPrimary request: isolate the exact Face Facts Ceramide Moisturising Gel Cream tube from the supplied official manufacturer image onto a perfectly flat solid #ff00ff chroma-key background for local background removal.\nInput images: Image 1 is the edit target and sole authoritative product-identity reference.\nScene/backdrop: one perfectly uniform flat #ff00ff field; no gradient, texture, floor plane, shadow, reflection, glow, halo, or lighting variation.\nSubject: one complete upright white 50 ml squeeze tube, including the full crimped top and complete translucent white flip cap.\nStyle/medium: source-faithful premium studio product photography; preserve the real package exactly.\nComposition/framing: centered, straight-on, full product visible with generous even padding on every side; no clipping or perspective change.\nText (verbatim): preserve every existing package word, number, symbol, line break, color, font relationship, and placement exactly as shown in Image 1, especially “facefacts.”, “CERAMIDE”, “SKIN BARRIER COMPLEX”, “Moisturising Gel Cream”, “5 CERAMIDES + HYALURONIC ACID + OATS”, “Dermatologically Tested”, “Fragrance Free”, and “VEGAN”.\nConstraints: change only the background and remove the original floor reflection. Preserve tube silhouette, proportions, cap, white plastic, green and charcoal artwork, label hierarchy, and all packaging details. Do not invent or correct text. Do not use #ff00ff anywhere in the product.\nAvoid: redesigned label, spelling drift, missing text, cropped cap or crimp, carton, props, badge, extra object, watermark, cast shadow, contact shadow, reflection, floor, glow, halo, gradient, or stylization.",
+        "inputs": [
+          {
+            "url": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_1.jpg?v=1775040771&width=1800",
+            "sha256": "42d6c51bd4909c15bdcc12679663ac8dfb9d9f3d5198067081abbf00625800eb"
+          }
+        ],
+        "outputSha256": "0eb13b51e08b874ad74f707f86c809e035962d27288acadf3167dbeeb87bff54",
+        "generatedAt": "2026-07-28T09:35:30Z",
+        "recordSha256": "8f0367c65993c2904858e57a16503acc4c3f666b5c785636e3839cb738393cff"
+      },
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-ceramide-moisturising-gel-cream-50ml/packshot-v1-0eb13b51e08b874a.png",
+      "publicImageSha256": "0eb13b51e08b874ad74f707f86c809e035962d27288acadf3167dbeeb87bff54",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1061434,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-07-28T10:22:50Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

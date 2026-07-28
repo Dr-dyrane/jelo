@@ -254,5 +254,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "420f76cf802aab4c8328b9b8d10830add8496cb8efd10f6152da5bad84532329"
+  },
+  {
+    "id": "facefacts-ceramide-moisturising-gel-cream-50ml-packshot-v1",
+    "active": true,
+    "candidateId": "facefacts-ceramide-moisturising-gel-cream-50ml",
+    "destination": "publication",
+    "publicationBrandSlug": "face-facts",
+    "sourceUrl": "https://facefacts.me/cdn/shop/files/28570-150-face-facts-ceramide-moisturising-gel-cream_1.jpg?v=1775040771&width=1800",
+    "localPath": "data/catalogue-intake-assets/facefacts-ceramide-moisturising-gel-cream-50ml/packshot-v1-0eb13b51e08b.png",
+    "blobPath": "products/face-facts/facefacts-ceramide-moisturising-gel-cream-50ml/packshot-v1-0eb13b51e08b874a.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-ceramide-moisturising-gel-cream-50ml/packshot-v1-0eb13b51e08b874a.png",
+    "contentType": "image/png",
+    "byteSize": 1061434,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "0eb13b51e08b874ad74f707f86c809e035962d27288acadf3167dbeeb87bff54"
   }
 ]

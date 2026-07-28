@@ -368,7 +368,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 36);
+  assert.equal(result.dossierCount, 38);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -398,8 +398,35 @@ test('the checked-in publication manifest contains the verified neutral referenc
   assert.equal(result.dossiers[6].nigeria.exactOffers.length, 2);
   assert.equal(result.dossiers[6].nigeria.regulatoryStatus, 'pending');
   assert.equal(result.dossiers[6].rights.generationRecord?.outputSha256, result.dossiers[6].finalImage.sha256);
-  assert.equal(result.dossiers.at(-1)?.candidateId, 'beauty-formulas-glowing-serum-2-vitamin-c-30ml');
-  assert.equal(result.dossiers.at(-1)?.nigeria.exactOffers.length, 3);
+  assert.equal(result.dossiers.at(-3)?.candidateId, 'beauty-formulas-glowing-serum-2-vitamin-c-30ml');
+  assert.equal(result.dossiers.at(-3)?.nigeria.exactOffers.length, 3);
+  const faceFactsDossier = result.dossiers.at(-1);
+  assert.ok(faceFactsDossier);
+  assert.equal(faceFactsDossier.candidateId, 'facefacts-ceramide-moisturising-gel-cream-50ml');
+  assert.ok('gtin' in faceFactsDossier.identity);
+  assert.equal(faceFactsDossier.identity.gtin, '5031413928570');
+  assert.equal(faceFactsDossier.identity.name, 'Ceramide Moisturising Gel Cream');
+  assert.equal(faceFactsDossier.identity.size, '50 ml');
+  assert.equal(faceFactsDossier.nigeria.marketRoute, 'tier-a');
+  assert.deepEqual(
+    faceFactsDossier.nigeria.exactOffers.map(offer => ({
+      retailer: offer.retailer,
+      priceNgn: offer.priceNgn,
+      stock: offer.stock,
+    })),
+    [
+      { retailer: 'BuyBetter', priceNgn: 3_655, stock: 'in-stock' },
+      { retailer: 'CSi Grocery', priceNgn: 3_600, stock: 'low-stock' },
+    ],
+  );
+  assert.equal(
+    faceFactsDossier.finalImage.sha256,
+    '0eb13b51e08b874ad74f707f86c809e035962d27288acadf3167dbeeb87bff54',
+  );
+  assert.equal(
+    faceFactsDossier.rights.generationRecord?.outputSha256,
+    faceFactsDossier.finalImage.sha256,
+  );
   assert.equal(result.dossiers[7].candidateId, 'cerave-acne-foaming-cream-wash-10-150ml');
   assert.equal(result.dossiers[7].nigeria.marketRoute, 'tier-a');
   assert.equal(result.dossiers[7].nigeria.exactOffers.length, 2);
@@ -871,7 +898,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 36);
+  assert.equal(report.releaseCount, 38);
   assert.equal(report.products[0].slug, 'cerave-hydrating-cleanser-473ml');
   assert.equal(report.products[0].offers[0].priceNgn, 15_265);
   assert.equal(report.products[1].slug, 'cerave-moisturising-cream-454g');
@@ -910,8 +937,25 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
   assert.equal(report.products[5].offers[1].priceNgn, 43_485);
   assert.equal(report.products[5].offers[1].available, true);
   assert.equal(report.products[6].slug, 'balance-salicylic-acid-zinc-clarifying-toner-200ml');
-  assert.equal(report.products.at(-1)?.slug, 'beauty-formulas-glowing-serum-2-vitamin-c-30ml');
-  assert.equal(report.products.at(-1)?.offers.length, 3);
+  assert.equal(report.products.at(-3)?.slug, 'beauty-formulas-glowing-serum-2-vitamin-c-30ml');
+  assert.equal(report.products.at(-3)?.offers.length, 3);
+  assert.equal(report.products.at(-1)?.slug, 'facefacts-ceramide-moisturising-gel-cream-50ml');
+  assert.equal(report.products.at(-1)?.name, 'Ceramide Moisturising Gel Cream');
+  assert.equal(report.products.at(-1)?.size, '50 ml');
+  assert.equal(report.products.at(-1)?.category, 'Face');
+  assert.equal(report.products.at(-1)?.step, 'Moisturize');
+  assert.equal(report.products.at(-1)?.displayLine, 'Lightweight fragrance-free moisture.');
+  assert.deepEqual(
+    report.products.at(-1)?.offers.map(offer => ({
+      retailer: offer.retailer,
+      priceNgn: offer.priceNgn,
+      available: offer.available,
+    })),
+    [
+      { retailer: 'BuyBetter', priceNgn: 3_655, available: true },
+      { retailer: 'CSi Grocery', priceNgn: 3_600, available: true },
+    ],
+  );
   assert.equal(report.products[6].category, 'Face');
   assert.equal(report.products[6].step, 'Tone');
   assert.equal(report.products[6].offers[0].retailer, 'BuyBetter');

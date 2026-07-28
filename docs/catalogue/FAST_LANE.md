@@ -39,14 +39,35 @@ For a data-only product, run the smallest checks that cover the changed
 contract:
 
 ```bash
+# After the release write, rebuild the public search projection.
+npm run catalogue:search:build
+
+# Remove the released identity from the private research queue and refresh its
+# deterministic evidence-packet batch.
+npm run catalogue:research:build -- --write
+npm run catalogue:research:packets -- --batch 12 --write
+
 git diff --check
 npm run catalogue:intake:verify
 npm run catalogue:publication:releases:verify
+npm run catalogue:search:verify
+npm run catalogue:research:verify
+npm run catalogue:research:packets:verify
+npm run catalogue:research:offers:verify
 ```
 
 Run `npm run catalogue:publication:images:verify` when a new publication image
 is uploaded or its binding changes. Run the release command as a dry run before
 using `--write`.
+
+Never omit the projection rebuilds. The release manifests and public catalogue
+can be current while the checked-in search artifact is one product behind or
+the private queue still asks agents to research an identity that was released.
+If rebuilding the queue changes the packet plan, recapture the affected retailer
+responses before publication. If only the queue binding changes while packet
+identities and response bodies remain identical, reconcile the retained capture
+manifest to the new packet hash and prove it with
+`catalogue:research:offers:verify`.
 
 Do not rerun the full lint, type, test, and production-build suite after every
 routine SKU. Run `npm run verify:release`:

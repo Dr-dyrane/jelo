@@ -37,7 +37,7 @@ const forbiddenPathFragments = [
 // Both unreleased products are stable canaries for the private intake graph
 // that previously entered this endpoint's server chunk.
 const forbiddenContent = [
-  'prequel-gleanser-glycolic-acid-cleanser-400ml',
+  'dang-niacinamide-n-acetyl-glucosamine-serum-30ml',
   'dang-hydra-glow-sun-protection-gel-60ml',
   'catalogue-publication-dossiers',
   'catalogue-intake-candidates',

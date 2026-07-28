@@ -845,6 +845,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
     'https://sianwholesale.com/face-facts-ceramide-blemish-gel-moisturiser-50ml5031413935691.html',
     'https://lamifragrance.com/product/face-facts-ceramide-blemish-gel-moisturiser/',
   ],
+  'facefacts-ceramide-moisturising-gel-cream-50ml': [
+    'https://icosmo.com.ua/ru/face-facts/421327',
+    'https://skintoc.com/products/face-facts-ceramide-moisturising-gel-cream-50-ml',
+  ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=4a1591e8-6135-4b22-b54c-5553c2dc0540',

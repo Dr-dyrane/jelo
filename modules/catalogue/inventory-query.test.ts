@@ -67,6 +67,7 @@ test('indexes only manifest-approved supportive discovery terms', () => {
   const barrier = queryInventoryRecords(products, { q: 'barrier', review: 'reviewed' });
   assert.deepEqual(barrier.items.map(item => item.id), [
     'reviewed:cerave-pm-facial-moisturising-lotion-52ml',
+    'reviewed:facefacts-ceramide-moisturising-gel-cream-50ml',
     'reviewed:simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
   ]);
 
@@ -117,8 +118,8 @@ test('concern browsing includes explicit reviewed references without turning the
     [
       ['acne-breakouts', 12],
       ['dark-spots', 6],
-      ['sensitive-barrier', 2],
-      ['dry-dehydrated-skin', 4],
+      ['sensitive-barrier', 3],
+      ['dry-dehydrated-skin', 5],
       ['dry-rough-body-skin', 6],
       ['sweat-body-odour', 1],
       ['oily-congested-skin', 5],

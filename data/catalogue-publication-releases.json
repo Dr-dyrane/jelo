@@ -889,6 +889,30 @@
         "publishedAt": "2026-07-28T08:50:50Z"
       },
       "releaseFingerprint": "6d588988f014a69d9da0d8812e6d79702d728a5a44bb8f6670f829241670bb57"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-moisturising-gel-cream-50ml",
+      "dossierFingerprint": "1833db56c77e66ad5a4bc78a507d06e8e5a398c4e85ef8249f37bd431c4e7b19",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Lightweight fragrance-free moisture.",
+        "usage": "After cleansing and toning, apply a small amount to the face and massage gently. Do not rinse.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/products/ceramide-moisturising-gel-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-28T10:29:20Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-28T10:29:40Z"
+      },
+      "releaseFingerprint": "79e2bf6498ad7b8a5d7f2d61bcd6dd1c46c603d394007e52392d94da1a58f5c8"
     }
   ]
 }

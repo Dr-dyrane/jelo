@@ -251,6 +251,14 @@
       "source": "dossier-release"
     },
     {
+      "slug": "facefacts-ceramide-moisturising-gel-cream-50ml",
+      "brand": "FACE FACTS",
+      "name": "Ceramide Moisturising Gel Cream",
+      "size": "50 ml",
+      "approvedGtin": "5031413928570",
+      "source": "dossier-release"
+    },
+    {
       "slug": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
       "brand": "FACE FACTS",
       "name": "Ceramide Oil Control Foaming Cleanser",
@@ -361,6 +369,14 @@
       "size": "156 g",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+      "brand": "PREQUEL",
+      "name": "Gleanser + Glycolic Acid Cleanser",
+      "size": "400 ml",
+      "approvedGtin": "810129110562",
+      "source": "dossier-release"
     },
     {
       "slug": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",

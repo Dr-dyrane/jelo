@@ -17,26 +17,26 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-28T09:00:00Z');
+const researchAsOf = Date.parse('2026-07-28T10:31:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 38);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 39);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 40);
-  assert.equal(catalogueIntakeDecisions.length, 40);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 37);
+  assert.equal(catalogueIntakeCandidates.length, 41);
+  assert.equal(catalogueIntakeDecisions.length, 41);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 38);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 21);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 37);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 38);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 2);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 37);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 38);
 });
 
 test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
@@ -756,6 +756,59 @@ test('the Face Facts oil-control cleanser binds two independent EAN sources, two
   assert.equal(candidate.nigeria.regulatoryStatus, 'pending');
 });
 
+test('the Face Facts moisturising gel cream binds two independent EAN sources, two Nigerian offers, and its reviewed render', () => {
+  const candidate = catalogueIntakeCandidates.find(item => (
+    item.id === 'facefacts-ceramide-moisturising-gel-cream-50ml'
+  ));
+  assert.ok(candidate);
+  assert.equal(candidate.identity.gtin, '5031413928570');
+  assert.equal(candidate.identity.officialEvidence?.observedSize, '50 ml');
+
+  const extraction = candidate.identity.officialEvidence?.canonicalExtraction;
+  assert.ok(extraction);
+  assert.equal(extraction.schemaVersion, 5);
+  if (extraction.schemaVersion !== 5) return;
+  assert.equal(extraction.responseDigestScope, 'rendered-dom-outerhtml');
+  assert.deepEqual(
+    extraction.identifierCorroborations.map(item => item.fields.gtin.value),
+    ['5031413928570', '5031413928570'],
+  );
+  assert.deepEqual(
+    extraction.identifierCorroborations.map(item => new URL(item.sourceUrl).hostname),
+    ['icosmo.com.ua', 'skintoc.com'],
+  );
+
+  assert.deepEqual(
+    candidate.nigeria.exactOffers.map(offer => [offer.retailer, offer.priceNgn, offer.stock]),
+    [
+      ['BuyBetter', 3_655, 'in-stock'],
+      ['CSi Grocery', 3_600, 'low-stock'],
+    ],
+  );
+  assert.equal(candidate.nigeria.exactOffers.every(offer => (
+    offer.observedGtin === undefined
+    && offer.observedGtinBasis === 'exact-variant-and-size'
+    && offer.observedPackageVersion === candidate.identity.packageVersion
+    && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
+  )), true);
+
+  assert.equal(candidate.asset.publicImageSha256, '0eb13b51e08b874ad74f707f86c809e035962d27288acadf3167dbeeb87bff54');
+  assert.equal(candidate.asset.publicImageByteSize, 1_061_434);
+  assert.equal(candidate.asset.width, 2_000);
+  assert.equal(candidate.asset.height, 2_000);
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  const { recordSha256, ...generationContent } = generation;
+  assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
+
+  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.approvalDraftReady, true);
+  assert.equal(decision.nigeriaMarketRoute, 'tier-a');
+  assert.equal(decision.freshExactOffers.length, 2);
+  assert.deepEqual(decision.blockers, []);
+});
+
 test('the Face Facts hydrating cleanser binds two independent EAN sources, three Nigerian offers, and its reviewed render', () => {
   const candidate = catalogueIntakeCandidates.find(item => (
     item.id === 'facefacts-ceramide-hydrating-gentle-cleanser-400ml'
@@ -1300,7 +1353,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 21);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 75);
+  ), 0), 77);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);
