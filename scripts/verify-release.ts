@@ -24,7 +24,10 @@ function runNpmScript(script: string) {
     const child = spawn('npm', ['run', script], {
       stdio: 'inherit',
       shell: process.platform === 'win32',
-      env: process.env,
+      env: {
+        ...process.env,
+        ...(script === 'test' ? { NODE_ENV: 'test' } : {}),
+      },
     });
 
     child.once('error', reject);
