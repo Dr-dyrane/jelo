@@ -42,6 +42,10 @@ This is a responsibility map, not a GitHub CODEOWNERS enforcement file.
 | `.env*` | Secret/local; never commit |
 | `data/catalogue-research-queue.json` | Checked-in deterministic projection; rebuild by script |
 | `data/catalogue-discovery-screening.json` | Checked-in private research snapshot |
+| `data/catalogue-research-evidence-packet-sources/` | Immutable content-addressed static packet shards, at most 12 priorities each |
+| `data/catalogue-research-evidence-packets.json` | Checked-in private packet-shard index projection; rebuild by script |
+| `data/catalogue-research-offer-capture-sources/` | Immutable content-addressed retained-offer manifests with zero publication authority |
+| `data/catalogue-research-offer-captures.json` | Checked-in private retained-offer projection; rebuild by script |
 | `data/catalogue-intake-candidates/` | Authoritative packet-bound private review sources, one exact SKU per file |
 | `data/catalogue-intake.json` | Checked-in deterministic runtime projection; rebuild by script |
 | Dossier and release manifests | Checked-in immutable publication evidence |

@@ -87,11 +87,12 @@ responses were not added as release artifacts because the candidate is blocked.
    listing code `8809640739507`.
 2. No official ANUA response has yet bound `8809640739507` to the exact
    50 ml Korean/EU package.
-3. Discovery rank 36 has no retained research-evidence packet, so it cannot
-   enter the packet-bound candidate lane without changing a shared generated
-   projection.
+3. Discovery rank 36 now has a private research-evidence packet in immutable
+   shard 3. That removes the former shared-prefix provenance bottleneck but
+   does not resolve either barcode presentation.
 4. Image promotion must wait for the exact Nigerian package identity.
 
 Next smallest honest action: obtain an official ANUA package record or official
 response that explicitly binds `8809640739507` to this 50 ml presentation,
-then regenerate the shared research packet in its owning lane.
+then retain any reviewed response through immutable shard 3 and recompile the
+private research projections.

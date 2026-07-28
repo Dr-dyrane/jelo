@@ -196,7 +196,7 @@ export type CatalogueResearchEvidencePacketManifest = {
 
 export type StaticResearchPacketRequest =
   | { mode: 'single'; discoveryId: string }
-  | { mode: 'batch'; count: number };
+  | { mode: 'batch'; count: number; offset?: number };
 
 export type CommunityResearchPacketRequest =
   | { mode: 'single'; label: string }
@@ -229,6 +229,12 @@ function assertHash(value: string | undefined, label: string) {
 function assertRequestedCount(value: number) {
   if (!Number.isSafeInteger(value) || value < 1 || value > maximumCatalogueResearchPacketBatch) {
     throw new Error(`Research packet batch must be between 1 and ${maximumCatalogueResearchPacketBatch}.`);
+  }
+}
+
+function assertQueueOffset(value: number, queueLength: number) {
+  if (!Number.isSafeInteger(value) || value < 0 || value >= queueLength) {
+    throw new Error('Research packet queue offset is outside the static priority queue.');
   }
 }
 
@@ -268,7 +274,12 @@ function staticQueueItem(queue: CatalogueResearchQueue, request: StaticResearchP
     return [item];
   }
   assertRequestedCount(request.count);
-  return queue.items.slice(0, request.count);
+  const offset = request.offset ?? 0;
+  assertQueueOffset(offset, queue.items.length);
+  if (offset + request.count > queue.items.length) {
+    throw new Error('Research packet batch extends beyond the static priority queue.');
+  }
+  return queue.items.slice(offset, offset + request.count);
 }
 
 function sourceResponse(snapshot: CatalogueDiscoverySnapshot, id: string) {

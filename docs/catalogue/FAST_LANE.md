@@ -43,9 +43,9 @@ contract:
 npm run catalogue:search:build
 
 # Remove the released identity from the private research queue and refresh its
-# deterministic evidence-packet batch.
+# deterministic evidence-packet shard.
 npm run catalogue:research:build -- --write
-npm run catalogue:research:packets -- --batch 12 --write
+npm run catalogue:research:packets -- --shard <owning-shard> --write
 
 git diff --check
 npm run catalogue:intake:verify
@@ -63,10 +63,10 @@ using `--write`.
 Never omit the projection rebuilds. The release manifests and public catalogue
 can be current while the checked-in search artifact is one product behind or
 the private queue still asks agents to research an identity that was released.
-If rebuilding the queue changes the packet plan, recapture the affected retailer
-responses before publication. If only the queue binding changes while packet
-identities and response bodies remain identical, reconcile the retained capture
-manifest to the new packet hash and prove it with
+If rebuilding the queue changes the packet plan, create a new content-addressed
+packet shard and recapture only the affected retailer responses before
+publication. Earlier shard and capture sources remain immutable. The compiled
+projections must then be reconciled to the new source hashes and proved with
 `catalogue:research:offers:verify`.
 
 Do not rerun the full lint, type, test, and production-build suite after every

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   mkdtemp,
   readFile,
@@ -11,7 +12,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { catalogueDiscoverySources } from '@/data/catalogue-discovery-sources';
 import discoverySnapshot from '@/data/catalogue-discovery-screening.json';
-import packetManifest from '@/data/catalogue-research-evidence-packets.json';
+import packetProjection from '@/data/catalogue-research-evidence-packets.json';
 import {
   assertPrivateResearchOfferCaptureManifest,
   assertResearchOfferCaptureManifestMatchesPlan,
@@ -27,6 +28,14 @@ import {
 } from '@/lib/catalogue/research-offer-capture';
 import type { CatalogueDiscoverySnapshot } from '@/lib/catalogue/discovery-screening';
 import type { CatalogueResearchEvidencePacketManifest } from '@/lib/catalogue/research-evidence-packet';
+import type { CatalogueResearchEvidencePacketProjection } from '@/lib/catalogue/research-evidence-packet-source';
+
+const firstPacketSourcePath = (
+  packetProjection as CatalogueResearchEvidencePacketProjection
+).shards[0]!.sourcePath;
+const packetManifest = JSON.parse(
+  readFileSync(path.join(process.cwd(), firstPacketSourcePath), 'utf8'),
+) as CatalogueResearchEvidencePacketManifest;
 
 function planItem(overrides: Partial<ResearchOfferCapturePlanItem> = {}): ResearchOfferCapturePlanItem {
   return {
@@ -97,6 +106,24 @@ test('joins only the bounded checked-in packet selection to exact retailer produ
     () => buildResearchOfferCapturePlan(packets, snapshot, 13),
     /between 1 and 12/,
   );
+
+  const thirdShardDescriptor = (
+    packetProjection as CatalogueResearchEvidencePacketProjection
+  ).shards[2]!;
+  const thirdShard = JSON.parse(
+    readFileSync(path.join(process.cwd(), thirdShardDescriptor.sourcePath), 'utf8'),
+  ) as CatalogueResearchEvidencePacketManifest;
+  const laterPacket = thirdShard.packets.find(packet => (
+    packet.source === 'static-priority'
+    && packet.productLead.discoveryId === '7f5e4463688a37e008b523ff'
+  ));
+  assert.ok(laterPacket);
+  const laterPlan = buildResearchOfferCapturePlan(
+    thirdShard,
+    snapshot,
+    [laterPacket.id],
+  );
+  assert.equal(laterPlan.every(item => item.discoveryId === '7f5e4463688a37e008b523ff'), true);
 
   const staleSnapshot = structuredClone(snapshot);
   const staleCandidate = staleSnapshot.candidates.find(item =>

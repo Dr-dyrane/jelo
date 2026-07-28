@@ -142,16 +142,33 @@ offline discovery, research-queue, packet, and retained-offer verifiers.
 
 Use the packet preparer before authoring a new deliberate intake candidate. It makes the missing proofs visible without creating a product, changing `data/catalogue-intake.json`, or granting publication permission.
 
-The checked-in first batch is deliberately limited to twelve traceable static priorities. Its discovery response digests, exact retailer retrieval locators, retailer listings, and retailer-local code leads live in `data/catalogue-research-evidence-packets.json`.
+All current static priorities are packetized as immutable, content-addressed
+sources below `data/catalogue-research-evidence-packet-sources/`. The checked-in
+`data/catalogue-research-evidence-packets.json` file is their deterministic
+index projection. Sources are split into contiguous queue-rank shards of at
+most twelve packets; adding a later shard never replaces the bytes or digest
+that an earlier capture cites. Every shard retains the discovery response
+digests, exact retailer retrieval locators, retailer listings, and
+retailer-local code leads for its packets.
 
 ```bash
-# One current static priority
+# Inspect one current static priority (writes nothing)
 npm run catalogue:research:packets -- --static <discovery-id>
 
-# A bounded static batch (1–12); --write only updates the private packet manifest
-npm run catalogue:research:packets -- --batch 12 --write
+# Inspect or create one deterministic source shard (at most 12 packets).
+# --write creates a content-addressed source and recompiles only the private index.
+npm run catalogue:research:packets -- --shard 3
+npm run catalogue:research:packets -- --shard 3 --write
 npm run catalogue:research:packets:verify
 ```
+
+`--static <discovery-id> --write` resolves the priority's owning shard and
+performs that same bounded source write. A source filename is the SHA-256 of
+its complete bytes. Existing bytes are never replaced: an exact retry is
+idempotent, while changed queue or snapshot evidence creates a different
+source digest. The compiler accepts only the complete ordered shard set for the
+current queue and snapshot and rejects gaps, overlaps, duplicate packet or
+discovery IDs, stale bytes, and more than twelve packets in a shard.
 
 When a server-side aggregate community report has been generated, it can seed an ephemeral private batch. It retains only task-level label, source, signal count and timing; never contributor, draft, submission, contact, or session identifiers.
 
@@ -167,23 +184,29 @@ Every packet begins with six empty proof slots: official identity, care, exact N
 ### Retain exact retailer responses for the bounded packet batch
 
 The offer capture operator follows only the exact queryless Woo product API
-route stored in each checked-in static packet. It fetches at most twelve
+route stored in one selected immutable packet shard. It fetches at most twelve
 packets with concurrency three, accepts one same-retailer JSON product record,
 and binds its raw bytes, URL, product ID, title, size, price, stock, digest, and
 canonical evidence path. It never uses a search result or sibling listing.
 
 ```bash
-# Networked dry run; writes nothing
-npm run catalogue:research:offers -- --batch 12
+# Networked shard dry run; writes nothing
+npm run catalogue:research:offers -- --shard 3 --batch 12
 
-# Explicitly retain the reviewed batch
-npm run catalogue:research:offers -- --batch 12 --write
+# One packet anywhere in the 48-priority projection
+npm run catalogue:research:offers -- --static <discovery-id>
 
-# Offline: re-open every exact byte file and its packet-derived plan
+# Explicitly retain the reviewed shard batch
+npm run catalogue:research:offers -- --shard 3 --batch 12 --write
+
+# Offline: re-open every immutable capture source, packet-derived plan and byte file
 npm run catalogue:research:offers:verify
 ```
 
-`data/catalogue-research-offer-captures.json` and
+Each retained batch has a content-addressed manifest below
+`data/catalogue-research-offer-capture-sources/`.
+`data/catalogue-research-offer-captures.json` is the deterministic projection
+compiled from those immutable manifests, and
 `data/catalogue-offer-source-evidence/<discovery-id>--<retailer>.json` are
 private research artifacts. Their policy is
 `private-retained-offer-source-evidence-only`, publication authority is
@@ -202,7 +225,8 @@ right. BuyBetter and Slique have this narrow grant for the checked-in evidence;
 Lux Beauty remains explicitly denied until a reviewed retained capture needs
 one.
 
-The capture manifest may also contain hash-bound source-quality cautions.
+Each immutable capture source and the compiled projection may contain
+hash-bound source-quality cautions.
 These preserve the exact retailer bytes while quarantining a known bad field:
 `cross-product-visual` excludes that source image from every use, and
 `description-size-conflict` excludes the description from identity, care

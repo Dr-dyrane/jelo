@@ -4,7 +4,6 @@ import {
   mkdir,
   readFile,
   realpath,
-  rename,
   writeFile,
 } from 'node:fs/promises';
 import path from 'node:path';
@@ -285,18 +284,31 @@ function captureObservation(value: DiscoveryRetailerObservation): CaptureDiscove
 export function buildResearchOfferCapturePlan(
   packetManifest: CatalogueResearchEvidencePacketManifest,
   snapshot: CatalogueDiscoverySnapshot,
-  packetCount: number,
+  packetSelection: number | readonly string[],
 ): ResearchOfferCapturePlanItem[] {
   assertPrivateResearchEvidencePacketManifest(packetManifest);
   auditCatalogueDiscoverySnapshot(snapshot);
+  const packetCount = typeof packetSelection === 'number'
+    ? packetSelection
+    : packetSelection.length;
   positivePacketCount(packetCount);
   if (packetCount > packetManifest.packets.length) {
     throw new Error('Offer capture batch exceeds the checked-in research packet selection.');
   }
+  const selectedPackets = typeof packetSelection === 'number'
+    ? packetManifest.packets.slice(0, packetSelection)
+    : packetSelection.map(id => {
+      const packet = packetManifest.packets.find(candidate => candidate.id === id);
+      if (!packet) throw new Error(`Offer capture packet ${id} is outside the checked-in shard.`);
+      return packet;
+    });
+  if (new Set(selectedPackets.map(packet => packet.id)).size !== selectedPackets.length) {
+    throw new Error('Offer capture packet selection is duplicated.');
+  }
 
   const plan: ResearchOfferCapturePlanItem[] = [];
   const evidencePaths = new Set<string>();
-  for (const packet of packetManifest.packets.slice(0, packetCount)) {
+  for (const packet of selectedPackets) {
     if (packet.source !== 'static-priority') {
       throw new Error('Offer capture accepts only snapshot-bound static research packets.');
     }
@@ -737,11 +749,18 @@ export function assertPrivateResearchOfferCaptureManifest(value: ResearchOfferCa
   return value;
 }
 
-async function writeAtomically(filename: string, bytes: Buffer) {
+async function writeImmutably(filename: string, bytes: Buffer) {
   await mkdir(path.dirname(filename), { recursive: true });
-  const temporary = `${filename}.tmp-${process.pid}-${Date.now()}`;
-  await writeFile(temporary, bytes);
-  await rename(temporary, filename);
+  try {
+    await writeFile(filename, bytes, { flag: 'wx' });
+    return;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error;
+  }
+  const existing = await readFile(filename);
+  if (!existing.equals(bytes)) {
+    throw new Error(`Retained offer evidence is immutable and differs: ${path.basename(filename)}.`);
+  }
 }
 
 function resolvedRepositoryFile(repositoryRoot: string, relativePath: string) {
@@ -781,6 +800,7 @@ export async function writeResearchOfferCaptureBundle(
   repositoryRoot: string,
   manifest: ResearchOfferCaptureManifest,
   captured: CapturedResearchOfferResponse[],
+  manifestPath: string = researchOfferCaptureManifestPath,
 ) {
   assertPrivateResearchOfferCaptureManifest(manifest);
   const responses = new Map(captured.map(item => [item.record.id, item]));
@@ -797,10 +817,13 @@ export async function writeResearchOfferCaptureBundle(
   }
   for (const record of manifest.captures) {
     const item = responses.get(record.id)!;
-    await writeAtomically(resolvedRepositoryFile(repositoryRoot, record.evidencePath), item.responseBytes);
+    await writeImmutably(
+      resolvedRepositoryFile(repositoryRoot, record.evidencePath),
+      item.responseBytes,
+    );
   }
-  await writeAtomically(
-    resolvedRepositoryFile(repositoryRoot, researchOfferCaptureManifestPath),
+  await writeImmutably(
+    resolvedRepositoryFile(repositoryRoot, manifestPath),
     Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, 'utf8'),
   );
 }

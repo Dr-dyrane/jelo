@@ -10,11 +10,16 @@ import {
   buildStaticResearchEvidencePacketManifest,
   catalogueResearchEvidencePacketPublicationStatus,
   maximumCatalogueResearchPacketBatch,
-  type CatalogueResearchEvidencePacketManifest,
   type CommunityAggregateResearchReport,
 } from '@/lib/catalogue/research-evidence-packet';
 import { catalogueResearchQueueDigest, type CatalogueResearchQueue } from '@/lib/catalogue/research-priority';
 import type { CatalogueDiscoverySnapshot } from '@/lib/catalogue/discovery-screening';
+import {
+  assertPrivateResearchEvidencePacketProjection,
+  compileStaticResearchPacketSources,
+  readStaticResearchPacketSourceFiles,
+  type CatalogueResearchEvidencePacketProjection,
+} from '@/lib/catalogue/research-evidence-packet-source';
 
 async function staticInputs() {
   const root = process.cwd();
@@ -89,6 +94,36 @@ test('rejects stale static source hashes and oversized batches', async () => {
   ), /between 1 and/);
 });
 
+test('selects a later deterministic shard without relaxing the twelve-packet batch', async () => {
+  const { snapshotBytes, queueBytes } = await staticInputs();
+  const manifest = buildStaticResearchEvidencePacketManifest(
+    researchQueue as CatalogueResearchQueue,
+    discoverySnapshot as CatalogueDiscoverySnapshot,
+    catalogueResearchQueueDigest(queueBytes),
+    catalogueResearchQueueDigest(snapshotBytes),
+    { mode: 'batch', count: 12, offset: 24 },
+  );
+  const ranks = manifest.packets.map(packet => {
+    assert.equal(packet.source, 'static-priority');
+    return packet.source === 'static-priority' ? packet.research.rank : 0;
+  });
+  assert.deepEqual(ranks, [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]);
+  assert.equal(
+    manifest.packets.some(packet => (
+      packet.source === 'static-priority'
+      && packet.productLead.discoveryId === '7f5e4463688a37e008b523ff'
+    )),
+    true,
+  );
+  assert.throws(() => buildStaticResearchEvidencePacketManifest(
+    researchQueue as CatalogueResearchQueue,
+    discoverySnapshot as CatalogueDiscoverySnapshot,
+    catalogueResearchQueueDigest(queueBytes),
+    catalogueResearchQueueDigest(snapshotBytes),
+    { mode: 'batch', count: 12, offset: 47 },
+  ), /extends beyond/);
+});
+
 test('requires an exact retailer product API pathname', async () => {
   const { snapshotBytes, queueBytes } = await staticInputs();
   const manifest = buildStaticResearchEvidencePacketManifest(
@@ -156,25 +191,39 @@ test('refuses community tasks carrying contributor identifiers and any prefilled
   assert.throws(() => assertPrivateResearchEvidencePacketManifest(malformed as never), /uncollected and non-publishable/);
 });
 
-test('the checked-in first batch is deterministic and invisible to public catalogue sources', async () => {
+test('content-addressed shards compile all priorities and remain invisible to public catalogue sources', async () => {
   const root = process.cwd();
-  const [storedBytes, snapshotBytes, queueBytes, publicCatalogue, publishedIntake] = await Promise.all([
+  const [
+    storedBytes,
+    snapshotBytes,
+    queueBytes,
+    sourceFiles,
+    publicCatalogue,
+    publishedIntake,
+  ] = await Promise.all([
     readFile(path.join(root, 'data/catalogue-research-evidence-packets.json')),
     readFile(path.join(root, 'data/catalogue-discovery-screening.json')),
     readFile(path.join(root, 'data/catalogue-research-queue.json')),
+    readStaticResearchPacketSourceFiles(root),
     readFile(path.join(root, 'data/catalogue.ts'), 'utf8'),
     readFile(path.join(root, 'data/published-intake-products.ts'), 'utf8'),
   ]);
-  const stored = JSON.parse(storedBytes.toString('utf8')) as CatalogueResearchEvidencePacketManifest;
-  const expected = buildStaticResearchEvidencePacketManifest(
+  const stored = JSON.parse(
+    storedBytes.toString('utf8'),
+  ) as CatalogueResearchEvidencePacketProjection;
+  const expected = compileStaticResearchPacketSources(
     researchQueue as CatalogueResearchQueue,
     discoverySnapshot as CatalogueDiscoverySnapshot,
-    catalogueResearchQueueDigest(queueBytes),
-    catalogueResearchQueueDigest(snapshotBytes),
-    { mode: 'batch', count: 12 },
+    queueBytes,
+    snapshotBytes,
+    sourceFiles,
   );
   assert.deepEqual(stored, expected);
-  assert.doesNotThrow(() => assertPrivateResearchEvidencePacketManifest(stored));
+  assert.doesNotThrow(() => assertPrivateResearchEvidencePacketProjection(stored));
+  assert.equal(stored.sharding.packetCount, 48);
+  assert.equal(stored.sharding.shardCount, 4);
+  assert.equal(stored.shards.every(shard => shard.packetCount <= 12), true);
+  assert.equal(stored.shards[2]?.discoveryIds.includes('7f5e4463688a37e008b523ff'), true);
   assert.doesNotMatch(publicCatalogue, /catalogue-research-evidence-packets/);
   assert.doesNotMatch(publishedIntake, /catalogue-research-evidence-packets/);
 });
