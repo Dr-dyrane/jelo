@@ -55,6 +55,14 @@ export const ingredientKnowledge: IngredientKnowledge[] = [
 
 export const ingredientById = new Map(ingredientKnowledge.map(ingredient => [ingredient.id, ingredient]));
 
+const medicineUseContext = (
+  /\b(?:tablet|tablets|capsule|capsules|pill|pills|oral(?:ly)?|medicine|medicines|medication|medications|prescription|prescribed|taking|i take|i took|dose|dosage|dosing)\b|\b(?:for|during)\s+(?:heavy\s+)?periods?\b|\bmenstrual bleeding\b/i
+);
+
+export function hasMedicineUseContext(text: string) {
+  return medicineUseContext.test(text);
+}
+
 export function detectIngredients(text: string) {
   const normalized = text.toLowerCase();
   return ingredientKnowledge.filter(ingredient => ingredient.aliases.some(alias => normalized.includes(alias)));

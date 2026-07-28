@@ -100,6 +100,10 @@ test('products page ships compact start suggestions and fetches product matches 
   ]);
 
   assert.doesNotMatch(page, /reviewedProducts\.slice\(0,\s*24\)/);
+  assert.doesNotMatch(page, /approvedConcerns\.slice\(0,\s*6\)/);
+  assert.match(page, /catalogueGuideSearchSuggestions\(concerns\)/);
+  assert.match(page, /shouldOfferCatalogueResearchHandoff/);
+  assert.match(page, /Catalogue profiles, not recommendations\./);
   assert.match(client, /fetch\(`\/api\/products\/suggestions\?/);
   assert.match(client, /AbortController/);
   assert.match(client, /aria-busy=\{isLoading\}/);

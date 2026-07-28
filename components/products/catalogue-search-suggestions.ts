@@ -8,6 +8,15 @@ export type CatalogueSearchSuggestion = {
   keywords?: string[];
 };
 
+export type CatalogueSearchGuide = {
+  slug: string;
+  name: string;
+  area: string;
+  summary: string;
+  signals: string[];
+  productTerms: string[];
+};
+
 function normalize(value: string) {
   return value
     .normalize('NFKD')
@@ -16,6 +25,23 @@ function normalize(value: string) {
     .replace(/['’]/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
+}
+
+export function catalogueGuideSearchSuggestions(
+  guides: CatalogueSearchGuide[],
+): CatalogueSearchSuggestion[] {
+  return guides.map(guide => ({
+    kind: 'guide',
+    label: guide.name,
+    detail: `${guide.area} guide · Not a recommendation`,
+    href: `/concerns/${guide.slug}`,
+    keywords: [
+      guide.slug,
+      guide.summary,
+      ...guide.signals,
+      ...guide.productTerms,
+    ],
+  }));
 }
 
 export function matchingCatalogueSearchSuggestions(
@@ -36,9 +62,14 @@ export function matchingCatalogueSearchSuggestions(
     .map((suggestion, index) => {
       const label = normalize(suggestion.label);
       const detail = normalize(suggestion.detail);
+      const normalizedKeywords = (suggestion.keywords ?? []).map(normalize);
       const search = normalize([suggestion.label, suggestion.detail, ...(suggestion.keywords ?? [])].join(' '));
       if (!tokens.every(token => search.includes(token))) return null;
-      const score = label === normalizedQuery
+      const exactGuideMatch = suggestion.kind === 'guide'
+        && [label, ...normalizedKeywords].includes(normalizedQuery);
+      const score = exactGuideMatch
+        ? 120
+        : label === normalizedQuery
         ? 100
         : label.startsWith(normalizedQuery)
           ? 80

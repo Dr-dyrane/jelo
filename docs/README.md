@@ -62,6 +62,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0008 · Public-surface abuse and browser-security hardening](./adr/0008-public-surface-abuse-and-browser-hardening.md)
 - [ADR 0009 · UI and UX work ships through explicit lane contracts](./adr/0009-ui-ux-lane-contract.md)
 - [ADR 0010 · Operations use a native split-view work grammar](./adr/0010-operations-interface-and-overview-contract.md)
+- [ADR 0011 · Guide resolution and clinical product authority stay separate](./adr/0011-guide-resolution-and-clinical-product-authority.md)
 
 ## What is authoritative
 

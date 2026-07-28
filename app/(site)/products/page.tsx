@@ -2,7 +2,10 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import { CatalogueSearch } from '@/components/products/catalogue-search';
-import type { CatalogueSearchSuggestion } from '@/components/products/catalogue-search-suggestions';
+import {
+  catalogueGuideSearchSuggestions,
+  type CatalogueSearchSuggestion,
+} from '@/components/products/catalogue-search-suggestions';
 import { CatalogueTransitionTracker } from '@/components/products/catalogue-transition-tracker';
 import { CatalogueFilterFeedback } from '@/components/products/filter-feedback-actions';
 import { InventoryFilterSheet } from '@/components/products/inventory-filter-sheet';
@@ -14,7 +17,11 @@ import { concerns } from '@/data/knowledge';
 import { getReviewedProductCare } from '@/data/product-care-review';
 import type { Market } from '@/data/prices';
 import type { ReviewedProduct } from '@/data/products';
-import { catalogueMarketHref, matchingCatalogueConcerns } from '@/lib/catalogue/catalogue-interactions';
+import {
+  catalogueMarketHref,
+  resolvedCatalogueGuides,
+  shouldOfferCatalogueResearchHandoff,
+} from '@/lib/catalogue/catalogue-interactions';
 import {
   selectRecentlyCheckedProducts,
 } from '@/lib/catalogue/inventory-shelves';
@@ -127,13 +134,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         detail: `${count} ${count === 1 ? 'product' : 'products'}`,
         href: inventoryShortcutHref(market, 'category', label),
       })),
-    ...approvedConcerns.slice(0, 6).map(concern => ({
-      kind: 'guide' as const,
-      label: concern.name,
-      detail: 'Concern guide',
-      href: `/concerns/${concern.slug}`,
-      keywords: concern.productTerms,
-    })),
+    ...catalogueGuideSearchSuggestions(concerns),
     ...[...companyIndex.values()]
       .sort((left, right) => right.count - left.count || left.label.localeCompare(right.label))
       .slice(0, 40)
@@ -168,12 +169,25 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     result.filters.sort !== 'featured' ? { key: 'sort', label: result.filters.sort === 'name' ? 'Name order' : 'Recently updated' } : null,
   ].filter((filter): filter is { key: string; label: string } => Boolean(filter));
   const linkedFilters = appliedFilters.map(filter => ({ ...filter, href: href(params, { [filter.key]: null }, 'all-products') }));
-  const concernGuides = matchingCatalogueConcerns(concerns, result.filters.q);
+  const selectedGuide = concerns.find(concern => concern.slug === result.filters.concern);
+  const concernGuides = resolvedCatalogueGuides(
+    concerns,
+    result.filters.q,
+    selectedGuide?.slug,
+  );
+  const primaryGuide = concernGuides[0];
+  const hasGuideIntent = Boolean(primaryGuide);
+  const hasGuideOnlyConcern = selectedGuide?.kind === 'condition-pattern';
   const hasActiveIntent = appliedFilters.length > 0 || market === 'US';
-  const researchHandoffHref = result.total === 0 && result.filters.q
+  const researchHandoffHref = shouldOfferCatalogueResearchHandoff(
+    result.total,
+    result.filters.q,
+    concernGuides,
+  )
     ? catalogueSearchHandoffHref(result.filters.q)
     : null;
   const clearSearchHref = href(params, { q: null }, 'all-products');
+  const clearGuideHref = href(params, { q: null, concern: null, review: null }, 'all-products');
   const continuationQuery = {
     q: result.filters.q,
     category: result.filters.category,
@@ -243,14 +257,15 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
 
     <section className={`${styles.catalogue} ${feedbackStyles.catalogueState} ${appliedFilters.length ? feedbackStyles.filtered : ''}`} id="all-products">
       {concernGuides.length ? <aside className={styles.concernGuide} aria-label="Concern guidance">
-        <div className={styles.concernGuideHeading}><p className={styles.kicker}>Concern guidance</p><span>Not a diagnosis.</span></div>
+        <div className={styles.concernGuideHeading}><p className={styles.kicker}>Guide first</p><span>{result.total ? 'Before product profiles.' : 'The closest match.'}</span></div>
         <div className={styles.concernGuideRail}>{concernGuides.map(concern => <Link href={`/concerns/${concern.slug}`} key={concern.slug}><span>{concern.name}</span><small>{concern.summary}</small><ArrowRight size={15} aria-hidden="true"/></Link>)}</div>
       </aside> : null}
       <div className={styles.catalogueHeading}>
-        <div><p className={styles.kicker}>All products</p><h2 id="catalogue-results-heading" tabIndex={-1}>{result.total.toLocaleString()} found.</h2></div>
-        <InventoryFilterSheet filters={result.filters} facets={result.facets} market={market} browse={browse} total={result.total}/>
+        <div><p className={styles.kicker}>{hasGuideIntent ? 'Product profiles' : 'All products'}</p><h2 id="catalogue-results-heading" tabIndex={-1}>{hasGuideIntent ? `${result.total.toLocaleString()} ${result.total === 1 ? 'profile' : 'profiles'}.` : `${result.total.toLocaleString()} found.`}</h2></div>
+        <InventoryFilterSheet filters={hasGuideOnlyConcern ? { ...result.filters, concern: '' } : result.filters} facets={result.facets} market={market} browse={browse} total={result.total}/>
       </div>
       <CatalogueFilterFeedback appliedFilters={linkedFilters} clearHref={clearHref} currentHref={currentHref} total={result.total}/>
+      {hasGuideIntent && result.items.length ? <p className={styles.reviewNote}>Catalogue profiles, not recommendations.</p> : null}
       {result.items.length ? <InventoryResults
         gridClassName={styles.grid}
         initialItems={result.items}
@@ -267,6 +282,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         <div className={styles.emptyActions}>
           <Link href={researchHandoffHref}>Ask us to find it <ArrowRight size={15} aria-hidden="true"/></Link>
           <Link className={styles.emptySecondary} href={clearSearchHref}>Clear search</Link>
+        </div>
+      </div> : primaryGuide ? <div className={styles.empty}>
+        <h3>Start with the guide.</h3>
+        <p>No product profiles are attached to this guide.</p>
+        <div className={styles.emptyActions}>
+          <Link href={`/concerns/${primaryGuide.slug}`}>Read {primaryGuide.name} <ArrowRight size={15} aria-hidden="true"/></Link>
+          <Link className={styles.emptySecondary} href={clearGuideHref}>Show all products</Link>
         </div>
       </div> : <div className={styles.empty}><h3>Nothing exact.</h3><p>Try fewer filters.</p><Link href="/products">Show all products</Link></div>}
     </section>

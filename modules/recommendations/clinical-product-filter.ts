@@ -6,6 +6,9 @@ import {
 } from '@/data/product-care-review';
 import { ingredientById } from '@/modules/clinical/core/ingredients';
 import type { ClinicalAssessment, ClinicalTimelineRecord } from '@/modules/clinical/core/types';
+import { approvedUseMatchesProductArea } from './product-concern-authority';
+
+type RecommendationTimelineRecord = Pick<ClinicalTimelineRecord, 'recommendedProductSlugs'>;
 
 export type ClinicalProductDecision = {
   slug: string;
@@ -18,15 +21,15 @@ export type ClinicalProductDecision = {
   clinicalScore: number;
 };
 
-function priorRecommendationCount(slug: string, timeline: ClinicalTimelineRecord[]) {
+function priorRecommendationCount(slug: string, timeline: RecommendationTimelineRecord[]) {
   return timeline.filter(record => record.recommendedProductSlugs.includes(slug)).length;
 }
 
 export function evaluateProductClinically(
   product: Product,
   clinical: ClinicalAssessment,
-  timeline: ClinicalTimelineRecord[] = [],
-  match: { concerns?: readonly string[]; concernSlugs?: readonly string[] } = {},
+  timeline: RecommendationTimelineRecord[] = [],
+  match: { concernSlugs?: readonly string[]; productSteps?: readonly string[] } = {},
 ): ClinicalProductDecision {
   const review = getReviewedProductCare(product.slug);
   const careState = review?.careState ?? 'unreviewed';
@@ -41,9 +44,13 @@ export function evaluateProductClinically(
   });
   const approvedUses = review
     ? matchingApprovedProductUses(review, {
-        concerns: match.concerns ?? clinical.profile?.concerns ?? [],
-        concernSlugs: match.concernSlugs,
-      })
+        concernSlugs: match.concernSlugs ?? [],
+      }).filter(use => approvedUseMatchesProductArea(
+        product,
+        use,
+        match.concernSlugs ?? [],
+        match.productSteps,
+      ))
     : [];
   const exclusions: string[] = [];
   const reasons = approvedUses.map(use => use.label);
@@ -80,8 +87,8 @@ export function evaluateProductClinically(
 export function clinicallyFilterProducts(
   products: Product[],
   clinical: ClinicalAssessment,
-  timeline: ClinicalTimelineRecord[] = [],
-  match: { concerns?: readonly string[]; concernSlugs?: readonly string[] } = {},
+  timeline: RecommendationTimelineRecord[] = [],
+  match: { concernSlugs?: readonly string[]; productSteps?: readonly string[] } = {},
 ) {
   return products
     .map(product => ({ product, decision: evaluateProductClinically(product, clinical, timeline, match) }))

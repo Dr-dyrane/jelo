@@ -225,3 +225,26 @@ export function matchingCatalogueConcerns(concerns: CatalogueConcern[], query: s
     .slice(0, limit)
     .map(match => match.concern);
 }
+
+export function resolvedCatalogueGuides(
+  concerns: CatalogueConcern[],
+  query: string,
+  selectedSlug = '',
+  limit = 4,
+) {
+  const safeLimit = Math.max(1, Math.min(12, Math.floor(limit)));
+  const selected = concerns.find(concern => concern.slug === selectedSlug);
+  const matches = matchingCatalogueConcerns(concerns, query, safeLimit);
+  const unique = new Map<string, CatalogueConcern>();
+  if (selected) unique.set(selected.slug, selected);
+  for (const match of matches) unique.set(match.slug, match);
+  return [...unique.values()].slice(0, safeLimit);
+}
+
+export function shouldOfferCatalogueResearchHandoff(
+  total: number,
+  query: string,
+  resolvedGuides: CatalogueConcern[],
+) {
+  return total === 0 && Boolean(query.trim()) && resolvedGuides.length === 0;
+}

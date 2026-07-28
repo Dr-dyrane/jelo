@@ -3,22 +3,159 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import { POST } from '@/app/api/consult/route';
-import { products } from '@/data/catalogue';
+import { concerns } from '@/data/knowledge';
+import { allowMissingConsultLimiter } from '@/lib/consult/security';
 import {
-  buildConsultProductCandidate,
   buildDeterministicConsultReport,
 } from '@/modules/clinical/consult-report';
 import { assessClinicalRoutine } from './core/engine';
 import { assessConsultSafety, assessRedFlags } from './safety-gate';
-import type { ClinicalProductDecision } from '@/modules/recommendations/clinical-product-filter';
 
 function request(body: unknown) {
+  const versionedBody = (
+    typeof body === 'object'
+    && body !== null
+    && !Array.isArray(body)
+  )
+    ? { ...body, clientSchemaVersion: 2 }
+    : body;
   return new Request('http://localhost/api/consult', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: JSON.stringify(versionedBody),
   });
 }
+
+function assertPublicGuide(
+  payload: {
+    guide?: { slug: string; sources?: Array<{ title: string; url: string }> };
+    meta: Record<string, unknown>;
+  },
+  patternId: string,
+  message?: string,
+) {
+  const guide = concerns.find(concern => (
+    concern.kind === 'condition-pattern'
+    && concern.clinicalPatternIds.includes(patternId)
+  ));
+  assert.ok(guide, `${patternId} needs a public concern guide`);
+  assert.equal(payload.guide?.slug, guide.slug, message);
+  assert.ok(payload.guide?.sources?.every(source => (
+    typeof source.title === 'string'
+    && URL.canParse(source.url)
+  )), message);
+  assert.equal('clinical' in payload, false, message);
+  assert.equal('recommendationAudit' in payload, false, message);
+  assert.equal('deterministic' in payload.meta, false, message);
+  assert.equal('modelCalls' in payload.meta, false, message);
+}
+
+function assertMinimalPublicContract(
+  payload: {
+    meta: Record<string, unknown>;
+    timeline?: Record<string, unknown>;
+  },
+  message?: string,
+) {
+  assert.equal('deterministic' in payload.meta, false, message);
+  assert.equal('modelCalls' in payload.meta, false, message);
+  assert.equal('concerns' in payload.meta, false, message);
+  assert.equal('concernSlugs' in payload.meta, false, message);
+  assert.equal('clinical' in payload, false, message);
+  assert.equal('recommendationAudit' in payload, false, message);
+  assert.equal('timelineInsight' in payload, false, message);
+
+  const serialized = JSON.stringify(payload);
+  assert.doesNotMatch(
+    serialized,
+    /"(?:clinicalMatch|ruleId|ruleIds|findingIds|blockedIngredientIds|detectedIngredientIds|contraindicatedIngredientIds|clinicalScore|differentialScore|barrierScore|activeLoad|routineLoad|routineLoadDelta|optimizedRoutine|routineSummary)"\s*:/,
+    message,
+  );
+}
+
+function assertSafeTimeline(
+  timeline: Record<string, unknown> | undefined,
+  expectedConcernSlugs: readonly string[],
+  message?: string,
+) {
+  assert.ok(timeline, message);
+  assert.equal(timeline.schemaVersion, 2, message);
+  assert.equal(timeline.assessmentType, 'consultation', message);
+  assert.deepEqual(timeline.concernSlugs, expectedConcernSlugs, message);
+  assert.equal('score' in timeline, false, message);
+  assert.equal('findings' in timeline, false, message);
+  assert.equal('blockedIngredientIds' in timeline, false, message);
+  assert.equal('detectedIngredientIds' in timeline, false, message);
+  assert.equal('concernSummary' in timeline, false, message);
+  assert.equal('barrierState' in timeline, false, message);
+  assert.deepEqual(Object.keys(timeline).sort(), [
+    'assessmentType',
+    'concernSlugs',
+    'createdAt',
+    'followUpAt',
+    'id',
+    'market',
+    'recommendedProductSlugs',
+    'schemaVersion',
+  ], message);
+}
+
+test('stale v1 and legacy v2 timeline requests are translated without returning internals', async () => {
+  const legacyV1 = {
+    id: 'assessment_legacy_v1',
+    schemaVersion: 1,
+    createdAt: '2026-07-20T10:00:00.000Z',
+    assessmentType: 'consultation',
+    concernSummary: 'private-legacy-query-marker',
+    concerns: ['oiliness'],
+    market: 'NG',
+    barrier: {
+      score: 18,
+      state: 'compromised',
+      confidence: 'high',
+      signals: ['private-barrier-marker'],
+      recoveryPriority: 'high',
+      recommendedRecoveryNights: 7,
+    },
+    activeLoad: { exfoliant: 4, retinoid: 3, antimicrobial: 2, total: 9 },
+    findingRuleIds: ['private-rule-marker'],
+    blockedIngredientIds: ['private-blocked-marker'],
+    detectedIngredientIds: ['private-detected-marker'],
+    recommendedProductSlugs: ['cerave-foaming-facial-cleanser'],
+    followUpAt: '2026-07-27T10:00:00.000Z',
+  };
+  const legacyV2 = {
+    id: 'assessment_legacy_v2',
+    schemaVersion: 2,
+    createdAt: '2026-07-21T10:00:00.000Z',
+    assessmentType: 'consultation',
+    concernSlugs: ['oily-congested-skin'],
+    market: 'NG',
+    barrierState: 'compromised',
+    recommendedProductSlugs: ['cerave-foaming-facial-cleanser'],
+    followUpAt: '2026-07-28T10:00:00.000Z',
+  };
+  const response = await POST(new Request('http://localhost/api/consult', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: 'I need a cleanser for oily skin.',
+      market: 'NG',
+      priorTimeline: [legacyV1, legacyV2],
+    }),
+  }));
+  const payload = await response.json();
+  const serialized = JSON.stringify(payload);
+
+  assert.equal(response.status, 200);
+  assertSafeTimeline(payload.timeline, ['oily-congested-skin']);
+  assert.deepEqual(payload.meta.concerns, []);
+  assert.equal(payload.timelineInsight, undefined);
+  assert.doesNotMatch(
+    serialized,
+    /private-|barrierState|activeLoad|blockedIngredientIds|detectedIngredientIds/,
+  );
+});
 
 test('one safety decision gates products and model use', () => {
   const urgentClinical = assessClinicalRoutine('A rapidly spreading painful rash with fever.');
@@ -32,8 +169,37 @@ test('one safety decision gates products and model use', () => {
   const selfCare = assessConsultSafety({ text: 'Prickly bumps after sweating in hot weather.', profile: {}, referral: selfCareClinical.referral });
   assert.equal(selfCare.level, 'self-care-eligible');
   assert.equal(selfCare.stopJourney, false);
-  assert.equal(selfCare.allowModel, true);
+  assert.equal(selfCare.allowModel, false);
   assert.equal(selfCare.allowProducts, true);
+});
+
+test('consult rejects cross-site and oversized requests before clinical work', async () => {
+  const crossSite = await POST(new Request('http://localhost/api/consult', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Origin: 'https://attacker.example',
+      'Sec-Fetch-Site': 'cross-site',
+    },
+    body: JSON.stringify({ query: 'I need ordinary sunscreen.', market: 'NG' }),
+  }));
+  assert.equal(crossSite.status, 403);
+
+  const oversized = await POST(new Request('http://localhost/api/consult', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': String(65 * 1024),
+    },
+    body: JSON.stringify({ query: 'x'.repeat(2_000), market: 'NG' }),
+  }));
+  assert.equal(oversized.status, 413);
+});
+
+test('consult limiter is permissive only when local configuration is absent', () => {
+  assert.equal(allowMissingConsultLimiter('development'), true);
+  assert.equal(allowMissingConsultLimiter('test'), true);
+  assert.equal(allowMissingConsultLimiter('production'), false);
 });
 
 test('toe-web peeling does not masquerade as a widespread peeling emergency', () => {
@@ -50,14 +216,14 @@ test('toe-web peeling does not masquerade as a widespread peeling emergency', ()
 test('urgent and pregnancy paths return before AI and products', async () => {
   const urgentResponse = await POST(request({ query: 'A rapidly spreading painful rash with fever.', market: 'NG' }));
   const urgent = await urgentResponse.json();
-  assert.equal(urgent.meta.modelCalls, 0);
+  assertMinimalPublicContract(urgent);
   assert.equal(urgent.meta.safetyInterrupt, true);
   assert.deepEqual(urgent.products, []);
   assert.equal(urgent.timeline, undefined);
 
   const pregnancyResponse = await POST(request({ query: 'Acne and painful pimples on my chin.', market: 'NG', profile: { pregnant: true } }));
   const pregnancy = await pregnancyResponse.json();
-  assert.equal(pregnancy.meta.modelCalls, 0);
+  assertMinimalPublicContract(pregnancy);
   assert.equal(pregnancy.meta.safetyInterrupt, true);
   assert.deepEqual(pregnancy.products, []);
 });
@@ -76,7 +242,7 @@ test('common emergency and urgent word orders fail closed with matching care cop
   for (const [query, level, action] of cases) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.meta.modelCalls, 0, query);
+    assertMinimalPublicContract(payload, query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.equal(payload.meta.safetyLevel, level, query);
     assert.deepEqual(payload.products, [], query);
@@ -105,8 +271,8 @@ test('ordinary care reaches canonical concerns and reviewed products without a m
       productSlugs: [
         'aqua-rich-ceramide-body-lotion-500ml',
         'cerave-moisturising-cream-454g',
-        'dove-skin-replenish-serum-body-wash-547ml',
         'eucerin-urearepair-plus-10-urea-body-lotion-250ml',
+        'facefacts-vitamin-c-body-lotion-400ml',
       ],
       routinePattern: /body moisturiser/i,
     },
@@ -125,10 +291,7 @@ test('ordinary care reaches canonical concerns and reviewed products without a m
       query: 'I need a gentle moisturiser for dry face skin.',
       concernSlug: 'dry-dehydrated-skin',
       productSlugs: [
-        'cerave-hydrating-cleanser-473ml',
         'cerave-pm-facial-moisturising-lotion-52ml',
-        'cosrx-advanced-snail-96-mucin-power-essence',
-        'facefacts-ceramide-hydrating-gentle-cleanser-400ml',
       ],
       routinePattern: /reviewed moisturiser/i,
     },
@@ -146,7 +309,6 @@ test('ordinary care reaches canonical concerns and reviewed products without a m
       concernSlug: 'oily-congested-skin',
       productSlugs: [
         'cerave-foaming-facial-cleanser',
-        'eucerin-oil-control-sun-gel-cream-spf50-50ml',
         'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
       ],
       routinePattern: /without scrubbing/i,
@@ -157,24 +319,180 @@ test('ordinary care reaches canonical concerns and reviewed products without a m
     const response = await POST(request({ query: expected.query, market: 'NG' }));
     const payload = await response.json();
 
-    assert.equal(payload.meta.modelCalls, 0, expected.query);
+    assertMinimalPublicContract(payload, expected.query);
     assert.equal(payload.meta.ordinaryCare, true, expected.query);
-    assert.deepEqual(payload.meta.concernSlugs, [expected.concernSlug], expected.query);
     assert.deepEqual(payload.careIntent.concernSlugs, [expected.concernSlug], expected.query);
-    assert.equal(payload.clinical, undefined, expected.query);
-    assert.equal(payload.timeline, undefined, expected.query);
-    assert.equal(payload.recommendationAudit.deterministic, true, expected.query);
+    assertSafeTimeline(payload.timeline, [expected.concernSlug], expected.query);
     assert.deepEqual(
       payload.products.map((product: { slug: string }) => product.slug),
       expected.productSlugs,
       expected.query,
     );
+    assert.ok(payload.products.every((product: Record<string, unknown>) => (
+      !('clinicalMatch' in product)
+      && !('reasons' in product)
+      && !('score' in product)
+    )), expected.query);
     assert.match(payload.report.pattern, /everyday care, not a diagnosis/i, expected.query);
     assert.match(
       payload.report.routine.map((step: { action: string }) => step.action).join(' '),
       expected.routinePattern,
       expected.query,
     );
+  }
+});
+
+test('public consult JSON never exposes internal clinical or recommendation machinery', async () => {
+  const uniquePromptMarker = 'unique-prompt-marker-7b9f';
+  const responses = await Promise.all([
+    POST(request({ query: `I need a cleanser for oily skin. ${uniquePromptMarker}`, market: 'NG' })),
+    POST(request({ query: 'I have dandruff and an itchy flaky scalp.', market: 'NG' })),
+    POST(request({ query: 'A rapidly spreading painful rash with fever.', market: 'NG' })),
+  ]);
+  const payloads = await Promise.all(responses.map(response => response.json()));
+
+  for (const payload of payloads) {
+    assertMinimalPublicContract(payload);
+    const serialized = JSON.stringify(payload);
+
+    assert.doesNotMatch(
+      serialized,
+      /"(?:modelCalls|recommendationAudit|clinical|clinicalMatch|ruleId|ruleIds|findingId|findingIds|blockedIngredientIds|detectedIngredientIds|contraindicatedIngredientIds)"\s*:/,
+    );
+    assert.doesNotMatch(
+      serialized,
+      /"(?:score|clinicalScore|differentialScore|barrierScore)"\s*:\s*-?\d/,
+    );
+    assert.doesNotMatch(serialized, /"(?:rule|finding|evidence)_[a-z0-9_-]+"/i);
+    assert.doesNotMatch(serialized, new RegExp(uniquePromptMarker, 'i'));
+  }
+});
+
+test('explicit product forms never broaden into a different routine step', async () => {
+  const cases = [
+    {
+      query: 'I need a cleansing balm for oily skin.',
+      productSlugs: [
+        'cerave-foaming-facial-cleanser',
+        'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
+      ],
+    },
+    {
+      query: 'I need a finishing oil for dry frizzy hair.',
+      productSlugs: [],
+    },
+    {
+      query: 'I need a moisturising sunscreen for oily skin.',
+      productSlugs: ['eucerin-oil-control-sun-gel-cream-spf50-50ml'],
+    },
+    {
+      query: 'I need a moisturising body wash for dry body skin.',
+      productSlugs: ['dove-skin-replenish-serum-body-wash-547ml'],
+    },
+    {
+      query: 'I need a treatment for oily skin.',
+      productSlugs: [],
+    },
+  ] as const;
+
+  for (const expected of cases) {
+    const response = await POST(request({ query: expected.query, market: 'NG' }));
+    const payload = await response.json();
+
+    assertMinimalPublicContract(payload, expected.query);
+    assert.equal(payload.meta.ordinaryCare, true, expected.query);
+    assert.deepEqual(
+      payload.products.map((product: { slug: string }) => product.slug),
+      expected.productSlugs,
+      expected.query,
+    );
+  }
+});
+
+test('dandruff and itchy flaky scalp stays on its canonical scalp guide with no face products', async () => {
+  const query = 'I have dandruff and an itchy flaky scalp.';
+  const response = await POST(request({ query, market: 'NG' }));
+  const payload = await response.json();
+
+  assertMinimalPublicContract(payload);
+  assert.equal(payload.meta.guideOnly, true);
+  assert.equal(payload.guide?.slug, 'dandruff-itchy-scalp');
+  assert.equal(payload.guide?.area, 'Scalp');
+  assertSafeTimeline(payload.timeline, ['dandruff-itchy-scalp']);
+  assert.deepEqual(payload.products, []);
+  const care = payload.report.routine
+    .map((step: { action: string }) => step.action)
+    .join(' ');
+  assert.match(care, /anti-dandruff shampoo[\s\S]*gentle cleansing[\s\S]*simple conditioning/i);
+  assert.doesNotMatch(care, /face|sunscreen|moisturi[sz]er|spf/i);
+});
+
+test('heat rash and razor bumps use canonical guide care without generic product routines', async () => {
+  const cases = [
+    {
+      query: 'I have heat rash with prickly bumps after sweating in hot weather.',
+      guideSlug: 'heat-rash-pattern',
+      care: /cool the skin[\s\S]*loose cotton clothing[\s\S]*avoid perfumed products/i,
+    },
+    {
+      query: 'I have razor bumps with trapped ingrown hairs after shaving my beard line.',
+      guideSlug: 'ingrown-hairs',
+      care: /shave with hair growth[\s\S]*fewer razor passes[\s\S]*cool compress/i,
+    },
+  ] as const;
+
+  for (const expected of cases) {
+    const response = await POST(request({ query: expected.query, market: 'NG' }));
+    const payload = await response.json();
+    const care = payload.report.routine
+      .map((step: { action: string }) => step.action)
+      .join(' ');
+
+    assertMinimalPublicContract(payload, expected.query);
+    assert.equal(payload.meta.guideOnly, true, expected.query);
+    assert.equal(payload.guide?.slug, expected.guideSlug, expected.query);
+    assertSafeTimeline(payload.timeline, [expected.guideSlug], expected.query);
+    assert.deepEqual(payload.products, [], expected.query);
+    assert.match(care, expected.care, expected.query);
+    assert.doesNotMatch(care, /generic cleanser|moisturi[sz]er|spf/i, expected.query);
+  }
+});
+
+test('oral and prescribed medicine language never becomes a topical application instruction', async () => {
+  for (const query of [
+    'I take tranexamic acid tablets for dark marks.',
+    'I am taking tranexamic acid capsules.',
+    'My doctor prescribed tranexamic acid medicine.',
+    'I use tranexamic acid for heavy periods.',
+    'What dose of tranexamic acid should I use?',
+  ]) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+    const rendered = JSON.stringify(payload.report);
+
+    assertMinimalPublicContract(payload, query);
+    assert.equal(payload.meta.safetyInterrupt, true, query);
+    assert.deepEqual(payload.products, [], query);
+    assert.doesNotMatch(rendered, /apply tranexamic acid/i, query);
+    assert.match(payload.report.summary, /do not apply, stop or change/i, query);
+  }
+});
+
+test('ordinary-looking acne and dark-spot differentials remain deterministic guide-only paths', async () => {
+  const cases = [
+    ['Acne, whiteheads and oily skin on my forehead.', 'acne-breakouts'],
+    ['Flat dark marks remained after acne on my cheeks.', 'dark-spots'],
+  ] as const;
+
+  for (const [query, guideSlug] of cases) {
+    const response = await POST(request({ query, market: 'NG' }));
+    const payload = await response.json();
+
+    assertMinimalPublicContract(payload, query);
+    assert.equal(payload.meta.guideOnly, true, query);
+    assert.equal(payload.guide?.slug, guideSlug, query);
+    assertSafeTimeline(payload.timeline, [guideSlug], query);
+    assert.deepEqual(payload.products, [], query);
   }
 });
 
@@ -202,13 +520,13 @@ test('red flags and directed care paths interrupt nearby ordinary-care requests'
     const response = await POST(request({ query: expected.query, market: 'NG' }));
     const payload = await response.json();
 
-    assert.equal(payload.meta.modelCalls, 0, expected.query);
+    assertMinimalPublicContract(payload, expected.query);
     assert.equal(payload.meta.safetyInterrupt, true, expected.query);
     assert.equal(payload.meta.ordinaryCare, undefined, expected.query);
     assert.equal(payload.careIntent, undefined, expected.query);
     assert.deepEqual(payload.products, [], expected.query);
     if (expected.patternId) {
-      assert.equal(payload.clinical.differential.primary?.id, expected.patternId, expected.query);
+      assertPublicGuide(payload, expected.patternId, expected.query);
     }
   }
 });
@@ -223,7 +541,7 @@ test('unresolved symptoms beside product words do not enter the ordinary-care br
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
 
-    assert.equal(payload.meta.modelCalls, 0, query);
+    assertMinimalPublicContract(payload, query);
     assert.equal(payload.meta.ordinaryCare, undefined, query);
     assert.equal(payload.careIntent, undefined, query);
     assert.deepEqual(payload.products, [], query);
@@ -234,6 +552,7 @@ test('a single localized blister or pustule does not overclaim a same-day emerge
   for (const query of ['I have one small friction blister on my heel.', 'One pimple has a small amount of pus.']) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
+    assertMinimalPublicContract(payload, query);
     assert.equal(payload.meta.safetyInterrupt, undefined, query);
     assert.notEqual(payload.meta.safetyLevel, 'urgent', query);
     assert.notEqual(payload.meta.safetyLevel, 'emergency', query);
@@ -244,10 +563,8 @@ test('a mild medicine-linked rash stops product guidance without overclaiming an
   const query = 'A mild rash after starting a new medicine. No blisters and no peeling.';
   const response = await POST(request({ query, market: 'NG' }));
   const payload = await response.json();
-  assert.equal(payload.clinical.differential.primary?.id, 'severe-medicine-reaction-like');
-  assert.equal(payload.clinical.referral.level, 'primary-care');
+  assertPublicGuide(payload, 'severe-medicine-reaction-like');
   assert.equal(payload.meta.safetyLevel, 'clinician-review');
-  assert.equal(payload.meta.modelCalls, 0);
   assert.deepEqual(payload.products, []);
 });
 
@@ -402,8 +719,7 @@ test('published guide-parity patterns stop model and product guidance with deter
   for (const expected of cases) {
     const response = await POST(request({ query: expected.query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.clinical.differential.primary?.id, expected.patternId, expected.query);
-    assert.equal(payload.meta.modelCalls, 0, expected.query);
+    assertPublicGuide(payload, expected.patternId, expected.query);
     assert.equal(payload.meta.safetyInterrupt, true, expected.query);
     assert.equal(payload.meta.safetyLevel, expected.safetyLevel, expected.query);
     assert.deepEqual(payload.products, [], expected.query);
@@ -430,12 +746,13 @@ test('serious expanded patterns surface their deterministic referral before clar
   for (const query of descriptions) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.meta.modelCalls, 0, query);
+    assertMinimalPublicContract(payload, query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.equal(payload.meta.needsClarification, undefined, query);
+    assert.ok(['clinician-review', 'urgent', 'emergency'].includes(payload.meta.safetyLevel), query);
     assert.deepEqual(payload.products, [], query);
-    assert.equal(payload.report.summary, payload.clinical.referral.action, query);
-    assert.equal(payload.report.followUp, payload.clinical.referral.action, query);
+    assert.equal(payload.report.summary, payload.report.followUp, query);
+    assert.match(payload.report.summary, /pharmacist|clinician|medical|care|examination|assessment/i, query);
   }
 });
 
@@ -467,20 +784,27 @@ test('named conditions stop model and product use even beside product-eligible a
   for (const [query, referralLevel] of cases) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.clinical.referral.level, referralLevel, query);
-    assert.equal(payload.meta.modelCalls, 0, query);
+    assertMinimalPublicContract(payload, query);
+    assert.equal(
+      payload.meta.safetyLevel,
+      referralLevel === 'urgent' ? 'urgent' : 'clinician-review',
+      query,
+    );
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
+    assert.match(
+      payload.report.summary,
+      /pharmacist|clinician|medical|urgent|in-person|health service|testing advice/i,
+      query,
+    );
   }
 });
 
 test('a boil on the face stops model and products for same-day assessment', async () => {
   const response = await POST(request({ query: 'I have a painful boil on my face with a soft centre.', market: 'NG' }));
   const payload = await response.json();
-  assert.equal(payload.clinical.differential.primary?.id, 'boil-abscess-like');
-  assert.equal(payload.clinical.referral.level, 'urgent');
+  assertPublicGuide(payload, 'boil-abscess-like');
   assert.equal(payload.meta.safetyLevel, 'urgent');
-  assert.equal(payload.meta.modelCalls, 0);
   assert.equal(payload.meta.safetyInterrupt, true);
   assert.deepEqual(payload.products, []);
   assert.match(payload.report.summary, /same-day in-person medical assessment/i);
@@ -499,9 +823,8 @@ test('new look-alike patterns fail closed at higher-risk boundaries', async () =
   for (const [query, patternId, safetyLevel, action] of cases) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.clinical.differential.primary?.id, patternId, query);
+    assertPublicGuide(payload, patternId, query);
     assert.equal(payload.meta.safetyLevel, safetyLevel, query);
-    assert.equal(payload.meta.modelCalls, 0, query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
     assert.match(payload.report.summary, action, query);
@@ -514,10 +837,8 @@ test('excessive or night sweating routes to cause-finding without products', asy
     market: 'NG',
   }));
   const payload = await response.json();
-  assert.equal(payload.clinical.differential.primary?.id, 'hyperhidrosis-like');
-  assert.equal(payload.clinical.referral.level, 'primary-care');
+  assertPublicGuide(payload, 'hyperhidrosis-like');
   assert.equal(payload.meta.safetyLevel, 'clinician-review');
-  assert.equal(payload.meta.modelCalls, 0);
   assert.equal(payload.meta.safetyInterrupt, true);
   assert.deepEqual(payload.products, []);
   assert.match(payload.report.summary, /look for a cause/i);
@@ -533,9 +854,8 @@ test('diabetes-related foot changes never reach AI or product guidance', async (
   for (const [query, safetyLevel, action] of cases) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.clinical.differential.primary?.id, 'diabetes-foot-warning-like', query);
+    assertPublicGuide(payload, 'diabetes-foot-warning-like', query);
     assert.equal(payload.meta.safetyLevel, safetyLevel, query);
-    assert.equal(payload.meta.modelCalls, 0, query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
     assert.match(payload.report.summary, action, query);
@@ -568,9 +888,8 @@ test('chemical, jaundice and genital warning patterns never reach AI or products
   for (const [query, patternId, safetyLevel, action] of cases) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.clinical.differential.primary?.id, patternId, query);
+    assertPublicGuide(payload, patternId, query);
     assert.equal(payload.meta.safetyLevel, safetyLevel, query);
-    assert.equal(payload.meta.modelCalls, 0, query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
     assert.match(payload.report.summary, action, query);
@@ -603,9 +922,8 @@ test('fever-and-rash warning patterns never reach AI or product guidance', async
   for (const [query, patternId, safetyLevel, action] of cases) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.clinical.differential.primary?.id, patternId, query);
+    assertPublicGuide(payload, patternId, query);
     assert.equal(payload.meta.safetyLevel, safetyLevel, query);
-    assert.equal(payload.meta.modelCalls, 0, query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.deepEqual(payload.products, [], query);
     assert.match(payload.report.summary, action, query);
@@ -623,8 +941,7 @@ test('rapid mouth-to-face warning signs never reach AI or products', async () =>
   for (const [query, level] of cases) {
     const response = await POST(request({ query, market: 'NG' }));
     const payload = await response.json();
-    assert.equal(payload.clinical.differential.primary?.id, 'rapid-mouth-face-breakdown-like', query);
-    assert.equal(payload.meta.modelCalls, 0, query);
+    assertPublicGuide(payload, 'rapid-mouth-face-breakdown-like', query);
     assert.equal(payload.meta.safetyInterrupt, true, query);
     assert.equal(payload.meta.safetyLevel, level, query);
     assert.deepEqual(payload.products, [], query);
@@ -635,10 +952,8 @@ test('rapid mouth-to-face warning signs never reach AI or products', async () =>
 test('sudden sight loss fails closed before model or product use', async () => {
   const response = await POST(request({ query: 'I suddenly cannot see from my left eye.', market: 'NG' }));
   const payload = await response.json();
-  assert.equal(payload.clinical.referral.level, 'emergency');
-  assert.equal(payload.clinical.referral.urgency, 'immediate');
+  assertMinimalPublicContract(payload);
   assert.equal(payload.meta.safetyLevel, 'emergency');
-  assert.equal(payload.meta.modelCalls, 0);
   assert.equal(payload.meta.safetyInterrupt, true);
   assert.deepEqual(payload.products, []);
   assert.match(payload.report.summary, /emergency care now/i);
@@ -653,7 +968,7 @@ test('pediatric prose and structured age fail closed before AI and products', as
   for (const body of descriptions) {
     const response = await POST(request(body));
     const payload = await response.json();
-    assert.equal(payload.meta.modelCalls, 0);
+    assertMinimalPublicContract(payload);
     assert.equal(payload.meta.safetyInterrupt, true);
     assert.equal(payload.meta.safetyLevel, 'clinician-review');
     assert.deepEqual(payload.products, []);
@@ -665,7 +980,7 @@ test('unsupported allergy or medication context fails closed before AI and produ
   for (const profile of [{ allergies: ['fragrance'] }, { medications: ['isotretinoin'] }]) {
     const response = await POST(request({ query: 'Acne, whiteheads and oily skin on my forehead.', market: 'NG', profile }));
     const payload = await response.json();
-    assert.equal(payload.meta.modelCalls, 0);
+    assertMinimalPublicContract(payload);
     assert.equal(payload.meta.safetyInterrupt, true);
     assert.deepEqual(payload.products, []);
     assert.match(payload.report.summary, /does not check allergies or medicine interactions/i);
@@ -691,47 +1006,31 @@ test('displayed care copy ignores an unsafe model draft', () => {
   assert.doesNotMatch(JSON.stringify(report), /definitive diagnosis|diagnosed disease|no follow-up/i);
 });
 
-test('model product candidates expose only reviewed decision fields', () => {
-  const product = products.find(item => item.slug === 'cerave-foaming-facial-cleanser');
-  assert.ok(product);
-  const decision: ClinicalProductDecision = {
-    slug: product.slug,
-    eligible: true,
-    careState: 'supportive_eligible',
-    approvedUseIds: ['normal-oily-cleansing'],
-    ingredientIds: product.verifiedIngredientIds ?? [],
-    reasons: ['Cleansing for normal or oily skin'],
-    exclusions: [],
-    clinicalScore: 20,
-  };
-
-  const candidate = buildConsultProductCandidate(product, decision);
-  assert.deepEqual(Object.keys(candidate), [
-    'slug', 'brand', 'name', 'approvedUseIds', 'clinicalReasons', 'ingredientIds',
-  ]);
-  assert.deepEqual(candidate.approvedUseIds, decision.approvedUseIds);
-  assert.deepEqual(candidate.ingredientIds, product.verifiedIngredientIds ?? []);
-  for (const field of ['bestFor', 'concerns', 'skinTypes', 'usage', 'sensitiveFriendly', 'step', 'displayLine']) {
-    assert.equal(field in candidate, false, field);
-  }
-});
-
 test('unrecognized descriptions ask for detail instead of assuming acne', async () => {
   const response = await POST(request({ query: 'Something strange is happening.', market: 'NG' }));
   const payload = await response.json();
-  assert.equal(payload.meta.modelCalls, 0);
+  assertMinimalPublicContract(payload);
   assert.equal(payload.meta.needsClarification, true);
-  assert.deepEqual(payload.meta.concerns, []);
   assert.deepEqual(payload.products, []);
   assert.match(payload.report.summary, /location/i);
 });
 
 test('Ask Jelo keeps health details in session memory by default', async () => {
   const source = await readFile(path.join(process.cwd(), 'components/consult/consult-experience.tsx'), 'utf8');
-  assert.doesNotMatch(source, /localStorage|sessionStorage/);
-  assert.match(source, /Used for this visit only/);
-  assert.doesNotMatch(source, /jelocare:consult|clinical-timeline/);
-  assert.match(source, /Reported signals/);
-  assert.match(source, /Guidance note/);
-  assert.doesNotMatch(source, /Barrier score|Clinically eligible|Safety-filtered|reviewed source/i);
+  assert.match(source, /^'use client';/);
+  assert.doesNotMatch(source, /localStorage|sessionStorage|indexedDB/i);
+  assert.doesNotMatch(source, /jelocare:consult|clinical-timeline/i);
+  assert.match(source, /clientSchemaVersion:\s*2/);
+  assert.match(source, /isConsultationPayload/);
+  assert.match(source, /returned an incomplete guide/i);
+  assert.match(source, /focus\(\{ preventScroll: true \}\)/);
+  assert.equal((source.match(/tabIndex=\{-1\}/g) ?? []).length >= 3, true);
+  assert.doesNotMatch(
+    source,
+    /clinicalMatch|recommendationAudit|timelineInsight|TrendIcon|modelCalls|ruleIds?|findingIds?|blockedIngredientIds|detectedIngredientIds|clinicalScore|differentialScore|barrierScore|optimizedRoutine|routineSummary/i,
+  );
+  assert.doesNotMatch(
+    source,
+    /Barrier score|Clinically eligible|Safety-filtered|Reported signals|Guidance note|reviewed source/i,
+  );
 });

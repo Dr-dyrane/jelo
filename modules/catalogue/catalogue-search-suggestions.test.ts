@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { concerns } from '@/data/knowledge';
 import {
+  catalogueGuideSearchSuggestions,
   matchingCatalogueSearchSuggestions,
   type CatalogueSearchSuggestion,
 } from '@/components/products/catalogue-search-suggestions';
@@ -31,4 +33,32 @@ test('catalogue search suggestions stay compact and deduplicate destinations', (
     matchingCatalogueSearchSuggestions(repeated, '', 3).map(item => item.href),
     suggestions.slice(0, 3).map(item => item.href),
   );
+});
+
+test('every public guide stays eligible for local typeahead', () => {
+  const guideSuggestions = catalogueGuideSearchSuggestions(concerns);
+  const lateGuide = concerns.at(-1);
+
+  assert.ok(concerns.length >= 58);
+  assert.equal(guideSuggestions.length, concerns.length);
+  assert.ok(lateGuide);
+  assert.equal(
+    matchingCatalogueSearchSuggestions(guideSuggestions, lateGuide.name)[0]?.href,
+    `/concerns/${lateGuide.slug}`,
+  );
+});
+
+test('an exact guide alias ranks before products and stays explicitly neutral', () => {
+  const guideSuggestions = catalogueGuideSearchSuggestions(concerns);
+  const product: CatalogueSearchSuggestion = {
+    kind: 'product',
+    label: 'Acne',
+    detail: 'Example treatment',
+    href: '/products/example-acne',
+  };
+  const matches = matchingCatalogueSearchSuggestions([product, ...guideSuggestions], 'acne');
+
+  assert.equal(matches[0]?.href, '/concerns/acne-breakouts');
+  assert.match(matches[0]?.detail ?? '', /Not a recommendation/);
+  assert.equal(matches[1]?.href, product.href);
 });

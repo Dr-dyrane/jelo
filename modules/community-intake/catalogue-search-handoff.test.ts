@@ -87,7 +87,7 @@ test('catalogue handoff wiring stays zero-result only and reuses the adaptive in
     readFile(path.join(root, 'lib/community-intake/repository.ts'), 'utf8'),
   ]);
 
-  assert.match(productsPage, /result\.total === 0 && result\.filters\.q/);
+  assert.match(productsPage, /shouldOfferCatalogueResearchHandoff\([\s\S]*?result\.total,[\s\S]*?result\.filters\.q,[\s\S]*?concernGuides/);
   assert.match(productsPage, /catalogueSearchHandoffHref\(result\.filters\.q\)/);
   assert.match(productsPage, /clearSearchHref/);
   assert.match(productsPage, /CatalogueFilterFeedback/);

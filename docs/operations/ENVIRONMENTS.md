@@ -1,6 +1,6 @@
 # Environments
 
-Updated: 2026-07-26
+Updated: 2026-07-27
 
 Use the same names across local development, Vercel Preview, and Vercel Production. Values differ; contracts do not.
 
@@ -45,14 +45,16 @@ verification.
 
 ## Variable contract
 
-### Application and AI
+### Application
 
 | Variable | Required | Notes |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Production | Canonical origin and retailer magic-link origin |
 | `CATALOGUE_SOURCE` | Yes | `static` or `neon`; Neon reads retain static fallback |
-| `AI_GATEWAY_API_KEY` | Ask Jelo model calls | Server-only gateway credential |
-| `JELOCARE_AI_MODEL` | Optional | Model identifier; code falls back to `openai/gpt-5-mini` |
+
+Ask Jelo is deterministic and currently has no model provider or model-selection
+environment variable. Any future language-only lane requires a separate
+reviewed boundary before a provider credential is added.
 
 ### PostgreSQL
 
@@ -78,12 +80,21 @@ Other Neon/Vercel compatibility variables in `.env.example` are provider-generat
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `KV_REST_API_URL` | Production intake protection | Upstash REST URL |
-| `KV_REST_API_TOKEN` | Production intake protection | Upstash REST token |
+| `KV_REST_API_URL` | Every production-mode Ask Jelo runtime | Upstash REST URL; required in Vercel Production, Vercel Preview, and local `next start` |
+| `KV_REST_API_TOKEN` | Every production-mode Ask Jelo runtime | Upstash REST token; required in Vercel Production, Vercel Preview, and local `next start` |
+| `CONSULT_RATE_LIMIT_SECRET` | Recommended | Dedicated server-only HMAC salt for Ask Jelo network keys; otherwise a database URL is used |
 | `COMMUNITY_INTAKE_RATE_LIMIT_SECRET` | Recommended | HMAC salt; otherwise a database URL is used |
 | `RETAILER_PARTNERSHIP_RATE_LIMIT_SECRET` | Recommended | Separate HMAC salt |
 
-`KV_REST_API_READ_ONLY_TOKEN`, `KV_URL`, and `REDIS_URL` are compatibility values but are not used by the current intake limiters.
+Ask Jelo fails closed in every production-mode runtime when either required
+Upstash REST value is missing or the configured limiter is unavailable. Vercel
+Production and Preview must therefore receive both values; a local
+`next start` run must also provide them. Only `next dev` and tests may run
+without Upstash. `CONSULT_RATE_LIMIT_SECRET` also falls back to a database URL
+for compatibility, but deployed environments should use the dedicated value.
+
+`KV_REST_API_READ_ONLY_TOKEN`, `KV_URL`, and `REDIS_URL` are compatibility
+values but are not used by the current request limiters.
 
 ### Email
 
@@ -130,4 +141,5 @@ Before deployment, verify names—not values:
 vercel env ls
 ```
 
-Then run the feature in the environment that will receive traffic. A successful build does not prove Neon, mail, Blob, Redis, AI, or cron behavior.
+Then run the feature in the environment that will receive traffic. A successful
+build does not prove Neon, mail, Blob, Redis, or cron behavior.

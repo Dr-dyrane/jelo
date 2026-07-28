@@ -17,6 +17,7 @@ export type OrdinaryCareRoutineStep = {
 export type OrdinaryCareIntent = {
   concernSlugs: OrdinaryCareConcernSlug[];
   labels: string[];
+  productSteps: string[];
   routine: OrdinaryCareRoutineStep[];
 };
 
@@ -29,7 +30,7 @@ type OrdinaryCareIntentDefinition = {
 
 const hairContext = /\b(?:hair|frizz|frizzy|brittle|conditioner|shampoo|leave-in|hair mask)\b/;
 const bodyContext = /\b(?:body|arms?|legs?|elbows?|knees?|hands?|feet|body lotion|body cream)\b/;
-const dryContext = /\b(?:dry|dryness|rough|roughness|ashy|flaky|tight|dehydrated|moisturi[sz])\w*\b/;
+const dryContext = /\b(?:dry|dryness|rough|roughness|ashy|flaky|tight|dehydrated|moisturi[sz](?:er|ers))\b/;
 const unresolvedSymptomContext = /\b(?:rash|pain|painful|sore|itch|itchy|burn|burning|sting|stinging|bleed|bleeding|blister|swelling|swollen|fever|wound|ooz\w*|pus|discharge|infection|hair loss|bald patch)\b/;
 const unexplainedChangeContext = (
   /\b(?:sudden(?:ly)?|unexplained|new|changed?|different)\b.{0,32}\b(?:odou?r|smell|sweat\w*)\b/
@@ -121,6 +122,36 @@ function normalizedText(text: string) {
   return text.trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
+function explicitProductSteps(text: string) {
+  const steps = new Set<string>();
+  const asksForSunProtection = /\b(?:sunscreen|sun screen|sun protection|spf)\b/.test(text);
+  const hybridSunMoisturiser = (
+    /\bmoisturi[sz]ing\s+(?:face\s+)?(?:sunscreen|sun screen)\b/.test(text)
+    || /\bmoisturi[sz]er\s+with\s+(?:an?\s+)?spf\b/.test(text)
+    || /\bspf\s+moisturi[sz]er\b/.test(text)
+  );
+  const moisturisingModifierForAnotherForm = (
+    /\bmoisturi[sz]ing\s+(?:cleanser|cleansing balm|face wash|facial wash|body wash|shampoo|conditioner|hair mask)\b/.test(text)
+    || hybridSunMoisturiser
+  );
+
+  if (/\b(?:cleanser|cleanse|cleansing|face wash|facial wash|body wash|shampoo)\b/.test(text)) steps.add('Cleanse');
+  if (
+    /\b(?:moisturi[sz](?:er|ing)|body lotion|face lotion|lotion|body cream|face cream)\b/.test(text)
+    && !moisturisingModifierForAnotherForm
+  ) {
+    steps.add('Moisturize');
+  }
+  if (asksForSunProtection || /\b(?:deodorant|anti-?perspirant)\b/.test(text)) steps.add('Protect');
+  if (/\b(?:conditioner|conditioning|hair mask)\b/.test(text)) steps.add('Condition');
+  if (/\b(?:serum|treatment)\b/.test(text)) steps.add('Treat');
+  if (/\b(?:toner|tone)\b/.test(text)) steps.add('Tone');
+  if (/\b(?:exfoliant|exfoliate|exfoliating)\b/.test(text)) steps.add('Exfoliate');
+  if (/\bessence\b/.test(text)) steps.add('Essence');
+  if (/\b(?:finishing oil|hair oil|sealing oil)\b/.test(text)) steps.add('Finish');
+  return [...steps];
+}
+
 export function hasDirectedDifferential(differential: DifferentialAssessment) {
   return Boolean(differential.primary && differential.confidence !== 'low');
 }
@@ -150,6 +181,7 @@ export function assessOrdinaryCareIntent(
   return {
     concernSlugs: matches.map(definition => definition.concernSlug),
     labels: matches.map(definition => definition.label),
+    productSteps: explicitProductSteps(normalized),
     routine,
   };
 }

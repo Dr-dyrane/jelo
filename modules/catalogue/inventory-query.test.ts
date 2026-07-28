@@ -108,8 +108,9 @@ test('concern browsing includes explicit reviewed references without turning the
   ]);
 
   const conditionPattern = queryInventoryRecords(products, { concern: 'hidradenitis-pattern' });
-  assert.equal(conditionPattern.filters.concern, '');
-  assert.equal(conditionPattern.total, products.length + externalProducts.length);
+  assert.equal(conditionPattern.filters.concern, 'hidradenitis-pattern');
+  assert.equal(conditionPattern.total, 0);
+  assert.deepEqual(conditionPattern.items, []);
 
   assert.deepEqual(
     queryInventoryRecords(products).facets.concerns.map(facet => [facet.value, facet.total]),

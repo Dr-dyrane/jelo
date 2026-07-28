@@ -8,7 +8,7 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 
 | Route | Method | Purpose | Main controls |
 | --- | --- | --- | --- |
-| `/api/consult` | `POST` | Guided skin education | Zod bounds, deterministic safety gate, filtered catalogue |
+| `/api/consult` | `POST` | Guided skin education | Browser provenance check, 64 KiB body, Zod bounds, deterministic safety gate, filtered catalogue, production-fail-closed Upstash limit |
 | `/api/products/suggestions` | `GET` | Bounded public catalogue typeahead | Minimal public projection, normalized 2–120 character query, indexed Neon lookup, market allowlist, seven-result cap, short shared cache, hashed-network read limit |
 | `/api/contribute/drafts` | `POST` | Start anonymous draft | Same-site check, honeypot, rate limit, PostgreSQL requirement |
 | `/api/contribute/drafts/[id]` | `PUT` | Save draft and events | HttpOnly edit secret, optimistic revision, 64 KiB body |
@@ -36,6 +36,7 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 - Public errors stay concise; server logs must not print secrets or full submitted payloads.
 - Catalogue suggestions query indexed public search text and approved GTIN fields, then fail over to a deterministic checked-in projection containing only slug, brand, name, size, approved GTIN, and source. They never import or expose private candidates, community drafts, moderation records, dossiers, or the 1,000-record discovery queue.
 - Catalogue suggestion reads use a hashed network key with a lightweight Upstash window. Missing Redis configuration is the only fail-open state; partial configuration and provider failures return `429` with `Retry-After`.
+- Ask Jelo uses a separate 20-request-per-hour Upstash window and an HMAC-derived network key. Production denies requests when Redis configuration is missing or the configured provider is unavailable; local development may run without Redis.
 
 ## Data classification
 
@@ -46,23 +47,23 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 | Retailer applications | Confidential business data | Restrict to operations; retain only as documented |
 | Edit and magic-link tokens | Secret | Never log or store in plaintext |
 | Email, phone, address | Personal/business contact data | Use only with recorded consent |
-| Database, Blob, Redis, mail, and AI credentials | Secret | Server-only environment variables |
+| Database, Blob, Redis, mail, and third-party credentials | Secret | Server-only environment variables |
 
-## AI boundary
+## Ask Jelo boundary
 
-The model is not a safety authority or source of catalogue truth.
+Ask Jelo is deterministic and does not call a language model.
 
 - The server decides whether the journey can continue.
-- The model receives bounded context and an eligible product shortlist.
-- It cannot invent products, prices, retailers, images, links, diagnoses, or referrals.
-- A model failure returns deterministic fallback guidance.
+- Condition routes return a canonical, reviewed guide and no products.
+- Everyday-care routes may return only products that pass reviewed concern, body-area and routine-step authority.
+- The public response contains presentation data only. Clinical rules, scores, internal evidence identifiers and recommendation diagnostics stay server-side.
+- Any future language-model wording lane requires a separate reviewed safety, privacy, abuse and cost boundary before implementation.
 
 ## Known controls to preserve
 
 - `CRON_SECRET` must exist in production even though it is managed outside application code.
-- Rate limiting degrades open when Upstash is absent; production environments should configure it.
+- Non-consult public limiters retain their documented local/failover behavior. Ask Jelo specifically requires Upstash in production and fails closed.
 - The Agentic Mail API token is preferred. SMTP remains a mailbox-password fallback.
-- The consult route has schema bounds but no Upstash limiter in the current implementation. Add one before materially increasing public traffic.
 - Magic links expire after 30 days; retailer application retention is 24 months in the current migration.
 
 Security changes should include abuse-path tests, not only happy-path route tests.

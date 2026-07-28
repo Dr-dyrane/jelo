@@ -1,7 +1,7 @@
 import { assessBarrier } from './barrier';
 import { assessDifferential } from './differential';
 import { evidenceForFindings } from './evidence';
-import { detectIngredients } from './ingredients';
+import { detectIngredients, hasMedicineUseContext } from './ingredients';
 import { buildMonitoringPlan, buildTreatmentGoals } from './monitoring';
 import { assessReferral } from './referral';
 import { optimizeRoutine } from './routine';
@@ -20,7 +20,10 @@ export function inferProfileFromText(text: string, partial: PatientProfile = {})
 
 export function assessClinicalRoutine(text: string, partialProfile: PatientProfile = {}): ClinicalAssessment {
   const profile = inferProfileFromText(text, partialProfile);
-  const detectedIngredients = detectIngredients([text, ...(profile.currentIngredients ?? [])].join(' '));
+  const ingredientText = hasMedicineUseContext(text)
+    ? (profile.currentIngredients ?? []).join(' ')
+    : [text, ...(profile.currentIngredients ?? [])].join(' ');
+  const detectedIngredients = detectIngredients(ingredientText);
   const findings = evaluateClinicalRules(detectedIngredients, profile);
   const evidence = evidenceForFindings(findings);
 

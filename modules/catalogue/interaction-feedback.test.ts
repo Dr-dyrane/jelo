@@ -49,7 +49,7 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(tracker, /sessionStorage/);
   assert.match(catalogue, /CatalogueTransitionTracker/);
   assert.match(catalogue, /!hasActiveIntent/);
-  assert.match(catalogue, /matchingCatalogueConcerns/);
+  assert.match(catalogue, /resolvedCatalogueGuides/);
   assert.match(catalogue, /#all-products/);
   assert.match(catalogue, /CatalogueSearch/);
   assert.match(catalogue, /clearHref=\{href\(params, \{ q: null \}, 'all-products'\)\}/);

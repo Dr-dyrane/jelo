@@ -12,7 +12,7 @@ The operating handbook starts at [docs/README.md](docs/README.md). It covers pro
 - Trust-first retailer ranking
 - Location-aware availability
 - Historical price and inventory evidence
-- AI guidance with deterministic safety rules
+- Deterministic guidance with reviewed safety rules
 - Guidance, not diagnosis
 - Editorial-first, clinically grounded presentation
 - Runtime independence from third-party product-image hosts
@@ -42,7 +42,7 @@ Products
   -> Inventory verification
   -> Price history
   -> Market summaries
-  -> AI purchasing context
+  -> Buying guidance
 ```
 
 See [docs/RETAIL_INTELLIGENCE.md](docs/RETAIL_INTELLIGENCE.md) for the product experience and ranking rules, and [docs/NIGERIA_RETAILERS.md](docs/NIGERIA_RETAILERS.md) for the reviewed store set and exact-match policy.
@@ -53,8 +53,10 @@ See [docs/RETAIL_INTELLIGENCE.md](docs/RETAIL_INTELLIGENCE.md) for the product e
 - **Neon PostgreSQL** for durable catalogue, retail and clinical data
 - **Vercel Edge Config** for runtime flags and campaign selection
 - **Upstash Redis** for cache, rate limiting and short-lived state
-- **Vercel AI Gateway** for consultation model routing
 - **Vercel Observability and Analytics** for production monitoring
+
+Ask Jelo currently runs entirely through reviewed deterministic guidance. It
+does not call a language model or require an AI Gateway credential.
 
 See [docs/INFRASTRUCTURE.md](docs/INFRASTRUCTURE.md) for environment variables, service boundaries and operational rules.
 

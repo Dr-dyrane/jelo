@@ -266,7 +266,13 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
   const availability = validAvailability(input.availability);
   const price = validPrice(input.price);
   const market = validMarket(input.market);
-  const selectedConcern = concernLibrary.find(item => item.slug === concern && isProductMatchConcern(item));
+  const requestedConcern = concernLibrary.find(item => item.slug === concern);
+  const selectedConcern = requestedConcern && isProductMatchConcern(requestedConcern)
+    ? requestedConcern
+    : undefined;
+  const guideOnlyConcern = requestedConcern?.kind === 'condition-pattern'
+    ? requestedConcern
+    : undefined;
   const normalizedBrand = normalized(brand);
 
   const completeItems: InventoryItem[] = [
@@ -301,9 +307,12 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
     if (!skip.has('brand') && selectedBrand && normalized(item.brand) !== normalized(selectedBrand)) return false;
     if (!queryMatches(item, q, reviewedSearchTerms.get(item.id))) return false;
 
-    if (!skip.has('concern') && selectedConcern) {
-      const product = reviewedById.get(item.id);
-      if (!product || !productReferencesConcern(product, selectedConcern)) return false;
+    if (!skip.has('concern')) {
+      if (guideOnlyConcern) return false;
+      if (selectedConcern) {
+        const product = reviewedById.get(item.id);
+        if (!product || !productReferencesConcern(product, selectedConcern)) return false;
+      }
     }
     const freshPrice = lowestFreshPrice(item, market);
     if (!skip.has('availability') && availability === 'priced' && freshPrice == null) return false;
@@ -372,7 +381,7 @@ export function queryInventoryRecords(reviewedProducts: ReviewedProduct[], input
       category,
       review,
       sort,
-      concern: selectedConcern?.slug ?? '',
+      concern: requestedConcern?.slug ?? '',
       step: selectedStep,
       brand: selectedBrand,
       availability,
