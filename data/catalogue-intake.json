@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-07-28T08:23:19Z",
+  "updatedAt": "2026-07-28T08:46:40Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -11768,10 +11768,10 @@
       "id": "prequel-gleanser-glycolic-acid-cleanser-400ml",
       "brand": "PREQUEL",
       "name": "Gleanser + Glycolic Acid Cleanser",
-      "variant": "Gleanser + Glycolic Acid Cleanser",
+      "variant": "GLEANSER + GLYCOLIC",
       "size": "400 ml",
       "category": "Face care",
-      "reason": "A private gentle-cleansing research lead with two current Nigerian listings. The manufacturer page currently identifies the 13.5 fl oz / 400 ml cleanser and its use directions, while the manufacturer-published UPC 810129110562 is an intake lead supplied with the research request. Direct retrieval of the official Shopify response is rate-limited in this environment, so no hash-bound official identity extraction is claimed; a fresh official-response capture remains the first release blocker.",
+      "reason": "A private gentle-cleansing research lead with two current Nigerian listings. The retained official Shopify response binds PREQUEL's GLEANSER + GLYCOLIC variant to barcode 810129110562, while the reviewed official front pack confirms 13.5 fl oz / 400 ml. Fresh exact Nigerian observations retain one currently in-stock offer and one currently unavailable offer; publication still depends on a rights-cleared exact-pack asset.",
       "priority": "important",
       "gapIds": [
         "gentle-cleansing",
@@ -11783,9 +11783,63 @@
       ],
       "identity": {
         "gtin": "810129110562",
-        "officialProductUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser",
-        "checkedAt": "2026-07-27T15:04:00Z",
-        "basis": "official-brand"
+        "officialProductUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser.js?country=US&currency=USD&v=2",
+        "checkedAt": "2026-07-28T08:37:30Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser.js?country=US&currency=USD&v=2",
+          "observedGtin": "810129110562",
+          "observedVariant": "GLEANSER + GLYCOLIC",
+          "observedSize": "400 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/prequel-gleanser-glycolic-acid-cleanser-400ml.json",
+          "canonicalExtraction": {
+            "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official Shopify product response variants[0].barcode",
+                "sourceText": "\"barcode\":\"810129110562\"",
+                "value": "810129110562"
+              },
+              "size": {
+                "locator": "Official front pack principal display panel in supplemental response",
+                "sourceText": "Official front pack principal display panel: 13.5 FL OZ / 400 ML",
+                "value": "400 ml"
+              },
+              "variant": {
+                "locator": "Official Shopify product response title",
+                "sourceText": "\"title\":\"GLEANSER + GLYCOLIC\"",
+                "value": "GLEANSER + GLYCOLIC"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser.js?country=US&currency=USD&v=2",
+            "retrievedAt": "2026-07-28T08:21:05Z",
+            "reviewedAt": "2026-07-28T08:37:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 4188,
+            "sourceResponseMimeType": "text/javascript",
+            "sourceResponseSha256": "53e49cf32c219aba10d0e7784c4bce7820eb362b9739f548d9352f46dd109e58",
+            "sourceUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser.js?country=US&currency=USD&v=2",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 99732,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "881e6d24b0becae1f76f4aaa06e6c89183fb72519c0c8708b2362f36a6ce0dc4",
+                "responseUrl": "https://prequelskin.com/cdn/shop/files/1-PRQL_PDP_GleanserGlycolic.jpg?v=1758657758",
+                "retrievedAt": "2026-07-28T08:36:31Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://prequelskin.com/cdn/shop/files/1-PRQL_PDP_GleanserGlycolic.jpg?v=1758657758"
+              }
+            ]
+          },
+          "snapshotSha256": "22157e437226be52592dcfd27af36af73032b2885c8afd8197f5f59502996f5d",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1628,
+          "retrievedAt": "2026-07-28T08:21:05Z"
+        }
       },
       "care": {
         "status": "reviewed",
@@ -11799,34 +11853,34 @@
           "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser",
           "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
         ],
-        "reviewedAt": "2026-07-27T15:06:00Z",
+        "reviewedAt": "2026-07-28T08:38:30Z",
         "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
         "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser",
+        "tierAIdentityEvidenceUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser.js?country=US&currency=USD&v=2",
         "exactOffers": [
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-            "observedAt": "2026-07-27T15:11:31Z",
+            "observedAt": "2026-07-28T08:25:13Z",
             "observedTitle": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml",
             "observedSize": "400 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "retailerSku": "810129110562",
             "priceNgn": 37088,
-            "stock": "low-stock",
+            "stock": "out-of-stock",
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-exact-offer-field-extraction",
               "listingUrl": "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
               "responseUrl": "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-              "responseSha256": "d402429f9907ca1f2c126c8dc7f70664535a867f878bc95f339d8c9f7b5a1d8f",
+              "responseSha256": "4502f772ecfde938e8df46d8eb0c9508fda1f70a80d97daecc24afb668fb5596",
               "responseDigestScope": "decoded-response-body",
               "responseMimeType": "text/html",
-              "responseByteSize": 818558,
-              "retrievedAt": "2026-07-27T15:11:31Z",
+              "responseByteSize": 814941,
+              "retrievedAt": "2026-07-28T08:25:13Z",
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -11852,20 +11906,20 @@
                   "sourceText": "₦37,088.00 NG"
                 },
                 "stock": {
-                  "value": "low-stock",
-                  "locator": "HTML p.stock.in-stock.low-stock",
-                  "sourceText": "1 in stock"
+                  "value": "out-of-stock",
+                  "locator": "HTML p.stock.out-of-stock",
+                  "sourceText": "Out of stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-27T15:12:00Z"
+              "reviewedAt": "2026-07-28T08:38:00Z"
             }
           },
           {
             "retailer": "Nihet Beauty",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-            "observedAt": "2026-07-27T15:11:32Z",
+            "observedAt": "2026-07-28T08:25:14Z",
             "observedTitle": "Prequel Cleanser + Glycolic Acid Cleanser 400ml",
             "reviewedTitleAlias": "Glycolic Acid Cleanser",
             "observedSize": "400 ml",
@@ -11877,11 +11931,11 @@
               "method": "reviewed-exact-offer-field-extraction",
               "listingUrl": "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
               "responseUrl": "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-              "responseSha256": "9df71ceaee8c79f5d626e859f0584ff2866bdea3bd48d99165192def44cd60da",
+              "responseSha256": "b8808b46f943ee3ff3e45c0a4ee98fa07d4265629826d612ecb9f3507f578edc",
               "responseDigestScope": "decoded-response-body",
               "responseMimeType": "text/html",
-              "responseByteSize": 485268,
-              "retrievedAt": "2026-07-27T15:11:32Z",
+              "responseByteSize": 485264,
+              "retrievedAt": "2026-07-28T08:25:14Z",
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -11908,12 +11962,12 @@
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "HTML product availability status",
+                  "locator": "HTML p.stock.in-stock",
                   "sourceText": "In stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-27T15:12:00Z"
+              "reviewedAt": "2026-07-28T08:38:00Z"
             }
           }
         ],
@@ -11976,7 +12030,45 @@
         ]
       },
       "asset": {
-        "rightsStatus": "unresolved"
+        "rightsStatus": "documented",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "sourceUrl": "https://prequelskin.com/cdn/shop/files/1-PRQL_PDP_GleanserGlycolic.jpg?v=1758657758",
+        "sourceAssetSha256": "881e6d24b0becae1f76f4aaa06e6c89183fb72519c0c8708b2362f36a6ce0dc4",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 99732,
+        "sourceAssetWidth": 1500,
+        "sourceAssetHeight": 1875,
+        "sourceAssetRetrievedAt": "2026-07-28T08:36:31Z",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: product-mockup\nAsset type: JeloCare catalogue publication packshot\nPrimary request: Create an original, high-fidelity studio render of the exact PREQUEL Gleanser + Glycolic Acid Cleanser 400 ml pump bottle shown in the reference. Preserve the exact bottle silhouette, dark navy pump, metallic silver bottle, dark teal vertical PREQUEL wordmark, and front-label hierarchy. The identity-critical visible text must remain accurate: “PREQUEL”, “50% GLYCERIN + 5% GLYCOLIC ACID + INULIN”, “GLYCOLIC ACID CLEANSER”, and “13.5 FL OZ / 400 ML”. Do not invent a new variant, color, cap, label, size, or package.\nInput images: Image 1 is the official manufacturer front-pack identity reference; use it only to reconstruct the exact product identity in a newly rendered catalogue image.\nScene/backdrop: Perfectly flat solid #00ff00 chroma-key background for clean removal. Uniform color only—no gradient, texture, floor, horizon, reflections, contact shadow, or cast shadow.\nStyle/medium: Photorealistic premium ecommerce 3D product render, crisp metallic materials, faithful label geometry.\nComposition/framing: One complete upright bottle, centered, straight-on with a very slight three-quarter depth, fully visible pump and rounded base, generous even padding, square crop.\nLighting/mood: Soft neutral studio lighting contained entirely on the product; no background light variation.\nConstraints: Preserve packaging identity and label placement; crisp silhouette; no extra objects; no watermark; no hand; no décor; no duplicated product. Do not use #00ff00 anywhere on the product.\nAvoid: altered lettering, misspelled brand or size, invented claims, shadows on the chroma background, gradients, cropped pump or base.",
+          "inputs": [
+            {
+              "url": "https://prequelskin.com/cdn/shop/files/1-PRQL_PDP_GleanserGlycolic.jpg?v=1758657758",
+              "sha256": "881e6d24b0becae1f76f4aaa06e6c89183fb72519c0c8708b2362f36a6ce0dc4"
+            }
+          ],
+          "outputSha256": "a9a56af1ed8d8ddad15a80e2e6c50fbb9f7bbfc7a6e62993afbc533578cba841",
+          "generatedAt": "2026-07-28T08:45:30Z",
+          "recordSha256": "ba524098f7d85f366fb88a11dd3ad9d1ea1f31f6981bbf6bc7bd2210f12e7328"
+        },
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/prequel/prequel-gleanser-glycolic-acid-cleanser-400ml/packshot-v2-a9a56af1ed8d8dda.png",
+        "publicImageSha256": "a9a56af1ed8d8ddad15a80e2e6c50fbb9f7bbfc7a6e62993afbc533578cba841",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1877576,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-07-28T08:46:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
       }
     }
   ]

@@ -17,26 +17,26 @@ import {
   evaluateCatalogueIntakeCandidate,
 } from '@/lib/catalogue/intake-readiness';
 
-const researchAsOf = Date.parse('2026-07-27T16:00:00Z');
+const researchAsOf = Date.parse('2026-07-28T09:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 37);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 38);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 40);
   assert.equal(catalogueIntakeDecisions.length, 40);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 36);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 37);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 21);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 36);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 3);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 1);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 37);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 2);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 36);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 37);
 });
 
 test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
@@ -75,22 +75,31 @@ test('the community-requested Mela B3 serum binds official identity, Nigerian pr
   );
 });
 
-test('the Prequel Gleanser lead retains two current Nigerian offers but fails closed without the official response capture', () => {
+test('the Prequel Gleanser lead binds official identity, current Nigerian offers and its reviewed render', () => {
   const candidate = catalogueIntakeCandidates.find(item => (
     item.id === 'prequel-gleanser-glycolic-acid-cleanser-400ml'
   ));
   assert.ok(candidate);
   const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
   assert.equal(candidate.identity.gtin, '810129110562');
-  assert.equal(candidate.identity.officialEvidence, undefined);
+  assert.equal(candidate.identity.officialEvidence?.snapshotKind, 'canonical-extraction');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.fields.variant.value, 'GLEANSER + GLYCOLIC');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.fields.size.value, '400 ml');
   assert.deepEqual(decision.freshExactOffers.map(offer => [offer.retailer, offer.priceNgn, offer.stock]), [
-    ['BuyBetter', 37_088, 'low-stock'],
+    ['BuyBetter', 37_088, 'out-of-stock'],
     ['Nihet Beauty', 96_000, 'in-stock'],
   ]);
   assert.equal(decision.excludedMarketObservations[0]?.retailer, 'Essentials Hub');
-  assert.equal(decision.stage, 'identity');
-  assert.ok(decision.blockers.includes('identity-official-evidence-invalid'));
-  assert.equal(decision.approvalDraftReady, false);
+  assert.equal(candidate.asset.rightsStatus, 'documented');
+  assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
+  assert.equal(
+    candidate.asset.publicImageSha256,
+    'a9a56af1ed8d8ddad15a80e2e6c50fbb9f7bbfc7a6e62993afbc533578cba841',
+  );
+  assert.equal(decision.stage, 'approval-ready');
+  assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
+  assert.equal(decision.blockers.includes('asset-rights-missing'), false);
+  assert.equal(decision.approvalDraftReady, true);
 });
 
 test('the Beauty Formulas serum binds its exact formula, Nigerian prices and reviewed render', () => {
@@ -185,7 +194,7 @@ test('community-priority Simple and DANG leads preserve live evidence without by
     'DGL-SKC-051');
   assert.equal(sunscreen.identity.officialProductCrosswalk?.schemaVersion, 2);
   assert.equal(sunscreen.nigeria.exactOffers.length, 0);
-  assert.equal(sunscreen.asset.rightsStatus, 'unresolved');
+  assert.equal(sunscreen.asset.rightsStatus, 'documented');
   assert.equal(niacinamide.nigeria.excludedObservations[0]?.retailer, 'Bracketts Beauty');
   assert.equal(sunscreen.nigeria.excludedObservations[0]?.priceNgn, 27_500);
   assert.equal(evaluateCatalogueIntakeCandidate(simple, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');

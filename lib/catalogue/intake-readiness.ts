@@ -773,6 +773,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   'laroche-posay-mela-b3-serum-30ml': [
     'https://www.laroche-posay.co.uk/en_GB/mela-b3-intense-anti-dark-spot-serum/3337875890021.html',
   ],
+  'prequel-gleanser-glycolic-acid-cleanser-400ml': [
+    'https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser',
+  ],
   'tresemme-keratin-smooth-weightless-conditioner-828ml': [
     'https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738',
   ],

@@ -222,6 +222,23 @@
     "contentHash": "9df96be464b016371d9c40db5ad143b1f9af0536bd1bc567564458c731305ef3"
   },
   {
+    "id": "prequel-gleanser-glycolic-acid-cleanser-400ml-packshot-v2",
+    "active": true,
+    "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+    "destination": "publication",
+    "publicationBrandSlug": "prequel",
+    "sourceUrl": "https://prequelskin.com/cdn/shop/files/1-PRQL_PDP_GleanserGlycolic.jpg?v=1758657758",
+    "localPath": "data/catalogue-intake-assets/prequel-gleanser-glycolic-acid-cleanser-400ml/packshot-v2-a9a56af1ed8d.png",
+    "blobPath": "products/prequel/prequel-gleanser-glycolic-acid-cleanser-400ml/packshot-v2-a9a56af1ed8d8dda.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/prequel/prequel-gleanser-glycolic-acid-cleanser-400ml/packshot-v2-a9a56af1ed8d8dda.png",
+    "contentType": "image/png",
+    "byteSize": 1877576,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "a9a56af1ed8d8ddad15a80e2e6c50fbb9f7bbfc7a6e62993afbc533578cba841"
+  },
+  {
     "id": "beauty-formulas-glowing-serum-2-vitamin-c-30ml-packshot-v2",
     "active": true,
     "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",

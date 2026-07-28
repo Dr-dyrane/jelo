@@ -865,6 +865,30 @@
         "publishedAt": "2026-07-27T01:00:00Z"
       },
       "releaseFingerprint": "8fd738004de04028cd0128c94077d3aa731e5c42e49a26eee2072650ec335655"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+      "dossierFingerprint": "b9cbba499bc79bd89e9e67efabc4a1be4caf344ef288793bcbe69f275853cfa4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Glycerin + glycolic cleanser · 400 ml",
+        "usage": "Apply a generous amount to wet skin, massage gently, then rinse thoroughly. Suitable for face and body; use morning and night.",
+        "manufacturerDirectionsUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-28T08:50:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-28T08:50:50Z"
+      },
+      "releaseFingerprint": "6d588988f014a69d9da0d8812e6d79702d728a5a44bb8f6670f829241670bb57"
     }
   ]
 }

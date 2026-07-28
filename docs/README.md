@@ -17,7 +17,8 @@ This is the entry point for product, engineering, data, and operations.
 | Apply the Observations split-view canon | [Operations UI canon](./OPS_UI_CANON.md) |
 | Build or review the queue-level Overview | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md) |
 | Plan or implement the operations console | [Operations console delivery](./operations/console/README.md) |
-| Research and release a product | [Catalogue operations](./catalogue/OPERATIONS.md) |
+| Release a routine verified product quickly | [Catalogue fast lane](./catalogue/FAST_LANE.md) |
+| Research or operate the full catalogue pipeline | [Catalogue operations](./catalogue/OPERATIONS.md) |
 | Run Neon safely | [Neon and data](./data/NEON.md) |
 | Configure a local, preview, or production environment | [Environments](./operations/ENVIRONMENTS.md) |
 | Start and test the application | [Local development](./operations/LOCAL_DEVELOPMENT.md) |
