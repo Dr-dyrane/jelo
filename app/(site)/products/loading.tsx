@@ -1,6 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import styles from './products-loading.module.css';
 
 function Line({ width }: { width: 'short' | 'medium' | 'long' }) {
@@ -37,10 +38,7 @@ function hasCatalogueIntent(searchParams: ReturnType<typeof useSearchParams>) {
   );
 }
 
-export default function ProductsLoading() {
-  const searchParams = useSearchParams();
-  const hasActiveIntent = hasCatalogueIntent(searchParams);
-
+function ProductsLoadingFrame({ hasActiveIntent }: { hasActiveIntent: boolean }) {
   return (
     <main className={styles.page} aria-busy="true">
       <p className="sr-only" role="status">Loading products.</p>
@@ -97,5 +95,19 @@ export default function ProductsLoading() {
         </div>
       </section>
     </main>
+  );
+}
+
+function CatalogueIntentLoading() {
+  const searchParams = useSearchParams();
+
+  return <ProductsLoadingFrame hasActiveIntent={hasCatalogueIntent(searchParams)} />;
+}
+
+export default function ProductsLoading() {
+  return (
+    <Suspense fallback={<ProductsLoadingFrame hasActiveIntent={false} />}>
+      <CatalogueIntentLoading />
+    </Suspense>
   );
 }

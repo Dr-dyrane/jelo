@@ -13,6 +13,12 @@ test('catalogue route loading mirrors the active inventory grammar', async () =>
 
   assert.match(loading, /'use client'/);
   assert.match(loading, /useSearchParams/);
+  assert.match(loading, /import \{ Suspense \} from 'react'/);
+  assert.match(loading, /function CatalogueIntentLoading\(\)/);
+  assert.match(
+    loading,
+    /<Suspense fallback=\{<ProductsLoadingFrame hasActiveIntent=\{false\} \/>\}>/,
+  );
   assert.match(loading, /hasActiveIntent/);
   assert.match(loading, /\{!hasActiveIntent \? <section className=\{styles\.shelf\}/);
   assert.match(loading, /aria-busy="true"/);
@@ -32,6 +38,22 @@ test('catalogue route loading mirrors the active inventory grammar', async () =>
     /\.grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(auto-fit,\s*minmax\(min\(100%,\s*max\(9\.5rem,\s*46%\)\),\s*1fr\)\)/,
   );
   assert.match(phoneRules, /\.productVisual\s*\{[\s\S]*aspect-ratio:\s*\.82/);
+  assert.match(styles, /prefers-reduced-motion:\s*no-preference/);
+});
+
+test('product detail routes own a server-safe loading state', async () => {
+  const [loading, styles] = await Promise.all([
+    readFile(path.join(root, 'app/(site)/products/[slug]/loading.tsx'), 'utf8'),
+    readFile(path.join(root, 'app/(site)/products/[slug]/product-loading.module.css'), 'utf8'),
+  ]);
+
+  assert.doesNotMatch(loading, /'use client'|useSearchParams/);
+  assert.match(loading, /Loading product details\./);
+  assert.match(loading, /className=\{`product-page \$\{styles\.page\}`\}/);
+  assert.match(loading, /className=\{`product-hero \$\{styles\.hero\}`\}/);
+  assert.match(loading, /aria-busy="true"/);
+  assert.match(loading, /role="status"/);
+  assert.match(styles, /\.packshot\s*\{[\s\S]*aspect-ratio:\s*\.62/);
   assert.match(styles, /prefers-reduced-motion:\s*no-preference/);
 });
 
