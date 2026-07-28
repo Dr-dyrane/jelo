@@ -26,7 +26,13 @@ function runNpmScript(script: string) {
       shell: process.platform === 'win32',
       env: {
         ...process.env,
-        ...(script === 'test' ? { NODE_ENV: 'test' } : {}),
+        ...(script === 'test'
+          ? {
+              NODE_ENV: 'test',
+              KV_REST_API_URL: '',
+              KV_REST_API_TOKEN: '',
+            }
+          : {}),
       },
     });
 
