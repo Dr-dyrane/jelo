@@ -59,7 +59,7 @@ test('Insights keeps early community patterns distinct from proof', async () => 
   assert.doesNotMatch(view, /\beffective(?:ness)?\b/i);
 });
 
-test('Insights visualizes composition and research outcomes without inventing a time series', async () => {
+test('Insights uses compact, accessible donuts for both mutually exclusive compositions', async () => {
   const [view, styles] = await Promise.all([
     readSource('app/(ops)/ops/activity/ActivityInsights.tsx'),
     readSource('app/(ops)/ops/activity/activity.module.css'),
@@ -75,11 +75,34 @@ test('Insights visualizes composition and research outcomes without inventing a 
   assert.match(view, /needClarity/);
   assert.match(view, /dismissedDuplicates/);
   assert.match(view, /resolvedProductResearch/);
+  assert.match(view, /function CompositionDonut/);
+  assert.equal(view.match(/<CompositionDonut/g)?.length, 2);
+  assert.match(view, /<figure className=\{styles\.donutFigure\} role="img" aria-label=\{accessibleLabel\}>/);
+  assert.match(view, /<svg viewBox="0 0 80 80" aria-hidden="true">/);
+  assert.match(view, /pathLength="100"/);
+  assert.match(view, /strokeDasharray=/);
+  assert.match(view, /total=\{community\.approvedNotes\}/);
+  assert.match(view, /label: 'product notes'/);
+  assert.match(view, /label: 'routine notes'/);
+  assert.match(view, /label: 'store notes'/);
+  assert.match(view, /total=\{research\.resolvedProductResearch\}/);
+  assert.match(view, /label: 'matched'/);
+  assert.match(view, /label: 'intake candidates'/);
+  assert.match(view, /label: 'need clarity'/);
+  assert.doesNotMatch(view, /\bSegment\b|segmentBar|title=/);
   assert.doesNotMatch(view, /moving forward/i);
   assert.doesNotMatch(view, /dailyVolume|lineChart|growth chart/i);
   assert.doesNotMatch(styles, /radial-gradient/);
   assert.doesNotMatch(styles, /6\.2rem|8vw/);
   assert.match(styles, /font-size: clamp\(2rem, 4vw, 2\.8rem\)/);
+  assert.match(styles, /\.snapshotCard \{[\s\S]*?min-height: 164px;[\s\S]*?grid-template-columns:/);
+  assert.match(styles, /\.donutArc \{[\s\S]*?transform: rotate\(-90deg\)/);
+  assert.match(styles, /\.donutArc\[data-tone='product'\],[\s\S]*?stroke: var\(--ops-accent\)/);
+  assert.doesNotMatch(styles, /\.segmentBar|overflow-x: auto|scroll-snap-type/);
+  assert.match(
+    styles,
+    /@media \(max-width: 649px\) \{[\s\S]*?\.snapshotRail \{[\s\S]*?grid-template-columns: 1fr;/,
+  );
 });
 
 test('Decision history is human-readable while raw references remain secondary', async () => {
@@ -137,6 +160,8 @@ test('Insights owns geometry-matched loading and a private retry state', async (
 
   assert.match(loading, /aria-label="Loading insights"/);
   assert.match(loading, /styles\.snapshotRail/);
+  assert.match(loading, /styles\.skeletonCopy/);
+  assert.match(loading, /styles\.skeletonDonut/);
   assert.match(loading, /styles\.patternColumns/);
   assert.match(loading, /styles\.evidenceRows/);
   assert.match(loading, /styles\.skeletonLedger/);

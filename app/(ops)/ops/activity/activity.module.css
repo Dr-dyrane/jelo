@@ -14,15 +14,20 @@
 }
 
 .snapshotCard {
-  display: flex;
-  min-height: 188px;
+  display: grid;
+  min-height: 164px;
   min-width: 0;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: clamp(1.2rem, 2.2vw, 1.65rem);
+  grid-template-columns: minmax(0, 1fr) clamp(4.25rem, 17%, 5.25rem);
+  align-items: center;
+  gap: clamp(var(--space-4), 2.2vw, var(--space-6));
+  padding: clamp(1.05rem, 1.75vw, 1.35rem);
   overflow: hidden;
   border-radius: calc(var(--ops-control-radius) + 12px);
   color: var(--ink);
+}
+
+.snapshotCopy {
+  min-width: 0;
 }
 
 .snapshotCard[data-tone='peach'] {
@@ -42,7 +47,8 @@
 }
 
 .eyebrow {
-  margin-bottom: var(--space-5);
+  display: block;
+  margin-bottom: var(--space-3);
   color: color-mix(in srgb, var(--ink) 68%, transparent);
   font-size: var(--text-label);
   font-weight: var(--weight-regular);
@@ -79,42 +85,53 @@
   line-height: 1.4;
 }
 
-.segmentBar {
-  display: flex;
-  height: 5px;
-  gap: 3px;
-  margin-top: var(--space-4);
-  overflow: hidden;
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--paper) 34%, transparent);
+.donutFigure {
+  width: 100%;
+  margin: 0;
 }
 
-.segment {
-  min-width: 4px;
-  flex-basis: 0;
+.donutFigure svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.segment[data-tone='product'],
-.segment[data-tone='matched'] {
-  background: var(--ops-accent);
+.donutTrack,
+.donutArc {
+  fill: none;
+  stroke-width: 9;
 }
 
-.segment[data-tone='routine'],
-.segment[data-tone='intake'] {
-  background: color-mix(in srgb, var(--ops-accent) 58%, var(--paper));
+.donutTrack {
+  stroke: color-mix(in srgb, var(--ink) 8%, transparent);
 }
 
-.segment[data-tone='store'],
-.segment[data-tone='clarity'] {
-  background: color-mix(in srgb, var(--ink) 38%, var(--paper));
+.donutArc {
+  transform: rotate(-90deg);
+  transform-origin: center;
 }
 
-.segment[data-tone='set'] {
-  background: color-mix(in srgb, var(--ink) 18%, var(--paper));
+.donutArc[data-tone='product'],
+.donutArc[data-tone='matched'] {
+  stroke: var(--ops-accent);
 }
 
-.segment[data-tone='dismissed'] {
-  background: color-mix(in srgb, var(--ink) 10%, var(--paper));
+.donutArc[data-tone='routine'],
+.donutArc[data-tone='intake'] {
+  stroke: color-mix(in srgb, var(--ops-accent) 58%, var(--paper));
+}
+
+.donutArc[data-tone='store'],
+.donutArc[data-tone='clarity'] {
+  stroke: color-mix(in srgb, var(--ink) 38%, var(--paper));
+}
+
+.donutArc[data-tone='set'] {
+  stroke: color-mix(in srgb, var(--ink) 18%, var(--paper));
+}
+
+.donutArc[data-tone='dismissed'] {
+  stroke: color-mix(in srgb, var(--ink) 10%, var(--paper));
 }
 
 .patterns,
@@ -485,17 +502,25 @@
 }
 
 .skeletonCard {
-  min-height: 188px;
-  justify-content: flex-start;
-  gap: var(--space-3);
-  padding: clamp(1.2rem, 2.2vw, 1.65rem);
+  min-height: 164px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(4.25rem, 17%, 5.25rem);
+  align-items: center;
+  gap: clamp(var(--space-4), 2.2vw, var(--space-6));
+  padding: clamp(1.05rem, 1.75vw, 1.35rem);
   border-radius: calc(var(--ops-control-radius) + 12px);
   background: var(--ops-surface-subtle);
 }
 
+.skeletonCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
 .skeletonLine,
 .skeletonNumber,
-.skeletonBar,
 .skeletonHeading,
 .skeletonRow,
 .skeletonEvidence,
@@ -523,12 +548,15 @@
 .skeletonNumber {
   width: 24%;
   height: 44px;
-  margin-top: var(--space-5);
+  margin-top: var(--space-1);
 }
 
-.skeletonBar {
+.skeletonDonut {
+  display: block;
   width: 100%;
-  height: 5px;
+  aspect-ratio: 1;
+  border: 9px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  border-radius: 50%;
 }
 
 .skeletonHeading {
@@ -641,27 +669,6 @@
 }
 
 @media (max-width: 819px) {
-  .snapshotRail {
-    grid-auto-columns: min(82vw, 430px);
-    grid-auto-flow: column;
-    grid-template-columns: none;
-    margin-inline: calc(var(--space-4) * -1);
-    padding-inline: var(--space-4);
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    scroll-padding-inline: var(--space-4);
-    scroll-snap-type: inline mandatory;
-    scrollbar-width: none;
-  }
-
-  .snapshotRail::-webkit-scrollbar {
-    display: none;
-  }
-
-  .snapshotCard {
-    scroll-snap-align: start;
-  }
-
   .evidenceRows {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: var(--space-6);
@@ -669,6 +676,10 @@
 }
 
 @media (max-width: 649px) {
+  .snapshotRail {
+    grid-template-columns: 1fr;
+  }
+
   .patternColumns {
     grid-template-columns: 1fr;
     gap: var(--space-7);
@@ -684,20 +695,13 @@
     padding-inline: var(--space-3);
   }
 
-  .snapshotRail {
-    grid-auto-columns: min(84vw, 360px);
-    margin-inline: calc(var(--space-3) * -1);
-    padding-inline: var(--space-3);
-    scroll-padding-inline: var(--space-3);
-  }
-
   .snapshotCard {
-    min-height: 188px;
+    min-height: 164px;
     padding: var(--space-5);
   }
 
   .skeletonCard {
-    min-height: 188px;
+    min-height: 164px;
     padding: var(--space-5);
   }
 
@@ -735,7 +739,6 @@
 
   .skeletonLine,
   .skeletonNumber,
-  .skeletonBar,
   .skeletonHeading,
   .skeletonRow,
   .skeletonEvidence,

@@ -70,11 +70,14 @@ export default function LoadingInsights() {
           <section className={styles.snapshotRail} aria-hidden="true">
             {Array.from({ length: 2 }).map((_, card) => (
               <span className={styles.skeletonCard} key={card}>
-                <SkeletonLine width="short" />
-                <span className={styles.skeletonNumber} />
-                <SkeletonLine width="medium" />
-                <span className={styles.skeletonBar} />
-                <SkeletonLine width="full" />
+                <span className={styles.skeletonCopy}>
+                  <SkeletonLine width="short" />
+                  <span className={styles.skeletonNumber} />
+                  <SkeletonLine width="medium" />
+                  <SkeletonLine width="full" />
+                  <SkeletonLine width="full" />
+                </span>
+                <span className={styles.skeletonDonut} />
               </span>
             ))}
           </section>

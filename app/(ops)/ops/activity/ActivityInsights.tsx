@@ -73,23 +73,52 @@ function QueueIcon({ queue }: { queue: ActivityDecision['queue'] }) {
   return <Icon size={18} strokeWidth={1.7} aria-hidden="true" />;
 }
 
-function Segment({
-  count,
-  label,
-  tone,
-}: {
+type DonutSlice = {
   count: number;
   label: string;
   tone: string;
+};
+
+function CompositionDonut({
+  total,
+  totalLabel,
+  slices,
+}: {
+  total: number;
+  totalLabel: string;
+  slices: DonutSlice[];
 }) {
-  if (count <= 0) return null;
+  const visibleSlices = slices.filter(slice => slice.count > 0);
+  const sliceTotal = visibleSlices.reduce((sum, slice) => sum + slice.count, 0);
+  const arcs = visibleSlices.reduce<Array<DonutSlice & { length: number; offset: number }>>((result, slice) => {
+    const previous = result[result.length - 1];
+    const length = sliceTotal > 0 ? (slice.count / sliceTotal) * 100 : 0;
+    const offset = previous ? previous.offset + previous.length : 0;
+    return [...result, { ...slice, length, offset }];
+  }, []);
+  const accessibleLabel = `${number.format(total)} ${totalLabel}: ${slices
+    .map(slice => `${number.format(slice.count)} ${slice.label}`)
+    .join(', ')}`;
+
   return (
-    <span
-      className={styles.segment}
-      data-tone={tone}
-      style={{ flexGrow: count }}
-      title={`${label}: ${number.format(count)}`}
-    />
+    <figure className={styles.donutFigure} role="img" aria-label={accessibleLabel}>
+      <svg viewBox="0 0 80 80" aria-hidden="true">
+        <circle className={styles.donutTrack} cx="40" cy="40" r="29" />
+        {arcs.map(arc => (
+          <circle
+            className={styles.donutArc}
+            data-tone={arc.tone}
+            cx="40"
+            cy="40"
+            r="29"
+            pathLength="100"
+            strokeDasharray={`${arc.length} ${100 - arc.length}`}
+            strokeDashoffset={-arc.offset}
+            key={arc.tone}
+          />
+        ))}
+      </svg>
+    </figure>
   );
 }
 
@@ -215,40 +244,52 @@ export function ActivityInsights({ inference }: { inference: ActivityInference }
     <div className={styles.surface}>
       <section className={styles.snapshotRail} aria-label="Community snapshot">
         <article className={styles.snapshotCard} data-tone="peach">
-          <span className={styles.eyebrow}>Community knowledge</span>
-          <strong className={styles.heroNumber}>{number.format(community.approvedNotes)}</strong>
-          <h2>Approved notes</h2>
-          <div className={styles.segmentBar} aria-label={`${community.productNotes} product notes, ${community.routineNotes} routine notes, ${community.storeNotes} store notes`}>
-            <Segment count={community.productNotes} label="Products" tone="product" />
-            <Segment count={community.routineNotes} label="Routines" tone="routine" />
-            <Segment count={community.storeNotes} label="Stores" tone="store" />
+          <div className={styles.snapshotCopy}>
+            <span className={styles.eyebrow}>Community knowledge</span>
+            <strong className={styles.heroNumber}>{number.format(community.approvedNotes)}</strong>
+            <h2>Approved notes</h2>
+            <p>
+              {number.format(community.productNotes)} products · {number.format(community.routineNotes)} routines · {number.format(community.storeNotes)} stores
+            </p>
+            <small className={styles.snapshotMeta}>
+              {approvedNoteWindow(community.firstNoteAt, community.lastNoteAt, community.activeDays)}
+            </small>
           </div>
-          <p>
-            {number.format(community.productNotes)} products · {number.format(community.routineNotes)} routines · {number.format(community.storeNotes)} stores
-          </p>
-          <small className={styles.snapshotMeta}>
-            {approvedNoteWindow(community.firstNoteAt, community.lastNoteAt, community.activeDays)}
-          </small>
+          <CompositionDonut
+            total={community.approvedNotes}
+            totalLabel="approved notes"
+            slices={[
+              { count: community.productNotes, label: 'product notes', tone: 'product' },
+              { count: community.routineNotes, label: 'routine notes', tone: 'routine' },
+              { count: community.storeNotes, label: 'store notes', tone: 'store' },
+            ]}
+          />
         </article>
 
         <article className={styles.snapshotCard} data-tone="pink">
-          <span className={styles.eyebrow}>Product research</span>
-          <strong className={styles.heroNumber}>{number.format(research.resolvedProductResearch)}</strong>
-          <h2>Leads resolved</h2>
-          <div className={styles.segmentBar} aria-label={`${research.matchedExisting} matched, ${research.intakeCandidates} intake candidates, ${research.needClarity} need clarity, ${research.sets} ${research.sets === 1 ? 'set' : 'sets'}, ${research.dismissedDuplicates} dismissed ${research.dismissedDuplicates === 1 ? 'duplicate' : 'duplicates'}`}>
-            <Segment count={research.matchedExisting} label="Matched" tone="matched" />
-            <Segment count={research.intakeCandidates} label="Intake candidates" tone="intake" />
-            <Segment count={research.needClarity} label="Needs clarity" tone="clarity" />
-            <Segment count={research.sets} label="Sets" tone="set" />
-            <Segment count={research.dismissedDuplicates} label="Dismissed duplicates" tone="dismissed" />
+          <div className={styles.snapshotCopy}>
+            <span className={styles.eyebrow}>Product research</span>
+            <strong className={styles.heroNumber}>{number.format(research.resolvedProductResearch)}</strong>
+            <h2>Leads resolved</h2>
+            <p>
+              {number.format(research.matchedExisting)} matched · {number.format(research.intakeCandidates)} intake · {number.format(research.needClarity)} need clarity · {number.format(research.sets)} {research.sets === 1 ? 'set' : 'sets'}
+              {research.dismissedDuplicates > 0 ? ` · ${number.format(research.dismissedDuplicates)} dismissed` : ''}
+            </p>
+            <small className={styles.snapshotMeta}>
+              All time · {number.format(research.resolvedProductResearch)} of {number.format(research.productLeads)} product leads
+            </small>
           </div>
-          <p>
-            {number.format(research.matchedExisting)} matched · {number.format(research.intakeCandidates)} intake · {number.format(research.needClarity)} need clarity · {number.format(research.sets)} {research.sets === 1 ? 'set' : 'sets'}
-            {research.dismissedDuplicates > 0 ? ` · ${number.format(research.dismissedDuplicates)} dismissed` : ''}
-          </p>
-          <small className={styles.snapshotMeta}>
-            All time · {number.format(research.resolvedProductResearch)} of {number.format(research.productLeads)} product leads
-          </small>
+          <CompositionDonut
+            total={research.resolvedProductResearch}
+            totalLabel="resolved product leads"
+            slices={[
+              { count: research.matchedExisting, label: 'matched', tone: 'matched' },
+              { count: research.intakeCandidates, label: 'intake candidates', tone: 'intake' },
+              { count: research.needClarity, label: 'need clarity', tone: 'clarity' },
+              { count: research.sets, label: research.sets === 1 ? 'set' : 'sets', tone: 'set' },
+              { count: research.dismissedDuplicates, label: 'dismissed duplicates', tone: 'dismissed' },
+            ]}
+          />
         </article>
       </section>
 
