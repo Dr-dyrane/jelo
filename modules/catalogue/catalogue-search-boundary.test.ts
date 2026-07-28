@@ -92,6 +92,7 @@ test('the endpoint transitive source graph is isolated from private catalogue ar
     'data/external-products',
     'data/published-intake-products',
     'data/catalogue-publication',
+    'data/catalogue-offer-source-evidence',
     'data/catalogue-research',
     'data/catalogue-discovery',
     'data/catalogue-identity',
@@ -116,6 +117,7 @@ test('the public projection has a deterministic drift check in the release gate'
   assert.match(buildSource, /step === 'build-next'[\s\S]*catalogue:search:bundle:verify/);
   assert.match(bundleVerifier, /tracePath = `\$\{routePath\}\.nft\.json`/);
   assert.match(bundleVerifier, /maximumTraceBytes/);
+  assert.ok(bundleVerifier.includes("'/data/catalogue-offer-source-evidence'"));
   assert.match(bundleVerifier, /private graph absent/);
 
   const verification = spawnSync(
@@ -168,7 +170,15 @@ test('search reads are rate limited and remote-only searches show immediate feed
   assert.match(client, /matches\.length > 0 \|\| isLoading/);
   assert.match(client, /Finding matches/);
   assert.match(client, /loadingSuggestion/);
+  assert.match(client, /response\.status === 429/);
+  assert.match(client, /Search is taking a short pause\./);
+  assert.match(client, /More results are not available right now\./);
+  assert.match(client, /No close match yet\./);
+  assert.match(client, /Search all products/);
+  assert.match(client, /matches\.length > 0 \|\| isLoading \|\| Boolean\(remoteFeedback\)/);
   assert.match(styles, /\.loadingSuggestion/);
+  assert.match(styles, /\.searchFallback/);
+  assert.match(styles, /\.searchFallback a\s*\{[\s\S]*min-height:\s*2\.75rem/);
 
   assert.equal(catalogueSearchRetryAfterSeconds(Date.now() - 1_000), 1);
   assert.equal(catalogueSearchRetryAfterSeconds(Date.now() + 120_000), 60);

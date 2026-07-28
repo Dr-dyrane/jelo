@@ -23,8 +23,19 @@ export {
 } from './inventory-query';
 
 export async function queryInventory(input: InventoryQuery = {}) {
+  return (await loadInventory(input)).result;
+}
+
+/**
+ * Loads the published catalogue once for pages that need both the inventory
+ * projection and the reviewed records used to build factual discovery scopes.
+ */
+export async function loadInventory(input: InventoryQuery = {}) {
   const reviewedProducts = await listCatalogueProducts();
-  return queryInventoryRecords(reviewedProducts, input);
+  return {
+    result: queryInventoryRecords(reviewedProducts, input),
+    reviewedProducts,
+  };
 }
 
 export async function queryInventoryPages(

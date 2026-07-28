@@ -154,3 +154,39 @@
     gap:.85rem .65rem;
   }
 }
+
+/* Compact catalogue rhythm: editorial stories remain present without pushing
+   the authoritative inventory several screens below repeated product rails. */
+@media(max-width:820px){
+  .stories{
+    margin:0;
+    padding:0 4vw 4rem;
+    grid-template-columns:none;
+    grid-auto-flow:column;
+    grid-auto-columns:minmax(18rem,72vw);
+    gap:.8rem;
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x mandatory;
+  }
+  .stories article{
+    display:block;
+    scroll-snap-align:start;
+  }
+  .storyImage{height:18rem}
+  .storyCopy{min-height:10rem}
+}
+
+@media(max-width:640px){
+  .browse,.shelf,.catalogue{padding-top:4rem}
+  .stories{
+    padding:0 1rem 3.5rem;
+    grid-auto-columns:82vw;
+  }
+  .storyImage{height:17rem}
+  .storyCopy{
+    min-height:9rem;
+    padding:1.2rem;
+  }
+  .storyCopy h2{font-size:2.1rem}
+}

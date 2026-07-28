@@ -115,7 +115,7 @@ test('the active catalogue has one progressive result path and complete feedback
     readFile(path.join(root, 'components/products/inventory-card.module.css'), 'utf8'),
   ]);
 
-  assert.match(productsPage, /queryInventory\(inventoryQuery\)/);
+  assert.match(productsPage, /loadInventory\(inventoryQuery\)/);
   assert.match(productsPage, /<InventoryResults/);
   assert.match(productsPage, /requestedPage=\{requestedPage\}/);
   assert.doesNotMatch(

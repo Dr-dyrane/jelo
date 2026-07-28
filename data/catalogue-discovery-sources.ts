@@ -1,3 +1,19 @@
+export type CataloguePrivateSourceByteRetention =
+  | {
+    capability: 'private-exact-product-response-audit';
+    rationale: 'reopen-dated-offer-fields-and-verify-response-integrity';
+    retentionBoundary: 'private-evidence-repository-only';
+    publicContentReuse: 'none';
+    publicImageReuse: 'none';
+  }
+  | {
+    capability: 'none';
+    rationale: 'no-reviewed-private-response-retention-grant';
+    retentionBoundary: 'none';
+    publicContentReuse: 'none';
+    publicImageReuse: 'none';
+  };
+
 export type CatalogueDiscoverySource = {
   key: string;
   retailer: string;
@@ -6,6 +22,7 @@ export type CatalogueDiscoverySource = {
   reviewStatus: 'directory-listed' | 'provisional';
   trust: number;
   contentUse: 'link-only';
+  privateSourceByteRetention: CataloguePrivateSourceByteRetention;
 };
 
 export const catalogueDiscoverySources: readonly CatalogueDiscoverySource[] = [
@@ -17,6 +34,13 @@ export const catalogueDiscoverySources: readonly CatalogueDiscoverySource[] = [
     reviewStatus: 'directory-listed',
     trust: 97,
     contentUse: 'link-only',
+    privateSourceByteRetention: {
+      capability: 'private-exact-product-response-audit',
+      rationale: 'reopen-dated-offer-fields-and-verify-response-integrity',
+      retentionBoundary: 'private-evidence-repository-only',
+      publicContentReuse: 'none',
+      publicImageReuse: 'none',
+    },
   },
   {
     key: 'lux-beauty-ng',
@@ -26,6 +50,13 @@ export const catalogueDiscoverySources: readonly CatalogueDiscoverySource[] = [
     reviewStatus: 'directory-listed',
     trust: 96,
     contentUse: 'link-only',
+    privateSourceByteRetention: {
+      capability: 'none',
+      rationale: 'no-reviewed-private-response-retention-grant',
+      retentionBoundary: 'none',
+      publicContentReuse: 'none',
+      publicImageReuse: 'none',
+    },
   },
   {
     key: 'slique-beauty',
@@ -35,5 +66,12 @@ export const catalogueDiscoverySources: readonly CatalogueDiscoverySource[] = [
     reviewStatus: 'provisional',
     trust: 78,
     contentUse: 'link-only',
+    privateSourceByteRetention: {
+      capability: 'private-exact-product-response-audit',
+      rationale: 'reopen-dated-offer-fields-and-verify-response-integrity',
+      retentionBoundary: 'private-evidence-repository-only',
+      publicContentReuse: 'none',
+      publicImageReuse: 'none',
+    },
   },
 ] as const;

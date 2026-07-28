@@ -141,7 +141,15 @@ Anonymous community submissions feed a separate research-signal report. With a s
 
 The verified ingestion path no longer ends at a private dossier. A separate immutable release manifest now binds presentation and publication review, re-verifies the full candidate and dossier, materializes identity, final image and exact offers from the dossier, and keeps the product recommendation-ineligible by default. An empty release manifest publishes nothing; a dossier without a release remains private.
 
-The discovery batch is regenerated with `npm run catalogue:discovery:screen -- --target=1000 --write=data/catalogue-discovery-screening.json` and verified offline with `npm run catalogue:discovery:audit`. Its selection balances categories after hard preflight checks. It never upgrades a retailer SKU into a manufacturer GTIN, a product image URL into reuse permission, or a current listing into regulatory or clinical evidence.
+The discovery batch is first reviewed with
+`npm run catalogue:discovery:screen -- --target=1000 --baseline=data/catalogue-discovery-screening.json`.
+Its source and candidate churn must be accepted with the exact reported token
+before replacing the snapshot with
+`--write=data/catalogue-discovery-screening.json --accept-refresh=<token>`,
+then verified offline with `npm run catalogue:discovery:audit`. Its selection
+balances categories after hard preflight checks. It never upgrades a retailer
+SKU into a manufacturer GTIN, a product image URL into reuse permission, or a
+current listing into regulatory or clinical evidence.
 
 Imported records must have a barcode, product name, brand, mapped beauty category, source record URL, source-hosted product image, and source update timestamp. They are deduplicated against reviewed records and each other.
 

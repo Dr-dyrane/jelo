@@ -1,6 +1,6 @@
 # Catalogue operations
 
-Updated: 2026-07-26
+Updated: 2026-07-27
 
 Release one exact product at a time. Discovery can run in parallel; evidence and publication cannot be assumed.
 
@@ -83,18 +83,67 @@ Choose a candidate for:
 
 The frozen Open Beauty Facts pool and retailer discovery leads are private research. They are not public catalogue products.
 
+### Review source churn before replacing discovery
+
+Discovery reads live retailer inventory, so a new run is not expected to be
+byte-stable. It is also not permitted to silently overwrite the checked-in
+research universe. First fetch without writing and compare it with the current
+snapshot:
+
+```bash
+npm run catalogue:discovery:screen -- \
+  --target=1000 \
+  --baseline=data/catalogue-discovery-screening.json
+```
+
+The result includes an exact `refreshReview`: source-count deltas, response
+churn, added and removed discovery IDs, and a SHA-256 acceptance token bound to
+both complete semantic snapshots. Retrieval timestamps are excluded from that
+token; retailer response hashes, record counts, offers, locators, candidates,
+and selection are not. Review the complete output. To replace the snapshot,
+repeat the fetch with the token:
+
+```bash
+npm run catalogue:discovery:screen -- \
+  --target=1000 \
+  --write=data/catalogue-discovery-screening.json \
+  --accept-refresh=<exact-token-from-the-reviewed-run>
+```
+
+If the live source changes between runs, the token changes and the write fails.
+Review the new delta rather than increasing a threshold.
+
+The 2026-07-27 refresh is intentionally recorded here because its large JSON
+diff can otherwise look like accidental data loss:
+
+- source responses changed from 39 to 38;
+- source product records changed from 3,794 to 3,731;
+- eligible private leads changed from 2,434 to 2,405;
+- the bounded selection remained 1,000;
+- 928 discovery IDs remained, while 72 left and 72 entered the
+  quality-first, category-balanced selection;
+- BuyBetter now reported 11 pages. Its former page 12 contained 16 records,
+  while its current page 11 contains 47 records; the prior snapshot had 11
+  full 100-record pages plus that 16-record final page.
+
+This is live retailer source churn, not a product deletion, publication
+decision, or identity change. A lead leaving the top 1,000 remains recoverable
+from repository history and never removes an intake candidate, dossier,
+release, public product, or price history. The refresh must be followed by the
+offline discovery, research-queue, packet, and retained-offer verifiers.
+
 ## 3. Prepare a private evidence packet
 
 Use the packet preparer before authoring a new deliberate intake candidate. It makes the missing proofs visible without creating a product, changing `data/catalogue-intake.json`, or granting publication permission.
 
-The checked-in first batch is deliberately limited to eight traceable static priorities. Its discovery response digests, retailer listings, and retailer-local code leads live in `data/catalogue-research-evidence-packets.json`.
+The checked-in first batch is deliberately limited to twelve traceable static priorities. Its discovery response digests, exact retailer retrieval locators, retailer listings, and retailer-local code leads live in `data/catalogue-research-evidence-packets.json`.
 
 ```bash
 # One current static priority
 npm run catalogue:research:packets -- --static <discovery-id>
 
 # A bounded static batch (1–12); --write only updates the private packet manifest
-npm run catalogue:research:packets -- --batch 8 --write
+npm run catalogue:research:packets -- --batch 12 --write
 npm run catalogue:research:packets:verify
 ```
 
@@ -108,6 +157,54 @@ npm run catalogue:research:packets -- \
 ```
 
 Every packet begins with six empty proof slots: official identity, care, exact Nigerian offers, rights/source bytes, final image, and generation. A packet is not a partial `CatalogueIntakeCandidate`; copy verified evidence into a new deliberate candidate only after all applicable gates can be met. Retailer codes remain retailer-local leads even when their shape resembles a GTIN.
+
+### Retain exact retailer responses for the bounded packet batch
+
+The offer capture operator follows only the exact queryless Woo product API
+route stored in each checked-in static packet. It fetches at most twelve
+packets with concurrency three, accepts one same-retailer JSON product record,
+and binds its raw bytes, URL, product ID, title, size, price, stock, digest, and
+canonical evidence path. It never uses a search result or sibling listing.
+
+```bash
+# Networked dry run; writes nothing
+npm run catalogue:research:offers -- --batch 12
+
+# Explicitly retain the reviewed batch
+npm run catalogue:research:offers -- --batch 12 --write
+
+# Offline: re-open every exact byte file and its packet-derived plan
+npm run catalogue:research:offers:verify
+```
+
+`data/catalogue-research-offer-captures.json` and
+`data/catalogue-offer-source-evidence/<discovery-id>--<retailer>.json` are
+private research artifacts. Their policy is
+`private-retained-offer-source-evidence-only`, publication authority is
+`none`, and publication status is `not-a-catalogue-candidate`. A retailer SKU
+is retained only as `retailer-local-code-not-manufacturer-identity`, even when
+it is GTIN-shaped. These artifacts do not change `data/catalogue-intake.json`,
+create a dossier, create an offer, choose an image, or publish a product.
+
+Raw response retention is a separate, explicit per-source capability. Its only
+rationale is to reopen dated factual offer fields and verify response
+integrity. A grant is bounded to exact product-response bytes in the private
+evidence repository; an absent or denied grant fails before a request is made.
+It does not change the source's `link-only` content policy and grants no public
+description, page-content, image-download, image-reuse, or redistribution
+right. BuyBetter and Slique have this narrow grant for the checked-in evidence;
+Lux Beauty remains explicitly denied until a reviewed retained capture needs
+one.
+
+The capture manifest may also contain hash-bound source-quality cautions.
+These preserve the exact retailer bytes while quarantining a known bad field:
+`cross-product-visual` excludes that source image from every use, and
+`description-size-conflict` excludes the description from identity, care
+review, and public copy. The checked-in batch records both defects found during
+the 2026-07-28 retained-response and live-listing review. A recapture carries a
+caution forward only when both the capture ID and full response digest remain
+unchanged; changed bytes require a new review. Never “fix” the retailer's raw
+JSON by hand.
 
 ## 4. Lock identity
 
@@ -152,7 +249,32 @@ An exact observation binds:
 - retrieval and review timestamps;
 - response bytes, MIME type, digest, locators, and excerpts.
 
-GTIN candidates keep exact-offer schema 1. Manufacturer-SKU candidates use exact-offer schema 3 and retain the complete retailer response at `data/catalogue-offer-source-evidence/<candidate>--<retailer>.html` or `.json`, plus one exact offer-record byte range and fragment hash. Verification requires brand, title, size, package, price and stock to occur together in that record and rechecks the immutable official identity snapshot. Brand must equal the official manufacturer brand or a reviewed official-record alias and must be an explicit `Brand`, `Vendor`, or `Manufacturer` field or label. A description mention does not count. A variant-only title is acceptable only beside that explicit same-record brand field. Foreign and dual-brand listings fail. `retailerSku` may remain as retailer operations metadata but is never compared with the canonical identifier.
+Existing GTIN candidates may keep exact-offer schema 1. A new or reopened
+GTIN-bound Woo offer can use schema 4 when its exact raw JSON product response
+is retained. Schema 4 requires a queryless same-retailer
+`/wp-json/wc/store/v1/products/<positive-id>` response, canonical
+`data/catalogue-offer-source-evidence/<candidate>--<retailer>.json` path,
+complete response byte count and SHA-256, and one record whose byte range,
+source text, and fragment hash cover that complete body. Verification parses
+the complete regular, non-symlinked file as one top-level product object and
+binds the API product ID and permalink to the listing before checking title,
+size, price, stock, and the candidate's already reviewed official GTIN.
+Wrappers, arrays, product slices, and invalid surrounding bytes fail. If the
+retailer response does not publish the GTIN, the GTIN field must explicitly be
+an official-identity correlation; the retailer SKU never fills that role.
+
+Manufacturer-SKU candidates use exact-offer schema 3 and retain the complete
+retailer response at
+`data/catalogue-offer-source-evidence/<candidate>--<retailer>.html` or `.json`,
+plus one exact offer-record byte range and fragment hash. Verification requires
+brand, title, size, package, price and stock to occur together in that record
+and rechecks the immutable official identity snapshot. Brand must equal the
+official manufacturer brand or a reviewed official-record alias and must be an
+explicit `Brand`, `Vendor`, or `Manufacturer` field or label. A description
+mention does not count. A variant-only title is acceptable only beside that
+explicit same-record brand field. Foreign and dual-brand listings fail.
+`retailerSku` may remain as retailer operations metadata but is never compared
+with the canonical identifier.
 
 Use the rendered browser for stores such as Beauty by Daz when automation is blocked. Search pages, sibling redirects, stale observations, package conflicts, and ambiguous sizes remain excluded evidence.
 

@@ -8,8 +8,9 @@
 
 JeloCare should borrow the catalogue structure, not the commerce pressure.
 
-- From Apple: clear editorial shelves, restrained product metadata, category-led
-  discovery, and an optional quick-look path.
+- From Apple: distinct browse and constrained-results grammars, restrained
+  product metadata, grouped search intentions, and a decision ladder from
+  closer look to comparison to guided help.
 - From Shop: strong search, query-aware refinement, saved collections, and
   explicit controls over recommendations.
 - Keep JeloCare's differentiator: verified Nigerian price observations and
@@ -53,15 +54,19 @@ browser.
 
 This is a dated comparison of:
 
-- first-party Apple and Shop pages retrieved on 2026-07-26;
+- first-party Apple and Shop pages retrieved on 2026-07-26 and rechecked on
+  2026-07-27;
 - first-party Apple App Store listings and Shop help documentation;
 - the active JeloCare route and components in this repository.
 
-The interactive browser was unavailable in this lane, so no claim below is
-based on visual breakpoint testing. Mobile behavior is taken only from
-first-party app/help documentation and the current JeloCare responsive code.
-Before implementation is accepted, the responsive matrix in this document
-must be tested in a real browser.
+The recheck used Apple's accessible page content and embedded first-party
+catalogue data. It did not visually verify Apple's responsive breakpoints,
+animation, modal geometry, or touch behavior. The constrained Made by Apple
+page exposed its sort and facet model in first-party page data even though the
+retrieved accessible body did not render the result list. Mobile behavior is
+taken only from first-party app/help documentation and the current JeloCare
+responsive code. Before implementation is accepted, the responsive matrix in
+this document must be tested in a real browser.
 
 “Observed” means directly present in a retrieved page, first-party
 documentation, or current code. “Inference” means a proposed JeloCare
@@ -71,9 +76,15 @@ translation.
 
 | Source | Observed | JeloCare inference |
 | --- | --- | --- |
-| [Apple accessories catalogue](https://www.apple.com/shop/accessories/all) | The page begins with “Browse by Product” and “Browse by Category”, then uses named editorial shelves such as College Essentials, Charging Essentials, Travel Essentials, AirTag, and Health & Fitness. Items expose image, name, colors, selected status labels, and price. Each shelf has a category continuation link. No filter or sort labels appeared in the retrieved accessible content. | Let the first screen help people choose a path. Keep shelf titles factual and give each shelf one clear continuation. Do not make a large filter panel the first experience. |
-| [Apple iPhone catalogue](https://www.apple.com/shop/buy-iphone) | The inventory is presented under “All models. Take your pick.” Each model has a restrained identity/price block, “Take a closer look”, and “Buy”. Guidance, savings, accessories, setup, and support follow the inventory. | A dedicated secondary quick-look control can shorten decisions, but the product card itself should still have one primary destination. Guidance should remain adjacent to inventory, not embedded as dense card copy. |
-| [Apple Store app listing](https://apps.apple.com/us/app/apple-store/id375380948) | The Products tab includes recommendations, compatible accessories, categories, and seasonal offerings. “For You” contains saved items, recent activity, and order status. The listing declares support for VoiceOver, Voice Control, 200%+ text, non-color differentiation, sufficient contrast, reduced motion, and captions. | Treat accessibility states as catalogue acceptance criteria. Saves and recent activity are later systems, not small card additions. |
+| [Apple accessories catalogue](https://www.apple.com/shop/accessories/all) | The landing page begins with “Browse by Product” and “Browse by Category”, then uses named editorial shelves such as College Essentials, Charging Essentials, Travel Essentials, AirTag, and Health & Fitness. Items expose image, name, colors, selected status labels, and price. Each shelf has a category continuation link. No filter or sort labels appeared in the retrieved accessible content. | Treat open-ended discovery as a browse grammar. Let the first screen help people choose a path, keep shelf titles factual, and give each shelf one clear continuation instead of leading with a filter wall. |
+| [Apple Made by Apple results](https://www.apple.com/shop/accessories/all/made-by-apple) | This constrained collection uses a results grammar rather than the editorial landing grammar. Its first-party page data declares Featured, Newest, and price sorting; Product Type; device-compatibility facets; an Only at Apple facet; pagination; selected-filter state; loading, error, and no-results messages. | Once intent is constrained, filters and sorting become appropriate. JeloCare should keep one catalogue system while allowing browse and results pages to use different compositions and the same recoverable state contract. |
+| [Apple site search](https://www.apple.com/us/search/iphone?src=globalnav) | Search groups the same query into Explore, Accessories, Support, and Find a Store intentions. A leading iPhone result offers Explore, Shop, and Compare; model results can offer Learn more, Shop, and Support. The remaining results include buying help, switching guidance, specifications, comparison, accessories, and refurbished inventory rather than one undifferentiated product grid. | Group JeloCare results by the task a person is trying to complete: Products, Companies, Guides, Ingredients, and Stores. Do not let a matching care phrase silently become a product recommendation. |
+| [Apple iPhone catalogue](https://www.apple.com/shop/buy-iphone) and [iPhone comparison](https://www.apple.com/iphone/compare/) | The catalogue presents “All models. Take your pick.” with a restrained identity/price block, “Take a closer look”, and “Buy”. Shopping guides lead to model comparison and Specialist support. The comparison surface keeps durable specifications together, distinguishes models sold by Apple from older models available through authorized resellers, and offers chat and a guided tour. | Use a decision ladder: compact card, explicit quick look, structured comparison where the data merits it, then human guidance. A product's identity and care record must not change merely because a current retailer offer expires. |
+| [Apple delivery and pickup](https://www.apple.com/shop/shipping-pickup) | Delivery claims are explicitly conditional on in-stock and eligible items; pickup and setup have their own process and notifications. | Treat price, stock, fulfillment, market, and observed time as offer evidence, not product identity. Current availability must expire independently and must name its market and source. |
+| [Apple Store app listing](https://apps.apple.com/us/app/apple-store/id375380948) | The Products tab includes tailored recommendations, compatible accessories, categories, and seasonal offerings. “For You” contains saved items, recent activity, and order status. Apple discloses that personalization uses device, account, shopping-activity, and subscription data and points to Account > Settings. The listing also declares support for VoiceOver, Voice Control, 200%+ text, non-color differentiation, sufficient contrast, reduced motion, and captions. | Treat accessibility states as catalogue acceptance criteria. If JeloCare later personalizes, every recommendation needs an understandable reason and a control; anonymous search and comparison remain the default. |
+| [Apple Store app launch note](https://www.apple.com/in/newsroom/2025/01/apple-launches-apple-store-app-in-india/) | Apple describes Products, For You, and Go Further as distinct jobs: discovery and retail programs; timely recommendations and saved items; then post-purchase setup, learning, and Specialist support. Delivery and pickup are separate capabilities. | Do not make one JeloCare page carry discovery, comparison, evidence review, and aftercare at once. Page grammar should follow the user's current job. |
+| [Apple Store landing](https://www.apple.com/store) and [Certified Refurbished](https://www.apple.com/shop/refurbished) | The store presents products first, then help, “The Apple Store difference”, delivery, personalization, and savings. Refurbished inventory has its own named channel and places functional testing, certification, warranty, price, delivery, and environmental claims beside that channel. | Put trust where it qualifies a decision: freshness beside price, retailer identity beside an offer, and review state beside the claim it governs. Do not use a footer logo bank or repeated card badges as a substitute for evidence. |
+| [Apple Store app lookup](https://itunes.apple.com/lookup?id=375380948&country=us) | On 2026-07-27 the first-party lookup reported version 6.9, released 2026-07-22, with iOS 18 as the minimum. This confirms source recency, not the visual behavior of the app. | Record the date and boundary of every benchmark. Current metadata cannot prove a breakpoint, interaction, or layout that was not directly observed. |
 | [Apple saved items help](https://www.apple.com/shop/help/shopping_experience) | Items can be saved from a product or bag, organized into named lists, shared, and accessed online or in the Apple Store. Configuration progress persists. | If JeloCare later adds collections, build one durable cross-surface collection system rather than isolated “heart” buttons. |
 | [Shop home](https://shop.app/) | Global destinations include Home, Explore, Deals, Saved, and cart. Search is prominent and includes suggested searches. | Search should remain a first-class catalogue control. “Deals” and cart are not JeloCare concepts. |
 | [Shop Beauty category](https://shop.app/categories/5/beauty) | Beauty has subcategories, goal-led editorial collections, and shelves such as Top rated, What’s new, Scent & body, and Favorites for a reason. Product entries expose title, review count, price, and sometimes discount; store shelves expose store ratings. | Borrow subcategory and goal-led discovery. Reject ratings, popularity shelves, and discount treatment until JeloCare has independent, publishable evidence for those claims. |
@@ -81,6 +92,136 @@ translation.
 | [Shop recommendation controls](https://help.shop.app/en/shop/shopping/discover/manage-recommendations) | A product press-and-hold menu includes Visit shop, Show similar, Share, Not interested, and Report. Store controls include Visit, Follow, Not interested, and Report. | When personalization eventually exists, give people explicit controls. Do not use long-press as the only way to discover an important action. |
 | [Shop saves and follows](https://help.shop.app/en/shop/shopping/discover/save-products-and-follow-stores) | Shop supports unlimited saved products, private/public collections, collaborators, sharing, price-drop and restock alerts, and followed-store updates. | Collections and alerts are a coherent later platform capability. They should wait for identity, privacy, and evidence contracts rather than enter the current catalogue sprint. |
 | [Shop on the web](https://help.shop.app/en/shop/shopping/shop-on-the-web) | Guests can browse and search. Sign-in is required for account-bound actions such as save, follow, cart, and purchase. Not all app features exist on the web. | Keep core JeloCare search, clinical guidance, and price comparison anonymous. Ask for identity only when a durable user-owned capability requires it. |
+
+## 2026-07-27 Apple findings translated for JeloCare
+
+### Browse and results are different grammars
+
+Apple's accessories landing is a broad discovery surface: paths and editorial
+shelves come before filters. The Made by Apple collection is a constrained
+results surface: sortable, faceted, paginated, and explicit about loading,
+failure, and empty states.
+
+JeloCare should preserve that distinction without creating two catalogue
+engines:
+
+- `/products` with no active intent remains editorial and browse-led;
+- a search, shelf continuation, barcode match, or explicit filter enters the
+  constrained-results grammar;
+- both grammars use the same canonical product records, URL state, evidence
+  boundaries, result cards, and continuation behavior;
+- switching grammar must not reset active selections or invent a second card
+  implementation.
+
+### Search should route intentions, not flatten matches
+
+Apple search distinguishes exploring a product family, shopping, comparing,
+support, accessories, store finding, specifications, and refurbished stock.
+JeloCare's equivalent is not a longer mixed suggestion list. It is a small,
+stable set of grouped intentions:
+
+1. **Products** — exact product and approved company/alias matches;
+2. **Guides** — reviewed concern, routine, and ingredient education;
+3. **Stores** — retailer discovery and current eligible offers;
+4. **Companies** — canonical company and brand destinations;
+5. **Ingredients** — reviewed ingredient reference destinations.
+
+A query may retrieve several groups. It must not use guide-language similarity
+as evidence that a product suits a condition.
+
+### Decision support should escalate only when needed
+
+Apple separates the scan of a compact model card, a closer-look action,
+structured comparison, and live Specialist guidance. JeloCare can translate
+that into:
+
+- a truth-first catalogue card;
+- a restrained quick look when it shortens the next decision;
+- comparison only for normalized facts such as size, ingredients, current
+  market offers, and approved care context;
+- Ask JeloCare or a professional-care route when the decision exceeds
+  catalogue evidence.
+
+Comparison must not turn community outcomes into rankings or clinical
+recommendations.
+
+### Product identity and fresh availability are separate
+
+Apple's compare surface can retain a model's identity and specifications while
+describing its purchase channel differently. Delivery and pickup claims are
+conditional on current stock or eligibility. JeloCare needs the same separation
+with stricter provenance:
+
+- canonical product, package, ingredient, and image identity are durable;
+- each retailer, price, stock, market, channel, and observed time belongs to an
+  expiring offer observation;
+- an expired or removed offer changes where a product can be bought, not what
+  the product is;
+- a retailer SKU or barcode-shaped value cannot establish manufacturer
+  identity by itself.
+
+### Offer provenance belongs in the decision
+
+Apple distinguishes Apple-direct, authorized-reseller, and Certified
+Refurbished channels and attaches the relevant warranty, testing, delivery, or
+availability language to the channel. JeloCare must name the retailer and
+market and show checked time/freshness where price is shown. The exact source
+listing and response bytes remain private under the research-evidence contract
+and are never reused publicly. Public output may contain only reviewed,
+normalized offer facts — retailer, market, price, currency, stock state,
+package size, checked time, freshness, and the outbound listing reference —
+after product identity and publication gates pass. “Verified” cannot float as
+a general product badge when it actually describes one retailer observation.
+
+### Personalization must explain itself
+
+Apple describes compatible-accessory and For You recommendations and discloses
+the account, device, activity, subscription, and location data that may support
+them, with settings to change the behavior. JeloCare should not copy that data
+scope. If personalization is introduced later, the public interface must say
+why an item appears — for example, “Matches your saved routine step” — and
+offer Hide, Show similar, and reset controls. Affiliate value, paid placement,
+and hidden conversion ranking remain prohibited.
+
+### Camera input is a bounded opportunity
+
+The Apple Store app documents camera-assisted accessory self-checkout inside an
+Apple Store. It does **not** establish that Apple's general catalogue search is
+a universal barcode-identification system. The transferable opportunity for
+JeloCare is narrower:
+
+- offer **Scan packaging** as an optional input beside typing;
+- route an exact recognized code to an exact reviewed package;
+- show an identity check before opening or attaching an offer;
+- send an unknown code to private intake without publishing a product;
+- keep manual search available when camera permission is denied or scanning
+  fails.
+
+A scan is retrieval evidence, not publication authority, Nigerian availability,
+or proof that two packages are the same SKU.
+
+### Trust should sit beside the claim
+
+Apple's trust language appears in the relevant flow: certification and
+warranty in Refurbished, eligibility in delivery, and help beside a difficult
+choice. JeloCare should place source, retailer, market, checked time, review
+state, and care boundary next to the price or guidance they qualify. Product
+cards remain quiet. Institutional logos in a footer must never imply
+endorsement.
+
+### Limitations
+
+- No Apple responsive breakpoint or sheet geometry was visually verified in
+  this recheck.
+- Embedded page data confirms the constrained result model but not how every
+  facet is progressively disclosed on each device.
+- Apple sells within a first-party retail ecosystem; its channel trust cannot
+  be transferred to a multi-retailer Nigerian catalogue without JeloCare's
+  independent source and freshness rules.
+- Apple's personalization disclosure describes Apple, not a recommended data
+  collection scope for JeloCare.
+- Apple self-checkout supports a bounded in-store task. It is not evidence that
+  a scanned value is globally canonical or safe to publish.
 
 ## Current JeloCare baseline
 

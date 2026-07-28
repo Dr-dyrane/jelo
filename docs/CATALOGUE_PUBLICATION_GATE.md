@@ -39,9 +39,19 @@ An unresolved public registry search is durable context. The intake record may r
 
 ## Batch discovery screen
 
-Discovery is batched before dossier work. `npm run catalogue:discovery:screen -- --target=1000 --write=data/catalogue-discovery-screening.json` reads bounded WooCommerce Store API pages from reviewed Nigerian sources, binds every decoded JSON response to its final URL, retrieval time, SHA-256, MIME type and byte size, then rejects records without an exact product route, measurable size, positive NGN price or usable category. Selection is quality-first and category-balanced; it does not fill a category with weaker records merely to meet its target.
+Discovery is batched before dossier work.
+`npm run catalogue:discovery:screen -- --target=1000 --baseline=data/catalogue-discovery-screening.json`
+reads bounded WooCommerce Store API pages from reviewed Nigerian sources,
+binds every decoded JSON response to its final URL, retrieval time, SHA-256,
+MIME type and byte size, then reports source and candidate churn against the
+checked-in snapshot. Replacing that snapshot requires the exact reported
+`--accept-refresh` token, so changed bytes or selection cannot be silently
+overwritten. The screen rejects records without an exact product route,
+measurable size, positive NGN price or usable category. Selection is
+quality-first and category-balanced; it does not fill a category with weaker
+records merely to meet its target.
 
-The checked-in screen currently holds 1,000 private leads selected from 3,794 retailer records and 39 response captures. It records retailer price, stock, image URL and SKU fields only as discovery observations. A checksum-valid number in a retailer `sku` field is explicitly labelled `retailer-sku-is-not-manufacturer-identity`; it can prioritize official research but cannot satisfy identity, exact-offer, regulatory, rights, care or publication gates. Slique remains provisional and cannot gain Tier-A status through volume or duplication with another store.
+The checked-in screen currently holds 1,000 private leads selected from 3,731 retailer records and 38 response captures. It records retailer price, stock, image URL and SKU fields only as discovery observations. A checksum-valid number in a retailer `sku` field is explicitly labelled `retailer-sku-is-not-manufacturer-identity`; it can prioritize official research but cannot satisfy identity, exact-offer, regulatory, rights, care or publication gates. Slique remains provisional and cannot gain Tier-A status through volume or duplication with another store.
 
 Run the offline integrity audit before using the batch:
 

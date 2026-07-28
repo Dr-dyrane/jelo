@@ -1,3 +1,7 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import styles from './products-loading.module.css';
 
 function Line({ width }: { width: 'short' | 'medium' | 'long' }) {
@@ -17,29 +21,54 @@ function ProductSkeleton({ index }: { index: number }) {
   );
 }
 
-export default function ProductsLoading() {
+function hasCatalogueIntent(searchParams: ReturnType<typeof useSearchParams>) {
+  const hasValue = (key: string) => Boolean(searchParams.get(key)?.trim());
+
+  return (
+    hasValue('q')
+    || hasValue('category')
+    || hasValue('brand')
+    || hasValue('concern')
+    || hasValue('step')
+    || searchParams.get('market') === 'US'
+    || (hasValue('review') && searchParams.get('review') !== 'all')
+    || searchParams.get('availability') === 'priced'
+    || (hasValue('price') && searchParams.get('price') !== 'all')
+    || (hasValue('sort') && searchParams.get('sort') !== 'featured')
+  );
+}
+
+function ProductsLoadingFrame({ hasActiveIntent }: { hasActiveIntent: boolean }) {
   return (
     <main className={styles.page} aria-busy="true">
       <p className="sr-only" role="status">Loading products.</p>
 
-      <section className={styles.hero} aria-hidden="true">
-        <div className={styles.heroCopy}>
-          <Line width="short" />
-          <div className={styles.heroTitle}>
-            <Line width="long" />
+      <div className={styles.heroStage} aria-hidden="true">
+        <section className={styles.hero}>
+          <div className={styles.heroCopy}>
+            <Line width="short" />
+            <div className={styles.heroTitle}>
+              <Line width="long" />
+              <Line width="medium" />
+            </div>
+          </div>
+          <div className={styles.heroVisual} />
+        </section>
+
+        <div className={styles.searchShell}>
+          <div className={styles.search}>
+            <span className={styles.searchIcon} />
             <Line width="medium" />
+            <span className={styles.searchAction} />
+            <div className={styles.market}>
+              <span />
+              <span />
+            </div>
           </div>
         </div>
-        <div className={styles.heroVisual} />
-      </section>
-
-      <div className={styles.search} aria-hidden="true">
-        <span className={styles.searchIcon} />
-        <Line width="medium" />
-        <span className={styles.searchAction} />
       </div>
 
-      <section className={styles.shelf} aria-hidden="true">
+      {!hasActiveIntent ? <section className={styles.shelf} aria-hidden="true">
         <div className={styles.heading}>
           <Line width="short" />
           <Line width="medium" />
@@ -49,7 +78,7 @@ export default function ProductsLoading() {
             <span className={styles.railItem} key={index} />
           ))}
         </div>
-      </section>
+      </section> : null}
 
       <section className={styles.catalogue} aria-hidden="true">
         <div className={styles.catalogueHeading}>
@@ -66,5 +95,19 @@ export default function ProductsLoading() {
         </div>
       </section>
     </main>
+  );
+}
+
+function CatalogueIntentLoading() {
+  const searchParams = useSearchParams();
+
+  return <ProductsLoadingFrame hasActiveIntent={hasCatalogueIntent(searchParams)} />;
+}
+
+export default function ProductsLoading() {
+  return (
+    <Suspense fallback={<ProductsLoadingFrame hasActiveIntent={false} />}>
+      <CatalogueIntentLoading />
+    </Suspense>
   );
 }

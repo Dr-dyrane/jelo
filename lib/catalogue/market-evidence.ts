@@ -8,6 +8,7 @@ import {
 
 export const catalogueExactOfferEvidenceSchemaVersion = 1 as const;
 export const catalogueExactOfferManufacturerSkuEvidenceSchemaVersion = 3 as const;
+export const catalogueExactOfferRetainedGtinEvidenceSchemaVersion = 4 as const;
 export const catalogueRegulatoryEvidenceSchemaVersion = 2 as const;
 
 export type ExactOfferGtinLabel = 'GTIN' | 'EAN' | 'UPC';
@@ -125,6 +126,23 @@ export type ReviewedExactOfferEvidence =
     supplementalResponses?: ReviewedPackageBarcodeResponse[];
   };
 
+/**
+ * A GTIN-bound offer can retain the exact response record without invalidating
+ * established schema-1 evidence. The response itself is reopened and verified
+ * at the repository boundary; this runtime shape keeps the path, response
+ * digest, byte bounds, and retained fragment digest explicit meanwhile.
+ */
+export type ReviewedRetainedGtinExactOfferEvidence =
+  ReviewedExactOfferEvidenceBase & {
+    schemaVersion: typeof catalogueExactOfferRetainedGtinEvidenceSchemaVersion;
+    responseSnapshotPath: string;
+    offerRecord: CatalogueRetainedRecord;
+    fields: ReviewedExactOfferEvidenceBase['fields'] & {
+      gtin: ReviewedExactOfferEvidence['fields']['gtin'];
+    };
+    supplementalResponses?: ReviewedPackageBarcodeResponse[];
+  };
+
 export type ReviewedManufacturerSkuExactOfferEvidence =
   ReviewedExactOfferEvidenceBase & {
     schemaVersion: typeof catalogueExactOfferManufacturerSkuEvidenceSchemaVersion;
@@ -146,7 +164,8 @@ export type ReviewedManufacturerSkuExactOfferEvidence =
 export type ReviewedCatalogueExactOfferEvidence = ReviewedExactOfferEvidenceBase & {
   schemaVersion:
     | typeof catalogueExactOfferEvidenceSchemaVersion
-    | typeof catalogueExactOfferManufacturerSkuEvidenceSchemaVersion;
+    | typeof catalogueExactOfferManufacturerSkuEvidenceSchemaVersion
+    | typeof catalogueExactOfferRetainedGtinEvidenceSchemaVersion;
   fields: ReviewedExactOfferEvidenceBase['fields'] & {
     gtin?: ReviewedExactOfferEvidence['fields']['gtin'];
     brand?: ReviewedManufacturerSkuExactOfferEvidence['fields']['brand'];
@@ -289,6 +308,24 @@ function sameUrl(left: unknown, right: unknown) {
   return new URL(left as string).href === new URL(right as string).href;
 }
 
+function exactWooStoreApiProductResponseUrl(
+  responseUrl: unknown,
+  listingUrl: unknown,
+) {
+  if (!validHttps(responseUrl) || !validHttps(listingUrl)) return false;
+  const response = new URL(responseUrl as string);
+  const listing = new URL(listingUrl as string);
+  const normalizedHost = (url: URL) =>
+    url.hostname.replace(/^www\./, '').toLowerCase();
+  return normalizedHost(response) === normalizedHost(listing)
+    && response.port === listing.port
+    && response.username === ''
+    && response.password === ''
+    && /^\/wp-json\/wc\/store\/v1\/products\/[1-9]\d*$/.test(response.pathname)
+    && response.search === ''
+    && response.hash === '';
+}
+
 function parsedPastDate(value: unknown, asOf: number) {
   if (typeof value !== 'string') return undefined;
   const parsed = Date.parse(value);
@@ -343,7 +380,36 @@ function fieldShape(value: unknown): value is { value: unknown; locator: string;
     && 'value' in field;
 }
 
-function priceSourceMatches(sourceText: string, priceNgn: number) {
+function wooStorePriceSourceMatches(sourceText: string, priceNgn: number) {
+  try {
+    const value = JSON.parse(sourceText) as {
+      price?: unknown;
+      currency_code?: unknown;
+      currency_minor_unit?: unknown;
+    };
+    if (
+      !value
+      || typeof value !== 'object'
+      || typeof value.price !== 'string'
+      || !/^\d+$/.test(value.price)
+      || value.currency_code !== 'NGN'
+      || !Number.isSafeInteger(value.currency_minor_unit)
+      || (value.currency_minor_unit as number) < 0
+      || (value.currency_minor_unit as number) > 2
+    ) return false;
+    const minorPrice = Number(value.price);
+    return Number.isSafeInteger(minorPrice)
+      && minorPrice / 10 ** (value.currency_minor_unit as number) === priceNgn;
+  } catch {
+    return false;
+  }
+}
+
+function priceSourceMatches(
+  sourceText: string,
+  priceNgn: number,
+  retainedWooRecord = false,
+) {
   const minorUnits = priceNgn * 100;
   if (
     !Number.isFinite(priceNgn)
@@ -355,7 +421,8 @@ function priceSourceMatches(sourceText: string, priceNgn: number) {
     minimumFractionDigits: Number.isInteger(priceNgn) ? 0 : 2,
     maximumFractionDigits: 2,
   }).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return new RegExp(`(?:\\bNGN(?=\\s*\\d)|₦)\\s*(?:${plain}|${grouped})(?:\\.00)?(?![\\d.,])`, 'i').test(sourceText);
+  return new RegExp(`(?:\\bNGN(?=\\s*\\d)|₦)\\s*(?:${plain}|${grouped})(?:\\.00)?(?![\\d.,])`, 'i').test(sourceText)
+    || (retainedWooRecord && wooStorePriceSourceMatches(sourceText, priceNgn));
 }
 
 function expectedLabel(basis: ExactOfferGtinBasis | undefined): ExactOfferGtinLabel | undefined {
@@ -477,6 +544,63 @@ function sourceNamesLabel(sourceText: string, label: ExactOfferGtinLabel) {
   return pattern.test(sourceText);
 }
 
+function retainedOfferSnapshotPathValid(
+  snapshotPath: unknown,
+  mimeType: MarketEvidenceMimeType,
+) {
+  const extension = mimeType === 'application/json' ? 'json' : 'html';
+  return typeof snapshotPath === 'string'
+    && new RegExp(
+      '^data/catalogue-offer-source-evidence/'
+      + '[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*'
+      + `\\.${extension}$`,
+    ).test(snapshotPath);
+}
+
+function retainedCompleteWooProductMetadataValid(
+  record: CatalogueRetainedRecord | undefined,
+  responseByteSize: number,
+  responseSha256: string,
+  responseUrl: unknown,
+  listingUrl: unknown,
+) {
+  if (
+    !record
+    || !catalogueRetainedRecordShapeValid(record)
+    || record.byteStart !== 0
+    || record.byteEnd !== responseByteSize
+    || !hashPattern.test(responseSha256)
+    || !exactWooStoreApiProductResponseUrl(responseUrl, listingUrl)
+  ) return false;
+
+  const retainedByteSize = Buffer.byteLength(record.sourceText, 'utf8');
+  const retainedSha256 = createHash('sha256')
+    .update(record.sourceText)
+    .digest('hex');
+  if (
+    retainedByteSize !== responseByteSize
+    || retainedSha256 !== record.sourceFragmentSha256
+    || retainedSha256 !== responseSha256
+  ) return false;
+
+  let product: Record<string, unknown>;
+  try {
+    const parsed = JSON.parse(record.sourceText) as unknown;
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return false;
+    product = parsed as Record<string, unknown>;
+  } catch {
+    return false;
+  }
+  const productId = Number(
+    new URL(responseUrl as string).pathname.split('/').filter(Boolean).at(-1),
+  );
+  return (
+    product.id === productId
+    && typeof product.permalink === 'string'
+    && sameUrl(product.permalink, listingUrl)
+  );
+}
+
 export function reviewedExactOfferEvidenceValid(
   offer: ExactOfferEvidenceSubject,
   candidateIdentity: string | undefined | ExactOfferCandidateIdentifier,
@@ -515,15 +639,23 @@ export function reviewedExactOfferEvidenceValid(
     && evidence.browserCapture.documentReadyState === 'complete'
     && evidence.browserCapture.pageTitle.trim().length >= 3
   );
+  const schemaVersionValid = canonicalIdentity?.kind === 'manufacturer-sku'
+    ? evidence.schemaVersion
+      === catalogueExactOfferManufacturerSkuEvidenceSchemaVersion
+    : (
+      evidence.schemaVersion === catalogueExactOfferEvidenceSchemaVersion
+      || evidence.schemaVersion
+        === catalogueExactOfferRetainedGtinEvidenceSchemaVersion
+    );
+  const responseUrlValid = evidence.schemaVersion
+    === catalogueExactOfferRetainedGtinEvidenceSchemaVersion
+    ? exactWooStoreApiProductResponseUrl(evidence.responseUrl, offer.listingUrl)
+    : sameUrl(evidence.responseUrl, offer.listingUrl);
   if (
-    evidence.schemaVersion !== (
-      canonicalIdentity?.kind === 'manufacturer-sku'
-        ? catalogueExactOfferManufacturerSkuEvidenceSchemaVersion
-        : catalogueExactOfferEvidenceSchemaVersion
-    )
+    !schemaVersionValid
     || (!rawResponseEvidence && !browserResponseEvidence && !accessibleBrowserResponseEvidence)
     || !sameUrl(evidence.listingUrl, offer.listingUrl)
-    || !sameUrl(evidence.responseUrl, offer.listingUrl)
+    || !responseUrlValid
     || !hashPattern.test(evidence.responseSha256)
     || !['application/json', 'text/html'].includes(evidence.responseMimeType)
     || !Number.isSafeInteger(evidence.responseByteSize)
@@ -578,11 +710,10 @@ export function reviewedExactOfferEvidenceValid(
       && offer.observedGtin == null
       && gtinField == null
       && 'responseSnapshotPath' in evidence
-      && new RegExp(
-        '^data/catalogue-offer-source-evidence/'
-        + '[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*'
-        + (evidence.responseMimeType === 'application/json' ? '\\.json$' : '\\.html$'),
-      ).test(evidence.responseSnapshotPath ?? '')
+      && retainedOfferSnapshotPathValid(
+        evidence.responseSnapshotPath,
+        evidence.responseMimeType,
+      )
       && 'offerRecord' in evidence
       && catalogueRetainedRecordShapeValid(evidence.offerRecord)
       && (!supplementalResponses || supplementalResponses.length === 0)
@@ -637,8 +768,29 @@ export function reviewedExactOfferEvidenceValid(
       )
       && identityCorrelation == null
     );
+  const retainedGtinMetadataValid = evidence.schemaVersion
+    !== catalogueExactOfferRetainedGtinEvidenceSchemaVersion
+    || (
+      canonicalIdentity?.kind === 'gtin'
+      && evidence.method === 'reviewed-exact-offer-field-extraction'
+      && evidence.responseDigestScope === 'decoded-response-body'
+      && evidence.responseMimeType === 'application/json'
+      && evidence.browserCapture == null
+      && retainedOfferSnapshotPathValid(
+        evidence.responseSnapshotPath,
+        evidence.responseMimeType,
+      )
+      && retainedCompleteWooProductMetadataValid(
+        evidence.offerRecord,
+        evidence.responseByteSize,
+        evidence.responseSha256,
+        evidence.responseUrl,
+        offer.listingUrl,
+      )
+    );
   return Boolean(
     identityBindingValid
+    && retainedGtinMetadataValid
     && typeof fields.title.value === 'string'
     && normalized(fields.title.value) === normalized(offer.observedTitle)
     && normalized(fields.title.sourceText).includes(normalized(fields.title.value))
@@ -658,7 +810,11 @@ export function reviewedExactOfferEvidenceValid(
     && typeof fields.price.value === 'number'
     && fields.price.value === offer.priceNgn
     && fields.price.currency === 'NGN'
-    && priceSourceMatches(fields.price.sourceText, fields.price.value)
+    && priceSourceMatches(
+      fields.price.sourceText,
+      fields.price.value,
+      evidence.schemaVersion === catalogueExactOfferRetainedGtinEvidenceSchemaVersion,
+    )
     && typeof fields.stock.value === 'string'
     && fields.stock.value === offer.stock
     && stockSourceMatches(fields.stock.sourceText, fields.stock.value)

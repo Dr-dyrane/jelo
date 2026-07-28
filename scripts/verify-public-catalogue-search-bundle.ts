@@ -25,6 +25,7 @@ const maximumTraceBytes = 2.5 * 1024 * 1024;
 
 const forbiddenPathFragments = [
   '/data/catalogue-intake',
+  '/data/catalogue-offer-source-evidence',
   '/data/catalogue-publication',
   '/data/catalogue-research',
   '/data/catalogue-discovery',

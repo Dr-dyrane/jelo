@@ -1,0 +1,109 @@
+.page {
+  min-height: max(38rem, 72svh);
+  padding: clamp(8.5rem, 14vw, 11rem) 4vw 7vw;
+  overflow: clip;
+  background: linear-gradient(180deg, #fbf0eb 0%, #fff8f5 54%, #f9e8e7 100%);
+}
+
+.state {
+  min-height: clamp(24rem, 52svh, 38rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border-block: 1px solid color-mix(in srgb, var(--wine) 14%, transparent);
+}
+
+.state > p {
+  margin: 0;
+  color: var(--wine);
+  font-size: .68rem;
+}
+
+.state h1 {
+  max-width: 9ch;
+  margin: .75rem 0 1rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4rem, 9vw, 8.5rem);
+  font-weight: 400;
+  line-height: .82;
+  letter-spacing: -.045em;
+}
+
+.state > span {
+  max-width: 32rem;
+  color: var(--muted);
+  font-size: clamp(.9rem, 1.35vw, 1.05rem);
+  line-height: 1.6;
+}
+
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+}
+
+.actions button,
+.actions a {
+  min-height: 2.9rem;
+  padding: .78rem 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: .75rem;
+  cursor: pointer;
+}
+
+.actions button {
+  background: var(--ink);
+  color: var(--on-accent);
+}
+
+.actions a {
+  background: color-mix(in srgb, var(--paper) 68%, transparent);
+  color: var(--ink);
+}
+
+.actions button:focus-visible,
+.actions a:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .page {
+    min-height: 72svh;
+    padding: 7.5rem 1rem 4rem;
+  }
+
+  .state {
+    min-height: 26rem;
+  }
+
+  .state h1 {
+    font-size: clamp(3.8rem, 18vw, 5.5rem);
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .actions button,
+  .actions a {
+    flex: 1 1 9rem;
+  }
+}
+
+:global(html[data-theme='dark']) .page {
+  background: linear-gradient(180deg, var(--cream), var(--surface-3) 54%, var(--cream));
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .page {
+    background: linear-gradient(180deg, var(--cream), var(--surface-3) 54%, var(--cream));
+  }
+}

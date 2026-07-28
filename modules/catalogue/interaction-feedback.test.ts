@@ -55,7 +55,7 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(catalogue, /clearHref=\{href\(params, \{ q: null \}, 'all-products'\)\}/);
   assert.equal(
     (catalogue.match(/<DiscoveryRail[\s\S]*?href=\{href\(params,[\s\S]*?'all-products'\)\}/g) ?? []).length,
-    5,
+    1,
   );
   assert.match(catalogue, /\['category', 'routine', 'concern'\]/);
   assert.match(catalogue, /result\.facets\.steps/);

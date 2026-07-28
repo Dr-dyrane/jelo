@@ -50,12 +50,12 @@ test('prepares a bounded, traceable static batch while keeping retailer codes ou
     discoverySnapshot as CatalogueDiscoverySnapshot,
     catalogueResearchQueueDigest(queueBytes),
     catalogueResearchQueueDigest(snapshotBytes),
-    { mode: 'batch', count: 8 },
+    { mode: 'batch', count: 12 },
   );
 
   assert.equal(manifest.policy, 'private-evidence-packet-only');
   assert.equal(manifest.publicationStatus, catalogueResearchEvidencePacketPublicationStatus);
-  assert.equal(manifest.packets.length, 8);
+  assert.equal(manifest.packets.length, 12);
   assert.equal(manifest.packets.every(packet => packet.source === 'static-priority'), true);
   assert.doesNotThrow(() => assertPrivateResearchEvidencePacketManifest(manifest));
 
@@ -87,6 +87,29 @@ test('rejects stale static source hashes and oversized batches', async () => {
     catalogueResearchQueueDigest(snapshotBytes),
     { mode: 'batch', count: maximumCatalogueResearchPacketBatch + 1 },
   ), /between 1 and/);
+});
+
+test('requires an exact retailer product API pathname', async () => {
+  const { snapshotBytes, queueBytes } = await staticInputs();
+  const manifest = buildStaticResearchEvidencePacketManifest(
+    researchQueue as CatalogueResearchQueue,
+    discoverySnapshot as CatalogueDiscoverySnapshot,
+    catalogueResearchQueueDigest(queueBytes),
+    catalogueResearchQueueDigest(snapshotBytes),
+    { mode: 'batch', count: 1 },
+  );
+  const packet = manifest.packets[0];
+  assert.equal(packet.source, 'static-priority');
+  if (packet.source !== 'static-priority') throw new Error('Expected static packet.');
+  const observation = packet.discoveryEvidence.observations[0];
+  const route = new URL(observation.sourceProductApiUrl);
+  route.pathname = `/prefixed${route.pathname}`;
+  observation.sourceProductApiUrl = route.toString();
+
+  assert.throws(
+    () => assertPrivateResearchEvidencePacketManifest(manifest),
+    /not scoped to its listing/,
+  );
 });
 
 test('accepts aggregate community tasks without retaining contributor identifiers', () => {
@@ -148,7 +171,7 @@ test('the checked-in first batch is deterministic and invisible to public catalo
     discoverySnapshot as CatalogueDiscoverySnapshot,
     catalogueResearchQueueDigest(queueBytes),
     catalogueResearchQueueDigest(snapshotBytes),
-    { mode: 'batch', count: 8 },
+    { mode: 'batch', count: 12 },
   );
   assert.deepEqual(stored, expected);
   assert.doesNotThrow(() => assertPrivateResearchEvidencePacketManifest(stored));

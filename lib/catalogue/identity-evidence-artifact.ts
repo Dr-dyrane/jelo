@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { lstat, readFile, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import {
   catalogueIdentityExtractionCanonicalJson,
@@ -9,7 +9,9 @@ import {
 } from './intake-readiness';
 import {
   catalogueExactOfferManufacturerSkuEvidenceSchemaVersion,
+  catalogueExactOfferRetainedGtinEvidenceSchemaVersion,
   type ReviewedManufacturerSkuExactOfferEvidence,
+  type ReviewedRetainedGtinExactOfferEvidence,
 } from './market-evidence';
 import {
   sourceTextNamesCatalogueBrandField,
@@ -705,6 +707,7 @@ function verifyRetainedManufacturerSource(
 }
 
 type ReviewedManufacturerSkuOfferEvidence = ReviewedManufacturerSkuExactOfferEvidence;
+type ReviewedRetainedGtinOfferEvidence = ReviewedRetainedGtinExactOfferEvidence;
 
 function retailerSlug(value: string) {
   return value
@@ -726,6 +729,51 @@ function retainedOfferFieldPresent(
   return normalizedSourceText.length >= 3
     && valuePresent
     && retainedTextSegments(source).some(segment => segment.includes(normalizedSourceText));
+}
+
+function retainedOfferSizeFieldPresent(
+  source: string,
+  field: { value: string; sourceText: string },
+) {
+  const expected = retainedMeasurementTokens(field.value);
+  const sourceTextTokens = retainedMeasurementTokens(field.sourceText);
+  if (
+    expected.length === 0
+    || !expected.every(token => sourceTextTokens.includes(token))
+  ) return false;
+  const sourceTokens = retainedMeasurementTokens(source);
+  return expected.every(token => sourceTokens.includes(token));
+}
+
+function retainedWooPriceFieldPresent(
+  source: string,
+  field: ReviewedRetainedGtinOfferEvidence['fields']['price'],
+) {
+  try {
+    const value = JSON.parse(field.sourceText) as {
+      price?: unknown;
+      currency_code?: unknown;
+      currency_minor_unit?: unknown;
+    };
+    if (
+      !value
+      || typeof value !== 'object'
+      || typeof value.price !== 'string'
+      || !/^\d+$/.test(value.price)
+      || value.currency_code !== 'NGN'
+      || !Number.isSafeInteger(value.currency_minor_unit)
+      || (value.currency_minor_unit as number) < 0
+      || (value.currency_minor_unit as number) > 2
+      || Number(value.price) / 10 ** (value.currency_minor_unit as number)
+        !== field.value
+    ) return false;
+    const normalizedSourceText = normalizedRetainedText(field.sourceText);
+    return retainedTextSegments(source).some(segment => (
+      segment.includes(normalizedSourceText)
+    ));
+  } catch {
+    return false;
+  }
 }
 
 function retainedOfferIdentityFieldPresent(
@@ -823,7 +871,7 @@ function verifyRetainedManufacturerOfferSource(
       fields.title,
       evidence.responseMimeType,
     )
-    || !retainedOfferFieldPresent(source, fields.size)
+    || !retainedOfferSizeFieldPresent(source, fields.size)
     || (fields.packageVersion != null
       && !retainedOfferFieldPresent(source, fields.packageVersion))
     || !retainedOfferFieldPresent(source, fields.price)
@@ -848,6 +896,101 @@ function verifyRetainedManufacturerOfferSource(
       `${candidate.id} retained ${retailer} offer names a foreign or ambiguous brand.`,
     );
   }
+}
+
+function verifyRetainedGtinOfferSource(
+  candidate: CatalogueIntakeCandidate,
+  retailer: string,
+  evidence: ReviewedRetainedGtinOfferEvidence,
+  bytes: Buffer,
+) {
+  if (
+    !sha256Pattern.test(evidence.responseSha256)
+    || bytes.byteLength !== evidence.responseByteSize
+    || createHash('sha256').update(bytes).digest('hex') !== evidence.responseSha256
+  ) {
+    throw new Error(`${candidate.id} retained ${retailer} GTIN offer response bytes changed.`);
+  }
+
+  const completeRecord = (
+    evidence.offerRecord.byteStart === 0
+    && evidence.offerRecord.byteEnd === bytes.byteLength
+    && evidence.offerRecord.sourceText === bytes.toString('utf8')
+    && evidence.offerRecord.sourceFragmentSha256 === evidence.responseSha256
+  );
+  const retainedRecord = completeRecord
+    ? verifiedCatalogueRetainedRecord(bytes, evidence.offerRecord)
+    : undefined;
+  if (!retainedRecord) {
+    throw new Error(
+      `${candidate.id} retained ${retailer} GTIN offer record must bind the complete response bytes.`,
+    );
+  }
+  const source = bytes.toString('utf8');
+  let product: Record<string, unknown>;
+  try {
+    const parsed = JSON.parse(source) as unknown;
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error();
+    product = parsed as Record<string, unknown>;
+  } catch {
+    throw new Error(`${candidate.id} retained ${retailer} GTIN offer is not one JSON product record.`);
+  }
+
+  const responseUrl = new URL(evidence.responseUrl);
+  const productId = Number(responseUrl.pathname.split('/').filter(Boolean).at(-1));
+  if (
+    !Number.isSafeInteger(productId)
+    || productId <= 0
+    || product.id !== productId
+    || typeof product.permalink !== 'string'
+    || !sameRetainedUrl(product.permalink, evidence.listingUrl)
+  ) {
+    throw new Error(
+      `${candidate.id} retained ${retailer} GTIN offer does not bind its API record to the listing.`,
+    );
+  }
+
+  const fields = evidence.fields;
+  if (
+    !retainedOfferIdentityFieldPresent(source, fields.title, 'application/json')
+    || !retainedOfferSizeFieldPresent(source, fields.size)
+    || (fields.packageVersion != null
+      && !retainedOfferFieldPresent(source, fields.packageVersion))
+    || !retainedWooPriceFieldPresent(source, fields.price)
+    || !retainedOfferFieldPresent(source, fields.stock)
+    || (
+      (fields.gtin.responseRole ?? 'listing-response') === 'listing-response'
+      && !retainedOfferFieldPresent(source, fields.gtin)
+    )
+  ) {
+    throw new Error(
+      `${candidate.id} retained ${retailer} GTIN offer response does not contain every claimed field.`,
+    );
+  }
+}
+
+async function readCanonicalRetainedOffer(
+  repositoryRoot: string,
+  expectedRoot: string,
+  relativePath: string,
+  label: string,
+) {
+  const absolutePath = path.resolve(repositoryRoot, relativePath);
+  if (path.dirname(absolutePath) !== expectedRoot) {
+    throw new Error(`${label} escapes the checked-in offer evidence directory.`);
+  }
+  const stats = await lstat(absolutePath);
+  if (!stats.isFile() || stats.isSymbolicLink()) {
+    throw new Error(`${label} is not a regular checked-in evidence file.`);
+  }
+  const [rootRealPath, fileRealPath] = await Promise.all([
+    realpath(expectedRoot),
+    realpath(absolutePath),
+  ]);
+  if (path.dirname(fileRealPath) !== rootRealPath) {
+    throw new Error(`${label} resolves outside the checked-in offer evidence directory.`);
+  }
+  return readFile(absolutePath);
 }
 
 export async function verifyCatalogueIdentityEvidenceArtifacts(
@@ -957,6 +1100,46 @@ export async function verifyCatalogueIdentityEvidenceArtifacts(
           officialBrandAliases,
         );
       }
+    }
+
+    for (const offer of candidate.nigeria.exactOffers) {
+      const offerEvidence = offer.evidence;
+      if (
+        !offerEvidence
+        || offerEvidence.schemaVersion
+          !== catalogueExactOfferRetainedGtinEvidenceSchemaVersion
+      ) continue;
+      if (
+        !offerEvidence.responseSnapshotPath
+        || !offerEvidence.offerRecord
+        || !offerEvidence.fields.gtin
+      ) {
+        throw new Error(
+          `${candidate.id} retained ${offer.retailer} GTIN offer evidence is incomplete.`,
+        );
+      }
+      const retainedGtinEvidence = offerEvidence as ReviewedRetainedGtinOfferEvidence;
+      const expectedOfferSourcePath = (
+        `data/catalogue-offer-source-evidence/${candidate.id}`
+        + `--${retailerSlug(offer.retailer)}.json`
+      );
+      if (retainedGtinEvidence.responseSnapshotPath !== expectedOfferSourcePath) {
+        throw new Error(
+          `${candidate.id} retained ${offer.retailer} GTIN offer response path is not canonical.`,
+        );
+      }
+      const offerSourceBytes = await readCanonicalRetainedOffer(
+        repositoryRoot,
+        offerSourceEvidenceRoot,
+        retainedGtinEvidence.responseSnapshotPath,
+        `${candidate.id} retained ${offer.retailer} GTIN offer`,
+      );
+      verifyRetainedGtinOfferSource(
+        candidate,
+        offer.retailer,
+        retainedGtinEvidence,
+        offerSourceBytes,
+      );
     }
     verified += 1;
   }

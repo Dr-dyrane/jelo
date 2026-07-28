@@ -1,0 +1,124 @@
+.page {
+  overflow: clip;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--wash-a), var(--wash-hero));
+}
+
+.visual {
+  background: var(--product-peach);
+}
+
+.packshot,
+.line,
+.meta span,
+.panel {
+  background: color-mix(in srgb, var(--surface-2) 78%, var(--wine));
+}
+
+.packshot {
+  width: min(58%, 21rem);
+  aspect-ratio: .62;
+  display: block;
+  border-radius: 2.2rem;
+}
+
+.story {
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.line {
+  height: .72rem;
+  display: block;
+  border-radius: 999px;
+}
+
+.line[data-width='short'] { width: 28%; }
+.line[data-width='medium'] { width: 58%; }
+.line[data-width='long'] { width: 84%; }
+
+.title {
+  margin: clamp(1rem, 2.5vh, 2rem) 0;
+  display: grid;
+  gap: .8rem;
+}
+
+.title .line {
+  height: clamp(3.8rem, min(7vw, 10vh), 7rem);
+  border-radius: 1.2rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+.meta span {
+  width: 5.5rem;
+  height: 2rem;
+  border-radius: 999px;
+}
+
+.price {
+  margin: .4rem 0;
+}
+
+.price .line {
+  height: clamp(2.2rem, 4vw, 4rem);
+  border-radius: 1rem;
+}
+
+.panel {
+  min-height: 11rem;
+  margin-top: .6rem;
+  padding: 1.4rem;
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  border-radius: 1.5rem;
+  background-color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .packshot,
+  .line,
+  .meta span,
+  .panel {
+    background-image: linear-gradient(
+      90deg,
+      transparent 25%,
+      color-mix(in srgb, var(--paper) 40%, transparent) 42%,
+      transparent 60%
+    );
+    background-size: 240% 100%;
+    animation: product-detail-skeleton 1.45s var(--ease-standard) infinite;
+  }
+}
+
+@keyframes product-detail-skeleton {
+  from { background-position: 110% 0; }
+  to { background-position: -110% 0; }
+}
+
+@media (max-width: 900px) {
+  .packshot {
+    width: min(48%, 18rem);
+  }
+
+  .story {
+    padding: 5rem 6vw;
+  }
+}
+
+@media (max-width: 620px) {
+  .story {
+    padding: 4rem 1rem;
+  }
+
+  .title .line {
+    height: clamp(3.1rem, 15vw, 4.8rem);
+  }
+}

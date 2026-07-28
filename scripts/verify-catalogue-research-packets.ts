@@ -23,7 +23,7 @@ async function main() {
     discoverySnapshot as CatalogueDiscoverySnapshot,
     catalogueResearchQueueDigest(queueBytes),
     catalogueResearchQueueDigest(snapshotBytes),
-    { mode: 'batch', count: 8 },
+    { mode: 'batch', count: 12 },
   );
   assertPrivateResearchEvidencePacketManifest(stored);
   if (JSON.stringify(stored) !== JSON.stringify(expected)) {

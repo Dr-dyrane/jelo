@@ -19,6 +19,13 @@ const directorySource: CatalogueDiscoverySource = {
   reviewStatus: 'directory-listed',
   trust: 95,
   contentUse: 'link-only',
+  privateSourceByteRetention: {
+    capability: 'private-exact-product-response-audit',
+    rationale: 'reopen-dated-offer-fields-and-verify-response-integrity',
+    retentionBoundary: 'private-evidence-repository-only',
+    publicContentReuse: 'none',
+    publicImageReuse: 'none',
+  },
 };
 
 const provisionalSource: CatalogueDiscoverySource = {
@@ -69,6 +76,11 @@ test('a GTIN-shaped retailer SKU stays an unverified identity lead', () => {
   assert.equal(result.seed.nextAction, 'confirm-official-identity');
   assert.equal(result.seed.publicationStatus, 'private-discovery-only');
   assert.equal(result.seed.retailerObservations[0].priceNgn, 15_265);
+  assert.equal(result.seed.retailerObservations[0].sourceProductId, 1);
+  assert.equal(
+    result.seed.retailerObservations[0].sourceProductApiUrl,
+    'https://directory.example/wp-json/wc/store/v1/products/1',
+  );
 });
 
 test('matching retailer-number leads group for research without becoming identity proof', () => {
@@ -120,6 +132,12 @@ test('the cheap screen rejects unusable routes, missing sizes and non-NGN prices
     'product-route-invalid': 1,
     'size-missing': 1,
   });
+});
+
+test('rejects a missing retailer record id instead of inventing an exact capture route', () => {
+  const result = screenDiscoveryProduct(input(directorySource, { id: 0 }));
+  assert.equal(result.seed, undefined);
+  assert.equal(result.rejection, 'source-product-id-invalid');
 });
 
 test('the checked-in discovery batch is large, traceable and incapable of publication', async () => {

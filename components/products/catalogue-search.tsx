@@ -53,6 +53,11 @@ type Props = {
   suggestions: CatalogueSearchSuggestion[];
 };
 
+type RemoteSuggestionOutcome = {
+  query: string;
+  state: 'ready' | 'empty' | 'paused' | 'unavailable';
+};
+
 export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, suggestions }: Props) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -62,6 +67,7 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
   const [activeIndex, setActiveIndex] = useState(-1);
   const [remoteSuggestions, setRemoteSuggestions] = useState<CatalogueSearchSuggestion[]>([]);
   const [remoteQuery, setRemoteQuery] = useState('');
+  const [remoteOutcome, setRemoteOutcome] = useState<RemoteSuggestionOutcome | null>(null);
   const [loading, setLoading] = useState(false);
   const listboxId = `${useId().replace(/:/g, '')}-catalogue-suggestions`;
   const requestQuery = value.trim().replace(/\s+/g, ' ');
@@ -74,8 +80,20 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
   );
   const isLoading = requestQuery.length >= catalogueSuggestionMinimumQueryLength
     && (loading || remoteQuery !== requestQuery);
+  const settledRemoteState = remoteOutcome?.query === requestQuery ? remoteOutcome.state : null;
+  const searchAllHref = useMemo(() => {
+    const params = new URLSearchParams({ q: requestQuery, market });
+    return `/products?${params.toString()}#all-products`;
+  }, [market, requestQuery]);
+  const remoteFeedback = !isLoading && settledRemoteState === 'paused'
+    ? 'Search is taking a short pause.'
+    : !isLoading && settledRemoteState === 'unavailable'
+      ? 'More results are not available right now.'
+      : !isLoading && settledRemoteState === 'empty'
+        ? matches.length > 0 ? 'That is everything we found here.' : 'No close match yet.'
+        : '';
   const currentActiveIndex = activeIndex >= 0 && activeIndex < matches.length ? activeIndex : -1;
-  const showSuggestions = expanded && (matches.length > 0 || isLoading);
+  const showSuggestions = expanded && (matches.length > 0 || isLoading || Boolean(remoteFeedback));
 
   useEffect(() => {
     function closeOnOutsidePointer(event: PointerEvent) {
@@ -100,17 +118,31 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
           headers: { Accept: 'application/json' },
           signal: controller.signal,
         });
+        if (response.status === 429) {
+          if (!controller.signal.aborted) {
+            setRemoteSuggestions([]);
+            setRemoteQuery(requestQuery);
+            setRemoteOutcome({ query: requestQuery, state: 'paused' });
+          }
+          return;
+        }
         if (!response.ok) throw new Error(`Catalogue search returned ${response.status}.`);
         const payload: unknown = await response.json();
         if (!controller.signal.aborted) {
-          setRemoteSuggestions(validRemoteSuggestions(payload));
+          const nextSuggestions = validRemoteSuggestions(payload);
+          setRemoteSuggestions(nextSuggestions);
           setRemoteQuery(requestQuery);
+          setRemoteOutcome({
+            query: requestQuery,
+            state: nextSuggestions.length > 0 ? 'ready' : 'empty',
+          });
         }
       } catch (error) {
         if (!controller.signal.aborted) {
           console.error('Catalogue suggestions unavailable.', error);
           setRemoteSuggestions([]);
           setRemoteQuery(requestQuery);
+          setRemoteOutcome({ query: requestQuery, state: 'unavailable' });
         }
       } finally {
         if (!controller.signal.aborted) setLoading(false);
@@ -218,7 +250,7 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
 
       <p className="sr-only" role="status" aria-live="polite">
         {expanded
-          ? `${matches.length} ${matches.length === 1 ? 'suggestion' : 'suggestions'}.${isLoading ? ' Finding matches.' : ''}`
+          ? `${matches.length} ${matches.length === 1 ? 'suggestion' : 'suggestions'}.${isLoading ? ' Finding matches.' : ''}${remoteFeedback ? ` ${remoteFeedback} Search all products is available.` : ''}`
           : ''}
       </p>
       {showSuggestions ? <section className={styles.suggestions} aria-label="Search suggestions" aria-busy={isLoading}>
@@ -245,6 +277,19 @@ export function CatalogueSearch({ defaultValue, clearHref, market, marketHrefs, 
             <ChevronRight size={17} strokeWidth={1.8} aria-hidden="true" />
           </Link>)}
         </div>
+        {remoteFeedback ? <div className={styles.searchFallback}>
+          <p>{remoteFeedback}</p>
+          <Link
+            href={searchAllHref}
+            onClick={() => {
+              closeSuggestions();
+              recordCatalogueTransition(searchAllHref);
+            }}
+          >
+            <span>Search all products</span>
+            <ChevronRight size={17} strokeWidth={1.8} aria-hidden="true" />
+          </Link>
+        </div> : null}
       </section> : null}
     </div>
   );

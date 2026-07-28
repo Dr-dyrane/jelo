@@ -4,6 +4,10 @@
   background: linear-gradient(180deg, #fbf0eb 0%, #fff8f5 34%, #f9e8e7 100%);
 }
 
+.heroStage {
+  display: contents;
+}
+
 .hero {
   min-height: 43rem;
   margin: 0 4vw;
@@ -40,6 +44,7 @@
 .line,
 .searchIcon,
 .searchAction,
+.market span,
 .filter {
   background: color-mix(in srgb, var(--surface-2) 78%, var(--wine));
 }
@@ -58,15 +63,18 @@
 .line[data-width='medium'] { width: 58%; }
 .line[data-width='long'] { width: 84%; }
 
-.search {
+.searchShell {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   width: min(70rem, calc(100% - 2rem));
-  min-height: 4.5rem;
   margin: -2.25rem auto 0;
+}
+
+.search {
+  min-height: 4.5rem;
   padding: .75rem 1rem;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
   align-items: center;
   gap: .85rem;
   border-radius: 1.45rem;
@@ -85,6 +93,21 @@
   width: 5rem;
   height: 2.7rem;
   border-radius: 999px;
+}
+
+.market {
+  padding: .25rem;
+  display: flex;
+  gap: .2rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-2) 86%, transparent);
+}
+
+.market span {
+  width: 3.45rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-2) 72%, var(--wine));
 }
 
 .shelf {
@@ -145,12 +168,12 @@
 }
 
 .productVisual {
-  height: clamp(16rem, 23vw, 25rem);
-  border-radius: 1.35rem;
+  height: 20rem;
+  border-radius: 1.75rem;
 }
 
 .productCopy {
-  padding: 1rem .15rem 0;
+  padding: 1rem .35rem 0;
   display: grid;
   gap: .7rem;
 }
@@ -162,6 +185,7 @@
   .line,
   .searchIcon,
   .searchAction,
+  .market span,
   .filter {
     background-image: linear-gradient(
       90deg,
@@ -184,10 +208,13 @@
 }
 
 @media (max-width: 820px) {
+  .heroStage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .hero {
-    min-height: 0;
-    grid-template-columns: 1fr;
-    padding-top: 4.75rem;
+    display: contents;
   }
 
   .heroCopy {
@@ -196,10 +223,18 @@
     padding: 7rem 4vw 2.4rem;
   }
 
+  .searchShell {
+    order: 2;
+    width: min(70rem, calc(100% - 2rem));
+    margin: -1.5rem auto 0;
+  }
+
   .heroVisual {
     min-height: 0;
     aspect-ratio: 2 / 1;
-    order: 2;
+    order: 3;
+    margin: 1.5rem 4vw 0;
+    border-radius: 2rem;
   }
 
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -215,17 +250,36 @@
   .heroCopy {
     min-height: 0;
     padding: 6.6rem 1rem 2.6rem;
+    justify-content: flex-start;
   }
 
   .heroTitle .line {
     height: clamp(3rem, 14vw, 4.6rem);
   }
 
-  .heroVisual { aspect-ratio: 16 / 10; }
+  .heroVisual {
+    aspect-ratio: 16 / 10;
+    margin: 1rem 1rem 0;
+    border-radius: 1.75rem;
+  }
+
+  .searchShell {
+    width: calc(100% - 1.25rem);
+    margin: -1.25rem auto 0;
+  }
 
   .search {
-    width: calc(100% - 1.25rem);
-    margin-top: -1.25rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .market {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .market span {
+    width: auto;
+    flex: 1;
   }
 
   .shelf,
@@ -245,14 +299,14 @@
   .filter { width: 2.8rem; }
 
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, max(9.5rem, 46%)), 1fr));
     gap: .85rem .65rem;
   }
 
   .productVisual {
     height: auto;
-    aspect-ratio: .78;
-    border-radius: 1.15rem;
+    aspect-ratio: .82;
+    border-radius: 1.35rem;
   }
 
   .product[data-index='6'],
