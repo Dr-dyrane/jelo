@@ -65,6 +65,23 @@ An unresolved public registry search is durable context. The intake record may r
    Price currency and amount are parsed together; negated stock cannot count as availability. The brand route also snapshots reviewer-attributed seller/host authorization from a source valid for that candidate's brand and manufacturer identity. Bare hand-entered observations, retailer SKUs, unlabeled numbers and matching digits never qualify.
 6. The primary catalogue image has one role: `packshot`. Final packaging must be intact, source-faithful, magazine-ready, genuinely transparent, at least 1,600 × 1,600, and manually compared with the exact product on peach, pink, and dark surfaces. An opaque white canvas, studio canvas, styled scene, or hidden semi-transparent photo plane cannot enter a public product shelf. The display approval is bound to the final file hash, MIME type, byte size and decoded dimensions.
 7. Untouched licensed photography, permitted official brand media, owned editorial photography, or a JeloCare-owned identity-verified render may pass. Source-pixel isolation remains private until a checked-in typed record binds the source and output hashes, pipeline, model, runtime, audit and reviewer chronology into the dossier. Styled composites are not a packshot origin and are rejected even if their background treatment is relabelled.
+
+   That isolation record is `data/catalogue-packshot-isolations.json`, typed and
+   enforced by `lib/catalogue/packshot-isolation-record.ts`. One record binds one
+   candidate: the candidate's own source URL, hash, byte size and dimensions; its
+   canonical GTIN or manufacturer-SKU identity and official product URL; the pinned
+   `exact-sku-source-pixel-isolation-v3` pipeline with `identity-master-source-pixels-only`
+   package RGB, the CPU execution provider, and the model and runtime-lock hashes;
+   an audit proving no foreground component or fraction was discarded and that the
+   subject never touched a source edge; the exact published output hash, byte size
+   and decoded dimensions; and two ordered reviewers across peach, pink and dark.
+   Retrieval must precede processing, which must precede identity review, which
+   must precede art review. A record naming another candidate, a duplicate record,
+   or any hash that does not match what the candidate publishes fails closed, and
+   the record is copied into the fingerprinted dossier so later tampering is
+   detectable. This route reuses the manufacturer's own photographed pixels, so it
+   still requires permitted official brand media under rule 7 — it is not a way
+   around source-image reuse restrictions, which remains rule 8's purpose.
 8. A generated render is a valid route around source-image reuse restrictions, not around identity review. Its canonical content-addressed generation record names the provider, model, full prompt, every input URL and SHA-256, exact output SHA-256 and generation time. The gate recomputes the record hash, requires the immutable source asset among its inputs, rejects an input reused as the output, and enforces source retrieval → generation → full-resolution art review → publication approval. Label, variant, size, packaging geometry and required marks must match the manufacturer product, and packaging cannot be invented.
 9. Unreviewed automated output cannot pass. A transparent isolation or generated render needs full-resolution side-by-side review, clean edges on every product surface, and no altered label or chroma fringe; manual checks alone do not replace the missing durable isolation record.
 10. Any bound source identity, care, rights, provenance, static offer evidence,

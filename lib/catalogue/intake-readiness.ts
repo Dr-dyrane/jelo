@@ -1,5 +1,11 @@
 import { createHash } from 'node:crypto';
+import cataloguePackshotIsolations from '@/data/catalogue-packshot-isolations.json';
 import { canonicalGtin, isValidGtin } from './gtin';
+import {
+  cataloguePackshotIsolationRecordFor,
+  cataloguePackshotIsolationRecordValid,
+  type CataloguePackshotIsolationRecord,
+} from './packshot-isolation-record';
 import {
   catalogueCanonicalIdentifierFor,
   catalogueCanonicalIdentifierKey,
@@ -2187,7 +2193,17 @@ function rightsBlockers(candidate: CatalogueIntakeCandidate, asOf: number): Cata
     || (candidate.asset.sourceAssetHeight ?? 0) <= 0
     || !validPastDate(candidate.asset.sourceAssetRetrievedAt, asOf)
   ) blockers.push('asset-source-snapshot-invalid');
-  if (candidate.asset.backgroundTreatment === 'source-pixel-isolation') {
+  if (
+    candidate.asset.backgroundTreatment === 'source-pixel-isolation'
+    && !cataloguePackshotIsolationRecordValid(
+      cataloguePackshotIsolationRecordFor(
+        cataloguePackshotIsolations as readonly CataloguePackshotIsolationRecord[],
+        candidate.id,
+      ),
+      candidate,
+      asOf,
+    )
+  ) {
     blockers.push('asset-isolation-record-missing');
   }
   if (

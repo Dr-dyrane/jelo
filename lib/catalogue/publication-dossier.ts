@@ -1,4 +1,9 @@
 import { createHash } from 'node:crypto';
+import cataloguePackshotIsolations from '@/data/catalogue-packshot-isolations.json';
+import {
+  cataloguePackshotIsolationRecordFor,
+  type CataloguePackshotIsolationRecord,
+} from './packshot-isolation-record';
 import {
   auditCatalogueIntakeCandidates,
   catalogueBrandAuthorizationSourceValid,
@@ -117,6 +122,11 @@ export type CataloguePublicationDossier = {
       retrievedAt: string;
     };
     generationRecord?: CatalogueGenerationRecord;
+    // Present only for a source-pixel isolation packshot. The gate keeps that
+    // origin private until this record binds the source and output hashes,
+    // pipeline, model, runtime, audit and reviewer chronology into the dossier
+    // (see docs/CATALOGUE_PUBLICATION_GATE.md, packshot origin rules).
+    isolationRecord?: CataloguePackshotIsolationRecord;
   };
   finalImage: {
     role: 'packshot';
@@ -469,6 +479,24 @@ function createCataloguePublicationDossierCore(
     generatedTimestamp < sourceAssetRetrievedTimestamp
     || generatedTimestamp > artReviewedTimestamp
   )) throw new Error(`${candidate.id} generation must follow source retrieval and precede art review.`);
+  const isolationRecord = candidate.asset.backgroundTreatment === 'source-pixel-isolation'
+    ? required(
+      cataloguePackshotIsolationRecordFor(
+        cataloguePackshotIsolations as readonly CataloguePackshotIsolationRecord[],
+        candidate.id,
+      ),
+      `${candidate.id} source-pixel isolation record`,
+    )
+    : undefined;
+  if (
+    isolationRecord
+    && !(
+      parsedDate(isolationRecord.audit.generatedAt, `${candidate.id} isolation run timestamp`, asOf)
+        >= sourceAssetRetrievedTimestamp
+      && parsedDate(isolationRecord.audit.generatedAt, `${candidate.id} isolation run timestamp`, asOf)
+        <= artReviewedTimestamp
+    )
+  ) throw new Error(`${candidate.id} isolation must follow source retrieval and precede art review.`);
   const evidenceTimes = [
     identityCheckedTimestamp,
     identityEvidenceRetrievedTimestamp,
@@ -481,6 +509,14 @@ function createCataloguePublicationDossierCore(
     sourceAssetRetrievedTimestamp,
     artReviewedTimestamp,
     ...(generatedTimestamp == null ? [] : [generatedTimestamp]),
+    // A source-pixel isolation run and its identity review are bound publication
+    // evidence too, so approval must follow them exactly as it follows a
+    // generation record.
+    ...(isolationRecord ? [
+      parsedDate(isolationRecord.audit.generatedAt, `${candidate.id} isolation run timestamp`, asOf),
+      parsedDate(isolationRecord.review.identityReviewedAt, `${candidate.id} isolation identity review timestamp`, asOf),
+      parsedDate(isolationRecord.review.artReviewedAt, `${candidate.id} isolation art review timestamp`, asOf),
+    ] : []),
     ...decision.freshExactOffers.flatMap(offer => [
       parsedDate(offer.observedAt, `${candidate.id} offer timestamp`, asOf),
       parsedDate(required(offer.evidence?.retrievedAt, `${candidate.id} offer evidence retrieval timestamp`), `${candidate.id} offer evidence retrieval timestamp`, asOf),
@@ -607,6 +643,7 @@ function createCataloguePublicationDossierCore(
           },
         }
         : {}),
+      ...(isolationRecord ? { isolationRecord: structuredClone(isolationRecord) } : {}),
     },
     finalImage: {
       role: candidate.asset.role as 'packshot',
