@@ -34,7 +34,7 @@ import {
 const repositoryRoot = process.cwd();
 // This fixed verification instant must remain later than every checked-in
 // source, dossier and release timestamp represented by the fixture.
-const asOf = Date.parse('2026-07-28T17:00:00Z');
+const asOf = Date.parse('2026-07-29T04:00:00Z');
 
 async function readJson(relativePath: string): Promise<unknown> {
   return JSON.parse(await readFile(path.resolve(repositoryRoot, relativePath), 'utf8')) as unknown;
@@ -283,7 +283,7 @@ test('the current compilation verifies identity artifacts, dossiers and releases
   assert.ok(incomplete);
   const decision = evaluateCatalogueIntakeCandidate(incomplete, asOf);
   assert.equal(decision.approvalDraftReady, false);
-  assert.equal(decision.stage, 'identity');
+  assert.equal(decision.stage, 'nigeria');
 });
 
 test('released candidate edits fail against immutable dossier fingerprints', async () => {
