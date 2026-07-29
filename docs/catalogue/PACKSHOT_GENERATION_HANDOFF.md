@@ -1,6 +1,6 @@
 # Exact-SKU packshot generation handoff
 
-Updated: 2026-07-26
+Updated: 2026-07-28
 
 ## Purpose
 
@@ -29,6 +29,65 @@ The 26 July cohort is complete:
 
 NAFDAC context does not block these records. Prices remain dated exact
 observations and do not establish seller authenticity.
+
+## Decide whether generation is needed
+
+Do not generate by default. First look for a full-resolution, exact-SKU asset
+from the manufacturer or another source with documented reuse rights. It may
+pass without generation when the package is exact, the complete product is
+visible, the final background and edges pass, and the retained source and
+public bytes satisfy the publication gate.
+
+Generation is appropriate only when exact identity and source bytes are already
+locked but the permitted source cannot provide the faithful, complete,
+publication-grade transparent packshot. A visually similar variant, different
+size, retailer thumbnail, marketplace collage, screenshot, or watermarked
+image is not an input substitute. If no exact source exists, keep the image
+sublane blocked rather than asking a model to invent it.
+
+## Author a clean image-tool prompt
+
+The code operator owns the brief even when another operator owns generation.
+Create one entry in
+`data/catalogue-packshot-generation-specifications.json` that conforms to
+`CataloguePackshotGenerationSpecification` in
+`lib/catalogue/packshot-generation-specification.ts`. Bind the current
+candidate, official identity snapshot, and immutable source URL, hash, type,
+bytes, dimensions, and retrieval time before writing the request.
+
+Use this structure for `request.prompt`, replacing every bracketed value with
+facts visible in the exact source:
+
+```text
+Use case: precise-object-edit
+Asset type: JeloCare exact-SKU catalogue packshot
+Primary request: Use Image 1 as the only identity reference and edit target.
+Create a pristine, high-resolution, front-facing packshot of the exact
+[EXACT VARIANT] [EXACT SIZE]. Preserve the package geometry, materials,
+closures, label hierarchy, colours, claims, and printed size exactly as shown.
+Required visible details: [LIST AT LEAST FIVE SOURCE-VISIBLE DETAILS].
+Scene/backdrop: a perfectly flat solid #ff00ff working background for removal;
+no floor plane, gradient, texture, reflection, contact shadow, or props.
+Composition: upright, centred, fully visible, generous even padding, and no
+clipping.
+Constraints: do not redesign the package; do not add, remove, translate, or
+rewrite label text; do not change the variant or size; do not invent a carton,
+barcode, GTIN, seal, cap, pump, dropper, ingredient, claim, or certification;
+do not add a watermark.
+```
+
+Keep `requiredVisibleDetails` and `prohibitedChanges` as separate, concrete
+arrays in the specification as well. Each needs at least five entries. The
+visible-detail list must name the exact printed size; the prohibited list must
+explicitly protect the barcode or GTIN. The prompt must name `Image 1`, the
+exact variant, exact size, `#ff00ff`, and `no clipping`; the verifier rejects a
+brief that omits any of them.
+
+If the current agent cannot call an image tool, its deliverable is the verified
+specification—not a simulated image. Report the candidate ID, bound source,
+prompt, and verification result so an image-capable operator can execute it
+without repeating research. Do not create SVG/CSS approximations or claim
+future provider, model, timestamps, or hashes.
 
 ## Run a future handoff
 

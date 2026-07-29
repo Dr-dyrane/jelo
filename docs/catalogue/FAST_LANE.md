@@ -20,6 +20,27 @@ Do not open a PR for a routine data-only SKU. Use a PR when the change alters a
 shared schema, publication gate, security boundary, migration, or runtime
 contract.
 
+## Standing operator authority
+
+Routine exact-SKU releases that satisfy this guide are pre-authorized for
+direct completion, one atomic commit on `main`, and push. The operator does not
+need to ask whether it may publish each passing product. A routine release may
+include the candidate and retained evidence, a new non-overwriting
+content-addressed final asset, dossier and release records, removal of that
+released identity from the private queue, and deterministic projection
+rebuilds.
+
+This is operator authority, not retailer or brand authorization. Retailer and
+brand authorization remain evidence questions enforced by the publication
+gate.
+
+When a candidate hits an identity, care, rights, image, or retained-evidence
+blocker, preserve its state and next action, then continue with the next ready
+candidate. Do not let one blocked SKU stop the product lane. Escalate only when
+all useful candidates are blocked, the environment rejects an otherwise
+authorized command, or shipping would require changing a shared schema, gate,
+security boundary, migration, runtime contract, or public interface.
+
 ## Choose the publication route
 
 - Use the full market route when exact Nigerian offers pass. Those approved
@@ -28,6 +49,18 @@ contract.
   review, rights/provenance, and reviewed final image pass, and the only
   remaining blockers are missing or unbound Nigerian offers or an insufficient
   Nigerian market route.
+
+Choose the image route independently:
+
+- Use exact official brand media, licensed original photography, or owned
+  editorial photography when its rights, source bytes, package fidelity, and
+  final presentation pass.
+- Use an owned identity-verified render only when the exact source is bound and
+  a faithful render is genuinely needed.
+- When the operator has no image-generation capability, prepare and verify the
+  private [exact-SKU packshot generation
+  handoff](./PACKSHOT_GENERATION_HANDOFF.md). Do not block unrelated research
+  and do not pretend that the handoff is completed art.
 
 A reference-only release writes `marketRoute: "reference-only"` and
 `exactOffers: []`. It publishes the product reference without price, store,
