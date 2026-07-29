@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+    "candidateFingerprint": "871e49ecc70e7b4f39f2af82220ed07b732431867bcf59d7c8c3592d70aa69d6",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "25968-150",
+        "label": "SKU"
+      },
+      "officialProductCrosswalk": {
+        "schemaVersion": 2,
+        "canonicalManufacturerProductKey": {
+          "basis": "manufacturer-sku",
+          "value": "25968-150",
+          "manufacturerHost": "facefacts.me",
+          "sourceLocator": "Official Shopify product response variants[0].sku",
+          "sourceText": "\"sku\":\"25968-150\"",
+          "sourceTextSha256": "ef7dad68ac226bb62cfb40449c06d723bfd122afbd56f4328576d75d0e284f60"
+        },
+        "officialSourceResponseSha256": "bde6f795849ac7a73e884ba1167f058558c182ec1d13ed8bedb54b54ba7fd2c1",
+        "officialProductUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+        "variant": "Vitamin C Brightening Jelly Cleanser",
+        "size": "150 ml",
+        "packageVersion": "Current white 150 ml tube with orange Vitamin C band, silver Jelly Cleanser band and orange halftone C artwork"
+      },
+      "brand": "FaceFacts",
+      "name": "Vitamin C Brightening Jelly Cleanser",
+      "variant": "Vitamin C Brightening Jelly Cleanser",
+      "size": "150 ml",
+      "packageVersion": "Current white 150 ml tube with orange Vitamin C band, silver Jelly Cleanser band and orange halftone C artwork",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+      "officialIdentity": {
+        "identityKind": "manufacturer-sku",
+        "url": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+        "observedManufacturerSku": "25968-150",
+        "observedManufacturerSkuLabel": "SKU",
+        "observedVariant": "Vitamin C Brightening Jelly Cleanser",
+        "observedSize": "150 ml",
+        "observedPackageVersion": "Current white 150 ml tube with orange Vitamin C band, silver Jelly Cleanser band and orange halftone C artwork",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/facefacts-vitamin-c-brightening-jelly-cleanser-150ml.json",
+        "snapshotSha256": "e16082017b914f1def79f57aeb38d9eeaf4a380197c1d1007d1f1a4bb185379c",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 6203,
+        "retrievedAt": "2026-07-29T04:06:24Z",
+        "canonicalExtraction": {
+          "schemaVersion": 8,
+          "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+          "sourceUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+          "responseUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser.js?country=NG&currency=NGN&v=2",
+          "retrievedAt": "2026-07-29T04:06:24Z",
+          "productRecord": {
+            "byteStart": 0,
+            "byteEnd": 2911,
+            "locator": "Complete official Shopify product response root object",
+            "sourceFragmentSha256": "bde6f795849ac7a73e884ba1167f058558c182ec1d13ed8bedb54b54ba7fd2c1",
+            "sourceText": "{\"id\":6826180116689,\"title\":\"Vitamin C Brightening Jelly Cleanser\",\"handle\":\"vitamin-c-brightening-jelly-cleanser\",\"description\":\"\\u003cp\\u003e\\u003cstrong\\u003eComplexion Boosting Detox\\u003c\\/strong\\u003e\\u003c\\/p\\u003e\\n\\u003cp\\u003e\\u003cem\\u003eBrightens + Renews\\u003c\\/em\\u003e\\u003c\\/p\\u003e\\n\\u003cp\\u003eGently cleanse, soothe \\u0026amp; rejuvenate your skin with our super cooling jelly cleanser. Infused with vitamin C (l-ascorbic acid), glycerin, goji berry, broccoli extract, elderberry \\u0026amp; blueberry extracts, our formula is packed with skin-loving antioxidants to cleanse \\u0026amp; renew stressed out skin. \\u003c\\/p\\u003e\\n\\u003cul\\u003e\\n\\u003cli\\u003e150ml\\u003c\\/li\\u003e\\n\\u003cli\\u003eVegan\\u003c\\/li\\u003e\\n\\u003c\\/ul\\u003e\",\"published_at\":\"2021-10-21T11:44:21+01:00\",\"created_at\":\"2021-10-20T15:59:08+01:00\",\"vendor\":\"FaceFacts\",\"type\":\"Vitamin C\",\"tags\":[\"face facts\"],\"price\":1550000,\"price_min\":1550000,\"price_max\":1550000,\"available\":true,\"price_varies\":false,\"compare_at_price\":null,\"compare_at_price_min\":0,\"compare_at_price_max\":0,\"compare_at_price_varies\":false,\"variants\":[{\"id\":40412596928721,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"25968-150\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Vitamin C Brightening Jelly Cleanser\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1550000,\"weight\":0,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/25968-150_fr2.png?v=1758194570\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/25968-150_fr1.png?v=1758194570\"],\"featured_image\":\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/25968-150_fr2.png?v=1758194570\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"\\/products\\/vitamin-c-brightening-jelly-cleanser\",\"media\":[{\"alt\":null,\"id\":67133854581115,\"position\":1,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2000,\"width\":2000,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/25968-150_fr2.png?v=1758194570\"},\"aspect_ratio\":1.0,\"height\":2000,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/25968-150_fr2.png?v=1758194570\",\"width\":2000},{\"alt\":null,\"id\":67133854613883,\"position\":2,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2000,\"width\":2000,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/25968-150_fr1.png?v=1758194570\"},\"aspect_ratio\":1.0,\"height\":2000,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0600\\/6138\\/4913\\/files\\/25968-150_fr1.png?v=1758194570\",\"width\":2000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+          },
+          "fields": {
+            "manufacturerBrand": {
+              "value": "FaceFacts",
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor FaceFacts"
+            },
+            "manufacturerSku": {
+              "value": "25968-150",
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"25968-150\""
+            },
+            "variant": {
+              "value": "Vitamin C Brightening Jelly Cleanser",
+              "locator": "Official Shopify product response title",
+              "sourceText": "Vitamin C Brightening Jelly Cleanser"
+            },
+            "size": {
+              "value": "150ml",
+              "locator": "Official Shopify product response description size declaration",
+              "sourceText": "150ml"
+            },
+            "packageVersion": {
+              "value": "Current white 150 ml tube with orange Vitamin C band, silver Jelly Cleanser band and orange halftone C artwork",
+              "locator": "Official Shopify product response media[0].src, visually reviewed",
+              "sourceText": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/25968-150_fr2.png?v=1758194570",
+              "reviewedMedia": {
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/25968-150_fr2.png?v=1758194570",
+                "sourceAssetUrl": "https://facefacts.me/cdn/shop/files/25968-150_fr2.png?v=1758194570&width=2048",
+                "sourceAssetSha256": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6"
+              }
+            },
+            "gtinPublicationStatus": {
+              "value": "not-published",
+              "locator": "Complete official response structured identifier scan and variants[0].barcode",
+              "sourceText": "{\"id\":40412596928721,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"25968-150\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Vitamin C Brightening Jelly Cleanser\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1550000,\"weight\":0,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}"
+            }
+          },
+          "sourceResponseSha256": "bde6f795849ac7a73e884ba1167f058558c182ec1d13ed8bedb54b54ba7fd2c1",
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseByteSize": 2911,
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/facefacts-vitamin-c-brightening-jelly-cleanser-150ml.json",
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "reviewer": "JeloCare catalogue identity review",
+          "reviewedAt": "2026-07-29T04:09:30Z"
+        }
+      },
+      "checkedAt": "2026-07-29T04:09:30Z",
+      "demandEvidenceUrls": [
+        "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Rinse-off 150 ml jelly facial cleanser with vitamin C, goji berry and blueberry extracts in a vegan formula.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports a gentle daily cleansing and radiance-focused cosmetic routine. It does not diagnose, treat or prevent acne, hyperpigmentation or another condition. Massage onto damp skin, rinse thoroughly and avoid the eye area; patch test, stop if stinging or rash develops, and seek clinical advice for persistent irritation or changing symptoms.",
+      "manufacturerEvidenceUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-07-29T04:09:30Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+      "sourceAsset": {
+        "url": "https://facefacts.me/cdn/shop/files/25968-150_fr2.png?v=1758194570&width=2048",
+        "sha256": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6",
+        "mimeType": "image/png",
+        "byteSize": 839753,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-07-29T04:06:24Z"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/packshot-v1-b06ac5119a1e1b5a.png",
+      "sha256": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6",
+      "mimeType": "image/png",
+      "byteSize": 839753,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "none",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-07-29T04:09:30Z",
+      "reviewer": "Claude Code visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-07-29T04:10:41Z"
+    },
+    "dossierFingerprint": "ce02ac6f52d8084082adb559e5a4ab104934bf84d68e6c30b6eb685449c0e9b4"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+    "dossierFingerprint": "ce02ac6f52d8084082adb559e5a4ab104934bf84d68e6c30b6eb685449c0e9b4",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Vitamin C jelly cleanser · 150 ml",
+      "usage": "Massage onto damp skin morning or evening, working into a light lather, then rinse thoroughly, avoiding the eye area. Follow with your usual routine and SPF in the daytime.",
+      "manufacturerDirectionsUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-07-29T04:10:41Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-07-29T04:10:41Z"
+    },
+    "releaseFingerprint": "1169f5175f455efe65564e1bdbba97acab0ee794f8c94b3a15f1e4a2b3785508"
+  }
+}

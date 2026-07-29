@@ -1045,33 +1045,6 @@
     },
     {
       "rank": 39,
-      "discoveryId": "9e8f7ba306dec54f087b62f3",
-      "title": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml",
-      "brandHint": "FACEFACTS",
-      "size": "150ml",
-      "categoryHint": "Face care",
-      "lane": "gentle-cleansing",
-      "priorityScore": 147,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "05031413925968",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 40,
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -1098,7 +1071,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 41,
+      "rank": 40,
       "discoveryId": "8ac4f70510214db024b57c46",
       "title": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
       "brandHint": "BEAUTY FORMULA",
@@ -1124,7 +1097,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 42,
+      "rank": 41,
       "discoveryId": "4e67e33c8599337cebdc132f",
       "title": "BENTON Honest Cleansing Foam 150g",
       "brandHint": "BENTON",
@@ -1135,6 +1108,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "08809540510251",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 42,
+      "discoveryId": "4a65be1a58dd495b7eab8b5b",
+      "title": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
+      "brandHint": "BIOBALANCE",
+      "size": "250ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 142,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "08697711701023",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

@@ -288,5 +288,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "0eb13b51e08b874ad74f707f86c809e035962d27288acadf3167dbeeb87bff54"
+  },
+  {
+    "id": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml-packshot-v1",
+    "active": true,
+    "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+    "destination": "publication",
+    "publicationBrandSlug": "face-facts",
+    "sourceUrl": "https://facefacts.me/cdn/shop/files/25968-150_fr2.png?v=1758194570&width=2048",
+    "localPath": "data/catalogue-intake-assets/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/packshot-v1-b06ac5119a1e.png",
+    "blobPath": "products/face-facts/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/packshot-v1-b06ac5119a1e1b5a.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/packshot-v1-b06ac5119a1e1b5a.png",
+    "contentType": "image/png",
+    "byteSize": 839753,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6"
   }
 ]
