@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-29T04:09:30Z",
+  "updatedAt": "2026-07-29T05:07:57Z",
   "origin": {
     "kind": "static-research-packet",
     "packetId": "753d5ddcdefddeff096e9677",
@@ -11,6 +11,9 @@
   "candidate": {
     "id": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
     "brand": "FaceFacts",
+    "brandAliases": [
+      "FACE FACTS"
+    ],
     "name": "Vitamin C Brightening Jelly Cleanser",
     "variant": "Vitamin C Brightening Jelly Cleanser",
     "size": "150 ml",
@@ -145,7 +148,63 @@
       "regulatoryStatus": "pending",
       "tierAIdentityEvidenceUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
       "exactOffers": [],
-      "excludedObservations": []
+      "excludedObservations": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/",
+          "observedAt": "2026-07-29T05:05:24Z",
+          "observedTitle": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml",
+          "observedSize": "150 ml",
+          "priceNgn": 4300,
+          "stock": "in-stock",
+          "disposition": "excluded-from-exact-comparison",
+          "exclusionReasons": [
+            "retailer-identifier-only"
+          ],
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-retailer-observation",
+            "responseUrl": "https://buybetter.ng/product/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/",
+            "responseSha256": "ab8623026b813123e89234e1cc45cbc0443683a3745ba3b7bcf0f72a99798722",
+            "responseDigestScope": "decoded-response-body",
+            "responseMimeType": "text/html",
+            "responseByteSize": 808746,
+            "retrievedAt": "2026-07-29T05:05:24Z",
+            "fields": {
+              "title": {
+                "value": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml",
+                "locator": "HTML document title",
+                "sourceText": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml – Buybetter"
+              },
+              "size": {
+                "value": "150 ml",
+                "locator": "HTML document title size suffix",
+                "sourceText": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml"
+              },
+              "price": {
+                "value": 4300,
+                "currency": "NGN",
+                "locator": "Rendered product price amount",
+                "sourceText": "4,300"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "WooCommerce product status class",
+                "sourceText": "instock"
+              },
+              "retailerIdentifier": {
+                "label": "SKU",
+                "value": "5031413925968",
+                "locator": "Embedded product JSON sku",
+                "sourceText": "\"sku\":\"5031413925968\""
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-29T05:05:24Z"
+          }
+        }
+      ]
     },
     "asset": {
       "rightsStatus": "documented",

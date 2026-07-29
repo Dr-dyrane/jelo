@@ -734,6 +734,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-28',
   },
+  'facefacts-vitamin-c-brightening-jelly-cleanser-150ml': {
+    productSlug: 'facefacts-vitamin-c-brightening-jelly-cleanser-150ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-07-29',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

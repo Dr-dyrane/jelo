@@ -53,7 +53,7 @@ test('immutable capture sources compile to the checked-in zero-authority project
   assert.deepEqual(stored, expected);
   assert.equal(stored.publicationAuthority, 'none');
   assert.equal(stored.sources.every(source => source.packetCount <= 12), true);
-  assert.equal(stored.sources[0]?.researchPacketSourceSha256, packetProjection.shards[0]?.sourceSha256);
+  assert.equal(stored.sources.every(source => packetProjection.shards.some(shard => shard.sourceSha256 === source.researchPacketSourceSha256)), true);
   assert.equal(stored.captures.every(capture => (
     capture.publicationAuthority === 'none'
     && capture.identityAuthority === 'none'

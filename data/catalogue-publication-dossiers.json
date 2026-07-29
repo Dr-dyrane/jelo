@@ -12144,7 +12144,7 @@
     {
       "schemaVersion": 8,
       "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
-      "candidateFingerprint": "871e49ecc70e7b4f39f2af82220ed07b732431867bcf59d7c8c3592d70aa69d6",
+      "candidateFingerprint": "aa42e87b5f2226d0d8f883e7ae9e9ebcb25a01d030ffc829dc05032a062ed24d",
       "exposure": "private-only",
       "publicationScope": "neutral-reference",
       "publicationStatus": "not-published",
@@ -12316,9 +12316,9 @@
       "approval": {
         "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
         "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-07-29T04:10:41Z"
+        "approvedAt": "2026-07-29T05:07:57Z"
       },
-      "dossierFingerprint": "ce02ac6f52d8084082adb559e5a4ab104934bf84d68e6c30b6eb685449c0e9b4"
+      "dossierFingerprint": "1ad59de49188ff91a4ef28f4780c8d75d13245deba82d6e20f280f18dc13ed38"
     }
   ]
 }

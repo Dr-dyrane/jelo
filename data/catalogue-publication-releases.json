@@ -989,7 +989,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
-      "dossierFingerprint": "ce02ac6f52d8084082adb559e5a4ab104934bf84d68e6c30b6eb685449c0e9b4",
+      "dossierFingerprint": "1ad59de49188ff91a4ef28f4780c8d75d13245deba82d6e20f280f18dc13ed38",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -1001,14 +1001,14 @@
         "usage": "Massage onto damp skin morning or evening, working into a light lather, then rinse thoroughly, avoiding the eye area. Follow with your usual routine and SPF in the daytime.",
         "manufacturerDirectionsUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
         "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-29T04:10:41Z"
+        "reviewedAt": "2026-07-29T05:07:57Z"
       },
       "publication": {
         "scope": "exact-dossier-presentation-publication",
         "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-29T04:10:41Z"
+        "publishedAt": "2026-07-29T05:07:57Z"
       },
-      "releaseFingerprint": "1169f5175f455efe65564e1bdbba97acab0ee794f8c94b3a15f1e4a2b3785508"
+      "releaseFingerprint": "442defbfd37d41d581feac96ae51515c6ebf0290cd5cfa05be1c56fc69a483a4"
     }
   ]
 }
