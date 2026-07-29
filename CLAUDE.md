@@ -14,6 +14,56 @@ release record contains, which fixtures move — read the last product commit
 `lib/catalogue/*.ts`, and it shows what the lane actually permits rather than
 what a validator merely allows.
 
+## Continuous product loop
+
+Product work is a continuous release loop, not a one-product consultation.
+Do not stop after reporting status, presenting a plan, preparing a candidate,
+or completing one release. Do not ask “should I continue?”, “may I commit?”,
+“may I push?”, or “which product should I take next?” when the answer is
+already determined by this file, the fast lane, the priority queue, or a
+passing verifier.
+
+Repeat this loop while a ready candidate exists:
+
+1. Fetch the current `origin/main`, inspect the pipeline status and intake
+   audit, and select the highest-priority candidate that can pass in the
+   current environment.
+2. Screen the exact identity, retained source, image dimensions, care boundary,
+   and viable market or reference-only route before spending time on downstream
+   assembly.
+3. Complete the candidate through its existing evidence, asset, dossier,
+   release, and derived-projection contracts.
+4. Run the focused fast-lane checks. Fix deterministic failures that are within
+   the routine SKU scope instead of asking the owner how to proceed.
+5. Commit the exact product atomically on `main`, push it, and verify the
+   resulting CI and production deployment.
+6. Record any candidate-specific enrichment still owed, then immediately begin
+   the next ready candidate.
+
+If one candidate is blocked, preserve its exact blocker and next action, move
+it out of the active slot, and continue with the next ready product. An image
+handoff is also a sublane: prepare the verified brief, hand it off, and keep the
+non-image product loop moving.
+
+Do not interrupt the loop for:
+
+- routine file edits already described by a recent passing release;
+- generated projection or fixture changes required by the existing contract;
+- a missing Nigerian offer when `reference-only` is valid;
+- a missing local Blob token when production promotion is already delegated to
+  the documented Vercel build;
+- permission to commit or push a passing routine SKU; or
+- a preference question that the priority queue, evidence, existing UI canon,
+  or verifier can answer.
+
+Stop only when no useful ready candidate remains, every available route has a
+specific unresolved evidence blocker, the environment enforces a real
+credentials or branch-protection failure after safe alternatives are
+exhausted, or the necessary work would cross the shared schema, security,
+migration, publication-gate, runtime, destructive-action, or public-interface
+boundaries below. State the exact blocker once; do not turn a routine release
+into an approval conversation.
+
 ## Product-image routing
 
 Image generation is one asset route, not the product lane itself.
