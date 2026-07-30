@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { getPostgresClient } from '@/lib/db/postgres';
+import { INVENTORY_REFRESH_LEASE_MS } from '@/lib/inventory/refresh-policy';
 
 export type InventoryFreshness = 'fresh' | 'stale' | 'unknown';
 
@@ -126,12 +127,30 @@ export async function enqueueDueInventoryOffers(limit = 100, lookaheadHours = 24
   const safeLimit = Math.min(Math.max(limit, 1), 500);
   const safeLookaheadHours = Math.min(Math.max(lookaheadHours, 0), 168);
 
-  const rows = await sql<{ id: string }[]>`
-    with candidates as (
+  const [summary] = await sql<{ queued: number; withdrawn: number }[]>`
+    with withdrawn as (
+      update inventory_refresh_jobs job
+      set status = 'cancelled',
+          last_error = 'Offer is no longer a published exact HTTPS offer; refresh was withdrawn.',
+          completed_at = now(),
+          updated_at = now()
+      from offers o
+      join products p on p.id = o.product_id
+      where job.offer_id = o.id
+        and job.status in ('queued', 'processing')
+        and (
+          p.is_published = false
+          or o.match_kind <> 'exact'
+          or o.url !~* '^https://'
+        )
+      returning job.id
+    ), candidates as (
       select o.id
       from offers o
+      join products p on p.id = o.product_id
       where
-        o.match_kind = 'exact'
+        p.is_published = true
+        and o.match_kind = 'exact'
         and o.url ~* '^https://'
         and (
           o.last_verified_at is null
@@ -147,8 +166,59 @@ export async function enqueueDueInventoryOffers(limit = 100, lookaheadHours = 24
       on conflict do nothing
       returning id
     )
-    select id from inserted
+    select
+      (select count(*)::int from inserted) as queued,
+      (select count(*)::int from withdrawn) as withdrawn
   `;
 
-  return rows.length;
+  return summary ?? { queued: 0, withdrawn: 0 };
+}
+
+export type InventoryRefreshBacklogSummary = {
+  active: number;
+  queued: number;
+  due: number;
+  processing: number;
+  leaseExpired: number;
+  oldestDueAt: Date | null;
+};
+
+export async function getInventoryRefreshBacklogSummary(): Promise<InventoryRefreshBacklogSummary> {
+  const sql = getPostgresClient();
+  const [row] = await sql<{
+    active: number;
+    queued: number;
+    due: number;
+    processing: number;
+    lease_expired: number;
+    oldest_due_at: Date | null;
+  }[]>`
+    select
+      (count(*) filter (where status in ('queued', 'processing')))::int as active,
+      (count(*) filter (where status = 'queued'))::int as queued,
+      (count(*) filter (
+        where status = 'queued' and next_attempt_at <= now()
+      ))::int as due,
+      (count(*) filter (where status = 'processing'))::int as processing,
+      (count(*) filter (
+        where status = 'processing'
+          and (
+            started_at is null
+            or started_at <= now() - (${INVENTORY_REFRESH_LEASE_MS} * interval '1 millisecond')
+          )
+      ))::int as lease_expired,
+      min(requested_at) filter (
+        where status = 'queued' and next_attempt_at <= now()
+      ) as oldest_due_at
+    from inventory_refresh_jobs
+  `;
+
+  return {
+    active: row?.active ?? 0,
+    queued: row?.queued ?? 0,
+    due: row?.due ?? 0,
+    processing: row?.processing ?? 0,
+    leaseExpired: row?.lease_expired ?? 0,
+    oldestDueAt: row?.oldest_due_at ?? null,
+  };
 }

@@ -103,13 +103,26 @@ See [Ask Jelo](../ASK_JELO_EXPERIENCE.md), [concern knowledge](../CONCERN_KNOWLE
 The daily Vercel cron calls `/api/cron/inventory`.
 
 1. Bearer authentication checks `CRON_SECRET`.
-2. Due exact offers enter `inventory_refresh_jobs`.
-3. Workers claim jobs with `FOR UPDATE SKIP LOCKED`.
-4. Retailer HTML is bounded by time, type, and byte size.
-5. Structured product evidence is extracted.
-6. Response scope must match product, size, market, and currency.
-7. Current offer state and immutable price history update in one transaction.
-8. Failures retry with bounded exponential backoff.
+2. Only due, published, exact HTTPS offers enter `inventory_refresh_jobs`; active
+   jobs that lose that eligibility are withdrawn.
+3. Workers repeat the eligibility gate and claim with `FOR UPDATE SKIP LOCKED`.
+   A processing job older than the two-minute lease can be reclaimed below the
+   attempt cap; an expired job at the cap becomes terminal.
+4. The route stops claiming at an absolute 270-second deadline, before the
+   300-second Vercel limit. A 100-job cap lets the daily run drain the current
+   catalogue when retailers respond quickly; the deadline remains the primary
+   bound when they do not.
+5. Retailer HTML is bounded by time, type, and byte size.
+6. Structured product evidence is extracted.
+7. Response scope must match product, size, market, and currency.
+8. Current offer state and immutable price history update in one transaction
+   only while the claim generation and offer publication, match, and URL still
+   agree, and the offer has not received a newer manual or administrative
+   update.
+9. Failures retry with bounded exponential backoff.
+10. Successful product slugs invalidate the affected product, share, and list
+    surfaces. The response and log contain separate run and active-backlog
+    summaries.
 
 The cron is a freshness operator. It does not replace deliberate publication evidence.
 

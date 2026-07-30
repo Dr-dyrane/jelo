@@ -136,11 +136,22 @@ Never heal a mismatched package with generation.
 ## Inventory cron fails
 
 1. Verify `CRON_SECRET` and the Authorization header.
-2. Inspect queued and processing jobs.
+2. Inspect the response or `inventory_refresh_cron_completed` log. `run`
+   separates completed, retrying, terminal-failed, discarded, lease-recovered,
+   and deadline-stopped work; `backlog` reports queued, due, processing, and
+   lease-expired counts.
 3. Check retailer response status, MIME type, size, redirects, and adapter.
 4. Look for product or market scope rejection.
-5. Let bounded retries work; do not create duplicate active jobs.
+5. Let bounded retries and the two-minute processing lease work; do not create
+   duplicate active jobs or manually reclaim an unexpired worker. An expired
+   job below the attempt cap is reclaimed, while one at the cap fails
+   terminally.
 6. Manually inspect any retailer that blocks automation.
+
+An in-flight result is deliberately discarded if another worker or a manual
+observation supersedes its claim. An offer that becomes unpublished,
+non-exact, or non-HTTPS is cancelled; an exact offer whose URL changes is
+queued for a fresh claim. Do not relax those gates to clear a backlog.
 
 ### Private manual browser observation
 
