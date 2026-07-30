@@ -41,12 +41,13 @@ const unknownAsset: ReviewedAssetAudit = {
 export function auditReviewedProductQuality(
   product: ReviewedProduct,
   asset: ReviewedAssetAudit = unknownAsset,
+  asOf: number | Date = Date.now(),
 ): ReviewedProductQualityAudit {
   const exactNigeriaOffer = product.offers.some(offer =>
     offer.match !== 'search'
     && (offer.location.includes('NG') || offer.location.includes('INTL'))
     && hasListingEvidence(offer)
-    && isOfferFresh(offer),
+    && isOfferFresh(offer, asOf),
   );
 
   return {

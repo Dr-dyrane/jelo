@@ -695,10 +695,20 @@ function verifyCataloguePublicationDossierManifestCore(
       throw new Error(`${candidateId} candidate fingerprint changed; approval is invalid.`);
     }
 
+    const approval = approvalFromStoredDossier(stored, candidateId);
+    // The caller's clock still owns future-date rejection. Once that check
+    // passes, replay the immutable gate at the instant the approval was made:
+    // offer and authority evidence must have been fresh then, while later
+    // wall-clock aging is handled by the runtime offer-freshness boundary.
+    const approvalAsOf = parsedDate(
+      approval.approvedAt,
+      `${candidateId} approval timestamp`,
+      asOf,
+    );
     const expected = createCataloguePublicationDossierCore(
       candidate,
-      approvalFromStoredDossier(stored, candidateId),
-      asOf,
+      approval,
+      approvalAsOf,
     );
     if (typeof stored.dossierFingerprint !== 'string' || !hashPattern.test(stored.dossierFingerprint)) {
       throw new Error(`${candidateId} dossier fingerprint is invalid.`);

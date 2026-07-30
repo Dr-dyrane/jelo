@@ -230,7 +230,11 @@ test('quality scoring is deterministic and source-agnostic', () => {
 
 test('the same audit surfaces reviewed-product formula, evidence, Nigeria and rights gaps without changing publication state', () => {
   const product = reviewedProductRecords.find(item => item.slug === 'anua-niacinamide-10-txa-4-serum')!;
-  const audit = auditReviewedProductQuality(product);
+  const audit = auditReviewedProductQuality(
+    product,
+    undefined,
+    Date.parse('2026-07-24T00:00:00Z'),
+  );
 
   assert.equal(audit.productSlug, product.slug);
   assert.equal(audit.publicationEligibilityChanged, false);

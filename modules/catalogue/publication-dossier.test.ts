@@ -45,6 +45,7 @@ import {
 } from '@/lib/catalogue/market-evidence';
 import { nigeriaRetailers } from '@/data/retailers';
 import { getReviewedProductCare } from '@/data/product-care-review';
+import { summarizeMarket } from '@/modules/commerce/market-summary';
 import { evaluateProductClinically } from '@/modules/recommendations/clinical-product-filter';
 import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 
@@ -1322,7 +1323,7 @@ test('release content, chronology, category and manufacturer usage evidence are 
   );
 });
 
-test('candidate, image and evidence freshness changes invalidate an existing release', () => {
+test('candidate changes invalidate a release while wall-clock aging only hides its runtime price', () => {
   const candidate = readyCandidate();
   const dossier = createCataloguePublicationDossier(candidate, approval(), asOf);
   const release = createCataloguePublicationRelease(dossier, presentation(), releaseApproval(), asOf);
@@ -1345,14 +1346,55 @@ test('candidate, image and evidence freshness changes invalidate an existing rel
     () => verifyCataloguePublicationReleaseManifest([changedImage], dossierManifest, releaseManifest, asOf),
     /candidate fingerprint changed/,
   );
+  const later = asOf + 91 * 24 * 60 * 60 * 1000;
+  const report = verifyCataloguePublicationReleaseManifest(
+    [candidate],
+    dossierManifest,
+    releaseManifest,
+    later,
+  );
+  assert.equal(report.releases[0].releaseFingerprint, release.releaseFingerprint);
+  assert.deepEqual(summarizeMarket(report.products[0].offers, 'NG', later), {
+    market: 'NG',
+    lowestPrice: null,
+    typicalPrice: null,
+    highestPrice: null,
+    retailerCount: 0,
+    inStockCount: 0,
+    pricedRetailerCount: 0,
+    savingsVsTypical: null,
+    lastCheckedAt: null,
+    confidence: 0,
+    priceBasis: 'none',
+  });
+});
+
+test('new dossier creation still rejects offer evidence that is stale at approval', () => {
+  const candidate = readyCandidate();
+  const later = asOf + 8 * 24 * 60 * 60 * 1000;
+
   assert.throws(
-    () => verifyCataloguePublicationReleaseManifest(
-      [candidate],
-      dossierManifest,
-      releaseManifest,
-      asOf + 91 * 24 * 60 * 60 * 1000,
-    ),
-    /not approval-ready|regulatory|fresh/i,
+    () => createCataloguePublicationDossier(candidate, approval({
+      approvedAt: new Date(later - 60_000).toISOString(),
+    }), later),
+    /not approval-ready.*nigeria-exact-offer-missing/,
+  );
+});
+
+test('stored dossier verification rejects an approval in the caller clock future', () => {
+  const candidate = readyCandidate();
+  const futureAsOf = asOf + 24 * 60 * 60 * 1000;
+  const futureDossier = createCataloguePublicationDossier(candidate, approval({
+    approvedAt: '2026-07-23T16:00:00Z',
+  }), futureAsOf);
+
+  assert.throws(
+    () => verifyCataloguePublicationDossierManifest([candidate], {
+      schemaVersion: cataloguePublicationDossierSchemaVersion,
+      exposure: cataloguePublicationExposure,
+      dossiers: [futureDossier],
+    }, asOf),
+    /approval timestamp is invalid or in the future/,
   );
 });
 
