@@ -21,7 +21,7 @@ offer and updating the artwork if the price has changed.
 - Original path: `public/campaigns/social/facefacts-vitamin-c-body-lotion-weekend-2026-08-01.png`
 - Archived asset: `facefacts-vitamin-c-body-lotion-weekend-2026-08-01.png`
 - Created: 2026-08-01
-- Dimensions: 1080 × 2160
+- Dimensions: 1080 × 1920
 - SHA-256: `1b079854c2ecd25079d4d6099e9f56712bf6ce8eb230526d2d6443840473e44d`
 - Embedded observed prices: ₦6,095 and ₦8,000 across two Nigerian stores
 
