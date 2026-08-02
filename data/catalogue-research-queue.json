@@ -697,33 +697,6 @@
     },
     {
       "rank": 26,
-      "discoveryId": "4904b1d7b96c2c0886d65ad9",
-      "title": "BIOBALANCE Super (BETA SOLUTION PURE SALICYLIC ACID 2% Serums 30ML",
-      "brandHint": "BIOBALANCE",
-      "size": "30ml",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 156,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "08697711600845",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 27,
       "discoveryId": "fe369f475a0d890702084b1b",
       "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
       "brandHint": "COS DE BAHA",
@@ -750,7 +723,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 28,
+      "rank": 27,
       "discoveryId": "f87e67c0fb61e9574f74ef21",
       "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
       "brandHint": "Garnier",
@@ -777,7 +750,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 29,
+      "rank": 28,
       "discoveryId": "f6fdad85c61090e67bea6ec9",
       "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
       "brandHint": "NINELESS",
@@ -804,7 +777,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 29,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -831,7 +804,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 30,
       "discoveryId": "005fe384576be5e38689857f",
       "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
       "brandHint": "Replenix",
@@ -858,7 +831,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 31,
       "discoveryId": "cd29efd703d9f5ad9192bf01",
       "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
       "brandHint": "SKIN BY ZARON",
@@ -885,7 +858,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 33,
+      "rank": 32,
       "discoveryId": "b9f9c3fe07895c6ce9945f8a",
       "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
       "brandHint": "GLAMFOX",
@@ -912,7 +885,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 34,
+      "rank": 33,
       "discoveryId": "980f4a6663d7e3bdca521609",
       "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
       "brandHint": "MEDICUBE",
@@ -923,6 +896,33 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "08800289473159",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 34,
+      "discoveryId": "5db3d843b4cf82e716260338",
+      "title": "FACEFACTS ENHANCE (Salicylic Acid + Rice + Cherry Extract) Gel Cream Cleanser 150ml",
+      "brandHint": "FACEFACTS",
+      "size": "150ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 151,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "05031413952803",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -1071,32 +1071,6 @@
     },
     {
       "rank": 40,
-      "discoveryId": "4e67e33c8599337cebdc132f",
-      "title": "BENTON Honest Cleansing Foam 150g",
-      "brandHint": "BENTON",
-      "size": "150g",
-      "categoryHint": "Face care",
-      "lane": "gentle-cleansing",
-      "priorityScore": 142,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "08809540510251",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 41,
       "discoveryId": "4a65be1a58dd495b7eab8b5b",
       "title": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
       "brandHint": "BIOBALANCE",
@@ -1122,7 +1096,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 42,
+      "rank": 41,
       "discoveryId": "a3844e0ff4ce89736040eb4e",
       "title": "BIOBALANCE Dermasebum Purifying Facial Cleansing Gel 250ml",
       "brandHint": "BIOBALANCE",
@@ -1133,6 +1107,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "08697711701009",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 42,
+      "discoveryId": "537651002741cf6e4ab4486f",
+      "title": "BIOBALANCE Dermasoothe Soothing Facial Cleansing Gel 250ml",
+      "brandHint": "BIOBALANCE",
+      "size": "250ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 142,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "08697711701016",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

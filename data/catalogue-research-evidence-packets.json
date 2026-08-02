@@ -4,7 +4,7 @@
   "publicationStatus": "not-a-catalogue-candidate",
   "generatedAt": "2026-07-27T18:11:20.602Z",
   "source": {
-    "staticQueueSha256": "6b4fd6ed3468add310ccba717c6abdbb1d803eec0bbaaaa1d30e3ae30ccc96de",
+    "staticQueueSha256": "9a17138db87abc8944a216448da536a656bd2a425fd96542f2ec413c0dfd5910",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "sharding": {
@@ -16,8 +16,8 @@
   "shards": [
     {
       "index": 1,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/8fd64d91ebeb89498ddcebcaea53e59a9fbe24cada5578e557a60425596d36b0.json",
-      "sourceSha256": "8fd64d91ebeb89498ddcebcaea53e59a9fbe24cada5578e557a60425596d36b0",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/6142a942a4485c89f14da131c9d749cf38c900a2f3d586e26f41df9d89fecf31.json",
+      "sourceSha256": "6142a942a4485c89f14da131c9d749cf38c900a2f3d586e26f41df9d89fecf31",
       "packetCount": 12,
       "firstRank": 1,
       "lastRank": 12,
@@ -52,8 +52,8 @@
     },
     {
       "index": 2,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/16011c37806b7e2981df60905dd5695144b8ee71e71d8d607f787ba2eb4514dc.json",
-      "sourceSha256": "16011c37806b7e2981df60905dd5695144b8ee71e71d8d607f787ba2eb4514dc",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/332512adbc03276f434cab4d319dbaccf7210607e3a8e32178a11f628cc2bb03.json",
+      "sourceSha256": "332512adbc03276f434cab4d319dbaccf7210607e3a8e32178a11f628cc2bb03",
       "packetCount": 12,
       "firstRank": 13,
       "lastRank": 24,
@@ -88,14 +88,13 @@
     },
     {
       "index": 3,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/87950eb37dc76287c42462629eb2b751b1f74fd4af4b0283aa21ecbc8dc9438a.json",
-      "sourceSha256": "87950eb37dc76287c42462629eb2b751b1f74fd4af4b0283aa21ecbc8dc9438a",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/599f6fb2740f469361dfe16b1b5105d23745658a6c12976fb7dd4aa7afd1fb4f.json",
+      "sourceSha256": "599f6fb2740f469361dfe16b1b5105d23745658a6c12976fb7dd4aa7afd1fb4f",
       "packetCount": 12,
       "firstRank": 25,
       "lastRank": 36,
       "packetIds": [
         "8ae1b6abf6fe77ce94d1c319",
-        "f602d58427ee37f8e9533bb5",
         "d11231e8aa7256f65a5b6ddd",
         "8c9317ef63c239fa932e1f1b",
         "533c74704d64dbc2fcf85770",
@@ -104,12 +103,12 @@
         "ff4b61e5e7b3c86b68407794",
         "a58cf5de47116310cc34e91a",
         "861874fd1cfe8bb36f77912b",
+        "937a0264a9bf90f380fc90a6",
         "42a91a1bc91841763d974680",
         "3a1b3865e0ffdccb01e85b0c"
       ],
       "discoveryIds": [
         "68dd71a67def9960124cd112",
-        "4904b1d7b96c2c0886d65ad9",
         "fe369f475a0d890702084b1b",
         "f87e67c0fb61e9574f74ef21",
         "f6fdad85c61090e67bea6ec9",
@@ -118,14 +117,15 @@
         "cd29efd703d9f5ad9192bf01",
         "b9f9c3fe07895c6ce9945f8a",
         "980f4a6663d7e3bdca521609",
+        "5db3d843b4cf82e716260338",
         "7f5e4463688a37e008b523ff",
         "a7562a6f718c64e4a046f3e3"
       ]
     },
     {
       "index": 4,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/49fbaf1fa4311d386e202b6190f42050ba404857c794c2318a59f32481182ffd.json",
-      "sourceSha256": "49fbaf1fa4311d386e202b6190f42050ba404857c794c2318a59f32481182ffd",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/9639c98a5330c03a1bbe9b4d14041c7c78e601b9995ffae4d49c7b61adf71f95.json",
+      "sourceSha256": "9639c98a5330c03a1bbe9b4d14041c7c78e601b9995ffae4d49c7b61adf71f95",
       "packetCount": 12,
       "firstRank": 37,
       "lastRank": 48,
@@ -133,9 +133,9 @@
         "a86b042330160d53b65b056e",
         "69bf90baf39309039402ae19",
         "de73b1b69dc56e877ea37999",
-        "1bb2942eaa5ebaf6a6df3030",
         "863eec92f7291e3d307be521",
         "586ef0ac5c086de562296593",
+        "732e517eec99416e2db2e63f",
         "8146f37c47cff6d9cd0c6193",
         "ed48f1fea49846a7db551502",
         "cbc834ef2dfe1921106b9ad0",
@@ -147,9 +147,9 @@
         "9454deec37a4fc5fcd1e7fa7",
         "c65508f695a5dcd240da0eb3",
         "8ac4f70510214db024b57c46",
-        "4e67e33c8599337cebdc132f",
         "4a65be1a58dd495b7eab8b5b",
         "a3844e0ff4ce89736040eb4e",
+        "537651002741cf6e4ab4486f",
         "f67f222e9d4c90404e22904d",
         "409d46e2deb8d4a892997d7c",
         "7afa2f6eac15547f92afd336",

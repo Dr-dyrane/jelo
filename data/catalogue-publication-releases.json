@@ -1081,6 +1081,30 @@
         "publishedAt": "2026-08-02T18:12:20Z"
       },
       "releaseFingerprint": "f0005ee5cc6d65bdd25ac9d7997e0ea04d4afd80cd79604690ed5c57584f79df"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "benton-honest-cleansing-foam-150g",
+      "dossierFingerprint": "9c41484a3e425f0e7ed500aa4d704f1f32b1d966f67d11f21c44de573ed384c3",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Rinse-off facial cleansing foam · 150 g",
+        "usage": "Lather a small amount with water, massage gently over damp facial skin, then rinse with lukewarm water. Avoid the eye area.",
+        "manufacturerDirectionsUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-02T18:49:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-02T18:50:00Z"
+      },
+      "releaseFingerprint": "4626a47f90b1b01c4158ee3cb61af0ccd39d514478311b17001d00b6e022b7bf"
     }
   ]
 }

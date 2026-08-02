@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "benton-honest-cleansing-foam-150g",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "benton-honest-cleansing-foam-150g",
+    "candidateFingerprint": "e877941a8bd78b559af50cf16b9db6905ca572e3203058eaa13ef0d4ad73ffd6",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "8809540510251",
+      "brand": "Benton",
+      "name": "Honest Cleansing Foam",
+      "variant": "Honest Cleansing Foam",
+      "size": "150 g",
+      "packageVersion": "Benton Honest Cleansing Foam 150g",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+      "officialIdentity": {
+        "url": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+        "observedGtin": "8809540510251",
+        "observedVariant": "Honest Cleansing Foam",
+        "observedSize": "150 g",
+        "observedPackageVersion": "Benton Honest Cleansing Foam 150g",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/benton-honest-cleansing-foam-150g.json",
+        "canonicalExtraction": {
+          "schemaVersion": 5,
+          "candidateId": "benton-honest-cleansing-foam-150g",
+          "sourceUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+          "responseUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+          "retrievedAt": "2026-08-02T18:31:00Z",
+          "fields": {
+            "gtin": {
+              "value": "8809540510251",
+              "locator": "identifierCorroborations[*].fields.gtin",
+              "sourceText": "EAN/UPC 8809540510251 is independently corroborated by MiiN Trade and iHerb; the complete rendered official Benton page publishes the exact product and current 150 g pack but no barcode, EAN, GTIN or UPC."
+            },
+            "variant": {
+              "value": "Honest Cleansing Foam",
+              "locator": "Rendered official product heading",
+              "sourceText": "Benton Honest Cleansing Foam 150g"
+            },
+            "size": {
+              "value": "150 g",
+              "locator": "Rendered official product heading",
+              "sourceText": "Benton Honest Cleansing Foam 150g"
+            },
+            "manufacturerIdentifierStatus": {
+              "value": "not-published",
+              "locator": "Complete rendered DOM outerHTML whole-word identifier absence search",
+              "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
+              "absenceProof": {
+                "searchScope": "complete-rendered-dom-outerhtml",
+                "searchedTerms": [
+                  "barcode",
+                  "ean",
+                  "gtin",
+                  "upc"
+                ],
+                "matchStrategy": "whole-word",
+                "caseInsensitive": true,
+                "matchCount": 0
+              }
+            },
+            "packageVersion": {
+              "value": "Benton Honest Cleansing Foam 150g",
+              "locator": "Official manufacturer product heading and main pack image",
+              "sourceText": "Benton Honest Cleansing Foam 150g",
+              "evidenceUrl": "https://cafe24img.poxo.com/bentoncos/web/product/small/202406/f2f6d95e3e814ee0c1399c7057395dbc.jpg"
+            }
+          },
+          "sourceResponseSha256": "be4382c9b037f99186ba0fa06a355627a8c7ebaae3d29c9fc3f00c3acbf1a7f8",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 186389,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://cafe24img.poxo.com/bentoncos/web/product/small/202406/f2f6d95e3e814ee0c1399c7057395dbc.jpg",
+              "responseUrl": "https://cafe24img.poxo.com/bentoncos/web/product/small/202406/f2f6d95e3e814ee0c1399c7057395dbc.jpg",
+              "retrievedAt": "2026-08-02T18:35:39Z",
+              "responseSha256": "183a8078be73fb6501717189f1f4e67a0d91de1baa1b26bd792e9086379757c4",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 54414
+            }
+          ],
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Benton Honest Cleansing Foam 150g BENTON"
+          },
+          "identifierCorroborations": [
+            {
+              "sourceUrl": "https://www.miintrade.com/benton/287-benton-honest-cleansing-foam-8809540510251.html",
+              "responseUrl": "https://www.miintrade.com/benton/287-benton-honest-cleansing-foam-8809540510251.html",
+              "retrievedAt": "2026-08-02T18:32:00Z",
+              "fields": {
+                "gtin": {
+                  "value": "8809540510251",
+                  "locator": "Rendered product metadata line labelled EAN",
+                  "sourceText": "EAN: 8809540510251"
+                },
+                "variant": {
+                  "value": "Honest Cleansing Foam - Benton",
+                  "locator": "Rendered page title",
+                  "sourceText": "Honest Cleansing Foam - Benton | MiiN Trade"
+                },
+                "size": {
+                  "value": "150 g",
+                  "locator": "Rendered product metadata line labelled Content/Format",
+                  "sourceText": "Content/Format (ml/gr): 150g"
+                }
+              },
+              "sourceResponseSha256": "919e24d474da1f38f7b9873e5a08610ec3d7fb7ccf162a378b76f7699c9d9e4f",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseByteSize": 152936,
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Honest Cleansing Foam - Benton | MiiN Trade"
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-02T18:44:00Z"
+            },
+            {
+              "sourceUrl": "https://www.iherb.com/pr/benton-honest-cleansing-foam-5-29-oz-150-g/74831",
+              "responseUrl": "https://www.iherb.com/pr/benton-honest-cleansing-foam-5-29-oz-150-g/74831",
+              "retrievedAt": "2026-08-02T18:33:00Z",
+              "fields": {
+                "gtin": {
+                  "value": "8809540510251",
+                  "locator": "Rendered specifications line labelled UPC",
+                  "sourceText": "UPC: 8809540510251"
+                },
+                "variant": {
+                  "value": "Benton, Honest Cleansing Foam",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Benton, Honest Cleansing Foam, 5.29 oz (150 g)"
+                },
+                "size": {
+                  "value": "150 g",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Benton, Honest Cleansing Foam, 5.29 oz (150 g)"
+                }
+              },
+              "sourceResponseSha256": "55361925118cbb41bc87c85cbaf759ebb8dc9ceb50ef9574856c078ea1f57955",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseByteSize": 200011,
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Benton, Honest Cleansing Foam, 5.29 oz (150 g)"
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-02T18:44:00Z"
+            }
+          ],
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-02T18:44:00Z"
+        },
+        "snapshotSha256": "c9893d425f5bf625177cb382978b8c11ce55d7a48485f953d3c61ddf3aeb5844",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 4859,
+        "retrievedAt": "2026-08-02T18:31:00Z"
+      },
+      "checkedAt": "2026-08-02T18:44:00Z",
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/benton-honest-cleansing-foam-5-29-oz-150g/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described rinse-off facial cleansing foam.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A rinse-off cosmetic cleanser, not treatment for acne, dermatitis, dryness or another skin condition. Gentleness, moisturising and sensitive-skin language does not guarantee tolerance for every person. Use fingertips and lukewarm water, avoid scrubbing and the eyes, and reduce or stop use if tightness, burning or persistent irritation develops. Persistent, painful or unexplained skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-02T18:44:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://cafe24img.poxo.com/bentoncos/web/product/small/202406/f2f6d95e3e814ee0c1399c7057395dbc.jpg",
+        "sha256": "183a8078be73fb6501717189f1f4e67a0d91de1baa1b26bd792e9086379757c4",
+        "mimeType": "image/jpeg",
+        "byteSize": 54414,
+        "width": 1000,
+        "height": 1000,
+        "retrievedAt": "2026-08-02T18:35:39Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+        "model": "gpt-image-2",
+        "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot source for transparent-background publication\nInput images: Image 1 is the edit target and sole authoritative product-identity reference.\nPrimary request: Isolate only the exact Benton Honest Cleansing Foam 150 g tube from Image 1. Preserve the tube faithfully and replace everything outside it with one perfectly flat, uniform solid #ff00ff chroma-magenta field for local background removal.\nSubject: one complete upright white squeeze tube with its original sealed top edge and glossy black flip-top cap. Preserve the exact silhouette, proportions, white plastic, cap geometry, front artwork, typography, linework, spacing, and label hierarchy.\nText (verbatim): preserve “Bt”, “BENTON”, “HONEST CLEANSING FOAM”, “Dermatologically Tested”, the small Vegan mark printed on the tube, the existing body copy, “Since 2011”, the Korean line, and “150g / Net Wt. 5.29 oz.” exactly as shown. Do not invent, correct, omit, restyle, or move text.\nComposition/framing: one centered, straight-on full tube; complete top seal and cap visible; generous even padding on all four sides; square crop; tube must not touch an edge.\nScene/backdrop: perfectly uniform #ff00ff only—no gradient, texture, floor, horizon, shadow, reflection, glow, vignette, or lighting variation outside the tube.\nStyle/medium: source-faithful premium studio product photography, not a redesign or illustration.\nConstraints: change only the background and remove the original floor reflection. Remove the separate large teal Vegan emblem that sits outside the tube in Image 1; preserve the small Vegan mark printed on the tube itself. Do not use #ff00ff anywhere on the product. No carton, props, hands, people, extra objects, duplicate tube, badges, detached text, or watermark.\nAvoid: altered lettering, misspelled brand or size, invented claims, softened label, cropped seal/cap, package redesign, perspective change, contact shadow, reflection, halo, gradient, or stylization.",
+        "inputs": [
+          {
+            "url": "https://cafe24img.poxo.com/bentoncos/web/product/small/202406/f2f6d95e3e814ee0c1399c7057395dbc.jpg",
+            "sha256": "183a8078be73fb6501717189f1f4e67a0d91de1baa1b26bd792e9086379757c4"
+          }
+        ],
+        "outputSha256": "f21ab090334c2f8def9e07586d1678f3e9b4da801202fd2238ea4463127de549",
+        "generatedAt": "2026-08-02T18:38:35Z",
+        "recordSha256": "b2b051d1cc458d8f42e0440f5ab95de4ffa0df6c0e9c7c3d4c533648e490eaaa"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/benton/benton-honest-cleansing-foam-150g/packshot-v1-f21ab090334c2f8d.png",
+      "sha256": "f21ab090334c2f8def9e07586d1678f3e9b4da801202fd2238ea4463127de549",
+      "mimeType": "image/png",
+      "byteSize": 949457,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-02T18:44:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-02T18:49:00Z"
+    },
+    "dossierFingerprint": "9c41484a3e425f0e7ed500aa4d704f1f32b1d966f67d11f21c44de573ed384c3"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "benton-honest-cleansing-foam-150g",
+    "dossierFingerprint": "9c41484a3e425f0e7ed500aa4d704f1f32b1d966f67d11f21c44de573ed384c3",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Rinse-off facial cleansing foam · 150 g",
+      "usage": "Lather a small amount with water, massage gently over damp facial skin, then rinse with lukewarm water. Avoid the eye area.",
+      "manufacturerDirectionsUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-02T18:49:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-02T18:50:00Z"
+    },
+    "releaseFingerprint": "4626a47f90b1b01c4158ee3cb61af0ccd39d514478311b17001d00b6e022b7bf"
+  }
+}

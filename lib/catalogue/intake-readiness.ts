@@ -747,6 +747,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
   beautyformulas: ['www.beautyformulas.co.uk'],
+  benton: ['bentoncosmetics.com'],
   cerave: ['africa.cerave.com', 'www.cerave.com', 'www.cerave.co.uk'],
   cecred: ['cecred.com'],
   delacruz: ['dlclabs.com'],
@@ -793,6 +794,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
   beautyformulas: ['www.beautyformulas.co.uk'],
+  benton: ['bentoncosmetics.com', 'cafe24img.poxo.com'],
   cerave: [
     'africa.cerave.com',
     'www.cerave.com',
@@ -827,6 +829,10 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   tresemme: ['www.tresemme.com', 'assets.unileversolutions.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
+  'benton-honest-cleansing-foam-150g': [
+    'https://www.miintrade.com/benton/287-benton-honest-cleansing-foam-8809540510251.html',
+    'https://www.iherb.com/pr/benton-honest-cleansing-foam-5-29-oz-150-g/74831',
+  ],
   'cerave-pm-facial-moisturising-lotion-52ml': [
     'https://www.superdrug.com/skin/face-skin-care/moisturising-lotions/cerave-pm-facial-moisturising-lotion-normal-to-dry-skin-52ml/p/774868',
     'https://www.ebay.co.uk/p/11022362284',

@@ -624,6 +624,20 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-26',
   },
+  'benton-honest-cleansing-foam-150g': {
+    productSlug: 'benton-honest-cleansing-foam-150g',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'daily-face-cleansing',
+      label: 'Daily facial cleansing',
+      concernIds: ['daily cleansing'],
+    }],
+    evidenceSourceUrls: [
+      'https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-08-02',
+  },
   'simple-kind-to-skin-refreshing-facial-gel-wash-150ml': {
     productSlug: 'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
     careState: 'supportive_eligible',
