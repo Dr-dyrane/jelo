@@ -309,6 +309,71 @@ test('remote verification returns measured evidence only for exact response byte
   assert.ok(result.metrics.surfaceBackgroundMeanDelta < 0.01);
 });
 
+test('remote verification retries an opt-in 404 until exact bytes become public', async () => {
+  const bytes = await packshot();
+  const expected = expectation(bytes);
+  let calls = 0;
+  const fetchImpl = (async () => {
+    calls += 1;
+    if (calls < 3) return new Response('not found', { status: 404 });
+    return new Response(new Uint8Array(bytes), {
+      status: 200,
+      headers: { 'Content-Type': 'image/png', 'Content-Length': String(bytes.length) },
+    });
+  }) as typeof fetch;
+
+  const result = await verifyRemoteCataloguePublicationImage(expected, {
+    fetchImpl,
+    notFoundRetryDelaysMs: [0, 0, 0],
+  });
+
+  assert.equal(calls, 3);
+  assert.equal(result.sha256, expected.sha256);
+});
+
+test('remote verification rejects a persistent 404 after its bounded opt-in retries', async () => {
+  const bytes = await packshot();
+  const expected = expectation(bytes);
+  let calls = 0;
+  const fetchImpl = (async () => {
+    calls += 1;
+    return new Response('not found', { status: 404 });
+  }) as typeof fetch;
+
+  await assert.rejects(
+    verifyRemoteCataloguePublicationImage(expected, {
+      fetchImpl,
+      notFoundRetryDelaysMs: [0, 0, 0],
+    }),
+    /final image returned 404, not 200/,
+  );
+  assert.equal(calls, 3);
+});
+
+test('remote verification never retries a non-404 integrity failure', async () => {
+  const bytes = await packshot();
+  const expected = expectation(bytes);
+  const alteredBytes = Buffer.from(bytes);
+  alteredBytes[alteredBytes.length - 1] ^= 0xff;
+  let calls = 0;
+  const fetchImpl = (async () => {
+    calls += 1;
+    return new Response(new Uint8Array(alteredBytes), {
+      status: 200,
+      headers: { 'Content-Type': 'image/png', 'Content-Length': String(alteredBytes.length) },
+    });
+  }) as typeof fetch;
+
+  await assert.rejects(
+    verifyRemoteCataloguePublicationImage(expected, {
+      fetchImpl,
+      notFoundRetryDelaysMs: [0, 0, 0],
+    }),
+    /approved hash/,
+  );
+  assert.equal(calls, 1);
+});
+
 test('remote verification accepts exact chunked bytes without content-length', async () => {
   const bytes = await packshot();
   const expected = expectation(bytes);

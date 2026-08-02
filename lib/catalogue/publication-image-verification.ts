@@ -52,6 +52,12 @@ export type CataloguePublicationImageVerification = CataloguePublicationImageExp
   metrics: CataloguePublicationImageMetrics;
 };
 
+type RemoteCataloguePublicationImageVerificationOptions = {
+  fetchImpl?: typeof fetch;
+  timeoutMs?: number;
+  notFoundRetryDelaysMs?: readonly number[];
+};
+
 type Bounds = { left: number; top: number; right: number; bottom: number; width: number; height: number };
 
 const hashPattern = /^[0-9a-f]{64}$/;
@@ -450,31 +456,53 @@ async function responseBytes(response: Response, candidateId: string, maxBytes: 
 
 export async function verifyRemoteCataloguePublicationImage(
   expectation: CataloguePublicationImageExpectation,
-  options: { fetchImpl?: typeof fetch; timeoutMs?: number } = {},
+  options: RemoteCataloguePublicationImageVerificationOptions = {},
 ) {
   assertExpectation(expectation);
-  const response = await (options.fetchImpl ?? fetch)(expectation.url, {
-    method: 'GET',
-    redirect: 'manual',
-    signal: AbortSignal.timeout(options.timeoutMs ?? 20_000),
-    headers: { Accept: expectation.mimeType },
-  });
-  if (response.status >= 300 && response.status < 400) {
-    throw new Error(`${expectation.candidateId}: final image URL redirects and is not immutable.`);
+  const notFoundRetryDelaysMs = options.notFoundRetryDelaysMs ?? [0];
+  if (
+    !notFoundRetryDelaysMs.length
+    || notFoundRetryDelaysMs.length > 20
+    || notFoundRetryDelaysMs.some(delay => !Number.isSafeInteger(delay) || delay < 0)
+    || notFoundRetryDelaysMs.reduce((total, delay) => total + delay, 0) > 600_000
+  ) {
+    throw new Error(`${expectation.candidateId}: final image 404 retry schedule is invalid.`);
   }
-  if (response.status !== 200) throw new Error(`${expectation.candidateId}: final image returned ${response.status}, not 200.`);
-  if (response.url && response.url !== expectation.url) {
-    throw new Error(`${expectation.candidateId}: final image response URL changed.`);
+
+  for (let attempt = 0; attempt < notFoundRetryDelaysMs.length; attempt += 1) {
+    const delay = notFoundRetryDelaysMs[attempt] ?? 0;
+    if (delay > 0) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+    const response = await (options.fetchImpl ?? fetch)(expectation.url, {
+      method: 'GET',
+      redirect: 'manual',
+      signal: AbortSignal.timeout(options.timeoutMs ?? 20_000),
+      headers: { Accept: expectation.mimeType },
+    });
+    if (response.status === 404 && attempt + 1 < notFoundRetryDelaysMs.length) {
+      await response.body?.cancel();
+      continue;
+    }
+    if (response.status >= 300 && response.status < 400) {
+      throw new Error(`${expectation.candidateId}: final image URL redirects and is not immutable.`);
+    }
+    if (response.status !== 200) throw new Error(`${expectation.candidateId}: final image returned ${response.status}, not 200.`);
+    if (response.url && response.url !== expectation.url) {
+      throw new Error(`${expectation.candidateId}: final image response URL changed.`);
+    }
+    const responseMimeType = response.headers.get('content-type')?.split(';')[0]?.trim() ?? '';
+    const declaredLength = declaredContentLength(response, expectation.candidateId);
+    if (declaredLength != null && declaredLength !== expectation.byteSize) {
+      throw new Error(`${expectation.candidateId}: final image response length changed.`);
+    }
+    const bytes = await responseBytes(
+      response,
+      expectation.candidateId,
+      Math.min(cataloguePublicationImageMaxBytes, expectation.byteSize),
+    );
+    return verifyCataloguePublicationImageBytes(expectation, bytes, responseMimeType);
   }
-  const responseMimeType = response.headers.get('content-type')?.split(';')[0]?.trim() ?? '';
-  const declaredLength = declaredContentLength(response, expectation.candidateId);
-  if (declaredLength != null && declaredLength !== expectation.byteSize) {
-    throw new Error(`${expectation.candidateId}: final image response length changed.`);
-  }
-  const bytes = await responseBytes(
-    response,
-    expectation.candidateId,
-    Math.min(cataloguePublicationImageMaxBytes, expectation.byteSize),
-  );
-  return verifyCataloguePublicationImageBytes(expectation, bytes, responseMimeType);
+
+  throw new Error(`${expectation.candidateId}: final image verification did not run.`);
 }

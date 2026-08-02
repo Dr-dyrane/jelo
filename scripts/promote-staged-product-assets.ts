@@ -27,6 +27,18 @@ import {
 
 const repairIds = new Set(repairs.repairs.map(repair => repair.id));
 const blobClient: StagedProductAssetBlobClient = { get, put };
+const publicationVisibilityRetryDelaysMs = [
+  0,
+  5_000,
+  10_000,
+  15_000,
+  30_000,
+  60_000,
+  60_000,
+  60_000,
+  60_000,
+  30_000,
+] as const;
 
 function publicationExpectation(
   candidateId: string,
@@ -137,6 +149,7 @@ async function main() {
     if (target.kind === 'catalogue-publication') {
       await verifyRemoteCataloguePublicationImage(
         publicationExpectation(target.id, promotion),
+        { notFoundRetryDelaysMs: publicationVisibilityRetryDelaysMs },
       );
     }
     console.log(
