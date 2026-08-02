@@ -7,10 +7,11 @@ import {
 import {
   resolveCommunityRetailerResearchTask,
 } from '@/lib/community-intake/retailer-research-resolution';
-import { recordNote } from '@/lib/moderation/database-transitions';
+import { recordNote, updateResearchAssignment } from '@/lib/moderation/database-transitions';
 
 const taskId = '6b1629ce-b151-4ed6-b91d-b985a6d725d8';
 const operatorId = 'd7b8e2f5-69ce-4a5e-8c37-51b8cce8a3b4';
+const secondOperatorId = '3e2f0f51-28aa-4f29-a502-60f8d4dce6f0';
 const operatorSubject = 'neon-auth|operator-1';
 
 type FixtureTask = {
@@ -21,6 +22,7 @@ type FixtureTask = {
   assigned_operator_id: string | null;
   status: 'pending' | 'in-progress' | 'completed' | 'dismissed';
   work_state: 'ready' | 'assigned' | 'blocked' | 'retry';
+  signal_count: number;
 };
 
 function sqlFixture(input: {
@@ -29,21 +31,26 @@ function sqlFixture(input: {
   targetExists?: boolean;
   resolutionExists?: boolean;
   failTaskUpdate?: boolean;
+  targetOperatorId?: string;
 }) {
   const state = {
     queries: [] as string[],
     began: 0,
     committed: 0,
     rolledBack: 0,
+    jsonValues: [] as unknown[],
   };
   const tag = ((strings: TemplateStringsArray) => {
     const query = strings.join(' ? ').replace(/\s+/g, ' ').trim();
     state.queries.push(query);
-    if (query === '' || query === 'for update') return { fragment: query };
+    if (query === '' || query === 'for update' || query === 'for share') return { fragment: query };
     if (query.includes('select exists(select 1 from community_research_tasks')) {
       return [{ exists: true }];
     }
     if (query.includes('from moderation_operators')) {
+      if (query.includes('where id =')) {
+        return [{ id: input.targetOperatorId ?? secondOperatorId, role: 'operator' }];
+      }
       return [{ id: operatorId, role: input.operatorRole ?? 'operator' }];
     }
     if (query.includes('from community_research_tasks') && query.includes('select id, task_kind')) {
@@ -54,6 +61,7 @@ function sqlFixture(input: {
         status: input.task.status,
         work_state: input.task.work_state,
         assigned_operator_id: input.task.assigned_operator_id,
+        signal_count: input.task.signal_count,
       }];
     }
     if (query.includes('from products')) return [{ exists: input.targetExists ?? true }];
@@ -79,7 +87,10 @@ function sqlFixture(input: {
   }) as unknown as Sql & {
     begin: <T>(run: (transaction: Sql) => Promise<T>) => Promise<T>;
   };
-  tag.json = value => value as never;
+  tag.json = value => {
+    state.jsonValues.push(value);
+    return value as never;
+  };
   tag.begin = async run => {
     state.began += 1;
     try {
@@ -104,6 +115,7 @@ function productTask(overrides: Partial<FixtureTask> = {}): FixtureTask {
     assigned_operator_id: operatorId,
     status: 'in-progress',
     work_state: 'assigned',
+    signal_count: 1,
     ...overrides,
   };
 }
@@ -117,6 +129,7 @@ function retailerTask(overrides: Partial<FixtureTask> = {}): FixtureTask {
     assigned_operator_id: operatorId,
     status: 'in-progress',
     work_state: 'assigned',
+    signal_count: 1,
     ...overrides,
   };
 }
@@ -137,6 +150,55 @@ test('product SQL writer locks, exact-binds, inserts once, and terminalizes atom
   assert.equal(fixture.state.queries.includes('for update'), true);
   assert.equal(fixture.state.queries.some(query => query.startsWith('insert into community_product_research_resolutions')), true);
   assert.equal(fixture.state.queries.some(query => query.startsWith('update community_research_tasks')), true);
+});
+
+test('admin reassign and unassign lock the task and audit both ownership edges', async () => {
+  const reassignment = sqlFixture({
+    task: productTask({ assigned_operator_id: operatorId }),
+    operatorRole: 'admin',
+    targetOperatorId: secondOperatorId,
+  });
+  await updateResearchAssignment(
+    reassignment.sql,
+    operatorSubject,
+    taskId,
+    'assign',
+    'Route this to the operator reviewing exact identity.',
+    { targetOperatorId: secondOperatorId },
+  );
+  assert.equal(reassignment.state.began, 1);
+  assert.equal(reassignment.state.committed, 1);
+  assert.equal(reassignment.state.queries.includes('for update'), true);
+  assert.equal(reassignment.state.queries.some(query => query.startsWith('update community_research_tasks')), true);
+  assert.deepEqual(reassignment.state.jsonValues.at(-1), {
+    assignmentOperation: 'reassign',
+    workState: 'assigned',
+    takeover: true,
+    previousOwnerId: operatorId,
+    previousWorkState: 'assigned',
+    newOwnerId: secondOperatorId,
+  });
+
+  const unassignment = sqlFixture({
+    task: productTask({ assigned_operator_id: secondOperatorId }),
+    operatorRole: 'admin',
+  });
+  await updateResearchAssignment(
+    unassignment.sql,
+    operatorSubject,
+    taskId,
+    'unassign',
+    'Return this to the shared research queue.',
+  );
+  assert.equal(unassignment.state.committed, 1);
+  assert.deepEqual(unassignment.state.jsonValues.at(-1), {
+    assignmentOperation: 'unassign',
+    workState: 'ready',
+    takeover: false,
+    previousOwnerId: secondOperatorId,
+    previousWorkState: 'assigned',
+    newOwnerId: null,
+  });
 });
 
 test('canonical SQL writers reject non-exact outcomes, wrong ownership, and a second resolution before mutation', async () => {

@@ -59,6 +59,7 @@ export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
         select count(*)
         from community_research_tasks
         where status in ('pending', 'in-progress')
+          and signal_count > 0
       )::int as research,
       (select count(*) from retailer_partnership_applications where status = 'submitted')::int as retailers,
       (select count(*) from commerce_events)::int as signals

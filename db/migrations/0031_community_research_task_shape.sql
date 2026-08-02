@@ -4,7 +4,8 @@ alter table moderation_audit_log
   drop constraint moderation_audit_log_action_check;
 alter table moderation_audit_log
   add constraint moderation_audit_log_action_check check (action in (
-    'claim', 'approve', 'reject', 'map', 'promote', 'reconcile', 'defer', 'retry', 'note'
+    'claim', 'assign', 'unassign', 'approve', 'reject', 'map', 'promote',
+    'reconcile', 'defer', 'retry', 'note'
   ));
 
 alter table community_research_tasks

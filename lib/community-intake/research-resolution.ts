@@ -186,6 +186,7 @@ type ProductResearchTaskRow = {
   assigned_operator_id: string | null;
   status: 'pending' | 'in-progress' | 'completed' | 'dismissed';
   work_state: 'ready' | 'assigned' | 'blocked' | 'retry';
+  signal_count: number;
 };
 
 async function validateCommunityProductResearchResolution(
@@ -210,12 +211,15 @@ async function validateCommunityProductResearchResolution(
   const lock = lockTask ? sql`for update` : sql``;
   const [task] = await sql<ProductResearchTaskRow[]>`
     select id, task_kind, entity_source, entity_ref,
-           assigned_operator_id, status, work_state
+           assigned_operator_id, status, work_state, signal_count
     from community_research_tasks
     where id = ${row.taskId} and entity_kind = 'product'
     ${lock}
   `;
   if (!task) throw new Error('Community product research task does not exist.');
+  if (task.signal_count <= 0) {
+    throw new Error('Research work without an active report cannot be resolved.');
+  }
   if (
     task.status !== 'in-progress'
     || task.assigned_operator_id !== operator.id

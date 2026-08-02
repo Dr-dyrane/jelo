@@ -4,6 +4,8 @@ import { can } from '@/lib/moderation/capabilities';
 import {
   findPendingResearchTask,
   listPendingResearchTasks,
+  listResearchAssignmentOptions,
+  listResearchCanonicalOptions,
 } from '@/lib/moderation/research-tasks';
 import {
   includeSelectedQueueItem,
@@ -31,7 +33,15 @@ export default async function ResearchQueue({
     ? requestedSelectedId
     : null;
   const sql = getPostgresClient();
-  const fetchedRows = await listPendingResearchTasks(sql, operator.id, LIMIT + 1);
+  const canManage = can(operator.role, 'research.manage');
+  const canAssign = can(operator.role, 'research.assign');
+  const [fetchedRows, assignmentOptions, canonicalOptions] = await Promise.all([
+    listPendingResearchTasks(sql, operator.id, LIMIT + 1),
+    canAssign ? listResearchAssignmentOptions(sql) : Promise.resolve([]),
+    canManage
+      ? listResearchCanonicalOptions(sql)
+      : Promise.resolve({ products: [], retailers: [] }),
+  ]);
   const recentRows = fetchedRows.slice(0, LIMIT);
   const hasMore = fetchedRows.length > LIMIT;
   const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
@@ -45,7 +55,6 @@ export default async function ResearchQueue({
     firstSeenAt: lastQueueRow.firstSeenAt,
     id: lastQueueRow.id,
   } : null;
-  const canManage = can(operator.role, 'research.manage');
   const unreleasedCandidates = canManage
     ? catalogueIntakeCandidates
         .filter(candidate => !isReleasedIntakeCandidate(candidate.id))
@@ -67,7 +76,9 @@ export default async function ResearchQueue({
         <ResearchInbox
           rows={rows}
           canManage={canManage}
-          canTakeover={operator.role === 'admin'}
+          canAssign={canAssign}
+          assignmentOptions={assignmentOptions}
+          canonicalOptions={canonicalOptions}
           initialHasMore={hasMore}
           initialCursor={nextCursor}
           unreleasedCandidates={unreleasedCandidates}

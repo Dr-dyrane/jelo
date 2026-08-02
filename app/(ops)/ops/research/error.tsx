@@ -16,11 +16,8 @@ export default function ResearchError({
   }, [error]);
 
   return (
-    <>
-      <OpsWorkspace title="Research">
-        <ErrorState title="Research is unavailable." detail="Nothing changed. Try again." onRetry={reset} />
-      </OpsWorkspace>
-      <span hidden data-ops-reserve-detail />
-    </>
+    <OpsWorkspace title="Research">
+      <ErrorState title="Research is unavailable." detail="Nothing changed. Try again." onRetry={reset} />
+    </OpsWorkspace>
   );
 }

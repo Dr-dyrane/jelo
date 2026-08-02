@@ -3,7 +3,12 @@
 import { useActionState, useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronRight, Microscope } from 'lucide-react';
-import type { PendingResearchTask, ResearchTaskCursor } from '@/lib/moderation/research-tasks';
+import type {
+  PendingResearchTask,
+  ResearchAssignmentOption,
+  ResearchCanonicalOptions,
+  ResearchTaskCursor,
+} from '@/lib/moderation/research-tasks';
 import { RelativeTime } from '@/components/ops/chips/RelativeTime';
 import { StatusPill } from '@/components/ops/chips/StatusPill';
 import { IdChip } from '@/components/ops/chips/IdChip';
@@ -110,6 +115,10 @@ function ResearchForms({
   resolveAction,
   pending,
   unreleasedCandidates,
+  canAssign,
+  assignmentOptions,
+  canonicalOptions,
+  submittedAction,
 }: {
   row: PendingResearchTask;
   assignmentFormId: string;
@@ -118,10 +127,24 @@ function ResearchForms({
   resolveAction: (payload: FormData) => void;
   pending: boolean;
   unreleasedCandidates: { id: string; label: string }[];
+  canAssign: boolean;
+  assignmentOptions: ResearchAssignmentOption[];
+  canonicalOptions: ResearchCanonicalOptions;
+  submittedAction: string | null;
 }) {
   const options = outcomeOptions(row);
   const [outcome, setOutcome] = useState<string>(options[0][0]);
+  const [ownerId, setOwnerId] = useState(row.assignedOperatorId ?? '');
   const targetRequired = outcomeNeedsTarget(outcome);
+  const canonicalRecords = row.entityKind === 'product'
+    ? canonicalOptions.products
+    : canonicalOptions.retailers;
+  const targetRecords = row.entitySource === 'canonical'
+    ? canonicalRecords.filter(record => record.id === row.canonicalTargetRef)
+    : canonicalRecords;
+  const defaultTarget = targetRecords.some(record => record.id === row.canonicalTargetRef)
+    ? row.canonicalTargetRef ?? ''
+    : '';
 
   return (
     <section className={researchStyles.formSection} aria-label="Research decision">
@@ -140,6 +163,52 @@ function ResearchForms({
             disabled={pending}
           />
         </div>
+        {canAssign ? (
+          <div className={researchStyles.assignmentEditor}>
+            <div className={styles.decideField}>
+              <label className={styles.decideNoteLabel} htmlFor={`owner-${row.id}`}>Owner</label>
+              <select
+                id={`owner-${row.id}`}
+                name="targetOperatorId"
+                className={researchStyles.select}
+                value={ownerId}
+                onChange={event => setOwnerId(event.target.value)}
+                disabled={pending}
+              >
+                <option value="">Choose an operator</option>
+                {assignmentOptions.map(option => (
+                  <option key={option.id} value={option.id}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className={researchStyles.assignmentActions}>
+              <button
+                className={styles.btn}
+                type="submit"
+                name="action"
+                value="assign"
+                disabled={pending || ownerId === '' || ownerId === row.assignedOperatorId}
+                aria-busy={pending && submittedAction === 'assign'}
+              >
+                {pending && submittedAction === 'assign'
+                  ? 'Assigning…'
+                  : row.assignedOperatorId ? 'Reassign' : 'Assign'}
+              </button>
+              {row.assignedOperatorId ? (
+                <button
+                  className={`${styles.btn} ${styles.btnReject}`}
+                  type="submit"
+                  name="action"
+                  value="unassign"
+                  disabled={pending}
+                  aria-busy={pending && submittedAction === 'unassign'}
+                >
+                  {pending && submittedAction === 'unassign' ? 'Unassigning…' : 'Unassign'}
+                </button>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
       </form>
 
       {row.isOwnedByCurrentOperator ? (
@@ -179,15 +248,22 @@ function ResearchForms({
           ) : targetRequired ? (
             <div className={styles.decideField}>
               <label className={styles.decideNoteLabel} htmlFor={`target-${row.id}`}>Matched record</label>
-              <input
+              <select
                 id={`target-${row.id}`}
                 name="targetRef"
-                className={researchStyles.input}
-                defaultValue={row.canonicalTargetRef ?? ''}
-                readOnly={row.entitySource === 'canonical'}
+                className={researchStyles.select}
+                defaultValue={defaultTarget}
                 required
-                placeholder="Exact reviewed record"
-              />
+                disabled={pending}
+              >
+                {row.entitySource === 'custom' ? <option value="">Choose a reviewed record</option> : null}
+                {row.entitySource === 'canonical' && targetRecords.length === 0
+                  ? <option value="">No reviewed record available</option>
+                  : null}
+                {targetRecords.map(record => (
+                  <option key={record.id} value={record.id}>{record.label}</option>
+                ))}
+              </select>
             </div>
           ) : null}
           <div className={styles.decideField}>
@@ -211,14 +287,18 @@ function ResearchForms({
 export function ResearchInbox({
   rows,
   canManage,
-  canTakeover,
+  canAssign,
+  assignmentOptions,
+  canonicalOptions,
   initialHasMore,
   initialCursor,
   unreleasedCandidates,
 }: {
   rows: PendingResearchTask[];
   canManage: boolean;
-  canTakeover: boolean;
+  canAssign: boolean;
+  assignmentOptions: ResearchAssignmentOption[];
+  canonicalOptions: ResearchCanonicalOptions;
   initialHasMore: boolean;
   initialCursor: ResearchTaskCursor | null;
   unreleasedCandidates: { id: string; label: string }[];
@@ -229,8 +309,15 @@ export function ResearchInbox({
   const loadPendingRef = useRef(false);
   const loadSentinelRef = useRef<HTMLDivElement | null>(null);
   const [submittedAction, setSubmittedAction] = useState<string | null>(null);
-  const [assignState, assignAction, assigning] = useActionState(assignResearchTaskAction, null);
-  const [resolveState, resolveAction, resolving] = useActionState(resolveResearchTaskAction, null);
+  const [latestSubmission, setLatestSubmission] = useState<{
+    requestId: string;
+    targetId: string;
+    channel: 'assignment' | 'resolution';
+    action: string;
+  } | null>(null);
+  const [paginationStatus, setPaginationStatus] = useState('');
+  const [assignState, dispatchAssignAction, assigning] = useActionState(assignResearchTaskAction, null);
+  const [resolveState, dispatchResolveAction, resolving] = useActionState(resolveResearchTaskAction, null);
   const [queueState, dispatch] = useReducer(queueReducer, {
     extraRows: [],
     settledIds: [],
@@ -241,21 +328,69 @@ export function ResearchInbox({
   });
   const loadedRows = useMemo(() => orderedRows(rows, queueState), [rows, queueState]);
   const pending = assigning || resolving;
+  const visibleAssignState = latestSubmission?.channel === 'assignment'
+    && assignState?.requestId === latestSubmission.requestId
+    && assignState.targetId === latestSubmission.targetId
+    && assignState.action === latestSubmission.action
+    ? assignState
+    : null;
+  const visibleResolveState = latestSubmission?.channel === 'resolution'
+    && resolveState?.requestId === latestSubmission.requestId
+    && resolveState.targetId === latestSubmission.targetId
+    && resolveState.action === latestSubmission.action
+    ? resolveState
+    : null;
+
+  const submitAssignment = useCallback((payload: FormData) => {
+    const requestId = globalThis.crypto.randomUUID();
+    const targetId = payload.get('targetId')?.toString() ?? '';
+    const action = payload.get('action')?.toString() ?? '';
+    payload.set('requestId', requestId);
+    setSubmittedAction(action);
+    setLatestSubmission({ requestId, targetId, channel: 'assignment', action });
+    dispatchAssignAction(payload);
+  }, [dispatchAssignAction]);
+
+  const submitResolution = useCallback((payload: FormData) => {
+    const requestId = globalThis.crypto.randomUUID();
+    const targetId = payload.get('targetId')?.toString() ?? '';
+    const action = payload.get('outcome')?.toString() ?? '';
+    payload.set('requestId', requestId);
+    setSubmittedAction('resolve');
+    setLatestSubmission({ requestId, targetId, channel: 'resolution', action });
+    dispatchResolveAction(payload);
+  }, [dispatchResolveAction]);
 
   useEffect(() => {
-    if (!assignState?.ok) return;
+    if (!visibleAssignState?.ok) return;
     router.refresh();
-  }, [assignState, router]);
+  }, [visibleAssignState, router]);
 
   useEffect(() => {
-    if (!resolveState?.ok || !resolveState.terminal) return;
-    controllerRef.current?.settleItem(resolveState.targetId);
-    dispatch({ type: 'settled', id: resolveState.targetId });
-  }, [resolveState]);
+    if (!visibleResolveState?.ok || !visibleResolveState.terminal) return;
+    controllerRef.current?.settleItem(visibleResolveState.targetId);
+    dispatch({ type: 'settled', id: visibleResolveState.targetId });
+  }, [visibleResolveState]);
+
+  useEffect(() => {
+    const successful = visibleResolveState?.ok
+      ? visibleResolveState
+      : visibleAssignState?.ok
+        ? visibleAssignState
+        : null;
+    if (!successful) return;
+    const timeout = window.setTimeout(() => {
+      setLatestSubmission(current => (
+        current?.requestId === successful.requestId ? null : current
+      ));
+    }, 4000);
+    return () => window.clearTimeout(timeout);
+  }, [visibleAssignState, visibleResolveState]);
 
   const loadMore = useCallback(async () => {
     if (loadPendingRef.current || queueState.loading || !queueState.hasMore || !queueState.cursor) return;
     loadPendingRef.current = true;
+    setLatestSubmission(null);
     dispatch({ type: 'loading' });
     try {
       const result = await fetchMoreResearchTasksAction(
@@ -265,6 +400,11 @@ export function ResearchInbox({
         queueState.cursor.id,
       );
       dispatch({ type: 'loaded', rows: result.items, cursor: result.nextCursor, hasMore: result.hasMore });
+      setPaginationStatus(result.hasMore
+        ? `${result.items.length} more research items loaded.`
+        : result.items.length > 0
+          ? `${result.items.length} more research items loaded. End of the queue.`
+          : 'End of the research queue.');
     } catch (error) {
       console.error('Could not load more research work.', error);
       dispatch({ type: 'failed' });
@@ -297,9 +437,14 @@ export function ResearchInbox({
         pendingSelectionId={selection.pendingSelectionId}
         onSelect={item => {
           setSubmittedAction(null);
+          setLatestSubmission(null);
           selection.onSelect(item);
         }}
-        onDeselect={selection.onDeselect}
+        onDeselect={() => {
+          setSubmittedAction(null);
+          setLatestSubmission(null);
+          selection.onDeselect();
+        }}
         renderItemRow={row => (
           <span className={styles.cardInner}>
             <span className={researchStyles.mark} aria-hidden="true">
@@ -318,10 +463,10 @@ export function ResearchInbox({
           const assignmentFormId = `research-assignment-${row.id}`;
           const resolutionFormId = `research-resolution-${row.id}`;
           const ownedByAnother = row.assignedOperatorId != null && !row.isOwnedByCurrentOperator;
-          const rowError = assignState && !assignState.ok && assignState.targetId === row.id
-            ? assignState.error
-            : resolveState && !resolveState.ok && resolveState.targetId === row.id
-              ? resolveState.error
+          const rowError = visibleAssignState && !visibleAssignState.ok && visibleAssignState.targetId === row.id
+            ? visibleAssignState.error
+            : visibleResolveState && !visibleResolveState.ok && visibleResolveState.targetId === row.id
+              ? visibleResolveState.error
               : null;
 
           return (
@@ -349,16 +494,24 @@ export function ResearchInbox({
                     {row.nextAction ? <div className={styles.propertyRow}><span className={styles.propertyLabel}>Next step</span><span className={`${styles.propertyValue} ${researchStyles.nextAction}`}>{row.nextAction}</span></div> : null}
                   </div>
                 </section>
-                {canManage ? (
+                {canManage && (
+                  row.assignedOperatorId === null
+                  || row.isOwnedByCurrentOperator
+                  || canAssign
+                ) ? (
                   <ResearchForms
                     key={`${row.id}:${row.updatedAt}`}
                     row={row}
                     assignmentFormId={assignmentFormId}
                     resolutionFormId={resolutionFormId}
-                    assignAction={assignAction}
-                    resolveAction={resolveAction}
+                    assignAction={submitAssignment}
+                    resolveAction={submitResolution}
                     pending={pending}
                     unreleasedCandidates={unreleasedCandidates}
+                    canAssign={canAssign}
+                    assignmentOptions={assignmentOptions}
+                    canonicalOptions={canonicalOptions}
+                    submittedAction={submittedAction}
                   />
                 ) : null}
                 <details className={styles.metadataDisclosure}>
@@ -374,7 +527,7 @@ export function ResearchInbox({
               <div className={`${styles.decideSection} ${researchStyles.decisionBar}`} data-ops-decision-actions>
                 {rowError ? <p role="alert" className={researchStyles.errorNote}>{rowError}</p> : null}
                 {!canManage ? <p className={styles.permissionNote}>You cannot manage research work.</p> : ownedByAnother ? (
-                  canTakeover ? (
+                  canAssign ? (
                     <button
                       className={styles.btn}
                       type="submit"
@@ -434,9 +587,9 @@ export function ResearchInbox({
           );
         }}
       />
-      {assignState?.ok || resolveState?.ok ? (
+      {visibleAssignState?.ok || visibleResolveState?.ok ? (
         <p className={researchStyles.feedback} role="status">
-          {resolveState?.ok ? 'Research outcome recorded.' : 'Research work updated.'}
+          {visibleResolveState?.ok ? 'Research outcome recorded.' : 'Research work updated.'}
         </p>
       ) : null}
       {queueState.hasMore ? (
@@ -448,7 +601,13 @@ export function ResearchInbox({
         </div>
       ) : null}
       <span className={researchStyles.liveStatus} role="status" aria-live="polite" aria-atomic="true">
-        {resolveState?.ok ? 'Research outcome recorded.' : assignState?.ok ? 'Research work updated.' : queueState.loading ? 'Loading more research work.' : ''}
+        {visibleResolveState?.ok
+          ? 'Research outcome recorded.'
+          : visibleAssignState?.ok
+            ? 'Research work updated.'
+            : queueState.loading
+              ? 'Loading more research work.'
+              : paginationStatus}
       </span>
     </>
   );

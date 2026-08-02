@@ -42,6 +42,15 @@ export type OperatorCommand =
       json: boolean;
     }
   | {
+      action: 'assign' | 'unassign';
+      queue: 'community_research_task';
+      targetId: string;
+      targetOperatorId?: string;
+      rationale: string;
+      apply: boolean;
+      json: boolean;
+    }
+  | {
       action: 'reconcile';
       queue: 'community_research_task';
       rationale: string;
@@ -66,6 +75,7 @@ const allowedFlags = new Set([
   'canonical-kind',
   'canonical-ref',
   'disposition',
+  'operator-id',
   'apply',
   'json',
 ]);
@@ -118,6 +128,8 @@ export function parseOperatorCommand(argv: string[]): OperatorCommand {
     'claim',
     'defer',
     'retry',
+    'assign',
+    'unassign',
     'note',
     'reconcile',
     'correct',
@@ -172,6 +184,26 @@ export function parseOperatorCommand(argv: string[]): OperatorCommand {
       queue,
       targetId: uuid.parse(required(flags, 'target-id')),
       disposition: z.enum(['defer', 'reject']).parse(required(flags, 'disposition')),
+      rationale: rationale.parse(required(flags, 'rationale')),
+      apply,
+      json,
+    };
+  }
+
+  if (action === 'assign' || action === 'unassign') {
+    requireOnly(flags, [
+      'queue', 'target-id', 'rationale',
+      ...(action === 'assign' ? ['operator-id'] : []),
+    ]);
+    const queue = moderationQueueSchema.parse(required(flags, 'queue'));
+    if (queue !== 'community_research_task') {
+      throw new Error('Research assignment is available only for community_research_task.');
+    }
+    return {
+      action,
+      queue,
+      targetId: uuid.parse(required(flags, 'target-id')),
+      ...(action === 'assign' ? { targetOperatorId: uuid.parse(required(flags, 'operator-id')) } : {}),
       rationale: rationale.parse(required(flags, 'rationale')),
       apply,
       json,

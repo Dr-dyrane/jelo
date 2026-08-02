@@ -15,6 +15,7 @@ export type Capability =
   | 'vocabulary.map'
   | 'queue.note'
   | 'research.manage'
+  | 'research.assign'
   | 'operators.manage';
 
 const CAPABILITIES: Record<ModerationRole, Capability[]> = {
@@ -26,7 +27,7 @@ const CAPABILITIES: Record<ModerationRole, Capability[]> = {
   admin: [
     'observations.decide', 'edges.decide', 'contributions.decide',
     'retailers.decide', 'vocabulary.decide', 'vocabulary.map', 'queue.note',
-    'research.manage', 'operators.manage',
+    'research.manage', 'research.assign', 'operators.manage',
   ],
 };
 

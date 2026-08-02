@@ -49,6 +49,23 @@
   gap: var(--space-3);
 }
 
+.assignmentEditor {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent);
+}
+
+.assignmentActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.assignmentActions button {
+  min-height: 44px;
+}
+
 .select,
 .input {
   width: 100%;

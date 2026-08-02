@@ -78,11 +78,15 @@ Community and retailer intake should return a temporary unavailable response rat
 ## A migration fails
 
 1. Record the migration filename and PostgreSQL error.
-2. Confirm it is absent from `schema_migrations`.
-3. Inspect whether PostgreSQL committed any non-transactional side effect.
+2. The runner requires one outer `begin`/`commit` wrapper, removes that wrapper,
+   then executes the migration body and `schema_migrations` insert in one
+   transaction. Missing, nested, or empty wrappers fail before SQL runs.
+3. Confirm the failed filename is absent from `schema_migrations` and verify its
+   body also rolled back. A body-without-ledger discrepancy indicates a legacy
+   runner failure: stop and reconcile it explicitly before another deployment.
 4. If the migration was never shared or applied, repair it.
 5. Otherwise add a new forward migration.
-6. Rehearse on a Neon branch before production.
+6. Rehearse both the first run and idempotent rerun on a Neon branch before production.
 
 ## Operator access cannot be changed
 
@@ -278,6 +282,26 @@ MODERATION_OPERATOR_EMAIL=operator@example.com \
   npm run community:moderate -- \
   --action reconcile \
   --rationale "Scheduled retention reconciliation."
+```
+
+Admins can also assign or reassign a task to one active operator, or return it to
+the shared queue. Both commands dry-run unless `--apply` is appended:
+
+```bash
+MODERATION_OPERATOR_EMAIL=admin@example.com \
+  npm run community:moderate -- \
+  --action assign \
+  --queue community_research_task \
+  --target-id 00000000-0000-4000-8000-000000000000 \
+  --operator-id 00000000-0000-4000-8000-000000000001 \
+  --rationale "Route this exact identity check to the assigned reviewer."
+
+MODERATION_OPERATOR_EMAIL=admin@example.com \
+  npm run community:moderate -- \
+  --action unassign \
+  --queue community_research_task \
+  --target-id 00000000-0000-4000-8000-000000000000 \
+  --rationale "Return this work to the shared queue."
 ```
 
 Never copy a connection string, raw payload, operator subject, or contributor text

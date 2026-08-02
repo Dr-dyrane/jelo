@@ -7,11 +7,12 @@ type TransactionCapableSql = Sql & {
   begin?: <T>(run: (tx: Sql) => Promise<T>) => Promise<T>;
 };
 
-type ResearchAssignmentAction = 'claim' | 'defer' | 'retry';
+export type ResearchAssignmentAction = 'claim' | 'defer' | 'retry' | 'assign' | 'unassign';
 type ResearchAssignmentTask = {
   status: 'pending' | 'in-progress' | 'completed' | 'dismissed';
   workState: 'ready' | 'assigned' | 'blocked' | 'retry';
   assignedOperatorId: string | null;
+  signalCount: number;
 };
 type ResearchAssignmentOperator = {
   id: string;
@@ -22,6 +23,7 @@ export function planResearchAssignmentTransition(input: {
   action: ResearchAssignmentAction;
   task: ResearchAssignmentTask;
   operator: ResearchAssignmentOperator;
+  targetOperator?: ResearchAssignmentOperator;
   allowTakeover?: boolean;
 }) {
   const { action, task, operator } = input;
@@ -30,6 +32,48 @@ export function planResearchAssignmentTransition(input: {
   }
   if (task.status !== 'pending' && task.status !== 'in-progress') {
     throw new Error('A terminal research task cannot be reassigned.');
+  }
+  if (task.signalCount <= 0 && action !== 'unassign') {
+    throw new Error('Research work without an active report cannot be assigned or resolved.');
+  }
+
+  if (action === 'assign') {
+    if (operator.role !== 'admin') {
+      throw new Error('Only an admin may assign research work to another operator.');
+    }
+    if (!input.targetOperator || input.targetOperator.role === 'moderator') {
+      throw new Error('Choose an active research operator or admin.');
+    }
+    if (task.assignedOperatorId === input.targetOperator.id) {
+      throw new Error('Research work is already assigned to that operator.');
+    }
+    return {
+      status: 'in-progress' as const,
+      workState: 'assigned' as const,
+      takeover: task.assignedOperatorId !== null,
+      assignmentOperation: task.assignedOperatorId === null ? 'assign' as const : 'reassign' as const,
+      previousOwnerId: task.assignedOperatorId,
+      previousWorkState: task.workState,
+      newOwnerId: input.targetOperator.id,
+    };
+  }
+
+  if (action === 'unassign') {
+    if (operator.role !== 'admin') {
+      throw new Error('Only an admin may unassign research work.');
+    }
+    if (task.status !== 'in-progress' || task.assignedOperatorId === null) {
+      throw new Error('Only assigned research work can be unassigned.');
+    }
+    return {
+      status: 'pending' as const,
+      workState: 'ready' as const,
+      takeover: false,
+      assignmentOperation: 'unassign' as const,
+      previousOwnerId: task.assignedOperatorId,
+      previousWorkState: task.workState,
+      newOwnerId: null,
+    };
   }
 
   const takeover = input.allowTakeover === true;
@@ -68,8 +112,10 @@ export function planResearchAssignmentTransition(input: {
       ? 'retry' as const
       : 'assigned' as const;
   return {
+    status: 'in-progress' as const,
     workState,
     takeover,
+    assignmentOperation: takeover ? 'takeover' as const : action,
     previousOwnerId: task.assignedOperatorId,
     previousWorkState: task.workState,
     newOwnerId: operator.id,
@@ -81,24 +127,39 @@ async function validateResearchAssignment(
   operatorSubject: string,
   targetRef: string,
   action: ResearchAssignmentAction,
-  options: { allowResearchTakeover?: boolean },
+  options: { allowResearchTakeover?: boolean; targetOperatorId?: string },
   lockTask: boolean,
 ) {
+  const operatorLock = lockTask ? sql`for share` : sql``;
   const [operator] = await sql<ResearchAssignmentOperator[]>`
     select id, role
     from moderation_operators
     where auth_subject = ${operatorSubject} and active = true
     limit 1
+    ${operatorLock}
   `;
   if (!operator) throw new Error('An active operator is required to assign research work.');
+
+  const [targetOperator] = action === 'assign'
+    ? await sql<ResearchAssignmentOperator[]>`
+        select id, role
+        from moderation_operators
+        where id = ${options.targetOperatorId ?? null}
+          and active = true
+          and role in ('operator', 'admin')
+        limit 1
+        ${operatorLock}
+      `
+    : [];
 
   const lock = lockTask ? sql`for update` : sql``;
   const [task] = await sql<{
     status: ResearchAssignmentTask['status'];
     work_state: ResearchAssignmentTask['workState'];
     assigned_operator_id: string | null;
+    signal_count: number;
   }[]>`
-    select status, work_state, assigned_operator_id
+    select status, work_state, assigned_operator_id, signal_count
     from community_research_tasks
     where id = ${targetRef}
     ${lock}
@@ -111,7 +172,9 @@ async function validateResearchAssignment(
       status: task.status,
       workState: task.work_state,
       assignedOperatorId: task.assigned_operator_id,
+      signalCount: task.signal_count,
     },
+    targetOperator,
     allowTakeover: options.allowResearchTakeover,
   });
 }
@@ -121,9 +184,59 @@ export function preflightResearchAssignment(
   operatorSubject: string,
   targetRef: string,
   action: ResearchAssignmentAction,
-  options: { allowResearchTakeover?: boolean } = {},
+  options: { allowResearchTakeover?: boolean; targetOperatorId?: string } = {},
 ) {
   return validateResearchAssignment(sql, operatorSubject, targetRef, action, options, false);
+}
+
+export async function updateResearchAssignment(
+  sql: Sql,
+  operatorSubject: string,
+  targetRef: string,
+  action: ResearchAssignmentAction,
+  rationale: string,
+  options: { allowResearchTakeover?: boolean; targetOperatorId?: string } = {},
+): Promise<void> {
+  await inTransaction(sql, async tx => {
+    const planned = await validateResearchAssignment(
+      tx,
+      operatorSubject,
+      targetRef,
+      action,
+      options,
+      true,
+    );
+    const updated = await tx<{ id: string }[]>`
+      update community_research_tasks
+      set
+        status = ${planned.status},
+        assigned_operator_id = ${planned.newOwnerId},
+        work_state = ${planned.workState},
+        next_action = ${planned.workState === 'ready' ? null : rationale},
+        last_reviewed_at = now(),
+        updated_at = now()
+      where id = ${targetRef}
+      returning id
+    `;
+    if (!updated[0]) throw new Error('The research task could not be updated.');
+
+    await recordModerationAction(tx, {
+      operatorSubject,
+      queue: 'community_research_task',
+      action,
+      targetRef,
+      canonicalWrite: false,
+      rationale,
+      metadata: {
+        assignmentOperation: planned.assignmentOperation,
+        workState: planned.workState,
+        takeover: planned.takeover,
+        previousOwnerId: planned.previousOwnerId,
+        previousWorkState: planned.previousWorkState,
+        newOwnerId: planned.newOwnerId,
+      },
+    });
+  });
 }
 
 // This module intentionally has no `server-only` marker: the authenticated Next
@@ -455,46 +568,13 @@ export async function recordNote(
   action: Extract<ModerationAction['action'], 'note' | 'defer' | 'claim' | 'retry'> = 'note',
   options: { allowResearchTakeover?: boolean } = {},
 ): Promise<void> {
+  if (queue === 'community_research_task' && action !== 'note') {
+    await updateResearchAssignment(sql, operatorSubject, targetRef, action, rationale, options);
+    return;
+  }
   await inTransaction(sql, async tx => {
     if (!await moderationTargetExists(tx, queue, targetRef)) {
       throw new Error('Moderation target does not exist.');
-    }
-
-    let metadata: ActionMetadata = {};
-    if (
-      queue === 'community_research_task'
-      && (action === 'claim' || action === 'defer' || action === 'retry')
-    ) {
-      const planned = await validateResearchAssignment(
-        tx,
-        operatorSubject,
-        targetRef,
-        action,
-        options,
-        true,
-      );
-      const updated = await tx<{ id: string }[]>`
-        update community_research_tasks
-        set
-          status = 'in-progress',
-          assigned_operator_id = ${planned.newOwnerId},
-          work_state = ${planned.workState},
-          next_action = ${rationale},
-          last_reviewed_at = now(),
-          updated_at = now()
-        where id = ${targetRef}
-        returning id
-      `;
-      if (!updated[0]) {
-        throw new Error('The research task could not be updated.');
-      }
-      metadata = {
-        workState: planned.workState,
-        takeover: planned.takeover,
-        previousOwnerId: planned.previousOwnerId,
-        previousWorkState: planned.previousWorkState,
-        newOwnerId: planned.newOwnerId,
-      };
     }
 
     await recordModerationAction(tx, {
@@ -504,7 +584,7 @@ export async function recordNote(
       targetRef,
       canonicalWrite: false,
       rationale,
-      metadata,
+      metadata: {},
     });
   });
 }

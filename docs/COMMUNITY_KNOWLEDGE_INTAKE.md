@@ -73,8 +73,9 @@ Migration `0030_community_research_workflow.sql` adds durable ownership and a
 specific next action to every active research task. `claim` records the active
 operator and moves the work to `assigned`; `defer` records the operator, the
 precise blocker, and `blocked`; `retry` is available only to the current owner
-and records the next bounded attempt. An admin takeover locks the task, requires
-a different existing owner, and records both the displaced and new owner.
+and records the next bounded attempt. Admins can assign or reassign work to a
+chosen active operator, unassign it back to the shared queue, or take it over.
+Every transition locks the task and records both the previous and new owner.
 Terminal decisions clear the active assignment
 but preserve the decision row and moderation history. The same migration adds
 one private, audit-attributed terminal resolution per retailer research task.
@@ -86,7 +87,8 @@ prices, assets, or publication state.
 Migration `0031_community_research_task_shape.sql` binds each task kind to its
 one valid entity kind, source, and reference namespace. Canonical product and
 retailer tasks accept only the exact existing record already named by the task;
-custom identity tasks retain the wider reviewed outcome set.
+custom identity tasks retain the wider reviewed outcome set. The same migration
+adds explicit assign and unassign audit actions.
 
 A later contribution may add a new independent mention and increase a task’s
 signal count, but it never reopens the task or clears its owner, blocker, retry,
@@ -114,9 +116,10 @@ applied transition. They can still become stale after the read; every applied
 writer revalidates under its transaction and row lock.
 
 `/ops/research` is the manual research control surface. It shows current
-ownership and the next evidence action, supports attributable assignment or
-blocking, and records product or retailer outcomes through the same resolvers as
-the private commands. A free-form target cannot create a canonical record:
+ownership and the next evidence action, supports attributable assignment,
+reassignment, unassignment, or blocking, and records product or retailer
+outcomes through the same resolvers as the private commands. Product and store
+matches use reviewed canonical pickers rather than operator-authored identifiers:
 canonical targets must already exist, deliberate product intake targets must be
 present in the checked-in intake manifest and not already explicitly released,
 and all outcomes remain private. A deliberate intake outcome is valid only for
@@ -127,7 +130,9 @@ Rejected contributions retain their immutable record but cannot leave pending
 edges, observations, or active research priority behind. Migration
 `0021_community_moderation_integrity.sql` reconciles existing rows, and future
 rejections cascade those moderation states and recalculate affected task signals in
-one audited transaction. Queue reads exclude expired or rejected-parent material;
+one audited transaction. Research tasks with no active retained report are excluded
+from the research queue, deep links, and queue totals, and cannot be assigned or
+resolved. Queue reads exclude expired or rejected-parent material;
 shared custom vocabulary is ordered by active retained mentions rather than its
 historical counter.
 

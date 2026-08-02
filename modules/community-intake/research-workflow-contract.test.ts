@@ -130,10 +130,12 @@ test('research ownership transitions enforce current ownership, admin takeover, 
   assert.deepEqual(planResearchAssignmentTransition({
     action: 'claim',
     operator,
-    task: { status: 'pending', workState: 'ready', assignedOperatorId: null },
+    task: { status: 'pending', workState: 'ready', assignedOperatorId: null, signalCount: 1 },
   }), {
+    status: 'in-progress',
     workState: 'assigned',
     takeover: false,
+    assignmentOperation: 'claim',
     previousOwnerId: null,
     previousWorkState: 'ready',
     newOwnerId: 'operator-1',
@@ -141,38 +143,40 @@ test('research ownership transitions enforce current ownership, admin takeover, 
   assert.equal(planResearchAssignmentTransition({
     action: 'defer',
     operator,
-    task: { status: 'in-progress', workState: 'assigned', assignedOperatorId: 'operator-1' },
+    task: { status: 'in-progress', workState: 'assigned', assignedOperatorId: 'operator-1', signalCount: 1 },
   }).workState, 'blocked');
   assert.equal(planResearchAssignmentTransition({
     action: 'retry',
     operator,
-    task: { status: 'in-progress', workState: 'blocked', assignedOperatorId: 'operator-1' },
+    task: { status: 'in-progress', workState: 'blocked', assignedOperatorId: 'operator-1', signalCount: 1 },
   }).workState, 'retry');
 
   assert.throws(() => planResearchAssignmentTransition({
     action: 'claim',
     operator,
-    task: { status: 'in-progress', workState: 'assigned', assignedOperatorId: 'operator-2' },
+    task: { status: 'in-progress', workState: 'assigned', assignedOperatorId: 'operator-2', signalCount: 1 },
   }), /owned by another/);
   assert.throws(() => planResearchAssignmentTransition({
     action: 'claim',
     operator: { id: 'moderator-1', role: 'moderator' },
-    task: { status: 'pending', workState: 'ready', assignedOperatorId: null },
+    task: { status: 'pending', workState: 'ready', assignedOperatorId: null, signalCount: 1 },
   }), /operator or admin/);
   assert.throws(() => planResearchAssignmentTransition({
     action: 'claim',
     operator,
-    task: { status: 'in-progress', workState: 'assigned', assignedOperatorId: 'operator-2' },
+    task: { status: 'in-progress', workState: 'assigned', assignedOperatorId: 'operator-2', signalCount: 1 },
     allowTakeover: true,
   }), /Only an admin/);
   assert.deepEqual(planResearchAssignmentTransition({
     action: 'claim',
     operator: { id: 'admin-1', role: 'admin' },
-    task: { status: 'in-progress', workState: 'blocked', assignedOperatorId: 'operator-2' },
+    task: { status: 'in-progress', workState: 'blocked', assignedOperatorId: 'operator-2', signalCount: 1 },
     allowTakeover: true,
   }), {
+    status: 'in-progress',
     workState: 'assigned',
     takeover: true,
+    assignmentOperation: 'takeover',
     previousOwnerId: 'operator-2',
     previousWorkState: 'blocked',
     newOwnerId: 'admin-1',
@@ -180,12 +184,56 @@ test('research ownership transitions enforce current ownership, admin takeover, 
   assert.throws(() => planResearchAssignmentTransition({
     action: 'claim',
     operator: { id: 'admin-1', role: 'admin' },
-    task: { status: 'pending', workState: 'ready', assignedOperatorId: null },
+    task: { status: 'pending', workState: 'ready', assignedOperatorId: null, signalCount: 1 },
     allowTakeover: true,
   }), /requires work owned by another/);
   assert.throws(() => planResearchAssignmentTransition({
     action: 'claim',
     operator,
-    task: { status: 'completed', workState: 'ready', assignedOperatorId: null },
+    task: { status: 'completed', workState: 'ready', assignedOperatorId: null, signalCount: 1 },
   }), /terminal/);
+  assert.throws(() => planResearchAssignmentTransition({
+    action: 'claim',
+    operator,
+    task: { status: 'pending', workState: 'ready', assignedOperatorId: null, signalCount: 0 },
+  }), /without an active report/);
+
+  assert.deepEqual(planResearchAssignmentTransition({
+    action: 'assign',
+    operator: { id: 'admin-1', role: 'admin' },
+    targetOperator: { id: 'operator-2', role: 'operator' },
+    task: { status: 'pending', workState: 'ready', assignedOperatorId: null, signalCount: 1 },
+  }), {
+    status: 'in-progress',
+    workState: 'assigned',
+    takeover: false,
+    assignmentOperation: 'assign',
+    previousOwnerId: null,
+    previousWorkState: 'ready',
+    newOwnerId: 'operator-2',
+  });
+  assert.deepEqual(planResearchAssignmentTransition({
+    action: 'unassign',
+    operator: { id: 'admin-1', role: 'admin' },
+    task: {
+      status: 'in-progress',
+      workState: 'blocked',
+      assignedOperatorId: 'operator-2',
+      signalCount: 1,
+    },
+  }), {
+    status: 'pending',
+    workState: 'ready',
+    takeover: false,
+    assignmentOperation: 'unassign',
+    previousOwnerId: 'operator-2',
+    previousWorkState: 'blocked',
+    newOwnerId: null,
+  });
+  assert.throws(() => planResearchAssignmentTransition({
+    action: 'assign',
+    operator,
+    targetOperator: { id: 'operator-2', role: 'operator' },
+    task: { status: 'pending', workState: 'ready', assignedOperatorId: null, signalCount: 1 },
+  }), /Only an admin/);
 });

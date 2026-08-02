@@ -17,6 +17,7 @@ const routeErrors = [
   'app/(ops)/ops/observations/error.tsx',
   'app/(ops)/ops/operators/error.tsx',
   'app/(ops)/ops/retailers/error.tsx',
+  'app/(ops)/ops/research/error.tsx',
   'app/(ops)/ops/signals/error.tsx',
   'app/(ops)/ops/vocabulary/error.tsx',
 ] as const;

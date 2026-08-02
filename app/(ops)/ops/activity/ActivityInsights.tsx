@@ -47,6 +47,8 @@ const queueLabels: Record<ActivityDecision['queue'], string> = {
 
 const actionLabels: Record<ActivityDecision['action'], string> = {
   claim: 'Claimed',
+  assign: 'Assigned',
+  unassign: 'Unassigned',
   approve: 'Approved',
   reject: 'Rejected',
   map: 'Mapped',

@@ -280,7 +280,9 @@ export async function getActivityInference(
         count(*) filter (where entity_kind = 'product')::int as product_leads,
         count(*) filter (where entity_kind = 'retailer')::int as retailer_leads,
         count(*) filter (
-          where entity_kind = 'retailer' and status in ('pending', 'in-progress')
+          where entity_kind = 'retailer'
+            and status in ('pending', 'in-progress')
+            and signal_count > 0
         )::int as pending_retailer_research
       from community_research_tasks
     `,

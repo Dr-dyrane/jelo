@@ -13,6 +13,7 @@ import {
   preflightResearchAssignment,
   reconcileCommunityResearchTasks,
   recordNote,
+  updateResearchAssignment,
 } from '../lib/moderation/database-transitions';
 
 type OperatorRole = 'moderator' | 'operator' | 'admin';
@@ -53,9 +54,17 @@ function assertCapability(role: OperatorRole, command: OperatorCommand) {
     if (role !== 'admin') throw new Error('Only an admin may correct a settled observation.');
     return;
   }
+  if (command.action === 'assign' || command.action === 'unassign') {
+    if (role !== 'admin') throw new Error('Only an admin may change another operator’s research assignment.');
+    return;
+  }
   if (
     command.queue === 'community_research_task'
-    && (command.action === 'claim' || command.action === 'defer' || command.action === 'retry')
+    && (
+      command.action === 'claim'
+      || command.action === 'defer'
+      || command.action === 'retry'
+    )
   ) {
     if (role === 'moderator') throw new Error('Research assignment requires an operator or admin.');
     return;
@@ -269,13 +278,20 @@ async function applyOrPreview(sql: Sql, operator: Operator, command: Exclude<Ope
   }
   if (
     command.queue === 'community_research_task'
-    && (command.action === 'claim' || command.action === 'defer' || command.action === 'retry')
+    && (
+      command.action === 'claim'
+      || command.action === 'defer'
+      || command.action === 'retry'
+      || command.action === 'assign'
+      || command.action === 'unassign'
+    )
   ) {
     await preflightResearchAssignment(
       sql,
       operator.auth_subject,
       command.targetId,
       command.action,
+      command.action === 'assign' ? { targetOperatorId: command.targetOperatorId } : {},
     );
   }
   if (!command.apply) {
@@ -306,6 +322,16 @@ async function applyOrPreview(sql: Sql, operator: Operator, command: Exclude<Ope
       command.canonicalEntityRef,
       command.rationale,
     );
+  } else if (command.action === 'assign' || command.action === 'unassign') {
+    await updateResearchAssignment(
+      sql,
+      operator.auth_subject,
+      command.targetId,
+      command.action,
+      command.rationale,
+      command.action === 'assign' ? { targetOperatorId: command.targetOperatorId } : {},
+    );
+    settled = command.targetId;
   } else {
     await recordNote(
       sql,

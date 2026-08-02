@@ -57,6 +57,21 @@ test('mapping and reconciliation are explicit audit actions', () => {
     targetRef: 'task-1',
     rationale: 'Try the exact source again.',
   }).action, 'retry');
+  assert.equal(moderationActionSchema.parse({
+    operatorSubject: 'op',
+    queue: 'community_research_task',
+    action: 'assign',
+    targetRef: 'task-1',
+    rationale: 'Assign to the product evidence specialist.',
+    metadata: { previousOwnerId: null, newOwnerId: 'operator-2' },
+  }).action, 'assign');
+  assert.equal(moderationActionSchema.parse({
+    operatorSubject: 'op',
+    queue: 'community_research_task',
+    action: 'unassign',
+    targetRef: 'task-1',
+    rationale: 'Return this work to the shared queue.',
+  }).action, 'unassign');
 });
 
 test('unknown actions, queues, and extra fields are rejected', () => {

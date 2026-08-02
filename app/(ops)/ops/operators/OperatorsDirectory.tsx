@@ -83,6 +83,8 @@ const queueLabels: Record<ConsoleOperatorActivity['queue'], string> = {
 
 const actionLabels: Record<ConsoleOperatorActivity['action'], string> = {
   claim: 'Claimed',
+  assign: 'Assigned',
+  unassign: 'Unassigned',
   approve: 'Approved',
   reject: 'Rejected',
   map: 'Matched',

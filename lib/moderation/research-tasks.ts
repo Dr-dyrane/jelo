@@ -33,6 +33,22 @@ export type ResearchTaskCursor = {
   id: string;
 };
 
+export type ResearchAssignmentOption = {
+  id: string;
+  label: string;
+  role: 'operator' | 'admin';
+};
+
+export type ResearchCanonicalOption = {
+  id: string;
+  label: string;
+};
+
+export type ResearchCanonicalOptions = {
+  products: ResearchCanonicalOption[];
+  retailers: ResearchCanonicalOption[];
+};
+
 type ResearchTaskRow = {
   id: string;
   task_kind: PendingResearchTask['taskKind'];
@@ -142,6 +158,7 @@ export async function listPendingResearchTasks(
     from community_research_tasks task
     left join moderation_operators operator on operator.id = task.assigned_operator_id
     where task.status in ('pending', 'in-progress')
+      and task.signal_count > 0
       ${afterCursor}
     order by
       work_rank asc,
@@ -179,8 +196,45 @@ export async function findPendingResearchTask(
       task.updated_at::text as updated_at
     from community_research_tasks task
     left join moderation_operators operator on operator.id = task.assigned_operator_id
-    where task.status in ('pending', 'in-progress') and task.id = ${id}
+    where task.status in ('pending', 'in-progress')
+      and task.signal_count > 0
+      and task.id = ${id}
     limit 1
   `;
   return (await presentResearchTasks(rows, currentOperatorId))[0] ?? null;
+}
+
+export async function listResearchAssignmentOptions(sql: Sql): Promise<ResearchAssignmentOption[]> {
+  const rows = await sql<{
+    id: string;
+    label: string;
+    role: ResearchAssignmentOption['role'];
+  }[]>`
+    select id, coalesce(nullif(btrim(display_name), ''), email) as label, role
+    from moderation_operators
+    where active = true
+      and role in ('operator', 'admin')
+      and coalesce(nullif(btrim(display_name), ''), email) is not null
+    order by label asc, id asc
+  `;
+  return rows;
+}
+
+export async function listResearchCanonicalOptions(sql: Sql): Promise<ResearchCanonicalOptions> {
+  const [products, retailers] = await Promise.all([
+    sql<{ id: string; label: string }[]>`
+      select product.slug as id,
+             brand.name || ' ' || product.name || ' · ' || product.size as label
+      from products product
+      join brands brand on brand.id = product.brand_id
+      where product.is_published = true
+      order by brand.name asc, product.name asc, product.size asc, product.slug asc
+    `,
+    sql<{ id: string; label: string }[]>`
+      select slug as id, name as label
+      from retailers
+      order by name asc, slug asc
+    `,
+  ]);
+  return { products, retailers };
 }

@@ -11,5 +11,6 @@ export {
   correctApprovedObservation,
   decideRetailerApplication,
   recordNote,
+  updateResearchAssignment,
   reconcileCommunityResearchTasks,
 } from './database-transitions';

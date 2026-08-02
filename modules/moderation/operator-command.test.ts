@@ -3,6 +3,7 @@ import test from 'node:test';
 import { parseOperatorCommand } from '@/lib/moderation/operator-command';
 
 const targetId = '6b1629ce-b151-4ed6-b91d-b985a6d725d8';
+const operatorId = 'd7b8e2f5-69ce-4a5e-8c37-51b8cce8a3b4';
 
 test('operator inspection is read-only by default', () => {
   assert.deepEqual(parseOperatorCommand([]), {
@@ -124,6 +125,43 @@ test('retry is an attributable research-only transition', () => {
     '--target-id', targetId,
     '--rationale', 'Wrong queue.',
   ]), /only for community_research_task/);
+});
+
+test('admin research assignment commands name a chosen operator or explicitly unassign', () => {
+  assert.deepEqual(parseOperatorCommand([
+    '--action', 'assign',
+    '--queue', 'community_research_task',
+    '--target-id', targetId,
+    '--operator-id', operatorId,
+    '--rationale', 'Route this to the operator reviewing exact product identity.',
+  ]), {
+    action: 'assign',
+    queue: 'community_research_task',
+    targetId,
+    targetOperatorId: operatorId,
+    rationale: 'Route this to the operator reviewing exact product identity.',
+    apply: false,
+    json: false,
+  });
+  assert.deepEqual(parseOperatorCommand([
+    '--action', 'unassign',
+    '--queue', 'community_research_task',
+    '--target-id', targetId,
+    '--rationale', 'Return this to the shared queue.',
+  ]), {
+    action: 'unassign',
+    queue: 'community_research_task',
+    targetId,
+    rationale: 'Return this to the shared queue.',
+    apply: false,
+    json: false,
+  });
+  assert.throws(() => parseOperatorCommand([
+    '--action', 'assign',
+    '--queue', 'community_research_task',
+    '--target-id', targetId,
+    '--rationale', 'Missing chosen operator.',
+  ]), /operator-id is required/);
 });
 
 test('unknown and action-incompatible flags are rejected', () => {
