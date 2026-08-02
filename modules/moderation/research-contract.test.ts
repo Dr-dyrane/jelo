@@ -100,11 +100,15 @@ test('research queue covers production-shaped identity, pagination, inspector st
   assert.match(uiState, /End of the research queue/);
   assert.match(inbox, /Reason for unassigning/);
   assert.match(inbox, /research-unassignment-/);
+  assert.match(
+    inbox,
+    /id=\{unassignmentFormId\}[\s\S]*?className=\{researchStyles\.unassignmentForm\}[\s\S]*?value="unassign"/,
+  );
   assert.match(inbox, /feedbackState\.success\.message/);
   assert.equal(inbox.match(/role="status"/g)?.length, 1);
   assert.match(inbox, /'Try again'/);
   assert.doesNotMatch(inbox, /Exact target|Canonical slug or intake ID|Signals/);
-  assert.match(css, /min-height: 44px/);
+  assert.match(css, /\.unassignmentForm button\s*\{[^}]*min-height:\s*44px/);
   assert.match(css, /white-space: pre-wrap/);
   assert.match(loading, /OpsWorkspace title="Research"/);
   assert.match(loading, /ResearchDetailSkeleton/);

@@ -217,7 +217,12 @@ function ResearchForms({
       </form>
 
       {canAssign && row.assignedOperatorId ? (
-        <form id={unassignmentFormId} action={assignAction} aria-busy={pending}>
+        <form
+          id={unassignmentFormId}
+          className={researchStyles.unassignmentForm}
+          action={assignAction}
+          aria-busy={pending}
+        >
           <input type="hidden" name="targetId" value={row.id} />
           <div className={styles.decideField}>
             <label className={styles.decideNoteLabel} htmlFor={`unassign-reason-${row.id}`}>

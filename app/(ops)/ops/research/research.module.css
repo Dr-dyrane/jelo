@@ -66,6 +66,10 @@
   min-height: 44px;
 }
 
+.unassignmentForm button {
+  min-height: 44px;
+}
+
 .select,
 .input {
   width: 100%;
