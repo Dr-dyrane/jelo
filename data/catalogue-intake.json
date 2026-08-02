@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-02T14:50:20Z",
+  "updatedAt": "2026-08-02T16:12:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -9429,7 +9429,7 @@
       "id": "c28f590dd2739ea73f1b5ea3",
       "brand": "Simple",
       "name": "Kind to Skin Replenishing Rich Moisturiser",
-      "variant": "Kind to Skin Replenishing Rich Moisturiser 125 ml",
+      "variant": "Kind to Skin Replenishing Rich Moisturiser",
       "size": "125 ml",
       "category": "Face care",
       "reason": "Advances the existing community-priority discovery lead without minting a second SKU. The official Simple UK product route binds Kind to Skin Replenishing Rich Moisturiser, canonical GTIN-13 5011451103948 and the 125 ml presentation. Official UK and India pages publish materially different ingredient lists, and Nigerian listings span current and older packaging, so neither market formula is attributed to Nigerian stock without a matching back-label review. Nectar Beauty Hub shows the current boxed pack at ₦4,799 in stock but remains an unbound research lead because no controlled listing-response capture was retained. BuyBetter and Lux Beauty show the older Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA presentation and are excluded from exact comparison for package conflict and retailer-only identifiers.",
@@ -9447,19 +9447,78 @@
       "identity": {
         "gtin": "5011451103948",
         "officialProductUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
-        "checkedAt": "2026-07-26T05:56:22Z",
+        "checkedAt": "2026-08-02T16:10:00Z",
         "basis": "official-brand",
-        "packageVersion": "Current grey 100%-recycled-plastic 125 ml bottle and boxed Instantly Smoothing presentation; older Nigerian listing images show a white Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA package"
+        "packageVersion": "Current white 125 ml bottle with green cap and Replenishing Rich Moisturiser / Instantly Smoothing label; older Nigerian listing images show a white Skin Smoothing Actives / vitamin B5+E + niacinamide / PETA package",
+        "officialEvidence": {
+          "url": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+          "observedGtin": "05011451103948",
+          "observedVariant": "Kind to Skin Replenishing Rich Moisturiser",
+          "observedSize": "125 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/c28f590dd2739ea73f1b5ea3.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "c28f590dd2739ea73f1b5ea3",
+            "sourceUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+            "responseUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+            "retrievedAt": "2026-08-02T16:08:30Z",
+            "fields": {
+              "gtin": {
+                "value": "05011451103948",
+                "locator": "Official Product JSON-LD gs1:gtin and gtin14",
+                "sourceText": "\"gs1:gtin\":\"05011451103948\",\"gtin14\":\"05011451103948\""
+              },
+              "variant": {
+                "value": "Kind to Skin Replenishing Rich Moisturiser",
+                "locator": "Official Product JSON-LD gs1:productName and name",
+                "sourceText": "\"gs1:productName\":\"Kind to Skin Replenishing Rich Moisturiser\",\"name\":\"Kind to Skin Replenishing Rich Moisturiser\""
+              },
+              "size": {
+                "value": "125 ml",
+                "locator": "Official product component productVariants",
+                "sourceText": "\"productVariants\":\"125 ml\""
+              }
+            },
+            "sourceResponseSha256": "81a72e27c38c07882637927c3daf4758f4f5a84de9f38a7f52eb98f1fa5ab6d3",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 806358,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://assets.unileversolutions.com/v1/123557875.png",
+                "responseUrl": "https://assets.unileversolutions.com/v1/123557875.png",
+                "retrievedAt": "2026-08-02T16:08:30Z",
+                "responseSha256": "0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992",
+                "responseMimeType": "image/png",
+                "responseByteSize": 1637017
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-02T16:09:30Z"
+          },
+          "snapshotSha256": "c32de9394f0dc523af2a310c25d3c2f57f2b2bfce21524788f10228ade862a66",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1594,
+          "retrievedAt": "2026-08-02T16:08:30Z"
+        }
       },
       "care": {
-        "status": "pending",
-        "formulaArchetype": "Formula-variant research hold: the official UK list includes pantolactone and omits niacinamide, citric acid, sodium chloride and allantoin; the official India list adds niacinamide, citric acid, sodium chloride and allantoin and omits pantolactone. Both list glycerin, panthenol, bisabolol and UV filters, but neither list is attributed to Nigerian stock without a matching package back label.",
-        "advisoryBoundary": "Daily moisturiser research only. Do not infer the formula, suitability or UV-protection performance of Nigerian stock from another market's page while current and older package versions coexist.",
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on facial moisturiser for daily moisture support; the official UK and India formula disclosures differ, so no market-specific ingredient list is attributed to Nigerian stock.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday facial moisturising and moisture comfort only. It does not diagnose or treat eczema, dermatitis, acne or another condition, and the current official UK formula is not attributed to Nigerian stock. Patch test if reactive, stop if burning, stinging or rash develops, and seek clinical advice for persistent or severe symptoms.",
         "manufacturerEvidenceUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
         "evidenceUrls": [
           "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
-          "https://www.simpleskincare.in/products/replenishing-rich-moisturiser-with-glycerin-pro-vit-b5-125ml"
-        ]
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+        ],
+        "reviewedAt": "2026-08-02T16:11:00Z",
+        "reviewer": "JeloCare catalogue care review"
       },
       "nigeria": {
         "regulatoryStatus": "pending",
@@ -9590,13 +9649,31 @@
         ]
       },
       "asset": {
-        "rightsStatus": "unresolved",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
         "sourceUrl": "https://assets.unileversolutions.com/v1/123557875.png",
         "sourceAssetSha256": "0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992",
         "sourceAssetMimeType": "image/png",
         "sourceAssetByteSize": 1637017,
         "sourceAssetWidth": 2880,
-        "sourceAssetHeight": 2880
+        "sourceAssetHeight": 2880,
+        "sourceAssetRetrievedAt": "2026-08-02T16:08:30Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/simple/c28f590dd2739ea73f1b5ea3/packshot-v1-0828a0aeedae0c54.png",
+        "publicImageSha256": "0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1637017,
+        "width": 2880,
+        "height": 2880,
+        "packaging": "intact",
+        "backgroundTreatment": "none",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-02T16:12:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
       }
     },
     {

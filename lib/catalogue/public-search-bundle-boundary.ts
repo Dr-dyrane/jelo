@@ -1,10 +1,9 @@
 const candidateIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-// Keep at least one stable, deliberately unreleased intake canary here. Published
-// releases are filtered below so promoting a canary cannot break the public bundle.
-const privateIntakeCanaries = [
-  'dang-niacinamide-n-acetyl-glucosamine-serum-30ml',
-  'c28f590dd2739ea73f1b5ea3',
+// Keep at least one stable, deliberately private catalogue-research canary here.
+// Explicit releases are filtered below so promoting a canary cannot break the bundle.
+const privateCatalogueCanaries = [
+  'a7562a6f718c64e4a046f3e3',
 ] as const;
 
 const structuralPrivateMarkers = [
@@ -63,7 +62,7 @@ export function privateCatalogueSearchBundleMarkers(
   );
 
   return [
-    ...privateIntakeCanaries
+    ...privateCatalogueCanaries
       .filter(candidateId => !releasedCandidateIds.has(candidateId))
       .sort(),
     ...structuralPrivateMarkers,

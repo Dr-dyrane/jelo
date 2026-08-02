@@ -76,14 +76,19 @@ test('deliberate intake rejects released IDs and canonical-source tasks', () => 
   }, 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml'), /already explicitly released/);
 
   assert.throws(() => assertDeliberateIntakeResearchTarget({
+    taskKind: 'product-identity',
+    entitySource: 'custom',
+  }, 'c28f590dd2739ea73f1b5ea3'), /already explicitly released/);
+
+  assert.throws(() => assertDeliberateIntakeResearchTarget({
     taskKind: 'product-retail-refresh',
     entitySource: 'canonical',
   }, 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml'), /custom product-identity/);
 
-  assert.doesNotThrow(() => assertDeliberateIntakeResearchTarget({
+  assert.throws(() => assertDeliberateIntakeResearchTarget({
     taskKind: 'product-identity',
     entitySource: 'custom',
-  }, 'c28f590dd2739ea73f1b5ea3'));
+  }, 'a7562a6f718c64e4a046f3e3'), /not in the checked-in intake manifest/);
 });
 
 test('canonical product and retailer tasks accept only their exact existing canonical outcome', () => {

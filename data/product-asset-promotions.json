@@ -322,5 +322,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "c823fe7ede9f183d82948ac4f8c06e5ed3815be79a1719a199919be42bd4eac6"
+  },
+  {
+    "id": "c28f590dd2739ea73f1b5ea3-packshot-v1",
+    "active": true,
+    "candidateId": "c28f590dd2739ea73f1b5ea3",
+    "destination": "publication",
+    "publicationBrandSlug": "simple",
+    "sourceUrl": "https://assets.unileversolutions.com/v1/123557875.png",
+    "localPath": "data/catalogue-intake-assets/c28f590dd2739ea73f1b5ea3/packshot-v1-0828a0aeedae.png",
+    "blobPath": "products/simple/c28f590dd2739ea73f1b5ea3/packshot-v1-0828a0aeedae0c54.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/simple/c28f590dd2739ea73f1b5ea3/packshot-v1-0828a0aeedae0c54.png",
+    "contentType": "image/png",
+    "byteSize": 1637017,
+    "width": 2880,
+    "height": 2880,
+    "hasAlpha": true,
+    "contentHash": "0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992"
   }
 ]

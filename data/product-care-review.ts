@@ -754,6 +754,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-29',
   },
+  'c28f590dd2739ea73f1b5ea3': {
+    productSlug: 'c28f590dd2739ea73f1b5ea3',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer',
+    ],
+    reviewedAt: '2026-08-02',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

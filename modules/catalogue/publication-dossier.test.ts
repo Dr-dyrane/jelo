@@ -370,7 +370,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
   const result = verifyCataloguePublicationDossierManifest(catalogueIntakeCandidates, checkedInManifest, Date.now());
 
   assert.equal(result.exposure, cataloguePublicationExposure);
-  assert.equal(result.dossierCount, 43);
+  assert.equal(result.dossierCount, 44);
   assert.equal(result.publicProductCount, 0);
   assert.equal(result.dossiers[0].candidateId, 'cerave-hydrating-cleanser-473ml');
   assert.equal(result.dossiers[0].nigeria.regulatoryStatus, 'pending');
@@ -963,7 +963,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
 
   assert.equal(report.schemaVersion, cataloguePublicationReleaseSchemaVersion);
   assert.equal(report.exposure, cataloguePublicationReleaseExposure);
-  assert.equal(report.releaseCount, 43);
+  assert.equal(report.releaseCount, 44);
   assert.deepEqual(
     report.products.find(product => (
       product.slug === 'dang-hydra-glow-sun-protection-gel-60ml'

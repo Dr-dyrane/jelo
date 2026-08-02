@@ -18,25 +18,26 @@ import {
 } from '@/lib/catalogue/intake-readiness';
 
 const researchAsOf = Date.parse('2026-07-29T06:00:00Z');
+const currentSnapshotAsOf = Date.parse('2026-08-02T17:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 43);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 44);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 44);
   assert.equal(catalogueIntakeDecisions.length, 44);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 9);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 6);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 22);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 9);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 6);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 34);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 38);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 9);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 6);
 });
 
 test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
@@ -126,7 +127,7 @@ test('the Beauty Formulas serum binds its exact formula, Nigerian prices and rev
   assert.deepEqual(decision.blockers, []);
 });
 
-test('the Simple replenishing moisturiser binds UK identity while holding formula, pack and rights variance', () => {
+test('the Simple replenishing moisturiser binds exact UK identity, bounded care and official art', () => {
   const candidate = catalogueIntakeCandidates.find(item => item.id === 'c28f590dd2739ea73f1b5ea3');
   assert.ok(candidate);
   assert.equal(candidate.identity.gtin, '5011451103948');
@@ -134,18 +135,22 @@ test('the Simple replenishing moisturiser binds UK identity while holding formul
     candidate.identity.officialProductUrl,
     'https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948',
   );
-  assert.match(candidate.identity.packageVersion ?? '', /current grey[\s\S]+older Nigerian/i);
-  assert.equal(candidate.care.status, 'pending');
-  assert.match(candidate.care.formulaArchetype ?? '', /UK[\s\S]+pantolactone[\s\S]+India[\s\S]+niacinamide/i);
+  assert.match(candidate.identity.packageVersion ?? '', /current white[\s\S]+green cap[\s\S]+older Nigerian/i);
+  assert.equal(candidate.identity.officialEvidence?.observedGtin, '05011451103948');
+  assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.fields.size.value, '125 ml');
+  assert.equal(candidate.care.status, 'reviewed');
+  assert.match(candidate.care.formulaArchetype ?? '', /UK and India formula disclosures differ/i);
   assert.deepEqual(candidate.care.evidenceUrls, [
     'https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948',
-    'https://www.simpleskincare.in/products/replenishing-rich-moisturiser-with-glycerin-pro-vit-b5-125ml',
+    'https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer',
   ]);
-  assert.equal(candidate.asset.rightsStatus, 'unresolved');
+  assert.equal(candidate.asset.rightsStatus, 'documented');
+  assert.equal(candidate.asset.origin, 'official-brand-media');
   assert.equal(candidate.asset.sourceUrl, 'https://assets.unileversolutions.com/v1/123557875.png');
   assert.equal(candidate.asset.sourceAssetSha256, '0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992');
   assert.deepEqual([candidate.asset.sourceAssetWidth, candidate.asset.sourceAssetHeight], [2880, 2880]);
-  assert.equal(candidate.asset.sourceAssetRetrievedAt, undefined);
+  assert.equal(candidate.asset.sourceAssetRetrievedAt, '2026-08-02T16:08:30Z');
+  assert.equal(candidate.asset.publicImageSha256, candidate.asset.sourceAssetSha256);
   assert.equal(candidate.nigeria.exactOffers.length, 0);
   assert.equal(candidate.nigeria.excludedObservations.length, 2);
   assert.equal(candidate.nigeria.excludedObservations[0]?.retailer, 'BuyBetter');
@@ -155,10 +160,15 @@ test('the Simple replenishing moisturiser binds UK identity while holding formul
   assert.equal(candidate.nigeria.excludedObservations[1]?.retailer, 'Lux Beauty');
   assert.ok(candidate.nigeria.excludedObservations[1]?.exclusionReasons.includes('retailer-identifier-only'));
   assert.ok(candidate.nigeria.excludedObservations[1]?.exclusionReasons.includes('package-variant-conflict'));
-  const decision = catalogueIntakeDecisions.find(item => item.candidate.id === candidate.id);
-  assert.equal(decision?.stage, 'identity');
+  const decision = evaluateCatalogueIntakeCandidate(candidate, currentSnapshotAsOf);
+  assert.equal(decision.stage, 'nigeria');
   assert.equal(decision?.approvalDraftReady, false);
   assert.equal(decision?.freshExactOffers.length, 0);
+  assert.deepEqual(decision.blockers, [
+    'nigeria-exact-offer-missing',
+    'nigeria-offer-identity-unbound',
+    'nigeria-market-route-insufficient',
+  ]);
 });
 
 test('community-priority Simple and DANG leads preserve live evidence without bypassing the release gates', () => {
@@ -1353,7 +1363,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 22);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 19);
+  ), 0), 13);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

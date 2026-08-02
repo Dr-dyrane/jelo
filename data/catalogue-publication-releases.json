@@ -1033,6 +1033,30 @@
         "publishedAt": "2026-08-02T14:50:20Z"
       },
       "releaseFingerprint": "b6e156a6d403468fdd4f000234a00ea5a44441cb0ba23dccec2be1fedf6a2581"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "c28f590dd2739ea73f1b5ea3",
+      "dossierFingerprint": "59efd702a4b6e494d02f0677d072b4bd32de05782dbfec3938f23fd19c2c020c",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturise",
+        "displayLine": "Rich daily moisturiser · 125 ml",
+        "usage": "Smooth gently over clean face and neck. Use morning or evening, avoiding direct contact with eyes.",
+        "manufacturerDirectionsUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-02T16:14:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-02T16:15:00Z"
+      },
+      "releaseFingerprint": "b7e03d09187025e73abfde2c348f5cd99df00bb629063cad4327d75e19faa81d"
     }
   ]
 }
