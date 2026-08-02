@@ -116,8 +116,10 @@ test('bundle content canaries exclude explicit releases and retain unreleased in
   );
   assert.equal(
     markers.includes('dang-niacinamide-n-acetyl-glucosamine-serum-30ml'),
-    true,
+    false,
   );
+  // Still-private intake must stay in the private markers.
+  assert.equal(markers.includes('c28f590dd2739ea73f1b5ea3'), true);
   assert.equal(markers.includes('catalogue-publication-dossiers'), true);
   assert.equal(markers.includes('catalogue-intake-candidates'), true);
 });

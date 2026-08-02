@@ -10347,14 +10347,31 @@
         ]
       },
       "asset": {
-        "rightsStatus": "unresolved",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum",
         "sourceUrl": "https://international.danglifestyle.co/cdn/shop/files/Niacinamide.jpg?v=1725616251",
         "sourceAssetSha256": "8aacc22c6c935bbf564a473c9bc73812ef892e28044fc9ec08bf0f7f08b6d607",
         "sourceAssetMimeType": "image/jpeg",
         "sourceAssetByteSize": 1522635,
         "sourceAssetWidth": 4480,
         "sourceAssetHeight": 4480,
-        "sourceAssetRetrievedAt": "2026-07-26T14:50:00Z"
+        "sourceAssetRetrievedAt": "2026-07-26T14:50:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-niacinamide-n-acetyl-glucosamine-serum-30ml/packshot-v1-c823fe7ede9f183d.png",
+        "publicImageSha256": "c823fe7ede9f183d82948ac4f8c06e5ed3815be79a1719a199919be42bd4eac6",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 3993709,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-07-29T05:35:00Z",
+        "artReviewer": "Claude Code visual audit",
+        "presentationQuality": "magazine-ready"
       }
     },
     {

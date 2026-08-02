@@ -36,11 +36,11 @@ test('every dossier-released product has an explicit post-publication care decis
   const reviewSlugs = Object.keys(publishedProductCareManifest).sort();
   const states = Object.values(publishedProductCareManifest).map(review => review.careState);
 
-  assert.equal(productSlugs.length, 42);
+  assert.equal(productSlugs.length, 43);
   assert.deepEqual(reviewSlugs, productSlugs);
   assert.equal(states.filter(state => state === 'supportive_eligible').length, 17);
   assert.equal(states.filter(state => state === 'pharmacist_review').length, 16);
-  assert.equal(states.filter(state => state === 'insufficient_data').length, 9);
+  assert.equal(states.filter(state => state === 'insufficient_data').length, 10);
 });
 
 test('every approved-use concern slug resolves only to an ordinary concern', () => {

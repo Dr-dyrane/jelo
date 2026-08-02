@@ -4,6 +4,7 @@ const candidateIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // releases are filtered below so promoting a canary cannot break the public bundle.
 const privateIntakeCanaries = [
   'dang-niacinamide-n-acetyl-glucosamine-serum-30ml',
+  'c28f590dd2739ea73f1b5ea3',
 ] as const;
 
 const structuralPrivateMarkers = [

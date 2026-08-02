@@ -12125,6 +12125,248 @@
     },
     {
       "schemaVersion": 8,
+      "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+      "candidateFingerprint": "6021b77058dee08546cde0256a5e4179036cbc0e4da0c1d8c0c3d7d57e92c851",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-005",
+          "label": "SKU"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-005",
+            "manufacturerHost": "international.danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-005\"",
+            "sourceTextSha256": "a6e2dbb5b0a654f5747af440c5b9f6b9ddb82e1f446aa38532c88e6066c4e979"
+          },
+          "officialSourceResponseSha256": "e1d78d7044b0e83d7a69d67b8a67341365768c1450d26cf7c566b43d9dfea66c",
+          "officialProductUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum",
+          "variant": "Niacinamide+N-Acetyl Glucosamine Serum- 30ml",
+          "size": "30 ml",
+          "packageVersion": "Current green carton with matching green dropper bottle"
+        },
+        "brand": "Dang! Lifestyle Inc.",
+        "name": "Ageless Niacinamide + N-Acetyl Glucosamine Serum",
+        "variant": "Niacinamide+N-Acetyl Glucosamine Serum- 30ml",
+        "size": "30 ml",
+        "packageVersion": "Current green carton with matching green dropper bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum",
+        "officialIdentity": {
+          "identityKind": "manufacturer-sku",
+          "url": "https://international.danglifestyle.co/products/10-niacinamide-serum",
+          "observedManufacturerSku": "DGL-SKC-005",
+          "observedManufacturerSkuLabel": "SKU",
+          "observedVariant": "Niacinamide+N-Acetyl Glucosamine Serum- 30ml",
+          "observedSize": "30 ml",
+          "observedPackageVersion": "Current green carton with matching green dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-niacinamide-n-acetyl-glucosamine-serum-30ml.json",
+          "snapshotSha256": "2d687dc3eacb2b74e35a3b936ab5c48ddfb2dbfd8f3d3f97e75d7a240a33f5c8",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 5487,
+          "retrievedAt": "2026-07-29T03:20:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 8,
+            "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+            "sourceUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum",
+            "responseUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum.js?country=NG&currency=NGN&v=2",
+            "retrievedAt": "2026-07-29T03:20:00Z",
+            "productRecord": {
+              "locator": "Complete official Shopify product response root object",
+              "byteStart": 0,
+              "byteEnd": 2250,
+              "sourceText": "{\"id\":11026209177873,\"title\":\"Niacinamide+N-Acetyl Glucosamine Serum- 30ml\",\"handle\":\"10-niacinamide-serum\",\"description\":\"\\u003cp\\u003e10% Niacinamide + N-acetyl glucosamine makes it the perfect all-round formula designed to rejuvenate the skin, enhance skin clarity, close large pores, and treat acne\\u003c\\/p\\u003e\\n\\u003cdiv\\u003e\\n\\u003cp\\u003e\\u003cstrong\\u003eSize:\\u003c\\/strong\\u003e30ml\\u003c\\/p\\u003e\\n\\u003c\\/div\\u003e\\n\\u003cdiv\\u003e\\n\\u003cstrong\\u003eShelf Life:\\u003cspan\\u003e \\u003c\\/span\\u003e\\u003c\\/strong\\u003e1 year from the date of first use.\\u003c\\/div\\u003e\",\"published_at\":\"2026-04-25T07:09:03-05:00\",\"created_at\":\"2026-04-25T07:09:02-05:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"Bestsellers\"],\"price\":2099,\"price_min\":2099,\"price_max\":2099,\"available\":true,\"price_varies\":false,\"compare_at_price\":null,\"compare_at_price_min\":0,\"compare_at_price_max\":0,\"compare_at_price_varies\":false,\"variants\":[{\"id\":53461433745681,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-005\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Niacinamide+N-Acetyl Glucosamine Serum- 30ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":2099,\"weight\":0,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0730\\/1126\\/5809\\/files\\/Niacinamide.jpg?v=1725616251\"],\"featured_image\":\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0730\\/1126\\/5809\\/files\\/Niacinamide.jpg?v=1725616251\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"\\/products\\/10-niacinamide-serum\",\"media\":[{\"alt\":null,\"id\":40681263989009,\"position\":1,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":4480,\"width\":4480,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0730\\/1126\\/5809\\/files\\/Niacinamide.jpg?v=1725616251\"},\"aspect_ratio\":1.0,\"height\":4480,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0730\\/1126\\/5809\\/files\\/Niacinamide.jpg?v=1725616251\",\"width\":4480}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}",
+              "sourceFragmentSha256": "e1d78d7044b0e83d7a69d67b8a67341365768c1450d26cf7c566b43d9dfea66c"
+            },
+            "fields": {
+              "manufacturerBrand": {
+                "value": "Dang! Lifestyle Inc.",
+                "locator": "Official Shopify product response vendor",
+                "sourceText": "Vendor Dang! Lifestyle Inc."
+              },
+              "manufacturerSku": {
+                "value": "DGL-SKC-005",
+                "label": "SKU",
+                "locator": "Official Shopify product response variants[0].sku",
+                "sourceText": "\"sku\":\"DGL-SKC-005\""
+              },
+              "variant": {
+                "value": "Niacinamide+N-Acetyl Glucosamine Serum- 30ml",
+                "locator": "Official Shopify product response title",
+                "sourceText": "Niacinamide+N-Acetyl Glucosamine Serum- 30ml"
+              },
+              "size": {
+                "value": "30ml",
+                "locator": "Official Shopify product response title size suffix",
+                "sourceText": "Niacinamide+N-Acetyl Glucosamine Serum- 30ml"
+              },
+              "packageVersion": {
+                "value": "Current green carton with matching green dropper bottle",
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "sourceText": "https://cdn.shopify.com/s/files/1/0730/1126/5809/files/Niacinamide.jpg?v=1725616251",
+                "reviewedMedia": {
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0730/1126/5809/files/Niacinamide.jpg?v=1725616251",
+                  "sourceAssetUrl": "https://international.danglifestyle.co/cdn/shop/files/Niacinamide.jpg?v=1725616251",
+                  "sourceAssetSha256": "8aacc22c6c935bbf564a473c9bc73812ef892e28044fc9ec08bf0f7f08b6d607"
+                }
+              },
+              "gtinPublicationStatus": {
+                "value": "not-published",
+                "locator": "Complete official response structured identifier scan and variants[0].barcode",
+                "sourceText": "{\"id\":53461433745681,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-005\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Niacinamide+N-Acetyl Glucosamine Serum- 30ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":2099,\"weight\":0,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}"
+              }
+            },
+            "sourceResponseSha256": "e1d78d7044b0e83d7a69d67b8a67341365768c1450d26cf7c566b43d9dfea66c",
+            "sourceResponseMimeType": "text/javascript",
+            "sourceResponseByteSize": 2250,
+            "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-niacinamide-n-acetyl-glucosamine-serum-30ml.json",
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-official-manufacturer-sku-response",
+            "reviewer": "JeloCare catalogue identity review",
+            "reviewedAt": "2026-07-29T03:21:00Z"
+          }
+        },
+        "checkedAt": "2026-07-29T03:21:00Z",
+        "demandEvidenceUrls": [
+          "https://www.brackettsbeauty.com/products/ageless-niacinamide-n-acetyl-glucosamine-serum"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on daily niacinamide serum described by the manufacturer as 10% niacinamide with N-acetyl glucosamine and alpha arbutin, for tone, clarity and the look of enlarged pores",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports an even-looking tone, everyday clarity and the cosmetic appearance of enlarged pores. The exact concentrations beyond the stated niacinamide percentage, formula stability, and clinical effect are not established, so do not present it as treatment for acne, melasma, post-inflammatory marks, or another skin condition. Introduce one active at a time and pair with daytime sun protection. Stop if it burns, stings, or irritates, and seek clinician advice for changing, painful, itchy, spreading, or persistent dark marks.",
+        "manufacturerEvidenceUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://international.danglifestyle.co/products/10-niacinamide-serum",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-07-29T03:30:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum",
+        "sourceAsset": {
+          "url": "https://international.danglifestyle.co/cdn/shop/files/Niacinamide.jpg?v=1725616251",
+          "sha256": "8aacc22c6c935bbf564a473c9bc73812ef892e28044fc9ec08bf0f7f08b6d607",
+          "mimeType": "image/jpeg",
+          "byteSize": 1522635,
+          "width": 4480,
+          "height": 4480,
+          "retrievedAt": "2026-07-26T14:50:00Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://international.danglifestyle.co/cdn/shop/files/Niacinamide.jpg?v=1725616251",
+            "sha256": "8aacc22c6c935bbf564a473c9bc73812ef892e28044fc9ec08bf0f7f08b6d607",
+            "byteSize": 1522635,
+            "width": 4480,
+            "height": 4480,
+            "retrievedAt": "2026-07-26T14:50:00Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "manufacturer-sku",
+              "value": "DGL-SKC-005"
+            },
+            "officialProductUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "a3b524fde17dcf509c4baa195e4e7607f6b1ea86683b576d41a2b6f6a64391ed",
+            "generatedAt": "2026-07-29T05:21:53Z",
+            "inferredComponentCount": 2,
+            "retainedComponentCount": 2,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "c823fe7ede9f183d82948ac4f8c06e5ed3815be79a1719a199919be42bd4eac6",
+            "byteSize": 3993709,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-07-29T05:30:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-07-29T05:35:00Z",
+            "artReviewer": "Claude Code visual audit",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "surfaceReviewSha256": "463dbde51c725fc8fdb512ccd5dfba7966dfb535e2e594cce2dad58414a69bea",
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-niacinamide-n-acetyl-glucosamine-serum-30ml/packshot-v1-c823fe7ede9f183d.png",
+        "sha256": "c823fe7ede9f183d82948ac4f8c06e5ed3815be79a1719a199919be42bd4eac6",
+        "mimeType": "image/png",
+        "byteSize": 3993709,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-29T05:35:00Z",
+        "reviewer": "Claude Code visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-07-29T05:45:00Z"
+      },
+      "dossierFingerprint": "3cf0342f9fefe3adebb7bb3c4738242109279e05ba4f7e82b69b8a9b9e2f59b9"
+    },
+    {
+      "schemaVersion": 8,
       "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
       "candidateFingerprint": "5a3319b4353a72eb9f3d053de59cf6dec51a15af05f9e6b3c0f8cc8e8add481e",
       "exposure": "private-only",

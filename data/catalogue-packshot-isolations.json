@@ -61,5 +61,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://international.danglifestyle.co/cdn/shop/files/Niacinamide.jpg?v=1725616251",
+      "sha256": "8aacc22c6c935bbf564a473c9bc73812ef892e28044fc9ec08bf0f7f08b6d607",
+      "byteSize": 1522635,
+      "width": 4480,
+      "height": 4480,
+      "retrievedAt": "2026-07-26T14:50:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-005"
+      },
+      "officialProductUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "a3b524fde17dcf509c4baa195e4e7607f6b1ea86683b576d41a2b6f6a64391ed",
+      "generatedAt": "2026-07-29T05:21:53Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "c823fe7ede9f183d82948ac4f8c06e5ed3815be79a1719a199919be42bd4eac6",
+      "byteSize": 3993709,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-07-29T05:30:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-07-29T05:35:00Z",
+      "artReviewer": "Claude Code visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "463dbde51c725fc8fdb512ccd5dfba7966dfb535e2e594cce2dad58414a69bea",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

@@ -724,6 +724,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-28',
   },
+  'dang-niacinamide-n-acetyl-glucosamine-serum-30ml': {
+    productSlug: 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://international.danglifestyle.co/products/10-niacinamide-serum',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-07-29',
+  },
   'facefacts-soothe-glow-niacinamide-serum-30ml': {
     productSlug: 'facefacts-soothe-glow-niacinamide-serum-30ml',
     careState: 'insufficient_data',

@@ -71,6 +71,11 @@ test('deliberate intake rejects released IDs and canonical-source tasks', () => 
   }, 'cerave-hydrating-cleanser-473ml'), /already explicitly released/);
 
   assert.throws(() => assertDeliberateIntakeResearchTarget({
+    taskKind: 'product-identity',
+    entitySource: 'custom',
+  }, 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml'), /already explicitly released/);
+
+  assert.throws(() => assertDeliberateIntakeResearchTarget({
     taskKind: 'product-retail-refresh',
     entitySource: 'canonical',
   }, 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml'), /custom product-identity/);
@@ -78,7 +83,7 @@ test('deliberate intake rejects released IDs and canonical-source tasks', () => 
   assert.doesNotThrow(() => assertDeliberateIntakeResearchTarget({
     taskKind: 'product-identity',
     entitySource: 'custom',
-  }, 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml'));
+  }, 'c28f590dd2739ea73f1b5ea3'));
 });
 
 test('canonical product and retailer tasks accept only their exact existing canonical outcome', () => {

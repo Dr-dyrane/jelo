@@ -988,6 +988,30 @@
     },
     {
       "schemaVersion": 2,
+      "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+      "dossierFingerprint": "3cf0342f9fefe3adebb7bb3c4738242109279e05ba4f7e82b69b8a9b9e2f59b9",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Daily niacinamide serum for tone and clarity.",
+        "usage": "Apply a few drops to clean skin morning or evening before moisturiser. Introduce one active at a time and pair with daytime sun protection.",
+        "manufacturerDirectionsUrl": "https://international.danglifestyle.co/products/10-niacinamide-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-07-29T05:50:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-07-29T05:55:00Z"
+      },
+      "releaseFingerprint": "8f7449a07feb0c717b8d3b11ec10818993657bce2208ec18bb393e01e1591673"
+    },
+    {
+      "schemaVersion": 2,
       "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
       "dossierFingerprint": "e6ec5179d6444d9bb16d33aba60eab890181ab3a9935cacfb571a193e00296b6",
       "exposure": "public-catalogue",
