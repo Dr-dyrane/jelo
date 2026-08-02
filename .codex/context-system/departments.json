@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "project": "JeloCare",
+  "orchestrator": {
+    "readByDefault": [
+      ".codex/context-system/work-ledger.md"
+    ],
+    "inheritFullHistory": false,
+    "maxFilesPerRouteCapsule": 12
+  },
+  "departments": {
+    "public-experience": {
+      "purpose": "Public product, share, consultation, contribution, concern, ingredient, and retailer interface work",
+      "owns": [
+        "app/(site)/<selected-route>",
+        "components/<selected-public-feature>",
+        "components/ui/<direct-dependencies-only>"
+      ],
+      "canon": [
+        "docs/design/SYSTEM.md",
+        "docs/adr/0009-ui-ux-lane-contract.md"
+      ],
+      "verification": [
+        "Run the route's focused tests",
+        "Perform desktop and mobile browser QA"
+      ],
+      "exclusions": [
+        "Ops implementation",
+        "Catalogue evidence and release records unless the route requires a specific product fixture",
+        "Full release verification for a local visual adjustment"
+      ]
+    },
+    "ops-experience": {
+      "purpose": "Operations shell, route grammar, queues, contextual inspectors, responsive states, and operator interaction",
+      "owns": [
+        "app/(ops)/ops/<selected-route>",
+        "components/ops/<selected-feature>",
+        "components/ops/shell/<direct-dependencies-only>"
+      ],
+      "canon": [
+        "docs/design/OPS_SHELL.md",
+        "docs/adr/0007-internal-moderation-operations-console.md",
+        "docs/adr/0009-ui-ux-lane-contract.md",
+        "docs/adr/0010-operations-interface-and-overview-contract.md"
+      ],
+      "verification": [
+        "Run the selected Ops route's focused tests",
+        "Perform desktop three-column and compact overlay browser QA"
+      ],
+      "exclusions": [
+        "Changing moderation semantics or database schema",
+        "Loading unrelated public routes",
+        "Full repository history"
+      ]
+    },
+    "catalogue-evidence": {
+      "purpose": "Exact product identity, care evidence, Nigerian offers, asset provenance, dossiers, and publication releases",
+      "owns": [
+        "data/<selected-candidate-and-release-records>",
+        "docs/research/<selected-product-dossier>",
+        "public/products/<selected-product-assets>",
+        "scripts/<direct-catalogue-tools-only>"
+      ],
+      "canon": [
+        "CLAUDE.md",
+        "docs/catalogue/FAST_LANE.md",
+        "docs/catalogue/OPERATIONS.md",
+        "docs/catalogue/PACKSHOT_GENERATION_HANDOFF.md"
+      ],
+      "verification": [
+        "Run deterministic candidate, dossier, release, and image gates for the selected SKU",
+        "Run broad release verification once at batch integration"
+      ],
+      "exclusions": [
+        "Ops UI redesign",
+        "Unrelated catalogue candidates",
+        "Replacing evidence with repository-operator authority"
+      ]
+    },
+    "data-administration": {
+      "purpose": "Community intake, observations, vocabulary, relationships, retailers, operators, moderation, and database CRUD",
+      "owns": [
+        "db/<selected-schema-or-query>",
+        "lib/moderation/<selected-domain>",
+        "modules/<selected-domain>",
+        "scripts/<selected-admin-tool>"
+      ],
+      "canon": [
+        "docs/adr/0002-anonymous-community-knowledge-intake.md",
+        "docs/adr/0005-structured-observation-events.md",
+        "docs/adr/0007-internal-moderation-operations-console.md",
+        "docs/operations/RUNBOOKS.md"
+      ],
+      "verification": [
+        "Run focused domain tests and read-only reconciliation",
+        "Require an explicit migration boundary for schema changes"
+      ],
+      "exclusions": [
+        "Visual redesign beyond the data contract",
+        "Production mutation outside the requested admin scope",
+        "Secrets in logs or handoffs"
+      ]
+    },
+    "platform-delivery": {
+      "purpose": "Authentication, infrastructure, migrations, scheduled work, CI, deployment, and observability",
+      "owns": [
+        "app/api/<selected-platform-route>",
+        "middleware.ts",
+        "scripts/<selected-platform-tool>",
+        "vercel.json",
+        ".github/<selected-workflow>"
+      ],
+      "canon": [
+        "docs/operations/ENVIRONMENTS.md",
+        "docs/operations/LOCAL_DEVELOPMENT.md",
+        "docs/operations/RELEASE.md",
+        "docs/operations/RUNBOOKS.md"
+      ],
+      "verification": [
+        "Run focused security or delivery checks",
+        "Run build and production smoke only at the integration boundary"
+      ],
+      "exclusions": [
+        "Product evidence decisions",
+        "Public or Ops visual redesign",
+        "Printing or copying credentials"
+      ]
+    },
+    "growth-campaigns": {
+      "purpose": "Evidence-bound campaign selection, creative production, attribution, and publication handoff",
+      "owns": [
+        "public/campaigns/<selected-campaign>",
+        "docs/<selected-campaign-record>"
+      ],
+      "canon": [
+        "/Users/dyrane/.codex/skills/manage-jelocare-campaigns/SKILL.md",
+        "docs/adr/0006-store-ranking-excludes-commercial-signals.md"
+      ],
+      "verification": [
+        "Verify exact SKU, current offer, share route, care boundary, and asset provenance",
+        "Require explicit confirmation before external publishing or spend"
+      ],
+      "exclusions": [
+        "Using paid-source metadata to change skincare guidance or store order",
+        "Treating prior creative prices as current evidence",
+        "Touching user-owned campaign assets outside the selected campaign"
+      ]
+    }
+  }
+}
