@@ -126,3 +126,157 @@ test('settled queues and route failures preserve calm recovery paths', async () 
   assert.match(errorRoute, /onRetry=\{reset\}/);
   assert.doesNotMatch(errorRoute, /\{error\.(?:message|stack)\}/);
 });
+
+test('Activity opens one selected settled observation without adding it to pending work', async () => {
+  const [
+    page,
+    queues,
+    inbox,
+    actions,
+    activity,
+    loading,
+    errorRoute,
+    capabilities,
+    inboxStyles,
+    tabletStyles,
+    activityLinks,
+    detailSkeleton,
+  ] = await Promise.all([
+    readSource('app/(ops)/ops/observations/page.tsx'),
+    readSource('lib/moderation/queues.ts'),
+    readSource('app/(ops)/ops/observations/ObservationsInbox.tsx'),
+    readSource('app/(ops)/ops/actions.ts'),
+    readSource('app/(ops)/ops/activity/ActivityInsights.tsx'),
+    readSource('app/(ops)/ops/observations/loading.tsx'),
+    readSource('app/(ops)/ops/observations/error.tsx'),
+    readSource('lib/moderation/capabilities.ts'),
+    readSource('components/ops/inbox/inbox.module.css'),
+    readSource('components/ops/inbox/inbox-tablet.module.css'),
+    readSource('lib/moderation/activity-links.ts'),
+    readSource('app/(ops)/ops/observations/ObservationDetailSkeleton.tsx'),
+  ]);
+  const settledQuery = sourceBetween(
+    queues,
+    'export async function findSettledObservation',
+    'export type PendingContribution',
+  );
+  const correctionAction = sourceBetween(
+    actions,
+    'export async function correctObservationAction',
+    'export async function fetchMoreObservationsAction',
+  );
+
+  assert.match(activity, /activityObservationHref\(decision\.queue, decision\.targetRef\)/);
+  assert.match(activity, /\{observationHref \? \(/);
+  assert.match(activity, /href=\{observationHref\}/);
+  assert.match(activity, />\s*View report\s*<\/Link>/);
+  assert.doesNotMatch(activity, /audit(?:Id|Status).*\/ops\/observations/i);
+  assert.match(activityLinks, /queue !== 'community_observation'/);
+  assert.match(activityLinks, /isQueueItemUuid\(targetRef\)/);
+  assert.match(activityLinks, /`\/ops\/observations\?id=\$\{encodeURIComponent\(targetRef\)\}`/);
+  assert.match(page, /selectedQueueUuid\(await searchParams\)/);
+  assert.match(page, /findPendingObservation\(sql, selectedId\)[\s\S]*?findSettledObservation\(sql, selectedId\)/);
+  assert.match(settledQuery, /if \(!isQueueItemUuid\(id\)\) return null/);
+  assert.match(settledQuery, /moderation_status in \('approved', 'rejected'\)/);
+  assert.match(settledQuery, /as parent_eligible_for_review/);
+  assert.doesNotMatch(settledQuery, /moderation_status = 'pending'/);
+  assert.match(inbox, /row\.moderationStatus === 'pending'/);
+  assert.match(inbox, /moderationStatus !== 'pending'\)\.slice\(0, 1\)/);
+  assert.match(inbox, /label: 'Reviewed decision'/);
+  assert.match(inbox, /row\.moderationStatus === 'approved' \? 'Approved' : 'Rejected'/);
+  assert.match(inbox, /isSettled && row\.parentEligibleForReview && canCorrect/);
+  assert.match(inbox, /Return to review/);
+  assert.match(inbox, /The recorded decision stays in history\./);
+  assert.doesNotMatch(inbox, /This report is \{row\.moderationStatus/);
+  assert.match(inbox, /Reason for returning to review/);
+  assert.match(inbox, /name="rationale"[\s\S]*?required[\s\S]*?defaultValue=""/);
+  assert.match(inbox, /data-item-id=\{row\.id\}[\s\S]*?className=\{`\$\{styles\.decideSection\} \$\{observationStyles\.correctionFooter\}`\}/);
+  assert.match(inbox, /htmlFor=\{`correction-rationale-\$\{row\.id\}`\}/);
+  assert.match(inbox, /aria-busy=\{isCorrectionPending\}/);
+  assert.equal((inbox.match(/Report returned to review\./g) ?? []).length, 1);
+  assert.equal((inbox.match(/className=\{observationStyles\.liveStatus\}/g) ?? []).length, 1);
+  assert.match(inbox, /aria-live="polite"/);
+  const detailScroll = inbox.indexOf('<div className={styles.detailScroll}>');
+  const correctionFooter = inbox.indexOf(
+    '{isSettled && row.parentEligibleForReview && canCorrect ? (',
+    detailScroll,
+  );
+  const detailScrollClose = inbox.lastIndexOf('</div>', correctionFooter);
+  assert.ok(detailScroll !== -1 && detailScrollClose > detailScroll && correctionFooter > detailScrollClose);
+  assert.match(inbox, /correctObservationAction/);
+  assert.match(inbox, /latestAnnouncement === 'correction'/);
+  assert.match(inbox, /dispatchCorrectionFeedback\(\{ type: 'clear' \}\)/);
+  assert.match(inbox, /current === 'correction' \? null : current/);
+  assert.match(inbox, /correctionFocusTargetRef\.current = active\.targetId/);
+  assert.match(inbox, /correctionFocusTargetRef\.current = null/);
+  assert.match(inbox, /activeCorrectionRef\.current = null/);
+  assert.match(inbox, /observationCorrectionFeedbackReducer/);
+  assert.match(inbox, /observationCorrectionFeedbackForTarget/);
+  assert.match(inbox, /const submissionId = crypto\.randomUUID\(\)/);
+  assert.match(inbox, /formData\.set\('submissionId', submissionId\)/);
+  assert.match(inbox, /formData\.set\('disposition', disposition\)/);
+  assert.match(inbox, /name="submissionId" value=""/);
+  assert.match(inbox, /name="disposition" value="defer"/);
+  assert.match(inbox, /row\.id === targetId && row\.moderationStatus === 'pending'/);
+  assert.match(inbox, /textarea\[name="rationale"\]/);
+  const correctionSuccess = sourceBetween(
+    inbox,
+    'if (!correctionState) return;',
+    'const actionAnnouncement',
+  );
+  assert.match(correctionSuccess, /router\.refresh\(\)/);
+  assert.match(correctionSuccess, /if \(!correctionState\.ok\)/);
+  assert.match(correctionSuccess, /active\.submissionId !== correctionState\.submissionId/);
+  assert.match(correctionSuccess, /active\.targetId !== correctionState\.targetId/);
+  assert.match(correctionSuccess, /active\.disposition !== correctionState\.disposition/);
+  assert.doesNotMatch(correctionSuccess, /settleItem|type: 'settled'/);
+  assert.match(correctionAction, /assertCan\(operator, 'observations\.correct'\)/);
+  assert.match(correctionAction, /submissionId: formData\.get\('submissionId'\)/);
+  assert.match(correctionAction, /disposition: formData\.get\('disposition'\)/);
+  assert.match(correctionAction, /correctObservationDecision\(/);
+  assert.match(
+    correctionAction,
+    /return \{ ok: true, targetId, submissionId, disposition, decision: disposition \}/,
+  );
+  assert.match(
+    correctionAction,
+    /submissionId: requestedSubmission\.success \? requestedSubmission\.data : undefined/,
+  );
+  assert.match(capabilities, /admin:[\s\S]*?'observations\.correct'/);
+  assert.doesNotMatch(capabilities, /moderator:[^\n]*'observations\.correct'/);
+  assert.match(loading, /data-ops-reserve-detail/);
+  assert.match(loading, /<ObservationDetailSkeleton announce=\{false\}/);
+  assert.match(errorRoute, /<OpsWorkspace title="Observations">/);
+  assert.match(errorRoute, /onRetry=\{reset\}/);
+  assert.match(detailSkeleton, />Review<\/h3>/);
+  assert.doesNotMatch(detailSkeleton, /btnApprove|btnReject/);
+  assert.match(inboxStyles, /\.btn\s*\{[\s\S]*?min-height:\s*34px/);
+  assert.match(inboxStyles, /@media \(max-width: 1179px\)[\s\S]*?\.btn\s*\{[\s\S]*?min-height:\s*var\(--touch-min\)/);
+  assert.match(inboxStyles, /\.note:focus-visible\s*\{/);
+  assert.match(inboxStyles, /\.btn:focus-visible\s*\{/);
+  assert.match(tabletStyles, /form\[data-item-id\] \[data-ops-decision-actions\]/);
+
+  const pendingCounts = sourceBetween(
+    queues,
+    'export async function pendingQueueCounts',
+    'export type PendingObservation',
+  );
+  assert.match(pendingCounts, /observation\.moderation_status = 'pending'/);
+  assert.doesNotMatch(pendingCounts, /findSettledObservation|approved', 'rejected/);
+});
+
+test('the private observation correction command previews and applies the shared writer', async () => {
+  const cli = await readSource('scripts/manage-community-data.ts');
+  const correction = sourceBetween(
+    cli,
+    "if (command.action === 'correct')",
+    "if (!await moderationTargetExists",
+  );
+
+  assert.match(correction, /preflightObservationCorrection\(/);
+  assert.match(correction, /if \(!command\.apply\)/);
+  assert.match(correction, /previousStatus: planned\.previousStatus/);
+  assert.match(correction, /nextStatus: planned\.nextStatus/);
+  assert.match(correction, /previousDecisionAuditId: planned\.previousDecisionAuditId/);
+  assert.match(correction, /correctObservationDecision\(/);
+});

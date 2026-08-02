@@ -1,8 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { decisionInputSchema, mapValueInputSchema, noteInputSchema } from '@/lib/moderation/action-input';
+import {
+  decisionInputSchema,
+  mapValueInputSchema,
+  noteInputSchema,
+  observationCorrectionInputSchema,
+} from '@/lib/moderation/action-input';
 
 const uuid = '11111111-1111-4111-8111-111111111111';
+const submissionId = '22222222-2222-4222-8222-222222222222';
 
 test('a decision requires a uuid target and a valid decision', () => {
   const parsed = decisionInputSchema.parse({ targetId: uuid, decision: 'approve' });
@@ -25,4 +31,40 @@ test('a note requires non-empty text and defaults its action', () => {
   assert.equal(parsed.action, 'note');
   assert.throws(() => noteInputSchema.parse({ targetId: uuid, rationale: '' }));
   assert.throws(() => noteInputSchema.parse({ targetId: uuid, action: 'approve', rationale: 'x' }));
+});
+
+test('an observation correction requires a fresh blank-safe reason', () => {
+  const parsed = observationCorrectionInputSchema.parse({
+    targetId: uuid,
+    submissionId,
+    disposition: 'defer',
+    rationale: '  Return to exact identity review.  ',
+  });
+  assert.equal(parsed.rationale, 'Return to exact identity review.');
+  assert.equal(parsed.submissionId, submissionId);
+  assert.throws(() => observationCorrectionInputSchema.parse({
+    targetId: uuid,
+    submissionId,
+    disposition: 'defer',
+    rationale: '   ',
+  }));
+  assert.throws(() => observationCorrectionInputSchema.parse({
+    targetId: uuid,
+    submissionId,
+    disposition: 'defer',
+    rationale: 'Reason.',
+    extra: 'approve',
+  }));
+  assert.throws(() => observationCorrectionInputSchema.parse({
+    targetId: uuid,
+    submissionId: 'predictable-1',
+    disposition: 'defer',
+    rationale: 'Reason.',
+  }));
+  assert.throws(() => observationCorrectionInputSchema.parse({
+    targetId: uuid,
+    submissionId,
+    disposition: 'reject',
+    rationale: 'Reason.',
+  }));
 });

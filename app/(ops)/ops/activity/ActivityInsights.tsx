@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import {
   Activity,
   BookOpen,
@@ -21,6 +22,7 @@ import type {
   ActivityDecision,
   ActivityInference,
 } from '@/lib/moderation/activity-read-model';
+import { activityObservationHref } from '@/lib/moderation/activity-links';
 import styles from './activity.module.css';
 
 const number = new Intl.NumberFormat('en-NG');
@@ -154,6 +156,7 @@ function RankList({
 }
 
 function DecisionDetail({ decision }: { decision: ActivityDecision }) {
+  const observationHref = activityObservationHref(decision.queue, decision.targetRef);
   return (
     <div className={styles.detail}>
       <div className={styles.detailScroll}>
@@ -196,6 +199,15 @@ function DecisionDetail({ decision }: { decision: ActivityDecision }) {
             ) : null}
           </dl>
         </section>
+
+        {observationHref ? (
+          <Link
+            href={observationHref}
+            className={styles.reviewDecisionLink}
+          >
+            View report
+          </Link>
+        ) : null}
 
         <details className={styles.metadata}>
           <summary>More context</summary>

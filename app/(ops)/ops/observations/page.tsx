@@ -1,6 +1,7 @@
 import { getPostgresClient } from '@/lib/db/postgres';
 import {
   findPendingObservation,
+  findSettledObservation,
   listPendingObservations,
 } from '@/lib/moderation/queues';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
@@ -13,7 +14,7 @@ import {
 } from '@/lib/moderation/observation-presentation';
 import {
   includeSelectedQueueItem,
-  selectedQueueItemId,
+  selectedQueueUuid,
   type QueueSearchParams,
 } from '@/lib/moderation/queue-selection';
 import { ObservationsInbox } from './ObservationsInbox';
@@ -31,13 +32,15 @@ export default async function ObservationsQueue({
 }) {
   const operator = await requireConsoleOperator();
   const canDecide = can(operator.role, 'observations.decide');
-  const selectedId = selectedQueueItemId(await searchParams);
+  const canCorrect = can(operator.role, 'observations.correct');
+  const selectedId = selectedQueueUuid(await searchParams);
   const sql = getPostgresClient();
   const fetchedRows = await listPendingObservations(sql, LIMIT + 1);
   const recentRows = fetchedRows.slice(0, LIMIT);
   const hasMore = fetchedRows.length > LIMIT;
   const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
     ? await findPendingObservation(sql, selectedId)
+      ?? await findSettledObservation(sql, selectedId)
     : null;
   const rows = includeSelectedQueueItem(recentRows, selectedRow);
   const catalogue = await listCatalogueProducts();
@@ -63,6 +66,7 @@ export default async function ObservationsQueue({
         <ObservationsInbox
           rows={reviewItems}
           canDecide={canDecide}
+          canCorrect={canCorrect}
           initialHasMore={hasMore}
           initialCursor={nextCursor}
         />

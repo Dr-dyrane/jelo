@@ -27,7 +27,7 @@ export async function getOpsSidebarSummary(
   }[]>`
     select
       count(id)::int as decisions_today,
-      max(created_at)::text as last_action_at
+      (array_agg(created_at order by event_sequence desc))[1]::text as last_action_at
     from moderation_audit_log
     where operator_subject = ${operator.authSubject}
       and created_at >= date_trunc('day', now())

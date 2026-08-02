@@ -102,6 +102,23 @@ retained temporarily for independent read-only verification. Delete it only
 after that verification is confirmed; no credentials or task contents belong
 in the evidence record.
 
+Rehearsal evidence for `0032_moderation_audit_event_sequence.sql` (2026-08-02
+UTC): production-derived branch `br-muddy-fog-avrr5205`
+(`rehearsal/moderation-audit-sequence-20260802`) in project
+`spring-field-93817903` was confirmed non-primary. The first migration run
+applied only `0032`; its ledger row was written at
+`2026-08-02 06:27:31.827871+00`. The ledger row and unique event-sequence
+constraint share transaction ID `891909`. A second migration run skipped
+`0032`. The column is non-null with its database sequence default; the unique
+constraint and `(queue, target_ref, event_sequence desc)` index are present.
+After the real two-client correction race, all 261 audit rows had 261 distinct
+non-null event sequences. The synthetic target retained two events (sequence
+260 then 261), exactly one correction marker, and pending observation state:
+one overlapping writer committed and the serialized duplicate failed closed.
+The database verifier then passed. Retain this branch for independent read-only
+audit and delete it only after that audit is confirmed. Do not record a
+connection string, role credential, operator subject, or retained row content.
+
 ## Operator access cannot be changed
 
 1. Confirm the signed-in operator is an active admin. Do not bypass the role
@@ -321,14 +338,19 @@ MODERATION_OPERATOR_EMAIL=admin@example.com \
 Never copy a connection string, raw payload, operator subject, or contributor text
 into a ticket, commit, terminal transcript, or chat. Use queue row IDs for handoff.
 
-If later exact-identity review shows that an approved product observation cannot
-stay approved, an admin can correct it without rewriting the original audit
-entry. `defer` returns it to review; `reject` records that the product-level fact
-cannot be retained as an exact-SKU observation. The command is dry-run by
-default:
+If later review shows that a settled observation has the wrong decision, an
+admin can correct it without rewriting or hiding the original audit entry.
+`defer` returns an approved or rejected observation to private review; `reject`
+changes an approved observation to rejected. Pending observations, no-op
+transitions, and mapped records are not accepted by this recovery path. The
+command is dry-run by default. A child beneath a rejected or expired parent
+cannot return to pending review. Stop and review the parent state separately;
+this pathway does not provide a contribution-decision correction and must not be
+used to improvise one. The web inspector intentionally exposes only **Return to
+review**; approved-to-rejected correction remains CLI-only.
 
 ```bash
-MODERATION_OPERATOR_EMAIL=operator@example.com \
+MODERATION_OPERATOR_EMAIL=admin@example.com \
   npm run community:moderate -- \
   --action correct \
   --queue community_observation \
@@ -337,9 +359,26 @@ MODERATION_OPERATOR_EMAIL=operator@example.com \
   --rationale "Exact product identity still needs review."
 ```
 
-Repeat with `--apply` only after reviewing the dry run. The applied correction
-adds a new attributable audit action and never creates a product, offer, price,
-outcome, retailer, or canonical relationship.
+Repeat with `--apply` only after reviewing the dry run. For a return to pending,
+the database locks the active admin, then the retained non-rejected parent, then
+the observation. Under the observation lock it reconstructs the latest causal
+state from the audit history in durable `event_sequence` order and requires that
+state to match the row before it links the new `defer` or `reject` event to that
+prior audit ID. Timestamps remain presentation data; never use `created_at` plus
+a random audit UUID as causal order. All of this occurs in the same transaction
+as the status change. The applied correction never
+erases the prior decision and never creates a product, offer, price, outcome,
+retailer, or canonical relationship. It fails closed if the database client
+cannot open a real transaction. `/ops/activity` links settled observation
+decisions to the Observation inspector; admins can use **Return to review** there
+with a new, blank-by-default reason.
+
+Insufficient exact identity is not automatically a terminal rejection. When the
+retained evidence and prior audit history intentionally quarantined a report for
+identity research, keep or return it to private pending review until the exact
+SKU is established or evidence supports a terminal decision. Use rejection only
+when the report cannot be retained under the evidence policy, and preserve the
+incorrect decision as visible audit history when correcting this mistake class.
 
 ### Research ownership and outcomes
 

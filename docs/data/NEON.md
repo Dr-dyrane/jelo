@@ -27,10 +27,15 @@ Never expose a PostgreSQL connection string through a `NEXT_PUBLIC_` variable.
 | Frozen external catalogue | `external_catalogue_products`, `external_catalogue_releases` |
 | Community intake | `community_intake_drafts`, `community_contributions`, moderation, observation, research-task, event, and edge tables |
 | Retailer partnerships | `retailer_partnership_applications`, `retailer_partnership_events` |
-| Operations | `moderation_operators`, append-only `moderation_audit_log` |
+| Operations | `moderation_operators`, append-only `moderation_audit_log` (`event_sequence` is causal order; `created_at` is presentation time) |
 | Migration history | `schema_migrations` |
 
 The ordered files in `db/migrations/` are authoritative.
+
+`moderation_audit_log.event_sequence` is database-owned, non-null, and globally
+unique. Use it for newest-event and per-target causal reads. `created_at` remains
+the human-facing event time and must not be used with a random UUID to infer
+causal order across overlapping transactions.
 
 ## Migrations
 
@@ -57,7 +62,8 @@ The runner:
 2. creates `schema_migrations` if needed;
 3. sorts `.sql` files by filename;
 4. skips recorded files;
-5. executes each file and records it;
+5. executes each unwrapped migration body and records its ledger row in the same
+   database transaction;
 6. rolls back a failed transaction before releasing the lock.
 
 Do not run two manual migration operators against the same database.

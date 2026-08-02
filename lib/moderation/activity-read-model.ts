@@ -27,6 +27,7 @@ export type ActivityCount = {
 
 export type ActivityDecision = {
   id: string;
+  eventSequence: string;
   operatorName: string;
   queue: ModerationAction['queue'];
   action: ModerationAction['action'];
@@ -347,6 +348,7 @@ export async function getActivityInference(
     `,
     sql<{
       id: string;
+      event_sequence: string;
       operator_name: string;
       queue: ModerationAction['queue'];
       action: ModerationAction['action'];
@@ -359,6 +361,7 @@ export async function getActivityInference(
     }[]>`
       select
         audit.id,
+        audit.event_sequence::text as event_sequence,
         coalesce(operator.display_name, operator.email, 'Operator') as operator_name,
         audit.queue,
         audit.action,
@@ -541,7 +544,7 @@ export async function getActivityInference(
       from moderation_audit_log audit
       left join moderation_operators operator
         on operator.auth_subject = audit.operator_subject
-      order by audit.created_at desc, audit.id desc
+      order by audit.event_sequence desc
       limit ${boundedLimit(decisionLimit)}
     `,
   ]);
@@ -600,6 +603,7 @@ export async function getActivityInference(
       decisionsToday: audit?.decisions_today ?? 0,
       decisions: decisionRows.map(row => ({
         id: row.id,
+        eventSequence: row.event_sequence,
         operatorName: row.operator_name,
         queue: row.queue,
         action: row.action,

@@ -134,7 +134,8 @@ export async function listConsoleOperators(sql: Sql): Promise<ConsoleOperatorDir
           where audit.created_at >= now() - interval '7 days'
         )::int as decisions_last_7_days,
         count(audit.id)::int as decisions_total,
-        max(audit.created_at)::text as last_action_at,
+        (array_agg(audit.created_at order by audit.event_sequence desc)
+          filter (where audit.id is not null))[1]::text as last_action_at,
         operator.created_at::text as created_at,
         operator.updated_at::text as updated_at
       from moderation_operators as operator
@@ -161,10 +162,11 @@ export async function listConsoleOperators(sql: Sql): Promise<ConsoleOperatorDir
           audit.queue,
           audit.action,
           audit.target_ref,
+          audit.event_sequence,
           audit.created_at,
           row_number() over (
             partition by operator.id
-            order by audit.created_at desc, audit.id desc
+            order by audit.event_sequence desc
           ) as operator_rank
         from moderation_audit_log audit
         join moderation_operators operator
@@ -175,6 +177,7 @@ export async function listConsoleOperators(sql: Sql): Promise<ConsoleOperatorDir
         recent.operator_id,
         recent.queue,
         recent.action,
+        recent.event_sequence,
         coalesce(
           case
             when recent.queue = 'community_contribution'
@@ -234,7 +237,7 @@ export async function listConsoleOperators(sql: Sql): Promise<ConsoleOperatorDir
         recent.created_at::text as created_at
       from recent
       where recent.operator_rank <= 8
-      order by recent.created_at desc, recent.id desc
+      order by recent.event_sequence desc
     `,
   ]);
 

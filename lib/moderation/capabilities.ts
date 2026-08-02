@@ -2,12 +2,13 @@ import 'server-only';
 
 import { ModerationAccessError, type ModerationOperator, type ModerationRole } from './access';
 
-// Capability layer between role and action (ADR 0007). Today all three roles pass
-// the same entry gate and every writer is equally available; this maps each role
-// to the writers in transitions.ts it may invoke. One capability per real writer —
-// no inverse/un-approve exists, so none is modelled.
+// Capability layer between role and action (ADR 0007). All three roles pass the
+// same entry gate, then this map narrows which writers each role may invoke. One
+// capability per real writer;
+// settled observation correction is deliberately separate from routine decisions.
 export type Capability =
   | 'observations.decide'
+  | 'observations.correct'
   | 'edges.decide'
   | 'contributions.decide'
   | 'retailers.decide'
@@ -25,7 +26,7 @@ const CAPABILITIES: Record<ModerationRole, Capability[]> = {
     'retailers.decide', 'vocabulary.decide', 'vocabulary.map', 'queue.note', 'research.manage',
   ],
   admin: [
-    'observations.decide', 'edges.decide', 'contributions.decide',
+    'observations.decide', 'observations.correct', 'edges.decide', 'contributions.decide',
     'retailers.decide', 'vocabulary.decide', 'vocabulary.map', 'queue.note',
     'research.manage', 'research.assign', 'operators.manage',
   ],

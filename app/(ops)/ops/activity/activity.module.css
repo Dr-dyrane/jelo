@@ -302,7 +302,7 @@
   display: grid;
   place-items: center;
   background: var(--ops-product-stage);
-  color: var(--ops-accent);
+  color: var(--muted);
 }
 
 .decisionVisual {
@@ -469,6 +469,26 @@
   overflow-wrap: anywhere;
   color: var(--ink);
   text-align: right;
+}
+
+.reviewDecisionLink {
+  display: inline-flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  margin-top: var(--space-3);
+  color: var(--ops-accent);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.reviewDecisionLink:hover {
+  color: var(--ops-accent);
+}
+
+.reviewDecisionLink:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
 }
 
 .metadata {

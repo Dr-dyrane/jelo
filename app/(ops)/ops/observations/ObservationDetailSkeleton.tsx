@@ -37,7 +37,7 @@ export function ObservationDetailSkeleton({ announce = true }: { announce?: bool
       </div>
 
       <section className={styles.decideSection} aria-hidden="true">
-        <h3 className={styles.sectionLabel}>Decision</h3>
+        <h3 className={styles.sectionLabel}>Review</h3>
         <div className={styles.decideField}>
           <span className={styles.decideNoteLabel}>Note</span>
           <div className={`${styles.skeletonNote} ${styles.skeletonSurface}`} />

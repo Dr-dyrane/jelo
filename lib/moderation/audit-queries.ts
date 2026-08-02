@@ -11,6 +11,7 @@ const uuidPattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB]
 
 export type DecisionHistoryEntry = {
   id: string;
+  eventSequence: string;
   operatorName: string;
   operatorEmail: string | null;
   queue: ModerationAction['queue'];
@@ -31,6 +32,7 @@ export type OverviewDecisionHistoryEntry = DecisionHistoryEntry & {
 export async function listDecisionHistory(sql: Sql, limit = 100): Promise<DecisionHistoryEntry[]> {
   const rows = await sql<{
     id: string;
+    event_sequence: string;
     operator_name: string;
     operator_email: string | null;
     queue: ModerationAction['queue'];
@@ -42,6 +44,7 @@ export async function listDecisionHistory(sql: Sql, limit = 100): Promise<Decisi
   }[]>`
     select
       audit.id,
+      audit.event_sequence::text as event_sequence,
       coalesce(operator.display_name, operator.email, audit.operator_subject) as operator_name,
       operator.email as operator_email,
       audit.queue,
@@ -52,12 +55,13 @@ export async function listDecisionHistory(sql: Sql, limit = 100): Promise<Decisi
       audit.created_at::text as created_at
     from moderation_audit_log as audit
     left join moderation_operators as operator on operator.auth_subject = audit.operator_subject
-    order by audit.created_at desc
+    order by audit.event_sequence desc
     limit ${boundedLimit(limit)}
   `;
 
   return rows.map(row => ({
     id: row.id,
+    eventSequence: row.event_sequence,
     operatorName: row.operator_name,
     operatorEmail: row.operator_email,
     queue: row.queue,
@@ -82,6 +86,7 @@ export async function listOverviewDecisionHistory(
   const queueWindow = boundedLimit(perQueueLimit);
   const rows = await sql<{
     id: string;
+    event_sequence: string;
     operator_name: string;
     operator_email: string | null;
     queue: ModerationAction['queue'];
@@ -98,6 +103,7 @@ export async function listOverviewDecisionHistory(
     with enriched as (
       select
         audit.id,
+        audit.event_sequence,
         coalesce(operator.display_name, operator.email, audit.operator_subject) as operator_name,
         operator.email as operator_email,
         audit.queue,
@@ -241,13 +247,17 @@ export async function listOverviewDecisionHistory(
         audit.canonical_write,
         audit.rationale,
         audit.created_at,
-        row_number() over (order by audit.created_at desc) as global_rank,
-        row_number() over (partition by audit.queue order by audit.created_at desc) as queue_rank
+        row_number() over (order by audit.event_sequence desc) as global_rank,
+        row_number() over (
+          partition by audit.queue
+          order by audit.event_sequence desc
+        ) as queue_rank
       from moderation_audit_log audit
       left join moderation_operators operator on operator.auth_subject = audit.operator_subject
     )
     select
       id,
+      event_sequence::text as event_sequence,
       operator_name,
       operator_email,
       queue,
@@ -262,11 +272,12 @@ export async function listOverviewDecisionHistory(
       queue_rank::int as queue_rank
     from enriched
     where global_rank <= ${globalWindow} or queue_rank <= ${queueWindow}
-    order by created_at desc
+    order by event_sequence desc
   `;
 
   return rows.map(row => ({
     id: row.id,
+    eventSequence: row.event_sequence,
     operatorName: row.operator_name,
     operatorEmail: row.operator_email,
     queue: row.queue,

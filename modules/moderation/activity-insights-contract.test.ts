@@ -138,18 +138,19 @@ test('Decision history is human-readable while raw references remain secondary',
   assert.doesNotMatch(primaryRow, /targetRef/);
 });
 
-test('global audit history has an index and guarded UUID lookups', async () => {
+test('global audit history uses the durable event sequence and guarded UUID lookups', async () => {
   const [model, migration] = await Promise.all([
     readSource('lib/moderation/activity-read-model.ts'),
-    readSource('db/migrations/0024_moderation_audit_global_order.sql'),
+    readSource('db/migrations/0032_moderation_audit_event_sequence.sql'),
   ]);
 
   assert.match(model, /audit\.target_ref ~\* \$\{uuidPattern\}/);
   assert.doesNotMatch(model, /\.id::text = audit\.target_ref/);
   assert.match(
     migration,
-    /moderation_audit_log \(created_at desc, id desc\)/,
+    /moderation_audit_log \(queue, target_ref, event_sequence desc\)/,
   );
+  assert.match(model, /order by audit\.event_sequence desc/);
 });
 
 test('Insights owns geometry-matched loading and a private retry state', async () => {

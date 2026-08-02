@@ -1,6 +1,7 @@
 import 'server-only';
 
 import type { Sql } from 'postgres';
+import { isQueueItemUuid } from './queue-selection';
 
 function boundedLimit(limit: number) {
   return Math.min(Math.max(Math.trunc(limit), 1), 500);
@@ -75,6 +76,8 @@ export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
 export type PendingObservation = {
   id: string;
   contributionId: string;
+  parentEligibleForReview: boolean;
+  moderationStatus: 'pending' | 'mapped' | 'approved' | 'rejected';
   kind: 'price' | 'outcome';
   subjectKind: string;
   subjectRef: string;
@@ -106,6 +109,8 @@ export async function listPendingObservations(
   const rows = await sql<{
     id: string;
     contribution_id: string;
+    parent_eligible_for_review: boolean;
+    moderation_status: PendingObservation['moderationStatus'];
     observation_kind: 'price' | 'outcome';
     subject_kind: string;
     subject_ref: string;
@@ -115,7 +120,11 @@ export async function listPendingObservations(
     observed_on: string | null;
     created_at: string;
   }[]>`
-    select observation.id, observation.contribution_id, observation.observation_kind,
+    select observation.id, observation.contribution_id,
+           (contribution.moderation_status <> 'rejected'
+             and contribution.retain_until > now()) as parent_eligible_for_review,
+           observation.moderation_status,
+           observation.observation_kind,
            observation.subject_kind, observation.subject_ref,
            coalesce(resolution.canonical_product_slug, published_candidate.slug)
              as resolved_product_ref,
@@ -145,6 +154,8 @@ export async function listPendingObservations(
   return rows.map(row => ({
     id: row.id,
     contributionId: row.contribution_id,
+    parentEligibleForReview: row.parent_eligible_for_review,
+    moderationStatus: row.moderation_status,
     kind: row.observation_kind,
     subjectKind: row.subject_kind,
     subjectRef: row.subject_ref,
@@ -160,9 +171,12 @@ export async function findPendingObservation(
   sql: Sql,
   id: string,
 ): Promise<PendingObservation | null> {
+  if (!isQueueItemUuid(id)) return null;
   const [row] = await sql<{
     id: string;
     contribution_id: string;
+    parent_eligible_for_review: boolean;
+    moderation_status: PendingObservation['moderationStatus'];
     observation_kind: 'price' | 'outcome';
     subject_kind: string;
     subject_ref: string;
@@ -172,7 +186,11 @@ export async function findPendingObservation(
     observed_on: string | null;
     created_at: string;
   }[]>`
-    select observation.id, observation.contribution_id, observation.observation_kind,
+    select observation.id, observation.contribution_id,
+           (contribution.moderation_status <> 'rejected'
+             and contribution.retain_until > now()) as parent_eligible_for_review,
+           observation.moderation_status,
+           observation.observation_kind,
            observation.subject_kind, observation.subject_ref,
            coalesce(resolution.canonical_product_slug, published_candidate.slug)
              as resolved_product_ref,
@@ -201,6 +219,74 @@ export async function findPendingObservation(
   return row ? {
     id: row.id,
     contributionId: row.contribution_id,
+    parentEligibleForReview: row.parent_eligible_for_review,
+    moderationStatus: row.moderation_status,
+    kind: row.observation_kind,
+    subjectKind: row.subject_kind,
+    subjectRef: row.subject_ref,
+    resolvedProductRef: row.resolved_product_ref,
+    amountNgn: row.amount_ngn,
+    outcome: row.outcome,
+    observedOn: row.observed_on,
+    createdAt: row.created_at,
+  } : null;
+}
+
+// A settled observation is addressable only by its explicit record id. It is not
+// part of the pending queue or its totals; Activity uses this read to open the
+// historical decision in the normal observation inspector.
+export async function findSettledObservation(
+  sql: Sql,
+  id: string,
+): Promise<PendingObservation | null> {
+  if (!isQueueItemUuid(id)) return null;
+  const [row] = await sql<{
+    id: string;
+    contribution_id: string;
+    parent_eligible_for_review: boolean;
+    moderation_status: PendingObservation['moderationStatus'];
+    observation_kind: 'price' | 'outcome';
+    subject_kind: string;
+    subject_ref: string;
+    resolved_product_ref: string | null;
+    amount_ngn: number | null;
+    outcome: string | null;
+    observed_on: string | null;
+    created_at: string;
+  }[]>`
+    select observation.id, observation.contribution_id,
+           (contribution.moderation_status <> 'rejected'
+             and contribution.retain_until > now()) as parent_eligible_for_review,
+           observation.moderation_status,
+           observation.observation_kind,
+           observation.subject_kind, observation.subject_ref,
+           coalesce(resolution.canonical_product_slug, published_candidate.slug)
+             as resolved_product_ref,
+           observation.amount_ngn,
+           observation.outcome, observation.observed_on::text as observed_on,
+           observation.created_at::text as created_at
+    from community_observations observation
+    join community_contributions contribution on contribution.id = observation.contribution_id
+    left join community_research_tasks task
+      on observation.subject_kind = 'product'
+      and task.entity_kind = 'product'
+      and task.entity_source = 'custom'
+      and task.entity_ref = observation.subject_ref
+    left join community_product_research_resolutions resolution
+      on resolution.task_id = task.id
+    left join products published_candidate
+      on resolution.outcome = 'deliberate-intake-candidate'
+      and published_candidate.slug = resolution.candidate_id
+      and published_candidate.is_published = true
+    where observation.moderation_status in ('approved', 'rejected')
+      and observation.id = ${id}
+    limit 1
+  `;
+  return row ? {
+    id: row.id,
+    contributionId: row.contribution_id,
+    parentEligibleForReview: row.parent_eligible_for_review,
+    moderationStatus: row.moderation_status,
     kind: row.observation_kind,
     subjectKind: row.subject_kind,
     subjectRef: row.subject_ref,

@@ -3,13 +3,14 @@ import { z } from 'zod';
 import { parseOperatorCommand, type OperatorCommand } from '../lib/moderation/operator-command';
 import {
   canonicalModerationTargetExists,
-  correctApprovedObservation,
+  correctObservationDecision,
   decideContribution,
   decideEdge,
   decideModerationValue,
   decideObservation,
   mapModerationValue,
   moderationTargetExists,
+  preflightObservationCorrection,
   preflightResearchAssignment,
   reconcileCommunityResearchTasks,
   recordNote,
@@ -235,9 +236,12 @@ async function applyOrPreview(sql: Sql, operator: Operator, command: Exclude<Ope
   }
 
   if (command.action === 'correct') {
-    if (!await moderationTargetExists(sql, command.queue, command.targetId)) {
-      throw new Error('Moderation target does not exist.');
-    }
+    const planned = await preflightObservationCorrection(
+      sql,
+      operator.auth_subject,
+      command.targetId,
+      command.disposition,
+    );
     if (!command.apply) {
       return {
         mode: 'dry-run',
@@ -245,23 +249,28 @@ async function applyOrPreview(sql: Sql, operator: Operator, command: Exclude<Ope
         queue: command.queue,
         targetId: command.targetId,
         disposition: command.disposition,
+        previousStatus: planned.previousStatus,
+        nextStatus: planned.nextStatus,
+        previousDecisionAuditId: planned.previousDecisionAuditId,
         wouldWrite: false,
       };
     }
-    const settled = await correctApprovedObservation(
+    const corrected = await correctObservationDecision(
       sql,
       operator.auth_subject,
       command.targetId,
       command.disposition,
       command.rationale,
     );
-    if (!settled) throw new Error('The observation is not approved; no correction was recorded.');
     return {
       mode: 'applied',
       action: command.action,
       queue: command.queue,
       targetId: command.targetId,
       disposition: command.disposition,
+      previousStatus: corrected.previousStatus,
+      nextStatus: corrected.nextStatus,
+      previousDecisionAuditId: corrected.previousDecisionAuditId,
       wouldWrite: true,
     };
   }

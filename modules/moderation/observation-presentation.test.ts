@@ -13,6 +13,8 @@ function observation(
   return {
     id: '878dc8f7-1cfc-45a9-9d64-3c6d8129cee7',
     contributionId: '29a7f5bb-c4d3-47e9-bb0d-6a153156bd9c',
+    parentEligibleForReview: true,
+    moderationStatus: 'pending',
     kind: 'price',
     subjectKind: 'product',
     subjectRef: 'product:cerave-foaming-facial-cleanser',

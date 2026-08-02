@@ -4,8 +4,10 @@ import path from 'node:path';
 import test from 'node:test';
 import {
   includeSelectedQueueItem,
+  isQueueItemUuid,
   queueSelectionHref,
   selectedQueueItemId,
+  selectedQueueUuid,
 } from '@/lib/moderation/queue-selection';
 
 test('queue selection reads one stable id from Next search params', () => {
@@ -13,6 +15,14 @@ test('queue selection reads one stable id from Next search params', () => {
   assert.equal(selectedQueueItemId({ id: ['record-3', 'record-4'] }), 'record-3');
   assert.equal(selectedQueueItemId({ id: '   ' }), null);
   assert.equal(selectedQueueItemId({}), null);
+});
+
+test('observation UUID selection rejects malformed direct links before a database query', () => {
+  const id = '878dc8f7-1cfc-45a9-9d64-3c6d8129cee7';
+  assert.equal(isQueueItemUuid(id), true);
+  assert.equal(selectedQueueUuid({ id: `  ${id}  ` }), id);
+  assert.equal(selectedQueueUuid({ id: 'not-a-uuid' }), null);
+  assert.equal(selectedQueueUuid({ id: "'::uuid" }), null);
 });
 
 test('queue selection URLs preserve unrelated query state', () => {

@@ -19,6 +19,82 @@ type ResearchAssignmentOperator = {
   role: 'moderator' | 'operator' | 'admin';
 };
 
+export type ObservationCorrectionDisposition = 'defer' | 'reject';
+export type ObservationModerationStatus = 'pending' | 'mapped' | 'approved' | 'rejected';
+export type ObservationCorrectionPlan = {
+  id: string;
+  previousStatus: Extract<ObservationModerationStatus, 'approved' | 'rejected'>;
+  nextStatus: Extract<ObservationModerationStatus, 'pending' | 'rejected'>;
+  previousDecisionAuditId: string;
+  auditAction: ObservationCorrectionDisposition;
+};
+export type ObservationCausalAuditEvent = {
+  id: string;
+  eventSequence: string;
+  action: 'approve' | 'reject' | 'defer';
+  metadata: Record<string, unknown>;
+};
+
+export function observationStatusFromAuditEvent(
+  event: ObservationCausalAuditEvent,
+): Extract<ObservationModerationStatus, 'pending' | 'approved' | 'rejected'> {
+  const hasCorrectionMarker = Object.prototype.hasOwnProperty.call(event.metadata, 'correction');
+  if (event.action === 'approve') {
+    if (hasCorrectionMarker) {
+      throw new Error('An approve audit cannot be an observation correction state event.');
+    }
+    return 'approved';
+  }
+  const isCorrection = event.metadata.correction === true;
+  if (event.action === 'defer') {
+    if (!isCorrection || event.metadata.nextStatus !== 'pending') {
+      throw new Error('The latest observation defer audit is not a valid correction state event.');
+    }
+    return 'pending';
+  }
+  if (hasCorrectionMarker && !isCorrection) {
+    throw new Error('The latest observation reject audit has an invalid correction marker.');
+  }
+  if (!isCorrection) return 'rejected';
+  if (event.metadata.nextStatus !== 'rejected') {
+    throw new Error('The latest observation reject correction has invalid state metadata.');
+  }
+  return 'rejected';
+}
+
+export function planObservationCorrection(
+  id: string,
+  previousStatus: ObservationModerationStatus,
+  disposition: ObservationCorrectionDisposition,
+  previousDecisionAuditId: string,
+): ObservationCorrectionPlan {
+  if (disposition !== 'defer' && disposition !== 'reject') {
+    throw new Error('Unsupported observation correction disposition.');
+  }
+  if (previousStatus === 'pending') {
+    throw new Error('A pending observation has no settled decision to correct.');
+  }
+  if (previousStatus === 'mapped') {
+    throw new Error('Mapped observations are not supported by the correction pathway.');
+  }
+
+  const nextStatus = disposition === 'defer' ? 'pending' as const : 'rejected' as const;
+  if (previousStatus === nextStatus) {
+    throw new Error('The requested observation correction would not change its status.');
+  }
+  if (!previousDecisionAuditId) {
+    throw new Error('The prior observation decision audit entry is required.');
+  }
+
+  return {
+    id,
+    previousStatus,
+    nextStatus,
+    previousDecisionAuditId,
+    auditAction: disposition,
+  };
+}
+
 export function planResearchAssignmentTransition(input: {
   action: ResearchAssignmentAction;
   task: ResearchAssignmentTask;
@@ -251,6 +327,14 @@ async function inTransaction<T>(sql: Sql, run: (tx: Sql) => Promise<T>): Promise
     : run(sql);
 }
 
+async function inRequiredTransaction<T>(sql: Sql, run: (tx: Sql) => Promise<T>): Promise<T> {
+  const begin = (sql as TransactionCapableSql).begin;
+  if (typeof begin !== 'function') {
+    throw new Error('Observation correction requires transactional database access.');
+  }
+  return await (begin.call(sql, run) as Promise<T>);
+}
+
 export async function recordModerationAction(sql: Sql, input: ModerationAction): Promise<void> {
   const row = buildModerationAuditRow(input);
   await sql`
@@ -407,37 +491,152 @@ export function decideObservation(
       where id = ${id} and moderation_status = 'pending' returning id`);
 }
 
-export async function correctApprovedObservation(
+async function validateObservationCorrection(
   sql: Sql,
   operatorSubject: string,
   id: string,
-  disposition: 'defer' | 'reject',
+  disposition: ObservationCorrectionDisposition,
+  lockRows: boolean,
+) {
+  const operatorLock = lockRows ? sql`for share` : sql``;
+  const [operator] = await sql<{ id: string; role: 'moderator' | 'operator' | 'admin' }[]>`
+    select id, role
+    from moderation_operators
+    where auth_subject = ${operatorSubject} and active = true
+    limit 1
+    ${operatorLock}
+  `;
+  if (!operator || operator.role !== 'admin') {
+    throw new Error('Only an active admin may correct a settled observation.');
+  }
+
+  const parentLock = lockRows ? sql`for share` : sql``;
+  const [parentContribution] = disposition === 'defer'
+    ? await sql<{
+        id: string;
+        moderation_status: ObservationModerationStatus;
+        retained: boolean;
+      }[]>`
+        select contribution.id, contribution.moderation_status,
+               (contribution.retain_until > now()) as retained
+        from community_contributions contribution
+        where contribution.id = (
+          select observation.contribution_id
+          from community_observations observation
+          where observation.id = ${id}
+        )
+        ${parentLock}
+      `
+    : [];
+
+  const observationLock = lockRows ? sql`for update` : sql``;
+  const [observation] = await sql<{
+    id: string;
+    contribution_id: string;
+    moderation_status: ObservationModerationStatus;
+  }[]>`
+    select id, contribution_id, moderation_status
+    from community_observations
+    where id = ${id}
+    ${observationLock}
+  `;
+  if (!observation) throw new Error('Moderation target does not exist.');
+  if (disposition === 'defer') {
+    if (!parentContribution || parentContribution.id !== observation.contribution_id) {
+      throw new Error('The observation parent contribution is unavailable.');
+    }
+    if (parentContribution.moderation_status === 'rejected') {
+      throw new Error('Correct the rejected parent contribution before reopening this observation.');
+    }
+    if (!parentContribution.retained) {
+      throw new Error('An expired parent contribution cannot return an observation to review.');
+    }
+  }
+
+  const [previousDecision] = await sql<ObservationCausalAuditEvent[]>`
+    select
+      id,
+      event_sequence::text as "eventSequence",
+      action,
+      metadata
+    from moderation_audit_log
+    where queue = 'community_observation'
+      and target_ref = ${id}
+      and (
+        action in ('approve', 'reject')
+        or (action = 'defer' and metadata ->> 'correction' = 'true')
+      )
+    order by event_sequence desc
+    limit 1
+  `;
+  if (!previousDecision) {
+    throw new Error('The prior observation decision audit entry is required.');
+  }
+  const auditedStatus = observationStatusFromAuditEvent(previousDecision);
+  if (auditedStatus !== observation.moderation_status) {
+    throw new Error('The observation status does not match its latest causal audit event.');
+  }
+
+  return planObservationCorrection(
+    observation.id,
+    observation.moderation_status,
+    disposition,
+    previousDecision.id,
+  );
+}
+
+export function preflightObservationCorrection(
+  sql: Sql,
+  operatorSubject: string,
+  id: string,
+  disposition: ObservationCorrectionDisposition,
+) {
+  return validateObservationCorrection(sql, operatorSubject, id, disposition, false);
+}
+
+export async function correctObservationDecision(
+  sql: Sql,
+  operatorSubject: string,
+  id: string,
+  disposition: ObservationCorrectionDisposition,
   rationale: string,
 ) {
-  const nextStatus = disposition === 'reject' ? 'rejected' : 'pending';
-  return inTransaction(sql, async tx => {
-    const rows = await tx<{ id: string }[]>`
+  const normalizedRationale = rationale.trim();
+  if (!normalizedRationale || normalizedRationale.length > 2000) {
+    throw new Error('A fresh correction reason between 1 and 2,000 characters is required.');
+  }
+
+  return inRequiredTransaction(sql, async tx => {
+    const planned = await validateObservationCorrection(
+      tx,
+      operatorSubject,
+      id,
+      disposition,
+      true,
+    );
+    const [updated] = await tx<{ id: string }[]>`
       update community_observations
-      set moderation_status = ${nextStatus}
-      where id = ${id} and moderation_status = 'approved'
+      set moderation_status = ${planned.nextStatus}
+      where id = ${id} and moderation_status = ${planned.previousStatus}
       returning id
     `;
-    if (rows.length === 0) return null;
+    if (!updated) throw new Error('The observation decision changed before correction could be saved.');
 
     await recordModerationAction(tx, {
       operatorSubject,
       queue: 'community_observation',
-      action: disposition,
+      action: planned.auditAction,
       targetRef: id,
       canonicalWrite: false,
-      rationale,
+      rationale: normalizedRationale,
       metadata: {
         correction: true,
-        previousStatus: 'approved',
-        nextStatus,
+        previousStatus: planned.previousStatus,
+        nextStatus: planned.nextStatus,
+        previousDecisionAuditId: planned.previousDecisionAuditId,
       },
     });
-    return rows[0].id;
+    return planned;
   });
 }
 

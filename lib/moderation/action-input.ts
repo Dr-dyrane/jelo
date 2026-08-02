@@ -12,6 +12,14 @@ export const decisionInputSchema = z.object({
 }).strict();
 export type DecisionInput = z.infer<typeof decisionInputSchema>;
 
+export const observationCorrectionInputSchema = z.object({
+  targetId: z.uuid(),
+  submissionId: z.uuid(),
+  disposition: z.literal('defer'),
+  rationale: z.string().trim().min(1).max(2000),
+}).strict();
+export type ObservationCorrectionInput = z.infer<typeof observationCorrectionInputSchema>;
+
 export const mapValueInputSchema = z.object({
   targetId: z.uuid(),
   canonicalEntityKind: z.enum(['purpose', 'product', 'brand', 'retailer']),

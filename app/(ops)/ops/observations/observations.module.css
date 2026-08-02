@@ -179,6 +179,26 @@
   line-height: 1.35;
 }
 
+.correctionBoundary {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.45;
+}
+
+.correctionFooter {
+  border-top: 1px solid var(--ops-separator, var(--border));
+}
+
+.returnToReviewButton {
+  background: var(--accent-solid);
+  color: var(--on-accent);
+}
+
+.returnToReviewButton:hover {
+  background: color-mix(in srgb, var(--accent-solid) 92%, var(--ops-accent));
+}
+
 .rejectConfirmation {
   display: flex;
   flex-direction: column;

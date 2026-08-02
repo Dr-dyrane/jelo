@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   ChevronRight,
   MessageSquareText,
@@ -30,15 +31,22 @@ import {
 import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
 import {
   decideObservationAction,
+  correctObservationAction,
   fetchMoreObservationsAction,
 } from '../actions';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import observationStyles from './observations.module.css';
 import { ObservationDetailSkeleton } from './ObservationDetailSkeleton';
+import {
+  initialObservationCorrectionFeedback,
+  observationCorrectionFeedbackForTarget,
+  observationCorrectionFeedbackReducer,
+} from '@/lib/moderation/observation-correction-feedback';
 
 interface ObservationsInboxProps {
   rows: ObservationReviewItem[];
   canDecide: boolean;
+  canCorrect: boolean;
   initialHasMore: boolean;
   initialCursor: ObservationCursor | null;
 }
@@ -179,13 +187,24 @@ function reportedDate(value: string | null) {
 export function ObservationsInbox({
   rows,
   canDecide,
+  canCorrect,
   initialHasMore,
   initialCursor,
 }: ObservationsInboxProps) {
+  const router = useRouter();
   const selection = useUrlInboxSelection();
   const [actionState, formAction, isDecisionPending] = useActionState(
     decideObservationAction,
     null,
+  );
+  const [correctionState, correctionAction, isCorrectionPending] = useActionState(
+    correctObservationAction,
+    null,
+  );
+  const [latestAnnouncement, setLatestAnnouncement] = useState<'decision' | 'correction' | null>(null);
+  const [correctionFeedbackState, dispatchCorrectionFeedback] = useReducer(
+    observationCorrectionFeedbackReducer,
+    initialObservationCorrectionFeedback,
   );
   const [rejectConfirmId, setRejectConfirmId] = useState<string | null>(null);
   const [queueState, dispatchQueue] = useReducer(queueRuntimeReducer, {
@@ -197,6 +216,12 @@ export function ObservationsInbox({
     loadError: null,
   });
   const pendingDecisionRef = useRef<string | null>(null);
+  const correctionFocusTargetRef = useRef<string | null>(null);
+  const activeCorrectionRef = useRef<{
+    submissionId: string;
+    targetId: string;
+    disposition: 'defer';
+  } | null>(null);
   const loadPendingRef = useRef(false);
   const loadSentinelRef = useRef<HTMLDivElement | null>(null);
   const inboxControllerRef = useRef<OpsInboxController | null>(null);
@@ -204,27 +229,45 @@ export function ObservationsInbox({
     () => observationRows(rows, queueState),
     [queueState, rows],
   );
-  const orderedRows = useMemo(() => {
-    const upNext = loadedRows.slice(0, 2);
-    const remaining = loadedRows.slice(2);
+  const pendingRows = useMemo(
+    () => loadedRows.filter(row => row.moderationStatus === 'pending'),
+    [loadedRows],
+  );
+  const settledRows = useMemo(
+    () => loadedRows.filter(row => row.moderationStatus !== 'pending').slice(0, 1),
+    [loadedRows],
+  );
+  const orderedPendingRows = useMemo(() => {
+    const upNext = pendingRows.slice(0, 2);
+    const remaining = pendingRows.slice(2);
     return [
       ...upNext,
       ...remaining.filter(row => row.kind === 'price'),
       ...remaining.filter(row => row.kind === 'outcome'),
     ];
-  }, [loadedRows]);
+  }, [pendingRows]);
+  const orderedRows = useMemo(
+    () => [...settledRows, ...orderedPendingRows],
+    [orderedPendingRows, settledRows],
+  );
   const sections = useMemo<InboxCollectionSection<ObservationReviewItem>[]>(() => [
+    ...(settledRows.length > 0 ? [{
+      id: 'reviewed-decision',
+      label: 'Reviewed decision',
+      presentation: 'compact-rows' as const,
+      itemIds: settledRows.map(row => row.id),
+    }] : []),
     {
       id: 'up-next',
       label: 'Up next',
       presentation: 'feature-shelf',
-      itemIds: orderedRows.slice(0, 2).map(row => row.id),
+      itemIds: orderedPendingRows.slice(0, 2).map(row => row.id),
     },
     {
       id: 'price-reports',
       label: 'Price reports',
       presentation: 'compact-rows',
-      itemIds: orderedRows
+      itemIds: orderedPendingRows
         .filter((row, index) => index >= 2 && row.kind === 'price')
         .map(row => row.id),
       pagination: {
@@ -236,7 +279,7 @@ export function ObservationsInbox({
       id: 'experience-reports',
       label: 'Experience reports',
       presentation: 'horizontal-rail',
-      itemIds: orderedRows
+      itemIds: orderedPendingRows
         .filter((row, index) => index >= 2 && row.kind === 'outcome')
         .map(row => row.id),
       pagination: {
@@ -244,7 +287,7 @@ export function ObservationsInbox({
         pageSize: 5,
       },
     },
-  ], [orderedRows]);
+  ], [orderedPendingRows, settledRows]);
 
   const loadMore = useCallback(async () => {
     if (
@@ -257,6 +300,7 @@ export function ObservationsInbox({
     }
 
     loadPendingRef.current = true;
+    setLatestAnnouncement(null);
     dispatchQueue({ type: 'load-start' });
     try {
       const result = await fetchMoreObservationsAction(
@@ -305,9 +349,63 @@ export function ObservationsInbox({
     dispatchQueue({ type: 'settled', id: actionState.targetId });
   }, [actionState]);
 
-  const actionAnnouncement = actionState?.ok
-    ? `Report ${actionState.decision === 'approve' ? 'approved' : 'rejected'}.`
-    : '';
+  useEffect(() => {
+    if (!correctionState) return;
+    const active = activeCorrectionRef.current;
+    if (
+      !active
+      || active.submissionId !== correctionState.submissionId
+      || active.targetId !== correctionState.targetId
+      || active.disposition !== correctionState.disposition
+    ) return;
+    activeCorrectionRef.current = null;
+    dispatchCorrectionFeedback({
+      type: 'settle',
+      submissionId: correctionState.submissionId,
+      targetId: correctionState.targetId,
+      disposition: correctionState.disposition,
+      ok: correctionState.ok,
+      error: correctionState.ok ? null : correctionState.error,
+    });
+    if (!correctionState.ok) {
+      correctionFocusTargetRef.current = null;
+      return;
+    }
+    correctionFocusTargetRef.current = active.targetId;
+    router.refresh();
+    const timeout = window.setTimeout(() => {
+      setLatestAnnouncement(current => current === 'correction' ? null : current);
+    }, 4000);
+    return () => window.clearTimeout(timeout);
+  }, [correctionState, router]);
+
+  useEffect(() => {
+    const targetId = correctionFocusTargetRef.current;
+    if (!targetId) return;
+    const reopened = rows.some(row => (
+      row.id === targetId && row.moderationStatus === 'pending'
+    ));
+    if (!reopened) return;
+    correctionFocusTargetRef.current = null;
+    window.requestAnimationFrame(() => {
+      const form = document.querySelector<HTMLFormElement>(`form[data-item-id="${targetId}"]`);
+      form?.querySelector<HTMLTextAreaElement>('textarea[name="rationale"]')?.focus();
+    });
+  }, [rows]);
+
+  const actionAnnouncement = latestAnnouncement === 'correction'
+    ? isCorrectionPending
+      ? 'Returning report to review.'
+      : correctionFeedbackState.result?.ok
+        ? 'Report returned to review.'
+        : ''
+    : latestAnnouncement === 'decision'
+      ? isDecisionPending
+        ? 'Saving report decision.'
+        : actionState?.ok
+          ? `Report ${actionState.decision === 'approve' ? 'approved' : 'rejected'}.`
+          : ''
+      : '';
 
   if (orderedRows.length === 0 && !queueState.hasMore) {
     return (
@@ -331,10 +429,18 @@ export function ObservationsInbox({
         pendingSelectionId={selection.pendingSelectionId}
         onSelect={item => {
           setRejectConfirmId(null);
+          setLatestAnnouncement(null);
+          activeCorrectionRef.current = null;
+          correctionFocusTargetRef.current = null;
+          dispatchCorrectionFeedback({ type: 'clear' });
           selection.onSelect(item);
         }}
         onDeselect={() => {
           setRejectConfirmId(null);
+          setLatestAnnouncement(null);
+          activeCorrectionRef.current = null;
+          correctionFocusTargetRef.current = null;
+          dispatchCorrectionFeedback({ type: 'clear' });
           selection.onDeselect();
         }}
         renderItemRow={(row, _isActive, context) => {
@@ -390,7 +496,9 @@ export function ObservationsInbox({
               <span className={observationStyles.compactCopy}>
                 <span className={observationStyles.compactTitle}>{row.title}</span>
                 <span className={observationStyles.compactMeta}>
-                  {row.summary} · <RelativeTime iso={row.createdAt} />
+                  {row.moderationStatus === 'pending'
+                    ? <>{row.summary} · <RelativeTime iso={row.createdAt} /></>
+                    : <>{row.moderationStatus === 'approved' ? 'Approved' : 'Rejected'} · {row.summary}</>}
                 </span>
               </span>
               <ChevronRight
@@ -408,6 +516,8 @@ export function ObservationsInbox({
 
           const confirmationId = `reject-observation-${row.id}`;
           const date = reportedDate(row.observedOn);
+          const isSettled = row.moderationStatus === 'approved'
+            || row.moderationStatus === 'rejected';
           const feedback = actionState
             && actionState.targetId === row.id
             && !actionState.ok
@@ -417,6 +527,21 @@ export function ObservationsInbox({
                   className={`${styles.permissionNote} ${observationStyles.errorNote}`}
                 >
                   {actionState.error}
+                </p>
+              )
+            : null;
+          const correctionResult = observationCorrectionFeedbackForTarget(
+            correctionFeedbackState,
+            row.id,
+          );
+          const correctionFeedback = correctionResult
+            && !correctionResult.ok
+            ? (
+                <p
+                  role="alert"
+                  className={`${styles.permissionNote} ${observationStyles.errorNote}`}
+                >
+                  {correctionResult.error}
                 </p>
               )
             : null;
@@ -439,6 +564,11 @@ export function ObservationsInbox({
                       <StatusPill tone={row.kind === 'price' ? 'success' : 'warning'}>
                         {row.kind === 'price' ? 'Price' : 'Experience'}
                       </StatusPill>
+                      {isSettled ? (
+                        <StatusPill tone={row.moderationStatus === 'approved' ? 'success' : 'danger'}>
+                          {row.moderationStatus === 'approved' ? 'Approved' : 'Rejected'}
+                        </StatusPill>
+                      ) : null}
                       <RelativeTime iso={row.createdAt} />
                     </div>
                   </div>
@@ -495,13 +625,82 @@ export function ObservationsInbox({
                     </div>
                   </div>
                 </details>
+
+                {isSettled ? (
+                  <p className={observationStyles.correctionBoundary}>
+                    The recorded decision stays in history.
+                  </p>
+                ) : null}
+
               </div>
 
-              {canDecide ? (
+              {isSettled && row.parentEligibleForReview && canCorrect ? (
+                <form
+                  data-item-id={row.id}
+                  className={`${styles.decideSection} ${observationStyles.correctionFooter}`}
+                  action={formData => {
+                    const submissionId = crypto.randomUUID();
+                    const disposition = 'defer' as const;
+                    formData.set('submissionId', submissionId);
+                    formData.set('disposition', disposition);
+                    activeCorrectionRef.current = {
+                      submissionId,
+                      targetId: row.id,
+                      disposition,
+                    };
+                    correctionFocusTargetRef.current = null;
+                    dispatchCorrectionFeedback({
+                      type: 'submit',
+                      submissionId,
+                      targetId: row.id,
+                      disposition,
+                    });
+                    setLatestAnnouncement('correction');
+                    correctionAction(formData);
+                  }}
+                  aria-busy={isCorrectionPending}
+                >
+                  <h3 className={styles.sectionLabel}>Return to review</h3>
+                  {correctionFeedback}
+                  <input type="hidden" name="targetId" value={row.id} />
+                  <input type="hidden" name="submissionId" value="" />
+                  <input type="hidden" name="disposition" value="defer" />
+                  <div className={styles.decideField}>
+                    <label
+                      htmlFor={`correction-rationale-${row.id}`}
+                      className={styles.decideNoteLabel}
+                    >
+                      Reason for returning to review
+                    </label>
+                    <textarea
+                      id={`correction-rationale-${row.id}`}
+                      className={styles.note}
+                      name="rationale"
+                      placeholder="What needs another review?"
+                      minLength={1}
+                      maxLength={2000}
+                      required
+                      defaultValue=""
+                      disabled={isCorrectionPending}
+                    />
+                  </div>
+                  <div className={styles.actionButtons} data-ops-decision-actions>
+                    <button
+                      className={`${styles.btn} ${observationStyles.returnToReviewButton}`}
+                      type="submit"
+                      disabled={isCorrectionPending}
+                      aria-busy={isCorrectionPending}
+                    >
+                      {isCorrectionPending ? 'Returning…' : 'Return to review'}
+                    </button>
+                  </div>
+                </form>
+              ) : !isSettled && canDecide ? (
                 <form
                   data-item-id={row.id}
                   className={styles.decideSection}
                   action={formAction}
+                  onSubmit={() => setLatestAnnouncement('decision')}
                 >
                   <h3 className={styles.sectionLabel}>Decision</h3>
                   {feedback}
@@ -586,11 +785,11 @@ export function ObservationsInbox({
                     </div>
                   )}
                 </form>
-              ) : (
+              ) : !isSettled ? (
                 <p className={`${styles.decideSection} ${styles.permissionNote}`}>
                   You cannot make decisions on observations.
                 </p>
-              )}
+              ) : null}
             </div>
           );
         }}

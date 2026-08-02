@@ -4,13 +4,18 @@ import { revalidatePath } from 'next/cache';
 import { getPostgresClient } from '@/lib/db/postgres';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { assertCan } from '@/lib/moderation/capabilities';
-import { decisionInputSchema, mapValueInputSchema } from '@/lib/moderation/action-input';
+import {
+  decisionInputSchema,
+  mapValueInputSchema,
+  observationCorrectionInputSchema,
+} from '@/lib/moderation/action-input';
 import {
   decideContribution,
   decideEdge,
   decideModerationValue,
   mapModerationValue,
   decideObservation,
+  correctObservationDecision,
   decideRetailerApplication,
 } from '@/lib/moderation/transitions';
 
@@ -35,6 +40,22 @@ export type ActionResult =
   | { ok: false; targetId?: string; error: string };
 
 export type ObservationActionResult = ActionResult;
+
+export type ObservationCorrectionActionResult =
+  | {
+      ok: true;
+      targetId: string;
+      submissionId: string;
+      disposition: 'defer';
+      decision: 'defer';
+    }
+  | {
+      ok: false;
+      targetId?: string;
+      submissionId?: string;
+      disposition?: 'defer';
+      error: string;
+    };
 
 function requestedTargetId(formData: FormData) {
   const value = formData.get('targetId');
@@ -168,6 +189,52 @@ export async function decideObservationAction(_prevState: unknown, formData: For
     return { ok: true, targetId, decision };
   } catch (err) {
     return decisionFailure('observation', requestedId, err);
+  }
+}
+
+export async function correctObservationAction(
+  _prevState: unknown,
+  formData: FormData,
+): Promise<ObservationCorrectionActionResult> {
+  const requestedId = requestedTargetId(formData);
+  const requestedSubmission = observationCorrectionInputSchema.shape.submissionId.safeParse(
+    formData.get('submissionId'),
+  );
+  const requestedDisposition = formData.get('disposition') === 'defer'
+    ? 'defer' as const
+    : undefined;
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, 'observations.correct');
+    const {
+      targetId,
+      submissionId,
+      disposition,
+      rationale,
+    } = observationCorrectionInputSchema.parse({
+      targetId: formData.get('targetId'),
+      submissionId: formData.get('submissionId'),
+      disposition: formData.get('disposition'),
+      rationale: formData.get('rationale'),
+    });
+    await correctObservationDecision(
+      getPostgresClient(),
+      operator.authSubject,
+      targetId,
+      disposition,
+      rationale,
+    );
+    revalidateOpsSurfaces('/ops/observations');
+    return { ok: true, targetId, submissionId, disposition, decision: disposition };
+  } catch (err) {
+    console.error('Could not save observation correction decision.', err);
+    return {
+      ok: false,
+      targetId: requestedId,
+      submissionId: requestedSubmission.success ? requestedSubmission.data : undefined,
+      disposition: requestedDisposition,
+      error: 'Couldn’t save this decision. Try again.',
+    };
   }
 }
 
