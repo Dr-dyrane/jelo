@@ -88,6 +88,20 @@ Community and retailer intake should return a temporary unavailable response rat
 5. Otherwise add a new forward migration.
 6. Rehearse both the first run and idempotent rerun on a Neon branch before production.
 
+Rehearsal evidence for the `0031_community_research_task_shape.sql` rollout
+(2026-08-02 UTC): production-fresh Neon branch
+`br-rapid-bird-avoceepe` (`rehearsal/research-workflow-operator-lock-20260802`)
+in project `spring-field-93817903`
+first received an injected failure after the migration body but before the
+ledger write. Both the body and ledger row rolled back. On the next first run,
+the new shape and audit constraints and the ledger row shared PostgreSQL
+transaction ID `888839`; all 37 inherited research tasks satisfied the shape
+constraint. A second run skipped ledgered migrations `0030` and `0031`; their
+ledger/constraint counts and transaction IDs remained unchanged. The branch is
+retained temporarily for independent read-only verification. Delete it only
+after that verification is confirmed; no credentials or task contents belong
+in the evidence record.
+
 ## Operator access cannot be changed
 
 1. Confirm the signed-in operator is an active admin. Do not bypass the role

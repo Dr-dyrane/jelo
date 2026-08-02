@@ -50,16 +50,18 @@ test('research outcomes remain non-canonical and exact-target bound', async () =
   ]);
 
   assert.match(productWriter, /is_published = true/);
+  assert.match(productWriter, /operatorLock = lockTask \? sql`for share`/);
   assert.match(productWriter, /isReleasedIntakeCandidate/);
   assert.match(productWriter, /task\.taskKind !== 'product-identity'/);
   assert.match(productWriter, /task\.entitySource !== 'canonical'/);
   assert.match(retailerWriter, /task\.entitySource !== 'canonical'/);
   assert.match(retailerWriter, /select 1 from retailers/);
+  assert.match(retailerWriter, /operatorLock = lockTask \? sql`for share`/);
   assert.doesNotMatch(retailerWriter, /\b(insert into|update)\s+(retailers|offers|products)\b/i);
 });
 
 test('research queue covers production-shaped identity, pagination, inspector states, and accessible actions', async () => {
-  const [page, inbox, actions, readModel, loading, error, css] = await Promise.all([
+  const [page, inbox, actions, readModel, loading, error, css, uiState] = await Promise.all([
     readSource('app/(ops)/ops/research/page.tsx'),
     readSource('app/(ops)/ops/research/ResearchInbox.tsx'),
     readSource('app/(ops)/ops/research/actions.ts'),
@@ -67,6 +69,7 @@ test('research queue covers production-shaped identity, pagination, inspector st
     readSource('app/(ops)/ops/research/loading.tsx'),
     readSource('app/(ops)/ops/research/error.tsx'),
     readSource('app/(ops)/ops/research/research.module.css'),
+    readSource('lib/moderation/research-ui-state.ts'),
   ]);
 
   assert.match(readModel, /canonicalTargetRef/);
@@ -94,7 +97,11 @@ test('research queue covers production-shaped identity, pagination, inspector st
   assert.match(inbox, /assignState\.targetId === latestSubmission\.targetId/);
   assert.match(inbox, /assignState\.action === latestSubmission\.action/);
   assert.match(inbox, /row\.assignedOperatorId === null[\s\S]*?row\.isOwnedByCurrentOperator[\s\S]*?canAssign/);
-  assert.match(inbox, /End of the research queue/);
+  assert.match(uiState, /End of the research queue/);
+  assert.match(inbox, /Reason for unassigning/);
+  assert.match(inbox, /research-unassignment-/);
+  assert.match(inbox, /feedbackState\.success\.message/);
+  assert.equal(inbox.match(/role="status"/g)?.length, 1);
   assert.match(inbox, /'Try again'/);
   assert.doesNotMatch(inbox, /Exact target|Canonical slug or intake ID|Signals/);
   assert.match(css, /min-height: 44px/);

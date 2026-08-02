@@ -16,6 +16,12 @@ import { SafeProductImage } from '@/components/products/safe-product-image';
 import { InboxContainer, type OpsInboxController } from '@/components/ops/inbox/InboxContainer';
 import { useUrlInboxSelection } from '@/components/ops/inbox/use-url-inbox-selection';
 import {
+  countUniqueResearchAdditions,
+  initialResearchFeedbackState,
+  researchFeedbackReducer,
+  researchPaginationStatus,
+} from '@/lib/moderation/research-ui-state';
+import {
   assignResearchTaskAction,
   fetchMoreResearchTasksAction,
   resolveResearchTaskAction,
@@ -82,10 +88,19 @@ function queueReducer(state: QueueState, action: QueueAction): QueueState {
       settledIds: state.settledIds.includes(action.id) ? state.settledIds : [...state.settledIds, action.id],
     };
   }
-  const known = new Set(state.extraRows.map(row => row.id));
+  const known = new Set([
+    ...state.extraRows.map(row => row.id),
+    ...state.settledIds,
+  ]);
+  const additions: PendingResearchTask[] = [];
+  action.rows.forEach(row => {
+    if (known.has(row.id)) return;
+    known.add(row.id);
+    additions.push(row);
+  });
   return {
     ...state,
-    extraRows: [...state.extraRows, ...action.rows.filter(row => !known.has(row.id))],
+    extraRows: [...state.extraRows, ...additions],
     cursor: action.cursor,
     hasMore: action.hasMore,
     loading: false,
@@ -110,6 +125,7 @@ function orderedRows(initialRows: PendingResearchTask[], state: QueueState) {
 function ResearchForms({
   row,
   assignmentFormId,
+  unassignmentFormId,
   resolutionFormId,
   assignAction,
   resolveAction,
@@ -122,6 +138,7 @@ function ResearchForms({
 }: {
   row: PendingResearchTask;
   assignmentFormId: string;
+  unassignmentFormId: string;
   resolutionFormId: string;
   assignAction: (payload: FormData) => void;
   resolveAction: (payload: FormData) => void;
@@ -194,22 +211,40 @@ function ResearchForms({
                   ? 'Assigning…'
                   : row.assignedOperatorId ? 'Reassign' : 'Assign'}
               </button>
-              {row.assignedOperatorId ? (
-                <button
-                  className={`${styles.btn} ${styles.btnReject}`}
-                  type="submit"
-                  name="action"
-                  value="unassign"
-                  disabled={pending}
-                  aria-busy={pending && submittedAction === 'unassign'}
-                >
-                  {pending && submittedAction === 'unassign' ? 'Unassigning…' : 'Unassign'}
-                </button>
-              ) : null}
             </div>
           </div>
         ) : null}
       </form>
+
+      {canAssign && row.assignedOperatorId ? (
+        <form id={unassignmentFormId} action={assignAction} aria-busy={pending}>
+          <input type="hidden" name="targetId" value={row.id} />
+          <div className={styles.decideField}>
+            <label className={styles.decideNoteLabel} htmlFor={`unassign-reason-${row.id}`}>
+              Reason for unassigning
+            </label>
+            <textarea
+              id={`unassign-reason-${row.id}`}
+              className={styles.note}
+              name="rationale"
+              required
+              maxLength={2000}
+              placeholder="Why should this return to the queue?"
+              disabled={pending}
+            />
+          </div>
+          <button
+            className={`${styles.btn} ${styles.btnReject}`}
+            type="submit"
+            name="action"
+            value="unassign"
+            disabled={pending}
+            aria-busy={pending && submittedAction === 'unassign'}
+          >
+            {pending && submittedAction === 'unassign' ? 'Unassigning…' : 'Unassign'}
+          </button>
+        </form>
+      ) : null}
 
       {row.isOwnedByCurrentOperator ? (
         <form id={resolutionFormId} action={resolveAction} aria-busy={pending}>
@@ -309,12 +344,11 @@ export function ResearchInbox({
   const loadPendingRef = useRef(false);
   const loadSentinelRef = useRef<HTMLDivElement | null>(null);
   const [submittedAction, setSubmittedAction] = useState<string | null>(null);
-  const [latestSubmission, setLatestSubmission] = useState<{
-    requestId: string;
-    targetId: string;
-    channel: 'assignment' | 'resolution';
-    action: string;
-  } | null>(null);
+  const [feedbackState, dispatchFeedback] = useReducer(
+    researchFeedbackReducer,
+    initialResearchFeedbackState,
+  );
+  const latestSubmission = feedbackState.latestSubmission;
   const [paginationStatus, setPaginationStatus] = useState('');
   const [assignState, dispatchAssignAction, assigning] = useActionState(assignResearchTaskAction, null);
   const [resolveState, dispatchResolveAction, resolving] = useActionState(resolveResearchTaskAction, null);
@@ -347,7 +381,11 @@ export function ResearchInbox({
     const action = payload.get('action')?.toString() ?? '';
     payload.set('requestId', requestId);
     setSubmittedAction(action);
-    setLatestSubmission({ requestId, targetId, channel: 'assignment', action });
+    setPaginationStatus('');
+    dispatchFeedback({
+      type: 'submitted',
+      submission: { requestId, targetId, channel: 'assignment', action },
+    });
     dispatchAssignAction(payload);
   }, [dispatchAssignAction]);
 
@@ -357,40 +395,59 @@ export function ResearchInbox({
     const action = payload.get('outcome')?.toString() ?? '';
     payload.set('requestId', requestId);
     setSubmittedAction('resolve');
-    setLatestSubmission({ requestId, targetId, channel: 'resolution', action });
+    setPaginationStatus('');
+    dispatchFeedback({
+      type: 'submitted',
+      submission: { requestId, targetId, channel: 'resolution', action },
+    });
     dispatchResolveAction(payload);
   }, [dispatchResolveAction]);
 
   useEffect(() => {
     if (!visibleAssignState?.ok) return;
+    dispatchFeedback({
+      type: 'succeeded',
+      feedback: {
+        requestId: visibleAssignState.requestId,
+        targetId: visibleAssignState.targetId,
+        channel: 'assignment',
+        action: visibleAssignState.action,
+        message: 'Research work updated.',
+      },
+    });
     router.refresh();
   }, [visibleAssignState, router]);
 
   useEffect(() => {
     if (!visibleResolveState?.ok || !visibleResolveState.terminal) return;
+    dispatchFeedback({
+      type: 'succeeded',
+      feedback: {
+        requestId: visibleResolveState.requestId,
+        targetId: visibleResolveState.targetId,
+        channel: 'resolution',
+        action: visibleResolveState.action,
+        message: 'Research outcome recorded.',
+      },
+    });
     controllerRef.current?.settleItem(visibleResolveState.targetId);
     dispatch({ type: 'settled', id: visibleResolveState.targetId });
   }, [visibleResolveState]);
 
   useEffect(() => {
-    const successful = visibleResolveState?.ok
-      ? visibleResolveState
-      : visibleAssignState?.ok
-        ? visibleAssignState
-        : null;
-    if (!successful) return;
+    if (!feedbackState.success) return;
+    const requestId = feedbackState.success.requestId;
     const timeout = window.setTimeout(() => {
-      setLatestSubmission(current => (
-        current?.requestId === successful.requestId ? null : current
-      ));
+      dispatchFeedback({ type: 'expired', requestId });
     }, 4000);
     return () => window.clearTimeout(timeout);
-  }, [visibleAssignState, visibleResolveState]);
+  }, [feedbackState.success]);
 
   const loadMore = useCallback(async () => {
     if (loadPendingRef.current || queueState.loading || !queueState.hasMore || !queueState.cursor) return;
     loadPendingRef.current = true;
-    setLatestSubmission(null);
+    dispatchFeedback({ type: 'cleared' });
+    setPaginationStatus('');
     dispatch({ type: 'loading' });
     try {
       const result = await fetchMoreResearchTasksAction(
@@ -399,19 +456,20 @@ export function ResearchInbox({
         queueState.cursor.firstSeenAt,
         queueState.cursor.id,
       );
+      const added = countUniqueResearchAdditions(
+        [...loadedRows.map(row => row.id), ...queueState.settledIds],
+        result.items.map(row => row.id),
+      );
       dispatch({ type: 'loaded', rows: result.items, cursor: result.nextCursor, hasMore: result.hasMore });
-      setPaginationStatus(result.hasMore
-        ? `${result.items.length} more research items loaded.`
-        : result.items.length > 0
-          ? `${result.items.length} more research items loaded. End of the queue.`
-          : 'End of the research queue.');
+      setPaginationStatus(researchPaginationStatus(added, result.hasMore));
     } catch (error) {
       console.error('Could not load more research work.', error);
+      setPaginationStatus('');
       dispatch({ type: 'failed' });
     } finally {
       loadPendingRef.current = false;
     }
-  }, [queueState.cursor, queueState.hasMore, queueState.loading]);
+  }, [loadedRows, queueState.cursor, queueState.hasMore, queueState.loading, queueState.settledIds]);
 
   useEffect(() => {
     if (!queueState.hasMore || !loadSentinelRef.current || typeof IntersectionObserver === 'undefined') return;
@@ -437,12 +495,12 @@ export function ResearchInbox({
         pendingSelectionId={selection.pendingSelectionId}
         onSelect={item => {
           setSubmittedAction(null);
-          setLatestSubmission(null);
+          dispatchFeedback({ type: 'selection-changed' });
           selection.onSelect(item);
         }}
         onDeselect={() => {
           setSubmittedAction(null);
-          setLatestSubmission(null);
+          dispatchFeedback({ type: 'selection-changed' });
           selection.onDeselect();
         }}
         renderItemRow={row => (
@@ -461,6 +519,7 @@ export function ResearchInbox({
         )}
         renderItemDetails={row => {
           const assignmentFormId = `research-assignment-${row.id}`;
+          const unassignmentFormId = `research-unassignment-${row.id}`;
           const resolutionFormId = `research-resolution-${row.id}`;
           const ownedByAnother = row.assignedOperatorId != null && !row.isOwnedByCurrentOperator;
           const rowError = visibleAssignState && !visibleAssignState.ok && visibleAssignState.targetId === row.id
@@ -503,6 +562,7 @@ export function ResearchInbox({
                     key={`${row.id}:${row.updatedAt}`}
                     row={row}
                     assignmentFormId={assignmentFormId}
+                    unassignmentFormId={unassignmentFormId}
                     resolutionFormId={resolutionFormId}
                     assignAction={submitAssignment}
                     resolveAction={submitResolution}
@@ -587,9 +647,9 @@ export function ResearchInbox({
           );
         }}
       />
-      {visibleAssignState?.ok || visibleResolveState?.ok ? (
-        <p className={researchStyles.feedback} role="status">
-          {visibleResolveState?.ok ? 'Research outcome recorded.' : 'Research work updated.'}
+      {feedbackState.success ? (
+        <p className={researchStyles.feedback} aria-hidden="true">
+          {feedbackState.success.message}
         </p>
       ) : null}
       {queueState.hasMore ? (
@@ -601,13 +661,12 @@ export function ResearchInbox({
         </div>
       ) : null}
       <span className={researchStyles.liveStatus} role="status" aria-live="polite" aria-atomic="true">
-        {visibleResolveState?.ok
-          ? 'Research outcome recorded.'
-          : visibleAssignState?.ok
-            ? 'Research work updated.'
+        {feedbackState.success?.message
+          ?? (pending
+            ? 'Saving research work.'
             : queueState.loading
               ? 'Loading more research work.'
-              : paginationStatus}
+              : paginationStatus)}
       </span>
     </>
   );

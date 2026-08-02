@@ -131,6 +131,7 @@ async function validateCommunityRetailerResearchResolution(
   row: CommunityRetailerResearchResolutionRow,
   lockTask: boolean,
 ) {
+  const operatorLock = lockTask ? sql`for share` : sql``;
   const [operator] = await sql<{
     id: string;
     role: 'moderator' | 'operator' | 'admin';
@@ -139,6 +140,7 @@ async function validateCommunityRetailerResearchResolution(
     from moderation_operators
     where auth_subject = ${row.reviewedBy} and active = true
     limit 1
+    ${operatorLock}
   `;
   if (!operator || operator.role === 'moderator') {
     throw new Error('A retailer research resolution requires an active operator or admin.');

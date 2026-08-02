@@ -40,8 +40,14 @@ function sqlFixture(input: {
     rolledBack: 0,
     jsonValues: [] as unknown[],
   };
-  const tag = ((strings: TemplateStringsArray) => {
-    const query = strings.join(' ? ').replace(/\s+/g, ' ').trim();
+  const tag = ((strings: TemplateStringsArray, ...values: unknown[]) => {
+    const query = strings.reduce((text, part, index) => {
+      const value = values[index - 1];
+      const interpolation = value && typeof value === 'object' && 'fragment' in value
+        ? String(value.fragment)
+        : ' ? ';
+      return `${text}${interpolation}${part}`;
+    }).replace(/\s+/g, ' ').trim();
     state.queries.push(query);
     if (query === '' || query === 'for update' || query === 'for share') return { fragment: query };
     if (query.includes('select exists(select 1 from community_research_tasks')) {
@@ -147,7 +153,20 @@ test('product SQL writer locks, exact-binds, inserts once, and terminalizes atom
   assert.equal(fixture.state.began, 1);
   assert.equal(fixture.state.committed, 1);
   assert.equal(fixture.state.rolledBack, 0);
+  assert.equal(fixture.state.queries.includes('for share'), true);
   assert.equal(fixture.state.queries.includes('for update'), true);
+  const operatorLockIndex = fixture.state.queries.findIndex(query => (
+    query.includes('from moderation_operators') && query.endsWith('for share')
+  ));
+  const taskLockIndex = fixture.state.queries.findIndex(query => (
+    query.includes('from community_research_tasks') && query.endsWith('for update')
+  ));
+  assert.notEqual(operatorLockIndex, -1);
+  assert.notEqual(taskLockIndex, -1);
+  assert.ok(
+    operatorLockIndex < taskLockIndex,
+    'the acting operator must remain active and authorized until after the task row is locked',
+  );
   assert.equal(fixture.state.queries.some(query => query.startsWith('insert into community_product_research_resolutions')), true);
   assert.equal(fixture.state.queries.some(query => query.startsWith('update community_research_tasks')), true);
 });
@@ -243,6 +262,19 @@ test('retailer SQL writer exact-binds the production namespace and rolls back a 
   assert.equal(fixture.state.began, 1);
   assert.equal(fixture.state.committed, 0);
   assert.equal(fixture.state.rolledBack, 1);
+  assert.equal(fixture.state.queries.includes('for share'), true);
+  const operatorLockIndex = fixture.state.queries.findIndex(query => (
+    query.includes('from moderation_operators') && query.endsWith('for share')
+  ));
+  const taskLockIndex = fixture.state.queries.findIndex(query => (
+    query.includes('from community_research_tasks') && query.endsWith('for update')
+  ));
+  assert.notEqual(operatorLockIndex, -1);
+  assert.notEqual(taskLockIndex, -1);
+  assert.ok(
+    operatorLockIndex < taskLockIndex,
+    'the acting operator share lock must precede the retailer research task lock',
+  );
   assert.equal(fixture.state.queries.some(query => query.startsWith('insert into community_retailer_research_resolutions')), true);
 });
 
