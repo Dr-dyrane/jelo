@@ -4,7 +4,7 @@
   "publicationStatus": "not-a-catalogue-candidate",
   "generatedAt": "2026-07-27T18:11:20.602Z",
   "source": {
-    "staticQueueSha256": "9a17138db87abc8944a216448da536a656bd2a425fd96542f2ec413c0dfd5910",
+    "staticQueueSha256": "c4a0822ab66138d49eb02757f8d2a8efb70a40af094bbb1666255e5ee72675c6",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "sharding": {
@@ -16,8 +16,8 @@
   "shards": [
     {
       "index": 1,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/6142a942a4485c89f14da131c9d749cf38c900a2f3d586e26f41df9d89fecf31.json",
-      "sourceSha256": "6142a942a4485c89f14da131c9d749cf38c900a2f3d586e26f41df9d89fecf31",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/06dfb538bf185e27914084ff6e04723fba9908b87303cc3ef2259fca180a6085.json",
+      "sourceSha256": "06dfb538bf185e27914084ff6e04723fba9908b87303cc3ef2259fca180a6085",
       "packetCount": 12,
       "firstRank": 1,
       "lastRank": 12,
@@ -52,8 +52,8 @@
     },
     {
       "index": 2,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/332512adbc03276f434cab4d319dbaccf7210607e3a8e32178a11f628cc2bb03.json",
-      "sourceSha256": "332512adbc03276f434cab4d319dbaccf7210607e3a8e32178a11f628cc2bb03",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/5eb26ee379ff7630dbb757eb14ef667e27330db467ca4ce29d89a466b3fc570d.json",
+      "sourceSha256": "5eb26ee379ff7630dbb757eb14ef667e27330db467ca4ce29d89a466b3fc570d",
       "packetCount": 12,
       "firstRank": 13,
       "lastRank": 24,
@@ -65,10 +65,10 @@
         "af7e509f9b6ff6e4c83a0eb6",
         "bc30eadf44f2f7a2d9f4f144",
         "779abfc23925ba26c3b6d14b",
-        "577cbfe362025cee7c17c79e",
         "7108e00bfaf03e02b749a0f4",
         "92b7380b76ea55d58e387244",
         "258b05593ae6b7cb1e1d5ddf",
+        "1ab27c4f5eafb2518100ecbe",
         "16904e359f5d8aed4df6ca91"
       ],
       "discoveryIds": [
@@ -79,17 +79,17 @@
         "4b13a12fadc04b34d8290d5b",
         "814c2d49e6ef3327cebd67d5",
         "bf9ba6790a3343c9ef316925",
-        "07638932c92af511bdf56019",
         "e3e002f6425926e8343cb8e9",
         "af4cf984d6ae1296e4ffd1b0",
         "0b79938ca156f8c9fac4469f",
+        "9fc5cda37324b6c43ce2ccb2",
         "f234692457fb9dcea6ab4000"
       ]
     },
     {
       "index": 3,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/599f6fb2740f469361dfe16b1b5105d23745658a6c12976fb7dd4aa7afd1fb4f.json",
-      "sourceSha256": "599f6fb2740f469361dfe16b1b5105d23745658a6c12976fb7dd4aa7afd1fb4f",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/f7ecc3f1d217225f985b738a77f119590565ac25ddae85c5690bf4371a847386.json",
+      "sourceSha256": "f7ecc3f1d217225f985b738a77f119590565ac25ddae85c5690bf4371a847386",
       "packetCount": 12,
       "firstRank": 25,
       "lastRank": 36,
@@ -124,8 +124,8 @@
     },
     {
       "index": 4,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/9639c98a5330c03a1bbe9b4d14041c7c78e601b9995ffae4d49c7b61adf71f95.json",
-      "sourceSha256": "9639c98a5330c03a1bbe9b4d14041c7c78e601b9995ffae4d49c7b61adf71f95",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/498c3f16d61d6773002a466575c5756e24fd1459a778b3a7547361c0a448cd06.json",
+      "sourceSha256": "498c3f16d61d6773002a466575c5756e24fd1459a778b3a7547361c0a448cd06",
       "packetCount": 12,
       "firstRank": 37,
       "lastRank": 48,

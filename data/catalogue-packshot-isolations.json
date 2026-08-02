@@ -187,5 +187,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.drteals.com/wp-content/uploads/2023/05/811068015857_front_body_wash.png",
+      "sha256": "d22f2eae4034de097937afac35c8b2a594310d6318dd487f8d3f4c273f0e09be",
+      "byteSize": 607037,
+      "width": 3000,
+      "height": 3000,
+      "retrievedAt": "2026-08-02T22:49:17Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00811068015857"
+      },
+      "officialProductUrl": "https://www.drteals.com/product/dr-teals-nourish-protect-coconut-oil-body-wash/"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "edbf3fefc3762e6c6234907f6bd538ec1b7e2607eb593b21bc1f0d0c4efe6df5",
+      "generatedAt": "2026-08-02T22:58:22Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "fe9a09387c25d75194f14ca5051d57c94a810ce62e4c6a132d4e006625857d38",
+      "byteSize": 1003129,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-02T22:58:45Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-02T22:59:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "02884d61476458bd701a20d6b64c6520e21a6ad37712060b6e0f8170bc122b2a",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

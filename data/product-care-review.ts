@@ -448,6 +448,15 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-07-23',
   },
+  'dr-teals-nourish-protect-coconut-oil-body-wash-710ml': {
+    productSlug: 'dr-teals-nourish-protect-coconut-oil-body-wash-710ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.drteals.com/product/dr-teals-nourish-protect-coconut-oil-body-wash/',
+    ],
+    reviewedAt: '2026-08-02',
+  },
   'dove-calming-moisture-body-wash-547ml': {
     productSlug: 'dove-calming-moisture-body-wash-547ml',
     careState: 'insufficient_data',

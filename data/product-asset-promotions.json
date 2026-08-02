@@ -356,5 +356,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "44dced3f1fbe9c477ba6a3a67b82439eb0c3806a8fe0395069385dadaf698cae"
+  },
+  {
+    "id": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml-packshot-v1",
+    "active": true,
+    "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
+    "destination": "publication",
+    "publicationBrandSlug": "dr-teal-s",
+    "sourceUrl": "https://www.drteals.com/wp-content/uploads/2023/05/811068015857_front_body_wash.png",
+    "localPath": "data/catalogue-intake-assets/dr-teals-nourish-protect-coconut-oil-body-wash-710ml/packshot-v1-fe9a09387c25.png",
+    "blobPath": "products/dr-teal-s/dr-teals-nourish-protect-coconut-oil-body-wash-710ml/packshot-v1-fe9a09387c25d751.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dr-teal-s/dr-teals-nourish-protect-coconut-oil-body-wash-710ml/packshot-v1-fe9a09387c25d751.png",
+    "contentType": "image/png",
+    "byteSize": 1003129,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "fe9a09387c25d75194f14ca5051d57c94a810ce62e4c6a132d4e006625857d38"
   }
 ]

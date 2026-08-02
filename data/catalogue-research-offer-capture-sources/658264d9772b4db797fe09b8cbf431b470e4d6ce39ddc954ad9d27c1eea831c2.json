@@ -1,11 +1,11 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 2,
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
   "generatedAt": "2026-08-02T23:27:02.181Z",
   "source": {
-    "researchPacketProjectionSha256": "3a58bdfee717689f34d40b19372eef741ad579cf0cce3c8590f02b05a702ce18",
+    "researchPacketsSha256": "498c3f16d61d6773002a466575c5756e24fd1459a778b3a7547361c0a448cd06",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
@@ -15,19 +15,6 @@
     ],
     "responseCount": 1
   },
-  "sources": [
-    {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/658264d9772b4db797fe09b8cbf431b470e4d6ce39ddc954ad9d27c1eea831c2.json",
-      "sourceSha256": "658264d9772b4db797fe09b8cbf431b470e4d6ce39ddc954ad9d27c1eea831c2",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/498c3f16d61d6773002a466575c5756e24fd1459a778b3a7547361c0a448cd06.json",
-      "researchPacketSourceSha256": "498c3f16d61d6773002a466575c5756e24fd1459a778b3a7547361c0a448cd06",
-      "packetCount": 1,
-      "packetIds": [
-        "586ef0ac5c086de562296593"
-      ],
-      "responseCount": 1
-    }
-  ],
   "qualityCautions": [],
   "captures": [
     {
