@@ -913,33 +913,6 @@
     },
     {
       "rank": 34,
-      "discoveryId": "11d3a6116ccfc1cbce191430",
-      "title": "LA ROCHE-POSAY PURE VITAMIN C Cleanser 200ml",
-      "brandHint": "La Roche Posay",
-      "size": "200ml",
-      "categoryHint": "Face care",
-      "lane": "gentle-cleansing",
-      "priorityScore": 152,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "03337875923613",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 35,
       "discoveryId": "980f4a6663d7e3bdca521609",
       "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
       "brandHint": "MEDICUBE",
@@ -966,7 +939,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 36,
+      "rank": 35,
       "discoveryId": "7f5e4463688a37e008b523ff",
       "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
       "brandHint": "ANUA",
@@ -992,7 +965,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 37,
+      "rank": 36,
       "discoveryId": "a7562a6f718c64e4a046f3e3",
       "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
       "brandHint": "ELF",
@@ -1018,7 +991,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 38,
+      "rank": 37,
       "discoveryId": "9454deec37a4fc5fcd1e7fa7",
       "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
       "brandHint": "PACCI PRISTINE",
@@ -1044,7 +1017,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 39,
+      "rank": 38,
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -1071,7 +1044,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 40,
+      "rank": 39,
       "discoveryId": "8ac4f70510214db024b57c46",
       "title": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
       "brandHint": "BEAUTY FORMULA",
@@ -1097,7 +1070,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 41,
+      "rank": 40,
       "discoveryId": "4e67e33c8599337cebdc132f",
       "title": "BENTON Honest Cleansing Foam 150g",
       "brandHint": "BENTON",
@@ -1123,7 +1096,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 42,
+      "rank": 41,
       "discoveryId": "4a65be1a58dd495b7eab8b5b",
       "title": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
       "brandHint": "BIOBALANCE",
@@ -1134,6 +1107,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "08697711701023",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 42,
+      "discoveryId": "a3844e0ff4ce89736040eb4e",
+      "title": "BIOBALANCE Dermasebum Purifying Facial Cleansing Gel 250ml",
+      "brandHint": "BIOBALANCE",
+      "size": "250ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 142,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "08697711701009",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

@@ -758,7 +758,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   facefacts: ['facefacts.me'],
   garnier: ['www.garnier.co.uk'],
   keracare: ['keracare.com'],
-  larocheposay: ['www.laroche-posay.co.uk'],
+  larocheposay: ['www.laroche-posay.co.uk', 'www.laroche-posay.fr'],
   nivea: ['www.nivea.com.ng'],
   nineless: ['ninelessshop.com'],
   olay: ['www.olay.com'],
@@ -811,6 +811,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   keracare: ['keracare.com'],
   larocheposay: [
     'www.laroche-posay.co.uk',
+    'www.laroche-posay.fr',
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
   nivea: ['www.nivea.com.ng', 'img.nivea.com'],

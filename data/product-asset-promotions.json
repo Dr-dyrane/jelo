@@ -339,5 +339,22 @@
     "height": 2880,
     "hasAlpha": true,
     "contentHash": "0828a0aeedae0c546442f52d2550d3f46aa078ca107ecf5cb002e5d9ce7d9992"
+  },
+  {
+    "id": "11d3a6116ccfc1cbce191430-packshot-v1",
+    "active": true,
+    "candidateId": "11d3a6116ccfc1cbce191430",
+    "destination": "publication",
+    "publicationBrandSlug": "la-roche-posay",
+    "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwcfc32c34/LRP_Product/VitaminCGelMoussant/LaRochePosay-Skincare-Product_VitaminCGelMoussant_200ml-3337875923613_atf_product_pim.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+    "localPath": "data/catalogue-intake-assets/11d3a6116ccfc1cbce191430/packshot-v1-44dced3f1fbe.png",
+    "blobPath": "products/la-roche-posay/11d3a6116ccfc1cbce191430/packshot-v1-44dced3f1fbe9c47.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/11d3a6116ccfc1cbce191430/packshot-v1-44dced3f1fbe9c47.png",
+    "contentType": "image/png",
+    "byteSize": 503555,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "44dced3f1fbe9c477ba6a3a67b82439eb0c3806a8fe0395069385dadaf698cae"
   }
 ]

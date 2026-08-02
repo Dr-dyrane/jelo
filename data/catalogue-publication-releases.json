@@ -1057,6 +1057,30 @@
         "publishedAt": "2026-08-02T16:15:00Z"
       },
       "releaseFingerprint": "b7e03d09187025e73abfde2c348f5cd99df00bb629063cad4327d75e19faa81d"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "11d3a6116ccfc1cbce191430",
+      "dossierFingerprint": "8f37a57b187c24fffcdde4f1d81751b6a8967d0c4e876f0badc40b694416de6a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Vitamin C facial cleanser · 200 ml",
+        "usage": "Apply to damp facial skin, massage gently, then rinse. Avoid direct contact with eyes.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-02T18:12:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-02T18:12:20Z"
+      },
+      "releaseFingerprint": "f0005ee5cc6d65bdd25ac9d7997e0ea04d4afd80cd79604690ed5c57584f79df"
     }
   ]
 }

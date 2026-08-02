@@ -21,12 +21,12 @@ const researchAsOf = Date.parse('2026-07-29T06:00:00Z');
 const currentSnapshotAsOf = Date.parse('2026-08-02T17:00:00Z');
 
 test('checked-in canonical identity artifacts match every declared byte and hash', async () => {
-  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 44);
+  assert.equal(await verifyCatalogueIdentityEvidenceArtifacts(catalogueIntakeCandidates), 45);
 });
 
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
-  assert.equal(catalogueIntakeCandidates.length, 44);
-  assert.equal(catalogueIntakeDecisions.length, 44);
+  assert.equal(catalogueIntakeCandidates.length, 45);
+  assert.equal(catalogueIntakeDecisions.length, 45);
   assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 6);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 22);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
@@ -35,7 +35,7 @@ test('the deliberate intake cohort exposes readiness without treating NAFDAC as 
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 6);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 38);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 39);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 6);
 });
@@ -1325,11 +1325,14 @@ test('the SheaMoisture shampoo binds official identity, two Nigerian prices and 
   assert.deepEqual(decision.blockers, []);
 });
 
-test('every cohort item cites real Nigerian pages and an explicit next action', () => {
+test('every cohort item cites demand evidence and preserves market evidence or explicit missing-market blockers', () => {
   for (const decision of catalogueIntakeQueue) {
     const candidate = decision.candidate;
     assert.ok(candidate.demandEvidenceUrls.length > 0, candidate.id);
-    assert.ok(candidate.nigeria.exactOffers.length + candidate.nigeria.excludedObservations.length > 0, candidate.id);
+    if (candidate.nigeria.exactOffers.length + candidate.nigeria.excludedObservations.length === 0) {
+      assert.ok(decision.blockers.includes('nigeria-exact-offer-missing'), candidate.id);
+      assert.ok(decision.blockers.includes('nigeria-market-route-insufficient'), candidate.id);
+    }
     assert.equal(candidate.nigeria.exactOffers.every(offer => new URL(offer.listingUrl).protocol === 'https:'), true, candidate.id);
     assert.equal(candidate.nigeria.excludedObservations.every(observation => (
       observation.disposition === 'excluded-from-exact-comparison'

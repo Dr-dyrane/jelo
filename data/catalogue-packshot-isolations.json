@@ -124,5 +124,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "11d3a6116ccfc1cbce191430",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwcfc32c34/LRP_Product/VitaminCGelMoussant/LaRochePosay-Skincare-Product_VitaminCGelMoussant_200ml-3337875923613_atf_product_pim.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+      "sha256": "62772fcda6ded56dbfe3c3177fce564b51a1850472cdbb3b40464e0357655a30",
+      "byteSize": 228850,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-02T18:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03337875923613"
+      },
+      "officialProductUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "6d03e00f6a8cc1c00e6b3d8cfad89db1ffeebcf45a372aa4606e4ef19607ac2b",
+      "generatedAt": "2026-08-02T18:10:23Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "44dced3f1fbe9c477ba6a3a67b82439eb0c3806a8fe0395069385dadaf698cae",
+      "byteSize": 503555,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-02T18:10:45Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-02T18:11:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "bdfa9f056b8a471f42a3a683eb24390fa69df6f273d0f34457dd59023f0d8da3",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

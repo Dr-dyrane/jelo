@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "11d3a6116ccfc1cbce191430",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "11d3a6116ccfc1cbce191430",
+    "candidateFingerprint": "499e449b8a46f85be8476659ec8e9077f57a051f254708ba635a4ff40a5099bb",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "3337875923613",
+      "brand": "La Roche-Posay",
+      "name": "Vitamin C Purifying Cleanser",
+      "variant": "Vitamin C Gel Moussant 200ml",
+      "size": "200 ml",
+      "packageVersion": "Current translucent amber-orange 200 ml pump bottle with white pump, La Roche-Posay Vitamin C label and bilingual Purifying Cleanser wording",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+      "officialIdentity": {
+        "url": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+        "observedGtin": "3337875923613",
+        "observedVariant": "Vitamin C Gel Moussant 200ml",
+        "observedSize": "200 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/11d3a6116ccfc1cbce191430.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "11d3a6116ccfc1cbce191430",
+          "sourceUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+          "responseUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+          "retrievedAt": "2026-08-02T18:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "3337875923613",
+              "locator": "Official og:image GTIN-13 filename",
+              "sourceText": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwcfc32c34/LRP_Product/VitaminCGelMoussant/LaRochePosay-Skincare-Product_VitaminCGelMoussant_200ml-3337875923613_atf_product_pim.jpg"
+            },
+            "variant": {
+              "value": "Vitamin C Gel Moussant 200ml",
+              "locator": "Rendered official h1 product heading",
+              "sourceText": "Vitamin C Gel Moussant 200ml"
+            },
+            "size": {
+              "value": "200 ml",
+              "locator": "Rendered official size selector",
+              "sourceText": "Une taille disponible : 200 ml"
+            }
+          },
+          "sourceResponseSha256": "3f1caca1ef7d34b9efb3af217a19e5b5a92d9039ca5b17d7c37ceb345ad02ee5",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 200214,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwcfc32c34/LRP_Product/VitaminCGelMoussant/LaRochePosay-Skincare-Product_VitaminCGelMoussant_200ml-3337875923613_atf_product_pim.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+              "responseUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwcfc32c34/LRP_Product/VitaminCGelMoussant/LaRochePosay-Skincare-Product_VitaminCGelMoussant_200ml-3337875923613_atf_product_pim.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+              "retrievedAt": "2026-08-02T18:00:00Z",
+              "responseSha256": "62772fcda6ded56dbfe3c3177fce564b51a1850472cdbb3b40464e0357655a30",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 228850
+            }
+          ],
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Vitamin C Gel Moussant 200ml · Élimine les impuretés, hydrate et lisse la peau | La Roche Posay"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-02T18:02:00Z"
+        },
+        "snapshotSha256": "8723eec3415c75e3ec6cec0d9816419f2c51f54f7c526e70a97104aa09eae1ac",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2243,
+        "retrievedAt": "2026-08-02T18:00:00Z"
+      },
+      "checkedAt": "2026-08-02T18:03:00Z",
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/la-roche-posay-pure-vitamin-c-cleanser-200ml/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Rinse-off facial cleanser with a vitamin C derivative and BHA for everyday cleansing; the official France page describes the 200 ml formula for all skin types, including sensitive and oily skin.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports facial cleansing and cosmetic skin-surface care only. It does not diagnose or treat acne, pigmentation, enlarged pores or another condition. Avoid direct eye contact, stop if burning, stinging or rash develops, and seek clinical advice for persistent or severe symptoms.",
+      "manufacturerEvidenceUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-02T18:04:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+      "sourceAsset": {
+        "url": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwcfc32c34/LRP_Product/VitaminCGelMoussant/LaRochePosay-Skincare-Product_VitaminCGelMoussant_200ml-3337875923613_atf_product_pim.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+        "sha256": "62772fcda6ded56dbfe3c3177fce564b51a1850472cdbb3b40464e0357655a30",
+        "mimeType": "image/jpeg",
+        "byteSize": 228850,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-02T18:00:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "11d3a6116ccfc1cbce191430",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwcfc32c34/LRP_Product/VitaminCGelMoussant/LaRochePosay-Skincare-Product_VitaminCGelMoussant_200ml-3337875923613_atf_product_pim.jpg?q=100&sfrm=jpg&sh=2000&sm=cut&sw=2000",
+          "sha256": "62772fcda6ded56dbfe3c3177fce564b51a1850472cdbb3b40464e0357655a30",
+          "byteSize": 228850,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-02T18:00:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "03337875923613"
+          },
+          "officialProductUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "6d03e00f6a8cc1c00e6b3d8cfad89db1ffeebcf45a372aa4606e4ef19607ac2b",
+          "generatedAt": "2026-08-02T18:10:23Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "44dced3f1fbe9c477ba6a3a67b82439eb0c3806a8fe0395069385dadaf698cae",
+          "byteSize": 503555,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-02T18:10:45Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-02T18:11:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "bdfa9f056b8a471f42a3a683eb24390fa69df6f273d0f34457dd59023f0d8da3",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/11d3a6116ccfc1cbce191430/packshot-v1-44dced3f1fbe9c47.png",
+      "sha256": "44dced3f1fbe9c477ba6a3a67b82439eb0c3806a8fe0395069385dadaf698cae",
+      "mimeType": "image/png",
+      "byteSize": 503555,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-02T18:11:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-02T18:11:30Z"
+    },
+    "dossierFingerprint": "8f37a57b187c24fffcdde4f1d81751b6a8967d0c4e876f0badc40b694416de6a"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "11d3a6116ccfc1cbce191430",
+    "dossierFingerprint": "8f37a57b187c24fffcdde4f1d81751b6a8967d0c4e876f0badc40b694416de6a",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Vitamin C facial cleanser · 200 ml",
+      "usage": "Apply to damp facial skin, massage gently, then rinse. Avoid direct contact with eyes.",
+      "manufacturerDirectionsUrl": "https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-02T18:12:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-02T18:12:20Z"
+    },
+    "releaseFingerprint": "f0005ee5cc6d65bdd25ac9d7997e0ea04d4afd80cd79604690ed5c57584f79df"
+  }
+}

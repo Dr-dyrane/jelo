@@ -3,6 +3,14 @@
   "exposure": "public-catalogue-search",
   "products": [
     {
+      "slug": "11d3a6116ccfc1cbce191430",
+      "brand": "La Roche-Posay",
+      "name": "Vitamin C Purifying Cleanser",
+      "size": "200 ml",
+      "approvedGtin": "3337875923613",
+      "source": "dossier-release"
+    },
+    {
       "slug": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
       "brand": "ANUA",
       "name": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",

@@ -764,6 +764,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-02',
   },
+  '11d3a6116ccfc1cbce191430': {
+    productSlug: '11d3a6116ccfc1cbce191430',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.laroche-posay.fr/vitamin-c-gel-moussant-200ml/LRP_947.html',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-08-02',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
