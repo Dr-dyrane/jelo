@@ -4,10 +4,12 @@ import { observedMarketPrice } from './offer-evidence';
 import { isOfferFresh } from './offer-freshness';
 
 export type PriceObservation = {
+  historyId: string;
   offerId: string;
   retailer: string;
   priceMinor: number;
   observedAt: string;
+  recordedAt: string;
 };
 
 export type PriceTrendOfferSnapshot = {
@@ -161,6 +163,41 @@ function normalizedTimestamp(value: string | null | undefined) {
   return Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : null;
 }
 
+function orderedPriceObservations(
+  entries: readonly PriceObservation[],
+): PriceObservation[] | null {
+  const causalPrices = new Map<string, number>();
+  const historyIds = new Set<string>();
+  for (const entry of entries) {
+    const observedAt = Date.parse(entry.observedAt);
+    const recordedAt = Date.parse(entry.recordedAt);
+    const historyId = entry.historyId.trim();
+    if (
+      !historyId
+      || historyId !== entry.historyId
+      || historyIds.has(historyId)
+      || !Number.isFinite(observedAt)
+      || !Number.isFinite(recordedAt)
+    ) {
+      return null;
+    }
+    historyIds.add(historyId);
+
+    const causalPosition = `${observedAt}\u0000${recordedAt}`;
+    const existingPrice = causalPrices.get(causalPosition);
+    if (existingPrice != null && existingPrice !== entry.priceMinor) return null;
+    causalPrices.set(causalPosition, entry.priceMinor);
+  }
+
+  return [...entries].sort((a, b) => {
+    const observedDifference = Date.parse(a.observedAt) - Date.parse(b.observedAt);
+    if (observedDifference !== 0) return observedDifference;
+    const recordedDifference = Date.parse(a.recordedAt) - Date.parse(b.recordedAt);
+    if (recordedDifference !== 0) return recordedDifference;
+    return a.historyId < b.historyId ? -1 : a.historyId > b.historyId ? 1 : 0;
+  });
+}
+
 export function priceTrendOfferSnapshot(
   offer: Offer,
   market: Market,
@@ -275,10 +312,12 @@ export function selectCurrentPriceObservations(
     return [{
       snapshot: expected,
       observation: {
+        historyId: row.historyId,
         offerId: row.offerId,
         retailer: row.retailer,
         priceMinor: row.priceMinor,
         observedAt: row.observedAt,
+        recordedAt: row.recordedAt,
       },
     }];
   });
@@ -290,9 +329,17 @@ export function selectCurrentPriceObservations(
   }
 
   return [...byOffer.values()].flatMap(entries => {
-    const ordered = [...entries].sort(
-      (a, b) => Date.parse(a.observation.observedAt) - Date.parse(b.observation.observedAt),
+    const orderedObservations = orderedPriceObservations(
+      entries.map(entry => entry.observation),
     );
+    if (!orderedObservations) return [];
+    const entriesByHistoryId = new Map(
+      entries.map(entry => [entry.observation.historyId, entry] as const),
+    );
+    const ordered = orderedObservations.flatMap(observation => {
+      const entry = entriesByHistoryId.get(observation.historyId);
+      return entry ? [entry] : [];
+    });
     const latest = ordered.at(-1);
     if (!latest) return [];
 
@@ -342,7 +389,8 @@ function movementForWindow(observations: PriceObservation[], days: 7 | 30, asOf:
   }
 
   const offerPairs = [...grouped.values()].flatMap(entries => {
-    const ordered = entries.sort((a, b) => Date.parse(a.observedAt) - Date.parse(b.observedAt));
+    const ordered = orderedPriceObservations(entries);
+    if (!ordered) return [];
     const current = ordered.at(-1);
     if (!current || Date.parse(current.observedAt) < freshestCurrent) return [];
     const anchor = ordered.filter(entry => {
@@ -391,7 +439,8 @@ function movementSinceLastCheck(
   }
 
   const offerPairs = [...grouped.values()].flatMap(entries => {
-    const ordered = entries.sort((a, b) => Date.parse(a.observedAt) - Date.parse(b.observedAt));
+    const ordered = orderedPriceObservations(entries);
+    if (!ordered) return [];
     const current = ordered.at(-1);
     if (!current || Date.parse(current.observedAt) < freshestCurrent) return [];
 
@@ -458,9 +507,8 @@ export function calculateOfferPriceTrends(
     const trends = calculatePriceTrends(entries, asOf);
     if (!trends.recent && !trends.sevenDay && !trends.thirtyDay) return [];
 
-    const latest = [...entries].sort(
-      (a, b) => Date.parse(b.observedAt) - Date.parse(a.observedAt),
-    )[0];
+    const latest = orderedPriceObservations(entries)?.at(-1);
+    if (!latest) return [];
 
     return [{
       offerId,

@@ -100,6 +100,12 @@ is still growing, it may compare the latest two checks of the same exact offer
 when they are at least 12 hours apart, no more than 14 days apart, and the
 current observation is fresh. Rapid retries never become a trend.
 
+When two history rows carry the same observation time, their database recording
+time establishes the causal order. Reads then use the immutable history ID only
+to keep equal-price rows stable. A conflicting price at the same observation
+and recording time is irreducibly ambiguous, so movement for that exact offer
+fails closed instead of allowing query or array order to choose a value.
+
 ## Safety and trust
 
 Retailer inclusion is not an authenticity guarantee. The runtime model keeps these dimensions separate:

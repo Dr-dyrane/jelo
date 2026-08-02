@@ -44,11 +44,16 @@ try {
   }[]>`
     with ranked as (
       select
+        h.id as history_id,
         h.offer_id,
         h.price_minor,
         h.currency_code,
         h.observed_at,
-        lag(h.price_minor) over (partition by h.offer_id order by h.observed_at) as previous_price
+        h.created_at as recorded_at,
+        lag(h.price_minor) over (
+          partition by h.offer_id
+          order by h.observed_at, h.created_at, h.id
+        ) as previous_price
       from offer_price_history h
     )
     select
@@ -65,7 +70,7 @@ try {
     join retailers r on r.id = o.retailer_id
     where ranked.previous_price is not null
       and ranked.previous_price <> ranked.price_minor
-    order by ranked.observed_at desc
+    order by ranked.observed_at desc, ranked.recorded_at desc, ranked.history_id desc
     limit 50
   `;
 

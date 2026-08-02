@@ -14,9 +14,24 @@ import {
 } from './price-trends';
 
 const asOf = new Date('2026-07-22T12:00:00Z');
+let historySequence = 0;
 
-function observation(offerId: string, priceMinor: number, observedAt: string): PriceObservation {
-  return { offerId, retailer: offerId, priceMinor, observedAt };
+function observation(
+  offerId: string,
+  priceMinor: number,
+  observedAt: string,
+  overrides: Partial<PriceObservation> = {},
+): PriceObservation {
+  historySequence += 1;
+  return {
+    historyId: `history-${historySequence}`,
+    offerId,
+    retailer: offerId,
+    priceMinor,
+    observedAt,
+    recordedAt: observedAt,
+    ...overrides,
+  };
 }
 
 test('compares the same exact offers across a seven-day window', () => {
@@ -178,7 +193,9 @@ function currentObservation(
   observedAt: string,
   overrides: Partial<CurrentPriceObservation> = {},
 ): CurrentPriceObservation {
+  historySequence += 1;
   return {
+    historyId: `history-${historySequence}`,
     offerId,
     retailer,
     url,
@@ -194,6 +211,7 @@ function currentObservation(
     currentCurrencyCode: 'NGN',
     priceMinor,
     observedAt,
+    recordedAt: observedAt,
     ...overrides,
   };
 }
@@ -256,6 +274,79 @@ test('keeps history only for the exact current market, retailer and URL snapshot
   ], exactSnapshot, asOf);
 
   assert.deepEqual(selected.map(item => item.offerId), ['exact', 'exact']);
+});
+
+test('uses recording time to order equal observation timestamps independent of input order', () => {
+  const observedAt = '2026-07-22T10:00:00Z';
+  const earlier = currentObservation(
+    'exact',
+    'Exact store',
+    'https://example.com/exact-product',
+    14_500,
+    observedAt,
+    {
+      historyId: 'history-earlier',
+      recordedAt: '2026-07-22T10:01:00Z',
+    },
+  );
+  const later = currentObservation(
+    'exact',
+    'Exact store',
+    'https://example.com/exact-product',
+    14_000,
+    observedAt,
+    {
+      historyId: 'history-later',
+      recordedAt: '2026-07-22T10:02:00Z',
+    },
+  );
+
+  const selected = selectCurrentPriceObservations([later, earlier], exactSnapshot, asOf);
+
+  assert.deepEqual(selected.map(item => item.priceMinor), [14_500, 14_000]);
+});
+
+test('fails closed on conflicting prices at one irreducible causal position', () => {
+  const observedAt = '2026-07-22T10:00:00Z';
+  const recordedAt = '2026-07-22T10:01:00Z';
+  const rows = [
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_500,
+      observedAt,
+      { historyId: 'history-a', recordedAt },
+    ),
+    currentObservation(
+      'exact',
+      'Exact store',
+      'https://example.com/exact-product',
+      14_000,
+      observedAt,
+      { historyId: 'history-b', recordedAt },
+    ),
+  ];
+
+  assert.deepEqual(selectCurrentPriceObservations(rows, exactSnapshot, asOf), []);
+  assert.deepEqual(calculatePriceTrends(rows, asOf), {
+    recent: null,
+    sevenDay: null,
+    thirtyDay: null,
+  });
+});
+
+test('fails closed when a history identity is duplicated', () => {
+  const rows = [
+    observation('exact', 14_500, '2026-07-15T10:00:00Z', { historyId: 'duplicate' }),
+    observation('exact', 14_000, '2026-07-22T10:00:00Z', { historyId: 'duplicate' }),
+  ];
+
+  assert.deepEqual(calculatePriceTrends(rows, asOf), {
+    recent: null,
+    sevenDay: null,
+    thirtyDay: null,
+  });
 });
 
 test('rejects history that is not bound to the rendered price, observation or SKU identity', () => {

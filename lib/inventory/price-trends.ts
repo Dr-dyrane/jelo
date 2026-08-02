@@ -85,6 +85,7 @@ export async function getProductsPriceTrends(
     const rows = await sql<ProductObservationRow[]>`
       select
         p.slug::text as "productSlug",
+        h.id::text as "historyId",
         o.id::text as "offerId",
         r.name as retailer,
         o.url,
@@ -99,7 +100,8 @@ export async function getProductsPriceTrends(
         o.price_minor::double precision as "currentPriceMinor",
         o.currency_code::text as "currentCurrencyCode",
         h.price_minor::double precision as "priceMinor",
-        h.observed_at::text as "observedAt"
+        h.observed_at::text as "observedAt",
+        h.created_at::text as "recordedAt"
       from offer_price_history h
       join offers o on o.id = h.offer_id
       join products p on p.id = o.product_id
@@ -109,7 +111,7 @@ export async function getProductsPriceTrends(
         and o.market_code in ('NG', 'US')
         and h.currency_code = case when o.market_code = 'NG' then 'NGN' else 'USD' end
         and h.observed_at >= now() - interval '46 days'
-      order by p.slug asc, h.observed_at asc
+      order by p.slug asc, h.observed_at asc, h.created_at asc, h.id asc
     `;
 
     const rowsBySlug = new Map<string, ObservationRow[]>();
