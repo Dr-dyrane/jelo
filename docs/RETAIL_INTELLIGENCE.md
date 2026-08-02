@@ -136,6 +136,12 @@ Page-wide purchase copy is not stock evidence. Every refresh records the adapter
 
 Production queues and checks a bounded set of exact offers once each day, starting 24 hours before their verification window expires. The cron route is bearer-authenticated, ignores store-search URLs and uses the existing locked job queue so overlapping requests cannot claim the same offer. Public price and availability claims honor both the seven-day maximum and the shorter confidence-based expiry recorded by the worker.
 
+The scheduled worker may service every configured market. A manual maintenance
+run must pass an explicit two-letter market when its authorization is narrower;
+the same boundary constrains fresh claims, expired-lease recovery, and
+exhausted-lease settlement. Market scoping consumes the existing ledger and
+never requires duplicate jobs.
+
 ## Implementation order
 
 1. Register canonical retailer records.

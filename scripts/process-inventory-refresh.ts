@@ -2,13 +2,15 @@ import {
   closeInventoryRefreshClient,
   processInventoryRefreshBatch,
 } from '../lib/inventory/refresh-worker';
+import { parseInventoryWorkerOptions } from '../lib/inventory/queue-options';
 
 async function main() {
-  const requestedLimit = Number.parseInt(process.argv[2] ?? '25', 10);
-  const limit = Number.isFinite(requestedLimit) ? requestedLimit : 25;
+  const options = parseInventoryWorkerOptions(process.argv.slice(2));
 
   try {
-    const { results } = await processInventoryRefreshBatch(limit);
+    const { results } = await processInventoryRefreshBatch(options.limit, {
+      marketCode: options.market,
+    });
     const completed = results.filter(result => result.status === 'completed').length;
     const retrying = results.filter(result => result.status === 'retrying').length;
     const failed = results.filter(result => result.status === 'failed').length;
@@ -27,7 +29,7 @@ async function main() {
     }
 
     console.log(
-      `Processed ${results.length} inventory jobs: ${completed} completed, ${retrying} retrying, ${failed} failed, ${discarded} discarded.`,
+      `Processed ${results.length}${options.market ? ` ${options.market}` : ''} inventory jobs: ${completed} completed, ${retrying} retrying, ${failed} failed, ${discarded} discarded.`,
     );
 
     if (retrying + failed + discarded > 0) process.exitCode = 1;

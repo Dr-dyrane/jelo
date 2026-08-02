@@ -42,6 +42,7 @@ type ClaimedJob = {
 type CurrentClaim = {
   current_url: string;
   current_offer_version: string;
+  current_market_code: string;
   match_kind: string;
   is_published: boolean;
 };
@@ -79,15 +80,30 @@ export async function closeInventoryRefreshClient() {
   await client.end({ timeout: 5 });
 }
 
-async function claimJob(claimDeadlineAt?: number): Promise<ClaimedJob | undefined> {
+type InventoryRefreshWorkerOptions = {
+  claimDeadlineAt?: number;
+  marketCode?: string;
+};
+
+function normalizeMarketCode(marketCode: string | undefined) {
+  if (marketCode == null) return undefined;
+  const normalized = marketCode.toUpperCase();
+  if (!/^[A-Z]{2}$/.test(normalized)) throw new Error('Inventory refresh market must be a two-letter code.');
+  return normalized;
+}
+
+async function claimJob(options: InventoryRefreshWorkerOptions = {}): Promise<ClaimedJob | undefined> {
   const sql = getInventoryRefreshClient();
-  const claimDeadline = claimDeadlineAt == null ? null : new Date(claimDeadlineAt);
+  const claimDeadline = options.claimDeadlineAt == null ? null : new Date(options.claimDeadlineAt);
+  const marketCode = normalizeMarketCode(options.marketCode);
   const [job] = await sql<ClaimedJob[]>`
     with exhausted_candidate as (
       select j.id
       from inventory_refresh_jobs j
+      join offers o on o.id = j.offer_id
       where j.status = 'processing'
         and j.attempt_count >= ${MAX_ATTEMPTS}
+        and (${marketCode ?? null}::text is null or o.market_code = ${marketCode ?? null})
         and (
           j.started_at is null
           or j.started_at <= now() - (${INVENTORY_REFRESH_LEASE_MS} * interval '1 millisecond')
@@ -124,6 +140,7 @@ async function claimJob(claimDeadlineAt?: number): Promise<ClaimedJob | undefine
         and p.is_published = true
         and o.match_kind = 'exact'
         and o.url ~* '^https://'
+        and (${marketCode ?? null}::text is null or o.market_code = ${marketCode ?? null})
         and (
           ${claimDeadline}::timestamptz is null
           or now() < ${claimDeadline}::timestamptz
@@ -201,6 +218,7 @@ async function lockCurrentClaim(
     select
       o.url as current_url,
       extract(epoch from o.updated_at)::text as current_offer_version,
+      o.market_code as current_market_code,
       o.match_kind,
       p.is_published
     from inventory_refresh_jobs j
@@ -259,6 +277,26 @@ async function settleChangedCurrentClaim(
     return {
       status: 'retrying',
       error: 'Offer URL changed while the refresh was running.',
+    };
+  }
+
+  if (claim.current_market_code !== job.market_code) {
+    await transaction`
+      update inventory_refresh_jobs
+      set status = 'queued',
+          last_error = 'Offer market changed while refresh was running; a fresh claim is required.',
+          started_at = null,
+          completed_at = null,
+          next_attempt_at = now(),
+          updated_at = now()
+      where id = ${job.job_id}
+        and offer_id = ${job.offer_id}
+        and status = 'processing'
+        and attempt_count = ${job.attempt_count}
+    `;
+    return {
+      status: 'retrying',
+      error: 'Offer market changed while the refresh was running.',
     };
   }
 
@@ -335,6 +373,7 @@ async function completeJob(
         and extract(epoch from o.updated_at)::text = ${job.offer_version}
         and o.match_kind = 'exact'
         and o.url ~* '^https://'
+        and o.market_code = ${job.market_code}
         and exists (
           select 1
           from products p
@@ -418,9 +457,10 @@ async function failJob(job: ClaimedJob, error: unknown): Promise<ClaimSettlement
 
 export async function processNextInventoryRefreshJob(options: {
   claimDeadlineAt?: number;
+  marketCode?: string;
 } = {}): Promise<InventoryRefreshResult | undefined> {
   if (!canClaimInventoryRefreshJob(options.claimDeadlineAt)) return undefined;
-  const job = await claimJob(options.claimDeadlineAt);
+  const job = await claimJob(options);
   if (!job) return undefined;
   try {
     const observation = await fetchRetailerPage(job.url);
@@ -469,7 +509,7 @@ export async function processNextInventoryRefreshJob(options: {
 
 export async function processInventoryRefreshBatch(
   limit = 25,
-  options: { claimDeadlineAt?: number } = {},
+  options: InventoryRefreshWorkerOptions = {},
 ) {
   const safeLimit = Math.min(Math.max(limit, 1), 100);
   const results: InventoryRefreshResult[] = [];

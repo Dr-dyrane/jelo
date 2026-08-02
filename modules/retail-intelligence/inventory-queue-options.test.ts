@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { parseInventoryQueueOptions } from '@/lib/inventory/queue-options';
+import {
+  parseInventoryQueueOptions,
+  parseInventoryWorkerOptions,
+} from '@/lib/inventory/queue-options';
 
 test('keeps the scheduled inventory queue bounded by default', () => {
   assert.deepEqual(parseInventoryQueueOptions([]), {
@@ -26,4 +29,23 @@ test('accepts a single-product refresh and rejects malformed targets', () => {
   );
   assert.throws(() => parseInventoryQueueOptions(['--force', '--market=NGA']), /two-letter/);
   assert.throws(() => parseInventoryQueueOptions(['--force', '--product=../other']), /canonical slug/);
+});
+
+test('scopes inventory workers to a validated market without losing the legacy limit', () => {
+  assert.deepEqual(parseInventoryWorkerOptions([]), { limit: 25 });
+  assert.deepEqual(parseInventoryWorkerOptions(['10', '--market', 'ng']), {
+    limit: 10,
+    market: 'NG',
+  });
+  assert.deepEqual(parseInventoryWorkerOptions(['--limit=80', '--market=US']), {
+    limit: 80,
+    market: 'US',
+  });
+  assert.throws(() => parseInventoryWorkerOptions(['10', '--limit=20']), /either positionally/);
+  assert.throws(() => parseInventoryWorkerOptions(['--market=NGA']), /two-letter/);
+  assert.throws(() => parseInventoryWorkerOptions(['--market=']), /requires a value/);
+  assert.throws(() => parseInventoryWorkerOptions(['--market', '']), /requires a value/);
+  assert.throws(() => parseInventoryWorkerOptions(['--market', 'NG', '--market=US']), /only one --market/);
+  assert.throws(() => parseInventoryWorkerOptions(['--limit=10', '--limit', '20']), /only one --limit/);
+  assert.throws(() => parseInventoryWorkerOptions(['--makret=NG']), /Unknown inventory worker option/);
 });

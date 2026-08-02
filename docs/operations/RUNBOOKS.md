@@ -183,6 +183,20 @@ Never heal a mismatched package with generation.
    terminally.
 6. Manually inspect any retailer that blocks automation.
 
+For a bounded manual run, scope claims to the intended market. This filter
+applies to queued claims, expired-lease recovery, and exhausted-lease
+settlement, so a Nigerian maintenance run cannot mutate interleaved jobs from
+another market:
+
+```bash
+npm run inventory:work -- --market NG --limit 10
+```
+
+Omitting `--market` is reserved for the scheduled cross-market worker or an
+explicitly reviewed cross-market maintenance run. Do not enqueue the same
+population again merely to obtain a market-scoped worker; consume the existing
+job ledger.
+
 An in-flight result is deliberately discarded if another worker or a manual
 observation supersedes its claim. An offer that becomes unpublished,
 non-exact, or non-HTTPS is cancelled; an exact offer whose URL changes is

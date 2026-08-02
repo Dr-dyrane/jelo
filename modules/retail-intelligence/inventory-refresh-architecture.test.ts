@@ -7,6 +7,7 @@ const root = process.cwd();
 const repository = readFileSync(resolve(root, 'lib/inventory/repository.ts'), 'utf8');
 const worker = readFileSync(resolve(root, 'lib/inventory/refresh-worker.ts'), 'utf8');
 const route = readFileSync(resolve(root, 'app/api/cron/inventory/route.ts'), 'utf8');
+const workerScript = readFileSync(resolve(root, 'scripts/process-inventory-refresh.ts'), 'utf8');
 const vercel = JSON.parse(
   readFileSync(resolve(root, 'vercel.json'), 'utf8'),
 ) as { crons?: Array<{ path: string; schedule: string }> };
@@ -36,6 +37,21 @@ test('runtime enqueue and claim both require a published exact HTTPS offer', () 
     worker,
     /candidate as \([\s\S]*join offers o on o\.id = j\.offer_id[\s\S]*join products p on p\.id = o\.product_id[\s\S]*p\.is_published = true[\s\S]*o\.match_kind = 'exact'[\s\S]*o\.url ~\* '\^https:\/\/'/,
   );
+});
+
+test('manual workers can scope every claim-side mutation to one market', () => {
+  assert.match(
+    worker,
+    /exhausted_candidate as \([\s\S]*join offers o on o\.id = j\.offer_id[\s\S]*o\.market_code = \$\{marketCode \?\? null\}/,
+  );
+  assert.match(
+    worker,
+    /candidate as \([\s\S]*o\.market_code = \$\{marketCode \?\? null\}/,
+  );
+  assert.match(worker, /claim\.current_market_code !== job\.market_code/);
+  assert.match(worker, /o\.market_code = \$\{job\.market_code\}/);
+  assert.match(workerScript, /parseInventoryWorkerOptions\(process\.argv\.slice\(2\)\)/);
+  assert.match(workerScript, /marketCode: options\.market/);
 });
 
 test('claims recover only expired bounded leases and terminal-set exhausted work', () => {
