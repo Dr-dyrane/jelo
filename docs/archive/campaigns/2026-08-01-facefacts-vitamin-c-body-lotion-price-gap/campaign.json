@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-01-facefacts-vitamin-c-body-lotion-price-gap-variants",
+  "status": "draft",
+  "createdAt": "2026-08-01T13:31:28Z",
+  "dataCheckedAt": null,
+  "objective": "Archive recovered light and dark price-comparison variants",
+  "product": {
+    "slug": "facefacts-vitamin-c-body-lotion-400ml",
+    "brand": "FACE FACTS",
+    "name": "Vitamin C Body Lotion",
+    "size": "400 ml",
+    "identifier": {
+      "kind": "gtin",
+      "value": "5031413929089"
+    }
+  },
+  "sourceAsset": {
+    "url": null,
+    "sha256": null
+  },
+  "offerEvidence": [],
+  "careBoundary": "No care or treatment claim is present.",
+  "copy": {
+    "headline": "Same product. ₦1,905 apart.",
+    "productLine": "FACE FACTS · Vitamin C Body Lotion · 400 ml",
+    "priceLine": "₦6,095 — ₦8,000",
+    "action": "Compare current prices",
+    "disclaimer": "Prices change.",
+    "embeddedUrl": null
+  },
+  "creative": [
+    {
+      "mode": "light",
+      "path": "light.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "a02029c5d19a4bfb14bc937b9d66d181466a40026afb7a0d51a38c52e1090b5b",
+      "generationRoute": "unknown-untracked-recovery"
+    },
+    {
+      "mode": "dark",
+      "path": "dark.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "2512b598a7e313d6cc90b95951bf1bf040829cb6f268c86fdeef5c4fc4267743",
+      "generationRoute": "unknown-untracked-recovery"
+    }
+  ],
+  "publication": [],
+  "archiveNote": "Recovered from the shared working tree. Offer freshness, source-asset provenance, and generation provenance were not reverified during archival. Reverify before reuse or publication."
+}

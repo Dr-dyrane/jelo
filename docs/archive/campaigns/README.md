@@ -28,3 +28,17 @@ offer and updating the artwork if the price has changed.
 The artwork states that prices change and links to the JeloCare share route.
 It still requires a fresh offer check before reuse because the rendered values
 are fixed inside the image.
+
+## Face Facts Vitamin C Body Lotion light/dark variants
+
+- Original paths: `public/campaigns/social/facefacts-vitamin-c-body-lotion-{light,dark}-2026-08-01.png`
+- Archive directory: `2026-08-01-facefacts-vitamin-c-body-lotion-price-gap/`
+- Created: 2026-08-01
+- Dimensions: 1080 × 1920 each
+- Embedded price comparison: ₦6,095 and ₦8,000
+- Publication state: draft; no publication was authorized or recorded
+
+These variants appeared after the initial hygiene pass and differ from the
+previously archived weekend creative. Their campaign record deliberately marks
+offer freshness, source-asset provenance, and generation provenance as
+unverified. Reverify all three before reuse or publication.
