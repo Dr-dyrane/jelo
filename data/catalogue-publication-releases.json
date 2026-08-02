@@ -964,30 +964,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
-      "dossierFingerprint": "7acb8c9050ce2a8c5cda4387c09dd4ba0048a79354788ed5c58907ba2b8b0e88",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Lightweight niacinamide hydration.",
-        "usage": "Shake well. Apply a few drops to clean, dry skin morning or evening and massage until absorbed.",
-        "manufacturerDirectionsUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-28T15:52:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-28T15:52:00Z"
-      },
-      "releaseFingerprint": "517a816fbab7f4dee433e29b38fa249b7dca1664f005f57a5f25844d11d32057"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
       "dossierFingerprint": "1ad59de49188ff91a4ef28f4780c8d75d13245deba82d6e20f280f18dc13ed38",
       "exposure": "public-catalogue",
@@ -1009,6 +985,30 @@
         "publishedAt": "2026-07-29T05:07:57Z"
       },
       "releaseFingerprint": "442defbfd37d41d581feac96ae51515c6ebf0290cd5cfa05be1c56fc69a483a4"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "dossierFingerprint": "e6ec5179d6444d9bb16d33aba60eab890181ab3a9935cacfb571a193e00296b6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Niacinamide + betaine · lightweight hydration.",
+        "usage": "Shake well. Apply a few drops to clean, dry skin morning or evening and massage until absorbed.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-02T14:50:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-02T14:50:20Z"
+      },
+      "releaseFingerprint": "b6e156a6d403468fdd4f000234a00ea5a44441cb0ba23dccec2be1fedf6a2581"
     }
   ]
 }

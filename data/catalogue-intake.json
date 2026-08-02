@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-07-29T05:07:57Z",
+  "updatedAt": "2026-08-02T14:50:20Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -12029,7 +12029,7 @@
       "variant": "Soothe \\u0026 Glow Niacinamide Facial Serum",
       "size": "30 ml",
       "category": "Face care",
-      "reason": "Private evidence dossier only. The current official 30 ml product binds FaceFacts SKU 43771-150 and publishes a null barcode. Current independent sources and the exact CSi listing corroborate EAN 5031413943771; stale EAN 5031413940619 is rejected. Release remains blocked because every current EAN corroboration and Nigerian offer omits the official “Facial” token, so neither the independent-EAN title contract nor the exact manufacturer-SKU offer title contract honestly binds the current official identity. Exact offers, source bytes, care review and candidate-scoped packshot provenance are retained for a later identity resolution; no publication dossier or release is authorized.",
+      "reason": "Published as a neutral FaceFacts reference for exact manufacturer SKU 43771-150. The official 30 ml identity, bottle media, formula, usage and care review are verified. Teeka4 and CSi Grocery observations remain retained but excluded from public price comparison because their titles omit the official “Facial” token and no manufacturer GTIN binds either retailer identifier to the current official record.",
       "priority": "important",
       "gapIds": [
         "lightweight-hydration",
@@ -12045,9 +12045,9 @@
       ],
       "identity": {
         "officialProductUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
-        "checkedAt": "2026-07-28T12:39:30Z",
+        "checkedAt": "2026-08-02T14:49:30Z",
         "basis": "official-brand",
-        "packageVersion": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork",
+        "packageVersion": "Current 30 ml amber-glass dropper bottle with purple-and-white FaceFacts Niacinamide Serum label",
         "canonicalIdentifier": {
           "kind": "manufacturer-sku",
           "value": "43771-150",
@@ -12067,7 +12067,7 @@
           "officialProductUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
           "variant": "Soothe \\u0026 Glow Niacinamide Facial Serum",
           "size": "30 ml",
-          "packageVersion": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork"
+          "packageVersion": "Current 30 ml amber-glass dropper bottle with purple-and-white FaceFacts Niacinamide Serum label"
         },
         "officialEvidence": {
           "identityKind": "manufacturer-sku",
@@ -12076,12 +12076,12 @@
           "observedManufacturerSkuLabel": "SKU",
           "observedVariant": "Soothe \\u0026 Glow Niacinamide Facial Serum",
           "observedSize": "30 ml",
-          "observedPackageVersion": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork",
+          "observedPackageVersion": "Current 30 ml amber-glass dropper bottle with purple-and-white FaceFacts Niacinamide Serum label",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/facefacts-soothe-glow-niacinamide-serum-30ml.json",
-          "snapshotSha256": "c7b3d15dae17a6bca3b076fe37e754c71085c78a6c04ceca249aea5a189088d1",
+          "snapshotSha256": "7c4c8fcd714dff1408c2d8c2e48a705d451153e643d88157eab3dcad49581291",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 6440,
+          "snapshotByteSize": 6414,
           "retrievedAt": "2026-07-28T12:32:27Z",
           "canonicalExtraction": {
             "schemaVersion": 8,
@@ -12119,13 +12119,13 @@
                 "sourceText": "30ml"
               },
               "packageVersion": {
-                "value": "Current 30 ml pale pink, purple and white Soothe + Glow Niacinamide Serum carton with printed black dropper-bottle artwork",
-                "locator": "Official Shopify product response media[0].src, visually reviewed",
-                "sourceText": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/43771-150_fr2.jpg?v=1774528892",
+                "value": "Current 30 ml amber-glass dropper bottle with purple-and-white FaceFacts Niacinamide Serum label",
+                "locator": "Official Shopify product response media[1].src, visually reviewed",
+                "sourceText": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/43771-150_fr1.jpg?v=1774528892",
                 "reviewedMedia": {
-                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/43771-150_fr2.jpg?v=1774528892",
-                  "sourceAssetUrl": "https://facefacts.me/cdn/shop/files/43771-150_fr2.jpg?v=1774528892&width=2048",
-                  "sourceAssetSha256": "c550f96114d850c9549aac2cc24c4c2d021d8d0886a86c1213aa769c916e0560"
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0600/6138/4913/files/43771-150_fr1.jpg?v=1774528892",
+                  "sourceAssetUrl": "https://facefacts.me/cdn/shop/files/43771-150_fr1.jpg?v=1774528892&width=2048",
+                  "sourceAssetSha256": "7da92cd10f6a5d4d71aa878437525eb5fbbbd53ce3ee31cd5d8a6f9c66cc202a"
                 }
               },
               "gtinPublicationStatus": {
@@ -12141,7 +12141,7 @@
             "responseDigestScope": "decoded-response-body",
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "reviewer": "JeloCare catalogue identity review",
-            "reviewedAt": "2026-07-28T12:39:00Z"
+            "reviewedAt": "2026-08-02T14:49:30Z"
           }
         }
       },
@@ -12157,7 +12157,7 @@
           "https://facefacts.me/products/soothe-glow-niacinamide-serum",
           "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
         ],
-        "reviewedAt": "2026-07-28T12:39:45Z",
+        "reviewedAt": "2026-08-02T14:49:35Z",
         "reviewer": "JeloCare catalogue care review"
       },
       "nigeria": {
@@ -12195,42 +12195,28 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://facefacts.me/cdn/shop/files/43771-150_fr2.jpg?v=1774528892&width=2048",
-        "sourceAssetSha256": "c550f96114d850c9549aac2cc24c4c2d021d8d0886a86c1213aa769c916e0560",
+        "rightsUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum",
+        "sourceUrl": "https://facefacts.me/cdn/shop/files/43771-150_fr1.jpg?v=1774528892&width=2048",
+        "sourceAssetSha256": "7da92cd10f6a5d4d71aa878437525eb5fbbbd53ce3ee31cd5d8a6f9c66cc202a",
         "sourceAssetMimeType": "image/jpeg",
-        "sourceAssetByteSize": 73646,
+        "sourceAssetByteSize": 58129,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-07-28T04:55:00Z",
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: background-extraction\nAsset type: JeloCare catalogue packshot\nPrimary request: isolate the exact Face Facts Soothe + Glow Niacinamide Serum 30 ml retail carton shown in Image 1 onto a perfectly flat solid #00ff00 chroma-key background for local background removal.\nInput images: Image 1 is the edit target and sole authoritative product-identity and package reference.\nScene/backdrop: one perfectly uniform flat #00ff00 field; no gradient, texture, floor plane, shadow, reflection, glow, halo, or lighting variation.\nSubject: one complete upright rectangular 30 ml Face Facts Soothe + Glow Niacinamide Serum carton, including its full top, both vertical edges, bottom flap, and every visible front-pack detail. The printed dropper bottle artwork is part of the carton and must remain exactly as shown; do not turn it into a separate physical bottle.\nStyle/medium: source-faithful premium studio product photography; preserve the real package exactly.\nComposition/framing: centered, straight-on, full carton visible with generous even padding on every side; no clipping, tilt, rotation, or perspective change.\nText (verbatim): preserve every existing package word, number, symbol, line break, color, font relationship, and placement exactly as shown in Image 1, especially “facefacts.”, “SOOTHE + GLOW”, “NIACINAMIDE SERUM”, “improves radiance & uneven skin texture”, “Rejuvenating”, “Niacinamide + Betaine”, “AM + PM”, “for stressed & overworked skin”, “VEGAN”, and “30ml e / 1.01 fl. oz.”\nConstraints: change only the white background and remove the original floor/contact shadow. Preserve the carton silhouette, proportions, pale pink/purple/white colors, printed black dropper-bottle artwork, label hierarchy, icons, and all packaging details. Do not invent, correct, simplify, sharpen into new text, or restyle any label content. Do not use #00ff00 anywhere in the product.\nAvoid: redesigned label, spelling drift, missing text, cropped top or bottom, separate bottle, props, badge, extra object, watermark, cast shadow, contact shadow, reflection, floor, glow, halo, gradient, or stylization.",
-          "inputs": [
-            {
-              "url": "https://facefacts.me/cdn/shop/files/43771-150_fr2.jpg?v=1774528892&width=2048",
-              "sha256": "c550f96114d850c9549aac2cc24c4c2d021d8d0886a86c1213aa769c916e0560"
-            }
-          ],
-          "outputSha256": "938fa1f1a254cc909a5a067384f77a728b8af278d7f93a63e34445aa7cdea3fb",
-          "generatedAt": "2026-07-28T05:05:00Z",
-          "recordSha256": "446747cc526307c41a8e449b4b5a72a9f9414f1e7dc863dff51059bb57ffe26a"
-        },
-        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-soothe-glow-niacinamide-serum-30ml/packshot-v1-938fa1f1a254cc90.png",
-        "publicImageSha256": "938fa1f1a254cc909a5a067384f77a728b8af278d7f93a63e34445aa7cdea3fb",
+        "sourceAssetRetrievedAt": "2026-08-02T14:48:47Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-soothe-glow-niacinamide-serum-30ml/packshot-v2-e2d8213b071b71a5.png",
+        "publicImageSha256": "e2d8213b071b71a576a7f2b14e74e6438b07360cc22e75cb84b7679b9a0c238c",
         "publicImageMimeType": "image/png",
-        "publicImageByteSize": 1351170,
+        "publicImageByteSize": 685300,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
+        "backgroundTreatment": "source-pixel-isolation",
         "labelVariantSizeUnchanged": true,
         "packagingInvented": false,
         "manualSourceOutputQa": true,
-        "artReviewedAt": "2026-07-28T12:40:00Z",
+        "artReviewedAt": "2026-08-02T14:49:45Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }

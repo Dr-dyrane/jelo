@@ -42,6 +42,9 @@ export const verifiedProductIngredients: Record<string, ProductIngredientSeed[]>
     { ingredientSlug: 'tranexamic-acid', position: 4, concentrationPercent: 4, isActive: true, sourceUrl: 'https://anua.com/products/niacinamide-10-txa-4-serum-2', verifiedAt: checkedAt },
     { ingredientSlug: 'arbutin', position: 7, concentrationPercent: 2, isActive: true, sourceUrl: 'https://anua.com/products/niacinamide-10-txa-4-serum-2', verifiedAt: checkedAt },
   ],
+  'facefacts-soothe-glow-niacinamide-serum-30ml': [
+    { ingredientSlug: 'niacinamide', position: 3, isActive: false, sourceUrl: 'https://facefacts.me/products/soothe-glow-niacinamide-serum', verifiedAt: '2026-08-02' },
+  ],
   'cerave-blemish-control-cleanser': [
     { ingredientSlug: 'niacinamide', position: 5, isActive: false, sourceUrl: 'https://africa.cerave.com/our-products/cleansers/blemish-control-cleanser', verifiedAt: checkedAt },
     { ingredientSlug: 'salicylic-acid', position: 6, concentrationPercent: 2, isActive: true, sourceUrl: 'https://africa.cerave.com/our-products/cleansers/blemish-control-cleanser', verifiedAt: checkedAt },

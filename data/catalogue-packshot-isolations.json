@@ -1,1 +1,65 @@
-[]
+[
+  {
+    "schemaVersion": 1,
+    "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://facefacts.me/cdn/shop/files/43771-150_fr1.jpg?v=1774528892&width=2048",
+      "sha256": "7da92cd10f6a5d4d71aa878437525eb5fbbbd53ce3ee31cd5d8a6f9c66cc202a",
+      "byteSize": 58129,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-02T14:48:47Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "43771-150"
+      },
+      "officialProductUrl": "https://facefacts.me/products/soothe-glow-niacinamide-serum"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "6c7c25efaf55fb0764feb4b34c7611cbbf2faf66eddf7ab6490da506363e59fb",
+      "generatedAt": "2026-08-02T14:49:09Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "e2d8213b071b71a576a7f2b14e74e6438b07360cc22e75cb84b7679b9a0c238c",
+      "byteSize": 685300,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-02T14:49:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-02T14:49:45Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "623da548ce6835943e916a117d8e3e9227b3089739107459263d867c177fad4c",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  }
+]

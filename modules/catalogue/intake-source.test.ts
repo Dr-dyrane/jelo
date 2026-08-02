@@ -34,7 +34,7 @@ import {
 const repositoryRoot = process.cwd();
 // This fixed verification instant must remain later than every checked-in
 // source, dossier and release timestamp represented by the fixture.
-const asOf = Date.parse('2026-07-29T06:00:00Z');
+const asOf = Date.parse('2026-08-02T15:00:00Z');
 
 async function readJson(relativePath: string): Promise<unknown> {
   return JSON.parse(await readFile(path.resolve(repositoryRoot, relativePath), 'utf8')) as unknown;

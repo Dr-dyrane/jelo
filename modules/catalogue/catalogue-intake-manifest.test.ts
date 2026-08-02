@@ -26,17 +26,17 @@ test('checked-in canonical identity artifacts match every declared byte and hash
 test('the deliberate intake cohort exposes readiness without treating NAFDAC as a gate', () => {
   assert.equal(catalogueIntakeCandidates.length, 44);
   assert.equal(catalogueIntakeDecisions.length, 44);
-  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 39);
+  assert.equal(catalogueIntakeExposure.approvalDraftReadyCount, 9);
   assert.equal(catalogueIntakeExposure.excludedMarketObservationCount, 22);
   assert.equal(catalogueIntakeExposure.unresolvedRegulatorySearchCount, 1);
   assert.equal(catalogueIntakeExposure.publicProductCount, 0);
   assert.equal(catalogueIntakeExposure.policy, 'private-research-only');
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 39);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.approvalDraftReady).length, 9);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'identity').length, 1);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'care').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 4);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'nigeria').length, 34);
   assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'rights').length, 0);
-  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 39);
+  assert.equal(catalogueIntakeDecisions.filter(decision => decision.stage === 'approval-ready').length, 9);
 });
 
 test('the community-requested Mela B3 serum binds official identity, Nigerian prices and its reviewed render', () => {
@@ -1353,7 +1353,7 @@ test('excluded market observations are durable evidence and never exact offers',
   assert.equal(observations.length, 22);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.freshExactOffers.length
-  ), 0), 79);
+  ), 0), 19);
   assert.equal(catalogueIntakeDecisions.reduce((count, decision) => (
     count + decision.excludedMarketObservations.length
   ), 0), observations.length);

@@ -31,7 +31,7 @@ import {
 } from '@/lib/catalogue/publication-source';
 
 const repositoryRoot = process.cwd();
-const asOf = Date.parse('2026-07-29T06:00:00Z');
+const asOf = Date.parse('2026-08-02T15:00:00Z');
 const dossierManifest = checkedInDossiers as CataloguePublicationDossierManifest;
 const releaseManifest = checkedInReleases as CataloguePublicationReleaseManifest;
 
