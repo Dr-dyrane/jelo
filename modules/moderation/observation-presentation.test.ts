@@ -16,6 +16,7 @@ function observation(
     kind: 'price',
     subjectKind: 'product',
     subjectRef: 'product:cerave-foaming-facial-cleanser',
+    resolvedProductRef: null,
     amountNgn: 17_500,
     outcome: null,
     observedOn: '2026-07-02',

@@ -78,6 +78,32 @@ test('mapping is explicit, slug-only, and limited to the vocabulary queue', () =
   ]), /canonical slug/);
 });
 
+test('an admin correction names the observation disposition explicitly', () => {
+  assert.deepEqual(parseOperatorCommand([
+    '--action', 'correct',
+    '--queue', 'community_observation',
+    '--target-id', targetId,
+    '--disposition', 'defer',
+    '--rationale', 'Exact product identity still needs review.',
+    '--apply',
+  ]), {
+    action: 'correct',
+    queue: 'community_observation',
+    targetId,
+    disposition: 'defer',
+    rationale: 'Exact product identity still needs review.',
+    apply: true,
+    json: false,
+  });
+  assert.throws(() => parseOperatorCommand([
+    '--action', 'correct',
+    '--queue', 'community_edge',
+    '--target-id', targetId,
+    '--disposition', 'reject',
+    '--rationale', 'Wrong queue.',
+  ]), /only for community_observation/);
+});
+
 test('unknown and action-incompatible flags are rejected', () => {
   assert.throws(() => parseOperatorCommand(['--payload', 'raw']), /Unknown flag/);
   assert.throws(() => parseOperatorCommand([

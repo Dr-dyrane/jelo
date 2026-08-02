@@ -283,6 +283,67 @@ MODERATION_OPERATOR_EMAIL=operator@example.com \
 Never copy a connection string, raw payload, operator subject, or contributor text
 into a ticket, commit, terminal transcript, or chat. Use queue row IDs for handoff.
 
+If later exact-identity review shows that an approved product observation cannot
+stay approved, an admin can correct it without rewriting the original audit
+entry. `defer` returns it to review; `reject` records that the product-level fact
+cannot be retained as an exact-SKU observation. The command is dry-run by
+default:
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.com \
+  npm run community:moderate -- \
+  --action correct \
+  --queue community_observation \
+  --target-id 00000000-0000-4000-8000-000000000000 \
+  --disposition defer \
+  --rationale "Exact product identity still needs review."
+```
+
+Repeat with `--apply` only after reviewing the dry run. The applied correction
+adds a new attributable audit action and never creates a product, offer, price,
+outcome, retailer, or canonical relationship.
+
+### Research ownership and outcomes
+
+Use `/ops/research` for the normal manual pathway. Assigning a task records the
+active operator; blocking it requires the exact next evidence action. Both are
+durable task state and append an attributable audit event. They do not resolve
+the identity or change catalogue data.
+
+The private command is available for recovery and scripted adjudication. It is
+dry-run by default:
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.invalid \
+  npm run community:moderate -- \
+  --action defer \
+  --queue community_research_task \
+  --target-id 00000000-0000-4000-8000-000000000000 \
+  --rationale "Exact next evidence action or source blocker."
+```
+
+Repeat with `--apply` after review. `claim` uses the same command shape and
+records `assigned` rather than `blocked`.
+
+Product outcomes use `npm run community:research:resolve`. Existing-product
+targets must be published, and deliberate-intake targets must already exist in
+the checked-in intake manifest. Retailer outcomes use the parallel private
+command:
+
+```bash
+MODERATION_OPERATOR_EMAIL=operator@example.invalid \
+  npm run community:retailer-research:resolve -- \
+  --task-id 00000000-0000-4000-8000-000000000000 \
+  --outcome existing-canonical-retailer \
+  --canonical-slug exact-retailer-slug \
+  --rationale "Exact evidence binding the task to the existing retailer."
+```
+
+The other retailer outcomes are `ambiguous-retailer` and
+`dismissed-duplicate`. Add `--apply` only after the dry-run is correct. A
+resolution closes the task but never creates or changes a retailer, offer,
+price, product, or publication record.
+
 ## Retailer application email fails
 
 1. Confirm the application saved before retrying email.

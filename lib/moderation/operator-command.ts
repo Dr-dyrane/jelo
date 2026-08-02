@@ -47,6 +47,15 @@ export type OperatorCommand =
       rationale: string;
       apply: boolean;
       json: boolean;
+    }
+  | {
+      action: 'correct';
+      queue: 'community_observation';
+      targetId: string;
+      disposition: 'defer' | 'reject';
+      rationale: string;
+      apply: boolean;
+      json: boolean;
     };
 
 const allowedFlags = new Set([
@@ -56,6 +65,7 @@ const allowedFlags = new Set([
   'rationale',
   'canonical-kind',
   'canonical-ref',
+  'disposition',
   'apply',
   'json',
 ]);
@@ -109,6 +119,7 @@ export function parseOperatorCommand(argv: string[]): OperatorCommand {
     'defer',
     'note',
     'reconcile',
+    'correct',
   ]).parse(textFlag(flags, 'action') ?? 'inspect');
   const apply = flags.get('apply') === true;
   const json = flags.get('json') === true;
@@ -143,6 +154,23 @@ export function parseOperatorCommand(argv: string[]): OperatorCommand {
       canonicalEntityKind: z.enum(['purpose', 'product', 'brand', 'retailer'])
         .parse(required(flags, 'canonical-kind')),
       canonicalEntityRef: canonicalSlug.parse(required(flags, 'canonical-ref')),
+      rationale: rationale.parse(required(flags, 'rationale')),
+      apply,
+      json,
+    };
+  }
+
+  if (action === 'correct') {
+    requireOnly(flags, ['queue', 'target-id', 'rationale', 'disposition']);
+    const queue = moderationQueueSchema.parse(required(flags, 'queue'));
+    if (queue !== 'community_observation') {
+      throw new Error('Correction is currently available only for community_observation.');
+    }
+    return {
+      action,
+      queue,
+      targetId: uuid.parse(required(flags, 'target-id')),
+      disposition: z.enum(['defer', 'reject']).parse(required(flags, 'disposition')),
       rationale: rationale.parse(required(flags, 'rationale')),
       apply,
       json,

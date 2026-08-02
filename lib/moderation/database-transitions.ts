@@ -175,6 +175,40 @@ export function decideObservation(
       where id = ${id} and moderation_status = 'pending' returning id`);
 }
 
+export async function correctApprovedObservation(
+  sql: Sql,
+  operatorSubject: string,
+  id: string,
+  disposition: 'defer' | 'reject',
+  rationale: string,
+) {
+  const nextStatus = disposition === 'reject' ? 'rejected' : 'pending';
+  return inTransaction(sql, async tx => {
+    const rows = await tx<{ id: string }[]>`
+      update community_observations
+      set moderation_status = ${nextStatus}
+      where id = ${id} and moderation_status = 'approved'
+      returning id
+    `;
+    if (rows.length === 0) return null;
+
+    await recordModerationAction(tx, {
+      operatorSubject,
+      queue: 'community_observation',
+      action: disposition,
+      targetRef: id,
+      canonicalWrite: false,
+      rationale,
+      metadata: {
+        correction: true,
+        previousStatus: 'approved',
+        nextStatus,
+      },
+    });
+    return rows[0].id;
+  });
+}
+
 export function decideModerationValue(
   sql: Sql,
   operatorSubject: string,
@@ -305,6 +339,37 @@ export async function recordNote(
     if (!await moderationTargetExists(tx, queue, targetRef)) {
       throw new Error('Moderation target does not exist.');
     }
+
+    let metadata: ActionMetadata = {};
+    if (queue === 'community_research_task' && (action === 'claim' || action === 'defer')) {
+      const [operator] = await tx<{ id: string }[]>`
+        select id
+        from moderation_operators
+        where auth_subject = ${operatorSubject} and active = true
+        limit 1
+      `;
+      if (!operator) throw new Error('An active operator is required to assign research work.');
+
+      const workState = action === 'claim' ? 'assigned' : 'blocked';
+      const updated = await tx<{ id: string }[]>`
+        update community_research_tasks
+        set
+          status = 'in-progress',
+          assigned_operator_id = ${operator.id},
+          work_state = ${workState},
+          next_action = ${rationale},
+          last_reviewed_at = now(),
+          updated_at = now()
+        where id = ${targetRef}
+          and status in ('pending', 'in-progress')
+        returning id
+      `;
+      if (!updated[0]) {
+        throw new Error('The research task is terminal; no assignment was recorded.');
+      }
+      metadata = { workState };
+    }
+
     await recordModerationAction(tx, {
       operatorSubject,
       queue,
@@ -312,7 +377,7 @@ export async function recordNote(
       targetRef,
       canonicalWrite: false,
       rationale,
-      metadata: {},
+      metadata,
     });
   });
 }

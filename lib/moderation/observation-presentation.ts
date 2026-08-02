@@ -20,9 +20,10 @@ export type ObservationReviewItem = PendingObservation & {
 };
 
 export function observationProductSlug(
-  row: Pick<PendingObservation, 'subjectKind' | 'subjectRef'>,
+  row: Pick<PendingObservation, 'subjectKind' | 'subjectRef' | 'resolvedProductRef'>,
 ) {
   if (row.subjectKind !== 'product') return null;
+  if (row.resolvedProductRef) return row.resolvedProductRef;
   const slug = row.subjectRef.startsWith('product:')
     ? row.subjectRef.slice('product:'.length)
     : row.subjectRef;

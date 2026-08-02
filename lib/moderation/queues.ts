@@ -11,6 +11,7 @@ export type QueueCounts = {
   edges: number;
   observations: number;
   values: number;
+  research: number;
   retailers: number;
   signals: number;
 };
@@ -54,6 +55,11 @@ export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
               and contribution.retain_until > now()
           )
       )::int as values,
+      (
+        select count(*)
+        from community_research_tasks
+        where status in ('pending', 'in-progress')
+      )::int as research,
       (select count(*) from retailer_partnership_applications where status = 'submitted')::int as retailers,
       (select count(*) from commerce_events)::int as signals
   `;
@@ -71,6 +77,7 @@ export type PendingObservation = {
   kind: 'price' | 'outcome';
   subjectKind: string;
   subjectRef: string;
+  resolvedProductRef: string | null;
   amountNgn: number | null;
   outcome: string | null;
   observedOn: string | null;
@@ -101,17 +108,32 @@ export async function listPendingObservations(
     observation_kind: 'price' | 'outcome';
     subject_kind: string;
     subject_ref: string;
+    resolved_product_ref: string | null;
     amount_ngn: number | null;
     outcome: string | null;
     observed_on: string | null;
     created_at: string;
   }[]>`
     select observation.id, observation.contribution_id, observation.observation_kind,
-           observation.subject_kind, observation.subject_ref, observation.amount_ngn,
+           observation.subject_kind, observation.subject_ref,
+           coalesce(resolution.canonical_product_slug, published_candidate.slug)
+             as resolved_product_ref,
+           observation.amount_ngn,
            observation.outcome, observation.observed_on::text as observed_on,
            observation.created_at::text as created_at
     from community_observations observation
     join community_contributions contribution on contribution.id = observation.contribution_id
+    left join community_research_tasks task
+      on observation.subject_kind = 'product'
+      and task.entity_kind = 'product'
+      and task.entity_source = 'custom'
+      and task.entity_ref = observation.subject_ref
+    left join community_product_research_resolutions resolution
+      on resolution.task_id = task.id
+    left join products published_candidate
+      on resolution.outcome = 'deliberate-intake-candidate'
+      and published_candidate.slug = resolution.candidate_id
+      and published_candidate.is_published = true
     where observation.moderation_status = 'pending'
       and contribution.moderation_status <> 'rejected'
       and contribution.retain_until > now()
@@ -125,6 +147,7 @@ export async function listPendingObservations(
     kind: row.observation_kind,
     subjectKind: row.subject_kind,
     subjectRef: row.subject_ref,
+    resolvedProductRef: row.resolved_product_ref,
     amountNgn: row.amount_ngn,
     outcome: row.outcome,
     observedOn: row.observed_on,
@@ -142,17 +165,32 @@ export async function findPendingObservation(
     observation_kind: 'price' | 'outcome';
     subject_kind: string;
     subject_ref: string;
+    resolved_product_ref: string | null;
     amount_ngn: number | null;
     outcome: string | null;
     observed_on: string | null;
     created_at: string;
   }[]>`
     select observation.id, observation.contribution_id, observation.observation_kind,
-           observation.subject_kind, observation.subject_ref, observation.amount_ngn,
+           observation.subject_kind, observation.subject_ref,
+           coalesce(resolution.canonical_product_slug, published_candidate.slug)
+             as resolved_product_ref,
+           observation.amount_ngn,
            observation.outcome, observation.observed_on::text as observed_on,
            observation.created_at::text as created_at
     from community_observations observation
     join community_contributions contribution on contribution.id = observation.contribution_id
+    left join community_research_tasks task
+      on observation.subject_kind = 'product'
+      and task.entity_kind = 'product'
+      and task.entity_source = 'custom'
+      and task.entity_ref = observation.subject_ref
+    left join community_product_research_resolutions resolution
+      on resolution.task_id = task.id
+    left join products published_candidate
+      on resolution.outcome = 'deliberate-intake-candidate'
+      and published_candidate.slug = resolution.candidate_id
+      and published_candidate.is_published = true
     where observation.moderation_status = 'pending'
       and contribution.moderation_status <> 'rejected'
       and contribution.retain_until > now()
@@ -165,6 +203,7 @@ export async function findPendingObservation(
     kind: row.observation_kind,
     subjectKind: row.subject_kind,
     subjectRef: row.subject_ref,
+    resolvedProductRef: row.resolved_product_ref,
     amountNgn: row.amount_ngn,
     outcome: row.outcome,
     observedOn: row.observed_on,

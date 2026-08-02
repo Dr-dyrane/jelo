@@ -8,6 +8,7 @@ export {
   decideModerationValue,
   mapModerationValue,
   decideObservation,
+  correctApprovedObservation,
   decideRetailerApplication,
   recordNote,
   reconcileCommunityResearchTasks,

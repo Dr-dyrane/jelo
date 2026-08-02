@@ -1,5 +1,6 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
+import { catalogueIntakeCandidates } from '@/data/catalogue-intake';
 
 export const communityResearchResolutionOutcomes = [
   'existing-canonical-product',
@@ -148,8 +149,12 @@ export async function resolveCommunityProductResearchTask(
       throw new Error('A research resolution requires an operator or admin.');
     }
 
-    const [task] = await transaction<{ id: string }[]>`
-      select id
+    const [task] = await transaction<{
+      id: string;
+      entity_source: 'canonical' | 'custom';
+      entity_ref: string;
+    }[]>`
+      select id, entity_source, entity_ref
       from community_research_tasks
       where id = ${row.taskId} and entity_kind = 'product'
       for update
@@ -157,14 +162,23 @@ export async function resolveCommunityProductResearchTask(
     if (!task) throw new Error('Community product research task does not exist.');
 
     if (row.canonicalProductSlug) {
+      if (task.entity_source === 'canonical' && task.entity_ref !== row.canonicalProductSlug) {
+        throw new Error('Canonical product resolution must match the task’s canonical reference.');
+      }
       const [canonicalProduct] = await transaction<{ exists: boolean }[]>`
         select exists(
-          select 1 from products where slug = ${row.canonicalProductSlug}
+          select 1
+          from products
+          where slug = ${row.canonicalProductSlug} and is_published = true
         ) as exists
       `;
       if (!canonicalProduct?.exists) {
-        throw new Error('Canonical product resolution target does not exist.');
+        throw new Error('Canonical product resolution target is not published.');
       }
+    }
+
+    if (row.candidateId && !catalogueIntakeCandidates.some(candidate => candidate.id === row.candidateId)) {
+      throw new Error('Deliberate intake resolution target is not in the checked-in intake manifest.');
     }
 
     const inserted = await transaction<{ task_id: string }[]>`
@@ -183,7 +197,13 @@ export async function resolveCommunityProductResearchTask(
 
     await transaction`
       update community_research_tasks
-      set status = ${row.taskStatus}, updated_at = now()
+      set
+        status = ${row.taskStatus},
+        assigned_operator_id = null,
+        work_state = 'ready',
+        next_action = null,
+        last_reviewed_at = now(),
+        updated_at = now()
       where id = ${row.taskId}
     `;
 

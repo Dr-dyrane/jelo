@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { parseOperatorCommand, type OperatorCommand } from '../lib/moderation/operator-command';
 import {
   canonicalModerationTargetExists,
+  correctApprovedObservation,
   decideContribution,
   decideEdge,
   decideModerationValue,
@@ -45,6 +46,17 @@ function assertCapability(role: OperatorRole, command: OperatorCommand) {
   if (command.action === 'inspect') return;
   if (command.action === 'reconcile') {
     if (role !== 'admin') throw new Error('Only an admin may reconcile research counters.');
+    return;
+  }
+  if (command.action === 'correct') {
+    if (role !== 'admin') throw new Error('Only an admin may correct a settled observation.');
+    return;
+  }
+  if (
+    command.queue === 'community_research_task'
+    && (command.action === 'claim' || command.action === 'defer')
+  ) {
+    if (role === 'moderator') throw new Error('Research assignment requires an operator or admin.');
     return;
   }
   if (command.action === 'note' || command.action === 'claim' || command.action === 'defer') return;
@@ -210,6 +222,38 @@ async function applyOrPreview(sql: Sql, operator: Operator, command: Exclude<Ope
     }
     const reconciled = await reconcileCommunityResearchTasks(sql, operator.auth_subject, command.rationale);
     return { mode: 'applied', action: command.action, queue: command.queue, reconciled, wouldWrite: reconciled > 0 };
+  }
+
+  if (command.action === 'correct') {
+    if (!await moderationTargetExists(sql, command.queue, command.targetId)) {
+      throw new Error('Moderation target does not exist.');
+    }
+    if (!command.apply) {
+      return {
+        mode: 'dry-run',
+        action: command.action,
+        queue: command.queue,
+        targetId: command.targetId,
+        disposition: command.disposition,
+        wouldWrite: false,
+      };
+    }
+    const settled = await correctApprovedObservation(
+      sql,
+      operator.auth_subject,
+      command.targetId,
+      command.disposition,
+      command.rationale,
+    );
+    if (!settled) throw new Error('The observation is not approved; no correction was recorded.');
+    return {
+      mode: 'applied',
+      action: command.action,
+      queue: command.queue,
+      targetId: command.targetId,
+      disposition: command.disposition,
+      wouldWrite: true,
+    };
   }
 
   if (!await moderationTargetExists(sql, command.queue, command.targetId)) {

@@ -1,0 +1,41 @@
+.mark {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border-radius: var(--ops-control-radius);
+  color: var(--ops-muted);
+  background: var(--ops-surface-subtle);
+}
+
+.actionStack {
+  display: grid;
+  border-top: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent);
+}
+
+.select,
+.input {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid color-mix(in srgb, var(--ops-ink) 14%, transparent);
+  border-radius: var(--ops-control-radius);
+  padding: 8px 10px;
+  color: var(--ops-ink);
+  background: var(--ops-workspace);
+  font: inherit;
+}
+
+.select:focus-visible,
+.input:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 1px;
+}
+
+.liveStatus {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

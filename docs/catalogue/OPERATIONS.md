@@ -79,6 +79,14 @@ resolution stores the reviewer, rationale, bounded audit metadata, and optional
 target reference. It does not create an intake candidate or write a product,
 dossier, release, offer, image, or public catalogue record.
 
+The existing-product target must be a published database product. A deliberate
+intake target must already exist in the checked-in intake manifest. These
+bindings prevent a plausible-looking slug from becoming research authority.
+Retailer research has the parallel dry-run command
+`npm run community:retailer-research:resolve`; it can bind to an existing
+retailer, record an ambiguous retailer, or dismiss a duplicate, and it never
+writes retailer or offer data.
+
 Choose a candidate for:
 
 - clinical or routine usefulness;

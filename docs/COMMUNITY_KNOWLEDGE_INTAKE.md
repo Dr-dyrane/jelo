@@ -69,6 +69,17 @@ decision only with `--apply`; it never authors intake, dossiers, releases, offer
 images, or products. Later mentions retain the terminal resolution instead of
 silently reopening the task.
 
+Migration `0030_community_research_workflow.sql` adds durable ownership and a
+specific next action to every active research task. `claim` records the active
+operator and moves the work to `assigned`; `defer` records the operator, the
+precise blocker, and `blocked`. Terminal decisions clear the active assignment
+but preserve the decision row and moderation history. The same migration adds
+one private, audit-attributed terminal resolution per retailer research task.
+Canonical retailer matches must name an existing retailer, and a task that was
+created from a canonical reference can resolve only to that exact reference.
+Neither the product nor retailer resolver writes products, retailers, offers,
+prices, assets, or publication state.
+
 ## Metrics
 
 The system can derive completion, time-to-complete, repeat contributions, unknown values, retailers and products discovered. Input events record step, mode and result count. They do not store search queries.
@@ -82,6 +93,13 @@ is no public moderation endpoint. The command-line path requires an active
 allowlisted operator, prints only aggregate data by default, dry-runs every mutation
 unless `--apply` is present, requires a rationale, and appends the decision to the
 same audit trail as the console.
+
+`/ops/research` is the manual research control surface. It shows current
+ownership and the next evidence action, supports attributable assignment or
+blocking, and records product or retailer outcomes through the same resolvers as
+the private commands. A free-form target cannot create a canonical record:
+canonical targets must already exist, deliberate product intake targets must be
+present in the checked-in intake manifest, and all outcomes remain private.
 
 Rejected contributions retain their immutable record but cannot leave pending
 edges, observations, or active research priority behind. Migration

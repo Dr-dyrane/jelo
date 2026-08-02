@@ -135,4 +135,6 @@ test('the migration is one resolution per product task and cannot grant publicat
   assert.match(report, /task\.status in \('pending', 'in-progress'\)/);
   assert.match(repository, /status in \('completed', 'dismissed'\)/);
   assert.doesNotMatch(writer, /\b(insert into|update)\s+(catalogue_intake|catalogue_publication|products|offers|product_images)\b/i);
+  assert.match(writer, /is_published = true/);
+  assert.match(writer, /catalogueIntakeCandidates\.some/);
 });

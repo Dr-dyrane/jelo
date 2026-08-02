@@ -36,6 +36,8 @@ test('the observation queue is complete, oldest-first, and keyset paginated', as
     /\(observation\.created_at,\s*observation\.id\)\s*>\s*\([\s\S]*?\$\{after\.createdAt\}::text::timestamptz,[\s\S]*?\$\{after\.id\}::uuid/,
   );
   assert.match(query, /order by observation\.created_at asc,\s*observation\.id asc/);
+  assert.match(query, /community_product_research_resolutions/);
+  assert.match(query, /published_candidate\.is_published = true/);
   assert.doesNotMatch(query, /\boffset\b/i);
   assert.match(
     migration,
@@ -80,6 +82,7 @@ test('observation imagery comes only from the exact presentation projection', as
   assert.match(inbox, /MessageSquareText/);
   assert.doesNotMatch(inbox, /humanizeRef|row\.product|subject\.image|product-placeholder/);
   assert.match(projection, /product\?\.slug === slug/);
+  assert.match(projection, /row\.resolvedProductRef/);
   assert.match(projection, /state: slug \? 'unresolved_product' : 'non_product'/);
 });
 
