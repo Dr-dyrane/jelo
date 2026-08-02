@@ -15,7 +15,7 @@ export type ResearchActionResult =
 
 const assignmentSchema = z.object({
   targetId: z.uuid(),
-  action: z.enum(['claim', 'defer']),
+  action: z.enum(['claim', 'defer', 'retry', 'takeover']),
   rationale: z.string().trim().min(1).max(2000),
 });
 
@@ -65,19 +65,66 @@ export async function assignResearchTaskAction(
       action: formData.get('action'),
       rationale: formData.get('rationale'),
     });
+    if (input.action === 'takeover' && operator.role !== 'admin') {
+      throw new Error('Only an admin may take over assigned research work.');
+    }
     await recordNote(
       getPostgresClient(),
       'community_research_task',
       operator.authSubject,
       input.targetId,
       input.rationale,
-      input.action,
+      input.action === 'takeover' ? 'claim' : input.action,
+      { allowResearchTakeover: input.action === 'takeover' },
     );
     revalidateResearch();
     return { ok: true, targetId: input.targetId, action: input.action, terminal: false };
   } catch (error) {
     return failure(targetId, error);
   }
+}
+
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export async function fetchMoreResearchTasksAction(
+  workRank: number,
+  signalCount: number,
+  firstSeenAt: string,
+  id: string,
+  limit = 40,
+) {
+  const operator = await requireConsoleOperator();
+  const parsedDate = new Date(firstSeenAt);
+  if (
+    !Number.isInteger(workRank)
+    || workRank < 0
+    || workRank > 3
+    || !Number.isInteger(signalCount)
+    || signalCount < 0
+    || !Number.isFinite(parsedDate.valueOf())
+    || !uuidPattern.test(id)
+  ) throw new Error('Invalid research cursor.');
+
+  const safeLimit = Math.min(Math.max(Math.trunc(limit), 1), 100);
+  const { listPendingResearchTasks } = await import('@/lib/moderation/research-tasks');
+  const fetchedRows = await listPendingResearchTasks(
+    getPostgresClient(),
+    operator.id,
+    safeLimit + 1,
+    { workRank, signalCount, firstSeenAt, id },
+  );
+  const rows = fetchedRows.slice(0, safeLimit);
+  const lastRow = rows.at(-1);
+  return {
+    items: rows,
+    hasMore: fetchedRows.length > safeLimit,
+    nextCursor: lastRow ? {
+      workRank: lastRow.workRank,
+      signalCount: lastRow.signalCount,
+      firstSeenAt: lastRow.firstSeenAt,
+      id: lastRow.id,
+    } : null,
+  };
 }
 
 export async function resolveResearchTaskAction(

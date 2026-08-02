@@ -34,7 +34,7 @@ export type OperatorCommand =
       json: boolean;
     }
   | {
-      action: 'claim' | 'defer' | 'note';
+      action: 'claim' | 'defer' | 'retry' | 'note';
       queue: ModerationQueue;
       targetId: string;
       rationale: string;
@@ -117,6 +117,7 @@ export function parseOperatorCommand(argv: string[]): OperatorCommand {
     'map',
     'claim',
     'defer',
+    'retry',
     'note',
     'reconcile',
     'correct',
@@ -190,6 +191,10 @@ export function parseOperatorCommand(argv: string[]): OperatorCommand {
       'community_moderation_value',
     ]).parse(queue);
     return { action, queue: decisionQueue, targetId, rationale: parsedRationale, apply, json };
+  }
+
+  if (action === 'retry' && queue !== 'community_research_task') {
+    throw new Error('Retry is available only for community_research_task.');
   }
 
   return { action, queue, targetId, rationale: parsedRationale, apply, json };

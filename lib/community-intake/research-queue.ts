@@ -1,4 +1,5 @@
 import type { ContributionDraft } from './schema';
+import { assertCommunityResearchTaskShape } from './research-reference';
 
 export const communityResearchPriorityLane = 'community-first' as const;
 export const communityResearchPublicationStatus = 'private-research-only' as const;
@@ -55,5 +56,7 @@ export function communityResearchTasks(draft: ContributionDraft): CommunityResea
     })),
   ];
 
-  return [...new Map(tasks.map(task => [`${task.taskKind}:${task.entityRef}`, task])).values()];
+  const uniqueTasks = [...new Map(tasks.map(task => [`${task.taskKind}:${task.entityRef}`, task])).values()];
+  uniqueTasks.forEach(assertCommunityResearchTaskShape);
+  return uniqueTasks;
 }

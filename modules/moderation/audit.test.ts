@@ -50,6 +50,13 @@ test('mapping and reconciliation are explicit audit actions', () => {
     targetRef: 'active-signal-counts',
     metadata: { reconciledTaskCount: 2 },
   }).action, 'reconcile');
+  assert.equal(moderationActionSchema.parse({
+    operatorSubject: 'op',
+    queue: 'community_research_task',
+    action: 'retry',
+    targetRef: 'task-1',
+    rationale: 'Try the exact source again.',
+  }).action, 'retry');
 });
 
 test('unknown actions, queues, and extra fields are rejected', () => {

@@ -53,6 +53,7 @@ const actionLabels: Record<ActivityDecision['action'], string> = {
   promote: 'Promoted',
   reconcile: 'Reconciled',
   defer: 'Deferred',
+  retry: 'Retried',
   note: 'Noted',
 };
 

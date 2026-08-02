@@ -80,8 +80,12 @@ target reference. It does not create an intake candidate or write a product,
 dossier, release, offer, image, or public catalogue record.
 
 The existing-product target must be a published database product. A deliberate
-intake target must already exist in the checked-in intake manifest. These
+intake target must already exist in the checked-in intake manifest, remain
+unreleased, and come from a custom product-identity task. These
 bindings prevent a plausible-looking slug from becoming research authority.
+Canonical research tasks accept only the exact existing product or retailer
+named by their stored namespaced reference; ambiguous and duplicate outcomes
+are reserved for custom identity research.
 Retailer research has the parallel dry-run command
 `npm run community:retailer-research:resolve`; it can bind to an existing
 retailer, record an ambiguous retailer, or dismiss a duplicate, and it never

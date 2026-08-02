@@ -47,3 +47,16 @@ test('duplicate values inside one submission cannot inflate research signals', (
   });
   assert.equal(tasks.length, 1);
 });
+
+test('custom punctuation and Unicode remain valid behind the exact custom namespace', () => {
+  const tasks = communityResearchTasks({
+    ...emptyContributionDraft('routine'),
+    products: [{
+      id: 'custom:toner: sensitive – 50 ml',
+      label: 'Toner: Sensitive – 50 ml',
+      source: 'custom' as const,
+    }],
+  });
+  assert.equal(tasks[0].entityRef, 'custom:toner: sensitive – 50 ml');
+  assert.equal(tasks[0].taskKind, 'product-identity');
+});

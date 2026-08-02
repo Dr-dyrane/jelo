@@ -29,8 +29,11 @@ test('research work has a private manual route, durable ownership, and role chec
   assert.match(actions, /resolveCommunityRetailerResearchTask/);
   assert.match(readModel, /status in \('pending', 'in-progress'\)/);
   assert.match(readModel, /assigned_operator_id/);
-  assert.match(transitions, /work_state = \$\{workState\}/);
+  assert.match(transitions, /work_state = \$\{planned\.workState\}/);
   assert.match(transitions, /next_action = \$\{rationale\}/);
+  assert.match(transitions, /for update/);
+  assert.match(transitions, /operator\.role !== 'admin'/);
+  assert.match(transitions, /previousOwnerId/);
   assert.match(migration, /community_research_tasks_assignment_check/);
   assert.match(shell, /href: '\/ops\/research'/);
   assert.match(capabilities, /'research\.manage'/);
@@ -43,9 +46,68 @@ test('research outcomes remain non-canonical and exact-target bound', async () =
   ]);
 
   assert.match(productWriter, /is_published = true/);
-  assert.match(productWriter, /catalogueIntakeCandidates\.some/);
-  assert.match(productWriter, /task\.entity_source === 'canonical'/);
-  assert.match(retailerWriter, /task\.entity_source === 'canonical'/);
+  assert.match(productWriter, /isReleasedIntakeCandidate/);
+  assert.match(productWriter, /task\.taskKind !== 'product-identity'/);
+  assert.match(productWriter, /task\.entitySource !== 'canonical'/);
+  assert.match(retailerWriter, /task\.entitySource !== 'canonical'/);
   assert.match(retailerWriter, /select 1 from retailers/);
   assert.doesNotMatch(retailerWriter, /\b(insert into|update)\s+(retailers|offers|products)\b/i);
+});
+
+test('research queue covers production-shaped identity, pagination, inspector states, and accessible actions', async () => {
+  const [page, inbox, actions, readModel, loading, error, css] = await Promise.all([
+    readSource('app/(ops)/ops/research/page.tsx'),
+    readSource('app/(ops)/ops/research/ResearchInbox.tsx'),
+    readSource('app/(ops)/ops/research/actions.ts'),
+    readSource('lib/moderation/research-tasks.ts'),
+    readSource('app/(ops)/ops/research/loading.tsx'),
+    readSource('app/(ops)/ops/research/error.tsx'),
+    readSource('app/(ops)/ops/research/research.module.css'),
+  ]);
+
+  assert.match(readModel, /canonicalTargetRef/);
+  assert.match(readModel, /canonicalResearchEntitySlug\(row\.entity_kind, row\.entity_ref\)/);
+  assert.match(readModel, /resolveOpsProductImages/);
+  assert.match(readModel, /afterCursor/);
+  assert.match(page, /LIMIT \+ 1/);
+  assert.match(page, /findPendingResearchTask/);
+  assert.match(page, /initialHasMore/);
+  assert.match(page, /const unreleasedCandidates = canManage/);
+  assert.match(actions, /fetchMoreResearchTasksAction/);
+  assert.match(inbox, /SafeProductImage/);
+  assert.match(inbox, /\[\.\.\.state\.extraRows, \.\.\.initialRows\]/);
+  assert.match(inbox, /row\.entitySource === 'canonical'[\s\S]*?\[options\[0\]\]/);
+  assert.match(inbox, /defaultValue=\{row\.canonicalTargetRef \?\? ''\}/);
+  assert.match(inbox, /readOnly=\{row\.entitySource === 'canonical'\}/);
+  assert.match(inbox, /detailScroll[\s\S]*?<ResearchForms/);
+  assert.match(inbox, /form=\{assignmentFormId\}/);
+  assert.match(inbox, /form=\{resolutionFormId\}/);
+  assert.match(inbox, /aria-busy=\{pending/);
+  assert.match(inbox, /role="status"/);
+  assert.match(inbox, /'Try again'/);
+  assert.doesNotMatch(inbox, /Exact target|Canonical slug or intake ID|Signals/);
+  assert.match(css, /min-height: 44px/);
+  assert.match(css, /white-space: pre-wrap/);
+  assert.match(loading, /OpsWorkspace title="Research"/);
+  assert.match(loading, /ResearchDetailSkeleton/);
+  assert.match(loading, /data-ops-reserve-detail/);
+  assert.match(error, /OpsWorkspace title="Research"/);
+  assert.match(error, /data-ops-reserve-detail/);
+});
+
+test('research command dry-runs use the same authoritative preflight as apply', async () => {
+  const [productScript, retailerScript, moderationScript] = await Promise.all([
+    readSource('scripts/resolve-community-research-task.ts'),
+    readSource('scripts/resolve-community-retailer-research-task.ts'),
+    readSource('scripts/manage-community-data.ts'),
+  ]);
+  assert.match(productScript, /await preflightCommunityProductResearchTask\(sql, resolution\)/);
+  assert.match(retailerScript, /await preflightCommunityRetailerResearchTask\(sql, resolution\)/);
+  assert.match(moderationScript, /await preflightResearchAssignment\(/);
+  for (const source of [productScript, retailerScript]) {
+    assert.ok(
+      source.indexOf('await preflightCommunity') < source.indexOf('command.apply\n      ?'),
+      'preflight must run before the dry-run/apply branch',
+    );
+  }
 });

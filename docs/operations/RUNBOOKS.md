@@ -325,9 +325,23 @@ MODERATION_OPERATOR_EMAIL=operator@example.invalid \
 Repeat with `--apply` after review. `claim` uses the same command shape and
 records `assigned` rather than `blocked`.
 
+The dry run checks the current owner and workflow state. Resolution dry-runs
+also check the task namespace and outcome, existing published target or eligible
+unreleased candidate, and prior resolution. Apply rechecks those guards inside
+the locked transaction; a successful preview is not permission to weaken a
+later concurrency failure.
+
+Only the current owner may move active research into `retry`, with the next
+bounded evidence step recorded. Admin takeover is reserved for work that already
+belongs to a different operator and preserves the displaced owner in the audit
+trail. Canonical tasks must resolve to the exact product or retailer named by
+their namespaced task reference; ambiguous and duplicate outcomes remain
+available only for custom identity work.
+
 Product outcomes use `npm run community:research:resolve`. Existing-product
 targets must be published, and deliberate-intake targets must already exist in
-the checked-in intake manifest. Retailer outcomes use the parallel private
+the checked-in intake manifest, remain unreleased, and originate from a custom
+product-identity task. Retailer outcomes use the parallel private
 command:
 
 ```bash

@@ -4,9 +4,15 @@ import path from 'node:path';
 import test from 'node:test';
 import { parseCommunityResearchResolutionCommand } from '@/lib/community-intake/research-resolution-command';
 import {
+  assertCommunityProductResearchOutcome,
+  assertDeliberateIntakeResearchTarget,
   buildCommunityProductResearchResolution,
   communityProductResearchResolutionSchema,
 } from '@/lib/community-intake/research-resolution';
+import {
+  assertCommunityRetailerResearchOutcome,
+  buildCommunityRetailerResearchResolution,
+} from '@/lib/community-intake/retailer-research-resolution';
 
 const taskId = '6b1629ce-b151-4ed6-b91d-b985a6d725d8';
 const common = {
@@ -56,6 +62,73 @@ test('a deliberate intake resolution records a handoff id without creating intak
   assert.equal(row.canonicalProductSlug, null);
   assert.equal(row.canonicalWrite, false);
   assert.equal(row.publicationStatus, 'private-research-only');
+});
+
+test('deliberate intake rejects released IDs and canonical-source tasks', () => {
+  assert.throws(() => assertDeliberateIntakeResearchTarget({
+    taskKind: 'product-identity',
+    entitySource: 'custom',
+  }, 'cerave-hydrating-cleanser-473ml'), /already explicitly released/);
+
+  assert.throws(() => assertDeliberateIntakeResearchTarget({
+    taskKind: 'product-retail-refresh',
+    entitySource: 'canonical',
+  }, 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml'), /custom product-identity/);
+
+  assert.doesNotThrow(() => assertDeliberateIntakeResearchTarget({
+    taskKind: 'product-identity',
+    entitySource: 'custom',
+  }, 'dang-niacinamide-n-acetyl-glucosamine-serum-30ml'));
+});
+
+test('canonical product and retailer tasks accept only their exact existing canonical outcome', () => {
+  assert.doesNotThrow(() => assertCommunityProductResearchOutcome({
+    taskKind: 'product-retail-refresh',
+    entitySource: 'canonical',
+    entityRef: 'product:known-product',
+  }, buildCommunityProductResearchResolution({
+    ...common,
+    outcome: 'existing-canonical-product',
+    canonicalSlug: 'known-product',
+  })));
+  for (const outcome of ['ambiguous-family', 'bundle', 'dismissed-duplicate'] as const) {
+    assert.throws(() => assertCommunityProductResearchOutcome({
+      taskKind: 'product-retail-refresh',
+      entitySource: 'canonical',
+      entityRef: 'product:known-product',
+    }, buildCommunityProductResearchResolution({ ...common, outcome })), /exact existing product/);
+  }
+  assert.throws(() => assertCommunityProductResearchOutcome({
+    taskKind: 'product-retail-refresh',
+    entitySource: 'canonical',
+    entityRef: 'product:known-product',
+  }, buildCommunityProductResearchResolution({
+    ...common,
+    outcome: 'existing-canonical-product',
+    canonicalSlug: 'other-product',
+  })), /must match/);
+
+  const retailerCommon = {
+    taskId,
+    reviewedBy: common.reviewedBy,
+    rationale: common.rationale,
+  };
+  assert.doesNotThrow(() => assertCommunityRetailerResearchOutcome({
+    taskKind: 'retailer-refresh',
+    entitySource: 'canonical',
+    entityRef: 'retailer:known-store',
+  }, buildCommunityRetailerResearchResolution({
+    ...retailerCommon,
+    outcome: 'existing-canonical-retailer',
+    canonicalSlug: 'known-store',
+  })));
+  for (const outcome of ['ambiguous-retailer', 'dismissed-duplicate'] as const) {
+    assert.throws(() => assertCommunityRetailerResearchOutcome({
+      taskKind: 'retailer-refresh',
+      entitySource: 'canonical',
+      entityRef: 'retailer:known-store',
+    }, buildCommunityRetailerResearchResolution({ ...retailerCommon, outcome })), /exact existing retailer/);
+  }
 });
 
 test('family and bundle outcomes reject catalogue targets', () => {
@@ -133,8 +206,8 @@ test('the migration is one resolution per product task and cannot grant publicat
   assert.match(migration, /ambiguous-family/);
   assert.match(migration, /dismissed-duplicate/);
   assert.match(report, /task\.status in \('pending', 'in-progress'\)/);
-  assert.match(repository, /status in \('completed', 'dismissed'\)/);
+  assert.doesNotMatch(repository, /when status in \('completed', 'dismissed'\)[\s\S]*?else 'pending'/);
   assert.doesNotMatch(writer, /\b(insert into|update)\s+(catalogue_intake|catalogue_publication|products|offers|product_images)\b/i);
   assert.match(writer, /is_published = true/);
-  assert.match(writer, /catalogueIntakeCandidates\.some/);
+  assert.match(writer, /isReleasedIntakeCandidate/);
 });

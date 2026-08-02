@@ -11,7 +11,14 @@ export const publishedIntakeReport = verifyCataloguePublicationReleaseManifest(
 
 export const publishedIntakeProducts = publishedIntakeReport.products;
 const publishedIntakeSlugs = new Set(publishedIntakeProducts.map(product => product.slug));
+const releasedIntakeCandidateIds = new Set(
+  publishedIntakeReport.releases.map(release => release.candidateId),
+);
 
 export function isPublishedIntakeProduct(productSlug: string) {
   return publishedIntakeSlugs.has(productSlug);
+}
+
+export function isReleasedIntakeCandidate(candidateId: string) {
+  return releasedIntakeCandidateIds.has(candidateId);
 }

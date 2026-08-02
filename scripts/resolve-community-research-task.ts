@@ -2,7 +2,7 @@ import postgres, { type Sql } from 'postgres';
 import { z } from 'zod';
 import { parseCommunityResearchResolutionCommand } from '@/lib/community-intake/research-resolution-command';
 import {
-  buildCommunityProductResearchResolution,
+  preflightCommunityProductResearchTask,
   resolveCommunityProductResearchTask,
 } from '@/lib/community-intake/research-resolution';
 
@@ -49,23 +49,18 @@ async function main() {
       ...command.resolution,
       reviewedBy: operator.auth_subject,
     };
-    const row = buildCommunityProductResearchResolution(resolution);
+    const row = await preflightCommunityProductResearchTask(sql, resolution);
     const [task] = await sql<{
       id: string;
       task_kind: string;
       entity_label: string;
       status: string;
-      existing_outcome: string | null;
     }[]>`
-      select task.id, task.task_kind, task.entity_label, task.status,
-             resolution.outcome as existing_outcome
+      select task.id, task.task_kind, task.entity_label, task.status
       from community_research_tasks task
-      left join community_product_research_resolutions resolution
-        on resolution.task_id = task.id
       where task.id = ${row.taskId} and task.entity_kind = 'product'
     `;
     if (!task) throw new Error('Community product research task does not exist.');
-    if (task.existing_outcome) throw new Error('Community research task already has a resolution.');
 
     const result = command.apply
       ? await resolveCommunityProductResearchTask(sql, resolution)

@@ -1,5 +1,9 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
+import {
+  assertCommunityResearchTaskShape,
+  canonicalResearchEntitySlug,
+} from './research-reference';
 
 export const communityRetailerResearchResolutionOutcomes = [
   'existing-canonical-retailer',
@@ -72,6 +76,44 @@ export function buildCommunityRetailerResearchResolution(
   };
 }
 
+export function assertCommunityRetailerResearchOutcome(
+  task: {
+    taskKind: 'retailer-identity' | 'retailer-refresh';
+    entitySource: 'canonical' | 'custom';
+    entityRef: string;
+  },
+  resolution: Pick<CommunityRetailerResearchResolutionRow, 'outcome' | 'canonicalRetailerSlug'>,
+) {
+  assertCommunityResearchTaskShape({
+    taskKind: task.taskKind,
+    entityKind: 'retailer',
+    entitySource: task.entitySource,
+    entityRef: task.entityRef,
+  });
+  if (task.entitySource !== 'canonical') return;
+
+  const taskSlug = canonicalResearchEntitySlug('retailer', task.entityRef);
+  if (!taskSlug) {
+    throw new Error('Canonical retailer research task has an invalid retailer namespace.');
+  }
+  if (resolution.outcome !== 'existing-canonical-retailer') {
+    throw new Error('Canonical retailer research requires an exact existing retailer outcome.');
+  }
+  if (taskSlug !== resolution.canonicalRetailerSlug) {
+    throw new Error('Canonical retailer resolution must match the task’s canonical reference.');
+  }
+}
+
+type RetailerResearchTaskRow = {
+  id: string;
+  task_kind: 'retailer-identity' | 'retailer-refresh';
+  entity_source: 'canonical' | 'custom';
+  entity_ref: string;
+  assigned_operator_id: string | null;
+  status: 'pending' | 'in-progress' | 'completed' | 'dismissed';
+  work_state: 'ready' | 'assigned' | 'blocked' | 'retry';
+};
+
 type TransactionCapableSql = Sql & {
   begin?: <T>(run: (transaction: Sql) => Promise<T>) => Promise<T>;
 };
@@ -83,6 +125,73 @@ async function inTransaction<T>(sql: Sql, run: (transaction: Sql) => Promise<T>)
     : run(sql);
 }
 
+async function validateCommunityRetailerResearchResolution(
+  sql: Sql,
+  row: CommunityRetailerResearchResolutionRow,
+  lockTask: boolean,
+) {
+  const [operator] = await sql<{
+    id: string;
+    role: 'moderator' | 'operator' | 'admin';
+  }[]>`
+    select id, role
+    from moderation_operators
+    where auth_subject = ${row.reviewedBy} and active = true
+    limit 1
+  `;
+  if (!operator || operator.role === 'moderator') {
+    throw new Error('A retailer research resolution requires an active operator or admin.');
+  }
+
+  const lock = lockTask ? sql`for update` : sql``;
+  const [task] = await sql<RetailerResearchTaskRow[]>`
+    select id, task_kind, entity_source, entity_ref,
+           assigned_operator_id, status, work_state
+    from community_research_tasks
+    where id = ${row.taskId} and entity_kind = 'retailer'
+    ${lock}
+  `;
+  if (!task) throw new Error('Community retailer research task does not exist.');
+  if (
+    task.status !== 'in-progress'
+    || task.assigned_operator_id !== operator.id
+    || !['assigned', 'blocked', 'retry'].includes(task.work_state)
+  ) {
+    throw new Error('Retailer research resolution requires the task’s current assigned operator.');
+  }
+  assertCommunityRetailerResearchOutcome({
+    taskKind: task.task_kind,
+    entitySource: task.entity_source,
+    entityRef: task.entity_ref,
+  }, row);
+
+  if (row.outcome === 'existing-canonical-retailer') {
+    const [retailer] = await sql<{ exists: boolean }[]>`
+      select exists(
+        select 1 from retailers where slug = ${row.canonicalRetailerSlug}
+      ) as exists
+    `;
+    if (!retailer?.exists) throw new Error('Canonical retailer resolution target does not exist.');
+  }
+
+  const [existing] = await sql<{ exists: boolean }[]>`
+    select exists(
+      select 1 from community_retailer_research_resolutions where task_id = ${row.taskId}
+    ) as exists
+  `;
+  if (existing?.exists) throw new Error('Community retailer research task already has a resolution.');
+  return task;
+}
+
+export async function preflightCommunityRetailerResearchTask(
+  sql: Sql,
+  input: CommunityRetailerResearchResolutionInput,
+) {
+  const row = buildCommunityRetailerResearchResolution(input);
+  await validateCommunityRetailerResearchResolution(sql, row, false);
+  return row;
+}
+
 /** Records a terminal retailer research decision without changing retailer or offer data. */
 export async function resolveCommunityRetailerResearchTask(
   sql: Sql,
@@ -91,39 +200,7 @@ export async function resolveCommunityRetailerResearchTask(
   const row = buildCommunityRetailerResearchResolution(input);
 
   return inTransaction(sql, async transaction => {
-    const [operator] = await transaction<{ role: 'moderator' | 'operator' | 'admin' }[]>`
-      select role
-      from moderation_operators
-      where auth_subject = ${row.reviewedBy} and active = true
-      limit 1
-    `;
-    if (!operator || operator.role === 'moderator') {
-      throw new Error('A retailer research resolution requires an active operator or admin.');
-    }
-
-    const [task] = await transaction<{
-      id: string;
-      entity_source: 'canonical' | 'custom';
-      entity_ref: string;
-    }[]>`
-      select id, entity_source, entity_ref
-      from community_research_tasks
-      where id = ${row.taskId} and entity_kind = 'retailer'
-      for update
-    `;
-    if (!task) throw new Error('Community retailer research task does not exist.');
-
-    if (row.outcome === 'existing-canonical-retailer') {
-      if (task.entity_source === 'canonical' && task.entity_ref !== row.canonicalRetailerSlug) {
-        throw new Error('Canonical retailer resolution must match the task’s canonical reference.');
-      }
-      const [retailer] = await transaction<{ exists: boolean }[]>`
-        select exists(
-          select 1 from retailers where slug = ${row.canonicalRetailerSlug}
-        ) as exists
-      `;
-      if (!retailer?.exists) throw new Error('Canonical retailer resolution target does not exist.');
-    }
+    await validateCommunityRetailerResearchResolution(transaction, row, true);
 
     const inserted = await transaction<{ task_id: string }[]>`
       insert into community_retailer_research_resolutions (

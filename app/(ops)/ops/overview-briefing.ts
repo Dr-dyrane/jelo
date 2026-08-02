@@ -96,14 +96,14 @@ export type OverviewAuditEntry = {
   id: string;
   operatorName: string;
   queue: 'community_contribution' | 'community_edge' | 'community_observation' | 'community_moderation_value' | 'community_research_task' | 'retailer_application' | 'commerce_signal';
-  action: 'claim' | 'approve' | 'reject' | 'map' | 'promote' | 'reconcile' | 'defer' | 'note';
+  action: 'claim' | 'approve' | 'reject' | 'map' | 'promote' | 'reconcile' | 'defer' | 'retry' | 'note';
   targetLabel?: string;
   createdAt: string;
   image?: string | null;
 };
 
 const ACTION_LABELS: Record<OverviewAuditEntry['action'], string> = {
-  claim: 'Claimed', approve: 'Approved', reject: 'Rejected', map: 'Mapped', promote: 'Promoted', reconcile: 'Reconciled', defer: 'Deferred', note: 'Noted',
+  claim: 'Claimed', approve: 'Approved', reject: 'Rejected', map: 'Mapped', promote: 'Promoted', reconcile: 'Reconciled', defer: 'Deferred', retry: 'Retried', note: 'Noted',
 };
 
 const AUDIT_QUEUE_LABELS: Record<OverviewAuditEntry['queue'], string> = {

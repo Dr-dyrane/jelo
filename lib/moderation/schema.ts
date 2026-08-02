@@ -19,7 +19,7 @@ export type ModerationQueue = z.infer<typeof moderationQueueSchema>;
 export const moderationActionSchema = z.object({
   operatorSubject: z.string().min(1).max(320),
   queue: moderationQueueSchema,
-  action: z.enum(['claim', 'approve', 'reject', 'map', 'promote', 'reconcile', 'defer', 'note']),
+  action: z.enum(['claim', 'approve', 'reject', 'map', 'promote', 'reconcile', 'defer', 'retry', 'note']),
   targetRef: z.string().min(1).max(200),
   canonicalWrite: z.boolean().default(false),
   rationale: z.string().min(1).max(2000).nullable().default(null),

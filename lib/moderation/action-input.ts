@@ -25,7 +25,7 @@ export type MapValueInput = z.infer<typeof mapValueInputSchema>;
 
 export const noteInputSchema = z.object({
   targetId: z.uuid(),
-  action: z.enum(['note', 'defer', 'claim']).default('note'),
+  action: z.enum(['note', 'defer', 'claim', 'retry']).default('note'),
   rationale: z.string().min(1).max(2000),
 }).strict();
 export type NoteInput = z.infer<typeof noteInputSchema>;

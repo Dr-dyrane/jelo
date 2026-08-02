@@ -104,6 +104,28 @@ test('an admin correction names the observation disposition explicitly', () => {
   ]), /only for community_observation/);
 });
 
+test('retry is an attributable research-only transition', () => {
+  assert.deepEqual(parseOperatorCommand([
+    '--action', 'retry',
+    '--queue', 'community_research_task',
+    '--target-id', targetId,
+    '--rationale', 'Check the recovered retailer page once more.',
+  ]), {
+    action: 'retry',
+    queue: 'community_research_task',
+    targetId,
+    rationale: 'Check the recovered retailer page once more.',
+    apply: false,
+    json: false,
+  });
+  assert.throws(() => parseOperatorCommand([
+    '--action', 'retry',
+    '--queue', 'community_observation',
+    '--target-id', targetId,
+    '--rationale', 'Wrong queue.',
+  ]), /only for community_research_task/);
+});
+
 test('unknown and action-incompatible flags are rejected', () => {
   assert.throws(() => parseOperatorCommand(['--payload', 'raw']), /Unknown flag/);
   assert.throws(() => parseOperatorCommand([

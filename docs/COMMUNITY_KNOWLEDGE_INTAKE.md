@@ -72,13 +72,27 @@ silently reopening the task.
 Migration `0030_community_research_workflow.sql` adds durable ownership and a
 specific next action to every active research task. `claim` records the active
 operator and moves the work to `assigned`; `defer` records the operator, the
-precise blocker, and `blocked`. Terminal decisions clear the active assignment
+precise blocker, and `blocked`; `retry` is available only to the current owner
+and records the next bounded attempt. An admin takeover locks the task, requires
+a different existing owner, and records both the displaced and new owner.
+Terminal decisions clear the active assignment
 but preserve the decision row and moderation history. The same migration adds
 one private, audit-attributed terminal resolution per retailer research task.
 Canonical retailer matches must name an existing retailer, and a task that was
 created from a canonical reference can resolve only to that exact reference.
 Neither the product nor retailer resolver writes products, retailers, offers,
 prices, assets, or publication state.
+
+Migration `0031_community_research_task_shape.sql` binds each task kind to its
+one valid entity kind, source, and reference namespace. Canonical product and
+retailer tasks accept only the exact existing record already named by the task;
+custom identity tasks retain the wider reviewed outcome set.
+
+A later contribution may add a new independent mention and increase a task’s
+signal count, but it never reopens the task or clears its owner, blocker, retry,
+or terminal decision. Terminal resolutions are immutable; new evidence that
+requires fresh work must enter a new attributable task rather than silently
+rewriting the settled one.
 
 ## Metrics
 
@@ -94,12 +108,20 @@ allowlisted operator, prints only aggregate data by default, dry-runs every muta
 unless `--apply` is present, requires a rationale, and appends the decision to the
 same audit trail as the console.
 
+Research dry-runs execute the same read-only ownership, task-shape, exact-target,
+candidate-release, and existing-resolution preflight used immediately before an
+applied transition. They can still become stale after the read; every applied
+writer revalidates under its transaction and row lock.
+
 `/ops/research` is the manual research control surface. It shows current
 ownership and the next evidence action, supports attributable assignment or
 blocking, and records product or retailer outcomes through the same resolvers as
 the private commands. A free-form target cannot create a canonical record:
 canonical targets must already exist, deliberate product intake targets must be
-present in the checked-in intake manifest, and all outcomes remain private.
+present in the checked-in intake manifest and not already explicitly released,
+and all outcomes remain private. A deliberate intake outcome is valid only for
+a custom product-identity task; canonical refresh tasks resolve to their exact
+existing record instead.
 
 Rejected contributions retain their immutable record but cannot leave pending
 edges, observations, or active research priority behind. Migration

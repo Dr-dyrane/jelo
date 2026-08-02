@@ -89,6 +89,7 @@ const actionLabels: Record<ConsoleOperatorActivity['action'], string> = {
   promote: 'Published',
   reconcile: 'Reconciled',
   defer: 'Deferred',
+  retry: 'Retried',
   note: 'Noted',
 };
 
