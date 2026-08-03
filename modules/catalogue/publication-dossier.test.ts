@@ -1039,6 +1039,12 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
       { retailer: 'CSi Grocery', priceNgn: 3_600, available: true },
     ],
   );
+  const simpleRichMoisturiser = report.products.find(product => (
+    product.slug === 'c28f590dd2739ea73f1b5ea3'
+  ));
+  assert.ok(simpleRichMoisturiser);
+  assert.equal(simpleRichMoisturiser.name, 'Kind to Skin Replenishing Rich Moisturiser');
+  assert.equal(simpleRichMoisturiser.step, 'Moisturize');
   const zaronProduct = report.products.find(product => (
     product.slug === 'skin-by-zaron-vitamin-c-body-wash-650ml'
   ));

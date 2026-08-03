@@ -151,7 +151,7 @@
     "recommendationEligible": false,
     "presentation": {
       "category": "Face",
-      "routineStep": "Moisturise",
+      "routineStep": "Moisturize",
       "displayLine": "Rich daily moisturiser · 125 ml",
       "usage": "Smooth gently over clean face and neck. Use morning or evening, avoiding direct contact with eyes.",
       "manufacturerDirectionsUrl": "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
@@ -163,6 +163,6 @@
       "reviewer": "JeloCare catalogue release reviewer",
       "publishedAt": "2026-08-02T16:15:00Z"
     },
-    "releaseFingerprint": "b7e03d09187025e73abfde2c348f5cd99df00bb629063cad4327d75e19faa81d"
+    "releaseFingerprint": "ed2268e9a21f54f03a8f35ba3e592df7401d171d9ae23bd5a031a929615178c2"
   }
 }
