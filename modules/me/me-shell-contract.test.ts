@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  createMeStackBack,
   createMeDockContext,
   ME_PORTAL_SURFACES,
   ME_RELEASED_WORKSPACE_NAVIGATION,
   ME_WORKSPACE_FABS,
   ME_WORKSPACE_NAVIGATION,
+  resolveMeActiveParentHref,
   resolveMeHeaderHidden,
+  resolveMeProductOrigin,
 } from '../../components/me/shell/me-shell-model';
 import {
   INITIAL_WORKSPACE_DOCK_SCROLL_STATE,
@@ -26,6 +29,49 @@ test('JeloCare Me has exactly four released primary destinations', () => {
   assert.equal(resolveActiveWorkspaceNavigationItem(ME_WORKSPACE_NAVIGATION, '/me/explore')?.id, 'explore');
   assert.equal(resolveActiveWorkspaceNavigationItem(ME_WORKSPACE_NAVIGATION, '/me/shelf')?.id, 'shelf');
   assert.equal(resolveActiveWorkspaceNavigationItem(ME_WORKSPACE_NAVIGATION, '/me/routine')?.id, 'routine');
+});
+
+test('stack Back is shell-owned, deterministic, and preserves the active parent', () => {
+  for (const kind of ['home', 'explore', 'shelf', 'routine'] as const) {
+    assert.equal(createMeStackBack({ kind }), undefined);
+  }
+
+  const cases = [
+    { route: { kind: 'consult' } as const, href: '/me', label: 'Back to Home', parent: 'home' },
+    { route: { kind: 'product', slug: 'exact', origin: 'home' } as const, href: '/me', label: 'Back to Home', parent: 'home' },
+    { route: { kind: 'product', slug: 'exact', origin: 'explore' } as const, href: '/me/explore', label: 'Back to Explore', parent: 'explore' },
+    { route: { kind: 'product', slug: 'exact', origin: 'shelf' } as const, href: '/me/shelf', label: 'Back to Shelf', parent: 'shelf' },
+    { route: { kind: 'product', slug: 'exact', origin: 'routine' } as const, href: '/me/routine', label: 'Back to Routine', parent: 'routine' },
+  ];
+  for (const { route, href, label, parent } of cases) {
+    assert.deepEqual(createMeStackBack(route), { href, accessibleLabel: label });
+    assert.equal(resolveMeActiveParentHref(route), href);
+    assert.equal(resolveActiveWorkspaceNavigationItem(ME_WORKSPACE_NAVIGATION, href)?.id, parent);
+  }
+
+  assert.equal(resolveMeProductOrigin('home'), 'home');
+  assert.equal(resolveMeProductOrigin('explore'), 'explore');
+  assert.equal(resolveMeProductOrigin('shelf'), 'shelf');
+  assert.equal(resolveMeProductOrigin('routine'), 'routine');
+  for (const unsafe of [undefined, 'consult', 'https://evil.example/me', '/me/explore', ['explore']]) {
+    assert.equal(resolveMeProductOrigin(unsafe), 'home');
+  }
+
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const dock = readFileSync('components/workspace-shell/adaptive-workspace-dock.tsx', 'utf8');
+  const dockStyles = readFileSync('components/workspace-shell/adaptive-workspace-dock.module.css', 'utf8');
+  assert.doesNotMatch(home, /function BackLink|<BackLink|styles\.backLink|ArrowLeft/);
+  assert.match(home, /const back = createMeStackBack\(route\)/);
+  assert.match(home, /<MeWorkspaceDock[^>]*back=\{back\}/);
+  assert.equal(dock.match(/<DockBack\b/g)?.length, 1);
+  assert.match(dock, /data-workspace-dock-back=\{back\.href\}/);
+  assert.match(dock, /aria-label=\{back\.accessibleLabel\}/);
+  assert.match(dock, /mode === 'expanded'[\s\S]*\{backControl\}[\s\S]*\{navigation\(\)\}/);
+  assert.match(dock, /mode === 'compact'[\s\S]*\{backControl \?\? \([\s\S]*<ActivePageOrb/);
+  assert.match(dock, /mode === 'navigation'[\s\S]*\{backControl\}[\s\S]*\{navigation\(true\)\}/);
+  assert.match(dockStyles, /\.pageOrb,[\s\S]*\.fab[\s\S]*width: 58px;[\s\S]*height: 58px;/);
+  assert.match(dockStyles, /\.interactive:focus-visible/);
+  assert.match(dockStyles, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
 test('the complete portal surface vocabulary is concise, personal, and route-owned', () => {
@@ -82,12 +128,15 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.match(route, /await requireCustomer\(\)/);
   assert.match(route, /section === 'explore'[\s\S]*section === 'shelf'[\s\S]*section === 'routine'[\s\S]*section === 'consult'/);
   assert.match(route, /parts\[0\] === 'product'/);
+  assert.match(route, /resolveMeProductOrigin\(from\)/);
+  assert.doesNotMatch(route, /PRODUCT_ORIGINS|:\s*'explore';/);
   assert.doesNotMatch(route, /ownerId|customerId|subject:/);
   assert.match(home, /href="\/me\/consult"/);
   assert.match(home, /`\/me\/product\/\$\{product\.slug\}`/);
-  assert.match(home, /<BackLink href=\{backHref\}/);
-  assert.match(home, /currentHref: route\.origin === 'home' \|\| route\.origin === 'consult'/);
-  assert.match(home, /route\.origin === 'consult'[\s\S]*'\/me\/consult'/);
+  assert.doesNotMatch(home, /<BackLink|function BackLink/);
+  assert.match(home, /currentHref: resolveMeActiveParentHref\(route\)/);
+  assert.match(home, /createMeStackBack\(route\)/);
+  assert.match(home, /source="home"/);
   assert.match(home, /window\.location\.assign\(`\/products\/\$\{route\.kind === 'product' \? route\.slug : ''\}`\)/);
   assert.doesNotMatch(home, /window\.location\.assign\('\/consult'/);
   assert.match(publicProduct, /findCatalogueProduct\(slug\)/);

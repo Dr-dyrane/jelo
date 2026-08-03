@@ -3,6 +3,7 @@
 import { CircleUserRound, Compass, House, LibraryBig, Rows3 } from 'lucide-react';
 import {
   AdaptiveWorkspaceDock,
+  type WorkspaceDockBackDescriptor,
   type WorkspaceDockNavigateHandler,
   type WorkspaceDockNavigationItem,
 } from '@/components/workspace-shell/adaptive-workspace-dock';
@@ -24,11 +25,13 @@ export function MeWorkspaceDock({
   controller,
   currentHref,
   context,
+  back,
   onNavigate,
 }: {
   controller: AdaptiveWorkspaceDockController;
   currentHref: string;
   context: DockContextDescriptor;
+  back?: WorkspaceDockBackDescriptor;
   onNavigate?: WorkspaceDockNavigateHandler;
 }) {
   return (
@@ -37,6 +40,7 @@ export function MeWorkspaceDock({
       navigationItems={ME_DOCK_ITEMS}
       currentHref={currentHref}
       context={context}
+      back={back}
       onNavigate={onNavigate}
     />
   );

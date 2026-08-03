@@ -29,6 +29,9 @@ finance state, iOS exception controllers, Finance/Ops tokens, and route policy.
 
 `DockContextDescriptor` is a serialisable description with `id`, `label`,
 `detail`, and an optional complete accessible label. It has no callback.
+`WorkspaceDockBackDescriptor` is a deterministic internal `href` plus a complete
+accessible name. Stack routes may supply one; primary routes supply none. Back
+is shell navigation, never a primary destination or page mutation.
 
 `resolveAdaptiveWorkspaceDockMode` is pure:
 
@@ -93,21 +96,23 @@ current scope or evidence.
 
 ```text
 context capsule
-navigation island                         FAB
+[Back]   navigation island                FAB
 ```
 
 The context is above navigation. The bottom row is 58 px; the complete stack is
-110 px before bottom/safe-area clearance.
+110 px before bottom/safe-area clearance. Back occupies the stable 58 px left
+slot only on a stack route.
 
 ### Compact
 
 ```text
-page orb   context capsule                 FAB
+[Back]     context capsule                 FAB
 ```
 
 At narrow width the context may visually truncate, but its accessible name is
-complete. The page orb is a real button labelled `Show navigation. <Page>
-selected`.
+complete. A primary page uses the real `Show navigation. <Page> selected` orb;
+a stack page replaces that same geometric slot with its deterministic Back link.
+The context and FAB do not move or change meaning.
 
 ### Navigation
 
@@ -117,6 +122,9 @@ four route-owned destinations              FAB
 
 Activating the orb replaces compact context with the complete navigation in the
 same row and moves keyboard focus to the current `aria-current="page"` link.
+Stack routes do not reveal navigation from the Back slot. If reveal state is
+already present, the one shell-owned Back stays in its left slot before the
+four destinations; primary routes never render it.
 
 ### Single
 
@@ -141,7 +149,7 @@ The dock is a lens, not frosted card chrome:
 
 ## Accessibility and preferences
 
-- Orb, FAB, and navigation targets meet or exceed 44 px; orb/FAB are 58 px.
+- Back, orb, FAB, and navigation targets meet or exceed 44 px; Back/orb/FAB are 58 px.
 - Focus is independent from persistent selection.
 - Busy and disabled FAB state is semantic and visible.
 - Hidden modes are conditionally absent from the accessibility tree rather than

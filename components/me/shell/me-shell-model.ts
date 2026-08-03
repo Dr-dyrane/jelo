@@ -11,6 +11,44 @@ export const ME_RELEASED_WORKSPACE_NAVIGATION = ME_WORKSPACE_NAVIGATION;
 
 export type MeWorkspaceTab = typeof ME_WORKSPACE_NAVIGATION[number]['id'];
 export type MeWorkspacePage = MeWorkspaceTab | 'consult' | 'product';
+export type MeProductOrigin = MeWorkspaceTab;
+type MePrimaryRoute = {
+  [Kind in MeWorkspaceTab]: { kind: Kind };
+}[MeWorkspaceTab];
+export type MePortalRoute =
+  | MePrimaryRoute
+  | { kind: 'consult' }
+  | { kind: 'product'; slug: string; origin: MeProductOrigin };
+
+const ME_PRIMARY_HREFS: Record<MeWorkspaceTab, string> = {
+  home: '/me',
+  explore: '/me/explore',
+  shelf: '/me/shelf',
+  routine: '/me/routine',
+};
+
+export function resolveMeProductOrigin(from: unknown): MeProductOrigin {
+  return typeof from === 'string' && Object.hasOwn(ME_PRIMARY_HREFS, from)
+    ? from as MeProductOrigin
+    : 'home';
+}
+
+export function resolveMeActiveParentHref(route: MePortalRoute): string {
+  if (route.kind === 'consult') return ME_PRIMARY_HREFS.home;
+  if (route.kind === 'product') return ME_PRIMARY_HREFS[route.origin];
+  return ME_PRIMARY_HREFS[route.kind];
+}
+
+export function createMeStackBack(route: MePortalRoute) {
+  if (route.kind !== 'consult' && route.kind !== 'product') return undefined;
+  const href = resolveMeActiveParentHref(route);
+  const parent = ME_WORKSPACE_NAVIGATION.find((item) => item.href === href)
+    ?? ME_WORKSPACE_NAVIGATION[0];
+  return {
+    href,
+    accessibleLabel: `Back to ${parent.label}`,
+  };
+}
 
 export const ME_PORTAL_SURFACES = {
   home: { layer: 'primary', route: '/me', parent: 'home', eyebrow: 'JeloCare Me', title: 'My care.' },

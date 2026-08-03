@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import {
-  ArrowLeft,
   ArrowRight,
   Compass,
   ExternalLink,
@@ -20,25 +19,21 @@ import {
 } from '@/components/workspace-shell';
 import { MeAccountSheet } from '@/components/me/shell/me-account-sheet';
 import {
+  createMeStackBack,
   createMeDockContext,
   ME_PORTAL_SURFACES,
   ME_WORKSPACE_FABS,
+  resolveMeActiveParentHref,
   resolveMeHeaderHidden,
+  type MePortalRoute,
+  type MeProductOrigin,
   type MeWorkspacePage,
 } from '@/components/me/shell/me-shell-model';
 import { MeAccountAvatarIcon, MeWorkspaceDock } from '@/components/me/shell/me-workspace-dock';
 import type { CustomerPortalProduct, CustomerPortalViewModel } from '@/lib/customer/portal-model';
 import styles from './me-home.module.css';
 
-export type MePortalRoute =
-  | { kind: 'home' }
-  | { kind: 'explore' }
-  | { kind: 'shelf' }
-  | { kind: 'routine' }
-  | { kind: 'consult' }
-  | { kind: 'product'; slug: string; origin: 'home' | 'explore' | 'shelf' | 'routine' | 'consult' };
-
-type ProductSource = Extract<MePortalRoute, { kind: 'product' }>['origin'];
+type ProductSource = MeProductOrigin;
 const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
 
 function memberProductHref(product: CustomerPortalProduct, source?: ProductSource) {
@@ -91,14 +86,6 @@ function ExploreCard({ product, source = 'explore' }: {
   );
 }
 
-function BackLink({ href }: { href: string }) {
-  return (
-    <Link className={styles.backLink} href={href}>
-      <ArrowLeft size={17} aria-hidden="true" /> Back
-    </Link>
-  );
-}
-
 function SearchField({
   value,
   onChange,
@@ -128,25 +115,23 @@ function SearchField({
 function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
   const count = (value: number, noun: string) => `${value} ${noun}${value === 1 ? '' : 's'}`;
   if (route.kind === 'home') {
-    return { routeKey: '/me', currentHref: '/me', page: 'home' as MeWorkspacePage, detail: 'My care' };
+    return { routeKey: '/me', currentHref: resolveMeActiveParentHref(route), page: 'home' as MeWorkspacePage, detail: 'My care' };
   }
   if (route.kind === 'explore') {
-    return { routeKey: '/me/explore', currentHref: '/me/explore', page: 'explore' as MeWorkspacePage, detail: 'Exact catalogue' };
+    return { routeKey: '/me/explore', currentHref: resolveMeActiveParentHref(route), page: 'explore' as MeWorkspacePage, detail: 'Exact catalogue' };
   }
   if (route.kind === 'shelf') {
-    return { routeKey: '/me/shelf', currentHref: '/me/shelf', page: 'shelf' as MeWorkspacePage, detail: count(viewModel.shelf.length, 'saved product') };
+    return { routeKey: '/me/shelf', currentHref: resolveMeActiveParentHref(route), page: 'shelf' as MeWorkspacePage, detail: count(viewModel.shelf.length, 'saved product') };
   }
   if (route.kind === 'routine') {
-    return { routeKey: '/me/routine', currentHref: '/me/routine', page: 'routine' as MeWorkspacePage, detail: count(viewModel.routine.length, 'saved step') };
+    return { routeKey: '/me/routine', currentHref: resolveMeActiveParentHref(route), page: 'routine' as MeWorkspacePage, detail: count(viewModel.routine.length, 'saved step') };
   }
   if (route.kind === 'consult') {
-    return { routeKey: '/me/consult', currentHref: '/me', page: 'consult' as MeWorkspacePage, detail: 'My care' };
+    return { routeKey: '/me/consult', currentHref: resolveMeActiveParentHref(route), page: 'consult' as MeWorkspacePage, detail: 'My care' };
   }
   return {
     routeKey: `/me/product/${route.slug}`,
-    currentHref: route.origin === 'home' || route.origin === 'consult'
-      ? '/me'
-      : `/me/${route.origin}`,
+    currentHref: resolveMeActiveParentHref(route),
     page: 'product' as MeWorkspacePage,
     detail: 'Exact catalogue record',
   };
@@ -325,7 +310,6 @@ function ConsultPage({
   const surface = ME_PORTAL_SURFACES.consult;
   return (
     <section className={`${styles.routePage} ${styles.stackPage}`} aria-labelledby="me-consult-title">
-      <BackLink href="/me" />
       <div className={styles.routeHeading}>
         <p className={styles.eyebrow}>{surface.eyebrow}</p>
         <h1 id="me-consult-title">{surface.title}</h1>
@@ -337,7 +321,7 @@ function ConsultPage({
         </div>
       ) : null}
       <div className={styles.exploreGrid}>
-        {products.slice(0, 6).map((product) => <ExploreCard key={product.slug} product={product} source="consult" />)}
+        {products.slice(0, 6).map((product) => <ExploreCard key={product.slug} product={product} source="home" />)}
       </div>
     </section>
   );
@@ -345,23 +329,15 @@ function ConsultPage({
 
 function ProductPage({
   product,
-  route,
   viewModel,
 }: {
   product: CustomerPortalProduct;
-  route: Extract<MePortalRoute, { kind: 'product' }>;
   viewModel: CustomerPortalViewModel;
 }) {
   const onShelf = viewModel.shelf.some((item) => item.slug === product.slug);
   const routineStep = viewModel.routine.find((step) => step.product.slug === product.slug);
-  const backHref = route.origin === 'home'
-    ? '/me'
-    : route.origin === 'consult'
-      ? '/me/consult'
-      : `/me/${route.origin}`;
   return (
     <article className={`${styles.routePage} ${styles.stackPage} ${styles.productPage}`} aria-labelledby="me-product-title">
-      <BackLink href={backHref} />
       <div className={styles.productHero}>
         <div className={styles.productVisualLarge}>
           <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} priority />
@@ -417,6 +393,7 @@ function MePortalView({
     ? catalogue.find((candidate) => candidate.slug === route.slug)
     : undefined;
   const context = createMeDockContext({ page: state.page, detail: state.detail });
+  const back = createMeStackBack(route);
   const accountTriggerRef = useRef<HTMLButtonElement>(null);
   const [accountSheetState, setAccountSheetState] = useState(() => ({
     routeKey: state.routeKey,
@@ -524,12 +501,12 @@ function MePortalView({
             />
           ) : null}
           {route.kind === 'product' && product ? (
-            <ProductPage product={product} route={route} viewModel={viewModel} />
+            <ProductPage product={product} viewModel={viewModel} />
           ) : null}
         </div>
       </main>
 
-      <MeWorkspaceDock controller={controller} currentHref={state.currentHref} context={context} />
+      <MeWorkspaceDock controller={controller} currentHref={state.currentHref} context={context} back={back} />
     </div>
   );
 }

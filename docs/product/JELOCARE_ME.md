@@ -55,8 +55,13 @@ independently usable without a customer session.
 
 The primary navigation is exactly Home, Explore, Shelf, and Routine. Ask Me and
 Product are stack pages with a meaningful Back destination and the correct
-parent destination selected in the persistent shell. Do not add a navigation
-entry, placeholder, or mutation until its destination and behavior are truthful.
+parent destination selected in the persistent shell. Back belongs to the
+shell's stable left dock slot, replaces the compact current-page orb, and never
+appears as a primary tab or loose page-body control. Consult returns to Home.
+Member Product returns to an allowlisted `from=home|explore|shelf|routine`
+parent; missing, malformed, array, or external values fail closed to Home. Do
+not add a navigation entry, placeholder, or mutation until its destination and
+behavior are truthful.
 
 ## Workspace composition
 

@@ -1,12 +1,14 @@
 import { createElement } from 'react';
 import { notFound } from 'next/navigation';
-import { MePortal, type MePortalRoute } from '@/components/me/home/me-home';
+import { MePortal } from '@/components/me/home/me-home';
+import {
+  resolveMeProductOrigin,
+  type MePortalRoute,
+} from '@/components/me/shell/me-shell-model';
 import { requireCustomer } from '@/lib/customer/access';
 import { readCustomerPortal } from '@/lib/customer/read-model';
 
 export const dynamic = 'force-dynamic';
-
-const PRODUCT_ORIGINS = new Set(['home', 'explore', 'shelf', 'routine', 'consult']);
 
 function parseRoute(parts: readonly string[], from: string | string[] | undefined): MePortalRoute | null {
   if (parts.length === 1) {
@@ -17,9 +19,7 @@ function parseRoute(parts: readonly string[], from: string | string[] | undefine
   }
 
   if (parts.length === 2 && parts[0] === 'product' && parts[1]) {
-    const origin = typeof from === 'string' && PRODUCT_ORIGINS.has(from)
-      ? from as 'home' | 'explore' | 'shelf' | 'routine' | 'consult'
-      : 'explore';
+    const origin = resolveMeProductOrigin(from);
     return { kind: 'product', slug: parts[1], origin };
   }
 
