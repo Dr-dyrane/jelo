@@ -12,7 +12,7 @@ const mobileLinks = [
   { href: '/products', label: 'Products', detail: 'Find what fits' },
   { href: '/contribute', label: 'Share skincare', detail: 'Tell us what you use' },
   { href: '/consult', label: 'Ask JeloCare', detail: 'Create a simple guide' },
-  { href: '/me', label: 'My JeloCare', detail: 'Your care workspace' },
+  { href: '/me', label: 'Me', detail: 'Your care workspace' },
 ];
 
 export function SiteHeader() {
@@ -91,7 +91,7 @@ export function SiteHeader() {
             <Link href="/products">Products</Link>
             <Link href="/contribute">Share skincare</Link>
             <Link href="/consult">Consult</Link>
-            <Link className={styles.memberLink} href="/me">My JeloCare</Link>
+            <Link className={styles.memberLink} href="/me">Me</Link>
           </div>
 
           <form ref={searchRef} className={styles.inlineSearch} onSubmit={submit} role="search">

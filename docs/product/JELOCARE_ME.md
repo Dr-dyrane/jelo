@@ -123,10 +123,11 @@ while Home previews retain their editorial section composition.
 
 - Any verified Neon identity receives baseline customer access; Operations
   authorization remains independent and additive.
-- Every shared public page exposes one concise **My JeloCare** link in its
-  desktop navigation, mobile menu, and existing footer. Each link goes directly
-  to `/me`; signed-out customers continue through the server-owned
-  `/sign-in?next=/me` redirect without public session checks.
+- Every shared public page exposes one concise **Me** link in its desktop
+  navigation and mobile menu, while the existing footer keeps the descriptive
+  **My JeloCare** label. Each link goes directly to `/me`; signed-out customers
+  continue through the server-owned `/sign-in?next=/me` redirect without public
+  session checks.
 - Production derives identity from the verified server session. The synthetic
   Amara presentation is server-only, requires development plus its explicit
   local flag, performs no network or database work, and fails closed elsewhere.
