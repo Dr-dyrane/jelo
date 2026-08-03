@@ -2,10 +2,11 @@
 
 Updated: 2026-08-03
 
-JeloCare Me is the future customer-owned workspace for asking, understanding,
-saving, and organising care. The current release is foundation only: there is
-no `/me` route, customer authentication, private storage, AI behavior, Shelf,
-or Routine persistence yet.
+JeloCare Me is the authenticated customer workspace for asking, discovering,
+saving, and organising care. Its first release ships the real `/me` route
+family, verified-session guard, warm adaptive shell, truthful empty states, and
+a development-only synthetic presentation. Shelf and Routine persistence and
+AI-generated guidance are not part of this release.
 
 [ADR 0013](../adr/0013-founder-led-jelocare-me.md) owns the decision and code
 boundaries. The [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md)
@@ -16,26 +17,37 @@ feature progression.
 
 One workspace should answer: **What should I understand or do for my care now?**
 
-The experience begins with Ask rather than a dashboard. Evidence and customer-
-owned context support the answer; controls do not compete with it. JeloCare Me
-must feel continuous with JeloCare's public warmth while becoming quieter and
-more task-led.
+Home begins with one Ask Me entry rather than a dashboard. Explore keeps member
+catalogue discovery separate from customer-owned Shelf and Routine context.
+Evidence and exact products carry the experience; controls do not compete with
+them. JeloCare Me remains continuous with JeloCare's public warmth while
+becoming quieter and more task-led.
 
 ## Information architecture
 
-| Tab | Canonical route | Customer job | Primary action owner |
+| Primary destination | Canonical route | Customer job | Primary action owner |
 | --- | --- | --- | --- |
-| Ask | `/me` | Ask one question and understand a grounded, safety-bounded answer | Ask controller |
-| Concerns | `/me/concerns` | Review customer-owned concern context without treating it as a diagnosis | Concern controller |
+| Home | `/me` | Return to the customer's care overview and Ask Me entry | Home controller |
+| Explore | `/me/explore` | Discover exact reviewed catalogue products without treating them as owned | Explore search controller |
 | Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products | Shelf controller |
 | Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Routine controller |
 
-Account, appearance, consent, sessions, export, and deletion belong behind the
-customer avatar. Account is chrome, not a fifth Me destination.
+Two authenticated stack pages sit above that primary model:
 
-These routes are reserved vocabulary only. Do not add a route, placeholder,
-empty state, or navigation entry to production until its feature slice is
-commissioned and has truthful data and behavior.
+| Stack page | Canonical route | Parent semantics |
+| --- | --- | --- |
+| Ask Me | `/me/consult` | Home; combines the guidance entry and customer concern context without reusing public `/consult` state |
+| Member product | `/me/product/[slug]` | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` |
+
+Account, appearance, consent, sessions, export, and deletion belong behind the
+customer avatar. Account is chrome, not a fifth destination. Every visible
+product action inside Me opens the member product route. Public catalogue and
+product routes remain independently usable without a customer session.
+
+The primary navigation is exactly Home, Explore, Shelf, and Routine. Ask Me and
+Product are stack pages with a meaningful Back destination and the correct
+parent destination selected in the persistent shell. Do not add a navigation
+entry, placeholder, or mutation until its destination and behavior are truthful.
 
 ## Workspace composition
 
@@ -66,20 +78,20 @@ navigation-revealed states. Geometry, scroll ownership, 320 px/200% text
 behavior, focus, and accessibility-preference requirements live only in the
 [dock evidence contract](../design/ADAPTIVE_WORKSPACE_DOCK.md#evidence-matrix).
 
-## Feature sequence
+## Current release boundary
 
-1. **Foundation:** canon, neutral dock mechanics, Me adapter, and focused tests.
-2. **Ask route:** only after the real controller, safety/evidence model, failure
-   states, and owner boundary are commissioned.
-3. **Concerns:** only with explicit non-diagnostic language and customer-owned
-   concern semantics.
-4. **Shelf:** only after immutable exact-product identity and owner-isolated
-   storage are accepted and implemented.
-5. **Routine:** only after Shelf and routine-specific safety, comprehension,
-   lifecycle, and owner-isolation evidence exist.
-
-Feature order is dependency order, not permission to create empty folders or
-placeholder routes.
+- Any verified Neon identity receives baseline customer access; Operations
+  authorization remains independent and additive.
+- Production derives identity from the verified server session. The synthetic
+  Amara presentation is server-only, requires development plus its explicit
+  local flag, performs no network or database work, and fails closed elsewhere.
+- Explore and member Product reuse current exact catalogue records and assets.
+  A fresh price/store line may appear only through the existing public offer
+  evidence boundary; absent or stale evidence is omitted.
+- Shelf and Routine render persisted customer data when it exists and otherwise
+  show honest empty states. The development presentation is not persistence.
+- Ask Me supports truthful discovery over customer context and exact products;
+  it does not claim an AI answer, consultation submission, or saved mutation.
 
 ## Future basket timing intelligence
 
@@ -164,20 +176,25 @@ service derives the authenticated owner and constrains every private query and
 mutation. Shell scroll, reveal, context, and FAB state are route-scoped and
 ephemeral.
 
-Neutral mechanics stay in `lib/workspace-shell/` and
-`components/workspace-shell/`. JeloCare vocabulary stays in
-`components/me/shell/`. A future feature receives its own files only when there
-is executable scope. See [ADR 0013](../adr/0013-founder-led-jelocare-me.md#filesystem-and-code-canon)
-for the authoritative topology and rules.
+This document is the canonical route, navigation, and filesystem ownership map:
 
-## Foundation non-goals
+- `app/(customer)/me/page.tsx` owns the thin Home adapter;
+- `app/(customer)/me/[...route]/page.ts` owns the authenticated primary and
+  stack route grammar and rejects unknown paths;
+- `components/me/home/` owns portal composition and customer interaction;
+- `components/me/shell/` owns Me destinations, parent semantics, and warm shell
+  vocabulary;
+- `lib/customer/` owns verified access plus server-only customer presentation;
+  and
+- `lib/workspace-shell/` with `components/workspace-shell/` owns neutral dock
+  mechanics and rendering.
 
-This foundation does not add:
+Routes remain thin adapters. The customer read boundary reuses canonical public
+catalogue identity and offer-label logic; it does not copy product truth.
 
-- `/me` or another customer route;
-- customer DB/auth, sessions, cookies, migrations, records, fixtures, or seeds;
-- Ask AI/model calls or a placeholder conversational surface;
-- Shelf/Routine data, catalogue writes, reminders, notifications, cron, queues,
-  campaigns, retailer, or courier workflows; or
-- any change to `/ops`, `OpsChrome`, operator authorization, public navigation,
-  or current public behavior.
+## Release non-goals
+
+This release does not add customer-role schema, migrations, seeds, catalogue
+writes, Shelf/Routine mutation, AI/model calls, reminders, notifications, cron,
+queues, campaigns, retailer or courier workflows, or any change to `/ops`,
+operator authorization, public navigation, or public product ownership.

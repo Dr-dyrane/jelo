@@ -1,33 +1,36 @@
 import type { DockContextDescriptor, WorkspaceNavigationDescriptor } from '@/lib/workspace-shell/dock-model';
 
 export const ME_WORKSPACE_NAVIGATION = [
-  { id: 'ask', label: 'Ask', href: '/me' },
-  { id: 'concerns', label: 'Concerns', href: '/me/concerns' },
+  { id: 'home', label: 'Home', href: '/me' },
+  { id: 'explore', label: 'Explore', href: '/me/explore' },
   { id: 'shelf', label: 'Shelf', href: '/me/shelf' },
   { id: 'routine', label: 'Routine', href: '/me/routine' },
 ] as const satisfies readonly WorkspaceNavigationDescriptor[];
 
-// The complete product vocabulary remains canon, while production navigation
-// contains only destinations backed by a released route.
-export const ME_RELEASED_WORKSPACE_NAVIGATION = ME_WORKSPACE_NAVIGATION.filter(
-  (item) => item.href === '/me',
-);
+export const ME_RELEASED_WORKSPACE_NAVIGATION = ME_WORKSPACE_NAVIGATION;
 
 export type MeWorkspaceTab = typeof ME_WORKSPACE_NAVIGATION[number]['id'];
+export type MeWorkspacePage = MeWorkspaceTab | 'consult' | 'product';
+
+const STACK_PAGE_LABELS = {
+  consult: 'Ask Me',
+  product: 'Product',
+} as const;
 
 export function createMeDockContext({
-  tab,
+  page,
   detail,
 }: {
-  tab: MeWorkspaceTab;
+  page: MeWorkspacePage;
   detail: string;
 }): DockContextDescriptor {
-  const navigation = ME_WORKSPACE_NAVIGATION.find((item) => item.id === tab);
-  if (!navigation) throw new Error(`Unknown JeloCare Me tab: ${tab}`);
+  const label = ME_WORKSPACE_NAVIGATION.find((item) => item.id === page)?.label
+    ?? STACK_PAGE_LABELS[page as keyof typeof STACK_PAGE_LABELS];
+  if (!label) throw new Error(`Unknown JeloCare Me page: ${page}`);
   return {
-    id: `me-${tab}`,
-    label: navigation.label,
+    id: `me-${page}`,
+    label,
     detail,
-    accessibleLabel: `${navigation.label}. ${detail}`,
+    accessibleLabel: `${label}. ${detail}`,
   };
 }

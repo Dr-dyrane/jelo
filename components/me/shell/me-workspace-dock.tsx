@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleUserRound, HeartPulse, LibraryBig, MessageCircleQuestion, Rows3 } from 'lucide-react';
+import { CircleUserRound, Compass, House, LibraryBig, Rows3 } from 'lucide-react';
 import {
   AdaptiveWorkspaceDock,
   type WorkspaceDockNavigateHandler,
@@ -11,8 +11,8 @@ import type { DockContextDescriptor } from '@/lib/workspace-shell/dock-model';
 import { ME_RELEASED_WORKSPACE_NAVIGATION } from './me-shell-model';
 
 const icons = {
-  ask: MessageCircleQuestion,
-  concerns: HeartPulse,
+  home: House,
+  explore: Compass,
   shelf: LibraryBig,
   routine: Rows3,
 } as const;

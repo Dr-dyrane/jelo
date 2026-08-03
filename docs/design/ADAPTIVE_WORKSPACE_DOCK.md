@@ -100,7 +100,7 @@ selected`.
 ### Navigation
 
 ```text
-Ask   Concerns   Shelf   Routine           FAB
+four route-owned destinations              FAB
 ```
 
 Activating the orb replaces compact context with the complete navigation in the
@@ -151,9 +151,10 @@ revealed, and return-to-top; fine pointer and touch; Reduced Motion; Reduced
 Transparency; increased contrast; Forced Colors; keyboard focus transfer; 200%
 text; and no document overflow or obscured final content.
 
-The current foundation has no consuming route. Source/model/accessibility gates
-therefore prove the unused primitive; route screenshots begin with the first
-truthful `/me` slice.
+JeloCare Me is the first consuming route family. Its canonical labels and paths
+live in [JeloCare Me](../product/JELOCARE_ME.md#information-architecture), while
+this document remains the sole dock geometry, focus, motion, transparency, and
+evidence contract.
 
 ## Rollback
 

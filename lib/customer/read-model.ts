@@ -9,8 +9,13 @@ import {
 } from './portal-model';
 
 export function readCustomerPortal(identity: CustomerAccessIdentity): CustomerPortalViewModel {
+  const catalogue = products.map(toCustomerPortalProduct);
+
   if (identity.source === 'synthetic-development') {
-    return createSyntheticCustomerPortal();
+    return {
+      ...createSyntheticCustomerPortal(),
+      catalogue,
+    };
   }
 
   return {
@@ -19,7 +24,8 @@ export function readCustomerPortal(identity: CustomerAccessIdentity): CustomerPo
       email: identity.email,
       synthetic: false,
     },
-    featuredProduct: products[0] ? toCustomerPortalProduct(products[0]) : null,
+    featuredProduct: catalogue[0] ?? null,
+    catalogue,
     concerns: [],
     shelf: [],
     routineProvenance: null,

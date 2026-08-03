@@ -1,6 +1,6 @@
 # ADR 0013: Founder-led JeloCare Me
 
-- **Status:** Accepted; foundation only
+- **Status:** Accepted; first customer portal release
 - **Date:** 2026-08-03
 - **Decision owner:** Founder
 - **Supersedes:** [ADR 0012](0012-private-member-shelf-and-routine-portal.md)
@@ -8,15 +8,15 @@
 
 ## Outcome
 
-JeloCare will establish one founder-led customer workspace, **JeloCare Me**, at
-the future `/me` route family. `/me` means **Ask**, and its four product tabs
-are **Ask**, **Concerns**, **Shelf**, and **Routine**. Account actions live
-behind the customer avatar rather than becoming a fifth product tab.
+JeloCare establishes one founder-led customer workspace, **JeloCare Me**, at
+the authenticated `/me` route family. Its primary destinations are Home,
+Explore, Shelf, and Routine. Ask Me and member Product are pushed stack pages;
+Account remains avatar-owned chrome.
 
-This decision ships the product, filesystem, design, and neutral workspace-dock
-foundation. It does **not** create `/me` routes, customer authentication,
-customer tables, private records, analytics, AI behavior, catalogue mutations,
-or Shelf/Routine persistence.
+The current release ships the real routes, verified-session boundary, exact
+catalogue presentation, and neutral adaptive dock. It does **not** create a
+customer-role table, private-data migration, catalogue mutation, AI answer,
+analytics feed, or Shelf/Routine persistence.
 
 The complete product contract is [JeloCare Me](../product/JELOCARE_ME.md). The
 dock mechanics are owned by the [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md).
@@ -42,7 +42,7 @@ JeloCare has four durable product roles:
 | Role | Primary surface | Authority boundary |
 | --- | --- | --- |
 | `admin` | Existing `/ops` | Moderation and operational authority only; never customer ownership |
-| `customer` | Future `/me` | Own private Me state and actions; no operator privilege |
+| `customer` | `/me` | Own private Me state and actions; no operator privilege |
 | `retailer` | Future retailer route | Own retailer submissions and business-managed records only |
 | `courier` | Future courier route | Own delivery tasks and status only |
 
@@ -57,16 +57,10 @@ behavior are unchanged by this ADR.
 
 ## Navigation and shell decision
 
-The future route map is:
-
-| Tab | Route | Job |
-| --- | --- | --- |
-| Ask | `/me` | Ask one care question and understand the grounded answer |
-| Concerns | `/me/concerns` | Review customer-owned concern context without diagnosing |
-| Shelf | `/me/shelf` | Retrieve exact products the customer intentionally saved |
-| Routine | `/me/routine` | Organise a customer-authored routine without turning it into a prescription |
-
-These paths are a navigation contract, not a claim that routes exist.
+The canonical route map, parent-tab behavior, and component ownership live only
+in [JeloCare Me](../product/JELOCARE_ME.md#information-architecture). This ADR
+owns the authority boundary: primary destinations are persistent shell
+navigation, stack pages preserve their parent, and Account is never a tab.
 
 At the top of a compact workspace, the dock is expanded: a non-mutating context
 capsule sits above the four-tab navigation and separate primary-action FAB. When
@@ -78,26 +72,9 @@ mutates data.
 
 ## Filesystem and code canon
 
-The repository separates reasons to change:
-
-```text
-lib/workspace-shell/
-  pure geometry, mode, scroll, route matching, and owner-token registries
-
-components/workspace-shell/
-  neutral controller, provider, view, navigation, context, FAB, and material
-
-components/me/shell/
-  thin JeloCare Me navigation and palette adapters
-
-future feature implementation, only when commissioned:
-  app/.../me/                 thin route adapters
-  components/me/<feature>/    feature controller, model, and view
-  lib/me/<feature>/           server owner-isolated service and pure domain rules
-```
-
-Do not create empty feature folders. Add a directory only with the first real
-file that owns a current reason to change.
+The canonical topology is maintained in the [JeloCare Me implementation
+contract](../product/JELOCARE_ME.md#implementation-contract). This ADR retains
+the binding separation of concerns without duplicating its paths.
 
 The following rules are binding:
 
@@ -143,26 +120,27 @@ data, its focused decision and tests must preserve these invariants:
 - health-shaped language remains educational and non-diagnostic, with existing
   safety escalation authority preserved.
 
-## Foundation acceptance
+## First-release acceptance
 
-The foundation is complete when:
+The release is complete when:
 
 - current canon records the roles, route map, navigation, filesystem, code, and
-  privacy boundaries above;
+  privacy boundaries without duplicating route ownership;
 - the neutral dock exports `AdaptiveWorkspaceDock` and `DockContextDescriptor`,
   an exact-route FAB registration contract, a pure four-mode resolver, and pure
   scroll hysteresis;
-- the Me adapter contains only Ask/Concerns/Shelf/Routine vocabulary and warm
-  customer styling while account remains avatar-owned;
+- the Me adapter contains Home/Explore/Shelf/Routine navigation, truthful stack
+  semantics, and warm customer styling while Account remains avatar-owned;
 - the old member gate verifier, blocked G0 record, and duplicated member privacy
   runbooks are removed from source and release commands;
 - focused model, navigation, FAB, accessibility/source, owner-isolation, docs,
   test, type, lint, release, and build gates pass; and
-- no `/me` route, customer record, migration, queue, campaign, or Ops change is
-  present.
+- no customer-role migration, queue, campaign, catalogue mutation, or Ops
+  contract change is present.
 
 ## Rollback
 
-One foundation commit owns this change. Reverting that commit restores ADR 0012
-and its gate artifacts. The neutral primitive is unused by production routes, so
-rollback requires no data repair, route redirect, migration, or customer action.
+Revert the customer route adapters, portal/read-model composition, Me shell
+adapter, and focused contracts while preserving the neutral dock, existing
+operator authentication, and public product routes. No data repair or migration
+is required.
