@@ -57,17 +57,9 @@ function memberProductHref(product: CustomerPortalProduct, source?: ProductSourc
 function ProductListCard({
   product,
   source,
-  shelfItem,
-  showRemove = false,
-  shelfAction,
-  onShelfMutation,
 }: {
   product: CustomerPortalProduct;
   source: ProductSource;
-  shelfItem: CustomerPortalShelfItem;
-  showRemove?: boolean;
-  shelfAction?: ShelfActionHandler;
-  onShelfMutation?: (result: CustomerShelfActionResult) => void;
 }) {
   return (
     <article className={styles.productCardShell}>
@@ -82,14 +74,6 @@ function ProductListCard({
         </span>
         <ArrowRight size={18} aria-hidden="true" />
       </Link>
-      {showRemove ? (
-        <ShelfActionButton
-          shelfItem={shelfItem}
-          placement="card"
-          onAction={shelfAction}
-          onSettled={onShelfMutation}
-        />
-      ) : null}
     </article>
   );
 }
@@ -120,7 +104,6 @@ function ExploreCard({ product, source = 'explore', shelfItem, showShelfAction =
         <ShelfActionButton
           productSlug={product.slug}
           saved={Boolean(shelfItem)}
-          shelfItem={shelfItem}
           placement="explore"
           onAction={shelfAction}
         />
@@ -129,17 +112,7 @@ function ExploreCard({ product, source = 'explore', shelfItem, showShelfAction =
   );
 }
 
-function UnavailableShelfCard({
-  item,
-  showRemove,
-  shelfAction,
-  onShelfMutation,
-}: {
-  item: CustomerPortalShelfItem;
-  showRemove: boolean;
-  shelfAction?: ShelfActionHandler;
-  onShelfMutation?: (result: CustomerShelfActionResult) => void;
-}) {
+function UnavailableShelfCard({ item }: { item: CustomerPortalShelfItem }) {
   return (
     <article className={`${styles.productCardShell} ${styles.unavailableProduct}`}>
       <div className={styles.unavailableCopy}>
@@ -148,14 +121,6 @@ function UnavailableShelfCard({
         <span>{item.snapshot.size} · {item.availability === 'changed' ? 'Changed' : 'Unavailable'}</span>
         {item.message ? <p>{item.message}</p> : null}
       </div>
-      {showRemove ? (
-        <ShelfActionButton
-          shelfItem={item}
-          placement="card"
-          onAction={shelfAction}
-          onSettled={onShelfMutation}
-        />
-      ) : null}
     </article>
   );
 }
@@ -268,14 +233,12 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
               <ProductListCard
                 key={item.identityVersionId}
                 product={item.product}
-                shelfItem={item}
                 source="shelf"
               />
             ) : (
               <UnavailableShelfCard
                 key={item.identityVersionId}
                 item={item}
-                showRemove={false}
               />
             ))}
           </div>
@@ -348,19 +311,7 @@ function ExplorePage({
   );
 }
 
-function ShelfPage({
-  viewModel,
-  mutationFeedback,
-  mutationStatusRef,
-  onShelfMutation,
-  shelfAction,
-}: {
-  viewModel: CustomerPortalViewModel;
-  mutationFeedback: string;
-  mutationStatusRef: React.RefObject<HTMLParagraphElement | null>;
-  onShelfMutation: (result: CustomerShelfActionResult) => void;
-  shelfAction?: ShelfActionHandler;
-}) {
+function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
   const surface = ME_PORTAL_SURFACES.shelf;
   return (
     <section className={styles.routePage} aria-labelledby="me-shelf-title">
@@ -368,16 +319,6 @@ function ShelfPage({
         <p className={styles.eyebrow}>{surface.eyebrow}</p>
         <h1 id="me-shelf-title">{surface.title}</h1>
       </div>
-      <p
-        ref={mutationStatusRef}
-        className={styles.visuallyHidden}
-        tabIndex={-1}
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        {mutationFeedback}
-      </p>
       {viewModel.shelfState.status === 'unavailable' ? (
         <div className={styles.emptyAction} role="status">
           <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
@@ -390,19 +331,12 @@ function ShelfPage({
             <ProductListCard
               key={item.identityVersionId}
               product={item.product}
-              shelfItem={item}
               source="shelf"
-              showRemove
-              shelfAction={shelfAction}
-              onShelfMutation={onShelfMutation}
             />
           ) : (
             <UnavailableShelfCard
               key={item.identityVersionId}
               item={item}
-              showRemove
-              shelfAction={shelfAction}
-              onShelfMutation={onShelfMutation}
             />
           ))}
         </div>
@@ -489,15 +423,25 @@ function ConsultPage({
 function ProductPage({
   product,
   viewModel,
+  origin,
   shelfAction,
+  mutationFeedback,
+  mutationStatusRef,
+  onShelfMutation,
 }: {
   product: CustomerPortalProduct;
   viewModel: CustomerPortalViewModel;
+  origin: MeProductOrigin;
   shelfAction?: ShelfActionHandler;
+  mutationFeedback: string;
+  mutationStatusRef: React.RefObject<HTMLParagraphElement | null>;
+  onShelfMutation: (result: CustomerShelfActionResult) => void;
 }) {
   const shelfItem = viewModel.shelf.find((item) => item.product?.slug === product.slug);
   const routineStep = viewModel.routine.find((step) => step.product.slug === product.slug);
   const shelfAvailable = viewModel.shelfState.status === 'ready';
+  const fromShelf = origin === 'shelf';
+  const showShelfAction = shelfAvailable && (!fromShelf || Boolean(shelfItem));
   return (
     <article className={`${styles.routePage} ${styles.stackPage} ${styles.productPage}`} aria-labelledby="me-product-title">
       <div className={styles.productHero}>
@@ -510,17 +454,33 @@ function ProductPage({
           <p>{product.displayLine}</p>
           {product.priceLabel ? <p className={styles.productPrice}>{product.priceLabel}</p> : null}
           <p className={styles.productUsage}>{product.usage}</p>
-          <Link className={styles.publicLink} href={`/products/${product.slug}`}>
-            Public product evidence <ExternalLink size={16} aria-hidden="true" />
-          </Link>
-          {shelfAvailable ? (
-            <ShelfActionButton
-              productSlug={product.slug}
-              shelfItem={shelfItem}
-              placement="product"
-              onAction={shelfAction}
-            />
-          ) : null}
+          <div className={styles.productActions}>
+            <Link className={styles.publicLink} href={`/products/${product.slug}`}>
+              View product <ExternalLink size={16} aria-hidden="true" />
+            </Link>
+            {showShelfAction ? (
+              <ShelfActionButton
+                productSlug={product.slug}
+                shelfItem={fromShelf ? shelfItem : undefined}
+                saved={!fromShelf && Boolean(shelfItem)}
+                placement="product"
+                onAction={shelfAction}
+                onSettled={fromShelf ? onShelfMutation : undefined}
+              />
+            ) : null}
+            {fromShelf ? (
+              <p
+                ref={mutationStatusRef}
+                className={styles.visuallyHidden}
+                tabIndex={-1}
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {mutationFeedback}
+              </p>
+            ) : null}
+          </div>
           <div className={styles.productMeta} aria-label="My product context">
             <span>{product.size}</span>
             <span>{product.category}</span>
@@ -620,12 +580,16 @@ function MePortalView({
     headerOwnsFocus,
   });
   useEffect(() => {
-    if (route.kind !== 'shelf' || !shelfMutationFeedback.message) return;
+    if (
+      route.kind !== 'product'
+      || route.origin !== 'shelf'
+      || !shelfMutationFeedback.message
+    ) return;
     const frame = window.requestAnimationFrame(() => {
       shelfMutationStatusRef.current?.focus({ preventScroll: true });
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [route.kind, shelfMutationFeedback.message, shelfMutationFeedback.sequence]);
+  }, [route, shelfMutationFeedback.message, shelfMutationFeedback.sequence]);
 
   const announceShelfMutation = (result: CustomerShelfActionResult) => {
     if (result.status === 'removed' || result.status === 'already_removed') {
@@ -744,15 +708,7 @@ function MePortalView({
               shelfAction={shelfState.shelfAction}
             />
           ) : null}
-          {route.kind === 'shelf' ? (
-            <ShelfPage
-              viewModel={portalViewModel}
-              mutationFeedback={shelfMutationFeedback.message}
-              mutationStatusRef={shelfMutationStatusRef}
-              onShelfMutation={announceShelfMutation}
-              shelfAction={shelfState.shelfAction}
-            />
-          ) : null}
+          {route.kind === 'shelf' ? <ShelfPage viewModel={portalViewModel} /> : null}
           {route.kind === 'routine' ? <RoutinePage viewModel={portalViewModel} /> : null}
           {route.kind === 'consult' ? (
             <ConsultPage
@@ -767,7 +723,11 @@ function MePortalView({
             <ProductPage
               product={product}
               viewModel={portalViewModel}
+              origin={route.origin}
               shelfAction={shelfState.shelfAction}
+              mutationFeedback={shelfMutationFeedback.message}
+              mutationStatusRef={shelfMutationStatusRef}
+              onShelfMutation={announceShelfMutation}
             />
           ) : null}
           {route.kind === 'not-found' ? <MemberNotFoundPage /> : null}

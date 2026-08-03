@@ -62,7 +62,7 @@ export function ShelfActionButton({
   const label = pending
     ? removing ? 'Removing…' : 'Saving…'
     : settledSaved ? 'Saved'
-      : removing ? 'Remove' : 'Add to Shelf';
+      : removing ? 'Remove from Shelf' : 'Add to Shelf';
 
   return (
     <div className={`${styles.action} ${styles[placement]}`}>

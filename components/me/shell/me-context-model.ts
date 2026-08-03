@@ -152,7 +152,7 @@ export function createMeContextSheetModel({
     title: product?.name ?? 'Product',
     summary: `${shelfAvailable ? (onShelf ? 'On my Shelf' : 'Not on my Shelf') : 'Shelf unavailable'} · ${inRoutine ? 'In my Routine' : 'Not in my Routine'}`,
     items: product ? [
-      { id: 'public', label: 'Public product evidence', detail: `${product.brand} · ${product.size}`, href: `/products/${product.slug}` },
+      { id: 'public', label: 'View product', detail: `${product.brand} · ${product.size}`, href: `/products/${product.slug}` },
       { id: 'shelf', label: 'My Shelf', detail: shelfAvailable ? (onShelf ? 'Saved here' : 'My saved products') : 'Unavailable', href: '/me/shelf' },
       { id: 'routine', label: 'My Routine', detail: inRoutine ? 'Used here' : 'My saved steps', href: '/me/routine' },
     ] : [],

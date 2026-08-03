@@ -615,7 +615,15 @@
 .productMeta span { padding: 8px 11px; border-radius: 999px; background: color-mix(in srgb, var(--peach) 68%, transparent); font-size: 0.66rem; }
 .productPrice { color: var(--wine) !important; font-weight: 600; }
 .productUsage { margin-top: 12px !important; font-size: 0.85rem; }
-.publicLink { margin-top: 16px; padding: 0 18px; }
+.productActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.publicLink { padding: 0 18px; }
 
 .notFoundPage {
   display: grid;

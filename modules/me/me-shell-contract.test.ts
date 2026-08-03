@@ -217,6 +217,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
     product,
   });
   assert.equal(memberProduct.summary, 'On my Shelf · In my Routine');
+  assert.equal(memberProduct.items[0]?.label, 'View product');
   assert.equal(memberProduct.items[0]?.href, '/products/exact-product');
 
   const unavailableViewModel = {
@@ -276,6 +277,20 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.match(publicProduct, /<main className="product-page">/);
 });
 
+test('Shelf removal is exclusive to Shelf-origin product detail actions', () => {
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
+  assert.doesNotMatch(home, /showRemove/);
+  assert.match(home, /const fromShelf = origin === 'shelf'/);
+  assert.match(home, /className=\{styles\.productActions\}/);
+  assert.match(home, /View product <ExternalLink/);
+  assert.match(home, /shelfItem=\{fromShelf \? shelfItem : undefined\}/);
+  assert.match(home, /saved=\{!fromShelf && Boolean\(shelfItem\)\}/);
+  assert.match(home, /onSettled=\{fromShelf \? onShelfMutation : undefined\}/);
+  assert.doesNotMatch(home, /Public product evidence/);
+  assert.match(button, /Remove from Shelf/);
+});
+
 test('every Me surface owns exactly one truthful working FAB', () => {
   assert.deepEqual(ME_WORKSPACE_FABS, {
     home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
@@ -283,7 +298,7 @@ test('every Me surface owns exactly one truthful working FAB', () => {
     shelf: { ownerId: 'me-shelf-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
     routine: { ownerId: 'me-routine-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
     consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
-    product: { ownerId: 'me-product-public-evidence', label: 'View public product evidence', action: 'public-product' },
+    product: { ownerId: 'me-product-public-evidence', label: 'View product', action: 'public-product' },
     'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
   });
   assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 7);
@@ -389,10 +404,12 @@ test('unavailable Shelf states fail closed while synthetic state stays explicitl
   assert.match(account, /shelfAvailable \? \([\s\S]*Export Shelf[\s\S]*<button type="button" disabled>/);
 });
 
-test('Shelf removal announces and restores focus at a durable page-level target', () => {
+test('Shelf-origin product removal announces and restores focus at a durable page-level target', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
   assert.match(button, /onSettled\?\.\(result\)/);
+  assert.match(home, /route\.kind !== 'product'/);
+  assert.match(home, /route\.origin !== 'shelf'/);
   assert.match(home, /mutationStatusRef/);
   assert.match(home, /tabIndex=\{-1\}/);
   assert.match(home, /aria-atomic="true"/);
