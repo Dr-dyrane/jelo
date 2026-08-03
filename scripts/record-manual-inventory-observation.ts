@@ -6,16 +6,10 @@ import {
   resolveExactManualObservationOffer,
   resolveManualInventoryOperator,
 } from '../lib/inventory/manual-observation';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 function connectionString() {
-  const value = process.env.DATABASE_URL_UNPOOLED
-    ?? process.env.POSTGRES_URL_NON_POOLING
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL;
-  if (!/^postgres(?:ql)?:\/\//.test(value ?? '')) {
-    throw new Error('A private Neon connection string is required.');
-  }
-  return value!;
+  return requireAdminDatabaseUrl();
 }
 
 async function main() {

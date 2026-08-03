@@ -1,4 +1,5 @@
 import postgres from 'postgres';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 // Allowlist a moderation-console operator (ADR 0007). Runs anywhere a real Neon
 // connection string is present (your machine with the Vercel env, or a one-off).
@@ -14,11 +15,7 @@ function arg(name: string) {
 }
 
 async function main() {
-  const connectionString = process.env.DATABASE_URL_UNPOOLED
-    ?? process.env.POSTGRES_URL_NON_POOLING
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL;
-  if (!connectionString) throw new Error('A Neon connection string is required (DATABASE_URL / POSTGRES_URL).');
+  const connectionString = requireAdminDatabaseUrl();
 
   const email = arg('email');
   const explicitSubject = arg('subject');

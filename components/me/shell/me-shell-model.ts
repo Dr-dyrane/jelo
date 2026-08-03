@@ -10,7 +10,7 @@ export const ME_WORKSPACE_NAVIGATION = [
 export const ME_RELEASED_WORKSPACE_NAVIGATION = ME_WORKSPACE_NAVIGATION;
 
 export type MeWorkspaceTab = typeof ME_WORKSPACE_NAVIGATION[number]['id'];
-export type MeWorkspacePage = MeWorkspaceTab | 'consult' | 'product';
+export type MeWorkspacePage = MeWorkspaceTab | 'consult' | 'product' | 'not-found';
 export type MeProductOrigin = MeWorkspaceTab;
 type MePrimaryRoute = {
   [Kind in MeWorkspaceTab]: { kind: Kind };
@@ -18,6 +18,7 @@ type MePrimaryRoute = {
 export type MePortalRoute =
   | MePrimaryRoute
   | { kind: 'consult' }
+  | { kind: 'not-found' }
   | { kind: 'product'; slug: string; origin: MeProductOrigin };
 
 const ME_PRIMARY_HREFS: Record<MeWorkspaceTab, string> = {
@@ -35,12 +36,13 @@ export function resolveMeProductOrigin(from: unknown): MeProductOrigin {
 
 export function resolveMeActiveParentHref(route: MePortalRoute): string {
   if (route.kind === 'consult') return ME_PRIMARY_HREFS.home;
+  if (route.kind === 'not-found') return ME_PRIMARY_HREFS.explore;
   if (route.kind === 'product') return ME_PRIMARY_HREFS[route.origin];
   return ME_PRIMARY_HREFS[route.kind];
 }
 
 export function createMeStackBack(route: MePortalRoute) {
-  if (route.kind !== 'consult' && route.kind !== 'product') return undefined;
+  if (route.kind !== 'consult' && route.kind !== 'product' && route.kind !== 'not-found') return undefined;
   const href = resolveMeActiveParentHref(route);
   const parent = ME_WORKSPACE_NAVIGATION.find((item) => item.href === href)
     ?? ME_WORKSPACE_NAVIGATION[0];
@@ -57,6 +59,7 @@ export const ME_PORTAL_SURFACES = {
   routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
   consult: { layer: 'stack', route: '/me/consult', parent: 'home', eyebrow: 'Ask Me', title: 'My concern.' },
   product: { layer: 'stack', route: '/me/product/[slug]', parent: 'origin', eyebrow: null, title: null },
+  'not-found': { layer: 'stack', route: '/me/product/[slug]', parent: 'explore', eyebrow: 'JeloCare Me', title: 'Nothing here.' },
 } as const satisfies Record<MeWorkspacePage, {
   layer: 'primary' | 'stack';
   route: string;
@@ -72,6 +75,7 @@ export const ME_WORKSPACE_FABS = {
   routine: { ownerId: 'me-routine-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
   consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
   product: { ownerId: 'me-product-public-evidence', label: 'View public product evidence', action: 'public-product' },
+  'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
 } as const satisfies Record<MeWorkspacePage, {
   ownerId: string;
   label: string;
@@ -82,6 +86,7 @@ export const ME_WORKSPACE_FABS = {
 const STACK_PAGE_LABELS = {
   consult: 'Ask Me',
   product: 'Product',
+  'not-found': 'Not found',
 } as const;
 
 export function createMeDockContext({

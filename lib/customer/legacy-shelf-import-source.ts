@@ -1,0 +1,97 @@
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { LEGACY_SHELF_IMPORT_MANIFEST } from './legacy-shelf-import-manifest';
+
+type LegacyProduct = {
+  id: string;
+  brand: string;
+  name: string;
+  size: string;
+  category: string;
+  step: string;
+  purpose: string;
+  usage: string;
+  priority: string;
+};
+
+function sha256(value: Uint8Array) {
+  return createHash('sha256').update(value).digest('hex');
+}
+
+export function verifyLegacyShelfImportSource(
+  productsSource: Uint8Array,
+  routineSource: Uint8Array,
+) {
+  const manifest = LEGACY_SHELF_IMPORT_MANIFEST;
+  if (sha256(productsSource) !== manifest.source.products.sha256) {
+    throw new Error('Legacy Shelf products source does not match its reviewed hash.');
+  }
+  if (sha256(routineSource) !== manifest.source.routine.sha256) {
+    throw new Error('Legacy Shelf routine source does not match its reviewed hash.');
+  }
+
+  const parsed = JSON.parse(Buffer.from(productsSource).toString('utf8')) as unknown;
+  if (!Array.isArray(parsed)) throw new Error('Legacy Shelf products source is malformed.');
+  const products = parsed as LegacyProduct[];
+  const sourceIds = products.map(product => product.id);
+  if (JSON.stringify(sourceIds) !== JSON.stringify(manifest.source.products.legacyIds)) {
+    throw new Error('Legacy Shelf source IDs do not match the reviewed manifest.');
+  }
+
+  const classifiedIds = [
+    ...manifest.accepted.map(item => item.legacyId),
+    ...manifest.rejected.map(item => item.legacyId),
+  ];
+  if (
+    new Set(classifiedIds).size !== classifiedIds.length
+    || classifiedIds.length !== sourceIds.length
+    || sourceIds.some(id => !classifiedIds.includes(id as typeof classifiedIds[number]))
+  ) {
+    throw new Error('Every legacy Shelf source ID must be classified exactly once.');
+  }
+
+  const productsById = new Map(products.map(product => [product.id, product]));
+  for (const binding of manifest.accepted) {
+    const source = productsById.get(binding.legacyId);
+    if (!source) throw new Error('A reviewed legacy Shelf binding is missing from its source.');
+    const expectedSourceTuple = {
+      brandAtReview: source.brand,
+      variantAtReview: source.name,
+      sizeAtReview: source.size,
+    };
+    const reviewedSourceTuple = {
+      brandAtReview: binding.identityVersion.brandAtReview,
+      variantAtReview: binding.identityVersion.variantAtReview,
+      sizeAtReview: binding.identityVersion.sizeAtReview,
+    };
+    if (
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(binding.identityVersion.slugAtReview)
+      || JSON.stringify(expectedSourceTuple) !== JSON.stringify(reviewedSourceTuple)
+    ) {
+      throw new Error('A reviewed legacy Shelf identity tuple drifted from its source.');
+    }
+    for (const key of ['category', 'step', 'purpose', 'usage', 'priority'] as const) {
+      if (source[key] !== binding.provenance[key]) {
+        throw new Error('Reviewed legacy Shelf provenance drifted from its source.');
+      }
+    }
+  }
+}
+
+export function verifyLegacyShelfImportSourceFromGit(repositoryRoot = process.cwd()) {
+  const { source } = LEGACY_SHELF_IMPORT_MANIFEST;
+  const readHistoricalFile = (path: string) => execFileSync(
+    'git',
+    ['show', `${source.commit}:${path}`],
+    {
+      cwd: repositoryRoot,
+      encoding: 'buffer',
+      maxBuffer: 8 * 1024 * 1024,
+      stdio: ['ignore', 'pipe', 'ignore'],
+    },
+  );
+  verifyLegacyShelfImportSource(
+    readHistoricalFile(source.products.path),
+    readHistoricalFile(source.routine.path),
+  );
+}

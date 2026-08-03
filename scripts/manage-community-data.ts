@@ -16,19 +16,13 @@ import {
   recordNote,
   updateResearchAssignment,
 } from '../lib/moderation/database-transitions';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 type OperatorRole = 'moderator' | 'operator' | 'admin';
 type Operator = { auth_subject: string; role: OperatorRole };
 
 function connectionString() {
-  const value = process.env.DATABASE_URL_UNPOOLED
-    ?? process.env.POSTGRES_URL_NON_POOLING
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL;
-  if (!/^postgres(?:ql)?:\/\//.test(value ?? '')) {
-    throw new Error('A private Neon connection string is required.');
-  }
-  return value!;
+  return requireAdminDatabaseUrl();
 }
 
 async function resolveOperator(sql: Sql): Promise<Operator> {

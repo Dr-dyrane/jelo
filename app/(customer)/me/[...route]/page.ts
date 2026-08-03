@@ -38,7 +38,7 @@ export default async function MeRoutePage({
   if (!route) notFound();
 
   const customer = await requireCustomer();
-  const viewModel = readCustomerPortal(customer);
+  const viewModel = await readCustomerPortal(customer);
   if (route.kind === 'product' && !viewModel.catalogue?.some((product) => product.slug === route.slug)) {
     notFound();
   }

@@ -1,0 +1,32 @@
+.action {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.action button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.action button:disabled { cursor: default; opacity: 0.58; }
+.action button:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+.status { min-width: 0; color: var(--wine); font-size: 0.68rem; line-height: 1.35; }
+.card { padding: 10px 14px 14px; }
+.explore { padding: 0 clamp(22px, 3vw, 34px) clamp(24px, 3vw, 34px); }
+.product { width: 100%; margin-top: 16px; }
+
+@media (max-width: 620px) {
+  .action { grid-template-columns: 1fr; }
+  .status { min-height: 1em; }
+}

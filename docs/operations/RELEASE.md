@@ -1,6 +1,6 @@
 # Release process
 
-Updated: 2026-07-27
+Updated: 2026-08-03
 
 Release small, auditable changes. A push is not complete until CI and the exact production deployment are verified.
 
@@ -72,7 +72,7 @@ The validation job runs:
 1. `npm ci`
 2. the shared `verify:release` preflight
 3. the separate private `verify:research-integrity` check
-4. build with migrations disabled
+4. the non-production Next build path, which has no database mutation steps
 
 A second job installs the hash-locked Python 3.12 CPU runtime and verifies the exact-SKU packshot operator.
 
@@ -86,17 +86,95 @@ Production builds run through `scripts/vercel-build.ts`.
 release verification
   -> next build
   -> promote staged assets
-  -> apply pending migrations
-  -> optional one-time catalogue seed
-  -> seed product asset metadata
-  -> seed editorial asset metadata
 ```
 
 Production verification and the Next build must both pass before staged Blob
-promotion, migrations, or seeds can mutate external state. This protects
-production even when Vercel receives a commit before GitHub Actions finishes.
-Preview and local builds stay on the fast Next-only path. CI runs the shared
-preflight explicitly and does not run migrations.
+promotion can mutate external state. Vercel never receives
+`MIGRATION_DATABASE_URL` and never applies migrations, seeds or database
+reconciliation. Those are explicit protected operator jobs completed before a
+dependent application deployment. Preview and local builds stay on the fast
+Next-only path. CI runs the shared preflight explicitly and does not mutate
+external state.
+
+## Customer Shelf release checklist
+
+This order is mandatory for the first private Shelf activation. The detailed
+commands and evidence queries live in
+[Release the Customer Shelf boundary](./RUNBOOKS.md#release-the-customer-shelf-boundary);
+[ADR 0014](../adr/0014-customer-shelf-data-boundary.md) owns the security and
+lifecycle decision. A passing local build does not waive the production-shaped
+rehearsal or the release authority's explicit decision about which connected
+Neon and Vercel resources may be used.
+
+1. **Provision.** On the intended production database, create
+   `jelocare_app_runtime` and `jelocare_shelf_runtime` as `LOGIN NOINHERIT
+   NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS` with
+   `PASSWORD NULL`. Set two independent passwords interactively through the
+   protected secret channel; never place either password in SQL, source,
+   history, logs, or evidence.
+2. **Migrate and reconcile.** From the protected operator boundary, inject the
+   direct administrator `MIGRATION_DATABASE_URL` and run `npm run
+   db:reconcile`. Require the ordered ledger through
+   `0034_customer_shelf.sql` and `0035_runtime_database_roles.sql` plus the
+   reviewed public catalogue and asset-metadata reconciliation required by that
+   exact revision. Do not run the Shelf import yet or opt into external
+   discovery.
+3. **Run the acceptance audit.** On a production-shaped rehearsal branch first,
+   then production, prove the migration ledger, exact role attributes, that
+   neither runtime belongs to another role or owns a relation, grants and
+   denials, forced RLS, denial with missing subject context, and the reconciled
+   catalogue identity versions. On the selected rehearsal branch, run `npm run
+   customer:shelf:audit` followed by `npm run customer:shelf:audit --
+   --exercise-rollback` to prove exact runtime attestation and rolled-back two-
+   owner isolation. In production, run the read-only attestation; run the
+   rollback exercise only if the release authority explicitly accepts its
+   transient writes and forced rollback. Record counts and pass/fail evidence,
+   never URLs, passwords, mailboxes, or subjects.
+4. **Import dry run before activation.** Keep the interactive Shelf revision
+   undeployed and its restricted URLs out of Vercel. At the protected operator
+   boundary, inject
+   `MIGRATION_DATABASE_URL` and `JELOCARE_SHELF_IMPORT_TARGET_MAILBOX`, then run
+   `npm run customer:shelf:import`. Require a read-only result of 14 complete
+   dispositions, five exact accepted identities, and no existing receipt.
+5. **Import apply and verify its receipt.** Independently derive and compare the normalized target-
+   mailbox SHA-256, then repeat with `--apply` and the exact
+   `--confirm-target-sha256` value. Apply takes a brief Shelf write lock. Require
+   its actual inserted identity set to equal the dry-run plan, the final
+   accepted set to contain all five exact identities, and one atomic one-off
+   receipt. Do not activate Shelf until the receipt is independently verified.
+6. **Normalize and probe the restricted runtime URLs.** Each postgres.js URL
+   must use `sslmode=verify-full` and omit the unsupported
+   `channel_binding=require` parameter. Through postgres.js, prove the general
+   URL logs in with exact `current_user = session_user = jelocare_app_runtime`;
+   run the read-only Shelf attestation against the Shelf URL. Do not print a URL.
+7. **Configure restricted Vercel runtime environment.** Only after the probes
+   pass, set `DATABASE_URL` to the app-role URL and
+   `CUSTOMER_SHELF_DATABASE_URL` to the Shelf-role URL. If `POSTGRES_URL` is
+   retained, apply the same driver and exact-role requirements. Remove
+   `MIGRATION_DATABASE_URL`, the database-owner URL, unpooled owner aliases,
+   split `POSTGRES_*`/`PG*` owner fields, and the one-off import mailbox. Verify
+   names and usernames without printing values.
+8. **Deploy and activate.** Push the verified revision and require CI success
+   plus the exact Vercel deployment at `READY`. Vercel may verify, build, and
+   promote reviewed staged public assets; it must not reconcile PostgreSQL or
+   run the import.
+9. **Smoke.** Through the exact production deployment and one verified account,
+   prove sign-in, Shelf read/add/reload/remove, JSON export, the clear
+   confirmation flow, sign-out isolation, and the public reporting helper. Do
+   not clear the imported launch Shelf merely for smoke; exercise the destructive
+   result only with an approved disposable account. Confirm Synthetic Amara is
+   absent and Routine/Concern persistence is absent.
+10. **Rotate the former owner.** Rotate or revoke every owner/admin credential
+   that Vercel previously held, remove any provider integration that can
+   reconstruct it, and re-run restricted runtime and production smoke checks.
+   Keep only the protected operator copy of `MIGRATION_DATABASE_URL`.
+11. **Declare the rollback floor.** Record the exact compatible application
+    revision, the ledger through `0035`, the two runtime role names, and the
+    passing audit. Older owner-dependent deployments are no longer rollback
+    candidates.
+
+This release creates no cron and changes no inventory schedule, queue, lease,
+worker, or manual-observation workflow.
 
 ## After push
 
@@ -118,3 +196,12 @@ For a catalogue release, search the product, open its page, inspect the packshot
 - Do not use `git reset --hard` or rewrite shared history.
 - If application code must roll back while schema remains forward, confirm backward compatibility first.
 - If a new public product is wrong, remove exposure through a reviewed forward change while preserving the evidence trail.
+- After the Shelf rollback floor is declared, deploy only revisions compatible
+  with `jelocare_app_runtime` and `jelocare_shelf_runtime`. Never restore the
+  owner credential to make an older deployment work.
+- The current Shelf boundary has no separate recovery-only export/delete mode.
+  It also has no activation flag. Disable behavior through a reviewed role-
+  compatible release; removing `CUSTOMER_SHELF_DATABASE_URL` is an emergency
+  total fail-closed action that disables all Shelf access, including export and
+  clear. Preserve rows and forward-fix instead of promising those controls
+  remain available while the connection is disabled.

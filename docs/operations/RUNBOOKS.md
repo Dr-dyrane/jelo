@@ -1,6 +1,6 @@
 # Operational runbooks
 
-Updated: 2026-07-26
+Updated: 2026-08-03
 
 Lead with evidence. Preserve data. Prefer a forward repair.
 
@@ -9,18 +9,17 @@ Lead with evidence. Preserve data. Prefer a forward repair.
 1. Identify the exact deployment and commit.
 2. Read the first real failing command, not only the final exit code.
 3. Reproduce with the same environment boundary.
-4. If CI passed but production failed, inspect migrations, staged asset promotion, seeds, and service credentials.
+4. If CI passed but production failed, inspect the build, staged asset
+   promotion, and restricted runtime service credentials. Database migrations
+   and reconciliation are separate protected operator jobs.
 5. Fix the cause in a small commit.
 6. Re-run local gates and verify the next exact deployment.
 
-The production pipeline first verifies and builds the revision before any
-external mutation. After migrations and reviewed catalogue or asset seeds, it
-builds the final artifact again so generated and ISR product routes contain the
-same reconciled offer evidence as that release. Diagnose a failure using the
-specific pre-mutation or post-seed build phase; do not redeploy merely to refresh
-catalogue HTML.
-
-Do not disable migrations to conceal a bad migration.
+The production pipeline verifies and builds the revision before bounded staged
+public-asset promotion. It has no migration administrator credential and does
+not reconcile PostgreSQL. Diagnose the exact verification, build, or asset
+promotion phase. Do not add migration authority to Vercel to conceal a missed
+operator release step.
 
 ## A preview lane closes
 
@@ -94,6 +93,10 @@ Community and retailer intake should return a temporary unavailable response rat
 4. If the migration was never shared or applied, repair it.
 5. Otherwise add a new forward migration.
 6. Rehearse both the first run and idempotent rerun on a Neon branch before production.
+
+The migration runner accepts only a direct, non-pooled
+`MIGRATION_DATABASE_URL` supplied at the protected operator boundary. Do not
+fall back to a Vercel runtime URL or copy the administrator URL into Vercel.
 
 Rehearsal evidence for the `0031_community_research_task_shape.sql` rollout
 (2026-08-02 UTC): production-fresh Neon branch
@@ -176,6 +179,334 @@ left join catalogue_product_identity_versions identity
 where product.is_published = true
   and product.source_version in ('static-v1', 'published-intake-v1');
 ```
+
+## Release the Customer Shelf boundary
+
+Use this runbook for the first Phase 1 Shelf activation and for a rehearsal on a
+disposable production-shaped Neon branch. The mandatory release order is
+summarized in the
+[Customer Shelf release checklist](./RELEASE.md#customer-shelf-release-checklist);
+[ADR 0014](../adr/0014-customer-shelf-data-boundary.md) is authoritative for
+stored fields, roles, import dispositions, lifecycle, and rollback limits.
+This runbook does not authorize production as a substitute for rehearsal. The
+release authority must select the production-shaped rehearsal and explicitly
+approve the connected Neon and Vercel resources before any production action.
+
+### 1. Rehearse and provision the runtime roles
+
+Prove the target project and branch by name before opening the protected direct
+administrator connection. Keep `MIGRATION_DATABASE_URL` in the protected
+operator process only. In `psql`, create the two roles with no password:
+
+```sql
+create role jelocare_app_runtime
+  login noinherit nosuperuser nocreatedb nocreaterole noreplication
+  nobypassrls password null;
+
+create role jelocare_shelf_runtime
+  login noinherit nosuperuser nocreatedb nocreaterole noreplication
+  nobypassrls password null;
+```
+
+Still in the protected interactive session, set distinct generated passwords
+without putting them in SQL or terminal history:
+
+```text
+\password jelocare_app_runtime
+\password jelocare_shelf_runtime
+```
+
+Store each resulting runtime URL in the approved secret channel. Do not print
+it. Do not reuse the database owner password or derive either runtime password
+from it. If either role already exists, stop and audit its attributes, outgoing
+role memberships, ownership, grants, and credential provenance instead of
+replacing it blindly.
+
+### 2. Apply migrations and reconcile public data
+
+With the direct administrator URL injected into the operator process, run:
+
+```bash
+npm run db:reconcile
+```
+
+The ledger must include `0034_customer_shelf.sql` followed by
+`0035_runtime_database_roles.sql`. Migration `0035` rejects an absent or unsafe
+role before applying grants. The reconciler runs `db:migrate`, `db:seed`,
+`assets:product:seed`, and `assets:editorial:seed` in that order. These are
+idempotent public-data operators; none imports a customer Shelf. Do not pass
+`--include-external-discovery` unless its separate one-time external-catalogue
+release is explicitly in scope; the current external seed remains fail-closed.
+
+Run this sequence first on the rehearsal branch. A second migration run must
+skip every ledgered file, and a second reconciliation must not create a new
+identity version or change an immutable reviewed snapshot. Record the branch,
+revision, migration filenames, counts, and pass/fail result only. Do not retain
+connection strings, role passwords, customer identifiers, or row contents.
+
+### 3. Audit roles, grants, and RLS
+
+As the protected administrator, inspect both runtime roles without selecting
+password hashes:
+
+```sql
+select
+  role.rolname,
+  role.rolcanlogin,
+  role.rolinherit,
+  role.rolsuper,
+  role.rolcreatedb,
+  role.rolcreaterole,
+  role.rolreplication,
+  role.rolbypassrls,
+  exists (
+    select 1
+    from pg_catalog.pg_auth_members membership
+    where membership.member = role.oid
+  ) as is_member_of_another_role,
+  (
+    select count(*)
+    from pg_catalog.pg_auth_members membership
+    where membership.roleid = role.oid
+  ) as incoming_admin_memberships,
+  exists (
+    select 1
+    from pg_catalog.pg_class relation
+    where relation.relowner = role.oid
+  ) as owns_relations
+from pg_catalog.pg_roles role
+where role.rolname in ('jelocare_app_runtime', 'jelocare_shelf_runtime')
+order by role.rolname;
+
+select relrowsecurity, relforcerowsecurity
+from pg_catalog.pg_class
+where oid = pg_catalog.to_regclass('public.customer_shelf_items');
+
+select grantee, table_schema, table_name, privilege_type
+from information_schema.role_table_grants
+where grantee in ('jelocare_app_runtime', 'jelocare_shelf_runtime')
+order by grantee, table_schema, table_name, privilege_type;
+
+select grantee, table_schema, table_name, column_name, privilege_type
+from information_schema.role_column_grants
+where grantee = 'jelocare_shelf_runtime'
+order by table_schema, table_name, column_name, privilege_type;
+
+select
+  pg_catalog.has_database_privilege(
+    'jelocare_app_runtime', pg_catalog.current_database(), 'CONNECT'
+  ) as app_connect,
+  pg_catalog.has_database_privilege(
+    'jelocare_shelf_runtime', pg_catalog.current_database(), 'CONNECT'
+  ) as shelf_connect,
+  pg_catalog.has_schema_privilege(
+    'jelocare_app_runtime', 'public', 'USAGE'
+  ) as app_schema_usage,
+  pg_catalog.has_schema_privilege(
+    'jelocare_shelf_runtime', 'public', 'USAGE'
+  ) as shelf_schema_usage,
+  pg_catalog.has_type_privilege(
+    'jelocare_shelf_runtime', 'public.customer_shelf_save_origin', 'USAGE'
+  ) as shelf_save_origin_usage,
+  pg_catalog.has_type_privilege(
+    'jelocare_shelf_runtime', 'public.catalogue_identity_lifecycle_state', 'USAGE'
+  ) as shelf_lifecycle_usage;
+
+select grantee, table_name, privilege_type
+from information_schema.table_privileges
+where grantee = 'PUBLIC'
+  and table_schema = 'public'
+  and table_name in (
+    'customer_shelf_items',
+    'customer_shelf_import_receipts',
+    'schema_migrations'
+  )
+order by table_name, privilege_type;
+```
+
+Require exactly two `LOGIN NOINHERIT` rows with every elevated attribute,
+`is_member_of_another_role`, and ownership value false. PostgreSQL 17 may show
+an incoming creator/administrator membership; that direction is allowed and is
+recorded separately. Require enabled and forced RLS, all six connection/schema/
+type booleans true, and no `PUBLIC` row for the Shelf or receipt tables. The app
+role must have no Shelf, receipt, or migration-ledger privilege. The Shelf role
+must have only `SELECT`, `INSERT`, and `DELETE` on
+`public.customer_shelf_items`, plus the exact reviewed catalogue column grants
+in migration `0035`; it must have no `UPDATE`, `TRUNCATE`, receipt, Auth,
+moderation, intake, or other private-table access. Migration `0035` grants no
+default privileges to either runtime role; review each later table explicitly.
+
+Inject only the protected `CUSTOMER_SHELF_DATABASE_URL` and run the checked-in
+runtime attestation, then its deliberately explicit rolled-back isolation
+exercise:
+
+```bash
+npm run customer:shelf:audit
+npm run customer:shelf:audit -- --exercise-rollback
+```
+
+The first command is read-only and requires the exact current and session role,
+safe role attributes, no outgoing role membership or relation ownership, and
+enabled plus forced RLS. An incoming PostgreSQL 17 creator/administrator edge
+is allowed. The second command inserts one row under a random synthetic owner,
+proves owner-A visibility, owner-B invisibility and cross-delete denial, proves
+owner deletion, then deliberately rolls back the entire transaction. It prints
+no subject or identity and leaves no durable Shelf row.
+
+Run the read-only command on the selected rehearsal branch and production. Run
+`--exercise-rollback` on the rehearsal branch. In production, run that exercise
+only when the recorded release authority explicitly accepts a transaction that
+performs synthetic writes and forces rollback; otherwise run attestation only.
+Neither command runs automatically in CI or Vercel. On the rehearsal branch,
+supplement them with transactions that prove:
+
+- missing `app.customer_subject` returns zero rows and rejects writes;
+- A and B can independently add, list, remove, and clear;
+- a duplicate add creates one row;
+- `set row_security = off` does not expose rows; and
+- the Shelf role cannot query the receipt, Auth, moderation, intake, or
+  migration-ledger tables.
+
+Roll back the synthetic rehearsal transactions. In production, use read-only
+role/grant/RLS inspection plus the verified launch-account smoke unless the
+release authority accepted the checked-in rollback exercise. Do not create ad
+hoc fake customer rows merely to duplicate the rehearsal.
+
+Finally, run the catalogue identity reconciliation query in
+[Catalogue identity/version migration and reconciliation](#catalogue-identityversion-migration-and-reconciliation).
+Do not proceed on any missing identity, grant drift, attestation failure, or
+cross-owner result.
+
+### 4. Import and verify the receipt before activation
+
+Keep the interactive Shelf revision undeployed and do not add either restricted
+runtime URL to Vercel yet. This ordering ensures the initial additive import
+finishes before a live customer can remove an item; the import therefore cannot
+reverse a live customer removal.
+
+At the protected operator boundary, inject the administrator URL and the one-
+off target mailbox without writing either to disk or history. The mailbox must
+normalize to the independently reviewed target. Derive its confirmation hash
+without printing the mailbox:
+
+```bash
+SHELF_TARGET_SHA256="$(node -e "const {createHash}=require('node:crypto'); const value=(process.env.JELOCARE_SHELF_IMPORT_TARGET_MAILBOX ?? '').normalize('NFKC').trim().toLowerCase(); process.stdout.write(createHash('sha256').update(value).digest('hex')); ")"
+npm run customer:shelf:import
+npm run customer:shelf:import -- --apply "--confirm-target-sha256=$SHELF_TARGET_SHA256"
+unset SHELF_TARGET_SHA256 JELOCARE_SHELF_IMPORT_TARGET_MAILBOX MIGRATION_DATABASE_URL
+```
+
+The dry run must be database-enforced read-only and report all 14 source
+dispositions, exactly five accepted identity resolutions, no deletes, and no
+existing receipt. Apply briefly takes a `SHARE ROW EXCLUSIVE` lock on
+`public.customer_shelf_items` and the receipt guard so no competing Shelf write
+can invalidate its plan. It remains additive and never deletes a Shelf row.
+Before writing the receipt, it verifies that the identities actually inserted
+equal the planned missing set and that the final Shelf contains the exact five
+accepted identities. Require `inserted` to equal `planned-insert` and
+`final-accepted=5`; it prints no mailbox or subject.
+
+Verify completion without selecting the receipt's owner:
+
+```sql
+select count(*) as completed_receipts
+from public.customer_shelf_import_receipts
+where manifest_id = 'pages-v1.0';
+```
+
+Require `completed_receipts = 1`. A later invocation reports
+`already-completed` and performs no inserts; do not use it as synchronization.
+If the target, identities, counts, or receipt differ, stop: do not delete rows,
+forge a receipt, weaken the guard, configure Vercel, or deploy Shelf.
+
+### 5. Normalize, probe, and configure the runtime URLs
+
+The application uses postgres.js. Prepare each restricted runtime URL in the
+protected secret channel with `sslmode=verify-full` and no `channel_binding`
+query parameter; in particular, remove the provider-generated but unsupported
+`channel_binding=require`. Do not downgrade TLS to make the driver connect.
+
+Before injecting any URL into Vercel, probe the app-role URL through the same
+postgres.js driver. With the candidate URL present only as `DATABASE_URL` in the
+protected operator process, run:
+
+```bash
+node --input-type=module -e 'import postgres from "postgres"; const url=process.env.DATABASE_URL; if (!url) throw new Error("DATABASE_URL is required."); const sql=postgres(url,{max:1,prepare:false}); try { const [role]=await sql`select current_user, session_user`; if (role.current_user !== "jelocare_app_runtime" || role.session_user !== "jelocare_app_runtime") throw new Error("Application runtime role probe failed."); console.log("Application runtime role probe passed."); } finally { await sql.end({timeout:5}); }'
+npm run customer:shelf:audit
+```
+
+The first probe must authenticate as exact `current_user = session_user =
+jelocare_app_runtime`. The second uses only
+`CUSTOMER_SHELF_DATABASE_URL` and must pass the exact read-only Shelf role
+attestation. A connection or TLS error is a failed probe, not permission to add
+`channel_binding=require`, weaken `sslmode`, or use an owner URL. If
+`POSTGRES_URL` will be retained, apply the same URL rules and independently run
+the app-role probe against it.
+
+Only after both probes pass, add `DATABASE_URL` and
+`CUSTOMER_SHELF_DATABASE_URL` through Vercel's protected prompt or dashboard.
+If retained, `POSTGRES_URL` must be another probed app-role URL. Never paste a
+URL into a command argument, source file, ticket, or evidence record.
+
+Remove `MIGRATION_DATABASE_URL`, `JELOCARE_SHELF_IMPORT_TARGET_MAILBOX`, and
+every owner-bearing or reconstructable alias from Production, Preview, and
+Development scopes. This includes old unpooled URLs and split `POSTGRES_*` or
+`PG*` fields. If a provider integration recreates them, reconfigure or remove
+that integration before continuing.
+
+```bash
+vercel env ls
+```
+
+Record names and scopes only. The final inventory must prove that Vercel has
+the two restricted, probed runtime URLs and no migration administrator or owner
+alias.
+
+### 6. Deploy, activate, and smoke
+
+Deploy the already verified revision only after the receipt and URL probes pass,
+then wait for the exact Vercel deployment to become `READY`. Vercel verifies,
+builds, and may promote bounded staged public assets; it does not reconcile
+PostgreSQL or run the import.
+
+Smoke the exact deployment with the verified launch account: sign in, list the
+five accepted exact products, add and reload one other eligible product, remove
+it, export JSON, open and cancel the clear confirmation, and sign out. Never
+clear the imported launch Shelf merely for smoke because the receipt correctly
+prevents re-import; exercise the destructive clear result only with an approved
+disposable account. Confirm another account cannot see the rows, the public
+reporting helper sends no private state, Synthetic Amara is absent, and Routine
+and Concern remain unpersisted. Do not claim full provider-account deletion; it
+is not implemented.
+
+### 7. Rotate the former owner and declare the floor
+
+After the restricted deployment and smoke pass, rotate or revoke the database
+owner credential that Vercel previously held. Update only the protected
+operator secret store, remove any provider integration capable of reconstructing
+the old owner URL, and repeat the environment inventory, runtime attestation,
+and production smoke. Never change a runtime role into an owner or grant it
+`BYPASSRLS` to recover access.
+
+Runtime-role credential rotation is a coordinated protected operation: set the
+new password interactively, replace only that role's Vercel URL through the
+protected prompt, redeploy, and smoke both general and Shelf data paths. Expect
+new connections to fail between the password change and updated deployment;
+use a bounded maintenance window. Do not change the role name or grants during
+a credential-only rotation.
+
+Record the rollback floor as the first exact application revision proven with
+the restricted roles, together with the ledger through `0035` and the passing
+audit. A failed later application deployment may roll back only to that revision
+or another role-compatible revision. Do not down-migrate, restore an owner URL,
+or delete Shelf rows. The current code has neither an activation flag nor an
+independent recovery-only export/delete path. Disable behavior with a reviewed
+role-compatible release; removing `CUSTOMER_SHELF_DATABASE_URL` is an emergency
+total fail-closed action that disables list, add, remove, clear, and export
+together. Preserve rows and forward-fix.
+
+This operation creates no cron and changes no inventory schedule, queue, lease,
+worker, or manual-observation behavior.
 
 ## Operator access cannot be changed
 

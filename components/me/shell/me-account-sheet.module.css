@@ -87,6 +87,8 @@
 .heading button:focus-visible,
 .appearance :global(.theme-toggle):focus-visible,
 .helpers a:focus-visible,
+.lifecycle a:focus-visible,
+.lifecycle button:focus-visible,
 .footer button:focus-visible {
   outline: 2px solid var(--wine);
   outline-offset: 3px;
@@ -164,6 +166,39 @@
 .helpers a > span strong { font-size: 0.82rem; font-weight: 600; }
 .helpers a > span small { color: var(--muted); font-size: 0.7rem; }
 
+.lifecycle {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+
+.lifecycle > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.lifecycle strong { font-size: 0.84rem; font-weight: 600; }
+.lifecycle span,
+.lifecycle p { margin: 0; color: var(--muted); font-size: 0.7rem; }
+.lifecycle .previewScope { color: var(--wine); }
+.lifecycle a,
+.lifecycle button {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--peach) 56%, var(--paper));
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+
+.lifecycle button:disabled { cursor: default; opacity: 0.5; }
+
 .footer {
   display: grid;
   gap: 12px;
@@ -228,6 +263,7 @@
   .sheet,
   .identity,
   .appearance,
-  .helpers a { border: 1px solid CanvasText; background: Canvas; color: CanvasText; }
+  .helpers a,
+  .lifecycle { border: 1px solid CanvasText; background: Canvas; color: CanvasText; }
   .footer button { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText; }
 }

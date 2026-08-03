@@ -1,7 +1,7 @@
 # JeloCare Me production roadmap
 
 Updated: 2026-08-03
-Status: Planned; this document does not commission feature implementation
+Status: Phase 1 candidate implemented locally; protected operator activation and production evidence remain
 
 This is the canonical delivery roadmap from the shipped JeloCare Me foundation
 to production completeness. [JeloCare Me](./JELOCARE_ME.md) remains the canon
@@ -16,9 +16,10 @@ Shop or Shopify claim is required.
 
 ## Audited baseline: what ships now
 
-The baseline was rechecked at `4faae19e027321420a188237a4b9ed491ea61300`.
-It describes code and focused contracts, not an authenticated production smoke
-or the future requirements recorded below.
+The baseline was rechecked against the current Phase 1 candidate on 2026-08-03.
+It describes code and focused contracts, not an authenticated production smoke,
+completed operator activation, or the future requirements recorded below. The
+exact release revision is recorded only after the checklist passes.
 
 | Journey | Shipped truth | Missing before production completeness | Evidence |
 | --- | --- | --- | --- |
@@ -26,11 +27,11 @@ or the future requirements recorded below.
 | Home | `/me` renders the warm adaptive shell, one Ask Me entry, an exact catalogue feature, and honest Shelf/Routine previews. A real account currently receives empty Shelf and Routine state. | Persistent summaries, actionable recovery when one private source fails, and explainable personal context. | `app/(customer)/me/page.tsx`, `components/me/home/me-home.tsx` |
 | Explore and member Product | `/me/explore` receives the eligible public catalogue projection, searches it in client memory, and renders only the first 12 filtered products. The authoritative projection contains 63 eligible products at the 2026-08-03 snapshot, so an unfiltered browse silently leaves 51 unreachable. Search may surface a product outside the first 12 only when the query moves it into that first result window. `/me/product/[slug]` preserves an allowlisted parent and reuses public catalogue identity; malformed origins fail to Home. | Every currently eligible public product must be discoverable through browse/search, with no arbitrary client cap. The count must follow the publication projection as products publish, retire, or transition; 63 is snapshot evidence, not a hard-coded limit. Context, saved state, exact identity, successor behavior, public evidence, explicit stale/error handling, and scale remain missing. | `components/me/home/me-home.tsx`, `lib/customer/read-model.ts`, `modules/me/me-shell-contract.test.ts` |
 | Ask Me and Concerns | `/me/consult` is currently catalogue/context search, not a consultation submission. Real accounts have no stored Concerns. Separately, public `/consult` already returns deterministic, reviewed education with same-site checks, a 64 KiB body limit, and a production-fail-closed 20-request-per-hour network limit; it makes zero model calls and keeps visit context in memory. | An authenticated adapter over the reviewed safety engine, explicit context controls, account-aware abuse protection, cost policy for any optional model wording, and recovery without hiding the public route. | [Ask Jelo](../ASK_JELO_EXPERIENCE.md), `app/api/consult/route.ts`, `lib/consult/security.ts` |
-| Shelf | `/me/shelf` is a real authenticated route with a truthful empty state. Only the development-only synthetic customer has populated products. | Owner-isolated persistence, exact-product version references, add/remove behavior, lifecycle controls, mutation states, and cross-owner evidence. | `lib/customer/development-fixture.ts`, `lib/customer/read-model.ts` |
+| Shelf | The Phase 1 candidate adds immutable-version persistence, owner-derived add/remove/read, unavailable-version representation, a nine-product local synthetic preview, export, and hard-delete clear. It fails closed unless `CUSTOMER_SHELF_DATABASE_URL` uses the exact attested `jelocare_shelf_runtime` role. | Complete the protected role/migration/reconciliation release, datastore isolation evidence, reviewed one-off Umeh import, owner-credential removal/rotation, and authenticated production smoke. | `db/migrations/0034_customer_shelf.sql`, `db/migrations/0035_runtime_database_roles.sql`, [ADR 0014](../adr/0014-customer-shelf-data-boundary.md) |
 | Routine | `/me/routine` is a real authenticated route with a truthful empty state. The development presentation renders three customer-authored exact products. | Create, edit, order, remove, and recover; routine-specific comprehension and safety boundaries; persistence and lifecycle evidence. | `modules/me/customer-access.test.ts`, `components/me/home/me-home.tsx` |
-| Account and global helpers | The avatar opens an accessible modal with identity, shared appearance control, and Sign out. Its helper list is empty. No `/me` shell action currently reaches public `/contribute`, and neither price reporting nor exact-product prefilling is implemented from Me. | A global Report price or availability helper must reach the existing public `/contribute` intake without becoming a fifth tab or page FAB. Session recovery, private-data export/deletion controls, status/failure feedback, and support boundaries also remain. | `components/me/shell/me-account-sheet.tsx`, `app/(site)/contribute/page.tsx`, `lib/community-intake/catalogue-search-handoff.ts` |
+| Account and global helpers | The Account sheet now links globally to plain `/contribute`, exports the owner-derived Shelf without identity, and offers confirmed hard-delete clear. It remains a non-tab/non-FAB helper and sends no private state. | Dedicated-role activation, authenticated production smoke, and the future provider-account deletion orchestrator remain. Exact-product intake prefill remains excluded. | `components/me/shell/me-account-sheet.tsx`, `app/(customer)/me/shelf/export/route.ts`, [ADR 0014](../adr/0014-customer-shelf-data-boundary.md) |
 | Refill and basket decisions | A product contract describes the possible one-store, split, wait, and urgent-now outcomes. | No route, persisted intent, evaluator, forecast, notification, monitor, or customer result ships. | [JeloCare Me · basket timing](./JELOCARE_ME.md#future-basket-timing-intelligence) |
-| Resilience and observability | Global errors can retry. Exact offer labels fail closed when current evidence cannot produce a market summary. | Me-owned loading/error/offline/stale/recovery states, private-safe telemetry, service objectives, alerts, and rollback signals. There is no Me-specific `loading` or `error` boundary and no offline mutation contract. | `app/error.tsx`, `modules/commerce/market-price-label.ts`, `app/(customer)/me/` |
+| Resilience and observability | Me has route-owned loading and retryable error boundaries. Exact offer labels fail closed when current evidence cannot produce a market summary. | Offline/stale recovery, private-safe telemetry, service objectives, alerts, and rollback signals. There is no offline mutation contract. | `app/(customer)/me/loading.tsx`, `app/(customer)/me/error.tsx`, `modules/commerce/market-price-label.ts` |
 
 The synthetic Amara presentation is local development evidence only. It is not
 customer persistence, a seed, a production account, or proof of authenticated
@@ -80,7 +81,7 @@ Every released phase must cover this state contract on every affected surface:
 | Stale | Catalogue, offer, forecast, and derived context show observation or computation freshness. Ineligible evidence is omitted or downgraded to current-options-only. |
 | Signed out | Private content is absent, the sign-in continuation is allowlisted, and public evidence remains usable. |
 | Authenticated | The server derives the owner for every private read and write. Client owner IDs, route parameters, analytics, or cache keys never authorize access. |
-| Recovery | Expired session, provider outage, conflicting edit, failed write, restore, export, and deletion each have a tested path with no cross-owner or silent data loss. |
+| Recovery | Expired session, provider outage, conflicting edit, failed write, export, deletion, and either implemented restore or an explicit no-restore boundary each have tested behavior with no cross-owner or silent data loss. |
 
 ## Ownership and dependency map
 
@@ -114,6 +115,16 @@ Phases 2, 3, and 4 → Phase 5; and Phases 1, 2, 5 plus catalogue evidence →
 Phase 6. Phases 7 and 8 are separately funded options, not automatic backlog.
 
 ## Phase 1 — private foundation through a real Shelf
+
+**Current implementation truth.** The local candidate implements the bounded
+schema, server-derived owner, transaction-local RLS setting, explicit owner
+predicates, idempotent actions, lifecycle-aware read model, synthetic fixture,
+Account helper, JSON export, hard-delete clear, reviewed owner-free manifest,
+and dry-run-by-default importer. It is not production-ready until the protected
+operator release provisions and audits `jelocare_app_runtime` and
+`jelocare_shelf_runtime`, applies migrations `0034` and `0035`, removes every
+owner credential from Vercel, records two-owner isolation evidence, completes
+the reviewed one-off import, and passes authenticated smoke.
 
 **User outcome.** A signed-in customer can save or remove one exact product,
 see the result after a new session, export it, delete it, never see another
@@ -151,7 +162,8 @@ references an immutable product identity version, is idempotent, and returns a
 small semantic result. No client-supplied owner field exists.
 
 **Entry gate.** Record the allowed private fields; live and backup retention;
-export, deletion, restore, and incident behavior; owner-key strategy; session
+export, deletion, the explicit absence of application restore, and incident
+behavior; owner-key strategy; session
 expiry behavior; threat model; and catalogue identity transition behavior.
 Confirm that the public contribution moderation/evidence/privacy boundary is
 unchanged and that signed-in origin confers no verification or trust.
@@ -178,19 +190,22 @@ moderation; authentication never upgrades a report into product, price,
 availability, retailer, or clinical truth.
 
 **Test and release evidence.** Pure owner-policy tests; datastore integration
-tests with two owners; idempotency, conflict, export, delete, restore, expired
-session, offline, keyboard, screen-reader, and 320–1440 px route evidence;
+tests with two owners; idempotency, conflict, export, delete, provider-backup
+boundary, expired session, offline, keyboard, screen-reader, and 320–1440 px
+route evidence;
 migration dry-run and rollback rehearsal; global-helper source/interaction
 contract; existing contribution moderation/privacy tests; `npm run
 verify:release`; `npm run build`; exact revision READY; public `/contribute` and
 Product plus signed-out `/me` smoke; and authenticated shell-helper and Shelf
 smokes before claiming either behavior.
 
-**Rollback.** Disable Shelf mutations and private reads with the smallest
-reviewed release toggle, preserve/export already written rows, and ship a
-forward fix. Remove the helper link without changing `/contribute` if its shell
-integration regresses. Do not down-migrate or discard customer data as an
-application rollback.
+**Rollback.** Preserve the additive schema and written rows, keep the two
+restricted runtime roles, and deploy the recorded role-compatible floor or a
+forward fix. The current code has no recovery-only export/delete mode: removing
+the Shelf connection disables all Shelf operations together, and no activation
+flag exists. Never down-migrate, restore an owner credential, or discard
+customer data as an application rollback. Remove the helper link without
+changing `/contribute` if only its shell integration regresses.
 
 **Unlocks.** Routine, controlled context, personalised Home/Explore, and refill
 intent share a proven owner/lifecycle spine.
@@ -598,11 +613,15 @@ fixtures; performance harnesses; and provider research with no credentials or
 external state. Migration, shared customer service, Home/Account integration,
 release, and production smoke have one writer and one integration owner.
 
-Each data-bearing phase gets one additive, domain-bounded migration and its own
-lifecycle extension. Do not create one speculative customer super-schema.
-Initial phases have no backfill or seed. Exact products reference immutable
-catalogue identity versions, not mutable display slugs. Feature rollback disables
-new behavior and preserves export/deletion; schema rollback is a reviewed
+Each data-bearing phase gets an additive, domain-bounded migration and its own
+lifecycle extension. Phase 1 uses `0034` for the Shelf domain and `0035` for the
+shared runtime-role/grant boundary and one-off receipt. Do not create one
+speculative customer super-schema. Initial phases have no generic backfill or
+customer seed; Phase 1 has only ADR 0014's reviewed one-off legacy import. Exact
+products reference immutable
+catalogue identity versions, not mutable display slugs. Later feature rollbacks
+preserve export/deletion only when those controls are independently implemented;
+Phase 1 follows ADR 0014's role-compatible floor. Schema rollback is a reviewed
 forward migration. A notification outbox appears only in Phase 7. Basket data
 references canonical offer observations and never copies or owns the inventory
 job ledger.
@@ -642,7 +661,7 @@ safety for engagement.
 | Signal | Target | Stop or rollback condition |
 | --- | --- | --- |
 | Owner isolation and privacy | 0 cross-owner reads/writes; 100% of private operations derive owner server-side; 0 private payloads in URLs/logs/analytics/public caches | Any violation or credible exposure |
-| Data correctness and recovery | 0 duplicate/lost confirmed mutations in retry/conflict suites; 100% export/delete/restore reconciliation in release fixtures | Any unexplained mismatch or unrecoverable confirmed write |
+| Data correctness and recovery | 0 duplicate/lost confirmed mutations in retry/conflict suites; 100% export/delete reconciliation in release fixtures; provider backup evidence never presented as an application restore | Any unexplained mismatch or unrecoverable confirmed write |
 | Route reliability | At least 99.9% successful eligible Me reads and 99.5% successful writes over a rolling 28-day window after minimum traffic is reached | More than 1% eligible 5xx reads or 2% failed writes for 15 minutes, or any sustained auth-loop |
 | Customer performance | Per-route p75 LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.10; phase-specific service p95 targets also pass | Any route at p75 LCP > 4 s, INP > 500 ms, or CLS > 0.25 for 24 hours after excluding a measured platform-wide incident |
 | Accessibility | 0 critical/serious automated violations; 100% of the primary journey completes by keyboard at 320 px and 200% text | Any blocking keyboard, focus, name/role/value, reflow, or care-first announcement defect |
@@ -650,69 +669,17 @@ safety for engagement.
 | Ask safety and cost | 100% required safety corpus; 0 products on stop routes; 0 unauthorized model calls; 100% limiter fail-closed cases | Any safety-precedence regression, private-context leak, unbounded request, or cost-cap breach |
 | Catalogue/basket integrity | 100% displayed decisions bind exact identity and evidence freshness; 0 ambiguous identities; 0 unknown fees treated as zero; 0 ineligible wait recommendations | Any fabricated/ambiguous product, offer, fee, availability, or forecast claim |
 
-## Next smallest executable slice — ready-to-dispatch capsule
+## Next executable step — protected Phase 1 activation
 
-Project: JeloCare
+The implementation slice is complete locally. The next unit is the ordered
+[Customer Shelf release checklist](../operations/RELEASE.md#customer-shelf-release-checklist):
+provision the two restricted roles; migrate and reconcile through `0035`; pass
+the rehearsal and production acceptance audit; run the receipt-guarded one-off
+import and verify its receipt; probe and configure the restricted runtime URLs
+while removing every owner credential from Vercel; deploy; smoke; rotate the
+former owner; and record the role-compatible rollback floor.
 
-Department: Customer Experience
-
-Tier: foundation delivered as one thin vertical slice
-
-Execution surface: visible department task; sole writer and delegated integration owner
-
-Release authority: ship-after-gates
-
-Starting point: current `origin/main`; reconcile the audited baseline before editing
-
-Outcome: one verified customer can add or remove one exact product on My Shelf,
-see the confirmed result after sign-out/sign-in, export it, delete it, and never
-read or mutate another customer's row; the same shell also exposes one global
-helper that navigates to the existing public `/contribute` intake.
-
-Reservation request (maximum 12 paths):
-
-1. `db/migrations/0034_customer_shelf.sql`
-2. `lib/customer/shelf-repository.ts`
-3. `lib/customer/read-model.ts`
-4. `lib/customer/portal-model.ts`
-5. `app/(customer)/me/actions.ts`
-6. `components/me/home/me-home.tsx`
-7. `components/me/shell/me-account-sheet.tsx`
-8. `modules/me/customer-access.test.ts`
-9. `modules/me/me-shell-contract.test.ts`
-10. `modules/me/customer-shelf.test.ts`
-11. `docs/adr/0014-customer-shelf-data-boundary.md`
-12. `docs/product/JELOCARE_ME.md`
-
-Entry gate: obtain only the Phase 1 founder decisions; confirm the owner-key and
-immutable product-version contract; fetch/reconcile `origin/main`; stop on any
-overlapping writer or unresolved migration number. Do not seed customer data.
-
-Acceptance: server-derived owner on every query/mutation; exact identity-version
-foreign key; idempotent add/remove; normal, empty, loading, error, offline,
-signed-out, expired-session, authenticated, conflict, export, deletion, and
-restore evidence; zero cross-owner access in two-owner integration tests; no
-private values in URL/log/analytics/cache; Account remains a sheet; `/ops` and
-public routes remain unchanged; one shared non-tab/non-FAB helper reaches plain
-`/contribute` from every released Me surface; it sends no private state or
-identity and does not upgrade the report's moderation/evidence status. The
-current 12-result Explore cap remains documented as missing and must not be
-described as production-complete or replaced with a hard-coded 63 limit.
-
-Verification and release: focused access/Shelf/migration/lifecycle tests,
-accessibility and responsive route evidence, migration dry-run and restore
-rehearsal, existing public-intake boundary tests, `npm run verify:release`,
-`npm run build`, explicit-path staging,
-single scoped commit, safe main reconciliation, push, bind the exact revision to
-Vercel READY, then smoke public `/contribute` and Product, signed-out `/me`, and
-an authenticated shell-helper plus Shelf add/reload/remove/export/delete test
-account. Do not claim either authenticated result without that evidence.
-
-Rollback: disable Shelf writes/reads through the reviewed release boundary,
-retain export/deletion, preserve written rows, and forward-fix; never down-migrate
-or delete customer data to roll back application behavior.
-
-Exclusions: Routine, Concerns, Ask submission/history, personal ranking,
-notifications, community, `/ops`, catalogue writes, inventory cron/queue/manual
-refresh, retailers, couriers, campaigns, seeds, unrelated docs, and the Phase 5
-complete-catalogue Explore implementation.
+Do not describe Phase 1 as production-active without that evidence. Routine and
+Concern remain local Synthetic Amara preview data; their persistence, full
+provider-account deletion, recovery-only export, new cron or inventory work,
+and complete-catalogue Explore remain outside this activation.

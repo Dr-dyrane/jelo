@@ -1,5 +1,10 @@
 import postgres from 'postgres';
 import {
+  APPLICATION_RUNTIME_ROLE,
+  applicationDatabaseUrl,
+  isProductionApplicationRuntime,
+} from '@/lib/database/runtime-database-config';
+import {
   canClaimInventoryRefreshJob,
   INVENTORY_REFRESH_LEASE_MS,
   type InventoryRefreshRunStatus,
@@ -60,10 +65,15 @@ const VERIFIED_PRODUCT_TITLE_ALIASES: Record<string, string[]> = {
 let inventoryRefreshClient: ReturnType<typeof postgres> | undefined;
 
 function getInventoryRefreshClient() {
-  const connectionString = process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
-  if (!connectionString) throw new Error('DATABASE_URL or POSTGRES_URL is required for inventory refresh.');
+  const connectionString = applicationDatabaseUrl(process.env);
+  if (!connectionString) {
+    throw new Error(isProductionApplicationRuntime(process.env)
+      ? 'Runtime database access is unavailable.'
+      : 'DATABASE_URL or POSTGRES_URL is required for inventory refresh.');
+  }
   if (!inventoryRefreshClient) {
     inventoryRefreshClient = postgres(connectionString, {
+      ...(isProductionApplicationRuntime(process.env) ? { user: APPLICATION_RUNTIME_ROLE } : {}),
       max: 5,
       idle_timeout: 20,
       connect_timeout: 10,

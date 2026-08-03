@@ -1,4 +1,5 @@
 import { useEffect, useRef, type MouseEvent } from 'react';
+import Link from 'next/link';
 import type { LucideIcon } from 'lucide-react';
 import {
   resolveActiveWorkspaceNavigationItem,
@@ -55,7 +56,7 @@ export function DockNavigation({
           const Icon = item.icon;
           return (
             <li key={item.id} className={styles.navigationListItem}>
-              <a
+              <Link
                 href={item.href}
                 className={`${styles.interactive} ${styles.navigationItem}`}
                 aria-current={selected ? 'page' : undefined}
@@ -64,7 +65,7 @@ export function DockNavigation({
               >
                 <Icon size={22} strokeWidth={selected ? 2.2 : 1.65} aria-hidden="true" />
                 <span>{item.label}</span>
-              </a>
+              </Link>
             </li>
           );
         })}

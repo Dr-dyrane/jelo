@@ -5,8 +5,12 @@ Updated: 2026-08-03
 JeloCare Me is the authenticated customer workspace for asking, discovering,
 saving, and organising care. Its first release ships the real `/me` route
 family, verified-session guard, warm adaptive shell, truthful empty states, and
-a development-only synthetic presentation. Shelf and Routine persistence and
-AI-generated guidance are not part of this release.
+a development-only synthetic presentation. The Phase 1 candidate adds
+owner-isolated Shelf persistence, add/remove/export/clear behavior, and the
+global public reporting helper. Production activation is not complete until the
+restricted database roles, operator migration/import, audit, deployment, and
+smoke checklist passes. Routine and Concern persistence and AI-generated
+guidance are not part of this release.
 
 [ADR 0013](../adr/0013-founder-led-jelocare-me.md) owns the decision and code
 boundaries. The [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md)
@@ -53,18 +57,19 @@ Two authenticated stack pages sit above that primary model:
 
 Account and future real helper destinations belong behind the customer avatar
 in one modal helper sheet, not a popover or fifth destination. The current sheet
-contains only the private account identity, the shared appearance control, and
-Sign out. It traps focus, closes by Escape/backdrop/control, restores avatar
-focus, and is absent while closed. Every visible product action inside Me opens
-the member product route. Public catalogue and product routes remain
-independently usable without a customer session.
+contains the private account identity, shared appearance control, public report
+link, Shelf export and confirmed clear, and Sign out. It traps focus, closes by
+Escape/backdrop/control, restores avatar focus, and is absent while closed.
+Every visible product action inside Me opens the member product route. Public
+catalogue and product routes remain independently usable without a customer
+session.
 
 The production shell also requires one global **Report price or availability**
 helper that reaches the existing public `/contribute` experience. It may live in
 the extensible Account/helper sheet or a global context sheet; it is never a
-fifth tab or a duplicate page FAB. This helper is not shipped today. The initial
-target is plain `/contribute` because its current query handoff accepts a bounded
-product label as a custom value, not an allowlisted canonical slug. Member
+fifth tab or a duplicate page FAB. The current helper links to plain
+`/contribute` because its query handoff accepts a bounded product label as a
+custom value, not an allowlisted canonical slug. Member
 Product may pass an exact-product slug only after Public Experience adds and
 tests that safe prefill in the public intake contract. A report remains
 anonymous/community intake under its existing moderation, evidence, and privacy
@@ -137,11 +142,15 @@ while Home previews retain their editorial section composition.
   snapshot. That cap is shipped behavior, not the production target.
   A fresh price/store line may appear only through the existing public offer
   evidence boundary; absent or stale evidence is omitted.
-- No current Me helper links to `/contribute`. The required global reporting
-  helper and complete-catalogue Explore are documented targets, not implemented
-  or production-smoked behavior.
-- Shelf and Routine render persisted customer data when it exists and otherwise
-  show honest empty states. The development presentation is not persistence.
+- The global reporting helper is implemented as an Account-sheet link to plain
+  `/contribute`; it sends no identity or private state. Complete-catalogue Explore remains a
+  documented target, not implemented or production-smoked behavior.
+- Shelf now has one additive immutable-version store, owner-derived reads and
+  mutations, lifecycle-aware unavailable rows, export, and hard-delete clear.
+  It fails closed without the exact restricted Shelf database connection.
+  Production activation remains an operator release, not a Vercel build side
+  effect. Routine and Concern remain unpersisted and appear only in the local
+  Synthetic Amara preview. The development presentation is not persistence.
 - Ask Me supports truthful discovery over customer context and exact products;
   it does not claim an AI answer, consultation submission, or saved mutation.
   Public `/consult` remains a separate account-free, deterministic guidance
@@ -153,13 +162,14 @@ The shipped-vs-missing baseline, dependency graph, per-phase owner and gates,
 state coverage, critical path, migration boundaries, scorecard, and exactly one
 next executable slice live only in the
 [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md). In short,
-the next candidate is an owner-isolated, persistent Shelf thin slice that also
-proves the first real customer-data lifecycle and exposes the plain public
-`/contribute` helper without duplicating intake. Complete eligible-catalogue
+the current candidate is the owner-isolated Shelf thin slice; its next step is
+the [restricted-role release checklist](../operations/RELEASE.md#customer-shelf-release-checklist),
+including the reviewed import, datastore evidence, and authenticated production
+smoke. Complete eligible-catalogue
 Explore, Routine, controlled Concerns, authenticated Ask, contextual discovery,
 refill/basket decisions, notifications, and public community follow only through
 their recorded gates. The current 63-product snapshot is evidence, never a
-hard-coded limit. This summary does not commission any implementation.
+hard-coded limit.
 
 ## Future basket timing intelligence
 
@@ -264,7 +274,14 @@ catalogue identity and offer-label logic; it does not copy product truth.
 
 ## Release non-goals
 
-This release does not add customer-role schema, migrations, seeds, catalogue
-writes, Shelf/Routine mutation, AI/model calls, reminders, notifications, cron,
+This release does not add customer-role schema, customer seeds, catalogue writes,
+Routine mutation, AI/model calls, reminders, notifications, cron,
 queues, campaigns, retailer or courier workflows, or any change to `/ops`,
 operator authorization, public product ownership, or public session handling.
+
+It also does not implement full provider-account deletion or a recovery-only
+Shelf export path. Those lifecycle limits remain explicit in ADR 0014.
+
+[ADR 0014](../adr/0014-customer-shelf-data-boundary.md) owns the Shelf fields,
+owner/RLS contract, reviewed legacy import, retention, export, deletion,
+recovery, and private-data exclusions.

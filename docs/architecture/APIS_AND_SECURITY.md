@@ -1,6 +1,6 @@
 # APIs and security
 
-Updated: 2026-07-27
+Updated: 2026-08-03
 
 Route handlers validate at the boundary, keep secrets server-only, and fail closed when durable storage or required credentials are unavailable.
 
@@ -21,6 +21,11 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 | `/api/cron/inventory` | `GET` | Refresh due retail offers | Bearer `CRON_SECRET`, bounded batch |
 | `/go` | `GET` | Outbound retailer redirect | Allowlisted offer lookup and attribution logic |
 
+JeloCare Me Shelf mutations are authenticated server actions rather than public
+API routes. `/me/shelf/export` is an authenticated, private, no-store download.
+Each derives the verified owner on the server; neither accepts an owner in a
+path, query, form, or JSON body.
+
 ## Shared controls
 
 - Zod schemas normalize and bound all submitted fields.
@@ -34,6 +39,9 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 - Submission keys make final submissions retry-safe.
 - Database writes that create derived knowledge or events use transactions.
 - Public errors stay concise; server logs must not print secrets or full submitted payloads.
+- Private Shelf operations use a dedicated exact-role connection, transaction-
+  local owner context, an explicit owner predicate, and enabled plus forced
+  PostgreSQL RLS. Missing or unsafe role attestation fails closed.
 - Catalogue suggestions query indexed public search text and approved GTIN fields, then fail over to a deterministic checked-in projection containing only slug, brand, name, size, approved GTIN, and source. They never import or expose private candidates, community drafts, moderation records, dossiers, or the 1,000-record discovery queue.
 - Catalogue suggestion reads use a hashed network key with a lightweight Upstash window. Missing Redis configuration is the only fail-open state; partial configuration and provider failures return `429` with `Retry-After`.
 - Ask Jelo uses a separate 20-request-per-hour Upstash window and an HMAC-derived network key. Production denies requests when Redis configuration is missing or the configured provider is unavailable; local development may run without Redis.
@@ -45,9 +53,16 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 | Public product and retailer records | Public | Publish only through the relevant evidence gate |
 | Community submissions | Internal, anonymous | Aggregate for research; do not present as verified fact |
 | Retailer applications | Confidential business data | Restrict to operations; retain only as documented |
+| Customer Shelf rows and exports | Private customer data | Owner-derived access only; never send to Operations, analytics, public caches, advertising, community research, or model training |
 | Edit and magic-link tokens | Secret | Never log or store in plaintext |
 | Email, phone, address | Personal/business contact data | Use only with recorded consent |
 | Database, Blob, Redis, mail, and third-party credentials | Secret | Server-only environment variables |
+
+The database owner and `MIGRATION_DATABASE_URL` are not application secrets and
+must not exist in Vercel. Production Vercel receives only the restricted
+`jelocare_app_runtime` and `jelocare_shelf_runtime` connections. Role grants,
+attestation, import, retention, and the honest rollback floor are owned by
+[ADR 0014](../adr/0014-customer-shelf-data-boundary.md).
 
 ## Ask Jelo boundary
 

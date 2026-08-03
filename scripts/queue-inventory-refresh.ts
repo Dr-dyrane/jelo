@@ -1,15 +1,9 @@
 import postgres from 'postgres';
 import { parseInventoryQueueOptions } from '../lib/inventory/queue-options';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 async function main() {
-const connectionString = process.env.DATABASE_URL_UNPOOLED
-  ?? process.env.POSTGRES_URL_NON_POOLING
-  ?? process.env.DATABASE_URL
-  ?? process.env.POSTGRES_URL;
-
-if (!connectionString) {
-  throw new Error('A Neon connection string is required to queue inventory refresh jobs.');
-}
+const connectionString = requireAdminDatabaseUrl();
 
 const options = parseInventoryQueueOptions(process.argv.slice(2));
 

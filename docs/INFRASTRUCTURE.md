@@ -73,7 +73,16 @@ npm run assets:verify -- --write
 
 An exact official transparent source can be staged without copying a persistent Blob credential into a developer machine. `data/product-asset-promotions.json` binds the source, local fallback, deterministic Blob path, decoded metadata and file hash. `npm run assets:promote:staged` runs only during a credentialed production build and uploads active entries after rechecking every byte. Staging remains private: the public catalogue continues using the old canonical manifest until the uploaded URL has been independently fetched and a later commit updates `data/product-assets.json` plus its identity/art approval.
 
-Production builds apply the metadata to durable `product_images` and `editorial_assets` rows after database migrations. Homepage editorial media is resolved from the checked-in manifest rather than duplicated URLs. Generated imagery may provide editorial scenery or props, but never a redrawn branded package. Product background isolation must preserve official source pixels and pass full-resolution identity review. Checked-in generated editorial files remain runtime fallbacks for the matching editorial Blob, while the neutral JeloCare placeholder is used only after a published product image fails to load.
+The protected `npm run db:reconcile` operator applies metadata to durable
+`product_images` and `editorial_assets` rows after migrations. Vercel builds do
+not receive database authority; they may only promote the reviewed staged Blob
+bytes after verification and a successful build. Homepage editorial media is
+resolved from the checked-in manifest rather than duplicated URLs. Generated
+imagery may provide editorial scenery or props, but never a redrawn branded
+package. Product background isolation must preserve official source pixels and
+pass full-resolution identity review. Checked-in generated editorial files
+remain runtime fallbacks for the matching editorial Blob, while the neutral
+JeloCare placeholder is used only after a published product image fails to load.
 
 When `CATALOGUE_SOURCE=neon`, `p.is_published` is only the database-side gate. Every returned row is intersected with the checked-in, hash-approved static catalogue; the approved identity and Blob image replace persisted display fields. Persisted offers flow through only when the row identity and observed retailer title/size match that approved SKU; `/go` resolves through the same reconciled record. A database row cannot publish an opaque, stale, rights-held, or otherwise unapproved image.
 
@@ -140,12 +149,17 @@ Preferred application variables:
 
 ```env
 DATABASE_URL=
-DATABASE_URL_UNPOOLED=
+CUSTOMER_SHELF_DATABASE_URL=
 ```
 
-Use the pooled URL for normal application queries and the unpooled URL for migrations and administrative operations. Other `PG*` and `POSTGRES_*` variables are generated for tooling compatibility.
+Production uses the exact restricted app and Shelf runtime roles. Migrations and
+database reconciliation use a direct `MIGRATION_DATABASE_URL` only at the
+protected operator boundary; the database owner and reconstructable aliases do
+not belong in Vercel. See [Neon and data](./data/NEON.md) for the canonical role
+contract.
 
-Neon Auth variables are provisioned, but authentication is not part of the current product surface. Do not introduce login gates into public catalogue flows without an approved product plan.
+Neon Auth protects JeloCare Me and Operations. Public catalogue flows remain
+account-free.
 
 ## Edge Config
 

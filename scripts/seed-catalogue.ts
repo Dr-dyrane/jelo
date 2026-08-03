@@ -27,6 +27,7 @@ import {
 import { catalogueBrandSlug } from '../lib/catalogue/slug';
 import { priceAmountToStorageInteger } from '../lib/inventory/price-storage';
 import { assertRetailerResponseScope } from '../modules/retail-intelligence/response-scope';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 type ProductAssetRecord = {
   sourceUrl: string;
@@ -86,17 +87,7 @@ function publicSearchProjectionBySlug() {
 
 async function main() {
   const searchProjectionBySlug = publicSearchProjectionBySlug();
-  const connectionString =
-    process.env.DATABASE_URL_UNPOOLED ??
-    process.env.POSTGRES_URL_NON_POOLING ??
-    process.env.DATABASE_URL ??
-    process.env.POSTGRES_URL;
-
-  if (!connectionString) {
-    throw new Error(
-      'A Neon connection string is required to seed the catalogue.',
-    );
-  }
+  const connectionString = requireAdminDatabaseUrl();
 
   const sql = postgres(connectionString, {
     max: 1,

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   ArrowRight,
   Compass,
@@ -10,7 +11,12 @@ import {
   Search,
   Sparkles,
 } from 'lucide-react';
-import { useMemo, useRef, useState, type FocusEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
+import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
+import {
+  useMeShelfState,
+  type ShelfActionHandler,
+} from '@/components/me/shelf/me-shelf-state';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import {
   WorkspaceDockProvider,
@@ -32,7 +38,12 @@ import {
   type MeWorkspacePage,
 } from '@/components/me/shell/me-shell-model';
 import { MeAccountAvatarIcon, MeWorkspaceDock } from '@/components/me/shell/me-workspace-dock';
-import type { CustomerPortalProduct, CustomerPortalViewModel } from '@/lib/customer/portal-model';
+import type {
+  CustomerPortalProduct,
+  CustomerPortalShelfItem,
+  CustomerPortalViewModel,
+} from '@/lib/customer/portal-model';
+import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import styles from './me-home.module.css';
 
 type ProductSource = MeProductOrigin;
@@ -46,28 +57,49 @@ function memberProductHref(product: CustomerPortalProduct, source?: ProductSourc
 function ProductListCard({
   product,
   source,
+  shelfItem,
+  showRemove = false,
+  shelfAction,
+  onShelfMutation,
 }: {
   product: CustomerPortalProduct;
   source: ProductSource;
+  shelfItem: CustomerPortalShelfItem;
+  showRemove?: boolean;
+  shelfAction?: ShelfActionHandler;
+  onShelfMutation?: (result: CustomerShelfActionResult) => void;
 }) {
   return (
-    <Link className={styles.productCard} href={memberProductHref(product, source)}>
-      <span className={styles.productImage}>
-        <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
-      </span>
-      <span className={styles.productCopy}>
-        <small>{product.brand}</small>
-        <strong>{product.name}</strong>
-        <span>{product.category} · {product.size}</span>
-      </span>
-      <ArrowRight size={18} aria-hidden="true" />
-    </Link>
+    <article className={styles.productCardShell}>
+      <Link className={styles.productCard} href={memberProductHref(product, source)}>
+        <span className={styles.productImage}>
+          <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
+        </span>
+        <span className={styles.productCopy}>
+          <small>{product.brand}</small>
+          <strong>{product.name}</strong>
+          <span>{product.category} · {product.size}</span>
+        </span>
+        <ArrowRight size={18} aria-hidden="true" />
+      </Link>
+      {showRemove ? (
+        <ShelfActionButton
+          shelfItem={shelfItem}
+          placement="card"
+          onAction={shelfAction}
+          onSettled={onShelfMutation}
+        />
+      ) : null}
+    </article>
   );
 }
 
-function ExploreCard({ product, source = 'explore' }: {
+function ExploreCard({ product, source = 'explore', shelfItem, showShelfAction = false, shelfAction }: {
   product: CustomerPortalProduct;
   source?: ProductSource;
+  shelfItem?: CustomerPortalShelfItem;
+  showShelfAction?: boolean;
+  shelfAction?: ShelfActionHandler;
 }) {
   return (
     <article className={styles.exploreCard}>
@@ -84,6 +116,46 @@ function ExploreCard({ product, source = 'explore' }: {
           </span>
         </span>
       </Link>
+      {showShelfAction ? (
+        <ShelfActionButton
+          productSlug={product.slug}
+          saved={Boolean(shelfItem)}
+          shelfItem={shelfItem}
+          placement="explore"
+          onAction={shelfAction}
+        />
+      ) : null}
+    </article>
+  );
+}
+
+function UnavailableShelfCard({
+  item,
+  showRemove,
+  shelfAction,
+  onShelfMutation,
+}: {
+  item: CustomerPortalShelfItem;
+  showRemove: boolean;
+  shelfAction?: ShelfActionHandler;
+  onShelfMutation?: (result: CustomerShelfActionResult) => void;
+}) {
+  return (
+    <article className={`${styles.productCardShell} ${styles.unavailableProduct}`}>
+      <div className={styles.unavailableCopy}>
+        <small>{item.snapshot.brand}</small>
+        <strong>{item.snapshot.name}</strong>
+        <span>{item.snapshot.size} · {item.availability === 'changed' ? 'Changed' : 'Unavailable'}</span>
+        {item.message ? <p>{item.message}</p> : null}
+      </div>
+      {showRemove ? (
+        <ShelfActionButton
+          shelfItem={item}
+          placement="card"
+          onAction={shelfAction}
+          onSettled={onShelfMutation}
+        />
+      ) : null}
     </article>
   );
 }
@@ -123,13 +195,23 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
     return { routeKey: '/me/explore', currentHref: resolveMeActiveParentHref(route), page: 'explore' as MeWorkspacePage, detail: 'Exact catalogue' };
   }
   if (route.kind === 'shelf') {
-    return { routeKey: '/me/shelf', currentHref: resolveMeActiveParentHref(route), page: 'shelf' as MeWorkspacePage, detail: count(viewModel.shelf.length, 'saved product') };
+    return {
+      routeKey: '/me/shelf',
+      currentHref: resolveMeActiveParentHref(route),
+      page: 'shelf' as MeWorkspacePage,
+      detail: viewModel.shelfState.status === 'ready'
+        ? count(viewModel.shelf.length, 'saved product')
+        : 'Shelf unavailable',
+    };
   }
   if (route.kind === 'routine') {
     return { routeKey: '/me/routine', currentHref: resolveMeActiveParentHref(route), page: 'routine' as MeWorkspacePage, detail: count(viewModel.routine.length, 'saved step') };
   }
   if (route.kind === 'consult') {
     return { routeKey: '/me/consult', currentHref: resolveMeActiveParentHref(route), page: 'consult' as MeWorkspacePage, detail: 'My care' };
+  }
+  if (route.kind === 'not-found') {
+    return { routeKey: '/me/product/not-found', currentHref: resolveMeActiveParentHref(route), page: 'not-found' as MeWorkspacePage, detail: 'Product not found' };
   }
   return {
     routeKey: `/me/product/${route.slug}`,
@@ -145,7 +227,7 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
     <>
       <section className={styles.hero} aria-labelledby="me-home-title">
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>{surface.eyebrow}</p>
+          <p className={styles.eyebrow}>{viewModel.account.preferredFirstName ?? surface.eyebrow}</p>
           <h1 id="me-home-title">{surface.title}</h1>
           <Link className={styles.primaryAction} href="/me/consult">
             Ask Me <ArrowRight size={18} aria-hidden="true" />
@@ -182,9 +264,26 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
         </div>
         {viewModel.shelf.length ? (
           <div className={styles.productGrid}>
-            {viewModel.shelf.slice(0, 3).map((product) => (
-              <ProductListCard key={product.slug} product={product} source="shelf" />
+            {viewModel.shelf.slice(0, 3).map((item) => item.product ? (
+              <ProductListCard
+                key={item.identityVersionId}
+                product={item.product}
+                shelfItem={item}
+                source="shelf"
+              />
+            ) : (
+              <UnavailableShelfCard
+                key={item.identityVersionId}
+                item={item}
+                showRemove={false}
+              />
             ))}
+          </div>
+        ) : viewModel.shelfState.status === 'unavailable' ? (
+          <div className={styles.emptyAction} role="status">
+            <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
+            <p>{viewModel.shelfState.message}</p>
+            <Link href="/me">Try again</Link>
           </div>
         ) : (
           <div className={styles.emptyAction}>
@@ -208,15 +307,19 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
 }
 
 function ExplorePage({
+  viewModel,
   products,
   search,
   setSearch,
   searchRef,
+  shelfAction,
 }: {
+  viewModel: CustomerPortalViewModel;
   products: readonly CustomerPortalProduct[];
   search: string;
   setSearch: (value: string) => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
+  shelfAction?: ShelfActionHandler;
 }) {
   const surface = ME_PORTAL_SURFACES.explore;
   return (
@@ -228,7 +331,15 @@ function ExplorePage({
       <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search exact products" />
       {products.length ? (
         <div className={styles.exploreGrid}>
-          {products.map((product) => <ExploreCard key={product.slug} product={product} />)}
+          {products.map((product) => (
+            <ExploreCard
+              key={product.slug}
+              product={product}
+              shelfItem={viewModel.shelf.find(item => item.product?.slug === product.slug)}
+              showShelfAction={viewModel.shelfState.status === 'ready'}
+              shelfAction={shelfAction}
+            />
+          ))}
         </div>
       ) : (
         <p className={styles.empty}>No exact products match that search.</p>
@@ -237,7 +348,19 @@ function ExplorePage({
   );
 }
 
-function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+function ShelfPage({
+  viewModel,
+  mutationFeedback,
+  mutationStatusRef,
+  onShelfMutation,
+  shelfAction,
+}: {
+  viewModel: CustomerPortalViewModel;
+  mutationFeedback: string;
+  mutationStatusRef: React.RefObject<HTMLParagraphElement | null>;
+  onShelfMutation: (result: CustomerShelfActionResult) => void;
+  shelfAction?: ShelfActionHandler;
+}) {
   const surface = ME_PORTAL_SURFACES.shelf;
   return (
     <section className={styles.routePage} aria-labelledby="me-shelf-title">
@@ -245,9 +368,43 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
         <p className={styles.eyebrow}>{surface.eyebrow}</p>
         <h1 id="me-shelf-title">{surface.title}</h1>
       </div>
-      {viewModel.shelf.length ? (
+      <p
+        ref={mutationStatusRef}
+        className={styles.visuallyHidden}
+        tabIndex={-1}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {mutationFeedback}
+      </p>
+      {viewModel.shelfState.status === 'unavailable' ? (
+        <div className={styles.emptyAction} role="status">
+          <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
+          <p>{viewModel.shelfState.message}</p>
+          <Link href="/me/shelf">Try again</Link>
+        </div>
+      ) : viewModel.shelf.length ? (
         <div className={`${styles.productGrid} ${styles.listPage}`}>
-          {viewModel.shelf.map((product) => <ProductListCard key={product.slug} product={product} source="shelf" />)}
+          {viewModel.shelf.map((item) => item.product ? (
+            <ProductListCard
+              key={item.identityVersionId}
+              product={item.product}
+              shelfItem={item}
+              source="shelf"
+              showRemove
+              shelfAction={shelfAction}
+              onShelfMutation={onShelfMutation}
+            />
+          ) : (
+            <UnavailableShelfCard
+              key={item.identityVersionId}
+              item={item}
+              showRemove
+              shelfAction={shelfAction}
+              onShelfMutation={onShelfMutation}
+            />
+          ))}
         </div>
       ) : (
         <div className={styles.emptyAction}>
@@ -332,12 +489,15 @@ function ConsultPage({
 function ProductPage({
   product,
   viewModel,
+  shelfAction,
 }: {
   product: CustomerPortalProduct;
   viewModel: CustomerPortalViewModel;
+  shelfAction?: ShelfActionHandler;
 }) {
-  const onShelf = viewModel.shelf.some((item) => item.slug === product.slug);
+  const shelfItem = viewModel.shelf.find((item) => item.product?.slug === product.slug);
   const routineStep = viewModel.routine.find((step) => step.product.slug === product.slug);
+  const shelfAvailable = viewModel.shelfState.status === 'ready';
   return (
     <article className={`${styles.routePage} ${styles.stackPage} ${styles.productPage}`} aria-labelledby="me-product-title">
       <div className={styles.productHero}>
@@ -353,17 +513,44 @@ function ProductPage({
           <Link className={styles.publicLink} href={`/products/${product.slug}`}>
             Public product evidence <ExternalLink size={16} aria-hidden="true" />
           </Link>
+          {shelfAvailable ? (
+            <ShelfActionButton
+              productSlug={product.slug}
+              shelfItem={shelfItem}
+              placement="product"
+              onAction={shelfAction}
+            />
+          ) : null}
           <div className={styles.productMeta} aria-label="My product context">
             <span>{product.size}</span>
             <span>{product.category}</span>
             <span>{product.step}</span>
             <span>
-              {onShelf ? 'On my Shelf' : 'Not on my Shelf'} · {routineStep ? 'In my Routine' : 'Not in my Routine'}
+              {shelfAvailable ? (shelfItem ? 'On my Shelf' : 'Not on my Shelf') : 'Shelf unavailable'} · {routineStep ? 'In my Routine' : 'Not in my Routine'}
             </span>
           </div>
         </div>
       </div>
     </article>
+  );
+}
+
+function MemberNotFoundPage() {
+  const surface = ME_PORTAL_SURFACES['not-found'];
+  return (
+    <section className={`${styles.routePage} ${styles.stackPage} ${styles.notFoundPage}`} aria-labelledby="me-not-found-title">
+      <div className={styles.routeHeading}>
+        <p className={styles.eyebrow}>{surface.eyebrow}</p>
+        <h1 id="me-not-found-title">{surface.title}</h1>
+        <p>This product is not in your exact catalogue.</p>
+        <div className={styles.notFoundActions}>
+          <Link className={styles.primaryAction} href="/me/explore">
+            Explore products <Compass size={18} aria-hidden="true" />
+          </Link>
+          <Link className={styles.sectionLink} href="/me/shelf">Back to Shelf</Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -374,15 +561,20 @@ function MePortalView({
   viewModel: CustomerPortalViewModel;
   route: MePortalRoute;
 }) {
+  const router = useRouter();
+  const shelfState = useMeShelfState(viewModel);
+  const portalViewModel = shelfState.viewModel;
   const [search, setSearch] = useState('');
+  const [shelfMutationFeedback, setShelfMutationFeedback] = useState({ message: '', sequence: 0 });
   const searchRef = useRef<HTMLInputElement>(null);
-  const state = routeState(route, viewModel);
+  const shelfMutationStatusRef = useRef<HTMLParagraphElement>(null);
+  const state = routeState(route, portalViewModel);
   const controller = useAdaptiveWorkspaceDockController({
     routeKey: state.routeKey,
     hasNavigation: true,
     hasContext: true,
   });
-  const catalogue = viewModel.catalogue ?? EMPTY_PRODUCTS;
+  const catalogue = portalViewModel.catalogue ?? EMPTY_PRODUCTS;
   const normalizedSearch = search.trim().toLowerCase();
   const filteredProducts = useMemo(() => catalogue.filter((product) => {
     if (!normalizedSearch) return true;
@@ -411,7 +603,7 @@ function MePortalView({
   const accountSheetOpen = accountSheetState.routeKey === state.routeKey && accountSheetState.open;
   const contextSheetModel = createMeContextSheetModel({
     route,
-    viewModel,
+    viewModel: portalViewModel,
     visibleProductCount: filteredProducts.length,
     product,
   });
@@ -427,6 +619,22 @@ function MePortalView({
     accountSheetOpen: accountSheetOpen || contextSheetOpen,
     headerOwnsFocus,
   });
+  useEffect(() => {
+    if (route.kind !== 'shelf' || !shelfMutationFeedback.message) return;
+    const frame = window.requestAnimationFrame(() => {
+      shelfMutationStatusRef.current?.focus({ preventScroll: true });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [route.kind, shelfMutationFeedback.message, shelfMutationFeedback.sequence]);
+
+  const announceShelfMutation = (result: CustomerShelfActionResult) => {
+    if (result.status === 'removed' || result.status === 'already_removed') {
+      setShelfMutationFeedback(current => ({
+        message: result.message,
+        sequence: current.sequence + 1,
+      }));
+    }
+  };
   const focusSearch = () => {
     searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     searchRef.current?.focus({ preventScroll: true });
@@ -449,7 +657,7 @@ function MePortalView({
       window.location.assign(`/products/${route.kind === 'product' ? route.slug : ''}`);
       return;
     }
-    window.location.assign(fabContract.href);
+    router.push(fabContract.href);
   };
 
   useWorkspaceDockFabRegistration({
@@ -500,7 +708,10 @@ function MePortalView({
       </header>
 
       <MeAccountSheet
-        account={viewModel.account}
+        account={portalViewModel.account}
+        shelfItems={portalViewModel.shelf}
+        shelfAvailable={portalViewModel.shelfState.status === 'ready'}
+        onPreviewClear={shelfState.clearPreviewShelf}
         open={accountSheetOpen}
         onClose={closeAccountSheet}
         triggerRef={accountTriggerRef}
@@ -519,15 +730,33 @@ function MePortalView({
         onScroll={(event) => controller.onScrollPositionChange(event.currentTarget.scrollTop)}
       >
         <div className={styles.content}>
-          {route.kind === 'home' ? <HomePage viewModel={viewModel} /> : null}
-          {route.kind === 'explore' ? (
-            <ExplorePage products={filteredProducts} search={search} setSearch={setSearch} searchRef={searchRef} />
+          {shelfState.previewOnly ? (
+            <p className={styles.previewNotice} role="status">Preview Shelf · Resets on reload.</p>
           ) : null}
-          {route.kind === 'shelf' ? <ShelfPage viewModel={viewModel} /> : null}
-          {route.kind === 'routine' ? <RoutinePage viewModel={viewModel} /> : null}
+          {route.kind === 'home' ? <HomePage viewModel={portalViewModel} /> : null}
+          {route.kind === 'explore' ? (
+            <ExplorePage
+              viewModel={portalViewModel}
+              products={filteredProducts}
+              search={search}
+              setSearch={setSearch}
+              searchRef={searchRef}
+              shelfAction={shelfState.shelfAction}
+            />
+          ) : null}
+          {route.kind === 'shelf' ? (
+            <ShelfPage
+              viewModel={portalViewModel}
+              mutationFeedback={shelfMutationFeedback.message}
+              mutationStatusRef={shelfMutationStatusRef}
+              onShelfMutation={announceShelfMutation}
+              shelfAction={shelfState.shelfAction}
+            />
+          ) : null}
+          {route.kind === 'routine' ? <RoutinePage viewModel={portalViewModel} /> : null}
           {route.kind === 'consult' ? (
             <ConsultPage
-              viewModel={viewModel}
+              viewModel={portalViewModel}
               products={filteredProducts}
               search={search}
               setSearch={setSearch}
@@ -535,8 +764,13 @@ function MePortalView({
             />
           ) : null}
           {route.kind === 'product' && product ? (
-            <ProductPage product={product} viewModel={viewModel} />
+            <ProductPage
+              product={product}
+              viewModel={portalViewModel}
+              shelfAction={shelfState.shelfAction}
+            />
           ) : null}
+          {route.kind === 'not-found' ? <MemberNotFoundPage /> : null}
         </div>
       </main>
 
@@ -558,7 +792,11 @@ export function MePortal({
   viewModel: CustomerPortalViewModel;
   route: MePortalRoute;
 }) {
-  const routeKey = route.kind === 'product' ? `/me/product/${route.slug}` : `/me/${route.kind}`;
+  const routeKey = route.kind === 'product'
+    ? `/me/product/${route.slug}`
+    : route.kind === 'not-found'
+      ? '/me/product/not-found'
+      : `/me/${route.kind}`;
   return (
     <WorkspaceDockProvider routeKey={route.kind === 'home' ? '/me' : routeKey}>
       <MePortalView viewModel={viewModel} route={route} />

@@ -36,7 +36,9 @@ For the complete local gate:
 npm run validate
 ```
 
-`npm run build` uses the Vercel wrapper. Outside a Vercel production environment it skips migrations and runs `next build`.
+`npm run build` uses the Vercel wrapper. Outside Vercel Production it runs only
+`next build`. Even in Vercel Production, database migrations and reconciliation
+remain explicit protected operator jobs.
 
 ## Domain checks
 

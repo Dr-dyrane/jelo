@@ -1,20 +1,37 @@
 # Neon and data operations
 
-Updated: 2026-07-23
+Updated: 2026-08-03
 
 Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliberate public fallback.
 
 ## Connection roles
 
-| Use | Preferred variable |
-| --- | --- |
-| Application runtime | `DATABASE_URL` |
-| Migrations and bulk operators | `DATABASE_URL_UNPOOLED` |
-| Compatibility fallback | `POSTGRES_URL`, then `POSTGRES_URL_NON_POOLING` where supported |
+| Use | Variable and database role | Allowed location |
+| --- | --- | --- |
+| General application runtime | `DATABASE_URL` as `jelocare_app_runtime` | Vercel server runtime and local development |
+| Private Shelf runtime | `CUSTOMER_SHELF_DATABASE_URL` as `jelocare_shelf_runtime` | Vercel server runtime and local development |
+| Migrations and reconciliation | `MIGRATION_DATABASE_URL` as a protected administrator | Operator workstation or protected release runner only; never Vercel |
+| General runtime compatibility | `POSTGRES_URL` as `jelocare_app_runtime` | Retain only when required; never point it to the owner |
 
 Never expose a PostgreSQL connection string through a `NEXT_PUBLIC_` variable.
+Never put the database owner or another migration-capable credential in Vercel,
+including through provider-generated `POSTGRES_*` or `PG*` aliases. The accepted
+role attributes, grants, and credential lifecycle are canonical in
+[ADR 0014](../adr/0014-customer-shelf-data-boundary.md#database-role-and-credential-boundary).
 
-`lib/db/postgres.ts` creates a small pooled runtime client with prepared statements disabled. Migration and seed scripts prefer the unpooled URL.
+`lib/db/postgres.ts` creates a small pooled general-runtime client with prepared
+statements disabled. In production it fails closed unless the connection URL
+names the exact `jelocare_app_runtime` user. Shelf uses its own attested client;
+migration and reconciliation scripts accept only `MIGRATION_DATABASE_URL`.
+
+The restricted application URLs are consumed by postgres.js. Their query
+strings must use `sslmode=verify-full` and omit the unsupported
+`channel_binding` parameter, including provider-generated
+`channel_binding=require`. Before either URL enters Vercel, connect through
+postgres.js and prove exact `current_user` plus `session_user`: app requests must
+be `jelocare_app_runtime`, and the read-only Shelf audit must attest
+`jelocare_shelf_runtime`. The commands live in the
+[Shelf release runbook](../operations/RUNBOOKS.md#release-the-customer-shelf-boundary).
 
 ## Schema map
 
@@ -28,6 +45,7 @@ Never expose a PostgreSQL connection string through a `NEXT_PUBLIC_` variable.
 | Community intake | `community_intake_drafts`, `community_contributions`, moderation, observation, research-task, event, and edge tables |
 | Retailer partnerships | `retailer_partnership_applications`, `retailer_partnership_events` |
 | Operations | `moderation_operators`, append-only `moderation_audit_log` (`event_sequence` is causal order; `created_at` is presentation time) |
+| Customer Shelf | `customer_shelf_items`; private one-off `customer_shelf_import_receipts` |
 | Migration history | `schema_migrations` |
 
 The ordered files in `db/migrations/` are authoritative.
@@ -50,11 +68,15 @@ Each migration should:
 - be safe to run once under the migration ledger;
 - include application and test changes in the same release.
 
-Run:
+Run from the protected operator boundary:
 
 ```bash
 npm run db:migrate
 ```
+
+Inject `MIGRATION_DATABASE_URL` from the protected secret channel into that
+process without placing its value in command history. Vercel does not run this
+command.
 
 The runner:
 
@@ -68,21 +90,39 @@ The runner:
 
 Do not run two manual migration operators against the same database.
 
+A production release normally uses the ordered wrapper instead of invoking
+individual steps:
+
+```bash
+npm run db:reconcile
+```
+
+It requires the same protected administrator URL and runs migrations, reviewed
+catalogue sync, product-asset metadata, and editorial-asset metadata in order.
+External discovery remains excluded unless the separately reviewed
+`--include-external-discovery` option is explicit. Its current seed still fails
+closed, so the option does not make that pathway release-ready.
+
 ## Production build behavior
 
 `scripts/vercel-build.ts` runs on every build.
 
 - Preview, local, and CI builds skip migrations.
-- Vercel production builds first run the shared release preflight and complete
-  the Next build. Only then may they promote staged assets, apply pending
-  migrations, and seed product and editorial asset metadata.
-- Reviewed public catalogue sync runs in every normal production release.
-  `SEED_EXTERNAL_CATALOGUE_ON_BUILD=1` is the separate, one-time external
-  discovery pathway; it must never be enabled by the legacy
-  `SEED_CATALOGUE_ON_BUILD` flag.
-- `SKIP_DATABASE_MIGRATIONS=1` suppresses production mutations but never skips
-  production verification or the Next build. This is an emergency control, not
-  the normal release path.
+- Vercel production builds run the shared release preflight and the Next build,
+  then may promote already-reviewed staged public assets through the bounded
+  asset operator.
+- Vercel has no `MIGRATION_DATABASE_URL`; it does not apply migrations, seed or
+  reconcile PostgreSQL, or run the private Shelf import.
+- Database reconciliation is an explicit protected operator job completed and
+  audited before the application deployment that depends on it.
+- For first Shelf activation, the dry run, additive apply, actual-insert and
+  final-accepted-set checks, and receipt verification also finish before the
+  interactive Shelf deployment.
+
+The canonical production order is the
+[release checklist](../operations/RELEASE.md#customer-shelf-release-checklist).
+It does not waive the production-shaped rehearsal or the release authority's
+decision about the connected Neon and Vercel resources.
 
 ## Seeds are not migrations
 
@@ -93,7 +133,10 @@ npm run assets:product:seed
 npm run assets:editorial:seed
 ```
 
-Seeds materialize reviewed checked-in data. They must not weaken publication state, overwrite verified Blob metadata with hotlinks, or make private candidates public.
+Seeds materialize reviewed checked-in data. They require the protected
+`MIGRATION_DATABASE_URL` boundary and are never Vercel build steps. They must
+not weaken publication state, overwrite verified Blob metadata with hotlinks,
+or make private candidates public.
 
 ## Safe operating sequence
 
@@ -107,11 +150,13 @@ npm run typecheck
 Then:
 
 1. confirm the intended Neon project and branch outside the connection string;
-2. use the unpooled URL for migrations;
+2. inject the direct, non-pooled `MIGRATION_DATABASE_URL` only into the protected
+   operator process;
 3. inspect the migration ledger;
-4. run the smallest operator;
-5. audit the affected domain;
-6. verify the application through the repository boundary.
+4. run the smallest migration or reconciliation operator;
+5. audit the affected domain with restricted runtime credentials; and
+6. remove the administrator secret from the process and verify the application
+   through the repository boundary.
 
 Useful audits:
 
@@ -122,7 +167,14 @@ npm run clinical:audit
 npm run assets:audit
 npm run community:research:signals
 npm run community:moderate
+npm run customer:shelf:audit
 ```
+
+The Shelf audit requires only the restricted Shelf URL and is read-only by
+default. Its explicit `-- --exercise-rollback` acceptance mode performs the
+synthetic isolation exercise described in the
+[Shelf release runbook](../operations/RUNBOOKS.md#release-the-customer-shelf-boundary)
+and rolls the transaction back.
 
 `community:moderate` requires `MODERATION_OPERATOR_EMAIL` to match one active
 allowlisted operator. Its default is an aggregate-only read. All decisions are

@@ -1,11 +1,7 @@
 import postgres from 'postgres';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
-const connectionString = process.env.DATABASE_URL_UNPOOLED
-  ?? process.env.POSTGRES_URL_NON_POOLING
-  ?? process.env.DATABASE_URL
-  ?? process.env.POSTGRES_URL;
-
-if (!connectionString) throw new Error('A Neon connection string is required.');
+const connectionString = requireAdminDatabaseUrl();
 
 const sql = postgres(connectionString, { max: 1, prepare: false });
 

@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import postgres from 'postgres';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 type EditorialAsset = {
   id: string;
@@ -18,11 +19,7 @@ type EditorialAsset = {
 };
 
 async function main() {
-  const connectionString = process.env.DATABASE_URL_UNPOOLED
-    ?? process.env.POSTGRES_URL_NON_POOLING
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL;
-  if (!connectionString) throw new Error('A Neon connection string is required to seed editorial assets.');
+  const connectionString = requireAdminDatabaseUrl();
 
   const manifestPath = path.resolve(process.cwd(), 'data/editorial-assets.json');
   const assets = JSON.parse(await readFile(manifestPath, 'utf8')) as EditorialAsset[];

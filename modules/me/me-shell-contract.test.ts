@@ -83,8 +83,9 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
     routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
     consult: { layer: 'stack', route: '/me/consult', parent: 'home', eyebrow: 'Ask Me', title: 'My concern.' },
     product: { layer: 'stack', route: '/me/product/[slug]', parent: 'origin', eyebrow: null, title: null },
+    'not-found': { layer: 'stack', route: '/me/product/[slug]', parent: 'explore', eyebrow: 'JeloCare Me', title: 'Nothing here.' },
   });
-  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 6);
+  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 7);
 
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const accountSheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
@@ -151,11 +152,35 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
     usage: 'Use as directed.',
     priceLabel: null,
   };
+  const shelfItem = {
+    identityVersionId: '11111111-1111-4111-8111-111111111111',
+    savedAt: '2026-08-03T12:00:00.000Z',
+    saveOrigin: 'synthetic-development' as const,
+    lifecycleState: 'active' as const,
+    availability: 'available' as const,
+    snapshot: {
+      slug: product.slug,
+      brand: product.brand,
+      name: product.name,
+      size: product.size,
+      versionNumber: 1,
+      packageVersion: 'synthetic-development',
+      formulaVersion: 'synthetic-development',
+    },
+    product,
+    message: null,
+  };
   const viewModel = {
-    account: { displayName: 'Amara Example', email: 'amara.customer@example.test', synthetic: true },
+    account: {
+      displayName: 'Amara Example',
+      preferredFirstName: 'Amara',
+      email: 'amara.customer@example.test',
+      synthetic: true,
+    },
     featuredProduct: product,
     concerns: ['Dryness'],
-    shelf: [product],
+    shelfState: { status: 'ready' as const, message: null },
+    shelf: [shelfItem],
     routineProvenance: 'Amara’s routine',
     routine: [{ id: 'treat', moment: 'Saved step', product }],
   };
@@ -168,7 +193,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   assert.equal(shelf.title, 'My Shelf');
   assert.equal(shelf.summary, '1 saved product');
   assert.deepEqual(shelf.items[0], {
-    id: 'exact-product',
+    id: shelfItem.identityVersionId,
     label: 'Exact Serum',
     detail: 'Exact Brand · 30 ml',
     href: '/me/product/exact-product?from=shelf',
@@ -193,6 +218,24 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   });
   assert.equal(memberProduct.summary, 'On my Shelf · In my Routine');
   assert.equal(memberProduct.items[0]?.href, '/products/exact-product');
+
+  const unavailableViewModel = {
+    ...viewModel,
+    shelfState: { status: 'unavailable' as const, message: 'Shelf is unavailable right now.' },
+    shelf: [],
+  };
+  assert.equal(createMeContextSheetModel({
+    route: { kind: 'home' }, viewModel: unavailableViewModel, visibleProductCount: 1,
+  }).summary, 'Shelf unavailable · 1 step');
+  assert.equal(createMeContextSheetModel({
+    route: { kind: 'shelf' }, viewModel: unavailableViewModel, visibleProductCount: 1,
+  }).summary, 'Shelf unavailable');
+  assert.equal(createMeContextSheetModel({
+    route: { kind: 'product', slug: product.slug, origin: 'explore' },
+    viewModel: unavailableViewModel,
+    visibleProductCount: 1,
+    product,
+  }).summary, 'Shelf unavailable · In my Routine');
 
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const capsule = readFileSync('components/workspace-shell/dock-context.tsx', 'utf8');
@@ -241,15 +284,21 @@ test('every Me surface owns exactly one truthful working FAB', () => {
     routine: { ownerId: 'me-routine-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
     consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
     product: { ownerId: 'me-product-public-evidence', label: 'View public product evidence', action: 'public-product' },
+    'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
   });
-  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 6);
+  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 7);
 
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const dockNavigation = readFileSync('components/workspace-shell/dock-navigation.tsx', 'utf8');
   assert.match(home, /const fabContract = ME_WORKSPACE_FABS\[state\.page\]/);
   assert.match(home, /useWorkspaceDockFabRegistration\(\{[\s\S]*ownerId: fabContract\.ownerId/);
   assert.match(home, /searchRef\.current\?\.focus/);
-  assert.match(home, /window\.location\.assign\(fabContract\.href\)/);
+  assert.match(home, /router\.push\(fabContract\.href\)/);
+  assert.doesNotMatch(home, /window\.location\.assign\(fabContract\.href\)/);
   assert.match(home, /window\.location\.assign\(`\/products\/\$\{route\.kind === 'product' \? route\.slug : ''\}`\)/);
+  assert.match(dockNavigation, /import Link from 'next\/link'/);
+  assert.match(dockNavigation, /<Link[\s\S]*href=\{item\.href\}/);
+  assert.doesNotMatch(dockNavigation, /<a[\s\S]*href=\{item\.href\}/);
   assert.doesNotMatch(JSON.stringify(ME_WORKSPACE_FABS), /mutat|save|add|edit/i);
 });
 
@@ -305,7 +354,11 @@ test('account avatar owns one accessible extensible modal sheet', () => {
   assert.match(sheet, /const trigger = triggerRef\.current/);
   assert.match(sheet, /trigger\?\.focus/);
   assert.match(sheet, /body\.style\.overflow = 'hidden'/);
-  assert.match(sheet, /ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem\[\] = \[\]/);
+  assert.match(sheet, /ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem\[\] = \[[\s\S]*Report price or availability[\s\S]*href: '\/contribute'/);
+  assert.doesNotMatch(sheet, /\/contribute\?/);
+  assert.match(sheet, /href="\/me\/shelf\/export"/);
+  assert.match(sheet, /shelfAvailable \? \([\s\S]*href="\/me\/shelf\/export"[\s\S]*<button type="button" disabled>/);
+  assert.match(sheet, /Clear Shelf/);
   assert.match(sheet, /<ThemeToggle \/>/);
   assert.match(sheet, /window\.location\.assign\('\/sign-in\?next=\/me'\)/);
   assert.doesNotMatch(sheet, /href:\s*['"]\/(privacy|help|settings)/i);
@@ -315,4 +368,48 @@ test('account avatar owns one accessible extensible modal sheet', () => {
   assert.match(sheetStyles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(sheetStyles, /prefers-reduced-transparency: reduce/);
   assert.match(sheetStyles, /@media \(forced-colors: active\)/);
+});
+
+test('unavailable Shelf states fail closed while synthetic state stays explicitly preview-only', () => {
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
+  const account = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
+  const previewState = readFileSync('components/me/shelf/me-shelf-state.tsx', 'utf8');
+
+  assert.match(home, /showShelfAction=\{viewModel\.shelfState\.status === 'ready'\}/);
+  assert.match(home, /shelfAvailable \? \(/);
+  assert.match(home, /'Shelf unavailable'/);
+  assert.match(home, /Preview Shelf · Resets on reload\./);
+  assert.match(button, /onAction[\s\S]*\? await onAction\(mutation\)/);
+  assert.match(previewState, /scope: 'preview-only'/);
+  assert.match(previewState, /resetsOnReload: true/);
+  assert.doesNotMatch(previewState, /localStorage|sessionStorage|document\.cookie/);
+  assert.match(account, /Preview only · resets on reload/);
+  assert.match(account, /jelocare-preview-shelf\.json/);
+  assert.match(account, /shelfAvailable \? \([\s\S]*Export Shelf[\s\S]*<button type="button" disabled>/);
+});
+
+test('Shelf removal announces and restores focus at a durable page-level target', () => {
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
+  assert.match(button, /onSettled\?\.\(result\)/);
+  assert.match(home, /mutationStatusRef/);
+  assert.match(home, /tabIndex=\{-1\}/);
+  assert.match(home, /aria-atomic="true"/);
+  assert.match(home, /shelfMutationStatusRef\.current\?\.focus\(\{ preventScroll: true \}\)/);
+  assert.match(home, /result\.status === 'removed' \|\| result\.status === 'already_removed'/);
+});
+
+test('Me loading and error states keep recognizable route, dock, and FAB identity', () => {
+  const state = readFileSync('components/me/shell/me-route-state.tsx', 'utf8');
+  const loading = readFileSync('app/(customer)/me/loading.tsx', 'utf8');
+  const error = readFileSync('app/(customer)/me/error.tsx', 'utf8');
+  assert.match(state, /className=\{styles\.topbar\}/);
+  assert.match(state, /ME_WORKSPACE_NAVIGATION\.map/);
+  assert.match(state, /className=\{styles\.stateDock\}/);
+  assert.match(state, /className=\{styles\.stateFab\}/);
+  assert.match(state, /href="\/me\/consult"/);
+  assert.match(state, />My care\.</);
+  assert.match(loading, /<MeRouteState state="loading"/);
+  assert.match(error, /<MeRouteState state="error" onRetry=\{reset\}/);
 });

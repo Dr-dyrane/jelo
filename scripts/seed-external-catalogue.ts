@@ -1,5 +1,6 @@
 import postgres from 'postgres';
 import { externalCatalogueMetadata, externalProducts } from '../data/external-catalogue';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 function normalized(value: string) {
   return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -14,15 +15,11 @@ async function main() {
   }
   throw new Error('External catalogue production seeding is paused until the approval-aware, final-image persistence schema is active.');
 
-  const connectionString = process.env.DATABASE_URL_UNPOOLED
-    ?? process.env.POSTGRES_URL_NON_POOLING
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL;
-  if (!connectionString) throw new Error('A Neon connection string is required to seed the external catalogue.');
+  const connectionString = requireAdminDatabaseUrl();
 
   const releaseSha256 = externalCatalogueMetadata.packshotReleaseSha256;
   const expected = new Map(externalProducts.map(product => [product.barcode, product]));
-  const sql = postgres(connectionString!, { max: 1, prepare: false });
+  const sql = postgres(connectionString, { max: 1, prepare: false });
   try {
     await sql.begin(async transaction => {
       await transaction`

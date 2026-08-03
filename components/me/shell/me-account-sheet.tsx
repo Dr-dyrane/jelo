@@ -1,19 +1,27 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, CircleUserRound, LogOut, X } from 'lucide-react';
+import { ArrowRight, CircleUserRound, Download, LogOut, Trash2, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import {
   useEffect,
   useRef,
   useState,
+  useTransition,
   type KeyboardEvent,
   type MouseEvent,
   type RefObject,
   type SyntheticEvent,
 } from 'react';
+import { clearShelfAction } from '@/app/(customer)/me/actions';
+import { createPreviewShelfExport } from '@/components/me/shelf/me-shelf-state';
 import { ThemeToggle } from '@/components/navigation/theme-toggle';
 import { authClient } from '@/lib/auth/client';
-import type { CustomerPortalViewModel } from '@/lib/customer/portal-model';
+import type {
+  CustomerPortalShelfItem,
+  CustomerPortalViewModel,
+} from '@/lib/customer/portal-model';
+import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import styles from './me-account-sheet.module.css';
 
 export type MeAccountHelperItem = {
@@ -22,24 +30,35 @@ export type MeAccountHelperItem = {
   href: string;
 };
 
-// Helper destinations are added only when their real authenticated pages ship.
-export const ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem[] = [];
+export const ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem[] = [
+  { id: 'report-price-availability', label: 'Report price or availability', href: '/contribute' },
+];
 
 export function MeAccountSheet({
   account,
   open,
   onClose,
   triggerRef,
+  shelfItems,
+  shelfAvailable,
+  onPreviewClear,
 }: {
   account: CustomerPortalViewModel['account'];
   open: boolean;
   onClose: () => void;
   triggerRef: RefObject<HTMLButtonElement | null>;
+  shelfItems: readonly CustomerPortalShelfItem[];
+  shelfAvailable: boolean;
+  onPreviewClear?: () => CustomerShelfActionResult;
 }) {
+  const shelfCount = shelfItems.length;
+  const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [lifecycleFeedback, setLifecycleFeedback] = useState('');
+  const [clearing, startClearing] = useTransition();
 
   useEffect(() => {
     if (!open) return;
@@ -78,6 +97,36 @@ export function MeAccountSheet({
       setError('Could not sign out. Try again.');
       setBusy(false);
     }
+  }
+
+  function clearShelf() {
+    if (clearing || !shelfAvailable || shelfCount === 0) return;
+    if (account.synthetic) {
+      const result = onPreviewClear?.();
+      if (result) setLifecycleFeedback(result.message);
+      return;
+    }
+    if (!window.confirm('Remove every product from My Shelf? This cannot be undone.')) return;
+    startClearing(async () => {
+      const result = await clearShelfAction();
+      setLifecycleFeedback(result.message);
+      if (result.status === 'cleared') router.refresh();
+    });
+  }
+
+  function exportPreviewShelf() {
+    const payload = createPreviewShelfExport(shelfItems);
+    const url = URL.createObjectURL(new Blob([
+      JSON.stringify(payload, null, 2),
+    ], { type: 'application/json' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'jelocare-preview-shelf.json';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
+    setLifecycleFeedback('Preview Shelf exported.');
   }
 
   function closeFromBackdrop(event: MouseEvent<HTMLDialogElement>) {
@@ -147,6 +196,37 @@ export function MeAccountSheet({
             ))}
           </nav>
         ) : null}
+
+        <section className={styles.lifecycle} aria-labelledby="me-shelf-data-title">
+          <div>
+            <strong id="me-shelf-data-title">My Shelf data</strong>
+            <span>{shelfAvailable ? `${shelfCount} saved product${shelfCount === 1 ? '' : 's'}` : 'Unavailable'}</span>
+          </div>
+          {account.synthetic ? <p className={styles.previewScope}>Preview only · resets on reload</p> : null}
+          {shelfAvailable ? (
+            account.synthetic ? (
+              <button type="button" onClick={exportPreviewShelf}>
+                <Download size={18} aria-hidden="true" /> Export Shelf
+              </button>
+            ) : (
+              <a href="/me/shelf/export" download>
+                <Download size={18} aria-hidden="true" /> Export Shelf
+              </a>
+            )
+          ) : (
+            <button type="button" disabled>
+              <Download size={18} aria-hidden="true" /> Export Shelf
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={clearShelf}
+            disabled={clearing || !shelfAvailable || shelfCount === 0 || (account.synthetic && !onPreviewClear)}
+          >
+            <Trash2 size={18} aria-hidden="true" /> {clearing ? 'Clearing…' : 'Clear Shelf'}
+          </button>
+          <p role="status" aria-live="polite">{lifecycleFeedback}</p>
+        </section>
 
         <footer className={styles.footer}>
           <button type="button" onClick={() => void signOut()} disabled={busy}>

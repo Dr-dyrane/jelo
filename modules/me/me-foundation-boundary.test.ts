@@ -5,16 +5,25 @@ import test from 'node:test';
 const adr = readFileSync('docs/adr/0013-founder-led-jelocare-me.md', 'utf8');
 const adapter = readFileSync('components/me/shell/me-workspace-dock.tsx', 'utf8');
 
-test('the first Me route is session guarded without customer schema or seeded data', () => {
+test('the Me route is session guarded and awaits the narrow Shelf read model', () => {
   assert.deepEqual(
     globSync('app/**/me/**').filter((path) => path.endsWith('.tsx')),
-    ['app/(customer)/me/page.tsx'],
+    [
+      'app/(customer)/me/error.tsx',
+      'app/(customer)/me/layout.tsx',
+      'app/(customer)/me/loading.tsx',
+      'app/(customer)/me/page.tsx',
+      'app/(customer)/me/[...route]/not-found.tsx',
+    ],
   );
   const route = readFileSync('app/(customer)/me/page.tsx', 'utf8');
+  const childRoute = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
   assert.match(route, /await requireCustomer\(\)/);
-  assert.match(route, /readCustomerPortal\(customer\)/);
+  assert.match(route, /await readCustomerPortal\(customer\)/);
+  assert.match(childRoute, /await requireCustomer\(\)/);
+  assert.match(childRoute, /await readCustomerPortal\(customer\)/);
   assert.equal(globSync('db/migrations/**/*member*').length, 0);
-  assert.equal(globSync('db/migrations/**/*shelf*').length, 0);
+  assert.deepEqual(globSync('db/migrations/**/*shelf*'), ['db/migrations/0034_customer_shelf.sql']);
   assert.equal(globSync('db/migrations/**/*routine*').length, 0);
 });
 

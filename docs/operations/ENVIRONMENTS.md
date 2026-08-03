@@ -1,6 +1,6 @@
 # Environments
 
-Updated: 2026-07-27
+Updated: 2026-08-03
 
 Use the same names across local development, Vercel Preview, and Vercel Production. Values differ; contracts do not.
 
@@ -60,13 +60,35 @@ reviewed boundary before a provider credential is added.
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `DATABASE_URL` | Runtime data features | Pooled Neon URL |
-| `DATABASE_URL_UNPOOLED` | Migrations preferred | Unpooled Neon URL |
-| `POSTGRES_URL` | Compatibility | Runtime fallback |
-| `POSTGRES_URL_NON_POOLING` | Compatibility | Migration fallback |
+| `DATABASE_URL` | Production runtime data features | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding` |
+| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only |
+| `POSTGRES_URL` | Compatibility only | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator |
 | `NEON_PROJECT_ID` | Operator convenience | Not read by application runtime |
 
-Other Neon/Vercel compatibility variables in `.env.example` are provider-generated. Do not use them in browser code.
+`MIGRATION_DATABASE_URL` is deliberately not a Vercel environment variable. A
+protected operator process injects one direct, non-pooled administrator URL for
+migrations and explicit database reconciliation, then removes it. Do not save
+it in `.env.local`, Vercel, source, command history, logs, screenshots, or a
+release evidence file.
+
+The one-off Shelf import also reads
+`JELOCARE_SHELF_IMPORT_TARGET_MAILBOX`. It belongs only in that protected
+operator process, is never committed or configured in Vercel, and must be
+removed after the receipt-guarded apply.
+
+Delete unused Neon/Vercel compatibility variables. In particular, do not leave
+an owner credential reconstructable from `DATABASE_URL_UNPOOLED`,
+`POSTGRES_URL_NON_POOLING`, `POSTGRES_PRISMA_URL`, `POSTGRES_*`, `PG*`, or a
+provider integration after configuring the two restricted runtime URLs. No
+database URL belongs in browser code.
+
+Do not inject a provider URL containing the postgres.js-unsupported
+`channel_binding=require` parameter. Remove the entire `channel_binding` query
+field while retaining `sslmode=verify-full`; a TLS or connection failure must
+not be handled by weakening verification. Before Vercel receives a candidate
+URL, the protected operator must use postgres.js to prove exact `current_user`
+and `session_user` for the app role and pass the read-only Shelf role audit. See
+the [Shelf release runbook](./RUNBOOKS.md#release-the-customer-shelf-boundary).
 
 ### Media
 
@@ -117,9 +139,12 @@ is not an SMTP password.
 | Variable | Required | Notes |
 | --- | --- | --- |
 | `CRON_SECRET` | Production | Bearer secret for `/api/cron/inventory` |
-| `SKIP_DATABASE_MIGRATIONS` | CI/emergency only | `1` skips production migrations |
-| `SEED_EXTERNAL_CATALOGUE_ON_BUILD` | One-time operation only | `1` enables the separate external-catalogue seed during a production build |
-| `SEED_CATALOGUE_ON_BUILD` | Legacy | Does not enable external discovery; reviewed catalogue sync already runs in every normal production release |
+
+Vercel builds have no database-migration or seed switch. They verify, build,
+and may perform bounded staged public-asset promotion only. All PostgreSQL
+migrations and reconciliation are explicit protected operator jobs. This Shelf
+release does not add or change a cron, inventory queue, lease, worker, or manual
+observation setting.
 
 ### Declared future service
 
@@ -127,19 +152,31 @@ is not an SMTP password.
 
 ## Scope
 
-- Production secrets belong in Vercel Production.
+- Restricted application secrets belong in Vercel Production. The database
+  owner and `MIGRATION_DATABASE_URL` explicitly do not.
 - Preview secrets belong in Preview only when the feature is safe to exercise there.
-- Local values stay in `.env.local`.
+- Local application-runtime values stay in `.env.local`; protected operator
+  values such as `MIGRATION_DATABASE_URL` do not.
 - Client-visible variables require explicit review; only `NEXT_PUBLIC_SITE_URL` is currently intended to be public.
 - Rotate a secret after accidental output, commit, or broad sharing.
 
 ## Configuration check
+
+For first Shelf activation, complete the required production-shaped rehearsal,
+record the release authority's connected-resource decision, and verify the
+one-off import receipt before adding the restricted URLs to Vercel. A connected
+resource or passing local check does not waive those gates.
 
 Before deployment, verify names—not values:
 
 ```bash
 vercel env ls
 ```
+
+For a Shelf release, the list must contain the required restricted runtime
+names, omit `MIGRATION_DATABASE_URL` and the one-off target mailbox, and contain
+no owner-bearing or reconstructable compatibility alias. Verify usernames from
+the protected connection inventory; never print URLs to prove this.
 
 Then run the feature in the environment that will receive traffic. A successful
 build does not prove Neon, mail, Blob, Redis, or cron behavior.

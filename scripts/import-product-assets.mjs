@@ -7,17 +7,21 @@ const MAX_SOURCE_BYTES = 12 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['image/avif', 'image/gif', 'image/jpeg', 'image/png', 'image/webp']);
 const manifestArgument = process.argv[2];
 const outputPath = resolve(process.cwd(), process.argv[3] ?? 'data/asset-import-results.json');
-const connectionString = process.env.DATABASE_URL_UNPOOLED
-  ?? process.env.POSTGRES_URL_NON_POOLING
-  ?? process.env.DATABASE_URL
-  ?? process.env.POSTGRES_URL;
+const connectionString = process.env.MIGRATION_DATABASE_URL;
 
 if (!process.env.BLOB_READ_WRITE_TOKEN) {
   throw new Error('BLOB_READ_WRITE_TOKEN is required. Run with Vercel environment variables loaded.');
 }
 
-if (!connectionString) {
-  throw new Error('A Neon connection string is required so imported assets can update catalogue inventory.');
+if (!/^postgres(?:ql)?:\/\//.test(connectionString ?? '')) {
+  throw new Error('MIGRATION_DATABASE_URL is required so imported assets can update catalogue inventory.');
+}
+const parsedDatabaseUrl = new URL(connectionString);
+if (
+  ['jelocare_app_runtime', 'jelocare_shelf_runtime'].includes(decodeURIComponent(parsedDatabaseUrl.username))
+  || parsedDatabaseUrl.hostname.toLowerCase().includes('-pooler.')
+) {
+  throw new Error('MIGRATION_DATABASE_URL must use a protected direct administrative role.');
 }
 
 const sql = postgres(connectionString, { max: 1, prepare: false });

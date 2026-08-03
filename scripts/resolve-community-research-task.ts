@@ -5,6 +5,7 @@ import {
   preflightCommunityProductResearchTask,
   resolveCommunityProductResearchTask,
 } from '@/lib/community-intake/research-resolution';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 type Operator = {
   auth_subject: string;
@@ -12,14 +13,7 @@ type Operator = {
 };
 
 function connectionString() {
-  const value = process.env.DATABASE_URL_UNPOOLED
-    ?? process.env.POSTGRES_URL_NON_POOLING
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL;
-  if (!/^postgres(?:ql)?:\/\//.test(value ?? '')) {
-    throw new Error('A private Neon connection string is required.');
-  }
-  return value!;
+  return requireAdminDatabaseUrl();
 }
 
 async function activeOperator(sql: Sql) {

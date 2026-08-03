@@ -9,6 +9,7 @@ import {
 } from '../../lib/auth/sign-in-intent';
 import {
   isDevelopmentCustomerFixtureEnabled,
+  preferredCustomerFirstName,
   SYNTHETIC_CUSTOMER_ENV_FLAG,
 } from '../../lib/customer/access-policy';
 
@@ -61,26 +62,50 @@ test('the development presentation is server-only, synthetic, and local-data-onl
   assert.doesNotMatch(home, /__qa|fixture|scenario selector|test customer/i);
 });
 
-test('the synthetic routine is customer-authored and uses a coherent exact-product trio', () => {
+test('the synthetic Shelf is a nine-product local fixture with a coherent three-step routine', () => {
   const fixture = readFileSync('lib/customer/development-fixture.ts', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const routineSlugs = [
-    'cosrx-salicylic-acid-daily-gentle-cleanser',
+    'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
     'cerave-pm-facial-moisturising-lotion-52ml',
     'eucerin-oil-control-sun-gel-cream-spf50-50ml',
   ];
+  const shelfSlugs = [
+    'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
+    'nineless-mela-pro-rice-txa-toner-200ml',
+    'laroche-posay-mela-b3-serum-30ml',
+    'cerave-pm-facial-moisturising-lotion-52ml',
+    'eucerin-oil-control-sun-gel-cream-spf50-50ml',
+    'dove-calming-moisture-body-wash-547ml',
+    'eucerin-urearepair-plus-10-urea-body-lotion-250ml',
+    'sheamoisture-jamaican-black-castor-oil-shampoo-384ml',
+    'cecred-moisturizing-deep-conditioner-300ml',
+  ];
 
-  for (const slug of routineSlugs) {
+  assert.equal(shelfSlugs.length, 9);
+  for (const slug of shelfSlugs) {
     const product = products.find((candidate) => candidate.slug === slug);
     assert.ok(product?.image, `${slug} must remain an exact display-approved catalogue product`);
+    assert.match(fixture, new RegExp(slug));
   }
+  for (const slug of routineSlugs) assert.ok(shelfSlugs.includes(slug));
   assert.match(fixture, /routineProvenance: 'Amara’s routine'/);
   assert.match(home, /viewModel\.routineProvenance/);
   assert.doesNotMatch(fixture, /some-by-mi-aha-bha-pha-miracle-toner/);
   assert.doesNotMatch(fixture, /recommended|JeloCare routine/i);
 });
 
-test('the real customer route owns account sign-out and no unreleased Me links', () => {
+test('preferred first names come only from a safe verified name token', () => {
+  assert.equal(preferredCustomerFirstName('  Ọlá   Umeh  '), 'Ọlá');
+  assert.equal(preferredCustomerFirstName('Am\u202Eara Umeh'), 'Amara');
+  assert.equal(preferredCustomerFirstName('Ada@example.com'), null);
+  assert.equal(preferredCustomerFirstName('https://example.com/Ada'), null);
+  assert.equal(preferredCustomerFirstName('123 Ada'), null);
+  assert.equal(preferredCustomerFirstName('A'.repeat(80)), 'A'.repeat(32));
+  assert.equal(preferredCustomerFirstName(null), null);
+});
+
+test('the real customer route owns account sign-out and no unreleased Concern link', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const accountSheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
   const dock = readFileSync('components/me/shell/me-workspace-dock.tsx', 'utf8');
@@ -89,5 +114,11 @@ test('the real customer route owns account sign-out and no unreleased Me links',
   assert.match(accountSheet, /authClient\.signOut\(\)/);
   assert.match(accountSheet, /window\.location\.assign\('\/sign-in\?next=\/me'\)/);
   assert.match(dock, /ME_RELEASED_WORKSPACE_NAVIGATION/);
-  assert.doesNotMatch(home, /href=["'{`]\/me\/(concerns|shelf|routine)/);
+  assert.doesNotMatch(home, /href=["'{`]\/me\/concerns/);
+});
+
+test('authentication failures are fail-closed without logging raw SDK errors', () => {
+  const subject = readFileSync('lib/auth/subject.ts', 'utf8');
+  assert.match(subject, /catch \{[\s\S]*Authentication session lookup unavailable\./);
+  assert.doesNotMatch(subject, /console\.error\([^\n]*(?:err|error)[,)]/i);
 });

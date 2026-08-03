@@ -75,6 +75,53 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
+.stateIdentity {
+  color: var(--wine);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  pointer-events: auto;
+  text-transform: uppercase;
+}
+
+.stateDock {
+  position: absolute;
+  z-index: 60;
+  right: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  box-shadow: 0 18px 54px rgb(82 45 40 / 16%);
+  transform: translateX(50%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.stateDock nav { display: flex; align-items: center; gap: 2px; }
+.stateDock nav a {
+  min-height: 44px;
+  padding: 0 13px;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 44px;
+  text-decoration: none;
+}
+.stateFab {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+}
+.stateDock a:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+
 .scroll {
   width: 100%;
   height: 100%;
@@ -257,6 +304,14 @@
 
 .productGrid { display: grid; min-width: 0; gap: 12px; }
 
+.productCardShell {
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 30px;
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+}
+
 .productCard {
   display: grid;
   min-height: 132px;
@@ -264,11 +319,25 @@
   align-items: stretch;
   overflow: hidden;
   border-radius: 30px;
-  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  background: transparent;
   color: var(--ink);
   text-decoration: none;
   transition: transform 180ms ease, background-color 180ms ease;
 }
+
+.productCardShell .productCard { border-radius: inherit; }
+
+.unavailableProduct {
+  min-height: 180px;
+  align-content: center;
+  padding: 24px;
+}
+
+.unavailableCopy { display: grid; gap: 7px; }
+.unavailableCopy small { color: var(--wine); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.unavailableCopy strong { font-family: var(--font-display), serif; font-size: 1.8rem; font-weight: 400; line-height: 1; }
+.unavailableCopy span,
+.unavailableCopy p { margin: 0; color: var(--muted); font-size: 0.74rem; line-height: 1.5; }
 
 .productImage {
   display: grid;
@@ -326,6 +395,19 @@
 
 .emptyAction p { margin: 0; color: var(--muted); }
 .emptyAction a { color: var(--wine); font-weight: 600; text-underline-offset: 3px; }
+.retryAction {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.retryAction:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
 
 .routineSurface {
   border-radius: clamp(28px, 4vw, 48px);
@@ -419,6 +501,16 @@
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+.previewNotice {
+  width: fit-content;
+  margin: 8px 4px 0 auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  color: var(--wine);
+  font-size: 0.68rem;
 }
 
 .exploreGrid {
@@ -525,6 +617,23 @@
 .productUsage { margin-top: 12px !important; font-size: 0.85rem; }
 .publicLink { margin-top: 16px; padding: 0 18px; }
 
+.notFoundPage {
+  display: grid;
+  place-items: center;
+}
+
+.notFoundPage .routeHeading {
+  width: min(100%, 760px);
+  margin: 0;
+}
+
+.notFoundActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .primaryAction:hover,
   .publicLink:hover,
@@ -546,6 +655,8 @@
     grid-template-columns: minmax(156px, 0.72fr) minmax(0, 1.28fr) 44px;
     border-radius: 36px;
   }
+
+  .listPage .productCardShell { border-radius: 36px; }
 
   .listPage .productImage {
     position: relative;
@@ -605,6 +716,7 @@
   .exploreCopy { padding: 0 24px 30px; }
   .exploreCopy strong { font-size: 2.55rem; }
   .productCard { min-height: 112px; grid-template-columns: 94px minmax(0, 1fr) 34px; border-radius: 24px; }
+  .productCardShell { border-radius: 24px; }
   .productImage { min-height: 112px; }
   .productImage img { width: 78%; height: 88px; }
   .productCopy { padding: 14px 12px; }
@@ -615,10 +727,12 @@
   .routineNumber { font-size: 1.2rem; }
   .routineCopy strong { font-size: 0.78rem; }
   .productHero { border-radius: 28px; }
-  .productVisualLarge { min-height: 400px; }
-  .productVisualLarge img { width: 76%; height: 330px; }
+  .productPage { padding-bottom: calc(148px + env(safe-area-inset-bottom)); }
+  .productVisualLarge { min-height: clamp(280px, calc(100dvh - 544px), 400px); }
+  .productVisualLarge img { width: 76%; height: clamp(230px, calc(100dvh - 594px), 330px); }
   .productStory { padding: 36px 24px 44px; }
   .productStory h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
+  .stateDock nav a { padding-inline: 8px; font-size: 0.66rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -634,10 +748,12 @@
   .heroProduct:hover img,
   .exploreCard a:hover img { transform: none; }
   .scroll { scroll-behavior: auto; }
+  .stateDock { transition: none; }
 }
 
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
   .accountTrigger,
+  .stateDock,
   .hero,
   .heroProductLabel,
   .productCard,

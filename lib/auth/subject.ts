@@ -6,6 +6,7 @@ export type AuthIdentity = {
   subject: string;
   email: string | null;
   emailVerified: boolean;
+  name: string | null;
 };
 
 // The single place that turns a verified Neon Auth session into an identity.
@@ -24,9 +25,10 @@ export async function getAuthSubject(): Promise<AuthIdentity | null> {
       subject: user.id,
       email: user.email ?? null,
       emailVerified: user.emailVerified === true,
+      name: user.name ?? null,
     };
-  } catch (err) {
-    console.error('[getAuthSubject Error]:', err);
+  } catch {
+    console.error('Authentication session lookup unavailable.');
     return null;
   }
 }

@@ -2,19 +2,13 @@ import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import postgres from 'postgres';
 import { applyMigrationAtomically } from '../lib/database/migration-runner';
+import { requireAdminDatabaseUrl } from './lib/admin-database';
 
 const migrationsDirectory = path.join(process.cwd(), 'db', 'migrations');
 const migrationLockKey = 7_413_902_026;
 
 async function main() {
-  const connectionString = process.env.DATABASE_URL_UNPOOLED
-    ?? process.env.POSTGRES_URL_NON_POOLING
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL;
-
-  if (!connectionString) {
-    throw new Error('A Neon connection string is required. Prefer DATABASE_URL_UNPOOLED for migrations.');
-  }
+  const connectionString = requireAdminDatabaseUrl();
 
   const sql = postgres(connectionString, { max: 1, prepare: false });
 
