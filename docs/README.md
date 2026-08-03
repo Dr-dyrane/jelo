@@ -12,6 +12,7 @@ This is the entry point for product, engineering, data, and operations.
 | Choose the next piece of work | [Roadmap](./product/ROADMAP.md) |
 | Understand the application | [Architecture](./architecture/OVERVIEW.md) |
 | Review public API and security boundaries | [APIs and security](./architecture/APIS_AND_SECURITY.md) |
+| Review the member privacy and data-lifecycle foundation | [Member privacy and data lifecycle](./privacy/MEMBER_PRIVACY_AND_DATA_LIFECYCLE.md) |
 | Build or review an interface | [Design system](./design/SYSTEM.md) |
 | Work on the native operations shell | [Operations shell](./design/OPS_SHELL.md) |
 | Apply the Observations split-view canon | [Operations UI canon](./OPS_UI_CANON.md) |
@@ -25,6 +26,7 @@ This is the entry point for product, engineering, data, and operations.
 | Start and test the application | [Local development](./operations/LOCAL_DEVELOPMENT.md) |
 | Commit, deploy, and verify a release | [Release process](./operations/RELEASE.md) |
 | Respond to an operational issue | [Runbooks](./operations/RUNBOOKS.md) |
+| Prepare member incident, erasure, or restore operations | [Member privacy operations](./operations/MEMBER_PRIVACY_OPERATIONS.md) |
 | Hand the repository to another team | [Team handoff](./operations/HANDOFF.md) |
 | Keep the repository understandable | [Repository ownership](./REPOSITORY.md) |
 

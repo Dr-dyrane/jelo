@@ -54,6 +54,8 @@ The roadmap is ordered by dependency, not novelty.
 
 [ADR 0012](../adr/0012-private-member-shelf-and-routine-portal.md) accepts a dependency-ordered private portal contract; it does not claim that portal routes exist or displace the current catalogue and operations work.
 
+The [member privacy and data-lifecycle foundation](../privacy/MEMBER_PRIVACY_AND_DATA_LIFECYCLE.md) and [operations runbook](../operations/MEMBER_PRIVACY_OPERATIONS.md) are documented for human review. Their Privacy/legal, processor, security, operational, and release gates remain unsigned: **no member migration or production data collection is authorised, and no portal implementation is claimed.**
+
 1. Complete the immutable exact-product identity, member-data lifecycle, separate consumer authorization, abuse, accessibility, and observability prerequisites.
 2. Release **Phase 1: private Shelf v1** through its bounded alpha, beta, and staged-public gates.
 3. After Shelf v1 operates at full release for 28 days without a stop condition and reaches the accepted evidence floor, release **Phase 2: user-created Routine v1** through its own gates.
