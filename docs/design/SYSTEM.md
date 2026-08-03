@@ -1,6 +1,6 @@
 # Design system
 
-Updated: 2026-07-25
+Updated: 2026-08-03
 
 JeloCare is calm, editorial, inclusive, and quiet enough for the product to remain the focus.
 
@@ -27,13 +27,23 @@ Route CSS may add peach, pink, and cream shades. Brown is an accent, not a domin
 
 The public experience uses the warm editorial palette above because products, care guidance, and photography are its primary content.
 
-Private workspaces use a separate low-chroma mineral shell. Operations and future account surfaces share its geometry and interaction grammar, but not the public product temperature:
+JeloCare has two distinct workspace temperatures:
+
+- **JeloCare Me** stays in the warm public family—cream, paper, peach, blush,
+  rose, wine, and warm ink—because it is a personal continuation of the public
+  care journey. It may become quieter and more task-led, but it never adopts
+  the Operations canvas. Its shell is defined by [JeloCare Me](../product/JELOCARE_ME.md)
+  and the [adaptive workspace dock](./ADAPTIVE_WORKSPACE_DOCK.md).
+- **Operations** uses a separate low-chroma mineral shell because it is a dense
+  administrative environment:
 
 - `--ops-canvas`, `--ops-instrument`, and `--ops-workspace` establish the environmental, lucent instrument, and solid working planes.
 - `--ops-accent`, `--ops-accent-subtle`, and `--ops-focus-ring` provide muted umber selection and focus without making public wine the private-shell default.
 - Semantic success, warning, danger, and information tokens retain their meanings. They are never ambient decoration.
 
-A private surface may warm slightly for personal account work or cool slightly for operational density, but it must remain low-chroma and task-led. Public peach and rose surfaces do not become private-shell defaults.
+Do not share ambient palette tokens between Me and Operations. Neutral shell
+mechanics may be reused through a semantic adapter; `--ops-*` colors never enter
+Me, and warm Me/public colors never become the Operations default.
 
 ### Theme
 
@@ -54,7 +64,13 @@ A no-flash inline script in `app/layout.tsx` sets `data-theme` and `color-scheme
 
 Do not use weight to compensate for weak hierarchy. Use scale, spacing, and position first.
 
-Private shells use `--font-sans` only. Italiana is editorial and does not appear in account controls, navigation, or operational labels. The desktop sidebar uses a compact interface hierarchy: account identity, environment context, and navigation at `--text-cell`; roles and supporting metadata at `--text-caption`; group labels and count badges at `--text-label`. Controls retain a 44 px hit target even when their visual text is compact.
+Workspace controls use `--font-sans`. JeloCare Me page content may use restrained
+Italiana display headings, but its navigation, account chrome, dock, labels,
+values, status, and actions use Manrope. Operations uses Manrope only. The
+desktop Operations sidebar uses a compact interface hierarchy: account identity,
+environment context, and navigation at `--text-cell`; roles and supporting
+metadata at `--text-caption`; group labels and count badges at `--text-label`.
+Controls retain a 44 px hit target even when their visual text is compact.
 
 ## Surfaces
 
@@ -110,6 +126,8 @@ Filled cards with icons read as controls. Implement them as buttons or links whe
 | Global tokens and base type | `app/globals.css`, `app/layout.tsx` |
 | Shared interaction adjustments | `app/interaction.css` |
 | Header and navigation | `components/navigation/` |
+| Neutral workspace mechanics | `lib/workspace-shell/`, `components/workspace-shell/` |
+| JeloCare Me shell vocabulary | `components/me/shell/` |
 | Adaptive selection | `components/ui/adaptive-selector.tsx` |
 | Modal behavior | `components/ui/use-modal-dialog.ts` |
 | Catalogue discovery | `components/products/` and `app/products/` |

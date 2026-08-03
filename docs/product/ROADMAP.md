@@ -6,6 +6,17 @@ The roadmap is ordered by dependency, not novelty.
 
 ## Now
 
+### Establish the JeloCare Me foundation
+
+- Ship the founder-led product and architecture canon for the future `/me`
+  customer workspace.
+- Keep `/me` equal to Ask, with Ask, Concerns, Shelf, and Routine as the four
+  product tabs and Account behind the avatar.
+- Land the neutral adaptive workspace dock and thin warm Me adapter without
+  creating customer routes, auth, data, AI, or persistence.
+- Use [JeloCare Me](./JELOCARE_ME.md), [ADR 0013](../adr/0013-founder-led-jelocare-me.md),
+  and the [dock contract](../design/ADAPTIVE_WORKSPACE_DOCK.md) as the DRY canon.
+
 ### Make product decisions excellent
 
 - Release deliberate, exact-SKU catalogue candidates.
@@ -50,17 +61,24 @@ The roadmap is ordered by dependency, not novelty.
 
 ## Later
 
-### Private member portal, after current catalogue and Ops commitments
+### JeloCare Me feature delivery
 
-[ADR 0012](../adr/0012-private-member-shelf-and-routine-portal.md) accepts a dependency-ordered private portal contract; it does not claim that portal routes exist or displace the current catalogue and operations work.
+[ADR 0013](../adr/0013-founder-led-jelocare-me.md) supersedes the rejected
+nine-approver portal contract. It establishes the customer workspace foundation
+without claiming a route or collecting customer data.
 
-The [member privacy and data-lifecycle foundation](../privacy/MEMBER_PRIVACY_AND_DATA_LIFECYCLE.md) and [operations runbook](../operations/MEMBER_PRIVACY_OPERATIONS.md) are documented for human review. Their Privacy/legal, processor, security, operational, and release gates remain unsigned: **no member migration or production data collection is authorised, and no portal implementation is claimed.**
+1. Commission Ask only with its real evidence/safety controller and owner
+   boundary; do not ship a placeholder conversation.
+2. Add Concerns with explicit non-diagnostic language and customer ownership.
+3. Add Shelf only after immutable exact-product identity and owner-isolated
+   storage are implemented and tested.
+4. Add Routine only after Shelf and routine-specific safety, comprehension,
+   lifecycle, and ownership evidence exist.
 
-1. Complete the immutable exact-product identity, member-data lifecycle, separate consumer authorization, abuse, accessibility, and observability prerequisites.
-2. Release **Phase 1: private Shelf v1** through its bounded alpha, beta, and staged-public gates.
-3. After Shelf v1 operates at full release for 28 days without a stop condition and reaches the accepted evidence floor, release **Phase 2: user-created Routine v1** through its own gates.
-
-ADR 0001 continues to defer reminders, notification delivery, stock alerts, public stories, ratings, comments, reactions, profiles, and community features. Do not pull those capabilities into either private phase; each requires a separate accepted decision and owned privacy, safety, moderation, or delivery dependencies.
+ADR 0001 continues to defer reminders, notification delivery, stock alerts,
+public stories, ratings, comments, reactions, profiles, and community features.
+Each requires a separate accepted decision and owned privacy, safety,
+moderation, or delivery dependencies.
 
 ## Measures
 

@@ -40,8 +40,9 @@ journey or system with one active writer for each shared surface it owns. The
 contract is written in the task or handoff before implementation and remains
 the source of scope during review.
 
-This ADR governs public routes and the private operations workspace. It does
-not replace the interface contract, design system, catalogue image gate,
+This ADR governs public routes, the future JeloCare Me customer workspace, and
+the private operations workspace. It does not replace the interface contract,
+design system, [JeloCare Me](../product/JELOCARE_ME.md), catalogue image gate,
 clinical safety rules, or operations shell specification; it defines how a
 change uses and proves those contracts without crossing another lane.
 
@@ -79,6 +80,8 @@ mobile; applying it updates the URL, result count, focus, and clear action” is
 | Product decision journey | Product-detail route and shared product-experience styles | Owns fit, care, price comparison, retailer choice, and progressive disclosure; it does not weaken publication or clinical gates. |
 | Community and retailer intake | Their route styles and experience components | Owns conversational input and submission feedback; community and retailer data remain in their trust lanes. |
 | Public editorial stories | Route composition and editorial components | Owns page storytelling and people photography; it does not replace exact product packshots. |
+| Neutral workspace shell | `lib/workspace-shell/` and `components/workspace-shell/` | Owns pure geometry, route-scoped controller state, navigation, context, FAB registration, focus, and preference fallbacks; it contains no Me or Operations policy. |
+| JeloCare Me shell | `components/me/shell/` and future Me route adapters | Owns Ask/Concerns/Shelf/Routine vocabulary and warm customer composition; it does not create customer data, borrow Operations authority, or rewrite neutral mechanics. |
 | Operations shell | `OpsChrome`, `OpsSidebar`, shell context, shell CSS, and shell tokens | Owns navigation, workspace geometry, overlays, bottom bar, and responsive shell constants. |
 | Operations workspace or inbox | Route workspace, inbox, row, inspector, and action components | Owns workflow content inside shell slots; it does not change shell geometry to repair a local screen. |
 | Product media | Asset manifests, packshot workflow, and safe image components | Owns exact-package fidelity and release evidence; UI work may change presentation, never source truth. |
@@ -98,10 +101,11 @@ does not silently absorb it.
 
 Implementation must follow these defaults:
 
-- Use the existing tokens before adding values. Public pages use the warm
-  peach, blush, pink, cream, paper, ink, muted, and wine system. Private
-  workspaces use their low-chroma operations tokens. Do not move the public
-  palette into operations or the operations palette into editorial pages.
+- Use the existing tokens before adding values. Public pages and JeloCare Me
+  use the warm peach, blush, pink, cream, paper, ink, muted, and wine family;
+  Me is quieter and task-led but remains personally warm. Operations alone uses
+  its low-chroma mineral tokens. Do not move the warm palette into Operations or
+  `--ops-*` colors into public/Me surfaces.
 - Brown remains an accent, not a page field. Use tone, spacing, translucency,
   and restrained shadow before a border. Glass is for floating controls or
   depth over imagery, never a decorative coating on every card, and it needs an
@@ -171,6 +175,11 @@ Responsive work preserves the journey, not identical geometry:
 Public-route evidence uses `390 × 844`, `768 × 1024`, and at least
 `1280 × 800` unless the lane establishes a more relevant matrix. Test both
 sides of every breakpoint the change edits.
+
+JeloCare Me evidence uses `390 × 844`, `600 × 900`, `1000 × 800`, and
+`1440 × 900`, in light and dark and every affected top/scrolled/revealed and
+accessibility-preference state. The exact shell behavior is defined in the
+[adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md).
 
 The operations shell keeps its five established compositions:
 

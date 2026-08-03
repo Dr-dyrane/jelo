@@ -12,8 +12,9 @@ This is the entry point for product, engineering, data, and operations.
 | Choose the next piece of work | [Roadmap](./product/ROADMAP.md) |
 | Understand the application | [Architecture](./architecture/OVERVIEW.md) |
 | Review public API and security boundaries | [APIs and security](./architecture/APIS_AND_SECURITY.md) |
-| Review the member privacy and data-lifecycle foundation | [Member privacy and data lifecycle](./privacy/MEMBER_PRIVACY_AND_DATA_LIFECYCLE.md) |
+| Understand the future customer workspace | [JeloCare Me](./product/JELOCARE_ME.md) |
 | Build or review an interface | [Design system](./design/SYSTEM.md) |
+| Build or review adaptive workspace chrome | [Adaptive workspace dock](./design/ADAPTIVE_WORKSPACE_DOCK.md) |
 | Work on the native operations shell | [Operations shell](./design/OPS_SHELL.md) |
 | Apply the Observations split-view canon | [Operations UI canon](./OPS_UI_CANON.md) |
 | Build or review the queue-level Overview | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md) |
@@ -26,7 +27,6 @@ This is the entry point for product, engineering, data, and operations.
 | Start and test the application | [Local development](./operations/LOCAL_DEVELOPMENT.md) |
 | Commit, deploy, and verify a release | [Release process](./operations/RELEASE.md) |
 | Respond to an operational issue | [Runbooks](./operations/RUNBOOKS.md) |
-| Prepare member incident, erasure, or restore operations | [Member privacy operations](./operations/MEMBER_PRIVACY_OPERATIONS.md) |
 | Hand the repository to another team | [Team handoff](./operations/HANDOFF.md) |
 | Keep the repository understandable | [Repository ownership](./REPOSITORY.md) |
 
@@ -44,6 +44,7 @@ This is the entry point for product, engineering, data, and operations.
 - [Community knowledge intake](./COMMUNITY_KNOWLEDGE_INTAKE.md)
 - [Retailer partnership intake](./retailers/PARTNERSHIP_INTAKE.md)
 - [Ask Jelo](./ASK_JELO_EXPERIENCE.md)
+- [JeloCare Me](./product/JELOCARE_ME.md)
 - [Concern knowledge](./CONCERN_KNOWLEDGE.md)
 - [Ingredient review](./INGREDIENT_REVIEW.md)
 - [SIMTI practice-source review](./research/2026-07-26-safe-in-my-skin-training-institute.md)
@@ -70,7 +71,8 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0009 · UI and UX work ships through explicit lane contracts](./adr/0009-ui-ux-lane-contract.md)
 - [ADR 0010 · Operations use a native split-view work grammar](./adr/0010-operations-interface-and-overview-contract.md)
 - [ADR 0011 · Guide resolution and clinical product authority stay separate](./adr/0011-guide-resolution-and-clinical-product-authority.md)
-- [ADR 0012 · Private member Shelf and Routine portal](./adr/0012-private-member-shelf-and-routine-portal.md)
+- [ADR 0012 · Superseded private member Shelf and Routine portal](./adr/0012-private-member-shelf-and-routine-portal.md)
+- [ADR 0013 · Founder-led JeloCare Me](./adr/0013-founder-led-jelocare-me.md)
 
 ## What is authoritative
 
