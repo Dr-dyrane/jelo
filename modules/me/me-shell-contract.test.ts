@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   createMeDockContext,
+  ME_PORTAL_SURFACES,
   ME_RELEASED_WORKSPACE_NAVIGATION,
   ME_WORKSPACE_FABS,
   ME_WORKSPACE_NAVIGATION,
@@ -25,6 +26,39 @@ test('JeloCare Me has exactly four released primary destinations', () => {
   assert.equal(resolveActiveWorkspaceNavigationItem(ME_WORKSPACE_NAVIGATION, '/me/explore')?.id, 'explore');
   assert.equal(resolveActiveWorkspaceNavigationItem(ME_WORKSPACE_NAVIGATION, '/me/shelf')?.id, 'shelf');
   assert.equal(resolveActiveWorkspaceNavigationItem(ME_WORKSPACE_NAVIGATION, '/me/routine')?.id, 'routine');
+});
+
+test('the complete portal surface vocabulary is concise, personal, and route-owned', () => {
+  assert.deepEqual(ME_PORTAL_SURFACES, {
+    home: { layer: 'primary', route: '/me', parent: 'home', eyebrow: 'JeloCare Me', title: 'My care.' },
+    explore: { layer: 'primary', route: '/me/explore', parent: 'explore', eyebrow: 'Explore', title: 'My next product.' },
+    shelf: { layer: 'primary', route: '/me/shelf', parent: 'shelf', eyebrow: 'Saved products', title: 'My Shelf.' },
+    routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
+    consult: { layer: 'stack', route: '/me/consult', parent: 'home', eyebrow: 'Ask Me', title: 'My concern.' },
+    product: { layer: 'stack', route: '/me/product/[slug]', parent: 'origin', eyebrow: null, title: null },
+  });
+  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 6);
+
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const accountSheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
+  for (const explanatoryCopy of [
+    'Ask one question, keep what matters',
+    'Browse JeloCare’s reviewed catalogue',
+    'Only exact products you saved belong here',
+    'A quiet view of the steps you arranged',
+    'Search your care context and open',
+  ]) {
+    assert.doesNotMatch(home, new RegExp(explanatoryCopy));
+  }
+  assert.match(home, /ME_PORTAL_SURFACES\.home/);
+  assert.match(home, /ME_PORTAL_SURFACES\.explore/);
+  assert.match(home, /ME_PORTAL_SURFACES\.shelf/);
+  assert.match(home, /ME_PORTAL_SURFACES\.routine/);
+  assert.match(home, /ME_PORTAL_SURFACES\.consult/);
+  assert.match(home, /On my Shelf/);
+  assert.match(home, /In my Routine/);
+  assert.match(accountSheet, />My Account</);
+  assert.doesNotMatch(accountSheet, /Light or dark/);
 });
 
 test('Me context is descriptive and contains no mutation callback', () => {

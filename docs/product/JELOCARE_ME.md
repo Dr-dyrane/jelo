@@ -23,6 +23,12 @@ Evidence and exact products carry the experience; controls do not compete with
 them. JeloCare Me remains continuous with JeloCare's public warmth while
 becoming quieter and more task-led.
 
+Customer-owned surfaces speak in the first person: **My care, My Shelf, My
+Routine**. Stable navigation stays Home, Explore, Shelf, and Routine. Route
+headers do not explain what imagery, exact-product cards, fields, and working
+actions already show; prose is reserved for necessary evidence, safety, or an
+honest empty recovery.
+
 ## Information architecture
 
 | Primary destination | Canonical route | Customer job | Page-owned FAB |

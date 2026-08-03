@@ -21,6 +21,7 @@ import {
 import { MeAccountSheet } from '@/components/me/shell/me-account-sheet';
 import {
   createMeDockContext,
+  ME_PORTAL_SURFACES,
   ME_WORKSPACE_FABS,
   resolveMeHeaderHidden,
   type MeWorkspacePage,
@@ -127,7 +128,7 @@ function SearchField({
 function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
   const count = (value: number, noun: string) => `${value} ${noun}${value === 1 ? '' : 's'}`;
   if (route.kind === 'home') {
-    return { routeKey: '/me', currentHref: '/me', page: 'home' as MeWorkspacePage, detail: 'Your care' };
+    return { routeKey: '/me', currentHref: '/me', page: 'home' as MeWorkspacePage, detail: 'My care' };
   }
   if (route.kind === 'explore') {
     return { routeKey: '/me/explore', currentHref: '/me/explore', page: 'explore' as MeWorkspacePage, detail: 'Exact catalogue' };
@@ -139,7 +140,7 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
     return { routeKey: '/me/routine', currentHref: '/me/routine', page: 'routine' as MeWorkspacePage, detail: count(viewModel.routine.length, 'saved step') };
   }
   if (route.kind === 'consult') {
-    return { routeKey: '/me/consult', currentHref: '/me', page: 'consult' as MeWorkspacePage, detail: 'Your care context' };
+    return { routeKey: '/me/consult', currentHref: '/me', page: 'consult' as MeWorkspacePage, detail: 'My care' };
   }
   return {
     routeKey: `/me/product/${route.slug}`,
@@ -152,13 +153,13 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
 }
 
 function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+  const surface = ME_PORTAL_SURFACES.home;
   return (
     <>
       <section className={styles.hero} aria-labelledby="me-home-title">
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>JeloCare Me</p>
-          <h1 id="me-home-title">Care, closer.</h1>
-          <p>Ask one question, keep what matters, and return when you need it.</p>
+          <p className={styles.eyebrow}>{surface.eyebrow}</p>
+          <h1 id="me-home-title">{surface.title}</h1>
           <Link className={styles.primaryAction} href="/me/consult">
             Ask Me <ArrowRight size={18} aria-hidden="true" />
           </Link>
@@ -188,8 +189,8 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
 
       <section className={styles.section} aria-labelledby="me-shelf-preview-title">
         <div className={styles.sectionHeading}>
-          <p className={styles.eyebrow}>Shelf</p>
-          <h2 id="me-shelf-preview-title">Saved, within reach.</h2>
+          <p className={styles.eyebrow}>Saved products</p>
+          <h2 id="me-shelf-preview-title">My Shelf.</h2>
           <Link className={styles.sectionLink} href={'/me/shelf'}>Open Shelf <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         {viewModel.shelf.length ? (
@@ -201,7 +202,7 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
         ) : (
           <div className={styles.emptyAction}>
             <LibraryBig size={24} strokeWidth={1.5} aria-hidden="true" />
-            <p>Your shelf is ready when you save an exact product.</p>
+            <p>Nothing saved yet.</p>
             <Link href="/me/explore">Explore products</Link>
           </div>
         )}
@@ -209,8 +210,8 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
 
       <section className={`${styles.section} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
         <div className={styles.sectionHeading}>
-          <p className={styles.eyebrow}>{viewModel.routineProvenance ?? 'Routine'}</p>
-          <h2 id="me-routine-preview-title">Your steps, kept together.</h2>
+          <p className={styles.eyebrow}>{viewModel.routineProvenance ?? 'My Routine'}</p>
+          <h2 id="me-routine-preview-title">My steps.</h2>
           <Link className={styles.sectionLink} href={'/me/routine'}>Open Routine <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         <RoutineList viewModel={viewModel} />
@@ -230,12 +231,12 @@ function ExplorePage({
   setSearch: (value: string) => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
 }) {
+  const surface = ME_PORTAL_SURFACES.explore;
   return (
     <section className={styles.routePage} aria-labelledby="me-explore-title">
       <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>Explore</p>
-        <h1 id="me-explore-title">Find your next exact product.</h1>
-        <p>Browse JeloCare’s reviewed catalogue without mixing discovery into your Shelf.</p>
+        <p className={styles.eyebrow}>{surface.eyebrow}</p>
+        <h1 id="me-explore-title">{surface.title}</h1>
       </div>
       <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search exact products" />
       {products.length ? (
@@ -250,12 +251,12 @@ function ExplorePage({
 }
 
 function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+  const surface = ME_PORTAL_SURFACES.shelf;
   return (
     <section className={styles.routePage} aria-labelledby="me-shelf-title">
       <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>Shelf</p>
-        <h1 id="me-shelf-title">What you chose to keep.</h1>
-        <p>Only exact products you saved belong here.</p>
+        <p className={styles.eyebrow}>{surface.eyebrow}</p>
+        <h1 id="me-shelf-title">{surface.title}</h1>
       </div>
       {viewModel.shelf.length ? (
         <div className={`${styles.productGrid} ${styles.listPage}`}>
@@ -264,7 +265,7 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
       ) : (
         <div className={styles.emptyAction}>
           <LibraryBig size={24} strokeWidth={1.5} aria-hidden="true" />
-          <p>Your Shelf is empty.</p>
+          <p>Nothing saved yet.</p>
           <Link href="/me/explore">Explore products</Link>
         </div>
       )}
@@ -273,7 +274,7 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
 }
 
 function RoutineList({ viewModel }: { viewModel: CustomerPortalViewModel }) {
-  if (!viewModel.routine.length) return <p className={styles.empty}>No routine yet. Your choices stay yours.</p>;
+  if (!viewModel.routine.length) return <p className={styles.empty}>No routine yet.</p>;
   return (
     <ol className={styles.routineList}>
       {viewModel.routine.map((step, index) => (
@@ -296,12 +297,12 @@ function RoutineList({ viewModel }: { viewModel: CustomerPortalViewModel }) {
 }
 
 function RoutinePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+  const surface = ME_PORTAL_SURFACES.routine;
   return (
     <section className={styles.routePage} aria-labelledby="me-routine-title">
       <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>{viewModel.routineProvenance ?? 'Routine'}</p>
-        <h1 id="me-routine-title">Your saved order.</h1>
-        <p>A quiet view of the steps you arranged.</p>
+        <p className={styles.eyebrow}>{viewModel.routineProvenance ?? surface.eyebrow}</p>
+        <h1 id="me-routine-title">{surface.title}</h1>
       </div>
       <RoutineList viewModel={viewModel} />
     </section>
@@ -321,17 +322,17 @@ function ConsultPage({
   setSearch: (value: string) => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
 }) {
+  const surface = ME_PORTAL_SURFACES.consult;
   return (
     <section className={`${styles.routePage} ${styles.stackPage}`} aria-labelledby="me-consult-title">
       <BackLink href="/me" />
       <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>Ask Me</p>
-        <h1 id="me-consult-title">Start with what matters.</h1>
-        <p>Search your care context and open the exact product you want to understand.</p>
+        <p className={styles.eyebrow}>{surface.eyebrow}</p>
+        <h1 id="me-consult-title">{surface.title}</h1>
       </div>
-      <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search your care" />
+      <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search my care" />
       {viewModel.concerns.length ? (
-        <div className={styles.concernList} aria-label="Your concerns">
+        <div className={styles.concernList} aria-label="My concerns">
           {viewModel.concerns.map((concern) => <span key={concern}>{concern}</span>)}
         </div>
       ) : null}
@@ -374,12 +375,12 @@ function ProductPage({
           <Link className={styles.publicLink} href={`/products/${product.slug}`}>
             Public product evidence <ExternalLink size={16} aria-hidden="true" />
           </Link>
-          <div className={styles.productMeta} aria-label="Product and customer context">
+          <div className={styles.productMeta} aria-label="My product context">
             <span>{product.size}</span>
             <span>{product.category}</span>
             <span>{product.step}</span>
             <span>
-              {onShelf ? 'On your Shelf' : 'Not on Shelf'} · {routineStep ? 'In your Routine' : 'Not in Routine'}
+              {onShelf ? 'On my Shelf' : 'Not on my Shelf'} · {routineStep ? 'In my Routine' : 'Not in my Routine'}
             </span>
           </div>
         </div>

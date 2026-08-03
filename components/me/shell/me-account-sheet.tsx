@@ -116,7 +116,7 @@ export function MeAccountSheet({
         <header className={styles.heading}>
           <div>
             <p>JeloCare Me</p>
-            <h2 id="me-account-sheet-title">Account</h2>
+            <h2 id="me-account-sheet-title">My Account</h2>
           </div>
           <button ref={closeRef} type="button" onClick={onClose} aria-label="Close account">
             <X size={20} aria-hidden="true" />
@@ -126,7 +126,7 @@ export function MeAccountSheet({
         <div className={styles.identity}>
           <span aria-hidden="true"><CircleUserRound size={26} strokeWidth={1.6} /></span>
           <div>
-            <strong>{account.displayName ?? 'Your JeloCare'}</strong>
+            <strong>{account.displayName ?? 'My JeloCare'}</strong>
             {account.email ? <p id="me-account-sheet-email">{account.email}</p> : null}
           </div>
         </div>
@@ -134,7 +134,6 @@ export function MeAccountSheet({
         <div className={styles.appearance}>
           <div>
             <strong>Appearance</strong>
-            <span>Light or dark</span>
           </div>
           <ThemeToggle />
         </div>

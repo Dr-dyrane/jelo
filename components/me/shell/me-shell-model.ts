@@ -12,6 +12,21 @@ export const ME_RELEASED_WORKSPACE_NAVIGATION = ME_WORKSPACE_NAVIGATION;
 export type MeWorkspaceTab = typeof ME_WORKSPACE_NAVIGATION[number]['id'];
 export type MeWorkspacePage = MeWorkspaceTab | 'consult' | 'product';
 
+export const ME_PORTAL_SURFACES = {
+  home: { layer: 'primary', route: '/me', parent: 'home', eyebrow: 'JeloCare Me', title: 'My care.' },
+  explore: { layer: 'primary', route: '/me/explore', parent: 'explore', eyebrow: 'Explore', title: 'My next product.' },
+  shelf: { layer: 'primary', route: '/me/shelf', parent: 'shelf', eyebrow: 'Saved products', title: 'My Shelf.' },
+  routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
+  consult: { layer: 'stack', route: '/me/consult', parent: 'home', eyebrow: 'Ask Me', title: 'My concern.' },
+  product: { layer: 'stack', route: '/me/product/[slug]', parent: 'origin', eyebrow: null, title: null },
+} as const satisfies Record<MeWorkspacePage, {
+  layer: 'primary' | 'stack';
+  route: string;
+  parent: MeWorkspaceTab | 'origin';
+  eyebrow: string | null;
+  title: string | null;
+}>;
+
 export const ME_WORKSPACE_FABS = {
   home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
   explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
