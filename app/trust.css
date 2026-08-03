@@ -30,6 +30,7 @@
 .footer-group > strong { margin-bottom: .4rem; color: var(--ink); }
 .footer-group a { width: fit-content; color: var(--muted); }
 .footer-group a:hover { color: var(--wine); }
+.footer-group .footer-member-link { min-height: 2.75rem; display: inline-flex; align-items: center; color: var(--wine); }
 
 .footer-legal {
   grid-column: 1 / -1;

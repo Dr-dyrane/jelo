@@ -25,6 +25,7 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
         </div>
         <div className="footer-group">
           <strong>Connect</strong>
+          <Link className="footer-member-link" href="/me">My JeloCare</Link>
           <Link href="/share">Worth sharing</Link>
           <a href="mailto:hello@jelocare.com">hello@jelocare.com</a>
           <Link href="/retailers#list-your-store">Retail partnerships</Link>
