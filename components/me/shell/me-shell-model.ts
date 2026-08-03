@@ -7,6 +7,12 @@ export const ME_WORKSPACE_NAVIGATION = [
   { id: 'routine', label: 'Routine', href: '/me/routine' },
 ] as const satisfies readonly WorkspaceNavigationDescriptor[];
 
+// The complete product vocabulary remains canon, while production navigation
+// contains only destinations backed by a released route.
+export const ME_RELEASED_WORKSPACE_NAVIGATION = ME_WORKSPACE_NAVIGATION.filter(
+  (item) => item.href === '/me',
+);
+
 export type MeWorkspaceTab = typeof ME_WORKSPACE_NAVIGATION[number]['id'];
 
 export function createMeDockContext({

@@ -1,7 +1,9 @@
 'use client';
 
-import { type FormEvent, useState } from 'react';
+import { Suspense, type FormEvent, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { authClient } from '@/lib/auth/client';
+import { resolveSignInContinuation, resolveSignInIntent } from '@/lib/auth/sign-in-intent';
 import styles from './sign-in.module.css';
 
 type Phase = 'email' | 'code';
@@ -11,7 +13,11 @@ type Phase = 'email' | 'code';
 // withheld until the email is in, so disclosure is progressive rather than a
 // wall of fields. Feedback stays quiet — the button label carries state, errors
 // are a single muted line, never a loud banner.
-export default function OpsSignIn() {
+function SignInForm() {
+  const searchParams = useSearchParams();
+  const continuation = resolveSignInContinuation(searchParams.get('next'));
+  const intent = resolveSignInIntent(continuation);
+  const customerIntent = intent === 'customer';
   const [phase, setPhase] = useState<Phase>('email');
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
@@ -51,8 +57,12 @@ export default function OpsSignIn() {
     try {
       const { error: err } = await authClient.signIn.emailOtp({ email: email.trim(), otp: finalCode });
       if (err) throw err;
-      // Full navigation so the server re-runs the operator guard with the new session.
-      window.location.assign('/ops');
+      // Full navigation so the destination's verified server-session guard runs.
+      if (continuation === '/ops') {
+        window.location.assign('/ops');
+        return;
+      }
+      window.location.assign('/me');
     } catch (err) {
       console.error('otp-verify', err);
       setError(interpret(err, 'That code did not match. Check it and try again.'));
@@ -63,10 +73,10 @@ export default function OpsSignIn() {
   return (
     <main className={styles.shell}>
       <div className={styles.card}>
-        <p className={styles.eyebrow}>JeloCare Ops</p>
+        <p className={styles.eyebrow}>{customerIntent ? 'JeloCare Me' : 'JeloCare Ops'}</p>
         {phase === 'email' ? (
           <form onSubmit={event => { event.preventDefault(); void requestCode(); }}>
-            <h1 className={styles.h1}>Operator sign in.</h1>
+            <h1 className={styles.h1}>{customerIntent ? 'Come back to your care.' : 'Operator sign in.'}</h1>
             <input
               type="email"
               required
@@ -74,8 +84,8 @@ export default function OpsSignIn() {
               autoComplete="email"
               value={email}
               onChange={event => setEmail(event.target.value)}
-              placeholder="you@jelocare.com"
-              aria-label="Operator email"
+              placeholder={customerIntent ? 'you@example.com' : 'you@jelocare.com'}
+              aria-label={customerIntent ? 'Email address' : 'Operator email'}
               className={styles.input}
               disabled={busy}
             />
@@ -125,11 +135,21 @@ export default function OpsSignIn() {
             </button>
           </form>
         )}
-        <p className={styles.foot}>Access is limited to allowlisted operators.</p>
+        <p className={styles.foot}>
+          {customerIntent ? 'One private code. No password.' : 'Access is limited to allowlisted operators.'}
+        </p>
       </div>
       <p role="status" aria-live="polite" className={styles.srStatus}>
         {busy ? 'Working…' : phase === 'code' ? 'Code sent. Enter it to continue.' : ''}
       </p>
     </main>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<main className={styles.shell} aria-label="JeloCare sign in" />}>
+      <SignInForm />
+    </Suspense>
   );
 }

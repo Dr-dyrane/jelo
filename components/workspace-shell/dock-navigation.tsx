@@ -45,7 +45,11 @@ export function DockNavigation({
       aria-label="Primary navigation"
       data-workspace-dock-navigation-reveal={revealed || undefined}
     >
-      <ul className={styles.navigationList} role="list">
+      <ul
+        className={styles.navigationList}
+        role="list"
+        style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
+      >
         {items.map((item) => {
           const selected = item.id === active?.id;
           const Icon = item.icon;

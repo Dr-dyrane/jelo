@@ -8,7 +8,7 @@ import {
 } from '@/components/workspace-shell/adaptive-workspace-dock';
 import type { AdaptiveWorkspaceDockController } from '@/components/workspace-shell/use-adaptive-workspace-dock-controller';
 import type { DockContextDescriptor } from '@/lib/workspace-shell/dock-model';
-import { ME_WORKSPACE_NAVIGATION } from './me-shell-model';
+import { ME_RELEASED_WORKSPACE_NAVIGATION } from './me-shell-model';
 
 const icons = {
   ask: MessageCircleQuestion,
@@ -18,7 +18,7 @@ const icons = {
 } as const;
 
 const ME_DOCK_ITEMS: readonly WorkspaceDockNavigationItem[] =
-  ME_WORKSPACE_NAVIGATION.map((item) => ({ ...item, icon: icons[item.id] }));
+  ME_RELEASED_WORKSPACE_NAVIGATION.map((item) => ({ ...item, icon: icons[item.id] }));
 
 export function MeWorkspaceDock({
   controller,

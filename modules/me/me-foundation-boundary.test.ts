@@ -5,8 +5,14 @@ import test from 'node:test';
 const adr = readFileSync('docs/adr/0013-founder-led-jelocare-me.md', 'utf8');
 const adapter = readFileSync('components/me/shell/me-workspace-dock.tsx', 'utf8');
 
-test('the Me foundation creates no customer route or data-bearing implementation', () => {
-  assert.deepEqual(globSync('app/**/me/**'), []);
+test('the first Me route is session guarded without customer schema or seeded data', () => {
+  assert.deepEqual(
+    globSync('app/**/me/**').filter((path) => path.endsWith('.tsx')),
+    ['app/(customer)/me/page.tsx'],
+  );
+  const route = readFileSync('app/(customer)/me/page.tsx', 'utf8');
+  assert.match(route, /await requireCustomer\(\)/);
+  assert.match(route, /readCustomerPortal\(customer\)/);
   assert.equal(globSync('db/migrations/**/*member*').length, 0);
   assert.equal(globSync('db/migrations/**/*shelf*').length, 0);
   assert.equal(globSync('db/migrations/**/*routine*').length, 0);

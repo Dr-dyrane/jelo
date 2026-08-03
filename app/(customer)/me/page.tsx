@@ -1,0 +1,11 @@
+import { MeHome } from '@/components/me/home/me-home';
+import { requireCustomer } from '@/lib/customer/access';
+import { readCustomerPortal } from '@/lib/customer/read-model';
+
+export const dynamic = 'force-dynamic';
+
+export default async function MePage() {
+  const customer = await requireCustomer();
+  const viewModel = readCustomerPortal(customer);
+  return <MeHome viewModel={viewModel} />;
+}
