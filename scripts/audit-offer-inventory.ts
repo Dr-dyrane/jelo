@@ -1,6 +1,7 @@
 import postgres from 'postgres';
 import { products as publicProducts } from '../data/catalogue';
 import {
+  compareCoveragePriority,
   defaultStoreChoiceTarget,
   productCoverage,
   type CoverageOffer,
@@ -140,6 +141,13 @@ async function reportPublicCoverage(sql: postgres.Sql) {
   const byRetailer = [...retailerRows.entries()]
     .map(([retailer, value]) => ({ ...value, retailer, blockers: [...value.blockers].sort() }))
     .sort((left, right) => right.links - left.links || left.retailer.localeCompare(right.retailer));
+  const priorityQueue = [...matrix]
+    .sort(compareCoveragePriority)
+    .map((product, index) => ({
+      rank: index + 1,
+      slug: product.slug,
+      ...product.priority,
+    }));
 
   console.log(JSON.stringify({
     auditedAt: new Date().toISOString(),
@@ -170,6 +178,7 @@ async function reportPublicCoverage(sql: postgres.Sql) {
       activeRefreshJobs: matrix.reduce((total, item) => total + item.activeRefreshJobs, 0),
     },
     byRetailer,
+    priorityQueue,
     matrix,
   }, null, 2));
 }

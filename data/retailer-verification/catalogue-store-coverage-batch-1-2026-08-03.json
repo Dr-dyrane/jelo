@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-08-03T03:37:23Z",
+  "method": "rendered-browser-page-review",
+  "scope": "catalogue-store-coverage-batch-1",
+  "selection": {
+    "formula": "10 * exact-store gap + 6 * fresh-price gap + 3 * stale-or-unverified offers + 2 * blocked exact offers",
+    "tieBreak": "oldest observation, then slug",
+    "retailerGrouping": "Beauty by Daz",
+    "selectedSlugs": [
+      "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+      "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "dove-melanin-even-tone-body-wash-18-5oz"
+    ],
+    "rankedReasons": [
+      {
+        "slug": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+        "score": 56,
+        "exactStoreGap": 3,
+        "freshPriceGap": 3,
+        "staleOrUnverifiedOffers": 2,
+        "blockedExactOffers": 1,
+        "tieBreakObservation": "2026-07-23T16:35:06Z"
+      },
+      {
+        "slug": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+        "score": 56,
+        "exactStoreGap": 3,
+        "freshPriceGap": 3,
+        "staleOrUnverifiedOffers": 2,
+        "blockedExactOffers": 1,
+        "tieBreakObservation": "2026-07-23T19:38:00Z"
+      },
+      {
+        "slug": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+        "score": 56,
+        "exactStoreGap": 3,
+        "freshPriceGap": 3,
+        "staleOrUnverifiedOffers": 2,
+        "blockedExactOffers": 1,
+        "tieBreakObservation": "2026-07-26T21:46:30Z"
+      },
+      {
+        "slug": "dove-melanin-even-tone-body-wash-18-5oz",
+        "score": 56,
+        "exactStoreGap": 3,
+        "freshPriceGap": 3,
+        "staleOrUnverifiedOffers": 2,
+        "blockedExactOffers": 1,
+        "tieBreakObservation": "2026-07-30T07:08:45.647Z"
+      }
+    ]
+  },
+  "coverageImpact": {
+    "before": {
+      "publicProducts": 63,
+      "productsMeetingStoreTarget": 5,
+      "productsMeetingFreshPriceTarget": 2,
+      "freshExactStoreGap": 125,
+      "freshPriceGap": 141
+    },
+    "admittedDelta": {
+      "freshExactStores": 2,
+      "freshPrices": 1,
+      "freshExactStoreGap": -2,
+      "freshPriceGap": -1
+    },
+    "releaseIsolatedAfter": {
+      "publicProducts": 63,
+      "productsMeetingStoreTarget": 5,
+      "productsMeetingFreshPriceTarget": 2,
+      "freshExactStoreGap": 123,
+      "freshPriceGap": 140
+    }
+  },
+  "products": [
+    {
+      "slug": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+      "catalogueVariant": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
+      "catalogueSize": "13 oz",
+      "retailer": "Beauty by Daz",
+      "retailerDirectoryStatus": "directory-listed",
+      "requestedUrl": "https://beautybydaz.com/?s=SheaMoisture+Jamaican+Black+Castor+Oil+Shampoo&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=SheaMoisture+Jamaican+Black+Castor+Oil+Shampoo&post_type=product",
+      "stock": "unknown",
+      "disposition": "not-found",
+      "reasons": ["rendered-retailer-search-returned-no-products"]
+    },
+    {
+      "slug": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "catalogueVariant": "Raw Shea Butter Deep Moisturizing Conditioner",
+      "catalogueSize": "13 fl oz / 384 ml",
+      "retailer": "Beauty by Daz",
+      "retailerDirectoryStatus": "directory-listed",
+      "requestedUrl": "https://beautybydaz.com/?s=SheaMoisture+Raw+Shea+Butter+Deep+Moisturizing+Conditioner+384ml&post_type=product",
+      "finalUrl": "https://beautybydaz.com/?s=SheaMoisture+Raw+Shea+Butter+Deep+Moisturizing+Conditioner+384ml&post_type=product",
+      "stock": "unknown",
+      "disposition": "withheld",
+      "reasons": [
+        "rendered-retailer-search-returned-no-products",
+        "alternate-perfect-trust-page-shows-legacy-restorative-conditioner-package-not-current-deep-moisturizing-package"
+      ]
+    },
+    {
+      "slug": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "catalogueVariant": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
+      "catalogueSize": "30 ml",
+      "retailer": "Beauty by Daz",
+      "retailerDirectoryStatus": "directory-listed",
+      "requestedUrl": "https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+      "finalUrl": "https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+      "observedTitle": "Anua Azelaic Acid 10% + Hyaluron Redness Soothing Serum 30ml",
+      "observedSize": "30 ml",
+      "priceNgn": 18850,
+      "stock": "in-stock",
+      "disposition": "verified-exact-offer",
+      "evidence": [
+        "exact-final-and-canonical-product-url",
+        "visible-exact-title-and-30ml-package",
+        "visible-ngn-price-and-in-stock-state"
+      ]
+    },
+    {
+      "slug": "dove-melanin-even-tone-body-wash-18-5oz",
+      "catalogueVariant": "Melanin Even Tone Serum Body Wash with Pro-Ceramide",
+      "catalogueSize": "18.5 oz",
+      "retailer": "Beauty by Daz",
+      "retailerDirectoryStatus": "directory-listed",
+      "requestedUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/dove-melanin-even-tone-body-wash-547ml/",
+      "finalUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/dove-melanin-even-tone-body-wash-547ml/",
+      "observedTitle": "Dove Melanin Even Tone Body Wash 547ml",
+      "observedSize": "547 ml / 18.5 fl oz",
+      "priceNgn": 19500,
+      "stock": "out-of-stock",
+      "disposition": "verified-exact-offer",
+      "evidence": [
+        "exact-final-and-canonical-product-url",
+        "visible-melanin-even-tone-package-and-pro-ceramide-serum-copy",
+        "visible-547ml-size-ngn-price-and-out-of-stock-state"
+      ]
+    }
+  ]
+}

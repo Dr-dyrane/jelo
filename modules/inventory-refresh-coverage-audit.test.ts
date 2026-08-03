@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  compareCoveragePriority,
   offerCoverageState,
   offerRefreshCapability,
   normalizedRefreshBlocker,
@@ -71,7 +72,61 @@ test('coverage classifies adapters, search blockers, and the smallest next actio
     freshPriceGapToTarget: 2,
   });
   assert.equal(report.nextAction, 'find 2 more trustworthy exact NG stores');
+  assert.deepEqual(report.priority, {
+    score: 32,
+    reasons: {
+      exactStoreGap: 2,
+      freshPriceGap: 2,
+      staleOrUnverifiedOffers: 0,
+      blockedExactOffers: 0,
+    },
+    tieBreakObservation: '2026-08-02T12:00:00.000Z',
+  });
   assert.equal(normalizedRefreshBlocker('Retailer canonical URL does not match the verified product route.'), 'redirected-off-exact-route');
+});
+
+test('coverage priority applies the accepted score and breaks ties by oldest observation', () => {
+  const blocked = {
+    ...exactOffer,
+    retailer: 'BuyBetter',
+    latestJobStatus: 'failed',
+    latestJobError: 'Retailer canonical URL redirected off the exact product route.',
+  };
+  const report = productCoverage({
+    slug: 'blocked-example',
+    size: '150 ml',
+    databasePublished: true,
+    offers: [
+      { ...blocked, verificationMethod: 'import' },
+      { ...exactOffer, retailer: 'Second Store', verificationMethod: 'import' },
+    ],
+    now,
+  });
+
+  assert.deepEqual(report.priority, {
+    score: 56,
+    reasons: {
+      exactStoreGap: 3,
+      freshPriceGap: 3,
+      staleOrUnverifiedOffers: 2,
+      blockedExactOffers: 1,
+    },
+    tieBreakObservation: '2026-08-02T12:00:00.000Z',
+  });
+
+  const queue = [
+    { slug: 'newer', priority: { ...report.priority, tieBreakObservation: '2026-08-02T00:00:00.000Z' } },
+    { slug: 'never-observed', priority: { ...report.priority, tieBreakObservation: null } },
+    { slug: 'older', priority: { ...report.priority, tieBreakObservation: '2026-07-30T00:00:00.000Z' } },
+    { slug: 'lower-score', priority: { ...report.priority, score: 55 } },
+  ].sort(compareCoveragePriority);
+
+  assert.deepEqual(queue.map(item => item.slug), [
+    'never-observed',
+    'older',
+    'newer',
+    'lower-score',
+  ]);
 });
 
 test('store-choice coverage counts distinct governed retailers toward the target', () => {

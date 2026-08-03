@@ -4,6 +4,7 @@ import { materializeOfferEvidence } from '@/modules/commerce/offer-evidence';
 const checkedAt = '2026-07-22';
 
 type ExactNgOptions = Pick<Offer, 'available' | 'inventoryQuantity' | 'sellerName' | 'sellerScore' | 'priceComparison'> & {
+  observedAt?: string;
   stock?: NonNullable<Offer['priceObservation']>['stock'];
 };
 
@@ -15,34 +16,40 @@ const exactNg = (
   observedVariant: string,
   observedSize: string,
   options: Partial<ExactNgOptions> = {},
-): Offer => ({
-  retailer,
-  url,
-  trust,
-  available: options.available ?? true,
-  priceNgn,
-  checkedAt,
-  match: 'exact',
-  inventoryQuantity: options.inventoryQuantity,
-  sellerName: options.sellerName,
-  sellerScore: options.sellerScore,
-  priceComparison: options.priceComparison,
-  listingEvidence: {
-    observedAt: checkedAt,
-    sourceUrl: url,
-    basis: 'retailer-page',
-  },
-  priceObservation: {
-    observedAt: checkedAt,
-    variant: observedVariant,
-    size: observedSize,
-    stock: options.stock ?? (options.available === false ? 'out-of-stock' : 'in-stock'),
-    landedCost: 'unknown',
-  },
-  location: ['NG'],
-});
+): Offer => {
+  const observationTime = options.observedAt ?? checkedAt;
+  return {
+    retailer,
+    url,
+    trust,
+    available: options.available ?? true,
+    priceNgn,
+    checkedAt: observationTime,
+    match: 'exact',
+    inventoryQuantity: options.inventoryQuantity,
+    sellerName: options.sellerName,
+    sellerScore: options.sellerScore,
+    priceComparison: options.priceComparison,
+    listingEvidence: {
+      observedAt: observationTime,
+      sourceUrl: url,
+      basis: 'retailer-page',
+    },
+    priceObservation: {
+      observedAt: observationTime,
+      variant: observedVariant,
+      size: observedSize,
+      stock: options.stock ?? (options.available === false ? 'out-of-stock' : 'in-stock'),
+      landedCost: 'unknown',
+    },
+    location: ['NG'],
+  };
+};
 
 export const verifiedRetailOffers: Record<string, Offer[]> = {
+  'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/', 100, 18850, 'Anua Azelaic Acid 10% + Hyaluron Redness Soothing Serum', '30 ml', { observedAt: '2026-08-03T03:37:23Z' }),
+  ],
   'cosrx-salicylic-acid-daily-gentle-cleanser': [
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/', 100, 8500, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml'),
     exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/', 96, 9600, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml'),
@@ -95,6 +102,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'disaar-argan-oil-body-oil-gel': [
     exactNg('Jumia', 'https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html', 62, 4500, 'Disaar Argan Oil Body Oil Gel Deep Moisturizing Skin Care', '200 ml', { sellerName: 'Christodel Global Services', sellerScore: 88, stock: 'low-stock' }),
+  ],
+  'dove-melanin-even-tone-body-wash-18-5oz': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/bath-body/bath-wash-gels/dove-melanin-even-tone-body-wash-547ml/', 100, 19500, 'Dove Melanin Even Tone Body Wash with Pro-Ceramide Serum', '547 ml / 18.5 fl oz', { available: false, observedAt: '2026-08-03T03:37:23Z' }),
   ],
   'cerave-foaming-facial-cleanser': [
     exactNg('CSi Grocery', 'https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-foaming-facial/', 90, 27500, 'CeraVe Foaming Facial Cleanser', '355 ml'),

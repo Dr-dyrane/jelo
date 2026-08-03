@@ -56,6 +56,25 @@ test('browser-verified Beauty by Daz prices serve exact original catalogue produ
   }
 });
 
+test('catalogue coverage batch 1 preserves its fresh Beauty by Daz observations', () => {
+  const expected = [
+    ['anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml', 18_850, true, '30 ml'],
+    ['dove-melanin-even-tone-body-wash-18-5oz', 19_500, false, '547 ml / 18.5 fl oz'],
+  ] as const;
+
+  for (const [slug, priceNgn, available, size] of expected) {
+    const offer = verifiedRetailOffers[slug]?.find(candidate => candidate.retailer === 'Beauty by Daz');
+    assert.ok(offer, slug);
+    assert.equal(offer.priceNgn, priceNgn, slug);
+    assert.equal(offer.available, available, slug);
+    assert.equal(offer.checkedAt, '2026-08-03T03:37:23Z', slug);
+    assert.equal(offer.listingEvidence?.observedAt, offer.checkedAt, slug);
+    assert.equal(offer.listingEvidence?.sourceUrl, offer.url, slug);
+    assert.equal(offer.priceObservation?.observedAt, offer.checkedAt, slug);
+    assert.equal(offer.priceObservation?.size, size, slug);
+  }
+});
+
 test('every curated exact price carries listing, variant, size, stock, time and landed-cost evidence', () => {
   const priced = Object.values(verifiedRetailOffers).flat().filter(offer =>
     offer.match === 'exact'

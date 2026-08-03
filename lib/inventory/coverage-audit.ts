@@ -62,6 +62,17 @@ export type CoverageOffer = {
 
 export type OfferCoverageState = 'fresh' | 'stale' | 'unverified' | 'conflict';
 
+export type CoveragePriority = {
+  score: number;
+  reasons: {
+    exactStoreGap: number;
+    freshPriceGap: number;
+    staleOrUnverifiedOffers: number;
+    blockedExactOffers: number;
+  };
+  tieBreakObservation: string | null;
+};
+
 function utcDay(value: Date) {
   return Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate());
 }
@@ -113,6 +124,23 @@ export function normalizedRefreshBlocker(error: string | null): string | null {
   return 'exact-offer-refresh-failed';
 }
 
+export function compareCoveragePriority(
+  left: { slug: string; priority: CoveragePriority },
+  right: { slug: string; priority: CoveragePriority },
+) {
+  if (left.priority.score !== right.priority.score) {
+    return right.priority.score - left.priority.score;
+  }
+  const leftObservation = left.priority.tieBreakObservation == null
+    ? Number.NEGATIVE_INFINITY
+    : Date.parse(left.priority.tieBreakObservation);
+  const rightObservation = right.priority.tieBreakObservation == null
+    ? Number.NEGATIVE_INFINITY
+    : Date.parse(right.priority.tieBreakObservation);
+  if (leftObservation !== rightObservation) return leftObservation - rightObservation;
+  return left.slug.localeCompare(right.slug);
+}
+
 export function productCoverage(input: {
   slug: string;
   size: string;
@@ -147,7 +175,21 @@ export function productCoverage(input: {
       .map(offer => normalizedRefreshBlocker(offer.latestJobError))
       .filter((blocker): blocker is string => blocker != null),
   )];
+  const blockedExactOffers = exact.filter(offer => normalizedRefreshBlocker(offer.latestJobError) != null).length;
   const capabilities = [...new Set(input.offers.map(offerRefreshCapability))].sort();
+  const priority: CoveragePriority = {
+    score: (10 * storeChoiceGap)
+      + (6 * freshPriceGap)
+      + (3 * (stale.length + unverified.length))
+      + (2 * blockedExactOffers),
+    reasons: {
+      exactStoreGap: storeChoiceGap,
+      freshPriceGap,
+      staleOrUnverifiedOffers: stale.length + unverified.length,
+      blockedExactOffers,
+    },
+    tieBreakObservation: latestObservation?.toISOString() ?? null,
+  };
 
   let nextAction = 'none—fresh exact NG coverage';
   if (!input.databasePublished) nextAction = 'reconcile missing production product';
@@ -182,6 +224,7 @@ export function productCoverage(input: {
     identitySizeConflict: conflicts.map(item => item.offer.retailer).sort(),
     activeRefreshJobs: active.length,
     blockers,
+    priority,
     nextAction,
   };
 }
