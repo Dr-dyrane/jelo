@@ -1,15 +1,44 @@
+import { ChevronRight } from 'lucide-react';
+import { forwardRef } from 'react';
 import type { DockContextDescriptor } from '@/lib/workspace-shell/dock-model';
 import styles from './adaptive-workspace-dock.module.css';
 
-export function DockContextCapsule({ context }: { context: DockContextDescriptor }) {
+export const DockContextCapsule = forwardRef<HTMLButtonElement, { context: DockContextDescriptor }>(function DockContextCapsule(
+  { context },
+  triggerRef,
+) {
+  const label = context.accessibleLabel ?? `${context.label}. ${context.detail}`;
+  const content = (
+    <>
+      <span className={styles.contextLabel}>{context.label}</span>
+      <span className={styles.contextDetail}>{context.detail}</span>
+      {context.onInvoke ? <ChevronRight className={styles.contextChevron} size={16} aria-hidden="true" /> : null}
+    </>
+  );
+
+  if (context.onInvoke) return (
+    <button
+      ref={triggerRef}
+      type="button"
+      className={`${styles.lens} ${styles.interactive} ${styles.context} ${styles.contextAction}`}
+      aria-label={label}
+      aria-expanded={context.controls ? context.expanded : undefined}
+      aria-controls={context.controls}
+      onClick={context.onInvoke}
+      data-workspace-dock-context={context.id}
+      data-workspace-dock-context-action
+    >
+      {content}
+    </button>
+  );
+
   return (
     <section
       className={`${styles.lens} ${styles.context}`}
-      aria-label={context.accessibleLabel ?? `${context.label}. ${context.detail}`}
+      aria-label={label}
       data-workspace-dock-context={context.id}
     >
-      <span className={styles.contextLabel}>{context.label}</span>
-      <span className={styles.contextDetail}>{context.detail}</span>
+      {content}
     </section>
   );
-}
+});

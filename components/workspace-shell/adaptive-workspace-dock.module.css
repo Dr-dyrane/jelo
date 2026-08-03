@@ -110,6 +110,17 @@
   font-weight: 500;
 }
 
+.contextAction {
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.contextChevron {
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--workspace-dock-accent) 72%, transparent);
+}
+
 .navigation {
   min-width: 0;
   min-height: 58px;

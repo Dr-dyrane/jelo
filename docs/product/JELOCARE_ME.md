@@ -29,6 +29,11 @@ headers do not explain what imagery, exact-product cards, fields, and working
 actions already show; prose is reserved for necessary evidence, safety, or an
 honest empty recovery.
 
+Shelf is a cosmetics/product surface, not a library metaphor. Its navigation
+uses skincare-product iconography, and wide cards give exact packshots a larger
+standing media field with a restrained vanity/shelf plinth. Mobile keeps the
+compact product row.
+
 ## Information architecture
 
 | Primary destination | Canonical route | Customer job | Page-owned FAB |
@@ -81,8 +86,10 @@ palette. Operations mineral grey and `--ops-*` tokens are prohibited.
 The [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md#view-anatomy)
 owns expanded, compact, navigation, and single anatomy. Me supplies only the
 active tab, truthful context, warm semantic palette, and exactly one page-owned
-working FAB. The capsule never mutates; a FAB may navigate or focus a real field
-when no truthful mutation exists and always uses an explicit accessible label.
+working FAB. The context capsule opens a route-owned summary sheet with truthful
+counts and working shortcuts as context grows; it never mutates. A FAB may
+navigate or focus a real field when no truthful mutation exists and always uses
+an explicit accessible label.
 
 ## Adaptive behavior
 

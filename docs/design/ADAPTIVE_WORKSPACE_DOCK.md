@@ -87,8 +87,10 @@ fake save, add, or edit mutations are not.
 - The registry is memory-only and is never customer data.
 
 The FAB is the only dock control permitted to invoke a page's primary domain
-mutation. Navigation changes location. The context capsule only describes
-current scope or evidence.
+mutation. Navigation changes location. A context capsule may remain descriptive
+or become a labelled button that expands truthful route context and shortcuts
+in an owned sheet; it exposes `aria-expanded` and `aria-controls`, restores
+focus, and never performs a domain mutation.
 
 ## View anatomy
 
@@ -110,7 +112,8 @@ slot only on a stack route.
 ```
 
 At narrow width the context may visually truncate, but its accessible name is
-complete. A primary page uses the real `Show navigation. <Page> selected` orb;
+complete and an actionable capsule remains available. A primary page uses the
+real `Show navigation. <Page> selected` orb;
 a stack page replaces that same geometric slot with its deterministic Back link.
 The context and FAB do not move or change meaning.
 

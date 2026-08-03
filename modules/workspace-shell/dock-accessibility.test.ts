@@ -37,7 +37,11 @@ test('lens and navigation preserve accessibility preference contracts', () => {
   assert.match(navigation, /Show navigation\./);
 });
 
-test('the context capsule is descriptive and cannot own a mutation', () => {
+test('the context capsule may disclose useful context without owning a mutation', () => {
   assert.match(context, /<section/);
-  assert.doesNotMatch(context, /<button|onClick|onSubmit/);
+  assert.match(context, /<button/);
+  assert.match(context, /aria-expanded/);
+  assert.match(context, /aria-controls/);
+  assert.match(context, /data-workspace-dock-context-action/);
+  assert.doesNotMatch(context, /onSubmit/);
 });

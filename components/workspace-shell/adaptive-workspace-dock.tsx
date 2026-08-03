@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
+import type { RefObject } from 'react';
 import type { DockContextDescriptor } from '@/lib/workspace-shell/dock-model';
 import { DockContextCapsule } from './dock-context';
 import { DockFab } from './dock-fab';
@@ -38,6 +39,7 @@ export function AdaptiveWorkspaceDock({
   navigationItems,
   currentHref,
   context,
+  contextTriggerRef,
   back,
   onNavigate,
   className,
@@ -46,6 +48,7 @@ export function AdaptiveWorkspaceDock({
   navigationItems: readonly WorkspaceDockNavigationItem[];
   currentHref: string;
   context?: DockContextDescriptor;
+  contextTriggerRef?: RefObject<HTMLButtonElement | null>;
   back?: WorkspaceDockBackDescriptor;
   onNavigate?: WorkspaceDockNavigateHandler;
   className?: string;
@@ -55,6 +58,7 @@ export function AdaptiveWorkspaceDock({
   const hasNavigation = navigationItems.length > 0;
   const classes = [styles.root, className].filter(Boolean).join(' ');
   const backControl = back ? <DockBack back={back} /> : null;
+  const contextCapsule = context ? <DockContextCapsule ref={contextTriggerRef} context={context} /> : null;
   const navigation = (revealed = false) => hasNavigation ? (
     <DockNavigation
       items={navigationItems}
@@ -78,7 +82,7 @@ export function AdaptiveWorkspaceDock({
     >
       {mode === 'expanded' && context ? (
         <div className={styles.expanded}>
-          <DockContextCapsule context={context} />
+          {contextCapsule}
           <div className={styles.row}>
             {backControl}
             {navigation()}
@@ -96,7 +100,7 @@ export function AdaptiveWorkspaceDock({
               onReveal={controller.revealNavigation}
             />
           )}
-          <DockContextCapsule context={context} />
+          {contextCapsule}
           {fab ? <DockFab fab={fab} /> : null}
         </div>
       ) : null}
@@ -112,7 +116,7 @@ export function AdaptiveWorkspaceDock({
       {mode === 'single' ? (
         <div className={styles.row}>
           {backControl}
-          {hasNavigation ? navigation() : context ? <DockContextCapsule context={context} /> : null}
+          {hasNavigation ? navigation() : contextCapsule}
           {fab ? <DockFab fab={fab} /> : null}
         </div>
       ) : null}

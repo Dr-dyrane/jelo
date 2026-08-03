@@ -5,8 +5,8 @@ import {
   ArrowRight,
   Compass,
   ExternalLink,
-  LibraryBig,
   MessageCircleQuestion,
+  Pipette,
   Search,
   Sparkles,
 } from 'lucide-react';
@@ -18,6 +18,8 @@ import {
   useWorkspaceDockFabRegistration,
 } from '@/components/workspace-shell';
 import { MeAccountSheet } from '@/components/me/shell/me-account-sheet';
+import { createMeContextSheetModel } from '@/components/me/shell/me-context-model';
+import { MeContextSheet } from '@/components/me/shell/me-context-sheet';
 import {
   createMeStackBack,
   createMeDockContext,
@@ -186,7 +188,7 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
           </div>
         ) : (
           <div className={styles.emptyAction}>
-            <LibraryBig size={24} strokeWidth={1.5} aria-hidden="true" />
+            <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
             <p>Nothing saved yet.</p>
             <Link href="/me/explore">Explore products</Link>
           </div>
@@ -249,7 +251,7 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
         </div>
       ) : (
         <div className={styles.emptyAction}>
-          <LibraryBig size={24} strokeWidth={1.5} aria-hidden="true" />
+          <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
           <p>Nothing saved yet.</p>
           <Link href="/me/explore">Explore products</Link>
         </div>
@@ -394,16 +396,35 @@ function MePortalView({
     : undefined;
   const context = createMeDockContext({ page: state.page, detail: state.detail });
   const back = createMeStackBack(route);
+  const contextTriggerRef = useRef<HTMLButtonElement>(null);
+  const [contextSheetState, setContextSheetState] = useState(() => ({
+    routeKey: state.routeKey,
+    open: false,
+  }));
   const accountTriggerRef = useRef<HTMLButtonElement>(null);
   const [accountSheetState, setAccountSheetState] = useState(() => ({
     routeKey: state.routeKey,
     open: false,
   }));
   const [headerOwnsFocus, setHeaderOwnsFocus] = useState(false);
+  const contextSheetOpen = contextSheetState.routeKey === state.routeKey && contextSheetState.open;
   const accountSheetOpen = accountSheetState.routeKey === state.routeKey && accountSheetState.open;
+  const contextSheetModel = createMeContextSheetModel({
+    route,
+    viewModel,
+    visibleProductCount: filteredProducts.length,
+    product,
+  });
+  const dockContext = {
+    ...context,
+    accessibleLabel: `Open ${context.label} summary. ${context.detail}`,
+    controls: 'me-context-sheet',
+    expanded: contextSheetOpen,
+    onInvoke: () => setContextSheetState({ routeKey: state.routeKey, open: true }),
+  };
   const headerHidden = resolveMeHeaderHidden({
     chromeHidden: controller.scroll.chromeHidden,
-    accountSheetOpen,
+    accountSheetOpen: accountSheetOpen || contextSheetOpen,
     headerOwnsFocus,
   });
   const focusSearch = () => {
@@ -445,6 +466,12 @@ function MePortalView({
       : current);
   }
 
+  function closeContextSheet() {
+    setContextSheetState((current) => current.routeKey === state.routeKey
+      ? { ...current, open: false }
+      : current);
+  }
+
   function handleHeaderBlur(event: FocusEvent<HTMLElement>) {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHeaderOwnsFocus(false);
   }
@@ -479,6 +506,13 @@ function MePortalView({
         triggerRef={accountTriggerRef}
       />
 
+      <MeContextSheet
+        model={contextSheetModel}
+        open={contextSheetOpen}
+        onClose={closeContextSheet}
+        triggerRef={contextTriggerRef}
+      />
+
       <main
         key={state.routeKey}
         className={styles.scroll}
@@ -506,7 +540,13 @@ function MePortalView({
         </div>
       </main>
 
-      <MeWorkspaceDock controller={controller} currentHref={state.currentHref} context={context} back={back} />
+      <MeWorkspaceDock
+        controller={controller}
+        currentHref={state.currentHref}
+        context={dockContext}
+        contextTriggerRef={contextTriggerRef}
+        back={back}
+      />
     </div>
   );
 }

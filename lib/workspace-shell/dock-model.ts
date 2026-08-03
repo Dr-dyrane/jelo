@@ -25,6 +25,9 @@ export type DockContextDescriptor = {
   label: string;
   detail: string;
   accessibleLabel?: string;
+  onInvoke?: () => void;
+  controls?: string;
+  expanded?: boolean;
 };
 
 export type WorkspaceNavigationDescriptor = {

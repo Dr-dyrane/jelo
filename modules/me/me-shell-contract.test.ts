@@ -11,6 +11,7 @@ import {
   resolveMeHeaderHidden,
   resolveMeProductOrigin,
 } from '../../components/me/shell/me-shell-model';
+import { createMeContextSheetModel } from '../../components/me/shell/me-context-model';
 import {
   INITIAL_WORKSPACE_DOCK_SCROLL_STATE,
   resolveActiveWorkspaceNavigationItem,
@@ -78,7 +79,7 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
   assert.deepEqual(ME_PORTAL_SURFACES, {
     home: { layer: 'primary', route: '/me', parent: 'home', eyebrow: 'JeloCare Me', title: 'My care.' },
     explore: { layer: 'primary', route: '/me/explore', parent: 'explore', eyebrow: 'Explore', title: 'My next product.' },
-    shelf: { layer: 'primary', route: '/me/shelf', parent: 'shelf', eyebrow: 'Saved products', title: 'My Shelf.' },
+    shelf: { layer: 'primary', route: '/me/shelf', parent: 'shelf', eyebrow: 'My products', title: 'My Shelf.' },
     routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
     consult: { layer: 'stack', route: '/me/consult', parent: 'home', eyebrow: 'Ask Me', title: 'My concern.' },
     product: { layer: 'stack', route: '/me/product/[slug]', parent: 'origin', eyebrow: null, title: null },
@@ -109,6 +110,8 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
 
 test('standalone saved-product lists expand without widening mobile cards', () => {
   const styles = readFileSync('components/me/home/me-home.module.css', 'utf8');
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const dock = readFileSync('components/me/shell/me-workspace-dock.tsx', 'utf8');
   assert.match(styles, /\.productGrid \{ display: grid; min-width: 0; gap: 12px; \}/);
   assert.match(styles, /\.routineList \{[\s\S]*display: grid;[\s\S]*list-style: none;/);
   assert.match(
@@ -116,9 +119,15 @@ test('standalone saved-product lists expand without widening mobile cards', () =
     /@media \(min-width: 900px\) \{[\s\S]*\.listPage,[\s\S]*\.routePage > \.routineList[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/,
   );
   assert.doesNotMatch(styles, /@media \(min-width: 900px\) \{[\s\S]*\.section > \.productGrid/);
+  assert.match(styles, /\.listPage \.productCard \{[\s\S]*min-height: 220px;[\s\S]*grid-template-columns: minmax\(156px, 0\.72fr\)/);
+  assert.match(styles, /\.listPage \.productImage::after \{[\s\S]*box-shadow:[\s\S]*content: '';/);
+  assert.match(dock, /Pipette/);
+  assert.doesNotMatch(dock, /LibraryBig/);
+  assert.match(home, /<Pipette size=\{24\}/);
+  assert.doesNotMatch(home, /LibraryBig/);
 });
 
-test('Me context is descriptive and contains no mutation callback', () => {
+test('Me context stays truthful and expands into useful route shortcuts', () => {
   const context = createMeDockContext({ page: 'home', detail: 'Your care' });
   assert.deepEqual(context, {
     id: 'me-home',
@@ -129,6 +138,76 @@ test('Me context is descriptive and contains no mutation callback', () => {
   assert.equal('onClick' in context, false);
   assert.equal(createMeDockContext({ page: 'consult', detail: 'Your care context' }).label, 'Ask Me');
   assert.equal(createMeDockContext({ page: 'product', detail: 'Exact catalogue record' }).label, 'Product');
+
+  const product = {
+    slug: 'exact-product',
+    brand: 'Exact Brand',
+    name: 'Exact Serum',
+    size: '30 ml',
+    category: 'Face',
+    step: 'Treat',
+    image: '/exact.png',
+    displayLine: 'Exact line',
+    usage: 'Use as directed.',
+    priceLabel: null,
+  };
+  const viewModel = {
+    account: { displayName: 'Amara Example', email: 'amara.customer@example.test', synthetic: true },
+    featuredProduct: product,
+    concerns: ['Dryness'],
+    shelf: [product],
+    routineProvenance: 'Amara’s routine',
+    routine: [{ id: 'treat', moment: 'Saved step', product }],
+  };
+  const shelf = createMeContextSheetModel({
+    route: { kind: 'shelf' },
+    viewModel,
+    visibleProductCount: 1,
+    product: undefined,
+  });
+  assert.equal(shelf.title, 'My Shelf');
+  assert.equal(shelf.summary, '1 saved product');
+  assert.deepEqual(shelf.items[0], {
+    id: 'exact-product',
+    label: 'Exact Serum',
+    detail: 'Exact Brand · 30 ml',
+    href: '/me/product/exact-product?from=shelf',
+  });
+  assert.equal(createMeContextSheetModel({
+    route: { kind: 'home' }, viewModel, visibleProductCount: 1, product: undefined,
+  }).summary, '1 saved product · 1 step');
+  assert.equal(createMeContextSheetModel({
+    route: { kind: 'explore' }, viewModel, visibleProductCount: 1, product: undefined,
+  }).title, 'My Explore');
+  assert.equal(createMeContextSheetModel({
+    route: { kind: 'routine' }, viewModel, visibleProductCount: 1, product: undefined,
+  }).items[0]?.href, '/me/product/exact-product?from=routine');
+  assert.equal(createMeContextSheetModel({
+    route: { kind: 'consult' }, viewModel, visibleProductCount: 1, product: undefined,
+  }).summary, '1 concern · 1 match');
+  const memberProduct = createMeContextSheetModel({
+    route: { kind: 'product', slug: product.slug, origin: 'shelf' },
+    viewModel,
+    visibleProductCount: 1,
+    product,
+  });
+  assert.equal(memberProduct.summary, 'On my Shelf · In my Routine');
+  assert.equal(memberProduct.items[0]?.href, '/products/exact-product');
+
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const capsule = readFileSync('components/workspace-shell/dock-context.tsx', 'utf8');
+  const sheet = readFileSync('components/me/shell/me-context-sheet.tsx', 'utf8');
+  assert.match(capsule, /data-workspace-dock-context-action/);
+  assert.match(capsule, /aria-expanded=\{context\.controls \? context\.expanded : undefined\}/);
+  assert.match(capsule, /aria-controls=\{context\.controls\}/);
+  assert.match(home, /controls: 'me-context-sheet'/);
+  assert.match(home, /onInvoke: \(\) => setContextSheetState/);
+  assert.match(home, /accountSheetOpen: accountSheetOpen \|\| contextSheetOpen/);
+  assert.match(sheet, /role="dialog"/);
+  assert.match(sheet, /dialog\.showModal\(\)/);
+  assert.match(sheet, /body\.style\.overflow = 'hidden'/);
+  assert.match(sheet, /trigger\?\.focus/);
+  assert.match(sheet, /onCancel=\{closeFromEscape\}/);
 });
 
 test('member routes are guarded, stack-owned, and never replace public product routes', () => {

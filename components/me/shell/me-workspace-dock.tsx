@@ -1,6 +1,7 @@
 'use client';
 
-import { CircleUserRound, Compass, House, LibraryBig, Rows3 } from 'lucide-react';
+import { CircleUserRound, Compass, House, Pipette, Rows3 } from 'lucide-react';
+import type { RefObject } from 'react';
 import {
   AdaptiveWorkspaceDock,
   type WorkspaceDockBackDescriptor,
@@ -14,7 +15,7 @@ import { ME_RELEASED_WORKSPACE_NAVIGATION } from './me-shell-model';
 const icons = {
   home: House,
   explore: Compass,
-  shelf: LibraryBig,
+  shelf: Pipette,
   routine: Rows3,
 } as const;
 
@@ -25,12 +26,14 @@ export function MeWorkspaceDock({
   controller,
   currentHref,
   context,
+  contextTriggerRef,
   back,
   onNavigate,
 }: {
   controller: AdaptiveWorkspaceDockController;
   currentHref: string;
   context: DockContextDescriptor;
+  contextTriggerRef?: RefObject<HTMLButtonElement | null>;
   back?: WorkspaceDockBackDescriptor;
   onNavigate?: WorkspaceDockNavigateHandler;
 }) {
@@ -40,6 +43,7 @@ export function MeWorkspaceDock({
       navigationItems={ME_DOCK_ITEMS}
       currentHref={currentHref}
       context={context}
+      contextTriggerRef={contextTriggerRef}
       back={back}
       onNavigate={onNavigate}
     />
