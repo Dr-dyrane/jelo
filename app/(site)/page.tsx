@@ -2,11 +2,9 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import { ProductRail } from '@/components/products/product-grid';
-import { SafeProductImage } from '@/components/products/safe-product-image';
 import { products as curatedCatalogue } from '@/data/catalogue';
 import { editorialAsset } from '@/data/editorial';
 import { marketSignals } from '@/data/market-signals';
-import { getReviewedProductCare } from '@/data/product-care-review';
 import type { Product } from '@/data/products';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
 import { hasVerifiedNigeriaOffer, orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
@@ -28,19 +26,21 @@ const concernCards = [
 const storyAsset = editorialAsset('catalogue-all-skin-story');
 const protectionAsset = editorialAsset('daily-protection-cutout');
 
-function DiscoveryRail({ kicker, title, products: railProducts, href = '/products' }: {
+function DiscoveryRail({ kicker, title, products: railProducts, href = '/products', linkLabel = 'View all', ariaLabel }: {
   kicker: string;
   title: string;
   products: Product[];
   href?: string;
+  linkLabel?: string;
+  ariaLabel?: string;
 }) {
   if (!railProducts.length) return null;
 
   return (
-    <section className={styles.railSection}>
+    <section className={styles.railSection} aria-label={ariaLabel}>
       <div className={styles.sectionHeader}>
         <div><p className={styles.kicker}>{kicker}</p><h2>{title}</h2></div>
-        <Link className="text-link" href={href}>View all <ArrowRight size={16} aria-hidden="true" /></Link>
+        <Link className="text-link" href={href}>{linkLabel} <ArrowRight size={16} aria-hidden="true" /></Link>
       </div>
       <ProductRail products={railProducts} />
     </section>
@@ -176,22 +176,14 @@ export default async function HomePage() {
         products={kBeauty}
       />
 
-      <section className={styles.recommendation}>
-        <div className={styles.recommendationCopy}>
-          <p className={styles.kicker}>Supportive use</p>
-          <h3>Supportive care.</h3>
-          <Link className={styles.primary} href="/products?review=supportive">View supportive products</Link>
-        </div>
-        <div className={`${styles.formulaList} ${editorialStyles.formulaList}`} aria-label="Reviewed supportive products">
-          {supportiveProducts.map((product, index) => (
-            <Link href={`/products/${product.slug}`} key={product.slug}>
-              <span className={styles.formulaNumber}>0{index + 1}</span>
-              <div className={styles.formulaText}><small>{product.brand}</small><strong>{product.name}</strong><em>{getReviewedProductCare(product.slug)?.approvedUses.map(use => use.label).join(' · ')}</em></div>
-              <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
-            </Link>
-          ))}
-        </div>
-      </section>
+      <DiscoveryRail
+        kicker="Supportive use"
+        title="Supportive care."
+        products={supportiveProducts}
+        href="/products?review=supportive"
+        linkLabel="View supportive products"
+        ariaLabel="Reviewed supportive products"
+      />
 
       <DiscoveryRail
         kicker="Observed in Nigeria"

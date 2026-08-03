@@ -54,6 +54,11 @@ test('normalizes compact SPF tokens and UK or US moisturiser spelling', () => {
   }));
   assert.doesNotThrow(() => assertRetailerResponseScope({
     ...valid,
+    expectedTitle: 'Example Daily Moisturiser',
+    observedTitle: 'Example Daily Moisturizer 156g',
+  }));
+  assert.doesNotThrow(() => assertRetailerResponseScope({
+    ...valid,
     expectedTitle: 'ANUA Niacinamide 10% + TXA 4% Serum',
     expectedSize: '30 ml',
     observedTitle: 'Anua Niacinamide 10% + Tranexamic Acid 4% Serum',

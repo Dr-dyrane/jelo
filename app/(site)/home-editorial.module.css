@@ -84,17 +84,6 @@
   color: #fff;
 }
 
-.formulaList {
-  gap: .55rem;
-}
-
-.formulaList > a {
-  padding: 1rem;
-  border-bottom: 0;
-  border-radius: 1.35rem;
-  background: rgba(255, 253, 249, .52);
-}
-
 @media (max-width: 1000px) {
   .story {
     grid-template-columns: 1fr;
@@ -130,8 +119,6 @@
 
 /* dark theme */
 :global(html[data-theme="dark"]) .link { color: var(--cream); }
-:global(html[data-theme="dark"]) .formulaList > a { background: rgba(36, 29, 27, .52); }
 @media (prefers-color-scheme: dark) {
   :global(html:not([data-theme="light"])) .link { color: var(--cream); }
-  :global(html:not([data-theme="light"])) .formulaList > a { background: rgba(36, 29, 27, .52); }
 }
