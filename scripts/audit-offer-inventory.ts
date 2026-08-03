@@ -1,6 +1,7 @@
 import postgres from 'postgres';
 import { products as publicProducts } from '../data/catalogue';
 import {
+  defaultStoreChoiceTarget,
   productCoverage,
   type CoverageOffer,
 } from '../lib/inventory/coverage-audit';
@@ -155,6 +156,12 @@ async function reportPublicCoverage(sql: postgres.Sql) {
       productsWithExactNgLinks: matrix.filter(item => item.classification.exact > 0).length,
       productsWithSearchOnly: matrix.filter(item => item.classification.exact === 0 && item.classification.search > 0).length,
       productsWithoutNgLinks: matrix.filter(item => item.approvedRetailerLinkCount === 0).length,
+      storeChoiceTarget: defaultStoreChoiceTarget,
+      productsMeetingStoreChoiceTarget: matrix.filter(item => item.storeChoice.gapToTarget === 0).length,
+      productsBelowStoreChoiceTarget: matrix.filter(item => item.storeChoice.gapToTarget > 0).length,
+      trustworthyFreshExactStoreGap: matrix.reduce((total, item) => total + item.storeChoice.gapToTarget, 0),
+      productsMeetingFreshPriceTarget: matrix.filter(item => item.storeChoice.freshPriceGapToTarget === 0).length,
+      freshPriceStoreGap: matrix.reduce((total, item) => total + item.storeChoice.freshPriceGapToTarget, 0),
       freshPriceOffers: matrix.reduce((total, item) => total + item.priceStockFreshness.freshPrices, 0),
       freshStockOffers: matrix.reduce((total, item) => total + item.priceStockFreshness.freshStock, 0),
       staleExactOffers: matrix.reduce((total, item) => total + item.priceStockFreshness.stale, 0),

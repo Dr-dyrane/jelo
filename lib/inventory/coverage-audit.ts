@@ -3,6 +3,8 @@ import { retailerAdapters } from '@/modules/retail-intelligence/extraction';
 const governedVerificationMethods = new Set(['manual', 'retailer_page', 'api']);
 const dayMs = 24 * 60 * 60 * 1000;
 
+export const defaultStoreChoiceTarget = 3;
+
 type Measurement = { dimension: 'mass' | 'volume'; baseValue: number };
 
 function measurements(value: string): Measurement[] {
@@ -135,6 +137,11 @@ export function productCoverage(input: {
     && offer.priceMinor != null
     && offer.priceMinor > 0);
   const freshStock = fresh.filter(({ offer }) => offer.inventoryStatus !== 'unknown');
+  const approvedExactStores = new Set(exact.map(offer => offer.retailer)).size;
+  const trustworthyFreshExactStores = new Set(fresh.map(({ offer }) => offer.retailer)).size;
+  const freshPricedStores = new Set(freshPrices.map(({ offer }) => offer.retailer)).size;
+  const storeChoiceGap = Math.max(0, defaultStoreChoiceTarget - trustworthyFreshExactStores);
+  const freshPriceGap = Math.max(0, defaultStoreChoiceTarget - freshPricedStores);
   const blockers = [...new Set(
     exact
       .map(offer => normalizedRefreshBlocker(offer.latestJobError))
@@ -149,6 +156,7 @@ export function productCoverage(input: {
   else if (conflicts.length > 0) nextAction = 'withhold conflicting offers and verify exact identity/size';
   else if (active.length > 0) nextAction = 'process existing active NG refresh jobs';
   else if (stale.length + unverified.length > 0) nextAction = 'queue or manually verify due exact NG offers';
+  else if (storeChoiceGap > 0) nextAction = `find ${storeChoiceGap} more trustworthy exact NG ${storeChoiceGap === 1 ? 'store' : 'stores'}`;
 
   return {
     slug: input.slug,
@@ -161,6 +169,14 @@ export function productCoverage(input: {
       freshStock: freshStock.length,
       stale: stale.length,
       unverified: unverified.length,
+    },
+    storeChoice: {
+      target: defaultStoreChoiceTarget,
+      approvedExactStores,
+      trustworthyFreshExactStores,
+      freshPricedStores,
+      gapToTarget: storeChoiceGap,
+      freshPriceGapToTarget: freshPriceGap,
     },
     capability: capabilities,
     identitySizeConflict: conflicts.map(item => item.offer.retailer).sort(),

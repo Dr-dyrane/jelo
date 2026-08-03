@@ -62,6 +62,39 @@ test('coverage classifies adapters, search blockers, and the smallest next actio
   assert.deepEqual(report.classification, { exact: 1, search: 0 });
   assert.equal(report.priceStockFreshness.freshPrices, 1);
   assert.equal(report.priceStockFreshness.freshStock, 1);
-  assert.equal(report.nextAction, 'none—fresh exact NG coverage');
+  assert.deepEqual(report.storeChoice, {
+    target: 3,
+    approvedExactStores: 1,
+    trustworthyFreshExactStores: 1,
+    freshPricedStores: 1,
+    gapToTarget: 2,
+    freshPriceGapToTarget: 2,
+  });
+  assert.equal(report.nextAction, 'find 2 more trustworthy exact NG stores');
   assert.equal(normalizedRefreshBlocker('Retailer canonical URL does not match the verified product route.'), 'redirected-off-exact-route');
+});
+
+test('store-choice coverage counts distinct governed retailers toward the target', () => {
+  const report = productCoverage({
+    slug: 'example-cleanser',
+    size: '150 ml',
+    databasePublished: true,
+    offers: [
+      exactOffer,
+      { ...exactOffer, retailer: 'Lux Beauty', url: 'https://luxbeautyng.com/product/example-cleanser/' },
+      { ...exactOffer, retailer: 'Care to Beauty', url: 'https://caretobeauty.com/ng/example-cleanser/' },
+      { ...exactOffer, url: 'https://beautybydaz.com/shop/face/example-cleanser-two/' },
+    ],
+    now,
+  });
+
+  assert.deepEqual(report.storeChoice, {
+    target: 3,
+    approvedExactStores: 3,
+    trustworthyFreshExactStores: 3,
+    freshPricedStores: 3,
+    gapToTarget: 0,
+    freshPriceGapToTarget: 0,
+  });
+  assert.equal(report.nextAction, 'none—fresh exact NG coverage');
 });
