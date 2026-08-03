@@ -13,6 +13,13 @@ Lead with evidence. Preserve data. Prefer a forward repair.
 5. Fix the cause in a small commit.
 6. Re-run local gates and verify the next exact deployment.
 
+The production pipeline first verifies and builds the revision before any
+external mutation. After migrations and reviewed catalogue or asset seeds, it
+builds the final artifact again so generated and ISR product routes contain the
+same reconciled offer evidence as that release. Diagnose a failure using the
+specific pre-mutation or post-seed build phase; do not redeploy merely to refresh
+catalogue HTML.
+
 Do not disable migrations to conceal a bad migration.
 
 ## A preview lane closes
@@ -215,8 +222,11 @@ An active `operator` or `admin` mapping is required through
 `MODERATION_OPERATOR_EMAIL`. The command is a dry run unless `--apply` is
 present. It records manual verification timestamps, a 1–168 hour expiry,
 structured browser evidence and rationale, price history when a price is given,
-and completes only the matching active refresh job. It does not print the email,
-browser evidence, rationale, URL, or other raw observation payload.
+an append-only operator audit entry in the same transaction, and completes only
+the matching active refresh job. It fails closed if the product is not currently
+published or the offer URL, market, or exact-match state changes before apply. It
+does not print the email, browser evidence, rationale, URL, or other raw
+observation payload.
 A passing manual observation may refresh an already approved exact public offer
 through the same title, size, route, market, and freshness gates as automation.
 It cannot create or approve a product, retailer, or offer identity.

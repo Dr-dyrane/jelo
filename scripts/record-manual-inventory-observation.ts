@@ -22,7 +22,7 @@ async function main() {
   const command = parseManualObservationCommand(process.argv.slice(2));
   const sql = postgres(connectionString(), { max: 1, prepare: false });
   try {
-    await resolveManualInventoryOperator(sql);
+    const operator = await resolveManualInventoryOperator(sql);
     const offer = await resolveExactManualObservationOffer(sql, command);
     assertManualObservationScope(offer, command);
 
@@ -36,7 +36,7 @@ async function main() {
       return;
     }
 
-    const result = await applyManualObservation(sql, offer, command);
+    const result = await applyManualObservation(sql, offer, command, operator);
     console.log(JSON.stringify({
       mode: 'applied',
       recordedPrice: command.priceNaira != null,

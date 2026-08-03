@@ -35,7 +35,9 @@ test('production verifies and builds before any external mutation', () => {
     'seed-external-catalogue',
     'seed-product-assets',
     'seed-editorial-assets',
+    'build-next',
   ]);
+  assert.equal(plan.at(-1), 'build-next');
 });
 
 test('the emergency migration control cannot bypass production verification', () => {
@@ -59,5 +61,6 @@ test('routine production releases sync reviewed products without reseeding exter
     'seed-catalogue',
     'seed-product-assets',
     'seed-editorial-assets',
+    'build-next',
   ]);
 });

@@ -27,5 +27,9 @@ export function createDeploymentPlan({
   plan.push('promote-staged-assets', 'migrate-database', 'seed-catalogue');
   if (seedExternalCatalogue) plan.push('seed-external-catalogue');
   plan.push('seed-product-assets', 'seed-editorial-assets');
+  // The first build proves the revision before external mutations. Rebuild the
+  // final artifact after catalogue reconciliation so ISR/SSG routes contain
+  // the same offer evidence that this production release just seeded.
+  plan.push('build-next');
   return plan;
 }

@@ -2,7 +2,10 @@ import type { Sql } from 'postgres';
 import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
 import type { ManualObservationCommand } from './manual-observation-command';
 
-type ManualOperator = { auth_subject: string; role: 'operator' | 'admin' };
+export type ManualOperator = {
+  auth_subject: string;
+  role: 'operator' | 'admin';
+};
 
 export type ManualObservationOffer = {
   id: string;
@@ -51,6 +54,7 @@ export async function resolveExactManualObservationOffer(
     join brands b on b.id = p.brand_id
     join retailers r on r.id = o.retailer_id
     where p.slug = ${command.productSlug}
+      and p.is_published = true
       and lower(r.name) = lower(${command.retailer})
       and o.match_kind = 'exact'
       and (${command.url ?? null}::text is null or o.url = ${command.url ?? null})
@@ -83,6 +87,7 @@ export async function applyManualObservation(
   sql: Sql,
   offer: ManualObservationOffer,
   command: ManualObservationCommand,
+  operator: ManualOperator,
 ) {
   const available = command.stock === 'in_stock' || command.stock === 'low_stock';
   const note = `Manual browser verification. Evidence: ${command.evidenceNote} Rationale: ${command.rationale}`;
@@ -119,6 +124,14 @@ export async function applyManualObservation(
         updated_at = now()
       where o.id = ${offer.id}
         and o.match_kind = 'exact'
+        and o.url = ${offer.url}
+        and o.market_code = ${offer.market_code}
+        and exists (
+          select 1
+          from products p
+          where p.id = o.product_id
+            and p.is_published = true
+        )
       returning o.id
     `;
     if (updated.length !== 1) {
@@ -138,6 +151,22 @@ export async function applyManualObservation(
       where offer_id = ${offer.id}
         and status in ('queued', 'processing')
       returning id
+    `;
+    await transaction`
+      insert into moderation_audit_log (
+        operator_subject, queue, action, target_ref, canonical_write, rationale, metadata
+      ) values (
+        ${operator.auth_subject}, 'commerce_signal', 'promote', ${offer.id}, true,
+        ${command.rationale},
+        ${JSON.stringify({
+          kind: 'manual_inventory_observation',
+          productSlug: offer.product_slug,
+          marketCode: offer.market_code,
+          recordedPrice: command.priceNaira != null,
+          validForHours: command.validForHours,
+          settledRefreshJobs: settled.length,
+        })}::jsonb
+      )
     `;
     return { settledRefreshJobs: settled.length };
   });

@@ -3,6 +3,7 @@ import { products as catalogue } from '../data/catalogue';
 import { isPublishedIntakeProduct } from '../data/published-intake-products';
 import productAssets from '../data/product-assets.json';
 import publicCatalogueSearchProjectionJson from '../data/public-catalogue-search.json';
+import { mergeRetailOffers } from '../data/retail-offers';
 import {
   ingredientSeeds,
   verifiedProductIngredients,
@@ -21,6 +22,7 @@ import {
 } from '../lib/catalogue/seed-sync-scope';
 import { catalogueBrandSlug } from '../lib/catalogue/slug';
 import { priceAmountToStorageInteger } from '../lib/inventory/price-storage';
+import { assertRetailerResponseScope } from '../modules/retail-intelligence/response-scope';
 
 type ProductAssetRecord = {
   sourceUrl: string;
@@ -375,7 +377,10 @@ async function main() {
         `;
         }
 
-        for (const offer of product.offers) {
+        // Reapply the idempotent verified-offer projection here so dossier-
+        // released intake products receive newly admitted retailer evidence as
+        // well as the legacy reviewed catalogue records merged in data/catalogue.
+        for (const offer of mergeRetailOffers(product, product.offers)) {
           const retailerSlug = slugify(offer.retailer);
           const [retailer] = await tx<{ id: string }[]>`
           insert into retailers (slug, name, trust_score)
@@ -418,6 +423,30 @@ async function main() {
                 : verificationMethod === 'retailer_page'
                   ? 'Seeded from a dated retailer-page observation.'
                   : 'Seeded from the curated catalogue.';
+            const incomingObservationCanBeScopeChecked =
+              ['api', 'retailer_page'].includes(verificationMethod) &&
+              (offer.match ?? 'exact') === 'exact' &&
+              offer.priceObservation != null;
+            let incomingObservationIsScopeChecked = false;
+            if (incomingObservationCanBeScopeChecked) {
+              try {
+                assertRetailerResponseScope({
+                  requestedUrl: offer.url,
+                  responseUrl: offer.url,
+                  expectedTitle: `${product.brand} ${product.name}`,
+                  expectedSize: product.size,
+                  observedTitle: offer.priceObservation?.variant,
+                  observedSize: offer.priceObservation?.size,
+                  marketCode: market,
+                  currencyCode,
+                });
+                incomingObservationIsScopeChecked = true;
+              } catch {
+                // Older retained records can predate the current scope matcher.
+                // They remain price-history inputs but cannot replace protected
+                // current evidence during reconciliation.
+              }
+            }
             const [savedOffer] = await tx<{ id: string }[]>`
             insert into offers (
               product_id, retailer_id, url, market_code, available,
@@ -438,25 +467,25 @@ async function main() {
               ${offer.priceObservation?.size ?? null}, ${offer.url}
             )
             on conflict (product_id, retailer_id, market_code) do update set
-              url = excluded.url,
-              available = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.available else excluded.available end,
-              price_minor = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.price_minor else excluded.price_minor end,
-              currency_code = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.currency_code else excluded.currency_code end,
-              checked_at = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.checked_at else excluded.checked_at end,
-              inventory_status = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.inventory_status else excluded.inventory_status end,
-              verification_method = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.verification_method else excluded.verification_method end,
-              verification_note = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.verification_note else excluded.verification_note end,
-              last_verified_at = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.last_verified_at else excluded.last_verified_at end,
-              verification_expires_at = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.verification_expires_at else excluded.verification_expires_at end,
-              match_kind = excluded.match_kind,
-              inventory_quantity = excluded.inventory_quantity,
-              seller_name = excluded.seller_name,
-              seller_score = excluded.seller_score,
-              official_store = excluded.official_store,
-              observed_title = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.observed_title else excluded.observed_title end,
-              observed_size = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.observed_size else excluded.observed_size end,
-              canonical_url = case when offers.verification_method in ('retailer_page', 'api', 'manual') then offers.canonical_url else excluded.canonical_url end,
-              updated_at = now()
+              url = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.url else excluded.url end,
+              available = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.available else excluded.available end,
+              price_minor = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.price_minor else excluded.price_minor end,
+              currency_code = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.currency_code else excluded.currency_code end,
+              checked_at = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.checked_at else excluded.checked_at end,
+              inventory_status = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.inventory_status else excluded.inventory_status end,
+              verification_method = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.verification_method else excluded.verification_method end,
+              verification_note = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.verification_note else excluded.verification_note end,
+              last_verified_at = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.last_verified_at else excluded.last_verified_at end,
+              verification_expires_at = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.verification_expires_at else excluded.verification_expires_at end,
+              match_kind = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.match_kind else excluded.match_kind end,
+              inventory_quantity = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.inventory_quantity else excluded.inventory_quantity end,
+              seller_name = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.seller_name else excluded.seller_name end,
+              seller_score = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.seller_score else excluded.seller_score end,
+              official_store = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.official_store else excluded.official_store end,
+              observed_title = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.observed_title else excluded.observed_title end,
+              observed_size = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.observed_size else excluded.observed_size end,
+              canonical_url = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.canonical_url else excluded.canonical_url end,
+              updated_at = case when offers.verification_method in ('retailer_page', 'api', 'manual') and not (${incomingObservationIsScopeChecked} and excluded.last_verified_at > coalesce(offers.last_verified_at, '-infinity'::timestamptz)) then offers.updated_at else now() end
             returning id
           `;
 
