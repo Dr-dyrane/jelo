@@ -11,7 +11,8 @@ AI-generated guidance are not part of this release.
 [ADR 0013](../adr/0013-founder-led-jelocare-me.md) owns the decision and code
 boundaries. The [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md)
 owns the shell mechanics. This file owns product purpose, vocabulary, and
-feature progression.
+route/code ownership. The [production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md)
+owns phased delivery, gates, evidence, and the production scorecard.
 
 ## The customer goal
 
@@ -118,12 +119,28 @@ while Home previews retain their editorial section composition.
   show honest empty states. The development presentation is not persistence.
 - Ask Me supports truthful discovery over customer context and exact products;
   it does not claim an AI answer, consultation submission, or saved mutation.
+  Public `/consult` remains a separate account-free, deterministic guidance
+  route with its existing safety and request-protection authority.
+
+## Production progression
+
+The shipped-vs-missing baseline, dependency graph, per-phase owner and gates,
+state coverage, critical path, migration boundaries, scorecard, and exactly one
+next executable slice live only in the
+[JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md). In short,
+the next candidate is an owner-isolated, persistent Shelf thin slice that also
+proves the first real customer-data lifecycle. Routine, controlled Concerns,
+authenticated Ask, contextual discovery, refill/basket decisions,
+notifications, and public community follow only through their recorded gates.
+This summary does not commission them.
 
 ## Future basket timing intelligence
 
 JeloCare may eventually support an evidence-bound decision about when and where
 to buy a basket of care products. This capability is not shipped, and this
 contract does not commission a route, prediction, monitor, or notification.
+Its dependency and release gates are owned by
+[Phase 6 of the production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md#phase-6--refill-timing-and-basket-optimisation).
 
 For example, a customer may need exact products A, B, C, and D. Their preferred
 retailer usually carries all four, but currently has only A and B while another

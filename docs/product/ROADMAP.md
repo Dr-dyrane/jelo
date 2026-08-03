@@ -6,16 +6,19 @@ The roadmap is ordered by dependency, not novelty.
 
 ## Now
 
-### Establish the JeloCare Me foundation
+### Grow the shipped JeloCare Me foundation
 
-- Ship the founder-led product and architecture canon for the future `/me`
-  customer workspace.
-- Keep `/me` equal to Ask, with Ask, Concerns, Shelf, and Routine as the four
-  product tabs and Account behind the avatar.
-- Land the neutral adaptive workspace dock and thin warm Me adapter without
-  creating customer routes, auth, data, AI, or persistence.
-- Use [JeloCare Me](./JELOCARE_ME.md), [ADR 0013](../adr/0013-founder-led-jelocare-me.md),
-  and the [dock contract](../design/ADAPTIVE_WORKSPACE_DOCK.md) as the DRY canon.
+- The authenticated `/me` route family, Home/Explore/Shelf/Routine navigation,
+  Ask Me and member Product stack routes, adaptive shell, exact catalogue read
+  model, honest real-account empty states, and development-only populated
+  presentation now ship.
+- Shelf/Routine persistence, customer-controlled Concerns, authenticated Ask
+  submission, personalisation, lifecycle recovery, and basket/refill decisions
+  do not ship.
+- Use [JeloCare Me](./JELOCARE_ME.md) for product/route ownership and the
+  [production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md) for the single
+  detailed shipped-vs-missing baseline, dependency order, phase gates,
+  scorecard, and ready-to-dispatch next slice.
 
 ### Make product decisions excellent
 
@@ -64,25 +67,12 @@ The roadmap is ordered by dependency, not novelty.
 ### JeloCare Me feature delivery
 
 [ADR 0013](../adr/0013-founder-led-jelocare-me.md) supersedes the rejected
-nine-approver portal contract. It establishes the customer workspace foundation
-without claiming a route or collecting customer data.
-
-1. Commission Ask only with its real evidence/safety controller and owner
-   boundary; do not ship a placeholder conversation.
-2. Add Concerns with explicit non-diagnostic language and customer ownership.
-3. Add Shelf only after immutable exact-product identity and owner-isolated
-   storage are implemented and tested.
-4. Add Routine only after Shelf and routine-specific safety, comprehension,
-   lifecycle, and ownership evidence exist.
-
-Future split-order and wait-for-restock decision support follows the canonical
-[basket timing intelligence contract](./JELOCARE_ME.md#future-basket-timing-intelligence);
-it is not part of the foundation or current release.
-
-ADR 0001 continues to defer reminders, notification delivery, stock alerts,
-public stories, ratings, comments, reactions, profiles, and community features.
-Each requires a separate accepted decision and owned privacy, safety,
-moderation, or delivery dependencies.
+nine-approver portal contract. The dependency-aware future sequence, including
+the deliberate decision to put user-controlled context before deeper Ask, lives
+only in the [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md).
+Its first candidate slice is a real owner-isolated Shelf; the roadmap does not
+authorize implementation. Notifications and public community remain separately
+gated deferred options under ADR 0001.
 
 ## Measures
 
