@@ -14,6 +14,10 @@ import {
   type PublicCatalogueSearchProduct,
 } from '../lib/catalogue/public-catalogue-search';
 import {
+  catalogueIdentityIdForProductId,
+  catalogueIdentityVersionIdForProductId,
+} from '../lib/catalogue/product-identity-resolver';
+import {
   catalogueSyncTimeouts,
   assertCatalogueRetirementSafety,
   parseCatalogueSeedScope,
@@ -153,6 +157,9 @@ async function main() {
       await sql.begin(async (tx) => {
         await configureSyncTransaction(tx);
         const brandSlug = slugify(product.brand);
+        const sourceVersion = isPublishedIntakeProduct(product.slug)
+          ? 'published-intake-v1'
+          : 'static-v1';
         const [brand] = await tx<{ id: string }[]>`
         insert into brands (slug, name)
         values (${brandSlug}, ${product.brand})
@@ -180,7 +187,7 @@ async function main() {
           ${brand.id}, ${product.slug}, ${product.name}, ${product.size},
           ${product.category}, ${product.step}, ${product.displayLine}, ${product.usage},
           ${product.evidence}, ${product.sensitiveFriendly}, ${!isPlaceholder},
-          ${isPublishedIntakeProduct(product.slug) ? 'published-intake-v1' : 'static-v1'},
+          ${sourceVersion},
           ${searchProjection.approvedGtin}, ${searchText}
         )
         on conflict (slug) do update set
@@ -200,6 +207,57 @@ async function main() {
           updated_at = now()
         returning id
       `;
+
+        const expectedIdentityId = catalogueIdentityIdForProductId(savedProduct.id);
+        const expectedIdentityVersionId = catalogueIdentityVersionIdForProductId(
+          savedProduct.id,
+        );
+        await tx`
+        insert into catalogue_product_identity_versions (
+          identity_version_id, identity_id, product_id, version_number,
+          provenance, public_eligibility_basis, public_eligible_at,
+          slug_at_review, brand_at_review, variant_at_review, size_at_review,
+          package_version_at_review, formula_version_at_review
+        ) values (
+          ${expectedIdentityVersionId}, ${expectedIdentityId}, ${savedProduct.id}, 1,
+          'jelocare_reviewed', 'reviewed_catalogue_projection', now(),
+          ${product.slug}, ${product.brand}, ${product.name}, ${product.size},
+          ${`reviewed-baseline-v1:${sourceVersion}`},
+          ${`reviewed-baseline-v1:${sourceVersion}`}
+        )
+        on conflict (product_id) do nothing
+      `;
+
+        const [savedIdentity] = await tx<{
+          identity_id: string;
+          identity_version_id: string;
+          version_number: number;
+          provenance: string;
+          public_eligibility_basis: string;
+          lifecycle_state: string;
+        }[]>`
+        select
+          identity_id,
+          identity_version_id,
+          version_number,
+          provenance,
+          public_eligibility_basis,
+          lifecycle_state
+        from catalogue_product_identity_versions
+        where product_id = ${savedProduct.id}
+      `;
+        if (
+          savedIdentity?.identity_id !== expectedIdentityId
+          || savedIdentity.identity_version_id !== expectedIdentityVersionId
+          || savedIdentity.version_number !== 1
+          || savedIdentity.provenance !== 'jelocare_reviewed'
+          || savedIdentity.public_eligibility_basis !== 'reviewed_catalogue_projection'
+          || savedIdentity.lifecycle_state !== 'active'
+        ) {
+          throw new Error(
+            `Reviewed identity/version reconciliation failed for ${product.slug}.`,
+          );
+        }
 
         await tx`delete from product_skin_types where product_id = ${savedProduct.id}`;
         await tx`delete from product_best_for where product_id = ${savedProduct.id}`;

@@ -8,6 +8,12 @@ import {
   mergeDossierReleasedCatalogue,
   reconcilePublishedCatalogue,
 } from '@/lib/catalogue/publication-boundary';
+import {
+  resolveCatalogueIdentityVersion,
+  type CatalogueIdentityResolution,
+  type CatalogueIdentityTransitionRecord,
+  type CatalogueIdentityVersionRecord,
+} from '@/lib/catalogue/product-identity-resolver';
 import { getPostgresClient, hasPostgresConfig } from '@/lib/db/postgres';
 import {
   materializePersistedOfferEvidence,
@@ -239,5 +245,70 @@ export async function findCatalogueProduct(slug: string) {
   } catch (error) {
     console.error('Neon product lookup unavailable; using verified static fallback.', error);
     return staticRepository.findBySlug(slug);
+  }
+}
+
+type CatalogueIdentityGraphRow = {
+  records: CatalogueIdentityVersionRecord[];
+  transitions: CatalogueIdentityTransitionRecord[];
+};
+
+/**
+ * Resolves immutable public catalogue identity/version history. This boundary
+ * deliberately has no static, intake, moderation, or external-candidate
+ * fallback: absence from the database-owned public ledger fails closed.
+ */
+export async function resolvePublicCatalogueIdentityVersion(
+  identityVersionId: string,
+): Promise<CatalogueIdentityResolution> {
+  if (!hasPostgresConfig()) {
+    return { status: 'unresolvable', reason: 'repository-unavailable' };
+  }
+
+  try {
+    const sql = getPostgresClient();
+    const [graph] = await sql<CatalogueIdentityGraphRow[]>`
+      select
+        coalesce((
+          select jsonb_agg(jsonb_build_object(
+            'identityId', version.identity_id,
+            'identityVersionId', version.identity_version_id,
+            'productId', version.product_id,
+            'versionNumber', version.version_number,
+            'provenance', version.provenance,
+            'publicEligibilityBasis', version.public_eligibility_basis,
+            'publicEligibleAt', version.public_eligible_at,
+            'slugAtReview', version.slug_at_review,
+            'brandAtReview', version.brand_at_review,
+            'variantAtReview', version.variant_at_review,
+            'sizeAtReview', version.size_at_review,
+            'packageVersionAtReview', version.package_version_at_review,
+            'formulaVersionAtReview', version.formula_version_at_review,
+            'lifecycleState', version.lifecycle_state,
+            'retiredAt', version.retired_at,
+            'retirementReasonCategory', version.retirement_reason_category
+          ) order by version.identity_version_id)
+          from catalogue_product_identity_versions version
+        ), '[]'::jsonb) as records,
+        coalesce((
+          select jsonb_agg(jsonb_build_object(
+            'fromIdentityVersionId', transition.from_identity_version_id,
+            'toIdentityVersionId', transition.to_identity_version_id,
+            'kind', transition.transition_kind,
+            'reasonCategory', transition.reason_category
+          ) order by transition.from_identity_version_id)
+          from catalogue_product_identity_transitions transition
+        ), '[]'::jsonb) as transitions
+    `;
+
+    if (!graph) return { status: 'unresolvable', reason: 'repository-unavailable' };
+    return resolveCatalogueIdentityVersion(
+      identityVersionId,
+      graph.records,
+      graph.transitions,
+    );
+  } catch (error) {
+    console.error('Public catalogue identity repository unavailable.', error);
+    return { status: 'unresolvable', reason: 'repository-unavailable' };
   }
 }

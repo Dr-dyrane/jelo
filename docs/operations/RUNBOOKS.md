@@ -126,6 +126,57 @@ The database verifier then passed. Retain this branch for independent read-only
 audit and delete it only after that audit is confirmed. Do not record a
 connection string, role credential, operator subject, or retained row content.
 
+### Catalogue identity/version migration and reconciliation
+
+Migration `0033_catalogue_product_identity_versions.sql` creates the public
+identity/version ledger before the production catalogue seed runs. The seed is
+idempotent and verifies the deterministic identity and active lifecycle state
+inside the same per-product transaction.
+
+- A slug, brand presentation, or variant display-copy correction updates the
+  existing `products` row. Never delete and recreate that row; its UUID is the
+  immutable backfill input.
+- A material size, package, or formula change uses a new product row and a new
+  identity version. Record one explicit `successor` transition; do not update
+  the prior version in place or rewrite a saved reference.
+- A reviewed duplicate merge records one explicit `alias` transition. The
+  source snapshot and provenance remain append-only.
+- Retirement sets `products.is_published` false. The database trigger retains
+  the snapshot as a non-purchasable tombstone. Never delete identity or
+  transition history during rollback; use a forward correction or disable the
+  resolver boundary.
+
+After migration and seed, compare the read-only result below with
+`npm run catalogue:search:verify`. `reviewed_public`, `identity_versions`, and
+`valid_active_versions` must match; `missing_versions` and
+`non_deterministic_versions` must both be zero.
+
+```sql
+select
+  count(*)::int as reviewed_public,
+  count(identity.identity_version_id)::int as identity_versions,
+  count(*) filter (
+    where identity.lifecycle_state = 'active'
+      and identity.provenance = 'jelocare_reviewed'
+      and identity.public_eligibility_basis = 'reviewed_catalogue_projection'
+  )::int as valid_active_versions,
+  count(*) filter (
+    where identity.identity_version_id is null
+  )::int as missing_versions,
+  count(*) filter (
+    where identity.identity_version_id is distinct from
+      substring(encode(digest(
+        'jelocare:catalogue-product-identity-version:v1:' || product.id::text,
+        'sha256'
+      ), 'hex') from 1 for 32)::uuid
+  )::int as non_deterministic_versions
+from products product
+left join catalogue_product_identity_versions identity
+  on identity.product_id = product.id
+where product.is_published = true
+  and product.source_version in ('static-v1', 'published-intake-v1');
+```
+
 ## Operator access cannot be changed
 
 1. Confirm the signed-in operator is an active admin. Do not bypass the role
