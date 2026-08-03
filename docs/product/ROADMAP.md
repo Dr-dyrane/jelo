@@ -11,10 +11,13 @@ The roadmap is ordered by dependency, not novelty.
 - The authenticated `/me` route family, Home/Explore/Shelf/Routine navigation,
   Ask Me and member Product stack routes, adaptive shell, exact catalogue read
   model, honest real-account empty states, and development-only populated
-  presentation now ship.
+  presentation now ship. Explore currently renders at most 12 filtered products
+  from a 63-product eligible public projection snapshot; no Me helper currently
+  links to `/contribute`.
 - Shelf/Routine persistence, customer-controlled Concerns, authenticated Ask
-  submission, personalisation, lifecycle recovery, and basket/refill decisions
-  do not ship.
+  submission, personalisation, lifecycle recovery, complete eligible-catalogue
+  Explore, the global public-intake helper, and basket/refill decisions do not
+  ship. The 63 snapshot is evidence, not a fixed product limit.
 - Use [JeloCare Me](./JELOCARE_ME.md) for product/route ownership and the
   [production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md) for the single
   detailed shipped-vs-missing baseline, dependency order, phase gates,
@@ -70,9 +73,11 @@ The roadmap is ordered by dependency, not novelty.
 nine-approver portal contract. The dependency-aware future sequence, including
 the deliberate decision to put user-controlled context before deeper Ask, lives
 only in the [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md).
-Its first candidate slice is a real owner-isolated Shelf; the roadmap does not
-authorize implementation. Notifications and public community remain separately
-gated deferred options under ADR 0001.
+Its first candidate slice is a real owner-isolated Shelf plus one global helper
+to the existing public `/contribute` intake; it does not create member intake or
+private report linkage. Complete eligible-catalogue Explore follows its Phase 5
+gate. The roadmap does not authorize implementation. Notifications and public
+community remain separately gated deferred options under ADR 0001.
 
 ## Measures
 

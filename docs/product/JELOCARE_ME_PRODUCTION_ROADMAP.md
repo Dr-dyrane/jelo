@@ -16,19 +16,19 @@ Shop or Shopify claim is required.
 
 ## Audited baseline: what ships now
 
-The baseline was checked at `2bb3c6941503da66b36fdb545dfdd538ee5c0da7`, a
-descendant of the delegated capsule base `735849dab9b1685248fc87731ebd739d7d0959d8`.
-It describes code and focused contracts, not an authenticated production smoke.
+The baseline was rechecked at `4faae19e027321420a188237a4b9ed491ea61300`.
+It describes code and focused contracts, not an authenticated production smoke
+or the future requirements recorded below.
 
 | Journey | Shipped truth | Missing before production completeness | Evidence |
 | --- | --- | --- | --- |
 | Entry and authentication | `/me` and every released child route are dynamic and call `requireCustomer()`. A missing Neon Auth session redirects to `/sign-in?next=/me`; the continuation allowlist rejects nested or external destinations. Public search, catalogue, product, concern, and `/consult` routes remain account-free. | Me-owned loading, expired-session, provider-error, retry, and recovery states; production evidence for the complete sign-in-return-sign-out journey; a decided private-data lifecycle before collection begins. | `lib/customer/access.ts`, `lib/auth/sign-in-intent.ts`, `modules/me/customer-access.test.ts` |
 | Home | `/me` renders the warm adaptive shell, one Ask Me entry, an exact catalogue feature, and honest Shelf/Routine previews. A real account currently receives empty Shelf and Routine state. | Persistent summaries, actionable recovery when one private source fails, and explainable personal context. | `app/(customer)/me/page.tsx`, `components/me/home/me-home.tsx` |
-| Explore and member Product | `/me/explore` searches a server-projected public catalogue in client memory and shows at most 12 exact products. `/me/product/[slug]` preserves an allowlisted parent and reuses public catalogue identity; malformed origins fail to Home. Fresh price evidence may appear and absent evidence is omitted. | Server-backed scale, deliberate personal context, saved-state mutations, explicit stale/error handling, and evidence that retired or superseded product versions never change silently. | `app/(customer)/me/[...route]/page.ts`, `lib/customer/read-model.ts`, `modules/me/me-shell-contract.test.ts` |
+| Explore and member Product | `/me/explore` receives the eligible public catalogue projection, searches it in client memory, and renders only the first 12 filtered products. The authoritative projection contains 63 eligible products at the 2026-08-03 snapshot, so an unfiltered browse silently leaves 51 unreachable. Search may surface a product outside the first 12 only when the query moves it into that first result window. `/me/product/[slug]` preserves an allowlisted parent and reuses public catalogue identity; malformed origins fail to Home. | Every currently eligible public product must be discoverable through browse/search, with no arbitrary client cap. The count must follow the publication projection as products publish, retire, or transition; 63 is snapshot evidence, not a hard-coded limit. Context, saved state, exact identity, successor behavior, public evidence, explicit stale/error handling, and scale remain missing. | `components/me/home/me-home.tsx`, `lib/customer/read-model.ts`, `modules/me/me-shell-contract.test.ts` |
 | Ask Me and Concerns | `/me/consult` is currently catalogue/context search, not a consultation submission. Real accounts have no stored Concerns. Separately, public `/consult` already returns deterministic, reviewed education with same-site checks, a 64 KiB body limit, and a production-fail-closed 20-request-per-hour network limit; it makes zero model calls and keeps visit context in memory. | An authenticated adapter over the reviewed safety engine, explicit context controls, account-aware abuse protection, cost policy for any optional model wording, and recovery without hiding the public route. | [Ask Jelo](../ASK_JELO_EXPERIENCE.md), `app/api/consult/route.ts`, `lib/consult/security.ts` |
 | Shelf | `/me/shelf` is a real authenticated route with a truthful empty state. Only the development-only synthetic customer has populated products. | Owner-isolated persistence, exact-product version references, add/remove behavior, lifecycle controls, mutation states, and cross-owner evidence. | `lib/customer/development-fixture.ts`, `lib/customer/read-model.ts` |
 | Routine | `/me/routine` is a real authenticated route with a truthful empty state. The development presentation renders three customer-authored exact products. | Create, edit, order, remove, and recover; routine-specific comprehension and safety boundaries; persistence and lifecycle evidence. | `modules/me/customer-access.test.ts`, `components/me/home/me-home.tsx` |
-| Account | The avatar opens an accessible modal with identity, shared appearance control, and Sign out. It is not a fifth navigation destination and has no `/ops` authority. | Session recovery, private-data export/deletion controls once private data exists, status and failure feedback, and support boundaries that do not expose private content. | `components/me/shell/me-account-sheet.tsx`, `modules/me/me-shell-contract.test.ts` |
+| Account and global helpers | The avatar opens an accessible modal with identity, shared appearance control, and Sign out. Its helper list is empty. No `/me` shell action currently reaches public `/contribute`, and neither price reporting nor exact-product prefilling is implemented from Me. | A global Report price or availability helper must reach the existing public `/contribute` intake without becoming a fifth tab or page FAB. Session recovery, private-data export/deletion controls, status/failure feedback, and support boundaries also remain. | `components/me/shell/me-account-sheet.tsx`, `app/(site)/contribute/page.tsx`, `lib/community-intake/catalogue-search-handoff.ts` |
 | Refill and basket decisions | A product contract describes the possible one-store, split, wait, and urgent-now outcomes. | No route, persisted intent, evaluator, forecast, notification, monitor, or customer result ships. | [JeloCare Me · basket timing](./JELOCARE_ME.md#future-basket-timing-intelligence) |
 | Resilience and observability | Global errors can retry. Exact offer labels fail closed when current evidence cannot produce a market summary. | Me-owned loading/error/offline/stale/recovery states, private-safe telemetry, service objectives, alerts, and rollback signals. There is no Me-specific `loading` or `error` boundary and no offline mutation contract. | `app/error.tsx`, `modules/commerce/market-price-label.ts`, `app/(customer)/me/` |
 
@@ -39,11 +39,27 @@ production behavior.
 ## Observable definition of production complete
 
 A customer can enter from any public evidence route, authenticate without losing
-safe intent, and return to a coherent Home. They can explore exact reviewed
-products, open a member Product without replacing the public product record,
-save and remove Shelf items, author and reorder a Routine, control the Concerns
-and context that Ask Me may use, receive bounded non-diagnostic guidance, manage
-their account data, and recover from expired sessions or failed operations.
+safe intent, and return to a coherent Home. Explore exposes every product in the
+current authoritative eligible public projection—63 at the 2026-08-03 snapshot,
+with no fixed count as the projection changes—and makes each discoverable by
+browse or search. The customer can open a member Product without replacing the
+public product record, save and remove Shelf items, author and reorder a Routine,
+control the Concerns and context that Ask Me may use, receive bounded
+non-diagnostic guidance, manage their account data, and recover from expired
+sessions or failed operations.
+
+From every authenticated Me surface, the customer can invoke one global helper
+to report a price or availability observation through the existing public
+`/contribute` experience. That action is not a fifth tab, not a page-owned FAB,
+and not a member-only intake. It creates no private contribution relationship to
+Shelf, Routine, Concerns, or identity. The current public intake does not accept
+an allowlisted canonical slug prefill: its query handoff accepts a bounded label
+and marks it custom. Therefore the initial member helper links to plain
+`/contribute`. Member Product may pass an allowlisted exact-product slug only
+after the public intake contract itself implements and tests that safe canonical
+prefill. The helper reuses only the fields that public intake safely supports at
+release; this roadmap does not claim that a new structured availability field
+ships merely because the helper is labelled for price or availability reports.
 
 Later, the same customer may express quantities, supply horizon, urgency,
 retailer preference, and acceptable wait and receive one of the four
@@ -72,9 +88,9 @@ Every released phase must cover this state contract on every affected surface:
 | --- | --- |
 | Customer Experience | Primary owner for `/me`, its models/controllers/views, customer vocabulary, state behavior, and cross-phase integration. |
 | Platform Delivery | Authentication, migrations and safe rollout mechanics, service health, rate limits, secrets, telemetry, deployment, recovery, and the scheduled inventory owner. |
-| Data Administration | Private datastore constraints, lifecycle operations, auditability, deletion/export execution, and later community moderation data. It does not make `/ops` a customer-data reader. |
+| Data Administration | Private datastore constraints, lifecycle operations, auditability, deletion/export execution, and the existing public/community contribution and moderation boundary. A signed-in reporter gains no evidence authority. It does not make `/ops` a customer-data reader. |
 | Catalogue Evidence | Immutable exact-product/version provenance, offer and delivery evidence, freshness, and fail-closed eligibility. |
-| Public Experience | Public entry, `/consult`, concern, catalogue, and product continuity. Public routes stay independently useful. |
+| Public Experience | Public entry, `/consult`, `/contribute`, concern, catalogue, and product continuity. Public routes stay independently useful and own any future safe exact-product prefill contract. |
 | Clinical Safety | The ADR 0011 Ask Jelo safety lane owns urgency, deterministic guide resolution, product authorization, non-diagnostic language, and its regression corpus. |
 
 Growth Campaigns has no roadmap dependency and receives no private signal.
@@ -100,25 +116,36 @@ Phase 6. Phases 7 and 8 are separately funded options, not automatic backlog.
 ## Phase 1 — private foundation through a real Shelf
 
 **User outcome.** A signed-in customer can save or remove one exact product,
-see the result after a new session, export it, delete it, and never see another
-customer's Shelf.
+see the result after a new session, export it, delete it, never see another
+customer's Shelf, and reach the existing public price/availability intake from
+one global Me helper.
 
 **Included.** Session-expiry and sign-in-return recovery; one owner-derived
 private storage boundary; Shelf read/add/remove; immutable catalogue identity
 version references; idempotent mutation and conflict handling; Me-owned
-loading/error/offline states; and the first Account export/delete controls.
+loading/error/offline states; the first Account export/delete controls; and one
+shell-global Report price or availability action in the Account/helper or
+context sheet that navigates to plain `/contribute`.
 
 **Excluded.** Collections, tags, notes, purchase claims, quantity, Routine,
 Concerns, Ask history, recommendations, notifications, analytics profiles,
-admin access, and any catalogue write.
+admin access, any catalogue write, a member-only contribution intake or store,
+automatic linkage from private state, a fifth tab, and a duplicate page FAB.
 
 **Owner and dependencies.** Customer Experience owns the slice. Platform
 Delivery owns auth, migration, release, recovery, and telemetry. Data
-Administration reviews datastore isolation and lifecycle execution. Catalogue
-Evidence supplies immutable product-version identity.
+Administration reviews datastore isolation and lifecycle execution and retains
+ownership of contribution moderation/evidence. Catalogue Evidence supplies
+immutable product-version identity. Public Experience owns `/contribute` and
+its privacy, request, and prefill contract.
 
 **Routes, data, and contracts.** Extend `/me/shelf`, `/me/product/[slug]`, and
-the Account sheet; add one additive Shelf migration and a server-only service.
+the Account/helper or context sheet; add one additive Shelf migration and a
+server-only service. One shared shell action navigates to plain `/contribute`.
+It sends no auth, Shelf, Routine, Concern, or customer identifier. The existing
+public intake's label-based custom handoff is not an exact-product prefill, so
+member Product must also use plain `/contribute` until Public Experience adds an
+allowlisted slug contract with focused tests.
 Every query and mutation derives the subject on the server, constrains by owner,
 references an immutable product identity version, is idempotent, and returns a
 small semantic result. No client-supplied owner field exists.
@@ -126,6 +153,8 @@ small semantic result. No client-supplied owner field exists.
 **Entry gate.** Record the allowed private fields; live and backup retention;
 export, deletion, restore, and incident behavior; owner-key strategy; session
 expiry behavior; threat model; and catalogue identity transition behavior.
+Confirm that the public contribution moderation/evidence/privacy boundary is
+unchanged and that signed-in origin confers no verification or trust.
 Rehearse the additive migration against a production-shaped empty/customer-free
 dataset without running it in production.
 
@@ -133,7 +162,10 @@ dataset without running it in production.
 or writes; add/remove retries produce zero duplicate rows; reload and a new
 session reproduce the confirmed Shelf; export and deletion reconcile 100% of
 seeded test rows; signed-out and expired-session flows reveal zero private
-fields; and every affected state in the state contract has route evidence.
+fields; one non-FAB/non-tab helper reaches plain `/contribute` from all six
+released Me surfaces; the contribution contains zero automatic private-state or
+identity linkage; and every affected state in the state contract has route
+evidence.
 
 **Quality requirements.** Private payloads stay out of URLs, logs, analytics,
 screenshots, public caches, and `/ops`. Mutations announce success/failure,
@@ -141,19 +173,24 @@ restore focus, meet 44 px/contrast/reflow requirements, and remain keyboard
 complete. Shelf read p95 must be at most 500 ms and mutation p95 at most 800 ms
 at the service boundary under the agreed launch load. Emit aggregate latency,
 outcome, conflict, and auth-failure counts with trace IDs, never owner or Shelf
-contents.
+contents. The public intake remains anonymous/community-reported and pending
+moderation; authentication never upgrades a report into product, price,
+availability, retailer, or clinical truth.
 
 **Test and release evidence.** Pure owner-policy tests; datastore integration
 tests with two owners; idempotency, conflict, export, delete, restore, expired
 session, offline, keyboard, screen-reader, and 320–1440 px route evidence;
-migration dry-run and rollback rehearsal; `npm run verify:release`; `npm run
-build`; exact revision READY; public product plus signed-out `/me` smoke; and an
-authenticated Shelf smoke before claiming the behavior.
+migration dry-run and rollback rehearsal; global-helper source/interaction
+contract; existing contribution moderation/privacy tests; `npm run
+verify:release`; `npm run build`; exact revision READY; public `/contribute` and
+Product plus signed-out `/me` smoke; and authenticated shell-helper and Shelf
+smokes before claiming either behavior.
 
 **Rollback.** Disable Shelf mutations and private reads with the smallest
 reviewed release toggle, preserve/export already written rows, and ship a
-forward fix. Do not down-migrate or discard customer data as an application
-rollback.
+forward fix. Remove the helper link without changing `/contribute` if its shell
+integration regresses. Do not down-migrate or discard customer data as an
+application rollback.
 
 **Unlocks.** Routine, controlled context, personalised Home/Explore, and refill
 intent share a proven owner/lifecycle spine.
@@ -320,18 +357,22 @@ assistance under a separate gate.
 
 ## Phase 5 — contextual Home, Explore, and member Product
 
-**User outcome.** Home surfaces the next useful self-authored task; Explore and
-member Product can use explicitly selected Shelf, Routine, and Concern context,
-show why an item appears, and let the customer clear the context.
+**User outcome.** Home surfaces the next useful self-authored task. Explore
+exposes the complete current eligible public catalogue and makes every product
+discoverable by browse or search. Explore and member Product can use explicitly
+selected Shelf, Routine, and Concern context, show why an item appears, and let
+the customer clear the context.
 
-**Included.** Server-derived summaries; explicit context selectors; explainable
-ordering over already eligible exact products; normal/empty/loading/error/offline/
-stale states; pagination or bounded server search when catalogue scale requires
-it; stable Back and dock behavior.
+**Included.** Server-derived summaries; the complete authoritative eligible
+publication projection; browse/search reachability for every eligible product;
+explicit context selectors; explainable ordering over already eligible exact
+products; normal/empty/loading/error/offline/stale states; pagination,
+incremental loading, or virtualization as needed; stable Back and dock behavior.
 
 **Excluded.** Behavioral profiling, popularity as authority, sponsored order,
 retailer targeting, purchase inference, opaque ranking, new clinical authority,
-and public-route personalization that requires an account.
+public-route personalization that requires an account, a fixed 12-product
+sample, and a hard-coded 63-product ceiling.
 
 **Owner and dependencies.** Customer Experience owns composition and ranking
 explanations. Catalogue Evidence owns identity and eligibility inputs. Clinical
@@ -339,31 +380,43 @@ Safety owns concern/product authority. Platform Delivery owns caching and
 private-safe metrics. Public Experience preserves public product continuity.
 
 **Routes, data, and contracts.** Extend the existing `/me`, `/me/explore`, and
-`/me/product/[slug]` read models. Derivation stays pure. Context filters can
-remove candidates but cannot make an ineligible product eligible. Every result
-retains immutable identity and a public evidence link.
+`/me/product/[slug]` read models. Explore follows the authoritative publication
+projection as products publish, retire, or transition. `63` is the 2026-08-03
+acceptance snapshot, never a runtime limit. Derivation stays pure. Context
+filters can remove candidates but cannot make an ineligible product eligible.
+Every result retains immutable identity and a public evidence link.
 
 **Entry gate.** Phases 2–4 pass; ranking inputs and explanations are reviewable;
 empty and fallback behavior is defined; performance testing uses a projected
-catalogue above expected launch size.
+catalogue above expected launch size; retirement and successor behavior is
+covered without silently replacing an exact product.
 
-**Measurable exit gate.** 100% of personalised cards name a customer-understandable
-reason; 100% retain exact identity/public evidence; zero ineligible products
-enter through personal context; clearing context reproduces the non-personalised
-ordering; all affected state-contract cases pass.
+**Measurable exit gate.** All 63 eligible products in the 2026-08-03 projection
+are reachable through unfiltered browse and/or a deterministic search, with
+zero silently capped eligible products; fixtures that add or retire an eligible
+product change reachability without a code-count edit; 100% of personalised
+cards name a customer-understandable reason and retain exact identity/public
+evidence; zero ineligible products enter through personal context; clearing
+context reproduces the complete non-personalised projection; and all affected
+state-contract cases pass.
 
 **Quality requirements.** Context stays private and is never a commercial
 signal. Meet Core Web Vitals targets in the scorecard, preserve the dock evidence
-matrix and accessible product semantics, and observe only aggregate result
-counts, latency, no-result, and fallback rates.
+matrix and accessible product semantics. Pagination/incremental loading/
+virtualization may protect performance but cannot hide an eligible product.
+Observe authoritative-versus-reachable counts, latency, no-result, stale,
+retirement, and fallback rates without private query or context values.
 
 **Test and release evidence.** Pure eligibility/order/explanation properties;
-retired-product and stale-offer fixtures; scale/performance test; accessibility
-and viewport evidence; full release/build gates; exact READY revision; public,
-signed-out, and authenticated route smokes.
+63-of-63 snapshot reachability plus add/retire projection fixtures; exact
+identity, successor, public-link, stale-offer and error-state fixtures;
+scale/performance test; accessibility and viewport evidence; full release/build
+gates; exact READY revision; public catalogue/Product, signed-out
+`/me/explore`, and authenticated complete-Explore smokes.
 
-**Rollback.** Turn off contextual derivation and serve the current exact
-catalogue projection. Preserve Shelf/Routine/Concern data and their controls.
+**Rollback.** Turn off contextual derivation and serve the complete unpersonalised
+eligible catalogue projection; do not restore an arbitrary 12-product cap.
+Preserve Shelf/Routine/Concern data and their controls.
 
 **Unlocks.** Coherent personal decision support and the explicit products and
 preferences required for refill and basket evaluation.
@@ -593,6 +646,7 @@ safety for engagement.
 | Route reliability | At least 99.9% successful eligible Me reads and 99.5% successful writes over a rolling 28-day window after minimum traffic is reached | More than 1% eligible 5xx reads or 2% failed writes for 15 minutes, or any sustained auth-loop |
 | Customer performance | Per-route p75 LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.10; phase-specific service p95 targets also pass | Any route at p75 LCP > 4 s, INP > 500 ms, or CLS > 0.25 for 24 hours after excluding a measured platform-wide incident |
 | Accessibility | 0 critical/serious automated violations; 100% of the primary journey completes by keyboard at 320 px and 200% text | Any blocking keyboard, focus, name/role/value, reflow, or care-first announcement defect |
+| Explore completeness | 100% of the authoritative eligible public projection is reachable by browse/search; 63 of 63 at the 2026-08-03 snapshot; zero fixed-count drift | Any eligible exact product silently unreachable, any ineligible/retired product exposed, or any hard-coded catalogue ceiling |
 | Ask safety and cost | 100% required safety corpus; 0 products on stop routes; 0 unauthorized model calls; 100% limiter fail-closed cases | Any safety-precedence regression, private-context leak, unbounded request, or cost-cap breach |
 | Catalogue/basket integrity | 100% displayed decisions bind exact identity and evidence freshness; 0 ambiguous identities; 0 unknown fees treated as zero; 0 ineligible wait recommendations | Any fabricated/ambiguous product, offer, fee, availability, or forecast claim |
 
@@ -609,21 +663,23 @@ Execution surface: visible department task; sole writer and delegated integratio
 Release authority: ship-after-gates
 
 Starting point: current `origin/main`; reconcile the audited baseline before editing
+
 Outcome: one verified customer can add or remove one exact product on My Shelf,
 see the confirmed result after sign-out/sign-in, export it, delete it, and never
-read or mutate another customer's row.
+read or mutate another customer's row; the same shell also exposes one global
+helper that navigates to the existing public `/contribute` intake.
 
 Reservation request (maximum 12 paths):
 
 1. `db/migrations/0034_customer_shelf.sql`
-2. `lib/customer/access-policy.ts`
-3. `lib/customer/shelf-repository.ts`
-4. `lib/customer/read-model.ts`
-5. `lib/customer/portal-model.ts`
-6. `app/(customer)/me/actions.ts`
-7. `components/me/home/me-home.tsx`
-8. `components/me/shell/me-account-sheet.tsx`
-9. `modules/me/customer-access.test.ts`
+2. `lib/customer/shelf-repository.ts`
+3. `lib/customer/read-model.ts`
+4. `lib/customer/portal-model.ts`
+5. `app/(customer)/me/actions.ts`
+6. `components/me/home/me-home.tsx`
+7. `components/me/shell/me-account-sheet.tsx`
+8. `modules/me/customer-access.test.ts`
+9. `modules/me/me-shell-contract.test.ts`
 10. `modules/me/customer-shelf.test.ts`
 11. `docs/adr/0014-customer-shelf-data-boundary.md`
 12. `docs/product/JELOCARE_ME.md`
@@ -637,15 +693,20 @@ foreign key; idempotent add/remove; normal, empty, loading, error, offline,
 signed-out, expired-session, authenticated, conflict, export, deletion, and
 restore evidence; zero cross-owner access in two-owner integration tests; no
 private values in URL/log/analytics/cache; Account remains a sheet; `/ops` and
-public routes remain unchanged.
+public routes remain unchanged; one shared non-tab/non-FAB helper reaches plain
+`/contribute` from every released Me surface; it sends no private state or
+identity and does not upgrade the report's moderation/evidence status. The
+current 12-result Explore cap remains documented as missing and must not be
+described as production-complete or replaced with a hard-coded 63 limit.
 
 Verification and release: focused access/Shelf/migration/lifecycle tests,
 accessibility and responsive route evidence, migration dry-run and restore
-rehearsal, `npm run verify:release`, `npm run build`, explicit-path staging,
+rehearsal, existing public-intake boundary tests, `npm run verify:release`,
+`npm run build`, explicit-path staging,
 single scoped commit, safe main reconciliation, push, bind the exact revision to
-Vercel READY, then smoke public Product, signed-out `/me`, and an authenticated
-Shelf add/reload/remove/export/delete test account. Do not claim the
-authenticated result without that evidence.
+Vercel READY, then smoke public `/contribute` and Product, signed-out `/me`, and
+an authenticated shell-helper plus Shelf add/reload/remove/export/delete test
+account. Do not claim either authenticated result without that evidence.
 
 Rollback: disable Shelf writes/reads through the reviewed release boundary,
 retain export/deletion, preserve written rows, and forward-fix; never down-migrate
@@ -653,4 +714,5 @@ or delete customer data to roll back application behavior.
 
 Exclusions: Routine, Concerns, Ask submission/history, personal ranking,
 notifications, community, `/ops`, catalogue writes, inventory cron/queue/manual
-refresh, retailers, couriers, campaigns, seeds, and unrelated docs.
+refresh, retailers, couriers, campaigns, seeds, unrelated docs, and the Phase 5
+complete-catalogue Explore implementation.

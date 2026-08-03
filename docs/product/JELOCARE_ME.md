@@ -40,7 +40,7 @@ compact product row.
 | Primary destination | Canonical route | Customer job | Page-owned FAB |
 | --- | --- | --- | --- |
 | Home | `/me` | Return to the customer's care overview and Ask Me entry | Ask Me → `/me/consult` |
-| Explore | `/me/explore` | Discover exact reviewed catalogue products without treating them as owned | Search products → focus the real catalogue field |
+| Explore | `/me/explore` | Browse or search every currently eligible exact public catalogue product without treating it as owned | Search products → focus the real catalogue field |
 | Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products | Explore products → `/me/explore` |
 | Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Explore products → `/me/explore` until routine mutation ships |
 
@@ -58,6 +58,20 @@ Sign out. It traps focus, closes by Escape/backdrop/control, restores avatar
 focus, and is absent while closed. Every visible product action inside Me opens
 the member product route. Public catalogue and product routes remain
 independently usable without a customer session.
+
+The production shell also requires one global **Report price or availability**
+helper that reaches the existing public `/contribute` experience. It may live in
+the extensible Account/helper sheet or a global context sheet; it is never a
+fifth tab or a duplicate page FAB. This helper is not shipped today. The initial
+target is plain `/contribute` because its current query handoff accepts a bounded
+product label as a custom value, not an allowlisted canonical slug. Member
+Product may pass an exact-product slug only after Public Experience adds and
+tests that safe prefill in the public intake contract. A report remains
+anonymous/community intake under its existing moderation, evidence, and privacy
+boundary: being signed in never turns it into price, availability, product,
+retailer, or clinical proof, and no Shelf/Routine/Concern state is attached. The
+helper uses only the fields `/contribute` safely supports; it does not itself
+add or imply a new structured availability field.
 
 The primary navigation is exactly Home, Explore, Shelf, and Routine. Ask Me and
 Product are stack pages with a meaningful Back destination and the correct
@@ -113,8 +127,14 @@ while Home previews retain their editorial section composition.
   Amara presentation is server-only, requires development plus its explicit
   local flag, performs no network or database work, and fails closed elsewhere.
 - Explore and member Product reuse current exact catalogue records and assets.
+  The audited Explore view renders only the first 12 filtered products even
+  though the eligible public projection contains 63 products at the 2026-08-03
+  snapshot. That cap is shipped behavior, not the production target.
   A fresh price/store line may appear only through the existing public offer
   evidence boundary; absent or stale evidence is omitted.
+- No current Me helper links to `/contribute`. The required global reporting
+  helper and complete-catalogue Explore are documented targets, not implemented
+  or production-smoked behavior.
 - Shelf and Routine render persisted customer data when it exists and otherwise
   show honest empty states. The development presentation is not persistence.
 - Ask Me supports truthful discovery over customer context and exact products;
@@ -129,10 +149,12 @@ state coverage, critical path, migration boundaries, scorecard, and exactly one
 next executable slice live only in the
 [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md). In short,
 the next candidate is an owner-isolated, persistent Shelf thin slice that also
-proves the first real customer-data lifecycle. Routine, controlled Concerns,
-authenticated Ask, contextual discovery, refill/basket decisions,
-notifications, and public community follow only through their recorded gates.
-This summary does not commission them.
+proves the first real customer-data lifecycle and exposes the plain public
+`/contribute` helper without duplicating intake. Complete eligible-catalogue
+Explore, Routine, controlled Concerns, authenticated Ask, contextual discovery,
+refill/basket decisions, notifications, and public community follow only through
+their recorded gates. The current 63-product snapshot is evidence, never a
+hard-coded limit. This summary does not commission any implementation.
 
 ## Future basket timing intelligence
 
