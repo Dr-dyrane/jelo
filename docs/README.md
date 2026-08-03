@@ -1,6 +1,6 @@
 # JeloCare handbook
 
-Updated: 2026-07-27
+Updated: 2026-08-02
 
 This is the entry point for product, engineering, data, and operations.
 
@@ -68,6 +68,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0009 · UI and UX work ships through explicit lane contracts](./adr/0009-ui-ux-lane-contract.md)
 - [ADR 0010 · Operations use a native split-view work grammar](./adr/0010-operations-interface-and-overview-contract.md)
 - [ADR 0011 · Guide resolution and clinical product authority stay separate](./adr/0011-guide-resolution-and-clinical-product-authority.md)
+- [ADR 0012 · Private member Shelf and Routine portal](./adr/0012-private-member-shelf-and-routine-portal.md)
 
 ## What is authoritative
 

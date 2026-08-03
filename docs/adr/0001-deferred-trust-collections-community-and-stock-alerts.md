@@ -1,6 +1,6 @@
 # ADR 0001: Defer trust, collections, community, and stock alerts
 
-- **Status:** Deferred option — partially superseded by ADR 0002 for anonymous knowledge intake only
+- **Status:** Deferred option — partially superseded by ADR 0002 for anonymous knowledge intake and ADR 0012 for private Shelf and Routine phases
 - **Date:** 2026-07-22
 - **Decision horizon:** After the current catalogue, retail-intelligence, Ask Jelo, and clinical-safety work is complete and demonstrably strong
 - **Future reviewers:** Product, Product Design, Clinical Safety, Trust & Safety, Privacy, Retail Intelligence, Accessibility, and Engineering
@@ -47,7 +47,7 @@ The option may return to planning only when all of the following are true:
 7. Privacy, security, threat-model, data-retention, and account-recovery reviews are complete.
 8. A separate sprint is explicitly funded and scheduled.
 
-**Gate progress (2026-07-24, informational only):** gate #2 has materially advanced — retailer freshness is surfaced, market-summary confidence is shown as compared-set coverage, and `store_click` now measures behaviour in production ([ADR 0005](0005-structured-observation-events.md), [ADR 0006](0006-store-ranking-excludes-commercial-signals.md)). Gate #6 depends on the moderation operating model now decided in [ADR 0007](0007-internal-moderation-operations-console.md). No other gate is met, and this ADR's next action remains **none** until a scheduled discovery initiative opens it.
+**Gate progress (2026-08-02, informational only):** gate #2 has materially advanced — retailer freshness is surfaced, market-summary confidence is shown as compared-set coverage, and `store_click` now measures behaviour in production ([ADR 0005](0005-structured-observation-events.md), [ADR 0006](0006-store-ranking-excludes-commercial-signals.md)). Gate #6 depends on the moderation operating model decided in [ADR 0007](0007-internal-moderation-operations-console.md). [ADR 0012](0012-private-member-shelf-and-routine-portal.md) now accepts a narrower, private, data-minimal Shelf v1 and a gated user-created Routine v1 without declaring the public-community, moderation, clinical-language, or notification gates complete.
 
 ## Non-goals
 
@@ -382,7 +382,7 @@ Stop or roll back a phase if it creates misleading clinical confidence, false sc
 
 The opportunity is preserved with enough structure for later product discovery, while the current sprint remains focused. The cost is deliberate postponement: JeloCare will not yet offer accounts, collections, community, stories, or alerts. That is preferable to introducing weak trust signals, unmanaged health claims, false scarcity, or sensitive-data collection before the core information system is ready.
 
-The next action on this ADR is **none**. Revisit it only through an explicitly scheduled future discovery initiative and a new accepting or superseding ADR.
+The next action on this ADR remains **none** for reminders, notifications, stock alerts, public stories, ratings, comments, reactions, profiles, and community features. Private Shelf and Routine delivery is governed by [ADR 0012](0012-private-member-shelf-and-routine-portal.md); every other deferred capability still requires an explicitly scheduled initiative and a new accepting or superseding ADR.
 
 ## Future governance references
 

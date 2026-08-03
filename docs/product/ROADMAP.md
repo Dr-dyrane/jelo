@@ -1,6 +1,6 @@
 # Product roadmap
 
-Updated: 2026-07-24
+Updated: 2026-08-02
 
 The roadmap is ordered by dependency, not novelty.
 
@@ -50,7 +50,15 @@ The roadmap is ordered by dependency, not novelty.
 
 ## Later
 
-The re-entry gates for accounts, saved collections, reminders, stories, comments, ratings, and stock alerts are recorded in [ADR 0001](../adr/0001-deferred-trust-collections-community-and-stock-alerts.md). Do not pull them into the active sprint before their privacy, evidence, moderation, and notification dependencies exist.
+### Private member portal, after current catalogue and Ops commitments
+
+[ADR 0012](../adr/0012-private-member-shelf-and-routine-portal.md) accepts a dependency-ordered private portal contract; it does not claim that portal routes exist or displace the current catalogue and operations work.
+
+1. Complete the immutable exact-product identity, member-data lifecycle, separate consumer authorization, abuse, accessibility, and observability prerequisites.
+2. Release **Phase 1: private Shelf v1** through its bounded alpha, beta, and staged-public gates.
+3. After Shelf v1 operates at full release for 28 days without a stop condition and reaches the accepted evidence floor, release **Phase 2: user-created Routine v1** through its own gates.
+
+ADR 0001 continues to defer reminders, notification delivery, stock alerts, public stories, ratings, comments, reactions, profiles, and community features. Do not pull those capabilities into either private phase; each requires a separate accepted decision and owned privacy, safety, moderation, or delivery dependencies.
 
 ## Measures
 
