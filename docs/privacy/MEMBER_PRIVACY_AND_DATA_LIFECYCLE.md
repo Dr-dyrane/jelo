@@ -294,6 +294,8 @@ signature_or_approval_record:
 
 The later migration/release automation must parse this JSON block (or a checked-in schema-equivalent derived from it), attach evidence, and fail closed unless every blocking item for the target gate is `pass`. Changing `authorised` requires the recorded human gates; a code reviewer or AI cannot set it alone.
 
+The authoritative current G0 record is [`data/member-privacy/gates/g0.json`](../../data/member-privacy/gates/g0.json). Run `npm run member-privacy:gate:review` for structural CI/release review of the intentionally blocked record; later member migration preflight must run `npm run member-privacy:gate:authorize`, which remains nonzero until every machine and named-human invariant passes.
+
 ```json
 {
   "contract": "jelocare-member-privacy-lifecycle",

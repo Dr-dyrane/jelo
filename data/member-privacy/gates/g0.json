@@ -1,0 +1,175 @@
+{
+  "contract": "jelocare-member-privacy-lifecycle",
+  "version": 1,
+  "foundation_revision": "319ad03395632aa42207d137857e6018f1821b4e",
+  "implementation_revision": "319ad03395632aa42207d137857e6018f1821b4e",
+  "target_gate": "G0",
+  "authorised": false,
+  "status_values": [
+    "blocked",
+    "ready_for_human_review",
+    "pass",
+    "not_applicable"
+  ],
+  "items": [
+    {
+      "id": "PRIV-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Named qualified Nigerian Privacy/legal approver signed the DPIA, lawful-basis, sensitive-data, notice, rights, registration and residual-risk decisions."
+    },
+    {
+      "id": "PRIV-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Accountable data-controller executive accepted documented residual risk and controller responsibilities."
+    },
+    {
+      "id": "XFER-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Every processor/subprocessor, actual region, DPA and Nigerian cross-border transfer route was approved and recorded."
+    },
+    {
+      "id": "DATA-001",
+      "blocking": true,
+      "status": "ready_for_human_review",
+      "evidence": [
+        "docs/privacy/MEMBER_PRIVACY_AND_DATA_LIFECYCLE.md#3-six-data-classes-and-strict-separation"
+      ],
+      "requirement": "Six ADR 0012 data classes remain separate from operator auth, community, notifications and analytics."
+    },
+    {
+      "id": "DATA-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Released schema and datastore policies implement owner binding, default deny and class separation without a general blob."
+    },
+    {
+      "id": "DATA-003",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Production, preview, development and local data, auth, cookies, secrets and rate-limit namespaces are isolated; preview contains no production member/auth data."
+    },
+    {
+      "id": "AUTH-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Consumer and operator credentials, issuers, audiences, cookies, recovery and capability stores are independently tested."
+    },
+    {
+      "id": "AUTH-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Enumeration, OTP flood, fixation, CSRF, IDOR, replay and cross-privilege negative tests pass."
+    },
+    {
+      "id": "LIFE-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Removed content becomes inaccessible immediately and primary/replica/backup deadlines are implemented and alerted."
+    },
+    {
+      "id": "LIFE-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Account close locks writes/revokes sessions immediately, permits seven-day verified cancellation, and completes primary deletion within 30 days."
+    },
+    {
+      "id": "LIFE-003",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Provider deletion and independent operator-credential exception are implemented, disclosed and evidenced."
+    },
+    {
+      "id": "REST-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Isolated restore drill replays the external deletion ledger and proves deleted canaries are absent before traffic."
+    },
+    {
+      "id": "RIGHT-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Export completes within 24 hours target, uses fresh authorisation, and purges the artifact within 24 hours."
+    },
+    {
+      "id": "RIGHT-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Automated and manual access, correction, objection, withdrawal, export and erasure routes are reviewed and exercised."
+    },
+    {
+      "id": "ADMIN-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Support, privacy and security capabilities are separate, least-privilege, approved, expiring and audited without routine content browsing."
+    },
+    {
+      "id": "OBS-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Logs, caches, analytics and notifications contain no private product/routine content, tokens, OTPs or disallowed identifiers; canary tests pass."
+    },
+    {
+      "id": "OBS-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Rights deadlines, abuse, provider health, admin misuse, policy failures and restore mismatches alert named on-call humans."
+    },
+    {
+      "id": "OPS-001",
+      "blocking": true,
+      "status": "ready_for_human_review",
+      "evidence": [
+        "docs/operations/MEMBER_PRIVACY_OPERATIONS.md"
+      ],
+      "requirement": "Incident, erasure, failed-job, legal-hold, backup-restore and rollback procedures are review-ready."
+    },
+    {
+      "id": "OPS-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Named responders completed incident, deletion, provider-outage and rollback exercises against the released revision."
+    },
+    {
+      "id": "REL-001",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Documentation/link checks, broad release validation and all member privacy/security tests pass on the exact release revision."
+    },
+    {
+      "id": "REL-002",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "Independent enrolment, sign-in, Shelf, Routine, OTP, export, notification and analytics switches are off until their gate; manual privacy-rights path remains available."
+    },
+    {
+      "id": "REL-003",
+      "blocking": true,
+      "status": "blocked",
+      "evidence": [],
+      "requirement": "G0 signature records include full human names, capacities, dates, revision, evidence and unexpired conditions."
+    }
+  ],
+  "decisions": []
+}
