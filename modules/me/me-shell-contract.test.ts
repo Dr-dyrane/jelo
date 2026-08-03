@@ -107,6 +107,17 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
   assert.doesNotMatch(accountSheet, /Light or dark/);
 });
 
+test('standalone saved-product lists expand without widening mobile cards', () => {
+  const styles = readFileSync('components/me/home/me-home.module.css', 'utf8');
+  assert.match(styles, /\.productGrid \{ display: grid; min-width: 0; gap: 12px; \}/);
+  assert.match(styles, /\.routineList \{[\s\S]*display: grid;[\s\S]*list-style: none;/);
+  assert.match(
+    styles,
+    /@media \(min-width: 900px\) \{[\s\S]*\.listPage,[\s\S]*\.routePage > \.routineList[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/,
+  );
+  assert.doesNotMatch(styles, /@media \(min-width: 900px\) \{[\s\S]*\.section > \.productGrid/);
+});
+
 test('Me context is descriptive and contains no mutation callback', () => {
   const context = createMeDockContext({ page: 'home', detail: 'Your care' });
   assert.deepEqual(context, {

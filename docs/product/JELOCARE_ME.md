@@ -93,7 +93,9 @@ behavior, focus, and accessibility-preference requirements live only in the
 [dock evidence contract](../design/ADAPTIVE_WORKSPACE_DOCK.md#evidence-matrix).
 The Me identity header consumes that same route-scoped scroll state: it restores
 at top, route reset, upward travel, sheet open, or header focus and never owns a
-second listener.
+second listener. Shelf and Routine keep compact single-column rows below 900 px;
+their standalone route lists become two balanced columns at wider viewports,
+while Home previews retain their editorial section composition.
 
 ## Current release boundary
 
