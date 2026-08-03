@@ -82,10 +82,12 @@ test('the synthetic routine is customer-authored and uses a coherent exact-produ
 
 test('the real customer route owns account sign-out and no unreleased Me links', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const accountSheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
   const dock = readFileSync('components/me/shell/me-workspace-dock.tsx', 'utf8');
 
-  assert.match(home, /authClient\.signOut\(\)/);
-  assert.match(home, /window\.location\.assign\('\/sign-in\?next=\/me'\)/);
+  assert.match(home, /<MeAccountSheet/);
+  assert.match(accountSheet, /authClient\.signOut\(\)/);
+  assert.match(accountSheet, /window\.location\.assign\('\/sign-in\?next=\/me'\)/);
   assert.match(dock, /ME_RELEASED_WORKSPACE_NAVIGATION/);
   assert.doesNotMatch(home, /href=["'{`]\/me\/(concerns|shelf|routine)/);
 });

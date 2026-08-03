@@ -3,7 +3,7 @@
 Updated: 2026-08-03
 
 The adaptive workspace dock is a neutral shell primitive for route-owned
-navigation, non-mutating context, and one registered primary action. JeloCare
+navigation, non-mutating context, and exactly one registered primary action per page. JeloCare
 Me is its first adapter, but the primitive contains no Me, finance, Operations,
 customer, or domain semantics.
 
@@ -52,6 +52,14 @@ navigation/context exist. The route's one vertical scroll owner reports numeric
 `scrollTop` through `onScrollPositionChange`. The controller owns only transient
 scroll and reveal state and resets both when the route key changes.
 
+The consuming shell header reads the same `scroll.chromeHidden` signal as the
+dock. It begins visible, translates and fades away only after the shared
+downward threshold contracts the dock, and restores at top, on upward travel,
+or on route reset. A modal sheet or focus inside header chrome suppresses the
+visual hide. The header remains out of layout flow, so visibility changes move
+no content, and Reduced Motion applies the state immediately. Consumers must not
+add a window listener or a second direction state machine.
+
 It does not own routing, page data, mutations, persistence, safe-area
 classification, authentication, or server policy. The route/controller/model/view
 split in [ADR 0013](../adr/0013-founder-led-jelocare-me.md#filesystem-and-code-canon)
@@ -62,6 +70,10 @@ remains binding.
 `WorkspaceDockProvider` is scoped to the active route key. A feature registers
 one `WorkspaceDockFabDescriptor` containing an owner ID, exact route, accessible
 label, Lucide icon, disabled/busy state, and invocation.
+
+Every rendered page registers exactly one working FAB. Navigation and real
+field focus are valid truthful actions when persistence is not implemented;
+fake save, add, or edit mutations are not.
 
 - A registration for another route is ignored.
 - The latest valid registration is visible.

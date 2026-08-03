@@ -11,16 +11,21 @@ import {
   Search,
   Sparkles,
 } from 'lucide-react';
-import { useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { useMemo, useRef, useState, type FocusEvent } from 'react';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import {
   WorkspaceDockProvider,
   useAdaptiveWorkspaceDockController,
   useWorkspaceDockFabRegistration,
 } from '@/components/workspace-shell';
-import { createMeDockContext, type MeWorkspacePage } from '@/components/me/shell/me-shell-model';
+import { MeAccountSheet } from '@/components/me/shell/me-account-sheet';
+import {
+  createMeDockContext,
+  ME_WORKSPACE_FABS,
+  resolveMeHeaderHidden,
+  type MeWorkspacePage,
+} from '@/components/me/shell/me-shell-model';
 import { MeAccountAvatarIcon, MeWorkspaceDock } from '@/components/me/shell/me-workspace-dock';
-import { authClient } from '@/lib/auth/client';
 import type { CustomerPortalProduct, CustomerPortalViewModel } from '@/lib/customer/portal-model';
 import styles from './me-home.module.css';
 
@@ -82,59 +87,6 @@ function ExploreCard({ product, source = 'explore' }: {
         </span>
       </Link>
     </article>
-  );
-}
-
-function AccountMenu({ account }: { account: CustomerPortalViewModel['account'] }) {
-  const detailsRef = useRef<HTMLDetailsElement>(null);
-  const summaryRef = useRef<HTMLElement>(null);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
-
-  async function signOut() {
-    if (busy) return;
-    setBusy(true);
-    setError('');
-    try {
-      if (!account.synthetic) {
-        const result = await authClient.signOut();
-        if (result.error) throw result.error;
-      }
-      window.location.assign('/sign-in?next=/me');
-    } catch (err) {
-      console.error('customer-sign-out', err);
-      setError('Could not sign out. Try again.');
-      setBusy(false);
-    }
-  }
-
-  function handleKeyDown(event: KeyboardEvent<HTMLDetailsElement>) {
-    if (event.key !== 'Escape' || !detailsRef.current?.open) return;
-    event.preventDefault();
-    detailsRef.current.open = false;
-    summaryRef.current?.focus();
-  }
-
-  return (
-    <details ref={detailsRef} className={styles.account} onKeyDown={handleKeyDown}>
-      <summary ref={summaryRef} aria-label="Open account">
-        <MeAccountAvatarIcon size={23} strokeWidth={1.7} aria-hidden="true" />
-      </summary>
-      <section className={styles.accountPanel} aria-label="Account">
-        <span className={styles.accountOrb} aria-hidden="true">
-          <MeAccountAvatarIcon size={24} strokeWidth={1.6} />
-        </span>
-        <div>
-          <small>Account</small>
-          <strong>{account.displayName ?? 'Your JeloCare'}</strong>
-          {account.email ? <span>{account.email}</span> : null}
-        </div>
-        <button type="button" onClick={() => void signOut()} disabled={busy}>
-          {busy ? 'Signing out…' : 'Sign out'}
-        </button>
-        {error ? <p role="alert">{error}</p> : null}
-      </section>
-    </details>
   );
 }
 
@@ -464,45 +416,93 @@ function MePortalView({
     ? catalogue.find((candidate) => candidate.slug === route.slug)
     : undefined;
   const context = createMeDockContext({ page: state.page, detail: state.detail });
+  const accountTriggerRef = useRef<HTMLButtonElement>(null);
+  const [accountSheetState, setAccountSheetState] = useState(() => ({
+    routeKey: state.routeKey,
+    open: false,
+  }));
+  const [headerOwnsFocus, setHeaderOwnsFocus] = useState(false);
+  const accountSheetOpen = accountSheetState.routeKey === state.routeKey && accountSheetState.open;
+  const headerHidden = resolveMeHeaderHidden({
+    chromeHidden: controller.scroll.chromeHidden,
+    accountSheetOpen,
+    headerOwnsFocus,
+  });
   const focusSearch = () => {
     searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     searchRef.current?.focus({ preventScroll: true });
   };
+  const fabContract = ME_WORKSPACE_FABS[state.page];
+  const fabIcon = state.page === 'home'
+    ? MessageCircleQuestion
+    : state.page === 'explore' || state.page === 'consult'
+      ? Search
+      : state.page === 'product'
+        ? ExternalLink
+        : Compass;
 
-  useWorkspaceDockFabRegistration(route.kind === 'home' ? {
-    ownerId: 'me-home-consult',
+  const invokeFab = () => {
+    if (fabContract.action === 'focus-search') {
+      focusSearch();
+      return;
+    }
+    if (fabContract.action === 'public-product') {
+      window.location.assign(`/products/${route.kind === 'product' ? route.slug : ''}`);
+      return;
+    }
+    window.location.assign(fabContract.href);
+  };
+
+  useWorkspaceDockFabRegistration({
+    ownerId: fabContract.ownerId,
     routeKey: state.routeKey,
-    label: 'Ask Me',
-    icon: MessageCircleQuestion,
-    onInvoke: () => window.location.assign('/me/consult'),
-  } : route.kind === 'explore' || route.kind === 'consult' ? {
-    ownerId: `me-${route.kind}-search`,
-    routeKey: state.routeKey,
-    label: 'Search products',
-    icon: Search,
-    onInvoke: focusSearch,
-  } : route.kind === 'shelf' ? {
-    ownerId: 'me-shelf-explore',
-    routeKey: state.routeKey,
-    label: 'Explore products',
-    icon: Compass,
-    onInvoke: () => window.location.assign('/me/explore'),
-  } : route.kind === 'product' && product ? {
-    ownerId: 'me-product-public-evidence',
-    routeKey: state.routeKey,
-    label: 'Open public product evidence',
-    icon: ExternalLink,
-    onInvoke: () => window.location.assign(`/products/${product.slug}`),
-  } : null);
+    label: fabContract.label,
+    icon: fabIcon,
+    onInvoke: invokeFab,
+  });
+
+  function closeAccountSheet() {
+    setAccountSheetState((current) => current.routeKey === state.routeKey
+      ? { ...current, open: false }
+      : current);
+  }
+
+  function handleHeaderBlur(event: FocusEvent<HTMLElement>) {
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHeaderOwnsFocus(false);
+  }
 
   return (
     <div className={styles.shell}>
-      <header className={styles.topbar}>
+      <header
+        className={`${styles.topbar} ${headerHidden ? styles.topbarHidden : ''}`}
+        data-me-header-hidden={headerHidden ? 'true' : 'false'}
+        onFocusCapture={() => setHeaderOwnsFocus(true)}
+        onBlurCapture={handleHeaderBlur}
+      >
         <Link href="/me" className={styles.brand}>JeloCare</Link>
-        <AccountMenu account={viewModel.account} />
+        <button
+          ref={accountTriggerRef}
+          className={styles.accountTrigger}
+          type="button"
+          aria-label="Open account"
+          aria-haspopup="dialog"
+          aria-controls="me-account-sheet"
+          aria-expanded={accountSheetOpen}
+          onClick={() => setAccountSheetState({ routeKey: state.routeKey, open: true })}
+        >
+          <MeAccountAvatarIcon size={23} strokeWidth={1.7} aria-hidden="true" />
+        </button>
       </header>
 
+      <MeAccountSheet
+        account={viewModel.account}
+        open={accountSheetOpen}
+        onClose={closeAccountSheet}
+        triggerRef={accountTriggerRef}
+      />
+
       <main
+        key={state.routeKey}
         className={styles.scroll}
         onScroll={(event) => controller.onScrollPositionChange(event.currentTarget.scrollTop)}
       >

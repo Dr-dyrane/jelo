@@ -25,24 +25,27 @@ becoming quieter and more task-led.
 
 ## Information architecture
 
-| Primary destination | Canonical route | Customer job | Primary action owner |
+| Primary destination | Canonical route | Customer job | Page-owned FAB |
 | --- | --- | --- | --- |
-| Home | `/me` | Return to the customer's care overview and Ask Me entry | Home controller |
-| Explore | `/me/explore` | Discover exact reviewed catalogue products without treating them as owned | Explore search controller |
-| Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products | Shelf controller |
-| Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Routine controller |
+| Home | `/me` | Return to the customer's care overview and Ask Me entry | Ask Me → `/me/consult` |
+| Explore | `/me/explore` | Discover exact reviewed catalogue products without treating them as owned | Search products → focus the real catalogue field |
+| Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products | Explore products → `/me/explore` |
+| Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Explore products → `/me/explore` until routine mutation ships |
 
 Two authenticated stack pages sit above that primary model:
 
-| Stack page | Canonical route | Parent semantics |
-| --- | --- | --- |
-| Ask Me | `/me/consult` | Home; combines the guidance entry and customer concern context without reusing public `/consult` state |
-| Member product | `/me/product/[slug]` | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` |
+| Stack page | Canonical route | Parent semantics | Page-owned FAB |
+| --- | --- | --- | --- |
+| Ask Me | `/me/consult` | Home; combines the guidance entry and customer concern context without reusing public `/consult` state | Search your care → focus the real care field |
+| Member product | `/me/product/[slug]` | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` | View public product evidence → matching `/products/[slug]` |
 
-Account, appearance, consent, sessions, export, and deletion belong behind the
-customer avatar. Account is chrome, not a fifth destination. Every visible
-product action inside Me opens the member product route. Public catalogue and
-product routes remain independently usable without a customer session.
+Account and future real helper destinations belong behind the customer avatar
+in one modal helper sheet, not a popover or fifth destination. The current sheet
+contains only the private account identity, the shared appearance control, and
+Sign out. It traps focus, closes by Escape/backdrop/control, restores avatar
+focus, and is absent while closed. Every visible product action inside Me opens
+the member product route. Public catalogue and product routes remain
+independently usable without a customer session.
 
 The primary navigation is exactly Home, Explore, Shelf, and Routine. Ask Me and
 Product are stack pages with a meaningful Back destination and the correct
@@ -66,9 +69,9 @@ palette. Operations mineral grey and `--ops-*` tokens are prohibited.
 
 The [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md#view-anatomy)
 owns expanded, compact, navigation, and single anatomy. Me supplies only the
-active tab, truthful context, warm semantic palette, and route-owned action. The
-capsule never mutates; the FAB owns the one primary domain mutation and uses an
-explicit accessible label.
+active tab, truthful context, warm semantic palette, and exactly one page-owned
+working FAB. The capsule never mutates; a FAB may navigate or focus a real field
+when no truthful mutation exists and always uses an explicit accessible label.
 
 ## Adaptive behavior
 
@@ -77,6 +80,9 @@ and `1440 × 900`, in light and dark, at the top, scrolled/contracted, and
 navigation-revealed states. Geometry, scroll ownership, 320 px/200% text
 behavior, focus, and accessibility-preference requirements live only in the
 [dock evidence contract](../design/ADAPTIVE_WORKSPACE_DOCK.md#evidence-matrix).
+The Me identity header consumes that same route-scoped scroll state: it restores
+at top, route reset, upward travel, sheet open, or header focus and never owns a
+second listener.
 
 ## Current release boundary
 

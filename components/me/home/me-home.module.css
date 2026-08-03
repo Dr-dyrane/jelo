@@ -21,10 +21,20 @@
   justify-content: space-between;
   padding: max(14px, env(safe-area-inset-top)) clamp(18px, 4vw, 64px) 10px;
   pointer-events: none;
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 200ms cubic-bezier(0.32, 0.72, 0, 1), opacity 160ms ease-out;
+  will-change: transform, opacity;
 }
 
 .brand,
-.account summary { pointer-events: auto; }
+.accountTrigger { pointer-events: auto; }
+
+.topbarHidden {
+  transform: translateY(calc(-100% - env(safe-area-inset-top)));
+  opacity: 0;
+  pointer-events: none;
+}
 
 .brand {
   color: var(--ink);
@@ -35,8 +45,7 @@
 }
 
 .brand:focus-visible,
-.account summary:focus-visible,
-.account button:focus-visible,
+.accountTrigger:focus-visible,
 .primaryAction:focus-visible,
 .sectionLink:focus-visible,
 .productCard:focus-visible,
@@ -51,76 +60,20 @@
   outline-offset: 3px;
 }
 
-.account {
-  position: relative;
-  pointer-events: auto;
-}
-
-.account summary {
+.accountTrigger {
   display: grid;
   width: 48px;
   height: 48px;
   place-items: center;
+  border: 0;
   border-radius: 50%;
   background: color-mix(in srgb, var(--paper) 76%, transparent);
   box-shadow: 0 12px 34px rgb(107 59 53 / 10%);
   color: var(--wine);
   cursor: pointer;
-  list-style: none;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-
-.account summary::-webkit-details-marker { display: none; }
-
-.accountPanel {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  display: grid;
-  width: min(320px, calc(100vw - 32px));
-  grid-template-columns: 46px minmax(0, 1fr);
-  gap: 12px;
-  padding: 18px;
-  border-radius: 24px;
-  background: color-mix(in srgb, var(--paper) 94%, transparent);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-.accountOrb {
-  display: grid;
-  width: 46px;
-  height: 46px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--peach);
-  color: var(--wine);
-}
-
-.accountPanel div { min-width: 0; }
-.accountPanel small,
-.accountPanel strong,
-.accountPanel span { display: block; }
-.accountPanel small { color: var(--wine); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
-.accountPanel strong { margin-top: 3px; font-size: 0.92rem; font-weight: 600; }
-.accountPanel div > span { overflow: hidden; margin-top: 3px; color: var(--muted); font-size: 0.73rem; text-overflow: ellipsis; }
-
-.accountPanel button {
-  min-height: 44px;
-  grid-column: 1 / -1;
-  border: 0;
-  border-radius: 999px;
-  background: var(--ink);
-  color: var(--paper);
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.82rem;
-}
-
-.accountPanel button:disabled { opacity: 0.5; cursor: default; }
-.accountPanel p { margin: 0; grid-column: 1 / -1; color: var(--wine); font-size: 0.74rem; }
 
 .scroll {
   width: 100%;
@@ -629,6 +582,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .topbar,
   .primaryAction,
   .publicLink,
   .productCard,
@@ -643,8 +597,7 @@
 }
 
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-  .account summary,
-  .accountPanel,
+  .accountTrigger,
   .hero,
   .heroProductLabel,
   .productCard,
@@ -659,6 +612,6 @@
   .productCard,
   .routineList li,
   .exploreCard,
-  .accountPanel,
+  .accountTrigger,
   .productHero { border: 1px solid CanvasText; }
 }
