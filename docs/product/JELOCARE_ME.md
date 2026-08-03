@@ -81,6 +81,59 @@ behavior, focus, and accessibility-preference requirements live only in the
 Feature order is dependency order, not permission to create empty folders or
 placeholder routes.
 
+## Future basket timing intelligence
+
+JeloCare may eventually support an evidence-bound decision about when and where
+to buy a basket of care products. This capability is not shipped, and this
+contract does not commission a route, prediction, monitor, or notification.
+
+For example, a customer may need exact products A, B, C, and D. Their preferred
+retailer usually carries all four, but currently has only A and B while another
+retailer has C and D. The decision is not which item has the lowest price. It is
+which truthful option best balances the **total landed basket cost** and the
+customer's convenience: one or more quantity-adjusted basket totals, known
+delivery fees or policies for each order, number of orders or pickups, urgency,
+and acceptable wait. An unstated delivery fee is unknown, never zero.
+
+The minimum decision inputs are:
+
+- immutable exact product/version identity and verified store identity;
+- timestamped stock and price observations for those exact offers, with the
+  freshness of each observation;
+- delivery-fee or delivery-policy evidence, including its source and freshness,
+  or a fee explicitly supplied by the customer; and
+- customer-provided quantities, urgency, refill intent or current-supply
+  horizon, preferred retailer, and acceptable wait.
+
+Only sufficiently fresh and consistent history can support a forecast. Restock
+and stock-out estimates must be expressed as a probability or time window with
+confidence and evidence freshness, never as a certain event or date. Monitoring
+must consider both sides of waiting: C and D may return at the preferred store,
+while its currently available A and B may deplete. Each material observation
+must re-evaluate the options, including before A or B is likely to stock out.
+Customer notifications require explicit opt-in and a separately commissioned
+delivery and lifecycle contract.
+
+The comparison may resolve to one of four truthful outcomes:
+
+1. buy the complete basket from one store now, when that option exists;
+2. split the basket across stores now;
+3. wait and monitor the preferred store; or
+4. buy urgent items now and monitor the rest.
+
+Waiting is recommendable only when exact identity, history, fees, customer
+intent, and forecast quality support it. If identity is ambiguous, history is
+insufficient or stale, or delivery evidence is missing or stale, show the
+current options, observation times, known cost components, and uncertainty.
+Do not fabricate a fee or prediction, and do not recommend waiting.
+
+The primary risks are false confidence, changing delivery fees, volatile
+availability, and a missed restock window. The product must preserve per-user
+privacy for basket, urgency, refill, monitoring, and notification data; it must
+not use those signals for advertising or retailer ranking. It must make no
+medical or clinical inference from a care-product choice, refill intent,
+urgency, purchase timing, or response to a recommendation.
+
 ## Data and trust ceiling
 
 JeloCare Me does not create clinical or commercial authority from customer

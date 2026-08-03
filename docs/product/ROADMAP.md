@@ -1,6 +1,6 @@
 # Product roadmap
 
-Updated: 2026-08-02
+Updated: 2026-08-03
 
 The roadmap is ordered by dependency, not novelty.
 
@@ -74,6 +74,10 @@ without claiming a route or collecting customer data.
    storage are implemented and tested.
 4. Add Routine only after Shelf and routine-specific safety, comprehension,
    lifecycle, and ownership evidence exist.
+
+Future split-order and wait-for-restock decision support follows the canonical
+[basket timing intelligence contract](./JELOCARE_ME.md#future-basket-timing-intelligence);
+it is not part of the foundation or current release.
 
 ADR 0001 continues to defer reminders, notification delivery, stock alerts,
 public stories, ratings, comments, reactions, profiles, and community features.
