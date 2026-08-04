@@ -57,6 +57,7 @@
     "catalogue:publication:release": "tsx scripts/release-catalogue-candidate.ts",
     "catalogue:publication:releases:verify": "tsx scripts/verify-catalogue-publication-releases.ts",
     "catalogue:publication:images:verify": "tsx scripts/verify-catalogue-publication-images.ts",
+    "catalogue:media:history:verify": "tsx scripts/verify-catalogue-product-visual-revisions.ts",
     "catalogue:mirror": "tsx scripts/mirror-open-beauty-facts-images.ts",
     "catalogue:images:audit": "tsx scripts/audit-catalogue-image-quality.ts",
     "catalogue:packshots:prepare": "OMP_NUM_THREADS=1 U2NET_HOME=.cache/rembg-models .cache/rembg-venv/bin/python scripts/prepare-catalogue-packshots.py --output .cache/catalogue-packshots --model isnet-general-use --provider cpu --workers 8 --resume",

@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "exposure": "private-catalogue-authority",
+  "revisions": [
+    {
+      "revisionId": "loccitane-almond-shower-oil-500ml-package-before-2026",
+      "candidateId": "loccitane-almond-shower-oil-500ml",
+      "identity": {
+        "brand": "L'Occitane en Provence",
+        "canonicalName": "Almond (Amande) Shower Oil",
+        "variant": "Almond (Amande) Softening Shower Oil",
+        "size": "500 ml"
+      },
+      "package": {
+        "observedState": "historical-at-capture",
+        "description": "500 ml legacy clear amber bottle with silver pump and the former bilingual front label",
+        "effectiveAt": null,
+        "capturedAt": "2026-08-04T14:55:52Z",
+        "supersedesRevisionId": null
+      },
+      "asset": {
+        "role": "packaging-continuity-evidence",
+        "publishable": false,
+        "immutablePath": "data/catalogue-package-revision-assets/loccitane-almond-shower-oil-500ml-continuity-evidence-66d31ba341fb.png",
+        "sha256": "66d31ba341fbd6e1db09d449019cb93dbcd54cdfad2abf260b4790e7f9e2005d",
+        "mimeType": "image/png",
+        "byteSize": 1124183,
+        "width": 880,
+        "height": 1101,
+        "subjectRegion": {
+          "left": 66,
+          "top": 405,
+          "right": 282,
+          "bottom": 822
+        }
+      },
+      "provenance": {
+        "kind": "founder-supplied-packaging-continuity-reference",
+        "sourceUrl": null,
+        "retainedAt": "2026-08-04T14:55:52Z",
+        "reuseBasis": "private-evidence-only"
+      },
+      "review": {
+        "state": "evidence-only",
+        "reviewedAt": "2026-08-04T14:55:52Z",
+        "reviewer": "JeloCare catalogue media review",
+        "notes": "Reference only. It is not a catalogue packshot and does not independently authorize package equivalence."
+      }
+    },
+    {
+      "revisionId": "loccitane-almond-shower-oil-500ml-package-current-2026",
+      "candidateId": "loccitane-almond-shower-oil-500ml",
+      "identity": {
+        "brand": "L'Occitane en Provence",
+        "canonicalName": "Almond (Amande) Shower Oil",
+        "variant": "Almond (Amande) Softening Shower Oil",
+        "size": "500 ml"
+      },
+      "package": {
+        "observedState": "current-at-capture",
+        "description": "500 ml clear amber Amande bottle with black pump and current bilingual front label",
+        "effectiveAt": null,
+        "capturedAt": "2026-08-04T14:55:52Z",
+        "supersedesRevisionId": "loccitane-almond-shower-oil-500ml-package-before-2026"
+      },
+      "asset": {
+        "role": "official-current-package-reference",
+        "publishable": false,
+        "immutablePath": "data/catalogue-package-revision-assets/loccitane-almond-shower-oil-500ml-current-official-653022977a6b.png",
+        "sha256": "653022977a6b4ef18e039cdced0e2604132077656dc13b794c131d9f2808f7fe",
+        "mimeType": "image/png",
+        "byteSize": 869825,
+        "width": 1200,
+        "height": 1500,
+        "subjectRegion": null
+      },
+      "provenance": {
+        "kind": "official-brand-media",
+        "sourceUrl": "https://ae.loccitane.com/dw/image/v2/BDCL_PRD/on/demandware.static/-/Sites-loccitane-master-catalog/default/dw164ef883/images/ALMOND%20PACKSHOTS/1200%20PNG-29HD500A26C_SQUARE_RVB.png?sw=1200&sh=1500",
+        "retainedAt": "2026-08-04T14:55:52Z",
+        "reuseBasis": "private-identity-reference-only"
+      },
+      "review": {
+        "state": "approved-reference-only",
+        "reviewedAt": "2026-08-04T14:55:52Z",
+        "reviewer": "JeloCare catalogue media review",
+        "notes": "Exact official current 500 ml package reference. This record grants no publication or reuse permission."
+      }
+    }
+  ],
+  "rejectedCandidateAssets": [
+    {
+      "candidateAssetId": "loccitane-almond-shower-oil-500ml-founder-cutout-0a266e39b048",
+      "candidateId": "loccitane-almond-shower-oil-500ml",
+      "identity": {
+        "brand": "L'Occitane en Provence",
+        "canonicalName": "Almond (Amande) Shower Oil",
+        "variant": "Almond (Amande) Softening Shower Oil",
+        "size": "500 ml"
+      },
+      "immutablePath": "data/catalogue-package-revision-assets/loccitane-almond-shower-oil-500ml-rejected-candidate-0a266e39b048.png",
+      "sha256": "0a266e39b0481677525e8dc9ebf295e5a9102f6c3a1d651e19e26a504674a660",
+      "mimeType": "image/png",
+      "byteSize": 437457,
+      "width": 880,
+      "height": 1101,
+      "provenance": {
+        "kind": "founder-supplied-candidate",
+        "sourceUrl": null,
+        "retainedAt": "2026-08-04T14:55:52Z",
+        "reuseBasis": "unknown-not-publishable"
+      },
+      "review": {
+        "state": "rejected",
+        "reviewedAt": "2026-08-04T14:55:52Z",
+        "reviewer": "JeloCare catalogue media review",
+        "reasons": [
+          "oversized-baked-shadow",
+          "horizontal-stretch-bands",
+          "alpha-edge-colour-fringe",
+          "publishable-provenance-unresolved"
+        ]
+      }
+    }
+  ]
+}

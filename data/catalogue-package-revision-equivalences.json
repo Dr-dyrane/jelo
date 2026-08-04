@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "exposure": "private-catalogue-authority",
+  "equivalences": [
+    {
+      "equivalenceId": "loccitane-almond-shower-oil-500ml-same-formula-new-look-2026",
+      "candidateId": "loccitane-almond-shower-oil-500ml",
+      "brand": "L'Occitane en Provence",
+      "canonicalName": "Almond (Amande) Shower Oil",
+      "variant": "Almond (Amande) Softening Shower Oil",
+      "size": "500 ml",
+      "currentPackageRevisionId": "loccitane-almond-shower-oil-500ml-package-current-2026",
+      "historicalPackageRevisionId": "loccitane-almond-shower-oil-500ml-package-before-2026",
+      "relationship": "same-formula-new-look",
+      "permittedUse": "historical-retailer-package-image-match",
+      "publicationAuthority": "none",
+      "displayDisclosure": "Packaging may vary",
+      "officialEvidence": {
+        "sourceUrl": "https://ae.loccitane.com/en/new/almond-shower-essentials",
+        "sourceHost": "ae.loccitane.com",
+        "retrievedAt": "2026-08-04T14:55:52Z",
+        "effectiveAt": null,
+        "retainedPath": "data/catalogue-package-revision-evidence/loccitane-almond-shower-oil-500ml-official-2026-08-04-64d032fb14cc.html",
+        "responseMimeType": "text/html",
+        "responseByteSize": 247030,
+        "responseSha256": "64d032fb14cc2e3287e0c0b5e1c60ca1cd31d70f926e67018024fb4eab40151d",
+        "recordStartByte": 121763,
+        "recordEndByte": 135676,
+        "recordSha256": "5e3db9ebcca83bd5fb069c0810f4d2647a6b83931b36bde04aa603735cec2b2e",
+        "officialProductId": "29HD500A26",
+        "officialDisplayName": "Almond (Amande)",
+        "officialImageFilename": "29HD500A26C_SQUARE_RVB.png",
+        "equivalenceStatement": "Same Formula, New Look",
+        "requiredRecordText": [
+          "data-pid=\"29HD500A26\"",
+          "Almond (Amande)",
+          "item_size&quot;:&quot;500ml&quot;",
+          "Same Formula, New Look",
+          "29HD500A26C_SQUARE_RVB.png"
+        ]
+      },
+      "reviewState": "approved",
+      "reviewedAt": "2026-08-04T14:55:52Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    }
+  ]
+}
