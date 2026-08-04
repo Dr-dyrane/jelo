@@ -1,6 +1,6 @@
-import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { LEGACY_SHELF_IMPORT_MANIFEST } from './legacy-shelf-import-manifest';
+import { readLegacyShelfImportSourceSnapshot } from './legacy-shelf-import-source-snapshot.server';
 
 type LegacyProduct = {
   id: string;
@@ -127,39 +127,7 @@ export function verifyLegacyShelfImportSource(
   }
 }
 
-export function verifyLegacyShelfImportSourceFromGit(repositoryRoot = process.cwd()) {
-  const { source } = LEGACY_SHELF_IMPORT_MANIFEST;
-  const readHistoricalFile = (path: string) => execFileSync(
-    'git',
-    ['show', `${source.commit}:${path}`],
-    {
-      cwd: repositoryRoot,
-      encoding: 'buffer',
-      maxBuffer: 8 * 1024 * 1024,
-      stdio: ['ignore', 'pipe', 'ignore'],
-    },
-  );
-
-  let productsSource: Buffer;
-  let routineSource: Buffer;
-  try {
-    productsSource = readHistoricalFile(source.products.path);
-    routineSource = readHistoricalFile(source.routine.path);
-  } catch {
-    execFileSync(
-      'git',
-      ['fetch', '--no-tags', '--depth=1', 'origin', source.commit],
-      {
-        cwd: repositoryRoot,
-        stdio: ['ignore', 'ignore', 'ignore'],
-      },
-    );
-    productsSource = readHistoricalFile(source.products.path);
-    routineSource = readHistoricalFile(source.routine.path);
-  }
-
-  verifyLegacyShelfImportSource(
-    productsSource,
-    routineSource,
-  );
+export function verifyLegacyShelfImportSourceSnapshot() {
+  const { productsSource, routineSource } = readLegacyShelfImportSourceSnapshot();
+  verifyLegacyShelfImportSource(productsSource, routineSource);
 }

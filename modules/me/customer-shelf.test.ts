@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import test from 'node:test';
+import ts from 'typescript';
 import { products } from '../../data/catalogue';
 import type { CustomerAccessIdentity } from '../../lib/customer/access-policy';
 import {
@@ -20,7 +22,7 @@ import {
   parseLegacyShelfImportOptions,
   targetImportReceiptSha256,
 } from '../../lib/customer/legacy-shelf-import-policy';
-import { verifyLegacyShelfImportSourceFromGit } from '../../lib/customer/legacy-shelf-import-source';
+import { verifyLegacyShelfImportSourceSnapshot } from '../../lib/customer/legacy-shelf-import-source';
 import {
   isCustomerShelfRoleAttestationSafe,
   type CustomerShelfRoleAttestation,
@@ -38,6 +40,87 @@ const identity = (subject: string, source: CustomerAccessIdentity['source'] = 's
 
 const versionId = '11111111-1111-4111-8111-111111111111';
 const slug = 'exact-product';
+const repositoryRoot = process.cwd();
+
+function workspaceSourceFiles(directory: string): string[] {
+  if (!existsSync(directory)) return [];
+  return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return workspaceSourceFiles(path);
+    return /\.tsx?$/.test(entry.name) ? [path] : [];
+  });
+}
+
+function resolveWorkspaceImport(importer: string, specifier: string) {
+  if (!specifier.startsWith('@/') && !specifier.startsWith('.')) return null;
+  const base = specifier.startsWith('@/')
+    ? join(repositoryRoot, specifier.slice(2))
+    : resolve(dirname(importer), specifier);
+  for (const candidate of [
+    base,
+    `${base}.ts`,
+    `${base}.tsx`,
+    `${base}.server.ts`,
+    `${base}.server.tsx`,
+    join(base, 'index.ts'),
+    join(base, 'index.tsx'),
+  ]) {
+    if (/\.tsx?$/.test(candidate) && existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+function runtimeImports(path: string) {
+  const text = readFileSync(path, 'utf8');
+  if (/^['"]use server['"];|^import 'server-only';/m.test(text)) return [];
+  const file = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true);
+  return file.statements.flatMap(statement => {
+    if (ts.isImportDeclaration(statement)) {
+      const clause = statement.importClause;
+      if (clause?.isTypeOnly) return [];
+      if (
+        clause
+        && !clause.name
+        && clause.namedBindings
+        && ts.isNamedImports(clause.namedBindings)
+        && clause.namedBindings.elements.every(element => element.isTypeOnly)
+      ) return [];
+      return ts.isStringLiteral(statement.moduleSpecifier)
+        ? [statement.moduleSpecifier.text]
+        : [];
+    }
+    if (ts.isExportDeclaration(statement) && statement.moduleSpecifier) {
+      if (statement.isTypeOnly) return [];
+      if (
+        statement.exportClause
+        && ts.isNamedExports(statement.exportClause)
+        && statement.exportClause.elements.every(element => element.isTypeOnly)
+      ) return [];
+      return ts.isStringLiteral(statement.moduleSpecifier)
+        ? [statement.moduleSpecifier.text]
+        : [];
+    }
+    return [];
+  });
+}
+
+function productionClientGraph() {
+  const sourceFiles = ['app', 'components', 'lib'].flatMap(directory => (
+    workspaceSourceFiles(join(repositoryRoot, directory))
+  ));
+  const pending = sourceFiles.filter(path => /^['"]use client['"];/m.test(readFileSync(path, 'utf8')));
+  const visited = new Set<string>();
+  while (pending.length) {
+    const path = pending.pop()!;
+    if (visited.has(path)) continue;
+    visited.add(path);
+    for (const specifier of runtimeImports(path)) {
+      const dependency = resolveWorkspaceImport(path, specifier);
+      if (dependency && !visited.has(dependency)) pending.push(dependency);
+    }
+  }
+  return visited;
+}
 
 function record(overrides: Partial<CustomerShelfRecord> = {}): CustomerShelfRecord {
   return {
@@ -395,7 +478,26 @@ test('the reviewed legacy manifest reconciles all 14 hashed source records exact
   ];
   assert.equal(new Set(classified).size, 14);
   assert.deepEqual([...classified].sort(), [...LEGACY_SHELF_IMPORT_MANIFEST.source.products.legacyIds].sort());
-  assert.doesNotThrow(() => verifyLegacyShelfImportSourceFromGit(process.cwd()));
+  assert.doesNotThrow(() => verifyLegacyShelfImportSourceSnapshot());
+});
+
+test('the immutable legacy snapshot verifies without Git history and stays outside every client graph', () => {
+  const verifierPath = join(repositoryRoot, 'lib/customer/legacy-shelf-import-source.ts');
+  const snapshotPath = join(
+    repositoryRoot,
+    'lib/customer/legacy-shelf-import-source-snapshot.server.ts',
+  );
+  const verifierSource = readFileSync(verifierPath, 'utf8');
+  const snapshotSource = readFileSync(snapshotPath, 'utf8');
+
+  assert.doesNotThrow(() => verifyLegacyShelfImportSourceSnapshot());
+  assert.match(snapshotSource, /from 'node:zlib'/);
+  assert.match(verifierSource, /readLegacyShelfImportSourceSnapshot\(\)/);
+  assert.doesNotMatch(`${verifierSource}\n${snapshotSource}`, /node:child_process|git fetch|git show/);
+
+  const clientGraph = productionClientGraph();
+  assert.equal(clientGraph.has(verifierPath), false);
+  assert.equal(clientGraph.has(snapshotPath), false);
 });
 
 test('the one-off importer is dry-run by default, redacted, and apply-confirmed', () => {
@@ -417,7 +519,7 @@ test('the one-off importer is dry-run by default, redacted, and apply-confirmed'
   const script = readFileSync('scripts/import-customer-shelf.ts', 'utf8');
   assert.match(script, /requireAdminDatabaseUrl\(\)/);
   assert.doesNotMatch(script, /DATABASE_URL_UNPOOLED|POSTGRES_URL_NON_POOLING|process\.env\.(?:DATABASE_URL|POSTGRES_URL)/);
-  assert.match(script, /verifyLegacyShelfImportSourceFromGit\(\)/);
+  assert.match(script, /verifyLegacyShelfImportSourceSnapshot\(\)/);
   assert.match(script, /sql\.begin\('read only', work\)/);
   assert.match(script, /options\.apply[\s\S]*for update of auth_user/);
   assert.match(script, /options\.apply[\s\S]*for share of version, product/);

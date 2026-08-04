@@ -5,7 +5,7 @@ import {
   parseLegacyShelfImportOptions,
   selectExactlyOneVerifiedTarget,
 } from '@/lib/customer/legacy-shelf-import-policy';
-import { verifyLegacyShelfImportSourceFromGit } from '@/lib/customer/legacy-shelf-import-source';
+import { verifyLegacyShelfImportSourceSnapshot } from '@/lib/customer/legacy-shelf-import-source';
 import { normalizedCustomerProductEntityRef } from '@/lib/customer/product-request-model';
 import { requireAdminDatabaseUrl } from './lib/admin-database';
 
@@ -639,7 +639,7 @@ async function importWithinTransaction(
 
 async function main() {
   const options = parseLegacyShelfImportOptions(process.argv.slice(2), process.env);
-  verifyLegacyShelfImportSourceFromGit();
+  verifyLegacyShelfImportSourceSnapshot();
   const connectionString = requireAdminDatabaseUrl();
 
   const sql = postgres(connectionString, { max: 1, prepare: false });
