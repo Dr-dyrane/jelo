@@ -12,6 +12,7 @@ import {
   preferredCustomerFirstName,
   SYNTHETIC_CUSTOMER_ENV_FLAG,
 } from '../../lib/customer/access-policy';
+import { LEGACY_SHELF_IMPORT_MANIFEST } from '../../lib/customer/legacy-shelf-import-manifest';
 
 test('sign-in continuation accepts only the two internal product roots', () => {
   assert.equal(resolveSignInContinuation('/me'), '/me');
@@ -62,36 +63,38 @@ test('the development presentation is server-only, synthetic, and local-data-onl
   assert.doesNotMatch(home, /__qa|fixture|scenario selector|test customer/i);
 });
 
-test('the synthetic Shelf is a nine-product local fixture with a coherent three-step routine', () => {
+test('the synthetic Shelf derives the approved five-product legacy seed and its example routine', () => {
   const fixture = readFileSync('lib/customer/development-fixture.ts', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
-  const routineSlugs = [
-    'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
-    'cerave-pm-facial-moisturising-lotion-52ml',
-    'eucerin-oil-control-sun-gel-cream-spf50-50ml',
-  ];
-  const shelfSlugs = [
-    'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
-    'nineless-mela-pro-rice-txa-toner-200ml',
-    'laroche-posay-mela-b3-serum-30ml',
-    'cerave-pm-facial-moisturising-lotion-52ml',
-    'eucerin-oil-control-sun-gel-cream-spf50-50ml',
-    'dove-calming-moisture-body-wash-547ml',
-    'eucerin-urearepair-plus-10-urea-body-lotion-250ml',
-    'sheamoisture-jamaican-black-castor-oil-shampoo-384ml',
-    'cecred-moisturizing-deep-conditioner-300ml',
-  ];
 
-  assert.equal(shelfSlugs.length, 9);
-  for (const slug of shelfSlugs) {
+  const acceptedSlugs = LEGACY_SHELF_IMPORT_MANIFEST.accepted.map(
+    binding => binding.identityVersion.slugAtReview,
+  );
+  assert.equal(acceptedSlugs.length, 5);
+  assert.equal(LEGACY_SHELF_IMPORT_MANIFEST.rejected.length, 9);
+  for (const slug of acceptedSlugs) {
     const product = products.find((candidate) => candidate.slug === slug);
     assert.ok(product?.image, `${slug} must remain an exact display-approved catalogue product`);
-    assert.match(fixture, new RegExp(slug));
+    assert.doesNotMatch(fixture, new RegExp(slug), `${slug} must come from the manifest, not a copied list`);
   }
-  for (const slug of routineSlugs) assert.ok(shelfSlugs.includes(slug));
-  assert.match(fixture, /routineProvenance: 'Amara’s routine'/);
+  for (const rejection of LEGACY_SHELF_IMPORT_MANIFEST.rejected) {
+    assert.doesNotMatch(fixture, new RegExp(`\\b${rejection.legacyId}\\b`));
+  }
+  assert.match(fixture, /LEGACY_SHELF_IMPORT_MANIFEST\.accepted/);
+  assert.doesNotMatch(fixture, /LEGACY_SHELF_IMPORT_MANIFEST\.rejected/);
+  assert.match(fixture, /binding\.identityVersion\.slugAtReview/);
+  assert.match(fixture, /saveOrigin: 'legacy_pages_v1_0'/);
+  assert.match(fixture, /LEGACY_SHELF_IMPORT_MANIFEST\.requiredIdentity\.packageVersion/);
+  assert.match(fixture, /binding\.provenance\.routineReferences/);
+  assert.match(fixture, /binding\.provenance\.usage/);
+  assert.match(fixture, /\['done', 'confirmed', 'alert'\]/);
+  assert.match(fixture, /concerns: \[\]/);
+  assert.match(fixture, /selectedRetailers: \[\]/);
+  assert.match(fixture, /synthetic: true/);
+  assert.match(fixture, /example routine · local preview/);
   assert.match(home, /viewModel\.routineProvenance/);
-  assert.doesNotMatch(fixture, /some-by-mi-aha-bha-pha-miracle-toner/);
+  assert.match(home, /shelfState\.previewOnly/);
+  assert.match(home, /Preview Shelf · Resets on reload\./);
   assert.doesNotMatch(fixture, /recommended|JeloCare routine/i);
 });
 
