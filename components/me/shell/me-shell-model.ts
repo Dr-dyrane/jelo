@@ -72,7 +72,7 @@ export const ME_WORKSPACE_FABS = {
   home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
   explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
   shelf: { ownerId: 'me-shelf-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
-  routine: { ownerId: 'me-routine-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
+  routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
   consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
   product: { ownerId: 'me-product-public-evidence', label: 'View product', action: 'public-product' },
   'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },

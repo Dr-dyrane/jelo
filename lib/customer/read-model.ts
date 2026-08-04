@@ -43,6 +43,7 @@ export async function readCustomerPortal(
     featuredProduct: firstSavedProduct ?? catalogue[0] ?? null,
     catalogue,
     concerns: [],
+    selectedRetailers: [],
     shelfState: {
       status: shelfRead.status,
       message: shelfRead.status === 'unavailable' ? shelfRead.message : null,

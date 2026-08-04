@@ -1,9 +1,11 @@
 import 'server-only';
 
 import { products } from '@/data/catalogue';
+import { concernBySlug } from '@/data/knowledge';
 import type { CustomerAccessIdentity } from './access-policy';
 import {
   toCustomerPortalProduct,
+  type CustomerPortalConcernReference,
   type CustomerPortalShelfItem,
   type CustomerPortalViewModel,
 } from './portal-model';
@@ -35,6 +37,24 @@ const SYNTHETIC_ROUTINE_PRODUCT_SLUGS = [
   SYNTHETIC_SHELF_PRODUCT_SLUGS[3],
   SYNTHETIC_SHELF_PRODUCT_SLUGS[4],
 ] as const;
+
+const SYNTHETIC_CONCERN_SLUGS = [
+  'dry-dehydrated-skin',
+  'dark-spots',
+  'dandruff-itchy-scalp',
+] as const;
+
+function syntheticConcernReference(slug: string): CustomerPortalConcernReference {
+  const concern = concernBySlug(slug);
+  if (!concern) throw new Error(`The development customer requires canonical concern ${slug}.`);
+  return {
+    slug: concern.slug,
+    name: concern.name,
+    area: concern.area,
+    kind: concern.kind,
+    source: 'synthetic-development',
+  };
+}
 
 export function createSyntheticCustomerPortal(): CustomerPortalViewModel {
   const shelf = SYNTHETIC_SHELF_PRODUCT_SLUGS.map((slug, index): CustomerPortalShelfItem => {
@@ -75,14 +95,18 @@ export function createSyntheticCustomerPortal(): CustomerPortalViewModel {
       synthetic: true,
     },
     featuredProduct: shelf[0]?.product ?? null,
-    concerns: ['Dryness', 'Uneven tone', 'Scalp comfort'],
+    concerns: SYNTHETIC_CONCERN_SLUGS.map(syntheticConcernReference),
+    selectedRetailers: [
+      { name: 'Beauty by Daz', source: 'synthetic-development' },
+      { name: 'Care to Beauty', source: 'synthetic-development' },
+    ],
     shelfState: { status: 'ready', message: null },
     shelf,
     routineProvenance: 'Amara’s routine',
     routine: [
-      { id: 'cleanse', moment: 'Saved step', product: routineProducts[0] },
-      { id: 'moisturise', moment: 'Saved step', product: routineProducts[1] },
-      { id: 'protect', moment: 'Saved step', product: routineProducts[2] },
+      { id: 'cleanse', moment: 'Done today · local preview', status: 'done', product: routineProducts[0] },
+      { id: 'moisturise', moment: 'Added to routine · local preview', status: 'confirmed', product: routineProducts[1] },
+      { id: 'protect', moment: 'Routine reminder · local preview', status: 'alert', product: routineProducts[2] },
     ],
   };
 }

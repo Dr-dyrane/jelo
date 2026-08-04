@@ -122,9 +122,10 @@ test('standalone saved-product lists expand without widening mobile cards', () =
   assert.doesNotMatch(styles, /@media \(min-width: 900px\) \{[\s\S]*\.section > \.productGrid/);
   assert.match(styles, /\.listPage \.productCard \{[\s\S]*min-height: 220px;[\s\S]*grid-template-columns: minmax\(156px, 0\.72fr\)/);
   assert.match(styles, /\.listPage \.productImage::after \{[\s\S]*box-shadow:[\s\S]*content: '';/);
-  assert.match(dock, /Pipette/);
+  assert.match(dock, /ShelvingUnit/);
+  assert.match(dock, /ClockFading as RotateCwFadingClock/);
   assert.doesNotMatch(dock, /LibraryBig/);
-  assert.match(home, /<Pipette size=\{24\}/);
+  assert.match(home, /<ShelvingUnit size=\{24\}/);
   assert.doesNotMatch(home, /LibraryBig/);
 });
 
@@ -151,6 +152,8 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
     displayLine: 'Exact line',
     usage: 'Use as directed.',
     priceLabel: null,
+    supportedConcernSlugs: ['dry-dehydrated-skin'],
+    freshExactRetailerNames: [],
   };
   const shelfItem = {
     identityVersionId: '11111111-1111-4111-8111-111111111111',
@@ -178,11 +181,18 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
       synthetic: true,
     },
     featuredProduct: product,
-    concerns: ['Dryness'],
+    concerns: [{
+      slug: 'dry-dehydrated-skin',
+      name: 'Dry & dehydrated skin',
+      area: 'Face' as const,
+      kind: 'concern' as const,
+      source: 'synthetic-development' as const,
+    }],
+    selectedRetailers: [],
     shelfState: { status: 'ready' as const, message: null },
     shelf: [shelfItem],
     routineProvenance: 'Amara’s routine',
-    routine: [{ id: 'treat', moment: 'Saved step', product }],
+    routine: [{ id: 'treat', moment: 'Saved step', status: 'confirmed' as const, product }],
   };
   const shelf = createMeContextSheetModel({
     route: { kind: 'shelf' },
@@ -296,7 +306,7 @@ test('every Me surface owns exactly one truthful working FAB', () => {
     home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
     explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
     shelf: { ownerId: 'me-shelf-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
-    routine: { ownerId: 'me-routine-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
+    routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
     consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
     product: { ownerId: 'me-product-public-evidence', label: 'View product', action: 'public-product' },
     'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
@@ -314,7 +324,8 @@ test('every Me surface owns exactly one truthful working FAB', () => {
   assert.match(dockNavigation, /import Link from 'next\/link'/);
   assert.match(dockNavigation, /<Link[\s\S]*href=\{item\.href\}/);
   assert.doesNotMatch(dockNavigation, /<a[\s\S]*href=\{item\.href\}/);
-  assert.doesNotMatch(JSON.stringify(ME_WORKSPACE_FABS), /mutat|save|add|edit/i);
+  assert.equal(ME_WORKSPACE_FABS.routine.label, 'Add routine step');
+  assert.doesNotMatch(JSON.stringify(ME_WORKSPACE_FABS), /mutat|save|edit/i);
 });
 
 test('Me header visibility derives from the dock scroll state and route reset', () => {

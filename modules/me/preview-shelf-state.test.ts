@@ -17,6 +17,8 @@ const product: CustomerPortalProduct = {
   displayLine: 'Treat · support',
   usage: 'Use as directed.',
   priceLabel: null,
+  supportedConcernSlugs: [],
+  freshExactRetailerNames: [],
 };
 
 test('preview Shelf add, remove, and clear are local deterministic state transitions', () => {

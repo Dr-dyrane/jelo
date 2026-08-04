@@ -55,7 +55,10 @@
 .emptyAction a:focus-visible,
 .backLink:focus-visible,
 .publicLink:focus-visible,
-.searchField:focus-within {
+.searchField:focus-within,
+.exploreToolbar button:focus-visible,
+.filterSheet button:focus-visible,
+.filterField select:focus-visible {
   outline: 2px solid var(--wine);
   outline-offset: 3px;
 }
@@ -445,6 +448,14 @@
 
 .routineImage img { width: 72%; height: 94px; object-fit: contain; }
 .routineNumber { align-self: center; color: var(--wine); font-family: var(--font-display), serif; font-size: 1.45rem; text-align: center; }
+.routineNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+.routineNumber > svg { color: var(--wine); }
 .routineCopy { display: grid; min-width: 0; align-content: center; padding: 14px 8px; }
 .routineCopy strong { margin-top: 5px; font-size: 0.88rem; font-weight: 500; }
 .routineList a > svg { align-self: center; justify-self: center; color: var(--wine); }
@@ -513,6 +524,55 @@
   font-size: 0.68rem;
 }
 
+.exploreToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: calc(clamp(32px, 5vw, 62px) * -0.62) 0 clamp(42px, 6vw, 76px);
+}
+
+.exploreToolbar p { margin: 0; color: var(--muted); font-size: 0.78rem; }
+.exploreToolbar p strong { color: var(--ink); font-size: 1rem; }
+.exploreToolbar button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  box-shadow: 0 12px 34px rgb(107 59 53 / 8%);
+  color: var(--wine);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.exploreSections { display: grid; gap: clamp(76px, 10vw, 140px); }
+.exploreSection { min-width: 0; }
+.exploreSectionHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: clamp(24px, 4vw, 44px);
+}
+.exploreSectionHeading h2,
+.concernsLanding h2,
+.askSearchHeading h2,
+.filterSheetHeader h2 {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.96;
+}
+.exploreSectionHeading h2 { font-size: clamp(2.8rem, 5vw, 5.4rem); }
+.exploreSectionHeading p { max-width: 31rem; margin: 0; color: var(--muted); font-size: 0.78rem; line-height: 1.65; }
+
 .exploreGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -550,6 +610,94 @@
 .exploreCopy strong { margin-top: 12px; font-family: var(--font-display), serif; font-size: clamp(2rem, 3.5vw, 3.55rem); font-weight: 400; letter-spacing: -0.04em; line-height: 0.98; }
 .exploreMeta { display: flex; min-width: 0; justify-content: space-between; gap: 16px; margin-top: 30px; color: var(--muted); font-size: 0.76rem; }
 .exploreMeta span:last-child { color: var(--wine); text-align: right; }
+.exploreContext { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+.exploreContext span {
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 66%, transparent);
+  color: var(--wine);
+  font-size: 0.61rem;
+  font-weight: 600;
+}
+
+.filterDialog {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+.filterDialog::backdrop { background: rgb(52 32 29 / 38%); backdrop-filter: blur(7px); }
+.filterSheet {
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+  width: min(100%, 920px);
+  max-height: min(88dvh, 820px);
+  padding: clamp(24px, 4vw, 46px);
+  overflow-y: auto;
+  border-radius: 38px 38px 0 0;
+  background:
+    radial-gradient(circle at 86% 0%, color-mix(in srgb, var(--rose) 56%, transparent), transparent 18rem),
+    color-mix(in srgb, var(--paper) 96%, var(--peach));
+  box-shadow: 0 -30px 90px rgb(61 35 31 / 22%);
+  transform: translateX(50%);
+}
+.filterSheetHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.filterSheetHeader h2 { margin-top: 9px; font-size: clamp(2.7rem, 6vw, 5rem); }
+.filterSheetHeader p:last-child { margin: 10px 0 0; color: var(--muted); font-size: 0.76rem; }
+.filterSheetHeader > button {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--peach) 72%, var(--paper));
+  color: var(--wine);
+  cursor: pointer;
+}
+.filterGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.filterField { display: grid; gap: 8px; }
+.filterField > span { padding-left: 5px; color: var(--wine); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.filterField select {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 42px 0 16px;
+  border: 0;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--cream) 78%, var(--paper));
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.78rem;
+}
+.filterSheetActions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 28px; }
+.filterSheetActions button {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+.filterSheetActions button:first-child { background: color-mix(in srgb, var(--peach) 72%, var(--paper)); color: var(--wine); }
+.filterSheetActions button:disabled { cursor: default; opacity: 0.46; }
 
 .listPage { width: min(100%, 920px); }
 .stackPage { padding-top: 26px; }
@@ -569,6 +717,35 @@
   color: var(--wine);
   font-size: 0.78rem;
 }
+
+.concernsLanding {
+  margin-bottom: clamp(68px, 9vw, 118px);
+  padding: clamp(26px, 4vw, 48px);
+  border-radius: clamp(28px, 4vw, 44px);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--paper) 82%, transparent), color-mix(in srgb, var(--peach) 66%, transparent));
+}
+.concernsLanding > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.concernsLanding h2 { margin-top: 10px; font-size: clamp(2.8rem, 6vw, 5.8rem); }
+.concernsLanding > header > span {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--wine);
+  color: var(--paper);
+  font-family: var(--font-display), serif;
+  font-size: 1.25rem;
+}
+.concernsLanding .concernList { margin: 0 0 22px; }
+.concernsLanding .concernList span { display: inline-flex; align-items: baseline; gap: 8px; }
+.concernsLanding .concernList small { color: var(--muted); font-size: 0.6rem; text-transform: uppercase; }
+.concernsLanding > p { max-width: 44rem; margin: 0; color: var(--muted); font-size: 0.78rem; line-height: 1.7; }
+.askSearchHeading { margin-bottom: 24px; }
+.askSearchHeading h2 { margin-top: 10px; font-size: clamp(2.5rem, 5vw, 4.8rem); }
+.askSearchHeading > p:last-child { margin: 12px 0 0; color: var(--muted); font-size: 0.8rem; }
+.consultBoundary { margin: -26px 0 0; color: var(--muted); font-size: 0.76rem; }
 
 .productPage { padding-bottom: 40px; }
 
@@ -718,6 +895,8 @@
   .routineSurface { padding-inline: 14px; }
   .routePage { padding-inline: 4px; }
   .routeHeading h1 { font-size: clamp(3.45rem, 18vw, 5.4rem); }
+  .exploreToolbar { align-items: flex-start; flex-direction: column; }
+  .exploreSectionHeading { align-items: flex-start; flex-direction: column; gap: 12px; }
   .exploreGrid { grid-template-columns: 1fr; }
   .exploreVisual { min-height: 390px; }
   .exploreVisual img { height: 340px; }
@@ -734,6 +913,10 @@
   .routineImage img { width: 72%; height: 82px; }
   .routineNumber { font-size: 1.2rem; }
   .routineCopy strong { font-size: 0.78rem; }
+  .filterSheet { max-height: 92dvh; padding: 24px 16px calc(22px + env(safe-area-inset-bottom)); border-radius: 28px 28px 0 0; }
+  .filterGrid { grid-template-columns: 1fr; }
+  .filterSheetActions { align-items: stretch; flex-direction: column-reverse; }
+  .concernsLanding { padding: 26px 20px; }
   .productHero { border-radius: 28px; }
   .productPage { padding-bottom: calc(148px + env(safe-area-inset-bottom)); }
   .productVisualLarge { min-height: clamp(280px, calc(100dvh - 544px), 400px); }
@@ -767,7 +950,8 @@
   .productCard,
   .routineList li,
   .searchField,
-  .productHero { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .productHero,
+  .filterSheet { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 @media (forced-colors: active) {
@@ -777,5 +961,6 @@
   .routineList li,
   .exploreCard,
   .accountTrigger,
-  .productHero { border: 1px solid CanvasText; }
+  .productHero,
+  .filterSheet { border: 1px solid CanvasText; }
 }

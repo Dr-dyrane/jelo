@@ -4,12 +4,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   ArrowRight,
+  ClockAlert,
+  ClockPlus,
   Compass,
   ExternalLink,
   MessageCircleQuestion,
-  Pipette,
   Search,
+  ShelvingUnit,
+  SlidersHorizontal,
   Sparkles,
+  X,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
 import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
@@ -43,6 +47,18 @@ import type {
   CustomerPortalShelfItem,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
+import {
+  clearCustomerExploreFilters,
+  countCustomerExploreFilters,
+  createCustomerExploreFilterOptions,
+  createCustomerExploreProjection,
+  filterCustomerExplore,
+  flattenCustomerExplore,
+  type CustomerExploreFilterOptions,
+  type CustomerExploreFilterState,
+  type CustomerExploreProduct,
+  type CustomerExploreProjection,
+} from '@/lib/customer/explore-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import styles from './me-home.module.css';
 
@@ -78,12 +94,20 @@ function ProductListCard({
   );
 }
 
-function ExploreCard({ product, source = 'explore', shelfItem, showShelfAction = false, shelfAction }: {
+function ExploreCard({
+  product,
+  source = 'explore',
+  shelfItem,
+  showShelfAction = false,
+  shelfAction,
+  context,
+}: {
   product: CustomerPortalProduct;
   source?: ProductSource;
   shelfItem?: CustomerPortalShelfItem;
   showShelfAction?: boolean;
   shelfAction?: ShelfActionHandler;
+  context?: CustomerExploreProduct;
 }) {
   return (
     <article className={styles.exploreCard}>
@@ -98,6 +122,14 @@ function ExploreCard({ product, source = 'explore', shelfItem, showShelfAction =
             <span>{product.size}</span>
             {product.priceLabel ? <span>{product.priceLabel}</span> : null}
           </span>
+          {context ? (
+            <span className={styles.exploreContext} aria-label="Your product context">
+              {context.onShelf ? <span>On your Shelf</span> : null}
+              {context.inRoutine ? <span>In your routine</span> : null}
+              {context.matchedConcernSlugs.length ? <span>Reviewed concern support</span> : null}
+              {context.matchedRetailerNames.map(name => <span key={name}>{name}</span>)}
+            </span>
+          ) : null}
         </span>
       </Link>
       {showShelfAction ? (
@@ -244,13 +276,13 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
           </div>
         ) : viewModel.shelfState.status === 'unavailable' ? (
           <div className={styles.emptyAction} role="status">
-            <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
+            <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
             <p>{viewModel.shelfState.message}</p>
             <Link href="/me">Try again</Link>
           </div>
         ) : (
           <div className={styles.emptyAction}>
-            <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
+            <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
             <p>Nothing saved yet.</p>
             <Link href="/me/explore">Explore products</Link>
           </div>
@@ -269,44 +301,264 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
   );
 }
 
+function ExploreFilterSelect({
+  label,
+  value,
+  allLabel,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  allLabel: string;
+  options: readonly { value: string; label: string }[];
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className={styles.filterField}>
+      <span>{label}</span>
+      <select value={value} onChange={(event) => onChange(event.target.value)}>
+        <option value="">{allLabel}</option>
+        {options.map(option => (
+          <option key={option.value} value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function ExploreFilterSheet({
+  open,
+  triggerRef,
+  filters,
+  options,
+  visibleCount,
+  totalCount,
+  onChange,
+  onClose,
+}: {
+  open: boolean;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
+  filters: CustomerExploreFilterState;
+  options: CustomerExploreFilterOptions;
+  visibleCount: number;
+  totalCount: number;
+  onChange: (filters: CustomerExploreFilterState) => void;
+  onClose: () => void;
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const activeCount = countCustomerExploreFilters(filters);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (open && !dialog.open) dialog.showModal();
+    if (!open && dialog.open) dialog.close();
+  }, [open]);
+
+  const close = () => {
+    onClose();
+    window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
+  };
+  const update = <Key extends keyof CustomerExploreFilterState>(
+    key: Key,
+    value: CustomerExploreFilterState[Key],
+  ) => onChange({ ...filters, [key]: value });
+
+  return (
+    <dialog
+      id="me-explore-filter-sheet"
+      ref={dialogRef}
+      className={styles.filterDialog}
+      aria-labelledby="me-explore-filter-title"
+      onCancel={(event) => { event.preventDefault(); close(); }}
+      onClick={(event) => { if (event.target === event.currentTarget) close(); }}
+    >
+      <div className={styles.filterSheet}>
+        <header className={styles.filterSheetHeader}>
+          <div>
+            <p className={styles.eyebrow}>Your catalogue</p>
+            <h2 id="me-explore-filter-title">Smart filters</h2>
+            <p>{visibleCount} of {totalCount} exact products</p>
+          </div>
+          <button type="button" aria-label="Close filters" onClick={close}>
+            <X size={20} aria-hidden="true" />
+          </button>
+        </header>
+
+        <div className={styles.filterGrid}>
+          <ExploreFilterSelect
+            label="Category"
+            value={filters.category}
+            allLabel="All categories"
+            options={options.categories.map(value => ({ value, label: value }))}
+            onChange={(value) => update('category', value)}
+          />
+          <ExploreFilterSelect
+            label="Routine step"
+            value={filters.step}
+            allLabel="All steps"
+            options={options.steps.map(value => ({ value, label: value }))}
+            onChange={(value) => update('step', value)}
+          />
+          <ExploreFilterSelect
+            label="Brand"
+            value={filters.brand}
+            allLabel="All brands"
+            options={options.brands.map(value => ({ value, label: value }))}
+            onChange={(value) => update('brand', value)}
+          />
+          <label className={styles.filterField}>
+            <span>Shelf</span>
+            <select
+              value={filters.shelf}
+              onChange={(event) => update(
+                'shelf',
+                event.target.value as CustomerExploreFilterState['shelf'],
+              )}
+            >
+              <option value="all">Any Shelf state</option>
+              <option value="on">On your Shelf</option>
+              <option value="off">Not on your Shelf</option>
+            </select>
+          </label>
+          {options.concerns.length ? (
+            <ExploreFilterSelect
+              label="My concern"
+              value={filters.concernSlug}
+              allLabel="All concern support"
+              options={options.concerns.map(concern => ({ value: concern.slug, label: concern.name }))}
+              onChange={(value) => update('concernSlug', value)}
+            />
+          ) : null}
+          {options.retailers.length ? (
+            <ExploreFilterSelect
+              label="My store"
+              value={filters.retailerName}
+              allLabel="All fresh exact stores"
+              options={options.retailers.map(value => ({ value, label: value }))}
+              onChange={(value) => update('retailerName', value)}
+            />
+          ) : null}
+        </div>
+
+        <footer className={styles.filterSheetActions}>
+          <button
+            type="button"
+            disabled={!activeCount}
+            onClick={() => onChange(clearCustomerExploreFilters())}
+          >
+            Clear filters{activeCount ? ` · ${activeCount}` : ''}
+          </button>
+          <button type="button" onClick={close}>Show {visibleCount} products</button>
+        </footer>
+      </div>
+    </dialog>
+  );
+}
+
 function ExplorePage({
   viewModel,
-  products,
-  search,
-  setSearch,
+  projection,
+  filters,
+  filterOptions,
+  onFiltersChange,
   searchRef,
   shelfAction,
 }: {
   viewModel: CustomerPortalViewModel;
-  products: readonly CustomerPortalProduct[];
-  search: string;
-  setSearch: (value: string) => void;
+  projection: CustomerExploreProjection;
+  filters: CustomerExploreFilterState;
+  filterOptions: CustomerExploreFilterOptions;
+  onFiltersChange: (filters: CustomerExploreFilterState) => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
   shelfAction?: ShelfActionHandler;
 }) {
   const surface = ME_PORTAL_SURFACES.explore;
+  const [filterOpen, setFilterOpen] = useState(false);
+  const filterTriggerRef = useRef<HTMLButtonElement>(null);
+  const visibleProducts = flattenCustomerExplore(projection);
+  const activeCount = countCustomerExploreFilters(filters);
   return (
     <section className={styles.routePage} aria-labelledby="me-explore-title">
       <div className={styles.routeHeading}>
         <p className={styles.eyebrow}>{surface.eyebrow}</p>
         <h1 id="me-explore-title">{surface.title}</h1>
+        <p>Every exact product, arranged around the care context you chose.</p>
       </div>
-      <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search exact products" />
-      {products.length ? (
-        <div className={styles.exploreGrid}>
-          {products.map((product) => (
-            <ExploreCard
-              key={product.slug}
-              product={product}
-              shelfItem={viewModel.shelf.find(item => item.product?.slug === product.slug)}
-              showShelfAction={viewModel.shelfState.status === 'ready'}
-              shelfAction={shelfAction}
-            />
-          ))}
+      <SearchField
+        value={filters.search}
+        onChange={(search) => onFiltersChange({ ...filters, search })}
+        inputRef={searchRef}
+        label="Search exact products"
+      />
+      <div className={styles.exploreToolbar}>
+        <p role="status" aria-live="polite">
+          <strong>{visibleProducts.length}</strong> of {projection.eligibleCount} products
+        </p>
+        <button
+          ref={filterTriggerRef}
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="me-explore-filter-sheet"
+          aria-expanded={filterOpen}
+          onClick={() => setFilterOpen(true)}
+        >
+          <SlidersHorizontal size={18} aria-hidden="true" />
+          Filters{activeCount ? ` · ${activeCount}` : ''}
+        </button>
+      </div>
+
+      {visibleProducts.length ? (
+        <div className={styles.exploreSections}>
+          {projection.sections.map((section) => {
+            const headingId = `me-explore-${section.id.replace(':', '-')}`;
+            return (
+              <section key={section.id} className={styles.exploreSection} aria-labelledby={headingId}>
+                <header className={styles.exploreSectionHeading}>
+                  <h2 id={headingId}>{section.title}</h2>
+                  <p>{section.description}</p>
+                </header>
+                <div className={styles.exploreGrid}>
+                  {section.products.map((entry) => (
+                    <ExploreCard
+                      key={entry.product.slug}
+                      product={entry.product}
+                      context={entry}
+                      shelfItem={viewModel.shelf.find(item => item.product?.slug === entry.product.slug)}
+                      showShelfAction={viewModel.shelfState.status === 'ready'}
+                      shelfAction={shelfAction}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       ) : (
-        <p className={styles.empty}>No exact products match that search.</p>
+        <div className={styles.emptyAction}>
+          <Search size={24} strokeWidth={1.5} aria-hidden="true" />
+          <p>No exact products match these filters.</p>
+          <button
+            className={styles.retryAction}
+            type="button"
+            onClick={() => onFiltersChange(clearCustomerExploreFilters())}
+          >
+            Clear filters
+          </button>
+        </div>
       )}
+
+      <ExploreFilterSheet
+        open={filterOpen}
+        triggerRef={filterTriggerRef}
+        filters={filters}
+        options={filterOptions}
+        visibleCount={visibleProducts.length}
+        totalCount={projection.eligibleCount}
+        onChange={onFiltersChange}
+        onClose={() => setFilterOpen(false)}
+      />
     </section>
   );
 }
@@ -321,7 +573,7 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
       </div>
       {viewModel.shelfState.status === 'unavailable' ? (
         <div className={styles.emptyAction} role="status">
-          <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
+          <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
           <p>{viewModel.shelfState.message}</p>
           <Link href="/me/shelf">Try again</Link>
         </div>
@@ -342,7 +594,7 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
         </div>
       ) : (
         <div className={styles.emptyAction}>
-          <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
+          <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
           <p>Nothing saved yet.</p>
           <Link href="/me/explore">Explore products</Link>
         </div>
@@ -352,24 +604,44 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
 }
 
 function RoutineList({ viewModel }: { viewModel: CustomerPortalViewModel }) {
-  if (!viewModel.routine.length) return <p className={styles.empty}>No routine yet.</p>;
+  if (!viewModel.routine.length) {
+    return (
+      <div className={styles.emptyAction}>
+        <ClockPlus size={24} strokeWidth={1.5} aria-hidden="true" />
+        <p>No routine yet.</p>
+        <Link href="/me/explore">Add routine step</Link>
+      </div>
+    );
+  }
   return (
     <ol className={styles.routineList}>
-      {viewModel.routine.map((step, index) => (
-        <li key={step.id}>
-          <Link href={memberProductHref(step.product, 'routine')} aria-label={`View ${step.product.name}`}>
-            <span className={styles.routineImage}>
-              <SafeProductImage src={step.product.image} alt={`${step.product.brand} ${step.product.name}`} />
-            </span>
-            <span className={styles.routineNumber}>{String(index + 1).padStart(2, '0')}</span>
-            <span className={styles.routineCopy}>
-              <small>{step.moment}</small>
-              <strong>{step.product.brand} {step.product.name}</strong>
-            </span>
-            <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-        </li>
-      ))}
+      {viewModel.routine.map((step, index) => {
+        const StatusIcon = step.status === 'alert' ? ClockAlert : ClockPlus;
+        const statusLabel = step.status === 'alert'
+          ? 'Routine alert'
+          : step.status === 'done'
+            ? 'Routine done'
+            : 'Routine step confirmed';
+        return (
+          <li key={step.id}>
+            <Link href={memberProductHref(step.product, 'routine')} aria-label={`View ${step.product.name}`}>
+              <span className={styles.routineImage}>
+                <SafeProductImage src={step.product.image} alt={`${step.product.brand} ${step.product.name}`} />
+              </span>
+              <span className={styles.routineNumber}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <StatusIcon size={17} aria-hidden="true" />
+                <span className={styles.visuallyHidden}>{statusLabel}</span>
+              </span>
+              <span className={styles.routineCopy}>
+                <small>{step.moment}</small>
+                <strong>{step.product.brand} {step.product.name}</strong>
+              </span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -407,15 +679,51 @@ function ConsultPage({
         <p className={styles.eyebrow}>{surface.eyebrow}</p>
         <h1 id="me-consult-title">{surface.title}</h1>
       </div>
-      <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search my care" />
-      {viewModel.concerns.length ? (
-        <div className={styles.concernList} aria-label="My concerns">
-          {viewModel.concerns.map((concern) => <span key={concern}>{concern}</span>)}
-        </div>
-      ) : null}
-      <div className={styles.exploreGrid}>
-        {products.slice(0, 6).map((product) => <ExploreCard key={product.slug} product={product} source="home" />)}
+      <section className={styles.concernsLanding} aria-labelledby="me-concerns-title">
+        <header>
+          <div>
+            <p className={styles.eyebrow}>My concerns</p>
+            <h2 id="me-concerns-title">What I’ve noticed.</h2>
+          </div>
+          <span>{viewModel.concerns.length}</span>
+        </header>
+        {viewModel.concerns.length ? (
+          <>
+            <div className={styles.concernList} aria-label="My concerns">
+              {viewModel.concerns.map((concern) => (
+                <span key={concern.slug}>{concern.name}<small>{concern.area}</small></span>
+              ))}
+            </div>
+            <p>
+              {viewModel.account.synthetic
+                ? 'Local preview only · These examples are not a diagnosis.'
+                : 'Educational care context only · Not a diagnosis.'}
+            </p>
+          </>
+        ) : (
+          <p>
+            No concerns have been reported here. Search what you notice below; this does not save or diagnose a concern.
+          </p>
+        )}
+      </section>
+
+      <div className={styles.askSearchHeading}>
+        <p className={styles.eyebrow}>Ask Me</p>
+        <h2>Explore your care.</h2>
+        <p>Search the exact catalogue in your own words.</p>
       </div>
+      <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search my care" />
+      {search.trim() ? (
+        products.length ? (
+          <div className={styles.exploreGrid}>
+            {products.slice(0, 6).map((product) => <ExploreCard key={product.slug} product={product} source="home" />)}
+          </div>
+        ) : (
+          <p className={styles.empty}>No exact catalogue products match that search.</p>
+        )
+      ) : (
+        <p className={styles.consultBoundary}>Suggestions and saved concern reporting are not available yet.</p>
+      )}
     </section>
   );
 }
@@ -524,7 +832,9 @@ function MePortalView({
   const router = useRouter();
   const shelfState = useMeShelfState(viewModel);
   const portalViewModel = shelfState.viewModel;
-  const [search, setSearch] = useState('');
+  const [exploreFilters, setExploreFilters] = useState<CustomerExploreFilterState>(
+    clearCustomerExploreFilters,
+  );
   const [shelfMutationFeedback, setShelfMutationFeedback] = useState({ message: '', sequence: 0 });
   const searchRef = useRef<HTMLInputElement>(null);
   const shelfMutationStatusRef = useRef<HTMLParagraphElement>(null);
@@ -535,14 +845,39 @@ function MePortalView({
     hasContext: true,
   });
   const catalogue = portalViewModel.catalogue ?? EMPTY_PRODUCTS;
-  const normalizedSearch = search.trim().toLowerCase();
-  const filteredProducts = useMemo(() => catalogue.filter((product) => {
+  const exploreProjection = useMemo(() => createCustomerExploreProjection({
+    catalogue,
+    shelf: portalViewModel.shelf,
+    routine: portalViewModel.routine,
+    concerns: portalViewModel.concerns,
+    selectedRetailers: portalViewModel.selectedRetailers,
+  }), [
+    catalogue,
+    portalViewModel.concerns,
+    portalViewModel.routine,
+    portalViewModel.selectedRetailers,
+    portalViewModel.shelf,
+  ]);
+  const filteredExploreProjection = useMemo(() => (
+    filterCustomerExplore(exploreProjection, exploreFilters)
+  ), [exploreFilters, exploreProjection]);
+  const exploreFilterOptions = useMemo(() => createCustomerExploreFilterOptions(
+    exploreProjection,
+    portalViewModel.concerns,
+  ), [exploreProjection, portalViewModel.concerns]);
+  const normalizedSearch = exploreFilters.search.trim().toLowerCase();
+  const consultProducts = useMemo(() => catalogue.filter((product) => {
     if (!normalizedSearch) return true;
-    return [product.brand, product.name, product.category, product.step, product.displayLine]
+    return [product.brand, product.name, product.category, product.step, product.displayLine, product.size]
       .join(' ')
       .toLowerCase()
       .includes(normalizedSearch);
-  }).slice(0, 12), [catalogue, normalizedSearch]);
+  }), [catalogue, normalizedSearch]);
+  const visibleProductCount = route.kind === 'explore'
+    ? flattenCustomerExplore(filteredExploreProjection).length
+    : route.kind === 'consult' && normalizedSearch
+      ? consultProducts.length
+      : catalogue.length;
   const product = route.kind === 'product'
     ? catalogue.find((candidate) => candidate.slug === route.slug)
     : undefined;
@@ -564,7 +899,7 @@ function MePortalView({
   const contextSheetModel = createMeContextSheetModel({
     route,
     viewModel: portalViewModel,
-    visibleProductCount: filteredProducts.length,
+    visibleProductCount,
     product,
   });
   const dockContext = {
@@ -608,9 +943,11 @@ function MePortalView({
     ? MessageCircleQuestion
     : state.page === 'explore' || state.page === 'consult'
       ? Search
-      : state.page === 'product'
-        ? ExternalLink
-        : Compass;
+      : state.page === 'routine'
+        ? ClockPlus
+        : state.page === 'product'
+          ? ExternalLink
+          : Compass;
 
   const invokeFab = () => {
     if (fabContract.action === 'focus-search') {
@@ -701,9 +1038,10 @@ function MePortalView({
           {route.kind === 'explore' ? (
             <ExplorePage
               viewModel={portalViewModel}
-              products={filteredProducts}
-              search={search}
-              setSearch={setSearch}
+              projection={filteredExploreProjection}
+              filters={exploreFilters}
+              filterOptions={exploreFilterOptions}
+              onFiltersChange={setExploreFilters}
               searchRef={searchRef}
               shelfAction={shelfState.shelfAction}
             />
@@ -713,9 +1051,9 @@ function MePortalView({
           {route.kind === 'consult' ? (
             <ConsultPage
               viewModel={portalViewModel}
-              products={filteredProducts}
-              search={search}
-              setSearch={setSearch}
+              products={consultProducts}
+              search={exploreFilters.search}
+              setSearch={(search) => setExploreFilters(current => ({ ...current, search }))}
               searchRef={searchRef}
             />
           ) : null}

@@ -1,6 +1,12 @@
 'use client';
 
-import { CircleUserRound, Compass, House, Pipette, Rows3 } from 'lucide-react';
+import {
+  CircleUserRound,
+  ClockFading as RotateCwFadingClock,
+  Compass,
+  House,
+  ShelvingUnit,
+} from 'lucide-react';
 import type { RefObject } from 'react';
 import {
   AdaptiveWorkspaceDock,
@@ -15,8 +21,8 @@ import { ME_RELEASED_WORKSPACE_NAVIGATION } from './me-shell-model';
 const icons = {
   home: House,
   explore: Compass,
-  shelf: Pipette,
-  routine: Rows3,
+  shelf: ShelvingUnit,
+  routine: RotateCwFadingClock,
 } as const;
 
 const ME_DOCK_ITEMS: readonly WorkspaceDockNavigationItem[] =

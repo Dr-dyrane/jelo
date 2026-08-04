@@ -140,6 +140,8 @@ test('active identities resolve while retired, changed, and unmatched snapshots 
     displayLine: 'Treat · support',
     usage: 'Use as directed.',
     priceLabel: null,
+    supportedConcernSlugs: [],
+    freshExactRetailerNames: [],
   };
   const catalogue = new Map([[slug, product]]);
 

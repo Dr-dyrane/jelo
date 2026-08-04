@@ -1,6 +1,8 @@
 import type { Product } from '@/data/products';
+import { getReviewedProductCare } from '@/data/product-care-review';
 import type { CustomerShelfRecord } from './shelf-repository';
 import { marketPriceLabel } from '@/modules/commerce/market-price-label';
+import { exactAvailableOffers } from '@/modules/commerce/market-product';
 
 export type CustomerPortalProduct = {
   slug: string;
@@ -13,12 +15,28 @@ export type CustomerPortalProduct = {
   displayLine: string;
   usage: string;
   priceLabel: string | null;
+  supportedConcernSlugs: readonly string[];
+  freshExactRetailerNames: readonly string[];
 };
 
 export type CustomerPortalRoutineStep = {
   id: string;
   moment: string;
+  status: 'confirmed' | 'done' | 'alert';
   product: CustomerPortalProduct;
+};
+
+export type CustomerPortalConcernReference = {
+  slug: string;
+  name: string;
+  area: 'Face' | 'Scalp' | 'Hair' | 'Body';
+  kind: 'concern' | 'condition-pattern';
+  source: 'customer' | 'synthetic-development';
+};
+
+export type CustomerPortalRetailerPreference = {
+  name: string;
+  source: 'customer' | 'synthetic-development';
 };
 
 export type CustomerPortalShelfItem = {
@@ -49,7 +67,8 @@ export type CustomerPortalViewModel = {
   };
   featuredProduct: CustomerPortalProduct | null;
   catalogue?: readonly CustomerPortalProduct[];
-  concerns: readonly string[];
+  concerns: readonly CustomerPortalConcernReference[];
+  selectedRetailers: readonly CustomerPortalRetailerPreference[];
   shelfState: {
     status: 'ready' | 'unavailable';
     message: string | null;
@@ -60,6 +79,13 @@ export type CustomerPortalViewModel = {
 };
 
 export function toCustomerPortalProduct(product: Product): CustomerPortalProduct {
+  const care = getReviewedProductCare(product.slug);
+  const supportedConcernSlugs = care?.careState === 'supportive_eligible'
+    ? [...new Set(care.approvedUses.flatMap(use => use.concernSlugs ?? []))]
+    : [];
+  const freshExactRetailerNames = [...new Set(
+    exactAvailableOffers(product.offers, 'NG').map(offer => offer.retailer),
+  )];
   return {
     slug: product.slug,
     brand: product.brand,
@@ -71,6 +97,8 @@ export function toCustomerPortalProduct(product: Product): CustomerPortalProduct
     displayLine: product.displayLine,
     usage: product.usage,
     priceLabel: marketPriceLabel(product.offers, 'NG'),
+    supportedConcernSlugs,
+    freshExactRetailerNames,
   };
 }
 
