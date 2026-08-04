@@ -1,6 +1,6 @@
 # JeloCare handbook
 
-Updated: 2026-08-02
+Updated: 2026-08-04
 
 This is the entry point for product, engineering, data, and operations.
 
@@ -38,6 +38,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ANUA Zero-cast evidence blocker](./research/2026-07-28-anua-zero-cast-sunscreen-evidence-blocker.md)
 - [DANG Hydra Glow offer blocker](./research/2026-07-28-dang-hydra-glow-nigeria-offer-blocker.md)
 - [Skin by Zaron salicylic toner EAN resolution](./research/2026-08-02-skin-by-zaron-salicylic-acid-ean-resolution.md)
+- [4 August founder/pharmacist catalogue offer targets](./research/catalogue-founder-pharmacist-offer-targets-2026-08-04.md)
 - [Retail intelligence](./RETAIL_INTELLIGENCE.md)
 - [Nigeria retailer reference](./NIGERIA_RETAILERS.md)
 - [Smart store guide](./retailers/SMART_STORE_GUIDE.md)

@@ -363,6 +363,22 @@
       "source": "reviewed-catalogue"
     },
     {
+      "slug": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      "brand": "La Roche-Posay",
+      "name": "Lipikar Baume AP+MAX",
+      "size": "200 mL",
+      "approvedGtin": "3337875930048",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      "brand": "La Roche-Posay",
+      "name": "Lipikar Baume AP+MAX",
+      "size": "400 mL",
+      "approvedGtin": "3337875930239",
+      "source": "dossier-release"
+    },
+    {
       "slug": "la-roche-posay-toleriane-double-repair-matte",
       "brand": "La Roche-Posay",
       "name": "Toleriane Double Repair Matte Moisturizer",

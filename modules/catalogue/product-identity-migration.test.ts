@@ -61,10 +61,10 @@ test('0033 and the seed admit only the reviewed public projection and reconcile 
   assert.doesNotMatch(repository, /external-products\.json/);
 });
 
-test('the complete current reviewed catalogue remains a one-to-one 63-product projection', () => {
-  assert.equal(products.length, 63);
-  assert.equal(publicCatalogueSearchArtifact.products.length, 63);
-  assert.equal(new Set(products.map(product => product.slug)).size, 63);
+test('the complete current reviewed catalogue remains a one-to-one 65-product projection', () => {
+  assert.equal(products.length, 65);
+  assert.equal(publicCatalogueSearchArtifact.products.length, 65);
+  assert.equal(new Set(products.map(product => product.slug)).size, 65);
   assert.deepEqual(
     new Set(products.map(product => product.slug)),
     new Set(publicCatalogueSearchArtifact.products.map(product => product.slug)),

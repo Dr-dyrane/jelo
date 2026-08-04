@@ -37,7 +37,10 @@ test('server search ranking reaches products beyond the former 24-item client ce
   assert.ok(lateProduct);
   assert.ok(products.indexOf(lateProduct) >= 24);
 
-  const [match] = productCatalogueSearchSuggestions(records, lateProduct.name);
+  const [match] = productCatalogueSearchSuggestions(
+    records,
+    `${lateProduct.name} ${lateProduct.size}`,
+  );
   assert.equal(match?.href, `/products/${lateProduct.slug}`);
 });
 
