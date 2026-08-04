@@ -26,7 +26,7 @@ async function main() {
   if (!isVercelProduction) {
     console.log('Skipping production release verification and staged asset promotion: not a Vercel production deployment.');
   } else {
-    console.log('Production deployment detected. Verification and Next build must pass before staged asset promotion.');
+    console.log('Production deployment detected. Staged asset promotion must complete before verification and Next build.');
     console.log('Database migrations and reconciliation are operator-only and never run in a Vercel build.');
   }
 

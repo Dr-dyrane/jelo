@@ -11,5 +11,5 @@ export function createDeploymentPlan({
   isVercelProduction,
 }: DeploymentPlanInput): DeploymentStep[] {
   if (!isVercelProduction) return ['build-next'];
-  return ['verify-release', 'build-next', 'promote-staged-assets'];
+  return ['promote-staged-assets', 'verify-release', 'build-next'];
 }

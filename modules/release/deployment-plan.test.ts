@@ -7,11 +7,11 @@ test('preview and local builds stay on the fast Next build path', () => {
   assert.deepEqual(createDeploymentPlan({ isVercelProduction: false }), ['build-next']);
 });
 
-test('production verifies and builds before the only external build mutation', () => {
+test('production promotes staged assets before verification and build', () => {
   assert.deepEqual(createDeploymentPlan({ isVercelProduction: true }), [
+    'promote-staged-assets',
     'verify-release',
     'build-next',
-    'promote-staged-assets',
   ]);
 });
 
