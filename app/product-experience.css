@@ -62,22 +62,21 @@
   padding: .5rem .78rem;
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: 999px;
   background: color-mix(in srgb, var(--paper) 54%, transparent);
   color: var(--muted);
   font-size: .7rem;
   line-height: 1;
-  transition: border-color .2s ease, background-color .2s ease, color .2s ease;
+  transition: background-color .2s ease, color .2s ease;
 }
 
 .product-size-selector-option:hover {
-  border-color: color-mix(in srgb, var(--wine) 42%, transparent);
+  background: color-mix(in srgb, var(--wine) 14%, transparent);
   color: var(--ink);
 }
 
 .product-size-selector-option[aria-current="page"] {
-  border-color: color-mix(in srgb, var(--wine) 34%, transparent);
   background: var(--state-selected-bg);
   color: var(--ink);
 }
