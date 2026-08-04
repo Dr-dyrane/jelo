@@ -5,7 +5,9 @@ import path from 'node:path';
 import test from 'node:test';
 import sharp from 'sharp';
 import promotions from '@/data/product-asset-promotions.json';
-import repairs from '@/data/product-asset-repairs.json';
+import repairsJson from '@/data/product-asset-repairs.json';
+import type { ProductAssetRepairsManifest } from '@/lib/assets/product-asset-repairs';
+const repairs = repairsJson as ProductAssetRepairsManifest;
 import { expandedProducts } from '@/data/expanded-products';
 import { products as coreProducts } from '@/data/products';
 import {

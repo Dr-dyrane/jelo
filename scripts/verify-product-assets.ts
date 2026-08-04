@@ -2,7 +2,9 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import repairs from '../data/product-asset-repairs.json';
+import repairsJson from '../data/product-asset-repairs.json';
+import type { ProductAssetRepairsManifest } from '../lib/assets/product-asset-repairs';
+const repairs = repairsJson as ProductAssetRepairsManifest;
 import {
   analysePackshotSilhouette,
   likelySlicedPackshotBase,

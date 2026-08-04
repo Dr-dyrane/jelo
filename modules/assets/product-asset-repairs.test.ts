@@ -4,7 +4,9 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import sharp from 'sharp';
-import repairs from '@/data/product-asset-repairs.json';
+import repairsJson from '@/data/product-asset-repairs.json';
+import type { ProductAssetRepairsManifest } from '@/lib/assets/product-asset-repairs';
+const repairs = repairsJson as ProductAssetRepairsManifest;
 import productAssets from '@/data/product-assets.json';
 import { productDisplayApprovals } from '@/data/product-display-approvals';
 import {

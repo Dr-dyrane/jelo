@@ -3,7 +3,9 @@ import { readFile, access } from 'node:fs/promises';
 import { get, put } from '@vercel/blob';
 import sharp from 'sharp';
 import promotions from '../data/product-asset-promotions.json';
-import repairs from '../data/product-asset-repairs.json';
+import repairsJson from '../data/product-asset-repairs.json';
+import type { ProductAssetRepairsManifest } from '../lib/assets/product-asset-repairs';
+const repairs = repairsJson as ProductAssetRepairsManifest;
 import {
   analysePackshotSilhouette,
   likelySlicedPackshotBase,
