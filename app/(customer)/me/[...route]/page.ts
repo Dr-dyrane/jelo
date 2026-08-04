@@ -50,7 +50,10 @@ export default async function MeRoutePage({
   const route = parseRoute(parts, query.from);
   if (!route) notFound();
 
-  const customer = await requireCustomer();
+  const continuation = route.kind === 'product'
+    ? `/me/product/${route.slug}?from=${route.origin}`
+    : undefined;
+  const customer = await requireCustomer(continuation);
   const viewModel = await readCustomerPortal(customer);
   let productPanelData: ProductPanelData | undefined;
   if (route.kind === 'product') {

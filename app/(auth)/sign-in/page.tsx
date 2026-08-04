@@ -15,7 +15,10 @@ type Phase = 'email' | 'code';
 // are a single muted line, never a loud banner.
 function SignInForm() {
   const searchParams = useSearchParams();
-  const continuation = resolveSignInContinuation(searchParams.get('next'));
+  const requestedContinuations = searchParams.getAll('next');
+  const continuation = resolveSignInContinuation(
+    requestedContinuations.length === 1 ? requestedContinuations[0] : requestedContinuations,
+  );
   const intent = resolveSignInIntent(continuation);
   const customerIntent = intent === 'customer';
   const [phase, setPhase] = useState<Phase>('email');
@@ -62,7 +65,7 @@ function SignInForm() {
         window.location.assign('/ops');
         return;
       }
-      window.location.assign('/me');
+      window.location.assign(continuation);
     } catch (err) {
       console.error('otp-verify', err);
       setError(interpret(err, 'That code did not match. Check it and try again.'));

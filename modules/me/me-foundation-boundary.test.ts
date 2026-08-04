@@ -20,7 +20,11 @@ test('the Me route is session guarded and awaits the narrow Shelf read model', (
   const childRoute = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
   assert.match(route, /await requireCustomer\(\)/);
   assert.match(route, /await readCustomerPortal\(customer\)/);
-  assert.match(childRoute, /await requireCustomer\(\)/);
+  assert.match(
+    childRoute,
+    /route\.kind === 'product'[\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/,
+  );
+  assert.match(childRoute, /await requireCustomer\(continuation\)/);
   assert.match(childRoute, /await readCustomerPortal\(customer\)/);
   assert.equal(globSync('db/migrations/**/*member*').length, 0);
   assert.deepEqual(globSync('db/migrations/**/*shelf*'), ['db/migrations/0034_customer_shelf.sql']);

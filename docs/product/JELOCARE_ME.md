@@ -1,16 +1,18 @@
 # JeloCare Me
 
-Updated: 2026-08-03
+Updated: 2026-08-04
 
 JeloCare Me is the authenticated customer workspace for asking, discovering,
 saving, and organising care. Its first release ships the real `/me` route
 family, verified-session guard, warm adaptive shell, truthful empty states, and
-a development-only synthetic presentation. The Phase 1 candidate adds
-owner-isolated Shelf persistence, add/remove/export/clear behavior, and the
-global public reporting helper. Production activation is not complete until the
-restricted database roles, operator migration/import, audit, deployment, and
-smoke checklist passes. Routine and Concern persistence and AI-generated
-guidance are not part of this release.
+a development-only synthetic presentation. The current Phase 1 candidate adds
+owner-isolated canonical Shelf persistence, private missing-product requests,
+complete eligible-catalogue Explore reachability, exact member-Product OTP
+continuation, and the global public reporting helper. Production activation is
+not complete until the restricted database roles, operator migration/import,
+audit, deployment, and authenticated smoke checklist pass. Routine persistence,
+canonical user-controlled Concerns, true AI guidance, and the operating closure
+for private requests are not part of this release.
 
 [ADR 0013](../adr/0013-founder-led-jelocare-me.md) owns the decision and code
 boundaries. The [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md)
@@ -45,24 +47,28 @@ compact product row.
 | --- | --- | --- | --- |
 | Home | `/me` | Return to the customer's care overview and Ask Me entry | Ask Me → `/me/consult` |
 | Explore | `/me/explore` | Browse or search every currently eligible exact public catalogue product without treating it as owned | Search products → focus the real catalogue field |
-| Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products | Explore products → `/me/explore` |
+| Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products without counting private requests as saved | Add to your Shelf → `/me/shelf/add` |
 | Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Explore products → `/me/explore` until routine mutation ships |
 
-Two authenticated stack pages sit above that primary model:
+Four authenticated stack pages sit above that primary model:
 
 | Stack page | Canonical route | Parent semantics | Page-owned FAB |
 | --- | --- | --- | --- |
 | Ask Me | `/me/consult` | Home; combines the guidance entry and customer concern context without reusing public `/consult` state | Search your care → focus the real care field |
-| Member product | `/me/product/[slug]` | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` | View public product evidence → matching `/products/[slug]` |
+| Member product | `/me/product/[slug]` | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` | Find a store → open exact public offer evidence |
+| Add to Shelf | `/me/shelf/add` | Shelf; search the canonical catalogue first and open a private request only when no identity matches | Search exact catalogue → focus the real catalogue field |
+| Private request | `/me/shelf/request/[id]` | Shelf; inspect or manage one owner-isolated missing-product request without treating it as saved or canonical | Request another product → `/me/shelf/add` |
 
 Account and future real helper destinations belong behind the customer avatar
 in one modal helper sheet, not a popover or fifth destination. The current sheet
 contains the private account identity, shared appearance control, public report
-link, Shelf export and confirmed clear, and Sign out. It traps focus, closes by
-Escape/backdrop/control, restores avatar focus, and is absent while closed.
-Every visible product action inside Me opens the member product route. Public
-catalogue and product routes remain independently usable without a customer
-session.
+link, canonical Shelf export and confirmed clear, and Sign out. Private requests
+are managed individually and are not counted by those canonical Shelf controls.
+The sheet traps focus, closes by Escape/backdrop/control, restores avatar focus,
+and is absent while closed. Product identity links inside Me open the member
+product route; in-context Shelf mutation controls remain on their owning cards.
+Public catalogue and product routes remain independently usable without a
+customer session.
 
 The production shell also requires one global **Report price or availability**
 helper that reaches the existing public `/contribute` experience. It may live in
@@ -78,15 +84,15 @@ retailer, or clinical proof, and no Shelf/Routine/Concern state is attached. The
 helper uses only the fields `/contribute` safely supports; it does not itself
 add or imply a new structured availability field.
 
-The primary navigation is exactly Home, Explore, Shelf, and Routine. Ask Me and
-Product are stack pages with a meaningful Back destination and the correct
-parent destination selected in the persistent shell. Back belongs to the
+The primary navigation is exactly Home, Explore, Shelf, and Routine. Ask Me,
+Product, Add to Shelf, and Private request are stack pages with a meaningful Back
+destination and the correct parent destination selected in the persistent shell. Back belongs to the
 shell's stable left dock slot, replaces the compact current-page orb, and never
 appears as a primary tab or loose page-body control. Consult returns to Home.
 Member Product returns to an allowlisted `from=home|explore|shelf|routine`
-parent; missing, malformed, array, or external values fail closed to Home. Do
-not add a navigation entry, placeholder, or mutation until its destination and
-behavior are truthful.
+parent; missing, malformed, array, or external values fail closed to Home. Shelf
+add and request detail return to Shelf. Do not add a navigation entry,
+placeholder, or mutation until its destination and behavior are truthful.
 
 ## Workspace composition
 
@@ -137,20 +143,32 @@ while Home previews retain their editorial section composition.
   Amara presentation is server-only, requires development plus its explicit
   local flag, performs no network or database work, and fails closed elsewhere.
 - Explore and member Product reuse current exact catalogue records and assets.
-  The audited Explore view renders only the first 12 filtered products even
-  though the eligible public projection contains 63 products at the 2026-08-03
-  snapshot. That cap is shipped behavior, not the production target.
+  Explore partitions the full eligible projection without a fixed client cap;
+  all 63 products in the 2026-08-03 snapshot are reachable by browse or search,
+  and add/retire fixtures prove the count follows publication state.
   A fresh price/store line may appear only through the existing public offer
   evidence boundary; absent or stale evidence is omitted.
 - The global reporting helper is implemented as an Account-sheet link to plain
-  `/contribute`; it sends no identity or private state. Complete-catalogue Explore remains a
-  documented target, not implemented or production-smoked behavior.
-- Shelf now has one additive immutable-version store, owner-derived reads and
-  mutations, lifecycle-aware unavailable rows, export, and hard-delete clear.
-  It fails closed without the exact restricted Shelf database connection.
-  Production activation remains an operator release, not a Vercel build side
-  effect. Routine and Concern remain unpersisted and appear only in the local
-  Synthetic Amara preview. The development presentation is not persistence.
+  `/contribute`; it sends no identity or private state.
+- Shelf has one additive immutable-version store, owner-derived reads and
+  mutations, lifecycle-aware unavailable rows, individual removal, export, and
+  hard-delete clear. Private missing-product requests use a separate
+  owner-isolated lifecycle and remain visibly distinct from saved canonical
+  products; their optional photos remain private.
+- The 2026-08-04 Shelf launch slice labels the entry **Add to your Shelf**,
+  exposes the existing add action on every canonical search result, reserves
+  **Request this missing product** for a zero-match search, and preserves focus
+  and announcement when a changed or unavailable saved item is removed.
+- Signed-out member Product routes preserve only the exact allowlisted
+  `/me/product/[slug]?from=home|explore|shelf|routine` continuation through OTP;
+  all other customer entry falls back to the bounded `/me` continuation.
+- Private storage fails closed without the exact restricted Shelf database
+  connection. Production activation remains an operator release, not a Vercel build side
+  effect. The protected migrations, role audit, reviewed 5-Shelf/9-request
+  import, deployment, and authenticated smoke remain incomplete. Request review
+  closure and per-owner request/upload limits also remain incomplete.
+- Routine and canonical Concern state remain unpersisted and appear only in the
+  local Synthetic Amara preview. The development presentation is not persistence.
 - Ask Me supports truthful discovery over customer context and exact products;
   it does not claim an AI answer, consultation submission, or saved mutation.
   Public `/consult` remains a separate account-free, deterministic guidance
@@ -162,11 +180,12 @@ The shipped-vs-missing baseline, dependency graph, per-phase owner and gates,
 state coverage, critical path, migration boundaries, scorecard, and exactly one
 next executable slice live only in the
 [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md). In short,
-the current candidate is the owner-isolated Shelf thin slice; its next step is
-the [restricted-role release checklist](../operations/RELEASE.md#customer-shelf-release-checklist),
+the current candidate is the 2026-08-04 owner-isolated Shelf and private-request
+thin slice; its next step is the
+[restricted-role release checklist](../operations/RELEASE.md#customer-shelf-release-checklist),
 including the reviewed import, datastore evidence, and authenticated production
-smoke. Complete eligible-catalogue
-Explore, Routine, controlled Concerns, authenticated Ask, contextual discovery,
+smoke. Routine, user-controlled canonical Concerns, authenticated Ask or true AI
+guidance, contextual discovery, request operating closure and rate limits,
 refill/basket decisions, notifications, and public community follow only through
 their recorded gates. The current 63-product snapshot is evidence, never a
 hard-coded limit.
@@ -274,10 +293,10 @@ catalogue identity and offer-label logic; it does not copy product truth.
 
 ## Release non-goals
 
-This release does not add customer-role schema, customer seeds, catalogue writes,
-Routine mutation, AI/model calls, reminders, notifications, cron,
+This release does not add customer seeds, catalogue writes, Routine mutation,
+canonical Concern persistence, AI/model calls, reminders, notifications, cron,
 queues, campaigns, retailer or courier workflows, or any change to `/ops`,
-operator authorization, public product ownership, or public session handling.
+operator authorization, public product ownership, or public-route session ownership.
 
 It also does not implement full provider-account deletion or a recovery-only
 Shelf export path. Those lifecycle limits remain explicit in ADR 0014.

@@ -19,8 +19,13 @@ export async function getCustomerIdentity(): Promise<CustomerAccessIdentity | nu
   return identity ? sessionCustomerIdentity(identity) : null;
 }
 
-export async function requireCustomer(): Promise<CustomerAccessIdentity> {
+export async function requireCustomer(
+  continuation?: string | readonly string[] | null,
+): Promise<CustomerAccessIdentity> {
   const identity = await getCustomerIdentity();
-  if (!identity) redirect(customerSignInPath());
+  if (!identity) {
+    if (continuation === undefined) redirect(customerSignInPath());
+    redirect(customerSignInPath(continuation));
+  }
   return identity;
 }

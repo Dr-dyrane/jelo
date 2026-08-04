@@ -87,7 +87,7 @@ export const ME_PORTAL_SURFACES = {
 export const ME_WORKSPACE_FABS = {
   home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
   explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
-  shelf: { ownerId: 'me-shelf-add', label: 'Request a product', action: 'navigate', href: '/me/shelf/add' },
+  shelf: { ownerId: 'me-shelf-add', label: 'Add to your Shelf', action: 'navigate', href: '/me/shelf/add' },
   routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
   consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
   product: { ownerId: 'me-product-find-store', label: 'Find a store', action: 'open-product-prices' },

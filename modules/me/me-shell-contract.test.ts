@@ -280,7 +280,11 @@ test('member routes are guarded, stack-owned, and never replace public product r
   const publicProduct = readFileSync('app/(site)/products/[slug]/page.tsx', 'utf8');
   const sharedPanel = readFileSync('components/products/product-quick-panel.tsx', 'utf8');
 
-  assert.match(route, /await requireCustomer\(\)/);
+  assert.match(
+    route,
+    /route\.kind === 'product'[\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/,
+  );
+  assert.match(route, /await requireCustomer\(continuation\)/);
   assert.match(route, /section === 'explore'[\s\S]*section === 'shelf'[\s\S]*section === 'routine'[\s\S]*section === 'consult'/);
   assert.match(route, /parts\[0\] === 'product'/);
   assert.match(route, /resolveMeProductOrigin\(from\)/);
@@ -329,7 +333,7 @@ test('every Me surface owns exactly one truthful working FAB', () => {
   assert.deepEqual(ME_WORKSPACE_FABS, {
     home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
     explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
-    shelf: { ownerId: 'me-shelf-add', label: 'Request a product', action: 'navigate', href: '/me/shelf/add' },
+    shelf: { ownerId: 'me-shelf-add', label: 'Add to your Shelf', action: 'navigate', href: '/me/shelf/add' },
     routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
     consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
     product: { ownerId: 'me-product-find-store', label: 'Find a store', action: 'open-product-prices' },
@@ -442,13 +446,13 @@ test('unavailable Shelf states fail closed while synthetic state stays explicitl
   assert.match(account, /shelfAvailable \? \([\s\S]*Export Shelf[\s\S]*<button type="button" disabled>/);
 });
 
-test('Shelf-origin product removal announces and restores focus at a durable page-level target', () => {
+test('Shelf removals announce and restore focus at a durable page-level target', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
   assert.match(button, /onSettled\?\.\(result\)/);
-  assert.match(home, /route\.kind !== 'product'/);
-  assert.match(home, /route\.origin !== 'shelf'/);
-  assert.match(home, /mutationStatusRef/);
+  assert.match(home, /function UnavailableShelfCard\([\s\S]*shelfItem=\{item\}/);
+  assert.match(home, /onSettled=\{onSettled\}/);
+  assert.match(home, /shelfMutationStatusRef/);
   assert.match(home, /tabIndex=\{-1\}/);
   assert.match(home, /aria-atomic="true"/);
   assert.match(home, /shelfMutationStatusRef\.current\?\.focus\(\{ preventScroll: true \}\)/);

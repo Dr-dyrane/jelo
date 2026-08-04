@@ -70,6 +70,9 @@ export function ShelfActionButton({
         type="button"
         onClick={invoke}
         disabled={pending || settledSaved}
+        aria-label={shelfItem
+          ? `Remove ${shelfItem.snapshot.brand} ${shelfItem.snapshot.name} from Shelf`
+          : undefined}
         aria-describedby={feedback ? statusId : undefined}
       >
         {label}

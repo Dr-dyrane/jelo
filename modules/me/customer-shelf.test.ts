@@ -158,6 +158,16 @@ test('active identities resolve while retired, changed, and unmatched snapshots 
   assert.equal(unmatched.snapshot.name, 'Exact Product');
 });
 
+test('unavailable Shelf rows retain their immutable removal action and accessible identity', () => {
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
+  assert.match(home, /function UnavailableShelfCard\([\s\S]*shelfItem=\{item\}/);
+  assert.match(home, /<UnavailableShelfCard[\s\S]*shelfAction=\{shelfAction\}[\s\S]*onSettled=\{onShelfMutation\}/);
+  assert.match(button, /identityVersionId: shelfItem\.identityVersionId/);
+  assert.match(button, /Remove \$\{shelfItem\.snapshot\.brand\} \$\{shelfItem\.snapshot\.name\} from Shelf/);
+  assert.match(button, /aria-live="polite"/);
+});
+
 test('migration and repository enforce RLS plus explicit owner predicates', () => {
   const migration = readFileSync('db/migrations/0034_customer_shelf.sql', 'utf8');
   const roleMigration = readFileSync('db/migrations/0035_runtime_database_roles.sql', 'utf8');

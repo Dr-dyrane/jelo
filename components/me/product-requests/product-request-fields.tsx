@@ -74,14 +74,12 @@ export function CanonicalProductRequestSearch({
                     </span>
                     <ArrowRight size={17} aria-hidden="true" />
                   </Link>
-                  {isExact ? (
-                    <ShelfActionButton
-                      productSlug={product.slug}
-                      saved={saved}
-                      placement="explore"
-                      onAction={shelfAction}
-                    />
-                  ) : null}
+                  <ShelfActionButton
+                    productSlug={product.slug}
+                    saved={saved}
+                    placement="explore"
+                    onAction={shelfAction}
+                  />
                 </article>
               );
             })}

@@ -1,7 +1,7 @@
 # JeloCare Me production roadmap
 
-Updated: 2026-08-03
-Status: Phase 1 candidate implemented locally; protected operator activation and production evidence remain
+Updated: 2026-08-04
+Status: August 4 Phase 1 candidate implemented locally; protected activation, request operating closure, and production evidence remain
 
 This is the canonical delivery roadmap from the shipped JeloCare Me foundation
 to production completeness. [JeloCare Me](./JELOCARE_ME.md) remains the canon
@@ -16,18 +16,19 @@ Shop or Shopify claim is required.
 
 ## Audited baseline: what ships now
 
-The baseline was rechecked against the current Phase 1 candidate on 2026-08-03.
+The baseline was rechecked against the current Phase 1 candidate on 2026-08-04.
 It describes code and focused contracts, not an authenticated production smoke,
 completed operator activation, or the future requirements recorded below. The
 exact release revision is recorded only after the checklist passes.
 
 | Journey | Shipped truth | Missing before production completeness | Evidence |
 | --- | --- | --- | --- |
-| Entry and authentication | `/me` and every released child route are dynamic and call `requireCustomer()`. A missing Neon Auth session redirects to `/sign-in?next=/me`; the continuation allowlist rejects nested or external destinations. Public search, catalogue, product, concern, and `/consult` routes remain account-free. | Me-owned loading, expired-session, provider-error, retry, and recovery states; production evidence for the complete sign-in-return-sign-out journey; a decided private-data lifecycle before collection begins. | `lib/customer/access.ts`, `lib/auth/sign-in-intent.ts`, `modules/me/customer-access.test.ts` |
-| Home | `/me` renders the warm adaptive shell, one Ask Me entry, an exact catalogue feature, and honest Shelf/Routine previews. A real account currently receives empty Shelf and Routine state. | Persistent summaries, actionable recovery when one private source fails, and explainable personal context. | `app/(customer)/me/page.tsx`, `components/me/home/me-home.tsx` |
-| Explore and member Product | `/me/explore` receives the eligible public catalogue projection, searches it in client memory, and renders only the first 12 filtered products. The authoritative projection contains 63 eligible products at the 2026-08-03 snapshot, so an unfiltered browse silently leaves 51 unreachable. Search may surface a product outside the first 12 only when the query moves it into that first result window. `/me/product/[slug]` preserves an allowlisted parent and reuses public catalogue identity; malformed origins fail to Home. | Every currently eligible public product must be discoverable through browse/search, with no arbitrary client cap. The count must follow the publication projection as products publish, retire, or transition; 63 is snapshot evidence, not a hard-coded limit. Context, saved state, exact identity, successor behavior, public evidence, explicit stale/error handling, and scale remain missing. | `components/me/home/me-home.tsx`, `lib/customer/read-model.ts`, `modules/me/me-shell-contract.test.ts` |
+| Entry and authentication | `/me` and every released child route are dynamic and derive a verified customer session. Signed-out member Product routes carry only the exact allowlisted `/me/product/[slug]?from=home\|explore\|shelf\|routine` intent through OTP; other customer entry falls back to `/me`, and nested or external destinations fail closed. Public search, catalogue, product, concern, and `/consult` routes remain account-free. | Expired-session and provider-error recovery plus authenticated production evidence for the complete sign-in-return-sign-out journey remain. | `lib/customer/access.ts`, `lib/auth/sign-in-intent.ts`, `modules/me/customer-access.test.ts` |
+| Home | `/me` renders the warm adaptive shell, one Ask Me entry, an exact catalogue feature, and honest Shelf/Routine previews. Real accounts read the durable canonical Shelf; Routine remains empty. | Persistent Routine/Concern summaries, actionable recovery when one private source fails, and explainable personal context. | `app/(customer)/me/page.tsx`, `components/me/home/me-home.tsx` |
+| Explore and member Product | `/me/explore` partitions the full eligible publication projection without a fixed client cap. All 63 products in the 2026-08-03 snapshot are reachable by browse or search, and add/retire fixtures change reachability without a count edit. `/me/product/[slug]` preserves an allowlisted parent, reuses public catalogue identity, and restores that exact safe intent after OTP. | Production smoke, explicit stale/error handling, successor behavior, scale evidence, and future customer-controlled contextual ordering remain. | `components/me/home/me-home.tsx`, `lib/customer/explore-model.ts`, `modules/me/customer-explore-model.test.ts` |
 | Ask Me and Concerns | `/me/consult` is currently catalogue/context search, not a consultation submission. Real accounts have no stored Concerns. Separately, public `/consult` already returns deterministic, reviewed education with same-site checks, a 64 KiB body limit, and a production-fail-closed 20-request-per-hour network limit; it makes zero model calls and keeps visit context in memory. | An authenticated adapter over the reviewed safety engine, explicit context controls, account-aware abuse protection, cost policy for any optional model wording, and recovery without hiding the public route. | [Ask Jelo](../ASK_JELO_EXPERIENCE.md), `app/api/consult/route.ts`, `lib/consult/security.ts` |
-| Shelf | The Phase 1 candidate adds immutable-version persistence, owner-derived add/remove/read, unavailable-version representation, a nine-product local synthetic preview, export, and hard-delete clear. It fails closed unless `CUSTOMER_SHELF_DATABASE_URL` uses the exact attested `jelocare_shelf_runtime` role. | Complete the protected role/migration/reconciliation release, datastore isolation evidence, reviewed one-off Umeh import, owner-credential removal/rotation, and authenticated production smoke. | `db/migrations/0034_customer_shelf.sql`, `db/migrations/0035_runtime_database_roles.sql`, [ADR 0014](../adr/0014-customer-shelf-data-boundary.md) |
+| Canonical Shelf | The Phase 1 candidate adds immutable-version persistence, owner-derived add/remove/read, lifecycle-aware unavailable rows with individual removal, export, and hard-delete clear. The August 4 slice labels the entry **Add to your Shelf** and exposes add on every canonical search match. It fails closed unless `CUSTOMER_SHELF_DATABASE_URL` uses the exact attested `jelocare_shelf_runtime` role. | Complete the protected role/migration/reconciliation release, datastore isolation evidence, reviewed five-item import, owner-credential removal/rotation, and authenticated production smoke. | `db/migrations/0034_customer_shelf.sql`, `db/migrations/0035_runtime_database_roles.sql`, [ADR 0014](../adr/0014-customer-shelf-data-boundary.md) |
+| Private missing-product requests | A zero-match canonical search can create an owner-isolated draft or pending request with bounded identity fields and an optional private photo. Requests remain separate from saved Shelf counts and canonical/public catalogue truth; customers can inspect, edit within lifecycle limits, change photo consent, and delete them. | A governed review-to-closure operating path, customer feedback for matched/published outcomes, per-owner request and upload limits, account-wide request export/clear semantics, protected activation through migration `0036`, and authenticated isolation/photo smoke remain. | `db/migrations/0036_customer_product_requests.sql`, `lib/customer/product-request-service.ts`, `components/me/product-requests/` |
 | Routine | `/me/routine` is a real authenticated route with a truthful empty state. The development presentation renders three customer-authored exact products. | Create, edit, order, remove, and recover; routine-specific comprehension and safety boundaries; persistence and lifecycle evidence. | `modules/me/customer-access.test.ts`, `components/me/home/me-home.tsx` |
 | Account and global helpers | The Account sheet now links globally to plain `/contribute`, exports the owner-derived Shelf without identity, and offers confirmed hard-delete clear. It remains a non-tab/non-FAB helper and sends no private state. | Dedicated-role activation, authenticated production smoke, and the future provider-account deletion orchestrator remain. Exact-product intake prefill remains excluded. | `components/me/shell/me-account-sheet.tsx`, `app/(customer)/me/shelf/export/route.ts`, [ADR 0014](../adr/0014-customer-shelf-data-boundary.md) |
 | Refill and basket decisions | A product contract describes the possible one-store, split, wait, and urgent-now outcomes. | No route, persisted intent, evaluator, forecast, notification, monitor, or customer result ships. | [JeloCare Me · basket timing](./JELOCARE_ME.md#future-basket-timing-intelligence) |
@@ -44,7 +45,9 @@ safe intent, and return to a coherent Home. Explore exposes every product in the
 current authoritative eligible public projection—63 at the 2026-08-03 snapshot,
 with no fixed count as the projection changes—and makes each discoverable by
 browse or search. The customer can open a member Product without replacing the
-public product record, save and remove Shelf items, author and reorder a Routine,
+public product record, save and remove Shelf items, manage a private
+missing-product request through a bounded reviewed outcome, author and reorder a
+Routine,
 control the Concerns and context that Ask Me may use, receive bounded
 non-diagnostic guidance, manage their account data, and recover from expired
 sessions or failed operations.
@@ -116,24 +119,29 @@ Phase 6. Phases 7 and 8 are separately funded options, not automatic backlog.
 
 ## Phase 1 — private foundation through a real Shelf
 
-**Current implementation truth.** The local candidate implements the bounded
-schema, server-derived owner, transaction-local RLS setting, explicit owner
-predicates, idempotent actions, lifecycle-aware read model, synthetic fixture,
-Account helper, JSON export, hard-delete clear, reviewed owner-free manifest,
-and dry-run-by-default importer. It is not production-ready until the protected
-operator release provisions and audits `jelocare_app_runtime` and
-`jelocare_shelf_runtime`, applies migrations `0034` and `0035`, removes every
-owner credential from Vercel, records two-owner isolation evidence, completes
-the reviewed one-off import, and passes authenticated smoke.
+**Current implementation truth.** The August 4 local candidate implements the
+bounded canonical Shelf and private missing-product request schemas,
+server-derived owner, transaction-local RLS setting, explicit owner predicates,
+idempotent actions, lifecycle-aware read models, private request/photo controls,
+synthetic fixture, Account helper, canonical Shelf JSON export and clear,
+reviewed owner-free 5/9 manifest, and dry-run-by-default importer. It is not
+production-ready until the protected operator release provisions and audits
+`jelocare_app_runtime` and `jelocare_shelf_runtime`, applies migrations `0034`
+through `0036`, removes every owner credential from Vercel, records two-owner
+isolation evidence, completes the reviewed one-off import, and passes
+authenticated smoke. Private requests additionally need a governed operating
+closure and per-owner request/upload limits before broad launch.
 
-**User outcome.** A signed-in customer can save or remove one exact product,
-see the result after a new session, export it, delete it, never see another
-customer's Shelf, and reach the existing public price/availability intake from
-one global Me helper.
+**User outcome.** A signed-in customer can save or remove an exact product,
+see the result after a new session, export and clear canonical Shelf data, never
+see another customer's data, and privately request a product only after a
+zero-match canonical search. Pending requests never count as saved products.
+One global Me helper reaches the existing public price/availability intake.
 
 **Included.** Session-expiry and sign-in-return recovery; one owner-derived
 private storage boundary; Shelf read/add/remove; immutable catalogue identity
-version references; idempotent mutation and conflict handling; Me-owned
+version references; bounded private request create/read/edit/delete and optional
+photo/consent controls; idempotent mutation and conflict handling; Me-owned
 loading/error/offline states; the first Account export/delete controls; and one
 shell-global Report price or availability action in the Account/helper or
 context sheet that navigates to plain `/contribute`.
@@ -150,16 +158,18 @@ ownership of contribution moderation/evidence. Catalogue Evidence supplies
 immutable product-version identity. Public Experience owns `/contribute` and
 its privacy, request, and prefill contract.
 
-**Routes, data, and contracts.** Extend `/me/shelf`, `/me/product/[slug]`, and
-the Account/helper or context sheet; add one additive Shelf migration and a
-server-only service. One shared shell action navigates to plain `/contribute`.
+**Routes, data, and contracts.** Extend `/me/shelf`, `/me/shelf/add`,
+`/me/shelf/request/[id]`, `/me/product/[slug]`, and the Account/helper sheet;
+use additive migrations `0034` through `0036` and server-only services. One
+shared shell action navigates to plain `/contribute`.
 It sends no auth, Shelf, Routine, Concern, or customer identifier. The existing
 public intake's label-based custom handoff is not an exact-product prefill, so
 member Product must also use plain `/contribute` until Public Experience adds an
 allowlisted slug contract with focused tests.
 Every query and mutation derives the subject on the server, constrains by owner,
-references an immutable product identity version, is idempotent, and returns a
-small semantic result. No client-supplied owner field exists.
+references an immutable product identity version or bounded private request,
+is idempotent, and returns a small semantic result. No client-supplied owner
+field exists, and a private request never becomes a saved or public product.
 
 **Entry gate.** Record the allowed private fields; live and backup retention;
 export, deletion, the explicit absence of application restore, and incident
@@ -171,13 +181,15 @@ Rehearse the additive migration against a production-shaped empty/customer-free
 dataset without running it in production.
 
 **Measurable exit gate.** The isolation corpus produces zero cross-owner reads
-or writes; add/remove retries produce zero duplicate rows; reload and a new
-session reproduce the confirmed Shelf; export and deletion reconcile 100% of
-seeded test rows; signed-out and expired-session flows reveal zero private
-fields; one non-FAB/non-tab helper reaches plain `/contribute` from all six
+or writes; add/remove/request retries produce zero duplicate rows; reload and a
+new session reproduce confirmed data; canonical Shelf export/clear and private
+request deletion reconcile 100% of release fixtures; signed-out and
+expired-session flows reveal zero private fields; one non-FAB/non-tab helper
+reaches plain `/contribute` from all eight
 released Me surfaces; the contribution contains zero automatic private-state or
-identity linkage; and every affected state in the state contract has route
-evidence.
+identity linkage; request/photo limits fail closed; a reviewed request reaches a
+customer-visible bounded outcome; and every affected state in the state
+contract has route evidence.
 
 **Quality requirements.** Private payloads stay out of URLs, logs, analytics,
 screenshots, public caches, and `/ops`. Mutations announce success/failure,
@@ -185,14 +197,16 @@ restore focus, meet 44 px/contrast/reflow requirements, and remain keyboard
 complete. Shelf read p95 must be at most 500 ms and mutation p95 at most 800 ms
 at the service boundary under the agreed launch load. Emit aggregate latency,
 outcome, conflict, and auth-failure counts with trace IDs, never owner or Shelf
-contents. The public intake remains anonymous/community-reported and pending
+contents. Private request fields and photos stay out of default Operations
+access, and request/upload limits protect storage and review capacity. The
+public intake remains anonymous/community-reported and pending
 moderation; authentication never upgrades a report into product, price,
 availability, retailer, or clinical truth.
 
 **Test and release evidence.** Pure owner-policy tests; datastore integration
-tests with two owners; idempotency, conflict, export, delete, provider-backup
-boundary, expired session, offline, keyboard, screen-reader, and 320–1440 px
-route evidence;
+tests with two owners; idempotency, conflict, export, delete, request/photo
+isolation, limiter, reviewed-closure, provider-backup boundary, expired session,
+offline, keyboard, screen-reader, and 320–1440 px route evidence;
 migration dry-run and rollback rehearsal; global-helper source/interaction
 contract; existing contribution moderation/privacy tests; `npm run
 verify:release`; `npm run build`; exact revision READY; public `/contribute` and
@@ -373,13 +387,12 @@ assistance under a separate gate.
 ## Phase 5 — contextual Home, Explore, and member Product
 
 **User outcome.** Home surfaces the next useful self-authored task. Explore
-exposes the complete current eligible public catalogue and makes every product
-discoverable by browse or search. Explore and member Product can use explicitly
-selected Shelf, Routine, and Concern context, show why an item appears, and let
-the customer clear the context.
+preserves complete eligible-catalogue reachability while Explore and member
+Product use explicitly selected Shelf, Routine, and Concern context, show why
+an item appears, and let the customer clear that context.
 
-**Included.** Server-derived summaries; the complete authoritative eligible
-publication projection; browse/search reachability for every eligible product;
+**Included.** Server-derived summaries; regression protection for the complete
+authoritative eligible publication projection already shipped in the baseline;
 explicit context selectors; explainable ordering over already eligible exact
 products; normal/empty/loading/error/offline/stale states; pagination,
 incremental loading, or virtualization as needed; stable Back and dock behavior.
@@ -401,16 +414,15 @@ acceptance snapshot, never a runtime limit. Derivation stays pure. Context
 filters can remove candidates but cannot make an ineligible product eligible.
 Every result retains immutable identity and a public evidence link.
 
-**Entry gate.** Phases 2–4 pass; ranking inputs and explanations are reviewable;
+**Entry gate.** Baseline complete-catalogue reachability remains green, Phases
+2–4 pass, and ranking inputs and explanations are reviewable;
 empty and fallback behavior is defined; performance testing uses a projected
 catalogue above expected launch size; retirement and successor behavior is
 covered without silently replacing an exact product.
 
-**Measurable exit gate.** All 63 eligible products in the 2026-08-03 projection
-are reachable through unfiltered browse and/or a deterministic search, with
-zero silently capped eligible products; fixtures that add or retire an eligible
-product change reachability without a code-count edit; 100% of personalised
-cards name a customer-understandable reason and retain exact identity/public
+**Measurable exit gate.** The shipped 63-of-63 reachability and dynamic
+add/retire fixtures remain green with zero fixed-count drift; 100% of
+personalised cards name a customer-understandable reason and retain exact identity/public
 evidence; zero ineligible products enter through personal context; clearing
 context reproduces the complete non-personalised projection; and all affected
 state-contract cases pass.
@@ -614,9 +626,10 @@ external state. Migration, shared customer service, Home/Account integration,
 release, and production smoke have one writer and one integration owner.
 
 Each data-bearing phase gets an additive, domain-bounded migration and its own
-lifecycle extension. Phase 1 uses `0034` for the Shelf domain and `0035` for the
-shared runtime-role/grant boundary and one-off receipt. Do not create one
-speculative customer super-schema. Initial phases have no generic backfill or
+lifecycle extension. Phase 1 uses `0034` for the canonical Shelf domain, `0035`
+for the shared runtime-role/grant boundary and one-off receipt, and `0036` for
+bounded private missing-product requests, photos, and their deidentified signal
+bridge. Do not create one speculative customer super-schema. Initial phases have no generic backfill or
 customer seed; Phase 1 has only ADR 0014's reviewed one-off legacy import. Exact
 products reference immutable
 catalogue identity versions, not mutable display slugs. Later feature rollbacks
@@ -666,6 +679,7 @@ safety for engagement.
 | Customer performance | Per-route p75 LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.10; phase-specific service p95 targets also pass | Any route at p75 LCP > 4 s, INP > 500 ms, or CLS > 0.25 for 24 hours after excluding a measured platform-wide incident |
 | Accessibility | 0 critical/serious automated violations; 100% of the primary journey completes by keyboard at 320 px and 200% text | Any blocking keyboard, focus, name/role/value, reflow, or care-first announcement defect |
 | Explore completeness | 100% of the authoritative eligible public projection is reachable by browse/search; 63 of 63 at the 2026-08-03 snapshot; zero fixed-count drift | Any eligible exact product silently unreachable, any ineligible/retired product exposed, or any hard-coded catalogue ceiling |
+| Private request operations | 100% owner isolation and delete reconciliation; reviewed requests reach a bounded customer-visible outcome; per-owner request/upload limits fail closed | Any cross-owner or photo exposure, unbounded intake, orphaned private data, or request accepted without an operating closure |
 | Ask safety and cost | 100% required safety corpus; 0 products on stop routes; 0 unauthorized model calls; 100% limiter fail-closed cases | Any safety-precedence regression, private-context leak, unbounded request, or cost-cap breach |
 | Catalogue/basket integrity | 100% displayed decisions bind exact identity and evidence freshness; 0 ambiguous identities; 0 unknown fees treated as zero; 0 ineligible wait recommendations | Any fabricated/ambiguous product, offer, fee, availability, or forecast claim |
 
@@ -673,13 +687,16 @@ safety for engagement.
 
 The implementation slice is complete locally. The next unit is the ordered
 [Customer Shelf release checklist](../operations/RELEASE.md#customer-shelf-release-checklist):
-provision the two restricted roles; migrate and reconcile through `0035`; pass
+provision the two restricted roles; migrate and reconcile through `0036`; pass
 the rehearsal and production acceptance audit; run the receipt-guarded one-off
 import and verify its receipt; probe and configure the restricted runtime URLs
 while removing every owner credential from Vercel; deploy; smoke; rotate the
 former owner; and record the role-compatible rollback floor.
 
-Do not describe Phase 1 as production-active without that evidence. Routine and
-Concern remain local Synthetic Amara preview data; their persistence, full
-provider-account deletion, recovery-only export, new cron or inventory work,
-and complete-catalogue Explore remain outside this activation.
+Do not describe Phase 1 as production-active without that evidence. Before
+private requests open beyond a controlled cohort, add a governed review-to-
+customer closure and fail-closed per-owner request/upload limits. Routine
+authoring and persistence, canonical user-controlled Concerns, true AI guidance,
+full provider-account deletion, recovery-only export, and new cron or inventory
+work remain outside this activation. Complete-catalogue Explore is implemented
+locally but still requires authenticated production smoke.

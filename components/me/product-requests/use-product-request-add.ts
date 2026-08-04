@@ -14,6 +14,7 @@ import {
   findExactCanonicalIdentity,
   requestFieldPayload,
   retryKeyFor,
+  searchCanonicalIdentities,
   validateProductRequestFields,
   type ProductRequest,
   type RetryKey,
@@ -40,12 +41,16 @@ export function useProductRequestAdd(viewModel: CustomerPortalViewModel) {
     () => findExactCanonicalIdentity(viewModel.catalogue ?? [], search),
     [search, viewModel.catalogue],
   );
-  const canOpenRequest = Boolean(search.trim()) && !exact;
+  const canonicalMatches = useMemo(
+    () => searchCanonicalIdentities(viewModel.catalogue ?? [], search),
+    [search, viewModel.catalogue],
+  );
+  const canOpenRequest = Boolean(search.trim()) && canonicalMatches.length === 0;
 
   function changeSearch(value: string) {
     setSearch(value);
     setCanonicalSlug(null);
-    if (findExactCanonicalIdentity(viewModel.catalogue ?? [], value)) setRequestOpen(false);
+    if (searchCanonicalIdentities(viewModel.catalogue ?? [], value).length) setRequestOpen(false);
   }
 
   function changePhoto(file: File | null, error: string) {

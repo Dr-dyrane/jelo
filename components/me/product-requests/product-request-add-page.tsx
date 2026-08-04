@@ -45,10 +45,10 @@ export function ProductRequestAddPage({
         <div className={styles.requestGate}>
           <PackageSearch size={26} strokeWidth={1.4} aria-hidden="true" />
           <div>
-            <strong>None of these is the exact pack?</strong>
+            <strong>No catalogue match?</strong>
             <p>Describe only what is printed or shown at the retailer. Researchers will review it privately.</p>
           </div>
-          <button type="button" onClick={controller.openRequest}>Describe my exact pack</button>
+          <button type="button" onClick={controller.openRequest}>Request this missing product</button>
         </div>
       ) : null}
 

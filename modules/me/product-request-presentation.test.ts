@@ -109,6 +109,22 @@ describe('private missing-product presentation model', () => {
     assert.deepEqual(searchCanonicalIdentities(products, 'anua 30 ml'), products);
   });
 
+  it('offers every partial canonical match as a Shelf add before a missing-product request', () => {
+    assert.deepEqual(searchCanonicalIdentities(products, 'anua 30 ml'), products);
+    assert.deepEqual(searchCanonicalIdentities(products, 'not in catalogue'), []);
+
+    const fields = source('components/me/product-requests/product-request-fields.tsx');
+    const controller = source('components/me/product-requests/use-product-request-add.ts');
+    const page = source('components/me/product-requests/product-request-add-page.tsx');
+    assert.match(fields, /matches\.map\([\s\S]*<ShelfActionButton[\s\S]*productSlug=\{product\.slug\}/);
+    assert.doesNotMatch(fields, /\{isExact \? \([\s\S]*<ShelfActionButton/);
+    assert.match(fields, /const saved = viewModel\.shelf\.some/);
+    assert.doesNotMatch(fields, /productRequestPresentation|requests\.some/);
+    assert.match(controller, /canonicalMatches\.length === 0/);
+    assert.match(controller, /searchCanonicalIdentities\(viewModel\.catalogue \?\? \[\], value\)\.length/);
+    assert.match(page, />Request this missing product</);
+  });
+
   it('defaults photo-identification consent off and validates required identity fields', () => {
     const empty = createProductRequestFields();
     assert.equal(empty.photoIdentificationConsent, false);

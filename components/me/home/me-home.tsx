@@ -154,7 +154,15 @@ function ExploreCard({
   );
 }
 
-function UnavailableShelfCard({ item }: { item: CustomerPortalShelfItem }) {
+function UnavailableShelfCard({
+  item,
+  shelfAction,
+  onSettled,
+}: {
+  item: CustomerPortalShelfItem;
+  shelfAction?: ShelfActionHandler;
+  onSettled: (result: CustomerShelfActionResult) => void;
+}) {
   return (
     <article className={`${styles.productCardShell} ${styles.unavailableProduct}`}>
       <div className={styles.unavailableCopy}>
@@ -163,6 +171,12 @@ function UnavailableShelfCard({ item }: { item: CustomerPortalShelfItem }) {
         <span>{item.snapshot.size} · {item.availability === 'changed' ? 'Changed' : 'Unavailable'}</span>
         {item.message ? <p>{item.message}</p> : null}
       </div>
+      <ShelfActionButton
+        shelfItem={item}
+        placement="card"
+        onAction={shelfAction}
+        onSettled={onSettled}
+      />
     </article>
   );
 }
@@ -239,7 +253,15 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
   };
 }
 
-function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+function HomePage({
+  viewModel,
+  shelfAction,
+  onShelfMutation,
+}: {
+  viewModel: CustomerPortalViewModel;
+  shelfAction?: ShelfActionHandler;
+  onShelfMutation: (result: CustomerShelfActionResult) => void;
+}) {
   const surface = ME_PORTAL_SURFACES.home;
   return (
     <>
@@ -292,6 +314,8 @@ function HomePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
               <UnavailableShelfCard
                 key={item.identityVersionId}
                 item={item}
+                shelfAction={shelfAction}
+                onSettled={onShelfMutation}
               />
             ))}
           </div>
@@ -588,10 +612,14 @@ function ShelfPage({
   viewModel,
   productRequestOutcome,
   productRequestPresentation,
+  shelfAction,
+  onShelfMutation,
 }: {
   viewModel: CustomerPortalViewModel;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
+  shelfAction?: ShelfActionHandler;
+  onShelfMutation: (result: CustomerShelfActionResult) => void;
 }) {
   const surface = ME_PORTAL_SURFACES.shelf;
   return (
@@ -618,6 +646,8 @@ function ShelfPage({
             <UnavailableShelfCard
               key={item.identityVersionId}
               item={item}
+              shelfAction={shelfAction}
+              onSettled={onShelfMutation}
             />
           ))}
         </div>
@@ -769,8 +799,6 @@ function ProductPage({
   viewModel,
   origin,
   shelfAction,
-  mutationFeedback,
-  mutationStatusRef,
   onShelfMutation,
   panelOpen,
   panelTab,
@@ -780,8 +808,6 @@ function ProductPage({
   viewModel: CustomerPortalViewModel;
   origin: MeProductOrigin;
   shelfAction?: ShelfActionHandler;
-  mutationFeedback: string;
-  mutationStatusRef: React.RefObject<HTMLParagraphElement | null>;
   onShelfMutation: (result: CustomerShelfActionResult) => void;
   panelOpen: boolean;
   panelTab: ProductPanelTab;
@@ -836,18 +862,6 @@ function ProductPage({
                 onAction={shelfAction}
                 onSettled={fromShelf ? onShelfMutation : undefined}
               />
-            ) : null}
-            {fromShelf ? (
-              <p
-                ref={mutationStatusRef}
-                className={styles.visuallyHidden}
-                tabIndex={-1}
-                role="status"
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                {mutationFeedback}
-              </p>
             ) : null}
           </div>
           <div className={styles.productMeta} aria-label="My product context">
@@ -1010,11 +1024,7 @@ function MePortalView({
     headerOwnsFocus,
   });
   useEffect(() => {
-    if (
-      route.kind !== 'product'
-      || route.origin !== 'shelf'
-      || !shelfMutationFeedback.message
-    ) return;
+    if (!shelfMutationFeedback.message) return;
     const frame = window.requestAnimationFrame(() => {
       shelfMutationStatusRef.current?.focus({ preventScroll: true });
     });
@@ -1145,7 +1155,23 @@ function MePortalView({
           {shelfState.previewOnly ? (
             <p className={styles.previewNotice} role="status">Preview Shelf · Resets on reload.</p>
           ) : null}
-          {route.kind === 'home' ? <HomePage viewModel={portalViewModel} /> : null}
+          <p
+            ref={shelfMutationStatusRef}
+            className={styles.visuallyHidden}
+            tabIndex={-1}
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {shelfMutationFeedback.message}
+          </p>
+          {route.kind === 'home' ? (
+            <HomePage
+              viewModel={portalViewModel}
+              shelfAction={shelfState.shelfAction}
+              onShelfMutation={announceShelfMutation}
+            />
+          ) : null}
           {route.kind === 'explore' ? (
             <ExplorePage
               viewModel={portalViewModel}
@@ -1162,6 +1188,8 @@ function MePortalView({
               viewModel={portalViewModel}
               productRequestOutcome={productRequestOutcome}
               productRequestPresentation={productRequestPresentation}
+              shelfAction={shelfState.shelfAction}
+              onShelfMutation={announceShelfMutation}
             />
           ) : null}
           {route.kind === 'shelf-add' ? (
@@ -1195,8 +1223,6 @@ function MePortalView({
               viewModel={portalViewModel}
               origin={route.origin}
               shelfAction={shelfState.shelfAction}
-              mutationFeedback={shelfMutationFeedback.message}
-              mutationStatusRef={shelfMutationStatusRef}
               onShelfMutation={announceShelfMutation}
               panelOpen={productPanelOpen}
               panelTab={productPanelState.tab}

@@ -14,17 +14,71 @@ import {
 } from '../../lib/customer/access-policy';
 import { LEGACY_SHELF_IMPORT_MANIFEST } from '../../lib/customer/legacy-shelf-import-manifest';
 
-test('sign-in continuation accepts only the two internal product roots', () => {
+test('sign-in continuation accepts roots and exact bounded member Product destinations', () => {
   assert.equal(resolveSignInContinuation('/me'), '/me');
   assert.equal(resolveSignInContinuation('/ops'), '/ops');
-  assert.equal(resolveSignInContinuation('/me/shelf'), '/ops');
-  assert.equal(resolveSignInContinuation('https://example.com'), '/ops');
-  assert.equal(resolveSignInContinuation('//example.com'), '/ops');
-  assert.equal(resolveSignInContinuation('/%2fexample.com'), '/ops');
-  assert.equal(resolveSignInContinuation(null), '/ops');
+  for (const origin of ['home', 'explore', 'shelf', 'routine']) {
+    const continuation = `/me/product/exact-product-${origin}?from=${origin}`;
+    const resolved = resolveSignInContinuation(continuation);
+    assert.equal(resolved, continuation);
+    assert.equal(resolveSignInIntent(resolved), 'customer');
+  }
+  const longestSlug = 'a'.repeat(180);
+  assert.equal(
+    resolveSignInContinuation(`/me/product/${longestSlug}?from=explore`),
+    `/me/product/${longestSlug}?from=explore`,
+  );
+  assert.equal(resolveSignInContinuation(`/me/product/${'a'.repeat(181)}?from=explore`), '/ops');
+
+  for (const unsafe of [
+    '/me/shelf',
+    '/me/explore',
+    '/me/product/exact-product',
+    '/me/product/exact-product/extra?from=explore',
+    '/me/product/exact-product?from=unknown',
+    '/me/product/exact-product?from=explore&next=/ops',
+    '/me/product/exact-product?from=explore&extra=true',
+    '/me/product/exact-product?from=explore%26next%3D%2Fops',
+    '/me/product/..?from=explore',
+    '/me/product/%2e%2e?from=explore',
+    '/me/product/%252e%252e?from=explore',
+    '/me/product/%2fops?from=explore',
+    '/me/product/exact\\product?from=explore',
+    'https://example.com/me/product/exact-product?from=explore',
+    '//example.com/me/product/exact-product?from=explore',
+    'javascript:alert(1)',
+    '',
+    null,
+    undefined,
+    ['/me/product/exact-product?from=explore'],
+    ['/me/product/exact-product?from=explore', '/ops'],
+  ]) {
+    assert.equal(resolveSignInContinuation(unsafe), '/ops');
+  }
   assert.equal(resolveSignInIntent('/me'), 'customer');
   assert.equal(resolveSignInIntent('/ops'), 'operator');
   assert.equal(customerSignInPath(), '/sign-in?next=/me');
+  assert.equal(customerSignInPath('/ops'), '/sign-in?next=/me');
+  assert.equal(customerSignInPath('/me/shelf'), '/sign-in?next=/me');
+  assert.equal(
+    customerSignInPath('/me/product/exact-product?from=explore'),
+    '/sign-in?next=%2Fme%2Fproduct%2Fexact-product%3Ffrom%3Dexplore',
+  );
+});
+
+test('the signed-out Product route carries only its canonical continuation through OTP', () => {
+  const access = readFileSync('lib/customer/access.ts', 'utf8');
+  const productRoute = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
+  const signInPage = readFileSync('app/(auth)/sign-in/page.tsx', 'utf8');
+
+  assert.match(access, /requireCustomer\([\s\S]*continuation\?: string \| readonly string\[\] \| null/);
+  assert.match(access, /redirect\(customerSignInPath\(continuation\)\)/);
+  assert.match(productRoute, /route\.kind === 'product'[\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/);
+  assert.match(productRoute, /requireCustomer\(continuation\)/);
+  assert.doesNotMatch(productRoute, /addCustomerShelf|addCurrentBySlug|save_origin/);
+  assert.match(signInPage, /searchParams\.getAll\('next'\)/);
+  assert.match(signInPage, /requestedContinuations\.length === 1/);
+  assert.match(signInPage, /window\.location\.assign\(continuation\)/);
 });
 
 test('the synthetic customer requires development plus the explicit local flag', () => {
