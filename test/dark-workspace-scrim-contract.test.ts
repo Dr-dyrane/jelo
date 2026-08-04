@@ -61,3 +61,18 @@ test('shared workspace dock retains its light elevation and neutralizes dark ele
   assert.match(dock, /box-shadow: 0 12px 28px rgb\(107 59 53 \/ 20%\);/);
   assert.equal(occurrences(dock, 'box-shadow: 0 14px 36px rgb(0 0 0 / 68%);'), 2);
 });
+
+test('Me routine cards keep their light surface and gain chromatic dark depth', async () => {
+  const [home, routine] = await Promise.all([
+    readSource('components/me/home/me-home.module.css'),
+    readSource('components/me/routine/routine-manager.module.css'),
+  ]);
+
+  assert.match(routine, /background: color-mix\(in srgb, var\(--surface, #fff\) 94%, transparent\);/);
+  assert.equal(occurrences(home, 'linear-gradient(160deg, var(--cream), var(--surface-2) 58%, var(--band));'), 2);
+  assert.equal(occurrences(home, 'background: linear-gradient(145deg, var(--card-3), var(--card));'), 2);
+  assert.equal(occurrences(routine, 'linear-gradient(145deg, var(--card-3), var(--card));'), 2);
+  assert.equal(occurrences(routine, 'linear-gradient(145deg, var(--card-2), var(--surface-2));'), 2);
+  assert.equal(occurrences(routine, 'background: var(--accent-solid);'), 2);
+  assert.equal(occurrences(routine, 'background: var(--state-danger-bg);'), 2);
+});
