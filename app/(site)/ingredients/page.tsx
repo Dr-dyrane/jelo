@@ -4,12 +4,9 @@ import { IngredientExplorer, type IngredientCard } from '@/components/ingredient
 import { products } from '@/data/catalogue';
 import { editorialAsset } from '@/data/editorial';
 import { ingredientSeeds, verifiedProductIngredients } from '@/data/product-ingredients';
+import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 
-export const metadata: Metadata = {
-  title: 'Ingredients',
-  description: 'Source-checked ingredients in the JeloCare catalogue.',
-  alternates: { canonical: '/ingredients' },
-};
+export const metadata: Metadata = publicSocialMetadata(staticSocialCard('ingredients'), '/ingredients');
 
 const ingredientCards: IngredientCard[] = ingredientSeeds.map(ingredient => ({
   slug: ingredient.slug,

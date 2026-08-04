@@ -11,15 +11,12 @@ import {
   communityPurposeOptions,
 } from '@/lib/community-intake/canonical-options';
 import { catalogueSearchProductPrefill } from '@/lib/community-intake/catalogue-search-handoff';
+import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import styles from './contribute.module.css';
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: 'Share skincare',
-  description: 'Tell us about one product. Anonymous and usually under a minute.',
-  alternates: { canonical: '/contribute' },
-};
+export const metadata: Metadata = publicSocialMetadata(staticSocialCard('contribute'), '/contribute');
 
 const heroAsset = editorialAsset('morning-care-lagos');
 

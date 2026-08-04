@@ -28,14 +28,19 @@ import {
 import { inventoryContinuationTargetPage } from '@/lib/catalogue/inventory-continuation';
 import { loadInventory } from '@/lib/catalogue/inventory-repository';
 import { catalogueSearchHandoffHref } from '@/lib/community-intake/catalogue-search-handoff';
+import { catalogueSocialCard, publicSocialMetadata } from '@/lib/og/social-card';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 import styles from './products.module.css';
 import feedbackStyles from './catalogue-feedback.module.css';
 
 export const revalidate = 3600;
-export const metadata = { title: 'Products', alternates: { canonical: '/products' } };
 
 type SearchParams = Record<string, string | string[] | undefined>;
+
+export async function generateMetadata({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const { card, canonicalPath } = catalogueSocialCard(await searchParams);
+  return publicSocialMetadata(card, canonicalPath);
+}
 
 const heroAsset = editorialAsset('catalogue-hero');
 const allSkinAsset = editorialAsset('catalogue-all-skin-story');

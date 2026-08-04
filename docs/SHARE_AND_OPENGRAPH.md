@@ -1,6 +1,6 @@
 # Share and OpenGraph
 
-Updated: 2026-07-27
+Updated: 2026-08-04
 
 Shareable cards let a reader pass on a specific piece of JeloCare — a product's observed prices, or a source-checked ingredient — as a link with a rich preview. Every card is evidence-scoped: it exists only when the underlying evidence supports it, and it never invents a number or a claim.
 
@@ -22,13 +22,17 @@ Price movement has a second, stricter binding. Every trend snapshot carries the 
 
 ## OpenGraph images
 
-Each shareable surface renders its own `opengraph-image.tsx` (products, concerns, ingredients, and the share price card). Shared building blocks live in `lib/og/assets.ts`: the 1200×630 size, self-hosted font loading, naira spelling (the Latin subset has no ₦ glyph), and `loadImage`.
+Every public route family uses the shared contextual renderer at `/og`. Route metadata is built by `lib/og/social-card.tsx`, so the canonical URL, Open Graph fields, Twitter large-card fields, meaningful image alt text, and 1200×630 PNG URL come from one model. The root layout intentionally has no fallback social image: a new public page must join the route coverage matrix and choose its own truthful context.
+
+Product and share routes build the card from the same published product object as the page. Brand, concise product name, size, category, and repository-bound packshot therefore stay on the exact SKU. The social card never carries price, availability, popularity, diagnosis, or retailer claims. If the existing published packshot is absent or cannot be decoded, the renderer keeps the product identity and shows a branded text fallback instead of substituting another image.
 
 Three properties make previews reliable:
 
-- **Pre-rendered at build.** Each route's `generateStaticParams` pre-renders every image, so a social crawler (WhatsApp, X, iMessage) hits a static, CDN-cached PNG instead of a cold on-demand render. Dynamic on-demand generation was roughly 20 s cold and uncached — past crawler timeouts — so links showed no preview.
-- **PNG-normalised.** Satori (next/og) decodes only PNG/JPEG, but many packshots are webp/avif, so `loadImage` converts every image to PNG with `sharp` (and downscales it, shrinking the inlined data URL). Conversion runs at build time where sharp is available; the served PNG needs no sharp at runtime.
+- **Content-versioned.** Metadata URLs carry a deterministic hash of the card copy, route context, theme, and product image binding. Matching versions receive an immutable one-year cache header; unversioned or stale requests receive a short CDN cache. A route or SKU content change therefore creates a new image URL without coupling the card to price freshness.
+- **PNG-normalised.** Satori (next/og) decodes only PNG/JPEG, but many packshots are webp/avif, so `loadImage` converts each fetched packshot to a downscaled PNG data URL before rendering. The content-versioned response is then cached at the CDN.
 - **Resilient.** `loadImage` fetches with a timeout and inlines a data URL; a slow or failing image degrades to a card without the shot rather than hanging the render or breaking the build.
+
+Private `/me` and `/ops` layouts are explicit noindex/no-store boundaries and set Open Graph and Twitter metadata to `null`. `/sign-in` and the internal `/image-audit` route are also noindex and carry no social metadata. Route inventory tests fail when a public page is not represented or when a covered page does not call the contextual metadata builder.
 
 ## Constraints
 

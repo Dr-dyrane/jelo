@@ -29,6 +29,8 @@ export type ShareView = {
   productSlug: string;
   brand: string;
   name: string;
+  size: string;
+  category: 'Face' | 'Hair' | 'Body';
   microtag: string;
   image: string;
   observedDate: string;

@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { concerns } from '@/data/knowledge';
 import { isProductMatchConcern } from '@/modules/concerns/product-matching';
 import { getWorthSharingReadModel } from '@/lib/share/worth-sharing';
+import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import styles from './share-index.module.css';
 
 export const revalidate = 3600;
@@ -11,10 +12,7 @@ export const revalidate = 3600;
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
 const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' });
 
-export const metadata: Metadata = {
-  title: 'Worth sharing',
-  description: 'Observed Nigerian prices worth passing on. And a few guides.',
-};
+export const metadata: Metadata = publicSocialMetadata(staticSocialCard('share-index'), '/share');
 
 export default async function ShareIndex() {
   const signals = await getWorthSharingReadModel();

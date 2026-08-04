@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ingredientSeedBySlug, ingredientSeeds } from '@/data/product-ingredients';
 import { ShareButton } from '@/components/share/share-button';
+import { ingredientSocialCard, publicSocialMetadata } from '@/lib/og/social-card';
 import { IngredientShareCard } from './ingredient-share-card';
 import styles from './ingredient-share.module.css';
 
@@ -14,17 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const seed = ingredientSeedBySlug(slug);
   if (!seed) return {};
-  const title = seed.commonName;
-  const description = seed.summary;
   const url = `/share/ingredient/${slug}`;
-  // The og:image is generated from opengraph-image.tsx in this segment.
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'website' },
-    twitter: { card: 'summary_large_image', title, description },
-  };
+  const card = ingredientSocialCard(slug);
+  return card ? publicSocialMetadata(card, url) : {};
 }
 
 export default async function IngredientSharePage({ params }: { params: Promise<{ slug: string }> }) {

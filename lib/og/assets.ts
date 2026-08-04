@@ -2,9 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import sharp from 'sharp';
 
-// Shared building blocks for the app's dynamic OpenGraph images (nodejs runtime).
-// Keeping them here means every OG route renders with the same fonts, the same
-// resilient image loading, and the same naira handling.
+// Shared binary building blocks for the contextual social-card renderer.
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
@@ -52,6 +50,3 @@ export async function loadImage(url: string): Promise<string | null> {
     return null;
   }
 }
-
-// The Latin font subset carries no naira glyph, so spell it out in images only.
-export const ngn = (label: string) => label.replace('₦', 'NGN ');

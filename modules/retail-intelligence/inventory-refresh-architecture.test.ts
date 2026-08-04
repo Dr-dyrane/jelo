@@ -117,9 +117,7 @@ test('the cron stops claims before maxDuration and invalidates only after succes
     "revalidatePath('/concerns/[slug]', 'page')",
     "revalidatePath('/share')",
     'revalidatePath(`/products/${slug}`)',
-    'revalidatePath(`/products/${slug}/opengraph-image`)',
     'revalidatePath(`/share/${slug}`)',
-    'revalidatePath(`/share/${slug}/opengraph-image`)',
   ]) {
     assert.ok(route.includes(path), `missing inventory revalidation: ${path}`);
   }

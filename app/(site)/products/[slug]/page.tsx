@@ -12,6 +12,7 @@ import { ProductQuickPanel } from '@/components/products/product-quick-panel';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
+import { productSocialCard, publicSocialMetadata } from '@/lib/og/social-card';
 import { productStructuredData, serializeJsonLd } from '@/modules/commerce/product-structured-data';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
@@ -25,10 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = await findCatalogueProduct(slug);
   if (!product) return {};
-  const title = `${product.brand} ${product.name}`;
-  const description = `${product.brand} ${product.name}, ${product.size}. Product details and observed store listings.`;
   const url = `/products/${product.slug}`;
-  return { title, description, alternates: { canonical: url }, openGraph: { title, description, url, images: [product.image] } };
+  return publicSocialMetadata(productSocialCard(product, 'product'), url);
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {

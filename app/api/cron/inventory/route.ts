@@ -38,9 +38,7 @@ export async function GET(request: Request) {
     revalidatePath('/share');
     for (const slug of run.affectedProductSlugs) {
       revalidatePath(`/products/${slug}`);
-      revalidatePath(`/products/${slug}/opengraph-image`);
       revalidatePath(`/share/${slug}`);
-      revalidatePath(`/share/${slug}/opengraph-image`);
     }
   }
 

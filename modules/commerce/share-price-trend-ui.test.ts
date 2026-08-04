@@ -13,10 +13,6 @@ test('share cards carry compact market and exact-store movement without steady n
     path.join(root, 'app/(site)/share/[slug]/share-card.tsx'),
     'utf8',
   );
-  const image = await readFile(
-    path.join(root, 'app/(site)/share/[slug]/opengraph-image.tsx'),
-    'utf8',
-  );
   const repository = await readFile(
     path.join(root, 'lib/inventory/price-trends.ts'),
     'utf8',
@@ -40,7 +36,6 @@ test('share cards carry compact market and exact-store movement without steady n
   assert.match(card, /aria-label=\{trend\.description\}/);
   assert.match(card, /<PriceTrend trend=\{view\.marketTrend\} market \/>/);
   assert.match(card, /<PriceTrend trend=\{offer\.trend\} \/>/);
-  assert.match(image, /Market \{view\.marketTrend\.label\}/);
   assert.match(repository, /selectCurrentPriceObservations\(rows, snapshot\)/);
   assert.match(repository, /o\.available/);
   assert.match(repository, /o\.inventory_status as "inventoryStatus"/);

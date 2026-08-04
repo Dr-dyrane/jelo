@@ -1,8 +1,9 @@
 import { ConsultExperience } from '@/components/consult/consult-experience';
 import { EditorialEntry } from '@/components/editorial/editorial-entry';
 import { editorialAsset } from '@/data/editorial';
+import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 
-export const metadata = { title: 'Consult' };
+export const metadata = publicSocialMetadata(staticSocialCard('consult'), '/consult');
 
 const storyAsset = editorialAsset('consult-self-check-story');
 

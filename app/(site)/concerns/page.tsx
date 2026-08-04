@@ -3,9 +3,11 @@ import { EditorialEntry } from '@/components/editorial/editorial-entry';
 import { editorialAsset } from '@/data/editorial';
 import { concerns } from '@/data/knowledge';
 import { listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
+import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import { isProductMatchConcern } from '@/modules/concerns/product-matching';
 
 export const revalidate = 3600;
+export const metadata = publicSocialMetadata(staticSocialCard('concerns'), '/concerns');
 
 const storyAsset = editorialAsset('concerns-together-story');
 

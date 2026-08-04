@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { concerns, concernBySlug } from '@/data/knowledge';
 import { ProductRail } from '@/components/products/product-grid';
 import { listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
+import { concernSocialCard, publicSocialMetadata } from '@/lib/og/social-card';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
 export const revalidate = 3600;
@@ -17,11 +18,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const concern = concernBySlug(slug);
   if (!concern) return {};
-  return {
-    title: concern.name,
-    description: concern.summary,
-    alternates: { canonical: `/concerns/${concern.slug}` },
-  };
+  const card = concernSocialCard(concern.slug);
+  return card ? publicSocialMetadata(card, `/concerns/${concern.slug}`) : {};
 }
 
 export default async function ConcernPage({ params }: { params: Promise<{ slug: string }> }) {

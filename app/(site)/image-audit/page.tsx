@@ -1,9 +1,16 @@
+import type { Metadata } from 'next';
 import { ProductImageAudit } from '@/components/products/product-image-audit';
 import { editorialAssets } from '@/data/editorial';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Image audit' };
+export const metadata: Metadata = {
+  title: 'Image audit',
+  description: 'Internal catalogue media review.',
+  robots: { index: false, follow: false },
+  openGraph: null,
+  twitter: null,
+};
 
 export default async function ImageAuditPage() {
   const products = await listCatalogueProducts();

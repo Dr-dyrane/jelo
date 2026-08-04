@@ -105,6 +105,8 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
     productSlug: product.slug,
     brand: product.brand,
     name: product.name,
+    size: product.size,
+    category: product.category,
     microtag: `${product.size} · ${product.category}`,
     image: product.image,
     observedDate,

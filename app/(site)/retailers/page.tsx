@@ -4,16 +4,13 @@ import { ArrowUpRight, BadgeCheck, Clock3, ShieldCheck } from 'lucide-react';
 import { RetailerPartnershipExperience } from '@/components/retailers/retailer-partnership-experience';
 import { nigeriaRetailers } from '@/data/retailers';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import { hasRegulatorMatch } from '@/modules/commerce/offer-evidence';
 import styles from './retailers.module.css';
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: 'Retailers',
-  description: 'The Nigerian beauty stores JeloCare checks, plus a simple way for retailers to list their store.',
-  alternates: { canonical: '/retailers' },
-};
+export const metadata: Metadata = publicSocialMetadata(staticSocialCard('retailers'), '/retailers');
 
 const directCount = nigeriaRetailers.filter(store => store.kind === 'retailer').length;
 

@@ -5,6 +5,7 @@ import { buildShareData } from './share-data';
 import { ShareAlternatives, ShareCard } from './share-card';
 import { ShareButton } from '@/components/share/share-button';
 import { getWorthSharingReadModel } from '@/lib/share/worth-sharing';
+import { productSocialCard, publicSocialMetadata } from '@/lib/og/social-card';
 import { selectShareRecommendations } from '@/modules/commerce/share-insights';
 import styles from './share-card.module.css';
 
@@ -14,19 +15,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = await buildShareData(slug);
   if (!data) return {};
-  const title = `${data.view.brand} ${data.view.name}`;
-  const description = data.headlineEmph
-    ? `Same product, ${data.headlineEmph.replace(' apart.', '')} apart across ${data.storeCount} Nigerian stores. Observed ${data.view.observedDate}.`
-    : `Observed in Nigeria, ${data.view.observedDate}. See where to find it.`;
   const url = `/share/${slug}`;
-  // The og:image is generated automatically from opengraph-image.tsx in this segment.
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'website' },
-    twitter: { card: 'summary_large_image', title, description },
-  };
+  return publicSocialMetadata(productSocialCard({
+    slug: data.view.productSlug,
+    brand: data.view.brand,
+    name: data.view.name,
+    size: data.view.size,
+    category: data.view.category,
+    image: data.view.image,
+  }, 'share'), url);
 }
 
 export default async function SharePage({ params }: { params: Promise<{ slug: string }> }) {

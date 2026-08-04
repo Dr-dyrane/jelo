@@ -8,10 +8,12 @@ import { marketSignals } from '@/data/market-signals';
 import type { Product } from '@/data/products';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
 import { hasVerifiedNigeriaOffer, orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
+import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import styles from './home.module.css';
 import editorialStyles from './home-editorial.module.css';
 
 export const revalidate = 3600;
+export const metadata = publicSocialMetadata(staticSocialCard('home'), '/');
 
 const heroAsset = editorialAsset('morning-care-lagos');
 

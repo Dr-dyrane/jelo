@@ -14,12 +14,22 @@ import { NextResponse, type NextRequest } from 'next/server';
 // middleware is a no-op pass-through.
 
 const IS_SECURE_ORIGIN = process.env.NODE_ENV === 'production';
+const PRIVATE_WORKSPACE_ROUTE = /^\/(?:me|ops)(?:\/|$)/;
+
+function protectPrivateWorkspaceResponse(request: NextRequest, response: NextResponse) {
+  if (!PRIVATE_WORKSPACE_ROUTE.test(request.nextUrl.pathname)) return response;
+  response.headers.set('Cache-Control', 'private, no-store, max-age=0');
+  response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+  return response;
+}
 
 export function middleware(request: NextRequest) {
-  if (IS_SECURE_ORIGIN) return NextResponse.next();
+  if (IS_SECURE_ORIGIN) {
+    return protectPrivateWorkspaceResponse(request, NextResponse.next());
+  }
 
   const cookie = request.headers.get('cookie');
-  if (!cookie) return NextResponse.next();
+  if (!cookie) return protectPrivateWorkspaceResponse(request, NextResponse.next());
 
   // Re-add `__Secure-` prefix to the SDK's cookie names so getSession() finds them.
   const rewritten = cookie
@@ -27,11 +37,13 @@ export function middleware(request: NextRequest) {
     .replace(/\bneon-auth\./g, '__Secure-neon-auth.');
 
   // Nothing changed → skip the header rewrite cost.
-  if (rewritten === cookie) return NextResponse.next();
+  if (rewritten === cookie) {
+    return protectPrivateWorkspaceResponse(request, NextResponse.next());
+  }
 
   const headers = new Headers(request.headers);
   headers.set('cookie', rewritten);
-  return NextResponse.next({ request: { headers } });
+  return protectPrivateWorkspaceResponse(request, NextResponse.next({ request: { headers } }));
 }
 
 export const config = {
