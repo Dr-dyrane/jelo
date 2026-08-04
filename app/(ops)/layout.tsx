@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { requireConsoleOperator } from '@/lib/moderation/console-access';
 import { getPostgresClient } from '@/lib/db/postgres';
 import { pendingQueueCounts } from '@/lib/moderation/queues';
@@ -8,6 +8,10 @@ import { OpsChrome } from '@/components/ops/shell/OpsChrome';
 export const metadata: Metadata = {
   title: { absolute: 'Ops · JeloCare' },
   robots: { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
 };
 
 // Console chrome layout with responsive sidebar/rail/mobile-bar shell (ADR 0007).

@@ -85,6 +85,10 @@ test('the Ops shell owns the viewport while each workspace owns its scroll', asy
   assert.doesNotMatch(layout, /className=\{styles\.body\}/);
   assert.equal((chrome.match(/className=\{styles\.body\}/g) ?? []).length, 1);
 
+  // The private canvas paints through device insets. Floating compact chrome
+  // then applies the safe-area clearance instead of leaving an unpainted strip.
+  assert.match(layout, /export const viewport: Viewport = \{\s*viewportFit: 'cover',?\s*\};/);
+
   const viewportRoot = shellCss.match(/\.body\s*\{([\s\S]*?)\}/)?.[1] ?? '';
   assert.match(viewportRoot, /position:\s*fixed;/);
   assert.match(viewportRoot, /inset:\s*0;/);
@@ -95,6 +99,14 @@ test('the Ops shell owns the viewport while each workspace owns its scroll', asy
   assert.match(
     adaptiveCss,
     /\.contentWrapper\s*\{[\s\S]*?height:\s*100dvh\s*!important;[\s\S]*?min-height:\s*0\s*!important;[\s\S]*?overflow:\s*clip;/,
+  );
+  assert.match(
+    adaptiveCss,
+    /\.tabletIsland\s*\{[\s\S]*?top:\s*max\(var\(--space-3\), env\(safe-area-inset-top\)\);/,
+  );
+  assert.match(
+    adaptiveCss,
+    /\.menuFab\s*\{[\s\S]*?top:\s*max\(var\(--space-3\), env\(safe-area-inset-top\)\);/,
   );
 });
 

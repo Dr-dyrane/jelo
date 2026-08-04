@@ -391,6 +391,16 @@ test('Me header visibility derives from the dock scroll state and route reset', 
   assert.match(controller, /state\.routeKey === routeKey[\s\S]*INITIAL_WORKSPACE_DOCK_SCROLL_STATE/);
 });
 
+test('Me paints through the top viewport inset while keeping its controls safe', () => {
+  const layout = readFileSync('app/(customer)/me/layout.tsx', 'utf8');
+  const styles = readFileSync('components/me/home/me-home.module.css', 'utf8');
+
+  assert.match(layout, /export const viewport: Viewport = \{\s*viewportFit: 'cover',?\s*\};/);
+  assert.match(styles, /\.shell \{[^}]*position: fixed;[^}]*inset: 0;/);
+  assert.match(styles, /\.topbar \{[^}]*padding: max\(14px, env\(safe-area-inset-top\)\)/);
+  assert.match(styles, /\.content \{[^}]*env\(safe-area-inset-bottom\)/);
+});
+
 test('account avatar owns one accessible extensible modal sheet', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const sheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
