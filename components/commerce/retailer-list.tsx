@@ -128,8 +128,8 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
         </span> : null}
         <span><small>Stores</small><strong>{summary.pricedRetailerCount}</strong></span>
         {summary.lastCheckedAt ? <span><small>Checked</small><strong>{shortDate(summary.lastCheckedAt)}</strong></span> : null}
-        {summary.savingsVsTypical ? <div className="market-summary-notes">
-          {summary.savingsVsTypical ? <span>Save {formatAmount(summary.savingsVsTypical, market)}.</span> : null}
+        {summary.savings ? <div className="market-summary-notes">
+          {summary.savings ? <span>Save {formatAmount(summary.savings, market)}.</span> : null}
         </div> : null}
       </div> : null}
       {coverageNote ? <p className="market-summary-coverage">{coverageNote}</p> : null}

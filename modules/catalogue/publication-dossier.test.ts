@@ -1368,7 +1368,7 @@ test('candidate changes invalidate a release while wall-clock aging only hides i
     retailerCount: 0,
     inStockCount: 0,
     pricedRetailerCount: 0,
-    savingsVsTypical: null,
+    savings: null,
     lastCheckedAt: null,
     confidence: 0,
     priceBasis: 'none',

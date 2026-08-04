@@ -34,7 +34,7 @@ test('summarizes available exact prices in one market', () => {
   assert.equal(summary.lowestPrice, 14_500);
   assert.equal(summary.typicalPrice, 16_000);
   assert.equal(summary.highestPrice, 17_500);
-  assert.equal(summary.savingsVsTypical, 1_500);
+  assert.equal(summary.savings, 3_000);
   assert.equal(summary.retailerCount, 3);
   assert.equal(summary.inStockCount, 2);
   assert.equal(summary.pricedRetailerCount, 2);
@@ -53,7 +53,7 @@ test('uses the median (scoped to the compared set) for a multi-store comparison'
 
   // median of 10k/11k/18k is 11k (the mean would have been 13k)
   assert.equal(summary.typicalPrice, 11_000);
-  assert.equal(summary.savingsVsTypical, 1_000);
+  assert.equal(summary.savings, 8_000);
 });
 
 test('does not include search, unavailable or cross-market prices in the comparison', () => {
@@ -63,7 +63,7 @@ test('does not include search, unavailable or cross-market prices in the compari
   assert.equal(summary.typicalPrice, null);
   assert.equal(summary.retailerCount, 1);
   assert.equal(summary.inStockCount, 1);
-  assert.equal(summary.savingsVsTypical, null);
+  assert.equal(summary.savings, null);
   assert.equal(summary.priceBasis, 'single-source');
 });
 

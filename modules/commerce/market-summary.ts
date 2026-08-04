@@ -11,7 +11,7 @@ export type MarketSummary = {
   retailerCount: number;
   inStockCount: number;
   pricedRetailerCount: number;
-  savingsVsTypical: number | null;
+  savings: number | null;
   lastCheckedAt: string | null;
   confidence: number;
   priceBasis: 'none' | 'single-source' | 'multi-source';
@@ -65,10 +65,10 @@ export function summarizeMarket(offers: Offer[], market: Market, now: number | D
     retailerCount: exact.length,
     inStockCount: inStock.length,
     pricedRetailerCount: priced.length,
-    savingsVsTypical: lowestPrice != null && typicalPrice != null && typicalPrice > lowestPrice
+    savings: lowestPrice != null && highestPrice != null && highestPrice > lowestPrice
       ? market === 'NG'
-        ? Math.round(typicalPrice - lowestPrice)
-        : Number((typicalPrice - lowestPrice).toFixed(2))
+        ? Math.round(highestPrice - lowestPrice)
+        : Number((highestPrice - lowestPrice).toFixed(2))
       : null,
     lastCheckedAt: checked[0] ?? null,
     confidence: Math.min(confidence, 100),
