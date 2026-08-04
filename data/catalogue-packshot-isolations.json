@@ -439,5 +439,131 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "medik8-advanced-night-restore-50ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+      "sha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+      "byteSize": 89707,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-04T12:44:24Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00818625024444"
+      },
+      "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore.js"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "59117e51d7860edd74d5b096728472a819e3a9c0c8dc7c0b39ff8dce83355fe9",
+      "generatedAt": "2026-08-04T13:03:08Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01",
+      "byteSize": 894133,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-04T14:04:20Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-04T14:04:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "c8fa5827910ecbdd2c912f48578b2547ae1314f9d8ae0892d0a815d4c9a9c451",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+      "sha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+      "byteSize": 333367,
+      "width": 1023,
+      "height": 1280,
+      "retrievedAt": "2026-08-04T12:44:24Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03253581785706"
+      },
+      "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "c4acb8db8e38f70a9de743b6efd42123a9fcfe63fe2cac0b1cb0bdb248a0d7cd",
+      "generatedAt": "2026-08-04T14:04:52Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+      "byteSize": 790195,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-04T14:11:06Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-04T14:11:07Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "5871fc98898696b2d13aae788d144ace53e74805a3e9f1fae9191e4156ea6f62",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

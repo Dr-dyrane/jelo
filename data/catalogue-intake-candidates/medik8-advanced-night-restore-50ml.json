@@ -186,7 +186,21 @@
       "sourceAssetByteSize": 89707,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-advanced-night-restore-50ml/packshot-v1-91dd680efc1ab2d9.png",
+      "publicImageSha256": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 894133,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-04T14:04:30Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
     }
   }
 }

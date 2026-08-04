@@ -424,5 +424,39 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "58f184b9b5a6a2337de5007f67fce2fb5508bc29c02bb375991d40a3a7402f13"
+  },
+  {
+    "id": "medik8-advanced-night-restore-50ml-packshot-v1",
+    "active": true,
+    "candidateId": "medik8-advanced-night-restore-50ml",
+    "destination": "publication",
+    "publicationBrandSlug": "medik8",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+    "localPath": "data/catalogue-intake-assets/medik8-advanced-night-restore-50ml/packshot-v1-91dd680efc1a.png",
+    "blobPath": "products/medik8/medik8-advanced-night-restore-50ml/packshot-v1-91dd680efc1ab2d9.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-advanced-night-restore-50ml/packshot-v1-91dd680efc1ab2d9.png",
+    "contentType": "image/png",
+    "byteSize": 894133,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01"
+  },
+  {
+    "id": "loccitane-almond-softening-shower-oil-250ml-packshot-v1",
+    "active": true,
+    "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+    "destination": "publication",
+    "publicationBrandSlug": "l-occitane-en-provence",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+    "localPath": "data/catalogue-intake-assets/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe5.png",
+    "blobPath": "products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe53d02.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe53d02.png",
+    "contentType": "image/png",
+    "byteSize": 790195,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1"
   }
 ]

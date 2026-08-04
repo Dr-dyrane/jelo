@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-04T14:08:45Z",
+  "updatedAt": "2026-08-04T14:11:10Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -13658,7 +13658,7 @@
       "identity": {
         "gtin": "3253581785706",
         "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
-        "checkedAt": "2026-08-04T12:50:20Z",
+        "checkedAt": "2026-08-04T14:11:00Z",
         "basis": "official-brand",
         "packageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
         "officialEvidence": {
@@ -13673,31 +13673,31 @@
             "candidateId": "loccitane-almond-softening-shower-oil-250ml",
             "fields": {
               "gtin": {
-                "locator": "Official Shopify product response variants[0].barcode",
+                "locator": "Official product HTML embedded variant barcode",
                 "sourceText": "\"barcode\":\"3253581785706\"",
                 "value": "3253581785706"
               },
               "size": {
-                "locator": "Official Shopify product response variants[0].title",
-                "sourceText": "250 ml / Almond",
+                "locator": "Official product HTML variant selector",
+                "sourceText": "\"title\":\"250 ml \\/ Almond\",\"option1\":\"250 ml\"",
                 "value": "250 ml"
               },
               "variant": {
-                "locator": "Official Shopify media alt and exact variant option",
-                "sourceText": "Almond (Amande) Softening Shower Oil 250 ml",
+                "locator": "Official product HTML exact pack-image alt",
+                "sourceText": "Almond (Amande) Softening Shower Oil 250 ml - Illustration 1",
                 "value": "Almond (Amande) Softening Shower Oil"
               }
             },
             "method": "reviewed-exact-identity-field-extraction",
             "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml.js",
-            "retrievedAt": "2026-08-04T12:44:24Z",
-            "reviewedAt": "2026-08-04T12:50:20Z",
+            "responseUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+            "retrievedAt": "2026-08-04T14:10:55Z",
+            "reviewedAt": "2026-08-04T14:11:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 3,
-            "sourceResponseByteSize": 6788,
-            "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "b943442e3b4796da8cae9bc3ee71ad3143c586d1e3995dd230fd5e21fe0f273a",
+            "sourceResponseByteSize": 603091,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "0045d29361fd85962f838d9fef3493a9acf81a8610ac487a05b987408b649847",
             "sourceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
             "supplementalResponses": [
               {
@@ -13711,10 +13711,10 @@
               }
             ]
           },
-          "snapshotSha256": "fd67b00908b5f34c6369bcd75609ef19334cdbada9e12018a81ebdffff2d0937",
+          "snapshotSha256": "afbbe7f7a6915d01e9fdf3a5b6b31b59b89008c5a0765f300ca112a078f32aaa",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1532,
-          "retrievedAt": "2026-08-04T12:44:24Z"
+          "snapshotByteSize": 1552,
+          "retrievedAt": "2026-08-04T14:10:55Z"
         }
       },
       "care": {
@@ -13729,7 +13729,7 @@
           "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
           "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
         ],
-        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewedAt": "2026-08-04T14:11:05Z",
         "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
@@ -13749,7 +13749,21 @@
         "sourceAssetByteSize": 333367,
         "sourceAssetWidth": 1023,
         "sourceAssetHeight": 1280,
-        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe53d02.png",
+        "publicImageSha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 790195,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-04T14:11:07Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
       }
     },
     {
@@ -13931,7 +13945,21 @@
         "sourceAssetByteSize": 89707,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-advanced-night-restore-50ml/packshot-v1-91dd680efc1ab2d9.png",
+        "publicImageSha256": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 894133,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-04T14:04:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
       }
     },
     {
