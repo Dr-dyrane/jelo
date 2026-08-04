@@ -43,6 +43,7 @@ type MutationOperation =
 export type CustomerProductRequestMutationOutcome =
   | { status: 'created' | 'updated'; request: CustomerProductRequest; replayed: boolean }
   | { status: 'withdrawn'; requestId: string; revision: number; replayed: boolean }
+  | { status: 'matched'; canonicalSlug: string; identityVersionId: string }
   | { status: 'active_catalogue_match'; canonicalSlug: string }
   | { status: 'revision_conflict'; revision: number; lifecycleState: CustomerProductRequestLifecycleState }
   | { status: 'state_conflict'; lifecycleState: CustomerProductRequestLifecycleState }
@@ -209,8 +210,8 @@ async function exactActiveCatalogueMatch(
   transaction: TransactionSql,
   identity: CustomerProductRequestIdentityFields,
 ) {
-  const [match] = await transaction<{ slug: string }[]>`
-    select product.slug
+  const [match] = await transaction<{ slug: string; identity_version_id: string }[]>`
+    select product.slug, version.identity_version_id
     from public.catalogue_product_identity_versions version
     join public.products product on product.id = version.product_id
     where version.lifecycle_state = 'active'
@@ -227,7 +228,7 @@ async function exactActiveCatalogueMatch(
     order by version.version_number desc, version.identity_version_id
     limit 1
   `;
-  return match?.slug ?? null;
+  return match ?? null;
 }
 
 async function insertMutation(
@@ -390,8 +391,37 @@ export const postgresCustomerProductRequestRepository = {
       });
       if (prior) return prior;
 
-      const canonicalSlug = await exactActiveCatalogueMatch(transaction, input.identity);
-      if (canonicalSlug) return { status: 'active_catalogue_match', canonicalSlug };
+      const match = await exactActiveCatalogueMatch(transaction, input.identity);
+      if (match) {
+        // A submitted request that exactly matches a published catalogue product
+        // is auto-saved to the owner's shelf instead of entering "pending". Drafts
+        // (submit=false) keep the informational active_catalogue_match so the
+        // customer can decide before anything is added to their shelf.
+        if (input.submit) {
+          await transaction`
+            insert into public.customer_shelf_items (
+              owner_subject,
+              product_identity_version_id,
+              save_origin
+            ) values (
+              ${owner},
+              ${match.identity_version_id},
+              'customer'
+            )
+            on conflict (owner_subject, product_identity_version_id) do nothing
+          `;
+          await insertMutation(transaction, {
+            ownerSubject: owner,
+            idempotencyKey: key,
+            requestId,
+            operation,
+            fingerprint,
+            resultRevision: 0,
+          });
+          return { status: 'matched', canonicalSlug: match.slug, identityVersionId: match.identity_version_id };
+        }
+        return { status: 'active_catalogue_match', canonicalSlug: match.slug };
+      }
 
       const [inserted] = await transaction<{ id: string; revision: number }[]>`
         insert into public.customer_product_requests (
@@ -472,8 +502,44 @@ export const postgresCustomerProductRequestRepository = {
       });
       if (prior) return prior;
 
-      const canonicalSlug = await exactActiveCatalogueMatch(transaction, input.identity);
-      if (canonicalSlug) return { status: 'active_catalogue_match', canonicalSlug };
+      const match = await exactActiveCatalogueMatch(transaction, input.identity);
+      if (match) {
+        if (input.submit) {
+          await transaction`
+            insert into public.customer_shelf_items (
+              owner_subject,
+              product_identity_version_id,
+              save_origin
+            ) values (
+              ${owner},
+              ${match.identity_version_id},
+              'customer'
+            )
+            on conflict (owner_subject, product_identity_version_id) do nothing
+          `;
+          await transaction`
+            update public.customer_product_requests
+            set lifecycle_state = 'published',
+                matched_identity_version_id = ${match.identity_version_id},
+                revision = revision + 1,
+                updated_at = now()
+            where owner_subject = ${owner}
+              and id = ${id}
+              and revision = ${input.expectedRevision}
+              and lifecycle_state in ('draft', 'pending', 'needs_info')
+          `;
+          await insertMutation(transaction, {
+            ownerSubject: owner,
+            idempotencyKey: key,
+            requestId: id,
+            operation,
+            fingerprint,
+            resultRevision: input.expectedRevision + 1,
+          });
+          return { status: 'matched', canonicalSlug: match.slug, identityVersionId: match.identity_version_id };
+        }
+        return { status: 'active_catalogue_match', canonicalSlug: match.slug };
+      }
 
       const [updated] = await transaction<{ revision: number }[]>`
         update public.customer_product_requests

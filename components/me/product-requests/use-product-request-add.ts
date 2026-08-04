@@ -8,6 +8,8 @@ import {
   ProductRequestApiError,
   updateProductRequest,
   uploadProductRequestImage,
+  type ProductRequestMatchedResult,
+  type ProductRequestMutationResult,
 } from './product-request-api';
 import {
   createProductRequestFields,
@@ -89,6 +91,14 @@ export function useProductRequestAdd(viewModel: CustomerPortalViewModel) {
           submit: photo ? false : submit,
           idempotencyKey: createRetry.idempotencyKey,
         });
+        if ('matched' in created) {
+          createKeyRef.current = null;
+          setCanonicalSlug(created.canonicalSlug);
+          setFeedback('Exact catalogue match. Added to your Shelf.');
+          router.push(`/me/product/${created.canonicalSlug}?from=shelf&outcome=matched`);
+          router.refresh();
+          return;
+        }
         persisted = created.request;
         anyReplay ||= created.replayed;
         setCreatedRequest(persisted);
@@ -120,6 +130,14 @@ export function useProductRequestAdd(viewModel: CustomerPortalViewModel) {
               idempotencyKey: submitRetry.idempotencyKey,
               submit: true,
             });
+            if ('matched' in submitted) {
+              submitKeyRef.current = null;
+              setCanonicalSlug(submitted.canonicalSlug);
+              setFeedback('Exact catalogue match. Added to your Shelf.');
+              router.push(`/me/product/${submitted.canonicalSlug}?from=shelf&outcome=matched`);
+              router.refresh();
+              return;
+            }
             persisted = submitted.request;
             anyReplay ||= submitted.replayed;
             setCreatedRequest(persisted);

@@ -35,6 +35,11 @@ export type ProductRequestMutationResult = {
   replayed: boolean;
 };
 
+export type ProductRequestMatchedResult = {
+  matched: true;
+  canonicalSlug: string;
+};
+
 function asObject(value: unknown): JsonObject | null {
   return value && typeof value === 'object' && !Array.isArray(value)
     ? value as JsonObject
@@ -97,9 +102,13 @@ async function apiResponse(response: Response) {
   });
 }
 
-async function requestMutation(url: string, init: RequestInit) {
+async function requestMutation(url: string, init: RequestInit): Promise<ProductRequestMutationResult | ProductRequestMatchedResult> {
   const response = await fetch(url, { ...init, cache: 'no-store' });
   const value = await apiResponse(response);
+  const object = asObject(value);
+  if (object?.matched === true && typeof object.canonicalSlug === 'string') {
+    return { matched: true, canonicalSlug: object.canonicalSlug } satisfies ProductRequestMatchedResult;
+  }
   const request = responseRequest(value);
   if (!request) throw new ProductRequestApiError({
     status: response.status,
@@ -141,7 +150,7 @@ export function createProductRequest(
     photoIdentificationConsent: boolean;
   },
   options: { submit: boolean; idempotencyKey: string },
-) {
+): Promise<ProductRequestMutationResult | ProductRequestMatchedResult> {
   return requestMutation('/api/me/product-requests', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -156,7 +165,7 @@ export function updateProductRequest(
     idempotencyKey: string;
     submit?: boolean;
   },
-) {
+): Promise<ProductRequestMutationResult | ProductRequestMatchedResult> {
   return requestMutation(`/api/me/product-requests/${encodeURIComponent(id)}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
@@ -177,30 +186,33 @@ export async function deleteProductRequest(
   return { replayed: replayed(response, value) };
 }
 
-export function uploadProductRequestImage(
+export async function uploadProductRequestImage(
   id: string,
   image: File,
   payload: { revision: number; idempotencyKey: string },
-) {
+): Promise<ProductRequestMutationResult> {
   const body = new FormData();
   body.set('image', image);
   body.set('revision', String(payload.revision));
   body.set('idempotencyKey', payload.idempotencyKey);
-  return requestMutation(`/api/me/product-requests/${encodeURIComponent(id)}/image`, {
+  const result = await requestMutation(`/api/me/product-requests/${encodeURIComponent(id)}/image`, {
     method: 'POST',
     body,
   });
+  // The image endpoint never returns a catalogue match.
+  return result as ProductRequestMutationResult;
 }
 
-export function removeProductRequestImage(
+export async function removeProductRequestImage(
   id: string,
   payload: { revision: number; idempotencyKey: string },
-) {
-  return requestMutation(`/api/me/product-requests/${encodeURIComponent(id)}/image`, {
+): Promise<ProductRequestMutationResult> {
+  const result = await requestMutation(`/api/me/product-requests/${encodeURIComponent(id)}/image`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
+  return result as ProductRequestMutationResult;
 }
 
 export function productRequestImageUrl(request: ProductRequest) {

@@ -152,6 +152,12 @@ export function useProductRequestDetail(
           revision: request.revision,
           idempotencyKey: operationKey('edit', payload),
         });
+        if ('matched' in result) {
+          settle('edit');
+          setCanonicalSlug(result.canonicalSlug);
+          setFeedback('Exact catalogue match. Added to your Shelf.');
+          return;
+        }
         settle('edit');
         setRequest(result.request);
         setFields(createProductRequestFields(result.request));
@@ -171,6 +177,12 @@ export function useProductRequestDetail(
           idempotencyKey: operationKey('submit', payload),
           submit: true,
         });
+        if ('matched' in result) {
+          settle('submit');
+          setCanonicalSlug(result.canonicalSlug);
+          setFeedback('Exact catalogue match. Added to your Shelf.');
+          return;
+        }
         settle('submit');
         setRequest(result.request);
         setFields(createProductRequestFields(result.request));
@@ -248,6 +260,12 @@ export function useProductRequestDetail(
           ...payload,
           idempotencyKey: operationKey('consent-revoke', payload),
         });
+        if ('matched' in result) {
+          settle('consent-revoke');
+          setCanonicalSlug(result.canonicalSlug);
+          setFeedback('Exact catalogue match. Added to your Shelf.');
+          return;
+        }
         settle('consent-revoke');
         setRequest(result.request);
         setFields(createProductRequestFields(result.request));

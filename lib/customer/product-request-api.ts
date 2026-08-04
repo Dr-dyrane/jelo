@@ -46,6 +46,11 @@ export function customerProductRequestActionResponse(
         { deleted: true, replayed: result.replayed },
         { headers: privateCustomerApiHeaders() },
       );
+    case 'matched':
+      return NextResponse.json({
+        matched: true,
+        canonicalSlug: result.canonicalSlug,
+      }, { status: 200, headers: privateCustomerApiHeaders() });
     case 'active_catalogue_match':
       return NextResponse.json({
         error: 'That exact product is already in the reviewed catalogue.',
