@@ -51,3 +51,18 @@ These runtime observations are not publication evidence by themselves. The priva
 The private discovery screen currently reads public product API pages from BuyBetter, Lux Beauty and provisional Slique Beauty. It captured 3,731 Nigerian retailer records across 38 decoded JSON responses and selected 1,000 category-balanced leads with measurable sizes, positive NGN prices and exact product routes.
 
 This is a fast research index, not an exact-offer registry. WooCommerce `sku` values remain retailer fields even when they have a valid GTIN checksum; manufacturer identity must still come from a reviewed official source. API image URLs remain link-only leads, not permission to copy or publish them. Prices and stock become user-visible only through the separate exact runtime observation rules, and no discovery record can enter public catalogue code.
+
+## Offer enrichment via WooCommerce API
+
+Several Nigerian retailers run WooCommerce and expose a public Store API at
+`/wp-json/wc/store/v1/products?search=<brand>&per_page=50`. This returns
+structured JSON with product name, price HTML, stock status, and permalink —
+no browser rendering required. Known WooCommerce retailers include BuyBetter,
+Lux Beauty, Dunes Center, and Beauty by Daz.
+
+For non-WooCommerce retailers (Teeka4, Perona Beauty, Deoset, CSi Grocery),
+use Playwright browser navigation to the retailer's search URL and extract
+product names and prices from the rendered page.
+
+See [Catalogue operations — Batch offer enrichment](./catalogue/OPERATIONS.md)
+for the full workflow.

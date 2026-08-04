@@ -332,6 +332,46 @@ Use the rendered browser for stores such as Beauty by Daz when automation is blo
 
 Slique Beauty is provisional and link-only under the current policy. Do not reuse its images or descriptions.
 
+### Batch offer enrichment
+
+Already-published products often need additional Nigerian offers beyond the
+one or zero they shipped with. This is a routine enrichment operation that
+does not reopen identity, care, or image review. The workflow:
+
+1. **Identify gaps.** Query the database or static offers for products with
+   zero or few NG exact offers. Cross-reference with the retailer registry
+   in `data/retailers.ts` to find candidate retailers.
+
+2. **Search by brand.** For each retailer, search by brand name rather than
+   individual product names. WooCommerce stores expose a REST API at
+   `/wp-json/wc/store/v1/products?search=<brand>&per_page=50` that returns
+   structured JSON with name, price, stock, and permalink — no browser
+   needed. For non-WooCommerce stores, use Playwright browser navigation
+   to the retailer's search URL (`/?s=<brand>&post_type=product`).
+
+3. **Match exactly.** Compare each retailer result against the catalogue
+   product's brand, name, and size. Only exact brand + product + size
+   matches qualify. A 236 ml cleanser is not a 473 ml cleanser. A
+   "calming moisture" body wash is not a "skin replenish" body wash.
+
+4. **Add to `data/retail-offers.ts`.** Use the `exactNg` helper. Include
+   `observedAt` and `expiresAt` timestamps (7-day window). Set
+   `available: false` for delisted products. Update the pharmacist offer
+   batch audit JSON when a product in that batch changes.
+
+5. **Update tests.** Tests in `modules/commerce/verified-retail-offers.test.ts`
+   and `modules/catalogue/catalogue-seed-evidence-reconciliation.test.ts`
+   assert on specific offer counts, prices, and timestamps. Update them
+   to match the new verified state.
+
+6. **Run `npm run test` and `npm run build`.** Fix any assertion failures
+   from changed prices or availability. Commit and push atomically.
+
+Run retailer searches in parallel using background subagents — one per
+retailer. The Playwright MCP browser is shared, so subagents must retry
+on browser contention. WooCommerce API searches via `curl` do not need
+the browser and can run concurrently without contention.
+
 ## 7. Produce the image
 
 The public asset must:
