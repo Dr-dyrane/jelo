@@ -1,9 +1,10 @@
 import type { Offer, Product } from '@/data/products';
 import { materializeOfferEvidence } from '@/modules/commerce/offer-evidence';
+import { isOfferFresh } from '@/modules/commerce/offer-freshness';
 
 const checkedAt = '2026-07-22';
 
-type ExactNgOptions = Pick<Offer, 'available' | 'inventoryQuantity' | 'sellerName' | 'sellerScore' | 'priceComparison'> & {
+type ExactNgOptions = Pick<Offer, 'available' | 'expiresAt' | 'inventoryQuantity' | 'sellerName' | 'sellerScore' | 'priceComparison'> & {
   observedAt?: string;
   stock?: NonNullable<Offer['priceObservation']>['stock'];
 };
@@ -25,6 +26,7 @@ const exactNg = (
     available: options.available ?? true,
     priceNgn,
     checkedAt: observationTime,
+    expiresAt: options.expiresAt,
     match: 'exact',
     inventoryQuantity: options.inventoryQuantity,
     sellerName: options.sellerName,
@@ -47,6 +49,39 @@ const exactNg = (
 };
 
 export const verifiedRetailOffers: Record<string, Offer[]> = {
+  'naturium-the-perfector-salicylic-acid-body-wash-500ml': [
+    exactNg(
+      'Rhema Beauty Shop',
+      'https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/',
+      86,
+      46225,
+      'The Perfector Salicylic Acid Body Wash',
+      '500 mL',
+      { observedAt: '2026-08-04T14:54:07.717Z', expiresAt: '2026-08-11T14:54:07.717Z' },
+    ),
+  ],
+  'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml': [
+    exactNg(
+      'Perona Beauty',
+      'https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/',
+      86,
+      28200,
+      'Lipikar Baume AP+MAX',
+      '400 mL',
+      { observedAt: '2026-08-04T14:54:13.181Z', expiresAt: '2026-08-11T14:54:13.181Z' },
+    ),
+  ],
+  'medik8-advanced-night-restore-50ml': [
+    exactNg(
+      'Teeka4',
+      'https://teeka4.com/shop/medik8-advance-night-restore-50ml/',
+      98,
+      103867,
+      'Advanced Night Restore™',
+      '50 ml',
+      { observedAt: '2026-08-04T14:54:24.934Z', expiresAt: '2026-08-11T14:54:24.934Z' },
+    ),
+  ],
   'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml': [
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/', 100, 18850, 'Anua Azelaic Acid 10% + Hyaluron Redness Soothing Serum', '30 ml', { observedAt: '2026-08-03T03:37:23Z' }),
   ],
@@ -166,18 +201,26 @@ function isSearchRoute(url: string) {
     || normalized.includes('walmart.com/search?');
 }
 
-export function mergeRetailOffers(product: Pick<Product, 'slug' | 'name' | 'size'>, offers: Offer[]) {
+export function mergeRetailOffers(
+  product: Pick<Product, 'slug' | 'name' | 'size'>,
+  offers: Offer[],
+  now: number | Date = Date.now(),
+) {
   const excluded = new Set(excludedRetailers[product.slug] ?? []);
   const merged = new Map<string, Offer>();
 
   for (const offer of offers) {
     if (excluded.has(offer.retailer)) continue;
+    if (offer.expiresAt && !isOfferFresh(offer, now)) continue;
     merged.set(offer.retailer, {
       ...offer,
       match: offer.match ?? (isSearchRoute(offer.url) ? 'search' : 'exact'),
     });
   }
 
-  for (const offer of verifiedRetailOffers[product.slug] ?? []) merged.set(offer.retailer, offer);
+  for (const offer of verifiedRetailOffers[product.slug] ?? []) {
+    if (offer.expiresAt && !isOfferFresh(offer, now)) continue;
+    merged.set(offer.retailer, offer);
+  }
   return [...merged.values()].map(offer => materializeOfferEvidence(product, offer));
 }

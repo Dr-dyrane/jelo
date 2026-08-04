@@ -303,6 +303,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Direct Nigeria catalogue with visible product pages.',
   },
   {
+    name: 'Rhema Beauty Shop',
+    homepage: 'https://rhemabeautyshop.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 86,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    identityEvidence: {
+      observedAt: '2026-08-04T14:54:07.717Z',
+      sourceUrl: 'https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/',
+      basis: 'self-published-contact',
+      scope: 'self-published',
+    },
+    searchUrl: wordpressSearch('https://rhemabeautyshop.com/'),
+    note: 'Lagos retailer with a direct catalogue, Naira pricing, stock status, store address, phone and domain email; links remain advisory only.',
+  },
+  {
     name: 'Bracketts Beauty',
     homepage: 'https://www.brackettsbeauty.com/',
     market: 'NG',

@@ -1,0 +1,613 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-pharmacist-offer-batch-2026-08-04",
+  "scope": "exact-sku-nigerian-offer-enrichment",
+  "reviewedAt": "2026-08-04T14:55:00Z",
+  "freshnessPolicy": {
+    "maximumAgeDays": 7,
+    "expiresAt": "2026-08-11T14:55:00Z"
+  },
+  "captureMethod": "reviewed-browser-accessibility-exact-offer-field-extraction",
+  "summary": {
+    "admitted": 3,
+    "rejected": 3,
+    "pending": 4
+  },
+  "products": [
+    {
+      "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+      "releaseFingerprint": "987dc08968163474c82f459c7d69a9531e9b45b98e6213f154cb3b6e36c0626d",
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "850010792934",
+        "brand": "Naturium",
+        "name": "The Perfector Salicylic Acid Body Wash",
+        "variant": "The Perfector Salicylic Acid Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "packageVersion": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle"
+      },
+      "publicRoute": "/products/naturium-the-perfector-salicylic-acid-body-wash-500ml",
+      "offers": [
+        {
+          "observationId": "naturium-500ml--beauty-by-daz--2026-08-04t145249z",
+          "founderLeadPriceNgn": 38000,
+          "retailer": {
+            "displayName": "Beauty by Daz",
+            "legalName": null,
+            "directoryStatus": "directory-listed",
+            "expectedHost": "beautybydaz.com"
+          },
+          "requestedUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
+          "finalUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
+          "canonicalUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
+          "observedAt": "2026-08-04T14:52:49.503Z",
+          "expiresAt": "2026-08-11T14:52:49.503Z",
+          "observedTitle": "Naturium Perfector Salicylic Acid Body Wash",
+          "storeIdentityText": "Naturium Perfector Salicylic Acid Body Wash",
+          "observedBrand": "Naturium",
+          "observedName": "Perfector Salicylic Acid Body Wash",
+          "observedVariant": "Naturium Perfector Salicylic Acid Body Wash",
+          "observedSize": null,
+          "observedPackageVersion": null,
+          "packageMatch": "unverified",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 38000,
+            "currency": "NGN",
+            "sourceText": "₦38,000.00"
+          },
+          "stock": {
+            "status": "out-of-stock",
+            "sourceText": "Out of stock"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Shop Naturium Perfector Salicylic Acid Body Wash | Lagos",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "1152d6e2d8f481d9078ff2dbb3b76ae4ddebb0055a9983564701a8eeb9c24565",
+            "byteSize": 8094
+          },
+          "status": "rejected",
+          "reasons": [
+            "out-of-stock",
+            "exact-500ml-size-not-published-in-listing-text",
+            "package-version-unverified"
+          ]
+        },
+        {
+          "observationId": "naturium-500ml--beauty-prism--2026-08-04t145252z",
+          "founderLeadPriceNgn": 42500,
+          "retailer": {
+            "displayName": "The Beauty Prism",
+            "legalName": null,
+            "directoryStatus": "not-listed",
+            "expectedHost": "thebeautyprismng.com"
+          },
+          "requestedUrl": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
+          "finalUrl": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
+          "canonicalUrl": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
+          "observedAt": "2026-08-04T14:52:52.135Z",
+          "expiresAt": "2026-08-11T14:52:52.135Z",
+          "observedTitle": "Naturium The Perfector Salicylic Acid Body Wash",
+          "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash",
+          "observedBrand": "Naturium",
+          "observedName": "The Perfector Salicylic Acid Body Wash",
+          "observedVariant": "The Perfector Salicylic Acid Body Wash",
+          "observedSize": null,
+          "observedPackageVersion": null,
+          "packageMatch": "unverified",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 42500,
+            "currency": "NGN",
+            "sourceText": "₦42,500"
+          },
+          "stock": {
+            "status": "low-stock",
+            "sourceText": "Only 2 left in stock"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Naturium The Perfector Salicylic Acid Body Wash | Thebeautyprismng.com",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "2fa86ec6154849c6a0d83d914e11bbf09358cf1a9865ce58ce1713837b3d5ddb",
+            "byteSize": 8992
+          },
+          "status": "pending",
+          "reasons": [
+            "exact-500ml-size-not-published-in-listing-text",
+            "package-version-unverified",
+            "retailer-directory-review-not-recorded"
+          ]
+        },
+        {
+          "observationId": "naturium-500ml--rhema-beauty-shop--2026-08-04t145407z",
+          "founderLeadPriceNgn": 46225,
+          "retailer": {
+            "displayName": "Rhema Beauty Shop",
+            "legalName": null,
+            "directoryStatus": "directory-listed",
+            "expectedHost": "rhemabeautyshop.com"
+          },
+          "requestedUrl": "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
+          "finalUrl": "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
+          "canonicalUrl": "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
+          "observedAt": "2026-08-04T14:54:07.717Z",
+          "expiresAt": "2026-08-11T14:54:07.717Z",
+          "observedTitle": "Naturium The Perfector Salicylic Acid Body Wash 500ml",
+          "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash 500ml",
+          "observedBrand": "Naturium",
+          "observedName": "The Perfector Salicylic Acid Body Wash",
+          "observedVariant": "The Perfector Salicylic Acid Body Wash",
+          "observedSize": "500 mL",
+          "observedPackageVersion": "The Perfector Salicylic Acid Body Wash 500 mL pump bottle",
+          "packageMatch": "current-exact",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 46225,
+            "currency": "NGN",
+            "sourceText": "₦46,225"
+          },
+          "stock": {
+            "status": "in-stock",
+            "sourceText": "In stock"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Buy Naturium The Perfector Salicylic Acid Body Wash 500ml - Original",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "1db902c501a9036b4759123158705241bab8d4420d99d74876857e72df2b6be8",
+            "byteSize": 9844
+          },
+          "status": "admitted",
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      "releaseFingerprint": "75a6b657700439d4e87971b45561989ce565fad3573d19043ef8698f12d17f1b",
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "3337875930048",
+        "brand": "La Roche-Posay",
+        "name": "Lipikar Baume AP+MAX",
+        "variant": "Lipikar Baume AP+MAX",
+        "size": "200 mL",
+        "packageVersion": "Lipikar Baume AP+MAX 200 mL tube"
+      },
+      "publicRoute": "/products/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      "offers": [
+        {
+          "observationId": "lipikar-apmax-200ml--teeka4--2026-08-04t145412z",
+          "founderLeadPriceNgn": 18999,
+          "retailer": {
+            "displayName": "Teeka4",
+            "legalName": null,
+            "directoryStatus": "directory-listed",
+            "expectedHost": "teeka4.com"
+          },
+          "requestedUrl": "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/",
+          "finalUrl": "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/",
+          "canonicalUrl": "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/",
+          "observedAt": "2026-08-04T14:54:12.321Z",
+          "expiresAt": "2026-08-11T14:54:12.321Z",
+          "observedTitle": "La Roche-Posay Lipikar Baume AP+M Triple-Action Balm 200ml",
+          "storeIdentityText": "La Roche-Posay Lipikar Baume AP+M Triple-Action Balm 200ml",
+          "observedBrand": "La Roche-Posay",
+          "observedName": "Lipikar Baume AP+M Triple-Action Balm",
+          "observedVariant": "Lipikar Baume AP+M Triple-Action Balm",
+          "observedSize": "200 mL",
+          "observedPackageVersion": "Lipikar Baume AP+M 200 mL regional tube, retailer image code 3337872418587",
+          "packageMatch": "mismatch",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 18999,
+            "currency": "NGN",
+            "sourceText": "₦18,999.00"
+          },
+          "stock": {
+            "status": "in-stock",
+            "sourceText": "In stock"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "interactive",
+            "pageTitle": "Buy Original La Roche-Posay Lipikar Baume AP+M Triple-Action Balm 200ml in Nigeria | Teeka4",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "28be8e2cb213b32d8599db4eb93eff6b9a2a186f555b5cc009b94236c31e2175",
+            "byteSize": 9039
+          },
+          "status": "rejected",
+          "reasons": [
+            "regional-package-gtin-conflicts-with-released-apmax-identity",
+            "no-authoritative-package-equivalence-record"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      "releaseFingerprint": "0c16f35acb7baf522f4ee30d02167e9ec121e265cd9d7b49a62fe8502e1dd48e",
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "3337875930239",
+        "brand": "La Roche-Posay",
+        "name": "Lipikar Baume AP+MAX",
+        "variant": "Lipikar Baume AP+MAX",
+        "size": "400 mL",
+        "packageVersion": "Lipikar Baume AP+MAX 400 mL pump bottle"
+      },
+      "publicRoute": "/products/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      "offers": [
+        {
+          "observationId": "lipikar-apmax-400ml--perona-beauty--2026-08-04t145413z",
+          "founderLeadPriceNgn": 28200,
+          "retailer": {
+            "displayName": "Perona Beauty",
+            "legalName": null,
+            "directoryStatus": "directory-listed",
+            "expectedHost": "peronabeauty.com"
+          },
+          "requestedUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
+          "finalUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
+          "canonicalUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
+          "observedAt": "2026-08-04T14:54:13.181Z",
+          "expiresAt": "2026-08-11T14:54:13.181Z",
+          "observedTitle": "La Roche-Posay Lipikar Baume AP+ Max (New Packaging) 400ml",
+          "storeIdentityText": "La Roche-Posay Lipikar Baume AP+ Max (New Packaging) 400ml",
+          "observedBrand": "La Roche-Posay",
+          "observedName": "Lipikar Baume AP+MAX",
+          "observedVariant": "Lipikar Baume AP+MAX",
+          "observedSize": "400 mL",
+          "observedPackageVersion": "Lipikar Baume AP+MAX New Packaging 400 mL pump bottle",
+          "packageMatch": "current-exact",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 28200,
+            "currency": "NGN",
+            "sourceText": "NGN28,200"
+          },
+          "stock": {
+            "status": "in-stock",
+            "sourceText": "In stock"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "interactive",
+            "pageTitle": "Buy Original La Roche-Posay Lipikar Baume | In Lagos Nigeria",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "c746a6b77bd43e9df61bdb72e3b8e51945a7118c3d6a1fbd36fa68ac2ba7607b",
+            "byteSize": 10692
+          },
+          "status": "admitted",
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+      "releaseFingerprint": null,
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "840026653251",
+        "brand": "Fenty Skin",
+        "name": "Butta Drop Whipped Oil Body Cream with Tropical Oils + Shea Butter — Fenty Fresh",
+        "variant": "Fenty Fresh / Standard",
+        "size": "200 mL / 6.7 fl oz",
+        "packageVersion": "Fenty Fresh Standard 200 mL lavender jar"
+      },
+      "publicRoute": null,
+      "offers": [
+        {
+          "observationId": "fenty-fresh-standard-200ml--essentials-hub--2026-08-04t145413z",
+          "founderLeadPriceNgn": 79000,
+          "retailer": {
+            "displayName": "Essentials Hub",
+            "legalName": null,
+            "directoryStatus": "directory-listed",
+            "expectedHost": "essentialshub.com"
+          },
+          "requestedUrl": "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream-fenty-fresh-shimmering/",
+          "finalUrl": "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream-fenty-fresh-shimmering/",
+          "canonicalUrl": "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream-fenty-fresh-shimmering/",
+          "observedAt": "2026-08-04T14:54:13.644Z",
+          "expiresAt": "2026-08-11T14:54:13.644Z",
+          "observedTitle": "Fenty Skin Butta Drop Whipped Oil Body Cream – Fenty Fresh Shimmering",
+          "storeIdentityText": "Fenty Skin Butta Drop Whipped Oil Body Cream – Fenty Fresh Shimmering",
+          "observedBrand": "Fenty Skin",
+          "observedName": "Butta Drop Whipped Oil Body Cream",
+          "observedVariant": "Fenty Fresh Shimmering",
+          "observedSize": null,
+          "observedPackageVersion": null,
+          "packageMatch": "mismatch",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 79000,
+            "currency": "NGN",
+            "sourceText": "₦79,000"
+          },
+          "stock": {
+            "status": "in-stock",
+            "sourceText": "In stock on direct indexed retailer page"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "interactive",
+            "pageTitle": "Just a moment...",
+            "digestScope": "retailer-challenge-page-accessibility-tree",
+            "sha256": "ea67d20f7aabc59978b3e3d8212e05237e671088a4e7a30053c67acc4c20a350",
+            "byteSize": 6
+          },
+          "status": "rejected",
+          "reasons": [
+            "shimmering-variant-is-not-the-released-standard-variant",
+            "exact-200ml-size-not-published-in-listing-text",
+            "current-rendered-product-capture-blocked-by-retailer-challenge"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "medik8-crystal-retinal-3-30ml",
+      "releaseFingerprint": null,
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "818625024529",
+        "brand": "Medik8",
+        "name": "Crystal Retinal 3",
+        "variant": "Crystal Retinal 3",
+        "size": "30 ml",
+        "packageVersion": "Crystal Retinal 3 30 ml silver airless pump tube"
+      },
+      "publicRoute": null,
+      "offers": [
+        {
+          "observationId": "crystal-retinal-3-30ml--skincare-plug-ng--2026-08-04t145420z",
+          "founderLeadPriceNgn": 145000,
+          "retailer": {
+            "displayName": "Skincare Plug NG",
+            "legalName": null,
+            "directoryStatus": "not-listed",
+            "expectedHost": "skincareplug-ng.com"
+          },
+          "requestedUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-3",
+          "finalUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-3",
+          "canonicalUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-3",
+          "observedAt": "2026-08-04T14:54:20.627Z",
+          "expiresAt": "2026-08-11T14:54:20.627Z",
+          "observedTitle": "MEDIK8 CRYSTAL RETINAL 3",
+          "storeIdentityText": "MEDIK8 CRYSTAL RETINAL 3",
+          "observedBrand": "Medik8",
+          "observedName": "Crystal Retinal 3",
+          "observedVariant": "Crystal Retinal 3 / Default Title",
+          "observedSize": null,
+          "observedPackageVersion": null,
+          "packageMatch": "unverified",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 145000,
+            "currency": "NGN",
+            "sourceText": "₦145,000.00"
+          },
+          "stock": {
+            "status": "unknown",
+            "sourceText": null
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "interactive",
+            "pageTitle": "MEDIK8 CRYSTAL RETINAL 3 – Skincareplug.ng",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "66a7be1cd5cd3c705b3bd622e07a6654e2fec6d73d3bce8adc8e109cef65d307",
+            "byteSize": 6755
+          },
+          "status": "pending",
+          "reasons": [
+            "exact-30ml-size-not-published-in-listing-text-or-variant",
+            "explicit-stock-language-not-published",
+            "package-version-unverified",
+            "retailer-directory-review-not-recorded"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "medik8-crystal-retinal-6-30ml",
+      "releaseFingerprint": null,
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "818625024536",
+        "brand": "Medik8",
+        "name": "Crystal Retinal 6",
+        "variant": "Crystal Retinal 6",
+        "size": "30 ml",
+        "packageVersion": "Crystal Retinal 6 30 ml silver airless pump tube"
+      },
+      "publicRoute": null,
+      "offers": [
+        {
+          "observationId": "crystal-retinal-6-30ml--skincare-plug-ng--2026-08-04t145420z",
+          "founderLeadPriceNgn": 189000,
+          "retailer": {
+            "displayName": "Skincare Plug NG",
+            "legalName": null,
+            "directoryStatus": "not-listed",
+            "expectedHost": "skincareplug-ng.com"
+          },
+          "requestedUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-6",
+          "finalUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-6",
+          "canonicalUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-6",
+          "observedAt": "2026-08-04T14:54:20.989Z",
+          "expiresAt": "2026-08-11T14:54:20.989Z",
+          "observedTitle": "Medik8 Crystal Retinal 6",
+          "storeIdentityText": "Medik8 Crystal Retinal 6",
+          "observedBrand": "Medik8",
+          "observedName": "Crystal Retinal 6",
+          "observedVariant": "Crystal Retinal 6 / Default Title",
+          "observedSize": null,
+          "observedPackageVersion": null,
+          "packageMatch": "unverified",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 189000,
+            "currency": "NGN",
+            "sourceText": "₦189,000.00"
+          },
+          "stock": {
+            "status": "unknown",
+            "sourceText": null
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Medik8 Crystal Retinal 6 – Skincareplug.ng",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "64afe955ae3afc61339f89576c5652986556fc03c5089a08a66cc180292064fe",
+            "byteSize": 11864
+          },
+          "status": "pending",
+          "reasons": [
+            "exact-30ml-size-not-published-in-listing-text-or-variant",
+            "explicit-stock-language-not-published",
+            "package-version-unverified",
+            "retailer-directory-review-not-recorded"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "releaseFingerprint": "5035db72861ee91fff8aa41ee51d415e7b44a52bcdf45659fe73b9c0912e3b5d",
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "818625024444",
+        "brand": "Medik8",
+        "name": "Medik8 Advanced Night Restore™",
+        "variant": "Advanced Night Restore™",
+        "size": "50 ml",
+        "packageVersion": "Advanced Night Restore™ 50 ml jar"
+      },
+      "publicRoute": "/products/medik8-advanced-night-restore-50ml",
+      "offers": [
+        {
+          "observationId": "advanced-night-restore-50ml--teeka4--2026-08-04t145424z",
+          "founderLeadPriceNgn": 108367,
+          "retailer": {
+            "displayName": "Teeka4",
+            "legalName": null,
+            "directoryStatus": "directory-listed",
+            "expectedHost": "teeka4.com"
+          },
+          "requestedUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+          "finalUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+          "canonicalUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+          "observedAt": "2026-08-04T14:54:24.934Z",
+          "expiresAt": "2026-08-11T14:54:24.934Z",
+          "observedTitle": "Medik8 Advance Night Restore 50ml",
+          "storeIdentityText": "Medik8 Advanced Night Restore™ 50ml",
+          "observedBrand": "Medik8",
+          "observedName": "Medik8 Advanced Night Restore™",
+          "observedVariant": "Advanced Night Restore™",
+          "observedSize": "50 ml",
+          "observedPackageVersion": "Advanced Night Restore™ 50 ml jar",
+          "packageMatch": "current-exact",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 103867,
+            "currency": "NGN",
+            "sourceText": "₦103,867.00"
+          },
+          "stock": {
+            "status": "in-stock",
+            "sourceText": "In stock"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "interactive",
+            "pageTitle": "Buy Original Medik8 Advance Night Restore 50ml in Nigeria | Teeka4",
+            "digestScope": "rendered-accessibility-tree",
+            "sha256": "db9309f1050891c44106c91e8f2b5c5f127eff5199ed3c72f1ee6bb071e68e82",
+            "byteSize": 8177
+          },
+          "status": "admitted",
+          "reasons": [
+            "current-price-supersedes-founder-lead"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "releaseFingerprint": "279d695693b22577925ecf7c25ddab18621cdd28d9ba4052d319a2a335111925",
+      "canonicalIdentity": {
+        "kind": "gtin",
+        "value": "3253581785706",
+        "brand": "L'Occitane en Provence",
+        "name": "Almond (Amande) Shower Oil",
+        "variant": "Almond (Amande) Softening Shower Oil",
+        "size": "250 ml",
+        "packageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle"
+      },
+      "publicRoute": "/products/loccitane-almond-softening-shower-oil-250ml",
+      "offers": [
+        {
+          "observationId": "loccitane-almond-shower-oil-250ml--jumia--2026-08-04t145429z",
+          "founderLeadPriceNgn": 57000,
+          "retailer": {
+            "displayName": "Jumia",
+            "legalName": "Jumia Nigeria",
+            "directoryStatus": "directory-listed",
+            "expectedHost": "www.jumia.com.ng"
+          },
+          "requestedUrl": "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html",
+          "finalUrl": "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html",
+          "canonicalUrl": null,
+          "observedAt": "2026-08-04T14:54:29.890Z",
+          "expiresAt": "2026-08-11T14:54:29.890Z",
+          "observedTitle": "L’OCCITANE Almond Shower Oil - 250ML",
+          "storeIdentityText": "L’OCCITANE Almond Shower Oil - 250ML",
+          "observedBrand": "L'Occitane",
+          "observedName": "Almond Shower Oil",
+          "observedVariant": "Almond Shower Oil",
+          "observedSize": "250 ml",
+          "observedPackageVersion": null,
+          "packageMatch": "unverified",
+          "packagingRevisionAliasId": null,
+          "price": {
+            "amount": 57000,
+            "currency": "NGN",
+            "sourceText": "₦57,000 on direct indexed retailer page"
+          },
+          "stock": {
+            "status": "low-stock",
+            "sourceText": "5 units left on direct indexed retailer page"
+          },
+          "seller": {
+            "name": "NFB Stores",
+            "score": 98,
+            "sourceText": "NFB Stores, 98% Seller Score on direct indexed retailer page"
+          },
+          "capture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "interactive",
+            "pageTitle": "Just a moment...",
+            "digestScope": "retailer-challenge-page-accessibility-tree",
+            "sha256": "ea67d20f7aabc59978b3e3d8212e05237e671088a4e7a30053c67acc4c20a350",
+            "byteSize": 6
+          },
+          "status": "pending",
+          "reasons": [
+            "current-rendered-product-capture-blocked-by-retailer-challenge",
+            "exact-250ml-package-version-not-verifiable",
+            "marketplace-seller-evidence-not-reopenable-in-current-capture",
+            "no-500ml-evidence-may-authorize-this-250ml-sku"
+          ]
+        }
+      ]
+    }
+  ]
+}
