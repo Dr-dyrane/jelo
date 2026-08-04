@@ -30,6 +30,9 @@ data/catalogue-intake-assets/**/*.avif
 # Playwright MCP browser side effects (snapshots, console logs)
 .playwright-mcp/
 
+# temporary preview images used during packshot sourcing
+.tmp-preview/
+
 # system files
 .DS_Store
 
