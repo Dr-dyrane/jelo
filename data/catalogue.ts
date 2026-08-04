@@ -35,5 +35,9 @@ for (const product of publishedIntakeProducts) {
     throw new Error(`${product.slug} cannot be published twice across catalogue sources.`);
   }
 }
-export const products = [...displayApprovedReviewedProducts, ...publishedIntakeProducts];
+const publishedIntakeProductRecords = publishedIntakeProducts.map(product => ({
+  ...product,
+  offers: mergeRetailOffers(product, product.offers),
+}));
+export const products = [...displayApprovedReviewedProducts, ...publishedIntakeProductRecords];
 export const productBySlug = (slug: string) => products.find(product => product.slug === slug);

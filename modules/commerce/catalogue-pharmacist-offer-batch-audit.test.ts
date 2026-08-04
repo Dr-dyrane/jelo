@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import packageEquivalenceSource from '@/data/catalogue-package-revision-equivalences.json';
 import visualRevisionSource from '@/data/catalogue-product-visual-revisions.json';
+import { productBySlug } from '@/data/catalogue';
 import naturiumReleaseSource from '@/data/catalogue-publication-sources/naturium-the-perfector-salicylic-acid-body-wash-500ml.json';
 import lipikar200ReleaseSource from '@/data/catalogue-publication-sources/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml.json';
 import lipikar400ReleaseSource from '@/data/catalogue-publication-sources/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml.json';
@@ -202,6 +203,13 @@ test('the admitted evidence projects exactly once and rejected or pending stores
     assert.equal(projected[0]?.priceObservation?.size, offer.observedSize);
     assert.equal(projected[0]?.priceObservation?.stock, offer.stock.status);
     assert.equal(projected[0]?.listingEvidence?.sourceUrl, offer.finalUrl);
+
+    const publicOffer = productBySlug(product.candidateId)?.offers.find(candidate => (
+      candidate.retailer === offer.retailer.displayName
+    ));
+    assert.ok(publicOffer, `${offer.observationId} must reach the public catalogue read model`);
+    assert.equal(publicOffer.priceNgn, offer.price.amount);
+    assert.equal(publicOffer.match, 'exact');
   }
 });
 
