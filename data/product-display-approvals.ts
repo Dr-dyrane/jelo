@@ -95,8 +95,16 @@ export const productDisplayApprovals = {
     name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea',
     size: '4 oz / 113 g',
     sourceUrl: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600',
-    contentHash: '8fd75d3c00f8208574f23cc0d9ab6a3b653e2916109d61aa7d00d61cfb89452e',
-    reviewedAt: '2026-07-23T01:28:00.000Z',
+    contentHash: '718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937',
+    reviewedAt: '2026-08-04T14:00:00.000Z',
+  }),
+  'lush-hair-mentholated-conditioner': approval({
+    brand: 'LUSH HAIR',
+    name: 'Rinse Me Out Mentholated Conditioner',
+    size: '370 ml',
+    sourceUrl: 'https://nigeria.lushhairafrica.com/cdn/shop/files/26451_7ca2d10503cf413b262130540e2df7dd.png?v=1766145282&width=1600',
+    contentHash: 'e746810397f9caeb94a5efa9204b564f2175216c4f84419bfb35d4cd757db560',
+    reviewedAt: '2026-08-04T14:00:00.000Z',
   }),
   'cerave-foaming-facial-cleanser': approval({
     brand: 'CeraVe',

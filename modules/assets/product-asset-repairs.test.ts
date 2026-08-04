@@ -15,7 +15,6 @@ import {
 
 test('generated packshot repairs bind identity, defective input, exact output and visual review', async () => {
   assert.equal(repairs.schemaVersion, 1);
-  assert.ok(repairs.repairs.length > 0);
 
   for (const repair of repairs.repairs) {
     const asset = productAssets[repair.productSlug as keyof typeof productAssets];

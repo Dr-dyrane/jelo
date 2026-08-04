@@ -121,24 +121,24 @@
   },
   "dove-go-fresh-cucumber-green-tea-spray": {
     "sourceUrl": "https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v4.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v5.png",
     "contentType": "image/png",
-    "byteSize": 506842,
-    "importedAt": "2026-07-23T01:28:00Z",
-    "width": 1254,
-    "height": 1254,
+    "byteSize": 330489,
+    "importedAt": "2026-08-04T14:00:00Z",
+    "width": 2000,
+    "height": 2000,
     "hasAlpha": true,
-    "contentHash": "8fd75d3c00f8208574f23cc0d9ab6a3b653e2916109d61aa7d00d61cfb89452e",
+    "contentHash": "718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937",
     "derivation": {
-      "kind": "identity-verified-generated-repair",
-      "tool": "OpenAI image generation with chroma-key extraction",
-      "localPath": "/products/dove/dove-go-fresh-cucumber-green-tea-spray-transparent-v4.png",
-      "sourceAssetSha256": "87c29f858d6935e40c52c7747544efad9b9b519df646c9646bf35e31a08a2fc5",
-      "repairRecordId": "dove-go-fresh-cucumber-green-tea-spray-v4",
+      "kind": "local-rembg-packshot",
+      "tool": "rembg isnet-general-use",
+      "localPath": "/products/dove/dove-go-fresh-cucumber-green-tea-spray/packshot-v5.png",
+      "sourceAssetSha256": "718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937",
+      "promotionRecordId": "dove-go-fresh-cucumber-green-tea-spray-v5",
       "sourceCompared": true,
       "fullSilhouetteVisible": true,
-      "reviewer": "Codex visual audit",
-      "reviewedAt": "2026-07-23T01:28:00Z"
+      "reviewer": "JeloCare packshot review",
+      "reviewedAt": "2026-08-04T14:00:00Z"
     }
   },
   "miracle-natural-hair-anti-dandruff-shampoo": {
@@ -154,14 +154,25 @@
   },
   "lush-hair-mentholated-conditioner": {
     "sourceUrl": "https://nigeria.lushhairafrica.com/cdn/shop/files/26451_7ca2d10503cf413b262130540e2df7dd.png?v=1766145282&width=1600",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/lush-hair/lush-hair-mentholated-conditioner/packshot.webp",
-    "contentType": "image/webp",
-    "byteSize": 16296,
-    "importedAt": "2026-07-22T00:50:57.320Z",
-    "width": 600,
-    "height": 778,
-    "hasAlpha": false,
-    "contentHash": "67e069f615b600686e94bf51332ddbacbef080120ed2ffb1ed94639635563e27"
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/lush-hair/lush-hair-mentholated-conditioner/packshot-v1.png",
+    "contentType": "image/png",
+    "byteSize": 705641,
+    "importedAt": "2026-08-04T14:00:00Z",
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "e746810397f9caeb94a5efa9204b564f2175216c4f84419bfb35d4cd757db560",
+    "derivation": {
+      "kind": "local-rembg-packshot",
+      "tool": "rembg isnet-general-use",
+      "localPath": "/products/lush-hair/lush-hair-mentholated-conditioner/packshot-v1.png",
+      "sourceAssetSha256": "e746810397f9caeb94a5efa9204b564f2175216c4f84419bfb35d4cd757db560",
+      "promotionRecordId": "lush-hair-mentholated-conditioner-v1",
+      "sourceCompared": true,
+      "fullSilhouetteVisible": true,
+      "reviewer": "JeloCare packshot review",
+      "reviewedAt": "2026-08-04T14:00:00Z"
+    }
   },
   "kuza-indian-hemp-hair-scalp-treatment": {
     "sourceUrl": "https://perfectpicturecosmetics.com/cdn/shop/files/20250510_1219_Hair_Treatment_Product_Display_remix_01jtx23f14fz4aft5nvz1cpvpt.png?v=1746879611&width=1600",
