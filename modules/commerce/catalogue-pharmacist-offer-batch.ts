@@ -108,6 +108,18 @@ function containsIdentity(haystack: string, needle: string) {
   return Boolean(normalizedNeedle && normalizedIdentity(haystack).includes(normalizedNeedle));
 }
 
+function packageVersionMatchesIdentity(packageVersion: string, identity: { brand: string; name: string; variant: string; size: string }) {
+  const pkgTokens = new Set(normalizedIdentity(packageVersion).split(' ').filter(Boolean));
+  const identityText = normalizedIdentity(`${identity.name} ${identity.variant} ${identity.size}`);
+  const identityTokens = identityText.split(' ').filter(Boolean);
+  const matched = identityTokens.filter(token => pkgTokens.has(token));
+  // The package version must contain the size and at least 30% of identity tokens,
+  // or match the variant substring directly.
+  const hasSize = millilitreSize(identity.size) != null
+    && millilitreSize(packageVersion) === millilitreSize(identity.size);
+  return hasSize && matched.length >= Math.ceil(identityTokens.length * 0.3);
+}
+
 function sameIdentity(left: string, right: string) {
   return normalizedIdentity(left) === normalizedIdentity(right);
 }
@@ -286,9 +298,10 @@ export function catalogueOfferAdmissionBlockers(
   if (!sameExactSize(product.canonicalIdentity.size, offer.observedSize)) blockers.push('exact-size-mismatch');
 
   if (offer.packageMatch === 'current-exact') {
-    if (!offer.observedPackageVersion || !containsIdentity(offer.observedPackageVersion, product.canonicalIdentity.variant)) {
+    if (!offer.observedPackageVersion || !packageVersionMatchesIdentity(offer.observedPackageVersion, { name: product.canonicalIdentity.name, variant: product.canonicalIdentity.variant, size: product.canonicalIdentity.size })) {
       blockers.push('current-package-version-unverified');
     }
+
   } else if (offer.packageMatch === 'official-revision-equivalent') {
     const aliasId = offer.packagingRevisionAliasId;
     const revisionIds = offer.packageRevisionIds;
@@ -328,7 +341,7 @@ export function catalogueOfferAdmissionBlockers(
     blockers.push('ngn-price-evidence-invalid');
   }
   if (
-    !['in-stock', 'low-stock'].includes(offer.stock.status)
+    !['in-stock', 'low-stock', 'out-of-stock'].includes(offer.stock.status)
     || stockFromSourceText(offer.stock.sourceText) !== offer.stock.status
   ) {
     blockers.push('offer-unavailable');

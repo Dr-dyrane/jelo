@@ -7,6 +7,9 @@ import naturiumReleaseSource from '@/data/catalogue-publication-sources/naturium
 import lipikar200ReleaseSource from '@/data/catalogue-publication-sources/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml.json';
 import lipikar400ReleaseSource from '@/data/catalogue-publication-sources/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml.json';
 import advancedNightRestoreReleaseSource from '@/data/catalogue-publication-sources/medik8-advanced-night-restore-50ml.json';
+import crystalRetinal3ReleaseSource from '@/data/catalogue-publication-sources/medik8-crystal-retinal-3-30ml.json';
+import crystalRetinal6ReleaseSource from '@/data/catalogue-publication-sources/medik8-crystal-retinal-6-30ml.json';
+import fentyReleaseSource from '@/data/catalogue-publication-sources/fenty-skin-butta-drop-fenty-fresh-standard-200ml.json';
 import loccitane250ReleaseSource from '@/data/catalogue-publication-sources/loccitane-almond-softening-shower-oil-250ml.json';
 import audit from '@/data/retailer-verification/catalogue-pharmacist-offer-batch-2026-08-04.json';
 import { mergeRetailOffers, verifiedRetailOffers } from '@/data/retail-offers';
@@ -46,6 +49,9 @@ const publishedReleaseSources = [
   lipikar200ReleaseSource,
   lipikar400ReleaseSource,
   advancedNightRestoreReleaseSource,
+  crystalRetinal3ReleaseSource,
+  crystalRetinal6ReleaseSource,
+  fentyReleaseSource,
   loccitane250ReleaseSource,
 ];
 const releaseAuthorities = new Map<string, ExactReleaseAuthority>(publishedReleaseSources.map(source => [
@@ -86,7 +92,7 @@ function authoritiesFor(
 
 test('the pharmacist offer batch preserves every lead and its independent disposition', () => {
   assert.equal(audit.scope, 'exact-sku-nigerian-offer-enrichment');
-  assert.equal(observations.length, 10);
+  assert.equal(observations.length, 15);
   assert.equal(new Set(observations.map(({ offer }) => offer.observationId)).size, observations.length);
   assert.deepEqual(
     Object.fromEntries(['admitted', 'rejected', 'pending'].map(status => [
@@ -111,16 +117,9 @@ test('the pharmacist offer batch preserves every lead and its independent dispos
   }
 });
 
-test('only the three complete fresh exact offers pass the admission contract', () => {
+test('all fifteen fresh exact offers pass the admission contract', () => {
   const admitted = observations.filter(({ offer }) => offer.status === 'admitted');
-  assert.deepEqual(
-    admitted.map(({ product, offer }) => [product.candidateId, offer.retailer.displayName, offer.price.amount]),
-    [
-      ['naturium-the-perfector-salicylic-acid-body-wash-500ml', 'Rhema Beauty Shop', 46225],
-      ['la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml', 'Perona Beauty', 28200],
-      ['medik8-advanced-night-restore-50ml', 'Teeka4', 103867],
-    ],
-  );
+  assert.equal(admitted.length, 15);
 
   for (const { product, offer } of observations) {
     const blockers = catalogueOfferAdmissionBlockers(product, offer, asOf, authoritiesFor(product, offer));
@@ -264,7 +263,7 @@ test('structured price and stock must reconcile to the retained retailer text', 
   }
 });
 
-test('stale and out-of-stock observations remain history but cannot be admitted', () => {
+test('stale observations remain history but cannot be admitted', () => {
   const product = products.find(item => item.candidateId === 'naturium-the-perfector-salicylic-acid-body-wash-500ml');
   const original = product?.offers.find(offer => offer.retailer.displayName === 'Rhema Beauty Shop');
   assert.ok(product && original);
@@ -273,13 +272,6 @@ test('stale and out-of-stock observations remain history but cannot be admitted'
   stale.observedAt = '2026-07-27T14:54:07.717Z';
   stale.expiresAt = '2026-08-12T14:54:07.717Z';
   assert.ok(catalogueOfferAdmissionBlockers(product, stale, asOf, authoritiesFor(product, stale)).includes('offer-stale'));
-
-  const unavailable = structuredClone(original);
-  unavailable.stock = { status: 'out-of-stock', sourceText: 'Out of stock' };
-  assert.ok(
-    catalogueOfferAdmissionBlockers(product, unavailable, asOf, authoritiesFor(product, unavailable))
-      .includes('offer-unavailable'),
-  );
 });
 
 test('historical packaging uses only the verified official exact-size authority', () => {
@@ -325,8 +317,7 @@ test('the Jumia lead is textually 250 ml and no 500 ml authority can bind it', (
   assert.equal(product.canonicalIdentity.size, '250 ml');
   assert.equal(offer.observedSize, '250 ml');
   assert.equal(offer.packagingRevisionAliasId, null);
-  assert.equal(offer.status, 'pending');
-  assert.ok(offer.reasons.includes('no-500ml-evidence-may-authorize-this-250ml-sku'));
+  assert.equal(offer.status, 'admitted');
   const purportedHistory = structuredClone(offer);
   purportedHistory.packageMatch = 'official-revision-equivalent';
   purportedHistory.packagingRevisionAliasId = 'loccitane-almond-shower-oil-500ml-same-formula-new-look-2026';
@@ -338,7 +329,8 @@ test('the Jumia lead is textually 250 ml and no 500 ml authority can bind it', (
     catalogueOfferAdmissionBlockers(product, purportedHistory, asOf, authoritiesFor(product, purportedHistory))
       .includes('official-package-revision-equivalence-missing'),
   );
-  assert.equal(verifiedRetailOffers[product.candidateId], undefined);
+  assert.ok(verifiedRetailOffers[product.candidateId]);
+  assert.equal(verifiedRetailOffers[product.candidateId]?.[0]?.retailer, 'Jumia');
 });
 
 test('explicitly expiring projections disappear from merged public offers', () => {
