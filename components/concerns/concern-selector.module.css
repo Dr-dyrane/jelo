@@ -241,19 +241,19 @@
 
 /* dark theme */
 /* The dark selector keeps the same depth hierarchy without the light mauve stop. */
-:global(html[data-theme="dark"]) .selector { background: linear-gradient(145deg, #202020, #101010 55%, #181818); }
-:global(html[data-theme="dark"]) .card { background: rgba(18, 18, 18, .55); }
-:global(html[data-theme="dark"]) .guideCard { background: rgba(18, 18, 18, .7); }
-:global(html[data-theme="dark"]) .card.active { background: rgba(32, 32, 32, .9); }
-:global(html[data-theme="dark"]) .cardTop > span { background: rgba(24, 24, 24, .72); }
-:global(html[data-theme="dark"]) .resultsHeading button { background: rgba(24, 24, 24, .76); }
-:global(html[data-theme="dark"]) .empty { background: rgba(18, 18, 18, .58); }
+:global(html[data-theme="dark"]) .selector { background: linear-gradient(145deg, var(--surface-3), var(--surface-2) 55%, var(--paper)); }
+:global(html[data-theme="dark"]) .card { background: var(--card); }
+:global(html[data-theme="dark"]) .guideCard { background: var(--paper); }
+:global(html[data-theme="dark"]) .card.active { background: color-mix(in srgb, var(--wine) 16%, var(--surface-3)); }
+:global(html[data-theme="dark"]) .cardTop > span { background: var(--ghost-bg); }
+:global(html[data-theme="dark"]) .resultsHeading button { background: var(--ghost-bg); }
+:global(html[data-theme="dark"]) .empty { background: var(--card-2); }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .selector { background: linear-gradient(145deg, #202020, #101010 55%, #181818); }
-  :global(html:not([data-theme="light"])) .card { background: rgba(18, 18, 18, .55); }
-  :global(html:not([data-theme="light"])) .guideCard { background: rgba(18, 18, 18, .7); }
-  :global(html:not([data-theme="light"])) .card.active { background: rgba(32, 32, 32, .9); }
-  :global(html:not([data-theme="light"])) .cardTop > span { background: rgba(24, 24, 24, .72); }
-  :global(html:not([data-theme="light"])) .resultsHeading button { background: rgba(24, 24, 24, .76); }
-  :global(html:not([data-theme="light"])) .empty { background: rgba(18, 18, 18, .58); }
+  :global(html:not([data-theme="light"])) .selector { background: linear-gradient(145deg, var(--surface-3), var(--surface-2) 55%, var(--paper)); }
+  :global(html:not([data-theme="light"])) .card { background: var(--card); }
+  :global(html:not([data-theme="light"])) .guideCard { background: var(--paper); }
+  :global(html:not([data-theme="light"])) .card.active { background: color-mix(in srgb, var(--wine) 16%, var(--surface-3)); }
+  :global(html:not([data-theme="light"])) .cardTop > span { background: var(--ghost-bg); }
+  :global(html:not([data-theme="light"])) .resultsHeading button { background: var(--ghost-bg); }
+  :global(html:not([data-theme="light"])) .empty { background: var(--card-2); }
 }

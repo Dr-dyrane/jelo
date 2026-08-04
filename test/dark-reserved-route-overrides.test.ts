@@ -13,7 +13,7 @@ function occurrences(source: string, fragment: string) {
   return source.split(fragment).length - 1;
 }
 
-test('reserved public dark overrides consume the neutral foundation', async () => {
+test('reserved public dark overrides consume the shared black-cherry foundation', async () => {
   const [
     productExperience,
     platform,

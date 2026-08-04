@@ -152,22 +152,22 @@
 }
 
 /* dark theme */
-html[data-theme="dark"] .profile-trigger { background: rgba(18, 18, 18, .78); }
+html[data-theme="dark"] .profile-trigger { background: var(--ghost-bg); }
 html[data-theme="dark"] .profile-dialog::backdrop,
-html[data-theme="dark"] .profile-dialog[data-fallback-modal="true"] { background: rgba(0, 0, 0, .64); }
-html[data-theme="dark"] .profile-sheet { background: rgba(18, 18, 18, .98); box-shadow: -24px 0 70px rgba(0, 0, 0, .58); }
-html[data-theme="dark"] .profile-sheet footer { background: rgba(18, 18, 18, .96); }
+html[data-theme="dark"] .profile-dialog[data-fallback-modal="true"] { background: var(--glass-scrim); }
+html[data-theme="dark"] .profile-sheet { background: var(--surface-2); box-shadow: -24px 0 70px rgba(0, 0, 0, .58); }
+html[data-theme="dark"] .profile-sheet footer { background: var(--paper); }
 html[data-theme="dark"] .profile-sheet footer button { color: var(--cream); }
 @media (max-width: 620px) {
   html[data-theme="dark"] .profile-sheet { box-shadow: 0 -24px 70px rgba(0, 0, 0, .58); }
   html[data-theme="dark"] .profile-sheet::before { background: rgba(255, 255, 255, .24); }
 }
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .profile-trigger { background: rgba(18, 18, 18, .78); }
+  html:not([data-theme="light"]) .profile-trigger { background: var(--ghost-bg); }
   html:not([data-theme="light"]) .profile-dialog::backdrop,
-  html:not([data-theme="light"]) .profile-dialog[data-fallback-modal="true"] { background: rgba(0, 0, 0, .64); }
-  html:not([data-theme="light"]) .profile-sheet { background: rgba(18, 18, 18, .98); box-shadow: -24px 0 70px rgba(0, 0, 0, .58); }
-  html:not([data-theme="light"]) .profile-sheet footer { background: rgba(18, 18, 18, .96); }
+  html:not([data-theme="light"]) .profile-dialog[data-fallback-modal="true"] { background: var(--glass-scrim); }
+  html:not([data-theme="light"]) .profile-sheet { background: var(--surface-2); box-shadow: -24px 0 70px rgba(0, 0, 0, .58); }
+  html:not([data-theme="light"]) .profile-sheet footer { background: var(--paper); }
   html:not([data-theme="light"]) .profile-sheet footer button { color: var(--cream); }
 }
 @media (prefers-color-scheme: dark) and (max-width: 620px) {

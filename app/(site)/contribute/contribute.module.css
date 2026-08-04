@@ -80,32 +80,34 @@ to{opacity:1;transform:none}
 
 /* dark theme */
 :global(html[data-theme="dark"]) .page{background:linear-gradient(180deg,var(--card-2),var(--wash-b) 48%,var(--cream))}
-:global(html[data-theme="dark"]) .heroCopy{background:rgba(18,18,18,.76)}
-:global(html[data-theme="dark"]) .trust>a{background:rgba(255,255,255,.08)}
-:global(html[data-theme="dark"]) .trust>a:hover{background:rgba(255,255,255,.12)}
-:global(html[data-theme="dark"]) .experience{background:rgba(18,18,18,.78)}
-:global(html[data-theme="dark"]) .progress{background:rgba(255,255,255,.12)}
+:global(html[data-theme="dark"]) .heroCopy{background:var(--paper)}
+:global(html[data-theme="dark"]) .trust>a{background:var(--ghost-bg)}
+:global(html[data-theme="dark"]) .trust>a:hover{background:color-mix(in srgb,var(--wine) 14%,transparent)}
+:global(html[data-theme="dark"]) .experience{background:var(--paper)}
+:global(html[data-theme="dark"]) .progress{background:var(--ghost-bg)}
 :global(html[data-theme="dark"]) .primary{color:var(--cream)}
-:global(html[data-theme="dark"]) .back{background:rgba(255,255,255,.1)}
+:global(html[data-theme="dark"]) .primary:disabled{opacity:.72}
+:global(html[data-theme="dark"]) .back{background:var(--ghost-bg)}
 :global(html[data-theme="dark"]) .purchase label>input,:global(html[data-theme="dark"]) .money{background:var(--surface-2)}
-:global(html[data-theme="dark"]) .review dl>div{background:rgba(255,255,255,.07)}
-:global(html[data-theme="dark"]) .error{background:rgba(160,50,50,.18);color:#f0a59d}
-:global(html[data-theme="dark"]) .complete{background:rgba(18,18,18,.82)}
+:global(html[data-theme="dark"]) .review dl>div{background:var(--card-2)}
+:global(html[data-theme="dark"]) .error{background:var(--state-danger-bg);color:var(--state-danger)}
+:global(html[data-theme="dark"]) .complete{background:var(--paper)}
 :global(html[data-theme="dark"]) .complete button{color:var(--cream)}
 @media (max-width:820px){:global(html[data-theme="dark"]) .actions{background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.97) 30%)}}
 @media (prefers-color-scheme:dark){
   :global(html:not([data-theme="light"])) .page{background:linear-gradient(180deg,var(--card-2),var(--wash-b) 48%,var(--cream))}
-  :global(html:not([data-theme="light"])) .heroCopy{background:rgba(18,18,18,.76)}
-  :global(html:not([data-theme="light"])) .trust>a{background:rgba(255,255,255,.08)}
-  :global(html:not([data-theme="light"])) .trust>a:hover{background:rgba(255,255,255,.12)}
-  :global(html:not([data-theme="light"])) .experience{background:rgba(18,18,18,.78)}
-  :global(html:not([data-theme="light"])) .progress{background:rgba(255,255,255,.12)}
+  :global(html:not([data-theme="light"])) .heroCopy{background:var(--paper)}
+  :global(html:not([data-theme="light"])) .trust>a{background:var(--ghost-bg)}
+  :global(html:not([data-theme="light"])) .trust>a:hover{background:color-mix(in srgb,var(--wine) 14%,transparent)}
+  :global(html:not([data-theme="light"])) .experience{background:var(--paper)}
+  :global(html:not([data-theme="light"])) .progress{background:var(--ghost-bg)}
   :global(html:not([data-theme="light"])) .primary{color:var(--cream)}
-  :global(html:not([data-theme="light"])) .back{background:rgba(255,255,255,.1)}
+  :global(html:not([data-theme="light"])) .primary:disabled{opacity:.72}
+  :global(html:not([data-theme="light"])) .back{background:var(--ghost-bg)}
   :global(html:not([data-theme="light"])) .purchase label>input,:global(html:not([data-theme="light"])) .money{background:var(--surface-2)}
-  :global(html:not([data-theme="light"])) .review dl>div{background:rgba(255,255,255,.07)}
-  :global(html:not([data-theme="light"])) .error{background:rgba(160,50,50,.18);color:#f0a59d}
-  :global(html:not([data-theme="light"])) .complete{background:rgba(18,18,18,.82)}
+  :global(html:not([data-theme="light"])) .review dl>div{background:var(--card-2)}
+  :global(html:not([data-theme="light"])) .error{background:var(--state-danger-bg);color:var(--state-danger)}
+  :global(html:not([data-theme="light"])) .complete{background:var(--paper)}
   :global(html:not([data-theme="light"])) .complete button{color:var(--cream)}
 }
 @media (prefers-color-scheme:dark) and (max-width:820px){

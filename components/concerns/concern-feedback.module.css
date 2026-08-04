@@ -55,11 +55,11 @@
 }
 
 /* dark theme */
-:global(html[data-theme="dark"]) .feedback { background: rgba(18, 18, 18, .78); box-shadow: 0 16px 46px rgba(0, 0, 0, .38); }
-:global(html[data-theme="dark"]) .actions button { background: rgba(255, 255, 255, .1); }
+:global(html[data-theme="dark"]) .feedback { background: var(--card-glass); box-shadow: 0 16px 46px rgba(0, 0, 0, .38); }
+:global(html[data-theme="dark"]) .actions button { background: var(--ghost-bg); }
 :global(html[data-theme="dark"]) .actions button:first-child { background: var(--ink); color: var(--cream); }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .feedback { background: rgba(18, 18, 18, .78); box-shadow: 0 16px 46px rgba(0, 0, 0, .38); }
-  :global(html:not([data-theme="light"])) .actions button { background: rgba(255, 255, 255, .1); }
+  :global(html:not([data-theme="light"])) .feedback { background: var(--card-glass); box-shadow: 0 16px 46px rgba(0, 0, 0, .38); }
+  :global(html:not([data-theme="light"])) .actions button { background: var(--ghost-bg); }
   :global(html:not([data-theme="light"])) .actions button:first-child { background: var(--ink); color: var(--cream); }
 }

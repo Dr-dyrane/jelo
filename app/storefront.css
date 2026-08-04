@@ -171,36 +171,36 @@
   .evidence-banner img { height: 19rem; }
 }
 
-/* Dark theme neutralizes ambient colour while leaving the editorial photography intact. */
+/* Dark theme keeps black-cherry depth while leaving the editorial photography intact. */
 html[data-theme="dark"] .discovery-intro {
   background:
-    radial-gradient(circle at 84% 12%, rgba(255, 255, 255, .1), transparent 34%),
-    linear-gradient(135deg, #202020, #101010 62%, #181818);
+    radial-gradient(circle at 84% 12%, color-mix(in srgb, var(--wine) 18%, transparent), transparent 34%),
+    linear-gradient(135deg, var(--surface-3), var(--surface-2) 62%, var(--paper));
 }
-html[data-theme="dark"] .editorial-story { background: linear-gradient(135deg, #202020, #101010 58%, #181818); }
+html[data-theme="dark"] .editorial-story { background: linear-gradient(135deg, var(--surface-3), var(--surface-2) 58%, var(--paper)); }
 html[data-theme="dark"] .editorial-story .editorial-story-visual {
   background:
-    radial-gradient(circle at 45% 45%, rgba(255, 255, 255, .09), transparent 40%),
-    linear-gradient(145deg, #181818, #080808);
+    radial-gradient(circle at 45% 45%, color-mix(in srgb, var(--wine) 12%, transparent), transparent 40%),
+    linear-gradient(145deg, var(--paper), var(--wash-a));
 }
 html[data-theme="dark"] .editorial-story .editorial-story-visual::after { color: rgba(255, 255, 255, .5); }
-html[data-theme="dark"] .signal-list span { background: rgba(255, 255, 255, .06); }
-html[data-theme="dark"] .market-sources a { background: rgba(255, 255, 255, .08); }
-html[data-theme="dark"] .evidence-banner { background: linear-gradient(125deg, #181818, #101010 56%, #202020); }
+html[data-theme="dark"] .signal-list span { background: var(--ghost-bg); }
+html[data-theme="dark"] .market-sources a { background: var(--ghost-bg); }
+html[data-theme="dark"] .evidence-banner { background: linear-gradient(125deg, var(--paper), var(--surface-2) 56%, var(--surface-3)); }
 html[data-theme="dark"] .evidence-banner img { filter: drop-shadow(0 30px 38px rgba(0, 0, 0, .5)); }
 @media (prefers-color-scheme: dark) {
   html:not([data-theme="light"]) .discovery-intro {
     background:
-      radial-gradient(circle at 84% 12%, rgba(255, 255, 255, .1), transparent 34%),
-      linear-gradient(135deg, #202020, #101010 62%, #181818);
+      radial-gradient(circle at 84% 12%, color-mix(in srgb, var(--wine) 18%, transparent), transparent 34%),
+      linear-gradient(135deg, var(--surface-3), var(--surface-2) 62%, var(--paper));
   }
-  html:not([data-theme="light"]) .editorial-story { background: linear-gradient(135deg, #202020, #101010 58%, #181818); }
+  html:not([data-theme="light"]) .editorial-story { background: linear-gradient(135deg, var(--surface-3), var(--surface-2) 58%, var(--paper)); }
   html:not([data-theme="light"]) .editorial-story .editorial-story-visual {
-    background: radial-gradient(circle at 45% 45%, rgba(255, 255, 255, .09), transparent 40%), linear-gradient(145deg, #181818, #080808);
+    background: radial-gradient(circle at 45% 45%, color-mix(in srgb, var(--wine) 12%, transparent), transparent 40%), linear-gradient(145deg, var(--paper), var(--wash-a));
   }
   html:not([data-theme="light"]) .editorial-story .editorial-story-visual::after { color: rgba(255, 255, 255, .5); }
-  html:not([data-theme="light"]) .signal-list span { background: rgba(255, 255, 255, .06); }
-  html:not([data-theme="light"]) .market-sources a { background: rgba(255, 255, 255, .08); }
-  html:not([data-theme="light"]) .evidence-banner { background: linear-gradient(125deg, #181818, #101010 56%, #202020); }
+  html:not([data-theme="light"]) .signal-list span { background: var(--ghost-bg); }
+  html:not([data-theme="light"]) .market-sources a { background: var(--ghost-bg); }
+  html:not([data-theme="light"]) .evidence-banner { background: linear-gradient(125deg, var(--paper), var(--surface-2) 56%, var(--surface-3)); }
   html:not([data-theme="light"]) .evidence-banner img { filter: drop-shadow(0 30px 38px rgba(0, 0, 0, .5)); }
 }

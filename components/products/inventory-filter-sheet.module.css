@@ -293,9 +293,9 @@
 }
 
 /* dark theme */
-:global(html[data-theme="dark"]) .trigger { background: rgba(18, 18, 18, .82); color: var(--ink); }
+:global(html[data-theme="dark"]) .trigger { background: var(--paper); color: var(--ink); }
 :global(html[data-theme="dark"]) .dialog::backdrop,
-:global(html[data-theme="dark"]) .dialog[data-fallback-modal="true"] { background: rgba(0, 0, 0, .64); }
+:global(html[data-theme="dark"]) .dialog[data-fallback-modal="true"] { background: var(--glass-scrim); }
 :global(html[data-theme="dark"]) .sheet header small { color: var(--wine); }
 :global(html[data-theme="dark"]) .sheet header p { color: var(--muted); }
 :global(html[data-theme="dark"]) .sheet header button { background: var(--surface-2); color: var(--ink); }
@@ -315,14 +315,14 @@
 :global(html[data-theme="dark"]) .companyEmpty { color: var(--muted); }
 :global(html[data-theme="dark"]) .concernNote { color: var(--muted); }
 :global(html[data-theme="dark"]) .guideOnly > p { color: var(--muted); }
-:global(html[data-theme="dark"]) .guideOnly > a { background: rgba(18, 18, 18, .5); color: var(--ink); }
+:global(html[data-theme="dark"]) .guideOnly > a { background: var(--card-2); color: var(--ink); }
 :global(html[data-theme="dark"]) .allGuides { color: var(--muted); }
 :global(html[data-theme="dark"]) .sheet footer a { color: var(--muted); }
 :global(html[data-theme="dark"]) .sheet footer button { background: var(--accent-solid); color: var(--on-accent); }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .trigger { background: rgba(18, 18, 18, .82); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .trigger { background: var(--paper); color: var(--ink); }
   :global(html:not([data-theme="light"])) .dialog::backdrop,
-  :global(html:not([data-theme="light"])) .dialog[data-fallback-modal="true"] { background: rgba(0, 0, 0, .64); }
+  :global(html:not([data-theme="light"])) .dialog[data-fallback-modal="true"] { background: var(--glass-scrim); }
   :global(html:not([data-theme="light"])) .sheet header small { color: var(--wine); }
   :global(html:not([data-theme="light"])) .sheet header p { color: var(--muted); }
   :global(html:not([data-theme="light"])) .sheet header button { background: var(--surface-2); color: var(--ink); }
@@ -342,7 +342,7 @@
   :global(html:not([data-theme="light"])) .companyEmpty { color: var(--muted); }
   :global(html:not([data-theme="light"])) .concernNote { color: var(--muted); }
   :global(html:not([data-theme="light"])) .guideOnly > p { color: var(--muted); }
-  :global(html:not([data-theme="light"])) .guideOnly > a { background: rgba(18, 18, 18, .5); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .guideOnly > a { background: var(--card-2); color: var(--ink); }
   :global(html:not([data-theme="light"])) .allGuides { color: var(--muted); }
   :global(html:not([data-theme="light"])) .sheet footer a { color: var(--muted); }
   :global(html:not([data-theme="light"])) .sheet footer button { background: var(--accent-solid); color: var(--on-accent); }

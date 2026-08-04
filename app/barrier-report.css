@@ -1,11 +1,11 @@
 .barrier-card{display:grid;grid-template-columns:12rem 1fr;gap:1rem;margin-top:1.2rem;padding:1rem;border-radius:2.3rem;background:linear-gradient(135deg,rgba(255,253,249,.92),rgba(244,212,197,.48));box-shadow:var(--shadow)}.barrier-score{min-height:12rem;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:1.8rem;background:#fff;text-align:center}.barrier-score span,.barrier-score small{color:var(--muted);font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.barrier-score strong{margin:.35rem 0;font-family:var(--font-display),serif;font-size:4.8rem;font-weight:400;line-height:1}.barrier-stable strong{color:#3f6d55}.barrier-watch strong{color:#9b7135}.barrier-stressed strong,.barrier-compromised strong{color:#973e38}.barrier-copy{padding:1rem 1.2rem;align-self:center}.barrier-copy h3{margin:.65rem 0;font-family:var(--font-display),serif;font-size:clamp(2.2rem,4vw,4.2rem);font-weight:400;line-height:.92}.barrier-copy>p:not(.eyebrow){margin:0;color:var(--muted);line-height:1.65}.barrier-signals{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}.barrier-signals span{padding:.5rem .68rem;border-radius:999px;background:rgba(107,59,53,.08);font-size:.68rem}.finding small{display:block;margin-top:.5rem;color:#7f6861;font-size:.65rem;line-height:1.45}@media(max-width:720px){.barrier-card{grid-template-columns:1fr}.barrier-score{min-height:9rem}.barrier-copy{padding:.6rem}}
 
 /* dark theme */
-html[data-theme="dark"] .barrier-card{background:linear-gradient(135deg,rgba(20,20,20,.92),rgba(42,42,42,.48))}
+html[data-theme="dark"] .barrier-card{background:linear-gradient(135deg,var(--paper),var(--surface-3))}
 html[data-theme="dark"] .barrier-score{background:var(--paper)}
 html[data-theme="dark"] .barrier-signals span{background:rgba(255,255,255,.1)}
 @media(prefers-color-scheme:dark){
-  html:not([data-theme="light"]) .barrier-card{background:linear-gradient(135deg,rgba(20,20,20,.92),rgba(42,42,42,.48))}
+  html:not([data-theme="light"]) .barrier-card{background:linear-gradient(135deg,var(--paper),var(--surface-3))}
   html:not([data-theme="light"]) .barrier-score{background:var(--paper)}
   html:not([data-theme="light"]) .barrier-signals span{background:rgba(255,255,255,.1)}
 }

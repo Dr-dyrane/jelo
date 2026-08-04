@@ -342,9 +342,9 @@ html[data-theme="dark"] .retailer-channel-filter button.active { color: var(--cr
 }
 
 /* Dark: keep the small movement arrows legible on the market surface. */
-html[data-theme="dark"] .price-trend-down { color: #7cc79b; }
-html[data-theme="dark"] .price-trend-up { color: #e8998c; }
+html[data-theme="dark"] .price-trend-down { color: var(--state-success); }
+html[data-theme="dark"] .price-trend-up { color: var(--state-warning); }
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .price-trend-down { color: #7cc79b; }
-  html:not([data-theme="light"]) .price-trend-up { color: #e8998c; }
+  html:not([data-theme="light"]) .price-trend-down { color: var(--state-success); }
+  html:not([data-theme="light"]) .price-trend-up { color: var(--state-warning); }
 }

@@ -271,51 +271,53 @@
 
 /* dark theme */
 :global(html[data-theme="dark"]) .hero{background:linear-gradient(135deg,var(--wash-c),var(--wash-b) 62%,var(--cream))}
-:global(html[data-theme="dark"]) .metrics span{background:rgba(18,18,18,.52)}
-:global(html[data-theme="dark"]) .standards article{background:linear-gradient(145deg,rgba(18,18,18,.95),rgba(32,32,32,.72))}
-:global(html[data-theme="dark"]) .standards article:nth-child(2){background:linear-gradient(145deg,rgba(18,18,18,.95),rgba(36,36,36,.72))}
-:global(html[data-theme="dark"]) .directory{background:linear-gradient(150deg,rgba(255,255,255,.06),var(--cream))}
-:global(html[data-theme="dark"]) .storeGrid>a{background:rgba(18,18,18,.82)}
-:global(html[data-theme="dark"]) .disclosure{background:linear-gradient(125deg,#101010,#202020)}
-:global(html[data-theme="dark"]) .disclosureActions a{background:rgba(18,18,18,.68)}
+:global(html[data-theme="dark"]) .metrics span{background:var(--ghost-bg)}
+:global(html[data-theme="dark"]) .standards article{background:linear-gradient(145deg,var(--paper),var(--surface-3))}
+:global(html[data-theme="dark"]) .standards article:nth-child(2){background:linear-gradient(145deg,var(--paper),var(--card-2))}
+:global(html[data-theme="dark"]) .directory{background:linear-gradient(150deg,var(--surface-2),var(--cream))}
+:global(html[data-theme="dark"]) .storeGrid>a{background:var(--paper)}
+:global(html[data-theme="dark"]) .disclosure{background:linear-gradient(125deg,var(--surface-2),var(--surface-3))}
+:global(html[data-theme="dark"]) .disclosureActions a{background:var(--card)}
 :global(html[data-theme="dark"]) .disclosureActions a:first-child{background:var(--accent-solid);color:var(--on-accent)}
 :global(html[data-theme="dark"]) .partnership{background:radial-gradient(circle at 10% 12%,rgba(255,255,255,.08),transparent 24rem),linear-gradient(140deg,var(--wash-c),var(--wash-b) 54%,var(--card-3))}
-:global(html[data-theme="dark"]) .partnershipIntro>div span{background:rgba(18,18,18,.48)}
-:global(html[data-theme="dark"]) .partnershipExperience{background:rgba(18,18,18,.72)}
-:global(html[data-theme="dark"]) .partnershipProgress{background:rgba(255,255,255,.12)}
-:global(html[data-theme="dark"]) .textQuestion label>input,:global(html[data-theme="dark"]) .inlineFields label>input,:global(html[data-theme="dark"]) .partnershipMoney{background:rgba(18,18,18,.86)}
+:global(html[data-theme="dark"]) .partnershipIntro>div span{background:var(--ghost-bg)}
+:global(html[data-theme="dark"]) .partnershipExperience{background:var(--paper)}
+:global(html[data-theme="dark"]) .partnershipProgress{background:var(--ghost-bg)}
+:global(html[data-theme="dark"]) .textQuestion label>input,:global(html[data-theme="dark"]) .inlineFields label>input,:global(html[data-theme="dark"]) .partnershipMoney{background:var(--surface-2)}
 :global(html[data-theme="dark"]) .inlineFields small{color:var(--muted)}
-:global(html[data-theme="dark"]) .mailNote,:global(html[data-theme="dark"]) .linkSent{background:rgba(255,255,255,.08)}
+:global(html[data-theme="dark"]) .mailNote,:global(html[data-theme="dark"]) .linkSent{background:var(--ghost-bg)}
 :global(html[data-theme="dark"]) .mailNote button{color:var(--cream)}
-:global(html[data-theme="dark"]) .partnershipReview dl>div{background:rgba(255,255,255,.07)}
+:global(html[data-theme="dark"]) .partnershipReview dl>div{background:var(--card-2)}
 :global(html[data-theme="dark"]) .partnershipPrimary{color:var(--cream)}
-:global(html[data-theme="dark"]) .partnershipBack{background:rgba(255,255,255,.1)}
-:global(html[data-theme="dark"]) .partnershipError{background:rgba(160,50,50,.18);color:#f0a59d}
-:global(html[data-theme="dark"]) .partnershipComplete,:global(html[data-theme="dark"]) .partnershipLoading{background:rgba(18,18,18,.72)}
+:global(html[data-theme="dark"]) .partnershipPrimary:disabled{opacity:.72}
+:global(html[data-theme="dark"]) .partnershipBack{background:var(--ghost-bg)}
+:global(html[data-theme="dark"]) .partnershipError{background:var(--state-danger-bg);color:var(--state-danger)}
+:global(html[data-theme="dark"]) .partnershipComplete,:global(html[data-theme="dark"]) .partnershipLoading{background:var(--paper)}
 :global(html[data-theme="dark"]) .partnershipComplete button{color:var(--cream)}
 @media(prefers-color-scheme:dark){
   :global(html:not([data-theme="light"])) .hero{background:linear-gradient(135deg,var(--wash-c),var(--wash-b) 62%,var(--cream))}
-  :global(html:not([data-theme="light"])) .metrics span{background:rgba(18,18,18,.52)}
-  :global(html:not([data-theme="light"])) .standards article{background:linear-gradient(145deg,rgba(18,18,18,.95),rgba(32,32,32,.72))}
-  :global(html:not([data-theme="light"])) .standards article:nth-child(2){background:linear-gradient(145deg,rgba(18,18,18,.95),rgba(36,36,36,.72))}
-  :global(html:not([data-theme="light"])) .directory{background:linear-gradient(150deg,rgba(255,255,255,.06),var(--cream))}
-  :global(html:not([data-theme="light"])) .storeGrid>a{background:rgba(18,18,18,.82)}
-  :global(html:not([data-theme="light"])) .disclosure{background:linear-gradient(125deg,#101010,#202020)}
-  :global(html:not([data-theme="light"])) .disclosureActions a{background:rgba(18,18,18,.68)}
+  :global(html:not([data-theme="light"])) .metrics span{background:var(--ghost-bg)}
+  :global(html:not([data-theme="light"])) .standards article{background:linear-gradient(145deg,var(--paper),var(--surface-3))}
+  :global(html:not([data-theme="light"])) .standards article:nth-child(2){background:linear-gradient(145deg,var(--paper),var(--card-2))}
+  :global(html:not([data-theme="light"])) .directory{background:linear-gradient(150deg,var(--surface-2),var(--cream))}
+  :global(html:not([data-theme="light"])) .storeGrid>a{background:var(--paper)}
+  :global(html:not([data-theme="light"])) .disclosure{background:linear-gradient(125deg,var(--surface-2),var(--surface-3))}
+  :global(html:not([data-theme="light"])) .disclosureActions a{background:var(--card)}
   :global(html:not([data-theme="light"])) .disclosureActions a:first-child{background:var(--accent-solid);color:var(--on-accent)}
   :global(html:not([data-theme="light"])) .partnership{background:radial-gradient(circle at 10% 12%,rgba(255,255,255,.08),transparent 24rem),linear-gradient(140deg,var(--wash-c),var(--wash-b) 54%,var(--card-3))}
-  :global(html:not([data-theme="light"])) .partnershipIntro>div span{background:rgba(18,18,18,.48)}
-  :global(html:not([data-theme="light"])) .partnershipExperience{background:rgba(18,18,18,.72)}
-  :global(html:not([data-theme="light"])) .partnershipProgress{background:rgba(255,255,255,.12)}
-  :global(html:not([data-theme="light"])) .textQuestion label>input,:global(html:not([data-theme="light"])) .inlineFields label>input,:global(html:not([data-theme="light"])) .partnershipMoney{background:rgba(18,18,18,.86)}
+  :global(html:not([data-theme="light"])) .partnershipIntro>div span{background:var(--ghost-bg)}
+  :global(html:not([data-theme="light"])) .partnershipExperience{background:var(--paper)}
+  :global(html:not([data-theme="light"])) .partnershipProgress{background:var(--ghost-bg)}
+  :global(html:not([data-theme="light"])) .textQuestion label>input,:global(html:not([data-theme="light"])) .inlineFields label>input,:global(html:not([data-theme="light"])) .partnershipMoney{background:var(--surface-2)}
   :global(html:not([data-theme="light"])) .inlineFields small{color:var(--muted)}
-  :global(html:not([data-theme="light"])) .mailNote,:global(html:not([data-theme="light"])) .linkSent{background:rgba(255,255,255,.08)}
+  :global(html:not([data-theme="light"])) .mailNote,:global(html:not([data-theme="light"])) .linkSent{background:var(--ghost-bg)}
   :global(html:not([data-theme="light"])) .mailNote button{color:var(--cream)}
-  :global(html:not([data-theme="light"])) .partnershipReview dl>div{background:rgba(255,255,255,.07)}
+  :global(html:not([data-theme="light"])) .partnershipReview dl>div{background:var(--card-2)}
   :global(html:not([data-theme="light"])) .partnershipPrimary{color:var(--cream)}
-  :global(html:not([data-theme="light"])) .partnershipBack{background:rgba(255,255,255,.1)}
-  :global(html:not([data-theme="light"])) .partnershipError{background:rgba(160,50,50,.18);color:#f0a59d}
-  :global(html:not([data-theme="light"])) .partnershipComplete,:global(html:not([data-theme="light"])) .partnershipLoading{background:rgba(18,18,18,.72)}
+  :global(html:not([data-theme="light"])) .partnershipPrimary:disabled{opacity:.72}
+  :global(html:not([data-theme="light"])) .partnershipBack{background:var(--ghost-bg)}
+  :global(html:not([data-theme="light"])) .partnershipError{background:var(--state-danger-bg);color:var(--state-danger)}
+  :global(html:not([data-theme="light"])) .partnershipComplete,:global(html:not([data-theme="light"])) .partnershipLoading{background:var(--paper)}
   :global(html:not([data-theme="light"])) .partnershipComplete button{color:var(--cream)}
 }
 

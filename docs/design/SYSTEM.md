@@ -1,6 +1,6 @@
 # Design system
 
-Updated: 2026-08-03
+Updated: 2026-08-04
 
 JeloCare is calm, editorial, inclusive, and quiet enough for the product to remain the focus.
 
@@ -55,14 +55,17 @@ The table above lists the **light** values. Light is the default and is pinned r
 
 A no-flash inline script in `app/layout.tsx` sets `data-theme` and `color-scheme` before paint from `localStorage['jelo-theme']`, defaulting to `light`; [`ThemeToggle`](../../components/navigation/theme-toggle.tsx) writes the preference. Product cutouts drop `mix-blend-mode: multiply` in dark. Any route CSS that hardcodes a light value must add a matching dark override, or it renders as a light patch on the dark page.
 
-#### Black dark-mode doctrine
+#### Black-cherry dark-mode doctrine
 
 Dark mode is an immersive, black-first device environment. The page and browser
-chrome use true black (`--cream: #000` and dark `themeColor: #000000`). Reading,
-card, and working planes rise through neutral grays instead of brown: `#101010`,
-`#121212`, `#141414`, `#181818`, `#1a1a1a`, `#202020`, and `#242424` across the
-public and Me aliases. Washes, glass, borders, shadows, decorative orbs, selection,
-and focus are also neutral; peach and brown never provide dark-mode atmosphere.
+chrome use true black (`--cream: #000` and dark `themeColor: #000000`). Public
+and Me surfaces rise through one restrained warm hierarchy: recessed
+`--surface-2: #0d090b`, primary `--paper: #171214`, intermediate
+`--card-2: #1b1417`, and raised `--surface-3: #21171b`. `--card` aliases
+`--paper`, and `--card-3` aliases `--surface-3`, so routes cannot create
+near-duplicate blacks by accident. Porcelain text, rose focus and selection,
+plum glass, and burgundy washes provide life without turning the black canvas
+muddy or flooding whole sections with pink.
 
 Operations keeps its separate `--ops-*` hierarchy in dark mode: true-black
 `--ops-canvas`, translucent neutral `--ops-instrument`, then `#121212`
@@ -71,12 +74,17 @@ warning, and danger retain their semantic colors; they are signals, not ambient
 decoration. Primary text, secondary text, actions, and focus use high-contrast
 neutral values so focus remains visible across every elevation.
 
+Brand pink (`--wine`) means action, selection, and editorial emphasis. Coral
+`--state-danger` means errors or destructive action; success and warning retain
+their green and amber semantics. None of these state colors are ambient card
+decoration.
+
 The light declarations and selectors are a preservation boundary. Dark work may
 only change or add declarations inside the two dark branches, and the explicit
 `data-theme="dark"` branch must remain token-for-token equivalent to the
-`prefers-color-scheme: dark` fallback. Route-specific dark overrides must use
-these shared neutral tokens or neutral RGB values; they must not reintroduce a
-warm page field, wash, panel, scrim, or shadow.
+`prefers-color-scheme: dark` fallback. Route-specific public and Me overrides
+must use the shared warm dark tokens rather than adding raw gray surface
+literals. Operations remains the only intentionally neutral dark hierarchy.
 
 ## Type
 

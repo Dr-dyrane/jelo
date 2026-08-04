@@ -7,22 +7,22 @@
 
 /* dark theme */
 html[data-theme="dark"] .site-header{background:rgba(0,0,0,.74)}
-html[data-theme="dark"] .product-title-meta span{background:rgba(20,20,20,.62)}
-html[data-theme="dark"] .retailer-market>div{background:rgba(20,20,20,.62)}
+html[data-theme="dark"] .product-title-meta span{background:var(--ghost-bg)}
+html[data-theme="dark"] .retailer-market>div{background:var(--card)}
 html[data-theme="dark"] .retailer-market button.active{color:var(--cream)}
-html[data-theme="dark"] .retailer-empty{background:rgba(20,20,20,.55)}
+html[data-theme="dark"] .retailer-empty{background:var(--card-2)}
 html[data-theme="dark"] .retailer-empty button{color:var(--cream)}
 html[data-theme="dark"] .related-products{background:var(--cream)}
 @media (prefers-color-scheme: dark){
   html:not([data-theme="light"]) .site-header{background:rgba(0,0,0,.74)}
-  html:not([data-theme="light"]) .product-title-meta span{background:rgba(20,20,20,.62)}
-  html:not([data-theme="light"]) .retailer-market>div{background:rgba(20,20,20,.62)}
+  html:not([data-theme="light"]) .product-title-meta span{background:var(--ghost-bg)}
+  html:not([data-theme="light"]) .retailer-market>div{background:var(--card)}
   html:not([data-theme="light"]) .retailer-market button.active{color:var(--cream)}
-  html:not([data-theme="light"]) .retailer-empty{background:rgba(20,20,20,.55)}
+  html:not([data-theme="light"]) .retailer-empty{background:var(--card-2)}
   html:not([data-theme="light"]) .retailer-empty button{color:var(--cream)}
   html:not([data-theme="light"]) .related-products{background:var(--cream)}
 }
 
 /* dark theme: restore market-summary contrast (light rule stays in product-experience.css) */
-html[data-theme="dark"] .market-summary { background: rgba(20,20,20,.55); }
-@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) .market-summary { background: rgba(20,20,20,.55); } }
+html[data-theme="dark"] .market-summary { background: var(--card-2); }
+@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) .market-summary { background: var(--card-2); } }

@@ -10,12 +10,12 @@ const expectedDarkTokens = {
   '--ink': '#fff7f4',
   '--muted': '#c6b0ad',
   '--cream': '#000',
+  '--surface-2': '#0d090b',
   '--paper': '#171214',
-  '--surface-2': '#0f0b0d',
-  '--surface-3': '#1c1417',
-  '--card': '#141012',
-  '--card-2': '#1a1316',
-  '--card-3': '#21171b',
+  '--surface-3': '#21171b',
+  '--card': 'var(--paper)',
+  '--card-2': '#1b1417',
+  '--card-3': 'var(--surface-3)',
   '--border': 'rgba(255,160,163,.17)',
   '--peach': '#5a2925',
   '--rose': '#672438',
@@ -45,8 +45,8 @@ const expectedDarkTokens = {
   '--state-success-bg': 'rgba(124,199,155,.14)',
   '--state-warning': '#e6b877',
   '--state-warning-bg': 'rgba(230,184,119,.14)',
-  '--state-danger': '#f0a59d',
-  '--state-danger-bg': 'rgba(240,165,157,.14)',
+  '--state-danger': '#ff8a7a',
+  '--state-danger-bg': 'rgba(255,138,122,.14)',
   '--state-info': 'var(--wine)',
   '--state-info-bg': 'rgba(255,154,165,.14)',
   '--state-selected-bg': 'color-mix(in srgb, var(--wine) 14%, transparent)',
@@ -135,7 +135,7 @@ test('dark theme branches share the exact chromatic black token contract', async
 
 test('dark environment keeps a black canvas, chromatic depth, and WCAG contrast', async () => {
   const tintedPublicTokens = [
-    '--paper', '--surface-2', '--surface-3', '--card', '--card-2', '--card-3',
+    '--paper', '--surface-2', '--surface-3', '--card-2',
     '--peach', '--rose', '--wine', '--wash-a', '--wash-b', '--wash-c',
     '--wash-hero', '--wash-consult',
   ] as const;
@@ -159,11 +159,14 @@ test('dark environment keeps a black canvas, chromatic depth, and WCAG contrast'
     assert.equal(new Set(channels).size, 1, `${token} must remain operationally neutral`);
   }
 
-  assert.ok(contrast(expectedDarkTokens['--ink'], expectedDarkTokens['--card-3']) >= 4.5);
+  assert.equal(expectedDarkTokens['--card'], 'var(--paper)');
+  assert.equal(expectedDarkTokens['--card-3'], 'var(--surface-3)');
+  assert.ok(contrast(expectedDarkTokens['--ink'], expectedDarkTokens['--surface-3']) >= 4.5);
   assert.ok(contrast(expectedDarkTokens['--muted'], expectedDarkTokens['--peach']) >= 4.5);
   assert.ok(contrast(expectedDarkTokens['--on-accent'], expectedDarkTokens['--accent-solid']) >= 4.5);
   assert.ok(contrast(expectedDarkTokens['--ink'], expectedDarkTokens['--rose']) >= 4.5);
-  assert.ok(contrast(expectedDarkTokens['--wine'], expectedDarkTokens['--card-3']) >= 3);
+  assert.ok(contrast(expectedDarkTokens['--wine'], expectedDarkTokens['--surface-3']) >= 3);
+  assert.notEqual(expectedDarkTokens['--state-danger'], expectedDarkTokens['--wine']);
   assert.ok(contrast(expectedDarkTokens['--ops-ink'], expectedDarkTokens['--ops-product-stage']) >= 4.5);
   assert.ok(contrast(expectedDarkTokens['--ops-muted'], expectedDarkTokens['--ops-product-stage']) >= 4.5);
   assert.ok(contrast(expectedDarkTokens['--ops-focus-ring'], expectedDarkTokens['--ops-product-stage']) >= 3);
@@ -192,4 +195,19 @@ test('light token declarations remain byte-identical and browser chrome is black
   assert.match(layout, /attributeFilter:\['data-theme'\],childList:true,subtree:true/);
   assert.match(manifest, /background_color: '#fff8f3'/);
   assert.match(manifest, /theme_color: '#f29c85'/);
+});
+
+test('dark form placeholders and disabled primary actions stay readable', async () => {
+  const [css, contribute, retailers] = await Promise.all([
+    readFile(path.join(process.cwd(), 'app/globals.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'app/(site)/contribute/contribute.module.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'app/(site)/retailers/retailers.module.css'), 'utf8'),
+  ]);
+
+  assert.match(css, /html\[data-theme="dark"\] :is\(input,textarea\)::placeholder\{color:var\(--muted\);opacity:1\}/);
+  assert.match(css, /html:not\(\[data-theme="light"\]\) :is\(input,textarea\)::placeholder\{color:var\(--muted\);opacity:1\}/);
+  assert.equal(css.match(/\.consult-form button:disabled\{opacity:\.72\}/g)?.length, 2);
+  assert.equal(contribute.match(/\.primary:disabled\{opacity:\.72\}/g)?.length, 2);
+  assert.equal(retailers.match(/\.partnershipPrimary:disabled\{opacity:\.72\}/g)?.length, 2);
+  assert.ok(contrast(expectedDarkTokens['--muted'], expectedDarkTokens['--surface-2']) >= 4.5);
 });

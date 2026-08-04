@@ -2,18 +2,18 @@
 
 /* dark theme */
 :global(html[data-theme="dark"]) .selected>span{color:var(--cream)}
-:global(html[data-theme="dark"]) .searchBox{background:rgba(18,18,18,.92);box-shadow:0 12px 34px rgba(0,0,0,.38)}
+:global(html[data-theme="dark"]) .searchBox{background:var(--card-glass);box-shadow:0 12px 34px rgba(0,0,0,.38)}
 :global(html[data-theme="dark"]) .searchBox input::placeholder{color:var(--muted)}
-:global(html[data-theme="dark"]) .options>button{background:rgba(18,18,18,.7)}
+:global(html[data-theme="dark"]) .options>button{background:var(--paper)}
 :global(html[data-theme="dark"]) .options>button:hover,:global(html[data-theme="dark"]) .options>button[data-active=true]{background:var(--paper)}
-:global(html[data-theme="dark"]) .options>button[aria-selected=true]{background:rgba(255,255,255,.12)}
-:global(html[data-theme="dark"]) .optionMark{background:rgba(255,255,255,.14)}
+:global(html[data-theme="dark"]) .options>button[aria-selected=true]{background:var(--state-selected-bg)}
+:global(html[data-theme="dark"]) .optionMark{background:var(--ghost-bg)}
 @media(prefers-color-scheme:dark){
   :global(html:not([data-theme="light"])) .selected>span{color:var(--cream)}
-  :global(html:not([data-theme="light"])) .searchBox{background:rgba(18,18,18,.92);box-shadow:0 12px 34px rgba(0,0,0,.38)}
+  :global(html:not([data-theme="light"])) .searchBox{background:var(--card-glass);box-shadow:0 12px 34px rgba(0,0,0,.38)}
   :global(html:not([data-theme="light"])) .searchBox input::placeholder{color:var(--muted)}
-  :global(html:not([data-theme="light"])) .options>button{background:rgba(18,18,18,.7)}
+  :global(html:not([data-theme="light"])) .options>button{background:var(--paper)}
   :global(html:not([data-theme="light"])) .options>button:hover,:global(html:not([data-theme="light"])) .options>button[data-active=true]{background:var(--paper)}
-  :global(html:not([data-theme="light"])) .options>button[aria-selected=true]{background:rgba(255,255,255,.12)}
-  :global(html:not([data-theme="light"])) .optionMark{background:rgba(255,255,255,.14)}
+  :global(html:not([data-theme="light"])) .options>button[aria-selected=true]{background:var(--state-selected-bg)}
+  :global(html:not([data-theme="light"])) .optionMark{background:var(--ghost-bg)}
 }

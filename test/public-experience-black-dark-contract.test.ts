@@ -27,6 +27,7 @@ const publicDarkStyleFiles = [
 ] as const;
 
 const legacyWarmDarkAmbient = /(?:#(?:3a2a25|3a2a26|2c211e|2c211d|2c211c|34232c|2a201d|302521|241d1b|332523|26201d|34271f|281e1b|f0c6ca|3b2523|b8837a)\b|rgba\(\s*(?:36\s*,\s*29\s*,\s*27|122\s*,\s*86\s*,\s*72|138\s*,\s*95\s*,\s*87|25\s*,\s*20\s*,\s*19|231\s*,\s*188\s*,\s*178|232\s*,\s*187\s*,\s*180|240\s*,\s*198\s*,\s*202|240\s*,\s*220\s*,\s*210|255\s*,\s*223\s*,\s*214|255\s*,\s*214\s*,\s*223|255\s*,\s*227\s*,\s*212)\s*,)/i;
+const bypassedNeutralSurface = /(?:#(?:080808|0a0a0a|101010|121212|141414|181818|1a1a1a|202020|242424)\b|rgba\(\s*((?:10|12|14|16|18|20|24|26|28|30|32|34|36|38|40|42|44|46|48))\s*,\s*\1\s*,\s*\1\s*,)/i;
 
 function darkFragment(source: string, file: string) {
   const marker = source.search(/\/\*\s*dark theme/i);
@@ -42,6 +43,15 @@ test('public experience dark overrides keep the black canvas free of legacy mudd
     assert.doesNotMatch(dark, legacyWarmDarkAmbient, `${file} reintroduced a legacy warm dark surface`);
     assert.match(dark, /data-theme=["']dark["']/, `${file} needs an explicit dark-theme branch`);
     assert.match(dark, /prefers-color-scheme:\s*dark/, `${file} needs an operating-system dark fallback`);
+  }));
+});
+
+test('public route dark surfaces use the shared black-cherry hierarchy instead of gray literals', async () => {
+  await Promise.all(publicDarkStyleFiles.filter(file => file !== 'app/globals.css').map(async file => {
+    const source = await readFile(path.join(process.cwd(), file), 'utf8');
+    const dark = darkFragment(source, file);
+
+    assert.doesNotMatch(dark, bypassedNeutralSurface, `${file} bypasses the public dark surface tokens`);
   }));
 });
 
