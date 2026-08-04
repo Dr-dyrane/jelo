@@ -96,6 +96,24 @@ The final public asset must remain the exact package, complete and unclipped,
 with true transparency, durable provenance, a content-addressed location, and
 an independently reviewed presentation result.
 
+### Asset promotion and git bloat control
+
+Packshot binaries (`data/catalogue-intake-assets/**/*.{png,jpg,webp,avif}`)
+are gitignored. The promotion records in
+`data/product-asset-promotions.json` are the canonical source — the `blobUrl`
+field points to the Vercel Blob store where images are served. When staging a
+new packshot:
+
+1. Place the reviewed PNG locally under `data/catalogue-intake-assets/<slug>/`.
+2. Add or update the promotion record with `active: true` and the correct hash.
+3. `git add -f` the PNG so it travels through git for one deploy cycle.
+4. Push — Vercel's `assets:promote:staged` step uploads it to blob.
+5. After the deploy succeeds, `git rm --cached` the PNG and commit.
+
+The test suite skips byte verification for promotion records whose local file
+is absent (already promoted). See
+[OPERATIONS.md §12](./docs/catalogue/OPERATIONS.md) for the full lifecycle.
+
 ## How a release actually ships
 
 Verified from `f02eea5` ("Release two verified product references"). Read this
@@ -112,8 +130,10 @@ before concluding that anything is structurally blocked.
   (`npm run catalogue:packshot:prepare-reviewed`, `.cache/reviewed-packshot-venv`),
   write the 2000 x 2000 transparent PNG under
   `data/catalogue-intake-assets/<candidate>/`, then append an `active: true`
-  record to `data/product-asset-promotions.json`. Generation is the exception,
-  for SKUs whose only official media is below the 1600 px publication minimum.
+  record to `data/product-asset-promotions.json`. The PNG is gitignored — use
+  `git add -f` to include it for one deploy cycle, then `git rm --cached` after
+  Vercel promotes it to blob. Generation is the exception, for SKUs whose only
+  official media is below the 1600 px publication minimum.
 - **`BLOB_READ_WRITE_TOKEN` is not needed locally.** It is a placeholder that
   `vercel env pull` will not decrypt. `scripts/vercel-build.ts` runs
   `assets:promote:staged` when `VERCEL_ENV=production`, so the upload happens on

@@ -233,7 +233,8 @@ One product commit may include its:
 - per-SKU intake source and deterministic projection;
 - retained official and retailer evidence;
 - identity extraction and crosswalk;
-- owned or permitted packshot and promotion record;
+- owned or permitted packshot and promotion record (PNG is gitignored —
+  `git add -f` for the deploy cycle, `git rm --cached` after blob promotion);
 - dossier and explicit release;
 - narrow product fixture or test updates required by that release.
 

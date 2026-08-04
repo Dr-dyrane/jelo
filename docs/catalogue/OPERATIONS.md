@@ -497,6 +497,65 @@ Check desktop and mobile:
 
 After push, verify the exact production deployment and custom domain before calling the release complete.
 
+## 12. Asset promotion lifecycle and git bloat control
+
+Catalogue intake packshots (PNG/JPG/WebP/AVIF) are staged locally under
+`data/catalogue-intake-assets/<candidate-slug>/`, then promoted to the Vercel
+Blob store by the production build. The binary files are gitignored to prevent
+repo bloat — only the JSON promotion records are tracked permanently.
+
+### Workflow
+
+1. **Stage the packshot locally.** Run rembg or place a reviewed transparent
+   PNG at `data/catalogue-intake-assets/<slug>/packshot-v2.png`. The file must
+   be at least 1000×1000 with true alpha (RGBA, color type 6).
+
+2. **Add or update the promotion record** in
+   `data/product-asset-promotions.json` with `active: true`, the correct
+   `contentHash`, `byteSize`, `width`, `height`, `hasAlpha`, `localPath`,
+   `blobPath`, and `blobUrl`. Remove any prior v1 record for the same candidate
+   (candidate IDs must be unique in the promotions array).
+
+3. **Force-add the PNG for the deploy.** The gitignore blocks
+   `data/catalogue-intake-assets/**/*.{png,jpg,webp,avif}`. Use
+   `git add -f data/catalogue-intake-assets/<slug>/packshot-v2.png` to include
+   the file in the commit so Vercel can read and upload it during the build.
+
+4. **Push and let Vercel promote.** The production build runs
+   `npm run assets:promote:staged`, which reads the local PNG, verifies its
+   hash, dimensions, alpha, and silhouette, then uploads to the Vercel Blob
+   store. If the blob already exists at the hash-addressed path, it is
+   verified and skipped.
+
+5. **Remove the PNG from git after promotion succeeds.** Once the deploy
+   confirms the blob upload, run
+   `git rm --cached data/catalogue-intake-assets/<slug>/packshot-v2.png`
+   and commit. The file stays on disk locally but is no longer tracked. The
+   `blobUrl` in the promotion record is the canonical source — the site serves
+   images from blob, not from the repo.
+
+### Why the binaries are gitignored
+
+A single packshot is 400KB–4MB. With 40+ products and multiple versions, the
+repo would accumulate hundreds of MB of binary data that is never needed at
+runtime — the blob URL is the production source. The gitignore prevents
+accidental commits while `git add -f` provides an explicit opt-in for the
+one deploy cycle where the file must travel through git to reach Vercel.
+
+### Test behaviour
+
+`modules/assets/staged-product-assets.test.ts` checks local file bytes and
+hashes for every promotion record. When the local file is absent (already
+promoted and removed from git), the test skips byte verification for that
+record — the blob URL and recorded hash are trusted as canonical.
+
+### Edge gate
+
+The publication image verifier rejects packshots where the product touches the
+canvas edge (clipped) or lacks safe transparent padding. When running rembg on
+an image that fills the frame, place the cutout on a 2000×2000 transparent
+canvas with at least 10% padding margin before staging.
+
 ## Never do
 
 - Publish a discovery lead because its count is useful.
