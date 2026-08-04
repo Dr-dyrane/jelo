@@ -34,7 +34,7 @@ function darkFragment(source: string, file: string) {
   return source.slice(marker);
 }
 
-test('public experience dark overrides use black and neutral gray ambient surfaces', async () => {
+test('public experience dark overrides keep the black canvas free of legacy muddy brown surfaces', async () => {
   await Promise.all(publicDarkStyleFiles.map(async file => {
     const source = await readFile(path.join(process.cwd(), file), 'utf8');
     const dark = darkFragment(source, file);
@@ -52,7 +52,10 @@ test('dark home hero keeps its white CTA readable without recoloring photography
   );
   const dark = darkFragment(source, 'app/(site)/home.module.css');
 
-  assert.match(dark, /data-theme="dark"\]\) \.hero \.primary\{color:var\(--ink\)\}/);
-  assert.match(dark, /html:not\(\[data-theme="light"\]\)\) \.hero \.primary\{color:var\(--ink\)\}/);
+  assert.match(dark, /data-theme="dark"\]\) \.hero \.primary\{color:var\(--on-band\)\}/);
+  assert.match(dark, /html:not\(\[data-theme="light"\]\)\) \.hero \.primary\{color:var\(--on-band\)\}/);
   assert.match(dark, /\.category img[^}]*\.storyVisual img\{mix-blend-mode:normal\}/);
+  assert.match(dark, /\.category:nth-child\(1\)[^{]*\{background:[^}]*var\(--peach\)[^}]*var\(--card\)/);
+  assert.match(dark, /\.category:nth-child\(2\)[^{]*\{background:[^}]*var\(--rose\)[^}]*var\(--surface-2\)/);
+  assert.match(dark, /\.consult\{background:[^}]*var\(--rose\)[^}]*var\(--wash-a\)[^}]*var\(--wash-b\)/);
 });

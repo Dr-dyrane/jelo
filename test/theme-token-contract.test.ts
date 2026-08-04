@@ -7,39 +7,39 @@ import test from 'node:test';
 const LIGHT_ROOT_BLOCKS_SHA256 = 'abdb7646e9bc70f7437a55698cd6bc1b96362ee9b5284e2d369031f1ec46a757';
 
 const expectedDarkTokens = {
-  '--ink': '#f5f5f5',
-  '--muted': '#b3b3b3',
+  '--ink': '#fff7f4',
+  '--muted': '#c6b0ad',
   '--cream': '#000',
-  '--paper': '#141414',
-  '--surface-2': '#101010',
-  '--surface-3': '#1a1a1a',
-  '--card': '#121212',
-  '--card-2': '#181818',
-  '--card-3': '#202020',
-  '--border': 'rgba(255,255,255,.14)',
-  '--peach': '#242424',
-  '--rose': '#6a6a6a',
-  '--wine': '#ededed',
-  '--accent-solid': '#f5f5f5',
-  '--on-accent': '#000',
-  '--band': '#080808',
-  '--on-band': '#f5f5f5',
-  '--band-muted': '#b3b3b3',
-  '--ghost-bg': 'rgba(255,255,255,.08)',
-  '--tag-bg': 'rgba(24,24,24,.72)',
-  '--visual-lg-bg': 'rgba(255,255,255,.04)',
-  '--card-glass': 'rgba(18,18,18,.82)',
-  '--wash-a': '#000',
-  '--wash-b': '#080808',
-  '--wash-c': '#121212',
-  '--wash-hero': '#1c1c1c',
-  '--wash-consult': '#141414',
-  '--orb1-a': '#0b0b0b',
-  '--orb1-b': '#2a2a2a',
-  '--orb2-a': '#101010',
-  '--orb2-b': '#242424',
-  '--ghost-word': 'rgba(255,255,255,.07)',
-  '--shadow': '0 30px 90px rgba(0,0,0,.72)',
+  '--paper': '#171214',
+  '--surface-2': '#0f0b0d',
+  '--surface-3': '#1c1417',
+  '--card': '#141012',
+  '--card-2': '#1a1316',
+  '--card-3': '#21171b',
+  '--border': 'rgba(255,160,163,.17)',
+  '--peach': '#5a2925',
+  '--rose': '#672438',
+  '--wine': '#ff9aa5',
+  '--accent-solid': '#ff9aa5',
+  '--on-accent': '#21070d',
+  '--band': '#080305',
+  '--on-band': '#fff7f4',
+  '--band-muted': '#c6b0ad',
+  '--ghost-bg': 'rgba(255,154,165,.09)',
+  '--tag-bg': 'rgba(45,18,28,.78)',
+  '--visual-lg-bg': 'rgba(255,118,139,.055)',
+  '--card-glass': 'rgba(26,15,20,.86)',
+  '--wash-a': '#080305',
+  '--wash-b': '#16070d',
+  '--wash-c': '#2b0c18',
+  '--wash-hero': '#36101a',
+  '--wash-consult': '#281018',
+  '--orb1-a': '#1b0710',
+  '--orb1-b': '#672438',
+  '--orb2-a': '#14070b',
+  '--orb2-b': '#5a2925',
+  '--ghost-word': 'rgba(255,128,145,.1)',
+  '--shadow': '0 30px 90px rgba(0,0,0,.72),0 0 80px rgba(130,33,66,.08)',
   '--shot-shadow': 'rgba(0,0,0,.62)',
   '--state-success': '#7cc79b',
   '--state-success-bg': 'rgba(124,199,155,.14)',
@@ -48,7 +48,7 @@ const expectedDarkTokens = {
   '--state-danger': '#f0a59d',
   '--state-danger-bg': 'rgba(240,165,157,.14)',
   '--state-info': 'var(--wine)',
-  '--state-info-bg': 'rgba(237,237,237,.12)',
+  '--state-info-bg': 'rgba(255,154,165,.14)',
   '--state-selected-bg': 'color-mix(in srgb, var(--wine) 14%, transparent)',
   '--elevation-1': '0 10px 26px rgba(0,0,0,.45)',
   '--elevation-2': '0 14px 40px rgba(0,0,0,.5)',
@@ -121,7 +121,7 @@ function contrast(foreground: string, background: string) {
   return (values[0] + 0.05) / (values[1] + 0.05);
 }
 
-test('dark theme branches share the exact neutral token contract', async () => {
+test('dark theme branches share the exact chromatic black token contract', async () => {
   const css = await readFile(path.join(process.cwd(), 'app/globals.css'), 'utf8');
   const systemDarkMedia = blocksFor(css, /^@media\(prefers-color-scheme:dark\)\{/gm);
   const systemDarkTokens = declarations(systemDarkMedia.flatMap(block => (
@@ -133,20 +133,30 @@ test('dark theme branches share the exact neutral token contract', async () => {
   assert.deepEqual(explicitDarkTokens, expectedDarkTokens);
 });
 
-test('dark environment is grayscale and its text, actions, and focus clear WCAG contrast', async () => {
-  const environmentalTokens = [
-    '--cream', '--paper', '--surface-2', '--surface-3', '--card', '--card-2',
-    '--card-3', '--peach', '--wash-a', '--wash-b', '--wash-c', '--wash-hero',
-    '--wash-consult', '--orb1-a', '--orb1-b', '--orb2-a', '--orb2-b',
+test('dark environment keeps a black canvas, chromatic depth, and WCAG contrast', async () => {
+  const tintedPublicTokens = [
+    '--paper', '--surface-2', '--surface-3', '--card', '--card-2', '--card-3',
+    '--peach', '--rose', '--wine', '--wash-a', '--wash-b', '--wash-c',
+    '--wash-hero', '--wash-consult',
+  ] as const;
+  const neutralOpsTokens = [
     '--ops-canvas', '--ops-workspace', '--ops-surface-subtle', '--ops-product-stage',
   ] as const;
 
-  for (const token of environmentalTokens) {
+  assert.equal(expectedDarkTokens['--cream'], '#000');
+  for (const token of tintedPublicTokens) {
     const value = expectedDarkTokens[token];
     const channels = value.length === 4
       ? [value[1], value[2], value[3]]
       : [value.slice(1, 3), value.slice(3, 5), value.slice(5, 7)];
-    assert.equal(new Set(channels).size, 1, `${token} must remain chromatically neutral`);
+    assert.ok(new Set(channels).size > 1, `${token} must retain intentional colour`);
+  }
+  for (const token of neutralOpsTokens) {
+    const value = expectedDarkTokens[token];
+    const channels = value.length === 4
+      ? [value[1], value[2], value[3]]
+      : [value.slice(1, 3), value.slice(3, 5), value.slice(5, 7)];
+    assert.equal(new Set(channels).size, 1, `${token} must remain operationally neutral`);
   }
 
   assert.ok(contrast(expectedDarkTokens['--ink'], expectedDarkTokens['--card-3']) >= 4.5);
