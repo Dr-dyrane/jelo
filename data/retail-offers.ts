@@ -358,39 +358,57 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'cerave-moisturising-cream-454g': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-moisturizing-cream-with-hyaluronic-acid-and-ceramides-454g/', 97, 20210, 'CeraVe Moisturizing Cream 454g', '454 g', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/cerave-moisturizing-cream-16-0z-453g-usa-version/', 86, 34500, 'Cerave moisturizing Cream 16 OZ (453g) USA version', '453 g', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/cerave-moisturizing-cream-for-dry-to-very-dry-skin-16-oz-uk/', 86, 21500, 'Cerave Moisturizing Cream For Dry to very dry Skin 16 Oz', '454 g', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'cerave-sa-smoothing-cleanser-473ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-sa-smoothing-cleanser-face-and-body-wash-with-salicylic-acid-for-dry-rough-amp-bumpy-skin-473ml/', 97, 20748, 'CeraVe SA Smoothing Cleanser', '473 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/cerave-sa-smoothing-cleanser-473ml-16oz-us-version/', 86, 28000, 'CeraVe SA Smoothing Cleanser 473ml/16oz US Version', '473 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16oz/', 86, 22650, 'Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16oz', '473 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'cerave-acne-foaming-cream-cleanser-4-150ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/', 97, 24000, 'CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide', '150 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/cerave-acne-foaming-cream-cleanser-with-4-benzoyl-peroxide-hyaluronic-acid-and-niacinamide/', 86, 31500, 'CeraVe Acne Foaming Cream Cleanser with 4% Benzoyl Peroxide, Hyaluronic Acid, and Niacinamide', '150 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'cerave-acne-foaming-cream-wash-10-150ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-acne-control-cleanser-5-oz-150ml/', 97, 24000, 'CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide', '150 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/cerave-acne-foaming-cream-wash/', 86, 26000, 'Cerave Acne Foaming Cream Wash (US Version)', '150 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/cerave-acne-foaming-cream-wash-with-10-benzoyl-peroxide/', 86, 30000, 'CeraVe Acne Foaming Cream Wash with 10% Benzoyl Peroxide', '150 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'facefacts-ceramide-foaming-cleanser-400ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-foaming-cleanser-400ml/', 97, 6450, 'FaceFacts Ceramide Foaming Cleanser', '400 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/face-facts-ceramide-foaming-cleanser-400ml/', 86, 6950, 'Face Facts Ceramide Foaming Cleanser 400ml', '400 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'facefacts-ceramide-oil-control-foaming-cleanser-400ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/', 97, 6880, 'FaceFacts Ceramide Oil Control Foaming Cleanser', '400 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/', 86, 7800, 'FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml', '400 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'facefacts-ceramide-moisturising-gel-cream-50ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-moisturizing-gel-cream/', 97, 3655, 'FaceFacts Ceramide Moisturizing Gel Cream', '50 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/facefacts-ceramide-moisturising-face-gel-cream-50ml/', 86, 3900, 'FaceFacts Ceramide Moisturising Face Gel Cream 50ml', '50 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'facefacts-ceramide-blemish-gel-moisturiser-50ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/', 97, 3440, 'FaceFacts Ceramide Blemish Gel Moisturiser', '50 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/', 86, 4500, 'FACEFACTS -CERAMIDE BLEMISH GEL MOISTURISER 50ML', '50 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/facefacts-ceramide-blemish-gel-face-moisturiser-50ml/', 86, 4000, 'FaceFacts Ceramide Blemish Gel Face Moisturiser 50ml', '50 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'facefacts-vitamin-c-body-lotion-400ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/face-facts-vitamin-c-body-lotion-400ml-2/', 97, 6095, 'FaceFacts Vitamin C Body Lotion', '400 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/facefacts-vitamin-c-body-lotion-13-53fl-oz-400ml/', 86, 6500, 'FaceFacts Vitamin C Body Lotion 13.53fl oz 400ml', '400 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/facefacts-vitamin-c-body-lotion-400ml/', 86, 6350, 'FaceFacts Vitamin C Body Lotion 400ml', '400 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'garnier-vitamin-c-brightening-day-cream-50ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/', 97, 12728, 'Garnier Vitamin C Brightening Day Cream', '50 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/garnier-vitamin-c-brightening-day-cream-50ml/', 86, 12900, 'GARNIER Vitamin C (Brightening) Day Cream 50ml', '50 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/garnier-vitamin-c-brightening-day-cream-50ml/', 86, 12850, 'Garnier Vitamin C Brightening Day Cream 50ml', '50 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'dove-calming-moisture-body-wash-547ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/', 97, 22600, 'Dove Calming Moisture 3% Body Wash', '547 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/dove-calming-moisture-3-body-wash-547ml/', 86, 25000, 'DOVE CALMING MOISTURE 3% Body Wash 547ml', '547 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'dove-skin-replenish-serum-body-wash-547ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/', 97, 22600, 'Dove Skin Replenish 2% Body Wash', '547 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/dove-skin-replenish-2-body-wash-547ml/', 86, 27000, 'DOVE SKIN REPLENISH 2% Body Wash 547ml', '547 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'keracare-dry-itchy-scalp-conditioner-950ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/keracare-no2-dry-and-itchy-scalp-anti-dandruff-moisturizing-conditioner-950ml/', 97, 38485, 'KeraCare Dry And Itchy Conditioner', '950 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
@@ -403,18 +421,74 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'skin-by-zaron-vitamin-c-body-lotion-500ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/', 97, 14800, 'Skin by Zaron Vitamin C Body Lotion', '500 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/', 86, 16600, 'SKIN BY ZARON -VITAMIN C (Brightening & Moisturizing) Body Lotion 500ml', '500 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/skin-by-zaron-vitamin-c-body-lotion/', 86, 17000, 'Skin By Zaron Vitamin C Brightening/Moisturizing Body Lotion', '500 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
   'skin-by-zaron-vitamin-c-body-wash-650ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/', 97, 11718, 'Skin by Zaron Vitamin C Body Wash', '650 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/skin-by-zaron-vitamin-c-body-wash-650ml/', 86, 12200, 'Skin by Zaron Vitamin C Body Wash 650ml', '650 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/skin-by-zaron-vitamin-c-body-wash-650ml/', 86, 12950, 'Skin By Zaron Vitamin C Brightening Exfoliating Body Wash', '650 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
-  'simple-kind-to-skin-replenishing-rich-moisturiser-125ml': [
+  'c28f590dd2739ea73f1b5ea3': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/simple-kind-to-skin-replenishing-rich-moisturizer-125ml/', 97, 4790, 'Simple Kind To Skin Replenishing Rich Moisturizer', '125 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
   ],
   'cerave-pm-facial-moisturising-lotion-52ml': [
     exactNg('Dunes Center', 'https://dunescenter.com/product/cerave-facial-moisturising-lotion-pm-52ml/', 96, 47500, 'CeraVe Facial Moisturising Lotion PM 52ml', '52 ml', { observedAt: '2026-08-04T20:30:00Z', expiresAt: '2026-08-11T20:30:00Z' }),
   ],
-  'la-roche-posay-mela-b3-serum-30ml': [
+  'laroche-posay-mela-b3-serum-30ml': [
     exactNg('Dunes Center', 'https://dunescenter.com/product/lr-pos-mela-b3-10-serum-30ml-en-fr-du/', 96, 126500, 'La Roche-Posay Mela B3 Serum 30ml', '30 ml', { observedAt: '2026-08-04T20:30:00Z', expiresAt: '2026-08-11T20:30:00Z' }),
+    exactNg('Deoset', 'https://deoset.com/product/la-roche-posay-mela-b3-serum-dark-spot-corrector-30ml/', 86, 48600, 'La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/la-roche-posay-melab3-serum-intense-anti-dark-spot-serum-for-hyperpigmentation-30ml/', 86, 46000, 'La Roche-Posay MelaB3 Serum Intense Anti-Dark Spot Serum for Hyperpigmentation 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  '11d3a6116ccfc1cbce191430': [
+    exactNg('Deoset', 'https://deoset.com/product/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml/', 86, 22920, 'La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml', '200 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'cerave-hydrating-cleanser-473ml': [
+    exactNg('Deoset', 'https://deoset.com/product/cerave-hydrating-facial-cleanser-face-wash-for-normal-to-dry-skin-473ml-us-version/', 86, 22000, 'Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)', '473 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/cerave-hydrating-cleanser-uk-16oz/', 86, 15500, 'CeraVe Hydrating Cleanser 16oz', '473 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'eucerin-oil-control-sun-gel-cream-spf50-50ml': [
+    exactNg('Deoset', 'https://deoset.com/product/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/', 86, 22700, 'Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml', '50 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/eucerin-oil-control-sun-gel-cream-spf50-50ml/', 86, 20900, 'Eucerin Oil Control Sun Gel Cream SPF50+ 50ml', '50 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'eucerin-urearepair-plus-10-urea-body-lotion-250ml': [
+    exactNg('Deoset', 'https://deoset.com/product/eucerin-urearepair-plus-10-urea-body-lotion-for-very-dry-skin-250ml/', 86, 29500, 'Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml', '250 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/', 86, 26300, 'Eucerin Urea Repair Plus 10% Urea Lotion 250ml', '250 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'nivea-perfect-radiant-body-lotion-400ml': [
+    exactNg('Deoset', 'https://deoset.com/product/nivea-perfect-radiant-body-lotion-400ml/', 86, 6500, 'NIVEA PERFECT & RADIANT BODY LOTION 400ML', '400 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'simple-kind-to-skin-refreshing-facial-gel-wash-150ml': [
+    exactNg('Deoset', 'https://deoset.com/product/simple-kind-to-skin-refreshing-facial-gel-wash-150ml/', 86, 6000, 'Simple Kind to Skin Refreshing Facial Gel Wash 150ML', '150 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/simple-refreshing-facial-wash/', 86, 5500, 'Simple Refreshing Facial Wash', '150 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'balance-niacinamide-blemish-recovery-serum-30ml': [
+    exactNg('Deoset', 'https://deoset.com/product/balance-active-formula-niacinamide-blemish-recovery-serum-30ml-1oz/', 86, 9500, 'Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/balance-active-formula-niacinamide-blemish-recovery-serum-30ml-1oz/', 86, 9000, 'Balance Active Formula Niacinamide Blemish Recovery Serum 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
+    exactNg('Deoset', 'https://deoset.com/product/balance-active-salicylic-acid-zinc-clarifying-toner-200ml/', 86, 10500, 'Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml', '200 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml/', 86, 9000, 'Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml', '200 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'nineless-a-control-10-azelaic-acid-serum-30ml': [
+    exactNg('Deoset', 'https://deoset.com/product/nineless-a-control-10-azelaic-acid-serum-30ml/', 86, 14800, 'Nineless A Control 10% Azelaic Acid Serum 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/', 86, 13800, 'NineLess A Control 10% Azelaic Acid Serum 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'nineless-mela-pro-rice-txa-toner-200ml': [
+    exactNg('Deoset', 'https://deoset.com/product/nineless-mela-pro-rice-txa-toner-200ml/', 86, 17800, 'NINELESS -MELA-PRO Rice & TXA Toner 200ml', '200 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/', 86, 15900, 'Nineless Mela-Pro Rice & TXA Toner 200ml', '200 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'dang-hydra-glow-sun-protection-gel-60ml': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/dang-hydra-glow-sun-protection-gel-60ml/', 86, 26900, 'Dang Hydra Glow Sun Protection Gel 60ml', '60 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'dang-niacinamide-n-acetyl-glucosamine-serum-30ml': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/dang-niacinamiden-acetyl-glucosamine-serum-30ml/', 86, 19050, 'Dang Niacinamide+N-Acetyl Glucosamine Serum 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'dang-azelaic-acid-serum-30ml': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/', 86, 19050, 'Dang Azelaic Acid Serum 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'facefacts-soothe-glow-niacinamide-serum-30ml': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/face-facts-niacinamide-soothe-glow-serum-purple-pack/', 86, 4500, 'Face Facts Niacinamide Soothe + Glow Serum (Purple Pack) 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
   ],
 };
 
