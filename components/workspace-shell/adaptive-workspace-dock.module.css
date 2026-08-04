@@ -232,6 +232,12 @@
   }
 }
 
+/* The shared dock keeps its glass highlight, but its dark elevation is neutral. */
+:global(html[data-theme="dark"]) .lens { box-shadow: 0 14px 36px rgb(0 0 0 / 68%); }
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .lens { box-shadow: 0 14px 36px rgb(0 0 0 / 68%); }
+}
+
 @media (forced-colors: active) {
   .root {
     --workspace-dock-accent: HighlightText;

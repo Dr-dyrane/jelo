@@ -7,20 +7,32 @@
    themes. Re-pin the light color tokens locally so every hero descendant inherits light
    values (dark text tuned for the photo's bright lower area), ignoring the global flip. */
 :global(html[data-theme="dark"]) .hero{--ink:#2d211f;--muted:#7a6b66;--wine:#6b3b35;--cream:#fbf3ed;--accent-solid:#2d211f;--on-accent:#fff}
-:global(html[data-theme="dark"]) .category:nth-child(1){background:linear-gradient(155deg,#f0d9cd,#e7c4b7)}
-:global(html[data-theme="dark"]) .category:nth-child(5){background:linear-gradient(155deg,#f3e4da,#e9ddd4)}
-:global(html[data-theme="dark"]) .category>div:last-child>span{color:#2d211f}
+:global(html[data-theme="dark"]) .category:nth-child(1){background:linear-gradient(155deg,#202020,#141414)}
+:global(html[data-theme="dark"]) .category:nth-child(2){background:linear-gradient(155deg,#242424,#101010)}
+:global(html[data-theme="dark"]) .category:nth-child(3){background:linear-gradient(155deg,#1a1a1a,#0b0b0b)}
+:global(html[data-theme="dark"]) .category:nth-child(4){background:linear-gradient(155deg,#242424,#181818)}
+:global(html[data-theme="dark"]) .category:nth-child(5){background:linear-gradient(155deg,#202020,#121212)}
+:global(html[data-theme="dark"]) .category small,:global(html[data-theme="dark"]) .category p{color:var(--muted)}
+:global(html[data-theme="dark"]) .category>div:last-child>span{color:var(--ink)}
+:global(html[data-theme="dark"]) .category img,:global(html[data-theme="dark"]) .storyVisual img{mix-blend-mode:normal}
 :global(html[data-theme="dark"]) .primary{color:var(--cream)}
+:global(html[data-theme="dark"]) .hero .primary{color:var(--ink)}
 :global(html[data-theme="dark"]) .storyLink{color:var(--cream)}
 :global(html[data-theme="dark"]) .consultLink{color:var(--cream)}
-:global(html[data-theme="dark"]) .consult{background:radial-gradient(circle at 82% 50%,rgba(122,86,72,.4),transparent 30%),var(--wash-a)}
+:global(html[data-theme="dark"]) .consult{background:radial-gradient(circle at 82% 50%,rgba(255,255,255,.08),transparent 30%),var(--wash-a)}
 @media(prefers-color-scheme:dark){
   :global(html:not([data-theme="light"])) .hero{--ink:#2d211f;--muted:#7a6b66;--wine:#6b3b35;--cream:#fbf3ed;--accent-solid:#2d211f;--on-accent:#fff}
-  :global(html:not([data-theme="light"])) .category:nth-child(1){background:linear-gradient(155deg,#f0d9cd,#e7c4b7)}
-  :global(html:not([data-theme="light"])) .category:nth-child(5){background:linear-gradient(155deg,#f3e4da,#e9ddd4)}
-  :global(html:not([data-theme="light"])) .category>div:last-child>span{color:#2d211f}
+  :global(html:not([data-theme="light"])) .category:nth-child(1){background:linear-gradient(155deg,#202020,#141414)}
+  :global(html:not([data-theme="light"])) .category:nth-child(2){background:linear-gradient(155deg,#242424,#101010)}
+  :global(html:not([data-theme="light"])) .category:nth-child(3){background:linear-gradient(155deg,#1a1a1a,#0b0b0b)}
+  :global(html:not([data-theme="light"])) .category:nth-child(4){background:linear-gradient(155deg,#242424,#181818)}
+  :global(html:not([data-theme="light"])) .category:nth-child(5){background:linear-gradient(155deg,#202020,#121212)}
+  :global(html:not([data-theme="light"])) .category small,:global(html:not([data-theme="light"])) .category p{color:var(--muted)}
+  :global(html:not([data-theme="light"])) .category>div:last-child>span{color:var(--ink)}
+  :global(html:not([data-theme="light"])) .category img,:global(html:not([data-theme="light"])) .storyVisual img{mix-blend-mode:normal}
   :global(html:not([data-theme="light"])) .primary{color:var(--cream)}
+  :global(html:not([data-theme="light"])) .hero .primary{color:var(--ink)}
   :global(html:not([data-theme="light"])) .storyLink{color:var(--cream)}
   :global(html:not([data-theme="light"])) .consultLink{color:var(--cream)}
-  :global(html:not([data-theme="light"])) .consult{background:radial-gradient(circle at 82% 50%,rgba(122,86,72,.4),transparent 30%),var(--wash-a)}
+  :global(html:not([data-theme="light"])) .consult{background:radial-gradient(circle at 82% 50%,rgba(255,255,255,.08),transparent 30%),var(--wash-a)}
 }

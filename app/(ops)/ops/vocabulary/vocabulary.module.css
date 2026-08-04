@@ -695,3 +695,13 @@
     backdrop-filter: none;
   }
 }
+
+/* Dark mode uses the shared neutral scrim; light-mode backdrop values stay intact. */
+:global(html[data-theme="dark"]) .targetDialog::backdrop {
+  background: var(--glass-scrim);
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .targetDialog::backdrop {
+    background: var(--glass-scrim);
+  }
+}

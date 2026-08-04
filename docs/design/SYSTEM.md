@@ -25,20 +25,21 @@ Route CSS may add peach, pink, and cream shades. Brown is an accent, not a domin
 
 ### Colour contexts
 
-The public experience uses the warm editorial palette above because products, care guidance, and photography are its primary content.
+The public experience uses the warm editorial palette above in light mode because products, care guidance, and photography are its primary content.
 
 JeloCare has two distinct workspace temperatures:
 
-- **JeloCare Me** stays in the warm public family—cream, paper, peach, blush,
-  rose, wine, and warm ink—because it is a personal continuation of the public
-  care journey. It may become quieter and more task-led, but it never adopts
-  the Operations canvas. Its shell is defined by [JeloCare Me](../product/JELOCARE_ME.md)
-  and the [adaptive workspace dock](./ADAPTIVE_WORKSPACE_DOCK.md).
+- **JeloCare Me** stays in the public family because it is a personal
+  continuation of the public care journey. In light mode that means cream,
+  paper, peach, blush, rose, wine, and warm ink. In dark mode it adopts the
+  shared public black foundation, not the Operations token hierarchy. Its shell
+  is defined by [JeloCare Me](../product/JELOCARE_ME.md) and the
+  [adaptive workspace dock](./ADAPTIVE_WORKSPACE_DOCK.md).
 - **Operations** uses a separate low-chroma mineral shell because it is a dense
   administrative environment:
 
 - `--ops-canvas`, `--ops-instrument`, and `--ops-workspace` establish the environmental, lucent instrument, and solid working planes.
-- `--ops-accent`, `--ops-accent-subtle`, and `--ops-focus-ring` provide muted umber selection and focus without making public wine the private-shell default.
+- `--ops-accent`, `--ops-accent-subtle`, and `--ops-focus-ring` provide selection and focus without making public wine the private-shell default. They are muted umber in light mode and neutral in dark mode.
 - Semantic success, warning, danger, and information tokens retain their meanings. They are never ambient decoration.
 
 Do not share ambient palette tokens between Me and Operations. Neutral shell
@@ -52,7 +53,30 @@ The table above lists the **light** values. Light is the default and is pinned r
 - `:root[data-theme="dark"]` applies when the reader explicitly chooses dark.
 - `@media (prefers-color-scheme: dark) :root:not([data-theme="light"])` is the system-dark fallback, which the default-light script suppresses unless the reader opts in.
 
-A no-flash inline script in `app/layout.tsx` sets `data-theme` and `color-scheme` before paint from `localStorage['jelo-theme']`, defaulting to `light`; [`ThemeToggle`](../../components/navigation/theme-toggle.tsx) writes the preference. Dark surfaces are warm (never pure black) and sit lighter than the page for correct elevation; product cutouts drop `mix-blend-mode: multiply` in dark. Any route CSS that hardcodes a light value must add a matching dark override, or it renders as a light patch on the dark page.
+A no-flash inline script in `app/layout.tsx` sets `data-theme` and `color-scheme` before paint from `localStorage['jelo-theme']`, defaulting to `light`; [`ThemeToggle`](../../components/navigation/theme-toggle.tsx) writes the preference. Product cutouts drop `mix-blend-mode: multiply` in dark. Any route CSS that hardcodes a light value must add a matching dark override, or it renders as a light patch on the dark page.
+
+#### Black dark-mode doctrine
+
+Dark mode is an immersive, black-first device environment. The page and browser
+chrome use true black (`--cream: #000` and dark `themeColor: #000000`). Reading,
+card, and working planes rise through neutral grays instead of brown: `#101010`,
+`#121212`, `#141414`, `#181818`, `#1a1a1a`, `#202020`, and `#242424` across the
+public and Me aliases. Washes, glass, borders, shadows, decorative orbs, selection,
+and focus are also neutral; peach and brown never provide dark-mode atmosphere.
+
+Operations keeps its separate `--ops-*` hierarchy in dark mode: true-black
+`--ops-canvas`, translucent neutral `--ops-instrument`, then `#121212`
+workspace, `#1c1c1c` subtle surface, and `#262626` product stage. Success,
+warning, and danger retain their semantic colors; they are signals, not ambient
+decoration. Primary text, secondary text, actions, and focus use high-contrast
+neutral values so focus remains visible across every elevation.
+
+The light declarations and selectors are a preservation boundary. Dark work may
+only change or add declarations inside the two dark branches, and the explicit
+`data-theme="dark"` branch must remain token-for-token equivalent to the
+`prefers-color-scheme: dark` fallback. Route-specific dark overrides must use
+these shared neutral tokens or neutral RGB values; they must not reintroduce a
+warm page field, wash, panel, scrim, or shadow.
 
 ## Type
 

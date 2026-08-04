@@ -428,27 +428,29 @@
 }
 
 /* dark theme */
-:global(html[data-theme="dark"]) .scrolled{background:rgba(36,29,27,.78)}
-:global(html[data-theme="dark"]) .menuSheet{background:linear-gradient(145deg,rgba(36,29,27,.98),rgba(122,86,72,.9))}
-:global(html[data-theme="dark"]) .menuHeading button{background:rgba(36,29,27,.7)}
-:global(html[data-theme="dark"]) .mobileLinks>a{background:rgba(36,29,27,.64)}
-:global(html[data-theme="dark"]) .mobileLinks>a[aria-current="page"]{background:rgba(138,95,87,.55)}
+:global(html[data-theme="dark"]) .scrolled{background:rgba(0,0,0,.78)}
+:global(html[data-theme="dark"]) .menuSheet{background:linear-gradient(145deg,rgba(20,20,20,.98),rgba(0,0,0,.96))}
+:global(html[data-theme="dark"]) .menuHeading button{background:rgba(24,24,24,.7)}
+:global(html[data-theme="dark"]) .mobileLinks>a{background:rgba(18,18,18,.64)}
+:global(html[data-theme="dark"]) .mobileLinks>a[aria-current="page"]{background:rgba(255,255,255,.14)}
 :global(html[data-theme="dark"]) .mobileLinks>a[aria-current="page"] small{color:rgba(255,255,255,.78)}
-:global(html[data-theme="dark"]) .homeHeader{background:rgba(36,29,27,.66)}
-:global(html[data-theme="dark"]) .homeHeader.searchOpen .inlineSearch{background:rgba(36,29,27,.78)}
+:global(html[data-theme="dark"]) .homeHeader{background:rgba(0,0,0,.66)}
+:global(html[data-theme="dark"]) .homeHeader.searchOpen .inlineSearch{background:rgba(18,18,18,.78)}
+:global(html[data-theme="dark"]) .menuDialog::backdrop,:global(html[data-theme="dark"]) .menuDialog[data-fallback-modal="true"]{background:rgba(0,0,0,.64)}
 @media(prefers-color-scheme:dark){
-  :global(html:not([data-theme="light"])) .scrolled{background:rgba(36,29,27,.78)}
-  :global(html:not([data-theme="light"])) .menuSheet{background:linear-gradient(145deg,rgba(36,29,27,.98),rgba(122,86,72,.9))}
-  :global(html:not([data-theme="light"])) .menuHeading button{background:rgba(36,29,27,.7)}
-  :global(html:not([data-theme="light"])) .mobileLinks>a{background:rgba(36,29,27,.64)}
-  :global(html:not([data-theme="light"])) .mobileLinks>a[aria-current="page"]{background:rgba(138,95,87,.55)}
+  :global(html:not([data-theme="light"])) .scrolled{background:rgba(0,0,0,.78)}
+  :global(html:not([data-theme="light"])) .menuSheet{background:linear-gradient(145deg,rgba(20,20,20,.98),rgba(0,0,0,.96))}
+  :global(html:not([data-theme="light"])) .menuHeading button{background:rgba(24,24,24,.7)}
+  :global(html:not([data-theme="light"])) .mobileLinks>a{background:rgba(18,18,18,.64)}
+  :global(html:not([data-theme="light"])) .mobileLinks>a[aria-current="page"]{background:rgba(255,255,255,.14)}
   :global(html:not([data-theme="light"])) .mobileLinks>a[aria-current="page"] small{color:rgba(255,255,255,.78)}
-  :global(html:not([data-theme="light"])) .homeHeader{background:rgba(36,29,27,.66)}
-  :global(html:not([data-theme="light"])) .homeHeader.searchOpen .inlineSearch{background:rgba(36,29,27,.78)}
+  :global(html:not([data-theme="light"])) .homeHeader{background:rgba(0,0,0,.66)}
+  :global(html:not([data-theme="light"])) .homeHeader.searchOpen .inlineSearch{background:rgba(18,18,18,.78)}
+  :global(html:not([data-theme="light"])) .menuDialog::backdrop,:global(html:not([data-theme="light"])) .menuDialog[data-fallback-modal="true"]{background:rgba(0,0,0,.64)}
 }
 @media(prefers-reduced-transparency:reduce){
-  :global(html[data-theme="dark"]) .header{background:rgba(36,29,27,.9)}
+  :global(html[data-theme="dark"]) .header{background:rgba(0,0,0,.9)}
 }
 @media(prefers-reduced-transparency:reduce) and (prefers-color-scheme:dark){
-  :global(html:not([data-theme="light"])) .header{background:rgba(36,29,27,.9)}
+  :global(html:not([data-theme="light"])) .header{background:rgba(0,0,0,.9)}
 }

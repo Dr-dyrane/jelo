@@ -5,15 +5,15 @@
   --product-dark: #392825;
 }
 :root[data-theme="dark"] {
-  --product-peach: #2a201d;
-  --product-pink: #2a1e22;
-  --product-blush: #2c211c;
+  --product-peach: var(--peach);
+  --product-pink: var(--card-3);
+  --product-blush: var(--surface-3);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --product-peach: #2a201d;
-    --product-pink: #2a1e22;
-    --product-blush: #2c211c;
+    --product-peach: var(--peach);
+    --product-pink: var(--card-3);
+    --product-blush: var(--surface-3);
   }
 }
 

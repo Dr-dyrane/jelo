@@ -52,15 +52,16 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#f29c85' },
-    { media: '(prefers-color-scheme: dark)', color: '#191413' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
   ],
   colorScheme: 'light dark',
 };
 
 // Default to light (not the OS preference): only an explicit stored 'dark' opts in.
 // Setting data-theme="light" explicitly also keeps the prefers-color-scheme:dark
-// overrides from ever applying on a dark-OS machine.
-const themeScript = `(function(){try{var t=localStorage.getItem('jelo-theme');var m=t==='dark'?'dark':'light';var e=document.documentElement;e.setAttribute('data-theme',m);e.style.colorScheme=m;}catch(err){var e=document.documentElement;e.setAttribute('data-theme','light');e.style.colorScheme='light';}})();`;
+// overrides from ever applying on a dark-OS machine. Both generated theme-color
+// nodes follow that stored choice too, instead of following a conflicting OS theme.
+const themeScript = `(function(){var e=document.documentElement;var m='light';try{var t=localStorage.getItem('jelo-theme');m=t==='dark'?'dark':'light';}catch(err){}function s(){var d=e.getAttribute('data-theme')==='dark';var c=d?'#000000':'#f29c85';e.style.colorScheme=d?'dark':'light';var n=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<n.length;i++){n[i].setAttribute('content',c);}}e.setAttribute('data-theme',m);s();new MutationObserver(s).observe(e,{attributes:true,attributeFilter:['data-theme'],childList:true,subtree:true});})();`;
 
 // The single root layout: the html/body shell, fonts, and the no-flash theme.
 // Chrome lives in nested layouts — (site) carries the public header and footer,

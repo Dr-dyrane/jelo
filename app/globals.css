@@ -43,33 +43,33 @@
 /* dark tokens: overrides only, light values above are untouched */
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ink:#f3eae4; --muted:#b6a49b;
-    --cream:#191413; --paper:#241d1b; --surface-2:#241d1b; --surface-3:#201a18; --card:#221b19; --card-2:#241d1b; --card-3:#221b19;
-    --border:rgba(240,220,210,.12);
-    --peach:#7a5648; --rose:#8a5f57; --wine:#e7bcb2;
-    --accent-solid:#ecd3c6; --on-accent:#221a17;
-    --band:#211a18; --on-band:#f4ece6; --band-muted:#b7a49b;
-    --ghost-bg:rgba(255,255,255,.06); --tag-bg:rgba(20,15,14,.55);
-    --visual-lg-bg:rgba(255,255,255,.03); --card-glass:rgba(36,29,27,.8);
-    --wash-a:#1d1614; --wash-b:#241a17; --wash-c:#2a1e1a; --wash-hero:#33231e; --wash-consult:#2a1e1a;
-    --orb1-a:#2a1f1c; --orb1-b:#5a3c37; --orb2-a:#241d1b; --orb2-b:#4a352f;
-    --ghost-word:rgba(231,188,178,.08);
-    --shadow:0 30px 90px rgba(0,0,0,.5); --shot-shadow:rgba(0,0,0,.45);
+    --ink:#f5f5f5; --muted:#b3b3b3;
+    --cream:#000; --paper:#141414; --surface-2:#101010; --surface-3:#1a1a1a; --card:#121212; --card-2:#181818; --card-3:#202020;
+    --border:rgba(255,255,255,.14);
+    --peach:#242424; --rose:#6a6a6a; --wine:#ededed;
+    --accent-solid:#f5f5f5; --on-accent:#000;
+    --band:#080808; --on-band:#f5f5f5; --band-muted:#b3b3b3;
+    --ghost-bg:rgba(255,255,255,.08); --tag-bg:rgba(24,24,24,.72);
+    --visual-lg-bg:rgba(255,255,255,.04); --card-glass:rgba(18,18,18,.82);
+    --wash-a:#000; --wash-b:#080808; --wash-c:#121212; --wash-hero:#1c1c1c; --wash-consult:#141414;
+    --orb1-a:#0b0b0b; --orb1-b:#2a2a2a; --orb2-a:#101010; --orb2-b:#242424;
+    --ghost-word:rgba(255,255,255,.07);
+    --shadow:0 30px 90px rgba(0,0,0,.72); --shot-shadow:rgba(0,0,0,.62);
   }
 }
 :root[data-theme="dark"]{
-  --ink:#f3eae4; --muted:#b6a49b;
-  --cream:#191413; --paper:#241d1b; --surface-2:#241d1b; --surface-3:#201a18; --card:#221b19; --card-2:#241d1b; --card-3:#221b19;
-  --border:rgba(240,220,210,.12);
-  --peach:#7a5648; --rose:#8a5f57; --wine:#e7bcb2;
-  --accent-solid:#ecd3c6; --on-accent:#221a17;
-  --band:#211a18; --on-band:#f4ece6; --band-muted:#b7a49b;
-  --ghost-bg:rgba(255,255,255,.06); --tag-bg:rgba(20,15,14,.55);
-  --visual-lg-bg:rgba(255,255,255,.03); --card-glass:rgba(36,29,27,.8);
-  --wash-a:#1d1614; --wash-b:#241a17; --wash-c:#2a1e1a; --wash-hero:#33231e; --wash-consult:#2a1e1a;
-  --orb1-a:#2a1f1c; --orb1-b:#5a3c37; --orb2-a:#241d1b; --orb2-b:#4a352f;
-  --ghost-word:rgba(231,188,178,.08);
-  --shadow:0 30px 90px rgba(0,0,0,.5); --shot-shadow:rgba(0,0,0,.45);
+  --ink:#f5f5f5; --muted:#b3b3b3;
+  --cream:#000; --paper:#141414; --surface-2:#101010; --surface-3:#1a1a1a; --card:#121212; --card-2:#181818; --card-3:#202020;
+  --border:rgba(255,255,255,.14);
+  --peach:#242424; --rose:#6a6a6a; --wine:#ededed;
+  --accent-solid:#f5f5f5; --on-accent:#000;
+  --band:#080808; --on-band:#f5f5f5; --band-muted:#b3b3b3;
+  --ghost-bg:rgba(255,255,255,.08); --tag-bg:rgba(24,24,24,.72);
+  --visual-lg-bg:rgba(255,255,255,.04); --card-glass:rgba(18,18,18,.82);
+  --wash-a:#000; --wash-b:#080808; --wash-c:#121212; --wash-hero:#1c1c1c; --wash-consult:#141414;
+  --orb1-a:#0b0b0b; --orb1-b:#2a2a2a; --orb2-a:#101010; --orb2-b:#242424;
+  --ghost-word:rgba(255,255,255,.07);
+  --shadow:0 30px 90px rgba(0,0,0,.72); --shot-shadow:rgba(0,0,0,.62);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -140,50 +140,52 @@
     --state-success:#7cc79b; --state-success-bg:rgba(124,199,155,.14);
     --state-warning:#e6b877; --state-warning-bg:rgba(230,184,119,.14);
     --state-danger:#f0a59d; --state-danger-bg:rgba(240,165,157,.14);
-    --state-info:var(--wine); --state-info-bg:rgba(231,188,178,.10);
+    --state-info:var(--wine); --state-info-bg:rgba(237,237,237,.12);
     --state-selected-bg:color-mix(in srgb, var(--wine) 14%, transparent);
     --elevation-1:0 10px 26px rgba(0,0,0,.45);
     --elevation-2:0 14px 40px rgba(0,0,0,.5);
     --elevation-3:0 20px 50px rgba(0,0,0,.55);
     --elevation-4:0 30px 90px rgba(0,0,0,.55);
-    --ops-canvas:#121310;
-    --ops-instrument:rgba(31,32,29,.62);
-    --ops-workspace:#1b1c19;
-    --ops-surface-subtle:#272824;
-    --ops-product-stage:#312d2b;
-    --ops-ink:#ecebe5;
-    --ops-muted:#aaa9a2;
-    --ops-workspace-shadow:0 18px 48px rgba(0,0,0,.36);
-    --ops-instrument-shadow:0 10px 26px rgba(0,0,0,.38);
-    --ops-floating-shadow:0 20px 50px rgba(0,0,0,.5);
-    --ops-accent:#d6b8b2;
-    --ops-accent-subtle:rgba(214,184,178,.16);
-    --ops-focus-ring:#d6b8b2;
+    --glass-scrim:rgba(0,0,0,.64);
+    --ops-canvas:#000;
+    --ops-instrument:rgba(28,28,28,.72);
+    --ops-workspace:#121212;
+    --ops-surface-subtle:#1c1c1c;
+    --ops-product-stage:#262626;
+    --ops-ink:#f5f5f5;
+    --ops-muted:#b3b3b3;
+    --ops-workspace-shadow:0 18px 48px rgba(0,0,0,.52);
+    --ops-instrument-shadow:0 10px 26px rgba(0,0,0,.48);
+    --ops-floating-shadow:0 20px 50px rgba(0,0,0,.68);
+    --ops-accent:#dedede;
+    --ops-accent-subtle:rgba(222,222,222,.14);
+    --ops-focus-ring:#fff;
   }
 }
 :root[data-theme="dark"]{
   --state-success:#7cc79b; --state-success-bg:rgba(124,199,155,.14);
   --state-warning:#e6b877; --state-warning-bg:rgba(230,184,119,.14);
   --state-danger:#f0a59d; --state-danger-bg:rgba(240,165,157,.14);
-  --state-info:var(--wine); --state-info-bg:rgba(231,188,178,.10);
+  --state-info:var(--wine); --state-info-bg:rgba(237,237,237,.12);
   --state-selected-bg:color-mix(in srgb, var(--wine) 14%, transparent);
   --elevation-1:0 10px 26px rgba(0,0,0,.45);
   --elevation-2:0 14px 40px rgba(0,0,0,.5);
   --elevation-3:0 20px 50px rgba(0,0,0,.55);
   --elevation-4:0 30px 90px rgba(0,0,0,.55);
-  --ops-canvas:#121310;
-  --ops-instrument:rgba(31,32,29,.62);
-  --ops-workspace:#1b1c19;
-  --ops-surface-subtle:#272824;
-  --ops-product-stage:#312d2b;
-  --ops-ink:#ecebe5;
-  --ops-muted:#aaa9a2;
-  --ops-workspace-shadow:0 18px 48px rgba(0,0,0,.36);
-  --ops-instrument-shadow:0 10px 26px rgba(0,0,0,.38);
-  --ops-floating-shadow:0 20px 50px rgba(0,0,0,.5);
-  --ops-accent:#d6b8b2;
-  --ops-accent-subtle:rgba(214,184,178,.16);
-  --ops-focus-ring:#d6b8b2;
+  --glass-scrim:rgba(0,0,0,.64);
+  --ops-canvas:#000;
+  --ops-instrument:rgba(28,28,28,.72);
+  --ops-workspace:#121212;
+  --ops-surface-subtle:#1c1c1c;
+  --ops-product-stage:#262626;
+  --ops-ink:#f5f5f5;
+  --ops-muted:#b3b3b3;
+  --ops-workspace-shadow:0 18px 48px rgba(0,0,0,.52);
+  --ops-instrument-shadow:0 10px 26px rgba(0,0,0,.48);
+  --ops-floating-shadow:0 20px 50px rgba(0,0,0,.68);
+  --ops-accent:#dedede;
+  --ops-accent-subtle:rgba(222,222,222,.14);
+  --ops-focus-ring:#fff;
 }
 
 *{box-sizing:border-box}
@@ -266,9 +268,8 @@ button,textarea{font:inherit}
 @media(max-width:620px){.hero-copy,.section-shell,.page-shell,.consult-page,.buy-section{padding:6rem 1rem 4rem}.product-grid,.product-rail{grid-template-columns:1fr}.product-visual{height:22rem}.hero-actions{flex-direction:column;align-items:flex-start}.consult-form{grid-template-columns:1fr}.message{max-width:94%}}
 @media(prefers-reduced-motion:reduce){body{transition:none}}
 
-/* dark: the retailer rank number uses --rose (#8a5f57), which lands at ~2.98:1 on the dark
-   store-card — a hair under the 3:1 large-text bar. Lightened rose clears it site-wide. */
-html[data-theme="dark"] .retailer-rank { color: #b8837a; }
+/* dark theme: the retailer rank stays neutral and clears the large-text contrast bar. */
+html[data-theme="dark"] .retailer-rank { color: var(--wine); }
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .retailer-rank { color: #b8837a; }
+  html:not([data-theme="light"]) .retailer-rank { color: var(--wine); }
 }

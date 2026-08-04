@@ -295,31 +295,31 @@
 }
 
 /* dark theme */
-:global(html[data-theme="dark"]) .searchBar { background: rgba(36, 29, 27, .9); }
-:global(html[data-theme="dark"]) .clear { background: rgba(138, 95, 87, .5); }
+:global(html[data-theme="dark"]) .searchBar { background: rgba(18, 18, 18, .9); }
+:global(html[data-theme="dark"]) .clear { background: rgba(255, 255, 255, .1); }
 :global(html[data-theme="dark"]) .submit { color: var(--cream); }
 :global(html[data-theme="dark"]) .market { background: var(--surface-2); }
 :global(html[data-theme="dark"]) .market a.active { background: var(--rose); }
-:global(html[data-theme="dark"]) .suggestions { background: rgba(36, 29, 27, .96); }
-:global(html[data-theme="dark"]) .suggestionHeading button { background: rgba(138, 95, 87, .5); }
-:global(html[data-theme="dark"]) .loadingSuggestion span { border-color: rgba(232, 187, 180, .22); border-top-color: var(--rose); }
-:global(html[data-theme="dark"]) .searchFallback { border-top-color: rgba(232, 187, 180, .13); }
+:global(html[data-theme="dark"]) .suggestions { background: rgba(18, 18, 18, .96); }
+:global(html[data-theme="dark"]) .suggestionHeading button { background: rgba(255, 255, 255, .1); }
+:global(html[data-theme="dark"]) .loadingSuggestion span { border-color: rgba(255, 255, 255, .18); border-top-color: var(--rose); }
+:global(html[data-theme="dark"]) .searchFallback { border-top-color: rgba(255, 255, 255, .12); }
 :global(html[data-theme="dark"]) .searchFallback a { color: var(--cream); }
 :global(html[data-theme="dark"]) .suggestionList a:hover,
-:global(html[data-theme="dark"]) .suggestionList a[aria-selected='true'] { background: rgba(138, 95, 87, .5); }
+:global(html[data-theme="dark"]) .suggestionList a[aria-selected='true'] { background: rgba(255, 255, 255, .1); }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .searchBar { background: rgba(36, 29, 27, .9); }
-  :global(html:not([data-theme="light"])) .clear { background: rgba(138, 95, 87, .5); }
+  :global(html:not([data-theme="light"])) .searchBar { background: rgba(18, 18, 18, .9); }
+  :global(html:not([data-theme="light"])) .clear { background: rgba(255, 255, 255, .1); }
   :global(html:not([data-theme="light"])) .submit { color: var(--cream); }
   :global(html:not([data-theme="light"])) .market { background: var(--surface-2); }
   :global(html:not([data-theme="light"])) .market a.active { background: var(--rose); }
-  :global(html:not([data-theme="light"])) .suggestions { background: rgba(36, 29, 27, .96); }
-  :global(html:not([data-theme="light"])) .suggestionHeading button { background: rgba(138, 95, 87, .5); }
-  :global(html:not([data-theme="light"])) .loadingSuggestion span { border-color: rgba(232, 187, 180, .22); border-top-color: var(--rose); }
-  :global(html:not([data-theme="light"])) .searchFallback { border-top-color: rgba(232, 187, 180, .13); }
+  :global(html:not([data-theme="light"])) .suggestions { background: rgba(18, 18, 18, .96); }
+  :global(html:not([data-theme="light"])) .suggestionHeading button { background: rgba(255, 255, 255, .1); }
+  :global(html:not([data-theme="light"])) .loadingSuggestion span { border-color: rgba(255, 255, 255, .18); border-top-color: var(--rose); }
+  :global(html:not([data-theme="light"])) .searchFallback { border-top-color: rgba(255, 255, 255, .12); }
   :global(html:not([data-theme="light"])) .searchFallback a { color: var(--cream); }
   :global(html:not([data-theme="light"])) .suggestionList a:hover,
-  :global(html:not([data-theme="light"])) .suggestionList a[aria-selected='true'] { background: rgba(138, 95, 87, .5); }
+  :global(html:not([data-theme="light"])) .suggestionList a[aria-selected='true'] { background: rgba(255, 255, 255, .1); }
 }
 
 @keyframes catalogue-search-spin {

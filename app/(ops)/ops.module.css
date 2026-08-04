@@ -570,13 +570,13 @@
 }
 
 :global(html[data-theme="dark"]) .dropdownMenu {
-  background: rgba(36, 29, 27, 0.85);
-  border-color: rgba(240, 220, 210, 0.06);
+  background: var(--ops-instrument);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 @media (prefers-color-scheme: dark) {
   :global(html:not([data-theme="light"])) .dropdownMenu {
-    background: rgba(36, 29, 27, 0.85);
-    border-color: rgba(240, 220, 210, 0.06);
+    background: var(--ops-instrument);
+    border-color: rgba(255, 255, 255, 0.08);
   }
 }
 .dropdownHeader {
