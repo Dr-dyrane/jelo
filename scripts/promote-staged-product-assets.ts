@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, access } from 'node:fs/promises';
 import { get, put } from '@vercel/blob';
 import sharp from 'sharp';
 import promotions from '../data/product-asset-promotions.json';
@@ -144,6 +144,25 @@ async function main() {
 
   for (const promotion of active) {
     const target = assertStagedProductAssetPromotion(promotion);
+    const localPath = resolveStagedProductAssetPath(promotion);
+    let localFileExists = true;
+    try {
+      await access(localPath);
+    } catch {
+      localFileExists = false;
+    }
+    if (!localFileExists) {
+      // Already promoted to blob and removed from git — verify the remote
+      // blob directly instead of reading local bytes.
+      if (target.kind === 'catalogue-publication') {
+        await verifyRemoteCataloguePublicationImage(
+          publicationExpectation(target.id, promotion),
+          { notFoundRetryDelaysMs: publicationVisibilityRetryDelaysMs },
+        );
+      }
+      console.log(`Verified existing ${promotion.id} at its hash-reviewed Blob path (local file absent).`);
+      continue;
+    }
     const bytes = await verifiedBytes(promotion);
     const result = await promoteVerifiedStagedProductAsset(promotion, bytes, blobClient);
     if (target.kind === 'catalogue-publication') {
