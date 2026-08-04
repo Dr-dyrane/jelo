@@ -827,6 +827,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-04',
   },
+  'medik8-advanced-night-restore-50ml': {
+    productSlug: 'medik8-advanced-night-restore-50ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.medik8.com/products/advanced-night-restore',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer',
+    ],
+    reviewedAt: '2026-08-04',
+  },
+  'loccitane-almond-softening-shower-oil-250ml': {
+    productSlug: 'loccitane-almond-softening-shower-oil-250ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://no.loccitane.com/products/almond-amande-shower-oil-250ml',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-08-04',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

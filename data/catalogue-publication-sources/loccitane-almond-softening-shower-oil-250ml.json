@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+    "candidateFingerprint": "49ed0b85df54c13e05839e09b376f05a8a476aaf4c5291b1daed4f790559c3a4",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "3253581785706",
+      "brand": "L'Occitane en Provence",
+      "name": "Almond (Amande) Shower Oil",
+      "variant": "Almond (Amande) Softening Shower Oil",
+      "size": "250 ml",
+      "packageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "officialIdentity": {
+        "url": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "observedGtin": "3253581785706",
+        "observedVariant": "Almond (Amande) Softening Shower Oil",
+        "observedSize": "250 ml",
+        "observedPackageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/loccitane-almond-softening-shower-oil-250ml.json",
+        "canonicalExtraction": {
+          "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official product HTML embedded variant barcode",
+              "sourceText": "\"barcode\":\"3253581785706\"",
+              "value": "3253581785706"
+            },
+            "variant": {
+              "locator": "Official product HTML exact pack-image alt",
+              "sourceText": "Almond (Amande) Softening Shower Oil 250 ml - Illustration 1",
+              "value": "Almond (Amande) Softening Shower Oil"
+            },
+            "size": {
+              "locator": "Official product HTML variant selector",
+              "sourceText": "\"title\":\"250 ml \\/ Almond\",\"option1\":\"250 ml\"",
+              "value": "250 ml"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+          "retrievedAt": "2026-08-04T14:10:55Z",
+          "reviewedAt": "2026-08-04T14:11:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 603091,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "0045d29361fd85962f838d9fef3493a9acf81a8610ac487a05b987408b649847",
+          "sourceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 333367,
+              "responseMimeType": "image/png",
+              "responseSha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+              "retrievedAt": "2026-08-04T12:44:24Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895"
+            }
+          ]
+        },
+        "snapshotSha256": "afbbe7f7a6915d01e9fdf3a5b6b31b59b89008c5a0765f300ca112a078f32aaa",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1552,
+        "retrievedAt": "2026-08-04T14:10:55Z"
+      },
+      "checkedAt": "2026-08-04T14:11:00Z",
+      "demandEvidenceUrls": [
+        "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described oil-to-milk rinse-off body cleanser.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A fragranced rinse-off cosmetic cleanser, not treatment for dry skin, eczema, allergy or another condition. Use on damp intact skin, rinse thoroughly, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for worsening, painful, infected or unexplained skin changes.",
+      "manufacturerEvidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-04T14:11:05Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "sourceAsset": {
+        "url": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+        "sha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+        "mimeType": "image/png",
+        "byteSize": 333367,
+        "width": 1023,
+        "height": 1280,
+        "retrievedAt": "2026-08-04T12:44:24Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+          "sha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+          "byteSize": 333367,
+          "width": 1023,
+          "height": 1280,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "03253581785706"
+          },
+          "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "c4acb8db8e38f70a9de743b6efd42123a9fcfe63fe2cac0b1cb0bdb248a0d7cd",
+          "generatedAt": "2026-08-04T14:04:52Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+          "byteSize": 790195,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-04T14:11:06Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-04T14:11:07Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "5871fc98898696b2d13aae788d144ace53e74805a3e9f1fae9191e4156ea6f62",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe53d02.png",
+      "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+      "mimeType": "image/png",
+      "byteSize": 790195,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-04T14:11:07Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-04T14:29:30Z"
+    },
+    "dossierFingerprint": "30dcd1edd5c91e1f65acdfab8e0e4901f3b3d90d0fdd696049ce4e7c26479efb"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+    "dossierFingerprint": "30dcd1edd5c91e1f65acdfab8e0e4901f3b3d90d0fdd696049ce4e7c26479efb",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Cleanse",
+      "displayLine": "Almond shower oil for a rinse-off body cleanse.",
+      "usage": "Massage onto damp intact body skin, then rinse thoroughly. Avoid direct eye contact and stop if persistent irritation occurs.",
+      "manufacturerDirectionsUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-04T14:29:35Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-04T14:29:40Z"
+    },
+    "releaseFingerprint": "279d695693b22577925ecf7c25ddab18621cdd28d9ba4052d319a2a335111925"
+  }
+}

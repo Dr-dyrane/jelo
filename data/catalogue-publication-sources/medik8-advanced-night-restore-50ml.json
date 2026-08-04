@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "medik8-advanced-night-restore-50ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "medik8-advanced-night-restore-50ml",
+    "candidateFingerprint": "8eed90b3cc91d8d5e2057a1d77d9683a791ef2db6e4e72eca629cdcc39bcc227",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "818625024444",
+      "brand": "Medik8",
+      "name": "Medik8 Advanced Night Restore™",
+      "variant": "Advanced Night Restore™",
+      "size": "50 ml",
+      "packageVersion": "Advanced Night Restore™ 50 ml jar",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+      "officialIdentity": {
+        "url": "https://www.medik8.com/products/advanced-night-restore.js",
+        "observedGtin": "818625024444",
+        "observedVariant": "Advanced Night Restore™",
+        "observedSize": "50 ml",
+        "observedPackageVersion": "Advanced Night Restore™ 50 ml jar",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/medik8-advanced-night-restore-50ml.json",
+        "canonicalExtraction": {
+          "candidateId": "medik8-advanced-night-restore-50ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official Shopify product response variants[0].barcode",
+              "sourceText": "\"barcode\":\"818625024444\"",
+              "value": "818625024444"
+            },
+            "variant": {
+              "locator": "Official Shopify product response variants[0].title",
+              "sourceText": "Advanced Night Restore™",
+              "value": "Advanced Night Restore™"
+            },
+            "size": {
+              "locator": "Official Shopify product response product tag",
+              "sourceText": "\"tags\":[\"50ml\",\"Advanced\"",
+              "value": "50ml"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+          "retrievedAt": "2026-08-04T12:44:24Z",
+          "reviewedAt": "2026-08-04T12:50:20Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 12644,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "ceefab7c23fb21d8c9ace4d894993abea39a4a52707892d28be275225133dca4",
+          "sourceUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 89707,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+              "retrievedAt": "2026-08-04T12:44:24Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793"
+            }
+          ]
+        },
+        "snapshotSha256": "0d9a943748fa4dc571bbc1444c4449c2b162da50863fae079522fde2adf025c1",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1554,
+        "retrievedAt": "2026-08-04T12:44:24Z"
+      },
+      "checkedAt": "2026-08-04T12:50:20Z",
+      "demandEvidenceUrls": [
+        "https://teeka4.com/shop/medik8-advance-night-restore-50ml/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described ceramide-rich night moisturizer.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A cosmetic night moisturiser, not treatment for barrier disease, eczema, acne or another condition. Apply after serums to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for painful, infected, worsening or unexplained skin changes.",
+      "manufacturerEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+      "evidenceUrls": [
+        "https://www.medik8.com/products/advanced-night-restore.js",
+        "https://www.medik8.com/products/advanced-night-restore",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+      ],
+      "reviewedAt": "2026-08-04T12:50:20Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "sourceAsset": {
+        "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+        "sha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+        "mimeType": "image/jpeg",
+        "byteSize": 89707,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-04T12:44:24Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "medik8-advanced-night-restore-50ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+          "sha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+          "byteSize": 89707,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00818625024444"
+          },
+          "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore.js"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "59117e51d7860edd74d5b096728472a819e3a9c0c8dc7c0b39ff8dce83355fe9",
+          "generatedAt": "2026-08-04T13:03:08Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01",
+          "byteSize": 894133,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-04T14:04:20Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-04T14:04:30Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "c8fa5827910ecbdd2c912f48578b2547ae1314f9d8ae0892d0a815d4c9a9c451",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-advanced-night-restore-50ml/packshot-v1-91dd680efc1ab2d9.png",
+      "sha256": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01",
+      "mimeType": "image/png",
+      "byteSize": 894133,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-04T14:04:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-04T14:29:10Z"
+    },
+    "dossierFingerprint": "b90bbb63ce80019bd6d45b2eef68c9d209fb13abd293c25b7632fe28998fa47e"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "medik8-advanced-night-restore-50ml",
+    "dossierFingerprint": "b90bbb63ce80019bd6d45b2eef68c9d209fb13abd293c25b7632fe28998fa47e",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Moisturize",
+      "displayLine": "Night moisturiser for a final evening hydration step.",
+      "usage": "Apply after serums to intact skin in the evening. Avoid direct eye contact and stop if persistent irritation occurs.",
+      "manufacturerDirectionsUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-04T14:29:15Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-04T14:29:20Z"
+    },
+    "releaseFingerprint": "5035db72861ee91fff8aa41ee51d415e7b44a52bcdf45659fe73b9c0912e3b5d"
+  }
+}

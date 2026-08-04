@@ -14038,6 +14038,411 @@
         "approvedAt": "2026-08-04T13:20:05Z"
       },
       "dossierFingerprint": "5e81576c6292ee340cfc4ed204ce8b0443ec303f02323b91cad72b521a0d3a3a"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "candidateFingerprint": "8eed90b3cc91d8d5e2057a1d77d9683a791ef2db6e4e72eca629cdcc39bcc227",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "818625024444",
+        "brand": "Medik8",
+        "name": "Medik8 Advanced Night Restore™",
+        "variant": "Advanced Night Restore™",
+        "size": "50 ml",
+        "packageVersion": "Advanced Night Restore™ 50 ml jar",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+        "officialIdentity": {
+          "url": "https://www.medik8.com/products/advanced-night-restore.js",
+          "observedGtin": "818625024444",
+          "observedVariant": "Advanced Night Restore™",
+          "observedSize": "50 ml",
+          "observedPackageVersion": "Advanced Night Restore™ 50 ml jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/medik8-advanced-night-restore-50ml.json",
+          "canonicalExtraction": {
+            "candidateId": "medik8-advanced-night-restore-50ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official Shopify product response variants[0].barcode",
+                "sourceText": "\"barcode\":\"818625024444\"",
+                "value": "818625024444"
+              },
+              "variant": {
+                "locator": "Official Shopify product response variants[0].title",
+                "sourceText": "Advanced Night Restore™",
+                "value": "Advanced Night Restore™"
+              },
+              "size": {
+                "locator": "Official Shopify product response product tag",
+                "sourceText": "\"tags\":[\"50ml\",\"Advanced\"",
+                "value": "50ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+            "retrievedAt": "2026-08-04T12:44:24Z",
+            "reviewedAt": "2026-08-04T12:50:20Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 12644,
+            "sourceResponseMimeType": "text/javascript",
+            "sourceResponseSha256": "ceefab7c23fb21d8c9ace4d894993abea39a4a52707892d28be275225133dca4",
+            "sourceUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 89707,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793"
+              }
+            ]
+          },
+          "snapshotSha256": "0d9a943748fa4dc571bbc1444c4449c2b162da50863fae079522fde2adf025c1",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1554,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        },
+        "checkedAt": "2026-08-04T12:50:20Z",
+        "demandEvidenceUrls": [
+          "https://teeka4.com/shop/medik8-advance-night-restore-50ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described ceramide-rich night moisturizer.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic night moisturiser, not treatment for barrier disease, eczema, acne or another condition. Apply after serums to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for painful, infected, worsening or unexplained skin changes.",
+        "manufacturerEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+        "evidenceUrls": [
+          "https://www.medik8.com/products/advanced-night-restore.js",
+          "https://www.medik8.com/products/advanced-night-restore",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+        ],
+        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+          "sha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+          "mimeType": "image/jpeg",
+          "byteSize": 89707,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "medik8-advanced-night-restore-50ml",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+            "sha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+            "byteSize": 89707,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-04T12:44:24Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00818625024444"
+            },
+            "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore.js"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "59117e51d7860edd74d5b096728472a819e3a9c0c8dc7c0b39ff8dce83355fe9",
+            "generatedAt": "2026-08-04T13:03:08Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01",
+            "byteSize": 894133,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-04T14:04:20Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-04T14:04:30Z",
+            "artReviewer": "Codex visual audit",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "surfaceReviewSha256": "c8fa5827910ecbdd2c912f48578b2547ae1314f9d8ae0892d0a815d4c9a9c451",
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-advanced-night-restore-50ml/packshot-v1-91dd680efc1ab2d9.png",
+        "sha256": "91dd680efc1ab2d9c2ab31169e31cea7c0f24f802960fd311eda358c17abcf01",
+        "mimeType": "image/png",
+        "byteSize": 894133,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-04T14:04:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-04T14:29:10Z"
+      },
+      "dossierFingerprint": "b90bbb63ce80019bd6d45b2eef68c9d209fb13abd293c25b7632fe28998fa47e"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "candidateFingerprint": "49ed0b85df54c13e05839e09b376f05a8a476aaf4c5291b1daed4f790559c3a4",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "3253581785706",
+        "brand": "L'Occitane en Provence",
+        "name": "Almond (Amande) Shower Oil",
+        "variant": "Almond (Amande) Softening Shower Oil",
+        "size": "250 ml",
+        "packageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "officialIdentity": {
+          "url": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+          "observedGtin": "3253581785706",
+          "observedVariant": "Almond (Amande) Softening Shower Oil",
+          "observedSize": "250 ml",
+          "observedPackageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/loccitane-almond-softening-shower-oil-250ml.json",
+          "canonicalExtraction": {
+            "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official product HTML embedded variant barcode",
+                "sourceText": "\"barcode\":\"3253581785706\"",
+                "value": "3253581785706"
+              },
+              "variant": {
+                "locator": "Official product HTML exact pack-image alt",
+                "sourceText": "Almond (Amande) Softening Shower Oil 250 ml - Illustration 1",
+                "value": "Almond (Amande) Softening Shower Oil"
+              },
+              "size": {
+                "locator": "Official product HTML variant selector",
+                "sourceText": "\"title\":\"250 ml \\/ Almond\",\"option1\":\"250 ml\"",
+                "value": "250 ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+            "retrievedAt": "2026-08-04T14:10:55Z",
+            "reviewedAt": "2026-08-04T14:11:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 603091,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "0045d29361fd85962f838d9fef3493a9acf81a8610ac487a05b987408b649847",
+            "sourceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 333367,
+                "responseMimeType": "image/png",
+                "responseSha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895"
+              }
+            ]
+          },
+          "snapshotSha256": "afbbe7f7a6915d01e9fdf3a5b6b31b59b89008c5a0765f300ca112a078f32aaa",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1552,
+          "retrievedAt": "2026-08-04T14:10:55Z"
+        },
+        "checkedAt": "2026-08-04T14:11:00Z",
+        "demandEvidenceUrls": [
+          "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described oil-to-milk rinse-off body cleanser.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A fragranced rinse-off cosmetic cleanser, not treatment for dry skin, eczema, allergy or another condition. Use on damp intact skin, rinse thoroughly, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for worsening, painful, infected or unexplained skin changes.",
+        "manufacturerEvidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-04T14:11:05Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+          "sha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+          "mimeType": "image/png",
+          "byteSize": 333367,
+          "width": 1023,
+          "height": 1280,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+            "sha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+            "byteSize": 333367,
+            "width": 1023,
+            "height": 1280,
+            "retrievedAt": "2026-08-04T12:44:24Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "03253581785706"
+            },
+            "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "c4acb8db8e38f70a9de743b6efd42123a9fcfe63fe2cac0b1cb0bdb248a0d7cd",
+            "generatedAt": "2026-08-04T14:04:52Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+            "byteSize": 790195,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-04T14:11:06Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-04T14:11:07Z",
+            "artReviewer": "Codex visual audit",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "surfaceReviewSha256": "5871fc98898696b2d13aae788d144ace53e74805a3e9f1fae9191e4156ea6f62",
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe53d02.png",
+        "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+        "mimeType": "image/png",
+        "byteSize": 790195,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-04T14:11:07Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-04T14:29:30Z"
+      },
+      "dossierFingerprint": "30dcd1edd5c91e1f65acdfab8e0e4901f3b3d90d0fdd696049ce4e7c26479efb"
     }
   ]
 }
