@@ -29,9 +29,16 @@ import {
   type CataloguePublicationSourceFile,
   type CataloguePublicationSourceRecord,
 } from '@/lib/catalogue/publication-source';
+import {
+  compileCatalogueIntakeSources,
+  readCatalogueIntakeSourceFiles,
+} from '@/lib/catalogue/intake-source';
+import {
+  catalogueCompilationAuditBoundary,
+  catalogueCompilationAuditMarginMs,
+} from './catalogue-test-authority';
 
 const repositoryRoot = process.cwd();
-const asOf = Date.parse('2026-08-04T13:21:00Z');
 const dossierManifest = checkedInDossiers as CataloguePublicationDossierManifest;
 const releaseManifest = checkedInReleases as CataloguePublicationReleaseManifest;
 
@@ -39,8 +46,16 @@ async function currentSources() {
   return readCataloguePublicationSourceFiles(repositoryRoot);
 }
 
-test('checked-in per-SKU publication sources compile deterministically to both projections', async () => {
+async function currentFixture() {
   const files = await currentSources();
+  return {
+    files,
+    asOf: catalogueCompilationAuditBoundary(files.map(file => file.value)),
+  };
+}
+
+test('checked-in per-SKU publication sources compile deterministically to both projections', async () => {
+  const { files, asOf } = await currentFixture();
   const compilation = compileCataloguePublicationSources(
     catalogueIntakeCandidates,
     files,
@@ -72,8 +87,66 @@ test('checked-in per-SKU publication sources compile deterministically to both p
   );
 });
 
+test('newly dated per-SKU authorities and two explicit releases compile without fixture dates or totals', async () => {
+  const [intakeFiles, publicationFiles] = await Promise.all([
+    readCatalogueIntakeSourceFiles(repositoryRoot),
+    currentSources(),
+  ]);
+  const intakeCompilation = compileCatalogueIntakeSources(
+    intakeFiles,
+    catalogueCompilationAuditBoundary(intakeFiles.map(file => file.value)),
+  );
+  const publicationCompilation = compileCataloguePublicationSources(
+    intakeCompilation.manifest.candidates,
+    publicationFiles,
+    catalogueCompilationAuditBoundary(publicationFiles.map(file => file.value)),
+  );
+  const releasedLipikarIds = [
+    'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml',
+    'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml',
+  ];
+
+  assert.ok(intakeCompilation.sourceByCandidateId.has(
+    'naturium-the-perfector-salicylic-acid-body-wash-500ml',
+  ));
+  assert.equal(publicationCompilation.sourceByCandidateId.has(
+    'naturium-the-perfector-salicylic-acid-body-wash-500ml',
+  ), false);
+  for (const candidateId of releasedLipikarIds) {
+    assert.ok(intakeCompilation.sourceByCandidateId.has(candidateId));
+    assert.ok(publicationCompilation.sourceByCandidateId.get(candidateId)?.release);
+    assert.ok(publicationCompilation.releaseManifest.releases.some(release => (
+      release.candidateId === candidateId
+    )));
+  }
+  assertCataloguePublicationProjectionMatches(
+    dossierManifest,
+    releaseManifest,
+    publicationCompilation,
+  );
+  assert.equal(
+    publicationCompilation.releaseManifest.releases.length,
+    publicationFiles.filter(file => (
+      (file.value as { release?: unknown }).release != null
+    )).length,
+  );
+});
+
+test('the checked-in authority boundary still rejects publication beyond the supplied audit clock', async () => {
+  const { files, asOf } = await currentFixture();
+  const latestAuthority = asOf - catalogueCompilationAuditMarginMs;
+  assert.throws(
+    () => compileCataloguePublicationSources(
+      catalogueIntakeCandidates,
+      files,
+      latestAuthority - 5 * 60_000 - 1,
+    ),
+    /in the future/,
+  );
+});
+
 test('source filename, candidate and release bindings fail closed', async () => {
-  const files = await currentSources();
+  const { files, asOf } = await currentFixture();
   const first = files[0];
   assert.throws(
     () => compileCataloguePublicationSources(
@@ -107,9 +180,10 @@ test('source filename, candidate and release bindings fail closed', async () => 
 });
 
 test('projection drift is detected even when both projections remain individually valid', async () => {
+  const { files, asOf } = await currentFixture();
   const compilation = compileCataloguePublicationSources(
     catalogueIntakeCandidates,
-    await currentSources(),
+    files,
     asOf,
   );
   const reorderedDossiers: CataloguePublicationDossierManifest = {

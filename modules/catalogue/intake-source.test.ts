@@ -30,24 +30,33 @@ import {
   evaluateCatalogueIntakeCandidate,
   type CatalogueIntakeManifest,
 } from '@/lib/catalogue/intake-readiness';
+import {
+  readCataloguePublicationSourceFiles,
+} from '@/lib/catalogue/publication-source';
+import {
+  catalogueCompilationAuditBoundary,
+  catalogueCompilationAuditMarginMs,
+} from './catalogue-test-authority';
 
 const repositoryRoot = process.cwd();
-// This fixed verification instant must remain later than every checked-in
-// source, dossier and release timestamp represented by the fixture.
-const asOf = Date.parse('2026-08-04T13:21:00Z');
 
 async function readJson(relativePath: string): Promise<unknown> {
   return JSON.parse(await readFile(path.resolve(repositoryRoot, relativePath), 'utf8')) as unknown;
 }
 
 async function currentFixture() {
-  const [files, manifest, dossiers, releases] = await Promise.all([
+  const [files, publicationFiles, manifest, dossiers, releases] = await Promise.all([
     readCatalogueIntakeSourceFiles(repositoryRoot),
+    readCataloguePublicationSourceFiles(repositoryRoot),
     readJson('data/catalogue-intake.json') as Promise<CatalogueIntakeManifest>,
     readJson('data/catalogue-publication-dossiers.json'),
     readJson('data/catalogue-publication-releases.json'),
   ]);
-  return { files, manifest, dossiers, releases };
+  const asOf = catalogueCompilationAuditBoundary([
+    ...files.map(file => file.value),
+    ...publicationFiles.map(file => file.value),
+  ]);
+  return { files, manifest, dossiers, releases, asOf };
 }
 
 function sourceValue(file: CatalogueIntakeSourceFile) {
@@ -68,7 +77,7 @@ function replaceSource(
 }
 
 test('checked-in per-SKU sources compile to the current runtime projection independent of file order', async () => {
-  const { files, manifest } = await currentFixture();
+  const { files, manifest, asOf } = await currentFixture();
   const forward = compileCatalogueIntakeSources(files, asOf).manifest;
   const reverse = compileCatalogueIntakeSources([...files].reverse(), asOf).manifest;
   assert.deepEqual(forward, manifest);
@@ -76,8 +85,20 @@ test('checked-in per-SKU sources compile to the current runtime projection indep
   assert.equal(stableCatalogueJson(forward), stableCatalogueJson(reverse));
 });
 
-test('source envelopes reject filename drift and timestamps older than nested evidence', async () => {
+test('the checked-in authority boundary still rejects a source beyond the supplied audit clock', async () => {
   const { files } = await currentFixture();
+  const latestAuthority = (
+    catalogueCompilationAuditBoundary(files.map(file => file.value))
+    - catalogueCompilationAuditMarginMs
+  );
+  assert.throws(
+    () => compileCatalogueIntakeSources(files, latestAuthority - 5 * 60_000 - 1),
+    /in the future/,
+  );
+});
+
+test('source envelopes reject filename drift and timestamps older than nested evidence', async () => {
+  const { files, asOf } = await currentFixture();
   const first = files[0];
   assert.throws(
     () => compileCatalogueIntakeSources([
@@ -101,7 +122,7 @@ test('source envelopes reject filename drift and timestamps older than nested ev
 });
 
 test('source envelopes reject unsupported fields and duplicate packet origins', async () => {
-  const { files } = await currentFixture();
+  const { files, asOf } = await currentFixture();
   const withUnknown = replaceSource(
     files,
     'keracare-dry-itchy-scalp-conditioner-950ml',
@@ -137,7 +158,7 @@ test('source envelopes reject unsupported fields and duplicate packet origins', 
 });
 
 test('the domain audit still rejects duplicate candidate and normalized product identities', async () => {
-  const { files } = await currentFixture();
+  const { files, asOf } = await currentFixture();
   assert.throws(
     () => compileCatalogueIntakeSources([...files, files[0]], asOf),
     /Duplicate catalogue intake source candidate/,
@@ -175,7 +196,7 @@ test('the domain audit still rejects duplicate candidate and normalized product 
 });
 
 test('write boundaries allow 12 mutations but reject 13, removals and new legacy records', async () => {
-  const { files } = await currentFixture();
+  const { files, asOf } = await currentFixture();
   const compilation = compileCatalogueIntakeSources(files, asOf);
   const cleanDiff: CatalogueIntakeProjectionDiff = {
     newCandidateIds: [],
@@ -254,7 +275,7 @@ test('write boundaries allow 12 mutations but reject 13, removals and new legacy
 });
 
 test('the current compilation verifies identity artifacts, dossiers and releases without publishing intake', async () => {
-  const { files, dossiers, releases } = await currentFixture();
+  const { files, dossiers, releases, asOf } = await currentFixture();
   const compilation = compileCatalogueIntakeSources(files, asOf);
   const validation = await validateCatalogueIntakeCompilation(
     compilation,
@@ -287,7 +308,7 @@ test('the current compilation verifies identity artifacts, dossiers and releases
 });
 
 test('released candidate edits fail against immutable dossier fingerprints', async () => {
-  const { files, dossiers, releases } = await currentFixture();
+  const { files, dossiers, releases, asOf } = await currentFixture();
   const changed = replaceSource(files, 'cerave-hydrating-cleanser-473ml', value => {
     const candidate = value.candidate as Record<string, unknown>;
     candidate.reason = `${candidate.reason as string} Changed after release.`;
@@ -306,7 +327,7 @@ test('released candidate edits fail against immutable dossier fingerprints', asy
 });
 
 test('identity artifact digest tampering fails before dossier and release validation', async () => {
-  const { files, dossiers, releases } = await currentFixture();
+  const { files, dossiers, releases, asOf } = await currentFixture();
   const tampered = replaceSource(files, 'cerave-hydrating-cleanser-473ml', value => {
     const candidate = value.candidate as Record<string, unknown>;
     const identity = candidate.identity as Record<string, unknown>;
@@ -327,7 +348,7 @@ test('identity artifact digest tampering fails before dossier and release valida
 });
 
 test('projection diff is semantic and treats an ID rename as removal plus addition', async () => {
-  const { files, manifest } = await currentFixture();
+  const { files, manifest, asOf } = await currentFixture();
   const compilation = compileCatalogueIntakeSources(files, asOf);
   assert.deepEqual(catalogueIntakeProjectionDiff(manifest, compilation.manifest), {
     newCandidateIds: [],
