@@ -1249,6 +1249,30 @@
         "publishedAt": "2026-08-04T14:29:40Z"
       },
       "releaseFingerprint": "279d695693b22577925ecf7c25ddab18621cdd28d9ba4052d319a2a335111925"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+      "dossierFingerprint": "42568bbfb3c428394573c632c97d672a959f8e6ed7991de0d0ef6ecd401e5c8e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Whipped body moisture.",
+        "usage": "Apply to the body after cleansing or whenever moisture is needed.",
+        "manufacturerDirectionsUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+        "reviewer": "JeloCare catalogue presentation review",
+        "reviewedAt": "2026-08-04T15:23:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release review",
+        "publishedAt": "2026-08-04T15:24:00Z"
+      },
+      "releaseFingerprint": "8da17e4bb1c5b28d15f3dca58b457f7ac4a0da8e64e76ef2ed2cd4f2ee6c80e0"
     }
   ]
 }

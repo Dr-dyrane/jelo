@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+  "exactIdentity": {
+    "brand": "Fenty Skin",
+    "name": "Butta Drop Whipped Oil Body Cream with Tropical Oils + Shea Butter — Fenty Fresh",
+    "variant": "Fenty Fresh / Standard",
+    "size": "200 mL / 6.7 fl oz",
+    "gtin": "840026653251"
+  },
+  "reviewedAt": "2026-08-04T15:22:30Z",
+  "supersedesReview": "data/catalogue-media-reviews/fenty-skin-butta-drop-fenty-fresh-standard-200ml-packshot-v1.json",
+  "source": {
+    "role": "official-before-reference",
+    "immutablePath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/source-official-530092ec4b3e.jpg",
+    "sha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b",
+    "mimeType": "image/jpeg",
+    "byteSize": 41396,
+    "width": 1200,
+    "height": 1501,
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629"
+  },
+  "imagegenCandidate": {
+    "rawChromaPath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/imagegen-chroma-v1-702321339146.png",
+    "rawChromaSha256": "702321339146c5ca137c30bc7357a04824eab4fa63944cbc1da48ea4abe4ca5a",
+    "transparentPath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/imagegen-transparent-v1-736723403bc1.png",
+    "transparentSha256": "736723403bc1cc988d5f3070d008cada74af175e92a1b2d195651c67cd77b59b"
+  },
+  "admittedPackshot": {
+    "immutablePath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/packshot-v2-4a4b03aebef0.png",
+    "sha256": "4a4b03aebef0aaa72af857b7312e25057981ad58ec9592a1739846e304fb8afc",
+    "mimeType": "image/png",
+    "byteSize": 783486,
+    "width": 2000,
+    "height": 2000,
+    "process": "Transparent-only proportional resize and centered transparent canvas normalization; no package content was redrawn after imagegen"
+  },
+  "automatedChecks": {
+    "transparentFraction": 0.80693175,
+    "partiallyTransparentFraction": 0.00433225,
+    "subjectWidthFraction": 0.84,
+    "subjectHeightFraction": 0.3525,
+    "edgeAlphaPixels": 0,
+    "magentaSpillPixels": 0,
+    "duplicateAdjacentSubjectRows": 0
+  },
+  "manualChecks": {
+    "exactLogoAndText": "pass",
+    "exactVariantAndSizeIdentity": "pass",
+    "jarCreamLidGeometryAndProportions": "pass",
+    "transparentBackground": "pass",
+    "shadowFloorReflection": "pass",
+    "chromaHaloAndAlphaFringe": "pass",
+    "stretchAndEdgeArtifacts": "pass",
+    "cropPaddingAndResolution": "pass",
+    "watermarkAndOverlay": "pass"
+  },
+  "review": {
+    "state": "admitted-media-only",
+    "primaryReviewer": "Codex visual audit",
+    "independentReviewer": "Codex independent media review",
+    "clientReady": false,
+    "clientReadyBlockers": [
+      "exact offer lane remains blocked",
+      "public product and contextual OG visual QA require a released SKU"
+    ],
+    "notes": "The immutable media candidate passes source/output review and publication-byte preflight. It cannot be called client-ready until exact offer release and live-surface QA pass."
+  }
+}

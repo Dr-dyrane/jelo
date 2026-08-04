@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-04T14:11:10Z",
+  "updatedAt": "2026-08-04T15:22:30Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -13350,16 +13350,44 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "official-brand-media",
+        "origin": "owned-identity-verified-render",
         "role": "packshot",
-        "rightsUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
         "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629",
         "sourceAssetSha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b",
         "sourceAssetMimeType": "image/jpeg",
         "sourceAssetByteSize": 41396,
         "sourceAssetWidth": 1200,
         "sourceAssetHeight": 1501,
-        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare imagegen chroma-key removal and transparent canvas normalization",
+          "model": "gpt-image-2",
+          "prompt": "Precision product-background edit of the provided official Fenty Skin image. Keep the exact open lavender jar and its separate lavender lid, their original geometry, proportions, perspective, cream surface, thread details, lavender color, highlights, and the exact existing front logo lettering unchanged. Do not redesign, relabel, retouch, stylize, add, remove, or alter any part of the jar, cream, lid, or logo. Remove only the pale background, floor line, all cast shadows, baked-in ground shading, and reflections. Place the unchanged jar and lid as one centered packshot composition on a perfectly flat, uniform solid #ff00ff chroma background extending edge to edge. No shadow, no floor, no reflection, no gradient, no texture, no halo, no extra objects. Preserve ample even padding and the original aspect/proportions.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629",
+              "sha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b"
+            }
+          ],
+          "outputSha256": "4a4b03aebef0aaa72af857b7312e25057981ad58ec9592a1739846e304fb8afc",
+          "generatedAt": "2026-08-04T15:14:38Z",
+          "recordSha256": "5f45f97feaee99d7559aaf9ec033661d2959d505bbfd24fbc1daaa06ee2c2eef"
+        },
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/fenty-skin/fenty-skin-butta-drop-fenty-fresh-standard-200ml/packshot-v2-4a4b03aebef0aaa7.png",
+        "publicImageSha256": "4a4b03aebef0aaa72af857b7312e25057981ad58ec9592a1739846e304fb8afc",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 783486,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-04T15:22:30Z",
+        "artReviewer": "Codex visual audit with independent reviewer",
+        "presentationQuality": "magazine-ready"
       }
     },
     {

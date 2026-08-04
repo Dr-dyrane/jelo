@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+  "exactIdentity": {
+    "brand": "Fenty Skin",
+    "name": "Butta Drop Whipped Oil Body Cream with Tropical Oils + Shea Butter — Fenty Fresh",
+    "variant": "Fenty Fresh / Standard",
+    "size": "200 mL / 6.7 fl oz",
+    "gtin": "840026653251"
+  },
+  "reviewedAt": "2026-08-04T15:22:30Z",
+  "source": {
+    "role": "official-before-reference",
+    "immutablePath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/source-official-530092ec4b3e.jpg",
+    "sha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b",
+    "mimeType": "image/jpeg",
+    "byteSize": 41396,
+    "width": 1200,
+    "height": 1501,
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629"
+  },
+  "rawImagegenCandidate": {
+    "immutablePath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/imagegen-chroma-v1-702321339146.png",
+    "sha256": "702321339146c5ca137c30bc7357a04824eab4fa63944cbc1da48ea4abe4ca5a",
+    "width": 1122,
+    "height": 1402,
+    "workingBackground": "#ff00ff"
+  },
+  "transparentDerivative": {
+    "immutablePath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/imagegen-transparent-v1-736723403bc1.png",
+    "sha256": "736723403bc1cc988d5f3070d008cada74af175e92a1b2d195651c67cd77b59b",
+    "width": 1122,
+    "height": 1402,
+    "process": "Built-in imagegen skill chroma-key removal with corner-sampled soft matte and spill cleanup"
+  },
+  "admittedPackshot": {
+    "immutablePath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/packshot-v1-2c308c7ccf46.png",
+    "sha256": "2c308c7ccf460730b95e55af3c4f24d51d683c5b3ec267eb861165d03e760b18",
+    "mimeType": "image/png",
+    "byteSize": 740833,
+    "width": 2000,
+    "height": 2000,
+    "process": "Transparent-only trim, proportional resize and centered transparent canvas normalization; package pixels were not redrawn"
+  },
+  "manualChecks": {
+    "exactLogoAndText": "pass",
+    "exactVariantAndSizeIdentity": "pass",
+    "jarCreamLidGeometryAndProportions": "pass",
+    "transparentBackground": "pass",
+    "shadowFloorReflection": "pass",
+    "chromaHaloAndAlphaFringe": "pass",
+    "stretchAndEdgeArtifacts": "pass",
+    "cropPaddingAndResolution": "fail-subject-height-0.3355-below-0.35-publication-minimum",
+    "watermarkAndOverlay": "pass"
+  },
+  "review": {
+    "state": "rejected",
+    "primaryReviewer": "Codex visual audit",
+    "independentReviewer": "Codex independent media review",
+    "notes": "Official source and intermediate candidates remain preserved. Publication preflight rejected this first canvas because the subject height was below the fail-closed 0.35 minimum; it was never uploaded or published."
+  }
+}
