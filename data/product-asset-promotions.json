@@ -460,23 +460,6 @@
     "contentHash": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1"
   },
   {
-    "id": "fenty-skin-butta-drop-fenty-fresh-standard-200ml-packshot-v1",
-    "active": false,
-    "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
-    "destination": "publication",
-    "publicationBrandSlug": "fenty-skin",
-    "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629",
-    "localPath": "data/catalogue-intake-assets/fenty-skin-butta-drop-fenty-fresh-standard-200ml/packshot-v1-2c308c7ccf46.png",
-    "blobPath": "products/fenty-skin/fenty-skin-butta-drop-fenty-fresh-standard-200ml/packshot-v1-2c308c7ccf460730.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/fenty-skin/fenty-skin-butta-drop-fenty-fresh-standard-200ml/packshot-v1-2c308c7ccf460730.png",
-    "contentType": "image/png",
-    "byteSize": 740833,
-    "width": 2000,
-    "height": 2000,
-    "hasAlpha": true,
-    "contentHash": "2c308c7ccf460730b95e55af3c4f24d51d683c5b3ec267eb861165d03e760b18"
-  },
-  {
     "id": "fenty-skin-butta-drop-fenty-fresh-standard-200ml-packshot-v2",
     "active": true,
     "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",

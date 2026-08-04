@@ -847,6 +847,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-04',
   },
+  'fenty-skin-butta-drop-fenty-fresh-standard-200ml': {
+    productSlug: 'fenty-skin-butta-drop-fenty-fresh-standard-200ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer',
+    ],
+    reviewedAt: '2026-08-04',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
