@@ -103,11 +103,6 @@ function normalizedIdentity(value: string) {
     .toLowerCase();
 }
 
-function containsIdentity(haystack: string, needle: string) {
-  const normalizedNeedle = normalizedIdentity(needle);
-  return Boolean(normalizedNeedle && normalizedIdentity(haystack).includes(normalizedNeedle));
-}
-
 function packageVersionMatchesIdentity(packageVersion: string, identity: { brand: string; name: string; variant: string; size: string }) {
   const pkgTokens = new Set(normalizedIdentity(packageVersion).split(' ').filter(Boolean));
   const identityText = normalizedIdentity(`${identity.name} ${identity.variant} ${identity.size}`);
@@ -298,7 +293,7 @@ export function catalogueOfferAdmissionBlockers(
   if (!sameExactSize(product.canonicalIdentity.size, offer.observedSize)) blockers.push('exact-size-mismatch');
 
   if (offer.packageMatch === 'current-exact') {
-    if (!offer.observedPackageVersion || !packageVersionMatchesIdentity(offer.observedPackageVersion, { name: product.canonicalIdentity.name, variant: product.canonicalIdentity.variant, size: product.canonicalIdentity.size })) {
+    if (!offer.observedPackageVersion || !packageVersionMatchesIdentity(offer.observedPackageVersion, { brand: product.canonicalIdentity.brand, name: product.canonicalIdentity.name, variant: product.canonicalIdentity.variant, size: product.canonicalIdentity.size })) {
       blockers.push('current-package-version-unverified');
     }
 
