@@ -1,31 +1,50 @@
 # JeloCare work ledger
 
-Updated: 2026-08-02
-Base: `9d25744` on `main`, aligned with `origin/main`
+Updated: 2026-08-04
+Base: `2dd9a9d` on `origin/main`
+Production: Vercel deployment `dpl_CsBHLCe5EiHpBnuDCBKVJG3y5vYA` READY on `www.jelocare.com`
+
+## Release authority
+
+- Standing authority is `ship-after-gates`: a bounded cell may commit and push `main` after focused verification, exact-artifact confirmation, and affected-route smoke.
+- Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
+- Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
+
+## Lane checkpoint
+
+| Lane | State | Durable revision / location | Resume action |
+| --- | --- | --- | --- |
+| Production catalogue + verified offers | Released | `2dd9a9d`; 3 admitted / 3 rejected / 4 pending | Recheck only when fresh exact evidence arrives. |
+| Naturium Perfector 500 mL | Released reference; Rhema offer admitted | product and share routes in `2dd9a9d` | Add further exact current stores independently. |
+| Lipikar AP+MAX 400 mL | Released reference; Perona offer admitted | product and share routes in `2dd9a9d` | Keep 200/400 mL identities separate. Teeka 200 mL remains excluded. |
+| Medik8 Advanced Night Restore 50 mL | Released; Teeka4 offer admitted | product and share routes in `2dd9a9d` | Add further exact current stores independently. |
+| Fenty Butta Drop Fenty Fresh Standard 200 mL | Released reference | `25b238e`, contained in `2dd9a9d` | No share-price claim until a retailer proves exact Standard 200 mL identity. |
+| L'Occitane Almond Shower Oil 250 mL | Released reference; required SKU confirmed | `55d829b`, contained in `2dd9a9d`; GTIN `3253581785706` | Add exact-size family selector from `codex/loccitane-size-family`; do not publish the private 500 mL record or refill as the same SKU. |
+| L'Occitane size-family UI | Active isolated cell | `/private/tmp/jelo-loccitane-size-family.pcNXg9/worktree`, branch `codex/loccitane-size-family` | Finish sidecar + succinct mL selector, focused tests, commit, integrate. |
+| Crystal Retinal 3 media | Under focused media audit | `/Users/dyrane/.codex/worktrees/5144/jelo`, branch `codex/catalogue-media-history` | Bind exact 30 mL identity/provenance and commit only if media gates pass. |
+| Crystal Retinal 3 / 6 offers | Pending | no admitted offer | Require exact size, stock, package, and direct-listing evidence. |
+| Worth Sharing signals | Released | `5f896ac`, contained in `2dd9a9d` | Preserve signal-derived recommendations and fail closed for unsupported price shares. |
+| Contextual OG cards | Released | `c6cf82f`, contained in `2dd9a9d` | Product/share/concern/ingredient routes own contextual social cards. |
+| Black + expressive dark theme | Released | `6f57075`, `1855983`, `1d77735`, `fbbfd03`; all contained in `2dd9a9d` | Continue only with visual regressions found on a named route/state. |
+| `/me` routine persistence | Released | `50e91d0`, contained in `2dd9a9d` | Production users own CRUD state; keep preview fixtures isolated. |
+| `/me` intake/routine UI draft | Preserved, not release-ready | `/Users/dyrane/.codex/worktrees/fd3e/jelo` on stale base `e7e56e` | Rebase only the `components/me/**` delta into a clean production worktree; never commit its apparent catalogue deletions. |
+| Campaign assets | User-owned, not part of this release | `public/campaigns/` in the older main checkout | Do not stage or publish without a bounded campaign task and explicit external-publish confirmation. |
+
+## Accepted catalogue media
+
+- The currently released founder-batch packshots for Naturium, Lipikar 200/400, Advanced Night Restore, L'Occitane 250 mL, and Fenty Standard 200 mL are already committed in `origin/main`.
+- Each published image is bound to its exact candidate and immutable asset digest. Old/new packaging evidence may support identity continuity only within the same exact size and package form.
+- The lone untracked media cell is Crystal Retinal 3 30 mL. It must pass exact-identity, provenance, transparent-packshot, crop/padding, and artifact checks before integration.
 
 ## Dirty boundaries
 
-- `public/campaigns/` is untracked user-owned work. Do not stage, rewrite, remove, or include it without an explicit campaign task.
-- `.codex/context-system/` is the new context-department configuration created during the legacy-task handoff.
-- `data/external-products.json` and `modules/retail-intelligence/response-scope.test.ts` contain the uncommitted `Moisturiser` → `Moisturizer` vocabulary merge; focused tests pass.
-- `app/(site)/page.tsx`, `app/(site)/home.module.css`, and `app/(site)/home-editorial.module.css` contain the uncommitted supportive-use horizontal-rail restructuring; TypeScript, lint, and desktop/mobile light/dark QA pass.
-
-## Active work
-
-- The Tiny vocabulary merge and home supportive-rail restructuring are implemented and verified locally and are authorized for immediate integration, push, production build confirmation, and affected-route smoke.
-
-## Blockers
-
-- None recorded for orchestration.
-
-## Recent outcomes
-
-- Released Dr Teal's Nourish & Protect Coconut Oil Body Wash 710 ml at `9d25744`; production READY, product route 200, and the zero-offer share route correctly fails closed. Estimated worker cost: ~102 minutes, at least ~177 tool calls and ~106 shell invocations, 28 committed files, 8,194 insertions/51 deletions; token and cache billing unavailable.
-- Released Benton Honest Cleansing Foam at `5a1d0ce`; production and focused route QA passed.
-- Resolved Zaron toner EAN conflict at `34742a3`.
-- JeloCare currently has 62 public products and 46 explicit publication releases at this checkpoint.
+- The older `/Users/dyrane/Claude/Projects/jelo` checkout is 21 commits behind `origin/main`; most visible dark-theme changes there are historical working copies. Do not use it as an integration base.
+- Never stage `.DS_Store`.
+- The `fd3e` worktree is stale and would appear to delete newer catalogue releases if committed wholesale. Only a reviewed path-scoped patch may be transferred.
+- `public/campaigns/` is user-owned and excluded from catalogue/platform releases.
 
 ## Routing rule
 
-- Read this ledger first, then one department entry. Do not load the legacy task or the entire repository by default.
-- Standing release authority: after a scoped JeloCare fix passes its focused gates, its department task should commit, push `main`, wait for the exact production build to become READY, and smoke the affected route immediately. Stop only for a genuine evidence, safety, dirty-boundary, reconciliation, or deployment blocker.
+- Read this ledger first, then one department entry. Do not load this legacy conversation or the whole repository by default.
+- For a product batch, split identity/evidence, media, offers, care/content, and integration into bounded subdepartments. One integration owner records the matrix, runs the broad gate once, pushes the passing cells, confirms the exact deployment, and returns client links.
+- Resume the two active cells above by their branch/worktree and acceptance contract; reconstruct everything else from `origin/main`.

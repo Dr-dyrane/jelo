@@ -55,6 +55,40 @@
     },
     "catalogue-evidence": {
       "purpose": "Exact product identity, care evidence, Nigerian offers, asset provenance, dossiers, and publication releases",
+      "batchPolicy": {
+        "unit": "one exact SKU per release cell",
+        "preflight": [
+          "Confirm exact brand, variant, size, package form, and manufacturer identifier before downstream work",
+          "Confirm source, media, upload, release, and rollback access before deep work"
+        ],
+        "release": [
+          "Release every passing cell independently",
+          "Run focused checks per cell and one broad integration gate per release wave",
+          "Never let an unresolved sibling or optional framework expansion hold an admitted SKU"
+        ]
+      },
+      "subdepartments": {
+        "identity-evidence": {
+          "outcome": "Bind one exact manufacturer SKU, size, package form, source digest, and public eligibility basis",
+          "mustNot": "Infer one size, bottle, refill, or reformulation from another"
+        },
+        "media": {
+          "outcome": "Bind a provenance-documented immutable packshot to the exact SKU and pass artifact/crop/padding QA",
+          "mustNot": "Reuse another size's image or publish generated packaging details"
+        },
+        "offers": {
+          "outcome": "Admit only fresh exact Nigerian listings with supported price, stock, store identity, size, and package evidence",
+          "mustNot": "Widen or omit size/variant tokens, or project expired and zero-stock observations"
+        },
+        "care-content": {
+          "outcome": "Publish neutral, non-diagnostic care context and exact manufacturer directions",
+          "mustNot": "Turn a product listing into personalized diagnosis or unsupported efficacy claims"
+        },
+        "integration": {
+          "outcome": "Record the release matrix, run the broad gate once, commit scoped cells, push, confirm the exact deployment, smoke routes, and prepare client links",
+          "mustNot": "Commit dirty unrelated paths or hold passing cells for blocked siblings"
+        }
+      },
       "owns": [
         "data/<selected-candidate-and-release-records>",
         "docs/research/<selected-product-dossier>",
