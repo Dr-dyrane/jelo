@@ -857,6 +857,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-04',
   },
+  'medik8-crystal-retinal-3-30ml': {
+    productSlug: 'medik8-crystal-retinal-3-30ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.medik8.com/products/crystal-retinal?variant=36622939783320',
+      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+    ],
+    reviewedAt: '2026-08-04',
+  },
+  'medik8-crystal-retinal-6-30ml': {
+    productSlug: 'medik8-crystal-retinal-6-30ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.medik8.com/products/crystal-retinal?variant=36622939816088',
+      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+    ],
+    reviewedAt: '2026-08-04',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
