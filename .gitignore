@@ -18,6 +18,15 @@ __pycache__/
 data/asset-import-results.json
 tmp/
 
+# catalogue intake asset binaries — promoted to Vercel Blob on deploy.
+# The PNGs are staged locally for the build to upload, then removed from
+# git to avoid repo bloat. The promotion records in
+# data/product-asset-promotions.json retain the canonical blob URLs.
+data/catalogue-intake-assets/**/*.png
+data/catalogue-intake-assets/**/*.jpg
+data/catalogue-intake-assets/**/*.webp
+data/catalogue-intake-assets/**/*.avif
+
 # system files
 .DS_Store
 
