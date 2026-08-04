@@ -87,7 +87,7 @@ test('checked-in per-SKU publication sources compile deterministically to both p
   );
 });
 
-test('newly dated per-SKU authorities and two explicit releases compile without fixture dates or totals', async () => {
+test('newly dated per-SKU authorities and explicit releases compile without fixture dates or totals', async () => {
   const [intakeFiles, publicationFiles] = await Promise.all([
     readCatalogueIntakeSourceFiles(repositoryRoot),
     currentSources(),
@@ -105,13 +105,17 @@ test('newly dated per-SKU authorities and two explicit releases compile without 
     'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml',
     'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml',
   ];
+  const publicationSourceCandidateIds = publicationFiles.map(
+    file => (file.value as CataloguePublicationSourceRecord).candidateId,
+  );
 
-  assert.ok(intakeCompilation.sourceByCandidateId.has(
-    'naturium-the-perfector-salicylic-acid-body-wash-500ml',
-  ));
-  assert.equal(publicationCompilation.sourceByCandidateId.has(
-    'naturium-the-perfector-salicylic-acid-body-wash-500ml',
-  ), false);
+  assert.deepEqual(
+    new Set(publicationCompilation.sourceByCandidateId.keys()),
+    new Set(publicationSourceCandidateIds),
+  );
+  for (const candidateId of publicationSourceCandidateIds) {
+    assert.ok(intakeCompilation.sourceByCandidateId.has(candidateId));
+  }
   for (const candidateId of releasedLipikarIds) {
     assert.ok(intakeCompilation.sourceByCandidateId.has(candidateId));
     assert.ok(publicationCompilation.sourceByCandidateId.get(candidateId)?.release);

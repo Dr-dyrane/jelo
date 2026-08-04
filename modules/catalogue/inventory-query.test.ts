@@ -16,6 +16,14 @@ test('returns only reviewed products and deliberately approved community records
   const result = queryInventoryRecords(products);
   const publicTotal = products.length + externalProducts.length;
   const supportiveTotal = products.filter(product => getReviewedProductCare(product.slug)?.careState === 'supportive_eligible').length;
+  const expectedStepCounts = new Map<string, number>();
+  for (const product of products) {
+    const key = normalize(product.step);
+    expectedStepCounts.set(key, (expectedStepCounts.get(key) ?? 0) + 1);
+  }
+  const actualStepCounts = result.facets.steps.map(
+    facet => [normalize(facet.value), facet.count] as const,
+  );
   assert.equal(result.total, publicTotal);
   assert.equal(result.items.length, Math.min(24, publicTotal));
   assert.equal(result.page, 1);
@@ -25,7 +33,14 @@ test('returns only reviewed products and deliberately approved community records
   assert.equal(result.facets.community, externalProducts.length);
   assert.deepEqual(result.facets.categories.map(facet => facet.value), inventoryCategories);
   assert.equal(result.facets.categories.reduce((sum, facet) => sum + facet.count, 0), publicTotal);
-  assert.equal(result.facets.steps.reduce((sum, facet) => sum + facet.count, 0), products.length);
+  assert.equal(
+    new Set(actualStepCounts.map(([step]) => step)).size,
+    actualStepCounts.length,
+  );
+  assert.deepEqual(
+    [...actualStepCounts].sort(([left], [right]) => left.localeCompare(right)),
+    [...expectedStepCounts].sort(([left], [right]) => left.localeCompare(right)),
+  );
   assert.ok(result.items.slice(0, products.length).every(item => item.kind === 'reviewed'));
 });
 

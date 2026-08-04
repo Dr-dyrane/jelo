@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-04T12:51:00Z",
+  "updatedAt": "2026-08-04T14:04:30Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "0b989660e889bc33e4629610",
@@ -26,12 +26,12 @@
     ],
     "identity": {
       "gtin": "818625024444",
-      "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore.js",
       "checkedAt": "2026-08-04T12:50:20Z",
       "basis": "official-brand",
       "packageVersion": "Advanced Night Restore™ 50 ml jar",
       "officialEvidence": {
-        "url": "https://www.medik8.com/products/advanced-night-restore",
+        "url": "https://www.medik8.com/products/advanced-night-restore.js",
         "observedGtin": "818625024444",
         "observedVariant": "Advanced Night Restore™",
         "observedSize": "50 ml",
@@ -67,7 +67,7 @@
           "sourceResponseByteSize": 12644,
           "sourceResponseMimeType": "text/javascript",
           "sourceResponseSha256": "ceefab7c23fb21d8c9ace4d894993abea39a4a52707892d28be275225133dca4",
-          "sourceUrl": "https://www.medik8.com/products/advanced-night-restore",
+          "sourceUrl": "https://www.medik8.com/products/advanced-night-restore.js",
           "supplementalResponses": [
             {
               "responseByteSize": 89707,
@@ -80,9 +80,9 @@
             }
           ]
         },
-        "snapshotSha256": "7d18566525ee23a6bf05161a157fe7458882175a9cb725a5e25a5be7aeedb0ea",
+        "snapshotSha256": "0d9a943748fa4dc571bbc1444c4449c2b162da50863fae079522fde2adf025c1",
         "snapshotMimeType": "application/json",
-        "snapshotByteSize": 1551,
+        "snapshotByteSize": 1554,
         "retrievedAt": "2026-08-04T12:44:24Z"
       }
     },
@@ -92,9 +92,10 @@
       "careTier": "daily-care",
       "reviewScope": "catalogue-supportive-care",
       "advisoryBoundary": "A cosmetic night moisturiser, not treatment for barrier disease, eczema, acne or another condition. Apply after serums to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for painful, infected, worsening or unexplained skin changes.",
-      "manufacturerEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "manufacturerEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore.js",
       "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
       "evidenceUrls": [
+        "https://www.medik8.com/products/advanced-night-restore.js",
         "https://www.medik8.com/products/advanced-night-restore",
         "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
       ],
@@ -103,7 +104,7 @@
     },
     "nigeria": {
       "regulatoryStatus": "pending",
-      "tierAIdentityEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "tierAIdentityEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore.js",
       "exactOffers": [
         {
           "retailer": "Teeka4",

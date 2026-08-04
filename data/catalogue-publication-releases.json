@@ -1132,6 +1132,30 @@
     },
     {
       "schemaVersion": 2,
+      "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+      "dossierFingerprint": "38b55d1a088adc5c31aaf91f14b694b731d228de25ed5b41d1f3a89d629fdb7e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Salicylic-acid body wash for a rinse-off cleanse.",
+        "usage": "Apply to wet body skin, lather and rinse thoroughly. Avoid the eye area and broken or freshly shaved skin. Stop if persistent irritation occurs.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-04T13:11:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-04T13:12:00Z"
+      },
+      "releaseFingerprint": "987dc08968163474c82f459c7d69a9531e9b45b98e6213f154cb3b6e36c0626d"
+    },
+    {
+      "schemaVersion": 2,
       "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
       "dossierFingerprint": "738c0545d4e055dc477d6384842b916f8126796be58135732e393348d5a0932c",
       "exposure": "public-catalogue",

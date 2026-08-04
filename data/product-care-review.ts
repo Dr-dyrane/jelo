@@ -817,6 +817,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-04',
   },
+  'naturium-the-perfector-salicylic-acid-body-wash-500ml': {
+    productSlug: 'naturium-the-perfector-salicylic-acid-body-wash-500ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-perfector-salicylic-acid-body-wash',
+      'https://www.nhs.uk/conditions/keratosis-pilaris/',
+    ],
+    reviewedAt: '2026-08-04',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

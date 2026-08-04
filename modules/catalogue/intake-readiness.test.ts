@@ -837,6 +837,82 @@ test('Beauty Formulas uses its exact reviewed brand host for identity and care e
   assert.ok(spoof.blockers.includes('care-independent-guidance-missing'));
 });
 
+test('new manufacturer authorities accept only their exact evidenced identity and care hosts', () => {
+  const authorities = [
+    {
+      brand: 'Naturium',
+      officialUrl: 'https://naturium.com/products/the-perfector-salicylic-acid-body-wash',
+    },
+    {
+      brand: 'Fenty Skin',
+      officialUrl: 'https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh',
+    },
+    {
+      brand: 'Medik8',
+      officialUrl: 'https://www.medik8.com/products/crystal-retinal',
+    },
+    {
+      brand: "L'Occitane en Provence",
+      officialUrl: 'https://no.loccitane.com/products/almond-amande-shower-oil-250ml',
+    },
+  ] as const;
+
+  const candidateWith = (
+    brand: string,
+    officialUrl: string,
+  ): CatalogueIntakeCandidate => {
+    const base = completeCandidate({ brand });
+    return {
+      ...base,
+      identity: {
+        ...base.identity,
+        officialProductUrl: officialUrl,
+        officialEvidence: identityEvidence({ url: officialUrl }),
+      },
+      care: {
+        ...base.care,
+        manufacturerEvidenceUrl: officialUrl,
+        evidenceUrls: [officialUrl, base.care.independentClinicalGuidanceUrl!],
+      },
+    };
+  };
+
+  for (const { brand, officialUrl } of authorities) {
+    const official = evaluateCatalogueIntakeCandidate(
+      candidateWith(brand, officialUrl),
+      asOf,
+    );
+    assert.equal(
+      official.blockers.includes('identity-official-evidence-invalid'),
+      false,
+      `${brand} exact identity host should pass`,
+    );
+    assert.equal(
+      official.blockers.includes('care-independent-guidance-missing'),
+      false,
+      `${brand} exact care host should pass`,
+    );
+
+    const host = new URL(officialUrl).hostname;
+    for (const spoofHost of [`${host}.attacker.example`, `shop.${host}`]) {
+      const spoofUrl = new URL(officialUrl);
+      spoofUrl.hostname = spoofHost;
+      const spoof = evaluateCatalogueIntakeCandidate(
+        candidateWith(brand, spoofUrl.href),
+        asOf,
+      );
+      assert.ok(
+        spoof.blockers.includes('identity-official-evidence-invalid'),
+        `${brand} identity must reject ${spoofHost}`,
+      );
+      assert.ok(
+        spoof.blockers.includes('care-independent-guidance-missing'),
+        `${brand} care must reject ${spoofHost}`,
+      );
+    }
+  }
+});
+
 test('a reviewed care record states its advisory boundary', () => {
   const base = completeCandidate();
   const decision = evaluateCatalogueIntakeCandidate({
