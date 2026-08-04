@@ -156,6 +156,11 @@
   outline: 0;
 }
 
+/* Author display rules for each panel must never override the platform's
+   hidden state. This also keeps inactive tabpanels out of the accessibility
+   tree in browsers whose user-agent [hidden] rule has lower precedence. */
+.product-panel-body [hidden] { display: none !important; }
+
 .product-panel-buy .retailer-list { margin-top: 0; }
 .product-panel-buy .retailer-panel,
 .product-panel-buy .retailer-list { min-width: 0; width: 100%; }
@@ -325,5 +330,8 @@ html[data-theme="dark"] .product-panel-handle { background: rgba(240, 220, 210, 
 }
 
 /* a11y: visible keyboard focus inside the panel (containers clip an outset ring) */
-.product-panel-body:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }
+.product-panel-body:focus-visible,
+.product-panel-buy:focus-visible,
+.product-panel-stores:focus-visible,
+.product-panel-details:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }
 .product-panel-tabs button:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }

@@ -74,12 +74,12 @@ export const ME_WORKSPACE_FABS = {
   shelf: { ownerId: 'me-shelf-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
   routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
   consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
-  product: { ownerId: 'me-product-public-evidence', label: 'View product', action: 'public-product' },
+  product: { ownerId: 'me-product-find-store', label: 'Find a store', action: 'open-product-prices' },
   'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
 } as const satisfies Record<MeWorkspacePage, {
   ownerId: string;
   label: string;
-  action: 'navigate' | 'focus-search' | 'public-product';
+  action: 'navigate' | 'focus-search' | 'open-product-prices';
   href?: string;
 }>;
 

@@ -54,7 +54,7 @@
 .routineList a:focus-visible,
 .emptyAction a:focus-visible,
 .backLink:focus-visible,
-.publicLink:focus-visible,
+.productEvidenceAction:focus-visible,
 .searchField:focus-within,
 .exploreToolbar button:focus-visible,
 .filterSheet button:focus-visible,
@@ -187,7 +187,7 @@
 }
 
 .primaryAction,
-.publicLink {
+.productEvidenceAction {
   display: inline-flex;
   min-height: 48px;
   align-items: center;
@@ -800,7 +800,24 @@
   margin-top: 16px;
 }
 
-.publicLink { padding: 0 18px; }
+.productEvidenceActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.productEvidenceAction {
+  padding: 0 18px;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.productEvidenceActionSecondary {
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  box-shadow: 0 10px 28px rgb(107 59 53 / 8%);
+  color: var(--ink);
+}
 
 .notFoundPage {
   display: grid;
@@ -821,7 +838,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .primaryAction:hover,
-  .publicLink:hover,
+  .productEvidenceAction:hover,
   .productCard:hover { transform: translateY(-2px); }
   .heroProduct:hover img,
   .exploreCard a:hover img { transform: translateY(-6px) scale(1.025); }
@@ -929,12 +946,12 @@
 @media (prefers-reduced-motion: reduce) {
   .topbar,
   .primaryAction,
-  .publicLink,
+  .productEvidenceAction,
   .productCard,
   .heroProduct img,
   .exploreVisual img { transition: none; }
   .primaryAction:hover,
-  .publicLink:hover,
+  .productEvidenceAction:hover,
   .productCard:hover,
   .heroProduct:hover img,
   .exploreCard a:hover img { transform: none; }

@@ -227,8 +227,10 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
     product,
   });
   assert.equal(memberProduct.summary, 'On my Shelf · In my Routine');
-  assert.equal(memberProduct.items[0]?.label, 'View product');
-  assert.equal(memberProduct.items[0]?.href, '/products/exact-product');
+  assert.deepEqual(memberProduct.items.map(({ label, href }) => ({ label, href })), [
+    { label: 'My Shelf', href: '/me/shelf' },
+    { label: 'My Routine', href: '/me/routine' },
+  ]);
 
   const unavailableViewModel = {
     ...viewModel,
@@ -249,6 +251,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   }).summary, 'Shelf unavailable · In my Routine');
 
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const contextModel = readFileSync('components/me/shell/me-context-model.ts', 'utf8');
   const capsule = readFileSync('components/workspace-shell/dock-context.tsx', 'utf8');
   const sheet = readFileSync('components/me/shell/me-context-sheet.tsx', 'utf8');
   assert.match(capsule, /data-workspace-dock-context-action/);
@@ -256,7 +259,10 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   assert.match(capsule, /aria-controls=\{context\.controls\}/);
   assert.match(home, /controls: 'me-context-sheet'/);
   assert.match(home, /onInvoke: \(\) => setContextSheetState/);
-  assert.match(home, /accountSheetOpen: accountSheetOpen \|\| contextSheetOpen/);
+  assert.match(home, /controls: 'me-product-evidence-sheet'/);
+  assert.match(home, /onInvoke: \(\) => openProductPanel\('details'\)/);
+  assert.match(home, /accountSheetOpen: accountSheetOpen \|\| contextSheetOpen \|\| productPanelOpen/);
+  assert.doesNotMatch(contextModel, /\/products\//);
   assert.match(sheet, /role="dialog"/);
   assert.match(sheet, /dialog\.showModal\(\)/);
   assert.match(sheet, /body\.style\.overflow = 'hidden'/);
@@ -268,6 +274,7 @@ test('member routes are guarded, stack-owned, and never replace public product r
   const route = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const publicProduct = readFileSync('app/(site)/products/[slug]/page.tsx', 'utf8');
+  const sharedPanel = readFileSync('components/products/product-quick-panel.tsx', 'utf8');
 
   assert.match(route, /await requireCustomer\(\)/);
   assert.match(route, /section === 'explore'[\s\S]*section === 'shelf'[\s\S]*section === 'routine'[\s\S]*section === 'consult'/);
@@ -281,10 +288,22 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.match(home, /currentHref: resolveMeActiveParentHref\(route\)/);
   assert.match(home, /createMeStackBack\(route\)/);
   assert.match(home, /source="home"/);
-  assert.match(home, /window\.location\.assign\(`\/products\/\$\{route\.kind === 'product' \? route\.slug : ''\}`\)/);
+  assert.match(route, /if \(route\.kind === 'product'\) \{[\s\S]*findCatalogueProduct\(route\.slug\)[\s\S]*readProductPanelData\(selectedProduct\)/);
+  assert.equal(route.match(/readProductPanelData\(/g)?.length, 1);
+  assert.equal(home.match(/<ProductQuickPanelSheet/g)?.length, 1);
+  assert.match(home, /<ProductQuickPanelSheet[\s\S]*data=\{productPanelData\}[\s\S]*open=\{productPanelOpen\}[\s\S]*tab=\{productPanelState\.tab\}/);
+  assert.match(home, /document\.activeElement[\s\S]*productPanelRestoreFocusRef\.current/);
+  assert.match(home, /restoreFocusRef=\{productPanelRestoreFocusRef\}/);
+  assert.match(home, /onClick=\{\(event\) => onOpenPanel\('buy', event\.currentTarget\)\}/);
+  assert.match(home, /onClick=\{\(event\) => onOpenPanel\('details', event\.currentTarget\)\}/);
+  assert.doesNotMatch(home, /View product|public-product|href=\{`\/products\/|window\.location\.assign\(`\/products/);
   assert.doesNotMatch(home, /window\.location\.assign\('\/consult'/);
   assert.match(publicProduct, /findCatalogueProduct\(slug\)/);
   assert.match(publicProduct, /<main className="product-page">/);
+  assert.match(sharedPanel, /\{ id: 'buy', label: 'Prices' \}/);
+  assert.match(sharedPanel, /\{ id: 'stores', label: 'Search' \}/);
+  assert.match(sharedPanel, /\{ id: 'details', label: 'Details' \}/);
+  assert.match(sharedPanel, /href=\{`\/go\?product=/);
 });
 
 test('Shelf removal is exclusive to Shelf-origin product detail actions', () => {
@@ -293,7 +312,8 @@ test('Shelf removal is exclusive to Shelf-origin product detail actions', () => 
   assert.doesNotMatch(home, /showRemove/);
   assert.match(home, /const fromShelf = origin === 'shelf'/);
   assert.match(home, /className=\{styles\.productActions\}/);
-  assert.match(home, /View product <ExternalLink/);
+  assert.match(home, /<ShoppingBag size=\{16\}[\s\S]*Find a store/);
+  assert.match(home, /<Info size=\{16\}[\s\S]*Details/);
   assert.match(home, /shelfItem=\{fromShelf \? shelfItem : undefined\}/);
   assert.match(home, /saved=\{!fromShelf && Boolean\(shelfItem\)\}/);
   assert.match(home, /onSettled=\{fromShelf \? onShelfMutation : undefined\}/);
@@ -308,7 +328,7 @@ test('every Me surface owns exactly one truthful working FAB', () => {
     shelf: { ownerId: 'me-shelf-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
     routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
     consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
-    product: { ownerId: 'me-product-public-evidence', label: 'View product', action: 'public-product' },
+    product: { ownerId: 'me-product-find-store', label: 'Find a store', action: 'open-product-prices' },
     'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
   });
   assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 7);
@@ -320,7 +340,8 @@ test('every Me surface owns exactly one truthful working FAB', () => {
   assert.match(home, /searchRef\.current\?\.focus/);
   assert.match(home, /router\.push\(fabContract\.href\)/);
   assert.doesNotMatch(home, /window\.location\.assign\(fabContract\.href\)/);
-  assert.match(home, /window\.location\.assign\(`\/products\/\$\{route\.kind === 'product' \? route\.slug : ''\}`\)/);
+  assert.match(home, /fabContract\.action === 'open-product-prices'[\s\S]*openProductPanel\('buy'\)/);
+  assert.doesNotMatch(home, /window\.location\.assign\(`\/products/);
   assert.match(dockNavigation, /import Link from 'next\/link'/);
   assert.match(dockNavigation, /<Link[\s\S]*href=\{item\.href\}/);
   assert.doesNotMatch(dockNavigation, /<a[\s\S]*href=\{item\.href\}/);

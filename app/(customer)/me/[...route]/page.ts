@@ -7,6 +7,8 @@ import {
 } from '@/components/me/shell/me-shell-model';
 import { requireCustomer } from '@/lib/customer/access';
 import { readCustomerPortal } from '@/lib/customer/read-model';
+import { findCatalogueProduct } from '@/lib/catalogue/repository';
+import { readProductPanelData, type ProductPanelData } from '@/lib/catalogue/product-panel-model';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,9 +41,13 @@ export default async function MeRoutePage({
 
   const customer = await requireCustomer();
   const viewModel = await readCustomerPortal(customer);
-  if (route.kind === 'product' && !viewModel.catalogue?.some((product) => product.slug === route.slug)) {
-    notFound();
+  let productPanelData: ProductPanelData | undefined;
+  if (route.kind === 'product') {
+    if (!viewModel.catalogue?.some((product) => product.slug === route.slug)) notFound();
+    const selectedProduct = await findCatalogueProduct(route.slug);
+    if (!selectedProduct) notFound();
+    productPanelData = await readProductPanelData(selectedProduct);
   }
 
-  return createElement(MePortal, { viewModel, route });
+  return createElement(MePortal, { viewModel, route, productPanelData });
 }

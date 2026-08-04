@@ -10,10 +10,8 @@ import { MarketPrice } from '@/components/products/market-price';
 import { ProductGrid } from '@/components/products/product-grid';
 import { ProductQuickPanel } from '@/components/products/product-quick-panel';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
-import { listProductIngredientsSafe } from '@/lib/clinical/ingredients';
-import { getProductPriceTrends } from '@/lib/inventory/price-trends';
-import { priceTrendOfferSnapshot } from '@/modules/commerce/price-trends';
 import { productStructuredData, serializeJsonLd } from '@/modules/commerce/product-structured-data';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
@@ -38,17 +36,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = await findCatalogueProduct(slug);
   if (!product) notFound();
 
-  const trendSnapshot = product.offers.flatMap(offer => {
-    if (offer.match === 'search') return [];
-    return (['NG', 'US'] as const).flatMap(market => {
-      const snapshot = priceTrendOfferSnapshot(offer, market);
-      return snapshot ? [snapshot] : [];
-    });
-  });
-  const [products, priceTrends, productIngredients] = await Promise.all([
+  const [products, panelData] = await Promise.all([
     listCatalogueProducts(),
-    getProductPriceTrends(slug, trendSnapshot),
-    listProductIngredientsSafe(slug),
+    readProductPanelData(product),
   ]);
 
   const careReview = getReviewedProductCare(product.slug);
@@ -58,11 +48,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     : careReview?.careState === 'pharmacist_review'
       ? 'Pharmacist review'
       : catalogueVerified ? null : 'Formula review pending';
-  const careNote = careReview?.careState === 'supportive_eligible'
-    ? careReview.approvedUses.map(use => use.label).join(' · ')
-    : careReview?.careState === 'pharmacist_review'
-      ? 'Check with a pharmacist first.'
-      : catalogueVerified ? product.displayLine : 'More formula evidence needed.';
 
   const matchedConcerns = concerns.filter(concern => productMatchesConcern(product, concern));
 
@@ -78,15 +63,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
     .map(result => result.item);
-  const routine: Array<{ title: string; detail: string }> = [];
-  const panelIngredients = productIngredients.slice(0, 8).map(ingredient => {
-    const concentration = ingredient.concentrationPercent == null ? '' : `${ingredient.concentrationPercent}% `;
-    return {
-      id: ingredient.id,
-      label: `${concentration}${ingredient.commonName ?? ingredient.inciName}`,
-      sourceUrl: ingredient.sourceUrl ?? undefined,
-    };
-  });
   const structuredData = productStructuredData(product);
 
   return (
@@ -101,16 +77,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="product-title-meta"><span>{product.size}</span><span>{product.category}</span><span>{product.step}</span></div>
           {careStatus ? <p className="product-line">{careStatus}</p> : null}
           <p className="product-page-price"><MarketPrice offers={product.offers} market="NG"/></p>
-          <ProductQuickPanel
-            productSlug={product.slug}
-            productName={product.name}
-            offers={product.offers}
-            priceTrends={priceTrends}
-            careNote={careNote}
-            usage={product.usage}
-            ingredients={panelIngredients}
-            routine={routine}
-          />
+          <ProductQuickPanel {...panelData} />
           {matchedConcerns.length ? <div className="product-concern-links">{matchedConcerns.map(concern => <Link key={concern.slug} href={`/concerns/${concern.slug}`}>{concern.name}</Link>)}</div> : null}
         </div>
       </section>

@@ -15,6 +15,10 @@ test('price movement stays compact, per-store, accessible, and evidence gated', 
     path.join(root, 'app/(site)/products/[slug]/page.tsx'),
     'utf8',
   );
+  const productPanelModel = await readFile(
+    path.join(root, 'lib/catalogue/product-panel-model.ts'),
+    'utf8',
+  );
   const priceModel = await readFile(
     path.join(root, 'modules/commerce/price-trends.ts'),
     'utf8',
@@ -24,8 +28,10 @@ test('price movement stays compact, per-store, accessible, and evidence gated', 
   assert.match(repository, /h\.id::text as "historyId"/);
   assert.match(repository, /h\.created_at::text as "recordedAt"/);
   assert.match(repository, /h\.observed_at asc, h\.created_at asc, h\.id asc/);
-  assert.match(productPage, /priceTrendOfferSnapshot\(offer, market\)/);
-  assert.match(productPage, /getProductPriceTrends\(slug, trendSnapshot\)/);
+  assert.match(productPage, /readProductPanelData\(product\)/);
+  assert.match(productPanelModel, /if \(offer\.match === 'search'\) return \[\]/);
+  assert.match(productPanelModel, /priceTrendOfferSnapshot\(offer, market\)/);
+  assert.match(productPanelModel, /getProductPriceTrends\(product\.slug, trendSnapshot\)/);
   assert.match(component, /selectRetailerPriceMovement/);
   assert.match(component, /PriceTrend movement=\{movement\}/);
   assert.match(component, /aria-label=\{label\}/);

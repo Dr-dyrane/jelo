@@ -7,10 +7,11 @@ import {
   ClockAlert,
   ClockPlus,
   Compass,
-  ExternalLink,
+  Info,
   MessageCircleQuestion,
   Search,
   ShelvingUnit,
+  ShoppingBag,
   SlidersHorizontal,
   Sparkles,
   X,
@@ -22,6 +23,7 @@ import {
   type ShelfActionHandler,
 } from '@/components/me/shelf/me-shelf-state';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { ProductQuickPanelSheet } from '@/components/products/product-quick-panel';
 import {
   WorkspaceDockProvider,
   useAdaptiveWorkspaceDockController,
@@ -60,6 +62,7 @@ import {
   type CustomerExploreProjection,
 } from '@/lib/customer/explore-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
+import type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-panel-model';
 import styles from './me-home.module.css';
 
 type ProductSource = MeProductOrigin;
@@ -214,7 +217,7 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
     routeKey: `/me/product/${route.slug}`,
     currentHref: resolveMeActiveParentHref(route),
     page: 'product' as MeWorkspacePage,
-    detail: 'Exact catalogue record',
+    detail: 'Details',
   };
 }
 
@@ -736,6 +739,9 @@ function ProductPage({
   mutationFeedback,
   mutationStatusRef,
   onShelfMutation,
+  panelOpen,
+  panelTab,
+  onOpenPanel,
 }: {
   product: CustomerPortalProduct;
   viewModel: CustomerPortalViewModel;
@@ -744,6 +750,9 @@ function ProductPage({
   mutationFeedback: string;
   mutationStatusRef: React.RefObject<HTMLParagraphElement | null>;
   onShelfMutation: (result: CustomerShelfActionResult) => void;
+  panelOpen: boolean;
+  panelTab: ProductPanelTab;
+  onOpenPanel: (tab: ProductPanelTab, opener?: HTMLElement | null) => void;
 }) {
   const shelfItem = viewModel.shelf.find((item) => item.product?.slug === product.slug);
   const routineStep = viewModel.routine.find((step) => step.product.slug === product.slug);
@@ -763,9 +772,28 @@ function ProductPage({
           {product.priceLabel ? <p className={styles.productPrice}>{product.priceLabel}</p> : null}
           <p className={styles.productUsage}>{product.usage}</p>
           <div className={styles.productActions}>
-            <Link className={styles.publicLink} href={`/products/${product.slug}`}>
-              View product <ExternalLink size={16} aria-hidden="true" />
-            </Link>
+            <div className={styles.productEvidenceActions} role="group" aria-label="Product information">
+              <button
+                className={styles.productEvidenceAction}
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="me-product-evidence-sheet"
+                aria-expanded={panelOpen && panelTab === 'buy'}
+                onClick={(event) => onOpenPanel('buy', event.currentTarget)}
+              >
+                <ShoppingBag size={16} aria-hidden="true" /> Find a store
+              </button>
+              <button
+                className={`${styles.productEvidenceAction} ${styles.productEvidenceActionSecondary}`}
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="me-product-evidence-sheet"
+                aria-expanded={panelOpen && panelTab === 'details'}
+                onClick={(event) => onOpenPanel('details', event.currentTarget)}
+              >
+                <Info size={16} aria-hidden="true" /> Details
+              </button>
+            </div>
             {showShelfAction ? (
               <ShelfActionButton
                 productSlug={product.slug}
@@ -825,9 +853,11 @@ function MemberNotFoundPage() {
 function MePortalView({
   viewModel,
   route,
+  productPanelData,
 }: {
   viewModel: CustomerPortalViewModel;
   route: MePortalRoute;
+  productPanelData?: ProductPanelData;
 }) {
   const router = useRouter();
   const shelfState = useMeShelfState(viewModel);
@@ -888,6 +918,12 @@ function MePortalView({
     routeKey: state.routeKey,
     open: false,
   }));
+  const productPanelRestoreFocusRef = useRef<HTMLElement | null>(null);
+  const [productPanelState, setProductPanelState] = useState(() => ({
+    routeKey: state.routeKey,
+    open: false,
+    tab: 'buy' as ProductPanelTab,
+  }));
   const accountTriggerRef = useRef<HTMLButtonElement>(null);
   const [accountSheetState, setAccountSheetState] = useState(() => ({
     routeKey: state.routeKey,
@@ -895,14 +931,36 @@ function MePortalView({
   }));
   const [headerOwnsFocus, setHeaderOwnsFocus] = useState(false);
   const contextSheetOpen = contextSheetState.routeKey === state.routeKey && contextSheetState.open;
+  const productPanelOpen = route.kind === 'product'
+    && Boolean(productPanelData)
+    && productPanelState.routeKey === state.routeKey
+    && productPanelState.open;
   const accountSheetOpen = accountSheetState.routeKey === state.routeKey && accountSheetState.open;
+  const openProductPanel = (tab: ProductPanelTab, opener?: HTMLElement | null) => {
+    if (route.kind !== 'product' || !productPanelData) return;
+    const activeElement = document.activeElement;
+    productPanelRestoreFocusRef.current = opener
+      ?? (activeElement instanceof HTMLElement ? activeElement : null);
+    setProductPanelState({ routeKey: state.routeKey, open: true, tab });
+  };
+  const closeProductPanel = () => {
+    setProductPanelState((current) => current.routeKey === state.routeKey
+      ? { ...current, open: false }
+      : current);
+  };
   const contextSheetModel = createMeContextSheetModel({
     route,
     viewModel: portalViewModel,
     visibleProductCount,
     product,
   });
-  const dockContext = {
+  const dockContext = route.kind === 'product' ? {
+    ...context,
+    accessibleLabel: `Open details for ${product?.name ?? 'this product'}`,
+    controls: 'me-product-evidence-sheet',
+    expanded: productPanelOpen,
+    onInvoke: () => openProductPanel('details'),
+  } : {
     ...context,
     accessibleLabel: `Open ${context.label} summary. ${context.detail}`,
     controls: 'me-context-sheet',
@@ -911,7 +969,7 @@ function MePortalView({
   };
   const headerHidden = resolveMeHeaderHidden({
     chromeHidden: controller.scroll.chromeHidden,
-    accountSheetOpen: accountSheetOpen || contextSheetOpen,
+    accountSheetOpen: accountSheetOpen || contextSheetOpen || productPanelOpen,
     headerOwnsFocus,
   });
   useEffect(() => {
@@ -946,7 +1004,7 @@ function MePortalView({
       : state.page === 'routine'
         ? ClockPlus
         : state.page === 'product'
-          ? ExternalLink
+          ? ShoppingBag
           : Compass;
 
   const invokeFab = () => {
@@ -954,8 +1012,8 @@ function MePortalView({
       focusSearch();
       return;
     }
-    if (fabContract.action === 'public-product') {
-      window.location.assign(`/products/${route.kind === 'product' ? route.slug : ''}`);
+    if (fabContract.action === 'open-product-prices') {
+      openProductPanel('buy');
       return;
     }
     router.push(fabContract.href);
@@ -1018,12 +1076,26 @@ function MePortalView({
         triggerRef={accountTriggerRef}
       />
 
-      <MeContextSheet
-        model={contextSheetModel}
-        open={contextSheetOpen}
-        onClose={closeContextSheet}
-        triggerRef={contextTriggerRef}
-      />
+      {route.kind === 'product' && productPanelData ? (
+        <ProductQuickPanelSheet
+          data={productPanelData}
+          open={productPanelOpen}
+          tab={productPanelState.tab}
+          onTabChange={(tab) => setProductPanelState((current) => ({ ...current, tab }))}
+          onClose={closeProductPanel}
+          restoreFocusRef={productPanelRestoreFocusRef}
+          dialogId="me-product-evidence-sheet"
+        />
+      ) : null}
+
+      {route.kind !== 'product' ? (
+        <MeContextSheet
+          model={contextSheetModel}
+          open={contextSheetOpen}
+          onClose={closeContextSheet}
+          triggerRef={contextTriggerRef}
+        />
+      ) : null}
 
       <main
         key={state.routeKey}
@@ -1066,6 +1138,9 @@ function MePortalView({
               mutationFeedback={shelfMutationFeedback.message}
               mutationStatusRef={shelfMutationStatusRef}
               onShelfMutation={announceShelfMutation}
+              panelOpen={productPanelOpen}
+              panelTab={productPanelState.tab}
+              onOpenPanel={openProductPanel}
             />
           ) : null}
           {route.kind === 'not-found' ? <MemberNotFoundPage /> : null}
@@ -1086,9 +1161,11 @@ function MePortalView({
 export function MePortal({
   viewModel,
   route,
+  productPanelData,
 }: {
   viewModel: CustomerPortalViewModel;
   route: MePortalRoute;
+  productPanelData?: ProductPanelData;
 }) {
   const routeKey = route.kind === 'product'
     ? `/me/product/${route.slug}`
@@ -1097,7 +1174,7 @@ export function MePortal({
       : `/me/${route.kind}`;
   return (
     <WorkspaceDockProvider routeKey={route.kind === 'home' ? '/me' : routeKey}>
-      <MePortalView viewModel={viewModel} route={route} />
+      <MePortalView viewModel={viewModel} route={route} productPanelData={productPanelData} />
     </WorkspaceDockProvider>
   );
 }
