@@ -52,7 +52,9 @@ export default async function MeRoutePage({
 
   const continuation = route.kind === 'product'
     ? `/me/product/${route.slug}?from=${route.origin}`
-    : undefined;
+    : route.kind === 'routine'
+      ? '/me/routine'
+      : undefined;
   const customer = await requireCustomer(continuation);
   const viewModel = await readCustomerPortal(customer);
   let productPanelData: ProductPanelData | undefined;

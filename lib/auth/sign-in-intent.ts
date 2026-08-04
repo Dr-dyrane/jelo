@@ -1,4 +1,4 @@
-export const SIGN_IN_CONTINUATIONS = ['/me', '/ops'] as const;
+export const SIGN_IN_CONTINUATIONS = ['/me', '/me/routine', '/ops'] as const;
 export const MEMBER_PRODUCT_CONTINUATION_ORIGINS = [
   'home',
   'explore',
@@ -16,7 +16,7 @@ const MAX_MEMBER_PRODUCT_CONTINUATION_LENGTH = 205;
 const MEMBER_PRODUCT_CONTINUATION_PATTERN = /^\/me\/product\/([a-z0-9]+(?:-[a-z0-9]+)*)\?from=(home|explore|shelf|routine)$/;
 
 export function resolveSignInContinuation(value: unknown): SignInContinuation {
-  if (value === '/me' || value === '/ops') return value;
+  if (value === '/me' || value === '/me/routine' || value === '/ops') return value;
   if (
     typeof value !== 'string'
     || value.length > MAX_MEMBER_PRODUCT_CONTINUATION_LENGTH

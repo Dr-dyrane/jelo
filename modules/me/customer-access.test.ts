@@ -16,6 +16,8 @@ import { LEGACY_SHELF_IMPORT_MANIFEST } from '../../lib/customer/legacy-shelf-im
 
 test('sign-in continuation accepts roots and exact bounded member Product destinations', () => {
   assert.equal(resolveSignInContinuation('/me'), '/me');
+  assert.equal(resolveSignInContinuation('/me/routine'), '/me/routine');
+  assert.equal(resolveSignInIntent('/me/routine'), 'customer');
   assert.equal(resolveSignInContinuation('/ops'), '/ops');
   for (const origin of ['home', 'explore', 'shelf', 'routine']) {
     const continuation = `/me/product/exact-product-${origin}?from=${origin}`;
@@ -60,13 +62,14 @@ test('sign-in continuation accepts roots and exact bounded member Product destin
   assert.equal(customerSignInPath(), '/sign-in?next=/me');
   assert.equal(customerSignInPath('/ops'), '/sign-in?next=/me');
   assert.equal(customerSignInPath('/me/shelf'), '/sign-in?next=/me');
+  assert.equal(customerSignInPath('/me/routine'), '/sign-in?next=%2Fme%2Froutine');
   assert.equal(
     customerSignInPath('/me/product/exact-product?from=explore'),
     '/sign-in?next=%2Fme%2Fproduct%2Fexact-product%3Ffrom%3Dexplore',
   );
 });
 
-test('the signed-out Product route carries only its canonical continuation through OTP', () => {
+test('signed-out Routine and Product routes carry only canonical continuations through OTP', () => {
   const access = readFileSync('lib/customer/access.ts', 'utf8');
   const productRoute = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
   const signInPage = readFileSync('app/(auth)/sign-in/page.tsx', 'utf8');
@@ -74,6 +77,7 @@ test('the signed-out Product route carries only its canonical continuation throu
   assert.match(access, /requireCustomer\([\s\S]*continuation\?: string \| readonly string\[\] \| null/);
   assert.match(access, /redirect\(customerSignInPath\(continuation\)\)/);
   assert.match(productRoute, /route\.kind === 'product'[\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/);
+  assert.match(productRoute, /route\.kind === 'routine'[\s\S]*\? '\/me\/routine'/);
   assert.match(productRoute, /requireCustomer\(continuation\)/);
   assert.doesNotMatch(productRoute, /addCustomerShelf|addCurrentBySlug|save_origin/);
   assert.match(signInPage, /searchParams\.getAll\('next'\)/);
