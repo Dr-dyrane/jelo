@@ -2,6 +2,7 @@ import type {
   HistoricalPackageMatchDecision,
   HistoricalPackageMatchInput,
 } from '@/lib/catalogue/product-visual-revision';
+import { reviewedBrowserCaptureSurfaces } from '@/lib/catalogue/intake-readiness';
 
 export type CatalogueOfferBatchProduct = {
   candidateId: string;
@@ -278,7 +279,7 @@ export function catalogueOfferAdmissionBlockers(
     expiresAt <= observedAt || expiresAt - observedAt > maximumAgeMs
   )) blockers.push('offer-expiry-window-invalid');
 
-  if (offer.capture.surface !== 'Codex in-app browser') blockers.push('capture-surface-ineligible');
+  if (!(reviewedBrowserCaptureSurfaces as readonly string[]).includes(offer.capture.surface)) blockers.push('capture-surface-ineligible');
   if (!['complete', 'interactive'].includes(offer.capture.documentReadyState)) blockers.push('capture-document-not-ready');
   if (offer.capture.digestScope !== 'rendered-accessibility-tree') blockers.push('capture-digest-scope-ineligible');
   if (!/^[a-f0-9]{64}$/.test(offer.capture.sha256) || offer.capture.byteSize < 1_000) blockers.push('capture-representation-invalid');

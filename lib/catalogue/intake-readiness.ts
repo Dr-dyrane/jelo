@@ -64,6 +64,7 @@ export const catalogueRegulatorySearchObservationSchemaVersion = 1 as const;
 export const reviewedBrowserCaptureSurfaces = [
   'Codex in-app browser',
   'Claude Code in-app browser',
+  'Playwright MCP browser',
 ] as const;
 export type ReviewedBrowserCaptureSurface = typeof reviewedBrowserCaptureSurfaces[number];
 function reviewedBrowserSurface(surface: string) {

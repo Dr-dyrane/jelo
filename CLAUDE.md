@@ -146,12 +146,12 @@ before concluding that anything is structurally blocked.
 - **Screen for image resolution before picking a candidate.** Check the official
   media's longest side first. Below 1600 px means the generation route and an
   open image sublane; at or above it means a same-session shippable product.
-- **Exact-offer binding has a real surface limit.** Two of the three accepted
-  evidence methods require `browserCapture.surface === "Codex in-app browser"`;
-  never assert that from another runtime. The remaining raw-HTTP method needs
-  the retailer response to literally name GTIN/EAN/UPC, so a listing that labels
-  the code `sku` cannot bind. Take the reference-only route instead of relaxing
-  a matcher.
+- **Exact-offer binding accepts reviewed browser surfaces.** Two of the three
+  accepted evidence methods require a `browserCapture.surface` listed in
+  `reviewedBrowserCaptureSurfaces` (Codex, Claude Code, and Playwright MCP
+  browsers). The remaining raw-HTTP method needs the retailer response to
+  literally name GTIN/EAN/UPC, so a listing that labels the code `sku` cannot
+  bind. Take the reference-only route instead of relaxing a matcher.
 - **Promoting a research lead cascades.** Adding a candidate restales the
   research queue, then every packet shard, then the offer-capture bindings.
   Expect `research:build --write`, each `research:packets --shard N --write`,
