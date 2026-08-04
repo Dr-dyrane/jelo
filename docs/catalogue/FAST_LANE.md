@@ -1,6 +1,6 @@
 # Catalogue fast lane
 
-Updated: 2026-07-28
+Updated: 2026-08-04
 
 Use this lane for a routine exact-SKU addition that follows the already proven
 catalogue contract. Faster means removing repeated global verification, not
@@ -19,6 +19,61 @@ reason to keep an otherwise verified product private.
 Do not open a PR for a routine data-only SKU. Use a PR when the change alters a
 shared schema, publication gate, security boundary, migration, or runtime
 contract.
+
+## Multi-product fast lane
+
+For two or more requested products, use one parent lane with five bounded
+subdepartments. Do not give the whole batch and repository history to one
+worker.
+
+| Subdepartment | Owns | Finishes when |
+| --- | --- | --- |
+| Identity/evidence | Exact brand, variant, size, package form, manufacturer identifier, retained source digest | One exact SKU is admitted or has one explicit evidence blocker. |
+| Media | Source rights, immutable source/final bytes, package fidelity, transparent packshot, crop/padding/artifact QA | The exact SKU has one publishable asset or one explicit media blocker. |
+| Stores/prices | Fresh direct Nigerian listing, exact title/size/package, stock, retailer identity, price, expiry | Each observation is admitted, rejected, or pending with the exact reason. |
+| Care/content | Manufacturer directions, neutral presentation, supportive-care boundary | Public copy is reviewed without diagnosis or unsupported efficacy claims. |
+| Integration | Release matrix, projection rebuilds, focused gates, commit/push, exact deployment, route smoke, client links | Every passing cell is released and every remaining cell has one next action. |
+
+The integration owner creates the matrix before deep work. The row is one
+exact SKU, not a brand or product name. At minimum record `pending`, `blocked`,
+`admitted`, or `released` for identity, media, offers, care, and integration.
+
+Preflight the critical path immediately: official source availability, exact
+target identity, image/upload access, release credentials, production target,
+and rollback boundary. Discovering one of these after all content work is a
+process defect.
+
+Run subdepartments in parallel only when their files are disjoint. One worker
+owns a path at a time. Workers return compact outcomes and never commit, push,
+deploy, or migrate unless the integration capsule explicitly grants that
+authority.
+
+Treat each SKU as an independent release cell:
+
+1. Release a reference-only product as soon as identity, care, provenance, and
+   media pass; missing Nigerian offers continue as enrichment.
+2. Add each passing exact offer without reopening unrelated products.
+3. Never hold a passing SKU for the slowest sibling.
+4. Run focused checks per cell and one broad `verify:release` gate per release
+   wave, not per research or media correction.
+5. Allow one independent review and one bounded correction pass. Continue only
+   for a concrete new release-stopping defect.
+6. Freeze optional framework expansion once the current cells can be safely
+   admitted or rejected.
+
+After each wave, return the usable product/share links immediately, then list
+only the exact blockers for pending rows. This partial handback is the normal
+fast-lane outcome, not a failure.
+
+### Exact-size and image-family rule
+
+Concurrently sold sizes remain independent exact SKUs with distinct slugs,
+identifiers, images, offers, and identity-version rows. A reviewed product
+family may provide UI navigation between released siblings, but it must never
+merge them. Bottle and refill are separate package forms. Old/new package
+evidence may prove continuity only for the same exact size and package form.
+Selectors resolve only released family members and load each member's own
+route, image, offer evidence, metadata, and structured data.
 
 ## Standing operator authority
 
