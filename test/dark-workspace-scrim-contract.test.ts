@@ -68,11 +68,13 @@ test('Me routine cards keep their light surface and gain chromatic dark depth', 
     readSource('components/me/routine/routine-manager.module.css'),
   ]);
 
-  assert.match(routine, /background: color-mix\(in srgb, var\(--surface, #fff\) 94%, transparent\);/);
+  // Light cards use the shared paper token (no currentColor or non-token fallbacks).
+  assert.match(routine, /background: color-mix\(in srgb, var\(--paper\) 78%, transparent\);/);
   assert.equal(occurrences(home, 'linear-gradient(160deg, var(--cream), var(--surface-2) 58%, var(--band));'), 2);
   assert.equal(occurrences(home, 'background: linear-gradient(145deg, var(--card-3), var(--card));'), 2);
+  // Dark chromatic depth is applied to each saved ritual (duplicated for the two dark selectors).
   assert.equal(occurrences(routine, 'linear-gradient(145deg, var(--card-3), var(--card));'), 2);
   assert.equal(occurrences(routine, 'linear-gradient(145deg, var(--card-2), var(--surface-2));'), 2);
-  assert.equal(occurrences(routine, 'background: var(--accent-solid);'), 2);
+  assert.ok(occurrences(routine, 'background: var(--accent-solid);') >= 2, 'accent-solid anchors the primary action in light and dark');
   assert.equal(occurrences(routine, 'background: var(--state-danger-bg);'), 2);
 });

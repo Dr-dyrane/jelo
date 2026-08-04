@@ -1,13 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  createRoutineAction,
-  deleteRoutineAction,
-  updateRoutineAction,
-} from '@/app/(customer)/me/actions';
 import type { CustomerPortalSavedRoutine } from '@/lib/customer/portal-model';
-import { serializeCustomerRoutineSteps } from '@/lib/customer/routine-input';
+import { RoutineCreateSheet, RoutineEditSheet } from './routine-sheet';
+import { RoutineDeleteDialog } from './routine-delete-dialog';
 import styles from './routine-manager.module.css';
 
 const OUTCOME_MESSAGE: Record<string, string> = {
@@ -17,44 +13,6 @@ const OUTCOME_MESSAGE: Record<string, string> = {
   'routine-conflict': 'That routine changed. Refresh and try again.',
   'routine-error': 'Routine could not be changed. Try again.',
 };
-
-function RoutineFields({
-  routine,
-}: {
-  routine?: CustomerPortalSavedRoutine;
-}) {
-  return (
-    <>
-      {routine ? (
-        <>
-          <input type="hidden" name="routineId" value={routine.id} />
-          <input type="hidden" name="revision" value={routine.revision} />
-        </>
-      ) : null}
-      <label>
-        <span>Routine name</span>
-        <input
-          name="name"
-          required
-          maxLength={80}
-          defaultValue={routine?.name}
-          placeholder="Morning"
-        />
-      </label>
-      <label>
-        <span>Steps</span>
-        <small>One per line. Add an instruction after a | character.</small>
-        <textarea
-          name="steps"
-          required
-          rows={routine ? Math.max(4, routine.steps.length) : 4}
-          defaultValue={routine ? serializeCustomerRoutineSteps(routine.steps) : undefined}
-          placeholder={'Cleanse | Brief, gentle cleanse.\nMoisturize | Apply a light layer.'}
-        />
-      </label>
-    </>
-  );
-}
 
 export function RoutineManager({
   routines,
@@ -104,29 +62,14 @@ export function RoutineManager({
               ))}
             </ol>
             <div className={styles.controls}>
-              <details>
-                <summary>Edit routine</summary>
-                <form action={updateRoutineAction}>
-                  <RoutineFields routine={routine} />
-                  <button type="submit">Save changes</button>
-                </form>
-              </details>
-              <form action={deleteRoutineAction}>
-                <input type="hidden" name="routineId" value={routine.id} />
-                <button className={styles.deleteButton} type="submit">Delete routine</button>
-              </form>
+              <RoutineEditSheet routine={routine} />
+              <RoutineDeleteDialog routine={routine} />
             </div>
           </article>
         ))}
       </div>
 
-      <details className={styles.create} open={!routines.length}>
-        <summary>Create routine</summary>
-        <form action={createRoutineAction}>
-          <RoutineFields />
-          <button type="submit">Create routine</button>
-        </form>
-      </details>
+      <RoutineCreateSheet />
     </div>
   );
 }
