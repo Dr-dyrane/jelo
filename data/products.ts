@@ -111,7 +111,7 @@ export const products: Product[] = [
   },
   {
     slug: 'b-lab-matcha-hydrating-real-sunscreen', brand: 'B.LAB', name: 'Matcha Hydrating Real Sunscreen SPF50+ PA++++', size: '50 ml', category: 'Face', step: 'Protect',
-    image: 'https://peronabeauty.com/wp-content/uploads/2024/02/IMG-1630-600x600.jpg', displayLine: 'Shield · preserve',
+    image: 'https://b-labskincare.com/web/product/big/202407/c704a28e6d2187bf046516ba6e853c5d.png', displayLine: 'Shield · preserve',
     bestFor: ['daily UV protection', 'pigmentation prevention'], concerns: ['hyperpigmentation', 'dark spots', 'sensitivity'], skinTypes: ['oily', 'combination', 'normal', 'dry'], sensitiveFriendly: true,
     usage: 'Every morning as the final skincare step.', evidence: 'high',
     offers: [beautyByDaz('https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/'), perona('https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/')]
@@ -146,7 +146,7 @@ export const products: Product[] = [
   },
   {
     slug: 'mediana-leave-in-conditioning-milk', brand: 'MEDIANA', name: 'Leave-In Conditioning Milk', size: '250 ml', category: 'Hair', step: 'Leave in',
-    image: '/product-placeholder.svg', displayLine: 'Detangle · soften',
+    image: 'https://www.cocci.com.ng/cdn/shop/files/Mediana_Leave-In_Conditioner_Milk.gif?v=1760002469', displayLine: 'Detangle · soften',
     bestFor: ['leave-in moisture', 'detangling'], concerns: ['dry hair', 'tangles'], skinTypes: ['hair'], sensitiveFriendly: true,
     usage: 'Apply to damp hair after washing.', evidence: 'emerging',
     offers: [beautyByDaz('https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product', false), { retailer: 'Slique Beauty', url: 'https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/', trust: 78, available: true, location: ['NG'] }]
@@ -167,7 +167,7 @@ export const products: Product[] = [
   },
   {
     slug: 'disaar-argan-oil-body-oil-gel', brand: 'DISAAR', name: 'Argan Oil Body Oil Gel', size: '200 ml', category: 'Body', step: 'Moisturize',
-    image: 'https://f.nooncdn.com/p/pzsku/ZC2459623F574AE4002E5Z/45/_/1706365707/fc876212-5afa-4768-a07c-fed911f3522f.jpg', displayLine: 'Moisturize · glow',
+    image: 'https://mahamipharmacyng.com/wp-content/uploads/2026/05/Disaar-ARGAN-OIL-EFFICIENT-MOISTURIZING-Body-Oil-Gel-566.jpeg', displayLine: 'Moisturize · glow',
     bestFor: ['body moisture', 'after-shower glow'], concerns: ['body dryness'], skinTypes: ['body'], sensitiveFriendly: true,
     usage: 'Apply to damp body skin after showering.', evidence: 'emerging',
     offers: [beautyByDaz('https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product', false), { retailer: 'Choices Beauty', url: 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', trust: 72, available: true, location: ['NG'] }]

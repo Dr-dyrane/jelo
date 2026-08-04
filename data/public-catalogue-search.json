@@ -43,6 +43,14 @@
       "source": "dossier-release"
     },
     {
+      "slug": "b-lab-matcha-hydrating-real-sunscreen",
+      "brand": "B.LAB",
+      "name": "Matcha Hydrating Real Sunscreen SPF50+ PA++++",
+      "size": "50 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
       "slug": "balance-niacinamide-blemish-recovery-serum-30ml",
       "brand": "Balance Active Formula",
       "name": "Niacinamide Blemish Recovery Serum",
@@ -201,6 +209,14 @@
       "size": "2.6 oz / 73.7 g",
       "approvedGtin": "024286150426",
       "source": "dossier-release"
+    },
+    {
+      "slug": "disaar-argan-oil-body-oil-gel",
+      "brand": "DISAAR",
+      "name": "Argan Oil Body Oil Gel",
+      "size": "200 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
     },
     {
       "slug": "dove-calming-moisture-body-wash-547ml",
@@ -423,6 +439,14 @@
       "brand": "LUSH HAIR",
       "name": "Rinse Me Out Mentholated Conditioner",
       "size": "370 ml",
+      "approvedGtin": null,
+      "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "mediana-leave-in-conditioning-milk",
+      "brand": "MEDIANA",
+      "name": "Leave-In Conditioning Milk",
+      "size": "250 ml",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
