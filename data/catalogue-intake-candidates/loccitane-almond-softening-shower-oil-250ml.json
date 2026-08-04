@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-04T12:51:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "b3eb4884249ff2a6660a6a70",
+    "reportSha256": "eee63eebce1c99be6dd663201b317cd01816b4f3a9b42548ef9958aa14448ce5"
+  },
+  "candidate": {
+    "id": "loccitane-almond-softening-shower-oil-250ml",
+    "brand": "L'Occitane en Provence",
+    "name": "Almond (Amande) Shower Oil",
+    "variant": "Almond (Amande) Softening Shower Oil",
+    "size": "250 ml",
+    "category": "Body care",
+    "reason": "Adds the exact current official Almond Softening Shower Oil 250 mL black-cap package. Jumia's ₦57,000 marketplace lead names 250 mL but could not be reconciled to the current official GTIN/package through the challenged page and seller evidence, so the release remains reference-only.",
+    "priority": "important",
+    "gapIds": [
+      "rinse-off-body-care",
+      "shower-oil",
+      "dry-skin-cleansing"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html"
+    ],
+    "identity": {
+      "gtin": "3253581785706",
+      "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "checkedAt": "2026-08-04T12:50:20Z",
+      "basis": "official-brand",
+      "packageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+      "officialEvidence": {
+        "url": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "observedGtin": "3253581785706",
+        "observedVariant": "Almond (Amande) Softening Shower Oil",
+        "observedSize": "250 ml",
+        "observedPackageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/loccitane-almond-softening-shower-oil-250ml.json",
+        "canonicalExtraction": {
+          "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official Shopify product response variants[0].barcode",
+              "sourceText": "\"barcode\":\"3253581785706\"",
+              "value": "3253581785706"
+            },
+            "size": {
+              "locator": "Official Shopify product response variants[0].title",
+              "sourceText": "250 ml / Almond",
+              "value": "250 ml"
+            },
+            "variant": {
+              "locator": "Official Shopify media alt and exact variant option",
+              "sourceText": "Almond (Amande) Softening Shower Oil 250 ml",
+              "value": "Almond (Amande) Softening Shower Oil"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml.js",
+          "retrievedAt": "2026-08-04T12:44:24Z",
+          "reviewedAt": "2026-08-04T12:50:20Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 6788,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "b943442e3b4796da8cae9bc3ee71ad3143c586d1e3995dd230fd5e21fe0f273a",
+          "sourceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 333367,
+              "responseMimeType": "image/png",
+              "responseSha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+              "retrievedAt": "2026-08-04T12:44:24Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895"
+            }
+          ]
+        },
+        "snapshotSha256": "fd67b00908b5f34c6369bcd75609ef19334cdbada9e12018a81ebdffff2d0937",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1532,
+        "retrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described oil-to-milk rinse-off body cleanser.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A fragranced rinse-off cosmetic cleanser, not treatment for dry skin, eczema, allergy or another condition. Use on damp intact skin, rinse thoroughly, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for worsening, painful, infected or unexplained skin changes.",
+      "manufacturerEvidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-04T12:50:20Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+      "sourceAssetSha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 333367,
+      "sourceAssetWidth": 1023,
+      "sourceAssetHeight": 1280,
+      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+    }
+  }
+}

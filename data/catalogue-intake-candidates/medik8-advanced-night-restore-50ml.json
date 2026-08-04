@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-04T12:51:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "0b989660e889bc33e4629610",
+    "reportSha256": "eee63eebce1c99be6dd663201b317cd01816b4f3a9b42548ef9958aa14448ce5"
+  },
+  "candidate": {
+    "id": "medik8-advanced-night-restore-50ml",
+    "brand": "Medik8",
+    "name": "Medik8 Advanced Night Restore™",
+    "variant": "Advanced Night Restore™",
+    "size": "50 ml",
+    "category": "Face care",
+    "reason": "Adds the exact 50 mL Advanced Night Restore jar. Teeka4 is in stock at the newly observed ₦103,867, replacing the founder's earlier ₦108,367 lead; the retailer's 'Advance' spelling is retained through a reviewed shared-title alias.",
+    "priority": "important",
+    "gapIds": [
+      "night-moisturizer",
+      "ceramide-face-care",
+      "locally-observed-moisturizer"
+    ],
+    "demandEvidenceUrls": [
+      "https://teeka4.com/shop/medik8-advance-night-restore-50ml/"
+    ],
+    "identity": {
+      "gtin": "818625024444",
+      "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "checkedAt": "2026-08-04T12:50:20Z",
+      "basis": "official-brand",
+      "packageVersion": "Advanced Night Restore™ 50 ml jar",
+      "officialEvidence": {
+        "url": "https://www.medik8.com/products/advanced-night-restore",
+        "observedGtin": "818625024444",
+        "observedVariant": "Advanced Night Restore™",
+        "observedSize": "50 ml",
+        "observedPackageVersion": "Advanced Night Restore™ 50 ml jar",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/medik8-advanced-night-restore-50ml.json",
+        "canonicalExtraction": {
+          "candidateId": "medik8-advanced-night-restore-50ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official Shopify product response variants[0].barcode",
+              "sourceText": "\"barcode\":\"818625024444\"",
+              "value": "818625024444"
+            },
+            "size": {
+              "locator": "Official Shopify product response product tag",
+              "sourceText": "\"tags\":[\"50ml\",\"Advanced\"",
+              "value": "50ml"
+            },
+            "variant": {
+              "locator": "Official Shopify product response variants[0].title",
+              "sourceText": "Advanced Night Restore™",
+              "value": "Advanced Night Restore™"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+          "retrievedAt": "2026-08-04T12:44:24Z",
+          "reviewedAt": "2026-08-04T12:50:20Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 12644,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "ceefab7c23fb21d8c9ace4d894993abea39a4a52707892d28be275225133dca4",
+          "sourceUrl": "https://www.medik8.com/products/advanced-night-restore",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 89707,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+              "retrievedAt": "2026-08-04T12:44:24Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793"
+            }
+          ]
+        },
+        "snapshotSha256": "7d18566525ee23a6bf05161a157fe7458882175a9cb725a5e25a5be7aeedb0ea",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1551,
+        "retrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described ceramide-rich night moisturizer.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A cosmetic night moisturiser, not treatment for barrier disease, eczema, acne or another condition. Apply after serums to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for painful, infected, worsening or unexplained skin changes.",
+      "manufacturerEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+      "evidenceUrls": [
+        "https://www.medik8.com/products/advanced-night-restore",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+      ],
+      "reviewedAt": "2026-08-04T12:50:20Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "exactOffers": [
+        {
+          "retailer": "Teeka4",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+          "observedAt": "2026-08-04T12:50:30Z",
+          "observedTitle": "Medik8 Advance Night Restore 50ml",
+          "reviewedTitleAlias": "Medik8 Night Restore",
+          "observedSize": "50 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Advanced Night Restore™ 50 ml jar",
+          "priceNgn": 103867,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "listingUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+            "responseUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+            "responseSha256": "5b6305ca1818b46301773afbc3c13145cb87854f2a09f34c68e4816b03817afd",
+            "responseDigestScope": "rendered-accessibility-tree",
+            "responseMimeType": "text/html",
+            "responseByteSize": 8571,
+            "retrievedAt": "2026-08-04T12:50:30Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Medik8 Advance Night Restore 50ml in Nigeria | Teeka4"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "818625024444",
+                "locator": "Bound official catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 818625024444",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Medik8 Advance Night Restore 50ml",
+                "locator": "Rendered accessibility heading level 1",
+                "sourceText": "Medik8 Advance Night Restore 50ml"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered accessibility product heading size suffix",
+                "sourceText": "Medik8 Advance Night Restore 50ml"
+              },
+              "packageVersion": {
+                "value": "Advanced Night Restore™ 50 ml jar",
+                "locator": "Rendered listing image matched to the official current package",
+                "sourceText": "Advanced Night Restore™ 50 ml jar"
+              },
+              "price": {
+                "value": 103867,
+                "currency": "NGN",
+                "locator": "Rendered accessibility product price",
+                "sourceText": "₦103,867.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered accessibility availability status",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-04T12:51:00Z"
+          }
+        }
+      ],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://www.medik8.com/products/advanced-night-restore",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+      "sourceAssetSha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 89707,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-02T23:04:30Z",
+  "updatedAt": "2026-08-04T13:20:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -13245,6 +13245,1079 @@
         "manualSourceOutputQa": true,
         "artReviewedAt": "2026-07-29T04:09:30Z",
         "artReviewer": "Claude Code visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+      "brand": "Fenty Skin",
+      "name": "Butta Drop Whipped Oil Body Cream with Tropical Oils + Shea Butter — Fenty Fresh",
+      "variant": "Fenty Fresh / Standard",
+      "size": "200 mL / 6.7 fl oz",
+      "category": "Body care",
+      "reason": "Adds the exact official Fenty Fresh Standard 200 mL jar. Essentials Hub's ₦79,000 page does not reliably distinguish the Standard jar from the 200 mL refill or other scent variants, so the release remains reference-only until the retailer binds the exact variant.",
+      "priority": "important",
+      "gapIds": [
+        "rich-body-moisturizer",
+        "body-cream",
+        "premium-body-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream/"
+      ],
+      "identity": {
+        "gtin": "840026653251",
+        "officialProductUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+        "checkedAt": "2026-08-04T12:50:20Z",
+        "basis": "official-brand",
+        "packageVersion": "Fenty Fresh Standard 200 mL lavender jar",
+        "officialEvidence": {
+          "url": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+          "observedGtin": "840026653251",
+          "observedVariant": "Fenty Fresh / Standard",
+          "observedSize": "200 mL / 6.7 fl oz",
+          "observedPackageVersion": "Fenty Fresh Standard 200 mL lavender jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/fenty-skin-butta-drop-fenty-fresh-standard-200ml.json",
+          "canonicalExtraction": {
+            "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official Shopify product response variants[0].barcode",
+                "sourceText": "\"barcode\":\"840026653251\"",
+                "value": "840026653251"
+              },
+              "size": {
+                "locator": "Official Shopify product response size tag",
+                "sourceText": "Size ID|200 mL / 6.7 fl. oz.",
+                "value": "200 mL / 6.7 fl oz"
+              },
+              "variant": {
+                "locator": "Official Shopify product response variants[0].title",
+                "sourceText": "Fenty Fresh / Standard",
+                "value": "Fenty Fresh / Standard"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh.js",
+            "retrievedAt": "2026-08-04T12:44:24Z",
+            "reviewedAt": "2026-08-04T12:50:20Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 19052,
+            "sourceResponseMimeType": "text/javascript",
+            "sourceResponseSha256": "586f37527b8fcf5396b55c90dac394e581ed9083a655ba8f3f8321149794ce23",
+            "sourceUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 41396,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629"
+              }
+            ]
+          },
+          "snapshotSha256": "66108306f1413e842bcaa340873b906519e8c80b7e259bf4ecc584b4abe62544",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1709,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described whipped oil body cream with tropical oils and shea butter.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic body moisturiser, not treatment for dryness caused by eczema, allergy, infection or another condition. Use on intact skin, avoid direct eye contact, and stop if persistent irritation develops. Follow the manufacturer's advice to ask a clinician about use during pregnancy or nursing.",
+        "manufacturerEvidenceUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+        "evidenceUrls": [
+          "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+        ],
+        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629",
+        "sourceAssetSha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 41396,
+        "sourceAssetWidth": 1200,
+        "sourceAssetHeight": 1501,
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    {
+      "id": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      "brand": "La Roche-Posay",
+      "name": "Lipikar Baume AP+MAX",
+      "variant": "Lipikar Baume AP+MAX",
+      "size": "200 mL",
+      "category": "Body care",
+      "reason": "Adds the current official France Lipikar Baume AP+MAX 200 mL tube as its own exact SKU. The founder's Teeka4 200 mL AP+M lead remains excluded from exact offer binding because its package GTIN identifies a different regional package.",
+      "priority": "important",
+      "gapIds": [
+        "barrier-support-body-care",
+        "dry-skin-moisturizer",
+        "locally-observed-emollient"
+      ],
+      "demandEvidenceUrls": [
+        "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/"
+      ],
+      "identity": {
+        "gtin": "3337875930048",
+        "officialProductUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+        "checkedAt": "2026-08-04T13:18:30Z",
+        "basis": "official-brand",
+        "packageVersion": "Lipikar Baume AP+MAX 200 mL tube",
+        "officialEvidence": {
+          "url": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+          "observedGtin": "3337875930048",
+          "observedVariant": "Lipikar Baume AP+MAX",
+          "observedSize": "200 mL",
+          "observedPackageVersion": "Lipikar Baume AP+MAX 200 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml.json",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "Lipikar Balm AP+MAX | La Roche-Posay",
+              "surface": "Codex in-app browser"
+            },
+            "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official GTIN in product route and front-pack media basename",
+                "sourceText": "3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg",
+                "value": "3337875930048"
+              },
+              "packageVersion": {
+                "locator": "Official selected size and front-pack principal display panel",
+                "sourceText": "LIPIKAR BAUME AP+MAX; Sélectionné taille : 200 ml",
+                "value": "Lipikar Baume AP+MAX 200 mL tube"
+              },
+              "size": {
+                "locator": "Rendered official selected-size control",
+                "sourceText": "Sélectionné taille : 200 ml",
+                "value": "200 mL"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "LIPIKAR BAUME AP+MAX",
+                "value": "Lipikar Baume AP+MAX"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+            "retrievedAt": "2026-08-04T13:18:00Z",
+            "reviewedAt": "2026-08-04T13:18:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 200127,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "03a5041d70dfe29264d39100c0137e96829a6055f52f17b781c695d0ee4f2765",
+            "sourceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 443136,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "879d5c9b2e8eecbaf71b5442544820e7bd43a59c43defb07e58fa2c0e7404980",
+                "responseUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dw0fdc5d41/LRP_Product/Lipikar/3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100",
+                "retrievedAt": "2026-08-04T13:18:00Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dw0fdc5d41/LRP_Product/Lipikar/3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100"
+              }
+            ]
+          },
+          "snapshotSha256": "da8f38215a4792556c49054ed194ec5c8d26404bd007fc32588cb77c9b34dc27",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2161,
+          "retrievedAt": "2026-08-04T13:18:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described face-and-body emollient balm.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic moisturiser for dry skin, not a diagnosis or treatment for eczema, infection or another skin condition. Apply only to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for worsening, painful, infected or unexplained skin changes.",
+        "manufacturerEvidenceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/tests-and-treatments/emollients/",
+        "evidenceUrls": [
+          "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+          "https://www.nhs.uk/tests-and-treatments/emollients/"
+        ],
+        "reviewedAt": "2026-08-04T13:18:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+        "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dw0fdc5d41/LRP_Product/Lipikar/3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100",
+        "sourceAssetSha256": "879d5c9b2e8eecbaf71b5442544820e7bd43a59c43defb07e58fa2c0e7404980",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 443136,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-04T13:18:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml/packshot-v1-1cc2f38979cce7f9.png",
+        "publicImageSha256": "1cc2f38979cce7f93ba4c6462a29015591ab2b48c53f66bb043cbca42248cd8a",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1128045,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-04T13:20:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      "brand": "La Roche-Posay",
+      "name": "Lipikar Baume AP+MAX",
+      "variant": "Lipikar Baume AP+MAX",
+      "size": "400 mL",
+      "category": "Body care",
+      "reason": "Adds the current official France Lipikar Baume AP+MAX 400 mL pump as its own exact SKU, never merged with 200 mL. Perona's 400 mL lead remains excluded until its package identifier is bound to this exact official-France GTIN.",
+      "priority": "important",
+      "gapIds": [
+        "barrier-support-body-care",
+        "dry-skin-moisturizer",
+        "family-size-body-moisturizer"
+      ],
+      "demandEvidenceUrls": [
+        "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/"
+      ],
+      "identity": {
+        "gtin": "3337875930239",
+        "officialProductUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+        "checkedAt": "2026-08-04T13:18:30Z",
+        "basis": "official-brand",
+        "packageVersion": "Lipikar Baume AP+MAX 400 mL pump bottle",
+        "officialEvidence": {
+          "url": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+          "observedGtin": "3337875930239",
+          "observedVariant": "Lipikar Baume AP+MAX",
+          "observedSize": "400 mL",
+          "observedPackageVersion": "Lipikar Baume AP+MAX 400 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml.json",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "Lipikar Balm AP+MAX | La Roche-Posay",
+              "surface": "Codex in-app browser"
+            },
+            "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official GTIN in product route and front-pack media basename",
+                "sourceText": "3337875930239_Lipikar_Baume_400ml_01_La-Roche-Posay.jpg",
+                "value": "3337875930239"
+              },
+              "packageVersion": {
+                "locator": "Official selected size and front-pack principal display panel",
+                "sourceText": "LIPIKAR BAUME AP+MAX; Sélectionné taille : 400 ml",
+                "value": "Lipikar Baume AP+MAX 400 mL pump bottle"
+              },
+              "size": {
+                "locator": "Rendered official selected-size control",
+                "sourceText": "Sélectionné taille : 400 ml",
+                "value": "400 mL"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "LIPIKAR BAUME AP+MAX",
+                "value": "Lipikar Baume AP+MAX"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+            "retrievedAt": "2026-08-04T13:18:00Z",
+            "reviewedAt": "2026-08-04T13:18:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 200127,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "de7a7f2413940e8868d402da6c70af3e914581f87136d7f9e13bf066f10992b7",
+            "sourceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 341666,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "4ff05d5f30fb71891e4136af8a433afbc2bc7e7ab672ac4316e907c9b1fa2bc9",
+                "responseUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwccf50008/LRP_Product/Lipikar/3337875930239_Lipikar_Baume_400ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100",
+                "retrievedAt": "2026-08-04T13:18:00Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwccf50008/LRP_Product/Lipikar/3337875930239_Lipikar_Baume_400ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100"
+              }
+            ]
+          },
+          "snapshotSha256": "85c36999d19522a2a13f175bd844a2d13a1362b6aac03ca07cd30e7aeac5515b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2168,
+          "retrievedAt": "2026-08-04T13:18:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described face-and-body emollient balm.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic moisturiser for dry skin, not a diagnosis or treatment for eczema, infection or another skin condition. Apply only to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for worsening, painful, infected or unexplained skin changes.",
+        "manufacturerEvidenceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/tests-and-treatments/emollients/",
+        "evidenceUrls": [
+          "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+          "https://www.nhs.uk/tests-and-treatments/emollients/"
+        ],
+        "reviewedAt": "2026-08-04T13:18:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+        "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dwccf50008/LRP_Product/Lipikar/3337875930239_Lipikar_Baume_400ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100",
+        "sourceAssetSha256": "4ff05d5f30fb71891e4136af8a433afbc2bc7e7ab672ac4316e907c9b1fa2bc9",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 341666,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-04T13:18:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml/packshot-v1-58f184b9b5a6a233.png",
+        "publicImageSha256": "58f184b9b5a6a2337de5007f67fce2fb5508bc29c02bb375991d40a3a7402f13",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 696309,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-04T13:20:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "loccitane-almond-softening-shower-oil-250ml",
+      "brand": "L'Occitane en Provence",
+      "name": "Almond (Amande) Shower Oil",
+      "variant": "Almond (Amande) Softening Shower Oil",
+      "size": "250 ml",
+      "category": "Body care",
+      "reason": "Adds the exact current official Almond Softening Shower Oil 250 mL black-cap package. Jumia's ₦57,000 marketplace lead names 250 mL but could not be reconciled to the current official GTIN/package through the challenged page and seller evidence, so the release remains reference-only.",
+      "priority": "important",
+      "gapIds": [
+        "rinse-off-body-care",
+        "shower-oil",
+        "dry-skin-cleansing"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html"
+      ],
+      "identity": {
+        "gtin": "3253581785706",
+        "officialProductUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "checkedAt": "2026-08-04T12:50:20Z",
+        "basis": "official-brand",
+        "packageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+        "officialEvidence": {
+          "url": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+          "observedGtin": "3253581785706",
+          "observedVariant": "Almond (Amande) Softening Shower Oil",
+          "observedSize": "250 ml",
+          "observedPackageVersion": "Current Almond Softening Shower Oil 250 ml black-cap bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/loccitane-almond-softening-shower-oil-250ml.json",
+          "canonicalExtraction": {
+            "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official Shopify product response variants[0].barcode",
+                "sourceText": "\"barcode\":\"3253581785706\"",
+                "value": "3253581785706"
+              },
+              "size": {
+                "locator": "Official Shopify product response variants[0].title",
+                "sourceText": "250 ml / Almond",
+                "value": "250 ml"
+              },
+              "variant": {
+                "locator": "Official Shopify media alt and exact variant option",
+                "sourceText": "Almond (Amande) Softening Shower Oil 250 ml",
+                "value": "Almond (Amande) Softening Shower Oil"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml.js",
+            "retrievedAt": "2026-08-04T12:44:24Z",
+            "reviewedAt": "2026-08-04T12:50:20Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 6788,
+            "sourceResponseMimeType": "text/javascript",
+            "sourceResponseSha256": "b943442e3b4796da8cae9bc3ee71ad3143c586d1e3995dd230fd5e21fe0f273a",
+            "sourceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 333367,
+                "responseMimeType": "image/png",
+                "responseSha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895"
+              }
+            ]
+          },
+          "snapshotSha256": "fd67b00908b5f34c6369bcd75609ef19334cdbada9e12018a81ebdffff2d0937",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1532,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described oil-to-milk rinse-off body cleanser.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A fragranced rinse-off cosmetic cleanser, not treatment for dry skin, eczema, allergy or another condition. Use on damp intact skin, rinse thoroughly, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for worsening, painful, infected or unexplained skin changes.",
+        "manufacturerEvidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0597/6037/8048/files/29HD250A26_RECT_RVB.png?v=1770746895",
+        "sourceAssetSha256": "309fd2f82f223c0ee90cc34f91bffe923ada7a750a95f92393c2749e4d7ac0bd",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 333367,
+        "sourceAssetWidth": 1023,
+        "sourceAssetHeight": 1280,
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    {
+      "id": "medik8-advanced-night-restore-50ml",
+      "brand": "Medik8",
+      "name": "Medik8 Advanced Night Restore™",
+      "variant": "Advanced Night Restore™",
+      "size": "50 ml",
+      "category": "Face care",
+      "reason": "Adds the exact 50 mL Advanced Night Restore jar. Teeka4 is in stock at the newly observed ₦103,867, replacing the founder's earlier ₦108,367 lead; the retailer's 'Advance' spelling is retained through a reviewed shared-title alias.",
+      "priority": "important",
+      "gapIds": [
+        "night-moisturizer",
+        "ceramide-face-care",
+        "locally-observed-moisturizer"
+      ],
+      "demandEvidenceUrls": [
+        "https://teeka4.com/shop/medik8-advance-night-restore-50ml/"
+      ],
+      "identity": {
+        "gtin": "818625024444",
+        "officialProductUrl": "https://www.medik8.com/products/advanced-night-restore",
+        "checkedAt": "2026-08-04T12:50:20Z",
+        "basis": "official-brand",
+        "packageVersion": "Advanced Night Restore™ 50 ml jar",
+        "officialEvidence": {
+          "url": "https://www.medik8.com/products/advanced-night-restore",
+          "observedGtin": "818625024444",
+          "observedVariant": "Advanced Night Restore™",
+          "observedSize": "50 ml",
+          "observedPackageVersion": "Advanced Night Restore™ 50 ml jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/medik8-advanced-night-restore-50ml.json",
+          "canonicalExtraction": {
+            "candidateId": "medik8-advanced-night-restore-50ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official Shopify product response variants[0].barcode",
+                "sourceText": "\"barcode\":\"818625024444\"",
+                "value": "818625024444"
+              },
+              "size": {
+                "locator": "Official Shopify product response product tag",
+                "sourceText": "\"tags\":[\"50ml\",\"Advanced\"",
+                "value": "50ml"
+              },
+              "variant": {
+                "locator": "Official Shopify product response variants[0].title",
+                "sourceText": "Advanced Night Restore™",
+                "value": "Advanced Night Restore™"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://www.medik8.com/products/advanced-night-restore.js",
+            "retrievedAt": "2026-08-04T12:44:24Z",
+            "reviewedAt": "2026-08-04T12:50:20Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 12644,
+            "sourceResponseMimeType": "text/javascript",
+            "sourceResponseSha256": "ceefab7c23fb21d8c9ace4d894993abea39a4a52707892d28be275225133dca4",
+            "sourceUrl": "https://www.medik8.com/products/advanced-night-restore",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 89707,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793"
+              }
+            ]
+          },
+          "snapshotSha256": "7d18566525ee23a6bf05161a157fe7458882175a9cb725a5e25a5be7aeedb0ea",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1551,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described ceramide-rich night moisturizer.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic night moisturiser, not treatment for barrier disease, eczema, acne or another condition. Apply after serums to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for painful, infected, worsening or unexplained skin changes.",
+        "manufacturerEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+        "evidenceUrls": [
+          "https://www.medik8.com/products/advanced-night-restore",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+        ],
+        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.medik8.com/products/advanced-night-restore",
+        "exactOffers": [
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+            "observedAt": "2026-08-04T12:50:30Z",
+            "observedTitle": "Medik8 Advance Night Restore 50ml",
+            "reviewedTitleAlias": "Medik8 Night Restore",
+            "observedSize": "50 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Advanced Night Restore™ 50 ml jar",
+            "priceNgn": 103867,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "listingUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+              "responseUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
+              "responseSha256": "5b6305ca1818b46301773afbc3c13145cb87854f2a09f34c68e4816b03817afd",
+              "responseDigestScope": "rendered-accessibility-tree",
+              "responseMimeType": "text/html",
+              "responseByteSize": 8571,
+              "retrievedAt": "2026-08-04T12:50:30Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy Original Medik8 Advance Night Restore 50ml in Nigeria | Teeka4"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "818625024444",
+                  "locator": "Bound official catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 818625024444",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Medik8 Advance Night Restore 50ml",
+                  "locator": "Rendered accessibility heading level 1",
+                  "sourceText": "Medik8 Advance Night Restore 50ml"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "Rendered accessibility product heading size suffix",
+                  "sourceText": "Medik8 Advance Night Restore 50ml"
+                },
+                "packageVersion": {
+                  "value": "Advanced Night Restore™ 50 ml jar",
+                  "locator": "Rendered listing image matched to the official current package",
+                  "sourceText": "Advanced Night Restore™ 50 ml jar"
+                },
+                "price": {
+                  "value": 103867,
+                  "currency": "NGN",
+                  "locator": "Rendered accessibility product price",
+                  "sourceText": "₦103,867.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered accessibility availability status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-04T12:51:00Z"
+            }
+          }
+        ],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.medik8.com/products/advanced-night-restore",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20231114-PDPAsset1-AdvancedNightRestore-Packshot-ROW_1.jpg?v=1704371793",
+        "sourceAssetSha256": "a36a1729d4c1b070ded7aa9593590a7f3e0eb3cb747a715020bbb8d4a25d41c5",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 89707,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    {
+      "id": "medik8-crystal-retinal-3-30ml",
+      "brand": "Medik8",
+      "name": "Crystal Retinal 3",
+      "variant": "Crystal Retinal 3",
+      "size": "30 ml",
+      "category": "Face care",
+      "reason": "Adds the exact 30 mL Crystal Retinal 3 pump and preserves retinal, not retinol, terminology. Skincare Plug's ₦145,000 page names the strength but does not publish the 30 mL size in its rendered listing, so offer enrichment remains reference-only.",
+      "priority": "important",
+      "gapIds": [
+        "retinal-night-serum",
+        "vitamin-a-face-care",
+        "graduated-strength-retinal"
+      ],
+      "demandEvidenceUrls": [
+        "https://skincareplug-ng.com/products/medik8-crystal-retinal-3"
+      ],
+      "identity": {
+        "gtin": "818625024529",
+        "officialProductUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+        "checkedAt": "2026-08-04T12:50:20Z",
+        "basis": "official-brand",
+        "packageVersion": "Crystal Retinal 3 30 ml silver airless pump tube",
+        "officialEvidence": {
+          "url": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+          "observedGtin": "818625024529",
+          "observedVariant": "Crystal Retinal 3",
+          "observedSize": "30 ml",
+          "observedPackageVersion": "Crystal Retinal 3 30 ml silver airless pump tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/medik8-crystal-retinal-3-30ml.json",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "Crystal Retinal® 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% – Medik8",
+              "surface": "Codex in-app browser"
+            },
+            "candidateId": "medik8-crystal-retinal-3-30ml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant 36622939783320 barcode",
+                "sourceText": "\"barcode\":\"818625024529\"",
+                "value": "818625024529"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Crystal Retinal 3 30 ml silver airless pump tube",
+                "value": "Crystal Retinal 3 30 ml silver airless pump tube"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 30 ml",
+                "value": "30 ml"
+              },
+              "variant": {
+                "locator": "Rendered official selected-strength control",
+                "sourceText": "Crystal Retinal 3 Beginner",
+                "value": "Crystal Retinal 3"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+            "retrievedAt": "2026-08-04T12:49:35Z",
+            "reviewedAt": "2026-08-04T12:50:20Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 200042,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "8ba73f3499e6c0034be67de63cda6bb13e957e9c6f8ff8e8706d6d3f9b7834f2",
+            "sourceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 147184,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "617122dd12031f800d50cd546539c0d7520efb32be2ed5c926e04d25922ef61b",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463"
+              }
+            ]
+          },
+          "snapshotSha256": "ab51b234a00c8110fce0a307ecabe4f4baf4a32b0dcfac13706cc97139418afc",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2111,
+          "retrievedAt": "2026-08-04T12:49:35Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described 0.03% retinaldehyde night serum.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic retinaldehyde serum, not individualized acne, pigmentation or anti-ageing treatment advice. Retinal is a vitamin A derivative and is not retinol. Patch test, introduce gradually at night, avoid the direct eye area, use daytime sunscreen, and stop for persistent burning or irritation. Do not use vitamin A skincare during pregnancy or breastfeeding unless a qualified clinician specifically advises it.",
+        "manufacturerEvidenceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463",
+        "sourceAssetSha256": "617122dd12031f800d50cd546539c0d7520efb32be2ed5c926e04d25922ef61b",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 147184,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    {
+      "id": "medik8-crystal-retinal-6-30ml",
+      "brand": "Medik8",
+      "name": "Crystal Retinal 6",
+      "variant": "Crystal Retinal 6",
+      "size": "30 ml",
+      "category": "Face care",
+      "reason": "Adds the exact 30 mL Crystal Retinal 6 pump and preserves retinal, not retinol, terminology. Official strength context is recorded only as general step-up information; Skincare Plug's ₦189,000 page omits the 30 mL size, so offer enrichment remains reference-only.",
+      "priority": "important",
+      "gapIds": [
+        "retinal-night-serum",
+        "vitamin-a-face-care",
+        "graduated-strength-retinal"
+      ],
+      "demandEvidenceUrls": [
+        "https://skincareplug-ng.com/products/medik8-crystal-retinal-6"
+      ],
+      "identity": {
+        "gtin": "818625024536",
+        "officialProductUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+        "checkedAt": "2026-08-04T12:50:20Z",
+        "basis": "official-brand",
+        "packageVersion": "Crystal Retinal 6 30 ml silver airless pump tube",
+        "officialEvidence": {
+          "url": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+          "observedGtin": "818625024536",
+          "observedVariant": "Crystal Retinal 6",
+          "observedSize": "30 ml",
+          "observedPackageVersion": "Crystal Retinal 6 30 ml silver airless pump tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/medik8-crystal-retinal-6-30ml.json",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "Crystal Retinal® 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% – Medik8",
+              "surface": "Codex in-app browser"
+            },
+            "candidateId": "medik8-crystal-retinal-6-30ml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant 36622939816088 barcode",
+                "sourceText": "\"barcode\":\"818625024536\"",
+                "value": "818625024536"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Crystal Retinal 6 30 ml silver airless pump tube",
+                "value": "Crystal Retinal 6 30 ml silver airless pump tube"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 30 ml",
+                "value": "30 ml"
+              },
+              "variant": {
+                "locator": "Rendered official selected-strength control",
+                "sourceText": "Crystal Retinal 6 Regular",
+                "value": "Crystal Retinal 6"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+            "retrievedAt": "2026-08-04T12:49:40Z",
+            "reviewedAt": "2026-08-04T12:50:20Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 200042,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "4b567237a4ff77c60e2e0186530ef3541150b1e5ebce18349e55109a79278a01",
+            "sourceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 125571,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "601339ca061bf2f1b95e752d8c5d5bc15f550898eb30c87d86266977a224e03f",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_6_-_Packshot_-_ROW_38652d6d-e6fe-4cd4-960a-ed3e0362bf4b.jpg?v=1776699463",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_6_-_Packshot_-_ROW_38652d6d-e6fe-4cd4-960a-ed3e0362bf4b.jpg?v=1776699463"
+              }
+            ]
+          },
+          "snapshotSha256": "40d9124b59d8275a9bb8f607ec057da3e0a5d182a62f1cc3b8a82865b3296071",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2110,
+          "retrievedAt": "2026-08-04T12:49:40Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described 0.06% retinaldehyde night serum for regular vitamin A users.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic retinaldehyde serum, not individualized acne, pigmentation or anti-ageing treatment advice. Retinal is a vitamin A derivative and is not retinol. The manufacturer's 'regular' step is general product positioning, not a personal recommendation to increase strength; use a lower or current strength until tolerated, patch test, introduce gradually at night, avoid the direct eye area, use daytime sunscreen, and stop for persistent burning or irritation. Do not use vitamin A skincare during pregnancy or breastfeeding unless a qualified clinician specifically advises it.",
+        "manufacturerEvidenceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_6_-_Packshot_-_ROW_38652d6d-e6fe-4cd4-960a-ed3e0362bf4b.jpg?v=1776699463",
+        "sourceAssetSha256": "601339ca061bf2f1b95e752d8c5d5bc15f550898eb30c87d86266977a224e03f",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 125571,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    {
+      "id": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Perfector Salicylic Acid Body Wash",
+      "variant": "The Perfector Salicylic Acid Body Wash",
+      "size": "16.9 fl oz / 500 mL",
+      "category": "Body care",
+      "reason": "Adds the exact current 500 mL Naturium salicylic-acid rinse-off body wash. Founder-supplied Nigerian leads were reconciled, but the directory-listed observations omit size or are out of stock and the exact Rhema listing is not yet retailer-directory bound, so offer enrichment remains reference-only.",
+      "priority": "important",
+      "gapIds": [
+        "rinse-off-body-care",
+        "salicylic-acid-body-care",
+        "rough-texture-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
+        "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
+        "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/"
+      ],
+      "identity": {
+        "gtin": "850010792934",
+        "officialProductUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+        "checkedAt": "2026-08-04T12:50:20Z",
+        "basis": "official-brand",
+        "packageVersion": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+          "observedGtin": "850010792934",
+          "observedVariant": "The Perfector Salicylic Acid Body Wash",
+          "observedSize": "16.9 fl oz / 500 mL",
+          "observedPackageVersion": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-the-perfector-salicylic-acid-body-wash-500ml.json",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "The Perfector Salicylic Acid Body Wash | Exfoliating Body Wash | Naturium",
+              "surface": "Codex in-app browser"
+            },
+            "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variants[0].barcode",
+                "sourceText": "\"barcode\":\"850010792934\"",
+                "value": "850010792934"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "The Perfector Salicylic Acid Body Wash 16.9 FL OZ / 500 mL pump bottle",
+                "value": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 16.9 FL OZ / 500 mL",
+                "value": "16.9 fl oz / 500 mL"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "The Perfector Salicylic Acid Body Wash",
+                "value": "The Perfector Salicylic Acid Body Wash"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+            "retrievedAt": "2026-08-04T12:49:30Z",
+            "reviewedAt": "2026-08-04T12:50:20Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 200015,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "2e90438f8f7f8162b107622d2fd4c6303f77f3ff8ac99e2a43499bfcaa420e6f",
+            "sourceUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 62077,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "fcd16dbafeb6522c2a32a08e22ed8fd266a394ad3f50921d01ced2a283125d42",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0105/2265/6823/files/NATR-The-Perfector-Body-Wash_front.webp?v=1776370951",
+                "retrievedAt": "2026-08-04T12:44:24Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0105/2265/6823/files/NATR-The-Perfector-Body-Wash_front.webp?v=1776370951"
+              }
+            ]
+          },
+          "snapshotSha256": "d0b5b9a535c3450af2acd07847032ed86d067b30f682c2ee2914b0754641fa34",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2093,
+          "retrievedAt": "2026-08-04T12:49:30Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described salicylic-acid rinse-off body wash.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for keratosis pilaris, acne, eczema or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent, painful or unexplained skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/conditions/keratosis-pilaris/",
+        "evidenceUrls": [
+          "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+          "https://www.nhs.uk/conditions/keratosis-pilaris/"
+        ],
+        "reviewedAt": "2026-08-04T12:50:20Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0105/2265/6823/files/NATR-The-Perfector-Body-Wash_front.webp?v=1776370951",
+        "sourceAssetSha256": "fcd16dbafeb6522c2a32a08e22ed8fd266a394ad3f50921d01ced2a283125d42",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 62077,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-the-perfector-salicylic-acid-body-wash-500ml/packshot-v1-edfb25a39a4852d2.png",
+        "publicImageSha256": "edfb25a39a4852d2cb0a4d106a1d16008f09ad4840818ad4e4a8361558ccfdfc",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 288434,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-04T13:04:15Z",
+        "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }
     },

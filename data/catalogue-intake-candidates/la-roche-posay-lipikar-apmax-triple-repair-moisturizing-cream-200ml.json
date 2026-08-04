@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-04T13:20:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "1bdbb0fcecf5ae97c16c3149",
+    "reportSha256": "eee63eebce1c99be6dd663201b317cd01816b4f3a9b42548ef9958aa14448ce5"
+  },
+  "candidate": {
+    "id": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+    "brand": "La Roche-Posay",
+    "name": "Lipikar Baume AP+MAX",
+    "variant": "Lipikar Baume AP+MAX",
+    "size": "200 mL",
+    "category": "Body care",
+    "reason": "Adds the current official France Lipikar Baume AP+MAX 200 mL tube as its own exact SKU. The founder's Teeka4 200 mL AP+M lead remains excluded from exact offer binding because its package GTIN identifies a different regional package.",
+    "priority": "important",
+    "gapIds": [
+      "barrier-support-body-care",
+      "dry-skin-moisturizer",
+      "locally-observed-emollient"
+    ],
+    "demandEvidenceUrls": [
+      "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/"
+    ],
+    "identity": {
+      "gtin": "3337875930048",
+      "officialProductUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+      "checkedAt": "2026-08-04T13:18:30Z",
+      "basis": "official-brand",
+      "packageVersion": "Lipikar Baume AP+MAX 200 mL tube",
+      "officialEvidence": {
+        "url": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+        "observedGtin": "3337875930048",
+        "observedVariant": "Lipikar Baume AP+MAX",
+        "observedSize": "200 mL",
+        "observedPackageVersion": "Lipikar Baume AP+MAX 200 mL tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml.json",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "Lipikar Balm AP+MAX | La Roche-Posay",
+            "surface": "Codex in-app browser"
+          },
+          "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official GTIN in product route and front-pack media basename",
+              "sourceText": "3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg",
+              "value": "3337875930048"
+            },
+            "packageVersion": {
+              "locator": "Official selected size and front-pack principal display panel",
+              "sourceText": "LIPIKAR BAUME AP+MAX; Sélectionné taille : 200 ml",
+              "value": "Lipikar Baume AP+MAX 200 mL tube"
+            },
+            "size": {
+              "locator": "Rendered official selected-size control",
+              "sourceText": "Sélectionné taille : 200 ml",
+              "value": "200 mL"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "LIPIKAR BAUME AP+MAX",
+              "value": "Lipikar Baume AP+MAX"
+            }
+          },
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+          "retrievedAt": "2026-08-04T13:18:00Z",
+          "reviewedAt": "2026-08-04T13:18:30Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 4,
+          "sourceResponseByteSize": 200127,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "03a5041d70dfe29264d39100c0137e96829a6055f52f17b781c695d0ee4f2765",
+          "sourceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 443136,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "879d5c9b2e8eecbaf71b5442544820e7bd43a59c43defb07e58fa2c0e7404980",
+              "responseUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dw0fdc5d41/LRP_Product/Lipikar/3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100",
+              "retrievedAt": "2026-08-04T13:18:00Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dw0fdc5d41/LRP_Product/Lipikar/3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100"
+            }
+          ]
+        },
+        "snapshotSha256": "da8f38215a4792556c49054ed194ec5c8d26404bd007fc32588cb77c9b34dc27",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2161,
+        "retrievedAt": "2026-08-04T13:18:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described face-and-body emollient balm.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A cosmetic moisturiser for dry skin, not a diagnosis or treatment for eczema, infection or another skin condition. Apply only to intact skin, avoid direct eye contact, and stop if persistent irritation occurs. Seek clinical advice for worsening, painful, infected or unexplained skin changes.",
+      "manufacturerEvidenceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+      "independentClinicalGuidanceUrl": "https://www.nhs.uk/tests-and-treatments/emollients/",
+      "evidenceUrls": [
+        "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+        "https://www.nhs.uk/tests-and-treatments/emollients/"
+      ],
+      "reviewedAt": "2026-08-04T13:18:30Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+      "sourceUrl": "https://www.laroche-posay.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/fr_FR/dw0fdc5d41/LRP_Product/Lipikar/3337875930048_Lipikar_Baume_200ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=100",
+      "sourceAssetSha256": "879d5c9b2e8eecbaf71b5442544820e7bd43a59c43defb07e58fa2c0e7404980",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 443136,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-08-04T13:18:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml/packshot-v1-1cc2f38979cce7f9.png",
+      "publicImageSha256": "1cc2f38979cce7f93ba4c6462a29015591ab2b48c53f66bb043cbca42248cd8a",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1128045,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-04T13:20:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

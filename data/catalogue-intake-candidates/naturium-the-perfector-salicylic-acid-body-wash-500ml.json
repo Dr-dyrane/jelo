@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-04T13:04:15Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "d34092980dce29db8a0a356b",
+    "reportSha256": "eee63eebce1c99be6dd663201b317cd01816b4f3a9b42548ef9958aa14448ce5"
+  },
+  "candidate": {
+    "id": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+    "brand": "Naturium",
+    "name": "The Perfector Salicylic Acid Body Wash",
+    "variant": "The Perfector Salicylic Acid Body Wash",
+    "size": "16.9 fl oz / 500 mL",
+    "category": "Body care",
+    "reason": "Adds the exact current 500 mL Naturium salicylic-acid rinse-off body wash. Founder-supplied Nigerian leads were reconciled, but the directory-listed observations omit size or are out of stock and the exact Rhema listing is not yet retailer-directory bound, so offer enrichment remains reference-only.",
+    "priority": "important",
+    "gapIds": [
+      "rinse-off-body-care",
+      "salicylic-acid-body-care",
+      "rough-texture-support"
+    ],
+    "demandEvidenceUrls": [
+      "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
+      "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
+      "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/"
+    ],
+    "identity": {
+      "gtin": "850010792934",
+      "officialProductUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+      "checkedAt": "2026-08-04T12:50:20Z",
+      "basis": "official-brand",
+      "packageVersion": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle",
+      "officialEvidence": {
+        "url": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+        "observedGtin": "850010792934",
+        "observedVariant": "The Perfector Salicylic Acid Body Wash",
+        "observedSize": "16.9 fl oz / 500 mL",
+        "observedPackageVersion": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-the-perfector-salicylic-acid-body-wash-500ml.json",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "The Perfector Salicylic Acid Body Wash | Exfoliating Body Wash | Naturium",
+            "surface": "Codex in-app browser"
+          },
+          "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variants[0].barcode",
+              "sourceText": "\"barcode\":\"850010792934\"",
+              "value": "850010792934"
+            },
+            "packageVersion": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "The Perfector Salicylic Acid Body Wash 16.9 FL OZ / 500 mL pump bottle",
+              "value": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 16.9 FL OZ / 500 mL",
+              "value": "16.9 fl oz / 500 mL"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "The Perfector Salicylic Acid Body Wash",
+              "value": "The Perfector Salicylic Acid Body Wash"
+            }
+          },
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+          "retrievedAt": "2026-08-04T12:49:30Z",
+          "reviewedAt": "2026-08-04T12:50:20Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 4,
+          "sourceResponseByteSize": 200015,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "2e90438f8f7f8162b107622d2fd4c6303f77f3ff8ac99e2a43499bfcaa420e6f",
+          "sourceUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 62077,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "fcd16dbafeb6522c2a32a08e22ed8fd266a394ad3f50921d01ced2a283125d42",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0105/2265/6823/files/NATR-The-Perfector-Body-Wash_front.webp?v=1776370951",
+              "retrievedAt": "2026-08-04T12:44:24Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0105/2265/6823/files/NATR-The-Perfector-Body-Wash_front.webp?v=1776370951"
+            }
+          ]
+        },
+        "snapshotSha256": "d0b5b9a535c3450af2acd07847032ed86d067b30f682c2ee2914b0754641fa34",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2093,
+        "retrievedAt": "2026-08-04T12:49:30Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described salicylic-acid rinse-off body wash.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for keratosis pilaris, acne, eczema or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent, painful or unexplained skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+      "independentClinicalGuidanceUrl": "https://www.nhs.uk/conditions/keratosis-pilaris/",
+      "evidenceUrls": [
+        "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+        "https://www.nhs.uk/conditions/keratosis-pilaris/"
+      ],
+      "reviewedAt": "2026-08-04T12:50:20Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://naturium.com/products/the-perfector-salicylic-acid-body-wash",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0105/2265/6823/files/NATR-The-Perfector-Body-Wash_front.webp?v=1776370951",
+      "sourceAssetSha256": "fcd16dbafeb6522c2a32a08e22ed8fd266a394ad3f50921d01ced2a283125d42",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 62077,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-the-perfector-salicylic-acid-body-wash-500ml/packshot-v1-edfb25a39a4852d2.png",
+      "publicImageSha256": "edfb25a39a4852d2cb0a4d106a1d16008f09ad4840818ad4e4a8361558ccfdfc",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 288434,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-04T13:04:15Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

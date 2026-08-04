@@ -797,6 +797,36 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-02',
   },
+  'naturium-the-perfector-salicylic-acid-body-wash-500ml': {
+    productSlug: 'naturium-the-perfector-salicylic-acid-body-wash-500ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-perfector-salicylic-acid-body-wash',
+      'https://www.nhs.uk/conditions/keratosis-pilaris/',
+    ],
+    reviewedAt: '2026-08-04',
+  },
+  'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml': {
+    productSlug: 'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html',
+      'https://www.nhs.uk/tests-and-treatments/emollients/',
+    ],
+    reviewedAt: '2026-08-04',
+  },
+  'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml': {
+    productSlug: 'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html',
+      'https://www.nhs.uk/tests-and-treatments/emollients/',
+    ],
+    reviewedAt: '2026-08-04',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

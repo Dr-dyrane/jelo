@@ -1129,6 +1129,54 @@
         "publishedAt": "2026-08-02T23:05:00Z"
       },
       "releaseFingerprint": "d2f5c7ccf3ac4230a00f606c5d5f84adcda881997b83d3ad2fb7d989fc94e51c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      "dossierFingerprint": "738c0545d4e055dc477d6384842b916f8126796be58135732e393348d5a0932c",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "A rich face-and-body balm for dry-feeling skin.",
+        "usage": "Apply to intact face or body skin as needed. Avoid direct eye contact and stop if persistent irritation occurs.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-04T13:20:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-04T13:20:15Z"
+      },
+      "releaseFingerprint": "75a6b657700439d4e87971b45561989ce565fad3573d19043ef8698f12d17f1b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      "dossierFingerprint": "5e81576c6292ee340cfc4ed204ce8b0443ec303f02323b91cad72b521a0d3a3a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "A family-size face-and-body balm for dry-feeling skin.",
+        "usage": "Apply to intact face or body skin as needed. Avoid direct eye contact and stop if persistent irritation occurs.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930239.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-04T13:20:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-04T13:20:15Z"
+      },
+      "releaseFingerprint": "0c16f35acb7baf522f4ee30d02167e9ec121e265cd9d7b49a62fe8502e1dd48e"
     }
   ]
 }

@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-04T12:51:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "5aa8b4188467bf158aa4b976",
+    "reportSha256": "eee63eebce1c99be6dd663201b317cd01816b4f3a9b42548ef9958aa14448ce5"
+  },
+  "candidate": {
+    "id": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+    "brand": "Fenty Skin",
+    "name": "Butta Drop Whipped Oil Body Cream with Tropical Oils + Shea Butter — Fenty Fresh",
+    "variant": "Fenty Fresh / Standard",
+    "size": "200 mL / 6.7 fl oz",
+    "category": "Body care",
+    "reason": "Adds the exact official Fenty Fresh Standard 200 mL jar. Essentials Hub's ₦79,000 page does not reliably distinguish the Standard jar from the 200 mL refill or other scent variants, so the release remains reference-only until the retailer binds the exact variant.",
+    "priority": "important",
+    "gapIds": [
+      "rich-body-moisturizer",
+      "body-cream",
+      "premium-body-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream/"
+    ],
+    "identity": {
+      "gtin": "840026653251",
+      "officialProductUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+      "checkedAt": "2026-08-04T12:50:20Z",
+      "basis": "official-brand",
+      "packageVersion": "Fenty Fresh Standard 200 mL lavender jar",
+      "officialEvidence": {
+        "url": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+        "observedGtin": "840026653251",
+        "observedVariant": "Fenty Fresh / Standard",
+        "observedSize": "200 mL / 6.7 fl oz",
+        "observedPackageVersion": "Fenty Fresh Standard 200 mL lavender jar",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/fenty-skin-butta-drop-fenty-fresh-standard-200ml.json",
+        "canonicalExtraction": {
+          "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official Shopify product response variants[0].barcode",
+              "sourceText": "\"barcode\":\"840026653251\"",
+              "value": "840026653251"
+            },
+            "size": {
+              "locator": "Official Shopify product response size tag",
+              "sourceText": "Size ID|200 mL / 6.7 fl. oz.",
+              "value": "200 mL / 6.7 fl oz"
+            },
+            "variant": {
+              "locator": "Official Shopify product response variants[0].title",
+              "sourceText": "Fenty Fresh / Standard",
+              "value": "Fenty Fresh / Standard"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh.js",
+          "retrievedAt": "2026-08-04T12:44:24Z",
+          "reviewedAt": "2026-08-04T12:50:20Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 19052,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "586f37527b8fcf5396b55c90dac394e581ed9083a655ba8f3f8321149794ce23",
+          "sourceUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 41396,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629",
+              "retrievedAt": "2026-08-04T12:44:24Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629"
+            }
+          ]
+        },
+        "snapshotSha256": "66108306f1413e842bcaa340873b906519e8c80b7e259bf4ecc584b4abe62544",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1709,
+        "retrievedAt": "2026-08-04T12:44:24Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described whipped oil body cream with tropical oils and shea butter.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A cosmetic body moisturiser, not treatment for dryness caused by eczema, allergy, infection or another condition. Use on intact skin, avoid direct eye contact, and stop if persistent irritation develops. Follow the manufacturer's advice to ask a clinician about use during pregnancy or nursing.",
+      "manufacturerEvidenceUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+      "evidenceUrls": [
+        "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+      ],
+      "reviewedAt": "2026-08-04T12:50:20Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://fentybeauty.com/products/butta-drop-whipped-oil-body-cream-with-tropical-oils-shea-butter-fenty-fresh",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0341/3458/9485/files/FS_SUMMER_FALL_2021_ECom_ButtaDrop_Open_2914_FS_R2_RGB_1200x1500_72DPI.jpg?v=1762198629",
+      "sourceAssetSha256": "530092ec4b3ecfe60e737162841d0af01fa1da81e74e090251a0d37fe7304d1b",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 41396,
+      "sourceAssetWidth": 1200,
+      "sourceAssetHeight": 1501,
+      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+    }
+  }
+}
