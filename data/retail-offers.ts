@@ -202,6 +202,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml': [
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/', 100, 18850, 'Anua Azelaic Acid 10% + Hyaluron Redness Soothing Serum', '30 ml', { observedAt: '2026-08-04T19:52:29Z' }),
+    exactNg('BuyBetter', 'https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/', 97, 18000, 'Anua Azelaic Acid 10% Hyaluron Redness Soothing Serum', '30 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
   ],
   'cosrx-salicylic-acid-daily-gentle-cleanser': [
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/', 100, 8500, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml', { available: false, observedAt: '2026-08-04T19:51:44Z' }),
@@ -214,6 +215,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/', 100, 18850, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml', { available: false, observedAt: '2026-08-04T19:51:57Z' }),
     exactNg('Teeka4', 'https://teeka4.com/shop/anua-niacinamide-10-txa-4-serum-30ml/', 98, 18000, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml'),
     exactNg('Jumia', 'https://www.jumia.com.ng/anua-niacinamide-10-txa-4-serum-30ml-new-version-419517907.html', 62, 7999, 'ANUA Niacinamide 10% + TXA 4% Serum New Version', '30 ml', { sellerName: 'Smile Time', sellerScore: 92, priceComparison: 'exclude' }),
+    exactNg('BuyBetter', 'https://buybetter.ng/product/anua-10-niacinamide-4-txa-acid-serum/', 97, 17738, 'Anua 10% Niacinamide + 4% TXA Acid Serum', '30 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
   ],
   'face-facts-wonder-cream-fragrance-free': [
     exactNg('Teeka4', 'https://teeka4.com/shop/face-facts-wonder-cream-fragrance-free-50ml-copy/', 98, 7700, 'Face Facts Wonder Cream Fragrance Free', '50 ml'),
@@ -279,6 +281,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       '355 ml',
       { observedAt: '2026-08-04T18:49:20.000Z', expiresAt: '2026-08-11T18:49:20.000Z' },
     ),
+    exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-foaming-facial-cleanser-355ml/', 97, 24833, 'CeraVe Foaming Facial Cleanser 355ml', '355 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
   ],
   'cerave-blemish-control-cleanser': [
     exactNg('Teeka4', 'https://teeka4.com/shop/cerave-acne-control-face-cleanser-facial-cleanser-8-fl-oz/', 98, 14800, 'CeraVe Blemish Control Cleanser', '236 ml'),
@@ -343,6 +346,75 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
       location: ['NG'],
     },
+  ],
+  'benton-honest-cleansing-foam-150g': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/benton-honest-cleansing-foam-5-29-oz-150g/', 97, 9675, 'Benton Honest Cleansing Foam', '150 g', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'dr-teals-nourish-protect-coconut-oil-body-wash-710ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/dr-teals-body-wash-nourish-and-protect-coconut-oil-710ml/', 97, 7150, "Dr Teal's Nourish & Protect Coconut Oil Body Wash", '710 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'facefacts-vitamin-c-brightening-jelly-cleanser-150ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/', 97, 4300, 'FaceFacts Vitamin C Brightening Jelly Cleanser', '150 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'cerave-moisturising-cream-454g': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-moisturizing-cream-with-hyaluronic-acid-and-ceramides-454g/', 97, 20210, 'CeraVe Moisturizing Cream 454g', '454 g', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'cerave-sa-smoothing-cleanser-473ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-sa-smoothing-cleanser-face-and-body-wash-with-salicylic-acid-for-dry-rough-amp-bumpy-skin-473ml/', 97, 20748, 'CeraVe SA Smoothing Cleanser', '473 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'cerave-acne-foaming-cream-cleanser-4-150ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/', 97, 24000, 'CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide', '150 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'cerave-acne-foaming-cream-wash-10-150ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/cerave-acne-control-cleanser-5-oz-150ml/', 97, 24000, 'CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide', '150 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'facefacts-ceramide-foaming-cleanser-400ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-foaming-cleanser-400ml/', 97, 6450, 'FaceFacts Ceramide Foaming Cleanser', '400 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'facefacts-ceramide-oil-control-foaming-cleanser-400ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/', 97, 6880, 'FaceFacts Ceramide Oil Control Foaming Cleanser', '400 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'facefacts-ceramide-moisturising-gel-cream-50ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-moisturizing-gel-cream/', 97, 3655, 'FaceFacts Ceramide Moisturizing Gel Cream', '50 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'facefacts-ceramide-blemish-gel-moisturiser-50ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/', 97, 3440, 'FaceFacts Ceramide Blemish Gel Moisturiser', '50 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'facefacts-vitamin-c-body-lotion-400ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/face-facts-vitamin-c-body-lotion-400ml-2/', 97, 6095, 'FaceFacts Vitamin C Body Lotion', '400 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'garnier-vitamin-c-brightening-day-cream-50ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/', 97, 12728, 'Garnier Vitamin C Brightening Day Cream', '50 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'dove-calming-moisture-body-wash-547ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/', 97, 22600, 'Dove Calming Moisture 3% Body Wash', '547 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'dove-skin-replenish-serum-body-wash-547ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/', 97, 22600, 'Dove Skin Replenish 2% Body Wash', '547 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'keracare-dry-itchy-scalp-conditioner-950ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/keracare-no2-dry-and-itchy-scalp-anti-dandruff-moisturizing-conditioner-950ml/', 97, 38485, 'KeraCare Dry And Itchy Conditioner', '950 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'cecred-moisturizing-deep-conditioner-300ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/', 97, 139750, 'Cécred Moisturizing Deep Conditioner', '300 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'aqua-rich-ceramide-body-lotion-500ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/', 97, 12800, 'Aqua Rich Hydrate + Protect Body Lotion', '500 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'skin-by-zaron-vitamin-c-body-lotion-500ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/', 97, 14800, 'Skin by Zaron Vitamin C Body Lotion', '500 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'skin-by-zaron-vitamin-c-body-wash-650ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/', 97, 11718, 'Skin by Zaron Vitamin C Body Wash', '650 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'simple-kind-to-skin-replenishing-rich-moisturiser-125ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/simple-kind-to-skin-replenishing-rich-moisturizer-125ml/', 97, 4790, 'Simple Kind To Skin Replenishing Rich Moisturizer', '125 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+  ],
+  'cerave-pm-facial-moisturising-lotion-52ml': [
+    exactNg('Dunes Center', 'https://dunescenter.com/product/cerave-facial-moisturising-lotion-pm-52ml/', 96, 47500, 'CeraVe Facial Moisturising Lotion PM 52ml', '52 ml', { observedAt: '2026-08-04T20:30:00Z', expiresAt: '2026-08-11T20:30:00Z' }),
+  ],
+  'la-roche-posay-mela-b3-serum-30ml': [
+    exactNg('Dunes Center', 'https://dunescenter.com/product/lr-pos-mela-b3-10-serum-30ml-en-fr-du/', 96, 126500, 'La Roche-Posay Mela B3 Serum 30ml', '30 ml', { observedAt: '2026-08-04T20:30:00Z', expiresAt: '2026-08-11T20:30:00Z' }),
   ],
 };
 
