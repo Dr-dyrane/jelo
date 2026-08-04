@@ -100,6 +100,31 @@ export function verifyLegacyShelfImportSource(
       }
     }
   }
+
+  const routineText = Buffer.from(routineSource).toString('utf8');
+  const sourceRoutineNames = [...routineText.matchAll(
+    /data-routine="[^"]+">([^<]+)<\/button>/g,
+  )].map(match => match[1]);
+  const sourceRoutineSteps = [...routineText.matchAll(
+    /\$\{step\("(\d{2})","([^"]+)","([^"]*)"\)\}/g,
+  )].map(match => ({
+    position: Number(match[1]),
+    label: match[2],
+    instruction: match[3],
+  }));
+  const reviewedRoutineSteps = manifest.routines.flatMap(routine => (
+    routine.steps.map(({ position, label, instruction }) => ({
+      position,
+      label,
+      instruction,
+    }))
+  ));
+  if (
+    JSON.stringify(sourceRoutineNames) !== JSON.stringify(manifest.routines.map(routine => routine.name))
+    || JSON.stringify(sourceRoutineSteps) !== JSON.stringify(reviewedRoutineSteps)
+  ) {
+    throw new Error('Reviewed legacy routines drifted from their hashed source.');
+  }
 }
 
 export function verifyLegacyShelfImportSourceFromGit(repositoryRoot = process.cwd()) {

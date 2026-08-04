@@ -1,3 +1,16 @@
+export type LegacyRoutineManifestEntry = {
+  legacyId: 'morning' | 'evening' | 'hair-wash';
+  name: string;
+  steps: readonly {
+    position: number;
+    label: string;
+    instruction: string;
+    reference:
+      | { state: 'catalogue' | 'product_request'; legacyId: string }
+      | { state: 'unresolved' };
+  }[];
+};
+
 export const LEGACY_SHELF_IMPORT_MANIFEST = {
   id: 'pages-v1.0',
   source: {
@@ -236,6 +249,92 @@ export const LEGACY_SHELF_IMPORT_MANIFEST = {
       },
     },
   ],
+  routines: [
+    {
+      legacyId: 'morning',
+      name: 'Morning',
+      steps: [
+        {
+          position: 1,
+          label: 'COSRX cleanser',
+          instruction: 'Brief, gentle cleanse.',
+          reference: { state: 'catalogue', legacyId: 'cosrx' },
+        },
+        {
+          position: 2,
+          label: 'Anua serum',
+          instruction: 'Thin, even layer.',
+          reference: { state: 'catalogue', legacyId: 'anua' },
+        },
+        {
+          position: 3,
+          label: 'Wonder Cream',
+          instruction: 'Light hydration.',
+          reference: { state: 'catalogue', legacyId: 'wonder' },
+        },
+        {
+          position: 4,
+          label: 'B.LAB sunscreen',
+          instruction: 'Final morning step.',
+          reference: { state: 'product_request', legacyId: 'blab' },
+        },
+      ],
+    },
+    {
+      legacyId: 'evening',
+      name: 'Evening',
+      steps: [
+        {
+          position: 1,
+          label: 'Cleanse',
+          instruction: 'Remove sunscreen and buildup.',
+          reference: { state: 'unresolved' },
+        },
+        {
+          position: 2,
+          label: 'Treat',
+          instruction: 'Anua most nights. Toner twice weekly.',
+          reference: { state: 'unresolved' },
+        },
+        {
+          position: 3,
+          label: 'Moisturize',
+          instruction: 'Bright + Clear or Wonder Cream.',
+          reference: { state: 'unresolved' },
+        },
+      ],
+    },
+    {
+      legacyId: 'hair-wash',
+      name: 'Hair wash',
+      steps: [
+        {
+          position: 1,
+          label: 'Miracle shampoo',
+          instruction: 'Cleanse the scalp.',
+          reference: { state: 'product_request', legacyId: 'miracle' },
+        },
+        {
+          position: 2,
+          label: 'Lush conditioner',
+          instruction: 'Condition and rinse.',
+          reference: { state: 'product_request', legacyId: 'lush' },
+        },
+        {
+          position: 3,
+          label: 'Mediana milk',
+          instruction: 'Leave-in moisture.',
+          reference: { state: 'product_request', legacyId: 'mediana' },
+        },
+        {
+          position: 4,
+          label: 'Kuza + OGX',
+          instruction: 'Treat, then finish.',
+          reference: { state: 'unresolved' },
+        },
+      ],
+    },
+  ] as readonly LegacyRoutineManifestEntry[],
   requiredIdentity: {
     versionNumber: 1,
     provenance: 'jelocare_reviewed',

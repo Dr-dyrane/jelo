@@ -1,0 +1,144 @@
+.manager {
+  display: grid;
+  gap: 18px;
+}
+
+.feedback {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 14px;
+}
+
+.routines {
+  display: grid;
+  gap: 16px;
+}
+
+.routine,
+.create {
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface, #fff) 94%, transparent);
+}
+
+.routine header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.routine header h2,
+.routine header small,
+.routine header span {
+  margin: 0;
+}
+
+.routine header > span,
+.routine header small,
+.stepCopy small {
+  opacity: 0.66;
+}
+
+.routine ol {
+  display: grid;
+  gap: 0;
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.routine li {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.position {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.58;
+}
+
+.stepCopy {
+  display: grid;
+  gap: 4px;
+}
+
+.stepCopy a {
+  width: fit-content;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 12px;
+}
+
+.controls details {
+  flex: 1 1 320px;
+}
+
+.controls summary,
+.create summary {
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.manager form {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.manager label {
+  display: grid;
+  gap: 6px;
+}
+
+.manager label small {
+  opacity: 0.66;
+}
+
+.manager input,
+.manager textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 12px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+}
+
+.manager textarea {
+  resize: vertical;
+}
+
+.manager button {
+  min-height: 44px;
+  width: fit-content;
+  padding: 9px 16px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.manager .deleteButton {
+  opacity: 0.72;
+}
+
+@media (min-width: 900px) {
+  .routines {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

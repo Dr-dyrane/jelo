@@ -116,7 +116,8 @@ Neon and Vercel resources may be used.
    direct administrator `MIGRATION_DATABASE_URL` and run `npm run
    db:reconcile`. Require the ordered ledger through
    `0034_customer_shelf.sql`, `0035_runtime_database_roles.sql`, and
-   `0036_customer_product_requests.sql` plus the
+   `0036_customer_product_requests.sql`, followed by
+   `0037_customer_routines.sql`, plus the
    reviewed public catalogue and asset-metadata reconciliation required by that
    exact revision. Do not run the Shelf import yet or opt into external
    discovery.
@@ -136,14 +137,15 @@ Neon and Vercel resources may be used.
    boundary, inject
    `MIGRATION_DATABASE_URL` and `JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`, then run
    `npm run customer:shelf:import`. Require a read-only result of 14 complete
-   dispositions, five exact accepted identities, nine pending requests, and no
-   fully reconciled receipt.
+   dispositions, five exact accepted identities, nine pending requests, three
+   routines, eleven ordered steps, and no fully reconciled receipt.
 5. **Import apply and verify its receipt.** Independently derive and compare the
    owner-addressed import receipt SHA-256, then repeat with `--apply` and the exact
-   `--confirm-receipt-sha256` value. Apply takes a brief Shelf/request write lock. Require
+   `--confirm-receipt-sha256` value. Apply takes a brief Shelf/request/routine write lock. Require
    its actual inserted identity set to equal the dry-run plan and the final
-   pending set to contain all nine private requests. A fresh import must have
-   all five exact accepted identities. An upgrade from the earlier five-item
+   pending set to contain all nine private requests and the final routine sets
+   to contain exactly three routines and eleven ordered steps. A fresh import
+   must have all five exact accepted identities. An upgrade from the earlier five-item
    receipt must add no accepted identities and reports the current surviving
    accepted count after customer removals instead. Require one atomic one-off
    receipt. Do not activate Shelf until the receipt is independently verified.
@@ -165,17 +167,18 @@ Neon and Vercel resources may be used.
    run the import.
 9. **Smoke.** Through the exact production deployment and one verified account,
    prove sign-in, Shelf read/add/reload/remove, missing-product create/edit/
-   delete, private-photo owner isolation, JSON export, the clear
+   delete, Routine list/create/update/delete, private-photo owner isolation, JSON export, the clear
    confirmation flow, sign-out isolation, and the public reporting helper. Do
    not clear the imported launch Shelf merely for smoke; exercise the destructive
    result only with an approved disposable account. Confirm Synthetic Amara is
-   absent and Routine/Concern persistence is absent.
+   absent and Concern persistence is absent. Prove another owner cannot read or
+   mutate the Shelf or Routine rows through the checked-in deterministic audit.
 10. **Rotate the former owner.** Rotate or revoke every owner/admin credential
    that Vercel previously held, remove any provider integration that can
    reconstruct it, and re-run restricted runtime and production smoke checks.
    Keep only the protected operator copy of `MIGRATION_DATABASE_URL`.
 11. **Declare the rollback floor.** Record the exact compatible application
-    revision, the ledger through `0036`, the two runtime role names, and the
+    revision, the ledger through `0037`, the two runtime role names, and the
     passing audit. Older owner-dependent deployments are no longer rollback
     candidates.
 

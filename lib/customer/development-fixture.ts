@@ -99,6 +99,31 @@ export function createSyntheticCustomerPortal(): CustomerPortalViewModel {
       product: item.product,
     };
   });
+  const routines = LEGACY_SHELF_IMPORT_MANIFEST.routines.map((savedRoutine, routineIndex) => ({
+    id: `synthetic-development:${savedRoutine.legacyId}`,
+    revision: 0,
+    name: savedRoutine.name,
+    origin: 'legacy_pages_v1_0' as const,
+    createdAt: new Date(Date.UTC(2026, 7, 3, 12, routineIndex)).toISOString(),
+    updatedAt: new Date(Date.UTC(2026, 7, 3, 12, routineIndex)).toISOString(),
+    steps: savedRoutine.steps.map(step => {
+      const reference = step.reference;
+      const binding = reference.state === 'catalogue'
+        ? SYNTHETIC_SHELF_BINDINGS.find(candidate => candidate.legacyId === reference.legacyId)
+        : undefined;
+      const product = binding
+        ? shelf.find(candidate => candidate.snapshot.slug === binding.identityVersion.slugAtReview)?.product ?? null
+        : null;
+      return {
+        id: `synthetic-development:${savedRoutine.legacyId}:${step.position}`,
+        position: step.position,
+        label: step.label,
+        instruction: step.instruction,
+        referenceState: reference.state,
+        product,
+      };
+    }),
+  }));
 
   return {
     account: {
@@ -114,5 +139,7 @@ export function createSyntheticCustomerPortal(): CustomerPortalViewModel {
     shelf,
     routineProvenance: `${LEGACY_SHELF_IMPORT_MANIFEST.id} example routine · local preview`,
     routine,
+    routineState: { status: 'ready', message: null },
+    routines,
   };
 }

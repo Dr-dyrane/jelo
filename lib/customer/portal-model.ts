@@ -1,6 +1,7 @@
 import type { Product } from '@/data/products';
 import { getReviewedProductCare } from '@/data/product-care-review';
 import type { CustomerShelfRecord } from './shelf-repository';
+import type { CustomerRoutineRecord } from './routine-repository';
 import { marketPriceLabel } from '@/modules/commerce/market-price-label';
 import { exactAvailableOffers } from '@/modules/commerce/market-product';
 
@@ -24,6 +25,23 @@ export type CustomerPortalRoutineStep = {
   moment: string;
   status: 'confirmed' | 'done' | 'alert';
   product: CustomerPortalProduct;
+};
+
+export type CustomerPortalSavedRoutine = {
+  id: string;
+  revision: number;
+  name: string;
+  origin: 'customer' | 'legacy_pages_v1_0';
+  createdAt: string;
+  updatedAt: string;
+  steps: readonly {
+    id: string;
+    position: number;
+    label: string;
+    instruction: string;
+    referenceState: 'none' | 'catalogue' | 'product_request' | 'unresolved';
+    product: CustomerPortalProduct | null;
+  }[];
 };
 
 export type CustomerPortalConcernReference = {
@@ -76,6 +94,11 @@ export type CustomerPortalViewModel = {
   shelf: readonly CustomerPortalShelfItem[];
   routineProvenance: string | null;
   routine: readonly CustomerPortalRoutineStep[];
+  routineState?: {
+    status: 'ready' | 'unavailable';
+    message: string | null;
+  };
+  routines?: readonly CustomerPortalSavedRoutine[];
 };
 
 export function toCustomerPortalProduct(product: Product): CustomerPortalProduct {
@@ -124,5 +147,32 @@ export function resolveCustomerPortalShelfItem(
     message: changed
       ? 'This saved version changed. Review it before choosing another product.'
       : 'This saved version is no longer available.',
+  };
+}
+
+export function resolveCustomerPortalRoutine(
+  record: CustomerRoutineRecord,
+  catalogueBySlug: ReadonlyMap<string, CustomerPortalProduct>,
+): CustomerPortalSavedRoutine {
+  return {
+    id: record.id,
+    revision: record.revision,
+    name: record.name,
+    origin: record.origin,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
+    steps: record.steps.map(step => ({
+      id: step.id,
+      position: step.position,
+      label: step.label,
+      instruction: step.instruction,
+      referenceState: step.referenceState,
+      product: step.referenceState === 'catalogue'
+        && step.productLifecycleState === 'active'
+        && step.currentProductPublished
+        && step.currentProductSlug
+        ? catalogueBySlug.get(step.currentProductSlug) ?? null
+        : null,
+    })),
   };
 }

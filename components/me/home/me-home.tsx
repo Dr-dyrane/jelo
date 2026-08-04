@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
 import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
+import { RoutineManager } from '@/components/me/routine/routine-manager';
 import {
   PrivateProductRequestShelf,
   ProductRequestAddPage,
@@ -226,7 +227,9 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
     };
   }
   if (route.kind === 'routine') {
-    return { routeKey: '/me/routine', currentHref: resolveMeActiveParentHref(route), page: 'routine' as MeWorkspacePage, detail: count(viewModel.routine.length, 'saved step') };
+    const stepCount = viewModel.routines?.reduce((total, routine) => total + routine.steps.length, 0)
+      ?? viewModel.routine.length;
+    return { routeKey: '/me/routine', currentHref: resolveMeActiveParentHref(route), page: 'routine' as MeWorkspacePage, detail: count(stepCount, 'saved step') };
   }
   if (route.kind === 'consult') {
     return { routeKey: '/me/consult', currentHref: resolveMeActiveParentHref(route), page: 'consult' as MeWorkspacePage, detail: 'My care' };
@@ -712,7 +715,13 @@ function RoutineList({ viewModel }: { viewModel: CustomerPortalViewModel }) {
   );
 }
 
-function RoutinePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+function RoutinePage({
+  viewModel,
+  mutationOutcome,
+}: {
+  viewModel: CustomerPortalViewModel;
+  mutationOutcome?: string;
+}) {
   const surface = ME_PORTAL_SURFACES.routine;
   return (
     <section className={styles.routePage} aria-labelledby="me-routine-title">
@@ -720,7 +729,13 @@ function RoutinePage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
         <p className={styles.eyebrow}>{viewModel.routineProvenance ?? surface.eyebrow}</p>
         <h1 id="me-routine-title">{surface.title}</h1>
       </div>
-      <RoutineList viewModel={viewModel} />
+      {viewModel.routines ? (
+        <RoutineManager
+          routines={viewModel.routines}
+          routineState={viewModel.routineState ?? { status: 'ready', message: null }}
+          outcome={mutationOutcome}
+        />
+      ) : <RoutineList viewModel={viewModel} />}
     </section>
   );
 }
@@ -1207,7 +1222,12 @@ function MePortalView({
               mutationOutcome={productRequestOutcome}
             />
           ) : null}
-          {route.kind === 'routine' ? <RoutinePage viewModel={portalViewModel} /> : null}
+          {route.kind === 'routine' ? (
+            <RoutinePage
+              viewModel={portalViewModel}
+              mutationOutcome={productRequestOutcome}
+            />
+          ) : null}
           {route.kind === 'consult' ? (
             <ConsultPage
               viewModel={portalViewModel}

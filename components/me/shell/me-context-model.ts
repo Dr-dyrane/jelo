@@ -56,14 +56,18 @@ export function createMeContextSheetModel({
   const shelfCount = shelfAvailable
     ? count(viewModel.shelf.length, 'saved product')
     : 'Shelf unavailable';
+  const routineStepCount = viewModel.routines?.reduce(
+    (total, routine) => total + routine.steps.length,
+    0,
+  ) ?? viewModel.routine.length;
   if (route.kind === 'home') {
     return {
       eyebrow: 'At a glance',
       title: 'My care',
-      summary: `${shelfCount} · ${count(viewModel.routine.length, 'step')}`,
+      summary: `${shelfCount} · ${count(routineStepCount, 'step')}`,
       items: [
         { id: 'shelf', label: 'My Shelf', detail: shelfAvailable ? count(viewModel.shelf.length, 'product') : 'Unavailable', href: '/me/shelf' },
-        { id: 'routine', label: 'My Routine', detail: count(viewModel.routine.length, 'step'), href: '/me/routine' },
+        { id: 'routine', label: 'My Routine', detail: count(routineStepCount, 'step'), href: '/me/routine' },
       ],
     };
   }
@@ -75,7 +79,7 @@ export function createMeContextSheetModel({
       summary: count(visibleProductCount, 'product'),
       items: [
         { id: 'shelf', label: 'My Shelf', detail: shelfCount, href: '/me/shelf' },
-        { id: 'routine', label: 'My Routine', detail: count(viewModel.routine.length, 'step'), href: '/me/routine' },
+        { id: 'routine', label: 'My Routine', detail: count(routineStepCount, 'step'), href: '/me/routine' },
       ],
     };
   }
@@ -127,16 +131,25 @@ export function createMeContextSheetModel({
   }
 
   if (route.kind === 'routine') {
-    const steps = viewModel.routine.slice(0, 4).map((step, index) => ({
-      ...productItem(step.product, 'routine'),
-      id: step.id,
-      label: `${String(index + 1).padStart(2, '0')} · ${step.product.name}`,
-      detail: `${step.moment} · ${step.product.brand}`,
-    }));
+    const steps = viewModel.routines
+      ? viewModel.routines.flatMap(routine => routine.steps).slice(0, 4).map(step => ({
+          id: step.id,
+          label: `${String(step.position).padStart(2, '0')} · ${step.label}`,
+          detail: step.instruction || 'Saved step',
+          href: step.product
+            ? `/me/product/${step.product.slug}?from=routine`
+            : '/me/routine',
+        }))
+      : viewModel.routine.slice(0, 4).map((step, index) => ({
+          ...productItem(step.product, 'routine'),
+          id: step.id,
+          label: `${String(index + 1).padStart(2, '0')} · ${step.product.name}`,
+          detail: `${step.moment} · ${step.product.brand}`,
+        }));
     return {
       eyebrow: viewModel.routineProvenance ?? 'My Routine',
       title: 'My Routine',
-      summary: count(viewModel.routine.length, 'saved step'),
+      summary: count(routineStepCount, 'saved step'),
       items: steps.length ? steps : [
         { id: 'explore', label: 'Explore products', detail: 'Exact catalogue', href: '/me/explore' },
       ],

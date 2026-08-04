@@ -182,7 +182,7 @@ where product.is_published = true
 
 ## Release the Customer Shelf boundary
 
-Use this runbook for the first Phase 1 Shelf activation and for a rehearsal on a
+Use this runbook for the first Shelf and Routine activation and for a rehearsal on a
 disposable production-shaped Neon branch. The mandatory release order is
 summarized in the
 [Customer Shelf release checklist](./RELEASE.md#customer-shelf-release-checklist);
@@ -231,9 +231,11 @@ npm run db:reconcile
 ```
 
 The ledger must include `0034_customer_shelf.sql`, followed by
-`0035_runtime_database_roles.sql` and `0036_customer_product_requests.sql`.
+`0035_runtime_database_roles.sql`, `0036_customer_product_requests.sql`, and
+`0037_customer_routines.sql`.
 Migration `0035` rejects an absent or unsafe role before applying grants;
-`0036` adds the private request boundary and its pinned research bridge. The
+`0036` adds the private request boundary and its pinned research bridge;
+`0037` adds the forced-RLS Routine boundary and exact runtime grants. The
 reconciler runs `db:migrate`, `db:seed`,
 `assets:product:seed`, and `assets:editorial:seed` in that order. These are
 idempotent public-data operators; none imports a customer Shelf. Do not pass
@@ -280,9 +282,18 @@ from pg_catalog.pg_roles role
 where role.rolname in ('jelocare_app_runtime', 'jelocare_shelf_runtime')
 order by role.rolname;
 
-select relrowsecurity, relforcerowsecurity
+select relname, relrowsecurity, relforcerowsecurity
 from pg_catalog.pg_class
-where oid = pg_catalog.to_regclass('public.customer_shelf_items');
+where oid in (
+  pg_catalog.to_regclass('public.customer_shelf_items'),
+  pg_catalog.to_regclass('public.customer_product_requests'),
+  pg_catalog.to_regclass('public.customer_product_request_images'),
+  pg_catalog.to_regclass('public.customer_product_request_mutations'),
+  pg_catalog.to_regclass('public.customer_product_request_blob_cleanup'),
+  pg_catalog.to_regclass('public.customer_routines'),
+  pg_catalog.to_regclass('public.customer_routine_steps')
+)
+order by relname;
 
 select grantee, table_schema, table_name, privilege_type
 from information_schema.role_table_grants
@@ -321,6 +332,8 @@ where grantee = 'PUBLIC'
   and table_name in (
     'customer_shelf_items',
     'customer_shelf_import_receipts',
+    'customer_routines',
+    'customer_routine_steps',
     'schema_migrations'
   )
 order by table_name, privilege_type;
@@ -330,14 +343,15 @@ Require exactly two `LOGIN NOINHERIT` rows with every elevated attribute,
 `is_member_of_another_role`, and ownership value false. PostgreSQL 17 may show
 an incoming creator/administrator membership; that direction is allowed and is
 recorded separately. Require enabled and forced RLS, all six connection/schema/
-type booleans true, and no `PUBLIC` row for the Shelf or receipt tables. The app
-role must have no Shelf, receipt, or migration-ledger privilege. The Shelf role
+type booleans true, and no `PUBLIC` row for the Shelf, Routine, or receipt tables. The app
+role must have no Shelf, Routine, receipt, or migration-ledger privilege. The Shelf role
 must have only `SELECT`, `INSERT`, and `DELETE` on
 `public.customer_shelf_items`, the migration-`0036` request/image/idempotency/
-cleanup grants, the exact reviewed catalogue column grants, and execute on the
+cleanup grants, exact CRUD on the migration-`0037` Routine tables, the exact
+reviewed catalogue column grants, and execute on the
 pinned request-signal bridge. It must have no direct request-research-mention,
 community-task, `TRUNCATE`, receipt, Auth, moderation, intake, or other
-private-table access. Migrations `0035` and `0036` grant no default privileges
+private-table access. Migrations `0035`, `0036`, and `0037` grant no default privileges
 to either runtime role; review each later table explicitly.
 
 Inject only the protected `CUSTOMER_SHELF_DATABASE_URL` and run the checked-in
@@ -352,10 +366,11 @@ npm run customer:shelf:audit -- --exercise-rollback
 The first command is read-only and requires the exact current and session role,
 safe role attributes, no outgoing role membership or relation ownership, and
 enabled plus forced RLS. An incoming PostgreSQL 17 creator/administrator edge
-is allowed. The second command inserts one row under a random synthetic owner,
-proves owner-A visibility, owner-B invisibility and cross-delete denial, proves
-owner deletion, then deliberately rolls back the entire transaction. It prints
-no subject or identity and leaves no durable Shelf row.
+is allowed. The second command inserts Shelf and Routine rows under a random
+synthetic owner, proves owner-A visibility, owner-B invisibility and cross-
+mutation denial, proves owner update/deletion and routine-step cascade, then
+deliberately rolls back the entire transaction. It prints no subject or
+identity and leaves no durable customer row.
 
 Run the read-only command on the selected rehearsal branch and production. Run
 `--exercise-rollback` on the rehearsal branch. In production, run that exercise
@@ -365,7 +380,8 @@ Neither command runs automatically in CI or Vercel. On the rehearsal branch,
 supplement them with transactions that prove:
 
 - missing `app.customer_subject` returns zero rows and rejects writes;
-- A and B can independently add, list, remove, and clear;
+- A and B can independently add, list, remove, and clear Shelf plus create,
+  list, update, and delete Routine;
 - a duplicate add creates one row;
 - `set row_security = off` does not expose rows; and
 - the Shelf role cannot query the receipt, Auth, moderation, intake, or
@@ -402,15 +418,18 @@ unset SHELF_IMPORT_RECEIPT_SHA256 JELOCARE_SHELF_IMPORT_OWNER_SUBJECT MIGRATION_
 
 The dry run must be database-enforced read-only and report all 14 source
 dispositions, exactly five accepted identity resolutions, nine pending request
-resolutions, no deletes, and no fully reconciled receipt. On apply, the importer
+resolutions, three routines, eleven ordered steps, no deletes, and no fully
+reconciled receipt. On apply, the importer
 first takes a `SHARE ROW EXCLUSIVE` lock on
 `public.customer_shelf_import_receipts` before reading the receipt, then locks
-`public.customer_shelf_items` and `public.customer_product_requests`, so no
+`public.customer_shelf_items`, `public.customer_product_requests`,
+`public.customer_routines`, and `public.customer_routine_steps`, so no
 competing apply or Shelf write can invalidate its plan. It remains additive and
 never deletes a Shelf row. Before writing the receipt, it verifies that the rows
 actually inserted equal both planned missing sets. A fresh import must finish
-with the exact five accepted identities and nine pending private requests, so
-require `accepted-final=5` and `pending-final=9`. An upgrade from the earlier
+with the exact five accepted identities, nine pending private requests, three
+routines, and eleven ordered steps, so require `accepted-final=5` and `pending-final=9`,
+plus `routines-final=3` and `routine-steps-final=11`. An upgrade from the earlier
 five-item receipt must add no accepted identity: `accepted-final` is the current
 surviving count from zero through five after customer removals, while
 `pending-final=9` remains mandatory. In both modes, require each inserted count
@@ -503,13 +522,17 @@ PostgreSQL or run the import.
 
 Smoke the exact deployment with the verified launch account: sign in, list the
 five accepted exact products, add and reload one other eligible product, remove
-it, export JSON, open and cancel the clear confirmation, and sign out. Never
+it, list the three imported routines and eleven ordered steps, create, update,
+and delete a temporary routine, export JSON, open and cancel the clear
+confirmation, and sign out. Never
 clear the imported launch Shelf merely for smoke because the receipt correctly
 prevents re-import; exercise the destructive clear result only with an approved
 disposable account. Confirm another account cannot see the rows, the public
-reporting helper sends no private state, Synthetic Amara is absent, and Routine
-and Concern remain unpersisted. Do not claim full provider-account deletion; it
-is not implemented.
+reporting helper sends no private state, Synthetic Amara is absent, and Concern
+remains unpersisted. Prove Routine and Shelf cross-owner denial with the
+checked-in deterministic rollback audit when a disposable customer is not
+already authorized. Do not claim full provider-account deletion; it is not
+implemented.
 
 ### 7. Rotate the former owner and declare the floor
 
@@ -528,14 +551,14 @@ use a bounded maintenance window. Do not change the role name or grants during
 a credential-only rotation.
 
 Record the rollback floor as the first exact application revision proven with
-the restricted roles, together with the ledger through `0036` and the passing
+the restricted roles, together with the ledger through `0037` and the passing
 audit. A failed later application deployment may roll back only to that revision
 or another role-compatible revision. Do not down-migrate, restore an owner URL,
 or delete Shelf rows. The current code has neither an activation flag nor an
 independent recovery-only export/delete path. Disable behavior with a reviewed
 role-compatible release; removing `CUSTOMER_SHELF_DATABASE_URL` is an emergency
-total fail-closed action that disables list, add, remove, clear, and export
-together. Preserve rows and forward-fix.
+total fail-closed action that disables Shelf list, add, remove, clear, export,
+and Routine persistence together. Preserve rows and forward-fix.
 
 This operation creates no cron and changes no inventory schedule, queue, lease,
 worker, or manual-observation behavior.

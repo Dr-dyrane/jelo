@@ -61,7 +61,7 @@ reviewed boundary before a provider credential is added.
 | Variable | Required | Notes |
 | --- | --- | --- |
 | `DATABASE_URL` | Production runtime data features | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding` |
-| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only |
+| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only |
 | `POSTGRES_URL` | Compatibility only | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator |
 | `NEON_PROJECT_ID` | Operator convenience | Not read by application runtime |
 

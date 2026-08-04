@@ -22,6 +22,16 @@ export type CustomerShelfRoleAttestation = {
   mutations_relforcerowsecurity: boolean;
   cleanup_relrowsecurity: boolean;
   cleanup_relforcerowsecurity: boolean;
+  routines_relrowsecurity: boolean;
+  routines_relforcerowsecurity: boolean;
+  routine_steps_relrowsecurity: boolean;
+  routine_steps_relforcerowsecurity: boolean;
+  routines_shelf_privileges_exact: boolean;
+  routine_steps_shelf_privileges_exact: boolean;
+  routines_app_privileges: boolean;
+  routine_steps_app_privileges: boolean;
+  routines_public_privileges: boolean;
+  routine_steps_public_privileges: boolean;
   research_mentions_shelf_select: boolean;
   research_mentions_app_request_id_select: boolean;
   research_mentions_app_aggregate_select: boolean;
@@ -58,6 +68,16 @@ export function isCustomerShelfRoleAttestationSafe(
     && attestation.mutations_relforcerowsecurity
     && attestation.cleanup_relrowsecurity
     && attestation.cleanup_relforcerowsecurity
+    && attestation.routines_relrowsecurity
+    && attestation.routines_relforcerowsecurity
+    && attestation.routine_steps_relrowsecurity
+    && attestation.routine_steps_relforcerowsecurity
+    && attestation.routines_shelf_privileges_exact
+    && attestation.routine_steps_shelf_privileges_exact
+    && !attestation.routines_app_privileges
+    && !attestation.routine_steps_app_privileges
+    && !attestation.routines_public_privileges
+    && !attestation.routine_steps_public_privileges
     && !attestation.research_mentions_shelf_select
     && !attestation.research_mentions_app_request_id_select
     && attestation.research_mentions_app_aggregate_select

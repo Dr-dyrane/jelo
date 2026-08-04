@@ -11,6 +11,24 @@ const EXERCISE_ROLLBACK = '--exercise-rollback';
 class ExpectedAuditRollback extends Error {}
 
 const INSUFFICIENT_PRIVILEGE = '42501';
+const ATTESTATION_FALSE_FIELDS = new Set<keyof CustomerShelfRoleAttestation>([
+  'rolinherit',
+  'rolsuper',
+  'rolcreatedb',
+  'rolcreaterole',
+  'rolreplication',
+  'rolbypassrls',
+  'has_role_memberships',
+  'owns_relations',
+  'routines_app_privileges',
+  'routine_steps_app_privileges',
+  'routines_public_privileges',
+  'routine_steps_public_privileges',
+  'research_mentions_shelf_select',
+  'research_mentions_app_request_id_select',
+  'signal_bridge_public_execute',
+  'signal_bridge_app_execute',
+]);
 
 function customerShelfAuditUrl() {
   const candidate = process.env.CUSTOMER_SHELF_DATABASE_URL;
@@ -52,6 +70,78 @@ async function roleAttestation(sql: Sql | TransactionSql) {
       mutation_relation.relforcerowsecurity as mutations_relforcerowsecurity,
       cleanup_relation.relrowsecurity as cleanup_relrowsecurity,
       cleanup_relation.relforcerowsecurity as cleanup_relforcerowsecurity,
+      routine_relation.relrowsecurity as routines_relrowsecurity,
+      routine_relation.relforcerowsecurity as routines_relforcerowsecurity,
+      routine_step_relation.relrowsecurity as routine_steps_relrowsecurity,
+      routine_step_relation.relforcerowsecurity as routine_steps_relforcerowsecurity,
+      pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_relation.oid, 'SELECT')
+        and pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_relation.oid, 'INSERT')
+        and pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_relation.oid, 'UPDATE')
+        and pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_relation.oid, 'DELETE')
+        and not pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_relation.oid, 'TRUNCATE')
+        and not pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_relation.oid, 'REFERENCES')
+        and not pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_relation.oid, 'TRIGGER')
+        as routines_shelf_privileges_exact,
+      pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_step_relation.oid, 'SELECT')
+        and pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_step_relation.oid, 'INSERT')
+        and pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_step_relation.oid, 'UPDATE')
+        and pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_step_relation.oid, 'DELETE')
+        and not pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_step_relation.oid, 'TRUNCATE')
+        and not pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_step_relation.oid, 'REFERENCES')
+        and not pg_catalog.has_table_privilege(${CUSTOMER_SHELF_RUNTIME_ROLE}, routine_step_relation.oid, 'TRIGGER')
+        as routine_steps_shelf_privileges_exact,
+      pg_catalog.has_table_privilege('jelocare_app_runtime', routine_relation.oid, 'SELECT')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_relation.oid, 'INSERT')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_relation.oid, 'UPDATE')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_relation.oid, 'DELETE')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_relation.oid, 'TRUNCATE')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_relation.oid, 'REFERENCES')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_relation.oid, 'TRIGGER')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_relation.oid, 'SELECT')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_relation.oid, 'INSERT')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_relation.oid, 'UPDATE')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_relation.oid, 'REFERENCES')
+        as routines_app_privileges,
+      pg_catalog.has_table_privilege('jelocare_app_runtime', routine_step_relation.oid, 'SELECT')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_step_relation.oid, 'INSERT')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_step_relation.oid, 'UPDATE')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_step_relation.oid, 'DELETE')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_step_relation.oid, 'TRUNCATE')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_step_relation.oid, 'REFERENCES')
+        or pg_catalog.has_table_privilege('jelocare_app_runtime', routine_step_relation.oid, 'TRIGGER')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_step_relation.oid, 'SELECT')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_step_relation.oid, 'INSERT')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_step_relation.oid, 'UPDATE')
+        or pg_catalog.has_any_column_privilege('jelocare_app_runtime', routine_step_relation.oid, 'REFERENCES')
+        as routine_steps_app_privileges,
+      exists (
+        select 1
+        from pg_catalog.aclexplode(coalesce(
+          routine_relation.relacl,
+          pg_catalog.acldefault('r', routine_relation.relowner)
+        )) privilege
+        where privilege.grantee = 0
+      ) or exists (
+        select 1
+        from pg_catalog.pg_attribute attribute
+        cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+        where attribute.attrelid = routine_relation.oid
+          and privilege.grantee = 0
+      ) as routines_public_privileges,
+      exists (
+        select 1
+        from pg_catalog.aclexplode(coalesce(
+          routine_step_relation.relacl,
+          pg_catalog.acldefault('r', routine_step_relation.relowner)
+        )) privilege
+        where privilege.grantee = 0
+      ) or exists (
+        select 1
+        from pg_catalog.pg_attribute attribute
+        cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+        where attribute.attrelid = routine_step_relation.oid
+          and privilege.grantee = 0
+      ) as routine_steps_public_privileges,
       pg_catalog.has_table_privilege(
         ${CUSTOMER_SHELF_RUNTIME_ROLE}, mention_relation.oid, 'SELECT'
       ) as research_mentions_shelf_select,
@@ -99,6 +189,10 @@ async function roleAttestation(sql: Sql | TransactionSql) {
       on mutation_relation.oid = pg_catalog.to_regclass('public.customer_product_request_mutations')
     left join pg_catalog.pg_class cleanup_relation
       on cleanup_relation.oid = pg_catalog.to_regclass('public.customer_product_request_blob_cleanup')
+    left join pg_catalog.pg_class routine_relation
+      on routine_relation.oid = pg_catalog.to_regclass('public.customer_routines')
+    left join pg_catalog.pg_class routine_step_relation
+      on routine_step_relation.oid = pg_catalog.to_regclass('public.customer_routine_steps')
     left join pg_catalog.pg_class mention_relation
       on mention_relation.oid = pg_catalog.to_regclass('public.customer_product_request_research_mentions')
     left join pg_catalog.pg_proc signal_bridge
@@ -108,6 +202,12 @@ async function roleAttestation(sql: Sql | TransactionSql) {
     where role.rolname = current_user
   `;
   if (!isCustomerShelfRoleAttestationSafe(attestation)) {
+    const failedFields = attestation
+      ? (Object.entries(attestation) as [keyof CustomerShelfRoleAttestation, boolean][])
+          .filter(([field, value]) => value !== !ATTESTATION_FALSE_FIELDS.has(field))
+          .map(([field]) => field)
+      : ['missing_attestation'];
+    console.error(`Customer Shelf role audit failed fields=${failedFields.join(',')}.`);
     throw new Error('Customer Shelf role audit failed.');
   }
 }
@@ -129,18 +229,30 @@ async function expectPrivilegeDenial(
 async function assertNoPooledSubjectOrVisibleShelfRows(sql: Sql) {
   await sql.begin('read only', async transaction => {
     await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
-    const [state] = await transaction<{ customer_subject: string | null; visible_count: number }[]>`
+    const [state] = await transaction<{
+      customer_subject: string | null;
+      visible_count: number;
+      visible_routine_count: number;
+    }[]>`
       select
-        pg_catalog.nullif(
+        nullif(
           pg_catalog.current_setting('app.customer_subject', true),
           ''
         ) as customer_subject,
         (
           select pg_catalog.count(*)::integer
           from public.customer_shelf_items
-        ) as visible_count
+        ) as visible_count,
+        (
+          select pg_catalog.count(*)::integer
+          from public.customer_routines
+        ) as visible_routine_count
     `;
-    if (state?.customer_subject !== null || state.visible_count !== 0) {
+    if (
+      state?.customer_subject !== null
+      || state.visible_count !== 0
+      || state.visible_routine_count !== 0
+    ) {
       throw new Error('Customer Shelf pooled subject reset audit failed.');
     }
   });
@@ -258,6 +370,77 @@ async function exerciseRolledBackIsolation(sql: Sql) {
         returning product_identity_version_id
       `;
       if (ownerDelete.length !== 1) throw new Error('Customer Shelf owner delete audit failed.');
+
+      const routineId = randomUUID();
+      const routineStepId = randomUUID();
+      const routineInsert = await transaction<{ id: string }[]>`
+        insert into public.customer_routines (id, owner_subject, name, origin)
+        values (${routineId}, ${ownerA}, 'Audit routine', 'customer')
+        returning id
+      `;
+      if (routineInsert.length !== 1) throw new Error('Customer Routine create audit failed.');
+      const routineStepInsert = await transaction<{ id: string }[]>`
+        insert into public.customer_routine_steps (
+          id, routine_id, owner_subject, position, label, instruction, reference_state
+        ) values (
+          ${routineStepId}, ${routineId}, ${ownerA}, 1, 'Audit step', 'Rolled back.', 'none'
+        )
+        returning id
+      `;
+      if (routineStepInsert.length !== 1) throw new Error('Customer Routine step create audit failed.');
+
+      await expectPrivilegeDenial(transaction, 'forged routine insert', savepoint => savepoint`
+        insert into public.customer_routines (owner_subject, name, origin)
+        values (${ownerB}, 'Forged routine', 'customer')
+      `);
+      await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerB}, true)`;
+      const routinesVisibleToB = await transaction<{ count: number }[]>`
+        select pg_catalog.count(*)::integer as count
+        from public.customer_routines
+        where owner_subject = ${ownerA}
+      `;
+      if (routinesVisibleToB[0]?.count !== 0) throw new Error('Customer Routine read isolation audit failed.');
+      const crossOwnerRoutineUpdate = await transaction<{ id: string }[]>`
+        update public.customer_routines
+        set name = 'Cross-owner update'
+        where owner_subject = ${ownerA}
+          and id = ${routineId}
+        returning id
+      `;
+      if (crossOwnerRoutineUpdate.length !== 0) throw new Error('Customer Routine update isolation audit failed.');
+      const crossOwnerRoutineDelete = await transaction<{ id: string }[]>`
+        delete from public.customer_routines
+        where owner_subject = ${ownerA}
+          and id = ${routineId}
+        returning id
+      `;
+      if (crossOwnerRoutineDelete.length !== 0) throw new Error('Customer Routine delete isolation audit failed.');
+
+      await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
+      const ownerRoutineUpdate = await transaction<{ id: string }[]>`
+        update public.customer_routines
+        set name = 'Updated audit routine',
+            revision = revision + 1,
+            updated_at = now()
+        where owner_subject = ${ownerA}
+          and id = ${routineId}
+        returning id
+      `;
+      if (ownerRoutineUpdate.length !== 1) throw new Error('Customer Routine owner update audit failed.');
+      const ownerRoutineDelete = await transaction<{ id: string }[]>`
+        delete from public.customer_routines
+        where owner_subject = ${ownerA}
+          and id = ${routineId}
+        returning id
+      `;
+      if (ownerRoutineDelete.length !== 1) throw new Error('Customer Routine owner delete audit failed.');
+      const remainingRoutineSteps = await transaction<{ count: number }[]>`
+        select pg_catalog.count(*)::integer as count
+        from public.customer_routine_steps
+        where owner_subject = ${ownerA}
+          and routine_id = ${routineId}
+      `;
+      if (remainingRoutineSteps[0]?.count !== 0) throw new Error('Customer Routine cascade audit failed.');
       throw new ExpectedAuditRollback();
     });
   } catch (error) {
@@ -283,7 +466,13 @@ async function main() {
   }
 }
 
-main().catch(() => {
-  console.error('Customer Shelf role audit failed.');
+main().catch((error: unknown) => {
+  const code = typeof error === 'object' && error && 'code' in error
+    ? String(error.code)
+    : 'unavailable';
+  const routine = typeof error === 'object' && error && 'routine' in error
+    ? String(error.routine)
+    : 'unavailable';
+  console.error(`Customer Shelf role audit failed (code=${code}; routine=${routine}).`);
   process.exitCode = 1;
 });

@@ -7,9 +7,11 @@ import { createSyntheticCustomerPortal } from './development-fixture';
 import {
   toCustomerPortalProduct,
   resolveCustomerPortalShelfItem,
+  resolveCustomerPortalRoutine,
   type CustomerPortalViewModel,
 } from './portal-model';
 import { customerShelfService } from './shelf-service';
+import { customerRoutineService } from './routine-service';
 
 export async function readCustomerPortal(
   identity: CustomerAccessIdentity,
@@ -22,9 +24,10 @@ export async function readCustomerPortal(
     };
   }
 
-  const [products, shelfRead] = await Promise.all([
+  const [products, shelfRead, routineRead] = await Promise.all([
     listCatalogueProducts(),
     customerShelfService.read(identity),
+    customerRoutineService.read(identity),
   ]);
   const catalogue = products.map(toCustomerPortalProduct);
   const catalogueBySlug = new Map(catalogue.map(product => [product.slug, product]));
@@ -32,6 +35,17 @@ export async function readCustomerPortal(
     ? shelfRead.items.map(item => resolveCustomerPortalShelfItem(item, catalogueBySlug))
     : [];
   const firstSavedProduct = shelf.find(item => item.product)?.product ?? null;
+  const routines = routineRead.status === 'ready'
+    ? routineRead.routines.map(routine => resolveCustomerPortalRoutine(routine, catalogueBySlug))
+    : [];
+  const routine = routines.flatMap(savedRoutine => (
+    savedRoutine.steps.flatMap(step => step.product ? [{
+      id: step.id,
+      moment: step.instruction || `${savedRoutine.name} step ${step.position}`,
+      status: 'confirmed' as const,
+      product: step.product,
+    }] : [])
+  ));
 
   return {
     account: {
@@ -50,6 +64,11 @@ export async function readCustomerPortal(
     },
     shelf,
     routineProvenance: null,
-    routine: [],
+    routine,
+    routineState: {
+      status: routineRead.status,
+      message: routineRead.status === 'unavailable' ? routineRead.message : null,
+    },
+    routines,
   };
 }

@@ -1,6 +1,6 @@
-# ADR 0014: Customer Shelf data boundary
+# ADR 0014: Customer Shelf and Routine data boundary
 
-- **Status:** Accepted; operator activation and production evidence remain
+- **Status:** Accepted and activated in production
 - **Date:** 2026-08-03
 - **Decision owner:** Founder
 - **Extends:** [ADR 0013](0013-founder-led-jelocare-me.md)
@@ -16,10 +16,12 @@ printed size/variant match is rejected in favor of the existing product.
 Synthetic Amara data remains a local fixture: it never reads from or writes to
 PostgreSQL.
 
-Shelf, including its missing-product request lane, is the only persisted
-JeloCare Me scope in this phase. Routine and Concern
-content remains part of the local Synthetic Amara preview only; real-account
-Routine and Concern data is not persisted. This decision does not introduce
+Customer routines are also persisted as owner-scoped named lists with 1–20
+ordered steps. A step stores its label and instruction plus either one exact
+reviewed catalogue identity, one owner-matched private product request, or an
+explicit unresolved state. An unresolved legacy reference remains the reviewed
+source text and is never converted into an invented catalogue match. Concern
+content remains part of the local Synthetic Amara preview only. This decision does not introduce
 customer profiles or roles, notes, quantities, purchase claims,
 recommendations, notifications, or a general portal schema. It changes no
 inventory cron, queue, lease, observation, or manual-refresh behavior.
@@ -70,6 +72,14 @@ no owner subject or private request fields, no direct table grant to PUBLIC or
 columns `task_id`, `active`, `first_seen_at`, and `last_seen_at`. The app runtime
 cannot select its private `request_id` linkage.
 
+Migration `0037_customer_routines.sql` adds `customer_routines` and
+`customer_routine_steps`. Both relations repeat the owner subject, enforce the
+owner/routine composite foreign key, enable and force RLS, and use the same
+transaction-local subject as Shelf. Create and update write every ordered step
+inside one transaction; update uses an optimistic revision and delete cascades
+only through the selected owner's routine. Server actions accept routine data,
+an opaque routine ID, and revision, never an owner.
+
 ## Database role and credential boundary
 
 Production has three distinct database authorities:
@@ -78,7 +88,7 @@ Production has three distinct database authorities:
 | --- | --- | --- |
 | Protected migration administrator | Operator workstation or protected release runner only | Supplied as `MIGRATION_DATABASE_URL`; applies migrations and explicit reconciliation operators |
 | `jelocare_app_runtime` | Vercel server runtime | `LOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS`; may use the existing public application tables and sequences granted by migration `0035`, but not Shelf rows, Shelf import receipts, or the migration ledger; future tables receive no default grant |
-| `jelocare_shelf_runtime` | Vercel server runtime | Same non-privileged role attributes; may use only owner-isolated Shelf/request/image/idempotency/cleanup rows, reviewed catalogue identity columns, and the pinned aggregate-signal bridge |
+| `jelocare_shelf_runtime` | Vercel server runtime | Same non-privileged role attributes; may use only owner-isolated Shelf/request/image/idempotency/cleanup/routine rows, reviewed catalogue identity columns, and the pinned aggregate-signal bridge |
 
 The operator creates both runtime roles with SQL as `PASSWORD NULL`, then sets
 each independent password through an interactive or equivalently protected
@@ -96,6 +106,10 @@ mention table, proves the app runtime cannot select `request_id` but can read
 only its four aggregate columns, and requires a security-definer bridge with
 pinned `pg_catalog, public` search path, no PUBLIC or app-runtime execute grant,
 and an explicit Shelf-runtime execute grant.
+Migration `0037` narrows routine access to exact Shelf-runtime CRUD. Runtime
+attestation additionally requires forced RLS on both routine relations, the
+exact expected Shelf-runtime table privileges, and no app-runtime or PUBLIC
+table or column privilege.
 
 Production runtime code also fails closed unless the general connection names
 the exact `jelocare_app_runtime` user and the Shelf connection attests the exact
@@ -140,6 +154,12 @@ force-matched or promoted to catalogue truth. Their exact legacy text and
 resolution. The manifest is the canonical 5 accepted / 9 pending disposition
 list rather than this summary.
 
+The same hash-pinned manifest contains exactly three routines and eleven
+ordered steps: Morning (4), Evening (3), and Hair wash (4). Single exact
+references bind to one of the five reviewed identities or nine private pending
+requests. Generic or multi-product source language remains `unresolved` while
+preserving its exact label and instruction.
+
 The development preview projects those records into the bounded request view
 model on the server only. Client modules receive sanitized view-model values;
 they never import the manifest or fixture, so a production client bundle cannot
@@ -152,13 +172,15 @@ mailbox. It resolves exactly that verified non-banned Auth row inside the
 transaction and never logs or prints the subject. A dry run uses a database
 read-only transaction. Apply requires both `--apply` and the exact
 owner-addressed `--confirm-receipt-sha256` value, only adds the five reviewed
-identities and nine deterministic pending requests, never deletes Shelf rows,
-and atomically records their 5/9 reconciliation counts. A receipt from the
+identities, nine deterministic pending requests, three routines, and eleven
+steps, never deletes customer rows, and atomically records their 5/9/3/11
+reconciliation counts. A receipt from the
 earlier five-item import may advance once from pending count zero to nine; a
 receipt-backed upgrade adds only the nine requests and never restores an
 accepted Shelf row the customer removed after the earlier import. A
-fully reconciled receipt makes later reruns no-ops, so customer withdrawal is
-not silently reversed.
+receipt with Shelf/request counts but no routines may advance once to 3/11. A
+fully reconciled receipt makes later reruns no-ops, so customer deletion or
+withdrawal is not silently reversed.
 
 ## Narrow research exception and private photos
 
@@ -206,6 +228,8 @@ is not a Vercel cron and does not alter the inventory scheduled owner.
 - Live rows remain until the customer removes an item or clears the Shelf.
 - Remove and clear hard-delete live Shelf rows. There is no application trash
   or customer-restorable copy.
+- Routine delete hard-deletes the selected owner-scoped routine and its ordered
+  steps. Routine create and update do not modify Shelf or request rows.
 - The Account sheet exports a no-store JSON attachment containing the immutable
   identity version, exact reviewed snapshot, lifecycle state, save origin, and
   saved time. It contains no owner subject, email, Routine, Concern, or session
@@ -239,12 +263,12 @@ the database acceptance audit, and performs the one-off import. The exact order
 and evidence are owned by the [release process](../operations/RELEASE.md) and
 [runbooks](../operations/RUNBOOKS.md#release-the-customer-shelf-boundary).
 
-Migrations `0034`, `0035`, and `0036` are additive and are not down-migrated during an
+Migrations `0034`, `0035`, `0036`, and `0037` are additive and are not down-migrated during an
 application rollback. The current application has no Shelf activation flag and
 no independent recovery-only export/delete mode. Disabling behavior therefore
 requires a reviewed role-compatible application release; removing
 `CUSTOMER_SHELF_DATABASE_URL` is only an emergency total fail-closed action and
-disables Shelf list, add, remove, clear, and export together. Do not claim
+disables Shelf list, add, remove, clear, export, and Routine persistence together. Do not claim
 export or deletion remains available after disabling that connection.
 
 After the former database owner credential is rotated, the rollback floor is

@@ -28,7 +28,10 @@ test('the Me route is session guarded and awaits the narrow Shelf read model', (
   assert.match(childRoute, /await readCustomerPortal\(customer\)/);
   assert.equal(globSync('db/migrations/**/*member*').length, 0);
   assert.deepEqual(globSync('db/migrations/**/*shelf*'), ['db/migrations/0034_customer_shelf.sql']);
-  assert.equal(globSync('db/migrations/**/*routine*').length, 0);
+  assert.deepEqual(
+    globSync('db/migrations/**/*routine*'),
+    ['db/migrations/0037_customer_routines.sql'],
+  );
 });
 
 test('the customer adapter cannot import Operations semantics or colors', () => {
