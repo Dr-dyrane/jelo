@@ -484,14 +484,14 @@
     "publicationBrandSlug": "medik8",
     "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463",
     "localPath": "data/catalogue-intake-assets/medik8-crystal-retinal-3-30ml/packshot-v2.png",
-    "blobPath": "products/medik8/medik8-crystal-retinal-3-30ml/packshot-v2-05a4ae757503f485.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v2-05a4ae757503f485.png",
+    "blobPath": "products/medik8/medik8-crystal-retinal-3-30ml/packshot-v2-a38e82a71b3bd20e.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v2-a38e82a71b3bd20e.png",
     "contentType": "image/png",
-    "byteSize": 552150,
+    "byteSize": 403939,
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "05a4ae757503f485babd1ec9e221525709758059e3e7e30bf10a9d2e4fd2d4a2"
+    "contentHash": "a38e82a71b3bd20ea16f56614c216710d4e2e6d2919cf5885400e4b978ba4dc9"
   },
   {
     "id": "medik8-crystal-retinal-6-30ml-packshot-v2",
@@ -501,13 +501,13 @@
     "publicationBrandSlug": "medik8",
     "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_6_-_Packshot_-_ROW_38652d6d-e6fe-4cd4-960a-ed3e0362bf4b.jpg?v=1776699463",
     "localPath": "data/catalogue-intake-assets/medik8-crystal-retinal-6-30ml/packshot-v2.png",
-    "blobPath": "products/medik8/medik8-crystal-retinal-6-30ml/packshot-v2-265f8c7e447cef67.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-6-30ml/packshot-v2-265f8c7e447cef67.png",
+    "blobPath": "products/medik8/medik8-crystal-retinal-6-30ml/packshot-v2-3fb52fbf3809770e.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-6-30ml/packshot-v2-3fb52fbf3809770e.png",
     "contentType": "image/png",
-    "byteSize": 542601,
+    "byteSize": 395460,
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "265f8c7e447cef67aeb54320aa05b434212fc9f3245c74cca512430c1bfbac03"
+    "contentHash": "3fb52fbf3809770e3fd87bed9751af2957e1c7e3287c4ca5704320cc866430a4"
   }
 ]
