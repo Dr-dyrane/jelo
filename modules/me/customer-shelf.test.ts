@@ -16,9 +16,9 @@ import type {
 } from '../../lib/customer/shelf-repository';
 import { LEGACY_SHELF_IMPORT_MANIFEST } from '../../lib/customer/legacy-shelf-import-manifest';
 import {
-  LEGACY_SHELF_TARGET_MAILBOX_ENV,
+  LEGACY_SHELF_OWNER_SUBJECT_ENV,
   parseLegacyShelfImportOptions,
-  targetMailboxConfirmationSha256,
+  targetImportReceiptSha256,
 } from '../../lib/customer/legacy-shelf-import-policy';
 import { verifyLegacyShelfImportSourceFromGit } from '../../lib/customer/legacy-shelf-import-source';
 import {
@@ -234,6 +234,22 @@ test('Shelf role attestation rejects every elevated or indirect authority path',
     owns_relations: false,
     relrowsecurity: true,
     relforcerowsecurity: true,
+    requests_relrowsecurity: true,
+    requests_relforcerowsecurity: true,
+    images_relrowsecurity: true,
+    images_relforcerowsecurity: true,
+    mutations_relrowsecurity: true,
+    mutations_relforcerowsecurity: true,
+    cleanup_relrowsecurity: true,
+    cleanup_relforcerowsecurity: true,
+    research_mentions_shelf_select: false,
+    research_mentions_app_request_id_select: false,
+    research_mentions_app_aggregate_select: true,
+    signal_bridge_is_security_definer: true,
+    signal_bridge_search_path_is_pinned: true,
+    signal_bridge_public_execute: false,
+    signal_bridge_app_execute: false,
+    signal_bridge_shelf_execute: true,
   };
   assert.equal(isCustomerShelfRoleAttestationSafe(safe), true);
   assert.equal(isCustomerShelfRoleAttestationSafe(undefined), false);
@@ -243,6 +259,18 @@ test('Shelf role attestation rejects every elevated or indirect authority path',
     'rolcanlogin',
     'relrowsecurity',
     'relforcerowsecurity',
+    'requests_relrowsecurity',
+    'requests_relforcerowsecurity',
+    'images_relrowsecurity',
+    'images_relforcerowsecurity',
+    'mutations_relrowsecurity',
+    'mutations_relforcerowsecurity',
+    'cleanup_relrowsecurity',
+    'cleanup_relforcerowsecurity',
+    'research_mentions_app_aggregate_select',
+    'signal_bridge_is_security_definer',
+    'signal_bridge_search_path_is_pinned',
+    'signal_bridge_shelf_execute',
   ] as const) {
     assert.equal(isCustomerShelfRoleAttestationSafe({ ...safe, [key]: false }), false, key);
   }
@@ -255,6 +283,10 @@ test('Shelf role attestation rejects every elevated or indirect authority path',
     'rolbypassrls',
     'has_role_memberships',
     'owns_relations',
+    'research_mentions_shelf_select',
+    'research_mentions_app_request_id_select',
+    'signal_bridge_public_execute',
+    'signal_bridge_app_execute',
   ] as const) {
     assert.equal(isCustomerShelfRoleAttestationSafe({ ...safe, [key]: true }), false, key);
   }
@@ -314,11 +346,11 @@ test('the reviewed legacy manifest reconciles all 14 hashed source records exact
     assert.ok(binding.provenance.usage);
     assert.ok(binding.provenance.routineReferences.length > 0);
   }
+  assert.equal(LEGACY_SHELF_IMPORT_MANIFEST.pendingRequests.length, 9);
   assert.deepEqual(
-    LEGACY_SHELF_IMPORT_MANIFEST.rejected.filter(item => item.reason === 'ambiguous-legacy-identity').map(item => item.legacyId),
-    ['dove', 'deodorant'],
+    LEGACY_SHELF_IMPORT_MANIFEST.pendingRequests.map(item => item.legacyId),
+    ['bright', 'blab', 'dove', 'deodorant', 'miracle', 'lush', 'mediana', 'kuza', 'disaar'],
   );
-  assert.equal(LEGACY_SHELF_IMPORT_MANIFEST.rejected.length, 9);
   assert.deepEqual(LEGACY_SHELF_IMPORT_MANIFEST.requiredIdentity, {
     versionNumber: 1,
     provenance: 'jelocare_reviewed',
@@ -329,7 +361,7 @@ test('the reviewed legacy manifest reconciles all 14 hashed source records exact
   });
   const classified = [
     ...LEGACY_SHELF_IMPORT_MANIFEST.accepted.map(item => item.legacyId),
-    ...LEGACY_SHELF_IMPORT_MANIFEST.rejected.map(item => item.legacyId),
+    ...LEGACY_SHELF_IMPORT_MANIFEST.pendingRequests.map(item => item.legacyId),
   ];
   assert.equal(new Set(classified).size, 14);
   assert.deepEqual([...classified].sort(), [...LEGACY_SHELF_IMPORT_MANIFEST.source.products.legacyIds].sort());
@@ -337,18 +369,18 @@ test('the reviewed legacy manifest reconciles all 14 hashed source records exact
 });
 
 test('the one-off importer is dry-run by default, redacted, and apply-confirmed', () => {
-  const mailbox = 'target@example.test';
-  const environment = { [LEGACY_SHELF_TARGET_MAILBOX_ENV]: `  ${mailbox.toUpperCase()}  ` };
+  const ownerSubject = '11111111-1111-4111-8111-111111111111';
+  const environment = { [LEGACY_SHELF_OWNER_SUBJECT_ENV]: ownerSubject };
   assert.deepEqual(parseLegacyShelfImportOptions([], environment), {
     apply: false,
-    normalizedMailbox: mailbox,
-    targetConfirmationSha256: null,
+    ownerSubject,
+    targetReceiptSha256: null,
   });
-  assert.throws(() => parseLegacyShelfImportOptions(['--apply'], environment), /confirmation hash/);
-  const confirmation = targetMailboxConfirmationSha256(mailbox);
+  assert.throws(() => parseLegacyShelfImportOptions(['--apply'], environment), /receipt hash/);
+  const confirmation = targetImportReceiptSha256(ownerSubject);
   assert.equal(parseLegacyShelfImportOptions([
     '--apply',
-    `--confirm-target-sha256=${confirmation}`,
+    `--confirm-receipt-sha256=${confirmation}`,
   ], environment).apply, true);
   assert.throws(() => parseLegacyShelfImportOptions(['--email=private@example.test'], environment), /Only --apply/);
 
@@ -372,13 +404,15 @@ test('the one-off importer is dry-run by default, redacted, and apply-confirmed'
   assert.doesNotMatch(script, /brand\.name\s*=/);
   assert.match(script, /lock table public\.customer_shelf_items in share row exclusive mode/);
   assert.match(script, /returning product_identity_version_id/);
-  assert.match(script, /hasExactIdentitySet\(toAdd, inserted\)/);
-  assert.match(script, /hasExactIdentitySet\(resolved, finalAccepted\)/);
+  assert.match(script, /hasExactSet\(acceptedToAdd, acceptedInserted\)/);
+  assert.match(script, /hasExactSet\(acceptedIdentityIds, acceptedFinal\)/);
+  assert.match(script, /hasExactSet\(pendingToAdd, pendingInserted\)/);
+  assert.match(script, /hasExactSet\(pendingRequestIds, pendingFinal\)/);
   assert.match(script, /customer_shelf_import_receipts/);
   assert.match(script, /completion: 'already-completed'/);
   assert.match(script, /completion: options\.apply \? 'completed' : 'pending'/);
-  assert.match(script, /inserted=\$\{report\.inserted\}/);
-  assert.match(script, /would-insert=\$\{report\.plannedInsert\}/);
+  assert.match(script, /accepted-inserted=\$\{report\.acceptedInserted\}/);
+  assert.match(script, /pending-inserted=\$\{report\.pendingInserted\}/);
   assert.doesNotMatch(script, /delete from public\.customer_shelf_items/);
   assert.match(script, /if \(options\.apply\)/);
   assert.match(script, /pg_catalog\.to_jsonb\(auth_user\) \? 'emailVerified'/);
@@ -386,11 +420,11 @@ test('the one-off importer is dry-run by default, redacted, and apply-confirmed'
   assert.match(script, /selectExactlyOneVerifiedTarget/);
   const shelfLock = script.indexOf('lock table public.customer_shelf_items in share row exclusive mode');
   const existingRead = script.indexOf('select product_identity_version_id\n    from public.customer_shelf_items');
-  const finalSetCheck = script.indexOf('hasExactIdentitySet(resolved, finalAccepted)');
+  const finalSetCheck = script.indexOf('hasExactSet(acceptedIdentityIds, acceptedFinal)');
   const receiptWrite = script.indexOf('insert into public.customer_shelf_import_receipts');
   assert.ok(shelfLock >= 0 && shelfLock < existingRead);
   assert.ok(finalSetCheck >= 0 && finalSetCheck < receiptWrite);
-  assert.doesNotMatch(script, /console\.(?:log|error)\([^\n]*(?:ownerSubject|normalizedMailbox)/);
+  assert.doesNotMatch(script, /console\.(?:log|error)\([^\n]*ownerSubject/);
 });
 
 test('the real Shelf role and owner isolation audit is explicit and rolls writes back', () => {

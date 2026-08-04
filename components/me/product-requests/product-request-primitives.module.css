@@ -1,0 +1,225 @@
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.requestCardMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 13px;
+}
+
+.lifecycle,
+.originLabel {
+  width: fit-content;
+  border-radius: 999px;
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.lifecycle {
+  padding: 7px 9px;
+  background: color-mix(in srgb, var(--wine) 10%, transparent);
+  color: var(--wine);
+  text-transform: uppercase;
+}
+
+.lifecycle[data-lifecycle='pending'],
+.lifecycle[data-lifecycle='in_review'],
+.lifecycle[data-lifecycle='needs_info'] {
+  background: color-mix(in srgb, var(--muted) 13%, transparent);
+  color: var(--muted);
+}
+
+.lifecycle[data-lifecycle='matched'],
+.lifecycle[data-lifecycle='published'] {
+  background: color-mix(in srgb, #537d63 15%, transparent);
+  color: color-mix(in srgb, #325c42 88%, var(--ink));
+}
+
+.originLabel { color: var(--muted); line-height: 1.35; }
+
+.stepHeading {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.stepHeading > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--wine) 10%, transparent);
+  color: var(--wine);
+  font-family: var(--font-display), serif;
+  font-size: 1rem;
+}
+
+.stepHeading h2 {
+  margin: 9px 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  font-weight: 400;
+  letter-spacing: -0.042em;
+  line-height: 0.96;
+}
+
+.stepHeading p {
+  max-width: 42rem;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.fieldStack { display: grid; gap: 15px; padding-left: 62px; }
+.fieldStack > label,
+.optionalFields > label { display: grid; gap: 8px; }
+.fieldStack label > span {
+  padding-left: 5px;
+  color: var(--wine);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.fieldStack label > span b {
+  margin-left: 6px;
+  color: var(--muted);
+  font-size: 0.55rem;
+  font-weight: 500;
+}
+.fieldStack input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 18px;
+  outline: 0;
+  background: color-mix(in srgb, var(--cream) 72%, var(--paper));
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+}
+.fieldStack input:focus { box-shadow: 0 0 0 2px var(--wine); }
+.fieldStack input:disabled { opacity: 0.66; }
+.optionalFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+.optionalFields label:last-child { grid-column: 1 / -1; }
+
+.photoField {
+  position: relative;
+  display: grid;
+  min-height: 88px;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 13px;
+  margin-left: 62px;
+  padding: 16px 20px;
+  border: 1px dashed color-mix(in srgb, var(--wine) 28%, transparent);
+  border-radius: 24px;
+  color: var(--wine);
+  cursor: pointer;
+}
+.photoField > span { display: grid; gap: 5px; }
+.photoField strong { color: var(--ink); font-size: 0.78rem; font-weight: 600; }
+.photoField small { color: var(--muted); font-size: 0.66rem; }
+.photoField input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.photoField:focus-within { outline: 2px solid var(--wine); outline-offset: 3px; }
+
+.consent {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  margin-left: 62px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--peach) 58%, transparent);
+  cursor: pointer;
+}
+.consent input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--wine); }
+.consent > span { display: grid; gap: 6px; }
+.consent strong { font-size: 0.76rem; font-weight: 650; line-height: 1.45; }
+.consent small { color: var(--muted); font-size: 0.68rem; line-height: 1.55; }
+
+.formActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  padding-left: 62px;
+}
+.formActions button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 650;
+}
+.formActions button:first-child {
+  background: color-mix(in srgb, var(--peach) 66%, var(--paper));
+  color: var(--wine);
+}
+.formActions button:disabled { cursor: default; opacity: 0.52; }
+
+.spinner { animation: request-spin 900ms linear infinite; }
+@keyframes request-spin { to { transform: rotate(360deg); } }
+
+.fieldStack input:focus-visible,
+.photoField:focus-within,
+.consent:focus-within,
+.formActions button:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 3px;
+}
+
+@media (max-width: 620px) {
+  .requestCardMeta { align-items: flex-start; flex-direction: column; }
+  .stepHeading { grid-template-columns: 40px minmax(0, 1fr); gap: 10px; }
+  .stepHeading > span { width: 36px; height: 36px; }
+  .fieldStack,
+  .formActions { padding-left: 0; }
+  .optionalFields { grid-template-columns: 1fr; }
+  .optionalFields label:last-child { grid-column: auto; }
+  .photoField,
+  .consent { margin-left: 0; }
+  .formActions { align-items: stretch; flex-direction: column-reverse; }
+  .formActions button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+}

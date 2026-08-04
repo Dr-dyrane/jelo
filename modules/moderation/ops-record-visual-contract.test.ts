@@ -27,6 +27,7 @@ test('Ops product visuals resolve explicit canonical refs through the public cat
     assert.match(projection, /value\.canonical_entity_kind = 'product'/);
     assert.match(projection, /task\.entity_kind = 'product' and task\.entity_source = 'canonical'/);
     assert.match(projection, /resolution\.canonical_product_slug/);
+    assert.match(projection, /resolution\.resolution_cycle = task\.resolution_cycle/);
     assert.match(projection, /event\.product_slug/);
     assert.match(projection, /else null[\s\S]*end as product_ref/);
   }

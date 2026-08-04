@@ -135,27 +135,32 @@ async function readCommunityResearchSignals(limit = 100) {
       sql<ResearchTaskRow[]>`
         select task.task_kind, task.entity_kind, task.entity_ref, task.entity_label,
                task.entity_source, task.priority_lane,
-               count(distinct mention.contribution_id)::integer as signal_count,
-               task.status, max(contribution.submitted_at) as last_seen_at,
+               task.signal_count,
+               task.status, task.last_seen_at,
                max(canonical_product.slug) as canonical_slug,
                max(canonical_brand.name) as canonical_brand,
                jsonb_agg(mention.context -> 'brands' -> 0 order by contribution.submitted_at desc)
-                 filter (where mention.context -> 'brands' -> 0 is not null) as submitted_brand_values,
+                 filter (
+                   where contribution.id is not null
+                     and mention.context -> 'brands' -> 0 is not null
+                 ) as submitted_brand_values,
                max(canonical_product.name) as identity_name,
                max(canonical_product.size) as identity_size
         from community_research_tasks task
-        join community_research_task_mentions mention on mention.task_id = task.id
-        join community_contributions contribution on contribution.id = mention.contribution_id
+        left join community_research_task_mentions mention on mention.task_id = task.id
+        left join community_contributions contribution
+          on contribution.id = mention.contribution_id
+          and contribution.moderation_status <> 'rejected'
+          and contribution.retain_until > now()
         left join products canonical_product
           on task.entity_kind = 'product'
           and task.entity_source = 'canonical'
           and canonical_product.slug = regexp_replace(task.entity_ref, '^product:', '')
         left join brands canonical_brand on canonical_brand.id = canonical_product.brand_id
         where task.status in ('pending', 'in-progress')
-          and contribution.moderation_status <> 'rejected'
-          and contribution.retain_until > now()
+          and task.signal_count > 0
         group by task.id
-        order by task.priority_rank, signal_count desc, last_seen_at desc, task.entity_label
+        order by task.priority_rank, task.signal_count desc, task.last_seen_at desc, task.entity_label
         limit ${limit}
       `,
       sql<AttributionRow[]>`

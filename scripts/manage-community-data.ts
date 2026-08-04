@@ -150,13 +150,10 @@ async function inspection(sql: Sql) {
       select
         task.task_kind,
         count(distinct task.id)::integer as task_count,
-        count(*)::integer as active_signals
+        sum(task.signal_count)::integer as active_signals
       from community_research_tasks task
-      join community_research_task_mentions mention on mention.task_id = task.id
-      join community_contributions contribution on contribution.id = mention.contribution_id
       where task.status in ('pending', 'in-progress')
-        and contribution.moderation_status <> 'rejected'
-        and contribution.retain_until > now()
+        and task.signal_count > 0
       group by task.task_kind
       order by task.task_kind
     `,
@@ -169,14 +166,21 @@ async function inspection(sql: Sql) {
         (
           select count(*)
           from community_research_tasks task
-          where task.signal_count <> (
-            select count(distinct mention.contribution_id)
-            from community_research_task_mentions mention
-            join community_contributions contribution on contribution.id = mention.contribution_id
-            where mention.task_id = task.id
-              and contribution.moderation_status <> 'rejected'
-              and contribution.retain_until > now()
-          )
+          where task.signal_count <>
+            (
+              select count(distinct mention.contribution_id)
+              from community_research_task_mentions mention
+              join community_contributions contribution on contribution.id = mention.contribution_id
+              where mention.task_id = task.id
+                and contribution.moderation_status <> 'rejected'
+                and contribution.retain_until > now()
+            )
+            + (
+              select count(*)
+              from customer_product_request_research_mentions request_mention
+              where request_mention.task_id = task.id
+                and request_mention.active
+            )
         )::integer as counter_drift,
         (
           select count(*) from (

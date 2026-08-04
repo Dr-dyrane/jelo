@@ -54,6 +54,8 @@ test('research outcomes remain non-canonical and exact-target bound', async () =
   assert.match(productWriter, /isReleasedIntakeCandidate/);
   assert.match(productWriter, /task\.taskKind !== 'product-identity'/);
   assert.match(productWriter, /task\.entitySource !== 'canonical'/);
+  assert.match(productWriter, /resolution_cycle = \$\{task\.resolution_cycle\}/);
+  assert.match(productWriter, /on conflict \(task_id, resolution_cycle\) do nothing/);
   assert.match(retailerWriter, /task\.entitySource !== 'canonical'/);
   assert.match(retailerWriter, /select 1 from retailers/);
   assert.match(retailerWriter, /operatorLock = lockTask \? sql`for share`/);

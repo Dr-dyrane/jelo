@@ -37,6 +37,7 @@ test('the observation queue is complete, oldest-first, and keyset paginated', as
   );
   assert.match(query, /order by observation\.created_at asc,\s*observation\.id asc/);
   assert.match(query, /community_product_research_resolutions/);
+  assert.match(query, /resolution\.resolution_cycle = task\.resolution_cycle/);
   assert.match(query, /published_candidate\.is_published = true/);
   assert.doesNotMatch(query, /\boffset\b/i);
   assert.match(

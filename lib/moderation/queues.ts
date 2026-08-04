@@ -140,6 +140,7 @@ export async function listPendingObservations(
       and task.entity_ref = observation.subject_ref
     left join community_product_research_resolutions resolution
       on resolution.task_id = task.id
+      and resolution.resolution_cycle = task.resolution_cycle
     left join products published_candidate
       on resolution.outcome = 'deliberate-intake-candidate'
       and published_candidate.slug = resolution.candidate_id
@@ -206,6 +207,7 @@ export async function findPendingObservation(
       and task.entity_ref = observation.subject_ref
     left join community_product_research_resolutions resolution
       on resolution.task_id = task.id
+      and resolution.resolution_cycle = task.resolution_cycle
     left join products published_candidate
       on resolution.outcome = 'deliberate-intake-candidate'
       and published_candidate.slug = resolution.candidate_id
@@ -274,6 +276,7 @@ export async function findSettledObservation(
       and task.entity_ref = observation.subject_ref
     left join community_product_research_resolutions resolution
       on resolution.task_id = task.id
+      and resolution.resolution_cycle = task.resolution_cycle
     left join products published_candidate
       on resolution.outcome = 'deliberate-intake-candidate'
       and published_candidate.slug = resolution.candidate_id

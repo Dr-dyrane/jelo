@@ -8,11 +8,16 @@
 ## Outcome
 
 JeloCare Me may persist one customer-owned Shelf row per immutable public
-catalogue identity version. The launch cohort is one reviewed Umeh account plus
-the explicit synthetic development preview. Synthetic Amara data remains a
-server-only local fixture: it never reads from or writes to PostgreSQL.
+catalogue identity version and one private `customer_product_request` when an
+exact active published catalogue identity is not available. A request is never
+a canonical or public product. The server checks the active published catalogue
+before creation and submission; an exact normalized brand, full pack name, and
+printed size/variant match is rejected in favor of the existing product.
+Synthetic Amara data remains a local fixture: it never reads from or writes to
+PostgreSQL.
 
-Shelf is the only persisted JeloCare Me scope in this phase. Routine and Concern
+Shelf, including its missing-product request lane, is the only persisted
+JeloCare Me scope in this phase. Routine and Concern
 content remains part of the local Synthetic Amara preview only; real-account
 Routine and Concern data is not persisted. This decision does not introduce
 customer profiles or roles, notes, quantities, purchase claims,
@@ -40,6 +45,31 @@ retirement, merge, or successor does not rewrite a saved reference: the
 reviewed snapshot remains visible as changed or unavailable and remains
 removable.
 
+Migration `0036_customer_product_requests.sql` adds the separately keyed
+`customer_product_requests` table. It stores bounded brand, full pack name,
+printed size/variant, optional category, retailer label and HTTPS source URL,
+the normalized custom entity reference, revision, lifecycle, origin, timestamps,
+explicit photo-identification consent, and a nullable matched immutable identity
+version. Lifecycle is `draft`, `pending`, `in_review`, `needs_info`, `matched`,
+`published`, or `withdrawn`. Customer writes use optimistic revision checks and
+stored idempotency keys. Delete means a durable withdrawal: it removes active
+demand and private image access, disappears from owner reads, and scrubs brand,
+pack, size/variant, category, retailer, URL, custom entity reference, legacy
+entry reference, and consent from the owner-linked tombstone. The tombstone
+retains only owner/request keys needed for RLS and retry, revision/lifecycle,
+origin/timestamps, and an optional non-identifying reviewed canonical match.
+Before deletion, matching or publication never rewrites or silently substitutes
+the original request.
+
+The request, image metadata, mutation, and cleanup tables all have enabled and
+forced owner RLS. Routes derive the customer subject from the verified server
+session and their strict bodies reject any owner field. The research-mention
+bridge table is instead a privileged internal, de-identified relation: it has
+no owner subject or private request fields, no direct table grant to PUBLIC or
+`jelocare_shelf_runtime`, and grants `jelocare_app_runtime` only the aggregate
+columns `task_id`, `active`, `first_seen_at`, and `last_seen_at`. The app runtime
+cannot select its private `request_id` linkage.
+
 ## Database role and credential boundary
 
 Production has three distinct database authorities:
@@ -48,7 +78,7 @@ Production has three distinct database authorities:
 | --- | --- | --- |
 | Protected migration administrator | Operator workstation or protected release runner only | Supplied as `MIGRATION_DATABASE_URL`; applies migrations and explicit reconciliation operators |
 | `jelocare_app_runtime` | Vercel server runtime | `LOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS`; may use the existing public application tables and sequences granted by migration `0035`, but not Shelf rows, Shelf import receipts, or the migration ledger; future tables receive no default grant |
-| `jelocare_shelf_runtime` | Vercel server runtime | Same non-privileged role attributes; may use only the Shelf table and the reviewed catalogue identity columns needed by the Shelf repository |
+| `jelocare_shelf_runtime` | Vercel server runtime | Same non-privileged role attributes; may use only owner-isolated Shelf/request/image/idempotency/cleanup rows, reviewed catalogue identity columns, and the pinned aggregate-signal bridge |
 
 The operator creates both runtime roles with SQL as `PASSWORD NULL`, then sets
 each independent password through an interactive or equivalently protected
@@ -57,6 +87,15 @@ logs, screenshots, chat, or evidence records. Migration
 `0035_runtime_database_roles.sql` refuses absent or unsafe roles, pins their
 search paths, applies and narrows grants, and creates the private one-off import
 receipt table. It creates no default privileges for later tables.
+Migration `0036` explicitly revokes its owner-bearing tables from the general
+application runtime, exposes no request-research link directly, and grants the
+Shelf runtime only the minimum table operations plus one static `SECURITY
+DEFINER` bridge. Runtime attestation requires forced RLS on every new
+owner-bearing relation, proves the Shelf runtime cannot select the internal
+mention table, proves the app runtime cannot select `request_id` but can read
+only its four aggregate columns, and requires a security-definer bridge with
+pinned `pg_catalog, public` search path, no PUBLIC or app-runtime execute grant,
+and an explicit Shelf-runtime execute grant.
 
 Production runtime code also fails closed unless the general connection names
 the exact `jelocare_app_runtime` user and the Shelf connection attests the exact
@@ -94,20 +133,73 @@ brand/name/size tuples are accepted:
 | `wonder` | FACE FACTS · Wonder Cream Fragrance Free · 50 ml |
 | `ogx` | OGX · Renewing + Argan Oil of Morocco Extra Penetrating Oil · 100 ml |
 
-The other nine records are explicitly rejected; ambiguous Dove identities and
-records without one reviewed public binding are never force-matched. The
-manifest is the canonical disposition list rather than this summary.
+The other nine records become private pending product requests. Ambiguous Dove
+identities and records without one reviewed public binding are never
+force-matched or promoted to catalogue truth. Their exact legacy text and
+`pages-v1.0` provenance remain attached to the private request until a reviewed
+resolution. The manifest is the canonical 5 accepted / 9 pending disposition
+list rather than this summary.
+
+The development preview projects those records into the bounded request view
+model on the server only. Client modules receive sanitized view-model values;
+they never import the manifest or fixture, so a production client bundle cannot
+carry the nine private identities or retailer URLs.
 
 The importer is an explicit protected operator job, not a seed, build step, or
-reusable synchronization path. It receives the target mailbox only from the
-runtime `JELOCARE_SHELF_IMPORT_TARGET_MAILBOX` environment variable, resolves
-exactly one verified non-banned Auth row inside the transaction, and never logs
-or prints the mailbox or subject. A dry run uses a database read-only
-transaction. Apply requires both `--apply` and the exact target-mailbox SHA-256
-confirmation, only adds missing accepted identities, never deletes Shelf rows,
-and atomically records the one-off receipt. Once the receipt exists, a rerun
-reports `already-completed` and performs no inserts, so a later customer removal
-cannot be silently reversed.
+reusable synchronization path. It is addressed by the verified Auth subject UUID
+from `JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`, never by a hard-coded or queried
+mailbox. It resolves exactly that verified non-banned Auth row inside the
+transaction and never logs or prints the subject. A dry run uses a database
+read-only transaction. Apply requires both `--apply` and the exact
+owner-addressed `--confirm-receipt-sha256` value, only adds the five reviewed
+identities and nine deterministic pending requests, never deletes Shelf rows,
+and atomically records their 5/9 reconciliation counts. A receipt from the
+earlier five-item import may advance once from pending count zero to nine; a
+receipt-backed upgrade adds only the nine requests and never restores an
+accepted Shelf row the customer removed after the earlier import. A
+fully reconciled receipt makes later reruns no-ops, so customer withdrawal is
+not silently reversed.
+
+## Narrow research exception and private photos
+
+A submitted pending request contributes exactly one active, de-identified demand
+signal to the existing private `community_research_tasks` product-identity lane.
+The bridge copies only normalized brand, full pack name, and printed size/variant
+identity text plus the aggregate count. It never copies owner subject, email,
+request route, retailer/source details, private notes, image pathname, or image
+bytes. A separate inaccessible mention link makes edits, retries, matches,
+publication, and withdrawal adjust the count by delta without inflating existing
+community-contribution counts. A new active demand signal reopens a completed or
+dismissed task into `pending`, advances its positive `resolution_cycle`, and
+clears its prior assignment, work state, next action, and current-cycle review
+timestamp. Each product resolution is append-only under the composite
+`(task_id, resolution_cycle)` key. Existing tasks and resolutions are backfilled
+as cycle 1, so reopening never deletes or overwrites prior rationale, outcome,
+reviewer, metadata, or reviewed time. The resolver checks and inserts only the
+task's locked current cycle; same-cycle retries cannot duplicate evidence.
+Current operational joins use the task's current cycle, while historical
+Activity outcome counts may include every retained cycle. Replaying an
+already-active mention does not reopen it, advance the cycle, or increment the
+count, and a terminal zero-signal task stays terminal. Operations reads the
+aggregate task by default, not customer/request/photo data.
+
+An optional pack photo is stored only in private Vercel Blob after MIME and byte
+limits, Sharp auto-rotation, a bounded resize, metadata/EXIF stripping, and WebP
+encoding. PostgreSQL stores the private pathname, not a URL. Reads are owner
+gated and no-store. Replace, remove, and request withdrawal enqueue the old
+private pathname for durable deletion and retry cleanup. Upload does not imply
+research permission: `photo_identification_consent` is a separate explicit
+boolean, and authorized product researchers may use the photo for identification
+only when it is true. A customer can revoke true consent at every non-withdrawn
+lifecycle state through a dedicated optimistic, idempotent mutation that writes
+no identity field; enabling consent and editing identity remain limited to the
+normal editable lifecycle. This ADR grants no default Ops photo access.
+
+Failed Blob deletion remains queued. The protected operator owns the bounded,
+idempotent drain using `MIGRATION_DATABASE_URL` and `BLOB_READ_WRITE_TOKEN`;
+successful Blob deletion removes the exact queue row, while failure retains it
+for a later retry and reports counts without owner subjects or pathnames. This
+is not a Vercel cron and does not alter the inventory scheduled owner.
 
 ## Retention, export, and deletion
 
@@ -121,13 +213,22 @@ cannot be silently reversed.
 - Neon provider backups follow the configured provider retention policy. They
   are operational recovery material, not an application restore feature and
   not customer-restorable.
+- A customer product-request delete soft-withdraws the private record, removes
+  its active aggregate signal, revokes image access, and queues its private blob
+  for deletion. The bridge then deletes the owner/request research link and the
+  owner-linked tombstone scrubs every submitted free-text identity and retailer
+  field. The anonymous research task may retain its de-identified product
+  identity history without a route back to the customer or request.
 - Full provider-account deletion is not implemented. Do not claim that clearing
   the Shelf deletes the Auth account or that provider deletion already
   orchestrates Shelf cleanup.
 
-Private Shelf data never enters Operations, public pages or caches, catalogue
-truth, search or ranking, advertising or retailer targeting, community
-research, analytics profiles, screenshots or logs, or model training.
+Private Shelf data never enters public pages or caches, catalogue truth, search
+or ranking, advertising or retailer targeting, analytics profiles, screenshots
+or logs, or model training. The sole Operations/research exception is the
+de-identified product identity text and active aggregate demand count above;
+private owner, request route, retailer/source fields, and photos stay excluded
+by default.
 
 ## Release and rollback floor
 
@@ -138,7 +239,7 @@ the database acceptance audit, and performs the one-off import. The exact order
 and evidence are owned by the [release process](../operations/RELEASE.md) and
 [runbooks](../operations/RUNBOOKS.md#release-the-customer-shelf-boundary).
 
-Migrations `0034` and `0035` are additive and are not down-migrated during an
+Migrations `0034`, `0035`, and `0036` are additive and are not down-migrated during an
 application rollback. The current application has no Shelf activation flag and
 no independent recovery-only export/delete mode. Disabling behavior therefore
 requires a reviewed role-compatible application release; removing

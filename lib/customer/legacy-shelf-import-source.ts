@@ -12,6 +12,10 @@ type LegacyProduct = {
   purpose: string;
   usage: string;
   priority: string;
+  primary: {
+    label: string;
+    url: string;
+  };
 };
 
 function sha256(value: Uint8Array) {
@@ -40,7 +44,7 @@ export function verifyLegacyShelfImportSource(
 
   const classifiedIds = [
     ...manifest.accepted.map(item => item.legacyId),
-    ...manifest.rejected.map(item => item.legacyId),
+    ...manifest.pendingRequests.map(item => item.legacyId),
   ];
   if (
     new Set(classifiedIds).size !== classifiedIds.length
@@ -73,6 +77,26 @@ export function verifyLegacyShelfImportSource(
     for (const key of ['category', 'step', 'purpose', 'usage', 'priority'] as const) {
       if (source[key] !== binding.provenance[key]) {
         throw new Error('Reviewed legacy Shelf provenance drifted from its source.');
+      }
+    }
+  }
+
+  for (const pending of manifest.pendingRequests) {
+    const source = productsById.get(pending.legacyId);
+    if (!source) throw new Error('A pending legacy product request is missing from its source.');
+    if (
+      source.brand !== pending.request.brand
+      || source.name !== pending.request.fullPackName
+      || source.size !== pending.request.printedSizeVariant
+      || source.category !== pending.request.category
+      || source.primary.label !== pending.request.retailerLabel
+      || source.primary.url !== pending.request.sourceUrl
+    ) {
+      throw new Error('A pending legacy product request identity drifted from its source.');
+    }
+    for (const key of ['step', 'purpose', 'usage', 'priority'] as const) {
+      if (source[key] !== pending.provenance[key]) {
+        throw new Error('Pending legacy product request provenance drifted from its source.');
       }
     }
   }

@@ -115,7 +115,8 @@ Neon and Vercel resources may be used.
 2. **Migrate and reconcile.** From the protected operator boundary, inject the
    direct administrator `MIGRATION_DATABASE_URL` and run `npm run
    db:reconcile`. Require the ordered ledger through
-   `0034_customer_shelf.sql` and `0035_runtime_database_roles.sql` plus the
+   `0034_customer_shelf.sql`, `0035_runtime_database_roles.sql`, and
+   `0036_customer_product_requests.sql` plus the
    reviewed public catalogue and asset-metadata reconciliation required by that
    exact revision. Do not run the Shelf import yet or opt into external
    discovery.
@@ -133,14 +134,18 @@ Neon and Vercel resources may be used.
 4. **Import dry run before activation.** Keep the interactive Shelf revision
    undeployed and its restricted URLs out of Vercel. At the protected operator
    boundary, inject
-   `MIGRATION_DATABASE_URL` and `JELOCARE_SHELF_IMPORT_TARGET_MAILBOX`, then run
+   `MIGRATION_DATABASE_URL` and `JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`, then run
    `npm run customer:shelf:import`. Require a read-only result of 14 complete
-   dispositions, five exact accepted identities, and no existing receipt.
-5. **Import apply and verify its receipt.** Independently derive and compare the normalized target-
-   mailbox SHA-256, then repeat with `--apply` and the exact
-   `--confirm-target-sha256` value. Apply takes a brief Shelf write lock. Require
-   its actual inserted identity set to equal the dry-run plan, the final
-   accepted set to contain all five exact identities, and one atomic one-off
+   dispositions, five exact accepted identities, nine pending requests, and no
+   fully reconciled receipt.
+5. **Import apply and verify its receipt.** Independently derive and compare the
+   owner-addressed import receipt SHA-256, then repeat with `--apply` and the exact
+   `--confirm-receipt-sha256` value. Apply takes a brief Shelf/request write lock. Require
+   its actual inserted identity set to equal the dry-run plan and the final
+   pending set to contain all nine private requests. A fresh import must have
+   all five exact accepted identities. An upgrade from the earlier five-item
+   receipt must add no accepted identities and reports the current surviving
+   accepted count after customer removals instead. Require one atomic one-off
    receipt. Do not activate Shelf until the receipt is independently verified.
 6. **Normalize and probe the restricted runtime URLs.** Each postgres.js URL
    must use `sslmode=verify-full` and omit the unsupported
@@ -152,14 +157,15 @@ Neon and Vercel resources may be used.
    `CUSTOMER_SHELF_DATABASE_URL` to the Shelf-role URL. If `POSTGRES_URL` is
    retained, apply the same driver and exact-role requirements. Remove
    `MIGRATION_DATABASE_URL`, the database-owner URL, unpooled owner aliases,
-   split `POSTGRES_*`/`PG*` owner fields, and the one-off import mailbox. Verify
+   split `POSTGRES_*`/`PG*` owner fields, and the one-off import subject. Verify
    names and usernames without printing values.
 8. **Deploy and activate.** Push the verified revision and require CI success
    plus the exact Vercel deployment at `READY`. Vercel may verify, build, and
    promote reviewed staged public assets; it must not reconcile PostgreSQL or
    run the import.
 9. **Smoke.** Through the exact production deployment and one verified account,
-   prove sign-in, Shelf read/add/reload/remove, JSON export, the clear
+   prove sign-in, Shelf read/add/reload/remove, missing-product create/edit/
+   delete, private-photo owner isolation, JSON export, the clear
    confirmation flow, sign-out isolation, and the public reporting helper. Do
    not clear the imported launch Shelf merely for smoke; exercise the destructive
    result only with an approved disposable account. Confirm Synthetic Amara is
@@ -169,12 +175,16 @@ Neon and Vercel resources may be used.
    reconstruct it, and re-run restricted runtime and production smoke checks.
    Keep only the protected operator copy of `MIGRATION_DATABASE_URL`.
 11. **Declare the rollback floor.** Record the exact compatible application
-    revision, the ledger through `0035`, the two runtime role names, and the
+    revision, the ledger through `0036`, the two runtime role names, and the
     passing audit. Older owner-dependent deployments are no longer rollback
     candidates.
 
-This release creates no cron and changes no inventory schedule, queue, lease,
-worker, or manual-observation workflow.
+Failed private product-request Blob deletions are drained only through the
+protected, bounded `customer:product-request-blobs:drain` operator with
+`MIGRATION_DATABASE_URL` and `BLOB_READ_WRITE_TOKEN`; it is dry-run by default
+and requires explicit apply confirmation. This release creates no cron and
+changes no inventory schedule, queue, lease, worker, scheduled owner, or
+manual-observation workflow.
 
 ## After push
 

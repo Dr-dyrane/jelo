@@ -102,6 +102,30 @@ export function createMeContextSheetModel({
     };
   }
 
+  if (route.kind === 'shelf-add') {
+    return {
+      eyebrow: 'My Shelf · Private',
+      title: 'Find it first',
+      summary: 'Exact catalogue before private request',
+      items: [
+        { id: 'shelf', label: 'My Shelf', detail: shelfCount, href: '/me/shelf' },
+        { id: 'explore', label: 'Explore products', detail: 'Exact catalogue', href: '/me/explore' },
+      ],
+    };
+  }
+
+  if (route.kind === 'shelf-request') {
+    return {
+      eyebrow: 'My Shelf · Private',
+      title: 'Private request',
+      summary: 'Original request and provenance',
+      items: [
+        { id: 'shelf', label: 'My Shelf', detail: shelfCount, href: '/me/shelf' },
+        { id: 'request', label: 'Request another product', detail: 'Search exact catalogue first', href: '/me/shelf/add' },
+      ],
+    };
+  }
+
   if (route.kind === 'routine') {
     const steps = viewModel.routine.slice(0, 4).map((step, index) => ({
       ...productItem(step.product, 'routine'),

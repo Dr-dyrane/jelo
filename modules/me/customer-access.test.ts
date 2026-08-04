@@ -63,7 +63,7 @@ test('the development presentation is server-only, synthetic, and local-data-onl
   assert.doesNotMatch(home, /__qa|fixture|scenario selector|test customer/i);
 });
 
-test('the synthetic Shelf derives the approved five-product legacy seed and its example routine', () => {
+test('the synthetic Shelf derives five approved products plus nine pending requests from legacy data', () => {
   const fixture = readFileSync('lib/customer/development-fixture.ts', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
 
@@ -71,14 +71,11 @@ test('the synthetic Shelf derives the approved five-product legacy seed and its 
     binding => binding.identityVersion.slugAtReview,
   );
   assert.equal(acceptedSlugs.length, 5);
-  assert.equal(LEGACY_SHELF_IMPORT_MANIFEST.rejected.length, 9);
+  assert.equal(LEGACY_SHELF_IMPORT_MANIFEST.pendingRequests.length, 9);
   for (const slug of acceptedSlugs) {
     const product = products.find((candidate) => candidate.slug === slug);
     assert.ok(product?.image, `${slug} must remain an exact display-approved catalogue product`);
     assert.doesNotMatch(fixture, new RegExp(slug), `${slug} must come from the manifest, not a copied list`);
-  }
-  for (const rejection of LEGACY_SHELF_IMPORT_MANIFEST.rejected) {
-    assert.doesNotMatch(fixture, new RegExp(`\\b${rejection.legacyId}\\b`));
   }
   assert.match(fixture, /LEGACY_SHELF_IMPORT_MANIFEST\.accepted/);
   assert.doesNotMatch(fixture, /LEGACY_SHELF_IMPORT_MANIFEST\.rejected/);

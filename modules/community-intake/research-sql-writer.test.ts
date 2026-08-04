@@ -23,6 +23,7 @@ type FixtureTask = {
   status: 'pending' | 'in-progress' | 'completed' | 'dismissed';
   work_state: 'ready' | 'assigned' | 'blocked' | 'retry';
   signal_count: number;
+  resolution_cycle: number;
 };
 
 function sqlFixture(input: {
@@ -122,6 +123,7 @@ function productTask(overrides: Partial<FixtureTask> = {}): FixtureTask {
     status: 'in-progress',
     work_state: 'assigned',
     signal_count: 1,
+    resolution_cycle: 1,
     ...overrides,
   };
 }
@@ -136,6 +138,7 @@ function retailerTask(overrides: Partial<FixtureTask> = {}): FixtureTask {
     status: 'in-progress',
     work_state: 'assigned',
     signal_count: 1,
+    resolution_cycle: 1,
     ...overrides,
   };
 }
@@ -150,6 +153,7 @@ test('product SQL writer locks, exact-binds, inserts once, and terminalizes atom
     canonicalSlug: 'known-product',
   });
   assert.equal(result.outcome, 'existing-canonical-product');
+  assert.equal(result.resolutionCycle, 1);
   assert.equal(fixture.state.began, 1);
   assert.equal(fixture.state.committed, 1);
   assert.equal(fixture.state.rolledBack, 0);
@@ -169,6 +173,30 @@ test('product SQL writer locks, exact-binds, inserts once, and terminalizes atom
   );
   assert.equal(fixture.state.queries.some(query => query.startsWith('insert into community_product_research_resolutions')), true);
   assert.equal(fixture.state.queries.some(query => query.startsWith('update community_research_tasks')), true);
+});
+
+test('a reopened product task writes its current cycle and preserves prior-cycle evidence', async () => {
+  const fixture = sqlFixture({
+    task: productTask({ resolution_cycle: 2 }),
+    resolutionExists: false,
+  });
+  const result = await resolveCommunityProductResearchTask(fixture.sql, {
+    taskId,
+    reviewedBy: operatorSubject,
+    rationale: 'New demand confirms the exact published identity again.',
+    outcome: 'existing-canonical-product',
+    canonicalSlug: 'known-product',
+  });
+  assert.equal(result.resolutionCycle, 2);
+  const currentCycleCheck = fixture.state.queries.find(query => (
+    query.includes('from community_product_research_resolutions')
+  ));
+  assert.match(currentCycleCheck ?? '', /resolution_cycle =/);
+  const insert = fixture.state.queries.find(query => (
+    query.startsWith('insert into community_product_research_resolutions')
+  ));
+  assert.match(insert ?? '', /task_id, resolution_cycle/);
+  assert.match(insert ?? '', /on conflict \(task_id, resolution_cycle\) do nothing/);
 });
 
 test('admin reassign and unassign lock the task and audit both ownership edges', async () => {
@@ -220,7 +248,7 @@ test('admin reassign and unassign lock the task and audit both ownership edges',
   });
 });
 
-test('canonical SQL writers reject non-exact outcomes, wrong ownership, and a second resolution before mutation', async () => {
+test('canonical SQL writers reject non-exact outcomes, wrong ownership, and a same-cycle resolution retry', async () => {
   const ambiguous = sqlFixture({ task: productTask() });
   await assert.rejects(() => resolveCommunityProductResearchTask(ambiguous.sql, {
     taskId,

@@ -43,6 +43,8 @@ test('stack Back is shell-owned, deterministic, and preserves the active parent'
     { route: { kind: 'product', slug: 'exact', origin: 'explore' } as const, href: '/me/explore', label: 'Back to Explore', parent: 'explore' },
     { route: { kind: 'product', slug: 'exact', origin: 'shelf' } as const, href: '/me/shelf', label: 'Back to Shelf', parent: 'shelf' },
     { route: { kind: 'product', slug: 'exact', origin: 'routine' } as const, href: '/me/routine', label: 'Back to Routine', parent: 'routine' },
+    { route: { kind: 'shelf-add' } as const, href: '/me/shelf', label: 'Back to Shelf', parent: 'shelf' },
+    { route: { kind: 'shelf-request', id: 'request-id' } as const, href: '/me/shelf', label: 'Back to Shelf', parent: 'shelf' },
   ];
   for (const { route, href, label, parent } of cases) {
     assert.deepEqual(createMeStackBack(route), { href, accessibleLabel: label });
@@ -83,9 +85,11 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
     routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
     consult: { layer: 'stack', route: '/me/consult', parent: 'home', eyebrow: 'Ask Me', title: 'My concern.' },
     product: { layer: 'stack', route: '/me/product/[slug]', parent: 'origin', eyebrow: null, title: null },
+    'shelf-add': { layer: 'stack', route: '/me/shelf/add', parent: 'shelf', eyebrow: 'My Shelf', title: 'Find it first.' },
+    'shelf-request': { layer: 'stack', route: '/me/shelf/request/[id]', parent: 'shelf', eyebrow: 'Private request', title: null },
     'not-found': { layer: 'stack', route: '/me/product/[slug]', parent: 'explore', eyebrow: 'JeloCare Me', title: 'Nothing here.' },
   });
-  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 7);
+  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 9);
 
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const accountSheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
@@ -325,13 +329,15 @@ test('every Me surface owns exactly one truthful working FAB', () => {
   assert.deepEqual(ME_WORKSPACE_FABS, {
     home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
     explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
-    shelf: { ownerId: 'me-shelf-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
+    shelf: { ownerId: 'me-shelf-add', label: 'Request a product', action: 'navigate', href: '/me/shelf/add' },
     routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
     consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
     product: { ownerId: 'me-product-find-store', label: 'Find a store', action: 'open-product-prices' },
+    'shelf-add': { ownerId: 'me-shelf-add-search', label: 'Search exact catalogue', action: 'focus-search' },
+    'shelf-request': { ownerId: 'me-shelf-request-another', label: 'Request another product', action: 'navigate', href: '/me/shelf/add' },
     'not-found': { ownerId: 'me-not-found-explore', label: 'Explore products', action: 'navigate', href: '/me/explore' },
   });
-  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 7);
+  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 9);
 
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const dockNavigation = readFileSync('components/workspace-shell/dock-navigation.tsx', 'utf8');

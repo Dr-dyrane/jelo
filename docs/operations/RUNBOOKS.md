@@ -230,9 +230,11 @@ With the direct administrator URL injected into the operator process, run:
 npm run db:reconcile
 ```
 
-The ledger must include `0034_customer_shelf.sql` followed by
-`0035_runtime_database_roles.sql`. Migration `0035` rejects an absent or unsafe
-role before applying grants. The reconciler runs `db:migrate`, `db:seed`,
+The ledger must include `0034_customer_shelf.sql`, followed by
+`0035_runtime_database_roles.sql` and `0036_customer_product_requests.sql`.
+Migration `0035` rejects an absent or unsafe role before applying grants;
+`0036` adds the private request boundary and its pinned research bridge. The
+reconciler runs `db:migrate`, `db:seed`,
 `assets:product:seed`, and `assets:editorial:seed` in that order. These are
 idempotent public-data operators; none imports a customer Shelf. Do not pass
 `--include-external-discovery` unless its separate one-time external-catalogue
@@ -331,10 +333,12 @@ recorded separately. Require enabled and forced RLS, all six connection/schema/
 type booleans true, and no `PUBLIC` row for the Shelf or receipt tables. The app
 role must have no Shelf, receipt, or migration-ledger privilege. The Shelf role
 must have only `SELECT`, `INSERT`, and `DELETE` on
-`public.customer_shelf_items`, plus the exact reviewed catalogue column grants
-in migration `0035`; it must have no `UPDATE`, `TRUNCATE`, receipt, Auth,
-moderation, intake, or other private-table access. Migration `0035` grants no
-default privileges to either runtime role; review each later table explicitly.
+`public.customer_shelf_items`, the migration-`0036` request/image/idempotency/
+cleanup grants, the exact reviewed catalogue column grants, and execute on the
+pinned request-signal bridge. It must have no direct request-research-mention,
+community-task, `TRUNCATE`, receipt, Auth, moderation, intake, or other
+private-table access. Migrations `0035` and `0036` grant no default privileges
+to either runtime role; review each later table explicitly.
 
 Inject only the protected `CUSTOMER_SHELF_DATABASE_URL` and run the checked-in
 runtime attestation, then its deliberately explicit rolled-back isolation
@@ -385,26 +389,32 @@ finishes before a live customer can remove an item; the import therefore cannot
 reverse a live customer removal.
 
 At the protected operator boundary, inject the administrator URL and the one-
-off target mailbox without writing either to disk or history. The mailbox must
-normalize to the independently reviewed target. Derive its confirmation hash
-without printing the mailbox:
+off verified owner subject UUID without writing either to disk or history. The
+subject must equal the independently reviewed target. Derive its addressed
+receipt without printing the subject:
 
 ```bash
-SHELF_TARGET_SHA256="$(node -e "const {createHash}=require('node:crypto'); const value=(process.env.JELOCARE_SHELF_IMPORT_TARGET_MAILBOX ?? '').normalize('NFKC').trim().toLowerCase(); process.stdout.write(createHash('sha256').update(value).digest('hex')); ")"
+SHELF_IMPORT_RECEIPT_SHA256="$(node -e "const {createHash}=require('node:crypto'); const value=(process.env.JELOCARE_SHELF_IMPORT_OWNER_SUBJECT ?? '').trim().toLowerCase(); process.stdout.write(createHash('sha256').update('jelocare-shelf-import-receipt-v1\\0pages-v1.0\\0').update(value).digest('hex')); ")"
 npm run customer:shelf:import
-npm run customer:shelf:import -- --apply "--confirm-target-sha256=$SHELF_TARGET_SHA256"
-unset SHELF_TARGET_SHA256 JELOCARE_SHELF_IMPORT_TARGET_MAILBOX MIGRATION_DATABASE_URL
+npm run customer:shelf:import -- --apply "--confirm-receipt-sha256=$SHELF_IMPORT_RECEIPT_SHA256"
+unset SHELF_IMPORT_RECEIPT_SHA256 JELOCARE_SHELF_IMPORT_OWNER_SUBJECT MIGRATION_DATABASE_URL
 ```
 
 The dry run must be database-enforced read-only and report all 14 source
-dispositions, exactly five accepted identity resolutions, no deletes, and no
-existing receipt. Apply briefly takes a `SHARE ROW EXCLUSIVE` lock on
-`public.customer_shelf_items` and the receipt guard so no competing Shelf write
-can invalidate its plan. It remains additive and never deletes a Shelf row.
-Before writing the receipt, it verifies that the identities actually inserted
-equal the planned missing set and that the final Shelf contains the exact five
-accepted identities. Require `inserted` to equal `planned-insert` and
-`final-accepted=5`; it prints no mailbox or subject.
+dispositions, exactly five accepted identity resolutions, nine pending request
+resolutions, no deletes, and no fully reconciled receipt. On apply, the importer
+first takes a `SHARE ROW EXCLUSIVE` lock on
+`public.customer_shelf_import_receipts` before reading the receipt, then locks
+`public.customer_shelf_items` and `public.customer_product_requests`, so no
+competing apply or Shelf write can invalidate its plan. It remains additive and
+never deletes a Shelf row. Before writing the receipt, it verifies that the rows
+actually inserted equal both planned missing sets. A fresh import must finish
+with the exact five accepted identities and nine pending private requests, so
+require `accepted-final=5` and `pending-final=9`. An upgrade from the earlier
+five-item receipt must add no accepted identity: `accepted-final` is the current
+surviving count from zero through five after customer removals, while
+`pending-final=9` remains mandatory. In both modes, require each inserted count
+to equal its planned count; the report prints no subject.
 
 Verify completion without selecting the receipt's owner:
 
@@ -418,6 +428,28 @@ Require `completed_receipts = 1`. A later invocation reports
 `already-completed` and performs no inserts; do not use it as synchronization.
 If the target, identities, counts, or receipt differ, stop: do not delete rows,
 forge a receipt, weaken the guard, configure Vercel, or deploy Shelf.
+
+### 4a. Drain failed private Blob deletions
+
+Replace, remove, and request withdrawal try deletion immediately. A failure
+leaves the private pathname in the durable owner-isolated cleanup queue. The
+protected operator—not Vercel, the inventory cron, or a scheduled owner—drains
+that queue. Inject the direct administrator URL and Blob write token only into
+the protected process, then run a dry read before an explicitly confirmed batch:
+
+```bash
+npm run customer:product-request-blobs:drain -- --limit 20
+npm run customer:product-request-blobs:drain -- --apply --limit 20 --confirm drain-private-product-request-blobs
+unset MIGRATION_DATABASE_URL BLOB_READ_WRITE_TOKEN
+```
+
+The limit is 1–100 and defaults to 20. Apply locks a bounded oldest-first batch
+with `SKIP LOCKED`, deletes only validated private product-request pathnames,
+and removes an exact queue row only after Blob deletion succeeds. Failed rows
+remain for a later idempotent retry, produce a nonzero exit, and are reported
+only as aggregate eligible/selected/deleted/failed/remaining counts. Never log
+an owner subject or pathname. This operator is manual and adds no cron or
+scheduled-owner impact.
 
 ### 5. Normalize, probe, and configure the runtime URLs
 
@@ -448,7 +480,7 @@ Only after both probes pass, add `DATABASE_URL` and
 If retained, `POSTGRES_URL` must be another probed app-role URL. Never paste a
 URL into a command argument, source file, ticket, or evidence record.
 
-Remove `MIGRATION_DATABASE_URL`, `JELOCARE_SHELF_IMPORT_TARGET_MAILBOX`, and
+Remove `MIGRATION_DATABASE_URL`, `JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`, and
 every owner-bearing or reconstructable alias from Production, Preview, and
 Development scopes. This includes old unpooled URLs and split `POSTGRES_*` or
 `PG*` fields. If a provider integration recreates them, reconfigure or remove
@@ -496,7 +528,7 @@ use a bounded maintenance window. Do not change the role name or grants during
 a credential-only rotation.
 
 Record the rollback floor as the first exact application revision proven with
-the restricted roles, together with the ledger through `0035` and the passing
+the restricted roles, together with the ledger through `0036` and the passing
 audit. A failed later application deployment may roll back only to that revision
 or another role-compatible revision. Do not down-migrate, restore an owner URL,
 or delete Shelf rows. The current code has neither an activation flag nor an
@@ -808,11 +840,12 @@ MODERATION_OPERATOR_EMAIL=operator@example.invalid \
 Repeat with `--apply` after review. `claim` uses the same command shape and
 records `assigned` rather than `blocked`.
 
-The dry run checks the current owner and workflow state. Resolution dry-runs
-also check the task namespace and outcome, existing published target or eligible
-unreleased candidate, and prior resolution. Apply rechecks those guards inside
-the locked transaction; a successful preview is not permission to weaken a
-later concurrency failure.
+The dry run checks the current owner and workflow state. Product-resolution
+dry-runs also check the task namespace and outcome, existing published target
+or eligible unreleased candidate, and whether the task's current positive
+`resolution_cycle` already has a resolution. Apply rechecks those guards inside
+the locked transaction and inserts under `(task_id, resolution_cycle)`; a
+successful preview is not permission to weaken a later concurrency failure.
 
 Only the current owner may move active research into `retry`, with the next
 bounded evidence step recorded. Admin takeover is reserved for work that already
@@ -840,6 +873,16 @@ The other retailer outcomes are `ambiguous-retailer` and
 `dismissed-duplicate`. Add `--apply` only after the dry-run is correct. A
 resolution closes the task but never creates or changes a retailer, offer,
 price, product, or publication record.
+
+When genuinely new private product demand reaches a completed or dismissed
+product task, the pinned bridge reopens it as pending, increments
+`resolution_cycle` exactly once, and clears assignment/work/next-action state.
+An already-active mention retry does none of those things. The prior product
+resolution row remains immutable and queryable in its earlier cycle; never
+delete or rewrite it to make the reopened task resolvable. Assign and resolve
+the reopened task normally. Current queues, observation binding, Overview, and
+Activity audit projection join only the task's current cycle; historical
+Activity outcome totals intentionally retain all product resolution cycles.
 
 ## Retailer application email fails
 

@@ -188,7 +188,7 @@ test('the resolver command is dry-run by default and enforces outcome-specific t
   ]), /not valid/);
 });
 
-test('the migration is one resolution per product task and cannot grant publication', async () => {
+test('product resolution evidence is one row per task cycle and cannot grant publication', async () => {
   const root = process.cwd();
   const migration = await readFile(
     path.join(root, 'db/migrations/0023_community_research_resolutions.sql'),
@@ -196,6 +196,10 @@ test('the migration is one resolution per product task and cannot grant publicat
   );
   const writer = await readFile(
     path.join(root, 'lib/community-intake/research-resolution.ts'),
+    'utf8',
+  );
+  const cycleMigration = await readFile(
+    path.join(root, 'db/migrations/0036_customer_product_requests.sql'),
     'utf8',
   );
   const report = await readFile(
@@ -208,6 +212,10 @@ test('the migration is one resolution per product task and cannot grant publicat
   );
 
   assert.match(migration, /task_id uuid primary key/);
+  assert.match(cycleMigration, /add column resolution_cycle integer/);
+  assert.match(cycleMigration, /update community_product_research_resolutions[\s\S]*set resolution_cycle = 1/);
+  assert.match(cycleMigration, /primary key \(task_id, resolution_cycle\)/);
+  assert.match(cycleMigration, /check \(resolution_cycle > 0\)/);
   assert.match(migration, /entity_kind = 'product'/);
   assert.match(migration, /canonical_write = false/);
   assert.match(migration, /publication_status = 'private-research-only'/);
@@ -220,4 +228,6 @@ test('the migration is one resolution per product task and cannot grant publicat
   assert.doesNotMatch(writer, /\b(insert into|update)\s+(catalogue_intake|catalogue_publication|products|offers|product_images)\b/i);
   assert.match(writer, /is_published = true/);
   assert.match(writer, /isReleasedIntakeCandidate/);
+  assert.match(writer, /where task_id = \$\{row\.taskId\}[\s\S]*resolution_cycle = \$\{task\.resolution_cycle\}/);
+  assert.match(writer, /on conflict \(task_id, resolution_cycle\) do nothing/);
 });

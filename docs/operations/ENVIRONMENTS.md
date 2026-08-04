@@ -72,7 +72,7 @@ it in `.env.local`, Vercel, source, command history, logs, screenshots, or a
 release evidence file.
 
 The one-off Shelf import also reads
-`JELOCARE_SHELF_IMPORT_TARGET_MAILBOX`. It belongs only in that protected
+`JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`. It belongs only in that protected
 operator process, is never committed or configured in Vercel, and must be
 removed after the receipt-guarded apply.
 
@@ -94,7 +94,7 @@ the [Shelf release runbook](./RUNBOOKS.md#release-the-customer-shelf-boundary).
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `BLOB_READ_WRITE_TOKEN` | Asset writes and production asset operators | Server-only |
+| `BLOB_READ_WRITE_TOKEN` | Asset writes, production asset operators, and the protected private product-request cleanup drain | Server-only; inject beside `MIGRATION_DATABASE_URL` only for the bounded drain and remove afterward |
 | `BLOB_STORE_ID` | Provider metadata | Not read by the current runtime |
 | `BLOB_WEBHOOK_PUBLIC_KEY` | Future webhook verification | Not read by the current runtime |
 
@@ -142,9 +142,10 @@ is not an SMTP password.
 
 Vercel builds have no database-migration or seed switch. They verify, build,
 and may perform bounded staged public-asset promotion only. All PostgreSQL
-migrations and reconciliation are explicit protected operator jobs. This Shelf
-release does not add or change a cron, inventory queue, lease, worker, or manual
-observation setting.
+migrations, reconciliation, and private product-request Blob cleanup are
+explicit protected operator jobs. This Shelf release does not add or change a
+cron, scheduled owner, inventory queue, lease, worker, or manual observation
+setting.
 
 ### Declared future service
 
@@ -174,7 +175,7 @@ vercel env ls
 ```
 
 For a Shelf release, the list must contain the required restricted runtime
-names, omit `MIGRATION_DATABASE_URL` and the one-off target mailbox, and contain
+names, omit `MIGRATION_DATABASE_URL` and the one-off target subject, and contain
 no owner-bearing or reconstructable compatibility alias. Verify usernames from
 the protected connection inventory; never print URLs to prove this.
 

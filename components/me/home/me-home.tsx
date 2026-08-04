@@ -9,6 +9,7 @@ import {
   Compass,
   Info,
   MessageCircleQuestion,
+  PackagePlus,
   Search,
   ShelvingUnit,
   ShoppingBag,
@@ -18,6 +19,11 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
 import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
+import {
+  PrivateProductRequestShelf,
+  ProductRequestAddPage,
+  ProductRequestDetailPage,
+} from '@/components/me/product-requests/product-request-experience';
 import {
   useMeShelfState,
   type ShelfActionHandler,
@@ -62,6 +68,7 @@ import {
   type CustomerExploreProjection,
 } from '@/lib/customer/explore-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
+import type { CustomerProductRequestPresentationViewModel } from '@/lib/customer/product-request-model';
 import type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-panel-model';
 import styles from './me-home.module.css';
 
@@ -209,6 +216,17 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
   }
   if (route.kind === 'consult') {
     return { routeKey: '/me/consult', currentHref: resolveMeActiveParentHref(route), page: 'consult' as MeWorkspacePage, detail: 'My care' };
+  }
+  if (route.kind === 'shelf-add') {
+    return { routeKey: '/me/shelf/add', currentHref: resolveMeActiveParentHref(route), page: 'shelf-add' as MeWorkspacePage, detail: 'Exact catalogue first' };
+  }
+  if (route.kind === 'shelf-request') {
+    return {
+      routeKey: `/me/shelf/request/${route.id}`,
+      currentHref: resolveMeActiveParentHref(route),
+      page: 'shelf-request' as MeWorkspacePage,
+      detail: 'Private product request',
+    };
   }
   if (route.kind === 'not-found') {
     return { routeKey: '/me/product/not-found', currentHref: resolveMeActiveParentHref(route), page: 'not-found' as MeWorkspacePage, detail: 'Product not found' };
@@ -566,7 +584,15 @@ function ExplorePage({
   );
 }
 
-function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+function ShelfPage({
+  viewModel,
+  productRequestOutcome,
+  productRequestPresentation,
+}: {
+  viewModel: CustomerPortalViewModel;
+  productRequestOutcome?: string;
+  productRequestPresentation?: CustomerProductRequestPresentationViewModel;
+}) {
   const surface = ME_PORTAL_SURFACES.shelf;
   return (
     <section className={styles.routePage} aria-labelledby="me-shelf-title">
@@ -602,6 +628,13 @@ function ShelfPage({ viewModel }: { viewModel: CustomerPortalViewModel }) {
           <Link href="/me/explore">Explore products</Link>
         </div>
       )}
+      {viewModel.shelfState.status === 'ready' ? (
+        <PrivateProductRequestShelf
+          synthetic={viewModel.account.synthetic}
+          initialRequests={productRequestPresentation?.requests}
+          mutationOutcome={productRequestOutcome}
+        />
+      ) : null}
     </section>
   );
 }
@@ -854,10 +887,14 @@ function MePortalView({
   viewModel,
   route,
   productPanelData,
+  productRequestOutcome,
+  productRequestPresentation,
 }: {
   viewModel: CustomerPortalViewModel;
   route: MePortalRoute;
   productPanelData?: ProductPanelData;
+  productRequestOutcome?: string;
+  productRequestPresentation?: CustomerProductRequestPresentationViewModel;
 }) {
   const router = useRouter();
   const shelfState = useMeShelfState(viewModel);
@@ -999,10 +1036,12 @@ function MePortalView({
   const fabContract = ME_WORKSPACE_FABS[state.page];
   const fabIcon = state.page === 'home'
     ? MessageCircleQuestion
-    : state.page === 'explore' || state.page === 'consult'
+    : state.page === 'explore' || state.page === 'consult' || state.page === 'shelf-add'
       ? Search
       : state.page === 'routine'
         ? ClockPlus
+        : state.page === 'shelf-request'
+          ? PackagePlus
         : state.page === 'product'
           ? ShoppingBag
           : Compass;
@@ -1118,7 +1157,28 @@ function MePortalView({
               shelfAction={shelfState.shelfAction}
             />
           ) : null}
-          {route.kind === 'shelf' ? <ShelfPage viewModel={portalViewModel} /> : null}
+          {route.kind === 'shelf' ? (
+            <ShelfPage
+              viewModel={portalViewModel}
+              productRequestOutcome={productRequestOutcome}
+              productRequestPresentation={productRequestPresentation}
+            />
+          ) : null}
+          {route.kind === 'shelf-add' ? (
+            <ProductRequestAddPage
+              viewModel={portalViewModel}
+              shelfAction={shelfState.shelfAction}
+              searchRef={searchRef}
+            />
+          ) : null}
+          {route.kind === 'shelf-request' ? (
+            <ProductRequestDetailPage
+              requestId={route.id}
+              synthetic={portalViewModel.account.synthetic}
+              initialRequest={productRequestPresentation?.selectedRequest}
+              mutationOutcome={productRequestOutcome}
+            />
+          ) : null}
           {route.kind === 'routine' ? <RoutinePage viewModel={portalViewModel} /> : null}
           {route.kind === 'consult' ? (
             <ConsultPage
@@ -1162,19 +1222,33 @@ export function MePortal({
   viewModel,
   route,
   productPanelData,
+  productRequestOutcome,
+  productRequestPresentation,
 }: {
   viewModel: CustomerPortalViewModel;
   route: MePortalRoute;
   productPanelData?: ProductPanelData;
+  productRequestOutcome?: string;
+  productRequestPresentation?: CustomerProductRequestPresentationViewModel;
 }) {
   const routeKey = route.kind === 'product'
     ? `/me/product/${route.slug}`
-    : route.kind === 'not-found'
-      ? '/me/product/not-found'
-      : `/me/${route.kind}`;
+    : route.kind === 'shelf-request'
+      ? `/me/shelf/request/${route.id}`
+      : route.kind === 'shelf-add'
+        ? '/me/shelf/add'
+        : route.kind === 'not-found'
+          ? '/me/product/not-found'
+          : `/me/${route.kind}`;
   return (
     <WorkspaceDockProvider routeKey={route.kind === 'home' ? '/me' : routeKey}>
-      <MePortalView viewModel={viewModel} route={route} productPanelData={productPanelData} />
+      <MePortalView
+        viewModel={viewModel}
+        route={route}
+        productPanelData={productPanelData}
+        productRequestOutcome={productRequestOutcome}
+        productRequestPresentation={productRequestPresentation}
+      />
     </WorkspaceDockProvider>
   );
 }

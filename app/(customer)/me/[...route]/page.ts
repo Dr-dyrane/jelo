@@ -25,6 +25,14 @@ function parseRoute(parts: readonly string[], from: string | string[] | undefine
     return { kind: 'product', slug: parts[1], origin };
   }
 
+  if (parts.length === 2 && parts[0] === 'shelf' && parts[1] === 'add') {
+    return { kind: 'shelf-add' };
+  }
+
+  if (parts.length === 3 && parts[0] === 'shelf' && parts[1] === 'request' && parts[2]) {
+    return { kind: 'shelf-request', id: parts[2] };
+  }
+
   return null;
 }
 
@@ -33,7 +41,10 @@ export default async function MeRoutePage({
   searchParams,
 }: {
   params: Promise<{ route: string[] }>;
-  searchParams: Promise<{ from?: string | string[] }>;
+  searchParams: Promise<{
+    from?: string | string[];
+    outcome?: string | string[];
+  }>;
 }) {
   const [{ route: parts }, query] = await Promise.all([params, searchParams]);
   const route = parseRoute(parts, query.from);
@@ -49,5 +60,20 @@ export default async function MeRoutePage({
     productPanelData = await readProductPanelData(selectedProduct);
   }
 
-  return createElement(MePortal, { viewModel, route, productPanelData });
+  const productRequestPresentation = viewModel.account.synthetic
+    && (route.kind === 'shelf' || route.kind === 'shelf-request')
+    ? (await import('@/lib/customer/legacy-product-request-fixture'))
+        .createSyntheticProductRequestPresentation(
+          route.kind === 'shelf-request' ? route.id : undefined,
+        )
+    : undefined;
+
+  const productRequestOutcome = typeof query.outcome === 'string' ? query.outcome : undefined;
+  return createElement(MePortal, {
+    viewModel,
+    route,
+    productPanelData,
+    productRequestOutcome,
+    productRequestPresentation,
+  });
 }

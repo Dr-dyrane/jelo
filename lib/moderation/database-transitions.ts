@@ -380,7 +380,7 @@ async function reconcileTasksForContribution(sql: Sql, contributionId: string): 
       from community_research_task_mentions
       where contribution_id = ${contributionId}
     ),
-    active_signals as (
+    contribution_signals as (
       select
         mention.task_id,
         count(distinct mention.contribution_id)::integer as signal_count,
@@ -393,6 +393,37 @@ async function reconcileTasksForContribution(sql: Sql, contributionId: string): 
         and contribution.retain_until > now()
       group by mention.task_id
     ),
+    request_signals as (
+      select
+        request_mention.task_id,
+        count(*)::integer as signal_count,
+        min(request_mention.first_seen_at) as first_seen_at,
+        max(request_mention.last_seen_at) as last_seen_at
+      from customer_product_request_research_mentions request_mention
+      join affected on affected.task_id = request_mention.task_id
+      where request_mention.active
+      group by request_mention.task_id
+    ),
+    active_signals as (
+      select
+        affected.task_id,
+        coalesce(contribution_signals.signal_count, 0)
+          + coalesce(request_signals.signal_count, 0) as signal_count,
+        coalesce(
+          least(contribution_signals.first_seen_at, request_signals.first_seen_at),
+          contribution_signals.first_seen_at,
+          request_signals.first_seen_at
+        ) as first_seen_at,
+        coalesce(
+          greatest(contribution_signals.last_seen_at, request_signals.last_seen_at),
+          contribution_signals.last_seen_at,
+          request_signals.last_seen_at
+        ) as last_seen_at
+      from affected
+      left join contribution_signals
+        on contribution_signals.task_id = affected.task_id
+      left join request_signals on request_signals.task_id = affected.task_id
+    ),
     updated as (
       update community_research_tasks task
       set
@@ -400,9 +431,8 @@ async function reconcileTasksForContribution(sql: Sql, contributionId: string): 
         first_seen_at = coalesce(active_signals.first_seen_at, task.first_seen_at),
         last_seen_at = coalesce(active_signals.last_seen_at, task.last_seen_at),
         updated_at = now()
-      from affected
-      left join active_signals on active_signals.task_id = affected.task_id
-      where task.id = affected.task_id
+      from active_signals
+      where task.id = active_signals.task_id
       returning task.id
     )
     select count(*)::integer as updated_count from updated
@@ -797,32 +827,67 @@ export async function reconcileCommunityResearchTasks(
     const [drift] = await tx<{ count: number }[]>`
       select count(*)::integer as count
       from community_research_tasks task
-      where task.signal_count <> (
-        select count(distinct mention.contribution_id)::integer
-        from community_research_task_mentions mention
-        join community_contributions contribution on contribution.id = mention.contribution_id
-        where mention.task_id = task.id
-          and contribution.moderation_status <> 'rejected'
-          and contribution.retain_until > now()
-      )
+      where task.signal_count <>
+        (
+          select count(distinct mention.contribution_id)::integer
+          from community_research_task_mentions mention
+          join community_contributions contribution on contribution.id = mention.contribution_id
+          where mention.task_id = task.id
+            and contribution.moderation_status <> 'rejected'
+            and contribution.retain_until > now()
+        )
+        + (
+          select count(*)::integer
+          from customer_product_request_research_mentions request_mention
+          where request_mention.task_id = task.id
+            and request_mention.active
+        )
     `;
     const driftCount = drift?.count ?? 0;
     if (driftCount === 0) return 0;
 
     await tx`
-      with active_signals as (
+      with contribution_signals as (
         select
-          task.id as task_id,
+          mention.task_id,
           count(distinct contribution.id)::integer as signal_count,
           min(contribution.submitted_at) as first_seen_at,
           max(contribution.submitted_at) as last_seen_at
-        from community_research_tasks task
-        left join community_research_task_mentions mention on mention.task_id = task.id
-        left join community_contributions contribution
+        from community_research_task_mentions mention
+        join community_contributions contribution
           on contribution.id = mention.contribution_id
-          and contribution.moderation_status <> 'rejected'
+        where contribution.moderation_status <> 'rejected'
           and contribution.retain_until > now()
-        group by task.id
+        group by mention.task_id
+      ),
+      request_signals as (
+        select
+          request_mention.task_id,
+          count(*)::integer as signal_count,
+          min(request_mention.first_seen_at) as first_seen_at,
+          max(request_mention.last_seen_at) as last_seen_at
+        from customer_product_request_research_mentions request_mention
+        where request_mention.active
+        group by request_mention.task_id
+      ),
+      active_signals as (
+        select
+          task.id as task_id,
+          coalesce(contribution_signals.signal_count, 0)
+            + coalesce(request_signals.signal_count, 0) as signal_count,
+          coalesce(
+            least(contribution_signals.first_seen_at, request_signals.first_seen_at),
+            contribution_signals.first_seen_at,
+            request_signals.first_seen_at
+          ) as first_seen_at,
+          coalesce(
+            greatest(contribution_signals.last_seen_at, request_signals.last_seen_at),
+            contribution_signals.last_seen_at,
+            request_signals.last_seen_at
+          ) as last_seen_at
+        from community_research_tasks task
+        left join contribution_signals on contribution_signals.task_id = task.id
+        left join request_signals on request_signals.task_id = task.id
       )
       update community_research_tasks task
       set

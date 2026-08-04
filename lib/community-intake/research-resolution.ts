@@ -187,6 +187,7 @@ type ProductResearchTaskRow = {
   status: 'pending' | 'in-progress' | 'completed' | 'dismissed';
   work_state: 'ready' | 'assigned' | 'blocked' | 'retry';
   signal_count: number;
+  resolution_cycle: number;
 };
 
 async function validateCommunityProductResearchResolution(
@@ -213,7 +214,8 @@ async function validateCommunityProductResearchResolution(
   const lock = lockTask ? sql`for update` : sql``;
   const [task] = await sql<ProductResearchTaskRow[]>`
     select id, task_kind, entity_source, entity_ref,
-           assigned_operator_id, status, work_state, signal_count
+           assigned_operator_id, status, work_state, signal_count,
+           resolution_cycle
     from community_research_tasks
     where id = ${row.taskId} and entity_kind = 'product'
     ${lock}
@@ -257,10 +259,13 @@ async function validateCommunityProductResearchResolution(
 
   const [existing] = await sql<{ exists: boolean }[]>`
     select exists(
-      select 1 from community_product_research_resolutions where task_id = ${row.taskId}
+      select 1
+      from community_product_research_resolutions
+      where task_id = ${row.taskId}
+        and resolution_cycle = ${task.resolution_cycle}
     ) as exists
   `;
-  if (existing?.exists) throw new Error('Community research task already has a resolution.');
+  if (existing?.exists) throw new Error('Community research task cycle already has a resolution.');
   return task;
 }
 
@@ -269,8 +274,8 @@ export async function preflightCommunityProductResearchTask(
   input: CommunityProductResearchResolutionInput,
 ) {
   const row = buildCommunityProductResearchResolution(input);
-  await validateCommunityProductResearchResolution(sql, row, false);
-  return row;
+  const task = await validateCommunityProductResearchResolution(sql, row, false);
+  return { ...row, resolutionCycle: task.resolution_cycle };
 }
 
 /**
@@ -284,21 +289,22 @@ export async function resolveCommunityProductResearchTask(
   const row = buildCommunityProductResearchResolution(input);
 
   return inTransaction(sql, async transaction => {
-    await validateCommunityProductResearchResolution(transaction, row, true);
+    const task = await validateCommunityProductResearchResolution(transaction, row, true);
 
-    const inserted = await transaction<{ task_id: string }[]>`
+    const inserted = await transaction<{ task_id: string; resolution_cycle: number }[]>`
       insert into community_product_research_resolutions (
-        task_id, outcome, canonical_product_slug, candidate_id,
+        task_id, resolution_cycle, outcome, canonical_product_slug, candidate_id,
         reviewed_by, rationale, audit_metadata, canonical_write, publication_status
       ) values (
-        ${row.taskId}, ${row.outcome}, ${row.canonicalProductSlug}, ${row.candidateId},
+        ${row.taskId}, ${task.resolution_cycle}, ${row.outcome},
+        ${row.canonicalProductSlug}, ${row.candidateId},
         ${row.reviewedBy}, ${row.rationale}, ${transaction.json(row.auditMetadata)},
         ${row.canonicalWrite}, ${row.publicationStatus}
       )
-      on conflict (task_id) do nothing
-      returning task_id
+      on conflict (task_id, resolution_cycle) do nothing
+      returning task_id, resolution_cycle
     `;
-    if (!inserted[0]) throw new Error('Community research task already has a resolution.');
+    if (!inserted[0]) throw new Error('Community research task cycle already has a resolution.');
 
     await transaction`
       update community_research_tasks
@@ -310,8 +316,9 @@ export async function resolveCommunityProductResearchTask(
         last_reviewed_at = now(),
         updated_at = now()
       where id = ${row.taskId}
+        and resolution_cycle = ${task.resolution_cycle}
     `;
 
-    return row;
+    return { ...row, resolutionCycle: task.resolution_cycle };
   });
 }

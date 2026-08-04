@@ -229,6 +229,7 @@ export async function listOverviewDecisionHistory(
             from community_research_tasks task
             left join community_product_research_resolutions resolution
               on resolution.task_id = task.id
+              and resolution.resolution_cycle = task.resolution_cycle
             where task.id = case
               when audit.target_ref ~* ${uuidPattern} then audit.target_ref::uuid
               else null
