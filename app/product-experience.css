@@ -36,6 +36,57 @@
   z-index: 3;
 }
 
+.product-size-selector {
+  width: fit-content;
+  margin: .9rem 0 .15rem;
+  display: grid;
+  gap: .4rem;
+}
+
+.product-size-selector-label {
+  color: var(--muted);
+  font-size: .61rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.product-size-selector-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.product-size-selector-option {
+  min-height: 2.75rem;
+  padding: .5rem .78rem;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 54%, transparent);
+  color: var(--muted);
+  font-size: .7rem;
+  line-height: 1;
+  transition: border-color .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.product-size-selector-option:hover {
+  border-color: color-mix(in srgb, var(--wine) 42%, transparent);
+  color: var(--ink);
+}
+
+.product-size-selector-option[aria-current="page"] {
+  border-color: color-mix(in srgb, var(--wine) 34%, transparent);
+  background: var(--state-selected-bg);
+  color: var(--ink);
+}
+
+.product-size-selector-option:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 @media (min-width: 901px) {
   .product-visual-large {
     position: sticky;

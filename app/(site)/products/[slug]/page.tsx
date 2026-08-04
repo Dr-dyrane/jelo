@@ -9,7 +9,9 @@ import { isPublishedIntakeProduct } from '@/data/published-intake-products';
 import { MarketPrice } from '@/components/products/market-price';
 import { ProductGrid } from '@/components/products/product-grid';
 import { ProductQuickPanel } from '@/components/products/product-quick-panel';
+import { ProductSizeSelector } from '@/components/products/product-size-selector';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { resolveCatalogueProductFamily } from '@/lib/catalogue/product-family';
 import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
 import { productSocialCard, publicSocialMetadata } from '@/lib/og/social-card';
@@ -41,6 +43,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   ]);
 
   const careReview = getReviewedProductCare(product.slug);
+  const productFamily = resolveCatalogueProductFamily(product.slug, products);
   const catalogueVerified = isPublishedIntakeProduct(product.slug);
   const careStatus = careReview?.careState === 'supportive_eligible'
     ? 'Supportive use'
@@ -73,7 +76,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="product-story">
           <p className="eyebrow">{product.brand}</p>
           <h1>{product.name}</h1>
-          <div className="product-title-meta"><span>{product.size}</span><span>{product.category}</span><span>{product.step}</span></div>
+          <div className="product-title-meta">{productFamily ? null : <span>{product.size}</span>}<span>{product.category}</span><span>{product.step}</span></div>
+          {productFamily ? <ProductSizeSelector family={productFamily} /> : null}
           {careStatus ? <p className="product-line">{careStatus}</p> : null}
           <p className="product-page-price"><MarketPrice offers={product.offers} market="NG"/></p>
           <ProductQuickPanel {...panelData} />
