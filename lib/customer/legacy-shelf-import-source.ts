@@ -139,8 +139,27 @@ export function verifyLegacyShelfImportSourceFromGit(repositoryRoot = process.cw
       stdio: ['ignore', 'pipe', 'ignore'],
     },
   );
+
+  let productsSource: Buffer;
+  let routineSource: Buffer;
+  try {
+    productsSource = readHistoricalFile(source.products.path);
+    routineSource = readHistoricalFile(source.routine.path);
+  } catch {
+    execFileSync(
+      'git',
+      ['fetch', '--no-tags', '--depth=1', 'origin', source.commit],
+      {
+        cwd: repositoryRoot,
+        stdio: ['ignore', 'ignore', 'ignore'],
+      },
+    );
+    productsSource = readHistoricalFile(source.products.path);
+    routineSource = readHistoricalFile(source.routine.path);
+  }
+
   verifyLegacyShelfImportSource(
-    readHistoricalFile(source.products.path),
-    readHistoricalFile(source.routine.path),
+    productsSource,
+    routineSource,
   );
 }
