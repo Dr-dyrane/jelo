@@ -183,7 +183,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       'Teeka4',
       'https://teeka4.com/shop/medik8-advance-night-restore-50ml/',
       98,
-      108367,
+      103867,
       'Advanced Night Restore™',
       '50 ml',
       { observedAt: '2026-08-04T14:54:24.934Z', expiresAt: '2026-08-11T14:54:24.934Z' },

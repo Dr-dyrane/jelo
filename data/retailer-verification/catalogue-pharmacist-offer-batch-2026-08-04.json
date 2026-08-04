@@ -685,7 +685,7 @@
       "offers": [
         {
           "observationId": "advanced-night-restore-50ml--teeka4--2026-08-04t145424z",
-          "founderLeadPriceNgn": 108367,
+          "founderLeadPriceNgn": 103867,
           "retailer": {
             "displayName": "Teeka4",
             "legalName": null,
@@ -707,9 +707,9 @@
           "packageMatch": "current-exact",
           "packagingRevisionAliasId": null,
           "price": {
-            "amount": 108367,
+            "amount": 103867,
             "currency": "NGN",
-            "sourceText": "₦108,367"
+            "sourceText": "₦103,867"
           },
           "stock": {
             "status": "in-stock",
