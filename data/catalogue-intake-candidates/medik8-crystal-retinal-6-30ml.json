@@ -14,7 +14,7 @@
     "variant": "Crystal Retinal 6",
     "size": "30 ml",
     "category": "Face care",
-    "reason": "Adds the exact 30 mL Crystal Retinal 6 pump and preserves retinal, not retinol, terminology. Official strength context is recorded only as general step-up information; Skincare Plug's \u20a6189,000 page omits the 30 mL size, so offer enrichment remains reference-only.",
+    "reason": "Adds the exact 30 mL Crystal Retinal 6 pump and preserves retinal, not retinol, terminology. Official strength context is recorded only as general step-up information; Skincare Plug's ₦189,000 page omits the 30 mL size, so offer enrichment remains reference-only.",
     "priority": "important",
     "gapIds": [
       "retinal-night-serum",
@@ -41,7 +41,7 @@
         "canonicalExtraction": {
           "browserCapture": {
             "documentReadyState": "complete",
-            "pageTitle": "Crystal Retinal\u00ae 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% \u2013 Medik8",
+            "pageTitle": "Crystal Retinal® 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% – Medik8",
             "surface": "Codex in-app browser"
           },
           "candidateId": "medik8-crystal-retinal-6-30ml",
@@ -129,10 +129,10 @@
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
       "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-6-30ml/packshot-v1-8d5b3801f8935525.png",
-      "publicImageSha256": "8d5b3801f89355258b3b6864af0807b9b90fe07efe193b2603a9805942d374a8",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-6-30ml/packshot-v2-3fb52fbf3809770e.png",
+      "publicImageSha256": "3fb52fbf3809770e3fd87bed9751af2957e1c7e3287c4ca5704320cc866430a4",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 565376,
+      "publicImageByteSize": 395460,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",

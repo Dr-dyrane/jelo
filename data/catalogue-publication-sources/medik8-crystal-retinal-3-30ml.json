@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "medik8-crystal-retinal-3-30ml",
-    "candidateFingerprint": "7596e68fa209ae3492b762b45a2f7d056450dd249244261b5e05347567ae85e1",
+    "candidateFingerprint": "4147068fcdffa6e3778d8f4ff3715bd8a0ba196ca1fad2683c70e85415086d7b",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -160,8 +160,8 @@
           "sourceEdgeContactFraction": 0
         },
         "output": {
-          "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
-          "byteSize": 810514,
+          "sha256": "a38e82a71b3bd20ea16f56614c216710d4e2e6d2919cf5885400e4b978ba4dc9",
+          "byteSize": 403939,
           "mimeType": "image/png",
           "width": 2000,
           "height": 2000,
@@ -186,10 +186,10 @@
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v1-882c5dcb120d71c3.png",
-      "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v2-a38e82a71b3bd20e.png",
+      "sha256": "a38e82a71b3bd20ea16f56614c216710d4e2e6d2919cf5885400e4b978ba4dc9",
       "mimeType": "image/png",
-      "byteSize": 810514,
+      "byteSize": 403939,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -206,12 +206,12 @@
       "reviewer": "JeloCare catalogue publication reviewer",
       "approvedAt": "2026-08-04T16:55:00Z"
     },
-    "dossierFingerprint": "abafc830a32978b250e4097590d39b771ad19b34f19ac0a0f82cf5df7edb77cb"
+    "dossierFingerprint": "1278e920c4830fb877b382a16d53129ddf698b279f7497b2790aad46c979c7d0"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "medik8-crystal-retinal-3-30ml",
-    "dossierFingerprint": "abafc830a32978b250e4097590d39b771ad19b34f19ac0a0f82cf5df7edb77cb",
+    "dossierFingerprint": "1278e920c4830fb877b382a16d53129ddf698b279f7497b2790aad46c979c7d0",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -230,6 +230,6 @@
       "reviewer": "JeloCare catalogue release reviewer",
       "publishedAt": "2026-08-04T17:02:00Z"
     },
-    "releaseFingerprint": "b2b85ebd5bdb0cc766290f1550b26dd62bd74888046bae32b4543472698cc38a"
+    "releaseFingerprint": "faba6a7b15f7878de73e245f6b04d7bd94d393185a59c68ce5a082862eed3e4c"
   }
 }

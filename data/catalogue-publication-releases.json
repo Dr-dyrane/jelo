@@ -1229,7 +1229,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "loccitane-almond-softening-shower-oil-250ml",
-      "dossierFingerprint": "30dcd1edd5c91e1f65acdfab8e0e4901f3b3d90d0fdd696049ce4e7c26479efb",
+      "dossierFingerprint": "c921aa0573982b5162b0034656b6be0fd534569d391e9b91c46efab7973674b9",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -1248,7 +1248,7 @@
         "reviewer": "JeloCare catalogue release reviewer",
         "publishedAt": "2026-08-04T14:29:40Z"
       },
-      "releaseFingerprint": "279d695693b22577925ecf7c25ddab18621cdd28d9ba4052d319a2a335111925"
+      "releaseFingerprint": "f00908e3a8e7033704347ef7ea0fa3c37277904660bddba32d7caba542337880"
     },
     {
       "schemaVersion": 2,
@@ -1277,7 +1277,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "medik8-crystal-retinal-3-30ml",
-      "dossierFingerprint": "abafc830a32978b250e4097590d39b771ad19b34f19ac0a0f82cf5df7edb77cb",
+      "dossierFingerprint": "1278e920c4830fb877b382a16d53129ddf698b279f7497b2790aad46c979c7d0",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -1296,12 +1296,12 @@
         "reviewer": "JeloCare catalogue release reviewer",
         "publishedAt": "2026-08-04T17:02:00Z"
       },
-      "releaseFingerprint": "b2b85ebd5bdb0cc766290f1550b26dd62bd74888046bae32b4543472698cc38a"
+      "releaseFingerprint": "faba6a7b15f7878de73e245f6b04d7bd94d393185a59c68ce5a082862eed3e4c"
     },
     {
       "schemaVersion": 2,
       "candidateId": "medik8-crystal-retinal-6-30ml",
-      "dossierFingerprint": "f4c2dc26d019395443b08198b0cb6edb94dba4e4d1f23cb9a1ac0aabe59203e8",
+      "dossierFingerprint": "741825f704289f92a2f7d7ef8abc5c27f25b76396e8a794c4028f2da41e28e02",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -1320,7 +1320,7 @@
         "reviewer": "JeloCare catalogue release reviewer",
         "publishedAt": "2026-08-04T17:03:00Z"
       },
-      "releaseFingerprint": "e347913c01c90672fc6d4d7000324ebf0cb99a53164ff4b505ea20b1ad2a078e"
+      "releaseFingerprint": "0ed0347a87ad3f5568f683f6e5bdddf82cc75de27c783b09bf19317bb5639146"
     }
   ]
 }

@@ -14,7 +14,7 @@
     "variant": "Crystal Retinal 3",
     "size": "30 ml",
     "category": "Face care",
-    "reason": "Adds the exact 30 mL Crystal Retinal 3 pump and preserves retinal, not retinol, terminology. Skincare Plug's \u20a6145,000 page names the strength but does not publish the 30 mL size in its rendered listing, so offer enrichment remains reference-only.",
+    "reason": "Adds the exact 30 mL Crystal Retinal 3 pump and preserves retinal, not retinol, terminology. Skincare Plug's ₦145,000 page names the strength but does not publish the 30 mL size in its rendered listing, so offer enrichment remains reference-only.",
     "priority": "important",
     "gapIds": [
       "retinal-night-serum",
@@ -41,7 +41,7 @@
         "canonicalExtraction": {
           "browserCapture": {
             "documentReadyState": "complete",
-            "pageTitle": "Crystal Retinal\u00ae 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% \u2013 Medik8",
+            "pageTitle": "Crystal Retinal® 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% – Medik8",
             "surface": "Codex in-app browser"
           },
           "candidateId": "medik8-crystal-retinal-3-30ml",
@@ -129,10 +129,10 @@
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
       "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v1-882c5dcb120d71c3.png",
-      "publicImageSha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v2-a38e82a71b3bd20e.png",
+      "publicImageSha256": "a38e82a71b3bd20ea16f56614c216710d4e2e6d2919cf5885400e4b978ba4dc9",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 810514,
+      "publicImageByteSize": 403939,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",

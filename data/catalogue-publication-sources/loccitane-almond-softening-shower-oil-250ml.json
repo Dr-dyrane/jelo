@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "loccitane-almond-softening-shower-oil-250ml",
-    "candidateFingerprint": "49ed0b85df54c13e05839e09b376f05a8a476aaf4c5291b1daed4f790559c3a4",
+    "candidateFingerprint": "0c3ba5045b929fa0cacf2a924e3a50db1ab6e1dc34660c6484081c1c49bf2890",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -155,8 +155,8 @@
           "sourceEdgeContactFraction": 0
         },
         "output": {
-          "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
-          "byteSize": 790195,
+          "sha256": "a38f7df38dc19e515a31a896beb283fc7fa76d569f0a1158a9f25f531c304ffc",
+          "byteSize": 869437,
           "mimeType": "image/png",
           "width": 2000,
           "height": 2000,
@@ -181,10 +181,10 @@
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe53d02.png",
-      "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v2-a38f7df38dc19e51.png",
+      "sha256": "a38f7df38dc19e515a31a896beb283fc7fa76d569f0a1158a9f25f531c304ffc",
       "mimeType": "image/png",
-      "byteSize": 790195,
+      "byteSize": 869437,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -201,12 +201,12 @@
       "reviewer": "JeloCare catalogue publication reviewer",
       "approvedAt": "2026-08-04T14:29:30Z"
     },
-    "dossierFingerprint": "30dcd1edd5c91e1f65acdfab8e0e4901f3b3d90d0fdd696049ce4e7c26479efb"
+    "dossierFingerprint": "c921aa0573982b5162b0034656b6be0fd534569d391e9b91c46efab7973674b9"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "loccitane-almond-softening-shower-oil-250ml",
-    "dossierFingerprint": "30dcd1edd5c91e1f65acdfab8e0e4901f3b3d90d0fdd696049ce4e7c26479efb",
+    "dossierFingerprint": "c921aa0573982b5162b0034656b6be0fd534569d391e9b91c46efab7973674b9",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -225,6 +225,6 @@
       "reviewer": "JeloCare catalogue release reviewer",
       "publishedAt": "2026-08-04T14:29:40Z"
     },
-    "releaseFingerprint": "279d695693b22577925ecf7c25ddab18621cdd28d9ba4052d319a2a335111925"
+    "releaseFingerprint": "f00908e3a8e7033704347ef7ea0fa3c37277904660bddba32d7caba542337880"
   }
 }

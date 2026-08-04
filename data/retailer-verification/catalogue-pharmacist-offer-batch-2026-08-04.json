@@ -467,7 +467,7 @@
     },
     {
       "candidateId": "medik8-crystal-retinal-3-30ml",
-      "releaseFingerprint": "b2b85ebd5bdb0cc766290f1550b26dd62bd74888046bae32b4543472698cc38a",
+      "releaseFingerprint": "faba6a7b15f7878de73e245f6b04d7bd94d393185a59c68ce5a082862eed3e4c",
       "canonicalIdentity": {
         "kind": "gtin",
         "value": "818625024529",
@@ -569,7 +569,7 @@
     },
     {
       "candidateId": "medik8-crystal-retinal-6-30ml",
-      "releaseFingerprint": "e347913c01c90672fc6d4d7000324ebf0cb99a53164ff4b505ea20b1ad2a078e",
+      "releaseFingerprint": "0ed0347a87ad3f5568f683f6e5bdddf82cc75de27c783b09bf19317bb5639146",
       "canonicalIdentity": {
         "kind": "gtin",
         "value": "818625024536",
@@ -730,7 +730,7 @@
     },
     {
       "candidateId": "loccitane-almond-softening-shower-oil-250ml",
-      "releaseFingerprint": "279d695693b22577925ecf7c25ddab18621cdd28d9ba4052d319a2a335111925",
+      "releaseFingerprint": "f00908e3a8e7033704347ef7ea0fa3c37277904660bddba32d7caba542337880",
       "canonicalIdentity": {
         "kind": "gtin",
         "value": "3253581785706",

@@ -543,8 +543,8 @@
       "sourceEdgeContactFraction": 0
     },
     "output": {
-      "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
-      "byteSize": 790195,
+      "sha256": "a38f7df38dc19e515a31a896beb283fc7fa76d569f0a1158a9f25f531c304ffc",
+      "byteSize": 869437,
       "mimeType": "image/png",
       "width": 2000,
       "height": 2000,
@@ -601,13 +601,13 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
-      "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
-      "byteSize": 810514,
+      "sha256": "a38e82a71b3bd20ea16f56614c216710d4e2e6d2919cf5885400e4b978ba4dc9",
+      "byteSize": 403939,
       "mimeType": "image/png",
       "width": 2000,
       "height": 2000,
@@ -664,13 +664,13 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
-      "sha256": "8d5b3801f89355258b3b6864af0807b9b90fe07efe193b2603a9805942d374a8",
-      "byteSize": 565376,
+      "sha256": "3fb52fbf3809770e3fd87bed9751af2957e1c7e3287c4ca5704320cc866430a4",
+      "byteSize": 395460,
       "mimeType": "image/png",
       "width": 2000,
       "height": 2000,

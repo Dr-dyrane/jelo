@@ -27,6 +27,9 @@ data/catalogue-intake-assets/**/*.jpg
 data/catalogue-intake-assets/**/*.webp
 data/catalogue-intake-assets/**/*.avif
 
+# Playwright MCP browser side effects (snapshots, console logs)
+.playwright-mcp/
+
 # system files
 .DS_Store
 

@@ -14245,7 +14245,7 @@
     {
       "schemaVersion": 8,
       "candidateId": "loccitane-almond-softening-shower-oil-250ml",
-      "candidateFingerprint": "49ed0b85df54c13e05839e09b376f05a8a476aaf4c5291b1daed4f790559c3a4",
+      "candidateFingerprint": "0c3ba5045b929fa0cacf2a924e3a50db1ab6e1dc34660c6484081c1c49bf2890",
       "exposure": "private-only",
       "publicationScope": "neutral-reference",
       "publicationStatus": "not-published",
@@ -14396,8 +14396,8 @@
             "sourceEdgeContactFraction": 0
           },
           "output": {
-            "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
-            "byteSize": 790195,
+            "sha256": "a38f7df38dc19e515a31a896beb283fc7fa76d569f0a1158a9f25f531c304ffc",
+            "byteSize": 869437,
             "mimeType": "image/png",
             "width": 2000,
             "height": 2000,
@@ -14422,10 +14422,10 @@
       },
       "finalImage": {
         "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v1-292e44526fe53d02.png",
-        "sha256": "292e44526fe53d029f5815537d40a7c4281c334dac769ea04ace3fb3a54b15f1",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/l-occitane-en-provence/loccitane-almond-softening-shower-oil-250ml/packshot-v2-a38f7df38dc19e51.png",
+        "sha256": "a38f7df38dc19e515a31a896beb283fc7fa76d569f0a1158a9f25f531c304ffc",
         "mimeType": "image/png",
-        "byteSize": 790195,
+        "byteSize": 869437,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
@@ -14442,7 +14442,7 @@
         "reviewer": "JeloCare catalogue publication reviewer",
         "approvedAt": "2026-08-04T14:29:30Z"
       },
-      "dossierFingerprint": "30dcd1edd5c91e1f65acdfab8e0e4901f3b3d90d0fdd696049ce4e7c26479efb"
+      "dossierFingerprint": "c921aa0573982b5162b0034656b6be0fd534569d391e9b91c46efab7973674b9"
     },
     {
       "schemaVersion": 8,
@@ -14600,7 +14600,7 @@
     {
       "schemaVersion": 8,
       "candidateId": "medik8-crystal-retinal-3-30ml",
-      "candidateFingerprint": "7596e68fa209ae3492b762b45a2f7d056450dd249244261b5e05347567ae85e1",
+      "candidateFingerprint": "4147068fcdffa6e3778d8f4ff3715bd8a0ba196ca1fad2683c70e85415086d7b",
       "exposure": "private-only",
       "publicationScope": "neutral-reference",
       "publicationStatus": "not-published",
@@ -14756,8 +14756,8 @@
             "sourceEdgeContactFraction": 0
           },
           "output": {
-            "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
-            "byteSize": 810514,
+            "sha256": "a38e82a71b3bd20ea16f56614c216710d4e2e6d2919cf5885400e4b978ba4dc9",
+            "byteSize": 403939,
             "mimeType": "image/png",
             "width": 2000,
             "height": 2000,
@@ -14782,10 +14782,10 @@
       },
       "finalImage": {
         "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v1-882c5dcb120d71c3.png",
-        "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v2-a38e82a71b3bd20e.png",
+        "sha256": "a38e82a71b3bd20ea16f56614c216710d4e2e6d2919cf5885400e4b978ba4dc9",
         "mimeType": "image/png",
-        "byteSize": 810514,
+        "byteSize": 403939,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
@@ -14802,12 +14802,12 @@
         "reviewer": "JeloCare catalogue publication reviewer",
         "approvedAt": "2026-08-04T16:55:00Z"
       },
-      "dossierFingerprint": "abafc830a32978b250e4097590d39b771ad19b34f19ac0a0f82cf5df7edb77cb"
+      "dossierFingerprint": "1278e920c4830fb877b382a16d53129ddf698b279f7497b2790aad46c979c7d0"
     },
     {
       "schemaVersion": 8,
       "candidateId": "medik8-crystal-retinal-6-30ml",
-      "candidateFingerprint": "5c2997c3a740c601000b748d09a82123fc799513fae2045b70ffe3ad428bb449",
+      "candidateFingerprint": "0297852b4876382c14c2637dd8fcc09436da819eafb85a9ea64ab3ee61357be2",
       "exposure": "private-only",
       "publicationScope": "neutral-reference",
       "publicationStatus": "not-published",
@@ -14963,8 +14963,8 @@
             "sourceEdgeContactFraction": 0
           },
           "output": {
-            "sha256": "8d5b3801f89355258b3b6864af0807b9b90fe07efe193b2603a9805942d374a8",
-            "byteSize": 565376,
+            "sha256": "3fb52fbf3809770e3fd87bed9751af2957e1c7e3287c4ca5704320cc866430a4",
+            "byteSize": 395460,
             "mimeType": "image/png",
             "width": 2000,
             "height": 2000,
@@ -14989,10 +14989,10 @@
       },
       "finalImage": {
         "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-6-30ml/packshot-v1-8d5b3801f8935525.png",
-        "sha256": "8d5b3801f89355258b3b6864af0807b9b90fe07efe193b2603a9805942d374a8",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-6-30ml/packshot-v2-3fb52fbf3809770e.png",
+        "sha256": "3fb52fbf3809770e3fd87bed9751af2957e1c7e3287c4ca5704320cc866430a4",
         "mimeType": "image/png",
-        "byteSize": 565376,
+        "byteSize": 395460,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
@@ -15009,7 +15009,7 @@
         "reviewer": "JeloCare catalogue publication reviewer",
         "approvedAt": "2026-08-04T16:58:00Z"
       },
-      "dossierFingerprint": "f4c2dc26d019395443b08198b0cb6edb94dba4e4d1f23cb9a1ac0aabe59203e8"
+      "dossierFingerprint": "741825f704289f92a2f7d7ef8abc5c27f25b76396e8a794c4028f2da41e28e02"
     }
   ]
 }
