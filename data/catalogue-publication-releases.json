@@ -1273,6 +1273,54 @@
         "publishedAt": "2026-08-04T15:24:00Z"
       },
       "releaseFingerprint": "8da17e4bb1c5b28d15f3dca58b457f7ac4a0da8e64e76ef2ed2cd4f2ee6c80e0"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "medik8-crystal-retinal-3-30ml",
+      "dossierFingerprint": "abafc830a32978b250e4097590d39b771ad19b34f19ac0a0f82cf5df7edb77cb",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Beginner retinal night serum.",
+        "usage": "Apply one pump to clean, dry skin in the evening. Follow with moisturiser. Use SPF during the day.",
+        "manufacturerDirectionsUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-04T16:56:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-04T17:02:00Z"
+      },
+      "releaseFingerprint": "b2b85ebd5bdb0cc766290f1550b26dd62bd74888046bae32b4543472698cc38a"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "medik8-crystal-retinal-6-30ml",
+      "dossierFingerprint": "f4c2dc26d019395443b08198b0cb6edb94dba4e4d1f23cb9a1ac0aabe59203e8",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Regular-strength retinal night serum.",
+        "usage": "Apply one pump to clean, dry skin in the evening. Follow with moisturiser. Use SPF during the day.",
+        "manufacturerDirectionsUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-04T16:59:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-04T17:03:00Z"
+      },
+      "releaseFingerprint": "e347913c01c90672fc6d4d7000324ebf0cb99a53164ff4b505ea20b1ad2a078e"
     }
   ]
 }

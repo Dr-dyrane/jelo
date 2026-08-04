@@ -565,5 +565,131 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "medik8-crystal-retinal-3-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463",
+      "sha256": "617122dd12031f800d50cd546539c0d7520efb32be2ed5c926e04d25922ef61b",
+      "byteSize": 147184,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-04T12:44:24Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00818625024529"
+      },
+      "officialProductUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "b37b19441f7841197c4fc02d6cc0c5effcae008b5a0d5b35c445772eea575b0f",
+      "generatedAt": "2026-08-04T16:51:44Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
+      "byteSize": 810514,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-04T16:53:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-04T16:54:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "4a3a737265cd5295cbeb7b14de90ef346a4402ddab66a0777a29a72f55c0db05",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "medik8-crystal-retinal-6-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_6_-_Packshot_-_ROW_38652d6d-e6fe-4cd4-960a-ed3e0362bf4b.jpg?v=1776699463",
+      "sha256": "601339ca061bf2f1b95e752d8c5d5bc15f550898eb30c87d86266977a224e03f",
+      "byteSize": 125571,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-04T12:44:24Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00818625024536"
+      },
+      "officialProductUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939816088"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "0622cf2940de070c121504ca4167bfecf63baba56e4a738970403b322fc8f7ea",
+      "generatedAt": "2026-08-04T16:51:55Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "8d5b3801f89355258b3b6864af0807b9b90fe07efe193b2603a9805942d374a8",
+      "byteSize": 565376,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-04T16:53:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-04T16:54:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "db1a4b1c0c3e73caa6ef23f77611e14c7232b25e9adeb13fed65d5a3ba9a7fb0",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

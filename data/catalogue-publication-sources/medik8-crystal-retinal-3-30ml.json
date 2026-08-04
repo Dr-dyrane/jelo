@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "medik8-crystal-retinal-3-30ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "medik8-crystal-retinal-3-30ml",
+    "candidateFingerprint": "7596e68fa209ae3492b762b45a2f7d056450dd249244261b5e05347567ae85e1",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "818625024529",
+      "brand": "Medik8",
+      "name": "Crystal Retinal 3",
+      "variant": "Crystal Retinal 3",
+      "size": "30 ml",
+      "packageVersion": "Crystal Retinal 3 30 ml silver airless pump tube",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+      "officialIdentity": {
+        "url": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+        "observedGtin": "818625024529",
+        "observedVariant": "Crystal Retinal 3",
+        "observedSize": "30 ml",
+        "observedPackageVersion": "Crystal Retinal 3 30 ml silver airless pump tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/medik8-crystal-retinal-3-30ml.json",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "Crystal Retinal® 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% – Medik8",
+            "surface": "Codex in-app browser"
+          },
+          "candidateId": "medik8-crystal-retinal-3-30ml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant 36622939783320 barcode",
+              "sourceText": "\"barcode\":\"818625024529\"",
+              "value": "818625024529"
+            },
+            "variant": {
+              "locator": "Rendered official selected-strength control",
+              "sourceText": "Crystal Retinal 3 Beginner",
+              "value": "Crystal Retinal 3"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 30 ml",
+              "value": "30 ml"
+            }
+          },
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+          "retrievedAt": "2026-08-04T12:49:35Z",
+          "reviewedAt": "2026-08-04T12:50:20Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 4,
+          "sourceResponseByteSize": 200042,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "8ba73f3499e6c0034be67de63cda6bb13e957e9c6f8ff8e8706d6d3f9b7834f2",
+          "sourceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 147184,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "617122dd12031f800d50cd546539c0d7520efb32be2ed5c926e04d25922ef61b",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463",
+              "retrievedAt": "2026-08-04T12:44:24Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463"
+            }
+          ]
+        },
+        "snapshotSha256": "ab51b234a00c8110fce0a307ecabe4f4baf4a32b0dcfac13706cc97139418afc",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2111,
+        "retrievedAt": "2026-08-04T12:49:35Z"
+      },
+      "checkedAt": "2026-08-04T12:50:20Z",
+      "demandEvidenceUrls": [
+        "https://skincareplug-ng.com/products/medik8-crystal-retinal-3"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described 0.03% retinaldehyde night serum.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A cosmetic retinaldehyde serum, not individualized acne, pigmentation or anti-ageing treatment advice. Retinal is a vitamin A derivative and is not retinol. Patch test, introduce gradually at night, avoid the direct eye area, use daytime sunscreen, and stop for persistent burning or irritation. Do not use vitamin A skincare during pregnancy or breastfeeding unless a qualified clinician specifically advises it.",
+      "manufacturerEvidenceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+      "evidenceUrls": [
+        "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+        "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+      ],
+      "reviewedAt": "2026-08-04T12:50:20Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+      "sourceAsset": {
+        "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463",
+        "sha256": "617122dd12031f800d50cd546539c0d7520efb32be2ed5c926e04d25922ef61b",
+        "mimeType": "image/jpeg",
+        "byteSize": 147184,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-04T12:44:24Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "medik8-crystal-retinal-3-30ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/0486/3036/6360/files/20230922_-_PDP_Asset_1_-_Crystal_Retinal_3_-_Packshot_-_ROW_c6d00a70-a62a-4e4b-9413-ec7e6cee1a72.jpg?v=1776699463",
+          "sha256": "617122dd12031f800d50cd546539c0d7520efb32be2ed5c926e04d25922ef61b",
+          "byteSize": 147184,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-04T12:44:24Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00818625024529"
+          },
+          "officialProductUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "u2net",
+          "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "b37b19441f7841197c4fc02d6cc0c5effcae008b5a0d5b35c445772eea575b0f",
+          "generatedAt": "2026-08-04T16:51:44Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
+          "byteSize": 810514,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-04T16:53:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-04T16:54:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "4a3a737265cd5295cbeb7b14de90ef346a4402ddab66a0777a29a72f55c0db05",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-3-30ml/packshot-v1-882c5dcb120d71c3.png",
+      "sha256": "882c5dcb120d71c3ad068b52650bb92aef9cd92912768c4e3e27baa8ffec8efe",
+      "mimeType": "image/png",
+      "byteSize": 810514,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-04T16:54:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-04T16:55:00Z"
+    },
+    "dossierFingerprint": "abafc830a32978b250e4097590d39b771ad19b34f19ac0a0f82cf5df7edb77cb"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "medik8-crystal-retinal-3-30ml",
+    "dossierFingerprint": "abafc830a32978b250e4097590d39b771ad19b34f19ac0a0f82cf5df7edb77cb",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Beginner retinal night serum.",
+      "usage": "Apply one pump to clean, dry skin in the evening. Follow with moisturiser. Use SPF during the day.",
+      "manufacturerDirectionsUrl": "https://www.medik8.com/products/crystal-retinal?variant=36622939783320",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-04T16:56:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-04T17:02:00Z"
+    },
+    "releaseFingerprint": "b2b85ebd5bdb0cc766290f1550b26dd62bd74888046bae32b4543472698cc38a"
+  }
+}

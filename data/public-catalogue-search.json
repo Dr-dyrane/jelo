@@ -427,6 +427,22 @@
       "source": "dossier-release"
     },
     {
+      "slug": "medik8-crystal-retinal-3-30ml",
+      "brand": "Medik8",
+      "name": "Crystal Retinal 3",
+      "size": "30 ml",
+      "approvedGtin": "818625024529",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "medik8-crystal-retinal-6-30ml",
+      "brand": "Medik8",
+      "name": "Crystal Retinal 6",
+      "size": "30 ml",
+      "approvedGtin": "818625024536",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
       "brand": "Naturium",
       "name": "The Perfector Salicylic Acid Body Wash",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-04T12:51:00Z",
+  "updatedAt": "2026-08-04T17:01:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "e0fbc9a1a0f5d8b727afa589",
@@ -14,7 +14,7 @@
     "variant": "Crystal Retinal 6",
     "size": "30 ml",
     "category": "Face care",
-    "reason": "Adds the exact 30 mL Crystal Retinal 6 pump and preserves retinal, not retinol, terminology. Official strength context is recorded only as general step-up information; Skincare Plug's ₦189,000 page omits the 30 mL size, so offer enrichment remains reference-only.",
+    "reason": "Adds the exact 30 mL Crystal Retinal 6 pump and preserves retinal, not retinol, terminology. Official strength context is recorded only as general step-up information; Skincare Plug's \u20a6189,000 page omits the 30 mL size, so offer enrichment remains reference-only.",
     "priority": "important",
     "gapIds": [
       "retinal-night-serum",
@@ -41,7 +41,7 @@
         "canonicalExtraction": {
           "browserCapture": {
             "documentReadyState": "complete",
-            "pageTitle": "Crystal Retinal® 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% – Medik8",
+            "pageTitle": "Crystal Retinal\u00ae 1/3/6/10/20/24 | Vitamin A Serum 0.01-0.24% \u2013 Medik8",
             "surface": "Codex in-app browser"
           },
           "candidateId": "medik8-crystal-retinal-6-30ml",
@@ -128,7 +128,21 @@
       "sourceAssetByteSize": 125571,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z"
+      "sourceAssetRetrievedAt": "2026-08-04T12:44:24Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/medik8/medik8-crystal-retinal-6-30ml/packshot-v1-8d5b3801f8935525.png",
+      "publicImageSha256": "8d5b3801f89355258b3b6864af0807b9b90fe07efe193b2603a9805942d374a8",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 565376,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-04T16:54:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
     }
   }
 }
