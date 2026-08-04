@@ -3,35 +3,59 @@ import 'server-only';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import { getProductsPriceTrends } from '@/lib/inventory/price-trends';
 import { hasShareableNgOffer, isShareableNgOffer } from '@/modules/commerce/shareable-offer';
-import { selectRecentDrops, selectShareGaps } from '@/modules/commerce/share-insights';
+import {
+  buildShareSignalReadModel,
+  type AggregateProductInterest,
+} from '@/modules/commerce/share-insights';
 import { priceTrendOfferSnapshot } from '@/modules/commerce/price-trends';
 
-export type { ShareGap, ShareDrop } from '@/modules/commerce/share-insights';
+export type AggregateProductInterestSource = {
+  readProductInterest(productSlugs: readonly string[]): Promise<AggregateProductInterest>;
+};
 
-/** Products with a share-worthy price gap. In-memory over the catalogue, no DB. */
-export async function listShareGaps(now: number | Date = Date.now()) {
-  return selectShareGaps(await listCatalogueProducts(), now);
+export type WorthSharingReadOptions = {
+  now?: number | Date;
+  aggregateInterestSource?: AggregateProductInterestSource;
+};
+
+async function readAggregateInterest(
+  source: AggregateProductInterestSource | undefined,
+  productSlugs: readonly string[],
+) {
+  if (!source) return undefined;
+  try {
+    return await source.readProductInterest(productSlugs);
+  } catch {
+    return undefined;
+  }
 }
 
 /**
- * Products whose observed NG price has notably fallen. All eligible products'
- * history is read in one batch, with each result still bound to that product's
- * exact rendered offer snapshot. The batch returns empty trends when Postgres
- * is not configured, so this lane stays silently empty on the static catalogue
- * and lights up on its own once Neon is switched on.
+ * Canonical server read for /share and /share/[slug]. Product history is read in
+ * one batch and remains bound to each exact current offer snapshot.
+ *
+ * No live aggregate-interest provider is wired today: product_view and
+ * share_click are not shipped, the customer demand bridge is research-only,
+ * and store_click is permanently forbidden as a ranking input. The optional
+ * provider is therefore neutral unless a future approved aggregate-only source
+ * is passed explicitly; provider absence or failure never changes the page.
  */
-export async function listRecentDrops(now: number | Date = Date.now()) {
+export async function getWorthSharingReadModel(options: WorthSharingReadOptions = {}) {
+  const now = options.now ?? Date.now();
   const products = (await listCatalogueProducts()).filter(product => hasShareableNgOffer(product, now));
-  const trends = await getProductsPriceTrends(products.map(product => ({
-    slug: product.slug,
-    snapshot: product.offers.filter(offer => isShareableNgOffer(offer, now)).flatMap(offer => {
-      const snapshot = priceTrendOfferSnapshot(offer, 'NG', now);
-      return snapshot ? [snapshot] : [];
-    }),
-  })));
+  const [trends, aggregateInterest] = await Promise.all([
+    getProductsPriceTrends(products.map(product => ({
+      slug: product.slug,
+      snapshot: product.offers.filter(offer => isShareableNgOffer(offer, now)).flatMap(offer => {
+        const snapshot = priceTrendOfferSnapshot(offer, 'NG', now);
+        return snapshot ? [snapshot] : [];
+      }),
+    }))),
+    readAggregateInterest(options.aggregateInterestSource, products.map(product => product.slug)),
+  ]);
   const items = products.map(product => ({
     product,
     trends: trends.get(product.slug) ?? {},
   }));
-  return selectRecentDrops(items, now);
+  return buildShareSignalReadModel(items, now, aggregateInterest);
 }

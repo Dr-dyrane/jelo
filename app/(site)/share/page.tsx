@@ -3,12 +3,13 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { concerns } from '@/data/knowledge';
 import { isProductMatchConcern } from '@/modules/concerns/product-matching';
-import { listRecentDrops, listShareGaps } from '@/lib/share/worth-sharing';
+import { getWorthSharingReadModel } from '@/lib/share/worth-sharing';
 import styles from './share-index.module.css';
 
 export const revalidate = 3600;
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' });
 
 export const metadata: Metadata = {
   title: 'Worth sharing',
@@ -16,9 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default async function ShareIndex() {
-  // Drops first (most timely), then gaps. Drops is empty unless Neon price
-  // history is enabled; the page stays useful on gaps + guides regardless.
-  const [drops, gaps] = await Promise.all([listRecentDrops(), listShareGaps()]);
+  const signals = await getWorthSharingReadModel();
+  const { recentDrops: drops, priceGaps: gaps, freshComparisons } = signals;
   const topics = concerns.filter(isProductMatchConcern);
 
   return (
@@ -36,16 +36,16 @@ export default async function ShareIndex() {
             <h2>Lower than before.</h2>
           </div>
           <div className={styles.grid}>
-            {drops.map(drop => (
-              <Link key={drop.slug} href={`/share/${drop.slug}`} className={styles.card}>
+            {drops.map(signal => (
+              <Link key={signal.slug} href={`/share/${signal.slug}`} className={styles.card}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className={styles.shot} src={drop.image} alt={`${drop.brand} ${drop.name}`} loading="lazy" decoding="async" />
+                <img className={styles.shot} src={signal.image} alt={`${signal.brand} ${signal.name}`} loading="lazy" decoding="async" />
                 <span className={styles.body}>
-                  <span className={styles.brand}>{drop.brand}</span>
-                  <strong className={styles.name}>{drop.name}</strong>
-                  <span className={styles.micro}>{drop.microtag}</span>
-                  <span className={`${styles.stat} ${styles.down}`}>{drop.trendLabel}</span>
-                  <span className={styles.sub}>{naira.format(drop.amountNaira)} lower · {drop.comparableStoreCount} stores</span>
+                  <span className={styles.brand}>{signal.brand}</span>
+                  <strong className={styles.name}>{signal.name}</strong>
+                  <span className={styles.micro}>{signal.microtag}</span>
+                  <span className={`${styles.stat} ${styles.down}`}>{signal.drop.trendLabel}</span>
+                  <span className={styles.sub}>{naira.format(signal.drop.amountNaira)} lower · {signal.drop.comparableStoreCount} stores</span>
                 </span>
                 <ArrowUpRight size={16} aria-hidden />
               </Link>
@@ -61,20 +61,52 @@ export default async function ShareIndex() {
             <h2>Cheaper somewhere.</h2>
           </div>
           <div className={styles.grid}>
-            {gaps.map(gap => (
-              <Link key={gap.slug} href={`/share/${gap.slug}`} className={styles.card}>
+            {gaps.map(signal => (
+              <Link key={signal.slug} href={`/share/${signal.slug}`} className={styles.card}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className={styles.shot} src={gap.image} alt={`${gap.brand} ${gap.name}`} loading="lazy" decoding="async" />
+                <img className={styles.shot} src={signal.image} alt={`${signal.brand} ${signal.name}`} loading="lazy" decoding="async" />
                 <span className={styles.body}>
-                  <span className={styles.brand}>{gap.brand}</span>
-                  <strong className={styles.name}>{gap.name}</strong>
-                  <span className={styles.micro}>{gap.microtag}</span>
-                  <span className={styles.stat}>{naira.format(gap.spreadNaira)} apart</span>
-                  <span className={styles.sub}>Lowest observed {naira.format(gap.lowestNaira)} · {gap.storeCount} stores</span>
+                  <span className={styles.brand}>{signal.brand}</span>
+                  <strong className={styles.name}>{signal.name}</strong>
+                  <span className={styles.micro}>{signal.microtag}</span>
+                  <span className={styles.stat}>{naira.format(signal.gap.spreadNaira)} apart</span>
+                  <span className={styles.sub}>Lowest observed {naira.format(signal.gap.lowestNaira)} · {signal.gap.storeCount} stores</span>
                 </span>
                 <ArrowUpRight size={16} aria-hidden />
               </Link>
             ))}
+          </div>
+        </section>
+      ) : null}
+
+      {freshComparisons.length > 0 ? (
+        <section className={styles.lane}>
+          <div className={styles.laneHead}>
+            <p className={styles.kicker}>Worth sharing now</p>
+            <h2>Current prices.</h2>
+          </div>
+          <div className={styles.grid}>
+            {freshComparisons.map(signal => {
+              const observed = signal.observedAt ? shortDate.format(new Date(signal.observedAt)) : null;
+              return (
+                <Link key={signal.slug} href={`/share/${signal.slug}`} className={styles.card}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className={styles.shot} src={signal.image} alt={`${signal.brand} ${signal.name}`} loading="lazy" decoding="async" />
+                  <span className={styles.body}>
+                    <span className={styles.brand}>{signal.brand}</span>
+                    <strong className={styles.name}>{signal.name}</strong>
+                    <span className={styles.micro}>{signal.microtag}</span>
+                    <span className={styles.stat}>
+                      {signal.storeCount > 1 ? 'From' : 'Observed'} {naira.format(signal.lowestNaira)}
+                    </span>
+                    <span className={styles.sub}>
+                      {signal.storeCount} {signal.storeCount === 1 ? 'store' : 'stores'}{observed ? ` · ${observed}` : ''}
+                    </span>
+                  </span>
+                  <ArrowUpRight size={16} aria-hidden />
+                </Link>
+              );
+            })}
           </div>
         </section>
       ) : null}

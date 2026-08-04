@@ -1,5 +1,13 @@
 import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import type { ShareSignal } from '@/modules/commerce/share-insights';
 import styles from './share-card.module.css';
+
+const naira = new Intl.NumberFormat('en-NG', {
+  style: 'currency',
+  currency: 'NGN',
+  maximumFractionDigits: 0,
+});
 
 export type SharePriceTrend = {
   label: string;
@@ -93,5 +101,39 @@ export function ShareCard({ view }: { view: ShareView }) {
         Prices change. A listing is not proof it is genuine.
       </p>
     </div>
+  );
+}
+
+export function ShareAlternatives({ items }: { items: ShareSignal[] }) {
+  if (items.length === 0) return null;
+
+  return (
+    <section className={styles.alternatives} aria-labelledby="more-worth-sharing">
+      <header className={styles.alternativesHead}>
+        <span>Worth sharing</span>
+        <h2 id="more-worth-sharing">More to pass on.</h2>
+      </header>
+      <ul className={styles.alternativeList} data-count={Math.min(items.length, 3)}>
+        {items.map(item => (
+          <li key={item.slug}>
+            <Link href={`/share/${item.slug}`} className={styles.alternativeCard}>
+              <span className={styles.alternativeShot}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={item.image} alt={`${item.brand} ${item.name}`} loading="lazy" decoding="async" />
+              </span>
+              <span className={styles.alternativeBody}>
+                <span className={styles.alternativeBrand}>{item.brand}</span>
+                <strong>{item.name}</strong>
+                <span className={styles.alternativeMeta}>{item.microtag}</span>
+                <span className={styles.alternativePrice}>
+                  {item.storeCount > 1 ? 'From' : 'Observed'} {naira.format(item.lowestNaira)} · {item.storeCount} {item.storeCount === 1 ? 'store' : 'stores'}
+                </span>
+              </span>
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

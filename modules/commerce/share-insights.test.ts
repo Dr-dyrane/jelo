@@ -1,8 +1,15 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 import test from 'node:test';
 import type { Offer, Product } from '@/data/products';
 import type { PriceMovement, ProductPriceTrends } from './price-trends';
-import { selectRecentDrops, selectShareGaps } from './share-insights';
+import {
+  buildShareSignalReadModel,
+  selectRecentDrops,
+  selectShareGaps,
+  selectShareRecommendations,
+} from './share-insights';
 
 const now = new Date('2026-07-22T12:00:00Z');
 
@@ -18,16 +25,16 @@ function observed(offer: Offer): Offer {
   };
 }
 
-function ngOffer(retailer: string, priceNgn: number): Offer {
+function ngOffer(retailer: string, priceNgn: number, checkedAt = '2026-07-21'): Offer {
   return observed({
     retailer, url: `https://example.com/${retailer}`, trust: 100, available: true,
-    match: 'exact', priceNgn, checkedAt: '2026-07-21', location: ['NG'],
+    match: 'exact', priceNgn, checkedAt, location: ['NG'],
   } as Offer);
 }
 
-function product(slug: string, offers: Offer[]): Product {
+function product(slug: string, offers: Offer[], category: Product['category'] = 'Face'): Product {
   return {
-    slug, brand: 'Brand', name: 'Name', size: '30 ml', category: 'Face', step: 'Treat',
+    slug, brand: 'Brand', name: 'Name', size: '30 ml', category, step: 'Treat',
     image: `/${slug}.png`, displayLine: '', bestFor: [], concerns: [], skinTypes: [],
     sensitiveFriendly: false, usage: '', evidence: 'moderate', offers,
   };
@@ -158,4 +165,153 @@ test('selectRecentDrops uses wider retailer evidence to break equal trend ties',
   ], now);
 
   assert.deepEqual(drops.map(drop => drop.slug), ['wide-evidence', 'narrow-evidence']);
+});
+
+test('the canonical read model preserves strict lanes and dedupes a product that qualifies for both', () => {
+  const both = product('drop-and-gap', [ngOffer('one', 10_000), ngOffer('two', 13_000)]);
+  const gapOnly = product('gap-only', [ngOffer('three', 10_000), ngOffer('four', 12_000)]);
+  const freshOnly = product('fresh-only', [ngOffer('five', 9_000)]);
+  const model = buildShareSignalReadModel([
+    { product: both, trends: movement({ percent: -9, amountMinor: -1_500 }) },
+    { product: gapOnly, trends: {} },
+    { product: freshOnly, trends: {} },
+  ], now);
+
+  assert.deepEqual(model.recentDrops.map(signal => signal.slug), ['drop-and-gap']);
+  assert.deepEqual(model.priceGaps.map(signal => signal.slug), ['gap-only']);
+  assert.deepEqual(model.freshComparisons.map(signal => signal.slug), ['fresh-only']);
+  assert.equal(new Set(model.rankedPool.map(signal => signal.slug)).size, model.rankedPool.length);
+});
+
+test('deduping a drop does not consume one of the eight strict gap slots', () => {
+  const items = Array.from({ length: 10 }, (_, index) => {
+    const spread = 5_000 - index * 200;
+    const item = product(`gap-${index}`, [ngOffer(`low-${index}`, 10_000), ngOffer(`high-${index}`, 10_000 + spread)]);
+    return {
+      product: item,
+      trends: index === 0 ? movement({ percent: -10, amountMinor: -1_500 }) : {},
+    };
+  });
+  const model = buildShareSignalReadModel(items, now);
+
+  assert.deepEqual(model.recentDrops.map(signal => signal.slug), ['gap-0']);
+  assert.equal(model.priceGaps.length, 8);
+  assert.ok(model.priceGaps.every(signal => signal.slug !== 'gap-0'));
+});
+
+test('fresh comparisons remain useful when strict drop and gap lanes are empty', () => {
+  const current = product('current', [ngOffer('one', 14_500)]);
+  const model = buildShareSignalReadModel([{ product: current, trends: {} }], now);
+
+  assert.equal(model.recentDrops.length, 0);
+  assert.equal(model.priceGaps.length, 0);
+  assert.deepEqual(model.freshComparisons.map(signal => signal.slug), ['current']);
+  assert.equal(model.freshComparisons[0].lowestNaira, 14_500);
+  assert.equal(model.freshComparisons[0].storeCount, 1);
+});
+
+test('fallback ranking uses freshness, retailer breadth, then actionable price context', () => {
+  const newest = product('newest', [ngOffer('new', 12_000, '2026-07-22T10:00:00Z')]);
+  const wide = product('wide', [
+    ngOffer('wide-a', 10_000),
+    ngOffer('wide-b', 10_200),
+    ngOffer('wide-c', 10_400),
+  ]);
+  const twoStores = product('two-stores', [ngOffer('two-a', 11_000), ngOffer('two-b', 11_000)]);
+  const oneStore = product('one-store', [ngOffer('one-a', 8_000)]);
+  const stale = product('stale', [ngOffer('stale-a', 7_000, '2026-06-01')]);
+  const search = product('search', [{ ...ngOffer('search-a', 6_000), match: 'search' }]);
+  const outsideNg = product('outside-ng', [{ ...ngOffer('us-a', 5_000), location: ['US'] }]);
+  const model = buildShareSignalReadModel([
+    newest, wide, twoStores, oneStore, stale, search, outsideNg,
+  ].map(item => ({ product: item, trends: {} })), now);
+
+  assert.deepEqual(
+    model.freshComparisons.map(signal => signal.slug),
+    ['newest', 'wide', 'two-stores', 'one-store'],
+  );
+});
+
+test('aggregate interest is optional, neutral when absent, and only breaks an evidence tie', () => {
+  const alpha = product('alpha', [ngOffer('a', 10_000)]);
+  const beta = product('beta', [ngOffer('b', 10_000)]);
+  const items = [alpha, beta].map(item => ({ product: item, trends: {} }));
+  const neutral = buildShareSignalReadModel(items, now);
+  const empty = buildShareSignalReadModel(items, now, new Map());
+  const withInterest = buildShareSignalReadModel(items, now, new Map([['beta', 4]]));
+
+  assert.deepEqual(neutral.rankedPool.map(signal => signal.slug), ['alpha', 'beta']);
+  assert.deepEqual(empty.rankedPool.map(signal => signal.slug), ['alpha', 'beta']);
+  assert.deepEqual(withInterest.rankedPool.map(signal => signal.slug), ['beta', 'alpha']);
+  assert.equal(neutral.aggregateInterest, 'unavailable');
+  assert.equal(withInterest.aggregateInterest, 'available');
+
+  const newer = product('newer', [ngOffer('newer-store', 10_000, '2026-07-22T10:00:00Z')]);
+  const older = product('older', [ngOffer('older-store', 10_000)]);
+  const evidenceBeforeInterest = buildShareSignalReadModel(
+    [newer, older].map(item => ({ product: item, trends: {} })),
+    now,
+    new Map([['older', 1_000_000]]),
+  );
+  assert.deepEqual(evidenceBeforeInterest.rankedPool.map(signal => signal.slug), ['newer', 'older']);
+});
+
+test('detail recommendations share the global pool and category only breaks an evidence tie', () => {
+  const current = product('current', [ngOffer('current-a', 10_000)], 'Body');
+  const strongerFace = product('stronger-face', [ngOffer('strong-a', 10_000, '2026-07-22T10:00:00Z')], 'Face');
+  const tiedFace = product('tied-face', [ngOffer('face-a', 10_000)], 'Face');
+  const tiedBody = product('tied-body', [ngOffer('body-a', 10_000)], 'Body');
+  const model = buildShareSignalReadModel([
+    current, strongerFace, tiedFace, tiedBody,
+  ].map(item => ({ product: item, trends: {} })), now);
+  const duplicatedPool = [...model.rankedPool, model.rankedPool.find(signal => signal.slug === 'tied-body')!];
+  const recommendations = selectShareRecommendations(duplicatedPool, 'current');
+
+  assert.deepEqual(
+    recommendations.map(signal => signal.slug),
+    ['stronger-face', 'tied-body', 'tied-face'],
+  );
+  assert.equal(new Set(recommendations.map(signal => signal.slug)).size, recommendations.length);
+  assert.ok(recommendations.every(signal => signal.slug !== 'current'));
+});
+
+test('the server read has no live or private interest dependency and both routes consume it', async () => {
+  const root = process.cwd();
+  const [serverRead, indexRoute, detailRoute] = await Promise.all([
+    readFile(path.join(root, 'lib/share/worth-sharing.ts'), 'utf8'),
+    readFile(path.join(root, 'app/(site)/share/page.tsx'), 'utf8'),
+    readFile(path.join(root, 'app/(site)/share/[slug]/page.tsx'), 'utf8'),
+  ]);
+  const imports = serverRead.match(/^import[^;]+;/gm)?.join('\n') ?? '';
+
+  assert.doesNotMatch(imports, /analytics|commerce-events|customer|shelf/i);
+  assert.match(serverRead, /No live aggregate-interest provider is wired today/);
+  assert.match(serverRead, /product_view[\s\S]*share_click[\s\S]*store_click/);
+  assert.match(serverRead, /if \(!source\) return undefined/);
+  assert.match(indexRoute, /getWorthSharingReadModel\(\)/);
+  assert.match(detailRoute, /getWorthSharingReadModel\(\)/);
+  assert.match(detailRoute, /selectShareRecommendations\(signals\.rankedPool, slug\)/);
+  assert.match(indexRoute, /Worth sharing now[\s\S]*Current prices\./);
+  assert.doesNotMatch(indexRoute, /trending|popular|most viewed/i);
+});
+
+test('share index and detail cards keep deterministic mobile reflow contracts', async () => {
+  const root = process.cwd();
+  const [indexRoute, indexCss, detailCard, detailCss] = await Promise.all([
+    readFile(path.join(root, 'app/(site)/share/page.tsx'), 'utf8'),
+    readFile(path.join(root, 'app/(site)/share/share-index.module.css'), 'utf8'),
+    readFile(path.join(root, 'app/(site)/share/[slug]/share-card.tsx'), 'utf8'),
+    readFile(path.join(root, 'app/(site)/share/[slug]/share-card.module.css'), 'utf8'),
+  ]);
+  const compactIndexCss = indexCss.replace(/\s+/g, '');
+  const compactDetailCss = detailCss.replace(/\s+/g, '');
+
+  assert.match(indexRoute, /className=\{styles\.grid\}[\s\S]*freshComparisons\.map[\s\S]*className=\{styles\.card\}/);
+  assert.match(compactIndexCss, /\.card\{[^}]*grid-template-columns:5\.5remminmax\(0,1fr\)auto/);
+  assert.match(compactIndexCss, /@media\(max-width:720px\)\{\.grid,\.topics\{grid-template-columns:1fr/);
+  assert.match(compactIndexCss, /@media\(max-width:720px\)[\s\S]*\.card\{grid-template-columns:4\.75remminmax\(0,1fr\)auto/);
+  assert.match(detailCard, /<ul className=\{styles\.alternativeList\} data-count=\{Math\.min\(items\.length, 3\)\}>/);
+  assert.match(compactDetailCss, /\.alternativeList\{[^}]*repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(compactDetailCss, /@media\(max-width:760px\)[\s\S]*\.alternativeList\[data-count\]\{grid-template-columns:1fr;max-width:none/);
+  assert.match(compactDetailCss, /@media\(max-width:430px\)[\s\S]*grid-template-columns:4\.75remminmax\(0,1fr\)auto/);
 });
