@@ -873,8 +873,8 @@
     left: 16%;
     height: 8px;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--wine) 16%, var(--paper));
-    box-shadow: 0 8px 18px rgb(82 45 40 / 13%);
+    background: color-mix(in srgb, var(--paper) 22%, var(--wine));
+    box-shadow: 0 8px 18px var(--shot-shadow);
     content: '';
   }
 
