@@ -178,6 +178,14 @@ export const productDisplayApprovals = {
     contentHash: 'c4feb7aa3ed19996e9be53147a7a550b697ee65ee5b5d8b58fed1936f5a347b9',
     reviewedAt: '2026-07-22T12:34:11.000Z',
   }),
+  'face-facts-bright-clear-face-cream': approval({
+    brand: 'FACE FACTS',
+    name: 'Bright + Clear Face Cream',
+    size: '75 ml',
+    sourceUrl: 'https://munacosmetics.com/image/cache/catalog/Another%20Effort/Victoria%20Island%20Lagos/shop-face-facts-bright-and-clear-face-cream-1600x1600.jpg',
+    contentHash: '5c120eb9d657eca8c46a594f9ef22e7762e8e08109a667d86b703032262752b3',
+    reviewedAt: '2026-08-04T15:58:00.000Z',
+  }),
   'ogx-renewing-argan-oil-of-morocco': approval({
     brand: 'OGX',
     name: 'Renewing + Argan Oil of Morocco Extra Penetrating Oil',

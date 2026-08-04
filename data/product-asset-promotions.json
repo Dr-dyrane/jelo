@@ -569,5 +569,20 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "89710c910c6b1b1a05d508b031c8a4b795899f9671df1674ea44ca4c6952ecc5"
+  },
+  {
+    "id": "face-facts-bright-clear-face-cream-v1",
+    "active": true,
+    "productSlug": "face-facts-bright-clear-face-cream",
+    "sourceUrl": "https://munacosmetics.com/image/cache/catalog/Another%20Effort/Victoria%20Island%20Lagos/shop-face-facts-bright-and-clear-face-cream-1600x1600.jpg",
+    "localPath": "/products/face-facts/face-facts-bright-clear-face-cream/packshot-v1.png",
+    "blobPath": "products/face-facts/face-facts-bright-clear-face-cream/packshot-v1.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/face-facts-bright-clear-face-cream/packshot-v1.png",
+    "contentType": "image/png",
+    "byteSize": 1651359,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "5c120eb9d657eca8c46a594f9ef22e7762e8e08109a667d86b703032262752b3"
   }
 ]

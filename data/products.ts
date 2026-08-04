@@ -104,7 +104,7 @@ export const products: Product[] = [
   },
   {
     slug: 'face-facts-bright-clear-face-cream', brand: 'FACE FACTS', name: 'Bright + Clear Face Cream', size: '75 ml', category: 'Face', step: 'Moisturize',
-    image: 'https://peronabeauty.com/wp-content/uploads/2024/08/face-facts_387858-600x600.jpg', displayLine: 'Even · soften',
+    image: 'https://munacosmetics.com/image/cache/catalog/Another%20Effort/Victoria%20Island%20Lagos/shop-face-facts-bright-and-clear-face-cream-1600x1600.jpg', displayLine: 'Even · soften',
     bestFor: ['dark marks', 'uneven tone'], concerns: ['hyperpigmentation', 'dark spots'], skinTypes: ['oily', 'combination', 'normal'], sensitiveFriendly: false,
     usage: 'Evening. Patch test first.', evidence: 'emerging',
     offers: [beautyByDaz('https://beautybydaz.com/shop/face/face-facts-bright-clear-face-cream-75ml/'), perona('https://peronabeauty.com/product/face-facts-bright-clear-face-cream-75ml/')]
