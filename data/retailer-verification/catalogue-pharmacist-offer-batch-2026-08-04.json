@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "batchId": "catalogue-pharmacist-offer-batch-2026-08-04",
   "scope": "exact-sku-nigerian-offer-enrichment",
-  "reviewedAt": "2026-08-04T14:55:00Z",
+  "reviewedAt": "2026-08-04T20:00:00Z",
   "freshnessPolicy": {
     "maximumAgeDays": 7,
     "expiresAt": "2026-08-11T14:55:00Z"
@@ -201,8 +201,8 @@
           "reasons": []
         },
         {
-          "observationId": "naturium-500ml--perona-beauty--2026-08-04t145409z",
-          "founderLeadPriceNgn": 41000,
+          "observationId": "naturium-500ml--perona-beauty--2026-08-04t195441z",
+          "founderLeadPriceNgn": 43500,
           "retailer": {
             "displayName": "Perona Beauty",
             "legalName": null,
@@ -212,8 +212,8 @@
           "requestedUrl": "https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
           "finalUrl": "https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
           "canonicalUrl": "https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
-          "observedAt": "2026-08-04T14:54:09Z",
-          "expiresAt": "2026-08-11T14:54:09Z",
+          "observedAt": "2026-08-04T19:54:41Z",
+          "expiresAt": "2026-08-11T19:54:41Z",
           "observedTitle": "Naturium The Perfector Salicylic Acid Body Wash 500ml",
           "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL",
           "observedBrand": "Naturium",
@@ -224,9 +224,9 @@
           "packageMatch": "current-exact",
           "packagingRevisionAliasId": null,
           "price": {
-            "amount": 41000,
+            "amount": 43500,
             "currency": "NGN",
-            "sourceText": "₦41,000"
+            "sourceText": "₦43,500"
           },
           "stock": {
             "status": "in-stock",
@@ -319,7 +319,7 @@
       "publicRoute": "/products/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
       "offers": [
         {
-          "observationId": "lipikar-apmax-400ml--perona-beauty--2026-08-04t145413z",
+          "observationId": "lipikar-apmax-400ml--perona-beauty--2026-08-04t195503z",
           "founderLeadPriceNgn": 28200,
           "retailer": {
             "displayName": "Perona Beauty",
@@ -330,8 +330,8 @@
           "requestedUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
           "finalUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
           "canonicalUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
-          "observedAt": "2026-08-04T14:54:13.181Z",
-          "expiresAt": "2026-08-11T14:54:13.181Z",
+          "observedAt": "2026-08-04T19:55:03Z",
+          "expiresAt": "2026-08-11T19:55:03Z",
           "observedTitle": "La Roche-Posay Lipikar Baume AP+ Max (New Packaging) 400ml",
           "storeIdentityText": "La Roche-Posay Lipikar Baume AP+MAX Lipikar Baume AP+MAX 400 mL",
           "observedBrand": "La Roche-Posay",
@@ -347,8 +347,8 @@
             "sourceText": "NGN28,200"
           },
           "stock": {
-            "status": "in-stock",
-            "sourceText": "In stock"
+            "status": "out-of-stock",
+            "sourceText": "Out of stock"
           },
           "capture": {
             "surface": "Codex in-app browser",

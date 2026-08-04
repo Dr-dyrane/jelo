@@ -90,10 +90,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       'Perona Beauty',
       'https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/',
       86,
-      41000,
+      43500,
       'The Perfector Salicylic Acid Body Wash',
       '16.9 fl oz / 500 mL',
-      { observedAt: '2026-08-04T14:54:09Z', expiresAt: '2026-08-11T14:54:09Z' },
+      { observedAt: '2026-08-04T19:54:41Z', expiresAt: '2026-08-11T19:54:41Z' },
     ),
   ],
   'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml': [
@@ -115,7 +115,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       28200,
       'Lipikar Baume AP+MAX',
       '400 mL',
-      { observedAt: '2026-08-04T14:54:13.181Z', expiresAt: '2026-08-11T14:54:13.181Z' },
+      { observedAt: '2026-08-04T19:55:03Z', expiresAt: '2026-08-11T19:55:03Z', available: false, stock: 'out-of-stock' },
     ),
     exactNg(
       'Medplus',
@@ -201,17 +201,17 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
   ],
   'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml': [
-    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/', 100, 18850, 'Anua Azelaic Acid 10% + Hyaluron Redness Soothing Serum', '30 ml', { observedAt: '2026-08-03T03:37:23Z' }),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/', 100, 18850, 'Anua Azelaic Acid 10% + Hyaluron Redness Soothing Serum', '30 ml', { observedAt: '2026-08-04T19:52:29Z' }),
   ],
   'cosrx-salicylic-acid-daily-gentle-cleanser': [
-    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/', 100, 8500, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml'),
-    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/', 96, 9600, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml'),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/', 100, 8500, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml', { available: false, observedAt: '2026-08-04T19:51:44Z' }),
+    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/', 96, 9850, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml', { observedAt: '2026-08-04T19:55:10Z', expiresAt: '2026-08-11T19:55:10Z' }),
   ],
   'some-by-mi-aha-bha-pha-miracle-toner': [
     exactNg('Teeka4', 'https://teeka4.com/shop/somebymi-aha-bha-pha-30days-miracle-toner-150ml-5oz/', 98, 13495, 'SOME BY MI AHA BHA PHA 30 Days Miracle Toner', '150 ml', { available: false }),
   ],
   'anua-niacinamide-10-txa-4-serum': [
-    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/', 100, 18850, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml'),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/', 100, 18850, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml', { available: false, observedAt: '2026-08-04T19:51:57Z' }),
     exactNg('Teeka4', 'https://teeka4.com/shop/anua-niacinamide-10-txa-4-serum-30ml/', 98, 18000, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml'),
     exactNg('Jumia', 'https://www.jumia.com.ng/anua-niacinamide-10-txa-4-serum-30ml-new-version-419517907.html', 62, 7999, 'ANUA Niacinamide 10% + TXA 4% Serum New Version', '30 ml', { sellerName: 'Smile Time', sellerScore: 92, priceComparison: 'exclude' }),
   ],
@@ -298,14 +298,14 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       'Deoset',
       'https://deoset.com/product/the-ordinary-azelaic-acid-suspension-10-30ml/',
       86,
-      23000,
+      22000,
       'Azelaic Acid Suspension 10%',
       '30 ml',
-      { observedAt: '2026-08-04T18:50:56.000Z', expiresAt: '2026-08-11T18:50:56.000Z' },
+      { observedAt: '2026-08-04T19:54:31Z', expiresAt: '2026-08-11T19:54:31Z' },
     ),
   ],
   'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': [
-    exactNg('Teeka4', 'https://teeka4.com/shop/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50for-oily-blemish-prone-skin-50ml-1-7oz/', 98, 23500, 'La Roche-Posay Anthelios UVMune 400 Oil Control Fluid SPF50+', '50 ml', { available: false }),
+    exactNg('Teeka4', 'https://teeka4.com/shop/la-roche-posay-anthelios-uvmune-400-oil-control-gel-cream-spf50-50ml/', 98, 20500, 'La Roche-Posay Anthelios UVmune 400 Oil Control Gel Cream SPF50+', '50 ml', { observedAt: '2026-08-04T19:54:15Z', expiresAt: '2026-08-11T19:54:15Z' }),
     exactNg(
       'Deoset',
       'https://deoset.com/product/la-roche-posay-anthelios-uvmune-400-fluid-oil-control-spf50-50ml/',

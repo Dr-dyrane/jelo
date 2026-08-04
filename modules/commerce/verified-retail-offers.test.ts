@@ -40,16 +40,16 @@ test('at least fifteen catalogue products have reliable exact Nigerian price evi
 
 test('browser-verified Beauty by Daz prices serve exact original catalogue products', () => {
   const expected = [
-    ['cosrx-salicylic-acid-daily-gentle-cleanser', 8_500, '150 ml'],
-    ['anua-niacinamide-10-txa-4-serum', 18_850, '30 ml'],
-    ['face-facts-bright-clear-face-cream', 7_500, '75 ml'],
+    ['cosrx-salicylic-acid-daily-gentle-cleanser', 8_500, '150 ml', false],
+    ['anua-niacinamide-10-txa-4-serum', 18_850, '30 ml', false],
+    ['face-facts-bright-clear-face-cream', 7_500, '75 ml', true],
   ] as const;
 
-  for (const [slug, priceNgn, size] of expected) {
+  for (const [slug, priceNgn, size, available] of expected) {
     const offer = verifiedRetailOffers[slug]?.find(candidate => candidate.retailer === 'Beauty by Daz');
     assert.ok(offer, slug);
     assert.equal(offer.priceNgn, priceNgn, slug);
-    assert.equal(offer.available, true, slug);
+    assert.equal(offer.available, available, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
     assert.equal(offer.listingEvidence?.basis, 'retailer-page', slug);
     assert.equal(new URL(offer.url).hostname, 'beautybydaz.com', slug);
@@ -58,16 +58,16 @@ test('browser-verified Beauty by Daz prices serve exact original catalogue produ
 
 test('catalogue coverage batch 1 preserves its fresh Beauty by Daz observations', () => {
   const expected = [
-    ['anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml', 18_850, true, '30 ml'],
-    ['dove-melanin-even-tone-body-wash-18-5oz', 19_500, false, '547 ml / 18.5 fl oz'],
+    ['anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml', 18_850, true, '30 ml', '2026-08-04T19:52:29Z'],
+    ['dove-melanin-even-tone-body-wash-18-5oz', 19_500, false, '547 ml / 18.5 fl oz', '2026-08-03T03:37:23Z'],
   ] as const;
 
-  for (const [slug, priceNgn, available, size] of expected) {
+  for (const [slug, priceNgn, available, size, checkedAt] of expected) {
     const offer = verifiedRetailOffers[slug]?.find(candidate => candidate.retailer === 'Beauty by Daz');
     assert.ok(offer, slug);
     assert.equal(offer.priceNgn, priceNgn, slug);
     assert.equal(offer.available, available, slug);
-    assert.equal(offer.checkedAt, '2026-08-03T03:37:23Z', slug);
+    assert.equal(offer.checkedAt, checkedAt, slug);
     assert.equal(offer.listingEvidence?.observedAt, offer.checkedAt, slug);
     assert.equal(offer.listingEvidence?.sourceUrl, offer.url, slug);
     assert.equal(offer.priceObservation?.observedAt, offer.checkedAt, slug);

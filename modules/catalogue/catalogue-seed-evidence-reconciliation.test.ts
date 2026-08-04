@@ -24,10 +24,11 @@ test('newer protected seed evidence must be exact and pass publication scope che
 });
 
 test('seed projection admits the Batch 1 offers for dossier-released products', () => {
-  for (const slug of [
-    'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml',
-    'dove-melanin-even-tone-body-wash-18-5oz',
-  ]) {
+  const expected = [
+    ['anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml', '2026-08-04T19:52:29Z'],
+    ['dove-melanin-even-tone-body-wash-18-5oz', '2026-08-03T03:37:23Z'],
+  ] as const;
+  for (const [slug, observedAt] of expected) {
     const product = publishedIntakeProducts.find(item => item.slug === slug);
     assert.ok(product, `missing released product ${slug}`);
     const offer = mergeRetailOffers(product, product.offers).find(
@@ -35,7 +36,7 @@ test('seed projection admits the Batch 1 offers for dossier-released products', 
     );
     assert.ok(offer, `missing Beauty by Daz offer for ${slug}`);
     assert.equal(offer.match, 'exact');
-    assert.equal(offer.listingEvidence?.observedAt, '2026-08-03T03:37:23Z');
+    assert.equal(offer.listingEvidence?.observedAt, observedAt);
     assert.equal(offer.location.includes('NG'), true);
   }
 });
