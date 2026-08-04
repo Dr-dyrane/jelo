@@ -352,7 +352,7 @@ export const postgresCustomerProductRequestRepository = {
           on image.owner_subject = request.owner_subject
           and image.request_id = request.id
         where request.owner_subject = ${owner}
-          and request.lifecycle_state <> 'withdrawn'
+          and request.lifecycle_state not in ('withdrawn', 'published')
         order by request.updated_at desc, request.id
       `;
       return rows.map(mapRequestRow);
