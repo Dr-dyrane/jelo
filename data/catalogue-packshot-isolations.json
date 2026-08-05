@@ -754,5 +754,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://facefacts.me/cdn/shop/files/52803-150-face-facts-enhance-gel-cream-cleanser.jpg?v=1735828964&width=2000",
+      "sha256": "41e747486956ba20c070bf2e899af6f2b5f5c88ded0d3ab43be41dc1549263e4",
+      "byteSize": 64938,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-05T01:20:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "05031413952803"
+      },
+      "officialProductUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "19f6bbbd919b68238d8708b3b71da7a7aec265acfc5e3f4fc9a95c4de753be06",
+      "generatedAt": "2026-08-05T01:24:57Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "19f6bbbd919b68238d8708b3b71da7a7aec265acfc5e3f4fc9a95c4de753be06",
+      "byteSize": 504691,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-05T01:25:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-05T01:26:00Z",
+      "artReviewer": "JeloCare catalogue art review",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "9f8eaa45a8c415faeade2e091e05f0deb8ffc41e34bfdcdb3a7340b81432651b",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

@@ -886,6 +886,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
     'https://icosmo.com.ua/ru/face-facts/421327',
     'https://skintoc.com/products/face-facts-ceramide-moisturising-gel-cream-50-ml',
   ],
+  'facefacts-enhance-gel-cream-cleanser-150ml': [
+    'https://store.shure-cosmetics.co.uk/face-facts-enhance-gel-cream-cleanser---150ml-2803-52803-150',
+    'https://www.barcodelookup.com/5031413952803',
+  ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=4a1591e8-6135-4b22-b54c-5553c2dc0540',
