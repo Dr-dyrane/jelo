@@ -880,5 +880,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/ES0088.jpg?v=1775564942",
+      "sha256": "12575302c37cff2c611e1b0e6e190077e920dbab5db92ebc24ff82de59f2bb6c",
+      "byteSize": 218591,
+      "width": 3334,
+      "height": 3334,
+      "retrievedAt": "2026-08-05T05:11:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "ES0088"
+      },
+      "officialProductUrl": "https://estelin.co.in/products/vitamin-c-turmeric-face-oil"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "560db61dc1ab1f16a477b4a188ed223baf3798378294f6305a7dd91614d18cdc",
+      "generatedAt": "2026-08-05T05:22:13Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "560db61dc1ab1f16a477b4a188ed223baf3798378294f6305a7dd91614d18cdc",
+      "byteSize": 609625,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-05T05:23:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-05T05:24:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "5305f003ef583fab3016be076743d4aa208657886e95667d86ace90090cd7b56",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

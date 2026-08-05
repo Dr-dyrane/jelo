@@ -650,5 +650,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "9399df3e70a917051d2b935b1fdc56cd32ec1cebe2fd9a92d14168ebc678055c"
+  },
+  {
+    "localPath": "data/catalogue-intake-assets/estelin-vitamin-c-turmeric-face-oil-30ml/packshot-v1-560db61dc1ab.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/estelinindia/estelin-vitamin-c-turmeric-face-oil-30ml/packshot-v1-560db61dc1ab1f16.png",
+    "active": true,
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/ES0088.jpg?v=1775564942",
+    "blobPath": "products/estelinindia/estelin-vitamin-c-turmeric-face-oil-30ml/packshot-v1-560db61dc1ab1f16.png",
+    "contentType": "image/png",
+    "contentHash": "560db61dc1ab1f16a477b4a188ed223baf3798378294f6305a7dd91614d18cdc",
+    "hasAlpha": true,
+    "id": "estelin-vitamin-c-turmeric-face-oil-30ml-packshot-v1",
+    "destination": "publication",
+    "publicationBrandSlug": "estelinindia",
+    "byteSize": 609625,
+    "width": 2000,
+    "height": 2000,
+    "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml"
   }
 ]

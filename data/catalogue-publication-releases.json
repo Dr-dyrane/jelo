@@ -1393,6 +1393,30 @@
         "publishedAt": "2026-08-05T01:46:45Z"
       },
       "releaseFingerprint": "d3aa60e318dab07a9da228b7123b2d9896c952731dd3061a7abc8bffe548b8da"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml",
+      "dossierFingerprint": "d417a204ed25a41034bba5cbd4e14dbcc5b1c8d803d75eda18eb1ca6bec1f306",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Vitamin C & turmeric face oil",
+        "usage": "Apply 2-3 drops to clean, dry skin. Gently press into the face and neck. Use morning and evening. Follow with sunscreen during the day.",
+        "manufacturerDirectionsUrl": "https://estelin.co.in/products/vitamin-c-turmeric-face-oil",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-05T05:26:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-05T05:27:00Z"
+      },
+      "releaseFingerprint": "654f4766b2bb66b478008483938b9f54134f33c61f76bebab7637ece391a4574"
     }
   ]
 }

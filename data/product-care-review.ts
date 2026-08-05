@@ -898,6 +898,16 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [],
     reviewedAt: '2026-08-05',
   },
+  'estelin-vitamin-c-turmeric-face-oil-30ml': {
+    productSlug: 'estelin-vitamin-c-turmeric-face-oil-30ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://estelin.co.in/products/vitamin-c-turmeric-face-oil',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-05',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
