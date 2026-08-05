@@ -110,8 +110,8 @@ export const productDisplayApprovals = {
     brand: 'B.LAB',
     name: 'Matcha Hydrating Real Sunscreen SPF50+ PA++++',
     size: '50 ml',
-    sourceUrl: 'https://b-labskincare.com/web/product/big/202407/c704a28e6d2187bf046516ba6e853c5d.png',
-    contentHash: '11e9d2dc637f5b5c2179bf76c88c610ef3d8d7beab053d0f27ba0979dabac5f0',
+    sourceUrl: 'https://theskincounter.com/cdn/shop/products/blabrealsunscreenmatchatheskincounter.jpg?v=1677506934',
+    contentHash: 'b3cabe9824cfd8886e4ec7902c58534aab5dbe06d39284376c7547600ac2a55f',
     reviewedAt: '2026-08-04T14:14:00.000Z',
   }),
   'mediana-leave-in-conditioning-milk': approval({

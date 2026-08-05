@@ -111,7 +111,7 @@ export const products: Product[] = [
   },
   {
     slug: 'b-lab-matcha-hydrating-real-sunscreen', brand: 'B.LAB', name: 'Matcha Hydrating Real Sunscreen SPF50+ PA++++', size: '50 ml', category: 'Face', step: 'Protect',
-    image: 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v2.png', displayLine: 'Shield · preserve',
+    image: 'https://theskincounter.com/cdn/shop/products/blabrealsunscreenmatchatheskincounter.jpg?v=1677506934', displayLine: 'Shield · preserve',
     bestFor: ['daily UV protection', 'pigmentation prevention'], concerns: ['hyperpigmentation', 'dark spots', 'sensitivity'], skinTypes: ['oily', 'combination', 'normal', 'dry'], sensitiveFriendly: true,
     usage: 'Every morning as the final skincare step.', evidence: 'high',
     offers: [beautyByDaz('https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/'), perona('https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/')]

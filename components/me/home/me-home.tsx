@@ -234,8 +234,8 @@ function HomePage({
           <Link className={styles.fullSectionLink} href={'/me/shelf'}>Open Shelf <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         {viewModel.shelf.length ? (
-          <div className={styles.shelfRail}>
-            {viewModel.shelf.map((item) => item.product ? (
+          <div className="product-rail">
+            {viewModel.shelf.slice(0, 6).map((item) => item.product ? (
               <ProductCard
                 key={item.identityVersionId}
                 product={item.product}
@@ -628,7 +628,7 @@ function RoutineRail({ viewModel }: { viewModel: CustomerPortalViewModel }) {
     );
   }
   return (
-    <ol className={styles.routineRail}>
+    <ol className={styles.routineGrid}>
       {viewModel.routine.map((step, index) => {
         const StatusIcon = step.status === 'alert' ? ClockAlert : ClockPlus;
         const statusLabel = step.status === 'alert'

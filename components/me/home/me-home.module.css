@@ -326,22 +326,15 @@
 
 .shelfRail > * { scroll-snap-align: start; }
 
-/* Horizontal scroll rail for routine steps. */
-.routineRail {
+/* 3-column grid for routine step cards (matches public product-rail). */
+.routineGrid {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(260px, 320px);
-  gap: 14px;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  padding-bottom: 4px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-
-.routineRail::-webkit-scrollbar { display: none; }
-
-.routineRail > * { scroll-snap-align: start; }
 
 .routineRailCard {
   display: grid;
@@ -875,8 +868,7 @@
   .heroProduct { min-height: 460px; }
   .section { grid-template-columns: 1fr; }
   .sectionHeading h2 { max-width: 13ch; }
-  .shelfRail { grid-auto-columns: minmax(200px, 78vw); }
-  .routineRail { grid-auto-columns: minmax(240px, 82vw); }
+  .routineGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 620px) {
@@ -889,6 +881,7 @@
   .heroProductLabel { right: 14px; bottom: 14px; left: 14px; }
   .section { padding: 72px 10px; }
   .fullSection { padding: 48px 10px; }
+  .routineGrid { grid-template-columns: 1fr; }
   .routineSurface { padding-inline: 14px; }
   .routePage { padding-inline: 4px; }
   .routeHeading h1 { font-size: clamp(3.45rem, 18vw, 5.4rem); }
