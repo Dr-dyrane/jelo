@@ -113,8 +113,8 @@ function repeatsCopy(value: string, candidates: string[]) {
   return Boolean(normalized) && candidates.some(candidate => normalizedCopy(candidate) === normalized);
 }
 
-export function ConsultExperience() {
-  const [input, setInput] = useState('');
+export function ConsultExperience({ initialQuery = '' }: { initialQuery?: string } = {}) {
+  const [input, setInput] = useState(initialQuery);
   const [profile, setProfile] = useState<ProfileForm>(emptyProfile);
   const [result, setResult] = useState<Consultation | null>(null);
   const [timeline, setTimeline] = useState<TimelineRecord[]>([]);

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Layers3 } from 'lucide-react';
+import { ArrowRight, Layers3 } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { concerns, concernBySlug } from '@/data/knowledge';
 import { ProductRail } from '@/components/products/product-grid';
@@ -46,5 +46,13 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
     </section>
     <section className="concern-sources"><div><p className="eyebrow">Links checked {concern.reviewedAt}</p><h2>Sources.</h2></div><div>{concern.sources.map(source => <a href={source.url} target="_blank" rel="noreferrer" key={source.url}>{source.title}</a>)}</div></section>
     {concern.kind === 'concern' ? <section className="concern-matches"><p className="eyebrow">Products</p><div className="section-heading"><h2>{matches.length ? 'Catalogue matches.' : 'Care first.'}</h2></div>{matches.length ? <ProductRail products={matches}/> : <p className="concern-no-match">Start with the care options above.</p>}</section> : null}
+    <section className="concern-ask-cta">
+      <div>
+        <p className="eyebrow">Still deciding?</p>
+        <h2>Ask JeloCare about {concern.name}.</h2>
+        <p>Describe what you notice in your own words and get a care-first guide.</p>
+      </div>
+      <Link className="concern-ask-link" href={`/consult?q=${encodeURIComponent(concern.name)}`}>Ask JeloCare <ArrowRight size={16} aria-hidden="true"/></Link>
+    </section>
   </main>;
 }
