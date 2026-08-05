@@ -15,6 +15,7 @@ This is the entry point for product, engineering, data, and operations.
 | Understand the future customer workspace | [JeloCare Me](./product/JELOCARE_ME.md) |
 | Build or review an interface | [Design system](./design/SYSTEM.md) |
 | Build or review adaptive workspace chrome | [Adaptive workspace dock](./design/ADAPTIVE_WORKSPACE_DOCK.md) |
+| Plan the JeloCare Me consumer experience expansion | [Me commerce companion direction](./design/ME_COMMERCE_COMPANION_DIRECTION.md) |
 | Work on the native operations shell | [Operations shell](./design/OPS_SHELL.md) |
 | Apply the Observations split-view canon | [Operations UI canon](./OPS_UI_CANON.md) |
 | Build or review the queue-level Overview | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md) |

@@ -19,8 +19,10 @@ component into thin view components (`HomeView`, `ExploreView`,
 `RoutineView`, `ConsultView`, `MemberProductView`) that receive semantic props
 from server-side route read models. Modal/sheet interactions were unified
 under `useControlledDialog`. Public discovery was refactored into a
-query → model → view pipeline. Browser evidence covers seven acceptance
-journeys.
+query → model → view pipeline. Seven source-level acceptance contracts
+exist in `modules/acceptance/browser-evidence.test.ts`; representative
+journeys were manually verified with Playwright MCP. A repeatable
+automated browser suite does not yet exist.
 
 ### What already works
 
@@ -361,7 +363,8 @@ availability" helper lives in the Account sheet and links to plain
 - **Shelf**: Single column. Wide product cards with packshot.
   Private requests in a separate section below.
 - **Routine**: Single column. Visual sequence with moment labels.
-  Edit mode is inline with move-up/move-down controls.
+  Create/edit/reorder/remove/delete happen inside the structured
+  adaptive sheet, not inline in the reading state.
 - **Product**: Stacked — packshot on top, story below, evidence
   inline, care details on scroll. Buy panel is a bottom sheet.
 - **Ask Me**: Single column. Phase transitions in-place. Context
@@ -370,8 +373,10 @@ availability" helper lives in the Account sheet and links to plain
 ### Tablet (600 × 900)
 
 - **Dock**: Expanded mode with context capsule above navigation.
-- **Home**: Two-column — personal summary + Shelf rail on left,
-  Routine sequence on right. Ask Me entry spans full width below.
+- **Home**: Two-column asymmetric — greeting and Ask/search entry
+  span full width. Continue your Routine and Recently saved products
+  arrange adjacently with unequal widths. Feed order is preserved
+  top-to-bottom. Not three equal dashboard tiles.
 - **Explore**: Two-column product grid. Filter sheet is a side panel.
 - **Shelf**: Two-column product cards. Private requests full-width
   below.
@@ -385,18 +390,25 @@ availability" helper lives in the Account sheet and links to plain
 ### Laptop (1000 × 800)
 
 - **Dock**: Expanded mode. Navigation always visible.
-- **Home**: Two-column. Shelf rail and Routine sequence side by side.
+- **Home**: Two-column asymmetric. Greeting and Ask/search entry
+  span full width. Continue your Routine and Recently saved products
+  arrange adjacently. Feed order preserved. Not equal dashboard tiles.
 - **Explore**: Three-column product grid. Filter sheet is a side panel.
 - **Shelf**: Two-column product cards with larger packshots.
-- **Routine**: Two-column sequence with inline edit.
+- **Routine**: Two-column sequence with moment labels. Editing
+  happens through the structured adaptive sheet.
 - **Product**: Two-column — packshot | story + evidence + care details.
 - **Ask Me**: Two-column — conversation | context preview.
 
 ### Wide desktop (1440 × 900)
 
 - **Content**: Max-width 1440px, centered. No permanent density fill.
-- **Home**: Three-column — personal summary | Shelf rail | Routine
-  sequence. Ask Me entry spans full width below.
+- **Home**: Asymmetric adjacent sections. Greeting and Ask/search
+  entry span full width. Continue your Routine and Recently saved
+  products arrange adjacently with unequal widths. Feed order is
+  preserved top-to-bottom. Wider screens may arrange adjacent
+  sections side by side but must not convert greeting, Shelf and
+  Routine into three equal dashboard tiles.
 - **Explore**: Three-to-four-column product grid. Filter sheet is a
   side panel.
 - **Shelf**: Three-column product cards. Private requests in a
@@ -418,7 +430,9 @@ availability" helper lives in the Account sheet and links to plain
 - Buy panel: bottom sheet (mobile) → side panel (tablet+)
 - Product grid: 1 → 2 → 3 → 4 columns
 - Routine sequence: vertical (mobile) → columns by moment (tablet+)
-- Home composition: single column → two column → three column
+  Editing always happens in the structured sheet, not inline.
+- Home composition: single column → asymmetric adjacent sections
+  at wider widths, never three equal dashboard tiles
 
 ## 5. Visual language
 
@@ -527,9 +541,11 @@ availability" helper lives in the Account sheet and links to plain
 
 ### Editing a routine
 
-- Inline edit mode: steps become draggable/movable.
-- Add step opens the routine builder sheet.
-- Delete step is a card-level action with confirmation.
+- The routine reading state stays clean and visual — no permanent
+  reorder/delete controls in the ordinary reading state.
+- Create/edit/reorder/remove/delete happen inside the structured
+  adaptive sheet (the routine builder sheet).
+- The sheet opens from the FAB or an "Edit routine" control.
 - Reorder is a real mutation with server persistence.
 - Edit exits with a visible "Routine saved" confirmation.
 
@@ -779,6 +795,15 @@ The Home route must load through:
 
 Do not continue using the full `readCustomerPortal` loader for the
 Home route.
+
+**Architecture rule**: `readMeHome` must produce a governed semantic
+Home feed model. `HomeView` must not derive offer freshness, attention
+eligibility, or lifecycle meaning directly from raw arrays. All
+eligibility and lifecycle derivation stays server-owned in the read
+model. The view renders semantic props — it does not inspect shelf
+arrays to decide what needs attention, does not inspect offer arrays
+to determine freshness, and does not inspect routine steps to
+determine lifecycle state.
 
 Specific changes:
 
