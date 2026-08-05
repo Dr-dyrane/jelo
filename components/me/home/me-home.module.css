@@ -274,7 +274,7 @@
 
 /* Full-width section: heading on top, horizontal rail below. */
 .fullSection {
-  padding: clamp(48px, 7vw, 96px) clamp(6px, 2vw, 24px);
+  padding: clamp(32px, 5vw, 64px) clamp(6px, 2vw, 24px);
 }
 
 .fullSectionHeading {
@@ -517,13 +517,13 @@
 
 .routePage {
   min-height: calc(100dvh - 178px);
-  padding: clamp(42px, 7vw, 92px) clamp(4px, 2vw, 24px);
+  padding: clamp(28px, 4vw, 56px) clamp(4px, 2vw, 24px);
 }
 
 .routeHeading {
   display: grid;
   max-width: 820px;
-  margin-bottom: clamp(34px, 5vw, 68px);
+  margin-bottom: clamp(16px, 2.5vw, 32px);
 }
 
 .routeHeading h1 {
@@ -880,7 +880,7 @@
   .heroProduct img { width: 72%; height: 310px; }
   .heroProductLabel { right: 14px; bottom: 14px; left: 14px; }
   .section { padding: 72px 10px; }
-  .fullSection { padding: 48px 10px; }
+  .fullSection { padding: 36px 10px; }
   .routineGrid { grid-template-columns: 1fr; }
   .routineSurface { padding-inline: 14px; }
   .routePage { padding-inline: 4px; }
