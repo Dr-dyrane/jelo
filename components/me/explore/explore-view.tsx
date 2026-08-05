@@ -232,27 +232,31 @@ export function ExploreView({
         <h1 id="me-explore-title">{surface.title}</h1>
         <p>Every exact product, arranged around the care context you chose.</p>
       </div>
-      <SearchField
-        value={filters.search}
-        onChange={(search) => onFiltersChange({ ...filters, search })}
-        inputRef={searchRef}
-        label="Search exact products"
-      />
-      <div className={styles.exploreToolbar}>
-        <p role="status" aria-live="polite">
-          <strong>{visibleProducts.length}</strong> of {projection.eligibleCount} products
-        </p>
+      <div className={styles.exploreSearchRow}>
+        <SearchField
+          value={filters.search}
+          onChange={(search) => onFiltersChange({ ...filters, search })}
+          inputRef={searchRef}
+          label="Search exact products"
+        />
         <button
           ref={filterTriggerRef}
           type="button"
+          className={styles.exploreFilterTrigger}
           aria-haspopup="dialog"
           aria-controls="me-explore-filter-sheet"
           aria-expanded={filterOpen}
           onClick={() => setFilterOpen(true)}
         >
           <SlidersHorizontal size={18} aria-hidden="true" />
-          Filters{activeCount ? ` · ${activeCount}` : ''}
+          <span className={styles.visuallyHidden}>Filters{activeCount ? ` · ${activeCount}` : ''}</span>
+          {activeCount ? <span className={styles.exploreFilterBadge} aria-hidden="true">{activeCount}</span> : null}
         </button>
+      </div>
+      <div className={styles.exploreToolbar}>
+        <p role="status" aria-live="polite">
+          <strong>{visibleProducts.length}</strong> of {projection.eligibleCount} products
+        </p>
       </div>
 
       {visibleProducts.length ? (

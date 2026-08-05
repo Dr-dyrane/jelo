@@ -756,6 +756,57 @@
   color: var(--wine);
 }
 
+/* Explore search row: search field + filter trigger.
+   On desktop the filter trigger is hidden (it lives in the toolbar).
+   On mobile the filter trigger sits at the right end of the search row. */
+.exploreSearchRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: clamp(32px, 5vw, 62px);
+}
+
+.exploreSearchRow .searchField {
+  margin-bottom: 0;
+}
+
+.exploreFilterTrigger {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  box-shadow: 0 12px 34px rgb(107 59 53 / 8%);
+  color: var(--wine);
+  cursor: pointer;
+}
+
+.exploreFilterTrigger:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 2px;
+}
+
+.exploreFilterBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--wine);
+  color: var(--paper);
+  font-size: 0.6rem;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+}
+
 .searchField input {
   width: 100%;
   min-width: 0;
