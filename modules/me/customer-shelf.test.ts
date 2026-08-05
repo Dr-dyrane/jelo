@@ -242,9 +242,10 @@ test('active identities resolve while retired, changed, and unmatched snapshots 
 });
 
 test('unavailable Shelf rows retain their immutable removal action and accessible identity', () => {
+  const sharedViews = readFileSync('components/me/home/shared-views.tsx', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
-  assert.match(home, /function UnavailableShelfCard\([\s\S]*shelfItem=\{item\}/);
+  assert.match(sharedViews, /function UnavailableShelfCard\([\s\S]*shelfItem=\{item\}/);
   assert.match(home, /<UnavailableShelfCard[\s\S]*shelfAction=\{shelfAction\}[\s\S]*onSettled=\{onShelfMutation\}/);
   assert.match(button, /identityVersionId: shelfItem\.identityVersionId/);
   assert.match(button, /Remove \$\{shelfItem\.snapshot\.brand\} \$\{shelfItem\.snapshot\.name\} from Shelf/);

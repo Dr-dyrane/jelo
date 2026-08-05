@@ -92,6 +92,11 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
   assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 9);
 
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const homeView = readFileSync('components/me/home/home-view.tsx', 'utf8');
+  const exploreView = readFileSync('components/me/explore/explore-view.tsx', 'utf8');
+  const routineView = readFileSync('components/me/routine/routine-view.tsx', 'utf8');
+  const consultView = readFileSync('components/me/consult/consult-view.tsx', 'utf8');
+  const productView = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
   const accountSheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
   for (const explanatoryCopy of [
     'Ask one question, keep what matters',
@@ -102,13 +107,13 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
   ]) {
     assert.doesNotMatch(home, new RegExp(explanatoryCopy));
   }
-  assert.match(home, /ME_PORTAL_SURFACES\.home/);
-  assert.match(home, /ME_PORTAL_SURFACES\.explore/);
+  assert.match(homeView, /ME_PORTAL_SURFACES\.home/);
+  assert.match(exploreView, /ME_PORTAL_SURFACES\.explore/);
   assert.match(home, /ME_PORTAL_SURFACES\.shelf/);
-  assert.match(home, /ME_PORTAL_SURFACES\.routine/);
-  assert.match(home, /ME_PORTAL_SURFACES\.consult/);
-  assert.match(home, /On my Shelf/);
-  assert.match(home, /In my Routine/);
+  assert.match(routineView, /ME_PORTAL_SURFACES\.routine/);
+  assert.match(consultView, /ME_PORTAL_SURFACES\.consult/);
+  assert.match(productView, /On my Shelf/);
+  assert.match(productView, /In my Routine/);
   assert.match(accountSheet, />My Account</);
   assert.doesNotMatch(accountSheet, /Light or dark/);
 });
@@ -268,6 +273,8 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
 test('member routes are guarded, stack-owned, and never replace public product routes', () => {
   const route = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const homeView = readFileSync('components/me/home/home-view.tsx', 'utf8');
+  const productView = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
   const publicProduct = readFileSync('app/(site)/products/[slug]/page.tsx', 'utf8');
   const sharedPanel = readFileSync('components/products/product-quick-panel.tsx', 'utf8');
 
@@ -281,20 +288,21 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.match(route, /resolveMeProductOrigin\(from\)/);
   assert.doesNotMatch(route, /PRODUCT_ORIGINS|:\s*'explore';/);
   assert.doesNotMatch(route, /ownerId|customerId|subject:/);
-  assert.match(home, /href="\/me\/consult"/);
-  assert.match(home, /`\/me\/product\/\$\{product\.slug\}`/);
+  assert.match(homeView, /href="\/me\/consult"/);
+  const sharedViews = readFileSync('components/me/home/shared-views.tsx', 'utf8');
+  assert.match(sharedViews, /`\/me\/product\/\$\{product\.slug\}`/);
   assert.doesNotMatch(home, /<BackLink|function BackLink/);
   assert.match(home, /currentHref: resolveMeActiveParentHref\(route\)/);
   assert.match(home, /createMeStackBack\(route\)/);
-  assert.match(home, /memberProductHref\(product, 'home'\)/);
+  assert.match(homeView, /memberProductHref\(.*'home'\)/);
   assert.match(route, /if \(route\.kind === 'product'\) \{[\s\S]*findCatalogueProduct\(route\.slug\)[\s\S]*readProductPanelData\(selectedProduct\)/);
   assert.equal(route.match(/readProductPanelData\(/g)?.length, 1);
   assert.equal(home.match(/<ProductQuickPanelSheet/g)?.length, 1);
   assert.match(home, /<ProductQuickPanelSheet[\s\S]*data=\{productPanelData\}[\s\S]*open=\{productPanelOpen\}[\s\S]*tab=\{productPanelState\.tab\}/);
   assert.match(home, /document\.activeElement[\s\S]*productPanelRestoreFocusRef\.current/);
   assert.match(home, /restoreFocusRef=\{productPanelRestoreFocusRef\}/);
-  assert.match(home, /onClick=\{\(event\) => onOpenPanel\('buy', event\.currentTarget\)\}/);
-  assert.match(home, /onClick=\{\(event\) => onOpenPanel\('details', event\.currentTarget\)\}/);
+  assert.match(productView, /onClick=\{\(event\) => onOpenPanel\('buy', event\.currentTarget\)\}/);
+  assert.match(productView, /onClick=\{\(event\) => onOpenPanel\('details', event\.currentTarget\)\}/);
   assert.doesNotMatch(home, /View product|public-product|href=\{`\/products\/|window\.location\.assign\(`\/products/);
   assert.doesNotMatch(home, /window\.location\.assign\('\/consult'/);
   assert.match(publicProduct, /findCatalogueProduct\(slug\)/);
@@ -307,16 +315,18 @@ test('member routes are guarded, stack-owned, and never replace public product r
 
 test('Shelf removal is exclusive to Shelf-origin product detail actions', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const productView = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
   const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
   assert.doesNotMatch(home, /showRemove/);
-  assert.match(home, /const fromShelf = origin === 'shelf'/);
-  assert.match(home, /className=\{styles\.productActions\}/);
-  assert.match(home, /<ShoppingBag size=\{16\}[\s\S]*Find a store/);
-  assert.match(home, /<Info size=\{16\}[\s\S]*Details/);
-  assert.match(home, /shelfItem=\{fromShelf \? shelfItem : undefined\}/);
-  assert.match(home, /saved=\{!fromShelf && Boolean\(shelfItem\)\}/);
-  assert.match(home, /onSettled=\{fromShelf \? onShelfMutation : undefined\}/);
-  assert.doesNotMatch(home, /Public product evidence/);
+  assert.doesNotMatch(productView, /showRemove/);
+  assert.match(productView, /const fromShelf = origin === 'shelf'/);
+  assert.match(productView, /className=\{styles\.productActions\}/);
+  assert.match(productView, /<ShoppingBag size=\{16\}[\s\S]*Find a store/);
+  assert.match(productView, /<Info size=\{16\}[\s\S]*Details/);
+  assert.match(productView, /shelfItem=\{fromShelf \? shelfItem : undefined\}/);
+  assert.match(productView, /saved=\{!fromShelf && Boolean\(shelfItem\)\}/);
+  assert.match(productView, /onSettled=\{fromShelf \? onShelfMutation : undefined\}/);
+  assert.doesNotMatch(productView, /Public product evidence/);
   assert.match(button, /Remove from Shelf/);
 });
 
@@ -430,12 +440,13 @@ test('account avatar owns one accessible extensible modal sheet', () => {
 
 test('unavailable Shelf states fail closed while synthetic state stays explicitly preview-only', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const productView = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
   const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
   const account = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
   const previewState = readFileSync('components/me/shelf/me-shelf-state.tsx', 'utf8');
 
   assert.match(home, /viewModel\.shelfState\.status === 'ready' \? \(/);
-  assert.match(home, /shelfAvailable \? \(/);
+  assert.match(productView, /shelfAvailable \? \(/);
   assert.match(home, /'Shelf unavailable'/);
   assert.match(home, /Preview Shelf · Resets on reload\./);
   assert.match(button, /onAction[\s\S]*\? await onAction\(mutation\)/);
@@ -449,10 +460,11 @@ test('unavailable Shelf states fail closed while synthetic state stays explicitl
 
 test('Shelf removals announce and restore focus at a durable page-level target', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const sharedViews = readFileSync('components/me/home/shared-views.tsx', 'utf8');
   const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
   assert.match(button, /onSettled\?\.\(result\)/);
-  assert.match(home, /function UnavailableShelfCard\([\s\S]*shelfItem=\{item\}/);
-  assert.match(home, /onSettled=\{onSettled\}/);
+  assert.match(sharedViews, /function UnavailableShelfCard\([\s\S]*shelfItem=\{item\}/);
+  assert.match(sharedViews, /onSettled=\{onSettled\}/);
   assert.match(home, /shelfMutationStatusRef/);
   assert.match(home, /tabIndex=\{-1\}/);
   assert.match(home, /aria-atomic="true"/);

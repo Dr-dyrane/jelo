@@ -3,23 +3,15 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
-  ArrowRight,
-  ClockAlert,
   ClockPlus,
   Compass,
-  Info,
   MessageCircleQuestion,
   PackagePlus,
   Search,
   ShelvingUnit,
   ShoppingBag,
-  SlidersHorizontal,
-  Sparkles,
-  X,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
-import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
-import { RoutineManager } from '@/components/me/routine/routine-manager';
 import {
   PrivateProductRequestShelf,
   ProductRequestAddPage,
@@ -29,8 +21,7 @@ import {
   useMeShelfState,
   type ShelfActionHandler,
 } from '@/components/me/shelf/me-shelf-state';
-import { SafeProductImage } from '@/components/products/safe-product-image';
-import { ProductCard, type ProductCardContext } from '@/components/products/product-card';
+import { ProductCard } from '@/components/products/product-card';
 import { ProductQuickPanelSheet } from '@/components/products/product-quick-panel';
 import {
   WorkspaceDockProvider,
@@ -48,91 +39,37 @@ import {
   resolveMeActiveParentHref,
   resolveMeHeaderHidden,
   type MePortalRoute,
-  type MeProductOrigin,
   type MeWorkspacePage,
 } from '@/components/me/shell/me-shell-model';
 import { MeAccountAvatarIcon, MeWorkspaceDock } from '@/components/me/shell/me-workspace-dock';
+import { ConsultView } from '@/components/me/consult/consult-view';
+import { MemberProductView } from '@/components/me/product/member-product-view';
+import { MemberNotFoundView } from '@/components/me/product/member-not-found-view';
+import { HomeView } from '@/components/me/home/home-view';
+import { ExploreView } from '@/components/me/explore/explore-view';
+import { RoutineView } from '@/components/me/routine/routine-view';
+import {
+  memberProductHref,
+  UnavailableShelfCard,
+} from '@/components/me/home/shared-views';
 import type {
   CustomerPortalProduct,
-  CustomerPortalShelfItem,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
 import {
   clearCustomerExploreFilters,
-  countCustomerExploreFilters,
   createCustomerExploreFilterOptions,
   createCustomerExploreProjection,
   filterCustomerExplore,
   flattenCustomerExplore,
-  type CustomerExploreFilterOptions,
   type CustomerExploreFilterState,
-  type CustomerExploreProjection,
 } from '@/lib/customer/explore-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import type { CustomerProductRequestPresentationViewModel } from '@/lib/customer/product-request-model';
 import type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-panel-model';
 import styles from './me-home.module.css';
 
-type ProductSource = MeProductOrigin;
 const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
-
-function memberProductHref(product: CustomerPortalProduct, source?: ProductSource) {
-  const pathname = `/me/product/${product.slug}`;
-  return source ? `${pathname}?from=${source}` : pathname;
-}
-
-function UnavailableShelfCard({
-  item,
-  shelfAction,
-  onSettled,
-}: {
-  item: CustomerPortalShelfItem;
-  shelfAction?: ShelfActionHandler;
-  onSettled: (result: CustomerShelfActionResult) => void;
-}) {
-  return (
-    <article className={`${styles.productCardShell} ${styles.unavailableProduct}`}>
-      <div className={styles.unavailableCopy}>
-        <small>{item.snapshot.brand}</small>
-        <strong>{item.snapshot.name}</strong>
-        <span>{item.snapshot.size} · {item.availability === 'changed' ? 'Changed' : 'Unavailable'}</span>
-        {item.message ? <p>{item.message}</p> : null}
-      </div>
-      <ShelfActionButton
-        shelfItem={item}
-        placement="card"
-        onAction={shelfAction}
-        onSettled={onSettled}
-      />
-    </article>
-  );
-}
-
-function SearchField({
-  value,
-  onChange,
-  inputRef,
-  label,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  inputRef: React.RefObject<HTMLInputElement | null>;
-  label: string;
-}) {
-  return (
-    <label className={styles.searchField}>
-      <Search size={19} aria-hidden="true" />
-      <span className={styles.visuallyHidden}>{label}</span>
-      <input
-        ref={inputRef}
-        type="search"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder={label}
-      />
-    </label>
-  );
-}
 
 function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
   const count = (value: number, noun: string) => `${value} ${noun}${value === 1 ? '' : 's'}`;
@@ -180,380 +117,6 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
     page: 'product' as MeWorkspacePage,
     detail: 'Details',
   };
-}
-
-function HomePage({
-  viewModel,
-  shelfAction,
-  onShelfMutation,
-}: {
-  viewModel: CustomerPortalViewModel;
-  shelfAction?: ShelfActionHandler;
-  onShelfMutation: (result: CustomerShelfActionResult) => void;
-}) {
-  const surface = ME_PORTAL_SURFACES.home;
-  return (
-    <>
-      <section className={styles.hero} aria-labelledby="me-home-title">
-        <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>{viewModel.account.preferredFirstName ?? surface.eyebrow}</p>
-          <h1 id="me-home-title">{surface.title}</h1>
-          <Link className={styles.primaryAction} href="/me/consult">
-            Ask Me <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-        </div>
-
-        {viewModel.featuredProduct ? (
-          <Link
-            className={styles.heroProduct}
-            href={memberProductHref(viewModel.featuredProduct, 'home')}
-            aria-label={`Explore ${viewModel.featuredProduct.brand} ${viewModel.featuredProduct.name}`}
-          >
-            <span className={styles.heroHalo} aria-hidden="true" />
-            <SafeProductImage
-              src={viewModel.featuredProduct.image}
-              alt={`${viewModel.featuredProduct.brand} ${viewModel.featuredProduct.name}`}
-              priority
-            />
-            <span className={styles.heroProductLabel}>
-              <small>{viewModel.featuredProduct.brand}</small>
-              <strong>{viewModel.featuredProduct.name}</strong>
-            </span>
-          </Link>
-        ) : (
-          <div className={styles.heroQuiet} aria-hidden="true"><Sparkles size={42} /></div>
-        )}
-      </section>
-
-      <section className={styles.fullSection} aria-labelledby="me-shelf-preview-title">
-        <div className={styles.fullSectionHeading}>
-          <div>
-            <p className={styles.eyebrow}>Saved products</p>
-            <h2 id="me-shelf-preview-title">My Shelf.</h2>
-          </div>
-          <Link className={styles.fullSectionLink} href={'/me/shelf'}>Open Shelf <ArrowRight size={16} aria-hidden="true" /></Link>
-        </div>
-        {viewModel.shelf.length ? (
-          <div className="product-rail">
-            {viewModel.shelf.slice(0, 6).map((item) => item.product ? (
-              <ProductCard
-                key={item.identityVersionId}
-                product={item.product}
-                href={memberProductHref(item.product, 'shelf')}
-              />
-            ) : (
-              <UnavailableShelfCard
-                key={item.identityVersionId}
-                item={item}
-                shelfAction={shelfAction}
-                onSettled={onShelfMutation}
-              />
-            ))}
-          </div>
-        ) : viewModel.shelfState.status === 'unavailable' ? (
-          <div className={styles.emptyAction} role="status">
-            <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
-            <p>{viewModel.shelfState.message}</p>
-            <Link href="/me">Try again</Link>
-          </div>
-        ) : (
-          <div className={styles.emptyAction}>
-            <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
-            <p>Nothing saved yet.</p>
-            <Link href="/me/explore">Explore products</Link>
-          </div>
-        )}
-      </section>
-
-      <section className={`${styles.fullSection} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
-        <div className={styles.fullSectionHeading}>
-          <div>
-            <p className={styles.eyebrow}>{viewModel.routineProvenance ?? 'My Routine'}</p>
-            <h2 id="me-routine-preview-title">My steps.</h2>
-          </div>
-          <Link className={styles.fullSectionLink} href={'/me/routine'}>Open Routine <ArrowRight size={16} aria-hidden="true" /></Link>
-        </div>
-        <RoutineRail viewModel={viewModel} />
-      </section>
-    </>
-  );
-}
-
-function ExploreFilterSelect({
-  label,
-  value,
-  allLabel,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  allLabel: string;
-  options: readonly { value: string; label: string }[];
-  onChange: (value: string) => void;
-}) {
-  return (
-    <label className={styles.filterField}>
-      <span>{label}</span>
-      <select value={value} onChange={(event) => onChange(event.target.value)}>
-        <option value="">{allLabel}</option>
-        {options.map(option => (
-          <option key={option.value} value={option.value}>{option.label}</option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function ExploreFilterSheet({
-  open,
-  triggerRef,
-  filters,
-  options,
-  visibleCount,
-  totalCount,
-  onChange,
-  onClose,
-}: {
-  open: boolean;
-  triggerRef: React.RefObject<HTMLButtonElement | null>;
-  filters: CustomerExploreFilterState;
-  options: CustomerExploreFilterOptions;
-  visibleCount: number;
-  totalCount: number;
-  onChange: (filters: CustomerExploreFilterState) => void;
-  onClose: () => void;
-}) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const activeCount = countCustomerExploreFilters(filters);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
-  }, [open]);
-
-  const close = () => {
-    onClose();
-    window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
-  };
-  const update = <Key extends keyof CustomerExploreFilterState>(
-    key: Key,
-    value: CustomerExploreFilterState[Key],
-  ) => onChange({ ...filters, [key]: value });
-
-  return (
-    <dialog
-      id="me-explore-filter-sheet"
-      ref={dialogRef}
-      className={styles.filterDialog}
-      aria-labelledby="me-explore-filter-title"
-      onCancel={(event) => { event.preventDefault(); close(); }}
-      onClick={(event) => { if (event.target === event.currentTarget) close(); }}
-    >
-      <div className={styles.filterSheet}>
-        <header className={styles.filterSheetHeader}>
-          <div>
-            <p className={styles.eyebrow}>Your catalogue</p>
-            <h2 id="me-explore-filter-title">Smart filters</h2>
-            <p>{visibleCount} of {totalCount} exact products</p>
-          </div>
-          <button type="button" aria-label="Close filters" onClick={close}>
-            <X size={20} aria-hidden="true" />
-          </button>
-        </header>
-
-        <div className={styles.filterGrid}>
-          <ExploreFilterSelect
-            label="Category"
-            value={filters.category}
-            allLabel="All categories"
-            options={options.categories.map(value => ({ value, label: value }))}
-            onChange={(value) => update('category', value)}
-          />
-          <ExploreFilterSelect
-            label="Routine step"
-            value={filters.step}
-            allLabel="All steps"
-            options={options.steps.map(value => ({ value, label: value }))}
-            onChange={(value) => update('step', value)}
-          />
-          <ExploreFilterSelect
-            label="Brand"
-            value={filters.brand}
-            allLabel="All brands"
-            options={options.brands.map(value => ({ value, label: value }))}
-            onChange={(value) => update('brand', value)}
-          />
-          <label className={styles.filterField}>
-            <span>Shelf</span>
-            <select
-              value={filters.shelf}
-              onChange={(event) => update(
-                'shelf',
-                event.target.value as CustomerExploreFilterState['shelf'],
-              )}
-            >
-              <option value="all">Any Shelf state</option>
-              <option value="on">On your Shelf</option>
-              <option value="off">Not on your Shelf</option>
-            </select>
-          </label>
-          {options.concerns.length ? (
-            <ExploreFilterSelect
-              label="My concern"
-              value={filters.concernSlug}
-              allLabel="All concern support"
-              options={options.concerns.map(concern => ({ value: concern.slug, label: concern.name }))}
-              onChange={(value) => update('concernSlug', value)}
-            />
-          ) : null}
-          {options.retailers.length ? (
-            <ExploreFilterSelect
-              label="My store"
-              value={filters.retailerName}
-              allLabel="All fresh exact stores"
-              options={options.retailers.map(value => ({ value, label: value }))}
-              onChange={(value) => update('retailerName', value)}
-            />
-          ) : null}
-        </div>
-
-        <footer className={styles.filterSheetActions}>
-          <button
-            type="button"
-            disabled={!activeCount}
-            onClick={() => onChange(clearCustomerExploreFilters())}
-          >
-            Clear filters{activeCount ? ` · ${activeCount}` : ''}
-          </button>
-          <button type="button" onClick={close}>Show {visibleCount} products</button>
-        </footer>
-      </div>
-    </dialog>
-  );
-}
-
-function ExplorePage({
-  viewModel,
-  projection,
-  filters,
-  filterOptions,
-  onFiltersChange,
-  searchRef,
-  shelfAction,
-}: {
-  viewModel: CustomerPortalViewModel;
-  projection: CustomerExploreProjection;
-  filters: CustomerExploreFilterState;
-  filterOptions: CustomerExploreFilterOptions;
-  onFiltersChange: (filters: CustomerExploreFilterState) => void;
-  searchRef: React.RefObject<HTMLInputElement | null>;
-  shelfAction?: ShelfActionHandler;
-}) {
-  const surface = ME_PORTAL_SURFACES.explore;
-  const [filterOpen, setFilterOpen] = useState(false);
-  const filterTriggerRef = useRef<HTMLButtonElement>(null);
-  const visibleProducts = flattenCustomerExplore(projection);
-  const activeCount = countCustomerExploreFilters(filters);
-  return (
-    <section className={styles.routePage} aria-labelledby="me-explore-title">
-      <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>{surface.eyebrow}</p>
-        <h1 id="me-explore-title">{surface.title}</h1>
-        <p>Every exact product, arranged around the care context you chose.</p>
-      </div>
-      <SearchField
-        value={filters.search}
-        onChange={(search) => onFiltersChange({ ...filters, search })}
-        inputRef={searchRef}
-        label="Search exact products"
-      />
-      <div className={styles.exploreToolbar}>
-        <p role="status" aria-live="polite">
-          <strong>{visibleProducts.length}</strong> of {projection.eligibleCount} products
-        </p>
-        <button
-          ref={filterTriggerRef}
-          type="button"
-          aria-haspopup="dialog"
-          aria-controls="me-explore-filter-sheet"
-          aria-expanded={filterOpen}
-          onClick={() => setFilterOpen(true)}
-        >
-          <SlidersHorizontal size={18} aria-hidden="true" />
-          Filters{activeCount ? ` · ${activeCount}` : ''}
-        </button>
-      </div>
-
-      {visibleProducts.length ? (
-        <div className={styles.exploreSections}>
-          {projection.sections.map((section) => {
-            const headingId = `me-explore-${section.id.replace(':', '-')}`;
-            return (
-              <section key={section.id} className={styles.exploreSection} aria-labelledby={headingId}>
-                <header className={styles.exploreSectionHeading}>
-                  <h2 id={headingId}>{section.title}</h2>
-                  <p>{section.description}</p>
-                </header>
-                <div className="product-grid">
-                  {section.products.map((entry) => {
-                    const shelfItem = viewModel.shelf.find(item => item.product?.slug === entry.product.slug);
-                    const cardContext: ProductCardContext = {
-                      onShelf: entry.onShelf,
-                      inRoutine: entry.inRoutine,
-                      reviewedConcern: entry.matchedConcernSlugs.length > 0,
-                      retailerNames: entry.matchedRetailerNames,
-                    };
-                    return (
-                      <ProductCard
-                        key={entry.product.slug}
-                        product={entry.product}
-                        href={memberProductHref(entry.product, 'explore')}
-                        context={cardContext}
-                        footer={viewModel.shelfState.status === 'ready' ? (
-                          <ShelfActionButton
-                            productSlug={entry.product.slug}
-                            saved={Boolean(shelfItem)}
-                            placement="explore"
-                            onAction={shelfAction}
-                          />
-                        ) : null}
-                      />
-                    );
-                  })}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      ) : (
-        <div className={styles.emptyAction}>
-          <Search size={24} strokeWidth={1.5} aria-hidden="true" />
-          <p>No exact products match these filters.</p>
-          <button
-            className={styles.retryAction}
-            type="button"
-            onClick={() => onFiltersChange(clearCustomerExploreFilters())}
-          >
-            Clear filters
-          </button>
-        </div>
-      )}
-
-      <ExploreFilterSheet
-        open={filterOpen}
-        triggerRef={filterTriggerRef}
-        filters={filters}
-        options={filterOptions}
-        visibleCount={visibleProducts.length}
-        totalCount={projection.eligibleCount}
-        onChange={onFiltersChange}
-        onClose={() => setFilterOpen(false)}
-      />
-    </section>
-  );
 }
 
 function ShelfPage({
@@ -613,261 +176,6 @@ function ShelfPage({
           mutationOutcome={productRequestOutcome}
         />
       ) : null}
-    </section>
-  );
-}
-
-function RoutineRail({ viewModel }: { viewModel: CustomerPortalViewModel }) {
-  if (!viewModel.routine.length) {
-    return (
-      <div className={styles.emptyAction}>
-        <ClockPlus size={24} strokeWidth={1.5} aria-hidden="true" />
-        <p>No routine yet.</p>
-        <Link href="/me/explore">Add routine step</Link>
-      </div>
-    );
-  }
-  return (
-    <ol className={styles.routineGrid}>
-      {viewModel.routine.map((step, index) => {
-        const StatusIcon = step.status === 'alert' ? ClockAlert : ClockPlus;
-        const statusLabel = step.status === 'alert'
-          ? 'Routine alert'
-          : step.status === 'done'
-            ? 'Routine done'
-            : 'Routine step confirmed';
-        return (
-          <li key={step.id}>
-            <Link
-              href={memberProductHref(step.product, 'routine')}
-              className={styles.routineRailCard}
-              aria-label={`View ${step.product.name}`}
-            >
-              <span className={styles.routineRailCardImage}>
-                <SafeProductImage src={step.product.image} alt={`${step.product.brand} ${step.product.name}`} />
-              </span>
-              <span className={styles.routineRailCardNumber}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <StatusIcon size={16} aria-hidden="true" />
-                <span className={styles.visuallyHidden}>{statusLabel}</span>
-              </span>
-              <span className={styles.routineRailCardCopy}>
-                <small>{step.moment}</small>
-                <strong>{step.product.brand} {step.product.name}</strong>
-              </span>
-            </Link>
-          </li>
-        );
-      })}
-    </ol>
-  );
-}
-
-function RoutinePage({
-  viewModel,
-  mutationOutcome,
-}: {
-  viewModel: CustomerPortalViewModel;
-  mutationOutcome?: string;
-}) {
-  const surface = ME_PORTAL_SURFACES.routine;
-  return (
-    <section className={styles.routePage} aria-labelledby="me-routine-title">
-      <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>{viewModel.routineProvenance ?? surface.eyebrow}</p>
-        <h1 id="me-routine-title">{surface.title}</h1>
-      </div>
-      {viewModel.routine.length ? (
-        <section className={`${styles.fullSection} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
-          <div className={styles.fullSectionHeading}>
-            <div>
-              <h2 id="me-routine-preview-title">My steps.</h2>
-            </div>
-          </div>
-          <RoutineRail viewModel={viewModel} />
-        </section>
-      ) : null}
-      {viewModel.routines ? (
-        <RoutineManager
-          routines={viewModel.routines}
-          routineState={viewModel.routineState ?? { status: 'ready', message: null }}
-          outcome={mutationOutcome}
-        />
-      ) : null}
-    </section>
-  );
-}
-
-function ConsultPage({
-  viewModel,
-  products,
-  search,
-  setSearch,
-  searchRef,
-}: {
-  viewModel: CustomerPortalViewModel;
-  products: readonly CustomerPortalProduct[];
-  search: string;
-  setSearch: (value: string) => void;
-  searchRef: React.RefObject<HTMLInputElement | null>;
-}) {
-  const surface = ME_PORTAL_SURFACES.consult;
-  return (
-    <section className={`${styles.routePage} ${styles.stackPage}`} aria-labelledby="me-consult-title">
-      <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>{surface.eyebrow}</p>
-        <h1 id="me-consult-title">{surface.title}</h1>
-      </div>
-      <section className={styles.concernsLanding} aria-labelledby="me-concerns-title">
-        <header>
-          <div>
-            <p className={styles.eyebrow}>My concerns</p>
-            <h2 id="me-concerns-title">What I’ve noticed.</h2>
-          </div>
-          <span>{viewModel.concerns.length}</span>
-        </header>
-        {viewModel.concerns.length ? (
-          <>
-            <div className={styles.concernList} aria-label="My concerns">
-              {viewModel.concerns.map((concern) => (
-                <span key={concern.slug}>{concern.name}<small>{concern.area}</small></span>
-              ))}
-            </div>
-            <p>
-              {viewModel.account.synthetic
-                ? 'Local preview only · These examples are not a diagnosis.'
-                : 'Educational care context only · Not a diagnosis.'}
-            </p>
-          </>
-        ) : (
-          <p>
-            No concerns have been reported here. Search what you notice below; this does not save or diagnose a concern.
-          </p>
-        )}
-      </section>
-
-      <div className={styles.askSearchHeading}>
-        <p className={styles.eyebrow}>Ask Me</p>
-        <h2>Explore your care.</h2>
-        <p>Search the exact catalogue in your own words.</p>
-      </div>
-      <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search my care" />
-      {search.trim() ? (
-        products.length ? (
-          <div className="product-grid">
-            {products.slice(0, 6).map((product) => (
-              <ProductCard key={product.slug} product={product} href={memberProductHref(product, 'home')} />
-            ))}
-          </div>
-        ) : (
-          <p className={styles.empty}>No exact catalogue products match that search.</p>
-        )
-      ) : (
-        <p className={styles.consultBoundary}>Suggestions and saved concern reporting are not available yet.</p>
-      )}
-    </section>
-  );
-}
-
-function ProductPage({
-  product,
-  viewModel,
-  origin,
-  shelfAction,
-  onShelfMutation,
-  panelOpen,
-  panelTab,
-  onOpenPanel,
-}: {
-  product: CustomerPortalProduct;
-  viewModel: CustomerPortalViewModel;
-  origin: MeProductOrigin;
-  shelfAction?: ShelfActionHandler;
-  onShelfMutation: (result: CustomerShelfActionResult) => void;
-  panelOpen: boolean;
-  panelTab: ProductPanelTab;
-  onOpenPanel: (tab: ProductPanelTab, opener?: HTMLElement | null) => void;
-}) {
-  const shelfItem = viewModel.shelf.find((item) => item.product?.slug === product.slug);
-  const routineStep = viewModel.routine.find((step) => step.product.slug === product.slug);
-  const shelfAvailable = viewModel.shelfState.status === 'ready';
-  const fromShelf = origin === 'shelf';
-  const showShelfAction = shelfAvailable && (!fromShelf || Boolean(shelfItem));
-  return (
-    <article className={`${styles.routePage} ${styles.stackPage} ${styles.productPage}`} aria-labelledby="me-product-title">
-      <div className={styles.productHero}>
-        <div className={styles.productVisualLarge}>
-          <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} priority />
-        </div>
-        <div className={styles.productStory}>
-          <p className={styles.eyebrow}>{product.brand}</p>
-          <h1 id="me-product-title">{product.name}</h1>
-          <p>{product.displayLine}</p>
-          {product.priceLabel ? <p className={styles.productPrice}>{product.priceLabel}</p> : null}
-          <p className={styles.productUsage}>{product.usage}</p>
-          <div className={styles.productActions}>
-            <div className={styles.productEvidenceActions} role="group" aria-label="Product information">
-              <button
-                className={styles.productEvidenceAction}
-                type="button"
-                aria-haspopup="dialog"
-                aria-controls="me-product-evidence-sheet"
-                aria-expanded={panelOpen && panelTab === 'buy'}
-                onClick={(event) => onOpenPanel('buy', event.currentTarget)}
-              >
-                <ShoppingBag size={16} aria-hidden="true" /> Find a store
-              </button>
-              <button
-                className={`${styles.productEvidenceAction} ${styles.productEvidenceActionSecondary}`}
-                type="button"
-                aria-haspopup="dialog"
-                aria-controls="me-product-evidence-sheet"
-                aria-expanded={panelOpen && panelTab === 'details'}
-                onClick={(event) => onOpenPanel('details', event.currentTarget)}
-              >
-                <Info size={16} aria-hidden="true" /> Details
-              </button>
-            </div>
-            {showShelfAction ? (
-              <ShelfActionButton
-                productSlug={product.slug}
-                shelfItem={fromShelf ? shelfItem : undefined}
-                saved={!fromShelf && Boolean(shelfItem)}
-                placement="product"
-                onAction={shelfAction}
-                onSettled={fromShelf ? onShelfMutation : undefined}
-              />
-            ) : null}
-          </div>
-          <div className={styles.productMeta} aria-label="My product context">
-            <span>{product.size}</span>
-            <span>{product.category}</span>
-            <span>{product.step}</span>
-            <span>
-              {shelfAvailable ? (shelfItem ? 'On my Shelf' : 'Not on my Shelf') : 'Shelf unavailable'} · {routineStep ? 'In my Routine' : 'Not in my Routine'}
-            </span>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function MemberNotFoundPage() {
-  const surface = ME_PORTAL_SURFACES['not-found'];
-  return (
-    <section className={`${styles.routePage} ${styles.stackPage} ${styles.notFoundPage}`} aria-labelledby="me-not-found-title">
-      <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>{surface.eyebrow}</p>
-        <h1 id="me-not-found-title">{surface.title}</h1>
-        <p>This product is not in your exact catalogue.</p>
-        <div className={styles.notFoundActions}>
-          <Link className={styles.primaryAction} href="/me/explore">
-            Explore products <Compass size={18} aria-hidden="true" />
-          </Link>
-          <Link className={styles.sectionLink} href="/me/shelf">Back to Shelf</Link>
-        </div>
-      </div>
     </section>
   );
 }
@@ -1141,14 +449,14 @@ function MePortalView({
             {shelfMutationFeedback.message}
           </p>
           {route.kind === 'home' ? (
-            <HomePage
+            <HomeView
               viewModel={portalViewModel}
               shelfAction={shelfState.shelfAction}
               onShelfMutation={announceShelfMutation}
             />
           ) : null}
           {route.kind === 'explore' ? (
-            <ExplorePage
+            <ExploreView
               viewModel={portalViewModel}
               projection={filteredExploreProjection}
               filters={exploreFilters}
@@ -1183,13 +491,13 @@ function MePortalView({
             />
           ) : null}
           {route.kind === 'routine' ? (
-            <RoutinePage
+            <RoutineView
               viewModel={portalViewModel}
               mutationOutcome={productRequestOutcome}
             />
           ) : null}
           {route.kind === 'consult' ? (
-            <ConsultPage
+            <ConsultView
               viewModel={portalViewModel}
               products={consultProducts}
               search={exploreFilters.search}
@@ -1198,7 +506,7 @@ function MePortalView({
             />
           ) : null}
           {route.kind === 'product' && product ? (
-            <ProductPage
+            <MemberProductView
               product={product}
               viewModel={portalViewModel}
               origin={route.origin}
@@ -1209,7 +517,7 @@ function MePortalView({
               onOpenPanel={openProductPanel}
             />
           ) : null}
-          {route.kind === 'not-found' ? <MemberNotFoundPage /> : null}
+          {route.kind === 'not-found' ? <MemberNotFoundView /> : null}
         </div>
       </main>
 

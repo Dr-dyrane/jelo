@@ -124,6 +124,7 @@ test('the development presentation is server-only, synthetic, and local-data-onl
 test('the synthetic Shelf derives five approved products plus nine pending requests from legacy data', () => {
   const fixture = readFileSync('lib/customer/development-fixture.ts', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  const homeView = readFileSync('components/me/home/home-view.tsx', 'utf8');
 
   const acceptedSlugs = LEGACY_SHELF_IMPORT_MANIFEST.accepted.map(
     binding => binding.identityVersion.slugAtReview,
@@ -147,7 +148,7 @@ test('the synthetic Shelf derives five approved products plus nine pending reque
   assert.match(fixture, /selectedRetailers: \[\]/);
   assert.match(fixture, /synthetic: true/);
   assert.match(fixture, /example routine · local preview/);
-  assert.match(home, /viewModel\.routineProvenance/);
+  assert.match(homeView, /viewModel\.routineProvenance/);
   assert.match(home, /shelfState\.previewOnly/);
   assert.match(home, /Preview Shelf · Resets on reload\./);
   assert.doesNotMatch(fixture, /recommended|JeloCare routine/i);
