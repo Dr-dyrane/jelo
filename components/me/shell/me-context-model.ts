@@ -63,8 +63,8 @@ export function createMeContextSheetModel({
   if (route.kind === 'home') {
     return {
       eyebrow: 'At a glance',
-      title: 'My care',
-      summary: `${shelfCount} · ${count(routineStepCount, 'step')}`,
+      title: `${shelfCount} · ${count(routineStepCount, 'step')}`,
+      summary: shelfAvailable ? `${shelfCount} · ${count(routineStepCount, 'step')}` : `Shelf unavailable · ${count(routineStepCount, 'step')}`,
       items: [
         { id: 'shelf', label: 'My Shelf', detail: shelfAvailable ? count(viewModel.shelf.length, 'product') : 'Unavailable', href: '/me/shelf' },
         { id: 'routine', label: 'My Routine', detail: count(routineStepCount, 'step'), href: '/me/routine' },

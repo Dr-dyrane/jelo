@@ -27,12 +27,11 @@ export function MeRouteState({
         <div className={styles.content}>
           <section className={styles.routePage} aria-labelledby="me-route-state-title">
             <div className={styles.routeHeading}>
-              <p className={styles.eyebrow}>JeloCare Me</p>
-              <h1 id="me-route-state-title">My care.</h1>
+              <h1 id="me-route-state-title">Home</h1>
             </div>
             <div className={styles.emptyAction} role={loading ? 'status' : 'alert'}>
               <Pipette size={24} strokeWidth={1.5} aria-hidden="true" />
-              <p>{loading ? 'Opening My care…' : 'My care is unavailable right now.'}</p>
+              <p>{loading ? 'Opening Home…' : 'Home is unavailable right now.'}</p>
               {!loading && onRetry ? (
                 <button className={styles.retryAction} type="button" onClick={onRetry}>Try again</button>
               ) : null}

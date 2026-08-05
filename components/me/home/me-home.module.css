@@ -50,8 +50,10 @@
 .sectionLink:focus-visible,
 .feedAskLink:focus-visible,
 .feedExploreLink:focus-visible,
+.feedSectionLink:focus-visible,
 .priceEvidenceLink:focus-visible,
 .attentionLink:focus-visible,
+.routinePreviewRow:focus-visible,
 .routineList a:focus-visible,
 .emptyAction a:focus-visible,
 .backLink:focus-visible,
@@ -139,7 +141,7 @@
 .content {
   width: min(100%, 1440px);
   margin-inline: auto;
-  padding: 84px clamp(16px, 4vw, 64px) calc(178px + env(safe-area-inset-bottom));
+  padding: 72px clamp(16px, 4vw, 64px) calc(178px + env(safe-area-inset-bottom));
 }
 
 .eyebrow {
@@ -154,80 +156,205 @@
 /* --- Home personal feed --- */
 
 .feedGreeting {
-  padding: clamp(24px, 4vw, 48px) clamp(6px, 2vw, 24px) clamp(8px, 1.5vw, 16px);
+  padding: clamp(8px, 1.5vw, 16px) clamp(6px, 2vw, 24px) clamp(4px, 0.8vw, 8px);
 }
 
 .feedGreetingName {
-  margin: 10px 0 0;
+  margin: 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
   font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 .feedAskEntry {
-  padding: clamp(8px, 1.5vw, 16px) clamp(6px, 2vw, 24px) clamp(20px, 3vw, 36px);
+  padding: clamp(4px, 0.8vw, 8px) clamp(6px, 2vw, 24px) clamp(12px, 2vw, 20px);
+  max-width: 42rem;
 }
 
 .feedAskLink {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: clamp(18px, 3vw, 28px);
-  border-radius: clamp(20px, 3vw, 32px);
-  background: color-mix(in srgb, var(--paper) 72%, transparent);
-  box-shadow: 0 18px 54px rgb(112 71 61 / 8%);
+  gap: 14px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--paper) 62%, transparent);
   color: var(--ink);
   text-decoration: none;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition: background-color 180ms ease;
 }
 
 .feedAskLink:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 64px rgb(112 71 61 / 12%);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
 }
 
 .feedAskLink > span {
   display: grid;
   flex: 1;
-  gap: 4px;
+  gap: 2px;
 }
 
 .feedAskLink small {
   color: var(--wine);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .feedAskLink strong {
-  font-size: clamp(0.92rem, 1.4vw, 1.08rem);
+  font-size: 0.88rem;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
-.feedExploreEntry {
-  padding: clamp(20px, 3vw, 36px) clamp(6px, 2vw, 24px) clamp(32px, 5vw, 64px);
+/* --- Feed sections (Routine, Shelf, Price evidence, Attention) --- */
+
+.feedSection {
+  padding: clamp(12px, 2vw, 20px) clamp(6px, 2vw, 24px);
 }
 
-.feedExploreLink {
+.feedSectionHeading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: clamp(10px, 1.5vw, 16px);
+}
+
+.feedSectionHeading h2 {
+  margin: 0;
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.feedSectionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  color: var(--wine);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.feedUnavailable {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--paper) 52%, transparent);
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.feedUnavailable a {
+  color: var(--wine);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* --- Compact routine preview rows --- */
+
+.routinePreviewList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.routinePreviewRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 20px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--paper) 56%, transparent);
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--paper) 52%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.routinePreviewRow:hover {
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.routinePreviewImage {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--cream) 80%, transparent);
+}
+
+.routinePreviewImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.routinePreviewCopy {
+  display: grid;
+  flex: 1;
+  gap: 1px;
+  min-width: 0;
+}
+
+.routinePreviewCopy small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.routinePreviewCopy strong {
+  font-weight: 500;
+  font-size: 0.86rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.routinePreviewIndex {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
   color: var(--wine);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 600;
+}
+
+.feedExploreEntry {
+  padding: clamp(12px, 2vw, 20px) clamp(6px, 2vw, 24px) clamp(24px, 4vw, 48px);
+}
+
+.feedExploreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 48%, transparent);
+  color: var(--wine);
+  font-size: 0.8rem;
+  font-weight: 500;
   text-decoration: none;
   transition: background-color 180ms ease;
 }
 
 .feedExploreLink:hover {
-  background: color-mix(in srgb, var(--paper) 76%, transparent);
+  background: color-mix(in srgb, var(--paper) 68%, transparent);
 }
 
 /* --- Price evidence section --- */

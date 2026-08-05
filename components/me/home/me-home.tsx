@@ -84,6 +84,12 @@ const EMPTY_PORTAL_VIEW: CustomerPortalViewModel = {
   routineState: { status: 'ready', message: null },
 };
 
+// Transitional debt: shellViewModelFromHome bridges the governed Home read
+// model into the portal-wide CustomerPortalViewModel shape that the shell
+// chrome (dock, account sheet, context sheet) still consumes. When the
+// remaining Me routes migrate to route-scoped readers and the shell chrome
+// is refactored to consume route-scoped types directly, this adapter should
+// be removed. Do not add more dependencies on it.
 function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPortalViewModel {
   return {
     account: homeModel.account,
@@ -100,10 +106,23 @@ function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPorta
   };
 }
 
-function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
+function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel, homeModel?: CustomerHomeReadModel) {
   const count = (value: number, noun: string) => `${value} ${noun}${value === 1 ? '' : 's'}`;
   if (route.kind === 'home') {
-    return { routeKey: '/me', currentHref: resolveMeActiveParentHref(route), page: 'home' as MeWorkspacePage, detail: 'My care' };
+    const shelfCount = homeModel
+      ? homeModel.shelfSection.state.status === 'ready'
+        ? homeModel.shelfSection.items.length
+        : 0
+      : viewModel.shelfState.status === 'ready'
+        ? viewModel.shelf.length
+        : 0;
+    const routineCount = homeModel
+      ? homeModel.routineSection.state.status === 'ready'
+        ? homeModel.routineSection.steps.length
+        : 0
+      : viewModel.routine.length;
+    const detail = `${count(shelfCount, 'product')} · ${count(routineCount, 'step')}`;
+    return { routeKey: '/me', currentHref: resolveMeActiveParentHref(route), page: 'home' as MeWorkspacePage, detail };
   }
   if (route.kind === 'explore') {
     return { routeKey: '/me/explore', currentHref: resolveMeActiveParentHref(route), page: 'explore' as MeWorkspacePage, detail: 'Exact catalogue' };
@@ -234,7 +253,7 @@ function MePortalView({
   const [shelfMutationFeedback, setShelfMutationFeedback] = useState({ message: '', sequence: 0 });
   const searchRef = useRef<HTMLInputElement>(null);
   const shelfMutationStatusRef = useRef<HTMLParagraphElement>(null);
-  const state = routeState(route, portalViewModel);
+  const state = routeState(route, portalViewModel, homeModel);
   const controller = useAdaptiveWorkspaceDockController({
     routeKey: state.routeKey,
     hasNavigation: true,

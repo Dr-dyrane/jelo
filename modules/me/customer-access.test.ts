@@ -147,7 +147,7 @@ test('the synthetic Shelf derives five approved products plus nine pending reque
   assert.match(fixture, /concerns: \[\]/);
   assert.match(fixture, /selectedRetailers: \[\]/);
   assert.match(fixture, /synthetic: true/);
-  assert.match(fixture, /example routine · local preview/);
+  assert.match(fixture, /routineProvenance: null/);
   assert.match(homeView, /routineSection\.provenance/);
   assert.match(home, /shelfState\.previewOnly/);
   assert.match(home, /Preview Shelf · Resets on reload\./);

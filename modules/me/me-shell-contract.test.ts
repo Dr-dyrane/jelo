@@ -79,7 +79,7 @@ test('stack Back is shell-owned, deterministic, and preserves the active parent'
 
 test('the complete portal surface vocabulary is concise, personal, and route-owned', () => {
   assert.deepEqual(ME_PORTAL_SURFACES, {
-    home: { layer: 'primary', route: '/me', parent: 'home', eyebrow: 'JeloCare Me', title: 'My care.' },
+    home: { layer: 'primary', route: '/me', parent: 'home', eyebrow: null, title: 'Home' },
     explore: { layer: 'primary', route: '/me/explore', parent: 'explore', eyebrow: 'Explore', title: 'My next product.' },
     shelf: { layer: 'primary', route: '/me/shelf', parent: 'shelf', eyebrow: 'My products', title: 'My Shelf.' },
     routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
@@ -479,7 +479,7 @@ test('Me loading and error states keep recognizable route, dock, and FAB identit
   assert.match(state, /className=\{styles\.stateDock\}/);
   assert.match(state, /className=\{styles\.stateFab\}/);
   assert.match(state, /href="\/me\/consult"/);
-  assert.match(state, />My care\.</);
+  assert.match(state, />Home</);
   assert.match(loading, /<MeRouteState state="loading"/);
   assert.match(error, /<MeRouteState state="error" onRetry=\{reset\}/);
 });

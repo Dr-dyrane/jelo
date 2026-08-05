@@ -61,7 +61,6 @@ export type CustomerHomeReadModel = {
       product: CustomerPortalProduct;
       priceLabel: string;
       retailerCount: number;
-      freshness: 'fresh' | 'stale' | 'none';
     }[];
   };
   attentionSection: {
@@ -223,14 +222,13 @@ function syntheticHome(): CustomerHomeReadModel {
     .map(item => {
       const product = item.product!;
       const retailerCount = product.freshExactRetailerNames.length;
-      const freshness = retailerCount > 0 ? 'fresh' as const : 'none' as const;
       return {
         product,
         priceLabel: product.priceLabel ?? 'Price unavailable',
         retailerCount,
-        freshness,
       };
-    });
+    })
+    .filter(item => item.retailerCount > 0);
   const attentionItems = shelfItems
     .filter(item => item.availability !== 'available')
     .map(item => ({
@@ -244,8 +242,8 @@ function syntheticHome(): CustomerHomeReadModel {
     askEntry: { href: '/me/consult', label: 'Ask Me' },
     routineSection: {
       visible: routineSteps.length > 0,
-      provenance: portal.routineProvenance,
-      steps: routineSteps.slice(0, 6),
+      provenance: null,
+      steps: routineSteps.slice(0, 4),
       state: portal.routineState ?? { status: 'ready', message: null },
     },
     shelfSection: {
@@ -254,7 +252,7 @@ function syntheticHome(): CustomerHomeReadModel {
       state: portal.shelfState,
     },
     priceEvidenceSection: {
-      visible: priceEvidenceItems.some(item => item.freshness === 'fresh'),
+      visible: priceEvidenceItems.length > 0,
       items: priceEvidenceItems,
     },
     attentionSection: {
@@ -366,24 +364,21 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
   const routineSteps = routineData.routine;
   const greeting = identity.preferredFirstName ?? 'Welcome back';
 
-  // Governed eligibility: price evidence is visible only when at least
-  // one saved product has fresh exact offers. The view does not inspect
-  // offer arrays — it reads the semantic `visible` flag and pre-derived
-  // items.
+  // Governed eligibility: the model passes only eligible price-evidence
+  // items. The view does not filter freshness again.
   const priceEvidenceItems = shelfItems
     .filter(item => item.product)
     .slice(0, 6)
     .map(item => {
       const product = item.product!;
       const retailerCount = product.freshExactRetailerNames.length;
-      const freshness = retailerCount > 0 ? 'fresh' as const : 'none' as const;
       return {
         product,
         priceLabel: product.priceLabel ?? 'Price unavailable',
         retailerCount,
-        freshness,
       };
-    });
+    })
+    .filter(item => item.retailerCount > 0);
 
   // Governed eligibility: attention items are derived server-side from
   // authoritative lifecycle state. The view does not inspect shelf
@@ -408,7 +403,7 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
     routineSection: {
       visible: routineSteps.length > 0,
       provenance: null,
-      steps: routineSteps.slice(0, 6),
+      steps: routineSteps.slice(0, 4),
       state: routineData.routineState,
     },
     shelfSection: {
@@ -417,7 +412,7 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
       state: shelfData.shelfState,
     },
     priceEvidenceSection: {
-      visible: priceEvidenceItems.some(item => item.freshness === 'fresh'),
+      visible: priceEvidenceItems.length > 0,
       items: priceEvidenceItems,
     },
     attentionSection: {

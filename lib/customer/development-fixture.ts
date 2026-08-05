@@ -94,7 +94,7 @@ export function createSyntheticCustomerPortal(): CustomerPortalViewModel {
     }
     return {
       id: `${LEGACY_SHELF_IMPORT_MANIFEST.id}:${binding.legacyId}`,
-      moment: `${binding.provenance.usage} · local preview`,
+      moment: `${binding.provenance.usage}`,
       status: SYNTHETIC_ROUTINE_STATUSES[index],
       product: item.product,
     };
@@ -137,7 +137,7 @@ export function createSyntheticCustomerPortal(): CustomerPortalViewModel {
     selectedRetailers: [],
     shelfState: { status: 'ready', message: null },
     shelf,
-    routineProvenance: `${LEGACY_SHELF_IMPORT_MANIFEST.id} example routine · local preview`,
+    routineProvenance: null,
     routine,
     routineState: { status: 'ready', message: null },
     routines,
