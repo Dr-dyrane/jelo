@@ -280,11 +280,11 @@
 
 .routinePreviewList {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
-  max-width: 42rem;
 }
 
 .routinePreviewRow {
@@ -398,6 +398,7 @@
 
 .priceEvidenceList {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 12px;
   margin: 0;
   padding: 0;
@@ -1251,6 +1252,17 @@
   /* Ensure section headings and actions can scroll above the fixed dock */
   .scroll { scroll-padding-bottom: 100px; }
   .content { padding-bottom: calc(220px + env(safe-area-inset-bottom)); }
+}
+
+/* List-card sections grow from 1 to 2 to 3 columns as the screen widens */
+@media (min-width: 680px) {
+  .routinePreviewList,
+  .priceEvidenceList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1040px) {
+  .routinePreviewList,
+  .priceEvidenceList { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
