@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { RetailerList } from '@/components/commerce/retailer-list';
 import { ShareButton } from '@/components/share/share-button';
+import { useControlledDialog } from '@/components/ui/use-controlled-dialog';
 import { nigeriaRetailers } from '@/data/retailers';
 import type {
   ProductPanelData,
@@ -55,26 +56,18 @@ export function ProductQuickPanelSheet({
 }: ProductQuickPanelSheetProps) {
   const generatedDialogId = useId();
   const dialogId = providedDialogId ?? generatedDialogId;
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const tabRefs = useRef<Partial<Record<ProductPanelTab, HTMLButtonElement | null>>>({});
   const closeRequestedRef = useRef(false);
-  const wasOpenRef = useRef(false);
-  const bodyOverflowRef = useRef<string | null>(null);
+
+  const { dialogRef } = useControlledDialog({
+    open,
+    onClose,
+    restoreFocusRef,
+  });
 
   const exactRetailers = new Set(data.offers.filter(hasListingEvidence).map(offer => offer.retailer));
   const shareable = hasShareableNgOffer({ offers: data.offers });
   const moreStores = nigeriaRetailers.filter(store => !exactRetailers.has(store.name));
-
-  const unlockBody = useCallback(() => {
-    if (bodyOverflowRef.current == null) return;
-    document.body.style.overflow = bodyOverflowRef.current;
-    bodyOverflowRef.current = null;
-  }, []);
-
-  const restoreFocus = useCallback(() => {
-    const target = restoreFocusRef?.current;
-    if (target?.isConnected) target.focus();
-  }, [restoreFocusRef]);
 
   const requestClose = useCallback(() => {
     if (closeRequestedRef.current) return;
@@ -82,61 +75,23 @@ export function ProductQuickPanelSheet({
     onClose();
   }, [onClose]);
 
+  const handlePanelBackdropClick = useCallback((event: React.MouseEvent<HTMLDialogElement>) => {
+    if (event.target === event.currentTarget) requestClose();
+  }, [requestClose]);
+
+  const handlePanelCancel = useCallback((event: React.SyntheticEvent) => {
+    event.preventDefault();
+    requestClose();
+  }, [requestClose]);
+
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    if (open) {
-      closeRequestedRef.current = false;
-      wasOpenRef.current = true;
-      if (bodyOverflowRef.current == null) {
-        bodyOverflowRef.current = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
-      }
-
-      if (!dialog.open) {
-        try {
-          dialog.showModal();
-        } catch {
-          dialog.dataset.fallbackModal = 'true';
-          dialog.setAttribute('open', '');
-        }
-      }
-
-      const focusFrame = window.requestAnimationFrame(() => {
-        tabRefs.current[tab]?.focus();
-      });
-      return () => window.cancelAnimationFrame(focusFrame);
-    }
-
-    if (dialog.open) {
-      if (dialog.dataset.fallbackModal === 'true') {
-        dialog.removeAttribute('open');
-        delete dialog.dataset.fallbackModal;
-      } else {
-        dialog.close();
-      }
-    }
-
-    unlockBody();
-    if (wasOpenRef.current) {
-      wasOpenRef.current = false;
-      restoreFocus();
-    }
-  }, [open, restoreFocus, tab, unlockBody]);
-
-  useEffect(() => () => {
-    const dialog = dialogRef.current;
-    if (dialog?.open) {
-      if (dialog.dataset.fallbackModal === 'true') {
-        dialog.removeAttribute('open');
-        delete dialog.dataset.fallbackModal;
-      } else {
-        dialog.close();
-      }
-    }
-    unlockBody();
-  }, [unlockBody]);
+    if (!open) return;
+    closeRequestedRef.current = false;
+    const focusFrame = window.requestAnimationFrame(() => {
+      tabRefs.current[tab]?.focus();
+    });
+    return () => window.cancelAnimationFrame(focusFrame);
+  }, [open, tab]);
 
   function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, currentTab: ProductPanelTab) {
     const currentIndex = tabs.findIndex(item => item.id === currentTab);
@@ -188,18 +143,9 @@ export function ProductQuickPanelSheet({
       ref={dialogRef}
       aria-labelledby={`${dialogId}-title`}
       aria-modal="true"
-      onCancel={event => {
-        event.preventDefault();
-        requestClose();
-      }}
-      onClose={() => {
-        unlockBody();
-        restoreFocus();
-      }}
+      onCancel={handlePanelCancel}
       onKeyDown={handleDialogKeyDown}
-      onClick={event => {
-        if (event.target === event.currentTarget) requestClose();
-      }}
+      onClick={handlePanelBackdropClick}
     >
       <div className="product-panel-frame">
         <span className="product-panel-handle" aria-hidden="true" />

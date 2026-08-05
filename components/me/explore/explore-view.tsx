@@ -1,9 +1,10 @@
 'use client';
 
 import { Search, SlidersHorizontal, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
 import { ProductCard, type ProductCardContext } from '@/components/products/product-card';
+import { useControlledDialog } from '@/components/ui/use-controlled-dialog';
 import { ME_PORTAL_SURFACES } from '@/components/me/shell/me-shell-model';
 import type { CustomerPortalViewModel } from '@/lib/customer/portal-model';
 import type { ShelfActionHandler } from '@/components/me/shelf/me-shelf-state';
@@ -94,15 +95,12 @@ function ExploreFilterSheet({
   onChange: (filters: CustomerExploreFilterState) => void;
   onClose: () => void;
 }) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const { dialogRef, handleCancel, handleBackdropClick } = useControlledDialog({
+    open,
+    onClose,
+    restoreFocusRef: triggerRef,
+  });
   const activeCount = countCustomerExploreFilters(filters);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
-  }, [open]);
 
   const close = () => {
     onClose();
@@ -119,8 +117,8 @@ function ExploreFilterSheet({
       ref={dialogRef}
       className={styles.filterDialog}
       aria-labelledby="me-explore-filter-title"
-      onCancel={(event) => { event.preventDefault(); close(); }}
-      onClick={(event) => { if (event.target === event.currentTarget) close(); }}
+      onCancel={handleCancel}
+      onClick={handleBackdropClick}
     >
       <div className={styles.filterSheet}>
         <header className={styles.filterSheetHeader}>

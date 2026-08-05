@@ -254,6 +254,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   const contextModel = readFileSync('components/me/shell/me-context-model.ts', 'utf8');
   const capsule = readFileSync('components/workspace-shell/dock-context.tsx', 'utf8');
   const sheet = readFileSync('components/me/shell/me-context-sheet.tsx', 'utf8');
+  const modalHook = readFileSync('components/ui/use-modal-dialog.ts', 'utf8');
   assert.match(capsule, /data-workspace-dock-context-action/);
   assert.match(capsule, /aria-expanded=\{context\.controls \? context\.expanded : undefined\}/);
   assert.match(capsule, /aria-controls=\{context\.controls\}/);
@@ -264,10 +265,10 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   assert.match(home, /accountSheetOpen: accountSheetOpen \|\| contextSheetOpen \|\| productPanelOpen/);
   assert.doesNotMatch(contextModel, /\/products\//);
   assert.match(sheet, /role="dialog"/);
-  assert.match(sheet, /dialog\.showModal\(\)/);
-  assert.match(sheet, /body\.style\.overflow = 'hidden'/);
-  assert.match(sheet, /trigger\?\.focus/);
-  assert.match(sheet, /onCancel=\{closeFromEscape\}/);
+  assert.match(modalHook, /element\.showModal\(\)/);
+  assert.match(modalHook, /scrollOwner\.style\.overflow = 'hidden'/);
+  assert.match(modalHook, /trigger\?\.isConnected\) trigger\.focus/);
+  assert.match(sheet, /onCancel=\{handleCancel\}/);
 });
 
 test('member routes are guarded, stack-owned, and never replace public product routes', () => {
@@ -406,6 +407,7 @@ test('account avatar owns one accessible extensible modal sheet', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const sheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
   const sheetStyles = readFileSync('components/me/shell/me-account-sheet.module.css', 'utf8');
+  const modalHook = readFileSync('components/ui/use-modal-dialog.ts', 'utf8');
 
   assert.doesNotMatch(home, /<details|<summary/);
   assert.match(home, /aria-haspopup="dialog"/);
@@ -413,15 +415,11 @@ test('account avatar owns one accessible extensible modal sheet', () => {
   assert.match(sheet, /role="dialog"/);
   assert.match(sheet, /aria-modal="true"/);
   assert.match(sheet, /aria-labelledby="me-account-sheet-title"/);
-  assert.match(sheet, /dialog\.showModal\(\)/);
-  assert.match(sheet, /onCancel=\{closeFromEscape\}/);
-  assert.match(sheet, /onKeyDown=\{closeFromKeyDown\}/);
-  assert.match(sheet, /event\.key !== 'Escape'/);
-  assert.match(sheet, /event\.target === event\.currentTarget/);
-  assert.match(sheet, /closeRef\.current\?\.focus/);
-  assert.match(sheet, /const trigger = triggerRef\.current/);
-  assert.match(sheet, /trigger\?\.focus/);
-  assert.match(sheet, /body\.style\.overflow = 'hidden'/);
+  assert.match(modalHook, /element\.showModal\(\)/);
+  assert.match(sheet, /onCancel=\{handleCancel\}/);
+  assert.match(sheet, /initialFocusRef: closeRef/);
+  assert.match(modalHook, /trigger\?\.isConnected\) trigger\.focus/);
+  assert.match(modalHook, /scrollOwner\.style\.overflow = 'hidden'/);
   assert.match(sheet, /ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem\[\] = \[[\s\S]*Report price or availability[\s\S]*href: '\/contribute'/);
   assert.doesNotMatch(sheet, /\/contribute\?/);
   assert.match(sheet, /href="\/me\/shelf\/export"/);

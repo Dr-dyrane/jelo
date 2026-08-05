@@ -21,7 +21,7 @@ test('the product panel exposes one controlled dialog with a stable accessible t
   assert.match(component, /aria-labelledby={`\$\{dialogId\}-tab-details`}/);
   assert.match(component, /onCancel=/);
   assert.match(component, /event\.key === 'Escape'/);
-  assert.match(component, /restoreFocus\(\)/);
+  assert.match(component, /useControlledDialog/);
   assert.equal(component.match(/hidden=\{tab !== '(?:buy|stores|details)'\}/g)?.length, 3);
   assert.match(panelStyles, /\.product-panel-body \[hidden\] \{ display: none !important; \}/);
 });

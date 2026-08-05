@@ -4,17 +4,14 @@ import Link from 'next/link';
 import { ArrowRight, CircleUserRound, Download, LogOut, Trash2, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
-  useEffect,
   useRef,
   useState,
   useTransition,
-  type KeyboardEvent,
-  type MouseEvent,
   type RefObject,
-  type SyntheticEvent,
 } from 'react';
 import { clearShelfAction } from '@/app/(customer)/me/actions';
 import { createPreviewShelfExport } from '@/components/me/shelf/me-shelf-state';
+import { useControlledDialog } from '@/components/ui/use-controlled-dialog';
 import { ThemeToggle } from '@/components/navigation/theme-toggle';
 import { authClient } from '@/lib/auth/client';
 import type {
@@ -53,34 +50,17 @@ export function MeAccountSheet({
 }) {
   const shelfCount = shelfItems.length;
   const router = useRouter();
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const { dialogRef, handleCancel, handleBackdropClick } = useControlledDialog({
+    open,
+    onClose,
+    restoreFocusRef: triggerRef,
+    initialFocusRef: closeRef,
+  });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [lifecycleFeedback, setLifecycleFeedback] = useState('');
   const [clearing, startClearing] = useTransition();
-
-  useEffect(() => {
-    if (!open) return;
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const body = document.body;
-    const trigger = triggerRef.current;
-    const previousOverflow = body.style.overflow;
-    const previousOverscroll = body.style.overscrollBehavior;
-    body.style.overflow = 'hidden';
-    body.style.overscrollBehavior = 'none';
-    if (!dialog.open) dialog.showModal();
-    const frame = window.requestAnimationFrame(() => closeRef.current?.focus({ preventScroll: true }));
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      if (dialog.open) dialog.close();
-      body.style.overflow = previousOverflow;
-      body.style.overscrollBehavior = previousOverscroll;
-      trigger?.focus({ preventScroll: true });
-    };
-  }, [open, triggerRef]);
 
   async function signOut() {
     if (busy) return;
@@ -129,21 +109,6 @@ export function MeAccountSheet({
     setLifecycleFeedback('Preview Shelf exported.');
   }
 
-  function closeFromBackdrop(event: MouseEvent<HTMLDialogElement>) {
-    if (event.target === event.currentTarget) onClose();
-  }
-
-  function closeFromEscape(event: SyntheticEvent<HTMLDialogElement>) {
-    event.preventDefault();
-    onClose();
-  }
-
-  function closeFromKeyDown(event: KeyboardEvent<HTMLDialogElement>) {
-    if (event.key !== 'Escape') return;
-    event.preventDefault();
-    onClose();
-  }
-
   if (!open) return null;
 
   return (
@@ -154,9 +119,8 @@ export function MeAccountSheet({
       role="dialog"
       aria-modal="true"
       aria-labelledby="me-account-sheet-title"
-      onCancel={closeFromEscape}
-      onKeyDown={closeFromKeyDown}
-      onClick={closeFromBackdrop}
+      onCancel={handleCancel}
+      onClick={handleBackdropClick}
     >
       <section
         className={styles.sheet}

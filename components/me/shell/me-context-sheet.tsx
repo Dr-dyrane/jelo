@@ -2,14 +2,8 @@
 
 import Link from 'next/link';
 import { ArrowRight, Sparkles, X } from 'lucide-react';
-import {
-  useEffect,
-  useRef,
-  type KeyboardEvent,
-  type MouseEvent,
-  type RefObject,
-  type SyntheticEvent,
-} from 'react';
+import { useRef, type RefObject } from 'react';
+import { useControlledDialog } from '@/components/ui/use-controlled-dialog';
 import type { MeContextSheetModel } from './me-context-model';
 import styles from './me-account-sheet.module.css';
 
@@ -24,45 +18,13 @@ export function MeContextSheet({
   onClose: () => void;
   triggerRef: RefObject<HTMLButtonElement | null>;
 }) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const body = document.body;
-    const trigger = triggerRef.current;
-    const previousOverflow = body.style.overflow;
-    const previousOverscroll = body.style.overscrollBehavior;
-    body.style.overflow = 'hidden';
-    body.style.overscrollBehavior = 'none';
-    if (!dialog.open) dialog.showModal();
-    const frame = window.requestAnimationFrame(() => closeRef.current?.focus({ preventScroll: true }));
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      if (dialog.open) dialog.close();
-      body.style.overflow = previousOverflow;
-      body.style.overscrollBehavior = previousOverscroll;
-      trigger?.focus({ preventScroll: true });
-    };
-  }, [open, triggerRef]);
-
-  function closeFromBackdrop(event: MouseEvent<HTMLDialogElement>) {
-    if (event.target === event.currentTarget) onClose();
-  }
-
-  function closeFromEscape(event: SyntheticEvent<HTMLDialogElement>) {
-    event.preventDefault();
-    onClose();
-  }
-
-  function closeFromKeyDown(event: KeyboardEvent<HTMLDialogElement>) {
-    if (event.key !== 'Escape') return;
-    event.preventDefault();
-    onClose();
-  }
+  const { dialogRef, handleCancel, handleBackdropClick } = useControlledDialog({
+    open,
+    onClose,
+    restoreFocusRef: triggerRef,
+    initialFocusRef: closeRef,
+  });
 
   if (!open) return null;
 
@@ -75,9 +37,8 @@ export function MeContextSheet({
       aria-modal="true"
       aria-labelledby="me-context-sheet-title"
       aria-describedby="me-context-sheet-summary"
-      onCancel={closeFromEscape}
-      onKeyDown={closeFromKeyDown}
-      onClick={closeFromBackdrop}
+      onCancel={handleCancel}
+      onClick={handleBackdropClick}
     >
       <section className={styles.sheet}>
         <header className={styles.heading}>
