@@ -229,7 +229,6 @@
 
 .feedSection {
   padding: clamp(12px, 2vw, 20px) clamp(6px, 2vw, 24px);
-  max-width: 60rem;
 }
 
 .feedSectionHeading {
@@ -376,12 +375,23 @@
   background: color-mix(in srgb, var(--paper) 68%, transparent);
 }
 
-/* --- Home shelf rail: compact card width for feed density --- */
+/* --- Home shelf rail: compact card width for feed density ---
+   Negative margin mirrors the content padding AND the feedSection padding
+   so the rail bleeds edge-to-edge at every breakpoint. */
 
 .feedShelfRail {
-  grid-auto-columns: minmax(11rem, 22vw) !important;
-  margin: 1rem -4vw 0 !important;
-  padding: .4rem 4vw 1.5rem !important;
+  grid-auto-columns: minmax(11rem, 22vw);
+  margin-inline: calc(-1 * (clamp(16px, 4vw, 64px) + clamp(6px, 2vw, 24px)));
+  padding-inline: calc(clamp(16px, 4vw, 64px) + clamp(6px, 2vw, 24px));
+  padding-block: 0.4rem 1.5rem;
+  margin-block: 1rem 0;
+}
+
+@media (max-width: 620px) {
+  .feedShelfRail {
+    margin-inline: calc(-1 * (12px + clamp(6px, 2vw, 24px)));
+    padding-inline: calc(12px + clamp(6px, 2vw, 24px));
+  }
 }
 
 /* --- Price evidence section --- */
