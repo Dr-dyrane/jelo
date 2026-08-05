@@ -529,16 +529,16 @@
     "id": "b-lab-matcha-hydrating-real-sunscreen-v1",
     "active": true,
     "productSlug": "b-lab-matcha-hydrating-real-sunscreen",
-    "sourceUrl": "https://b-labskincare.com/web/product/big/202407/c704a28e6d2187bf046516ba6e853c5d.png",
+    "sourceUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
     "localPath": "/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
     "blobPath": "products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
     "contentType": "image/png",
-    "byteSize": 472398,
+    "byteSize": 101581,
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "11e9d2dc637f5b5c2179bf76c88c610ef3d8d7beab053d0f27ba0979dabac5f0"
+    "contentHash": "b3cabe9824cfd8886e4ec7902c58534aab5dbe06d39284376c7547600ac2a55f"
   },
   {
     "id": "mediana-leave-in-conditioning-milk-v1",
