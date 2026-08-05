@@ -30,6 +30,7 @@ import {
   type ShelfActionHandler,
 } from '@/components/me/shelf/me-shelf-state';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { ProductCard, type ProductCardContext } from '@/components/products/product-card';
 import { ProductQuickPanelSheet } from '@/components/products/product-quick-panel';
 import {
   WorkspaceDockProvider,
@@ -65,7 +66,6 @@ import {
   flattenCustomerExplore,
   type CustomerExploreFilterOptions,
   type CustomerExploreFilterState,
-  type CustomerExploreProduct,
   type CustomerExploreProjection,
 } from '@/lib/customer/explore-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
@@ -79,80 +79,6 @@ const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
 function memberProductHref(product: CustomerPortalProduct, source?: ProductSource) {
   const pathname = `/me/product/${product.slug}`;
   return source ? `${pathname}?from=${source}` : pathname;
-}
-
-function ProductListCard({
-  product,
-  source,
-}: {
-  product: CustomerPortalProduct;
-  source: ProductSource;
-}) {
-  return (
-    <article className={styles.productCardShell}>
-      <Link className={styles.productCard} href={memberProductHref(product, source)}>
-        <span className={styles.productImage}>
-          <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
-        </span>
-        <span className={styles.productCopy}>
-          <small>{product.brand}</small>
-          <strong>{product.name}</strong>
-          <span>{product.category} · {product.size}</span>
-        </span>
-        <ArrowRight size={18} aria-hidden="true" />
-      </Link>
-    </article>
-  );
-}
-
-function ExploreCard({
-  product,
-  source = 'explore',
-  shelfItem,
-  showShelfAction = false,
-  shelfAction,
-  context,
-}: {
-  product: CustomerPortalProduct;
-  source?: ProductSource;
-  shelfItem?: CustomerPortalShelfItem;
-  showShelfAction?: boolean;
-  shelfAction?: ShelfActionHandler;
-  context?: CustomerExploreProduct;
-}) {
-  return (
-    <article className={styles.exploreCard}>
-      <Link href={memberProductHref(product, source)} aria-label={`${product.brand} ${product.name}`}>
-        <span className={styles.exploreVisual}>
-          <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
-        </span>
-        <span className={styles.exploreCopy}>
-          <small>{product.brand}</small>
-          <strong>{product.name}</strong>
-          <span className={styles.exploreMeta}>
-            <span>{product.size}</span>
-            {product.priceLabel ? <span>{product.priceLabel}</span> : null}
-          </span>
-          {context ? (
-            <span className={styles.exploreContext} aria-label="Your product context">
-              {context.onShelf ? <span>On your Shelf</span> : null}
-              {context.inRoutine ? <span>In your routine</span> : null}
-              {context.matchedConcernSlugs.length ? <span>Reviewed concern support</span> : null}
-              {context.matchedRetailerNames.map(name => <span key={name}>{name}</span>)}
-            </span>
-          ) : null}
-        </span>
-      </Link>
-      {showShelfAction ? (
-        <ShelfActionButton
-          productSlug={product.slug}
-          saved={Boolean(shelfItem)}
-          placement="explore"
-          onAction={shelfAction}
-        />
-      ) : null}
-    </article>
-  );
 }
 
 function UnavailableShelfCard({
@@ -306,12 +232,12 @@ function HomePage({
           <Link className={styles.sectionLink} href={'/me/shelf'}>Open Shelf <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         {viewModel.shelf.length ? (
-          <div className={styles.productGrid}>
+          <div className="product-grid">
             {viewModel.shelf.slice(0, 3).map((item) => item.product ? (
-              <ProductListCard
+              <ProductCard
                 key={item.identityVersionId}
                 product={item.product}
-                source="shelf"
+                href={memberProductHref(item.product, 'shelf')}
               />
             ) : (
               <UnavailableShelfCard
@@ -567,17 +493,32 @@ function ExplorePage({
                   <h2 id={headingId}>{section.title}</h2>
                   <p>{section.description}</p>
                 </header>
-                <div className={styles.exploreGrid}>
-                  {section.products.map((entry) => (
-                    <ExploreCard
-                      key={entry.product.slug}
-                      product={entry.product}
-                      context={entry}
-                      shelfItem={viewModel.shelf.find(item => item.product?.slug === entry.product.slug)}
-                      showShelfAction={viewModel.shelfState.status === 'ready'}
-                      shelfAction={shelfAction}
-                    />
-                  ))}
+                <div className="product-grid">
+                  {section.products.map((entry) => {
+                    const shelfItem = viewModel.shelf.find(item => item.product?.slug === entry.product.slug);
+                    const cardContext: ProductCardContext = {
+                      onShelf: entry.onShelf,
+                      inRoutine: entry.inRoutine,
+                      reviewedConcern: entry.matchedConcernSlugs.length > 0,
+                      retailerNames: entry.matchedRetailerNames,
+                    };
+                    return (
+                      <ProductCard
+                        key={entry.product.slug}
+                        product={entry.product}
+                        href={memberProductHref(entry.product, 'explore')}
+                        context={cardContext}
+                        footer={viewModel.shelfState.status === 'ready' ? (
+                          <ShelfActionButton
+                            productSlug={entry.product.slug}
+                            saved={Boolean(shelfItem)}
+                            placement="explore"
+                            onAction={shelfAction}
+                          />
+                        ) : null}
+                      />
+                    );
+                  })}
                 </div>
               </section>
             );
@@ -638,12 +579,12 @@ function ShelfPage({
           <Link href="/me/shelf">Try again</Link>
         </div>
       ) : viewModel.shelf.length ? (
-        <div className={`${styles.productGrid} ${styles.listPage}`}>
+        <div className="product-grid">
           {viewModel.shelf.map((item) => item.product ? (
-            <ProductListCard
+            <ProductCard
               key={item.identityVersionId}
               product={item.product}
-              source="shelf"
+              href={memberProductHref(item.product, 'shelf')}
             />
           ) : (
             <UnavailableShelfCard
@@ -796,8 +737,10 @@ function ConsultPage({
       <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search my care" />
       {search.trim() ? (
         products.length ? (
-          <div className={styles.exploreGrid}>
-            {products.slice(0, 6).map((product) => <ExploreCard key={product.slug} product={product} source="home" />)}
+          <div className="product-grid">
+            {products.slice(0, 6).map((product) => (
+              <ProductCard key={product.slug} product={product} href={memberProductHref(product, 'home')} />
+            ))}
           </div>
         ) : (
           <p className={styles.empty}>No exact catalogue products match that search.</p>

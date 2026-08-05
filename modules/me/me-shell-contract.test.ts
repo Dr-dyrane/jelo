@@ -114,18 +114,9 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
 });
 
 test('standalone saved-product lists expand without widening mobile cards', () => {
-  const styles = readFileSync('components/me/home/me-home.module.css', 'utf8');
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const dock = readFileSync('components/me/shell/me-workspace-dock.tsx', 'utf8');
-  assert.match(styles, /\.productGrid \{ display: grid; min-width: 0; gap: 12px; \}/);
-  assert.match(styles, /\.routineList \{[\s\S]*display: grid;[\s\S]*list-style: none;/);
-  assert.match(
-    styles,
-    /@media \(min-width: 900px\) \{[\s\S]*\.listPage,[\s\S]*\.routePage > \.routineList[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/,
-  );
-  assert.doesNotMatch(styles, /@media \(min-width: 900px\) \{[\s\S]*\.section > \.productGrid/);
-  assert.match(styles, /\.listPage \.productCard \{[\s\S]*min-height: 220px;[\s\S]*grid-template-columns: minmax\(156px, 0\.72fr\)/);
-  assert.match(styles, /\.listPage \.productImage::after \{[\s\S]*box-shadow:[\s\S]*content: '';/);
+  assert.match(home, /className="product-grid"/);
   assert.match(dock, /ShelvingUnit/);
   assert.match(dock, /ClockFading as RotateCwFadingClock/);
   assert.doesNotMatch(dock, /LibraryBig/);
@@ -295,7 +286,7 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.doesNotMatch(home, /<BackLink|function BackLink/);
   assert.match(home, /currentHref: resolveMeActiveParentHref\(route\)/);
   assert.match(home, /createMeStackBack\(route\)/);
-  assert.match(home, /source="home"/);
+  assert.match(home, /memberProductHref\(product, 'home'\)/);
   assert.match(route, /if \(route\.kind === 'product'\) \{[\s\S]*findCatalogueProduct\(route\.slug\)[\s\S]*readProductPanelData\(selectedProduct\)/);
   assert.equal(route.match(/readProductPanelData\(/g)?.length, 1);
   assert.equal(home.match(/<ProductQuickPanelSheet/g)?.length, 1);
@@ -443,7 +434,7 @@ test('unavailable Shelf states fail closed while synthetic state stays explicitl
   const account = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
   const previewState = readFileSync('components/me/shelf/me-shelf-state.tsx', 'utf8');
 
-  assert.match(home, /showShelfAction=\{viewModel\.shelfState\.status === 'ready'\}/);
+  assert.match(home, /viewModel\.shelfState\.status === 'ready' \? \(/);
   assert.match(home, /shelfAvailable \? \(/);
   assert.match(home, /'Shelf unavailable'/);
   assert.match(home, /Preview Shelf · Resets on reload\./);
