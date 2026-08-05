@@ -12,6 +12,9 @@ export const DockContextCapsule = forwardRef<HTMLButtonElement, { context: DockC
     <>
       {context.label ? <span className={styles.contextLabel}>{context.label}</span> : null}
       <span className={styles.contextDetail}>{context.detail}</span>
+      {context.compactDetail ? (
+        <span className={styles.contextDetailCompact} aria-hidden="true">{context.compactDetail}</span>
+      ) : null}
       {context.onInvoke ? <ChevronRight className={styles.contextChevron} size={16} aria-hidden="true" /> : null}
     </>
   );

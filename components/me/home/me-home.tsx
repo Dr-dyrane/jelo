@@ -354,6 +354,7 @@ function MePortalView({
   } : {
     ...context,
     label: route.kind === 'home' ? '' : context.label,
+    compactDetail: route.kind === 'home' ? `${shelfCount} saved` : undefined,
     accessibleLabel: route.kind === 'home'
       ? `Home summary. ${shelfCount} saved products and ${routineStepCount} routine steps`
       : `Open ${context.label} summary. ${context.detail}`,

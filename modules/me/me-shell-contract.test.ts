@@ -403,6 +403,37 @@ test('Me paints through the top viewport inset while keeping its controls safe',
   assert.match(styles, /\.content \{[^}]*env\(safe-area-inset-bottom\)/);
 });
 
+test('HomeView wires the shelf rail through the CSS module, not a global class', () => {
+  const homeView = readFileSync('components/me/home/home-view.tsx', 'utf8');
+  assert.match(homeView, /className=\{`product-rail \$\{styles\.feedShelfRail\}`\}/);
+  assert.doesNotMatch(homeView, /className="product-rail feedShelfRail"/);
+});
+
+test('the ultra-narrow section-heading rule exists and stacks headings vertically', () => {
+  const styles = readFileSync('components/me/home/me-home.module.css', 'utf8');
+  assert.match(styles, /@media \(max-width: 240px\)[^{]*\{[^}]*\.feedSectionHeading \{[^}]*flex-direction: column/);
+});
+
+test('the compact reading pill does not become an ellipsised fragment', () => {
+  const dockStyles = readFileSync('components/workspace-shell/adaptive-workspace-dock.module.css', 'utf8');
+  const dockContext = readFileSync('components/workspace-shell/dock-context.tsx', 'utf8');
+  const dockModel = readFileSync('lib/workspace-shell/dock-model.ts', 'utf8');
+  const meHome = readFileSync('components/me/home/me-home.tsx', 'utf8');
+
+  // The DockContextDescriptor type supports a compactDetail field.
+  assert.match(dockModel, /compactDetail\?:/);
+  // The capsule renders the compact detail as a separate span.
+  assert.match(dockContext, /contextDetailCompact/);
+  // The CSS swaps full detail for compact detail at ultra-narrow width.
+  assert.match(dockStyles, /\.contextDetailCompact/);
+  assert.match(dockStyles, /@media \(max-width: 240px\)[\s\S]*\.contextDetail \{ display: none/);
+  assert.match(dockStyles, /@media \(max-width: 240px\)[\s\S]*\.contextDetailCompact \{ display: block/);
+  // Home sets compactDetail to a useful short reading, not a truncated fragment.
+  assert.match(meHome, /compactDetail: route\.kind === 'home' \? `\$\{shelfCount\} saved` : undefined/);
+  // The full accessible label retains both counts.
+  assert.match(meHome, /Home summary\. \$\{shelfCount\} saved products and \$\{routineStepCount\} routine steps/);
+});
+
 test('account avatar owns one accessible extensible modal sheet', () => {
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
   const sheet = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');

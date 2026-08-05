@@ -110,6 +110,17 @@
   font-weight: 500;
 }
 
+.contextDetailCompact {
+  display: none;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--workspace-dock-ink) 76%, transparent);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
 .contextAction {
   cursor: pointer;
   font: inherit;
@@ -250,6 +261,13 @@
   .navigationItem {
     min-height: 42px;
   }
+}
+
+/* Ultra-narrow: swap full detail for compact detail to prevent
+   truncation like "5 sa…" while keeping the full accessible label. */
+@media (max-width: 240px) {
+  .contextDetail { display: none; }
+  .contextDetailCompact { display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {

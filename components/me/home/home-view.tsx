@@ -115,7 +115,7 @@ export function HomeView({
             <h2 id="me-shelf-preview-title">Recently saved</h2>
             <Link className={styles.feedSectionLink} href={'/me/shelf'}>Open shelf <ArrowRight size={14} aria-hidden="true" /></Link>
           </div>
-          <div className="product-rail feedShelfRail">
+          <div className={`product-rail ${styles.feedShelfRail}`}>
             {shelfSection.items.map((item) => item.product ? (
               <ProductCard
                 key={item.identityVersionId}

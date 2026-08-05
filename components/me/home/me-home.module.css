@@ -1182,6 +1182,36 @@
   .stateDock nav a { padding-inline: 8px; font-size: 0.66rem; }
 }
 
+/* Ultra-narrow: stack feed section headings and trailing actions vertically
+   so both the heading and the action remain fully readable at 240px and below. */
+@media (max-width: 240px) {
+  .feedSectionHeading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .feedSectionHeading h2 {
+    font-size: 0.95rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .feedSectionLink {
+    font-size: 0.72rem;
+  }
+  .feedGreetingName {
+    font-size: 1.4rem;
+  }
+  .feedAskLink strong {
+    font-size: 0.82rem;
+  }
+  .feedAskLink small {
+    font-size: 0.62rem;
+  }
+  /* Ensure section headings and actions can scroll above the fixed dock */
+  .scroll { scroll-padding-bottom: 100px; }
+  .content { padding-bottom: calc(220px + env(safe-area-inset-bottom)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .topbar,
   .primaryAction,

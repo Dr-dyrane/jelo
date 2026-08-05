@@ -24,6 +24,10 @@ export type DockContextDescriptor = {
   id: string;
   label: string;
   detail: string;
+  /** Shorter detail shown at ultra-narrow widths via CSS. The full
+   * detail remains available to assistive technology through the
+   * accessibleLabel. */
+  compactDetail?: string;
   accessibleLabel?: string;
   onInvoke?: () => void;
   controls?: string;
