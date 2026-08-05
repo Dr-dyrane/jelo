@@ -1,6 +1,6 @@
 # Adaptive workspace dock
 
-Updated: 2026-08-03
+Updated: 2026-08-05
 
 The adaptive workspace dock is a neutral shell primitive for route-owned
 navigation, non-mutating context, and exactly one registered primary action per page. JeloCare
@@ -181,7 +181,7 @@ evidence contract.
 
 ## Rollback
 
-The primitive and thin Me adapter are unused by production routes. Remove their
-foundation commit if mode derivation, focus, owner-token cleanup, material
-fallbacks, or route isolation regress. No route, customer record, migration, or
-data repair is involved.
+The primitive is actively used by production `/me` routes. If mode derivation,
+focus, owner-token cleanup, material fallbacks, or route isolation regress,
+remove the dock from `MePortal` and restore direct navigation. No customer
+record, migration, or data repair is involved.

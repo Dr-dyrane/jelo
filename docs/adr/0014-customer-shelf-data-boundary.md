@@ -5,6 +5,12 @@
 - **Decision owner:** Founder
 - **Extends:** [ADR 0013](0013-founder-led-jelocare-me.md)
 
+> **Shipped capability baseline:** See
+> [`lib/customer/customer-capabilities.ts`](../../lib/customer/customer-capabilities.ts)
+> for the single authoritative record of what currently ships. This ADR owns
+> the data boundary decision; it does not independently describe shipped
+> feature state.
+
 ## Outcome
 
 JeloCare Me may persist one customer-owned Shelf row per immutable public

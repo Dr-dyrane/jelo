@@ -1,6 +1,6 @@
 # Product roadmap
 
-Updated: 2026-08-03
+Updated: 2026-08-05
 
 The roadmap is ordered by dependency, not novelty.
 
@@ -11,13 +11,16 @@ The roadmap is ordered by dependency, not novelty.
 - The authenticated `/me` route family, Home/Explore/Shelf/Routine navigation,
   Ask Me and member Product stack routes, adaptive shell, exact catalogue read
   model, honest real-account empty states, and development-only populated
-  presentation now ship. Explore currently renders at most 12 filtered products
-  from a 63-product eligible public projection snapshot; no Me helper currently
-  links to `/contribute`.
-- Shelf/Routine persistence, customer-controlled Concerns, authenticated Ask
-  submission, personalisation, lifecycle recovery, complete eligible-catalogue
-  Explore, the global public-intake helper, and basket/refill decisions do not
-  ship. The 63 snapshot is evidence, not a fixed product limit.
+  presentation now ship. Explore partitions the full eligible projection
+  without a fixed client cap. The global report helper links to `/contribute`
+  from the Account sheet.
+- Shelf persistence, Routine persistence, private product requests, complete
+  Explore, member-Product OTP continuation, and the global report helper now
+  ship. The authoritative capability baseline is
+  [`lib/customer/customer-capabilities.ts`](../../lib/customer/customer-capabilities.ts).
+- Customer-controlled Concerns, authenticated Ask submission, personalisation,
+  lifecycle recovery, basket/refill decisions, and request operating closure
+  do not ship. The catalogue snapshot is evidence, not a fixed product limit.
 - Use [JeloCare Me](./JELOCARE_ME.md) for product/route ownership and the
   [production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md) for the single
   detailed shipped-vs-missing baseline, dependency order, phase gates,

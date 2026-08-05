@@ -1,18 +1,20 @@
 # JeloCare Me
 
-Updated: 2026-08-04
+Updated: 2026-08-05
 
 JeloCare Me is the authenticated customer workspace for asking, discovering,
-saving, and organising care. Its first release ships the real `/me` route
-family, verified-session guard, warm adaptive shell, truthful empty states, and
-a development-only synthetic presentation. The current Phase 1 candidate adds
-owner-isolated canonical Shelf persistence, private missing-product requests,
-complete eligible-catalogue Explore reachability, exact member-Product OTP
-continuation, and the global public reporting helper. Production activation is
-not complete until the restricted database roles, operator migration/import,
-audit, deployment, and authenticated smoke checklist pass. Routine persistence,
-canonical user-controlled Concerns, true AI guidance, and the operating closure
-for private requests are not part of this release.
+saving, and organising care. It ships the real `/me` route family,
+verified-session guard, warm adaptive shell, truthful empty states, and a
+development-only synthetic presentation. Shipped capabilities include
+owner-isolated canonical Shelf persistence, owner-isolated Routine persistence
+with create/update/delete actions, private missing-product requests, complete
+eligible-catalogue Explore reachability, exact member-Product OTP continuation,
+and the global public reporting helper.
+
+The single authoritative record of what currently ships is
+[`lib/customer/customer-capabilities.ts`](../../lib/customer/customer-capabilities.ts).
+This document owns product purpose, vocabulary, and route/code ownership; it
+does not independently describe shipped feature state.
 
 [ADR 0013](../adr/0013-founder-led-jelocare-me.md) owns the decision and code
 boundaries. The [adaptive workspace dock](../design/ADAPTIVE_WORKSPACE_DOCK.md)
@@ -48,7 +50,7 @@ compact product row.
 | Home | `/me` | Return to the customer's care overview and Ask Me entry | Ask Me → `/me/consult` |
 | Explore | `/me/explore` | Browse or search every currently eligible exact public catalogue product without treating it as owned | Search products → focus the real catalogue field |
 | Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products without counting private requests as saved | Add to your Shelf → `/me/shelf/add` |
-| Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Explore products → `/me/explore` until routine mutation ships |
+| Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Create routine → open the routine builder sheet |
 
 Four authenticated stack pages sit above that primary model:
 
@@ -144,7 +146,7 @@ while Home previews retain their editorial section composition.
   local flag, performs no network or database work, and fails closed elsewhere.
 - Explore and member Product reuse current exact catalogue records and assets.
   Explore partitions the full eligible projection without a fixed client cap;
-  all 63 products in the 2026-08-03 snapshot are reachable by browse or search,
+  all 59 products in the 2026-08-05 snapshot are reachable by browse or search,
   and add/retire fixtures prove the count follows publication state.
   A fresh price/store line may appear only through the existing public offer
   evidence boundary; absent or stale evidence is omitted.
@@ -167,8 +169,9 @@ while Home previews retain their editorial section composition.
   effect. The protected migrations, role audit, reviewed 5-Shelf/9-request
   import, deployment, and authenticated smoke remain incomplete. Request review
   closure and per-owner request/upload limits also remain incomplete.
-- Routine and canonical Concern state remain unpersisted and appear only in the
-  local Synthetic Amara preview. The development presentation is not persistence.
+- Routine persistence ships with owner-isolated named routines, 1–20 ordered
+  steps, and create/update/delete server actions. Canonical user-controlled
+  Concerns remain unshipped and appear only in the local Synthetic Amara preview.
 - Ask Me supports truthful discovery over customer context and exact products;
   it does not claim an AI answer, consultation submission, or saved mutation.
   Public `/consult` remains a separate account-free, deterministic guidance
@@ -180,14 +183,12 @@ The shipped-vs-missing baseline, dependency graph, per-phase owner and gates,
 state coverage, critical path, migration boundaries, scorecard, and exactly one
 next executable slice live only in the
 [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md). In short,
-the current candidate is the 2026-08-04 owner-isolated Shelf and private-request
-thin slice; its next step is the
-[restricted-role release checklist](../operations/RELEASE.md#customer-shelf-release-checklist),
-including the reviewed import, datastore evidence, and authenticated production
-smoke. Routine, user-controlled canonical Concerns, authenticated Ask or true AI
-guidance, contextual discovery, request operating closure and rate limits,
+Shelf persistence, Routine persistence, private product requests, complete
+Explore, member-Product OTP continuation, and the global report helper now ship.
+User-controlled canonical Concerns, authenticated Ask or true AI guidance,
+contextual discovery, request operating closure and rate limits,
 refill/basket decisions, notifications, and public community follow only through
-their recorded gates. The current 63-product snapshot is evidence, never a
+their recorded gates. The current catalogue snapshot is evidence, never a
 hard-coded limit.
 
 ## Future basket timing intelligence
