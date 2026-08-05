@@ -218,6 +218,14 @@ export const productDisplayApprovals = {
     contentHash: '4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84',
     reviewedAt: '2026-07-22T19:56:32Z',
   }),
+  'kuza-indian-hemp-hair-scalp-treatment': approval({
+    brand: 'KUZA',
+    name: '100% Indian Hemp Hair & Scalp Treatment',
+    size: '7.7 oz / 226 g',
+    sourceUrl: 'https://kuzaproducts.com/cdn/shop/files/1-K035-08-0600_KUZA_IndianHempHair_ScalpTreatment_7.7ozJar_FRONT_1.jpg?v=1782416888&width=2048',
+    contentHash: 'cdc1398f2086e51a3cc4d19877aa1af4bb2ed752655da6e36ec9e6f59581524c',
+    reviewedAt: '2026-08-04T23:57:00.000Z',
+  }),
 } as const satisfies Record<string, DisplayApproval>;
 
 export function isProductDisplayApproved(

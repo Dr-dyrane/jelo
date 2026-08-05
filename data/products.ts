@@ -152,10 +152,10 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product', false), { retailer: 'Slique Beauty', url: 'https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/', trust: 78, available: true, location: ['NG'] }]
   },
   {
-    slug: 'kuza-indian-hemp-hair-scalp-treatment', brand: 'KUZA', name: '100% Indian Hemp Hair & Scalp Treatment', size: '8 oz / 226 g', category: 'Hair', step: 'Seal',
-    image: 'https://perfectpicturecosmetics.com/cdn/shop/files/20250510_1219_Hair_Treatment_Product_Display_remix_01jtx23f14fz4aft5nvz1cpvpt.png?v=1746879611&width=1600', displayLine: 'Treat · seal',
+    slug: 'kuza-indian-hemp-hair-scalp-treatment', brand: 'KUZA', name: '100% Indian Hemp Hair & Scalp Treatment', size: '7.7 oz / 226 g', category: 'Hair', step: 'Seal',
+    image: 'https://kuzaproducts.com/cdn/shop/files/1-K035-08-0600_KUZA_IndianHempHair_ScalpTreatment_7.7ozJar_FRONT_1.jpg?v=1782416888&width=2048', displayLine: 'Treat · seal',
     bestFor: ['hair moisture', 'scalp treatment'], concerns: ['dry hair', 'dry scalp'], skinTypes: ['hair'], sensitiveFriendly: true,
-    usage: 'Use a small amount as needed.', evidence: 'emerging',
+    usage: 'Apply gently to hair and scalp, concentrating on dry areas. Style hair as usual. Use daily for best results.', evidence: 'emerging',
     offers: [beautyByDaz('https://beautybydaz.com/?s=kuza+indian+hemp+hair+scalp+treatment&post_type=product', false), { retailer: 'Perfect Picture Cosmetics', url: 'https://perfectpicturecosmetics.com/products/kuza-100-indian-hemp-hair-scalp-treatment-226g', trust: 76, available: true, location: ['GH'] }]
   },
   {

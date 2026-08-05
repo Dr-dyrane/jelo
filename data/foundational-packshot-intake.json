@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-22T20:09:49Z",
+  "updatedAt": "2026-08-04T23:55:00Z",
   "candidates": [
     {
       "id": "ogx-renewing-argan-oil-of-morocco",
@@ -128,6 +128,32 @@
         "sourceAssetHeight": 1600,
         "sourceAssetMimeType": "image/jpeg",
         "sourceAssetRetrievedAt": "2026-07-22T20:56:00Z"
+      }
+    },
+    {
+      "id": "kuza-indian-hemp-hair-scalp-treatment",
+      "productSlug": "kuza-indian-hemp-hair-scalp-treatment",
+      "brand": "KUZA",
+      "name": "100% Indian Hemp Hair & Scalp Treatment",
+      "variant": "100% Indian Hemp Hair & Scalp Treatment",
+      "size": "7.7 oz / 226 g",
+      "identity": {
+        "gtin": "0074867770369",
+        "manufacturerSku": "1-K035-08-0600",
+        "officialProductUrl": "https://kuzaproducts.com/collections/indian-hemp/products/kuza-100-indian-hemp-hair-scalp-treatment-7-7-oz",
+        "officialIdentifierUrl": "https://kuzaproducts.com/collections/indian-hemp/products/kuza-100-indian-hemp-hair-scalp-treatment-7-7-oz",
+        "officialFrontImageUrl": "https://kuzaproducts.com/cdn/shop/files/1-K035-08-0600_KUZA_IndianHempHair_ScalpTreatment_7.7ozJar_FRONT_1.jpg?v=1782416888&width=2048",
+        "reviewedAt": "2026-08-04T23:55:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "asset": {
+        "sourceUrl": "https://kuzaproducts.com/cdn/shop/files/1-K035-08-0600_KUZA_IndianHempHair_ScalpTreatment_7.7ozJar_FRONT_1.jpg?v=1782416888&width=2048",
+        "sourceAssetSha256": "96809ea9df6d260cbc0b20fc6ce6cb2ceab397eb652551f33bc7271bcbdf60ea",
+        "sourceAssetByteSize": 83306,
+        "sourceAssetWidth": 2048,
+        "sourceAssetHeight": 2048,
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetRetrievedAt": "2026-08-04T23:52:00Z"
       }
     }
   ]

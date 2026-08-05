@@ -584,5 +584,20 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "5c120eb9d657eca8c46a594f9ef22e7762e8e08109a667d86b703032262752b3"
+  },
+  {
+    "id": "kuza-indian-hemp-hair-scalp-treatment-v1",
+    "active": true,
+    "productSlug": "kuza-indian-hemp-hair-scalp-treatment",
+    "sourceUrl": "https://kuzaproducts.com/cdn/shop/files/1-K035-08-0600_KUZA_IndianHempHair_ScalpTreatment_7.7ozJar_FRONT_1.jpg?v=1782416888&width=2048",
+    "localPath": "/products/kuza/kuza-indian-hemp-hair-scalp-treatment/packshot-v1.png",
+    "blobPath": "products/kuza/kuza-indian-hemp-hair-scalp-treatment/packshot-v1.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/kuza/kuza-indian-hemp-hair-scalp-treatment/packshot-v1.png",
+    "contentType": "image/png",
+    "byteSize": 1465832,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "cdc1398f2086e51a3cc4d19877aa1af4bb2ed752655da6e36ec9e6f59581524c"
   }
 ]
