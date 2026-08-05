@@ -27,6 +27,7 @@ function firstMediaBlock(styles: string, query: string): string {
 test('catalogue and concern filters acknowledge changes and stay reversible', async () => {
   const root = process.cwd();
   const catalogue = await readFile(path.join(root, 'app/(site)/products/page.tsx'), 'utf8');
+  const pageModel = await readFile(path.join(root, 'lib/catalogue/catalogue-page-model.ts'), 'utf8');
   const feedback = await readFile(path.join(root, 'components/products/filter-feedback-actions.tsx'), 'utf8');
   const tracker = await readFile(path.join(root, 'components/products/catalogue-transition-tracker.tsx'), 'utf8');
   const sheet = await readFile(path.join(root, 'components/products/inventory-filter-sheet.tsx'), 'utf8');
@@ -52,18 +53,18 @@ test('catalogue and concern filters acknowledge changes and stay reversible', as
   assert.match(feedback, /data-catalogue-transition-kind="undo"/);
   assert.match(tracker, /sessionStorage/);
   assert.match(catalogue, /CatalogueTransitionTracker/);
-  assert.match(catalogue, /!hasActiveIntent/);
-  assert.match(catalogue, /resolvedCatalogueGuides/);
-  assert.match(catalogue, /#all-products/);
+  assert.match(catalogue, /!model\.hasActiveIntent/);
+  assert.match(pageModel, /resolvedCatalogueGuides/);
+  assert.match(pageModel, /#all-products/);
   assert.match(catalogue, /CatalogueSearch/);
-  assert.match(catalogue, /clearHref=\{href\(params, \{ q: null \}, 'all-products'\)\}/);
+  assert.match(catalogue, /clearHref=\{model\.clearSearchHref\}/);
   assert.equal(
     (catalogue.match(/<DiscoveryRail[\s\S]*?href=\{href\(params,[\s\S]*?'all-products'\)\}/g) ?? []).length,
     1,
   );
   assert.match(catalogue, /\['category', 'routine', 'concern'\]/);
   assert.match(catalogue, /result\.facets\.steps/);
-  assert.match(catalogue, /marketHrefs=\{marketHrefs\}/);
+  assert.match(catalogue, /marketHrefs=\{model\.marketHrefs\}/);
   assert.match(search, /role="combobox"/);
   assert.match(search, /aria-activedescendant/);
   assert.match(search, /role="listbox"/);

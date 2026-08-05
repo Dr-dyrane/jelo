@@ -162,9 +162,10 @@ test('supportive source filtering stays limited to reviewed eligible products', 
 });
 
 test('browse surfaces separate neutral records from supportive use', async () => {
-  const [home, productsPage, productCard, inventoryCard, productExperience, storefront, filterSheet, filterStyles] = await Promise.all([
+  const [home, productsPage, merchandising, productCard, inventoryCard, productExperience, storefront, filterSheet, filterStyles] = await Promise.all([
     readFile(path.join(process.cwd(), 'app/(site)/page.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/(site)/products/page.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'components/products/catalogue-merchandising.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/product-card.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'components/products/inventory-card.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/product-experience.css'), 'utf8'),
@@ -185,9 +186,9 @@ test('browse surfaces separate neutral records from supportive use', async () =>
   assert.match(productsPage, /Supportive use adds a care review/);
   assert.match(productsPage, /review: 'supportive'/);
   assert.doesNotMatch(productsPage, /inventoryCategories\.map/);
-  assert.match(productsPage, /\/concerns\/dandruff-itchy-scalp/);
-  assert.match(productsPage, /externalProducts\.length \? 'Two catalogue sources' : 'Catalogue context'/);
-  assert.match(productsPage, /externalProducts\.length \? <a href="https:\/\/world\.openbeautyfacts\.org\/data"/);
+  assert.match(merchandising, /\/concerns\/dandruff-itchy-scalp/);
+  assert.match(productsPage, /externalProductsCount \? 'Two catalogue sources' : 'Catalogue context'/);
+  assert.match(productsPage, /externalProductsCount \? <a href="https:\/\/world\.openbeautyfacts\.org\/data"/);
   assert.doesNotMatch(productsPage, /product\.(?:bestFor|concerns|skinTypes|sensitiveFriendly|step|displayLine)/);
   assert.doesNotMatch(productCard, /\{product\.(?:step|displayLine)\}/);
   assert.doesNotMatch(productCard, /styles\.(?:step|price|reveal)/);

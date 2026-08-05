@@ -80,15 +80,16 @@ test('prefill normalization is bounded and ignores duplicate query parameters', 
 
 test('catalogue handoff wiring stays zero-result only and reuses the adaptive intake', async () => {
   const root = process.cwd();
-  const [productsPage, contributePage, experience, repository] = await Promise.all([
+  const [productsPage, pageModel, contributePage, experience, repository] = await Promise.all([
     readFile(path.join(root, 'app/(site)/products/page.tsx'), 'utf8'),
+    readFile(path.join(root, 'lib/catalogue/catalogue-page-model.ts'), 'utf8'),
     readFile(path.join(root, 'app/(site)/contribute/page.tsx'), 'utf8'),
     readFile(path.join(root, 'components/contribute/contribution-experience.tsx'), 'utf8'),
     readFile(path.join(root, 'lib/community-intake/repository.ts'), 'utf8'),
   ]);
 
-  assert.match(productsPage, /shouldOfferCatalogueResearchHandoff\([\s\S]*?result\.total,[\s\S]*?result\.filters\.q,[\s\S]*?concernGuides/);
-  assert.match(productsPage, /catalogueSearchHandoffHref\(result\.filters\.q\)/);
+  assert.match(pageModel, /shouldOfferCatalogueResearchHandoff\([\s\S]*?result\.total,[\s\S]*?result\.filters\.q,[\s\S]*?concernGuides/);
+  assert.match(pageModel, /catalogueSearchHandoffHref\(result\.filters\.q\)/);
   assert.match(productsPage, /clearSearchHref/);
   assert.match(productsPage, /CatalogueFilterFeedback/);
   assert.match(contributePage, /catalogueSearchProductPrefill\(params\)/);

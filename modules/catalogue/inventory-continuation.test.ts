@@ -97,6 +97,7 @@ test('the active catalogue has one progressive result path and complete feedback
   const root = process.cwd();
   const [
     productsPage,
+    pageModel,
     productsStyles,
     results,
     resultsStyles,
@@ -106,6 +107,7 @@ test('the active catalogue has one progressive result path and complete feedback
     inventoryCardStyles,
   ] = await Promise.all([
     readFile(path.join(root, 'app/(site)/products/page.tsx'), 'utf8'),
+    readFile(path.join(root, 'lib/catalogue/catalogue-page-model.ts'), 'utf8'),
     readFile(path.join(root, 'app/(site)/products/products.module.css'), 'utf8'),
     readFile(path.join(root, 'components/products/inventory-results.tsx'), 'utf8'),
     readFile(path.join(root, 'components/products/inventory-results.module.css'), 'utf8'),
@@ -115,9 +117,9 @@ test('the active catalogue has one progressive result path and complete feedback
     readFile(path.join(root, 'components/products/inventory-card.module.css'), 'utf8'),
   ]);
 
-  assert.match(productsPage, /loadInventory\(inventoryQuery\)/);
+  assert.match(pageModel, /loadInventory\(inventoryQuery\)/);
   assert.match(productsPage, /<InventoryResults/);
-  assert.match(productsPage, /requestedPage=\{requestedPage\}/);
+  assert.match(productsPage, /requestedPage=\{model\.requestedPage\}/);
   assert.doesNotMatch(
     productsPage,
     /InventoryPagination|CatalogueExplorer|ProductSearchResults/,

@@ -95,8 +95,9 @@ test('suggestion requests are bounded, normalized and market aware', () => {
 
 test('products page ships compact start suggestions and fetches product matches on demand', async () => {
   const root = process.cwd();
-  const [page, client, route, repository] = await Promise.all([
+  const [page, pageModel, client, route, repository] = await Promise.all([
     readFile(path.join(root, 'app/(site)/products/page.tsx'), 'utf8'),
+    readFile(path.join(root, 'lib/catalogue/catalogue-page-model.ts'), 'utf8'),
     readFile(path.join(root, 'components/products/catalogue-search.tsx'), 'utf8'),
     readFile(path.join(root, 'app/api/products/suggestions/route.ts'), 'utf8'),
     readFile(path.join(root, 'lib/catalogue/catalogue-search-repository.ts'), 'utf8'),
@@ -104,8 +105,8 @@ test('products page ships compact start suggestions and fetches product matches 
 
   assert.doesNotMatch(page, /reviewedProducts\.slice\(0,\s*24\)/);
   assert.doesNotMatch(page, /approvedConcerns\.slice\(0,\s*6\)/);
-  assert.match(page, /catalogueGuideSearchSuggestions\(concerns\)/);
-  assert.match(page, /shouldOfferCatalogueResearchHandoff/);
+  assert.match(pageModel, /catalogueGuideSearchSuggestions\(concerns\)/);
+  assert.match(pageModel, /shouldOfferCatalogueResearchHandoff/);
   assert.match(page, /Catalogue profiles, not recommendations\./);
   assert.match(client, /fetch\(`\/api\/products\/suggestions\?/);
   assert.match(client, /AbortController/);
