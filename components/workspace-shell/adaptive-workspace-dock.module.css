@@ -211,6 +211,47 @@
   .root { padding-inline: 20px; }
 }
 
+/* Ultra-narrow: reduce gutter and gap to prevent overflow at 320px and 200% zoom */
+@media (max-width: 379px) {
+  .root {
+    padding-inline: 6px;
+  }
+
+  .row {
+    gap: 6px;
+  }
+
+  .pageOrb,
+  .fab {
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+  }
+
+  .context {
+    padding: 0 10px;
+    gap: 6px;
+    border-radius: 20px;
+  }
+
+  .contextLabel,
+  .contextDetail {
+    font-size: 0.68rem;
+  }
+
+  .navigationItem span {
+    font-size: 0.5rem;
+  }
+
+  .navigation {
+    min-height: 50px;
+  }
+
+  .navigationItem {
+    min-height: 42px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .interactive { transition: none; }
   .interactive:hover,

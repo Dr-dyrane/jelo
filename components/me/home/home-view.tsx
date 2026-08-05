@@ -115,12 +115,13 @@ export function HomeView({
             <h2 id="me-shelf-preview-title">Recently saved</h2>
             <Link className={styles.feedSectionLink} href={'/me/shelf'}>Open shelf <ArrowRight size={14} aria-hidden="true" /></Link>
           </div>
-          <div className="product-rail">
+          <div className="product-rail feedShelfRail">
             {shelfSection.items.map((item) => item.product ? (
               <ProductCard
                 key={item.identityVersionId}
                 product={item.product}
                 href={memberProductHref(item.product, 'shelf')}
+                density="compact"
               />
             ) : (
               <UnavailableShelfCard
@@ -152,9 +153,6 @@ export function HomeView({
                     <strong>{item.product.name}</strong>
                     <span className={styles.priceEvidencePrice}>
                       <Tag size={14} aria-hidden="true" /> {item.priceLabel}
-                    </span>
-                    <span className={styles.priceEvidenceStores}>
-                      {item.retailerCount} store{item.retailerCount === 1 ? '' : 's'}
                     </span>
                   </span>
                 </Link>

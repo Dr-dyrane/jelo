@@ -121,7 +121,7 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel, ho
         ? homeModel.routineSection.steps.length
         : 0
       : viewModel.routine.length;
-    const detail = `${count(shelfCount, 'product')} · ${count(routineCount, 'step')}`;
+    const detail = `${shelfCount} saved · ${count(routineCount, 'routine step')}`;
     return { routeKey: '/me', currentHref: resolveMeActiveParentHref(route), page: 'home' as MeWorkspacePage, detail };
   }
   if (route.kind === 'explore') {
@@ -297,6 +297,12 @@ function MePortalView({
     ? catalogue.find((candidate) => candidate.slug === route.slug)
     : undefined;
   const context = createMeDockContext({ page: state.page, detail: state.detail });
+  const shelfCount = homeModel
+    ? homeModel.shelfSection.state.status === 'ready' ? homeModel.shelfSection.items.length : 0
+    : portalViewModel.shelfState.status === 'ready' ? portalViewModel.shelf.length : 0;
+  const routineStepCount = homeModel
+    ? homeModel.routineSection.steps.length
+    : portalViewModel.routine.length;
   const back = createMeStackBack(route);
   const contextTriggerRef = useRef<HTMLButtonElement>(null);
   const [contextSheetState, setContextSheetState] = useState(() => ({
@@ -347,7 +353,10 @@ function MePortalView({
     onInvoke: () => openProductPanel('details'),
   } : {
     ...context,
-    accessibleLabel: `Open ${context.label} summary. ${context.detail}`,
+    label: route.kind === 'home' ? '' : context.label,
+    accessibleLabel: route.kind === 'home'
+      ? `Home summary. ${shelfCount} saved products and ${routineStepCount} routine steps`
+      : `Open ${context.label} summary. ${context.detail}`,
     controls: 'me-context-sheet',
     expanded: contextSheetOpen,
     onInvoke: () => setContextSheetState({ routeKey: state.routeKey, open: true }),

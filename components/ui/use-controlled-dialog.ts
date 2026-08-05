@@ -41,16 +41,21 @@ export function useControlledDialog({
   const onCloseRef = useRef(onClose);
   useEffect(() => { onCloseRef.current = onClose; }, [onClose]);
 
+  const wasOpenRef = useRef(false);
   useEffect(() => {
     if (open) {
+      wasOpenRef.current = true;
       openDialog();
       if (initialFocusRef?.current) {
         queueMicrotask(() => initialFocusRef.current?.focus({ preventScroll: true }));
       }
     } else {
       closeDialog();
-      const target = restoreFocusRef?.current;
-      if (target?.isConnected) target.focus({ preventScroll: true });
+      if (wasOpenRef.current) {
+        wasOpenRef.current = false;
+        const target = restoreFocusRef?.current;
+        if (target?.isConnected) target.focus({ preventScroll: true });
+      }
     }
   }, [open, openDialog, closeDialog, restoreFocusRef, initialFocusRef]);
 

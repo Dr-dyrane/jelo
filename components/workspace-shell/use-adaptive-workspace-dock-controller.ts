@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   INITIAL_WORKSPACE_DOCK_SCROLL_STATE,
   resolveAdaptiveWorkspaceDockMode,
@@ -24,6 +24,8 @@ export type AdaptiveWorkspaceDockController = {
   dismissNavigation: () => void;
 };
 
+const NARROW_VIEWPORT_THRESHOLD = 380;
+
 export function useAdaptiveWorkspaceDockController({
   routeKey,
   hasNavigation,
@@ -38,6 +40,15 @@ export function useAdaptiveWorkspaceDockController({
     scroll: INITIAL_WORKSPACE_DOCK_SCROLL_STATE,
     navigationRevealed: false,
   }));
+
+  const [narrow, setNarrow] = useState(false);
+
+  useEffect(() => {
+    const update = () => setNarrow(window.innerWidth < NARROW_VIEWPORT_THRESHOLD);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   const effectiveState = state.routeKey === routeKey
     ? state
@@ -77,7 +88,7 @@ export function useAdaptiveWorkspaceDockController({
     mode: resolveAdaptiveWorkspaceDockMode({
       hasNavigation,
       hasContext,
-      chromeHidden: effectiveState.scroll.chromeHidden,
+      chromeHidden: narrow ? true : effectiveState.scroll.chromeHidden,
       navigationRevealed: effectiveState.navigationRevealed,
     }),
     scroll: effectiveState.scroll,

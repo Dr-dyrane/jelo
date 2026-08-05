@@ -29,12 +29,14 @@ export function ProductCard({
   href,
   context,
   footer,
+  density = 'default',
 }: {
   product: ProductCardProduct;
   market?: Market;
   href?: string;
   context?: ProductCardContext;
   footer?: React.ReactNode;
+  density?: 'default' | 'compact';
 }) {
   const linkHref = href ?? `/products/${product.slug}`;
   const priceLabel = product.offers
@@ -48,8 +50,9 @@ export function ProductCard({
       ...(context.retailerNames ?? []).map(name => <span key={`retailer-${name}`}>{name}</span>),
     ].filter(Boolean)
     : [];
+  const densityClass = density === 'compact' ? styles.compact : '';
   return (
-    <article className={`${styles.card} product-card`}>
+    <article className={`${styles.card} ${densityClass} product-card`}>
       <Link className={styles.link} href={linkHref} aria-label={`${product.brand} ${product.name}`}>
         <div className={`${styles.visual} product-visual`}>
           <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
