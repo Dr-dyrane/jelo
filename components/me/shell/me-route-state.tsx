@@ -15,6 +15,7 @@ export function MeRouteState({
   const loading = state === 'loading';
   return (
     <div className={styles.shell}>
+      <div className={styles.safeAreaTop} aria-hidden="true" />
       <header className={styles.topbar}>
         <Link href="/me" className={styles.brand}>JeloCare</Link>
         <span className={styles.stateIdentity}>JeloCare Me</span>

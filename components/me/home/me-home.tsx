@@ -437,6 +437,7 @@ function MePortalView({
 
   return (
     <div className={styles.shell}>
+      <div className={styles.safeAreaTop} aria-hidden="true" />
       <header
         className={`${styles.topbar} ${headerHidden ? styles.topbarHidden : ''}`}
         data-me-header-hidden={headerHidden ? 'true' : 'false'}

@@ -9,6 +9,23 @@
   font-family: var(--font-sans), sans-serif;
 }
 
+/* Persistent safe-area top strip: stays visible even when the topbar
+   hides on scroll. Provides a translucent blur so scrolling content
+   shows through edge to edge on iOS PWA instead of being clipped by
+   the opaque shell gradient. */
+.safeAreaTop {
+  position: absolute;
+  z-index: 49;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: env(safe-area-inset-top);
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  background: color-mix(in srgb, var(--cream) 72%, transparent);
+}
+
 .topbar {
   position: absolute;
   z-index: 50;
@@ -25,9 +42,6 @@
   opacity: 1;
   transition: transform 200ms cubic-bezier(0.32, 0.72, 0, 1), opacity 160ms ease-out;
   will-change: transform, opacity;
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  backdrop-filter: blur(12px) saturate(140%);
-  background: color-mix(in srgb, var(--cream) 72%, transparent);
 }
 
 .brand,
@@ -1189,7 +1203,7 @@
   .searchField,
   .productHero,
   .filterSheet,
-  .topbar { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .safeAreaTop { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 /* Keep the filter sheet immersive without changing its light-mode scrim or geometry. */
