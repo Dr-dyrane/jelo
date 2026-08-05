@@ -272,6 +272,180 @@
 
 .sheetBody textarea { resize: vertical; min-height: 120px; }
 
+/* Step builder — time-of-day presets and per-step cards. */
+.stepField { display: grid; gap: 10px; }
+
+.stepField > label { display: grid; gap: 5px; }
+
+.stepField > label > span {
+  color: var(--wine);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.stepField > label > small { color: var(--muted); font-size: 0.7rem; line-height: 1.5; }
+
+.timePresetRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.timePreset {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--wine) 14%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cream) 72%, var(--paper));
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.timePreset:hover { background: color-mix(in srgb, var(--peach) 48%, var(--paper)); }
+
+.timePresetActive {
+  border-color: color-mix(in srgb, var(--wine) 42%, transparent);
+  background: color-mix(in srgb, var(--peach) 56%, var(--paper));
+  color: var(--wine);
+}
+
+.timeCustomInput {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--wine) 14%, transparent);
+  border-radius: 14px;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--cream) 72%, var(--paper));
+  font: inherit;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.timeCustomInput:focus {
+  outline: 2px solid color-mix(in srgb, var(--wine) 42%, transparent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.stepList { display: grid; gap: 10px; }
+
+.stepListHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.stepListHeader > span {
+  color: var(--wine);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.stepListHeader > small { color: var(--muted); font-size: 0.7rem; }
+
+.stepCard {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--wine) 10%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--cream) 56%, var(--paper));
+}
+
+.stepCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stepNumber {
+  font-variant-numeric: tabular-nums;
+  color: var(--wine);
+  font-family: var(--font-display), serif;
+  font-size: 0.92rem;
+}
+
+.stepCardControls { display: flex; gap: 4px; }
+
+.stepMover,
+.stepRemover {
+  display: inline-flex;
+  min-width: 32px;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--peach) 36%, transparent);
+  color: var(--wine);
+  cursor: pointer;
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.stepMover:hover:not(:disabled),
+.stepRemover:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--peach) 60%, transparent);
+}
+
+.stepMover:disabled,
+.stepRemover:disabled { opacity: 0.32; cursor: default; }
+
+.stepRemover { background: color-mix(in srgb, #9a3434 10%, transparent); color: #7f2424; }
+.stepRemover:hover:not(:disabled) { background: color-mix(in srgb, #9a3434 18%, transparent); }
+
+.stepLabelInput,
+.stepInstructionInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--wine) 10%, transparent);
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--paper);
+  font: inherit;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.stepInstructionInput { resize: vertical; min-height: 48px; }
+
+.stepLabelInput:focus,
+.stepInstructionInput:focus {
+  outline: 2px solid color-mix(in srgb, var(--wine) 42%, transparent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.addStepButton {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 16px;
+  border: 1px dashed color-mix(in srgb, var(--wine) 22%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--wine);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.addStepButton:hover { background: color-mix(in srgb, var(--peach) 32%, var(--paper)); }
+
 .sheetBody input:focus,
 .sheetBody textarea:focus {
   outline: 2px solid color-mix(in srgb, var(--wine) 42%, transparent);
@@ -509,6 +683,20 @@
 :global(html[data-theme="dark"]) .sheetActions .submitAction { background: var(--accent-solid); color: var(--on-accent); }
 :global(html[data-theme="dark"]) .deleteActions .confirmDelete { background: var(--state-danger); }
 
+:global(html[data-theme="dark"]) .timePreset { border-color: var(--border); background: var(--surface-2); color: var(--ink); }
+:global(html[data-theme="dark"]) .timePreset:hover { background: color-mix(in srgb, var(--peach) 24%, var(--surface-2)); }
+:global(html[data-theme="dark"]) .timePresetActive { border-color: var(--accent-solid); background: var(--accent-solid); color: var(--on-accent); }
+:global(html[data-theme="dark"]) .timeCustomInput { border-color: var(--border); background: var(--surface-2); color: var(--ink); }
+:global(html[data-theme="dark"]) .stepCard { border-color: var(--border); background: var(--surface-2); }
+:global(html[data-theme="dark"]) .stepMover { background: var(--surface-3); color: var(--ink); }
+:global(html[data-theme="dark"]) .stepMover:hover:not(:disabled) { background: color-mix(in srgb, var(--peach) 32%, var(--surface-3)); }
+:global(html[data-theme="dark"]) .stepRemover { background: color-mix(in srgb, var(--state-danger) 14%, var(--surface-3)); color: var(--state-danger); }
+:global(html[data-theme="dark"]) .stepRemover:hover:not(:disabled) { background: color-mix(in srgb, var(--state-danger) 22%, var(--surface-3)); }
+:global(html[data-theme="dark"]) .stepLabelInput,
+:global(html[data-theme="dark"]) .stepInstructionInput { border-color: var(--border); background: var(--surface-3); color: var(--ink); }
+:global(html[data-theme="dark"]) .addStepButton { border-color: var(--border); color: var(--ink); }
+:global(html[data-theme="dark"]) .addStepButton:hover { background: var(--surface-2); }
+
 @media (prefers-color-scheme: dark) {
   :global(html:not([data-theme="light"])) .routine {
     border: 1px solid var(--border);
@@ -548,6 +736,20 @@
 
   :global(html:not([data-theme="light"])) .sheetActions .submitAction { background: var(--accent-solid); color: var(--on-accent); }
   :global(html:not([data-theme="light"])) .deleteActions .confirmDelete { background: var(--state-danger); }
+
+  :global(html:not([data-theme="light"])) .timePreset { border-color: var(--border); background: var(--surface-2); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .timePreset:hover { background: color-mix(in srgb, var(--peach) 24%, var(--surface-2)); }
+  :global(html:not([data-theme="light"])) .timePresetActive { border-color: var(--accent-solid); background: var(--accent-solid); color: var(--on-accent); }
+  :global(html:not([data-theme="light"])) .timeCustomInput { border-color: var(--border); background: var(--surface-2); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .stepCard { border-color: var(--border); background: var(--surface-2); }
+  :global(html:not([data-theme="light"])) .stepMover { background: var(--surface-3); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .stepMover:hover:not(:disabled) { background: color-mix(in srgb, var(--peach) 32%, var(--surface-3)); }
+  :global(html:not([data-theme="light"])) .stepRemover { background: color-mix(in srgb, var(--state-danger) 14%, var(--surface-3)); color: var(--state-danger); }
+  :global(html:not([data-theme="light"])) .stepRemover:hover:not(:disabled) { background: color-mix(in srgb, var(--state-danger) 22%, var(--surface-3)); }
+  :global(html:not([data-theme="light"])) .stepLabelInput,
+  :global(html:not([data-theme="light"])) .stepInstructionInput { border-color: var(--border); background: var(--surface-3); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .addStepButton { border-color: var(--border); color: var(--ink); }
+  :global(html:not([data-theme="light"])) .addStepButton:hover { background: var(--surface-2); }
 }
 
 @media (forced-colors: active) {
