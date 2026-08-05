@@ -670,13 +670,21 @@ function RoutinePage({
         <p className={styles.eyebrow}>{viewModel.routineProvenance ?? surface.eyebrow}</p>
         <h1 id="me-routine-title">{surface.title}</h1>
       </div>
+      {viewModel.routine.length ? (
+        <section className={`${styles.section} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
+          <div className={styles.sectionHeading}>
+            <h2 id="me-routine-preview-title">My steps.</h2>
+          </div>
+          <RoutineList viewModel={viewModel} />
+        </section>
+      ) : null}
       {viewModel.routines ? (
         <RoutineManager
           routines={viewModel.routines}
           routineState={viewModel.routineState ?? { status: 'ready', message: null }}
           outcome={mutationOutcome}
         />
-      ) : <RoutineList viewModel={viewModel} />}
+      ) : null}
     </section>
   );
 }
