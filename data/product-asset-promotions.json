@@ -526,13 +526,13 @@
     "contentHash": "e746810397f9caeb94a5efa9204b564f2175216c4f84419bfb35d4cd757db560"
   },
   {
-    "id": "b-lab-matcha-hydrating-real-sunscreen-v1",
+    "id": "b-lab-matcha-hydrating-real-sunscreen-v2",
     "active": true,
     "productSlug": "b-lab-matcha-hydrating-real-sunscreen",
-    "sourceUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
-    "localPath": "/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
-    "blobPath": "products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v1.png",
+    "sourceUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v2.png",
+    "localPath": "/products/b-lab/b-lab-matcha-hydrating-real-sunscreen-transparent-v2.png",
+    "blobPath": "products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/b-lab/b-lab-matcha-hydrating-real-sunscreen/packshot-v2.png",
     "contentType": "image/png",
     "byteSize": 101581,
     "width": 2000,
