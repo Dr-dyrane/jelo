@@ -3,99 +3,30 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-07-29T04:12:24.602Z",
+  "generatedAt": "2026-08-05T03:31:47.088Z",
   "source": {
-    "researchPacketsSha256": "8822874d18d336f168b591cdea19e9427da6eee68be43615e4646b24ed3c479b",
+    "researchPacketsSha256": "6cdd881fa447299283df3a6133066bd5e17e2259548921c8577f82d01b1afe65",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 12,
+    "packetCount": 11,
     "packetIds": [
-      "3a1b3865e0ffdccb01e85b0c",
-      "a86b042330160d53b65b056e",
-      "69bf90baf39309039402ae19",
-      "de73b1b69dc56e877ea37999",
-      "1bb2942eaa5ebaf6a6df3030",
-      "863eec92f7291e3d307be521",
-      "8146f37c47cff6d9cd0c6193",
-      "ed48f1fea49846a7db551502",
-      "cbc834ef2dfe1921106b9ad0",
-      "9cb4a3ee328b1dec80f44f6c",
+      "459b8806590d2750e22a8906",
+      "586ef0ac5c086de562296593",
       "656a1a60466fc29f11d0059f",
-      "459b8806590d2750e22a8906"
+      "69bf90baf39309039402ae19",
+      "8146f37c47cff6d9cd0c6193",
+      "863eec92f7291e3d307be521",
+      "9cb4a3ee328b1dec80f44f6c",
+      "a86b042330160d53b65b056e",
+      "cbc834ef2dfe1921106b9ad0",
+      "de73b1b69dc56e877ea37999",
+      "ed48f1fea49846a7db551502"
     ],
-    "responseCount": 12
+    "responseCount": 11
   },
   "qualityCautions": [],
   "captures": [
-    {
-      "id": "dbc90c27797f89e1d26a2bf5",
-      "packetId": "1bb2942eaa5ebaf6a6df3030",
-      "discoveryId": "4e67e33c8599337cebdc132f",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/4e67e33c8599337cebdc132f--buybetter.json",
-      "source": {
-        "productId": 363432,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/363432",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/363432",
-        "listingUrl": "https://buybetter.ng/product/benton-honest-cleansing-foam-5-29-oz-150g/",
-        "capturedAt": "2026-07-29T04:12:22.331Z",
-        "responseSha256": "36aff04b4022616f0b2b1023171e19da40294d02f8060a0c252174cb29c74970",
-        "responseByteSize": 5291,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "BENTON Honest Cleansing Foam 150g",
-        "size": "150g",
-        "price": {
-          "amount": 9675,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "8809540510251",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "99c96d5823791125dd5b7ea7",
-      "packetId": "3a1b3865e0ffdccb01e85b0c",
-      "discoveryId": "a7562a6f718c64e4a046f3e3",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/a7562a6f718c64e4a046f3e3--buybetter.json",
-      "source": {
-        "productId": 433434,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
-        "listingUrl": "https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/",
-        "capturedAt": "2026-07-29T04:12:21.311Z",
-        "responseSha256": "8f2692475631c4809947a23538b9baa067dfedda7191d802ffe8cd913bc3af51",
-        "responseByteSize": 5666,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
-        "size": "50ml",
-        "price": {
-          "amount": 28200,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "609332818071",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
     {
       "id": "77e96bca51ecb7ab2a1acd23",
       "packetId": "459b8806590d2750e22a8906",
@@ -126,6 +57,40 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "796708350188",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "524e9ce9966cccffa5692169",
+      "packetId": "586ef0ac5c086de562296593",
+      "discoveryId": "a3844e0ff4ce89736040eb4e",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/a3844e0ff4ce89736040eb4e--buybetter.json",
+      "source": {
+        "productId": 389121,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389121",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389121",
+        "listingUrl": "https://buybetter.ng/product/biobalance-dermasebum-purifying-facial-cleansing-gel-250ml/",
+        "capturedAt": "2026-08-02T18:16:00.778Z",
+        "responseSha256": "778078cc759af6e1da11a92195d56dc9730c0d34631db2545d44057ed47774d0",
+        "responseByteSize": 8314,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "BIOBALANCE Dermasebum Purifying Facial Cleansing Gel 250ml",
+        "size": "250ml",
+        "price": {
+          "amount": 11515,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8697711701009",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

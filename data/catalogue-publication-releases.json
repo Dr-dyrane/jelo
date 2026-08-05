@@ -1345,6 +1345,54 @@
         "publishedAt": "2026-08-05T00:32:00Z"
       },
       "releaseFingerprint": "eb6de20d3ab8f6730899fac97bdcb2b0edbf3e10755be8f15afe8e62e030ec7d"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+      "dossierFingerprint": "7a00d993295c544844d5a09bd1dd68d004a55a63492ac972e2fb22441e5915ea",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Salicylic acid + rice + cherry extract gel-cream cleanser for congested skin.",
+        "usage": "Massage a small amount onto damp skin morning and night. Rinse thoroughly with lukewarm water.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-05T01:26:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-05T01:26:45Z"
+      },
+      "releaseFingerprint": "b911a618df995a581701c9f02d093ea55ceba25c8179ab4a4441f68e3aeb11d2"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+      "dossierFingerprint": "7dfee9b6c3f3dbe22fc0d1568d9c1c8d167203765496e371c6283aceea5e8ac1",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "SPF50+ PA++++ daily sunscreen with hydrating finish.",
+        "usage": "Apply liberally to face and neck as the last step in your morning routine. Reapply every two hours during sun exposure.",
+        "manufacturerDirectionsUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-05T01:46:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-05T01:46:45Z"
+      },
+      "releaseFingerprint": "d3aa60e318dab07a9da228b7123b2d9896c952731dd3061a7abc8bffe548b8da"
     }
   ]
 }

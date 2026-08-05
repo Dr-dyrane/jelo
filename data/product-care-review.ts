@@ -891,6 +891,13 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [],
     reviewedAt: '2026-08-05',
   },
+  'facefacts-enhance-gel-cream-cleanser-150ml': {
+    productSlug: 'facefacts-enhance-gel-cream-cleanser-150ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [],
+    reviewedAt: '2026-08-05',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

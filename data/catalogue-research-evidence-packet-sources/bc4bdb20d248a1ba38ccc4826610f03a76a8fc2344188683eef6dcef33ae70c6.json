@@ -9,7 +9,7 @@
     "requestedCount": 12
   },
   "source": {
-    "staticQueueSha256": "6b4fd6ed3468add310ccba717c6abdbb1d803eec0bbaaaa1d30e3ae30ccc96de",
+    "staticQueueSha256": "380771e36ea53770c6eda741113d945104275f67e2cfd0cf321a7ee2a3db9415",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "packets": [
@@ -135,132 +135,11 @@
       }
     },
     {
-      "id": "f602d58427ee37f8e9533bb5",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 26,
-        "lane": "acne-care",
-        "priorityScore": 156,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "4904b1d7b96c2c0886d65ad9",
-        "title": "BIOBALANCE Super (BETA SOLUTION PURE SALICYLIC ACID 2% Serums 30ML",
-        "brandHint": "BIOBALANCE",
-        "size": "30ml",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/biobalance-pure-salicylic-acid-2-serums-30ml/",
-            "sourceProductId": 331696,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331696",
-            "observedAt": "2026-07-27T18:11:07.194Z",
-            "observedTitle": "BIOBALANCE Super (BETA SOLUTION PURE SALICYLIC ACID 2% Serums 30ML",
-            "observedSize": "30ml",
-            "priceNgn": 13160,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/03/ge229hx9-1.png?fit=800%2C1078&quality=80&ssl=1",
-            "response": {
-              "id": "f0661b04a8bbd02e29588c5e",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:07.194Z",
-              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
-              "responseByteSize": 652018,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "8697711600845",
-            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
       "id": "d11231e8aa7256f65a5b6ddd",
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 27,
+        "rank": 26,
         "lane": "acne-care",
         "priorityScore": 156,
         "reasons": [
@@ -381,7 +260,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 28,
+        "rank": 27,
         "lane": "acne-care",
         "priorityScore": 156,
         "reasons": [
@@ -502,7 +381,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 29,
+        "rank": 28,
         "lane": "acne-care",
         "priorityScore": 156,
         "reasons": [
@@ -623,7 +502,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 30,
+        "rank": 29,
         "lane": "acne-care",
         "priorityScore": 156,
         "reasons": [
@@ -744,7 +623,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 31,
+        "rank": 30,
         "lane": "acne-care",
         "priorityScore": 156,
         "reasons": [
@@ -865,7 +744,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 32,
+        "rank": 31,
         "lane": "acne-care",
         "priorityScore": 156,
         "reasons": [
@@ -986,7 +865,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 33,
+        "rank": 32,
         "lane": "gentle-cleansing",
         "priorityScore": 152,
         "reasons": [
@@ -1107,7 +986,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 34,
+        "rank": 33,
         "lane": "gentle-cleansing",
         "priorityScore": 152,
         "reasons": [
@@ -1165,6 +1044,127 @@
             "retailer": "BuyBetter",
             "value": "8800289473159",
             "responseEvidenceId": "2a2a95e220b9b15dec72f8fc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "5b30ed9c84df71d748dea61c",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 34,
+        "lane": "acne-care",
+        "priorityScore": 151,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "7cfe4bf6d573f111552a8ea7",
+        "title": "PANOXYL Acne Creamy Wash Benzoyl Peroxide Control 4% 170g",
+        "brandHint": "PANOXYL",
+        "size": "170g",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-control-4/",
+            "sourceProductId": 329722,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329722",
+            "observedAt": "2026-07-27T18:11:11.325Z",
+            "observedTitle": "PANOXYL Acne Creamy Wash Benzoyl Peroxide Control 4% 170g",
+            "observedSize": "170g",
+            "priceNgn": 13250,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/03/odoo-12333.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "99e656994f95cf9a13aa35d3",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:11.325Z",
+              "responseSha256": "5ee82d420946c5b368e38c8f53ffd5ff2b8e6877487a3d7e20a76ad1138f635c",
+              "responseByteSize": 651027,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "303160227066",
+            "responseEvidenceId": "99e656994f95cf9a13aa35d3",
             "treatment": "retailer-local-code-not-manufacturer-identity"
           }
         ]

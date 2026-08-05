@@ -3,31 +3,64 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-07-29T04:12:18.957Z",
+  "generatedAt": "2026-08-05T03:31:47.074Z",
   "source": {
-    "researchPacketsSha256": "0094e966b1e4a2af85115b908231886b3b1072d5a257bb1a8388b0cddad16a67",
+    "researchPacketsSha256": "bc4bdb20d248a1ba38ccc4826610f03a76a8fc2344188683eef6dcef33ae70c6",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 12,
+    "packetCount": 11,
     "packetIds": [
-      "8ae1b6abf6fe77ce94d1c319",
-      "f602d58427ee37f8e9533bb5",
-      "d11231e8aa7256f65a5b6ddd",
-      "8c9317ef63c239fa932e1f1b",
+      "3a1b3865e0ffdccb01e85b0c",
+      "42a91a1bc91841763d974680",
       "533c74704d64dbc2fcf85770",
+      "861874fd1cfe8bb36f77912b",
+      "8ae1b6abf6fe77ce94d1c319",
+      "8c9317ef63c239fa932e1f1b",
+      "a58cf5de47116310cc34e91a",
       "aff07100d6424f43489e1eb0",
       "ce0f3f38b3ead84fdecdaf07",
-      "ff4b61e5e7b3c86b68407794",
-      "a58cf5de47116310cc34e91a",
-      "b619283c79d7d3f73b7e32ec",
-      "861874fd1cfe8bb36f77912b",
-      "42a91a1bc91841763d974680"
+      "d11231e8aa7256f65a5b6ddd",
+      "ff4b61e5e7b3c86b68407794"
     ],
-    "responseCount": 12
+    "responseCount": 11
   },
   "qualityCautions": [],
   "captures": [
+    {
+      "id": "99c96d5823791125dd5b7ea7",
+      "packetId": "3a1b3865e0ffdccb01e85b0c",
+      "discoveryId": "a7562a6f718c64e4a046f3e3",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/a7562a6f718c64e4a046f3e3--buybetter.json",
+      "source": {
+        "productId": 433434,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
+        "listingUrl": "https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/",
+        "capturedAt": "2026-07-29T04:12:21.311Z",
+        "responseSha256": "8f2692475631c4809947a23538b9baa067dfedda7191d802ffe8cd913bc3af51",
+        "responseByteSize": 5666,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
+        "size": "50ml",
+        "price": {
+          "amount": 28200,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "609332818071",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
     {
       "id": "114225f00949eaf68620ec2b",
       "packetId": "42a91a1bc91841763d974680",
@@ -267,40 +300,6 @@
       }
     },
     {
-      "id": "56346515e2607d03db8f297d",
-      "packetId": "b619283c79d7d3f73b7e32ec",
-      "discoveryId": "11d3a6116ccfc1cbce191430",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/11d3a6116ccfc1cbce191430--buybetter.json",
-      "source": {
-        "productId": 435159,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/435159",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/435159",
-        "listingUrl": "https://buybetter.ng/product/la-roche-posay-pure-vitamin-c-cleanser-200ml/",
-        "capturedAt": "2026-07-29T04:12:18.557Z",
-        "responseSha256": "dbf8dcda4c1276b0c8ffa0be52af10cfd5f80ac5eb780429e8c1e322e25f78d7",
-        "responseByteSize": 4557,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "LA ROCHE-POSAY PURE VITAMIN C Cleanser 200ml",
-        "size": "200ml",
-        "price": {
-          "amount": 21500,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "3337875923613",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
       "id": "feac5fa7a7b83b978d9e393a",
       "packetId": "ce0f3f38b3ead84fdecdaf07",
       "discoveryId": "005fe384576be5e38689857f",
@@ -364,40 +363,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8809240319406",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "a50663701e47c17088f1c170",
-      "packetId": "f602d58427ee37f8e9533bb5",
-      "discoveryId": "4904b1d7b96c2c0886d65ad9",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/4904b1d7b96c2c0886d65ad9--buybetter.json",
-      "source": {
-        "productId": 331696,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331696",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331696",
-        "listingUrl": "https://buybetter.ng/product/biobalance-pure-salicylic-acid-2-serums-30ml/",
-        "capturedAt": "2026-07-29T04:12:15.661Z",
-        "responseSha256": "e1d79888208bcd46bd424c4052e186ae36f7c525007f6b82f458814f9cba8041",
-        "responseByteSize": 12745,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "BIOBALANCE Super (BETA SOLUTION PURE SALICYLIC ACID 2% Serums 30ML",
-        "size": "30ml",
-        "price": {
-          "amount": 13160,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "8697711600845",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

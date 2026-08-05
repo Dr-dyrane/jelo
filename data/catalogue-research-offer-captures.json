@@ -3,33 +3,729 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-08-02T23:27:02.181Z",
+  "generatedAt": "2026-08-05T03:31:47.088Z",
   "source": {
-    "researchPacketProjectionSha256": "3a58bdfee717689f34d40b19372eef741ad579cf0cce3c8590f02b05a702ce18",
+    "researchPacketProjectionSha256": "b87334347479d75b071c5f63152491052960c7292906e7b64f8d1a2e05d3852b",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 1,
+    "packetCount": 45,
     "packetIds": [
-      "586ef0ac5c086de562296593"
+      "16904e359f5d8aed4df6ca91",
+      "258b05593ae6b7cb1e1d5ddf",
+      "32f7b0d9d472895d9c2d43f2",
+      "7108e00bfaf03e02b749a0f4",
+      "779abfc23925ba26c3b6d14b",
+      "92b7380b76ea55d58e387244",
+      "af7e509f9b6ff6e4c83a0eb6",
+      "bc30eadf44f2f7a2d9f4f144",
+      "c9a1d5e6b6b260984c2463d0",
+      "e6c412ff66aded226f1b11d7",
+      "e7b8894ebe80c275ee8cb391",
+      "1920014afae80ba00e4169ca",
+      "37a75aa63b334a44df82d6c2",
+      "40b98e378e2d706b14d203c6",
+      "42f32d48d0fbcf7e7f56607a",
+      "5e5eaf99bf5cf8c6218633cd",
+      "9461a4a54aec53613167f7c5",
+      "95ae7ea127cc3fa98e364ebf",
+      "b55494943c535dd1b7f63929",
+      "c513f8766b8a5963d380ecfc",
+      "d4f0fa500b7c661235f056d8",
+      "d8b1ae52cb7da0eb678282e9",
+      "f020ac8386430486b94e1ce2",
+      "3a1b3865e0ffdccb01e85b0c",
+      "42a91a1bc91841763d974680",
+      "533c74704d64dbc2fcf85770",
+      "861874fd1cfe8bb36f77912b",
+      "8ae1b6abf6fe77ce94d1c319",
+      "8c9317ef63c239fa932e1f1b",
+      "a58cf5de47116310cc34e91a",
+      "aff07100d6424f43489e1eb0",
+      "ce0f3f38b3ead84fdecdaf07",
+      "d11231e8aa7256f65a5b6ddd",
+      "ff4b61e5e7b3c86b68407794",
+      "459b8806590d2750e22a8906",
+      "586ef0ac5c086de562296593",
+      "656a1a60466fc29f11d0059f",
+      "69bf90baf39309039402ae19",
+      "8146f37c47cff6d9cd0c6193",
+      "863eec92f7291e3d307be521",
+      "9cb4a3ee328b1dec80f44f6c",
+      "a86b042330160d53b65b056e",
+      "cbc834ef2dfe1921106b9ad0",
+      "de73b1b69dc56e877ea37999",
+      "ed48f1fea49846a7db551502"
     ],
-    "responseCount": 1
+    "responseCount": 67
   },
   "sources": [
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/658264d9772b4db797fe09b8cbf431b470e4d6ce39ddc954ad9d27c1eea831c2.json",
-      "sourceSha256": "658264d9772b4db797fe09b8cbf431b470e4d6ce39ddc954ad9d27c1eea831c2",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/498c3f16d61d6773002a466575c5756e24fd1459a778b3a7547361c0a448cd06.json",
-      "researchPacketSourceSha256": "498c3f16d61d6773002a466575c5756e24fd1459a778b3a7547361c0a448cd06",
-      "packetCount": 1,
+      "sourcePath": "data/catalogue-research-offer-capture-sources/1b00297c0d58ea11e06fcb922e62e99b5fef647cd0f64b7065da95f01a4508e7.json",
+      "sourceSha256": "1b00297c0d58ea11e06fcb922e62e99b5fef647cd0f64b7065da95f01a4508e7",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/cf538a3ce5afd880edb54ae68c203d957d3120a64d9b8b1f693fba4f0e6fad94.json",
+      "researchPacketSourceSha256": "cf538a3ce5afd880edb54ae68c203d957d3120a64d9b8b1f693fba4f0e6fad94",
+      "packetCount": 11,
       "packetIds": [
-        "586ef0ac5c086de562296593"
+        "16904e359f5d8aed4df6ca91",
+        "258b05593ae6b7cb1e1d5ddf",
+        "32f7b0d9d472895d9c2d43f2",
+        "7108e00bfaf03e02b749a0f4",
+        "779abfc23925ba26c3b6d14b",
+        "92b7380b76ea55d58e387244",
+        "af7e509f9b6ff6e4c83a0eb6",
+        "bc30eadf44f2f7a2d9f4f144",
+        "c9a1d5e6b6b260984c2463d0",
+        "e6c412ff66aded226f1b11d7",
+        "e7b8894ebe80c275ee8cb391"
       ],
-      "responseCount": 1
+      "responseCount": 21
+    },
+    {
+      "sourcePath": "data/catalogue-research-offer-capture-sources/384b1bef201ae29395623315dc2a7d21cafd24168611fff8a55eca4687b74c2b.json",
+      "sourceSha256": "384b1bef201ae29395623315dc2a7d21cafd24168611fff8a55eca4687b74c2b",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/732f2de5699213afcc6af989ed674816f21825124350e38e60ceb3820d8d93a7.json",
+      "researchPacketSourceSha256": "732f2de5699213afcc6af989ed674816f21825124350e38e60ceb3820d8d93a7",
+      "packetCount": 12,
+      "packetIds": [
+        "1920014afae80ba00e4169ca",
+        "37a75aa63b334a44df82d6c2",
+        "40b98e378e2d706b14d203c6",
+        "42f32d48d0fbcf7e7f56607a",
+        "5e5eaf99bf5cf8c6218633cd",
+        "9461a4a54aec53613167f7c5",
+        "95ae7ea127cc3fa98e364ebf",
+        "b55494943c535dd1b7f63929",
+        "c513f8766b8a5963d380ecfc",
+        "d4f0fa500b7c661235f056d8",
+        "d8b1ae52cb7da0eb678282e9",
+        "f020ac8386430486b94e1ce2"
+      ],
+      "responseCount": 24
+    },
+    {
+      "sourcePath": "data/catalogue-research-offer-capture-sources/f208e033aaa27e353099158d702b53321c89687b532193ac414b14bf46324772.json",
+      "sourceSha256": "f208e033aaa27e353099158d702b53321c89687b532193ac414b14bf46324772",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/bc4bdb20d248a1ba38ccc4826610f03a76a8fc2344188683eef6dcef33ae70c6.json",
+      "researchPacketSourceSha256": "bc4bdb20d248a1ba38ccc4826610f03a76a8fc2344188683eef6dcef33ae70c6",
+      "packetCount": 11,
+      "packetIds": [
+        "3a1b3865e0ffdccb01e85b0c",
+        "42a91a1bc91841763d974680",
+        "533c74704d64dbc2fcf85770",
+        "861874fd1cfe8bb36f77912b",
+        "8ae1b6abf6fe77ce94d1c319",
+        "8c9317ef63c239fa932e1f1b",
+        "a58cf5de47116310cc34e91a",
+        "aff07100d6424f43489e1eb0",
+        "ce0f3f38b3ead84fdecdaf07",
+        "d11231e8aa7256f65a5b6ddd",
+        "ff4b61e5e7b3c86b68407794"
+      ],
+      "responseCount": 11
+    },
+    {
+      "sourcePath": "data/catalogue-research-offer-capture-sources/4458853ea5b1bd96e46bbf67413b56d4997e5fd686b8a190a9aac0ae198e86f7.json",
+      "sourceSha256": "4458853ea5b1bd96e46bbf67413b56d4997e5fd686b8a190a9aac0ae198e86f7",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/6cdd881fa447299283df3a6133066bd5e17e2259548921c8577f82d01b1afe65.json",
+      "researchPacketSourceSha256": "6cdd881fa447299283df3a6133066bd5e17e2259548921c8577f82d01b1afe65",
+      "packetCount": 11,
+      "packetIds": [
+        "459b8806590d2750e22a8906",
+        "586ef0ac5c086de562296593",
+        "656a1a60466fc29f11d0059f",
+        "69bf90baf39309039402ae19",
+        "8146f37c47cff6d9cd0c6193",
+        "863eec92f7291e3d307be521",
+        "9cb4a3ee328b1dec80f44f6c",
+        "a86b042330160d53b65b056e",
+        "cbc834ef2dfe1921106b9ad0",
+        "de73b1b69dc56e877ea37999",
+        "ed48f1fea49846a7db551502"
+      ],
+      "responseCount": 11
     }
   ],
   "qualityCautions": [],
   "captures": [
+    {
+      "id": "6a0c8b2f7172d0951c5ed862",
+      "packetId": "16904e359f5d8aed4df6ca91",
+      "discoveryId": "f234692457fb9dcea6ab4000",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f234692457fb9dcea6ab4000--buybetter.json",
+      "source": {
+        "productId": 399284,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/399284",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/399284",
+        "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/",
+        "capturedAt": "2026-07-29T04:12:13.473Z",
+        "responseSha256": "f71750bcc8bb5541704a88630a4b460be09df368c50932588bb4c322132d8464",
+        "responseByteSize": 4433,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NINELESS MELA-PRO Tranexamic Acid Sunscreen 100ml",
+        "size": "100ml",
+        "price": {
+          "amount": 14000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809875270158",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "f05c843ef06fbfbb6b2524b3",
+      "packetId": "1920014afae80ba00e4169ca",
+      "discoveryId": "138dd87819a57f6a7a3f68ca",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/138dd87819a57f6a7a3f68ca--buybetter.json",
+      "source": {
+        "productId": 330632,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330632",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330632",
+        "listingUrl": "https://buybetter.ng/product/disaar-vitamin-c-skin-brightening-body-lotion-480ml/",
+        "capturedAt": "2026-07-28T14:40:31.400Z",
+        "responseSha256": "859ca5ba9b67228fa9046df9a33b4329b114a87238a77eb3e9925a683930cdda",
+        "responseByteSize": 5442,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DISAAR -Vitamin C Skin Brightening Body Lotion 480ml",
+        "size": "480ml",
+        "price": {
+          "amount": 4891,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6932511218466",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "146bfb1d159f5e9e67b0ef35",
+      "packetId": "1920014afae80ba00e4169ca",
+      "discoveryId": "138dd87819a57f6a7a3f68ca",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/138dd87819a57f6a7a3f68ca--slique-beauty.json",
+      "source": {
+        "productId": 4636,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4636",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4636",
+        "listingUrl": "https://sliquebeautylimited.com/product/disaar-vitamin-c-body-lotion-480ml/",
+        "capturedAt": "2026-07-28T14:40:29.988Z",
+        "responseSha256": "d9df30bcc89a98fd20c5e1dfa29a8e8abad847dc14dbfee2252ad64479885f51",
+        "responseByteSize": 5147,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DISAAR VITAMIN C BODY LOTION 480ML",
+        "size": "480ml",
+        "price": {
+          "amount": 4000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6932511218466",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "1567ce5fc406388008096aab",
+      "packetId": "258b05593ae6b7cb1e1d5ddf",
+      "discoveryId": "0b79938ca156f8c9fac4469f",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0b79938ca156f8c9fac4469f--buybetter.json",
+      "source": {
+        "productId": 333859,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333859",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333859",
+        "listingUrl": "https://buybetter.ng/product/eos-shea-better-cashmere-body-wash-pink-champagne-16-oz/",
+        "capturedAt": "2026-07-29T04:12:13.002Z",
+        "responseSha256": "4cafb0bfeb73a72f943d34e89646007a46301d64ecc53869f3ada037671919ea",
+        "responseByteSize": 4975,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
+        "size": "473ml",
+        "price": {
+          "amount": 18500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "840044714101",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "87feaffdb38712df7257caca",
+      "packetId": "258b05593ae6b7cb1e1d5ddf",
+      "discoveryId": "0b79938ca156f8c9fac4469f",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0b79938ca156f8c9fac4469f--slique-beauty.json",
+      "source": {
+        "productId": 23019,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23019",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23019",
+        "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-pink-champagne/",
+        "capturedAt": "2026-07-29T04:12:12.469Z",
+        "responseSha256": "7efd75a5de151726ecc90101c057e95ef4477c885b3f946a8a1309cc62da394f",
+        "responseByteSize": 4052,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "EOS CASHMERE BODY WASH 473ML - PINK CHAMPAGNE",
+        "size": "473ml",
+        "price": {
+          "amount": 23500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "840044714101",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "f11033fe4f56c5951f9b8ed3",
+      "packetId": "32f7b0d9d472895d9c2d43f2",
+      "discoveryId": "6635e9027b7821ef2ff04dbd",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/6635e9027b7821ef2ff04dbd--buybetter.json",
+      "source": {
+        "productId": 418344,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418344",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418344",
+        "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-active-fair-face-cream-100g/",
+        "capturedAt": "2026-07-29T04:12:07.523Z",
+        "responseSha256": "f379cd9e96e9b64d65e78984ff9cc2cf6bbc4aa1a1e8ca451481e8586cc50de8",
+        "responseByteSize": 8534,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
+        "size": "100g",
+        "price": {
+          "amount": 10000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6156000469720",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "cc4278955fbaea552f07a246",
+      "packetId": "32f7b0d9d472895d9c2d43f2",
+      "discoveryId": "6635e9027b7821ef2ff04dbd",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/6635e9027b7821ef2ff04dbd--slique-beauty.json",
+      "source": {
+        "productId": 21440,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21440",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21440",
+        "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-active-fair-cream-100g/",
+        "capturedAt": "2026-07-29T04:12:07.315Z",
+        "responseSha256": "7c64c2286c7f42f1f4ce7b535776aae3dde6843c081075669ebce712265993cd",
+        "responseByteSize": 4266,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN ACTIVE FAIR CREAM 100G",
+        "size": "100g",
+        "price": {
+          "amount": 12000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6156000469720",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "669c2d22d7752c3156bfc07c",
+      "packetId": "37a75aa63b334a44df82d6c2",
+      "discoveryId": "73f96c6c3931cdc9b240b758",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/73f96c6c3931cdc9b240b758--buybetter.json",
+      "source": {
+        "productId": 330775,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330775",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330775",
+        "listingUrl": "https://buybetter.ng/product/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/",
+        "capturedAt": "2026-07-28T14:40:35.284Z",
+        "responseSha256": "60bf67663c08347f5f316177b610caef05e5114b14f2c9da1620a269cf64c86d",
+        "responseByteSize": 5544,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ESTELIN Ultra Light Hydrating Invisible Sunscreen SPF 50+++ 50g",
+        "size": "50g",
+        "price": {
+          "amount": 3548,
+          "currency": "NGN"
+        },
+        "stock": "out-of-stock",
+        "retailerSku": {
+          "value": "6971764154558",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "02a040f57c4a63f23d2a0c71",
+      "packetId": "37a75aa63b334a44df82d6c2",
+      "discoveryId": "73f96c6c3931cdc9b240b758",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/73f96c6c3931cdc9b240b758--slique-beauty.json",
+      "source": {
+        "productId": 4448,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4448",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4448",
+        "listingUrl": "https://sliquebeautylimited.com/product/estelin-sunscreen-ultra-light-50g/",
+        "capturedAt": "2026-07-28T14:40:34.021Z",
+        "responseSha256": "5899d5e21f7bbe63ed76ae593edcbdf1e9da7ce33d7c7ef00f15d07a5c1777f1",
+        "responseByteSize": 5864,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ESTELIN SUNSCREEN 50G - ULTRA LIGHT",
+        "size": "50g",
+        "price": {
+          "amount": 3700,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6971764154558",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "99c96d5823791125dd5b7ea7",
+      "packetId": "3a1b3865e0ffdccb01e85b0c",
+      "discoveryId": "a7562a6f718c64e4a046f3e3",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/a7562a6f718c64e4a046f3e3--buybetter.json",
+      "source": {
+        "productId": 433434,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
+        "listingUrl": "https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/",
+        "capturedAt": "2026-07-29T04:12:21.311Z",
+        "responseSha256": "8f2692475631c4809947a23538b9baa067dfedda7191d802ffe8cd913bc3af51",
+        "responseByteSize": 5666,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
+        "size": "50ml",
+        "price": {
+          "amount": 28200,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "609332818071",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "1a19a40e5f6aa0163df6411a",
+      "packetId": "40b98e378e2d706b14d203c6",
+      "discoveryId": "e0574c12b77f4a4eafd63ed0",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/e0574c12b77f4a4eafd63ed0--buybetter.json",
+      "source": {
+        "productId": 377469,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
+        "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrating-bright-body-gel-wash-1000ml/",
+        "capturedAt": "2026-07-28T14:40:36.349Z",
+        "responseSha256": "65cf621609602181a7cc75e139012a42bde11e6a901b40a073472e8e94b8dcf2",
+        "responseByteSize": 11492,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
+        "size": "1000ml",
+        "price": {
+          "amount": 10750,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "4897073186566",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "c487910477e8dd2da129c27d",
+      "packetId": "40b98e378e2d706b14d203c6",
+      "discoveryId": "e0574c12b77f4a4eafd63ed0",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/e0574c12b77f4a4eafd63ed0--slique-beauty.json",
+      "source": {
+        "productId": 23687,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
+        "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-hydrating-bright/",
+        "capturedAt": "2026-07-28T14:40:35.788Z",
+        "responseSha256": "23e0cc3774c4f34bb3e650290c6607eafdf73fa188a0cdd6cbcde579d92afd57",
+        "responseByteSize": 4106,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "AQUA RICH BODY GEL WASH 1000ML - HYDRATING BRIGHT",
+        "size": "1000ml",
+        "price": {
+          "amount": 10500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "4897073186566",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "114225f00949eaf68620ec2b",
+      "packetId": "42a91a1bc91841763d974680",
+      "discoveryId": "7f5e4463688a37e008b523ff",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/7f5e4463688a37e008b523ff--buybetter.json",
+      "source": {
+        "productId": 383321,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/383321",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/383321",
+        "listingUrl": "https://buybetter.ng/product/anua-zero-cast-moisturizing-finnish-sunscreen-50ml/",
+        "capturedAt": "2026-07-29T04:12:18.955Z",
+        "responseSha256": "7acf5aaefa318896172777dad23905c689d577298e1f4d346bc8ef75232ecedc",
+        "responseByteSize": 7054,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
+        "size": "50ml",
+        "price": {
+          "amount": 14000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "8809640739507",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "3801ffc016844c6b85c3d273",
+      "packetId": "42f32d48d0fbcf7e7f56607a",
+      "discoveryId": "17bd496cb38c558d4e8a56f9",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/17bd496cb38c558d4e8a56f9--buybetter.json",
+      "source": {
+        "productId": 329372,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329372",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329372",
+        "listingUrl": "https://buybetter.ng/product/dr-teals-body-lotion-with-vitamin-c-532ml/",
+        "capturedAt": "2026-07-28T14:40:38.159Z",
+        "responseSha256": "475dc2d958c1d42bd01229210731c143c7de88230cdf52ea254898c87cc92518",
+        "responseByteSize": 12684,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DR TEALS (Vitamin C And Citrus) Body Lotion with Essential oil 532ml",
+        "size": "532ml",
+        "price": {
+          "amount": 7500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "811068019237",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "fde4f01a3d4c9c3b044c8fd5",
+      "packetId": "42f32d48d0fbcf7e7f56607a",
+      "discoveryId": "17bd496cb38c558d4e8a56f9",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/17bd496cb38c558d4e8a56f9--slique-beauty.json",
+      "source": {
+        "productId": 4488,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4488",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4488",
+        "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-glow-radiance-body-lotion-citrus/",
+        "capturedAt": "2026-07-28T14:40:36.813Z",
+        "responseSha256": "84602f0ed8250f46b0b06e26ebf56081a801f76ef872ee91f26e852b0633525d",
+        "responseByteSize": 5623,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DR TEAL'S GLOW & RADIANCE BODY LOTION 532ML - CITRUS",
+        "size": "532ml",
+        "price": {
+          "amount": 9500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "811068019237",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "77e96bca51ecb7ab2a1acd23",
+      "packetId": "459b8806590d2750e22a8906",
+      "discoveryId": "5154a75f6a4315ba69ff7bdf",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/5154a75f6a4315ba69ff7bdf--buybetter.json",
+      "source": {
+        "productId": 363775,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/363775",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/363775",
+        "listingUrl": "https://buybetter.ng/product/keracare-no1-dry-and-itchy-scalp-anti-dandruff-moisturizing-shampoo-950ml/",
+        "capturedAt": "2026-07-29T04:12:24.596Z",
+        "responseSha256": "b613812b080102e9f8429cbc853b8a0ce9f573685535dd64f10e4dd00ea0f27f",
+        "responseByteSize": 4937,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "KERACARE Dry And Itchy Shampoo 950ml",
+        "size": "950ml",
+        "price": {
+          "amount": 35474,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "796708350188",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "49825a957cbe89674277a704",
+      "packetId": "533c74704d64dbc2fcf85770",
+      "discoveryId": "f6fdad85c61090e67bea6ec9",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f6fdad85c61090e67bea6ec9--buybetter.json",
+      "source": {
+        "productId": 330720,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330720",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330720",
+        "listingUrl": "https://buybetter.ng/product/nineless-a-control-azelaic-acid-cream-50ml/",
+        "capturedAt": "2026-07-29T04:12:16.322Z",
+        "responseSha256": "9d64f3fe112be1841eafe6c883fb157fdbb296cc0461610aa16b656d713f3c93",
+        "responseByteSize": 4512,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
+        "size": "50ml",
+        "price": {
+          "amount": 14500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809875270189",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
     {
       "id": "524e9ce9966cccffa5692169",
       "packetId": "586ef0ac5c086de562296593",
@@ -45,7 +741,7 @@
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389121",
         "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389121",
         "listingUrl": "https://buybetter.ng/product/biobalance-dermasebum-purifying-facial-cleansing-gel-250ml/",
-        "capturedAt": "2026-08-02T23:27:02.179Z",
+        "capturedAt": "2026-08-02T18:16:00.778Z",
         "responseSha256": "778078cc759af6e1da11a92195d56dc9730c0d34631db2545d44057ed47774d0",
         "responseByteSize": 8314,
         "responseMimeType": "application/json"
@@ -60,6 +756,1672 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8697711701009",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "2a1f7245fffeb3274122aa4c",
+      "packetId": "5e5eaf99bf5cf8c6218633cd",
+      "discoveryId": "f8248dfef755c72bc5ba70a1",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f8248dfef755c72bc5ba70a1--buybetter.json",
+      "source": {
+        "productId": 377475,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
+        "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-balance-body-gel-wash-1000ml/",
+        "capturedAt": "2026-07-28T14:40:35.789Z",
+        "responseSha256": "170ba0d49a6cad49acef90874bfa6e2bcc9b30f2463bd74b3a13e0611591aa9a",
+        "responseByteSize": 14045,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
+        "size": "1000ml",
+        "price": {
+          "amount": 11300,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "4897073186573",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "618164467f4e9787c9e037a9",
+      "packetId": "5e5eaf99bf5cf8c6218633cd",
+      "discoveryId": "f8248dfef755c72bc5ba70a1",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f8248dfef755c72bc5ba70a1--slique-beauty.json",
+      "source": {
+        "productId": 23688,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
+        "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-balance/",
+        "capturedAt": "2026-07-28T14:40:34.741Z",
+        "responseSha256": "988fa3e610c644374a309f7ebe8c79667bca6dd1f5d959e142fb51b93ad32903",
+        "responseByteSize": 4085,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "AQUA RICH BODY GEL WASH 1000ML - BRIGHT + BALANCE",
+        "size": "1000ml",
+        "price": {
+          "amount": 10500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "4897073186573",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "228670f729ef4b4c1582d004",
+      "packetId": "656a1a60466fc29f11d0059f",
+      "discoveryId": "0defb63ca2f722fc93d4e0d5",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0defb63ca2f722fc93d4e0d5--buybetter.json",
+      "source": {
+        "productId": 332178,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332178",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332178",
+        "listingUrl": "https://buybetter.ng/product/shiseido-professional-sublimic-fuente-forte-shampoo-oily-scalp-1000ml/",
+        "capturedAt": "2026-07-29T04:12:24.600Z",
+        "responseSha256": "6e59bbc17f12ff4dd86f65daddfd1994fd646b66ebdf8c512b5f5cbfc3b0c46d",
+        "responseByteSize": 5888,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SHISEIDO Professional -SUBLIMIC Fuente Forte SHAMPOO (Oily Scalp) 1000ml",
+        "size": "1000ml",
+        "price": {
+          "amount": 32000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "4901872933303",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "e0f8300586b973d368ed99cf",
+      "packetId": "69bf90baf39309039402ae19",
+      "discoveryId": "c65508f695a5dcd240da0eb3",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/c65508f695a5dcd240da0eb3--buybetter.json",
+      "source": {
+        "productId": 332181,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
+        "listingUrl": "https://buybetter.ng/product/glamfox-glowing-moisturizing-rice-niacinamide-foam-cleanser-230g/",
+        "capturedAt": "2026-07-29T04:12:21.312Z",
+        "responseSha256": "9413a16973824c97d64bee2020d34201b6c054a9e74019151fe2a2b1706b1075",
+        "responseByteSize": 4483,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
+        "size": "230g",
+        "price": {
+          "amount": 10213,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "8809109680876",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "c50da3a5f891587172aa2e0c",
+      "packetId": "7108e00bfaf03e02b749a0f4",
+      "discoveryId": "e3e002f6425926e8343cb8e9",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/e3e002f6425926e8343cb8e9--buybetter.json",
+      "source": {
+        "productId": 333882,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333882",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333882",
+        "listingUrl": "https://buybetter.ng/product/eos-shea-better-cashmere-body-wash-coconut-waters-16-oz/",
+        "capturedAt": "2026-07-29T04:12:12.064Z",
+        "responseSha256": "7878c6e5694a013077e28cc65ecec392ebb1c67b86689bfc7d3a05b4738dc37b",
+        "responseByteSize": 4962,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
+        "size": "16oz / 473ml",
+        "price": {
+          "amount": 18500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "840044714088",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "17792283c82c5b58f89d1529",
+      "packetId": "7108e00bfaf03e02b749a0f4",
+      "discoveryId": "e3e002f6425926e8343cb8e9",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/e3e002f6425926e8343cb8e9--slique-beauty.json",
+      "source": {
+        "productId": 23024,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23024",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23024",
+        "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-coconut-waters/",
+        "capturedAt": "2026-07-29T04:12:11.541Z",
+        "responseSha256": "da8cbd388f681848183fee09660476ebae26c822433da619a791c53b7dc4f53d",
+        "responseByteSize": 4062,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "EOS CASHMERE BODY WASH 473ML - COCONUT WATERS",
+        "size": "473ml",
+        "price": {
+          "amount": 23500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "840044714088",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "8051b95595008e12c5245177",
+      "packetId": "779abfc23925ba26c3b6d14b",
+      "discoveryId": "bf9ba6790a3343c9ef316925",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/bf9ba6790a3343c9ef316925--buybetter.json",
+      "source": {
+        "productId": 328999,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328999",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328999",
+        "listingUrl": "https://buybetter.ng/product/acwell-licorice-ph-balancing-cleansing-toner/",
+        "capturedAt": "2026-07-29T04:12:11.115Z",
+        "responseSha256": "323c25c1bf4ab140fb63108581fbff91dec70c53664e6bc4c54563324b515f18",
+        "responseByteSize": 21832,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ACWELL Licorice pH Balancing Cleansing Toner 150ml",
+        "size": "150ml",
+        "price": {
+          "amount": 11150,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809129643189",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "4848295d4fdf7f583dd82a33",
+      "packetId": "779abfc23925ba26c3b6d14b",
+      "discoveryId": "bf9ba6790a3343c9ef316925",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/bf9ba6790a3343c9ef316925--slique-beauty.json",
+      "source": {
+        "productId": 5155,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/5155",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/5155",
+        "listingUrl": "https://sliquebeautylimited.com/product/acwell-licorice-cleansing-toner-150ml/",
+        "capturedAt": "2026-07-29T04:12:10.377Z",
+        "responseSha256": "3746ea2760ca3d8d3b175279b2d30a5190a2c934a6bd2c19853569f24afd0ba0",
+        "responseByteSize": 4866,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ACWELL LICORICE CLEANSING TONER 150ML",
+        "size": "150ml",
+        "price": {
+          "amount": 15000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "8809129643189",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "df7f7c2e02fa8ad04fef1fa5",
+      "packetId": "8146f37c47cff6d9cd0c6193",
+      "discoveryId": "f67f222e9d4c90404e22904d",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f67f222e9d4c90404e22904d--buybetter.json",
+      "source": {
+        "productId": 402566,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402566",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402566",
+        "listingUrl": "https://buybetter.ng/product/amika-the-kure-conditioner-275ml/",
+        "capturedAt": "2026-07-29T04:12:23.017Z",
+        "responseSha256": "3d11276ea0e9337da18de3e5134b87620f378155907fa7e332f34d0b94fd12f3",
+        "responseByteSize": 4686,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "Amika - The kure Conditioner 275ml",
+        "size": "275ml",
+        "price": {
+          "amount": 35690,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "840117807082",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "3cbb9ed46258faf8de65ba42",
+      "packetId": "861874fd1cfe8bb36f77912b",
+      "discoveryId": "980f4a6663d7e3bdca521609",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/980f4a6663d7e3bdca521609--buybetter.json",
+      "source": {
+        "productId": 422248,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422248",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422248",
+        "listingUrl": "https://buybetter.ng/product/medicube-pdrn-pink-niacinamide-whip-cleanser-120g/",
+        "capturedAt": "2026-07-29T04:12:18.558Z",
+        "responseSha256": "35a6202307f96b345fea6ab5a4477e3b2817eb59488f54a4c32da6bf411de0b2",
+        "responseByteSize": 4801,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
+        "size": "120g",
+        "price": {
+          "amount": 12800,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8800289473159",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "012c6b2fb6f8e5740eb73043",
+      "packetId": "863eec92f7291e3d307be521",
+      "discoveryId": "4a65be1a58dd495b7eab8b5b",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/4a65be1a58dd495b7eab8b5b--buybetter.json",
+      "source": {
+        "productId": 389106,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389106",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389106",
+        "listingUrl": "https://buybetter.ng/product/bio-balance-derma-age-rejuvenating-facial-cleansing-gel-250ml/",
+        "capturedAt": "2026-07-29T04:12:22.386Z",
+        "responseSha256": "947f29d189cdb4368af5bfd72446d779bbc71fa03fdfdbb600e7e72d85cd854d",
+        "responseByteSize": 6441,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
+        "size": "250ml",
+        "price": {
+          "amount": 11163,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8697711701023",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "6a87114c28b42e2d292536ce",
+      "packetId": "8ae1b6abf6fe77ce94d1c319",
+      "discoveryId": "68dd71a67def9960124cd112",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/68dd71a67def9960124cd112--buybetter.json",
+      "source": {
+        "productId": 429825,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
+        "listingUrl": "https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:15.317Z",
+        "responseSha256": "16dbd74d06034de74cc6d2096f16c7724c6a0bebb0a667a10fe12cf87586ce94",
+        "responseByteSize": 4531,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 16500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8800280693693",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "adad1b73ea695e54f3d5f220",
+      "packetId": "8c9317ef63c239fa932e1f1b",
+      "discoveryId": "f87e67c0fb61e9574f74ef21",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f87e67c0fb61e9574f74ef21--buybetter.json",
+      "source": {
+        "productId": 332657,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
+        "listingUrl": "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-masks-23g/",
+        "capturedAt": "2026-07-29T04:12:16.465Z",
+        "responseSha256": "a9fd55c00d65e8fd0671dff691b4268e9d6b743cfe9d71e9b98204a7ec25b68a",
+        "responseByteSize": 4186,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
+        "size": "23g",
+        "price": {
+          "amount": 3548,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "3600542368810",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "75e6c4046d8086c8d4a13817",
+      "packetId": "92b7380b76ea55d58e387244",
+      "discoveryId": "af4cf984d6ae1296e4ffd1b0",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/af4cf984d6ae1296e4ffd1b0--buybetter.json",
+      "source": {
+        "productId": 333775,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333775",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333775",
+        "listingUrl": "https://buybetter.ng/product/byoma-creamy-jelly-face-cleanser-unscented/",
+        "capturedAt": "2026-07-29T04:12:12.610Z",
+        "responseSha256": "73a980c1432d3e1502bc4665b07d9f39ee33b52237d67155ecf0061946c4a0b6",
+        "responseByteSize": 4798,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
+        "size": "16oz / 473ml",
+        "price": {
+          "amount": 18500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "840044714163",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "d84fbfb15dea2865e95b5691",
+      "packetId": "92b7380b76ea55d58e387244",
+      "discoveryId": "af4cf984d6ae1296e4ffd1b0",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/af4cf984d6ae1296e4ffd1b0--slique-beauty.json",
+      "source": {
+        "productId": 23020,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23020",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23020",
+        "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-vanilla-cashmere/",
+        "capturedAt": "2026-07-29T04:12:11.905Z",
+        "responseSha256": "46d9c39080ed8b677f76a0451c8169622da80e22739528fed37b921ebaf84f35",
+        "responseByteSize": 4086,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "EOS CASHMERE BODY WASH 473ML - VANILLA CASHMERE",
+        "size": "473ml",
+        "price": {
+          "amount": 23500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "840044714163",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "f9f11b939598087db8f2fc39",
+      "packetId": "9461a4a54aec53613167f7c5",
+      "discoveryId": "0f6340275dfe1257901f0bf0",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0f6340275dfe1257901f0bf0--buybetter.json",
+      "source": {
+        "productId": 330970,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330970",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330970",
+        "listingUrl": "https://buybetter.ng/product/estelin-all-in-one-multi-defense-tinted-sunscreen-spf-70-50g/",
+        "capturedAt": "2026-07-28T14:40:34.368Z",
+        "responseSha256": "c62bf029392f0f88b4d3b9b7ea347a6ea792dac7cd40b259d1cd85fe316d1ae2",
+        "responseByteSize": 5887,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ESTELIN ALL IN ONE MULTI-DEFENSE Tinted Sunscreen SPF 70+++ 50g",
+        "size": "50g",
+        "price": {
+          "amount": 3548,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6971764154589",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "a63d5ca5b1b68ca56d7b416e",
+      "packetId": "9461a4a54aec53613167f7c5",
+      "discoveryId": "0f6340275dfe1257901f0bf0",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0f6340275dfe1257901f0bf0--slique-beauty.json",
+      "source": {
+        "productId": 4449,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4449",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4449",
+        "listingUrl": "https://sliquebeautylimited.com/product/estelin-sunsreen-all-in-one-50g/",
+        "capturedAt": "2026-07-28T14:40:33.541Z",
+        "responseSha256": "d6f77dc0a014fb483920cdb11ffd98a474de856a0e97b3e0ce4c8da36dfcfcd3",
+        "responseByteSize": 5574,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ESTELIN SUNSCREEN 50G - ALL IN ONE",
+        "size": "50g",
+        "price": {
+          "amount": 3700,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6971764154589",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "fe739f6d1888e13589b102c3",
+      "packetId": "95ae7ea127cc3fa98e364ebf",
+      "discoveryId": "c7e76dd320bb3c521744597c",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/c7e76dd320bb3c521744597c--buybetter.json",
+      "source": {
+        "productId": 331028,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331028",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331028",
+        "listingUrl": "https://buybetter.ng/product/niu-skin-glowing-niacinamide-vitamin-c-aha-body-wash-800ml/",
+        "capturedAt": "2026-07-28T14:40:37.494Z",
+        "responseSha256": "86972522b4a0ff0636831ffe9e8651b074ea81577d4c4042216ae832177ec665",
+        "responseByteSize": 7159,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NIU SKIN Glowing (Niacinamide, Vitamin C And AHA) Body Wash 800ml",
+        "size": "800ml",
+        "price": {
+          "amount": 7418,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6974525213150",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "c86b776cee74641fa5e560c5",
+      "packetId": "95ae7ea127cc3fa98e364ebf",
+      "discoveryId": "c7e76dd320bb3c521744597c",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/c7e76dd320bb3c521744597c--slique-beauty.json",
+      "source": {
+        "productId": 17014,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/17014",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/17014",
+        "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-glowing-body-wash-800ml/",
+        "capturedAt": "2026-07-28T14:40:36.301Z",
+        "responseSha256": "a75bf817838776b39dcb85de2dde6bc138aa996f3a324548d1edca9483f158bb",
+        "responseByteSize": 4392,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NIU SKIN GLOWING BODY WASH 800ML",
+        "size": "800ml",
+        "price": {
+          "amount": 7500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6974525213150",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "069a8a25d1cabf16e730765c",
+      "packetId": "9cb4a3ee328b1dec80f44f6c",
+      "discoveryId": "434e6d0e45a3bea8326d0911",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/434e6d0e45a3bea8326d0911--buybetter.json",
+      "source": {
+        "productId": 418660,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418660",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418660",
+        "listingUrl": "https://buybetter.ng/product/seapuri-scalpy-hair-serum-20ml/",
+        "capturedAt": "2026-07-29T04:12:24.129Z",
+        "responseSha256": "543e97d1f2d4a6227cd7bacbbe38970655915aa113ef5db5f11b64bac4a61dc9",
+        "responseByteSize": 8544,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SEAPURI Scalpy Hair Serum 20ml",
+        "size": "20ml",
+        "price": {
+          "amount": 17200,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809934860870",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "4ff2e53bb7a5f2879e7f05ae",
+      "packetId": "a58cf5de47116310cc34e91a",
+      "discoveryId": "b9f9c3fe07895c6ce9945f8a",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/b9f9c3fe07895c6ce9945f8a--buybetter.json",
+      "source": {
+        "productId": 335880,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/335880",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/335880",
+        "listingUrl": "https://buybetter.ng/product/glamfox-double-effect-retinol-collagen-foam-cleanser-120ml/",
+        "capturedAt": "2026-07-29T04:12:17.789Z",
+        "responseSha256": "915e0262ed12f6e3530bcb11a6c0fe2bf51da6ab944c6cc0d310f480269c8c0f",
+        "responseByteSize": 4753,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
+        "size": "120ml",
+        "price": {
+          "amount": 10965,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809109689688",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "515de7d63e2264e9ca673b68",
+      "packetId": "a86b042330160d53b65b056e",
+      "discoveryId": "9454deec37a4fc5fcd1e7fa7",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/9454deec37a4fc5fcd1e7fa7--buybetter.json",
+      "source": {
+        "productId": 422148,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422148",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422148",
+        "listingUrl": "https://buybetter.ng/product/pacci-pristine-sun-haven-aqua-spf50-sunscreen-80ml/",
+        "capturedAt": "2026-07-29T04:12:20.872Z",
+        "responseSha256": "c29fff7be02e9aa18922eb73cb4d9a477ab178d5f90b2169f7724dbd5ea6915e",
+        "responseByteSize": 4254,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
+        "size": "80ml",
+        "price": {
+          "amount": 10858,
+          "currency": "NGN"
+        },
+        "stock": "out-of-stock",
+        "retailerSku": {
+          "value": "7222408428368",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "c6c962ba2eb4e06c81656706",
+      "packetId": "af7e509f9b6ff6e4c83a0eb6",
+      "discoveryId": "4b13a12fadc04b34d8290d5b",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/4b13a12fadc04b34d8290d5b--buybetter.json",
+      "source": {
+        "productId": 386392,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/386392",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/386392",
+        "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/",
+        "capturedAt": "2026-07-29T04:12:09.964Z",
+        "responseSha256": "c7c412e40d1f928781bfbb7b9d21dd12f8dc23f2a103fbd67f5ee5ad56a8f689",
+        "responseByteSize": 5777,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
+        "size": "500ml",
+        "price": {
+          "amount": 10804,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "4897073187532",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "3da582f36d7b65346854e9a2",
+      "packetId": "af7e509f9b6ff6e4c83a0eb6",
+      "discoveryId": "4b13a12fadc04b34d8290d5b",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/4b13a12fadc04b34d8290d5b--slique-beauty.json",
+      "source": {
+        "productId": 24956,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/24956",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/24956",
+        "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-bright-glow/",
+        "capturedAt": "2026-07-29T04:12:09.407Z",
+        "responseSha256": "f36ba88fc8c173de097641d82071e794c1f1861cd7b2bafd30dd359b2ab0f640",
+        "responseByteSize": 3648,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "AQUA RICH BODY LOTION 500ML - BRIGHT + GLOW",
+        "size": "500ml",
+        "price": {
+          "amount": 10500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "4897073187532",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "302687b5b34ab7482212d57b",
+      "packetId": "aff07100d6424f43489e1eb0",
+      "discoveryId": "0b73f42e4c3d2f14656610ae",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0b73f42e4c3d2f14656610ae--buybetter.json",
+      "source": {
+        "productId": 415589,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/415589",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/415589",
+        "listingUrl": "https://buybetter.ng/product/purito-azelaic-acid-10-kojic-tea-tree-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:16.746Z",
+        "responseSha256": "4c60e20de4fafea2bb2c40777e2752229ea63f4c26c35968731005ed5056a71b",
+        "responseByteSize": 5156,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 18000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809563103980",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "bc59a2b6fb87d30258c91194",
+      "packetId": "b55494943c535dd1b7f63929",
+      "discoveryId": "d67dbac2f6d48cf84f59a3a7",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/d67dbac2f6d48cf84f59a3a7--buybetter.json",
+      "source": {
+        "productId": 359537,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/359537",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/359537",
+        "listingUrl": "https://buybetter.ng/product/estelin-hyaluronic-acid-moisturizing-toner-400ml/",
+        "capturedAt": "2026-07-28T14:40:31.157Z",
+        "responseSha256": "7f5ab7a6ebb86d2c84aeac97b54ee58efd073ac341678db3e3540444f154f1ba",
+        "responseByteSize": 5413,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ESTELIN 5D Hyaluronic Acid (Vitamin C + Niacinamide) Moisturizing Toner 13.52 oz 400ml",
+        "size": "13.52 oz / 400ml",
+        "price": {
+          "amount": 4600,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6971764157610",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "84d65f6e2a3421f6d5b34ceb",
+      "packetId": "b55494943c535dd1b7f63929",
+      "discoveryId": "d67dbac2f6d48cf84f59a3a7",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/d67dbac2f6d48cf84f59a3a7--slique-beauty.json",
+      "source": {
+        "productId": 21554,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21554",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21554",
+        "listingUrl": "https://sliquebeautylimited.com/product/estelin-5d-hyaluronic-acid-moisturizing-toner-400ml/",
+        "capturedAt": "2026-07-28T14:40:30.428Z",
+        "responseSha256": "88095e41cb75f974ae549cb68cd7068e5755b15e241ebd034335dd93fc5fd829",
+        "responseByteSize": 4078,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ESTELIN MOISTURIZING TONER 400ML - HYALURONIC ACID",
+        "size": "400ml",
+        "price": {
+          "amount": 5000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6971764157610",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "ce2491a19a3b62618ecdb781",
+      "packetId": "bc30eadf44f2f7a2d9f4f144",
+      "discoveryId": "814c2d49e6ef3327cebd67d5",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/814c2d49e6ef3327cebd67d5--buybetter.json",
+      "source": {
+        "productId": 329434,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329434",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329434",
+        "listingUrl": "https://buybetter.ng/product/dr-teals-shea-sugar-scrub-with-vitamin-c-538g/",
+        "capturedAt": "2026-07-29T04:12:10.569Z",
+        "responseSha256": "3e6328aa8003594ff26d43ece3fe7ffa95caf3e0eff2b8a6132a93248e2f20c6",
+        "responseByteSize": 14211,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DR TEALS Shea Sugar Scrub (Citrus Essential Oils With Vitamin C) 538g",
+        "size": "538g",
+        "price": {
+          "amount": 11300,
+          "currency": "NGN"
+        },
+        "stock": "out-of-stock",
+        "retailerSku": {
+          "value": "810021207254",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "8ca2c2e738a756cee67a93ab",
+      "packetId": "bc30eadf44f2f7a2d9f4f144",
+      "discoveryId": "814c2d49e6ef3327cebd67d5",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/814c2d49e6ef3327cebd67d5--slique-beauty.json",
+      "source": {
+        "productId": 4499,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4499",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4499",
+        "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-shea-sugar-scrub-with-vit-c/",
+        "capturedAt": "2026-07-29T04:12:09.784Z",
+        "responseSha256": "b02c18b043e0f73f015f27a0562d9ef01c72a89fd861357324b74d72be1ced70",
+        "responseByteSize": 9678,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DR TEAL'S SHEA SUGAR SCRUB WITH VIT C 538G",
+        "size": "538g",
+        "price": {
+          "amount": 12500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "810021207254",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "fb1cff5f5227ada0b4c9d72c",
+      "packetId": "c513f8766b8a5963d380ecfc",
+      "discoveryId": "5aa8e27696b33a24ccc3d594",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/5aa8e27696b33a24ccc3d594--buybetter.json",
+      "source": {
+        "productId": 330518,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330518",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330518",
+        "listingUrl": "https://buybetter.ng/product/niu-skin-with-alpha-arbutin-niacinamide-and-vitamin-c-body-lotion-480ml-no-5/",
+        "capturedAt": "2026-07-28T14:40:33.111Z",
+        "responseSha256": "7fab5173c6e019aa345b377d28a4e01d13f109d6c04479e31ffc56ab9f027ae8",
+        "responseByteSize": 5285,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NIU SKIN More Vitamin Extra Radiance (With Alpha Arbutin, Niacinamide And Vitamin C) Body Lotion NO.5 480ML",
+        "size": "480ml",
+        "price": {
+          "amount": 6450,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6946818911616",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "aeaa77f6f17ce6948e1cfc7b",
+      "packetId": "c513f8766b8a5963d380ecfc",
+      "discoveryId": "5aa8e27696b33a24ccc3d594",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/5aa8e27696b33a24ccc3d594--slique-beauty.json",
+      "source": {
+        "productId": 4769,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4769",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4769",
+        "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-vitamins-extra-radiance-perfumed-body-lotion-480ml/",
+        "capturedAt": "2026-07-28T14:40:32.018Z",
+        "responseSha256": "5bbf4a06cd0446897eb49d7f394cdc521ffef24133b575c1cbb86243f803624a",
+        "responseByteSize": 4870,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NIU SKIN VITAMINS EXTRA RADIANCE PERFUMED BODY LOTION 480ML",
+        "size": "480ml",
+        "price": {
+          "amount": 6500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6946818911616",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "618bb5bee721cd8bde0401b1",
+      "packetId": "c9a1d5e6b6b260984c2463d0",
+      "discoveryId": "b7c8a1240541dd5a7869b2eb",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/b7c8a1240541dd5a7869b2eb--buybetter.json",
+      "source": {
+        "productId": 332325,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332325",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332325",
+        "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-bright-smooth-body-lotion-500ml/",
+        "capturedAt": "2026-07-29T04:12:09.270Z",
+        "responseSha256": "276cdc55256c64582614399015c4d14b6884ccb0219995e83dabc0ad98046f65",
+        "responseByteSize": 5118,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN Bright And Smooth Body Lotion 500ml",
+        "size": "500ml",
+        "price": {
+          "amount": 12800,
+          "currency": "NGN"
+        },
+        "stock": "out-of-stock",
+        "retailerSku": {
+          "value": "6156000469751",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "d44d3ad543ace529d1a61197",
+      "packetId": "c9a1d5e6b6b260984c2463d0",
+      "discoveryId": "b7c8a1240541dd5a7869b2eb",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/b7c8a1240541dd5a7869b2eb--slique-beauty.json",
+      "source": {
+        "productId": 15310,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/15310",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/15310",
+        "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-bright-smooth-body-lotion-500ml/",
+        "capturedAt": "2026-07-29T04:12:08.756Z",
+        "responseSha256": "461f0ea0c46ee70c75efa30e985143086c8d4ecfb4f4557e7f54e1370ab3759c",
+        "responseByteSize": 4357,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN BRIGHT & SMOOTH BODY LOTION 500ML",
+        "size": "500ml",
+        "price": {
+          "amount": 14000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6156000469751",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "9a1ec1fa9c7a933838e35cd2",
+      "packetId": "cbc834ef2dfe1921106b9ad0",
+      "discoveryId": "7afa2f6eac15547f92afd336",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/7afa2f6eac15547f92afd336--buybetter.json",
+      "source": {
+        "productId": 402803,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402803",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402803",
+        "listingUrl": "https://buybetter.ng/product/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/",
+        "capturedAt": "2026-07-29T04:12:23.499Z",
+        "responseSha256": "563123f114cb5c162398a35b4d4576e78d55cfb74f6fd7300609a3d90b7eab17",
+        "responseByteSize": 3919,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
+        "size": "50ml",
+        "price": {
+          "amount": 27200,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "810083682860",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "feac5fa7a7b83b978d9e393a",
+      "packetId": "ce0f3f38b3ead84fdecdaf07",
+      "discoveryId": "005fe384576be5e38689857f",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/005fe384576be5e38689857f--buybetter.json",
+      "source": {
+        "productId": 329416,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329416",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329416",
+        "listingUrl": "https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/",
+        "capturedAt": "2026-07-29T04:12:17.484Z",
+        "responseSha256": "8ccc6982c0201c6f3470ec05fbd6ef47574eb207a724a58e2ffe4b81515c8537",
+        "responseByteSize": 6841,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
+        "size": "200ml",
+        "price": {
+          "amount": 30100,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "358211113003",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "c2c3cf8099fbbd4c786b9737",
+      "packetId": "d11231e8aa7256f65a5b6ddd",
+      "discoveryId": "fe369f475a0d890702084b1b",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/fe369f475a0d890702084b1b--buybetter.json",
+      "source": {
+        "productId": 426866,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
+        "listingUrl": "https://buybetter.ng/product/cos-de-baha-az15-azelaic-acid-15-msm-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:15.315Z",
+        "responseSha256": "38812d87bd6a8f07578b8edd71168e4048f84f786274d0590bf4a9e78e1513e1",
+        "responseByteSize": 6168,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 12470,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809240319406",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "cbef154c092bb432d43aec7e",
+      "packetId": "d4f0fa500b7c661235f056d8",
+      "discoveryId": "a8e84b742d88d567a304c6f6",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/a8e84b742d88d567a304c6f6--buybetter.json",
+      "source": {
+        "productId": 330530,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330530",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330530",
+        "listingUrl": "https://buybetter.ng/product/niu-skin-extra-plant-extracts-more-luminous-480ml/",
+        "capturedAt": "2026-07-28T14:40:32.305Z",
+        "responseSha256": "443fc232130a8a5274fcef01ad46bf35fa59eda7d361028ff94b4581a2280b86",
+        "responseByteSize": 4893,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NIU SKIN Extra Plant Extracts More Luminous (With Alpha Arbutin, Niacinamide and Vitamin C) OUD WOOD Body Lotion 480ml",
+        "size": "480ml",
+        "price": {
+          "amount": 6450,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6946818911623",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "f96b8b4531fdd53de98c915b",
+      "packetId": "d4f0fa500b7c661235f056d8",
+      "discoveryId": "a8e84b742d88d567a304c6f6",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/a8e84b742d88d567a304c6f6--slique-beauty.json",
+      "source": {
+        "productId": 4767,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4767",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4767",
+        "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-extra-plant-extracts-perfumed-body-lotion-oud-wood-480ml/",
+        "capturedAt": "2026-07-28T14:40:31.578Z",
+        "responseSha256": "b92517e330f8ddabb3942ee898024bde72e4a1d052dd7194ecac47c05e3569cd",
+        "responseByteSize": 4734,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "NIU SKIN EXTRA PLANT EXTRACTS PERFUMED BODY LOTION - OUD WOOD 480ML",
+        "size": "480ml",
+        "price": {
+          "amount": 6500,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6946818911623",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "9df8416a2358a20d751bb8c9",
+      "packetId": "d8b1ae52cb7da0eb678282e9",
+      "discoveryId": "d54e619a7ab95a080c216402",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/d54e619a7ab95a080c216402--buybetter.json",
+      "source": {
+        "productId": 433168,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433168",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433168",
+        "listingUrl": "https://buybetter.ng/product/pro-lab-skin-barrier-repair-ceramide-body-lotion-500ml/",
+        "capturedAt": "2026-07-28T14:40:33.637Z",
+        "responseSha256": "699d536b2b615a34ecb324d8e1283a60aca2146ac4545bf59e2ba9ebbd12465f",
+        "responseByteSize": 5896,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "PRO LAB Skin Barrier Repair Ceramide Body Lotion 500ml",
+        "size": "500ml",
+        "price": {
+          "amount": 8500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8804435184562",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "5ff5355f0f0ec7282c097f39",
+      "packetId": "d8b1ae52cb7da0eb678282e9",
+      "discoveryId": "d54e619a7ab95a080c216402",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/d54e619a7ab95a080c216402--slique-beauty.json",
+      "source": {
+        "productId": 27061,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/27061",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/27061",
+        "listingUrl": "https://sliquebeautylimited.com/product/pro-lab-ceramide-body-lotion-500ml/",
+        "capturedAt": "2026-07-28T14:40:32.732Z",
+        "responseSha256": "14ef4e9abd7d1175955ab72af1f55351a5c090aa47b16e039eb9c1b36e616b51",
+        "responseByteSize": 3424,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "PRO LAB CERAMIDE BODY LOTION 500ML",
+        "size": "500ml",
+        "price": {
+          "amount": 9600,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "8804435184562",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "0213cba80ef15dad99080f61",
+      "packetId": "de73b1b69dc56e877ea37999",
+      "discoveryId": "8ac4f70510214db024b57c46",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/8ac4f70510214db024b57c46--buybetter.json",
+      "source": {
+        "productId": 330708,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330708",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330708",
+        "listingUrl": "https://buybetter.ng/product/beauty-formulas-gentle-soft-apricot-cleansing-facial-wipes-30pcs/",
+        "capturedAt": "2026-07-29T04:12:21.948Z",
+        "responseSha256": "60bb783b3f0b11f951fce895cac5a6c0bda6275700a25207b3f04de57ca14402",
+        "responseByteSize": 4217,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
+        "size": "30pcs",
+        "price": {
+          "amount": 2473,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "5012251009423",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "35542ea865c8a01650235779",
+      "packetId": "e6c412ff66aded226f1b11d7",
+      "discoveryId": "fd07898619801a68999f2850",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/fd07898619801a68999f2850--buybetter.json",
+      "source": {
+        "productId": 330796,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330796",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330796",
+        "listingUrl": "https://buybetter.ng/product/facefacts-niacinamide-face-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:07.981Z",
+        "responseSha256": "2c30b41319d2f7bbed3718c8d4367f97b7e5a5c8356c7908b739ed74bc6c4d75",
+        "responseByteSize": 7930,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 3999,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "5031413940619",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "1751513b7344814975ce7300",
+      "packetId": "e6c412ff66aded226f1b11d7",
+      "discoveryId": "fd07898619801a68999f2850",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/fd07898619801a68999f2850--slique-beauty.json",
+      "source": {
+        "productId": 14635,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14635",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14635",
+        "listingUrl": "https://sliquebeautylimited.com/product/facefacts-niacinamide-serum-50ml/",
+        "capturedAt": "2026-07-29T04:12:06.917Z",
+        "responseSha256": "1868d6719a910c51258f04a1c8f0b9d3df04e4da15e165ac8936c7399bed565d",
+        "responseByteSize": 4049,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "FACEFACTS NIACINAMIDE SERUM 50ML",
+        "size": "50ml",
+        "price": {
+          "amount": 5500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "5031413940619",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "f0ffea0a8c3faddf08471cee",
+      "packetId": "e7b8894ebe80c275ee8cb391",
+      "discoveryId": "f1ebe655a947668241b4d240",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f1ebe655a947668241b4d240--buybetter.json",
+      "source": {
+        "productId": 359488,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/359488",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/359488",
+        "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-bright-moisture-body-lotion-17-6-oz-500ml/",
+        "capturedAt": "2026-07-29T04:12:09.001Z",
+        "responseSha256": "2e6316d397427f865a716bffbc0ed264df8561a80edcbbcb2845efd0895d02d8",
+        "responseByteSize": 5826,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
+        "size": "17.6 oz / 500ml",
+        "price": {
+          "amount": 12800,
+          "currency": "NGN"
+        },
+        "stock": "out-of-stock",
+        "retailerSku": {
+          "value": "6156000469782",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "0852761f8f2b6f79e0c5596f",
+      "packetId": "e7b8894ebe80c275ee8cb391",
+      "discoveryId": "f1ebe655a947668241b4d240",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f1ebe655a947668241b4d240--slique-beauty.json",
+      "source": {
+        "productId": 15309,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/15309",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/15309",
+        "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-bright-moisture-body-lotion-500ml/",
+        "capturedAt": "2026-07-29T04:12:08.362Z",
+        "responseSha256": "74245485df72a9688853a4a8c3dfd45ac5838b5b3e904d7eca839b8cde4ffc6f",
+        "responseByteSize": 4398,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN BRIGHT & MOISTURE BODY LOTION 500ML",
+        "size": "500ml",
+        "price": {
+          "amount": 14000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6156000469782",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "169dd1f012c67c15e5070ed7",
+      "packetId": "ed48f1fea49846a7db551502",
+      "discoveryId": "409d46e2deb8d4a892997d7c",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/409d46e2deb8d4a892997d7c--buybetter.json",
+      "source": {
+        "productId": 332130,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332130",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332130",
+        "listingUrl": "https://buybetter.ng/product/medicube-soymint-scaling-shampoo-490ml/",
+        "capturedAt": "2026-07-29T04:12:23.489Z",
+        "responseSha256": "3bd19b59a7668b40718b1de2b970eb539e5e0f81d11b2a3836056e75179abaf9",
+        "responseByteSize": 8607,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "MEDICUBE -Soymint Scaling Shampoo 490ml",
+        "size": "490ml",
+        "price": {
+          "amount": 17830,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8800256112487",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "3a49d7c749e324a75405b616",
+      "packetId": "f020ac8386430486b94e1ce2",
+      "discoveryId": "9a010c0186b1418272fce5bb",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/9a010c0186b1418272fce5bb--buybetter.json",
+      "source": {
+        "productId": 328949,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328949",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328949",
+        "listingUrl": "https://buybetter.ng/product/advanced-clinicals-vitamin-c-anti-aging-serum-52ml/",
+        "capturedAt": "2026-07-28T14:40:38.452Z",
+        "responseSha256": "2a29190bb31c3b768e5fa70298a9e1ddb32a684eb3055e166968004d4fc5b72c",
+        "responseByteSize": 6796,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
+        "size": "52ml",
+        "price": {
+          "amount": 12000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "819265008016",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "4badbed9bd9f731119a73270",
+      "packetId": "f020ac8386430486b94e1ce2",
+      "discoveryId": "9a010c0186b1418272fce5bb",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/9a010c0186b1418272fce5bb--slique-beauty.json",
+      "source": {
+        "productId": 14053,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14053",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14053",
+        "listingUrl": "https://sliquebeautylimited.com/product/advanced-clinicals-vitamin-c-serum-52ml/",
+        "capturedAt": "2026-07-28T14:40:37.938Z",
+        "responseSha256": "d968abc93d51701cd16cf6811ac7a7d647afc3973485108691fe95e35e4c8e4c",
+        "responseByteSize": 5502,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED CLINICALS VITAMIN C SERUM 52ML",
+        "size": "52ml",
+        "price": {
+          "amount": 17000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "819265008016",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "15d5b49e38b50dc762ecf0db",
+      "packetId": "ff4b61e5e7b3c86b68407794",
+      "discoveryId": "cd29efd703d9f5ad9192bf01",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/cd29efd703d9f5ad9192bf01--buybetter.json",
+      "source": {
+        "productId": 330924,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330924",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330924",
+        "listingUrl": "https://buybetter.ng/product/skin-by-zaron-salicylic-acid-2-clarifying-brightening-exfoliating-toner-150ml/",
+        "capturedAt": "2026-07-29T04:12:17.449Z",
+        "responseSha256": "aae256ec36c8f1a479978d9f9f31c0f5a68932ba095e3ffc7f4e4089d8c7d38f",
+        "responseByteSize": 4738,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
+        "size": "150ml",
+        "price": {
+          "amount": 11564,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6908137011460",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

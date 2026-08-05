@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+    "candidateFingerprint": "4eebdf63ec0452eeb88b38356397d482006bc88c2daa544eacbddf53ac417678",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "5031413952803",
+      "brand": "FaceFacts",
+      "name": "Enhance Gel-Cream Cleanser",
+      "variant": "Enhance Gel-Cream Cleanser",
+      "size": "150 ml",
+      "packageVersion": "Current 150 ml tube with Enhance Gel-Cream Cleanser front label",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+      "officialIdentity": {
+        "url": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+        "observedGtin": "5031413952803",
+        "observedVariant": "Enhance Gel-Cream Cleanser",
+        "observedSize": "150 ml",
+        "observedPackageVersion": "Current 150 ml tube with Enhance Gel-Cream Cleanser front label",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/facefacts-enhance-gel-cream-cleanser-150ml.json",
+        "snapshotMimeType": "application/json",
+        "snapshotSha256": "50a16cad4157bfc0607882c2a7632b9743a68fd4306a322209c86fac48dffede",
+        "snapshotByteSize": 4762,
+        "retrievedAt": "2026-08-05T01:18:00Z",
+        "canonicalExtraction": {
+          "schemaVersion": 5,
+          "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+          "sourceUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+          "responseUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "44ca09549616edb002a3ff337255c23dd8dae8d5441ed05a2a0bba32d8093b50",
+          "sourceResponseByteSize": 397059,
+          "retrievedAt": "2026-08-05T01:18:00Z",
+          "reviewedAt": "2026-08-05T01:22:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Enhance Gel-Cream Cleanser – FaceFacts"
+          },
+          "fields": {
+            "gtin": {
+              "value": "5031413952803",
+              "locator": "identifierCorroborations[*].fields.gtin",
+              "sourceText": "EAN 5031413952803 is independently corroborated by Shure Cosmetics and Barcode Lookup; the visible manufacturer page publishes manufacturer SKU 52803-150 but no GTIN/EAN."
+            },
+            "variant": {
+              "value": "Enhance Gel-Cream Cleanser",
+              "locator": "Rendered DOM product heading h1",
+              "sourceText": "Enhance Gel-Cream Cleanser"
+            },
+            "size": {
+              "value": "150 ml",
+              "locator": "Rendered DOM product details list",
+              "sourceText": "150ml"
+            },
+            "manufacturerIdentifierStatus": {
+              "value": "not-published",
+              "locator": "Rendered DOM Shopify product JSON barcode field",
+              "sourceText": "\"barcode\":null",
+              "absenceProof": {
+                "searchScope": "complete-rendered-dom-outerhtml",
+                "searchedTerms": [
+                  "barcode",
+                  "ean",
+                  "gtin",
+                  "upc"
+                ],
+                "matchStrategy": "structured-key-variants",
+                "caseInsensitive": true,
+                "matchCount": 0
+              }
+            },
+            "packageVersion": {
+              "value": "Current 150 ml tube with Enhance Gel-Cream Cleanser front label",
+              "locator": "Official manufacturer primary product image",
+              "sourceText": "The current official image shows a 150 ml tube with Enhance Gel-Cream Cleanser front label.",
+              "evidenceUrl": "https://facefacts.me/cdn/shop/files/52803-150-face-facts-enhance-gel-cream-cleanser.jpg?v=1735828964&width=2000"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "sourceUrl": "https://facefacts.me/cdn/shop/files/52803-150-face-facts-enhance-gel-cream-cleanser.jpg?v=1735828964&width=2000",
+              "responseUrl": "https://facefacts.me/cdn/shop/files/52803-150-face-facts-enhance-gel-cream-cleanser.jpg?v=1735828964&width=2000",
+              "responseSha256": "41e747486956ba20c070bf2e899af6f2b5f5c88ded0d3ab43be41dc1549263e4",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 64938,
+              "retrievedAt": "2026-08-05T01:20:00Z",
+              "role": "official-pack-image"
+            }
+          ],
+          "identifierCorroborations": [
+            {
+              "sourceUrl": "https://store.shure-cosmetics.co.uk/face-facts-enhance-gel-cream-cleanser---150ml-2803-52803-150",
+              "responseUrl": "https://store.shure-cosmetics.co.uk/face-facts-enhance-gel-cream-cleanser---150ml-2803-52803-150",
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseSha256": "a20553af61e5848092fd43db2829f3f244a021c708e38bbfa36e046c2c6f4a55",
+              "sourceResponseByteSize": 254085,
+              "retrievedAt": "2026-08-05T01:22:00Z",
+              "reviewedAt": "2026-08-05T01:23:00Z",
+              "reviewer": "JeloCare catalogue evidence review",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Face Facts Enhance Gel-Cream Cleanser - 150ml"
+              },
+              "fields": {
+                "gtin": {
+                  "value": "5031413952803",
+                  "locator": "Rendered DOM identification table Barcode (GTIN/EAN) cell",
+                  "sourceText": "Barcode (GTIN/EAN): 5031413952803"
+                },
+                "variant": {
+                  "value": "Face Facts Enhance Gel-Cream Cleanser",
+                  "locator": "Rendered DOM page title",
+                  "sourceText": "Face Facts Enhance Gel-Cream Cleanser - 150ml"
+                },
+                "size": {
+                  "value": "150 ml",
+                  "locator": "Rendered DOM product specification",
+                  "sourceText": "150ml"
+                }
+              }
+            },
+            {
+              "sourceUrl": "https://www.barcodelookup.com/5031413952803",
+              "responseUrl": "https://www.barcodelookup.com/5031413952803",
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseSha256": "371bf95c5caf66715aa8ccef072a8a8675955ef825203658247924b561dc8b60",
+              "sourceResponseByteSize": 233744,
+              "retrievedAt": "2026-08-05T01:22:00Z",
+              "reviewedAt": "2026-08-05T01:23:00Z",
+              "reviewer": "JeloCare catalogue evidence review",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "EAN 5031413952803 | Barcode Lookup"
+              },
+              "fields": {
+                "gtin": {
+                  "value": "5031413952803",
+                  "locator": "Rendered DOM heading and barcode format text",
+                  "sourceText": "EAN 5031413952803"
+                },
+                "variant": {
+                  "value": "Face Facts Enhance Gel Cream Cleanser",
+                  "locator": "Rendered DOM product image alt text",
+                  "sourceText": "Face Facts Enhance Gel Cream Cleanser 150 Ml"
+                },
+                "size": {
+                  "value": "150 ml",
+                  "locator": "Rendered DOM product title",
+                  "sourceText": "150 Ml"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-05T01:25:00Z",
+      "demandEvidenceUrls": [
+        "https://www.csigrocery.com/shop/skin-care/face/face-facts-enhance-gel-cream-cleanser-150ml/",
+        "https://buybetter.ng/product-category/facefacts/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Salicylic acid gel-cream cleanser",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Daily salicylic acid cleanser for oily and blemish-prone skin. Avoid contact with eyes. Discontinue if irritation occurs and consult a pharmacist or dermatologist.",
+      "manufacturerEvidenceUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+      "evidenceUrls": [
+        "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+        "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+      ],
+      "reviewedAt": "2026-08-05T01:26:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+      "sourceAsset": {
+        "url": "https://facefacts.me/cdn/shop/files/52803-150-face-facts-enhance-gel-cream-cleanser.jpg?v=1735828964&width=2000",
+        "sha256": "41e747486956ba20c070bf2e899af6f2b5f5c88ded0d3ab43be41dc1549263e4",
+        "mimeType": "image/jpeg",
+        "byteSize": 64938,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-05T01:20:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://facefacts.me/cdn/shop/files/52803-150-face-facts-enhance-gel-cream-cleanser.jpg?v=1735828964&width=2000",
+          "sha256": "41e747486956ba20c070bf2e899af6f2b5f5c88ded0d3ab43be41dc1549263e4",
+          "byteSize": 64938,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-05T01:20:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "05031413952803"
+          },
+          "officialProductUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "19f6bbbd919b68238d8708b3b71da7a7aec265acfc5e3f4fc9a95c4de753be06",
+          "generatedAt": "2026-08-05T01:24:57Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "19f6bbbd919b68238d8708b3b71da7a7aec265acfc5e3f4fc9a95c4de753be06",
+          "byteSize": 504691,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-05T01:25:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-05T01:26:00Z",
+          "artReviewer": "JeloCare catalogue art review",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "9f8eaa45a8c415faeade2e091e05f0deb8ffc41e34bfdcdb3a7340b81432651b",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-enhance-gel-cream-cleanser-150ml/packshot-v1-19f6bbbd919b6823.png",
+      "sha256": "19f6bbbd919b68238d8708b3b71da7a7aec265acfc5e3f4fc9a95c4de753be06",
+      "mimeType": "image/png",
+      "byteSize": 504691,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-05T01:26:00Z",
+      "reviewer": "JeloCare catalogue art review"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-05T01:26:30Z"
+    },
+    "dossierFingerprint": "7a00d993295c544844d5a09bd1dd68d004a55a63492ac972e2fb22441e5915ea"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+    "dossierFingerprint": "7a00d993295c544844d5a09bd1dd68d004a55a63492ac972e2fb22441e5915ea",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Salicylic acid + rice + cherry extract gel-cream cleanser for congested skin.",
+      "usage": "Massage a small amount onto damp skin morning and night. Rinse thoroughly with lukewarm water.",
+      "manufacturerDirectionsUrl": "https://facefacts.me/en-la/products/face-facts-enhance-gel-cream-cleanser",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-05T01:26:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-05T01:26:45Z"
+    },
+    "releaseFingerprint": "b911a618df995a581701c9f02d093ea55ceba25c8179ab4a4441f68e3aeb11d2"
+  }
+}

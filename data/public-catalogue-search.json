@@ -35,6 +35,14 @@
       "source": "reviewed-catalogue"
     },
     {
+      "slug": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+      "brand": "ANUA",
+      "name": "Zero Cast Moisturizing Finish Sunscreen",
+      "size": "50 ml",
+      "approvedGtin": "8809640738838",
+      "source": "dossier-release"
+    },
+    {
       "slug": "aqua-rich-ceramide-body-lotion-500ml",
       "brand": "Aqua Rich",
       "name": "Hydrate + Protect Body Lotion",
@@ -344,6 +352,14 @@
       "name": "Ceramide Oil Control Foaming Cleanser",
       "size": "400 ml",
       "approvedGtin": "5031413953923",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "facefacts-enhance-gel-cream-cleanser-150ml",
+      "brand": "FaceFacts",
+      "name": "Enhance Gel-Cream Cleanser",
+      "size": "150 ml",
+      "approvedGtin": "5031413952803",
       "source": "dossier-release"
     },
     {

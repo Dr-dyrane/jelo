@@ -9,24 +9,23 @@
     "requestedCount": 12
   },
   "source": {
-    "staticQueueSha256": "c4a0822ab66138d49eb02757f8d2a8efb70a40af094bbb1666255e5ee72675c6",
+    "staticQueueSha256": "380771e36ea53770c6eda741113d945104275f67e2cfd0cf321a7ee2a3db9415",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "packets": [
     {
-      "id": "8ae1b6abf6fe77ce94d1c319",
+      "id": "a86b042330160d53b65b056e",
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 25,
-        "lane": "acne-care",
-        "priorityScore": 156,
+        "rank": 37,
+        "lane": "sun-protection",
+        "priorityScore": 148,
         "reasons": [
           "directory-retailer-observed",
           "high-consumer-utility",
           "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
+          "current-stock-observed"
         ],
         "cautions": [
           "single-retailer-observation",
@@ -35,10 +34,10 @@
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
-        "discoveryId": "68dd71a67def9960124cd112",
-        "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
-        "brandHint": "ABIB",
-        "size": "30ml",
+        "discoveryId": "9454deec37a4fc5fcd1e7fa7",
+        "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
+        "brandHint": "PACCI PRISTINE",
+        "size": "80ml",
         "categoryHint": "Face care",
         "identityStatus": "unverified-retailer-lead",
         "careStatus": "not-reviewed",
@@ -50,136 +49,15 @@
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/",
-            "sourceProductId": 429825,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
-            "observedAt": "2026-07-27T18:10:55.671Z",
-            "observedTitle": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
-            "observedSize": "30ml",
-            "priceNgn": 16500,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/06/8800280693693.jpg?fit=1080%2C1080&quality=89&ssl=1",
-            "response": {
-              "id": "f97d86dc9d59e620c3a9bd61",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:10:55.671Z",
-              "responseSha256": "93d1565783b10c1d656504f2d272a024d83333de7a3aa326fc2ac5e614256825",
-              "responseByteSize": 518325,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "8800280693693",
-            "responseEvidenceId": "f97d86dc9d59e620c3a9bd61",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "d11231e8aa7256f65a5b6ddd",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 26,
-        "lane": "acne-care",
-        "priorityScore": 156,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "fe369f475a0d890702084b1b",
-        "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
-        "brandHint": "COS DE BAHA",
-        "size": "30ml",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/cos-de-baha-az15-azelaic-acid-15-msm-serum-30ml/",
-            "sourceProductId": 426866,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
+            "listingUrl": "https://buybetter.ng/product/pacci-pristine-sun-haven-aqua-spf50-sunscreen-80ml/",
+            "sourceProductId": 422148,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422148",
             "observedAt": "2026-07-27T18:11:01.067Z",
-            "observedTitle": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
-            "observedSize": "30ml",
-            "priceNgn": 12470,
+            "observedTitle": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
+            "observedSize": "80ml",
+            "priceNgn": 10858,
             "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/06/COS-DE-BAHA-AZ15-Azelaic-Acid-15-MSM-Serum-30ml.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/05/xm6vr79t.png?fit=768%2C960&quality=80&ssl=1",
             "response": {
               "id": "2a2a95e220b9b15dec72f8fc",
               "retailer": "BuyBetter",
@@ -195,7 +73,7 @@
         "retailerCodeLeads": [
           {
             "retailer": "BuyBetter",
-            "value": "8809240319406",
+            "value": "7222408428368",
             "responseEvidenceId": "2a2a95e220b9b15dec72f8fc",
             "treatment": "retailer-local-code-not-manufacturer-identity"
           }
@@ -256,618 +134,13 @@
       }
     },
     {
-      "id": "8c9317ef63c239fa932e1f1b",
+      "id": "69bf90baf39309039402ae19",
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 27,
-        "lane": "acne-care",
-        "priorityScore": 156,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "f87e67c0fb61e9574f74ef21",
-        "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
-        "brandHint": "Garnier",
-        "size": "23g",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-masks-23g/",
-            "sourceProductId": 332657,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
-            "observedAt": "2026-07-27T18:11:06.075Z",
-            "observedTitle": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
-            "observedSize": "23g",
-            "priceNgn": 3548,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/05/odx1uvgu-1.png?fit=1350%2C1800&quality=80&ssl=1",
-            "response": {
-              "id": "ac64c6b040726b854474a573",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:06.075Z",
-              "responseSha256": "ae8c4f2ea8948d19a8833111f379d22d5c91ce9cb773ce8e06271767b84f714a",
-              "responseByteSize": 579801,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "3600542368810",
-            "responseEvidenceId": "ac64c6b040726b854474a573",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "533c74704d64dbc2fcf85770",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 28,
-        "lane": "acne-care",
-        "priorityScore": 156,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "f6fdad85c61090e67bea6ec9",
-        "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
-        "brandHint": "NINELESS",
-        "size": "50ml",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/nineless-a-control-azelaic-acid-cream-50ml/",
-            "sourceProductId": 330720,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330720",
-            "observedAt": "2026-07-27T18:11:07.194Z",
-            "observedTitle": "NINELESS A-Control Azelaic Acid Cream 50ml",
-            "observedSize": "50ml",
-            "priceNgn": 14500,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/08/Nineless-Azelaic-cream-50ml.jpg?fit=400%2C455&quality=89&ssl=1",
-            "response": {
-              "id": "f0661b04a8bbd02e29588c5e",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:07.194Z",
-              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
-              "responseByteSize": 652018,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "8809875270189",
-            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "aff07100d6424f43489e1eb0",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 29,
-        "lane": "acne-care",
-        "priorityScore": 156,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "0b73f42e4c3d2f14656610ae",
-        "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
-        "brandHint": "PURITO",
-        "size": "30ml",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/purito-azelaic-acid-10-kojic-tea-tree-serum-30ml/",
-            "sourceProductId": 415589,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/415589",
-            "observedAt": "2026-07-27T18:11:01.067Z",
-            "observedTitle": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
-            "observedSize": "30ml",
-            "priceNgn": 18000,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/04/8809563103980.jpg?fit=1024%2C1024&quality=89&ssl=1",
-            "response": {
-              "id": "2a2a95e220b9b15dec72f8fc",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:01.067Z",
-              "responseSha256": "4485590fa34f3fe23f1660a02e21292dc4332bf9e38b568ac5c8573d2e463446",
-              "responseByteSize": 744027,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "8809563103980",
-            "responseEvidenceId": "2a2a95e220b9b15dec72f8fc",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "ce0f3f38b3ead84fdecdaf07",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 30,
-        "lane": "acne-care",
-        "priorityScore": 156,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "005fe384576be5e38689857f",
-        "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
-        "brandHint": "Replenix",
-        "size": "200ml",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/",
-            "sourceProductId": 329416,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329416",
-            "observedAt": "2026-07-27T18:11:09.743Z",
-            "observedTitle": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
-            "observedSize": "200ml",
-            "priceNgn": 30100,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2022/07/rsz_71i76rveb9l_sl1500__1.jpg?fit=375%2C375&quality=89&ssl=1",
-            "response": {
-              "id": "0bf15cb6dd6d62eb74bb1d6f",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:09.743Z",
-              "responseSha256": "0e38e61afa2e4789c3dc73cc44498bb5b46d3fc3290dc77412dfa81dd916f129",
-              "responseByteSize": 399695,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "358211113003",
-            "responseEvidenceId": "0bf15cb6dd6d62eb74bb1d6f",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "ff4b61e5e7b3c86b68407794",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 31,
-        "lane": "acne-care",
-        "priorityScore": 156,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "cd29efd703d9f5ad9192bf01",
-        "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
-        "brandHint": "SKIN BY ZARON",
-        "size": "150ml",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/skin-by-zaron-salicylic-acid-2-clarifying-brightening-exfoliating-toner-150ml/",
-            "sourceProductId": 330924,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330924",
-            "observedAt": "2026-07-27T18:11:07.194Z",
-            "observedTitle": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
-            "observedSize": "150ml",
-            "priceNgn": 11564,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/09/main-product-267-22.jpg?fit=864%2C1080&quality=89&ssl=1",
-            "response": {
-              "id": "f0661b04a8bbd02e29588c5e",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:07.194Z",
-              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
-              "responseByteSize": 652018,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "6908137011460",
-            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "a58cf5de47116310cc34e91a",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 32,
+        "rank": 38,
         "lane": "gentle-cleansing",
-        "priorityScore": 152,
+        "priorityScore": 147,
         "reasons": [
           "directory-retailer-observed",
           "high-consumer-utility",
@@ -882,10 +155,10 @@
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
-        "discoveryId": "b9f9c3fe07895c6ce9945f8a",
-        "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
+        "discoveryId": "c65508f695a5dcd240da0eb3",
+        "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
         "brandHint": "GLAMFOX",
-        "size": "120ml",
+        "size": "230g",
         "categoryHint": "Face care",
         "identityStatus": "unverified-retailer-lead",
         "careStatus": "not-reviewed",
@@ -897,257 +170,15 @@
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/glamfox-double-effect-retinol-collagen-foam-cleanser-120ml/",
-            "sourceProductId": 335880,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/335880",
-            "observedAt": "2026-07-27T18:11:06.075Z",
-            "observedTitle": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
-            "observedSize": "120ml",
-            "priceNgn": 10965,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/07/2r9zniz9.png?fit=507%2C507&quality=80&ssl=1",
-            "response": {
-              "id": "ac64c6b040726b854474a573",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:06.075Z",
-              "responseSha256": "ae8c4f2ea8948d19a8833111f379d22d5c91ce9cb773ce8e06271767b84f714a",
-              "responseByteSize": 579801,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "8809109689688",
-            "responseEvidenceId": "ac64c6b040726b854474a573",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "861874fd1cfe8bb36f77912b",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 33,
-        "lane": "gentle-cleansing",
-        "priorityScore": 152,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "980f4a6663d7e3bdca521609",
-        "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
-        "brandHint": "MEDICUBE",
-        "size": "120g",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/medicube-pdrn-pink-niacinamide-whip-cleanser-120g/",
-            "sourceProductId": 422248,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422248",
-            "observedAt": "2026-07-27T18:11:01.067Z",
-            "observedTitle": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
-            "observedSize": "120g",
-            "priceNgn": 12800,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/05/8800289473159.jpg?fit=1024%2C1024&quality=89&ssl=1",
-            "response": {
-              "id": "2a2a95e220b9b15dec72f8fc",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:01.067Z",
-              "responseSha256": "4485590fa34f3fe23f1660a02e21292dc4332bf9e38b568ac5c8573d2e463446",
-              "responseByteSize": 744027,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "8800289473159",
-            "responseEvidenceId": "2a2a95e220b9b15dec72f8fc",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
-      "id": "937a0264a9bf90f380fc90a6",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 34,
-        "lane": "acne-care",
-        "priorityScore": 151,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed",
-          "formula-or-active-visible"
-        ],
-        "cautions": [
-          "single-retailer-observation",
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "5db3d843b4cf82e716260338",
-        "title": "FACEFACTS ENHANCE (Salicylic Acid + Rice + Cherry Extract) Gel Cream Cleanser 150ml",
-        "brandHint": "FACEFACTS",
-        "size": "150ml",
-        "categoryHint": "Face care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/facefacts-enhance-salicylic-acid-rice-cherry-extract-gel-cream-cleanser-150ml/",
-            "sourceProductId": 332247,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332247",
+            "listingUrl": "https://buybetter.ng/product/glamfox-glowing-moisturizing-rice-niacinamide-foam-cleanser-230g/",
+            "sourceProductId": 332181,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
             "observedAt": "2026-07-27T18:11:06.479Z",
-            "observedTitle": "FACEFACTS ENHANCE (Salicylic Acid + Rice + Cherry Extract) Gel Cream Cleanser 150ml",
-            "observedSize": "150ml",
-            "priceNgn": 6900,
+            "observedTitle": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
+            "observedSize": "230g",
+            "priceNgn": 10213,
             "stock": "in-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/04/FACEFACTS-ENHANCE-Salicylic-Acid-Rice-Cherry-Extract-Gel-Cream-Cleanser-150ml-1.jpg?fit=900%2C900&quality=89&ssl=1",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/04/glamfox-1.jpg?fit=225%2C225&quality=89&ssl=1",
             "response": {
               "id": "e047c601cb2c7638ad744cde",
               "retailer": "BuyBetter",
@@ -1163,7 +194,7 @@
         "retailerCodeLeads": [
           {
             "retailer": "BuyBetter",
-            "value": "5031413952803",
+            "value": "8809109680876",
             "responseEvidenceId": "e047c601cb2c7638ad744cde",
             "treatment": "retailer-local-code-not-manufacturer-identity"
           }
@@ -1224,13 +255,13 @@
       }
     },
     {
-      "id": "42a91a1bc91841763d974680",
+      "id": "de73b1b69dc56e877ea37999",
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 35,
-        "lane": "sun-protection",
-        "priorityScore": 148,
+        "rank": 39,
+        "lane": "gentle-cleansing",
+        "priorityScore": 142,
         "reasons": [
           "directory-retailer-observed",
           "high-consumer-utility",
@@ -1244,10 +275,10 @@
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
-        "discoveryId": "7f5e4463688a37e008b523ff",
-        "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
-        "brandHint": "ANUA",
-        "size": "50ml",
+        "discoveryId": "8ac4f70510214db024b57c46",
+        "title": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
+        "brandHint": "BEAUTY FORMULA",
+        "size": "30pcs",
         "categoryHint": "Face care",
         "identityStatus": "unverified-retailer-lead",
         "careStatus": "not-reviewed",
@@ -1259,15 +290,135 @@
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/anua-zero-cast-moisturizing-finnish-sunscreen-50ml/",
-            "sourceProductId": 383321,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/383321",
+            "listingUrl": "https://buybetter.ng/product/beauty-formulas-gentle-soft-apricot-cleansing-facial-wipes-30pcs/",
+            "sourceProductId": 330708,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330708",
+            "observedAt": "2026-07-27T18:11:07.194Z",
+            "observedTitle": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
+            "observedSize": "30pcs",
+            "priceNgn": 2473,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/08/beauty-formul.jpg?fit=225%2C225&quality=89&ssl=1",
+            "response": {
+              "id": "f0661b04a8bbd02e29588c5e",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:07.194Z",
+              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
+              "responseByteSize": 652018,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "5012251009423",
+            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "863eec92f7291e3d307be521",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 40,
+        "lane": "gentle-cleansing",
+        "priorityScore": 142,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "4a65be1a58dd495b7eab8b5b",
+        "title": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
+        "brandHint": "BIOBALANCE",
+        "size": "250ml",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/bio-balance-derma-age-rejuvenating-facial-cleansing-gel-250ml/",
+            "sourceProductId": 389106,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389106",
             "observedAt": "2026-07-27T18:11:01.414Z",
-            "observedTitle": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
-            "observedSize": "50ml",
-            "priceNgn": 14000,
-            "stock": "in-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/11/0xb4e2x9.png?fit=2000%2C2000&quality=80&ssl=1",
+            "observedTitle": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
+            "observedSize": "250ml",
+            "priceNgn": 11163,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/12/biobalance-derma-age-cleanser.png?fit=663%2C705&quality=80&ssl=1",
             "response": {
               "id": "2cf749d74b28c13f98e9495f",
               "retailer": "BuyBetter",
@@ -1283,7 +434,7 @@
         "retailerCodeLeads": [
           {
             "retailer": "BuyBetter",
-            "value": "8809640739507",
+            "value": "8697711701023",
             "responseEvidenceId": "2cf749d74b28c13f98e9495f",
             "treatment": "retailer-local-code-not-manufacturer-identity"
           }
@@ -1344,13 +495,13 @@
       }
     },
     {
-      "id": "3a1b3865e0ffdccb01e85b0c",
+      "id": "586ef0ac5c086de562296593",
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 36,
-        "lane": "sun-protection",
-        "priorityScore": 148,
+        "rank": 41,
+        "lane": "gentle-cleansing",
+        "priorityScore": 142,
         "reasons": [
           "directory-retailer-observed",
           "high-consumer-utility",
@@ -1364,10 +515,10 @@
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
-        "discoveryId": "a7562a6f718c64e4a046f3e3",
-        "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
-        "brandHint": "ELF",
-        "size": "50ml",
+        "discoveryId": "a3844e0ff4ce89736040eb4e",
+        "title": "BIOBALANCE Dermasebum Purifying Facial Cleansing Gel 250ml",
+        "brandHint": "BIOBALANCE",
+        "size": "250ml",
         "categoryHint": "Face care",
         "identityStatus": "unverified-retailer-lead",
         "careStatus": "not-reviewed",
@@ -1379,23 +530,23 @@
           {
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/",
-            "sourceProductId": 433434,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
-            "observedAt": "2026-07-27T18:10:55.671Z",
-            "observedTitle": "ELF Invisible Sunscreen (Suntouchable) 50ml",
-            "observedSize": "50ml",
-            "priceNgn": 28200,
+            "listingUrl": "https://buybetter.ng/product/biobalance-dermasebum-purifying-facial-cleansing-gel-250ml/",
+            "sourceProductId": 389121,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389121",
+            "observedAt": "2026-07-27T18:11:01.414Z",
+            "observedTitle": "BIOBALANCE Dermasebum Purifying Facial Cleansing Gel 250ml",
+            "observedSize": "250ml",
+            "priceNgn": 11515,
             "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/07/ELF-Invisible-Sunscreen-Suntouchable-50ml.jpg?fit=1080%2C1080&quality=89&ssl=1",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/12/Bio-Balance-Dermasebum-Purifying-Facial-Cleansing-Gel-250ml.jpg?fit=1910%2C1000&quality=89&ssl=1",
             "response": {
-              "id": "f97d86dc9d59e620c3a9bd61",
+              "id": "2cf749d74b28c13f98e9495f",
               "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:10:55.671Z",
-              "responseSha256": "93d1565783b10c1d656504f2d272a024d83333de7a3aa326fc2ac5e614256825",
-              "responseByteSize": 518325,
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:01.414Z",
+              "responseSha256": "06db3391c7a83c116d90a7a513efb74e683df5d37c577a2b376dac6aad4a9b6b",
+              "responseByteSize": 646030,
               "responseMimeType": "application/json"
             }
           }
@@ -1403,8 +554,848 @@
         "retailerCodeLeads": [
           {
             "retailer": "BuyBetter",
-            "value": "609332818071",
-            "responseEvidenceId": "f97d86dc9d59e620c3a9bd61",
+            "value": "8697711701009",
+            "responseEvidenceId": "2cf749d74b28c13f98e9495f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "732e517eec99416e2db2e63f",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 42,
+        "lane": "gentle-cleansing",
+        "priorityScore": 142,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "537651002741cf6e4ab4486f",
+        "title": "BIOBALANCE Dermasoothe Soothing Facial Cleansing Gel 250ml",
+        "brandHint": "BIOBALANCE",
+        "size": "250ml",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/biobalance-demasoothe-soothing-facial-cleansing-gel-250ml/",
+            "sourceProductId": 389152,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389152",
+            "observedAt": "2026-07-27T18:11:01.414Z",
+            "observedTitle": "BIOBALANCE Dermasoothe Soothing Facial Cleansing Gel 250ml",
+            "observedSize": "250ml",
+            "priceNgn": 11515,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/12/BIOBALANCE-Demasoothe-Soothing-Facial-Cleansing-Gel-250ml.png?fit=800%2C1078&quality=80&ssl=1",
+            "response": {
+              "id": "2cf749d74b28c13f98e9495f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:01.414Z",
+              "responseSha256": "06db3391c7a83c116d90a7a513efb74e683df5d37c577a2b376dac6aad4a9b6b",
+              "responseByteSize": 646030,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "8697711701016",
+            "responseEvidenceId": "2cf749d74b28c13f98e9495f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "8146f37c47cff6d9cd0c6193",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 43,
+        "lane": "hair-scalp",
+        "priorityScore": 134,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "f67f222e9d4c90404e22904d",
+        "title": "Amika - The kure Conditioner 275ml",
+        "brandHint": "Amika",
+        "size": "275ml",
+        "categoryHint": "Hair & scalp",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/amika-the-kure-conditioner-275ml/",
+            "sourceProductId": 402566,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402566",
+            "observedAt": "2026-07-27T18:11:00.796Z",
+            "observedTitle": "Amika - The kure Conditioner 275ml",
+            "observedSize": "275ml",
+            "priceNgn": 35690,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/03/odoo-11319.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "15f291ba68c850c00edc8bd4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:00.796Z",
+              "responseSha256": "06b35427c6c1b042e2a3c37d81afa128039a40bf1f9486c27e29633f9b1c5094",
+              "responseByteSize": 498868,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "840117807082",
+            "responseEvidenceId": "15f291ba68c850c00edc8bd4",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "ed48f1fea49846a7db551502",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 44,
+        "lane": "hair-scalp",
+        "priorityScore": 134,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "409d46e2deb8d4a892997d7c",
+        "title": "MEDICUBE -Soymint Scaling Shampoo 490ml",
+        "brandHint": "MEDICUBE",
+        "size": "490ml",
+        "categoryHint": "Hair & scalp",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/medicube-soymint-scaling-shampoo-490ml/",
+            "sourceProductId": 332130,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332130",
+            "observedAt": "2026-07-27T18:11:06.479Z",
+            "observedTitle": "MEDICUBE -Soymint Scaling Shampoo 490ml",
+            "observedSize": "490ml",
+            "priceNgn": 17830,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/04/AFF9FBC9-E6D7-435A-82B8-7AD6F40EFE8B.png?fit=824%2C825&quality=80&ssl=1",
+            "response": {
+              "id": "e047c601cb2c7638ad744cde",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.479Z",
+              "responseSha256": "a65b265a7c0fe6ee0a08a456d80edf777d6ebebdd130d49e1d3a0d63350cb1c4",
+              "responseByteSize": 641340,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "8800256112487",
+            "responseEvidenceId": "e047c601cb2c7638ad744cde",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "cbc834ef2dfe1921106b9ad0",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 45,
+        "lane": "hair-scalp",
+        "priorityScore": 134,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "7afa2f6eac15547f92afd336",
+        "title": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
+        "brandHint": "SALTAIR",
+        "size": "50ml",
+        "categoryHint": "Hair & scalp",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/",
+            "sourceProductId": 402803,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402803",
+            "observedAt": "2026-07-27T18:11:00.796Z",
+            "observedTitle": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
+            "observedSize": "50ml",
+            "priceNgn": 27200,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/03/odoo-13390.jpg?fit=1008%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "15f291ba68c850c00edc8bd4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:00.796Z",
+              "responseSha256": "06b35427c6c1b042e2a3c37d81afa128039a40bf1f9486c27e29633f9b1c5094",
+              "responseByteSize": 498868,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "810083682860",
+            "responseEvidenceId": "15f291ba68c850c00edc8bd4",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "9cb4a3ee328b1dec80f44f6c",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 46,
+        "lane": "hair-scalp",
+        "priorityScore": 134,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "434e6d0e45a3bea8326d0911",
+        "title": "SEAPURI Scalpy Hair Serum 20ml",
+        "brandHint": "SEAPURI",
+        "size": "20ml",
+        "categoryHint": "Hair & scalp",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/seapuri-scalpy-hair-serum-20ml/",
+            "sourceProductId": 418660,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418660",
+            "observedAt": "2026-07-27T18:11:01.067Z",
+            "observedTitle": "SEAPURI Scalpy Hair Serum 20ml",
+            "observedSize": "20ml",
+            "priceNgn": 17200,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/05/shopping-4.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "2a2a95e220b9b15dec72f8fc",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:01.067Z",
+              "responseSha256": "4485590fa34f3fe23f1660a02e21292dc4332bf9e38b568ac5c8573d2e463446",
+              "responseByteSize": 744027,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "8809934860870",
+            "responseEvidenceId": "2a2a95e220b9b15dec72f8fc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "656a1a60466fc29f11d0059f",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 47,
+        "lane": "hair-scalp",
+        "priorityScore": 134,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "0defb63ca2f722fc93d4e0d5",
+        "title": "SHISEIDO Professional -SUBLIMIC Fuente Forte SHAMPOO (Oily Scalp) 1000ml",
+        "brandHint": "SHISEIDO Professional",
+        "size": "1000ml",
+        "categoryHint": "Hair & scalp",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/shiseido-professional-sublimic-fuente-forte-shampoo-oily-scalp-1000ml/",
+            "sourceProductId": 332178,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332178",
+            "observedAt": "2026-07-27T18:11:06.479Z",
+            "observedTitle": "SHISEIDO Professional -SUBLIMIC Fuente Forte SHAMPOO (Oily Scalp) 1000ml",
+            "observedSize": "1000ml",
+            "priceNgn": 32000,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/04/8-1.webp?fit=720%2C720&quality=80&ssl=1",
+            "response": {
+              "id": "e047c601cb2c7638ad744cde",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.479Z",
+              "responseSha256": "a65b265a7c0fe6ee0a08a456d80edf777d6ebebdd130d49e1d3a0d63350cb1c4",
+              "responseByteSize": 641340,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "4901872933303",
+            "responseEvidenceId": "e047c601cb2c7638ad744cde",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "459b8806590d2750e22a8906",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 48,
+        "lane": "hair-scalp",
+        "priorityScore": 129,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "5154a75f6a4315ba69ff7bdf",
+        "title": "KERACARE Dry And Itchy Shampoo 950ml",
+        "brandHint": "KERACARE",
+        "size": "950ml",
+        "categoryHint": "Hair & scalp",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/keracare-no1-dry-and-itchy-scalp-anti-dandruff-moisturizing-shampoo-950ml/",
+            "sourceProductId": 363775,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/363775",
+            "observedAt": "2026-07-27T18:11:06.797Z",
+            "observedTitle": "KERACARE Dry And Itchy Shampoo 950ml",
+            "observedSize": "950ml",
+            "priceNgn": 35474,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/08/cyvyh7zb.png?fit=500%2C500&quality=80&ssl=1",
+            "response": {
+              "id": "2a002703da9d9798e29502f4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.797Z",
+              "responseSha256": "26f1c679222e0a7e48c7892372085f79d7237fc73beb73e3d2560c9232aeadcf",
+              "responseByteSize": 569138,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "796708350188",
+            "responseEvidenceId": "2a002703da9d9798e29502f4",
             "treatment": "retailer-local-code-not-manufacturer-identity"
           }
         ]

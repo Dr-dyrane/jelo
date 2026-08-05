@@ -9,7 +9,7 @@
     "requestedCount": 12
   },
   "source": {
-    "staticQueueSha256": "6b4fd6ed3468add310ccba717c6abdbb1d803eec0bbaaaa1d30e3ae30ccc96de",
+    "staticQueueSha256": "380771e36ea53770c6eda741113d945104275f67e2cfd0cf321a7ee2a3db9415",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "packets": [
@@ -1060,160 +1060,11 @@
       }
     },
     {
-      "id": "577cbfe362025cee7c17c79e",
-      "source": "static-priority",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "research": {
-        "rank": 20,
-        "lane": "body-care",
-        "priorityScore": 158,
-        "reasons": [
-          "directory-retailer-observed",
-          "high-consumer-utility",
-          "multi-retailer-observed",
-          "gtin-shaped-identity-lead",
-          "current-stock-observed"
-        ],
-        "cautions": [
-          "retailer-code-unverified"
-        ],
-        "nextAction": "confirm-official-manufacturer-identity"
-      },
-      "productLead": {
-        "discoveryId": "07638932c92af511bdf56019",
-        "title": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
-        "brandHint": "Dr Teals",
-        "size": "710ml",
-        "categoryHint": "Body care",
-        "identityStatus": "unverified-retailer-lead",
-        "careStatus": "not-reviewed",
-        "imageStatus": "source-url-unreviewed"
-      },
-      "discoveryEvidence": {
-        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
-        "observations": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/dr-teals-body-wash-nourish-and-protect-coconut-oil-710ml/",
-            "sourceProductId": 330770,
-            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330770",
-            "observedAt": "2026-07-27T18:11:07.194Z",
-            "observedTitle": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
-            "observedSize": "710ml",
-            "priceNgn": 7150,
-            "stock": "low-stock",
-            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/08/dr-te.jpg?fit=500%2C500&quality=89&ssl=1",
-            "response": {
-              "id": "f0661b04a8bbd02e29588c5e",
-              "retailer": "BuyBetter",
-              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:07.194Z",
-              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
-              "responseByteSize": 652018,
-              "responseMimeType": "application/json"
-            }
-          },
-          {
-            "retailer": "Slique Beauty",
-            "retailerStatus": "provisional",
-            "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-body-wash-710ml-coconut-oil/",
-            "sourceProductId": 19208,
-            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/19208",
-            "observedAt": "2026-07-27T18:11:14.317Z",
-            "observedTitle": "DR TEAL'S BODY WASH 710ML - COCONUT OIL",
-            "observedSize": "710ml",
-            "priceNgn": 10200,
-            "stock": "low-stock",
-            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/02/DR-TEALS-BODY-WASH-710ML-COCONUT-OIL.webp",
-            "response": {
-              "id": "dfa84f818f563f652239f5ef",
-              "retailer": "Slique Beauty",
-              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
-              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
-              "retrievedAt": "2026-07-27T18:11:14.317Z",
-              "responseSha256": "a6c9213a1febf48685698a5fb3c02c087511ded7d3a0f7ec0e4d9c095a3535f4",
-              "responseByteSize": 448097,
-              "responseMimeType": "application/json"
-            }
-          }
-        ],
-        "retailerCodeLeads": [
-          {
-            "retailer": "BuyBetter",
-            "value": "811068015857",
-            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          },
-          {
-            "retailer": "Slique Beauty",
-            "value": "811068015857",
-            "responseEvidenceId": "dfa84f818f563f652239f5ef",
-            "treatment": "retailer-local-code-not-manufacturer-identity"
-          }
-        ]
-      },
-      "proofSlots": {
-        "officialIdentity": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "officialProductUrl": null,
-          "manufacturerGtin": null,
-          "exactVariant": null,
-          "exactSize": null,
-          "sourceResponseSha256": null,
-          "reviewedAt": null
-        },
-        "care": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "manufacturerFormulaUrl": null,
-          "independentGuidanceUrl": null,
-          "reviewedAt": null
-        },
-        "exactNigeriaOffers": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "offers": []
-        },
-        "rightsAndSourceBytes": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "rightsStatus": null,
-          "rightsSourceUrl": null,
-          "sourceAssetUrl": null,
-          "sourceResponseSha256": null,
-          "sourceResponseByteSize": null
-        },
-        "finalImage": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "publicImageUrl": null,
-          "imageSha256": null,
-          "imageWidth": null,
-          "imageHeight": null,
-          "imageHasAlpha": null,
-          "packaging": null,
-          "presentationQuality": null
-        },
-        "generation": {
-          "status": "uncollected",
-          "requiredFor": "candidate-intake-only",
-          "provider": null,
-          "model": null,
-          "prompt": null,
-          "outputSha256": null,
-          "generatedAt": null
-        }
-      }
-    },
-    {
       "id": "7108e00bfaf03e02b749a0f4",
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 21,
+        "rank": 20,
         "lane": "body-care",
         "priorityScore": 158,
         "reasons": [
@@ -1362,7 +1213,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 22,
+        "rank": 21,
         "lane": "body-care",
         "priorityScore": 158,
         "reasons": [
@@ -1511,7 +1362,7 @@
       "source": "static-priority",
       "publicationStatus": "not-a-catalogue-candidate",
       "research": {
-        "rank": 23,
+        "rank": 22,
         "lane": "body-care",
         "priorityScore": 158,
         "reasons": [
@@ -1597,6 +1448,155 @@
             "retailer": "Slique Beauty",
             "value": "840044714101",
             "responseEvidenceId": "603e2c0cc50ddc16295330aa",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "1ab27c4f5eafb2518100ecbe",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 23,
+        "lane": "body-care",
+        "priorityScore": 158,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "9fc5cda37324b6c43ce2ccb2",
+        "title": "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
+        "brandHint": "Neutrogena",
+        "size": "8.5 oz / 250ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/neutrogena-light-sesame-formula-body-oil-8-5-oz-250ml/",
+            "sourceProductId": 360906,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/360906",
+            "observedAt": "2026-07-27T18:11:06.797Z",
+            "observedTitle": "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
+            "observedSize": "8.5 oz / 250ml",
+            "priceNgn": 20000,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/08/k1250kuq.png?fit=650%2C650&quality=80&ssl=1",
+            "response": {
+              "id": "2a002703da9d9798e29502f4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.797Z",
+              "responseSha256": "26f1c679222e0a7e48c7892372085f79d7237fc73beb73e3d2560c9232aeadcf",
+              "responseByteSize": 569138,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/neutrogena-body-oil-250ml/",
+            "sourceProductId": 9532,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/9532",
+            "observedAt": "2026-07-27T18:11:17.510Z",
+            "observedTitle": "NEUTROGENA BODY OIL 250ML",
+            "observedSize": "250ml",
+            "priceNgn": 25500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/Neutrogena-oil.jpg",
+            "response": {
+              "id": "55de8612a798415ac84d7c05",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=15&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=15&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:17.510Z",
+              "responseSha256": "bf89ed1fb1055cbe8365cb568ca8a73e2c627c90a16d0eccb200ff5a77f7ead8",
+              "responseByteSize": 379182,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "070501618202",
+            "responseEvidenceId": "2a002703da9d9798e29502f4",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "070501618202",
+            "responseEvidenceId": "55de8612a798415ac84d7c05",
             "treatment": "retailer-local-code-not-manufacturer-identity"
           }
         ]

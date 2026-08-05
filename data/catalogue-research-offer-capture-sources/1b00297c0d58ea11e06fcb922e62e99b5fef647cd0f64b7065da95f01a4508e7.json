@@ -3,28 +3,27 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-07-29T04:12:13.475Z",
+  "generatedAt": "2026-08-05T03:31:47.060Z",
   "source": {
-    "researchPacketsSha256": "01c359fa7310d0081ec29501d3430b559368d92d0c979a5dd7980092fe940729",
+    "researchPacketsSha256": "cf538a3ce5afd880edb54ae68c203d957d3120a64d9b8b1f693fba4f0e6fad94",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 12,
+    "packetCount": 11,
     "packetIds": [
-      "e6c412ff66aded226f1b11d7",
+      "16904e359f5d8aed4df6ca91",
+      "258b05593ae6b7cb1e1d5ddf",
       "32f7b0d9d472895d9c2d43f2",
-      "e7b8894ebe80c275ee8cb391",
-      "c9a1d5e6b6b260984c2463d0",
+      "7108e00bfaf03e02b749a0f4",
+      "779abfc23925ba26c3b6d14b",
+      "92b7380b76ea55d58e387244",
       "af7e509f9b6ff6e4c83a0eb6",
       "bc30eadf44f2f7a2d9f4f144",
-      "779abfc23925ba26c3b6d14b",
-      "577cbfe362025cee7c17c79e",
-      "7108e00bfaf03e02b749a0f4",
-      "92b7380b76ea55d58e387244",
-      "258b05593ae6b7cb1e1d5ddf",
-      "16904e359f5d8aed4df6ca91"
+      "c9a1d5e6b6b260984c2463d0",
+      "e6c412ff66aded226f1b11d7",
+      "e7b8894ebe80c275ee8cb391"
     ],
-    "responseCount": 23
+    "responseCount": 21
   },
   "qualityCautions": [],
   "captures": [
@@ -194,74 +193,6 @@
         "stock": "in-stock",
         "retailerSku": {
           "value": "6156000469720",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "9b938fc89d750e7b3cb8e57b",
-      "packetId": "577cbfe362025cee7c17c79e",
-      "discoveryId": "07638932c92af511bdf56019",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/07638932c92af511bdf56019--buybetter.json",
-      "source": {
-        "productId": 330770,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330770",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330770",
-        "listingUrl": "https://buybetter.ng/product/dr-teals-body-wash-nourish-and-protect-coconut-oil-710ml/",
-        "capturedAt": "2026-07-29T04:12:11.542Z",
-        "responseSha256": "44c930a79e5c37db13eadb39c9705d5c6c5fe8e311e593442bfc73ba8c786968",
-        "responseByteSize": 4388,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
-        "size": "710ml",
-        "price": {
-          "amount": 7150,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "811068015857",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "f81d1f3c5bf822a77691d245",
-      "packetId": "577cbfe362025cee7c17c79e",
-      "discoveryId": "07638932c92af511bdf56019",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/07638932c92af511bdf56019--slique-beauty.json",
-      "source": {
-        "productId": 19208,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/19208",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/19208",
-        "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-body-wash-710ml-coconut-oil/",
-        "capturedAt": "2026-07-29T04:12:10.960Z",
-        "responseSha256": "bb8a4bce339b2ef2ae6bf2885b48fac01b033c9d63141a35a42eae4fd153fafc",
-        "responseByteSize": 4193,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "DR TEAL'S BODY WASH 710ML - COCONUT OIL",
-        "size": "710ml",
-        "price": {
-          "amount": 10200,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "811068015857",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

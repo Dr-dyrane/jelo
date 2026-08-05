@@ -3,55 +3,30 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-07-28T14:40:38.455Z",
+  "generatedAt": "2026-08-05T03:31:47.031Z",
   "source": {
-    "researchPacketsSha256": "356af8e076c3cabe22bf6ace46659603a7623eb37e9aa65c845c1751d63e6f95",
+    "researchPacketsSha256": "732f2de5699213afcc6af989ed674816f21825124350e38e60ceb3820d8d93a7",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
     "packetCount": 12,
     "packetIds": [
       "1920014afae80ba00e4169ca",
-      "b55494943c535dd1b7f63929",
-      "d4f0fa500b7c661235f056d8",
-      "c513f8766b8a5963d380ecfc",
-      "d8b1ae52cb7da0eb678282e9",
-      "9461a4a54aec53613167f7c5",
       "37a75aa63b334a44df82d6c2",
-      "5e5eaf99bf5cf8c6218633cd",
       "40b98e378e2d706b14d203c6",
-      "95ae7ea127cc3fa98e364ebf",
       "42f32d48d0fbcf7e7f56607a",
+      "5e5eaf99bf5cf8c6218633cd",
+      "9461a4a54aec53613167f7c5",
+      "95ae7ea127cc3fa98e364ebf",
+      "b55494943c535dd1b7f63929",
+      "c513f8766b8a5963d380ecfc",
+      "d4f0fa500b7c661235f056d8",
+      "d8b1ae52cb7da0eb678282e9",
       "f020ac8386430486b94e1ce2"
     ],
     "responseCount": 24
   },
-  "qualityCautions": [
-    {
-      "captureId": "3801ffc016844c6b85c3d273",
-      "responseSha256": "475dc2d958c1d42bd01229210731c143c7de88230cdf52ea254898c87cc92518",
-      "kind": "cross-product-visual",
-      "disposition": "exclude-source-visual-from-all-use",
-      "basis": "retained-response-and-live-listing-review",
-      "reviewedAt": "2026-07-28T05:40:00.000Z"
-    },
-    {
-      "captureId": "2a1f7245fffeb3274122aa4c",
-      "responseSha256": "170ba0d49a6cad49acef90874bfa6e2bcc9b30f2463bd74b3a13e0611591aa9a",
-      "kind": "description-size-conflict",
-      "disposition": "exclude-description-from-identity-care-and-public-copy",
-      "basis": "retained-response-and-live-listing-review",
-      "reviewedAt": "2026-07-28T14:44:00.000Z"
-    },
-    {
-      "captureId": "aeaa77f6f17ce6948e1cfc7b",
-      "responseSha256": "5bbf4a06cd0446897eb49d7f394cdc521ffef24133b575c1cbb86243f803624a",
-      "kind": "cross-product-visual",
-      "disposition": "exclude-source-visual-from-all-use",
-      "basis": "retained-response-and-live-listing-review",
-      "reviewedAt": "2026-07-28T05:40:00.000Z"
-    }
-  ],
+  "qualityCautions": [],
   "captures": [
     {
       "id": "f05c843ef06fbfbb6b2524b3",
