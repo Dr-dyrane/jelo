@@ -6,6 +6,7 @@ node_modules/
 out/
 *.tsbuildinfo
 .cache/
+.u2net/
 __pycache__/
 *.pyc
 

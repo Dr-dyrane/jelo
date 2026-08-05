@@ -691,5 +691,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "amika-the-kure-conditioner-275ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/2117/1151/files/amika_The-Kure_Conditioner_275ml_2024_Update_2000x2000_Trans_Shadow.png?v=1734536653",
+      "sha256": "95f9a7ee788e75587350f7b9d16aacf41b5644a2b9dd2546a203b89ebcfa3590",
+      "byteSize": 1042544,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-05T00:20:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00840117805743"
+      },
+      "officialProductUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "933373a4e94bb29674f9e2e49207edbb1afaf78a7155644be39c402f81fc17a2",
+      "generatedAt": "2026-08-05T00:23:07Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "933373a4e94bb29674f9e2e49207edbb1afaf78a7155644be39c402f81fc17a2",
+      "byteSize": 965500,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-05T00:24:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-05T00:25:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "11fc11ac363caf23392730851d225f1f4bff1d9be2433f6582fad3e40d5679ce",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

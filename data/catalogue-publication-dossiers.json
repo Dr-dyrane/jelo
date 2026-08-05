@@ -15010,6 +15010,200 @@
         "approvedAt": "2026-08-04T16:58:00Z"
       },
       "dossierFingerprint": "741825f704289f92a2f7d7ef8abc5c27f25b76396e8a794c4028f2da41e28e02"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "candidateFingerprint": "fc3df99a2e61bf62f87659d49d270599f1c8c1a52e0b302b729bf2e799e9d175",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "840117805743",
+        "brand": "amika",
+        "name": "The Kure Conditioner",
+        "variant": "the kure | strength repair conditioner",
+        "size": "9.2 oz / 275 ml",
+        "category": "Hair & scalp"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+        "officialIdentity": {
+          "url": "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+          "observedGtin": "840117805743",
+          "observedVariant": "the kure | strength repair conditioner",
+          "observedSize": "9.2 oz / 275 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/amika-the-kure-conditioner-275ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "amika-the-kure-conditioner-275ml",
+            "sourceUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+            "responseUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "retrievedAt": "2026-08-05T00:20:00Z",
+            "fields": {
+              "gtin": {
+                "value": "840117805743",
+                "locator": "Rendered Shopify product JSON-LD offer gtin for 9.2 oz / 275 ml variant",
+                "sourceText": "9.2 oz / 275 ml offer — gtin: 840117805743; SKU: AM50.18505"
+              },
+              "variant": {
+                "value": "the kure | strength repair conditioner",
+                "locator": "Rendered Shopify product JSON-LD name",
+                "sourceText": "the kure | strength repair conditioner"
+              },
+              "size": {
+                "value": "9.2 oz / 275 ml",
+                "locator": "Rendered Shopify product variant title for selected variant",
+                "sourceText": "9.2 oz / 275 ml"
+              }
+            },
+            "sourceResponseSha256": "154cf5ea3b643d04501701a8f0dda179be3421dbe6f453e42738a2a89a0b4afc",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 997724,
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "strength repair conditioner : the kure | amika"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-05T00:22:00Z"
+          },
+          "snapshotSha256": "d14667e6bf16aae4df8a90b6047c6c0dee1f86f47b712c04e68ecfb3b288e541",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1274,
+          "retrievedAt": "2026-08-05T00:20:00Z"
+        },
+        "checkedAt": "2026-08-05T00:22:00Z",
+        "demandEvidenceUrls": [
+          "https://loveamika.com/products/the-kure-strength-repair-conditioner"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Bond repair conditioner with keratin amino acids, sea buckthorn berry, and Bond Cure technology for damaged hair.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic hair conditioner for routine repair of dry, damaged hair; not individualized scalp treatment or medical advice. For external use only. Avoid contact with eyes. Discontinue use if irritation occurs and consult a healthcare professional.",
+        "manufacturerEvidenceUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+        "evidenceUrls": [
+          "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+          "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
+        ],
+        "reviewedAt": "2026-08-05T00:22:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/2117/1151/files/amika_The-Kure_Conditioner_275ml_2024_Update_2000x2000_Trans_Shadow.png?v=1734536653",
+          "sha256": "95f9a7ee788e75587350f7b9d16aacf41b5644a2b9dd2546a203b89ebcfa3590",
+          "mimeType": "image/png",
+          "byteSize": 1042544,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-05T00:20:00Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "amika-the-kure-conditioner-275ml",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://cdn.shopify.com/s/files/1/2117/1151/files/amika_The-Kure_Conditioner_275ml_2024_Update_2000x2000_Trans_Shadow.png?v=1734536653",
+            "sha256": "95f9a7ee788e75587350f7b9d16aacf41b5644a2b9dd2546a203b89ebcfa3590",
+            "byteSize": 1042544,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-05T00:20:00Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00840117805743"
+            },
+            "officialProductUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "933373a4e94bb29674f9e2e49207edbb1afaf78a7155644be39c402f81fc17a2",
+            "generatedAt": "2026-08-05T00:23:07Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "933373a4e94bb29674f9e2e49207edbb1afaf78a7155644be39c402f81fc17a2",
+            "byteSize": 965500,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-05T00:24:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-05T00:25:00Z",
+            "artReviewer": "Devin visual audit",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "surfaceReviewSha256": "11fc11ac363caf23392730851d225f1f4bff1d9be2433f6582fad3e40d5679ce",
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/amika/amika-the-kure-conditioner-275ml/packshot-v1-933373a4e94bb296.png",
+        "sha256": "933373a4e94bb29674f9e2e49207edbb1afaf78a7155644be39c402f81fc17a2",
+        "mimeType": "image/png",
+        "byteSize": 965500,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-05T00:25:00Z",
+        "reviewer": "Devin visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-05T00:28:00Z"
+      },
+      "dossierFingerprint": "9d0d1762e4305d57b8b45040835eae2616dd6eed4f96ec25850e00df92d74c99"
     }
   ]
 }

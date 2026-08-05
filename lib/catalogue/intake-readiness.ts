@@ -744,6 +744,7 @@ const packshotEligibleOrigins = [
   'owned-identity-verified-render',
 ] as const;
 const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
+  amika: ['loveamika.com'],
   anua: ['anua.com'],
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],
@@ -796,6 +797,7 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
+  amika: ['loveamika.com', 'cdn.shopify.com'],
   anua: ['anua.com'],
   aquarich: ['www.aquarich.net'],
   balanceactiveformula: ['www.balanceactiveformula.com'],

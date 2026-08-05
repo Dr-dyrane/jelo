@@ -1321,6 +1321,30 @@
         "publishedAt": "2026-08-04T17:03:00Z"
       },
       "releaseFingerprint": "0ed0347a87ad3f5568f683f6e5bdddf82cc75de27c783b09bf19317bb5639146"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "dossierFingerprint": "9d0d1762e4305d57b8b45040835eae2616dd6eed4f96ec25850e00df92d74c99",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Condition",
+        "displayLine": "Bond repair conditioner",
+        "usage": "After shampooing, apply to clean, wet hair. Leave in for 2-3 minutes, then rinse thoroughly.",
+        "manufacturerDirectionsUrl": "https://loveamika.com/products/the-kure-strength-repair-conditioner",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-05T00:30:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-05T00:32:00Z"
+      },
+      "releaseFingerprint": "eb6de20d3ab8f6730899fac97bdcb2b0edbf3e10755be8f15afe8e62e030ec7d"
     }
   ]
 }

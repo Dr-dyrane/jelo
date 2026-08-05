@@ -599,5 +599,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "cdc1398f2086e51a3cc4d19877aa1af4bb2ed752655da6e36ec9e6f59581524c"
+  },
+  {
+    "id": "amika-the-kure-conditioner-275ml-packshot-v1",
+    "active": true,
+    "candidateId": "amika-the-kure-conditioner-275ml",
+    "destination": "publication",
+    "publicationBrandSlug": "amika",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2117/1151/files/amika_The-Kure_Conditioner_275ml_2024_Update_2000x2000_Trans_Shadow.png?v=1734536653",
+    "localPath": "data/catalogue-intake-assets/amika-the-kure-conditioner-275ml/packshot-v1-933373a4e94bb296.png",
+    "blobPath": "products/amika/amika-the-kure-conditioner-275ml/packshot-v1-933373a4e94bb296.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/amika/amika-the-kure-conditioner-275ml/packshot-v1-933373a4e94bb296.png",
+    "contentType": "image/png",
+    "byteSize": 965500,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "933373a4e94bb29674f9e2e49207edbb1afaf78a7155644be39c402f81fc17a2"
   }
 ]

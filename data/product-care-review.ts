@@ -877,6 +877,13 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-04',
   },
+  'amika-the-kure-conditioner-275ml': {
+    productSlug: 'amika-the-kure-conditioner-275ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [],
+    reviewedAt: '2026-08-05',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
