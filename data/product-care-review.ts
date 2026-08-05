@@ -884,6 +884,13 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [],
     reviewedAt: '2026-08-05',
   },
+  'anua-zero-cast-moisturizing-finish-sunscreen-50ml': {
+    productSlug: 'anua-zero-cast-moisturizing-finish-sunscreen-50ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [],
+    reviewedAt: '2026-08-05',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

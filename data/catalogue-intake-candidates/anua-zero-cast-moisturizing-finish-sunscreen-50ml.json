@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-05T01:46:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "7f5e4463688a37e008b523ff",
+    "discoveryId": "7f5e4463688a37e008b523ff",
+    "sourceSnapshotSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "candidate": {
+    "id": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+    "brand": "ANUA",
+    "name": "Zero Cast Moisturizing Finish Sunscreen",
+    "variant": "Zero-cast Moisturizing Finish Sunscreen",
+    "size": "50 ml",
+    "category": "Face care",
+    "reason": "High-utility SPF50+ PA++++ daily sunscreen with hydrating finish, observed in retailer directory",
+    "priority": "important",
+    "gapIds": [
+      "sun-protection"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.mirai-skin.com/products/anua-zero-cast-moisturizing-finish-sunscreen-50ml"
+    ],
+    "identity": {
+      "basis": "official-brand",
+      "gtin": "8809640738838",
+      "officialProductUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+      "checkedAt": "2026-08-05T01:41:30Z",
+      "packageVersion": "Current 50 ml white squeeze tube with blue cap, ANUA Zero Cast label and SPF50+ PA++++ marking",
+      "officialEvidence": {
+        "url": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+        "observedGtin": "8809640738838",
+        "observedVariant": "Zero-cast Moisturizing Finish Sunscreen",
+        "observedSize": "50 ml",
+        "observedPackageVersion": "Current 50 ml white squeeze tube with blue cap, ANUA Zero Cast label and SPF50+ PA++++ marking",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/anua-zero-cast-moisturizing-finish-sunscreen-50ml.json",
+        "snapshotSha256": "1a3de1af2d5f8888c3b150137789a39ff43ba92167998fd1407facf270d48028",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1774,
+        "retrievedAt": "2026-08-05T01:40:39Z",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "Zero-cast Moisturizing Finish Sunscreen | Anua US",
+            "surface": "Playwright MCP browser"
+          },
+          "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+          "fields": {
+            "gtin": {
+              "locator": "Shopify product JSON variant barcode field",
+              "sourceText": "\"barcode\":\"8809640738838\"",
+              "value": "8809640738838"
+            },
+            "size": {
+              "locator": "Product image alt attribute",
+              "sourceText": "\"alt\":\"Anua US Sunscreen 50 ml Zero-cast Moisturizing Finish Sunscreen\"",
+              "value": "50 ml"
+            },
+            "variant": {
+              "locator": "Shopify product JSON title field",
+              "sourceText": "\"title\":\"Zero-cast Moisturizing Finish Sunscreen\"",
+              "value": "Zero-cast Moisturizing Finish Sunscreen"
+            }
+          },
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+          "retrievedAt": "2026-08-05T01:40:39Z",
+          "reviewedAt": "2026-08-05T01:41:00Z",
+          "reviewer": "JeloCare catalogue identity review",
+          "schemaVersion": 4,
+          "sourceResponseByteSize": 1128227,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "c28a6045ecd4e914207fbcdc18839dc51eaf84a0bdec4c9a03360501d682cbe5",
+          "sourceUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 187421,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "514b01edbb3793baccbd3c78f71c5be67d9aacdb212a71809a88aad3918b0f02",
+              "responseUrl": "https://anua.com/cdn/shop/files/anua-us-sunscreen-zero-cast-moisturizing-finish-sunscreen-1244398149_2000x.jpg?v=1781507109",
+              "retrievedAt": "2026-08-05T01:40:39Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://anua.com/cdn/shop/files/anua-us-sunscreen-zero-cast-moisturizing-finish-sunscreen-1244398149_2000x.jpg?v=1781507109"
+            }
+          ]
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "SPF50+ PA++++ chemical sunscreen with hydrating finish",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A daily-use cosmetic sunscreen, not a diagnosis or treatment for skin conditions. Reapply every two hours during sun exposure. Avoid direct eye contact. Discontinue use if irritation occurs. Persistent skin concerns require clinical review.",
+      "manufacturerEvidenceUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+      "evidenceUrls": [
+        "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+        "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+      ],
+      "reviewedAt": "2026-08-05T01:43:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "origin": "official-brand-media",
+      "rightsStatus": "documented",
+      "rightsUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+      "sourceUrl": "https://www.mirai-skin.com/cdn/shop/files/final_1_08895b3a-584f-4c7c-87d7-5126e73f1f94.jpg?v=1775767985",
+      "sourceAssetSha256": "67ed33193d3459666bf5affde52f1ed151d1556f2cae966a31f006cd6c827834",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 46093,
+      "sourceAssetWidth": 1500,
+      "sourceAssetHeight": 1500,
+      "sourceAssetRetrievedAt": "2026-08-05T01:30:00Z",
+      "backgroundTreatment": "source-pixel-isolation",
+      "role": "packshot",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-zero-cast-moisturizing-finish-sunscreen-50ml/packshot-v1-9399df3e70a91705.png",
+      "publicImageSha256": "9399df3e70a917051d2b935b1fdc56cd32ec1cebe2fd9a92d14168ebc678055c",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 525785,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-05T01:46:00Z",
+      "artReviewer": "JeloCare catalogue art review",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}
