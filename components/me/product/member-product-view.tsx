@@ -13,6 +13,20 @@ import type { ShelfActionHandler } from '@/components/me/shelf/me-shelf-state';
 import type { ProductPanelTab } from '@/lib/catalogue/product-panel-model';
 import styles from '../home/me-home.module.css';
 
+function formatFreshness(lastCheckedAt: string | null): string {
+  if (!lastCheckedAt) return '';
+  const checked = new Date(lastCheckedAt);
+  if (Number.isNaN(checked.getTime())) return '';
+  const now = new Date();
+  const dayMs = 24 * 60 * 60 * 1000;
+  const ageDays = Math.floor((Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+    - Date.UTC(checked.getUTCFullYear(), checked.getUTCMonth(), checked.getUTCDate())) / dayMs);
+  if (ageDays <= 0) return 'Checked today';
+  if (ageDays === 1) return 'Checked yesterday';
+  if (ageDays <= 7) return `Checked ${ageDays} days ago`;
+  return `Checked ${checked.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`;
+}
+
 export function MemberProductView({
   product,
   viewModel,
@@ -37,6 +51,8 @@ export function MemberProductView({
   const shelfAvailable = viewModel.shelfState.status === 'ready';
   const fromShelf = origin === 'shelf';
   const showShelfAction = shelfAvailable && (!fromShelf || Boolean(shelfItem));
+  const reading = product.marketReading;
+  const freshness = formatFreshness(reading.lastCheckedAt);
   return (
     <article className={`${styles.routePage} ${styles.stackPage} ${styles.productPage}`} aria-labelledby="me-product-title">
       <div className={styles.productHero}>
@@ -47,7 +63,15 @@ export function MemberProductView({
           <p className={styles.eyebrow}>{product.brand}</p>
           <h1 id="me-product-title">{product.name}</h1>
           <p>{product.displayLine}</p>
-          {product.priceLabel ? <p className={styles.productPrice}>{product.priceLabel}</p> : null}
+          <div className={styles.marketReading} aria-label="Market reading">
+            <p className={styles.marketPrice}>{reading.priceLabel}</p>
+            {!reading.unavailable ? (
+              <p className={styles.marketStores}>
+                {reading.storeCount} {reading.storeCount === 1 ? 'eligible store' : 'eligible stores'}
+              </p>
+            ) : null}
+            {freshness ? <p className={styles.marketFreshness}>{freshness}</p> : null}
+          </div>
           <p className={styles.productUsage}>{product.usage}</p>
           <div className={styles.productActions}>
             <div className={styles.productEvidenceActions} role="group" aria-label="Product information">

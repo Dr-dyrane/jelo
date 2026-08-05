@@ -17,6 +17,7 @@ import {
   resolveActiveWorkspaceNavigationItem,
   updateWorkspaceDockScrollState,
 } from '../../lib/workspace-shell/dock-model';
+import { UNAVAILABLE_MARKET_READING } from '../../lib/customer/portal-model';
 import { readFileSync } from 'node:fs';
 
 test('JeloCare Me has exactly four released primary destinations', () => {
@@ -152,6 +153,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
     displayLine: 'Exact line',
     usage: 'Use as directed.',
     priceLabel: null,
+    marketReading: UNAVAILABLE_MARKET_READING,
     supportedConcernSlugs: ['dry-dehydrated-skin'],
     freshExactRetailerNames: [],
   };
@@ -465,6 +467,40 @@ test('account avatar owns one accessible extensible modal sheet', () => {
   assert.match(sheetStyles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(sheetStyles, /prefers-reduced-transparency: reduce/);
   assert.match(sheetStyles, /@media \(forced-colors: active\)/);
+});
+
+test('Member Product renders a truthful market reading with price, stores, and freshness', () => {
+  const portalModel = readFileSync('lib/customer/portal-model.ts', 'utf8');
+  const productView = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
+  const styles = readFileSync('components/me/home/me-home.module.css', 'utf8');
+
+  // The portal model exposes a structured MarketReading type.
+  assert.match(portalModel, /export type MarketReading =/);
+  assert.match(portalModel, /priceLabel: string/);
+  assert.match(portalModel, /storeCount: number/);
+  assert.match(portalModel, /basis: 'none' \| 'single-source' \| 'multi-source'/);
+  assert.match(portalModel, /lastCheckedAt: string \| null/);
+  assert.match(portalModel, /unavailable: boolean/);
+  // toCustomerPortalProduct populates marketReading from summarizeMarket.
+  assert.match(portalModel, /marketReading: buildMarketReading\(product\)/);
+  assert.match(portalModel, /summarizeMarket\(product\.offers/);
+
+  // The view renders the structured reading, not just a flat priceLabel string.
+  assert.match(productView, /marketReading/);
+  assert.match(productView, /marketPrice/);
+  assert.match(productView, /marketStores/);
+  assert.match(productView, /marketFreshness/);
+  assert.match(productView, /eligible store/);
+  assert.match(productView, /formatFreshness/);
+  // The view preserves personal Shelf/Routine context.
+  assert.match(productView, /On my Shelf|Not on my Shelf/);
+  assert.match(productView, /In my Routine|Not in my Routine/);
+
+  // The CSS styles the market reading section.
+  assert.match(styles, /\.marketReading \{/);
+  assert.match(styles, /\.marketPrice \{/);
+  assert.match(styles, /\.marketStores \{/);
+  assert.match(styles, /\.marketFreshness \{/);
 });
 
 test('unavailable Shelf states fail closed while synthetic state stays explicitly preview-only', () => {

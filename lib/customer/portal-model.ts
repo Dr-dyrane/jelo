@@ -4,6 +4,32 @@ import type { CustomerShelfRecord } from './shelf-repository';
 import type { CustomerRoutineRecord } from './routine-repository';
 import { marketPriceLabel } from '@/modules/commerce/market-price-label';
 import { exactAvailableOffers } from '@/modules/commerce/market-product';
+import { summarizeMarket } from '@/modules/commerce/market-summary';
+
+export type MarketReading = {
+  /** Concise human-readable price or range, e.g. "₦9,850" or "From ₦9,850". */
+  priceLabel: string;
+  /** Full market reading with store count, e.g. "₦9,850 · 1 store" or "From ₦9,850 · 3 stores". */
+  summary: string;
+  /** Number of eligible exact stores with fresh, in-stock, priced offers. */
+  storeCount: number;
+  /** Whether the price is a single-source or multi-source reading. */
+  basis: 'none' | 'single-source' | 'multi-source';
+  /** ISO date string of the most recent observation, or null. */
+  lastCheckedAt: string | null;
+  /** True when no fresh priced offers exist. */
+  unavailable: boolean;
+};
+
+/** Default unavailable market reading for test fixtures and edge cases. */
+export const UNAVAILABLE_MARKET_READING: MarketReading = {
+  priceLabel: 'Price unavailable',
+  summary: 'Price unavailable',
+  storeCount: 0,
+  basis: 'none',
+  lastCheckedAt: null,
+  unavailable: true,
+};
 
 export type CustomerPortalProduct = {
   slug: string;
@@ -16,6 +42,8 @@ export type CustomerPortalProduct = {
   displayLine: string;
   usage: string;
   priceLabel: string | null;
+  /** Structured market reading for the Member Product page. */
+  marketReading: MarketReading;
   supportedConcernSlugs: readonly string[];
   freshExactRetailerNames: readonly string[];
 };
@@ -101,6 +129,37 @@ export type CustomerPortalViewModel = {
   routines?: readonly CustomerPortalSavedRoutine[];
 };
 
+const naira = new Intl.NumberFormat('en-NG', {
+  style: 'currency',
+  currency: 'NGN',
+  maximumFractionDigits: 0,
+});
+
+function buildMarketReading(product: Product): MarketReading {
+  const summary = summarizeMarket(product.offers, 'NG');
+  if (summary.lowestPrice == null || summary.pricedRetailerCount === 0) {
+    return {
+      priceLabel: 'Price unavailable',
+      summary: 'Price unavailable',
+      storeCount: 0,
+      basis: 'none',
+      lastCheckedAt: summary.lastCheckedAt,
+      unavailable: true,
+    };
+  }
+  const price = naira.format(summary.lowestPrice);
+  const stores = `${summary.pricedRetailerCount} ${summary.pricedRetailerCount === 1 ? 'store' : 'stores'}`;
+  const prefix = summary.pricedRetailerCount > 1 ? 'From ' : '';
+  return {
+    priceLabel: `${prefix}${price}`,
+    summary: `${prefix}${price} · ${stores}`,
+    storeCount: summary.pricedRetailerCount,
+    basis: summary.priceBasis,
+    lastCheckedAt: summary.lastCheckedAt,
+    unavailable: false,
+  };
+}
+
 export function toCustomerPortalProduct(product: Product): CustomerPortalProduct {
   const care = getReviewedProductCare(product.slug);
   const supportedConcernSlugs = care?.careState === 'supportive_eligible'
@@ -120,6 +179,7 @@ export function toCustomerPortalProduct(product: Product): CustomerPortalProduct
     displayLine: product.displayLine,
     usage: product.usage,
     priceLabel: marketPriceLabel(product.offers, 'NG'),
+    marketReading: buildMarketReading(product),
     supportedConcernSlugs,
     freshExactRetailerNames,
   };

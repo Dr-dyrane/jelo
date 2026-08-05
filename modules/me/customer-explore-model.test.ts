@@ -12,6 +12,7 @@ import type {
   CustomerPortalProduct,
   CustomerPortalShelfItem,
 } from '../../lib/customer/portal-model';
+import { UNAVAILABLE_MARKET_READING } from '../../lib/customer/portal-model';
 
 function product(
   slug: string,
@@ -31,6 +32,7 @@ function product(
     displayLine: `${step} · care`,
     usage: 'Use as directed.',
     priceLabel: null,
+    marketReading: UNAVAILABLE_MARKET_READING,
     supportedConcernSlugs,
     freshExactRetailerNames,
   };

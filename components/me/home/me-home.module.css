@@ -1076,6 +1076,41 @@
 .productMeta span { padding: 8px 11px; border-radius: 999px; background: color-mix(in srgb, var(--peach) 68%, transparent); font-size: 0.66rem; }
 .productPrice { color: var(--wine) !important; font-weight: 600; }
 .productUsage { margin-top: 12px !important; font-size: 0.85rem; }
+
+/* Truthful market reading: price, eligible store count, freshness */
+.marketReading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin: 20px 0 0;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+.marketPrice {
+  margin: 0;
+  color: var(--wine);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.marketStores {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.marketFreshness {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
 .productActions {
   display: flex;
   flex-wrap: wrap;
@@ -1233,7 +1268,8 @@
   .searchField,
   .productHero,
   .filterSheet,
-  .safeAreaTop { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .safeAreaTop,
+  .marketReading { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 /* Keep the filter sheet immersive without changing its light-mode scrim or geometry. */
