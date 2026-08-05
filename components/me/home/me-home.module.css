@@ -272,6 +272,121 @@
   align-items: start;
 }
 
+/* Full-width section: heading on top, horizontal rail below. */
+.fullSection {
+  padding: clamp(48px, 7vw, 96px) clamp(6px, 2vw, 24px);
+}
+
+.fullSectionHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: clamp(20px, 3vw, 36px);
+}
+
+.fullSectionHeading > div { display: grid; gap: 8px; }
+
+.fullSectionHeading h2 {
+  margin: 0;
+  max-width: 14ch;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.2rem, 4.5vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+.fullSectionLink {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: var(--wine);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Horizontal scroll rail for product cards. */
+.shelfRail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 280px);
+  gap: 14px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.shelfRail::-webkit-scrollbar { display: none; }
+
+.shelfRail > * { scroll-snap-align: start; }
+
+/* Horizontal scroll rail for routine steps. */
+.routineRail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 320px);
+  gap: 14px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.routineRail::-webkit-scrollbar { display: none; }
+
+.routineRail > * { scroll-snap-align: start; }
+
+.routineRailCard {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 10px;
+  min-height: 160px;
+  padding: 18px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--paper) 76%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.routineRailCardImage {
+  display: grid;
+  place-items: center;
+  height: 88px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--peach) 56%, var(--paper));
+  overflow: hidden;
+}
+
+.routineRailCardImage img { width: 60%; height: 80px; object-fit: contain; }
+
+.routineRailCardNumber {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--wine);
+  font-family: var(--font-display), serif;
+  font-size: 1.1rem;
+}
+
+.routineRailCardNumber > svg { color: var(--wine); }
+
+.routineRailCardCopy { display: grid; gap: 4px; min-width: 0; }
+
+.routineRailCardCopy small { color: var(--muted); font-size: 0.68rem; }
+
+.routineRailCardCopy strong {
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
 .sectionHeading h2,
 .routeHeading h1,
 .productStory h1 {
@@ -760,6 +875,8 @@
   .heroProduct { min-height: 460px; }
   .section { grid-template-columns: 1fr; }
   .sectionHeading h2 { max-width: 13ch; }
+  .shelfRail { grid-auto-columns: minmax(200px, 78vw); }
+  .routineRail { grid-auto-columns: minmax(240px, 82vw); }
 }
 
 @media (max-width: 620px) {
@@ -771,6 +888,7 @@
   .heroProduct img { width: 72%; height: 310px; }
   .heroProductLabel { right: 14px; bottom: 14px; left: 14px; }
   .section { padding: 72px 10px; }
+  .fullSection { padding: 48px 10px; }
   .routineSurface { padding-inline: 14px; }
   .routePage { padding-inline: 4px; }
   .routeHeading h1 { font-size: clamp(3.45rem, 18vw, 5.4rem); }
@@ -838,6 +956,14 @@
 :global(html[data-theme="dark"]) .routineImage {
   background: linear-gradient(145deg, var(--peach), var(--card-2));
 }
+:global(html[data-theme="dark"]) .routineRailCard {
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg, var(--card-2), var(--surface-2));
+  box-shadow: var(--elevation-1);
+}
+:global(html[data-theme="dark"]) .routineRailCardImage {
+  background: linear-gradient(145deg, var(--peach), var(--card-2));
+}
 :global(html[data-theme="dark"]) .filterDialog::backdrop { background: var(--glass-scrim); }
 :global(html[data-theme="dark"]) .filterSheet { box-shadow: 0 -30px 90px rgb(0 0 0 / 72%); }
 @media (prefers-color-scheme: dark) {
@@ -859,6 +985,14 @@
     box-shadow: var(--elevation-1);
   }
   :global(html:not([data-theme="light"])) .routineImage {
+    background: linear-gradient(145deg, var(--peach), var(--card-2));
+  }
+  :global(html:not([data-theme="light"])) .routineRailCard {
+    border: 1px solid var(--border);
+    background: linear-gradient(145deg, var(--card-2), var(--surface-2));
+    box-shadow: var(--elevation-1);
+  }
+  :global(html:not([data-theme="light"])) .routineRailCardImage {
     background: linear-gradient(145deg, var(--peach), var(--card-2));
   }
   :global(html:not([data-theme="light"])) .filterDialog::backdrop { background: var(--glass-scrim); }

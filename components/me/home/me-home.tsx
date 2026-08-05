@@ -225,15 +225,17 @@ function HomePage({
         )}
       </section>
 
-      <section className={styles.section} aria-labelledby="me-shelf-preview-title">
-        <div className={styles.sectionHeading}>
-          <p className={styles.eyebrow}>Saved products</p>
-          <h2 id="me-shelf-preview-title">My Shelf.</h2>
-          <Link className={styles.sectionLink} href={'/me/shelf'}>Open Shelf <ArrowRight size={16} aria-hidden="true" /></Link>
+      <section className={styles.fullSection} aria-labelledby="me-shelf-preview-title">
+        <div className={styles.fullSectionHeading}>
+          <div>
+            <p className={styles.eyebrow}>Saved products</p>
+            <h2 id="me-shelf-preview-title">My Shelf.</h2>
+          </div>
+          <Link className={styles.fullSectionLink} href={'/me/shelf'}>Open Shelf <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         {viewModel.shelf.length ? (
-          <div className="product-grid">
-            {viewModel.shelf.slice(0, 3).map((item) => item.product ? (
+          <div className={styles.shelfRail}>
+            {viewModel.shelf.map((item) => item.product ? (
               <ProductCard
                 key={item.identityVersionId}
                 product={item.product}
@@ -263,13 +265,15 @@ function HomePage({
         )}
       </section>
 
-      <section className={`${styles.section} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
-        <div className={styles.sectionHeading}>
-          <p className={styles.eyebrow}>{viewModel.routineProvenance ?? 'My Routine'}</p>
-          <h2 id="me-routine-preview-title">My steps.</h2>
-          <Link className={styles.sectionLink} href={'/me/routine'}>Open Routine <ArrowRight size={16} aria-hidden="true" /></Link>
+      <section className={`${styles.fullSection} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
+        <div className={styles.fullSectionHeading}>
+          <div>
+            <p className={styles.eyebrow}>{viewModel.routineProvenance ?? 'My Routine'}</p>
+            <h2 id="me-routine-preview-title">My steps.</h2>
+          </div>
+          <Link className={styles.fullSectionLink} href={'/me/routine'}>Open Routine <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
-        <RoutineList viewModel={viewModel} />
+        <RoutineRail viewModel={viewModel} />
       </section>
     </>
   );
@@ -613,7 +617,7 @@ function ShelfPage({
   );
 }
 
-function RoutineList({ viewModel }: { viewModel: CustomerPortalViewModel }) {
+function RoutineRail({ viewModel }: { viewModel: CustomerPortalViewModel }) {
   if (!viewModel.routine.length) {
     return (
       <div className={styles.emptyAction}>
@@ -624,7 +628,7 @@ function RoutineList({ viewModel }: { viewModel: CustomerPortalViewModel }) {
     );
   }
   return (
-    <ol className={styles.routineList}>
+    <ol className={styles.routineRail}>
       {viewModel.routine.map((step, index) => {
         const StatusIcon = step.status === 'alert' ? ClockAlert : ClockPlus;
         const statusLabel = step.status === 'alert'
@@ -634,20 +638,23 @@ function RoutineList({ viewModel }: { viewModel: CustomerPortalViewModel }) {
             : 'Routine step confirmed';
         return (
           <li key={step.id}>
-            <Link href={memberProductHref(step.product, 'routine')} aria-label={`View ${step.product.name}`}>
-              <span className={styles.routineImage}>
+            <Link
+              href={memberProductHref(step.product, 'routine')}
+              className={styles.routineRailCard}
+              aria-label={`View ${step.product.name}`}
+            >
+              <span className={styles.routineRailCardImage}>
                 <SafeProductImage src={step.product.image} alt={`${step.product.brand} ${step.product.name}`} />
               </span>
-              <span className={styles.routineNumber}>
+              <span className={styles.routineRailCardNumber}>
                 <span>{String(index + 1).padStart(2, '0')}</span>
-                <StatusIcon size={17} aria-hidden="true" />
+                <StatusIcon size={16} aria-hidden="true" />
                 <span className={styles.visuallyHidden}>{statusLabel}</span>
               </span>
-              <span className={styles.routineCopy}>
+              <span className={styles.routineRailCardCopy}>
                 <small>{step.moment}</small>
                 <strong>{step.product.brand} {step.product.name}</strong>
               </span>
-              <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </li>
         );
@@ -671,11 +678,13 @@ function RoutinePage({
         <h1 id="me-routine-title">{surface.title}</h1>
       </div>
       {viewModel.routine.length ? (
-        <section className={`${styles.section} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
-          <div className={styles.sectionHeading}>
-            <h2 id="me-routine-preview-title">My steps.</h2>
+        <section className={`${styles.fullSection} ${styles.routineSurface}`} aria-labelledby="me-routine-preview-title">
+          <div className={styles.fullSectionHeading}>
+            <div>
+              <h2 id="me-routine-preview-title">My steps.</h2>
+            </div>
           </div>
-          <RoutineList viewModel={viewModel} />
+          <RoutineRail viewModel={viewModel} />
         </section>
       ) : null}
       {viewModel.routines ? (
