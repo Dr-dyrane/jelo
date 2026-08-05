@@ -1,25 +1,17 @@
 import type { Market } from '@/data/prices';
 import type { Offer } from '@/data/products';
-import { summarizeMarket } from './market-summary';
+import { buildMarketReading } from './market-reading';
 
-const naira = new Intl.NumberFormat('en-NG', {
-  style: 'currency',
-  currency: 'NGN',
-  maximumFractionDigits: 0,
-});
-const dollars = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  maximumFractionDigits: 2,
-});
-
+/**
+ * Concise price label for product cards and collection surfaces.
+ *
+ * Derives from the same `buildMarketReading` foundation as the inline Member
+ * Product market reading, so the two never disagree on price, store count,
+ * or freshness.
+ */
 export function marketPriceLabel(offers: Offer[], market: Market, now: number | Date = Date.now()) {
-  const summary = summarizeMarket(offers, market, now);
-  if (summary.lowestPrice == null || summary.pricedRetailerCount === 0) return null;
-
-  const price = market === 'NG'
-    ? naira.format(summary.lowestPrice)
-    : dollars.format(summary.lowestPrice);
-  const stores = `${summary.pricedRetailerCount} ${summary.pricedRetailerCount === 1 ? 'store' : 'stores'}`;
-  return `${summary.pricedRetailerCount > 1 ? 'From ' : ''}${price} · ${stores}`;
+  const reading = buildMarketReading(offers, market, now);
+  if (reading.state !== 'priced') return null;
+  const stores = `${reading.storeCount} ${reading.storeCount === 1 ? 'store' : 'stores'}`;
+  return `${reading.priceLabel} · ${stores}`;
 }

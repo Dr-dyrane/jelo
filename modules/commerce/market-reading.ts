@@ -4,43 +4,62 @@ import { isOfferFresh } from './offer-freshness';
 import { comparableMarketPrice, hasListingEvidence } from './offer-evidence';
 
 /**
- * Semantic market state for a single product.
- *
- * - `priced`: at least one fresh, exact, in-stock offer with a comparable NGN price.
- * - `listing-only`: fresh exact listings exist but none have a comparable price.
- * - `unavailable`: no fresh exact Nigerian listings at all.
- */
-export type MarketState = 'priced' | 'listing-only' | 'unavailable';
-
-/**
- * Server-owned market reading for one product.
+ * Discriminated union market reading for one product.
  *
  * Every field derives from the same eligible offer set so price, store count,
  * freshness, and basis never disagree.
  */
-export type MarketReading = {
-  state: MarketState;
-  /** "₦9,850" for single-source, "From ₦9,850" for multi-source. Null when not priced. */
-  priceLabel: string | null;
-  /** Unique observed-store count from the eligible priced set. */
-  storeCount: number;
-  /** Unique observed-store count from the eligible listing set (listing-only state). */
-  listingStoreCount: number;
-  /** Single-source or multi-source, or none when unavailable. */
-  basis: 'none' | 'single-source' | 'multi-source';
-  /** ISO timestamp of the most recent observation from the eligible set. */
-  observedAt: string | null;
-  /** Human-readable freshness label, e.g. "Checked today", "Checked yesterday". */
-  freshnessLabel: string | null;
-  /** True when no fresh exact Nigerian listings exist. */
-  unavailable: boolean;
+export type MarketReading =
+  | {
+      state: 'priced';
+      /** "₦9,850" for single-source, "From ₦9,850" for multi-source. */
+      priceLabel: string;
+      /** Unique observed-store count from the eligible priced set. */
+      storeCount: number;
+      /** Single-source or multi-source. */
+      basis: 'single-source' | 'multi-source';
+      /** ISO timestamp of the most recent priced observation. */
+      observedAt: string;
+      /** Human-readable freshness label, e.g. "Checked today", "Checked yesterday". */
+      freshnessLabel: string;
+    }
+  | {
+      state: 'listing-only';
+      /** Unique observed-listing count (stores with listings but no comparable price). */
+      listingCount: number;
+      /** ISO timestamp of the most recent listing observation. */
+      observedAt: string;
+      /** Human-readable freshness label for the listing observation. */
+      freshnessLabel: string;
+    }
+  | {
+      state: 'unavailable';
+    };
+
+/** Type guard for priced state. */
+export function isPriced(reading: MarketReading): reading is Extract<MarketReading, { state: 'priced' }> {
+  return reading.state === 'priced';
+}
+
+/** Type guard for listing-only state. */
+export function isListingOnly(reading: MarketReading): reading is Extract<MarketReading, { state: 'listing-only' }> {
+  return reading.state === 'listing-only';
+}
+
+/** Type guard for unavailable state. */
+export function isUnavailable(reading: MarketReading): reading is Extract<MarketReading, { state: 'unavailable' }> {
+  return reading.state === 'unavailable';
+}
+
+const nairaFormatters: Record<Market, Intl.NumberFormat> = {
+  NG: new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }),
+  US: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }),
 };
 
-const naira = new Intl.NumberFormat('en-NG', {
-  style: 'currency',
-  currency: 'NGN',
-  maximumFractionDigits: 0,
-});
+/** Market-aware price formatter. */
+export function formatMarketPrice(price: number, market: Market): string {
+  return nairaFormatters[market].format(price);
+}
 
 function servesMarket(offer: Offer, market: Market) {
   return offer.location.includes(market) || offer.location.includes('INTL');
@@ -70,23 +89,41 @@ function eligiblePricedOffers(offers: readonly Offer[], market: Market, now: num
     .filter(offer => comparableMarketPrice(offer, market, now) != null);
 }
 
-/** Deduplicate offers by retailer name to count unique stores. */
+/**
+ * Deduplicate offers by canonical retailer identity.
+ * Ignores case and surrounding whitespace so "Store A" and "store a "
+ * count as one retailer.
+ */
 function uniqueRetailers(offers: readonly Offer[]): string[] {
-  return [...new Set(offers.map(offer => offer.retailer))];
+  const seen = new Set<string>();
+  for (const offer of offers) {
+    const key = offer.retailer.trim().toLowerCase();
+    seen.add(key);
+  }
+  return [...seen];
 }
 
 /** Most recent observation timestamp from the eligible set. */
 function latestObservation(offers: readonly Offer[]): string | null {
-  const timestamps = offers
-    .map(offer => offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt)
-    .filter((value): value is string => Boolean(value))
-    .sort((a, b) => Date.parse(b) - Date.parse(a));
-  return timestamps[0] ?? null;
+  let latest: string | null = null;
+  let latestTime = -Infinity;
+  for (const offer of offers) {
+    const ts = offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt;
+    if (!ts) continue;
+    const parsed = Date.parse(ts);
+    if (Number.isNaN(parsed)) continue;
+    if (parsed > latestTime) {
+      latestTime = parsed;
+      latest = ts;
+    }
+  }
+  return latest;
 }
 
 /**
  * Deterministic freshness label from a known observation time and `now`.
  * Uses UTC day boundaries so tests are reproducible.
+ * Future timestamps fail safely by returning null.
  */
 export function freshnessLabelFor(observedAt: string | null, now: number | Date): string | null {
   if (!observedAt) return null;
@@ -99,7 +136,9 @@ export function freshnessLabelFor(observedAt: string | null, now: number | Date)
     (Date.UTC(current.getUTCFullYear(), current.getUTCMonth(), current.getUTCDate())
       - Date.UTC(checked.getUTCFullYear(), checked.getUTCMonth(), checked.getUTCDate())) / dayMs,
   );
-  if (ageDays <= 0) return 'Checked today';
+  // Future timestamps fail safely
+  if (ageDays < 0) return null;
+  if (ageDays === 0) return 'Checked today';
   if (ageDays === 1) return 'Checked yesterday';
   if (ageDays <= 7) return `Checked ${ageDays} days ago`;
   return `Checked ${checked.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' })}`;
@@ -128,43 +167,33 @@ export function buildMarketReading(
     const lowestPrice = prices[0] ?? null;
     const observedAt = latestObservation(pricedOffers);
     const basis = retailers.length === 1 ? 'single-source' : 'multi-source';
-    const price = lowestPrice != null ? naira.format(lowestPrice) : null;
+    if (lowestPrice == null || !observedAt) {
+      // Should not happen given the filters above, but fail safely
+      return { state: 'unavailable' };
+    }
+    const price = formatMarketPrice(lowestPrice, market);
     const prefix = retailers.length > 1 ? 'From ' : '';
     return {
       state: 'priced',
-      priceLabel: price != null ? `${prefix}${price}` : null,
+      priceLabel: `${prefix}${price}`,
       storeCount: retailers.length,
-      listingStoreCount: uniqueRetailers(listingOffers).length,
       basis,
       observedAt,
-      freshnessLabel: freshnessLabelFor(observedAt, now),
-      unavailable: false,
+      freshnessLabel: freshnessLabelFor(observedAt, now) ?? 'Checked recently',
     };
   }
 
   if (listingOffers.length > 0) {
     const retailers = uniqueRetailers(listingOffers);
     const observedAt = latestObservation(listingOffers);
+    if (!observedAt) return { state: 'unavailable' };
     return {
       state: 'listing-only',
-      priceLabel: null,
-      storeCount: 0,
-      listingStoreCount: retailers.length,
-      basis: 'none',
+      listingCount: retailers.length,
       observedAt,
-      freshnessLabel: freshnessLabelFor(observedAt, now),
-      unavailable: false,
+      freshnessLabel: freshnessLabelFor(observedAt, now) ?? 'Checked recently',
     };
   }
 
-  return {
-    state: 'unavailable',
-    priceLabel: null,
-    storeCount: 0,
-    listingStoreCount: 0,
-    basis: 'none',
-    observedAt: null,
-    freshnessLabel: null,
-    unavailable: true,
-  };
+  return { state: 'unavailable' };
 }

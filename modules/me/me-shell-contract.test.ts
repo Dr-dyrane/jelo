@@ -112,7 +112,7 @@ test('the complete portal surface vocabulary is concise, personal, and route-own
   assert.match(home, /ME_PORTAL_SURFACES\.shelf/);
   assert.match(routineView, /ME_PORTAL_SURFACES\.routine/);
   assert.match(consultView, /ME_PORTAL_SURFACES\.consult/);
-  assert.match(productView, /On my Shelf/);
+  assert.match(productView, /shelfContextLabel/);
   assert.match(productView, /routineContext/);
   assert.match(accountSheet, />My Account</);
   assert.doesNotMatch(accountSheet, /Light or dark/);
@@ -472,18 +472,19 @@ test('Member Product renders a truthful market reading with price, stores, and f
   const productView = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
   const styles = readFileSync('components/me/home/me-home.module.css', 'utf8');
 
-  // The commerce module owns the market-reading builder with semantic states.
-  assert.match(marketReading, /export type MarketState = 'priced' \| 'listing-only' \| 'unavailable'/);
+  // The commerce module owns the market-reading builder with a discriminated union.
   assert.match(marketReading, /export type MarketReading =/);
-  assert.match(marketReading, /state: MarketState/);
-  assert.match(marketReading, /priceLabel: string \| null/);
+  assert.match(marketReading, /state: 'priced'/);
+  assert.match(marketReading, /state: 'listing-only'/);
+  assert.match(marketReading, /state: 'unavailable'/);
+  assert.match(marketReading, /priceLabel: string;/);
   assert.match(marketReading, /storeCount: number/);
-  assert.match(marketReading, /basis: 'none' \| 'single-source' \| 'multi-source'/);
-  assert.match(marketReading, /observedAt: string \| null/);
-  assert.match(marketReading, /freshnessLabel: string \| null/);
-  assert.match(marketReading, /unavailable: boolean/);
+  assert.match(marketReading, /basis: 'single-source' \| 'multi-source'/);
+  assert.match(marketReading, /observedAt: string/);
+  assert.match(marketReading, /freshnessLabel: string/);
   assert.match(marketReading, /export function buildMarketReading/);
   assert.match(marketReading, /export function freshnessLabelFor/);
+  assert.match(marketReading, /export function formatMarketPrice/);
 
   // The view renders the server-owned reading — no client-side date math.
   assert.match(productView, /marketReading/);
@@ -491,10 +492,11 @@ test('Member Product renders a truthful market reading with price, stores, and f
   assert.match(productView, /marketStores/);
   assert.match(productView, /marketFreshness/);
   assert.match(productView, /observed store/);
+  assert.match(productView, /<time/);
   assert.doesNotMatch(productView, /formatFreshness/);
   assert.doesNotMatch(productView, /new Date\(\)/);
-  // The view preserves personal Shelf/Routine context.
-  assert.match(productView, /On my Shelf|Not on my Shelf/);
+  // The view uses explicit shelf context and routine context.
+  assert.match(productView, /shelfContextLabel/);
   assert.match(productView, /routineContext/);
 
   // The CSS styles the market reading section.
@@ -512,7 +514,7 @@ test('unavailable Shelf states fail closed while synthetic state stays explicitl
   const previewState = readFileSync('components/me/shelf/me-shelf-state.tsx', 'utf8');
 
   assert.match(home, /viewModel\.shelfState\.status === 'ready' \? \(/);
-  assert.match(productView, /shelfAvailable \? \(/);
+  assert.match(productView, /shelfAvailable/);
   assert.match(home, /'Shelf unavailable'/);
   assert.match(home, /Preview Shelf · Resets on reload\./);
   assert.match(button, /onAction[\s\S]*\? await onAction\(mutation\)/);
@@ -550,4 +552,113 @@ test('Me loading and error states keep recognizable route, dock, and FAB identit
   assert.match(state, />Home</);
   assert.match(loading, /<MeRouteState state="loading"/);
   assert.match(error, /<MeRouteState state="error" onRetry=\{reset\}/);
+});
+
+test('Product route does one catalogue lookup, not two', () => {
+  const page = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
+  // The route does one findCatalogueProduct call, then passes the result
+  // to both readMeProduct and readProductPanelData in parallel.
+  assert.match(page, /findCatalogueProduct\(route\.slug\)/);
+  // Count total occurrences of findCatalogueProduct in the product branch.
+  // The product branch starts at "if (route.kind === 'product')" and ends
+  // at the next "const viewModel" (the non-product branch).
+  const productStart = page.indexOf("if (route.kind === 'product')");
+  const productEnd = page.indexOf('const viewModel', productStart);
+  const productBranch = page.slice(productStart, productEnd);
+  const lookupCount = (productBranch.match(/findCatalogueProduct/g) || []).length;
+  assert.equal(lookupCount, 1, 'Product route must call findCatalogueProduct exactly once');
+  // The read model and panel data are derived in parallel.
+  assert.match(page, /Promise\.all\(\[/);
+  assert.match(page, /readMeProduct\(customer, route\.slug\)/);
+  assert.match(page, /readProductPanelData\(selectedProduct\)/);
+});
+
+test('Product read model includes a real shell summary with global Shelf count', () => {
+  const readModels = readFileSync('lib/customer/route-read-models.ts', 'utf8');
+  // The CustomerProductReadModel includes a ProductShellSummary with shelfCount.
+  assert.match(readModels, /export type ProductShellSummary =/);
+  assert.match(readModels, /shelfCount: number/);
+  assert.match(readModels, /routineStepCount: number/);
+  assert.match(readModels, /routineAvailable: boolean/);
+  // The read model uses it.
+  assert.match(readModels, /shell: ProductShellSummary/);
+  // The shell adapter does not fake the shelf as a single-item array.
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  assert.doesNotMatch(home, /shelfItem \? \[shelfItem\] : \[\]/);
+});
+
+test('MeAccountSheet accepts a shelf count independently from the item array', () => {
+  const account = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
+  assert.match(account, /shelfCount\?: number/);
+  assert.match(account, /resolvedShelfCount/);
+  // The product page passes the shell count.
+  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+  assert.match(home, /shelfCount=\{productReadModel\?\.shell\.shelfCount\}/);
+});
+
+test('Product Shelf context uses explicit states, not slug detection alone', () => {
+  const ctx = readFileSync('lib/customer/product-shelf-context.ts', 'utf8');
+  assert.match(ctx, /state: 'saved-current'/);
+  assert.match(ctx, /state: 'saved-changed'/);
+  assert.match(ctx, /state: 'not-saved'/);
+  assert.match(ctx, /state: 'unavailable'/);
+  // Matches by both product slug and snapshot slug (for changed identities).
+  assert.match(ctx, /item\.product\?\.slug === productSlug/);
+  assert.match(ctx, /item\.snapshot\.slug === productSlug/);
+});
+
+test('Routine context includes ready and unavailable authority states', () => {
+  const ctx = readFileSync('lib/customer/routine-context.ts', 'utf8');
+  assert.match(ctx, /state: 'ready'/);
+  assert.match(ctx, /state: 'unavailable'/);
+  assert.match(ctx, /unavailableRoutineContext/);
+  assert.match(ctx, /Routine unavailable/);
+  // The read model uses unavailableRoutineContext when the routine service fails.
+  const readModels = readFileSync('lib/customer/route-read-models.ts', 'utf8');
+  assert.match(readModels, /unavailableRoutineContext\(\)/);
+});
+
+test('Market reading is a discriminated union without redundant nullable fields', () => {
+  const market = readFileSync('modules/commerce/market-reading.ts', 'utf8');
+  // No redundant unavailable boolean.
+  assert.doesNotMatch(market, /unavailable: boolean/);
+  // No impossible nullable combinations on priced state.
+  assert.match(market, /state: 'priced';[\s\S]*?priceLabel: string;/);
+  assert.match(market, /state: 'priced';[\s\S]*?observedAt: string;/);
+  assert.match(market, /state: 'priced';[\s\S]*?freshnessLabel: string;/);
+  // Listing-only has listingCount, not storeCount.
+  assert.match(market, /state: 'listing-only';[\s\S]*?listingCount: number/);
+  // Unavailable has no extra fields.
+  assert.match(market, /state: 'unavailable';\s*\}/);
+  // Market-aware formatter.
+  assert.match(market, /export function formatMarketPrice/);
+});
+
+test('Market price label derives from the same buildMarketReading foundation', () => {
+  const label = readFileSync('modules/commerce/market-price-label.ts', 'utf8');
+  assert.match(label, /buildMarketReading/);
+  // Does not independently call summarizeMarket.
+  assert.doesNotMatch(label, /summarizeMarket/);
+});
+
+test('Member Product view renders freshness with a time element', () => {
+  const view = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
+  assert.match(view, /<time dateTime=\{reading\.observedAt\}>/);
+  // Listing-only uses "observed listing" language.
+  assert.match(view, /observed listing/);
+});
+
+test('Personal context is inline text, not filled badges', () => {
+  const view = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
+  const css = readFileSync('components/me/home/me-home.module.css', 'utf8');
+  // The view uses a paragraph element for personal context.
+  assert.match(view, /productPersonalLine/);
+  // The CSS does not use badge/pill styling for personal context.
+  assert.match(css, /\.productPersonalLine \{/);
+  assert.doesNotMatch(css, /\.productPersonalContext \{/);
+});
+
+test('deriveRoutineSteps helper has been removed', () => {
+  const readModels = readFileSync('lib/customer/route-read-models.ts', 'utf8');
+  assert.doesNotMatch(readModels, /function deriveRoutineSteps/);
 });

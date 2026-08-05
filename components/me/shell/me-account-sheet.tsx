@@ -37,6 +37,7 @@ export function MeAccountSheet({
   onClose,
   triggerRef,
   shelfItems,
+  shelfCount,
   shelfAvailable,
   onPreviewClear,
 }: {
@@ -45,10 +46,14 @@ export function MeAccountSheet({
   onClose: () => void;
   triggerRef: RefObject<HTMLButtonElement | null>;
   shelfItems: readonly CustomerPortalShelfItem[];
+  /** Production shelf count, passed independently from the item array. */
+  shelfCount?: number;
   shelfAvailable: boolean;
   onPreviewClear?: () => CustomerShelfActionResult;
 }) {
-  const shelfCount = shelfItems.length;
+  // When an explicit count is provided (route-scoped product page), use it.
+  // Otherwise fall back to the item array length (home/shelf routes).
+  const resolvedShelfCount = shelfCount ?? shelfItems.length;
   const router = useRouter();
   const closeRef = useRef<HTMLButtonElement>(null);
   const { dialogRef, handleCancel, handleBackdropClick } = useControlledDialog({
@@ -80,7 +85,7 @@ export function MeAccountSheet({
   }
 
   function clearShelf() {
-    if (clearing || !shelfAvailable || shelfCount === 0) return;
+    if (clearing || !shelfAvailable || resolvedShelfCount === 0) return;
     if (account.synthetic) {
       const result = onPreviewClear?.();
       if (result) setLifecycleFeedback(result.message);
@@ -164,7 +169,7 @@ export function MeAccountSheet({
         <section className={styles.lifecycle} aria-labelledby="me-shelf-data-title">
           <div>
             <strong id="me-shelf-data-title">My Shelf data</strong>
-            <span>{shelfAvailable ? `${shelfCount} saved product${shelfCount === 1 ? '' : 's'}` : 'Unavailable'}</span>
+            <span>{shelfAvailable ? `${resolvedShelfCount} saved product${resolvedShelfCount === 1 ? '' : 's'}` : 'Unavailable'}</span>
           </div>
           {account.synthetic ? <p className={styles.previewScope}>Preview only · resets on reload</p> : null}
           {shelfAvailable ? (
@@ -185,7 +190,7 @@ export function MeAccountSheet({
           <button
             type="button"
             onClick={clearShelf}
-            disabled={clearing || !shelfAvailable || shelfCount === 0 || (account.synthetic && !onPreviewClear)}
+            disabled={clearing || !shelfAvailable || resolvedShelfCount === 0 || (account.synthetic && !onPreviewClear)}
           >
             <Trash2 size={18} aria-hidden="true" /> {clearing ? 'Clearing…' : 'Clear Shelf'}
           </button>

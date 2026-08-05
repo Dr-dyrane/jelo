@@ -7,9 +7,9 @@ import {
 } from '@/components/me/shell/me-shell-model';
 import { requireCustomer } from '@/lib/customer/access';
 import { readCustomerPortal } from '@/lib/customer/read-model';
-import { readMeProduct, type CustomerProductReadModel } from '@/lib/customer/route-read-models';
+import { readMeProduct } from '@/lib/customer/route-read-models';
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
-import { readProductPanelData, type ProductPanelData } from '@/lib/catalogue/product-panel-model';
+import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,11 +60,14 @@ export default async function MeRoutePage({
 
   // Product route uses a route-scoped reader, not the portal-wide loader.
   if (route.kind === 'product') {
-    const productReadModel = await readMeProduct(customer, route.slug);
-    if (!productReadModel.product) notFound();
+    // One exact catalogue lookup — shared by the read model and the panel.
     const selectedProduct = await findCatalogueProduct(route.slug);
     if (!selectedProduct) notFound();
-    const productPanelData = await readProductPanelData(selectedProduct);
+    const [productReadModel, productPanelData] = await Promise.all([
+      readMeProduct(customer, route.slug),
+      readProductPanelData(selectedProduct),
+    ]);
+    if (!productReadModel.product) notFound();
     return createElement(MePortal, {
       route,
       productReadModel,

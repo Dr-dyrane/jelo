@@ -107,20 +107,27 @@ function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPorta
 }
 
 // Same transitional bridge for the route-scoped product read model.
-// The shell chrome only needs account, shelf, and shelfState — not the full
-// catalogue or routine presentation.
+// Uses the real shell summary from the read model — not a fake adapter.
+// The shell chrome only needs account, shelf state, and counts.
 function shellViewModelFromProduct(readModel: CustomerProductReadModel): CustomerPortalViewModel {
+  const { shell, shelfContext } = readModel;
   return {
-    account: readModel.account,
+    account: shell.account,
     featuredProduct: null,
     catalogue: undefined,
     concerns: [],
     selectedRetailers: [],
-    shelfState: readModel.shelfState,
-    shelf: readModel.shelfItem ? [readModel.shelfItem] : [],
+    shelfState: shell.shelfAvailable
+      ? { status: 'ready' as const, message: null }
+      : { status: 'unavailable' as const, message: shell.shelfUnavailableMessage },
+    shelf: shelfContext.state === 'saved-current' || shelfContext.state === 'saved-changed'
+      ? [shelfContext.shelfItem]
+      : [],
     routineProvenance: null,
     routine: [],
-    routineState: { status: 'ready', message: null },
+    routineState: shell.routineAvailable
+      ? { status: 'ready' as const, message: null }
+      : { status: 'unavailable' as const, message: shell.routineUnavailableMessage },
     routines: undefined,
   };
 }
@@ -486,6 +493,7 @@ function MePortalView({
       <MeAccountSheet
         account={portalViewModel.account}
         shelfItems={portalViewModel.shelf}
+        shelfCount={productReadModel?.shell.shelfCount}
         shelfAvailable={portalViewModel.shelfState.status === 'ready'}
         onPreviewClear={shelfState.clearPreviewShelf}
         open={accountSheetOpen}

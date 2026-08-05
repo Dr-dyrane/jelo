@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import type { Offer } from '@/data/products';
-import { buildMarketReading, freshnessLabelFor } from './market-reading';
+import { buildMarketReading, freshnessLabelFor, formatMarketPrice } from './market-reading';
 
 const NOW = new Date('2026-07-22T12:00:00Z');
 
@@ -31,11 +31,12 @@ test('priced state with one exact store returns single-source reading', () => {
     makeOffer({ retailer: 'Store A', priceNgn: 9_850 }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'priced');
+  if (reading.state !== 'priced') return;
   assert.equal(reading.priceLabel, '₦9,850');
   assert.equal(reading.storeCount, 1);
   assert.equal(reading.basis, 'single-source');
   assert.equal(reading.freshnessLabel, 'Checked yesterday');
-  assert.equal(reading.unavailable, false);
+  assert.equal(reading.observedAt, '2026-07-21');
 });
 
 test('priced state with multiple exact stores returns multi-source reading with From prefix', () => {
@@ -45,10 +46,10 @@ test('priced state with multiple exact stores returns multi-source reading with 
     makeOffer({ retailer: 'Store C', priceNgn: 30_000 }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'priced');
+  if (reading.state !== 'priced') return;
   assert.equal(reading.priceLabel, 'From ₦24,000');
   assert.equal(reading.storeCount, 3);
   assert.equal(reading.basis, 'multi-source');
-  assert.equal(reading.unavailable, false);
 });
 
 test('duplicate offers from one retailer count as one observed store', () => {
@@ -58,9 +59,21 @@ test('duplicate offers from one retailer count as one observed store', () => {
     makeOffer({ retailer: 'Store A', priceNgn: 11_000 }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'priced');
+  if (reading.state !== 'priced') return;
   assert.equal(reading.storeCount, 1);
   assert.equal(reading.basis, 'single-source');
   assert.equal(reading.priceLabel, '₦9,850');
+});
+
+test('retailer deduplication ignores case and surrounding whitespace', () => {
+  const reading = buildMarketReading([
+    makeOffer({ retailer: 'Store A', priceNgn: 9_850 }),
+    makeOffer({ retailer: 'store a ', priceNgn: 10_500 }),
+    makeOffer({ retailer: 'STORE A', priceNgn: 11_000 }),
+  ], 'NG', NOW);
+  assert.equal(reading.state, 'priced');
+  if (reading.state !== 'priced') return;
+  assert.equal(reading.storeCount, 1);
 });
 
 test('stale offers produce unavailable state', () => {
@@ -68,10 +81,6 @@ test('stale offers produce unavailable state', () => {
     makeOffer({ retailer: 'Store A', priceNgn: 9_850, checkedAt: '2026-07-01' }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'unavailable');
-  assert.equal(reading.priceLabel, null);
-  assert.equal(reading.storeCount, 0);
-  assert.equal(reading.unavailable, true);
-  assert.equal(reading.freshnessLabel, null);
 });
 
 test('search offers are excluded from the eligible set', () => {
@@ -79,7 +88,6 @@ test('search offers are excluded from the eligible set', () => {
     makeOffer({ retailer: 'Search Store', priceNgn: 5_000, match: 'search' }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'unavailable');
-  assert.equal(reading.storeCount, 0);
 });
 
 test('out-of-stock offers are excluded from the priced set but counted in listing set', () => {
@@ -87,9 +95,8 @@ test('out-of-stock offers are excluded from the priced set but counted in listin
     makeOffer({ retailer: 'Store A', priceNgn: 9_850, available: false }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'listing-only');
-  assert.equal(reading.priceLabel, null);
-  assert.equal(reading.storeCount, 0);
-  assert.equal(reading.listingStoreCount, 1);
+  if (reading.state !== 'listing-only') return;
+  assert.equal(reading.listingCount, 1);
   assert.equal(reading.freshnessLabel, 'Checked yesterday');
 });
 
@@ -98,9 +105,8 @@ test('listing-only state when offers have no comparable price', () => {
     makeOffer({ retailer: 'Store A', priceNgn: undefined, priceObservation: undefined }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'listing-only');
-  assert.equal(reading.priceLabel, null);
-  assert.equal(reading.storeCount, 0);
-  assert.equal(reading.listingStoreCount, 1);
+  if (reading.state !== 'listing-only') return;
+  assert.equal(reading.listingCount, 1);
   assert.equal(reading.freshnessLabel, 'Checked yesterday');
 });
 
@@ -109,11 +115,6 @@ test('unavailable state when no offers serve the market', () => {
     makeOffer({ retailer: 'US Store', priceNgn: undefined, priceUsd: 13.49, location: ['US'] }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'unavailable');
-  assert.equal(reading.priceLabel, null);
-  assert.equal(reading.storeCount, 0);
-  assert.equal(reading.listingStoreCount, 0);
-  assert.equal(reading.freshnessLabel, null);
-  assert.equal(reading.unavailable, true);
 });
 
 test('priced-observation freshness provenance comes from the priced set, not broader listings', () => {
@@ -122,8 +123,33 @@ test('priced-observation freshness provenance comes from the priced set, not bro
     makeOffer({ retailer: 'Listing Store', priceNgn: undefined, priceObservation: undefined, checkedAt: '2026-07-20' }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'priced');
+  if (reading.state !== 'priced') return;
   assert.equal(reading.observedAt, '2026-07-21');
   assert.equal(reading.freshnessLabel, 'Checked yesterday');
+});
+
+test('a newer unpriced listing cannot refresh an older displayed price', () => {
+  const reading = buildMarketReading([
+    makeOffer({ retailer: 'Priced Store', priceNgn: 9_850, checkedAt: '2026-07-19' }),
+    makeOffer({ retailer: 'Listing Store', priceNgn: undefined, priceObservation: undefined, checkedAt: '2026-07-21' }),
+  ], 'NG', NOW);
+  assert.equal(reading.state, 'priced');
+  if (reading.state !== 'priced') return;
+  // Freshness must come from the priced observation (Jul 19), not the newer listing (Jul 21)
+  assert.equal(reading.observedAt, '2026-07-19');
+  assert.equal(reading.freshnessLabel, 'Checked 3 days ago');
+});
+
+test('a newer out-of-stock listing cannot refresh an older displayed price', () => {
+  const reading = buildMarketReading([
+    makeOffer({ retailer: 'Priced Store', priceNgn: 9_850, checkedAt: '2026-07-19' }),
+    makeOffer({ retailer: 'OOS Store', priceNgn: 12_000, available: false, checkedAt: '2026-07-21' }),
+  ], 'NG', NOW);
+  assert.equal(reading.state, 'priced');
+  if (reading.state !== 'priced') return;
+  // Freshness must come from the priced in-stock observation (Jul 19), not the newer OOS listing (Jul 21)
+  assert.equal(reading.observedAt, '2026-07-19');
+  assert.equal(reading.freshnessLabel, 'Checked 3 days ago');
 });
 
 test('listing-only freshness comes from the listing set', () => {
@@ -131,6 +157,7 @@ test('listing-only freshness comes from the listing set', () => {
     makeOffer({ retailer: 'Store A', priceNgn: undefined, priceObservation: undefined, checkedAt: '2026-07-20' }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'listing-only');
+  if (reading.state !== 'listing-only') return;
   assert.equal(reading.observedAt, '2026-07-20');
   assert.equal(reading.freshnessLabel, 'Checked 2 days ago');
 });
@@ -156,11 +183,13 @@ test('malformed timestamp returns null freshness', () => {
   assert.equal(freshnessLabelFor(null, NOW), null);
 });
 
+test('future timestamps fail safely', () => {
+  assert.equal(freshnessLabelFor('2026-08-01T08:00:00Z', NOW), null);
+});
+
 test('empty offers produce unavailable state', () => {
   const reading = buildMarketReading([], 'NG', NOW);
   assert.equal(reading.state, 'unavailable');
-  assert.equal(reading.unavailable, true);
-  assert.equal(reading.observedAt, null);
 });
 
 test('priceComparison exclude removes offer from priced set but keeps listing', () => {
@@ -168,6 +197,14 @@ test('priceComparison exclude removes offer from priced set but keeps listing', 
     makeOffer({ retailer: 'Store A', priceNgn: 9_850, priceComparison: 'exclude' }),
   ], 'NG', NOW);
   assert.equal(reading.state, 'listing-only');
-  assert.equal(reading.storeCount, 0);
-  assert.equal(reading.listingStoreCount, 1);
+  if (reading.state !== 'listing-only') return;
+  assert.equal(reading.listingCount, 1);
+});
+
+test('formatMarketPrice formats NGN without decimals', () => {
+  assert.equal(formatMarketPrice(9850, 'NG'), '₦9,850');
+});
+
+test('formatMarketPrice formats USD with decimals', () => {
+  assert.equal(formatMarketPrice(13.49, 'US'), '$13.49');
 });

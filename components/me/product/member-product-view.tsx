@@ -6,6 +6,7 @@ import { SafeProductImage } from '@/components/products/safe-product-image';
 import type { MeProductOrigin } from '@/components/me/shell/me-shell-model';
 import type { CustomerPortalProduct, CustomerPortalViewModel } from '@/lib/customer/portal-model';
 import type { CustomerProductReadModel } from '@/lib/customer/route-read-models';
+import { shelfContextLabel } from '@/lib/customer/product-shelf-context';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import type { ShelfActionHandler } from '@/components/me/shelf/me-shelf-state';
 import type { ProductPanelTab } from '@/lib/catalogue/product-panel-model';
@@ -32,13 +33,25 @@ export function MemberProductView({
   panelTab: ProductPanelTab;
   onOpenPanel: (tab: ProductPanelTab, opener?: HTMLElement | null) => void;
 }) {
-  const shelfItem = productReadModel?.shelfItem
-    ?? viewModel.shelf.find((item) => item.product?.slug === product.slug);
-  const shelfAvailable = (productReadModel?.shelfState ?? viewModel.shelfState).status === 'ready';
+  const shelfContext = productReadModel?.shelfContext;
+  const shelfAvailable = shelfContext
+    ? shelfContext.state !== 'unavailable'
+    : viewModel.shelfState.status === 'ready';
   const fromShelf = origin === 'shelf';
-  const showShelfAction = shelfAvailable && (!fromShelf || Boolean(shelfItem));
+  const showShelfAction = shelfAvailable && (!fromShelf || Boolean(shelfContext && (shelfContext.state === 'saved-current' || shelfContext.state === 'saved-changed')));
   const reading = productReadModel?.marketReading;
   const routineContext = productReadModel?.routineContext;
+
+  // For the ShelfActionButton, we need the shelf item if saved
+  const shelfItem = shelfContext?.state === 'saved-current' || shelfContext?.state === 'saved-changed'
+    ? shelfContext.shelfItem
+    : undefined;
+
+  // Personal context line: placed directly below the display line
+  const shelfLabel = shelfContext ? shelfContextLabel(shelfContext) : null;
+  const routineLabel = routineContext?.label ?? null;
+  const hasPersonalContext = shelfLabel || routineLabel;
+
   return (
     <article className={`${styles.routePage} ${styles.stackPage} ${styles.productPage}`} aria-labelledby="me-product-title">
       <div className={styles.productHero}>
@@ -49,6 +62,11 @@ export function MemberProductView({
           <p className={styles.eyebrow}>{product.brand}</p>
           <h1 id="me-product-title">{product.name}</h1>
           <p>{product.displayLine}</p>
+          {hasPersonalContext ? (
+            <p className={styles.productPersonalLine} aria-label="My product context">
+              {shelfLabel}{routineLabel ? ` · ${routineLabel}` : ''}
+            </p>
+          ) : null}
           {reading ? (
             <div className={styles.marketReading} aria-label="Market reading">
               {reading.state === 'priced' ? (
@@ -57,15 +75,23 @@ export function MemberProductView({
                   <p className={styles.marketStores}>
                     {reading.storeCount} {reading.storeCount === 1 ? 'observed store' : 'observed stores'}
                   </p>
-                  {reading.freshnessLabel ? <p className={styles.marketFreshness}>{reading.freshnessLabel}</p> : null}
+                  {reading.freshnessLabel ? (
+                    <p className={styles.marketFreshness}>
+                      <time dateTime={reading.observedAt}>{reading.freshnessLabel}</time>
+                    </p>
+                  ) : null}
                 </>
               ) : reading.state === 'listing-only' ? (
                 <>
                   <p className={styles.marketPrice}>Current price unavailable</p>
                   <p className={styles.marketStores}>
-                    {reading.listingStoreCount} {reading.listingStoreCount === 1 ? 'observed store' : 'observed stores'}
+                    {reading.listingCount} {reading.listingCount === 1 ? 'observed listing' : 'observed listings'}
                   </p>
-                  {reading.freshnessLabel ? <p className={styles.marketFreshness}>{reading.freshnessLabel}</p> : null}
+                  {reading.freshnessLabel ? (
+                    <p className={styles.marketFreshness}>
+                      <time dateTime={reading.observedAt}>{reading.freshnessLabel}</time>
+                    </p>
+                  ) : null}
                 </>
               ) : (
                 <p className={styles.marketPrice}>No current Nigerian store evidence</p>
@@ -112,16 +138,6 @@ export function MemberProductView({
             <span>{product.category}</span>
             <span>{product.step}</span>
           </div>
-          {routineContext || shelfItem ? (
-            <div className={styles.productPersonalContext} aria-label="My product context">
-              {shelfAvailable ? (
-                <span>{shelfItem ? 'On my Shelf' : 'Not on my Shelf'}</span>
-              ) : (
-                <span>Shelf unavailable</span>
-              )}
-              {routineContext ? <span>{routineContext.label}</span> : null}
-            </div>
-          ) : null}
         </div>
       </div>
     </article>
