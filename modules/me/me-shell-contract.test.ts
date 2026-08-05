@@ -289,7 +289,7 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.match(route, /resolveMeProductOrigin\(from\)/);
   assert.doesNotMatch(route, /PRODUCT_ORIGINS|:\s*'explore';/);
   assert.doesNotMatch(route, /ownerId|customerId|subject:/);
-  assert.match(homeView, /href="\/me\/consult"/);
+  assert.match(homeView, /askEntry\.href/);
   const sharedViews = readFileSync('components/me/home/shared-views.tsx', 'utf8');
   assert.match(sharedViews, /`\/me\/product\/\$\{product\.slug\}`/);
   assert.doesNotMatch(home, /<BackLink|function BackLink/);

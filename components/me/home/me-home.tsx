@@ -56,6 +56,7 @@ import type {
   CustomerPortalProduct,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
+import type { CustomerHomeReadModel } from '@/lib/customer/route-read-models';
 import {
   clearCustomerExploreFilters,
   createCustomerExploreFilterOptions,
@@ -70,6 +71,34 @@ import type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-
 import styles from './me-home.module.css';
 
 const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
+
+const EMPTY_PORTAL_VIEW: CustomerPortalViewModel = {
+  account: { displayName: null, preferredFirstName: null, email: null, synthetic: false },
+  featuredProduct: null,
+  concerns: [],
+  selectedRetailers: [],
+  shelfState: { status: 'ready', message: null },
+  shelf: [],
+  routineProvenance: null,
+  routine: [],
+  routineState: { status: 'ready', message: null },
+};
+
+function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPortalViewModel {
+  return {
+    account: homeModel.account,
+    featuredProduct: null,
+    catalogue: undefined,
+    concerns: [],
+    selectedRetailers: [],
+    shelfState: homeModel.shelfSection.state,
+    shelf: homeModel.shelfSection.items,
+    routineProvenance: homeModel.routineSection.provenance,
+    routine: homeModel.routineSection.steps,
+    routineState: homeModel.routineSection.state,
+    routines: undefined,
+  };
+}
 
 function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel) {
   const count = (value: number, noun: string) => `${value} ${noun}${value === 1 ? '' : 's'}`;
@@ -182,19 +211,22 @@ function ShelfPage({
 
 function MePortalView({
   viewModel,
+  homeModel,
   route,
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
 }: {
   viewModel: CustomerPortalViewModel;
+  homeModel?: CustomerHomeReadModel;
   route: MePortalRoute;
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
 }) {
   const router = useRouter();
-  const shelfState = useMeShelfState(viewModel);
+  const resolvedViewModel = viewModel ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
+  const shelfState = useMeShelfState(resolvedViewModel);
   const portalViewModel = shelfState.viewModel;
   const [exploreFilters, setExploreFilters] = useState<CustomerExploreFilterState>(
     clearCustomerExploreFilters,
@@ -448,9 +480,9 @@ function MePortalView({
           >
             {shelfMutationFeedback.message}
           </p>
-          {route.kind === 'home' ? (
+          {route.kind === 'home' && homeModel ? (
             <HomeView
-              viewModel={portalViewModel}
+              homeModel={homeModel}
               shelfAction={shelfState.shelfAction}
               onShelfMutation={announceShelfMutation}
             />
@@ -534,12 +566,14 @@ function MePortalView({
 
 export function MePortal({
   viewModel,
+  homeModel,
   route,
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
 }: {
-  viewModel: CustomerPortalViewModel;
+  viewModel?: CustomerPortalViewModel;
+  homeModel?: CustomerHomeReadModel;
   route: MePortalRoute;
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
@@ -557,7 +591,8 @@ export function MePortal({
   return (
     <WorkspaceDockProvider routeKey={route.kind === 'home' ? '/me' : routeKey}>
       <MePortalView
-        viewModel={viewModel}
+        viewModel={viewModel as CustomerPortalViewModel}
+        homeModel={homeModel}
         route={route}
         productPanelData={productPanelData}
         productRequestOutcome={productRequestOutcome}

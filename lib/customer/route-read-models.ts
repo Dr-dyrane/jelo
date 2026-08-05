@@ -33,19 +33,46 @@ export type CustomerPortalShell = {
 };
 
 /**
- * Home route data: shell summary plus preview-sized Shelf and Routine.
+ * Governed semantic Home feed model.
+ *
+ * HomeView renders these semantic props directly. It must not derive
+ * offer freshness, attention eligibility, or lifecycle meaning from
+ * raw arrays. All eligibility and lifecycle derivation is server-owned
+ * in this read model.
  */
 export type CustomerHomeReadModel = {
   account: CustomerPortalViewModel['account'];
-  featuredProduct: CustomerPortalProduct | null;
-  shelfPreview: readonly CustomerPortalShelfItem[];
-  shelfState: CustomerPortalViewModel['shelfState'];
-  routinePreview: readonly CustomerPortalRoutineStep[];
-  routineProvenance: string | null;
-  routineState: NonNullable<CustomerPortalViewModel['routineState']>;
-  routines: readonly CustomerPortalSavedRoutine[];
-  concerns: CustomerPortalViewModel['concerns'];
-  selectedRetailers: CustomerPortalViewModel['selectedRetailers'];
+  greeting: string;
+  askEntry: { href: string; label: string };
+  routineSection: {
+    visible: boolean;
+    provenance: string | null;
+    steps: readonly CustomerPortalRoutineStep[];
+    state: NonNullable<CustomerPortalViewModel['routineState']>;
+  };
+  shelfSection: {
+    visible: boolean;
+    items: readonly CustomerPortalShelfItem[];
+    state: CustomerPortalViewModel['shelfState'];
+  };
+  priceEvidenceSection: {
+    visible: boolean;
+    items: readonly {
+      product: CustomerPortalProduct;
+      priceLabel: string;
+      retailerCount: number;
+      freshness: 'fresh' | 'stale' | 'none';
+    }[];
+  };
+  attentionSection: {
+    visible: boolean;
+    items: readonly {
+      kind: 'shelf-unavailable' | 'shelf-changed' | 'routine-unresolved';
+      label: string;
+      href: string;
+    }[];
+  };
+  exploreEntry: { href: string; label: string };
   synthetic: boolean;
 };
 
@@ -187,17 +214,54 @@ function syntheticShell(): CustomerPortalShell {
 
 function syntheticHome(): CustomerHomeReadModel {
   const portal = createSyntheticCustomerPortal();
+  const shelfItems = portal.shelf;
+  const routineSteps = portal.routine;
+  const greeting = portal.account.preferredFirstName ?? 'Welcome back';
+  const priceEvidenceItems = shelfItems
+    .filter(item => item.product)
+    .slice(0, 6)
+    .map(item => {
+      const product = item.product!;
+      const retailerCount = product.freshExactRetailerNames.length;
+      const freshness = retailerCount > 0 ? 'fresh' as const : 'none' as const;
+      return {
+        product,
+        priceLabel: product.priceLabel ?? 'Price unavailable',
+        retailerCount,
+        freshness,
+      };
+    });
+  const attentionItems = shelfItems
+    .filter(item => item.availability !== 'available')
+    .map(item => ({
+      kind: item.availability === 'changed' ? 'shelf-changed' as const : 'shelf-unavailable' as const,
+      label: `${item.snapshot.brand} ${item.snapshot.name} — ${item.availability === 'changed' ? 'Changed' : 'Unavailable'}`,
+      href: '/me/shelf',
+    }));
   return {
     account: portal.account,
-    featuredProduct: portal.featuredProduct,
-    shelfPreview: portal.shelf.slice(0, 6),
-    shelfState: portal.shelfState,
-    routinePreview: portal.routine.slice(0, 6),
-    routineProvenance: portal.routineProvenance,
-    routineState: portal.routineState ?? { status: 'ready', message: null },
-    routines: portal.routines ?? [],
-    concerns: portal.concerns,
-    selectedRetailers: portal.selectedRetailers,
+    greeting,
+    askEntry: { href: '/me/consult', label: 'Ask Me' },
+    routineSection: {
+      visible: routineSteps.length > 0,
+      provenance: portal.routineProvenance,
+      steps: routineSteps.slice(0, 6),
+      state: portal.routineState ?? { status: 'ready', message: null },
+    },
+    shelfSection: {
+      visible: shelfItems.length > 0,
+      items: shelfItems.slice(0, 6),
+      state: portal.shelfState,
+    },
+    priceEvidenceSection: {
+      visible: priceEvidenceItems.some(item => item.freshness === 'fresh'),
+      items: priceEvidenceItems,
+    },
+    attentionSection: {
+      visible: attentionItems.length > 0,
+      items: attentionItems,
+    },
+    exploreEntry: { href: '/me/explore', label: 'Explore products' },
     synthetic: true,
   };
 }
@@ -298,7 +362,40 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
     readRoutines(identity, catalogueBySlug),
   ]);
 
-  const firstSavedProduct = shelfData.shelf.find(item => item.product)?.product ?? null;
+  const shelfItems = shelfData.shelf;
+  const routineSteps = routineData.routine;
+  const greeting = identity.preferredFirstName ?? 'Welcome back';
+
+  // Governed eligibility: price evidence is visible only when at least
+  // one saved product has fresh exact offers. The view does not inspect
+  // offer arrays — it reads the semantic `visible` flag and pre-derived
+  // items.
+  const priceEvidenceItems = shelfItems
+    .filter(item => item.product)
+    .slice(0, 6)
+    .map(item => {
+      const product = item.product!;
+      const retailerCount = product.freshExactRetailerNames.length;
+      const freshness = retailerCount > 0 ? 'fresh' as const : 'none' as const;
+      return {
+        product,
+        priceLabel: product.priceLabel ?? 'Price unavailable',
+        retailerCount,
+        freshness,
+      };
+    });
+
+  // Governed eligibility: attention items are derived server-side from
+  // authoritative lifecycle state. The view does not inspect shelf
+  // arrays to decide what needs attention.
+  const attentionItems = shelfItems
+    .filter(item => item.availability !== 'available')
+    .map(item => ({
+      kind: item.availability === 'changed' ? 'shelf-changed' as const : 'shelf-unavailable' as const,
+      label: `${item.snapshot.brand} ${item.snapshot.name} — ${item.availability === 'changed' ? 'Changed' : 'Unavailable'}`,
+      href: '/me/shelf',
+    }));
+
   return {
     account: {
       displayName: identity.displayName,
@@ -306,15 +403,28 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
       email: identity.email,
       synthetic: false,
     },
-    featuredProduct: firstSavedProduct ?? catalogue[0] ?? null,
-    shelfPreview: shelfData.shelf.slice(0, 6),
-    shelfState: shelfData.shelfState,
-    routinePreview: routineData.routine.slice(0, 6),
-    routineProvenance: null,
-    routineState: routineData.routineState,
-    routines: routineData.routines,
-    concerns: [],
-    selectedRetailers: [],
+    greeting,
+    askEntry: { href: '/me/consult', label: 'Ask Me' },
+    routineSection: {
+      visible: routineSteps.length > 0,
+      provenance: null,
+      steps: routineSteps.slice(0, 6),
+      state: routineData.routineState,
+    },
+    shelfSection: {
+      visible: shelfItems.length > 0,
+      items: shelfItems.slice(0, 6),
+      state: shelfData.shelfState,
+    },
+    priceEvidenceSection: {
+      visible: priceEvidenceItems.some(item => item.freshness === 'fresh'),
+      items: priceEvidenceItems,
+    },
+    attentionSection: {
+      visible: attentionItems.length > 0,
+      items: attentionItems,
+    },
+    exploreEntry: { href: '/me/explore', label: 'Explore products' },
     synthetic: false,
   };
 }

@@ -35,6 +35,8 @@ export async function readCustomerPortal(
     ? shelfRead.items.map(item => resolveCustomerPortalShelfItem(item, catalogueBySlug))
     : [];
   const firstSavedProduct = shelf.find(item => item.product)?.product ?? null;
+  // catalogue[0] must never be presented as customer preference.
+  // featuredProduct is null when no saved product exists.
   const routines = routineRead.status === 'ready'
     ? routineRead.routines.map(routine => resolveCustomerPortalRoutine(routine, catalogueBySlug))
     : [];
@@ -54,7 +56,7 @@ export async function readCustomerPortal(
       email: identity.email,
       synthetic: false,
     },
-    featuredProduct: firstSavedProduct ?? catalogue[0] ?? null,
+    featuredProduct: firstSavedProduct,
     catalogue,
     concerns: [],
     selectedRetailers: [],

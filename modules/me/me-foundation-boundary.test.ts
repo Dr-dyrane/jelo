@@ -19,7 +19,7 @@ test('the Me route is session guarded and awaits the narrow Shelf read model', (
   const route = readFileSync('app/(customer)/me/page.tsx', 'utf8');
   const childRoute = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
   assert.match(route, /await requireCustomer\(\)/);
-  assert.match(route, /await readCustomerPortal\(customer\)/);
+  assert.match(route, /await readMeHome\(customer\)/);
   assert.match(
     childRoute,
     /route\.kind === 'product'[\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/,
