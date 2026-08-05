@@ -7,6 +7,7 @@ import {
 } from '@/components/me/shell/me-shell-model';
 import { requireCustomer } from '@/lib/customer/access';
 import { readCustomerPortal } from '@/lib/customer/read-model';
+import { readMeProduct, type CustomerProductReadModel } from '@/lib/customer/route-read-models';
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { readProductPanelData, type ProductPanelData } from '@/lib/catalogue/product-panel-model';
 
@@ -56,14 +57,22 @@ export default async function MeRoutePage({
       ? '/me/routine'
       : undefined;
   const customer = await requireCustomer(continuation);
-  const viewModel = await readCustomerPortal(customer);
-  let productPanelData: ProductPanelData | undefined;
+
+  // Product route uses a route-scoped reader, not the portal-wide loader.
   if (route.kind === 'product') {
-    if (!viewModel.catalogue?.some((product) => product.slug === route.slug)) notFound();
+    const productReadModel = await readMeProduct(customer, route.slug);
+    if (!productReadModel.product) notFound();
     const selectedProduct = await findCatalogueProduct(route.slug);
     if (!selectedProduct) notFound();
-    productPanelData = await readProductPanelData(selectedProduct);
+    const productPanelData = await readProductPanelData(selectedProduct);
+    return createElement(MePortal, {
+      route,
+      productReadModel,
+      productPanelData,
+    });
   }
+
+  const viewModel = await readCustomerPortal(customer);
 
   const productRequestPresentation = viewModel.account.synthetic
     && (route.kind === 'shelf' || route.kind === 'shelf-request')
@@ -77,7 +86,6 @@ export default async function MeRoutePage({
   return createElement(MePortal, {
     viewModel,
     route,
-    productPanelData,
     productRequestOutcome,
     productRequestPresentation,
   });

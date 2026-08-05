@@ -1085,6 +1085,22 @@
 .productPrice { color: var(--wine) !important; font-weight: 600; }
 .productUsage { margin-top: 12px !important; font-size: 0.85rem; }
 
+/* Personal context: Shelf and Routine ownership, visually separate from catalogue metadata */
+.productPersonalContext {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.productPersonalContext span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--wine) 12%, transparent);
+  color: var(--wine);
+  font-size: 0.66rem;
+  font-weight: 500;
+}
+
 /* Truthful market reading: price, eligible store count, freshness */
 .marketReading {
   display: flex;

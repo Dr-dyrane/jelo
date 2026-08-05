@@ -17,7 +17,7 @@ import {
   validateProductRequestFields,
   type ProductRequest,
 } from '../../components/me/product-requests/product-request-model';
-import { UNAVAILABLE_MARKET_READING, type CustomerPortalProduct } from '../../lib/customer/portal-model';
+import type { CustomerPortalProduct } from '../../lib/customer/portal-model';
 
 const root = process.cwd();
 const source = (path: string) => readFileSync(join(root, path), 'utf8');
@@ -94,7 +94,6 @@ const products: readonly CustomerPortalProduct[] = [
     displayLine: 'Reviewed product',
     usage: 'As directed',
     priceLabel: null,
-    marketReading: UNAVAILABLE_MARKET_READING,
     supportedConcernSlugs: [],
     freshExactRetailerNames: [],
   },

@@ -7,7 +7,6 @@ import { products } from '../../data/catalogue';
 import type { CustomerAccessIdentity } from '../../lib/customer/access-policy';
 import {
   resolveCustomerPortalShelfItem,
-  UNAVAILABLE_MARKET_READING,
   type CustomerPortalProduct,
 } from '../../lib/customer/portal-model';
 import {
@@ -224,7 +223,6 @@ test('active identities resolve while retired, changed, and unmatched snapshots 
     displayLine: 'Treat · support',
     usage: 'Use as directed.',
     priceLabel: null,
-    marketReading: UNAVAILABLE_MARKET_READING,
     supportedConcernSlugs: [],
     freshExactRetailerNames: [],
   };

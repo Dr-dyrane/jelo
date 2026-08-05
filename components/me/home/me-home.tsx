@@ -56,7 +56,7 @@ import type {
   CustomerPortalProduct,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
-import type { CustomerHomeReadModel } from '@/lib/customer/route-read-models';
+import type { CustomerHomeReadModel, CustomerProductReadModel } from '@/lib/customer/route-read-models';
 import {
   clearCustomerExploreFilters,
   createCustomerExploreFilterOptions,
@@ -102,6 +102,25 @@ function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPorta
     routineProvenance: homeModel.routineSection.provenance,
     routine: homeModel.routineSection.steps,
     routineState: homeModel.routineSection.state,
+    routines: undefined,
+  };
+}
+
+// Same transitional bridge for the route-scoped product read model.
+// The shell chrome only needs account, shelf, and shelfState — not the full
+// catalogue or routine presentation.
+function shellViewModelFromProduct(readModel: CustomerProductReadModel): CustomerPortalViewModel {
+  return {
+    account: readModel.account,
+    featuredProduct: null,
+    catalogue: undefined,
+    concerns: [],
+    selectedRetailers: [],
+    shelfState: readModel.shelfState,
+    shelf: readModel.shelfItem ? [readModel.shelfItem] : [],
+    routineProvenance: null,
+    routine: [],
+    routineState: { status: 'ready', message: null },
     routines: undefined,
   };
 }
@@ -232,19 +251,23 @@ function MePortalView({
   viewModel,
   homeModel,
   route,
+  productReadModel,
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
 }: {
-  viewModel: CustomerPortalViewModel;
+  viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
   route: MePortalRoute;
+  productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
 }) {
   const router = useRouter();
-  const resolvedViewModel = viewModel ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
+  const resolvedViewModel = viewModel
+    ?? (productReadModel ? shellViewModelFromProduct(productReadModel) : undefined)
+    ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
   const shelfState = useMeShelfState(resolvedViewModel);
   const portalViewModel = shelfState.viewModel;
   const [exploreFilters, setExploreFilters] = useState<CustomerExploreFilterState>(
@@ -294,7 +317,7 @@ function MePortalView({
       ? consultProducts.length
       : catalogue.length;
   const product = route.kind === 'product'
-    ? catalogue.find((candidate) => candidate.slug === route.slug)
+    ? (productReadModel?.product ?? catalogue.find((candidate) => candidate.slug === route.slug))
     : undefined;
   const context = createMeDockContext({ page: state.page, detail: state.detail });
   const shelfCount = homeModel
@@ -570,6 +593,7 @@ function MePortalView({
           {route.kind === 'product' && product ? (
             <MemberProductView
               product={product}
+              productReadModel={productReadModel}
               viewModel={portalViewModel}
               origin={route.origin}
               shelfAction={shelfState.shelfAction}
@@ -598,6 +622,7 @@ export function MePortal({
   viewModel,
   homeModel,
   route,
+  productReadModel,
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
@@ -605,6 +630,7 @@ export function MePortal({
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
   route: MePortalRoute;
+  productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
@@ -624,6 +650,7 @@ export function MePortal({
         viewModel={viewModel as CustomerPortalViewModel}
         homeModel={homeModel}
         route={route}
+        productReadModel={productReadModel}
         productPanelData={productPanelData}
         productRequestOutcome={productRequestOutcome}
         productRequestPresentation={productRequestPresentation}

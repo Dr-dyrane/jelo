@@ -4,7 +4,7 @@ import {
   createPreviewShelfExport,
   reducePreviewShelf,
 } from '../../components/me/shelf/me-shelf-state';
-import { UNAVAILABLE_MARKET_READING, type CustomerPortalProduct } from '../../lib/customer/portal-model';
+import type { CustomerPortalProduct } from '../../lib/customer/portal-model';
 
 const product: CustomerPortalProduct = {
   slug: 'exact-preview-product',
@@ -17,7 +17,6 @@ const product: CustomerPortalProduct = {
   displayLine: 'Treat · support',
   usage: 'Use as directed.',
   priceLabel: null,
-  marketReading: UNAVAILABLE_MARKET_READING,
   supportedConcernSlugs: [],
   freshExactRetailerNames: [],
 };

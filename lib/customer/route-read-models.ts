@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { products as staticProducts } from '@/data/catalogue';
-import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
 import type { CustomerAccessIdentity } from './access-policy';
 import { createSyntheticCustomerPortal } from './development-fixture';
 import {
@@ -16,6 +16,8 @@ import {
 } from './portal-model';
 import { customerShelfService } from './shelf-service';
 import { customerRoutineService } from './routine-service';
+import { buildMarketReading, type MarketReading } from '@/modules/commerce/market-reading';
+import { deriveRoutineContext, type ProductRoutineContext } from './routine-context';
 
 /**
  * Shell-level summary for the dock and account sheet.
@@ -121,14 +123,18 @@ export type CustomerConsultReadModel = {
 };
 
 /**
- * Member product route data: one product plus shelf/routine context.
+ * Member product route data: one product plus market reading and personal context.
+ * The market reading is server-owned and route-scoped — it is not stored on the
+ * generic CustomerPortalProduct.
  */
 export type CustomerProductReadModel = {
   account: CustomerPortalViewModel['account'];
   product: CustomerPortalProduct | null;
-  shelf: readonly CustomerPortalShelfItem[];
+  marketReading: MarketReading;
+  /** Shelf item for this product, or null when not on Shelf. */
+  shelfItem: CustomerPortalShelfItem | null;
   shelfState: CustomerPortalViewModel['shelfState'];
-  routine: readonly CustomerPortalRoutineStep[];
+  routineContext: ProductRoutineContext;
   synthetic: boolean;
 };
 
@@ -312,12 +318,19 @@ function syntheticConsult(): CustomerConsultReadModel {
 function syntheticProduct(slug: string): CustomerProductReadModel {
   const portal = createSyntheticCustomerPortal();
   const catalogue = staticProducts.map(toCustomerPortalProduct);
+  const product = catalogue.find(p => p.slug === slug) ?? null;
+  const rawProduct = staticProducts.find(p => p.slug === slug);
+  const shelfItem = portal.shelf.find(item => item.product?.slug === slug) ?? null;
+  const routineContext = deriveRoutineContext(portal.routines ?? [], slug);
   return {
     account: portal.account,
-    product: catalogue.find(p => p.slug === slug) ?? null,
-    shelf: portal.shelf,
+    product,
+    marketReading: rawProduct
+      ? buildMarketReading(rawProduct.offers, 'NG')
+      : buildMarketReading([], 'NG'),
+    shelfItem,
     shelfState: portal.shelfState,
-    routine: portal.routine,
+    routineContext,
     synthetic: true,
   };
 }
@@ -504,12 +517,34 @@ export async function readMeConsult(identity: CustomerAccessIdentity): Promise<C
 export async function readMeProduct(identity: CustomerAccessIdentity, slug: string): Promise<CustomerProductReadModel> {
   if (identity.source === 'synthetic-development') return syntheticProduct(slug);
 
-  const catalogue = await readCatalogue();
-  const catalogueBySlug = new Map(catalogue.map(p => [p.slug, p]));
+  // Load only the one product, not the full catalogue.
+  const rawProduct = await findCatalogueProduct(slug);
+  if (!rawProduct) {
+    return {
+      account: {
+        displayName: identity.displayName,
+        preferredFirstName: identity.preferredFirstName,
+        email: identity.email,
+        synthetic: false,
+      },
+      product: null,
+      marketReading: buildMarketReading([], 'NG'),
+      shelfItem: null,
+      shelfState: { status: 'ready', message: null },
+      routineContext: { stepCount: 0, label: 'Not in my Routine' },
+      synthetic: false,
+    };
+  }
+
+  const product = toCustomerPortalProduct(rawProduct);
+  const catalogueBySlug = new Map([[slug, product]]);
   const [shelfData, routineData] = await Promise.all([
     readShelf(identity, catalogueBySlug),
     readRoutines(identity, catalogueBySlug),
   ]);
+
+  const shelfItem = shelfData.shelf.find(item => item.product?.slug === slug) ?? null;
+  const routineContext = deriveRoutineContext(routineData.routines, slug);
 
   return {
     account: {
@@ -518,10 +553,11 @@ export async function readMeProduct(identity: CustomerAccessIdentity, slug: stri
       email: identity.email,
       synthetic: false,
     },
-    product: catalogue.find(p => p.slug === slug) ?? null,
-    shelf: shelfData.shelf,
+    product,
+    marketReading: buildMarketReading(rawProduct.offers, 'NG'),
+    shelfItem,
     shelfState: shelfData.shelfState,
-    routine: routineData.routine,
+    routineContext,
     synthetic: false,
   };
 }
