@@ -1,7 +1,7 @@
 # JeloCare Me — Consumer Experience Direction
 
 Updated: 2026-08-05
-Status: Direction packet for review (guardrail bottleneck)
+Status: Direction packet for review — amended after first approval pass
 
 ## 1. Current-state reading
 
@@ -24,10 +24,16 @@ journeys.
 
 ### What already works
 
-- **Architecture**: Route-specific server read models, pure derivation, thin
-  view components, shared modal/sheet controller, adaptive dock with FAB
-  registration. The route → model → view → controller split is real and
-  tested.
+- **Architecture**: Route-specific server read models (`readMeHome`,
+  `readMeExplore`, `readMeShelf`, `readMeRoutine`, `readMeConsult`,
+  `readMeProduct`) exist in `lib/customer/route-read-models.ts` with pure
+  derivation, thin view components, shared modal/sheet controller, and
+  adaptive dock with FAB registration. However, the live Me routes
+  (`app/(customer)/me/page.tsx` and `app/(customer)/me/[...route]/page.ts`)
+  still call the portal-wide `readCustomerPortal` loader, not the
+  route-scoped readers. The route → model → view → controller split is
+  designed and partially tested but not yet wired into the live route
+  adapters.
 - **Shelf**: Owner-isolated immutable-version persistence with add/remove/
   clear, lifecycle-aware unavailable rows, export, hard-delete. Private
   product requests are a separate owner-isolated lifecycle. Synthetic preview
@@ -94,6 +100,15 @@ editorial-grade.
    reuse that authority, not build a parallel one.
 7. **State contract**: Every surface must handle normal, empty, loading,
    error, offline, stale, signed-out, authenticated, and recovery states.
+8. **Route-scoped loading**: The live Me routes must migrate from the
+   portal-wide `readCustomerPortal` boundary to route-scoped readers
+   (`readMeHome`, `readMeExplore`, etc.). Each route should load only the
+   data it needs, not the entire portal view model. The route-scoped
+   readers already exist but are not yet wired into the route adapters.
+9. **No catalogue fallback as personal preference**: `catalogue[0]` must
+   never be presented as a customer's featured product or preference.
+   The current `readCustomerPortal` and `readMeHome` both fall back to
+   `catalogue[0]` when no saved product exists. This must be removed.
 
 ## 2. Experience thesis
 
@@ -139,26 +154,47 @@ It explicitly does **not** mean:
 
 **Job**: Answer "What should I understand or do for my care now?"
 
-Home should feel like opening a personal companion, not a magazine cover.
+Home is a **personal product-and-care feed**, not a compact metrics
+dashboard. It is not a grid of tiles, a chart of activity, or a public
+homepage hero. It is a warm, product-first continuation of the
+customer's own care journey.
 
-- **Replace the large hero** with a compact personal summary: greeting,
-  one Ask Me entry, and a tight visual of what's currently on the
-  customer's Shelf and Routine. The featured product hero is catalogue
-  content dressed as personal — it should become a contextual
-  recommendation only after Phase 5 contextual discovery ships.
-- **Shelf preview**: Up to 6 saved products in a horizontal rail with
-  packshots. Each card shows lifecycle state (available/changed/
-  unavailable) as a quiet visual cue, not a text badge. Empty state
-  offers one action: "Explore products."
-- **Routine preview**: Today's steps as a visual sequence — morning/
-  evening columns with product packshots and step names. Action-only
-  steps show their label without a product image. Empty state offers
-  one action: "Build a routine."
-- **Ask Me entry**: One prominent but compact entry point — not a full
-  hero. It links to `/me/consult` and carries any selected concern
-  context.
-- **Omit**: Analytics, charts, activity feeds, social proof, urgency
-  signals, decorative imagery that isn't the customer's own product.
+The intended feed order is:
+
+1. **Personal greeting** — the customer's preferred name, quietly.
+2. **One Ask/search entry** — a single entry point to Ask Me, not a
+   full hero. It links to `/me/consult` and carries any selected
+   concern context.
+3. **Continue your Routine** — when the customer has a real routine,
+   show today's next steps as a visual sequence with product packshots
+   and step names. Action-only steps show their label without a product
+   image. When no routine exists, this section is absent — not an empty
+   placeholder begging the customer to build one.
+4. **Recently saved products** — up to 6 saved products from the
+   customer's Shelf, shown as a horizontal rail with packshots. Each
+   card shows lifecycle state (available/changed/unavailable) as a
+   quiet visual cue. When no products are saved, this section is
+   absent — not an empty placeholder.
+5. **Fresh price evidence** — when eligible saved products have fresh
+   market offers, show the current price/range and eligible exact store
+   count with freshness. This is a truthful market reading, not a
+   recommendation of the cheapest store. When no fresh evidence exists,
+   this section is absent.
+6. **Needs attention** — only when authoritative state requires it:
+   a saved product that has become unavailable, a routine step whose
+   product is no longer in the catalogue, a private request that has
+   been matched or needs info. This is not a generic notification
+   feed; it surfaces only honest lifecycle states that require a
+   customer decision. When nothing needs attention, this section is
+   absent.
+7. **Explore continuation** — a quiet entry point to Explore, shown
+   last. Not a hero, not a CTA banner — a link.
+
+**What Home omits**: Analytics, charts, activity feeds, social proof,
+urgency signals, decorative imagery that isn't the customer's own
+product, dashboard tiles, a permanent analytical inspector, a
+public-homepage hero, fake recommendation language, and any catalogue
+product presented as customer preference.
 
 **FAB**: Ask Me → `/me/consult`
 
@@ -221,24 +257,34 @@ search results.
 
 Routine should feel like a visual care sequence, not a form.
 
-- **Visual sequence**: Steps displayed as a time-ordered visual flow
-  (morning → evening → weekly) with product packshots, step names,
-  and moment labels. Action-only steps show their label in a quiet
-  card without a product image.
-- **Read and edit in one place**: The same component supports reading
-  and editing without rendering twice. Editing enters an inline
-  reorder/add/remove mode rather than opening a separate form view.
+- **One visual Routine representation**: The target is one visual
+  Routine component that shows steps as a time-ordered flow (morning
+  → evening → weekly) with product packshots, step names, and moment
+  labels. Action-only steps show their label in a quiet card without
+  a product image.
+- **Editing through a structured sheet**: Editing (create, update,
+  delete, reorder, add step) happens through the routine builder
+  sheet, not through permanent inline reorder/delete controls
+  scattered throughout the ordinary reading state. The reading state
+  is clean and visual; the editing state is structured and modal.
 - **Step states**: Confirmed steps (product in catalogue) show
   packshot and link. Unresolved steps (product no longer available)
-  show "Product no longer available" with a remove or replace action.
-  Product-request steps show "Pending review" quietly.
-- **Reorder**: Drag or move-up/move-down controls. Reorder is a
-  real mutation with server persistence, not a visual-only shuffle.
-- **Create/edit sheet**: The routine builder sheet remains for
-  structured step creation (time-of-day presets, product search,
-  custom labels). It opens from the FAB or an "Add step" control.
+  show "Product no longer available" with a remove or replace action
+  in the edit sheet. Product-request steps show "Pending review"
+  quietly.
+- **Remove the duplicate presentation only after its interaction and
+  conflict contracts are defined**: The current Routine page renders
+  both a visual rail (RoutineRail) and a CRUD manager
+  (RoutineManager). The target is one visual representation. The
+  duplicate should be removed only after the interaction contract
+  (how editing is entered, what conflicts look like, how reorder
+  persists) and conflict contract (stale revision, concurrent edit)
+  are defined and tested.
 
 **FAB**: Create routine → open the routine builder sheet
+
+**Wave assignment**: Routine restructuring is a separate later wave,
+not the first implementation wave. The first wave is Home-only.
 
 ### Member Product (`/me/product/[slug]`)
 
@@ -249,11 +295,12 @@ not a product page with shelf buttons bolted on.
 
 - **Visual priority**: Large packshot, brand, name, display line,
   fresh price. These lead.
-- **Integrated evidence**: Price evidence and retailer offers appear
-  inline, not behind a "Find a store" button. The buy panel opens
-  for detailed offer comparison, but the current best price and
-  retailer name are visible on the page.
-- **Personal context**: "On your Shelf" / "In your routine" appear
+- **Current state**: The page already displays `priceLabel` from the
+  portal product. A later wave must improve this to expose a truthful
+  market reading consisting of price/range, eligible exact store count,
+  and freshness — not merely a retailer name and not an endorsement of
+  the cheapest store. The buy panel opens for detailed offer comparison.
+- **Personal context**: "On your shelf" / "In your routine" appear
   as quiet visual facts near the product name, not as badges at the
   bottom. The shelf action (add/remove) is immediately accessible.
 - **Care details**: Care note, ingredients, and usage appear in a
@@ -263,6 +310,9 @@ not a product page with shelf buttons bolted on.
   Back returns to the originating surface with its state intact.
 
 **FAB**: Find a store → open the buy panel
+
+**Wave assignment**: Member Product improvements are a later wave,
+not the first implementation wave. The first wave is Home-only.
 
 ### Ask Me (`/me/consult`)
 
@@ -519,18 +569,36 @@ availability" helper lives in the Account sheet and links to plain
 
 ## 7. Architecture proposal
 
-### Route ownership
+### Route ownership and loading migration
 
-| Route | Owner | Read model |
-| --- | --- | --- |
-| `/me` | `app/(customer)/me/page.tsx` | `CustomerHomeReadModel` |
-| `/me/explore` | `app/(customer)/me/[...route]/page.ts` | `CustomerExploreReadModel` |
-| `/me/shelf` | same | `CustomerShelfReadModel` |
-| `/me/routine` | same | `CustomerRoutineReadModel` |
-| `/me/consult` | same | `CustomerConsultReadModel` |
-| `/me/product/[slug]` | same | `CustomerProductReadModel` |
-| `/me/shelf/add` | same | `CustomerShelfReadModel` + catalogue |
-| `/me/shelf/request/[id]` | same | `CustomerShelfReadModel` + request |
+The intended route/view/read-model architecture has been partially
+extracted, but the live Me routes still need to be migrated from the
+portal-wide `readCustomerPortal` boundary to route-scoped readers.
+
+**Current state**: Both `app/(customer)/me/page.tsx` and
+`app/(customer)/me/[...route]/page.ts` call `readCustomerPortal(customer)`,
+which loads the entire portal view model (full catalogue, full shelf,
+full routines, concerns, retailers) for every route — even routes that
+only need a subset.
+
+**Target state**: Each route adapter calls its dedicated route-scoped
+reader:
+
+| Route | Owner | Read model | Current loader |
+| --- | --- | --- | --- |
+| `/me` | `app/(customer)/me/page.tsx` | `readMeHome()` → `CustomerHomeReadModel` | `readCustomerPortal` |
+| `/me/explore` | `app/(customer)/me/[...route]/page.ts` | `readMeExplore()` → `CustomerExploreReadModel` | `readCustomerPortal` |
+| `/me/shelf` | same | `readMeShelf()` → `CustomerShelfReadModel` | `readCustomerPortal` |
+| `/me/routine` | same | `readMeRoutine()` → `CustomerRoutineReadModel` | `readCustomerPortal` |
+| `/me/consult` | same | `readMeConsult()` → `CustomerConsultReadModel` | `readCustomerPortal` |
+| `/me/product/[slug]` | same | `readMeProduct()` → `CustomerProductReadModel` | `readCustomerPortal` |
+| `/me/shelf/add` | same | `readMeShelf()` + catalogue | `readCustomerPortal` |
+| `/me/shelf/request/[id]` | same | `readMeShelf()` + request | `readCustomerPortal` |
+
+The route-scoped readers already exist in
+`lib/customer/route-read-models.ts` but are not yet wired into the
+route adapters. The first implementation wave must complete the Home
+route migration as proof of the pattern.
 
 ### Feature boundaries
 
@@ -590,51 +658,68 @@ etc.) coordinate ephemeral interaction:
 
 ## 8. Guardrail evaluation
 
-### Proposed: Replace Home hero with compact personal summary
+### Proposed: Replace Home hero with personal product-and-care feed
 
 - **Customer job**: A returning customer should understand their current
-  care state immediately, not read a magazine cover.
+  care state immediately, not read a magazine cover or a dashboard.
 - **Authoritative source**: Shelf and Routine read models already
-  provide the data.
-- **Does the behavior exist?**: HomeView already renders Shelf and
-  Routine previews; the hero is the part that feels editorial.
+  provide the data. `readMeHome()` already exists but is not wired
+  into the live route adapter.
+- **Does the behavior exist?**: HomeView renders Shelf and Routine
+  previews; the hero is the part that feels editorial. The
+  `catalogue[0]` fallback in `readCustomerPortal` and `readMeHome`
+  presents a generic catalogue product as customer preference — this
+  must be removed.
 - **Public/private separation**: Preserved. Shelf/Routine are
   owner-derived server-side.
 - **Who owns the interaction?**: HomeView in `components/me/home/`.
-- **States**: Empty (no Shelf/Routine → "Explore products" / "Build a
-  routine"), loading, unavailable, ready.
-- **Mobile**: Single column. Summary, Shelf rail, Routine sequence.
-- **Testing**: Existing acceptance tests + visual verification.
+- **States**: Empty (no Shelf → section absent; no Routine → section
+  absent; no attention items → section absent), loading, unavailable,
+  ready, partial (one source unavailable).
+- **Mobile**: Single column. Feed order preserved.
+- **Testing**: Existing acceptance tests + visual verification at
+  390, 600, 1000, 1440.
 
-### Proposed: Integrate price evidence inline on member Product
+### Proposed: Member Product truthful market reading (later wave)
 
-- **Customer job**: See the current best price without tapping a button.
+- **Customer job**: See a truthful market reading (price/range,
+  eligible exact store count, freshness) without tapping a button.
 - **Authoritative source**: `readProductPanelData()` already provides
-  offers and price trends.
-- **Does the behavior exist?**: The buy panel already shows this data;
-  the change is surfacing the headline inline.
+  offers and price trends. The page already displays `priceLabel`.
+- **Does the behavior exist?**: The buy panel shows detailed offers.
+  The improvement is surfacing a truthful market reading inline —
+  not merely a retailer name, not an endorsement of the cheapest
+  store.
 - **Public/private separation**: Preserved. Price evidence is public.
 - **Who owns the interaction?**: MemberProductView.
-- **States**: No offers → omit price. Stale offers → show with
-  freshness cue. Fresh offers → show price + retailer.
-- **Mobile**: Price appears below product name. Buy panel opens for
-  detailed comparison.
+- **States**: No offers → omit market reading. Stale offers → show
+  with freshness cue. Fresh offers → show price/range + store count
+  + freshness.
+- **Mobile**: Market reading appears below product name. Buy panel
+  opens for detailed comparison.
 - **Testing**: Existing product panel tests + visual verification.
+- **Wave assignment**: Later wave, not the first implementation wave.
 
-### Proposed: Make Routine a visual sequence with inline edit
+### Proposed: Routine visual representation with structured sheet editing (later wave)
 
 - **Customer job**: A care sequence should feel visual and authored,
-  not administrative.
+  not administrative. Editing should be structured, not scattered.
 - **Authoritative source**: Routine read model already provides steps
   with moments and product references.
 - **Does the behavior exist?**: RoutineRail shows a visual preview;
-  RoutineManager shows an editable list. The change is unifying them.
+  RoutineManager shows an editable list. The target is one visual
+  representation with editing through a structured sheet. The
+  duplicate rail+manager presentation should be removed only after
+  the interaction and conflict contracts are defined.
 - **Public/private separation**: Preserved. Routines are owner-derived.
 - **Who owns the interaction?**: RoutineView in `components/me/routine/`.
-- **States**: Empty (no routine → "Build a routine"), loading,
-  unavailable, ready, editing, conflict.
-- **Mobile**: Vertical sequence. Move-up/move-down for reorder.
-- **Testing**: Existing routine tests + visual verification.
+- **States**: Empty (no routine → section absent), loading,
+  unavailable, ready, editing (in sheet), conflict (stale revision).
+- **Mobile**: Vertical sequence. Edit sheet is a bottom sheet.
+- **Testing**: Existing routine tests + new interaction/conflict
+  contract tests.
+- **Wave assignment**: Separate later wave, not the first
+  implementation wave.
 
 ### Proposed: Explore as continuous lens with personal context filters
 
@@ -672,108 +757,138 @@ etc.) coordinate ephemeral interaction:
 
 ### What it changes
 
-**Wave 1: Home composition — from editorial hero to personal companion**
+**Wave 1: Home — personal product-and-care feed with route-scoped loading**
 
-Replace the large two-column hero (display heading + featured product
-image) with a compact personal summary that leads with the customer's
-name, one Ask Me entry, and immediately useful Shelf and Routine
-previews. The hero product is removed from Home; it was catalogue
-content dressed as personal.
+The first wave is Home-only. It does not bundle Member Product or
+Routine restructuring. It does two things:
 
-Specific changes:
-- `HomeView`: Replace the hero section with a compact summary header
-  (greeting + Ask Me link) followed by the existing Shelf and Routine
-  previews. Remove the featured product hero.
-- `me-home.module.css`: Remove or repurpose `.hero`, `.heroCopy`,
-  `.heroProduct`, `.heroHalo`, `.heroProductLabel`, `.heroQuiet`.
-  Add a `.homeSummary` class for the compact header.
-- `route-read-models.ts`: `featuredProduct` can remain in the read
-  model for future contextual recommendation but is no longer
-  rendered as a hero on Home.
+1. **Migrate the Home route from `readCustomerPortal` to
+   `readMeHome()`** — completing the route-scoped loading pattern
+   for `/me` as proof of the architecture migration.
+2. **Replace the editorial hero with a personal product-and-care
+   feed** — following the feed order defined in section 3.
 
-**Wave 2: Member Product — inline price evidence**
+The Home route must load through:
 
-Surface the current best price and retailer name inline on the member
-Product page, below the product name. The buy panel still opens for
-detailed offer comparison, but the headline price is visible without
-a tap.
+```
+/me
+    → readMeHome()
+    → Home semantic model
+    → HomeView
+```
+
+Do not continue using the full `readCustomerPortal` loader for the
+Home route.
 
 Specific changes:
-- `MemberProductView`: Add a price evidence line below the product
-  display line, showing the best current offer (price + retailer)
-  when fresh evidence exists. Omit when no offers.
-- `me-home.module.css`: Style the inline price evidence line.
-- No change to `readProductPanelData()` — the data is already
-  available.
 
-**Wave 3: Routine — visual sequence with inline edit mode**
-
-Unify the RoutineRail (visual preview) and RoutineManager (editable
-list) into one component that supports both reading and inline
-editing. The visual sequence shows steps as a time-ordered flow;
-editing enters an inline reorder/add/remove mode.
-
-Specific changes:
-- `RoutineView`: Replace the separate rail + manager composition with
-  one unified routine sequence component.
-- `routine-manager.tsx`: Add an inline edit mode that shows
-  move-up/move-down controls and inline delete. The builder sheet
-  remains for structured step creation.
-- `routine-manager.module.css`: Style the visual sequence and inline
-  edit controls.
-- `me-home.module.css`: Adjust routine surface spacing for the
-  unified component.
+- `app/(customer)/me/page.tsx`: Replace `readCustomerPortal(customer)`
+  with `readMeHome(customer)`. Adapt the props passed to `MePortal`
+  or `HomeView` to consume `CustomerHomeReadModel` instead of
+  `CustomerPortalViewModel`.
+- `lib/customer/route-read-models.ts`: Remove the `catalogue[0]`
+  fallback from `readMeHome()`. `featuredProduct` must be `null`
+  when no saved product exists — never a generic catalogue product.
+  Remove `featuredProduct` from the Home read model if it is not
+  needed for the personal feed (it was a hero prop; the personal
+  feed does not need it).
+- `components/me/home/home-view.tsx`: Replace the hero section with
+  the personal feed:
+  1. Personal greeting (preferred name)
+  2. One Ask/search entry (link to `/me/consult`)
+  3. Continue your Routine (when real — absent when empty)
+  4. Recently saved products (when real — absent when empty)
+  5. Fresh price evidence (when eligible — absent when no fresh
+     offers)
+  6. Needs attention (when authoritative state requires it — absent
+     when nothing needs attention)
+  7. Explore continuation (quiet link)
+- `components/me/home/me-home.module.css`: Remove or repurpose
+  `.hero`, `.heroCopy`, `.heroProduct`, `.heroHalo`,
+  `.heroProductLabel`, `.heroQuiet`. Add classes for the personal
+  feed sections.
+- `lib/customer/read-model.ts`: The `readCustomerPortal` function
+  remains for routes that still use it (explore, shelf, routine,
+  consult, product). It is not deleted in this wave. Its
+  `catalogue[0]` fallback should also be removed to prevent any
+  route from presenting a generic catalogue product as customer
+  preference.
 
 ### What it deliberately leaves untouched
 
+- **Member Product**: No changes. The page already displays
+  `priceLabel`. The later truthful market reading improvement
+  (price/range, eligible exact store count, freshness) is a
+  separate wave.
+- **Routine**: No changes. The current rail + manager presentation
+  remains. The later unification into one visual representation
+  with structured sheet editing is a separate wave.
+- **Explore**: No changes. The filter system and product grid
+  remain. Improvements to continuity and scroll memory are future
+  waves.
 - **Dock mechanics**: The adaptive workspace dock is working and
   tested. No changes.
-- **Shell architecture**: The fixed-shell, single-scroll, route-model-
-  view-controller split is sound. No changes.
-- **Read model boundaries**: Each route's read model loads the right
-  data. No changes to the data loading pattern.
+- **Shell architecture**: The fixed-shell, single-scroll model is
+  sound. No changes.
 - **Shelf persistence**: Owner-isolated immutable-version storage is
   working. No changes to the storage boundary.
 - **Consult safety engine**: Public `/consult` is the authority. The
   authenticated adapter is Phase 4, not this wave.
-- **Explore filters**: The filter system is functional. Improvements
-  to continuity and scroll memory are future waves.
 - **Product requests**: The private request lifecycle is working. No
   changes.
 - **Account sheet**: The helper chrome is working. No changes.
+- **Other route adapters**: `app/(customer)/me/[...route]/page.ts`
+  continues to use `readCustomerPortal` for non-Home routes. Their
+  migration to route-scoped readers is a later wave.
 
 ### Likely files and architectural seams
 
-- `components/me/home/home-view.tsx` — Home composition
-- `components/me/home/me-home.module.css` — Home and shared layout CSS
+- `app/(customer)/me/page.tsx` — Home route adapter (migrate to
+  `readMeHome`)
+- `lib/customer/route-read-models.ts` — Remove `catalogue[0]`
+  fallback from `readMeHome`; adjust `CustomerHomeReadModel` type
+- `lib/customer/read-model.ts` — Remove `catalogue[0]` fallback from
+  `readCustomerPortal`
+- `components/me/home/home-view.tsx` — Replace hero with personal feed
+- `components/me/home/me-home.module.css` — Remove hero classes, add
+  feed classes
 - `components/me/home/shared-views.tsx` — Shared view primitives
-- `components/me/product/member-product-view.tsx` — Member Product
-- `components/me/routine/routine-view.tsx` — Routine composition
-- `components/me/routine/routine-manager.tsx` — Routine manager
-- `components/me/routine/routine-manager.module.css` — Routine CSS
-- `lib/customer/route-read-models.ts` — Read models (minimal change)
+  (RoutineRail, ShelfCard) used by the feed
+- `components/me/home/me-home.tsx` — MePortal shell (adapt props for
+  Home read model)
 - `modules/acceptance/browser-evidence.test.ts` — Acceptance tests
 - `modules/me/me-shell-contract.test.ts` — Shell contract tests
 
 ### Observable acceptance criteria
 
-1. **Home**: No large hero. Compact summary with greeting, Ask Me
-   entry, Shelf preview (6 items or empty state), Routine preview
-   (steps or empty state). All 1087+ tests pass.
-2. **Member Product**: Fresh price and retailer name visible inline
-   when offers exist. No price shown when offers are absent. Buy
-   panel still opens for detailed comparison.
-3. **Routine**: One unified visual sequence. Reading shows steps as
-   a time-ordered flow with packshots. Editing shows inline
-   move-up/move-down and delete. Builder sheet opens for add.
-4. **Responsive**: All three waves look correct at 390, 600, 1000,
-   and 1440 widths. Dock behavior unchanged.
-5. **States**: Empty, loading, unavailable, and error states are
-   honest and offer one working action.
-6. **Accessibility**: Keyboard navigation, focus management, screen
-   reader announcements, 320px reflow, 200% zoom, reduced motion.
-7. **Tests**: All existing tests pass. New acceptance tests cover the
-   changed surfaces.
+1. **No featured generic catalogue product**: Home never renders
+   `catalogue[0]` as a customer's featured product. When no saved
+   product exists, the featured product section is absent.
+2. **No catalogue[0] personalisation**: The `catalogue[0]` fallback
+   is removed from both `readMeHome` and `readCustomerPortal`.
+3. **Existing actions remain working**: Shelf add/remove, Routine
+   create/edit/delete, Account sheet, dock navigation, and FAB
+   registration all continue to work.
+4. **Home states are designed**: Empty (no Shelf → section absent;
+   no Routine → section absent; no attention → section absent),
+   partial (one source unavailable), unavailable (Shelf or Routine
+   service down), loading, and ready states are all honest and
+   offer one working action where applicable.
+5. **No private state in URLs, logs, or public cache**: Home feed
+   content is owner-derived server-side. No Shelf, Routine, concern,
+   or identity data enters URLs, analytics, logs, or public cache.
+6. **No new global state library**: The wave uses existing React
+   hooks and context patterns.
+7. **No changes to Ops or public catalogue truth**: The wave touches
+   only `/me` Home route and its read model/view. No public route,
+   catalogue, offer, or Ops contract changes.
+8. **Responsive evidence**: Home looks correct at 390×844, 600×900,
+   1000×800, and 1440×900. Dock behavior unchanged.
+9. **Accessibility**: Keyboard navigation, focus management, screen
+   reader announcements, 320px reflow, 200% zoom, and reduced motion
+   all pass.
+10. **Build, lint, typecheck, and focused tests pass**: All existing
+    tests pass. New acceptance tests cover the Home feed.
 
 ## 10. Alternatives rejected
 
@@ -840,3 +955,35 @@ for it but not implement it.
 ordered collection. Organisation features are future gates that
 require their own design and data decisions. Adding them now would
 expand the data boundary without a clear customer job.
+
+### Alternative: Bundle Member Product and Routine into the first wave
+
+**Rejected**: The first wave must be Home-only. Bundling Member
+Product and Routine restructuring into the first wave would expand
+the review surface, increase regression risk, and conflate three
+independent customer jobs. Member Product already displays
+`priceLabel`; its later improvement (truthful market reading with
+price/range, store count, and freshness) has its own design
+contract. Routine has a duplicate presentation (rail + manager)
+whose removal depends on defining interaction and conflict contracts
+first. Each gets its own wave with its own review point.
+
+### Alternative: Keep `readCustomerPortal` for Home, add route-scoped readers later
+
+**Rejected**: The route-scoped readers already exist but are not
+wired into the live route adapters. Continuing to use
+`readCustomerPortal` for Home would perpetuate the portal-wide
+loading boundary and delay the architecture migration. The Home
+route is the simplest route to migrate (it needs the least data)
+and serves as proof of the pattern. The `catalogue[0]` fallback in
+both `readCustomerPortal` and `readMeHome` must be removed now to
+prevent any route from presenting a generic catalogue product as
+customer preference.
+
+### Alternative: Dashboard tiles for Home
+
+**Rejected**: A compact metrics dashboard (tile grid with counts,
+charts, activity feeds) would make Home feel like an admin console,
+not a personal care companion. The objective is a product-and-care
+feed, not a metrics summary. No dashboard tiles, no permanent
+analytical inspector, no fake recommendation language.
