@@ -11,6 +11,14 @@
       "source": "dossier-release"
     },
     {
+      "slug": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "brand": "Advanced Clinicals",
+      "name": "Vitamin C Face Serum",
+      "size": "1-75oz",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
       "slug": "amika-the-kure-conditioner-275ml",
       "brand": "amika",
       "name": "The Kure Conditioner",
@@ -433,6 +441,14 @@
       "size": "50 ml",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+      "brand": "La Roche-Posay",
+      "name": "Effaclar Purifying Foaming Gel",
+      "size": "400 ml",
+      "approvedGtin": "3337872411991",
+      "source": "dossier-release"
     },
     {
       "slug": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",

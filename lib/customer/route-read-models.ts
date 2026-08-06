@@ -2,6 +2,7 @@ import 'server-only';
 
 import { products as staticProducts } from '@/data/catalogue';
 import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import { getMarketTrendsReadModel } from '@/lib/share/market-trends';
 import type { Product } from '@/data/products';
 import type { CustomerAccessIdentity } from './access-policy';
 import { createSyntheticCustomerPortal } from './development-fixture';
@@ -21,6 +22,7 @@ import { customerRoutineService } from './routine-service';
 import { customerConcernService } from './concern-service';
 import { concerns as knowledgeLibraryConcerns } from '@/data/knowledge';
 import { buildMarketReading, type MarketReading } from '@/modules/commerce/market-reading';
+import type { MarketTrendsReadModel } from '@/modules/commerce/market-trends';
 import { deriveRoutineContext, unavailableRoutineContext, type ProductRoutineContext } from './routine-context';
 import { deriveProductShelfContext, type ProductShelfContext } from './product-shelf-context';
 
@@ -89,6 +91,8 @@ export type CustomerHomeReadModel = {
   /** True when shelf, routine, and concerns are all empty — drives the first-time greeting. */
   firstTime: boolean;
   exploreEntry: { href: string; label: string };
+  /** Skincare market trends — price drops, increases, and out-of-stock alerts. */
+  marketTrendsSection: MarketTrendsReadModel;
   synthetic: boolean;
 };
 
@@ -317,6 +321,12 @@ function syntheticHome(): CustomerHomeReadModel {
     concerns: portal.concerns,
     firstTime: shelfItems.length === 0 && routineSteps.length === 0 && portal.concerns.length === 0,
     exploreEntry: { href: '/me/explore', label: 'Explore products' },
+    marketTrendsSection: {
+      summary: { productCount: 0, offerCount: 0, storeCount: 0, pricedCount: 0, outOfStockCount: 0 },
+      priceDrops: [],
+      priceIncreases: [],
+      outOfStockAlerts: [],
+    },
     synthetic: true,
   };
 }
@@ -441,10 +451,11 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
 
   const catalogue = await readCatalogue();
   const catalogueBySlug = new Map(catalogue.map(p => [p.slug, p]));
-  const [shelfData, routineData, concerns] = await Promise.all([
+  const [shelfData, routineData, concerns, marketTrendsSection] = await Promise.all([
     readShelf(identity, catalogueBySlug),
     readRoutines(identity, catalogueBySlug),
     readConcerns(identity),
+    getMarketTrendsReadModel(),
   ]);
 
   const shelfItems = shelfData.shelf;
@@ -540,6 +551,7 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
     concerns,
     firstTime,
     exploreEntry: { href: '/me/explore', label: 'Explore products' },
+    marketTrendsSection,
     synthetic: false,
   };
 }

@@ -1417,6 +1417,54 @@
         "publishedAt": "2026-08-05T05:27:00Z"
       },
       "releaseFingerprint": "654f4766b2bb66b478008483938b9f54134f33c61f76bebab7637ece391a4574"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "dossierFingerprint": "2dada1c72aba7ed036c7d66f1dfffafc9807e2c924bb4a6a454031253fbdd2a6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Vitamin C face serum",
+        "usage": "Apply a thin layer to clean face and neck in the morning. Follow with your favorite Advanced Clinicals face cream. Avoid using alongside retinol. Use vitamin C in the morning and retinol at night.",
+        "manufacturerDirectionsUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-06T07:36:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-06T07:37:00Z"
+      },
+      "releaseFingerprint": "2f70c63b223f972156c1dbd75b1c1d9a0e6543b4395d64d5695f8c838c8cf264"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+      "dossierFingerprint": "04c56eb112c9db7f8bb9699ea37bd280596bd340d9edaaa342fa6059cf13535b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Purifying foaming gel",
+        "usage": "Lather a dab of gel in the palm of your hand with a little water. Apply to the face, massaging gently. Rinse thoroughly with clear water. Use morning and evening.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-06T12:12:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-06T12:13:00Z"
+      },
+      "releaseFingerprint": "d8648afccbea7b989252f2a983b89e660abace97488555c0120f33bb31f092b1"
     }
   ]
 }

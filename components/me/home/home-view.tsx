@@ -3,17 +3,22 @@
 import Link from 'next/link';
 import {
   ArrowRight,
+  ArrowUpRight,
   ClockAlert,
   ClockPlus,
   Compass,
   MessageCircleQuestion,
   AlertCircle,
+  PackageX,
   Tag,
   ShelvingUnit,
+  TrendingDown,
+  TrendingUp,
 } from 'lucide-react';
 import type { ShelfActionHandler } from '@/components/me/shelf/me-shelf-state';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { ProductCard } from '@/components/products/product-card';
+import type { MarketTrendsReadModel } from '@/modules/commerce/market-trends';
 import type { CustomerHomeReadModel } from '@/lib/customer/route-read-models';
 import { ME_PORTAL_SURFACES } from '@/components/me/shell/me-shell-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
@@ -29,7 +34,7 @@ export function HomeView({
   shelfAction?: ShelfActionHandler;
   onShelfMutation: (result: CustomerShelfActionResult) => void;
 }) {
-  const { greeting, askEntry, routineSection, shelfSection, priceEvidenceSection, attentionSection, concernProducts, firstTime, exploreEntry } = homeModel;
+  const { greeting, askEntry, routineSection, shelfSection, priceEvidenceSection, attentionSection, concernProducts, firstTime, exploreEntry, marketTrendsSection: marketTrends } = homeModel;
 
   return (
     <>
@@ -198,6 +203,11 @@ export function HomeView({
         </section>
       ) : null}
 
+      {/* 5b. Market trends — skincare ticker: price drops, increases, out-of-stock */}
+      {marketTrends.summary.productCount > 0 ? (
+        <MeMarketTrends trends={marketTrends} />
+      ) : null}
+
       {/* 6. Needs attention — only model-derived attention states */}
       {attentionSection.visible ? (
         <section className={styles.feedSection} aria-labelledby="me-attention-title">
@@ -236,4 +246,92 @@ function formatConcernNames(names: readonly string[]): string {
   if (names.length === 1) return names[0];
   if (names.length === 2) return `${names[0]} and ${names[1]}`;
   return `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`;
+}
+
+/** Compact market trends section for the /me feed — "skincare ticker" style. */
+function MeMarketTrends({ trends }: { trends: MarketTrendsReadModel }) {
+  const { summary, priceDrops, priceIncreases, outOfStockAlerts } = trends;
+  if (summary.productCount === 0) return null;
+
+  return (
+    <section className={styles.feedSection} aria-labelledby="me-market-trends-title">
+      <div className={styles.feedSectionHeading}>
+        <h2 id="me-market-trends-title">Market trends</h2>
+        <Link className={styles.feedSectionLink} href="/share">View all <ArrowRight size={14} aria-hidden="true" /></Link>
+      </div>
+      <p className={styles.marketTrendsTicker}>
+        {summary.productCount} products · {summary.offerCount} listings · {summary.storeCount} stores
+      </p>
+
+      {priceDrops.length > 0 ? (
+        <div className={styles.marketTrendsLane}>
+          <div className={styles.marketTrendsLaneHead}>
+            <TrendingDown size={14} strokeWidth={1.5} aria-hidden="true" />
+            <span>Price drops</span>
+          </div>
+          <div className={styles.marketTrendsGrid}>
+            {priceDrops.slice(0, 4).map(signal => (
+              <Link key={signal.slug} href={`/share/${signal.slug}`} className={styles.marketTrendsCard}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={signal.image} alt={`${signal.brand} ${signal.name}`} className={styles.marketTrendsShot} loading="lazy" decoding="async" />
+                <span className={styles.marketTrendsBody}>
+                  <small>{signal.brand}</small>
+                  <strong>{signal.name}</strong>
+                  <span className={styles.marketTrendsStatDown}>{signal.trendLabel}</span>
+                </span>
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {priceIncreases.length > 0 ? (
+        <div className={styles.marketTrendsLane}>
+          <div className={styles.marketTrendsLaneHead}>
+            <TrendingUp size={14} strokeWidth={1.5} aria-hidden="true" />
+            <span>Price increases</span>
+          </div>
+          <div className={styles.marketTrendsGrid}>
+            {priceIncreases.slice(0, 4).map(signal => (
+              <Link key={signal.slug} href={`/share/${signal.slug}`} className={styles.marketTrendsCard}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={signal.image} alt={`${signal.brand} ${signal.name}`} className={styles.marketTrendsShot} loading="lazy" decoding="async" />
+                <span className={styles.marketTrendsBody}>
+                  <small>{signal.brand}</small>
+                  <strong>{signal.name}</strong>
+                  <span className={styles.marketTrendsStatUp}>{signal.trendLabel}</span>
+                </span>
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {outOfStockAlerts.length > 0 ? (
+        <div className={styles.marketTrendsLane}>
+          <div className={styles.marketTrendsLaneHead}>
+            <PackageX size={14} strokeWidth={1.5} aria-hidden="true" />
+            <span>Out of stock</span>
+          </div>
+          <ul className={styles.marketTrendsOosList}>
+            {outOfStockAlerts.slice(0, 6).map((alert, index) => (
+              <li key={`${alert.slug}-${alert.retailer}-${index}`}>
+                <Link href={`/share/${alert.slug}`} className={styles.marketTrendsOosItem}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={alert.image} alt={`${alert.brand} ${alert.name}`} className={styles.marketTrendsOosShot} loading="lazy" decoding="async" />
+                  <span className={styles.marketTrendsOosBody}>
+                    <strong>{alert.brand} {alert.name}</strong>
+                    <small>{alert.retailer}</small>
+                  </span>
+                  <ArrowUpRight size={12} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </section>
+  );
 }

@@ -1,0 +1,224 @@
+.section {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.4rem);
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--wine);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.header h2 {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+}
+
+.ticker {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 62%, transparent);
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.tickerItem strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tickerDivider {
+  opacity: 0.4;
+}
+
+/* --- Lanes --- */
+
+.lane {
+  display: grid;
+  gap: 1rem;
+}
+
+.laneHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.laneHead h3 {
+  margin: 0;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.iconDown { color: var(--state-success, #2a8e5c); }
+.iconUp { color: var(--wine); }
+.iconOos { color: var(--muted); }
+
+/* --- Movement cards --- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1.4rem;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.card:hover { transform: translateY(-3px); }
+.card > svg { color: var(--muted); }
+
+.shot {
+  width: 100%;
+  height: 4.5rem;
+  object-fit: contain;
+}
+
+.body {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.brand {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.name {
+  font-family: var(--font-display), serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statDown {
+  margin-top: 0.3rem;
+  color: var(--state-success, #2a8e5c);
+  font-weight: 600;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.statUp {
+  margin-top: 0.3rem;
+  color: var(--wine);
+  font-weight: 600;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+/* --- Out-of-stock list --- */
+
+.oosList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.oosItem {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--paper) 52%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.oosItem:hover {
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.oosShot {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  opacity: 0.6;
+}
+
+.oosBody {
+  display: grid;
+  flex: 1;
+  gap: 1px;
+  min-width: 0;
+}
+
+.oosBody strong {
+  font-weight: 500;
+  font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.oosBody small {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+.oosArrow {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 720px) {
+  .grid { grid-template-columns: 1fr; }
+  .oosList { grid-template-columns: 1fr; }
+  .card { grid-template-columns: 4rem minmax(0, 1fr) auto; }
+  .ticker { font-size: 0.72rem; }
+}
+
+@media (max-width: 480px) {
+  .header { flex-direction: column; align-items: flex-start; }
+  .ticker { flex-wrap: wrap; }
+}

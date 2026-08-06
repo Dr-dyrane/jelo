@@ -777,6 +777,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   simple: ['www.simpleskincare.com', 'www.simple.co.uk'],
   skinbyzaron: ['www.zaroncosmetics.com'],
   tresemme: ['www.tresemme.com'],
+  advancedclinicals: ['advancedclinicals.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -844,6 +845,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
     'zaronproducts.nyc3.cdn.digitaloceanspaces.com',
   ],
   tresemme: ['www.tresemme.com', 'assets.unileversolutions.com'],
+  advancedclinicals: ['advancedclinicals.com', 'cdn.shopify.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
   'benton-honest-cleansing-foam-150g': [

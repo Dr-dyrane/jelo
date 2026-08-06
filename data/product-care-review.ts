@@ -908,6 +908,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-05',
   },
+  'advanced-clinicals-vitamin-c-face-serum-52ml': {
+    productSlug: 'advanced-clinicals-vitamin-c-face-serum-52ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-06',
+  },
+  'la-roche-posay-effaclar-purifying-foaming-gel-400ml': {
+    productSlug: 'la-roche-posay-effaclar-purifying-foaming-gel-400ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/cleansing/dry-skin',
+    ],
+    reviewedAt: '2026-08-06',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

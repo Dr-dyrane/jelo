@@ -22,7 +22,7 @@ export const catalogueIntakeSourceSchemaVersion = 1 as const;
 export const catalogueIntakeSourcePublicationStatus = 'private-research-only' as const;
 export const catalogueIntakeMaximumWriteBatch = 12 as const;
 export const catalogueIntakeSourceDirectory = 'data/catalogue-intake-candidates' as const;
-export const catalogueIntakeLegacyMigrationCount = 35 as const;
+export const catalogueIntakeLegacyMigrationCount = 36 as const;
 
 const candidateIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const packetIdPattern = /^[0-9a-f]{24}$/;

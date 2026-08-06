@@ -559,6 +559,155 @@
 }
 
 
+/* --- Market trends section (skincare ticker) --- */
+
+.marketTrendsTicker {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.marketTrendsLane {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.marketTrendsLane:last-child {
+  margin-bottom: 0;
+}
+
+.marketTrendsLaneHead {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.marketTrendsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.marketTrendsCard {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--paper) 52%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.marketTrendsCard:hover {
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.marketTrendsShot {
+  width: 100%;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.marketTrendsBody {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.marketTrendsBody small {
+  color: var(--wine);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.marketTrendsBody strong {
+  font-weight: 500;
+  font-size: 0.76rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marketTrendsStatDown {
+  color: var(--state-success, #2a8e5c);
+  font-weight: 600;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.marketTrendsStatUp {
+  color: var(--wine);
+  font-weight: 600;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.marketTrendsOosList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.marketTrendsOosItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--paper) 40%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.marketTrendsOosItem:hover {
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+.marketTrendsOosShot {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  opacity: 0.6;
+}
+
+.marketTrendsOosBody {
+  display: grid;
+  flex: 1;
+  gap: 1px;
+  min-width: 0;
+}
+
+.marketTrendsOosBody strong {
+  font-weight: 500;
+  font-size: 0.72rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marketTrendsOosBody small {
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+
 /* --- Attention section --- */
 
 .attentionList {
@@ -1573,6 +1722,8 @@
   .stateDock nav a { padding-inline: 8px; font-size: 0.66rem; }
   .productEvidenceActions { flex: 1 1 100%; }
   .productEvidenceAction { flex: 1 1 0; min-width: 0; min-height: 3rem; padding-inline: .8rem; }
+  .marketTrendsGrid { grid-template-columns: 1fr; }
+  .marketTrendsOosList { grid-template-columns: 1fr; }
 }
 
 /* Ultra-narrow: stack feed section headings and trailing actions vertically

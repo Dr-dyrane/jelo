@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-06T07:35:00Z",
+  "candidate": {
+    "id": "advanced-clinicals-vitamin-c-face-serum-52ml",
+    "brand": "Advanced Clinicals",
+    "name": "Vitamin C Face Serum",
+    "variant": "Vitamin C Face Serum",
+    "size": "1-75oz",
+    "category": "Face care",
+    "reason": "Official brand Shopify store at advancedclinicals.com publishes SKU AC049 with a 2560x2560 product image. No GTIN published on official store; manufacturer-SKU identity route with reference-only publication. UPC 819265008016 confirmed via Amazon and iHerb listings but not on official page, so manufacturer-SKU route is used.",
+    "priority": "important",
+    "gapIds": [
+      "face-tone-support",
+      "antioxidant-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.amazon.ae/Advanced-Clinicals-Vitamin-Aging-Serum/dp/B0B3R125RT"
+    ],
+    "identity": {
+      "officialProductUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+      "checkedAt": "2026-08-06T07:31:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current white and orange Advanced Clinicals dropper bottle with pump dispenser",
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "AC049",
+        "label": "SKU"
+      },
+      "officialProductCrosswalk": {
+        "schemaVersion": 2,
+        "canonicalManufacturerProductKey": {
+          "basis": "manufacturer-sku",
+          "value": "AC049",
+          "manufacturerHost": "advancedclinicals.com",
+          "sourceLocator": "Official Shopify product response variants[0].sku",
+          "sourceText": "\"sku\":\"AC049\"",
+          "sourceTextSha256": "21403a3803d63765f1b4507f1b9f65be33cdaf6b27b60706edc853df7cdd2b4b"
+        },
+        "officialSourceResponseSha256": "00354e5312de2394097f1cc4989f104576c98293dfa9c3573e93e6689074b9a9",
+        "officialProductUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+        "variant": "Vitamin C Face Serum",
+        "size": "1-75oz",
+        "packageVersion": "Current white and orange Advanced Clinicals dropper bottle with pump dispenser"
+      },
+      "officialEvidence": {
+        "identityKind": "manufacturer-sku",
+        "url": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+        "observedManufacturerSku": "AC049",
+        "observedManufacturerSkuLabel": "SKU",
+        "observedVariant": "Vitamin C Face Serum",
+        "observedSize": "1-75oz",
+        "observedPackageVersion": "Current white and orange Advanced Clinicals dropper bottle with pump dispenser",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/advanced-clinicals-vitamin-c-face-serum-52ml.json",
+        "snapshotSha256": "cee3842334680baa07290a219fb9c03d8c1059806576a387abe0e5e6343a1e9a",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 15363,
+        "retrievedAt": "2026-08-06T07:00:00Z",
+        "canonicalExtraction": {
+          "schemaVersion": 8,
+          "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+          "sourceUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+          "responseUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz.js",
+          "retrievedAt": "2026-08-06T07:00:00Z",
+          "productRecord": {
+            "locator": "Complete official Shopify product response root object",
+            "byteStart": 0,
+            "byteEnd": 10799,
+            "sourceText": "{\"id\":2517055307855,\"title\":\"Vitamin C Face Serum\",\"handle\":\"vitamin-c-anti-aging-serum-1-75oz\",\"description\":\"\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003eThis Vitamin C Face Serum, infused with Ferulic Acid, Glycolic Acid, Lactic Acid, and Peptides, helps brighten and improve the look of uneven skin tone. The lightweight, gel serum reduces the appearance of dark spots for a visibly radiant, refreshed complexion.\\u003c\\/div\\u003e\\n\\u003cul\\u003e\\n\\u003cli class=\\\"ewa-rteLine\\\"\\u003e\\u003cspan\\u003eVisibly improves uneven skin tone and texture.\\u003c\\/span\\u003e\\u003c\\/li\\u003e\\n\\u003cli class=\\\"ewa-rteLine\\\"\\u003e\\u003cspan\\u003eEnhances brighten for a glowing complexion.\\u003c\\/span\\u003e\\u003c\\/li\\u003e\\n\\u003cli class=\\\"ewa-rteLine\\\"\\u003e\\u003cspan\\u003eHelps reduce the appearance of dark spots.\\u003c\\/span\\u003e\\u003c\\/li\\u003e\\n\\u003cli class=\\\"ewa-rteLine\\\"\\u003e\\u003cspan\\u003eSupports smoother, more radiant look.\\u003c\\/span\\u003e\\u003c\\/li\\u003e\\n\\u003c\\/ul\\u003e\\n\\u003ch4\\u003e\\u003cstrong\\u003e\\u003cspan\\u003eHow To Use\\u003c\\/span\\u003e\\u003c\\/strong\\u003e\\u003c\\/h4\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cmeta charset=\\\"utf-8\\\"\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cmeta charset=\\\"utf-8\\\"\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\u003cspan\\u003eApply a thin layer to clean face and neck in the morning. Follow with your favorite Advanced Clinicals face cream. Avoid using alongside Retinol. Use Vitamin C in the morning and Retinol at night.\\u003c\\/span\\u003e\\u003c\\/div\\u003e\\n\\u003c\\/div\\u003e\\n\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\u003cbr\\u003e\\u003c\\/div\\u003e\\n\\u003ch4\\u003e\\u003cstrong\\u003eIngredients\\u003c\\/strong\\u003e\\u003c\\/h4\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cmeta charset=\\\"utf-8\\\"\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cmeta charset=\\\"utf-8\\\"\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cmeta charset=\\\"utf-8\\\"\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cstrong\\u003eAscorbic Acid (Vitamin C): \\u003c\\/strong\\u003eA known antioxidant that helps brighten the look of dull skin, reduce the appearance of dark spots, and visibly improve uneven skin, revealing a more radiant looking complexion.\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\u003cbr\\u003e\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cstrong\\u003eFerulic Acid:\\u003c\\/strong\\u003e\\u003cspan\\u003e Supports the brightening effects of Vitamin C to improve the look of uneven skin.\\u003c\\/span\\u003e\\n\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\u003cbr\\u003e\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cstrong\\u003eGlycolic Acid: \\u003c\\/strong\\u003e\\u003cspan\\u003eAn Alpha Hydroxy Acid (AHA) that exfoliates rough skin for softer, smoother looking skin.\\u003c\\/span\\u003e\\n\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\u003cbr\\u003e\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\n\\u003cspan\\u003e\\u003cstrong\\u003eLactic Acid\\u003c\\/strong\\u003e: \\u003c\\/span\\u003e\\u003cspan\\u003eAn Alpha Hydroxy Acid (AHA) that exfoliates and visibly smooths dry, dull skin while drawing in moisture.\\u003c\\/span\\u003e\\n\\u003c\\/div\\u003e\\n\\u003c\\/div\\u003e\\n\\u003c\\/div\\u003e\\n\\u003c\\/div\\u003e\\n\\u003cdiv class=\\\"ewa-rteLine\\\"\\u003e\\u003cbr\\u003e\\u003c\\/div\\u003e\\n\\u003cp\\u003eDisclaimer: We strive to maintain accurate ingredient information; however, ingredient lists may change due to innovative updates and evolving regulatory guidelines. For the most current details, please refer to the ingredient list on the product packaging.\\u003c\\/p\\u003e\\n\\u003cp\\u003e\\u003cmeta charset=\\\"utf-8\\\"\\u003e\\u003cspan\\u003eAqua\\/Water\\/Eau, PEG-12 Dimethicone, Aminopropyl Ascorbyl Phosphate, Ferulic Acid, Lactic Acid, Glycolic Acid, Glycerin, Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7, Aloe Barbadensis Leaf Juice Powder, Tocopherol, Helianthus Annuus (Sunflower) Extract, Oryza Sativa (Rice) Bran Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Butylene Glycol, Xanthan Gum, Phenoxyethanol, Caprylyl Glycol, Hexylene Glycol, Ethylhexylglycerin, Tetrasodium Glutamate Diacetate, Parfum\\/Fragrance, Sodium Hydroxide, Carbomer, Sodium Lactate, Polysorbate 20, Limonene, Linalool, Citronellol.\\u003c\\/span\\u003e\\u003c\\/p\\u003e\",\"published_at\":\"2019-04-25T12:23:48-05:00\",\"created_at\":\"2019-04-25T12:24:58-05:00\",\"vendor\":\"Advanced Clinicals\",\"type\":\"Facial Serums\",\"tags\":[\"dark spot\",\"face serum\",\"ferulic acid\",\"serum\",\"spo-default\",\"spo-disabled\",\"sun damage\",\"vitamin c\"],\"price\":1299,\"price_min\":1299,\"price_max\":1299,\"available\":true,\"price_varies\":false,\"compare_at_price\":null,\"compare_at_price_min\":0,\"compare_at_price_max\":0,\"compare_at_price_varies\":false,\"variants\":[{\"id\":22143118966863,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"AC049\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Vitamin C Face Serum\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1299,\"weight\":136,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[{\"price_adjustments\":[{\"position\":1,\"price\":1169}],\"price\":1169,\"compare_at_price\":1299,\"per_delivery_price\":1169,\"selling_plan_id\":4831805655,\"selling_plan_group_id\":\"107ef550e98272a0760c4d6fe877c1b2dc9534d6\"},{\"price_adjustments\":[{\"position\":1,\"price\":1169}],\"price\":1169,\"compare_at_price\":1299,\"per_delivery_price\":1169,\"selling_plan_id\":405962831,\"selling_plan_group_id\":\"43d6b8cf55c3a3167f9a96789647b836947ade08\"}]}],\"images\":[\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_2_Retail_Ready_070125.jpg?v=1760984841\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_3_Benefits_NO_LOGO_040825.jpg?v=1760984841\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_5_Key_Ingredients_NO_LOGO_040225.jpg?v=1760984841\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_4_How_to_Use_Op2_NO_LOGO_040825.jpg?v=1760984841\",\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_8_Old_Vs_New_040225.jpg?v=1760984841\"],\"featured_image\":\"\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"\\/products\\/vitamin-c-anti-aging-serum-1-75oz\",\"media\":[{\"alt\":null,\"id\":36337056940247,\"position\":1,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2560,\"width\":2560,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841\"},\"aspect_ratio\":1.0,\"height\":2560,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841\",\"width\":2560},{\"alt\":null,\"id\":35746983641303,\"position\":2,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2560,\"width\":2560,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_2_Retail_Ready_070125.jpg?v=1760984841\"},\"aspect_ratio\":1.0,\"height\":2560,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_2_Retail_Ready_070125.jpg?v=1760984841\",\"width\":2560},{\"alt\":null,\"id\":35317448933591,\"position\":3,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2560,\"width\":2560,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_3_Benefits_NO_LOGO_040825.jpg?v=1760984841\"},\"aspect_ratio\":1.0,\"height\":2560,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_3_Benefits_NO_LOGO_040825.jpg?v=1760984841\",\"width\":2560},{\"alt\":null,\"id\":35317448966359,\"position\":4,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2560,\"width\":2560,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_5_Key_Ingredients_NO_LOGO_040225.jpg?v=1760984841\"},\"aspect_ratio\":1.0,\"height\":2560,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_5_Key_Ingredients_NO_LOGO_040225.jpg?v=1760984841\",\"width\":2560},{\"alt\":null,\"id\":35317449031895,\"position\":5,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2560,\"width\":2560,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_4_How_to_Use_Op2_NO_LOGO_040825.jpg?v=1760984841\"},\"aspect_ratio\":1.0,\"height\":2560,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_4_How_to_Use_Op2_NO_LOGO_040825.jpg?v=1760984841\",\"width\":2560},{\"alt\":null,\"id\":35317448999127,\"position\":6,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":2560,\"width\":2560,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_8_Old_Vs_New_040225.jpg?v=1760984841\"},\"aspect_ratio\":1.0,\"height\":2560,\"media_type\":\"image\",\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0096\\/1842\\/3887\\/files\\/AC049-R5_Vitamin_C_Face_Serum_Slide_8_Old_Vs_New_040225.jpg?v=1760984841\",\"width\":2560}],\"requires_selling_plan\":false,\"selling_plan_groups\":[{\"id\":\"107ef550e98272a0760c4d6fe877c1b2dc9534d6\",\"name\":\"Vitamin C Serum\",\"options\":[{\"name\":\"Recharge Plan ID\",\"position\":1,\"values\":[\"2792983\"]},{\"name\":\"Order Frequency and Unit\",\"position\":2,\"values\":[\"30-day\"]}],\"selling_plans\":[{\"id\":4831805655,\"name\":\"Delivery every 30 days\",\"description\":null,\"options\":[{\"name\":\"Recharge Plan ID\",\"position\":1,\"value\":\"2792983\"},{\"name\":\"Order Frequency and Unit\",\"position\":2,\"value\":\"30-day\"}],\"recurring_deliveries\":true,\"price_adjustments\":[{\"order_count\":null,\"position\":1,\"value_type\":\"percentage\",\"value\":10}]}],\"app_id\":\"294517\"},{\"id\":\"43d6b8cf55c3a3167f9a96789647b836947ade08\",\"name\":\"Vitamin C Serum\",\"options\":[{\"name\":\"30 Day(s)\",\"position\":1,\"values\":[\"30 Day(s)\"]}],\"selling_plans\":[{\"id\":405962831,\"name\":\"Delivery every 30 Days\",\"description\":null,\"options\":[{\"name\":\"30 Day(s)\",\"position\":1,\"value\":\"30 Day(s)\"}],\"recurring_deliveries\":true,\"price_adjustments\":[{\"order_count\":null,\"position\":1,\"value_type\":\"percentage\",\"value\":10}]}],\"app_id\":null}]}",
+            "sourceFragmentSha256": "00354e5312de2394097f1cc4989f104576c98293dfa9c3573e93e6689074b9a9"
+          },
+          "fields": {
+            "manufacturerBrand": {
+              "value": "Advanced Clinicals",
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor Advanced Clinicals"
+            },
+            "manufacturerSku": {
+              "value": "AC049",
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"AC049\""
+            },
+            "variant": {
+              "value": "Vitamin C Face Serum",
+              "locator": "Official Shopify product response title",
+              "sourceText": "Vitamin C Face Serum"
+            },
+            "size": {
+              "value": "1-75oz",
+              "locator": "Official Shopify product response handle",
+              "sourceText": "1-75oz"
+            },
+            "packageVersion": {
+              "value": "Current white and orange Advanced Clinicals dropper bottle with pump dispenser",
+              "locator": "Official Shopify product response images[0].src, visually reviewed",
+              "sourceText": "https://cdn.shopify.com/s/files/1/0096/1842/3887/files/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841",
+              "reviewedMedia": {
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0096/1842/3887/files/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841",
+                "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0096/1842/3887/files/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841",
+                "sourceAssetSha256": "ea1ed3701d6c0a0889c92252e33a6a193366864172c9d30c3ad94f47bb1b965e"
+              }
+            },
+            "gtinPublicationStatus": {
+              "value": "not-published",
+              "locator": "Complete official response structured identifier scan and variants[0].barcode",
+              "sourceText": "{\"id\":22143118966863,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"AC049\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Vitamin C Face Serum\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1299,\"weight\":136,\"compare_at_price\":null,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[{\"price_adjustments\":[{\"position\":1,\"price\":1169}],\"price\":1169,\"compare_at_price\":1299,\"per_delivery_price\":1169,\"selling_plan_id\":4831805655,\"selling_plan_group_id\":\"107ef550e98272a0760c4d6fe877c1b2dc9534d6\"},{\"price_adjustments\":[{\"position\":1,\"price\":1169}],\"price\":1169,\"compare_at_price\":1299,\"per_delivery_price\":1169,\"selling_plan_id\":405962831,\"selling_plan_group_id\":\"43d6b8cf55c3a3167f9a96789647b836947ade08\"}]}"
+            }
+          },
+          "sourceResponseSha256": "00354e5312de2394097f1cc4989f104576c98293dfa9c3573e93e6689074b9a9",
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseByteSize": 10799,
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/advanced-clinicals-vitamin-c-face-serum-52ml.json",
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "reviewer": "JeloCare catalogue identity review",
+          "reviewedAt": "2026-08-06T07:31:00Z"
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on facial serum combining vitamin C (aminopropyl ascorbyl phosphate), ferulic acid, glycolic acid, lactic acid, and peptides, described by the manufacturer as brightening and improving uneven skin tone",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday brightening and antioxidant protection. The exact concentrations, formula stability and clinical effect are not established, so do not present it as treatment for hyperpigmentation, melasma, acne, or another skin condition. Apply a thin layer in the morning and follow with sunscreen. Avoid using alongside retinol at the same time of day. Stop if it burns, stings, or irritates, and seek clinician advice for changing, painful, itchy, spreading, or persistent dark marks.",
+      "manufacturerEvidenceUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-06T07:34:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0096/1842/3887/files/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841",
+      "sourceAssetSha256": "ea1ed3701d6c0a0889c92252e33a6a193366864172c9d30c3ad94f47bb1b965e",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 112875,
+      "sourceAssetWidth": 2560,
+      "sourceAssetHeight": 2560,
+      "sourceAssetRetrievedAt": "2026-08-06T07:00:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/advanced-clinicals/advanced-clinicals-vitamin-c-face-serum-52ml/packshot-v1-4e6820e6bb09d7f5.png",
+      "publicImageSha256": "4e6820e6bb09d7f5c77b6588a0ec3b8a6f1883332c5cca477919d3dbac88512f",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 778328,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-06T07:33:00Z",
+      "artReviewer": "Devin visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  },
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "advanced-clinicals-vitamin-c-face-serum-52ml"
+  },
+  "order": 35
+}

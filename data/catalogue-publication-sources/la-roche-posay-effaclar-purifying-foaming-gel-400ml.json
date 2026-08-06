@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+    "candidateFingerprint": "dd9a6ede4696b90036cc408388d83154fb6543602fae56a4d8d73fe26d767a4d",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "3337872411991",
+      "brand": "La Roche-Posay",
+      "name": "Effaclar Purifying Foaming Gel",
+      "variant": "EFFACLAR PURIFYING CLEANSING GEL",
+      "size": "400 ml",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+      "officialIdentity": {
+        "url": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+        "observedGtin": "3337872411991",
+        "observedVariant": "EFFACLAR PURIFYING CLEANSING GEL",
+        "observedSize": "400 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/la-roche-posay-effaclar-purifying-foaming-gel-400ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+          "sourceUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+          "responseUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-08-06T12:08:00Z",
+          "fields": {
+            "gtin": {
+              "value": "3337872411991",
+              "locator": "Rendered JSON-LD ProductGroup hasVariant product-3337872411991 offer gtin13",
+              "sourceText": "400ml variant — gtin13: 3337872411991; Volume: 400 ml"
+            },
+            "variant": {
+              "value": "EFFACLAR PURIFYING CLEANSING GEL",
+              "locator": "Rendered JSON-LD ProductGroup hasVariant name",
+              "sourceText": "EFFACLAR PURIFYING CLEANSING GEL"
+            },
+            "size": {
+              "value": "400 ml",
+              "locator": "Rendered JSON-LD ProductGroup hasVariant additionalProperty Volume value 400 unitCode MLT",
+              "sourceText": "Volume: 400 ml"
+            }
+          },
+          "sourceResponseSha256": "1be68c6c52ca83986099455cf64c9e527cb40633cc40da5f3e3eff8dc198795c",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 1414369,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Effaclar Purifying Cleansing Gel | Face Care | La Roche-Posay"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-06T12:08:00Z"
+        },
+        "snapshotSha256": "68b79c9701a759c598dbff9e4bfd47324db42268ad7c8420758daccb8233a07f",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1356,
+        "retrievedAt": "2026-08-06T12:08:00Z"
+      },
+      "checkedAt": "2026-08-06T12:08:00Z",
+      "demandEvidenceUrls": [
+        "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Daily foaming facial cleanser with Zinc PCA, Thermal Spring Water, Citric Acid and Phylobioma for oily, blemish-prone skin. Soap-free, alcohol-free, paraben-free. pH 5.5.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A cosmetic cleanser for routine oily and blemish-prone skin care; not individualized acne treatment or medical advice. For external use only. Avoid contact with eyes. Discontinue use if irritation occurs and consult a healthcare professional.",
+      "manufacturerEvidenceUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-06T12:08:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+      "sourceAsset": {
+        "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw9e633733/LRP_Product/Effaclar/3337872411991_Effaclar-Purifying-Cleansing-Gel_400ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+        "sha256": "1f455a1ddc79a44de70a70127bee0f560a1383412b7a2ba0be53fcf3e18435d0",
+        "mimeType": "image/jpeg",
+        "byteSize": 356586,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-06T12:08:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw9e633733/LRP_Product/Effaclar/3337872411991_Effaclar-Purifying-Cleansing-Gel_400ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+          "sha256": "1f455a1ddc79a44de70a70127bee0f560a1383412b7a2ba0be53fcf3e18435d0",
+          "byteSize": 356586,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-06T12:08:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "03337872411991"
+          },
+          "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
+          "generatedAt": "2026-08-06T12:10:00Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
+          "byteSize": 1123589,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-06T12:10:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-06T12:10:00Z",
+          "artReviewer": "Devin visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-effaclar-purifying-foaming-gel-400ml/packshot-v1-1904e3f59e5dddad.png",
+      "sha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
+      "mimeType": "image/png",
+      "byteSize": 1123589,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-06T12:10:00Z",
+      "reviewer": "Devin visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-06T12:11:00Z"
+    },
+    "dossierFingerprint": "04c56eb112c9db7f8bb9699ea37bd280596bd340d9edaaa342fa6059cf13535b"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+    "dossierFingerprint": "04c56eb112c9db7f8bb9699ea37bd280596bd340d9edaaa342fa6059cf13535b",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Purifying foaming gel",
+      "usage": "Lather a dab of gel in the palm of your hand with a little water. Apply to the face, massaging gently. Rinse thoroughly with clear water. Use morning and evening.",
+      "manufacturerDirectionsUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-06T12:12:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-06T12:13:00Z"
+    },
+    "releaseFingerprint": "d8648afccbea7b989252f2a983b89e660abace97488555c0120f33bb31f092b1"
+  }
+}

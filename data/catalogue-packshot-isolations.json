@@ -727,9 +727,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "933373a4e94bb29674f9e2e49207edbb1afaf78a7155644be39c402f81fc17a2",
@@ -790,9 +790,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "19f6bbbd919b68238d8708b3b71da7a7aec265acfc5e3f4fc9a95c4de753be06",
@@ -853,9 +853,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "9399df3e70a917051d2b935b1fdc56cd32ec1cebe2fd9a92d14168ebc678055c",
@@ -916,9 +916,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "560db61dc1ab1f16a477b4a188ed223baf3798378294f6305a7dd91614d18cdc",
@@ -939,6 +939,132 @@
         "dark"
       ],
       "surfaceReviewSha256": "5305f003ef583fab3016be076743d4aa208657886e95667d86ace90090cd7b56",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0096/1842/3887/files/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841",
+      "sha256": "ea1ed3701d6c0a0889c92252e33a6a193366864172c9d30c3ad94f47bb1b965e",
+      "byteSize": 112875,
+      "width": 2560,
+      "height": 2560,
+      "retrievedAt": "2026-08-06T07:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "AC049"
+      },
+      "officialProductUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "4e6820e6bb09d7f5c77b6588a0ec3b8a6f1883332c5cca477919d3dbac88512f",
+      "generatedAt": "2026-08-06T07:29:06Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "4e6820e6bb09d7f5c77b6588a0ec3b8a6f1883332c5cca477919d3dbac88512f",
+      "byteSize": 778328,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-06T07:31:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-06T07:33:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "beac42cd123817838ee5dffbd5e958d1566e225e23b726014db94db46598087e",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw9e633733/LRP_Product/Effaclar/3337872411991_Effaclar-Purifying-Cleansing-Gel_400ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+      "sha256": "1f455a1ddc79a44de70a70127bee0f560a1383412b7a2ba0be53fcf3e18435d0",
+      "byteSize": 356586,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-06T12:08:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03337872411991"
+      },
+      "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
+      "generatedAt": "2026-08-06T12:10:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
+      "byteSize": 1123589,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-06T12:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-06T12:10:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true

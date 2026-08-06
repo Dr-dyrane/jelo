@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { concerns } from '@/data/knowledge';
 import { isProductMatchConcern } from '@/modules/concerns/product-matching';
+import { MarketTrendsSection } from '@/components/market-trends/market-trends';
 import { getWorthSharingReadModel } from '@/lib/share/worth-sharing';
+import { getMarketTrendsReadModel } from '@/lib/share/market-trends';
 import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import styles from './share-index.module.css';
 
@@ -15,7 +17,10 @@ const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'sho
 export const metadata: Metadata = publicSocialMetadata(staticSocialCard('share-index'), '/share');
 
 export default async function ShareIndex() {
-  const signals = await getWorthSharingReadModel();
+  const [signals, marketTrends] = await Promise.all([
+    getWorthSharingReadModel(),
+    getMarketTrendsReadModel(),
+  ]);
   const { recentDrops: drops, priceGaps: gaps, freshComparisons } = signals;
   const topics = concerns.filter(isProductMatchConcern);
 
@@ -26,6 +31,8 @@ export default async function ShareIndex() {
         <h1>Prices that help.</h1>
         <p className={styles.deck}>Observed prices worth passing on. And a few guides.</p>
       </header>
+
+      <MarketTrendsSection trends={marketTrends} />
 
       {drops.length > 0 ? (
         <section className={styles.lane}>

@@ -2,12 +2,14 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import { ProductRail } from '@/components/products/product-grid';
+import { MarketTrendsSection } from '@/components/market-trends/market-trends';
 import { products as curatedCatalogue } from '@/data/catalogue';
 import { editorialAsset } from '@/data/editorial';
 import { marketSignals } from '@/data/market-signals';
 import type { Product } from '@/data/products';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
 import { hasVerifiedNigeriaOffer, orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
+import { getMarketTrendsReadModel } from '@/lib/share/market-trends';
 import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import styles from './home.module.css';
 import editorialStyles from './home-editorial.module.css';
@@ -50,9 +52,10 @@ function DiscoveryRail({ kicker, title, products: railProducts, href = '/product
 }
 
 export default async function HomePage() {
-  const [liveCatalogue, eligibleProducts] = await Promise.all([
+  const [liveCatalogue, eligibleProducts, marketTrends] = await Promise.all([
     listCatalogueProducts(),
     listRecommendationEligibleProducts(),
+    getMarketTrendsReadModel(),
   ]);
   const products = orderByCuratedSlugs(liveCatalogue, curatedCatalogue.map(product => product.slug));
   const supportiveProducts = orderByCuratedSlugs(eligibleProducts, curatedCatalogue.map(product => product.slug));
@@ -138,6 +141,8 @@ export default async function HomePage() {
           {catalogueSignals.map(signal => <span key={signal}>{signal}</span>)}
         </div>
       </section>
+
+      <MarketTrendsSection trends={marketTrends} />
 
       <DiscoveryRail
         kicker="Catalogue"

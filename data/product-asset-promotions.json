@@ -667,5 +667,39 @@
     "width": 2000,
     "height": 2000,
     "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml"
+  },
+  {
+    "localPath": "data/catalogue-intake-assets/advanced-clinicals-vitamin-c-face-serum-52ml/packshot-v1-4e6820e6bb09d7f5.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/advanced-clinicals/advanced-clinicals-vitamin-c-face-serum-52ml/packshot-v1-4e6820e6bb09d7f5.png",
+    "active": true,
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0096/1842/3887/files/AC049_VitaminCFaceSerum_Main_6ebf7dc9-a478-4ee9-addc-f8d30d8591fe.jpg?v=1760984841",
+    "blobPath": "products/advanced-clinicals/advanced-clinicals-vitamin-c-face-serum-52ml/packshot-v1-4e6820e6bb09d7f5.png",
+    "contentType": "image/png",
+    "contentHash": "4e6820e6bb09d7f5c77b6588a0ec3b8a6f1883332c5cca477919d3dbac88512f",
+    "hasAlpha": true,
+    "id": "advanced-clinicals-vitamin-c-face-serum-52ml-packshot-v1",
+    "destination": "publication",
+    "publicationBrandSlug": "advanced-clinicals",
+    "byteSize": 778328,
+    "width": 2000,
+    "height": 2000,
+    "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml"
+  },
+  {
+    "localPath": "data/catalogue-intake-assets/la-roche-posay-effaclar-purifying-foaming-gel-400ml/packshot-v1.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-effaclar-purifying-foaming-gel-400ml/packshot-v1-1904e3f59e5dddad.png",
+    "active": true,
+    "sourceUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/en_GB/dw9e633733/LRP_Product/Effaclar/3337872411991_Effaclar-Purifying-Cleansing-Gel_400ml_01_La-Roche-Posay.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+    "blobPath": "products/la-roche-posay/la-roche-posay-effaclar-purifying-foaming-gel-400ml/packshot-v1-1904e3f59e5dddad.png",
+    "contentType": "image/png",
+    "contentHash": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
+    "hasAlpha": true,
+    "id": "la-roche-posay-effaclar-purifying-foaming-gel-400ml-packshot-v1",
+    "destination": "publication",
+    "publicationBrandSlug": "la-roche-posay",
+    "byteSize": 1123589,
+    "width": 2000,
+    "height": 2000,
+    "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml"
   }
 ]

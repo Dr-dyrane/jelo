@@ -264,13 +264,13 @@ test('write boundaries allow 12 mutations but reject 13, removals and new legacy
           schemaVersion: 1,
           publicationStatus: 'private-research-only',
           updatedAt: compilation.manifest.updatedAt,
-          order: 35,
+          order: 36,
           origin: { kind: 'legacy-deliberate-intake', reference: candidateId },
           candidate: legacyCandidate,
         },
       },
     ], asOf),
-    /fixed 35-record legacy migration cohort/,
+    /fixed 36-record legacy migration cohort/,
   );
 });
 
