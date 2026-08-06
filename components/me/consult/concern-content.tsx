@@ -8,14 +8,14 @@ export function ConcernContent({
   concern,
   matchedSignals,
   saved,
-  onSave,
+  onToggle,
   compact = false,
 }: {
   concern: Concern;
   matchedTerms?: string[];
   matchedSignals: string[];
   saved: boolean;
-  onSave: () => void;
+  onToggle: () => void;
   compact?: boolean;
 }) {
   const isConditionPattern = concern.kind === 'condition-pattern';
@@ -46,10 +46,10 @@ export function ConcernContent({
             type="button"
             className={styles.concernContentSaveButton}
             aria-pressed={saved}
-            onClick={onSave}
+            onClick={onToggle}
           >
             {saved ? <Check size={16} aria-hidden="true" /> : null}
-            {saved ? 'Dealing with this' : 'I’m dealing with this'}
+            {saved ? 'Dealing with this' : 'I\u2019m dealing with this'}
           </button>
           {!isConditionPattern ? (
             <button
@@ -162,10 +162,10 @@ export function ConcernContent({
           type="button"
           className={styles.concernContentSaveButton}
           aria-pressed={saved}
-          onClick={onSave}
+          onClick={onToggle}
         >
           {saved ? <Check size={16} aria-hidden="true" /> : null}
-          {saved ? 'Dealing with this' : 'I’m dealing with this'}
+          {saved ? 'Dealing with this' : 'I\u2019m dealing with this'}
         </button>
         {!isConditionPattern ? (
           <button

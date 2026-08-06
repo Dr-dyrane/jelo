@@ -42,6 +42,24 @@ export async function clearShelfAction(): Promise<CustomerShelfActionResult> {
   return result;
 }
 
+export async function addConcernAction(concernSlug: string): Promise<CustomerConcernActionResult> {
+  const customer = await requireCustomer();
+  const result = await customerConcernService.add(customer, concernSlug);
+  if (result.status === 'saved') {
+    revalidatePath('/me', 'layout');
+  }
+  return result;
+}
+
+export async function removeConcernAction(concernSlug: string): Promise<CustomerConcernActionResult> {
+  const customer = await requireCustomer();
+  const result = await customerConcernService.remove(customer, concernSlug);
+  if (result.status === 'removed') {
+    revalidatePath('/me', 'layout');
+  }
+  return result;
+}
+
 export async function clearConcernsAction(): Promise<CustomerConcernActionResult> {
   const customer = await requireCustomer();
   const result = await customerConcernService.clear(customer);

@@ -21,6 +21,7 @@ import {
   useMeShelfState,
   type ShelfActionHandler,
 } from '@/components/me/shelf/me-shelf-state';
+import { useMeConcernState } from '@/components/me/consult/me-concern-state';
 import { ProductCard } from '@/components/products/product-card';
 import { ProductQuickPanelSheet } from '@/components/products/product-quick-panel';
 import {
@@ -281,7 +282,8 @@ function MePortalView({
     ?? (productReadModel ? shellViewModelFromProduct(productReadModel) : undefined)
     ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
   const shelfState = useMeShelfState(resolvedViewModel);
-  const portalViewModel = shelfState.viewModel;
+  const concernState = useMeConcernState(shelfState.viewModel);
+  const portalViewModel = concernState.viewModel;
   const [exploreFilters, setExploreFilters] = useState<CustomerExploreFilterState>(
     clearCustomerExploreFilters,
   );
@@ -504,6 +506,8 @@ function MePortalView({
         shelfAvailable={portalViewModel.shelfState.status === 'ready'}
         onPreviewClear={shelfState.clearPreviewShelf}
         concerns={portalViewModel.concerns}
+        concernsAvailable={true}
+        onPreviewClearConcerns={concernState.clearPreviewConcerns}
         open={accountSheetOpen}
         onClose={closeAccountSheet}
         triggerRef={accountTriggerRef}
@@ -604,6 +608,9 @@ function MePortalView({
               search={exploreFilters.search}
               setSearch={(search) => setExploreFilters(current => ({ ...current, search }))}
               searchRef={searchRef}
+              previewOnly={concernState.previewOnly}
+              addPreviewConcern={concernState.addPreviewConcern}
+              removePreviewConcern={concernState.removePreviewConcern}
             />
           ) : null}
           {route.kind === 'product' && product ? (

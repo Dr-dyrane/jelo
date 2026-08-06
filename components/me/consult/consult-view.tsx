@@ -1,15 +1,18 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { ProductCard } from '@/components/products/product-card';
 import { ME_PORTAL_SURFACES } from '@/components/me/shell/me-shell-model';
 import type {
+  CustomerPortalConcernReference,
   CustomerPortalProduct,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
 import { concerns as knowledgeConcerns } from '@/data/knowledge';
 import { matchConcerns } from '@/lib/customer/concern-matching';
+import { addConcernAction, removeConcernAction } from '@/app/(customer)/me/actions';
 import { ConcernContent } from './concern-content';
 import styles from '../home/me-home.module.css';
 
@@ -50,14 +53,23 @@ export function ConsultView({
   search,
   setSearch,
   searchRef,
+  previewOnly,
+  addPreviewConcern,
+  removePreviewConcern,
 }: {
   viewModel: CustomerPortalViewModel;
   products: readonly CustomerPortalProduct[];
   search: string;
   setSearch: (value: string) => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
+  previewOnly?: boolean;
+  addPreviewConcern?: (slug: string, name: string, area: CustomerPortalConcernReference['area']) => unknown;
+  removePreviewConcern?: (slug: string) => unknown;
 }) {
   const surface = ME_PORTAL_SURFACES.consult;
+  const router = useRouter();
+  const [, startTransition] = useTransition();
+  const [pendingSlug, setPendingSlug] = useState<string | null>(null);
   const concernMatches = useMemo(
     () => (search.trim() ? matchConcerns(search, knowledgeConcerns) : []),
     [search],
@@ -69,6 +81,32 @@ export function ConsultView({
   const isSearching = Boolean(search.trim());
   const primaryMatch = concernMatches[0] ?? null;
   const secondaryMatches = concernMatches.slice(1);
+
+  const handleToggle = useCallback(
+    (concern: { slug: string; name: string; area: CustomerPortalConcernReference['area']; kind: string }) => {
+      if (concern.kind === 'condition-pattern') return;
+      const isSaved = savedSlugs.has(concern.slug);
+      if (previewOnly) {
+        if (isSaved) {
+          removePreviewConcern?.(concern.slug);
+        } else {
+          addPreviewConcern?.(concern.slug, concern.name, concern.area);
+        }
+        return;
+      }
+      setPendingSlug(concern.slug);
+      startTransition(async () => {
+        if (isSaved) {
+          await removeConcernAction(concern.slug);
+        } else {
+          await addConcernAction(concern.slug);
+        }
+        setPendingSlug(null);
+        router.refresh();
+      });
+    },
+    [previewOnly, savedSlugs, addPreviewConcern, removePreviewConcern, router],
+  );
 
   return (
     <section className={`${styles.routePage} ${styles.stackPage}`} aria-labelledby="me-consult-title">
@@ -120,9 +158,7 @@ export function ConsultView({
                 matchedTerms={primaryMatch.matchedTerms}
                 matchedSignals={primaryMatch.matchedSignals}
                 saved={savedSlugs.has(primaryMatch.concern.slug)}
-                onSave={() => {
-                  /* persistence comes in Slice 4 */
-                }}
+                onToggle={() => handleToggle(primaryMatch.concern)}
               />
               {secondaryMatches.length > 0 ? (
                 <div className={styles.concernContentRelated} aria-label="Related concerns">
@@ -135,9 +171,7 @@ export function ConsultView({
                           matchedTerms={match.matchedTerms}
                           matchedSignals={match.matchedSignals}
                           saved={savedSlugs.has(match.concern.slug)}
-                          onSave={() => {
-                            /* persistence comes in Slice 4 */
-                          }}
+                          onToggle={() => handleToggle(match.concern)}
                           compact
                         />
                       </li>
