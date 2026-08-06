@@ -222,7 +222,46 @@ test('retains source bytes only under an explicit private, no-reuse source grant
       === 'private-exact-product-response-audit'
     ))
     .map(source => source.key);
-  assert.deepEqual(grantedSourceKeys, ['buybetter', 'slique-beauty']);
+  assert.deepEqual(grantedSourceKeys, [
+    'buybetter',
+    'slique-beauty',
+    'beauty-by-daz',
+    'teeka4',
+    'dunes-center',
+    'csi-grocery',
+    'glowmart',
+    'deoset',
+    'nihet-beauty',
+    'perona-beauty',
+    'rhema-beauty-shop',
+    'allure-beauty',
+    'babesquarters',
+    'tos-nigeria',
+    'the-beauty-prism',
+    'choices-beauty',
+    'reginah',
+    'beureva',
+    'main-market-online',
+    '27beauty',
+    'amax-beauty-store',
+    'lush-hair-nigeria',
+    'medplus',
+    'care-to-beauty',
+    'makeupalleyng',
+    'konga-health',
+    'essentials-hub',
+    'nectar-beauty-hub',
+    'bracketts-beauty',
+    '24eleven',
+    'ediths-essentials',
+    'kadimez-essentials',
+    'muna-cosmetics',
+    'perfect-trust-beauty',
+    'agt-plaza',
+    'my-skin-hub-ng',
+    'skincare-plug-ng',
+    'jumia',
+  ]);
 
   for (const source of catalogueDiscoverySources) {
     assert.equal(source.privateSourceByteRetention.publicContentReuse, 'none');

@@ -14,6 +14,7 @@ import {
 const directorySource: CatalogueDiscoverySource = {
   key: 'directory',
   retailer: 'Directory Store',
+  platform: 'woocommerce',
   endpoint: 'https://directory.example/wp-json/wc/store/v1/products',
   host: 'directory.example',
   reviewStatus: 'directory-listed',

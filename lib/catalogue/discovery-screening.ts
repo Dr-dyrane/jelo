@@ -153,11 +153,18 @@ function hostKey(value: string) {
   return value.toLowerCase().replace(/^www\./, '');
 }
 
-function exactProductUrl(value: unknown, source: CatalogueDiscoverySource) {
+function exactProductUrl(value: unknown, source: { host: string }) {
   if (typeof value !== 'string') return undefined;
   try {
     const url = new URL(value);
-    if (url.protocol !== 'https:' || hostKey(url.hostname) !== hostKey(source.host) || !url.pathname.includes('/product/')) return undefined;
+    if (url.protocol !== 'https:' || hostKey(url.hostname) !== hostKey(source.host)) return undefined;
+    const search = url.search.toLowerCase();
+    const isProductPath = url.pathname.includes('/product/')
+      || url.pathname.includes('/products/')
+      || url.pathname.includes('/catalog/product/')
+      || (search.includes('product_id') && search.includes('route=product/product'))
+      || /\.html$/i.test(url.pathname);
+    if (!isProductPath) return undefined;
     url.hash = '';
     return url.toString();
   } catch {
@@ -559,7 +566,7 @@ export function auditCatalogueDiscoverySnapshot(value: unknown) {
         || !['directory-listed', 'provisional'].includes(observation.retailerStatus)
         || listing.protocol !== 'https:'
         || hostKey(listing.hostname) !== hostKey(source.hostname)
-        || !listing.pathname.includes('/product/')
+        || !exactProductUrl(listing.href, { host: source.hostname })
         || observation.observedAt !== response.retrievedAt
         || typeof observation.observedTitle !== 'string'
         || observation.observedTitle.trim().length < 3
