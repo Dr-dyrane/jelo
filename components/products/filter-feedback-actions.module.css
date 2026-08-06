@@ -7,3 +7,4 @@
   :global(html:not([data-theme="light"])) .actions a{background:var(--paper);color:var(--ink)}
   :global(html:not([data-theme="light"])) .actions a.clear{background:var(--accent-solid);color:var(--on-accent)}
 }
+.actions a:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}

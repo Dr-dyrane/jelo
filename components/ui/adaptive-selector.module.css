@@ -17,3 +17,4 @@
   :global(html:not([data-theme="light"])) .options>button[aria-selected=true]{background:var(--state-selected-bg)}
   :global(html:not([data-theme="light"])) .optionMark{background:var(--ghost-bg)}
 }
+.selectedEdit:focus-visible,.selectedRemove:focus-visible,.searchBox input:focus-visible,.options>button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}

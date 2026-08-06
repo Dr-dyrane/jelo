@@ -257,3 +257,10 @@
   :global(html:not([data-theme="light"])) .resultsHeading button { background: var(--ghost-bg); }
   :global(html:not([data-theme="light"])) .empty { background: var(--card-2); }
 }
+
+/* Focus states */
+.card > button:focus-visible,
+.resultsHeading button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}

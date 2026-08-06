@@ -476,3 +476,17 @@ html[data-theme="dark"] .price-trend-up { color: var(--state-warning); }
   html:not([data-theme="light"]) .price-trend-down { color: var(--state-success); }
   html:not([data-theme="light"]) .price-trend-up { color: var(--state-warning); }
 }
+
+/* Dark: ingredient chips and routine steps use hardcoded light backgrounds. */
+html[data-theme="dark"] .ingredient-chips a,
+html[data-theme="dark"] .ingredient-chips span { background: var(--ghost-bg); }
+html[data-theme="dark"] .ingredient-chips a:hover { background: var(--paper); }
+html[data-theme="dark"] .ingredient-disclosure-pending { background: var(--ghost-bg); }
+html[data-theme="dark"] .routine-step { background: var(--card-2); }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .ingredient-chips a,
+  html:not([data-theme="light"]) .ingredient-chips span { background: var(--ghost-bg); }
+  html:not([data-theme="light"]) .ingredient-chips a:hover { background: var(--paper); }
+  html:not([data-theme="light"]) .ingredient-disclosure-pending { background: var(--ghost-bg); }
+  html:not([data-theme="light"]) .routine-step { background: var(--card-2); }
+}
