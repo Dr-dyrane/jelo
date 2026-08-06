@@ -176,12 +176,10 @@ test('browse surfaces separate neutral records from supportive use', async () =>
 
   assert.doesNotMatch(home, /product\.(?:bestFor|concerns|skinTypes|sensitiveFriendly|step|displayLine)/);
   assert.match(home, /listRecommendationEligibleProducts/);
-  assert.match(home, /Key ingredients/);
-  assert.match(home, /A partial view/);
   assert.match(home, /review=supportive/);
-  assert.match(home, /const newAndNoteworthy = products\.slice\(12, 24\);/);
-  assert.doesNotMatch(home, /slice\(12, 24\)\.length/);
-  assert.match(home, /hairCare\.length \? 'Hair & scalp' : null/);
+  assert.match(home, /Hair & body/);
+  assert.match(home, /seenSlugs/);
+  assert.doesNotMatch(home, /hasVerifiedNigeriaOffer/);
   assert.match(productsPage, /Profiles show products and prices/);
   assert.match(productsPage, /Supportive use adds a care review/);
   assert.match(productsPage, /review: 'supportive'/);

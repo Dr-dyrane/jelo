@@ -7,7 +7,7 @@ import { editorialAsset } from '@/data/editorial';
 import { marketSignals } from '@/data/market-signals';
 import type { Product } from '@/data/products';
 import { listCatalogueProducts, listRecommendationEligibleProducts } from '@/lib/catalogue/repository';
-import { hasVerifiedNigeriaOffer, orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
+import { orderByCuratedSlugs } from '@/modules/commerce/home-merchandising';
 import { getMarketTrendsReadModel } from '@/lib/share/market-trends';
 import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 import styles from './home.module.css';
@@ -94,23 +94,46 @@ export default async function HomePage() {
   ]);
   const products = orderByCuratedSlugs(liveCatalogue, curatedCatalogue.map(product => product.slug));
   const supportiveProducts = orderByCuratedSlugs(eligibleProducts, curatedCatalogue.map(product => product.slug));
-  const editorsEdit = products.slice(0, 12);
-  const newAndNoteworthy = products.slice(12, 24);
-  const sourceChecked = products.filter(product => product.verifiedIngredientIds?.length);
-  const faceCare = products.filter(product => product.category === 'Face');
-  const kBeauty = products.filter(product => ['COSRX', 'ANUA', 'SOME BY MI', 'B.LAB'].includes(product.brand));
-  const nigeriaReady = products.filter(hasVerifiedNigeriaOffer);
-  const hairCare = products.filter(product => product.category === 'Hair');
-  const bodyCare = products.filter(product => product.category === 'Body');
+
+  // Five mutually-exclusive rails — no product appears in more than one rail.
+  // This reduces cognitive load and gives each rail a distinct purpose.
+  const seenSlugs = new Set<string>();
+
+  function takeRail(pool: Product[], limit: number): Product[] {
+    const picked: Product[] = [];
+    for (const product of pool) {
+      if (seenSlugs.has(product.slug)) continue;
+      seenSlugs.add(product.slug);
+      picked.push(product);
+      if (picked.length >= limit) break;
+    }
+    return picked;
+  }
+
+  // Rail 1: The main catalogue entry — first 12 by curation
+  const editorsEdit = takeRail(products, 12);
+
+  // Rail 2: Care-reviewed supportive products not already shown
+  const supportiveRail = takeRail(supportiveProducts, 12);
+
+  // Rail 3: Face care not already shown
+  const faceCare = takeRail(products.filter(p => p.category === 'Face'), 12);
+
+  // Rail 4: Hair & body merged, not already shown
+  const hairAndBody = takeRail(products.filter(p => p.category === 'Hair' || p.category === 'Body'), 12);
+
+  // Rail 5: Everything else
+  const keepBrowsing = takeRail(products, 12);
+
   const heroCategories = [
-    faceCare.length ? 'Face' : null,
-    hairCare.length ? 'Hair' : null,
-    bodyCare.length ? 'Body' : null,
+    products.some(p => p.category === 'Face') ? 'Face' : null,
+    products.some(p => p.category === 'Hair') ? 'Hair' : null,
+    products.some(p => p.category === 'Body') ? 'Body' : null,
   ].filter((label): label is string => Boolean(label));
   const catalogueSignals = [
-    faceCare.length ? 'Face care' : null,
-    hairCare.length ? 'Hair & scalp' : null,
-    bodyCare.length ? 'Body care' : null,
+    products.some(p => p.category === 'Face') ? 'Face care' : null,
+    products.some(p => p.category === 'Hair') ? 'Hair & scalp' : null,
+    products.some(p => p.category === 'Body') ? 'Body care' : null,
     products.some(product => /\bspf\b/i.test(product.name)) ? 'Daily SPF' : null,
   ].filter((label): label is string => Boolean(label));
 
@@ -188,9 +211,12 @@ export default async function HomePage() {
       />
 
       <DiscoveryRail
-        kicker="Key ingredients"
-        title="A partial view."
-        products={sourceChecked}
+        kicker="Supportive use"
+        title="Supportive care."
+        products={supportiveRail}
+        href="/products?review=supportive"
+        linkLabel="View supportive products"
+        ariaLabel="Reviewed supportive products"
       />
 
       <DiscoveryRail
@@ -215,44 +241,16 @@ export default async function HomePage() {
       </section>
 
       <DiscoveryRail
-        kicker="K-beauty"
-        title="Browse the brands."
-        products={kBeauty}
-      />
-
-      <DiscoveryRail
-        kicker="Supportive use"
-        title="Supportive care."
-        products={supportiveProducts}
-        href="/products?review=supportive"
-        linkLabel="View supportive products"
-        ariaLabel="Reviewed supportive products"
-      />
-
-      <DiscoveryRail
-        kicker="Observed in Nigeria"
-        title="Prices seen here."
-        products={nigeriaReady}
-      />
-
-      <DiscoveryRail
-        kicker="Hair care"
+        kicker="Hair & body"
         title="Browse the category."
-        products={hairCare}
+        products={hairAndBody}
         href="/products?category=Hair+%26+scalp"
-      />
-
-      <DiscoveryRail
-        kicker="Body care"
-        title="Browse the category."
-        products={bodyCare}
-        href="/products?category=Body+care"
       />
 
       <DiscoveryRail
         kicker="More profiles"
         title="Keep browsing."
-        products={newAndNoteworthy}
+        products={keepBrowsing}
       />
 
       <section className={styles.consult}>

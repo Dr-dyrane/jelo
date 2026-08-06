@@ -7,6 +7,8 @@
 .emptyActions{display:flex;flex-wrap:wrap;justify-content:center;gap:.65rem}
 .empty .emptySecondary{background:transparent;color:#503f3a}
 
+.searchGuidance{margin:.6rem auto 0;max-width:70rem;padding:0 .5rem;color:#83736d;font-size:.68rem;line-height:1.5;text-align:center}
+
 /* dark theme */
 :global(html[data-theme="dark"]) .page{background:linear-gradient(180deg,var(--cream),var(--surface-3) 34%,var(--cream))}
 :global(html[data-theme="dark"]) .kicker,:global(html[data-theme="dark"]) .sectionHeading>div>p,:global(html[data-theme="dark"]) .storyCopy>p{color:var(--wine)}

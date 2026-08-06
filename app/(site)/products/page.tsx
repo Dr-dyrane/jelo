@@ -55,6 +55,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         marketHrefs={model.marketHrefs}
         suggestions={model.searchSuggestions}
       />
+      <p className={styles.searchGuidance}>Search by product name, brand, or barcode. Browse by category, routine step, or concern below.</p>
     </div>
 
     {!model.hasActiveIntent ? <><section className={styles.browse} id="browse">
