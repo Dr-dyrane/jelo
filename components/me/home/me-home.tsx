@@ -95,7 +95,7 @@ function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPorta
     account: homeModel.account,
     featuredProduct: null,
     catalogue: undefined,
-    concerns: [],
+    concerns: homeModel.concerns,
     selectedRetailers: [],
     shelfState: homeModel.shelfSection.state,
     shelf: homeModel.shelfSection.items,
@@ -117,7 +117,7 @@ function shellViewModelFromProduct(readModel: CustomerProductReadModel): Custome
     featuredProduct: null,
     // Synthetic customers need the full catalogue to add unsaved products.
     catalogue: previewShelf?.catalogue,
-    concerns: [],
+    concerns: shell.concerns,
     selectedRetailers: [],
     shelfState: shell.shelfAvailable
       ? { status: 'ready' as const, message: null }
@@ -503,6 +503,7 @@ function MePortalView({
           : productReadModel?.shell.shelfCount}
         shelfAvailable={portalViewModel.shelfState.status === 'ready'}
         onPreviewClear={shelfState.clearPreviewShelf}
+        concerns={portalViewModel.concerns}
         open={accountSheetOpen}
         onClose={closeAccountSheet}
         triggerRef={accountTriggerRef}

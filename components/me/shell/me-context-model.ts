@@ -61,10 +61,13 @@ export function createMeContextSheetModel({
     0,
   ) ?? viewModel.routine.length;
   if (route.kind === 'home') {
+    const concernCount = viewModel.concerns.length;
+    const concernPart = concernCount > 0 ? ` · ${count(concernCount, 'concern')}` : '';
+    const baseSummary = shelfAvailable ? `${shelfCount} · ${count(routineStepCount, 'step')}` : `Shelf unavailable · ${count(routineStepCount, 'step')}`;
     return {
       eyebrow: 'At a glance',
-      title: `${shelfCount} · ${count(routineStepCount, 'step')}`,
-      summary: shelfAvailable ? `${shelfCount} · ${count(routineStepCount, 'step')}` : `Shelf unavailable · ${count(routineStepCount, 'step')}`,
+      title: `${shelfCount} · ${count(routineStepCount, 'step')}${concernPart}`,
+      summary: `${baseSummary}${concernPart}`,
       items: [
         { id: 'shelf', label: 'My Shelf', detail: shelfAvailable ? count(viewModel.shelf.length, 'product') : 'Unavailable', href: '/me/shelf' },
         { id: 'routine', label: 'My Routine', detail: count(routineStepCount, 'step'), href: '/me/routine' },
@@ -160,9 +163,9 @@ export function createMeContextSheetModel({
     return {
       eyebrow: 'Ask Me',
       title: 'My care',
-      summary: `${count(viewModel.concerns.length, 'concern')} · ${count(visibleProductCount, 'match')}`,
+      summary: `${count(viewModel.concerns.length, 'concern')} · ${count(visibleProductCount, 'matching product')}`,
       items: [
-        { id: 'explore', label: 'Explore products', detail: count(visibleProductCount, 'match'), href: '/me/explore' },
+        { id: 'explore', label: 'Explore products', detail: count(visibleProductCount, 'matching product'), href: '/me/explore' },
         { id: 'shelf', label: 'My Shelf', detail: shelfCount, href: '/me/shelf' },
       ],
     };

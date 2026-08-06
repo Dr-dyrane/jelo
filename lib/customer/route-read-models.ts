@@ -78,6 +78,16 @@ export type CustomerHomeReadModel = {
       href: string;
     }[];
   };
+  /** Products reviewed for the customer's saved concerns, not already on shelf or in a routine. */
+  concernProducts: {
+    visible: boolean;
+    concernNames: readonly string[];
+    items: readonly CustomerPortalProduct[];
+  };
+  /** The customer's saved concern references, for shell chrome and first-time detection. */
+  concerns: readonly CustomerPortalConcernReference[];
+  /** True when shelf, routine, and concerns are all empty — drives the first-time greeting. */
+  firstTime: boolean;
   exploreEntry: { href: string; label: string };
   synthetic: boolean;
 };
@@ -138,6 +148,7 @@ export type ProductShellSummary = {
   routineStepCount: number;
   routineAvailable: boolean;
   routineUnavailableMessage: string | null;
+  concerns: CustomerPortalViewModel['concerns'];
   synthetic: boolean;
 };
 
@@ -298,6 +309,13 @@ function syntheticHome(): CustomerHomeReadModel {
       visible: attentionItems.length > 0,
       items: attentionItems,
     },
+    concernProducts: {
+      visible: false,
+      concernNames: [],
+      items: [],
+    },
+    concerns: portal.concerns,
+    firstTime: shelfItems.length === 0 && routineSteps.length === 0 && portal.concerns.length === 0,
     exploreEntry: { href: '/me/explore', label: 'Explore products' },
     synthetic: true,
   };
@@ -378,6 +396,7 @@ function syntheticProduct(slug: string): CustomerProductReadModel {
       routineStepCount: portal.routine.length,
       routineAvailable: (portal.routineState?.status ?? 'ready') === 'ready',
       routineUnavailableMessage: portal.routineState?.message ?? null,
+      concerns: portal.concerns,
       synthetic: true,
     },
     routineContext,
@@ -422,9 +441,10 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
 
   const catalogue = await readCatalogue();
   const catalogueBySlug = new Map(catalogue.map(p => [p.slug, p]));
-  const [shelfData, routineData] = await Promise.all([
+  const [shelfData, routineData, concerns] = await Promise.all([
     readShelf(identity, catalogueBySlug),
     readRoutines(identity, catalogueBySlug),
+    readConcerns(identity),
   ]);
 
   const shelfItems = shelfData.shelf;
@@ -458,6 +478,32 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
       href: '/me/shelf',
     }));
 
+  // Governed eligibility: concern products are catalogue products whose
+  // supportedConcernSlugs intersect the customer's saved concern slugs,
+  // minus products already on the shelf or in a routine. Limited to 6.
+  const concernSlugs = new Set(
+    concerns.filter(c => c.kind === 'concern').map(c => c.slug),
+  );
+  const ownedSlugs = new Set<string>();
+  for (const item of shelfItems) {
+    if (item.product) ownedSlugs.add(item.product.slug);
+  }
+  for (const step of routineSteps) {
+    ownedSlugs.add(step.product.slug);
+  }
+  const concernProductItems = catalogue
+    .filter(product => (
+      !ownedSlugs.has(product.slug)
+      && product.supportedConcernSlugs.some(slug => concernSlugs.has(slug))
+    ))
+    .slice(0, 6);
+  const concernNames = concerns
+    .filter(c => c.kind === 'concern')
+    .map(c => c.name);
+  const firstTime = shelfItems.length === 0
+    && routineSteps.length === 0
+    && concerns.length === 0;
+
   return {
     account: {
       displayName: identity.displayName,
@@ -486,6 +532,13 @@ export async function readMeHome(identity: CustomerAccessIdentity): Promise<Cust
       visible: attentionItems.length > 0,
       items: attentionItems,
     },
+    concernProducts: {
+      visible: concernProductItems.length > 0,
+      concernNames,
+      items: concernProductItems,
+    },
+    concerns,
+    firstTime,
     exploreEntry: { href: '/me/explore', label: 'Explore products' },
     synthetic: false,
   };
@@ -589,11 +642,12 @@ export async function readMeProduct(identity: CustomerAccessIdentity, product: P
   // Route-scoped reads: count + contextForProduct for shelf, summary +
   // contextForProduct for routine. Does NOT load the complete shelf or every
   // routine merely to render one product.
-  const [shelfCountResult, shelfContextResult, routineSummaryResult, routineContextResult] = await Promise.all([
+  const [shelfCountResult, shelfContextResult, routineSummaryResult, routineContextResult, concerns] = await Promise.all([
     customerShelfService.count(identity),
     customerShelfService.contextForProduct(identity, slug),
     customerRoutineService.summary(identity),
     customerRoutineService.contextForProduct(identity, slug),
+    readConcerns(identity),
   ]);
 
   const shelfAvailable = shelfCountResult.status === 'ready' && shelfContextResult.status === 'ready';
@@ -647,6 +701,7 @@ export async function readMeProduct(identity: CustomerAccessIdentity, product: P
       routineStepCount: routineSummaryResult.status === 'ready' ? routineSummaryResult.stepCount : 0,
       routineAvailable,
       routineUnavailableMessage,
+      concerns,
       synthetic: false,
     },
     routineContext,

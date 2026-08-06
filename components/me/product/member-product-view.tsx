@@ -62,7 +62,13 @@ export function MemberProductView({
   // Personal context line: placed directly below the display line
   const shelfLabel = shelfContext ? shelfContextLabel(shelfContext) : null;
   const routineLabel = routineContext?.label ?? null;
-  const hasPersonalContext = shelfLabel || routineLabel;
+  const matchedConcerns = viewModel.concerns.filter(
+    (concern) => product.supportedConcernSlugs.includes(concern.slug),
+  );
+  const concernLabel = matchedConcerns.length
+    ? `Matches your ${matchedConcerns.map((c) => c.name).join(' and ')} concern${matchedConcerns.length === 1 ? '' : 's'}`
+    : null;
+  const hasPersonalContext = shelfLabel || routineLabel || concernLabel;
 
   return (
     <article className={`${styles.routePage} ${styles.stackPage} ${styles.productPage}`} aria-labelledby="me-product-title">
@@ -76,7 +82,7 @@ export function MemberProductView({
           <p>{product.displayLine}</p>
           {hasPersonalContext ? (
             <p className={styles.productPersonalLine} aria-label="My product context">
-              {shelfLabel}{routineLabel ? ` · ${routineLabel}` : ''}
+              {shelfLabel}{routineLabel ? ` · ${routineLabel}` : ''}{concernLabel ? `${shelfLabel || routineLabel ? ' · ' : ''}${concernLabel}` : ''}
             </p>
           ) : null}
           {reading ? (

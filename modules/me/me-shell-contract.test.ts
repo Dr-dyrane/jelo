@@ -210,7 +210,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   });
   assert.equal(createMeContextSheetModel({
     route: { kind: 'home' }, viewModel, visibleProductCount: 1, product: undefined,
-  }).summary, '1 saved product · 1 step');
+  }).summary, '1 saved product · 1 step · 1 concern');
   assert.equal(createMeContextSheetModel({
     route: { kind: 'explore' }, viewModel, visibleProductCount: 1, product: undefined,
   }).title, 'My Explore');
@@ -219,7 +219,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   }).items[0]?.href, '/me/product/exact-product?from=routine');
   assert.equal(createMeContextSheetModel({
     route: { kind: 'consult' }, viewModel, visibleProductCount: 1, product: undefined,
-  }).summary, '1 concern · 1 match');
+  }).summary, '1 concern · 1 matching product');
   const memberProduct = createMeContextSheetModel({
     route: { kind: 'product', slug: product.slug, origin: 'shelf' },
     viewModel,
@@ -239,7 +239,7 @@ test('Me context stays truthful and expands into useful route shortcuts', () => 
   };
   assert.equal(createMeContextSheetModel({
     route: { kind: 'home' }, viewModel: unavailableViewModel, visibleProductCount: 1,
-  }).summary, 'Shelf unavailable · 1 step');
+  }).summary, 'Shelf unavailable · 1 step · 1 concern');
   assert.equal(createMeContextSheetModel({
     route: { kind: 'shelf' }, viewModel: unavailableViewModel, visibleProductCount: 1,
   }).summary, 'Shelf unavailable');

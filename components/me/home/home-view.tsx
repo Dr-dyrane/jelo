@@ -29,10 +29,24 @@ export function HomeView({
   shelfAction?: ShelfActionHandler;
   onShelfMutation: (result: CustomerShelfActionResult) => void;
 }) {
-  const { greeting, askEntry, routineSection, shelfSection, priceEvidenceSection, attentionSection, exploreEntry } = homeModel;
+  const { greeting, askEntry, routineSection, shelfSection, priceEvidenceSection, attentionSection, concernProducts, firstTime, exploreEntry } = homeModel;
 
   return (
     <>
+      {/* 0. First-time welcome — warm onboarding prompt when shelf, routine, and concerns are all empty */}
+      {firstTime ? (
+        <section className={styles.firstTimeWelcome} aria-label="Welcome to JeloCare">
+          <h1 className={styles.firstTimeWelcomeTitle}>Welcome to JeloCare</h1>
+          <p className={styles.firstTimeWelcomeText}>
+            What are you noticing? Search your care concerns to get started.
+          </p>
+          <Link className={styles.firstTimeWelcomeAction} href="/me/consult">
+            Search my care
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </section>
+      ) : null}
+
       {/* 1. Personal greeting — application scale, no editorial eyebrow */}
       <section className={styles.feedGreeting} aria-label={ME_PORTAL_SURFACES.home.title ?? 'Home'}>
         <h1 className={styles.feedGreetingName}>{greeting}</h1>
@@ -135,6 +149,28 @@ export function HomeView({
         </section>
       ) : null}
 
+      {/* 4b. For your concerns — products reviewed for saved concerns, not yet saved */}
+      {concernProducts.visible ? (
+        <section className={styles.concernProductsSection} aria-labelledby="me-concern-products-title">
+          <div className={styles.feedSectionHeading}>
+            <h2 id="me-concern-products-title">For your concerns</h2>
+          </div>
+          <p className={styles.concernProductsSubtext}>
+            Products reviewed for {formatConcernNames(concernProducts.concernNames)} that you haven&apos;t saved yet.
+          </p>
+          <div className={`product-rail ${styles.concernProductsRail}`}>
+            {concernProducts.items.map((product) => (
+              <ProductCard
+                key={product.slug}
+                product={product}
+                href={memberProductHref(product, 'home')}
+                density="compact"
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {/* 5. Fresh price evidence — only eligible items from the model */}
       {priceEvidenceSection.visible ? (
         <section className={styles.feedSection} aria-labelledby="me-price-evidence-title">
@@ -192,4 +228,12 @@ export function HomeView({
       </section>
     </>
   );
+}
+
+/** Format a list of concern names as a natural-language list, e.g. "acne, dark spots, and sensitive skin". */
+function formatConcernNames(names: readonly string[]): string {
+  if (names.length === 0) return 'your concerns';
+  if (names.length === 1) return names[0];
+  if (names.length === 2) return `${names[0]} and ${names[1]}`;
+  return `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`;
 }

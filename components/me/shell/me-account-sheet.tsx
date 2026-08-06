@@ -9,16 +9,18 @@ import {
   useTransition,
   type RefObject,
 } from 'react';
-import { clearShelfAction } from '@/app/(customer)/me/actions';
+import { clearConcernsAction, clearShelfAction } from '@/app/(customer)/me/actions';
 import { createPreviewShelfExport } from '@/components/me/shelf/me-shelf-state';
 import { useControlledDialog } from '@/components/ui/use-controlled-dialog';
 import { ThemeToggle } from '@/components/navigation/theme-toggle';
 import { authClient } from '@/lib/auth/client';
 import type {
+  CustomerPortalConcernReference,
   CustomerPortalShelfItem,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
+import type { CustomerConcernActionResult } from '@/lib/customer/concern-service';
 import styles from './me-account-sheet.module.css';
 
 export type MeAccountHelperItem = {
@@ -40,6 +42,9 @@ export function MeAccountSheet({
   shelfCount,
   shelfAvailable,
   onPreviewClear,
+  concerns,
+  concernsAvailable = true,
+  onPreviewClearConcerns,
 }: {
   account: CustomerPortalViewModel['account'];
   open: boolean;
@@ -50,6 +55,9 @@ export function MeAccountSheet({
   shelfCount?: number;
   shelfAvailable: boolean;
   onPreviewClear?: () => CustomerShelfActionResult;
+  concerns: readonly CustomerPortalConcernReference[];
+  concernsAvailable?: boolean;
+  onPreviewClearConcerns?: () => CustomerConcernActionResult;
 }) {
   // When an explicit count is provided (route-scoped product page), use it.
   // Otherwise fall back to the item array length (home/shelf routes).
@@ -65,7 +73,9 @@ export function MeAccountSheet({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [lifecycleFeedback, setLifecycleFeedback] = useState('');
+  const [concernFeedback, setConcernFeedback] = useState('');
   const [clearing, startClearing] = useTransition();
+  const [clearingConcerns, startClearingConcerns] = useTransition();
 
   async function signOut() {
     if (busy) return;
@@ -95,6 +105,21 @@ export function MeAccountSheet({
     startClearing(async () => {
       const result = await clearShelfAction();
       setLifecycleFeedback(result.message);
+      if (result.status === 'cleared') router.refresh();
+    });
+  }
+
+  function clearConcerns() {
+    if (clearingConcerns || !concernsAvailable || concerns.length === 0) return;
+    if (account.synthetic) {
+      const result = onPreviewClearConcerns?.();
+      if (result) setConcernFeedback(result.message);
+      return;
+    }
+    if (!window.confirm('Remove all saved concerns? This cannot be undone.')) return;
+    startClearingConcerns(async () => {
+      const result = await clearConcernsAction();
+      setConcernFeedback(result.message);
       if (result.status === 'cleared') router.refresh();
     });
   }
@@ -195,6 +220,23 @@ export function MeAccountSheet({
             <Trash2 size={18} aria-hidden="true" /> {clearing ? 'Clearing…' : 'Clear Shelf'}
           </button>
           <p role="status" aria-live="polite">{lifecycleFeedback}</p>
+        </section>
+
+        <section className={styles.lifecycle} aria-labelledby="me-concerns-data-title">
+          <div>
+            <strong id="me-concerns-data-title">My concerns</strong>
+            <span>{!concernsAvailable ? 'Unavailable' : concerns.length === 0 ? 'No concerns saved' : `${concerns.length} saved concern${concerns.length === 1 ? '' : 's'}`}</span>
+          </div>
+          {concernsAvailable && concerns.length > 0 ? (
+            <button
+              type="button"
+              onClick={clearConcerns}
+              disabled={clearingConcerns || (account.synthetic && !onPreviewClearConcerns)}
+            >
+              <Trash2 size={18} aria-hidden="true" /> {clearingConcerns ? 'Clearing…' : 'Clear concerns'}
+            </button>
+          ) : null}
+          <p role="status" aria-live="polite">{concernFeedback}</p>
         </section>
 
         <footer className={styles.footer}>

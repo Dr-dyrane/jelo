@@ -6,6 +6,7 @@ import { requireCustomer } from '@/lib/customer/access';
 import { parseCustomerRoutineInput } from '@/lib/customer/routine-input';
 import { customerRoutineService } from '@/lib/customer/routine-service';
 import { customerShelfService, type CustomerShelfActionResult } from '@/lib/customer/shelf-service';
+import { customerConcernService, type CustomerConcernActionResult } from '@/lib/customer/concern-service';
 
 function revalidateShelfRoutes(productSlug?: string) {
   revalidatePath('/me', 'layout');
@@ -38,6 +39,13 @@ export async function clearShelfAction(): Promise<CustomerShelfActionResult> {
   const customer = await requireCustomer();
   const result = await customerShelfService.clear(customer);
   if (result.status === 'cleared') revalidateShelfRoutes();
+  return result;
+}
+
+export async function clearConcernsAction(): Promise<CustomerConcernActionResult> {
+  const customer = await requireCustomer();
+  const result = await customerConcernService.clear(customer);
+  if (result.status === 'cleared') revalidatePath('/me', 'layout');
   return result;
 }
 
