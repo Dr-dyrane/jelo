@@ -29,8 +29,15 @@
   }
 }
 
-.headline {
+.headlineRow {
   width: min(100%, 30rem);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.headline {
   margin: 0;
   font-family: var(--font-display), serif;
   font-size: clamp(34px, 6.4vw, 58px);
@@ -42,9 +49,13 @@
 .headline em { font-style: normal; color: var(--wine); }
 
 @media (min-width: 980px) {
-  .headline {
+  .headlineRow {
     width: 100%;
     max-width: 64rem;
+    align-items: baseline;
+  }
+  .headline {
+    flex: 1;
     display: flex;
     align-items: baseline;
     gap: .6rem;

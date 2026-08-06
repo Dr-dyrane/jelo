@@ -41,11 +41,13 @@ export default async function SharePage({ params }: { params: Promise<{ slug: st
 
   return (
     <main className={styles.stage}>
-      <ScreenshotButton cardId="share-card" fileName={`${data.view.brand}-${data.view.name}-jelocare`} />
-      <h1 className={styles.headline}>
-        {data.headlineLead}
-        {data.headlineEmph ? <><br /><em>{data.headlineEmph}</em></> : null}
-      </h1>
+      <div className={styles.headlineRow}>
+        <h1 className={styles.headline}>
+          {data.headlineLead}
+          {data.headlineEmph ? <><br /><em>{data.headlineEmph}</em></> : null}
+        </h1>
+        <ScreenshotButton cardId="share-card" fileName={`${data.view.brand}-${data.view.name}-jelocare`} />
+      </div>
       <div className={styles.cardGrid}>
         <div id="share-card">
           <ShareCard view={data.view} />
