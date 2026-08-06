@@ -1144,6 +1144,7 @@
 .productEvidenceAction {
   padding: 0 18px;
   border: 0;
+  border-radius: 999px;
   cursor: pointer;
   font: inherit;
 }
