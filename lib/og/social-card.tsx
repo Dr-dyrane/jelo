@@ -157,6 +157,7 @@ export const PUBLIC_SOCIAL_ROUTE_COVERAGE = [
 
 export const NON_INDEXABLE_ROUTE_COVERAGE = [
   { family: '/image-audit', reason: 'internal catalogue media review' },
+  { family: '/go', reason: 'transitional retailer handoff — not a destination page' },
   { family: '/sign-in', reason: 'authentication' },
   { family: '/me', reason: 'private customer workspace' },
   { family: '/ops', reason: 'private operations workspace' },

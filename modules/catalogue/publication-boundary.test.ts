@@ -141,8 +141,13 @@ test('a projected dossier release appears once and keeps reconciled database off
 });
 
 test('outbound redirects resolve through the same reconciled catalogue', async () => {
-  const route = await readFile(path.join(process.cwd(), 'app/(site)/go/route.ts'), 'utf8');
+  // The trust bridge page and continue route both resolve through the
+  // reconciled catalogue (via resolveHandoff / findCatalogueProduct).
+  const handoffModel = await readFile(path.join(process.cwd(), 'lib/commerce/handoff-model.ts'), 'utf8');
+  const continueRoute = await readFile(path.join(process.cwd(), 'app/(site)/go/continue/route.ts'), 'utf8');
 
-  assert.match(route, /await findCatalogueProduct\(productSlug\)/);
-  assert.doesNotMatch(route, /import \{ products \} from '@\/data\/catalogue'/);
+  assert.match(handoffModel, /await findCatalogueProduct\(productSlug\)/);
+  assert.match(continueRoute, /await findCatalogueProduct\(productSlug\)/);
+  assert.doesNotMatch(handoffModel, /import \{ products \} from '@\/data\/catalogue'/);
+  assert.doesNotMatch(continueRoute, /import \{ products \} from '@\/data\/catalogue'/);
 });

@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowDown, ArrowUp, ArrowUpRight, MapPin, Truck } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, MapPin, SlidersHorizontal, Truck } from 'lucide-react';
 import { type ReactNode, useMemo, useState } from 'react';
 import type { FulfilmentMethod, Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
@@ -84,6 +84,7 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
   const [channel, setChannel] = useState<'all' | OrderChannel>('all');
   const [fulfilment, setFulfilment] = useState<'any' | FulfilmentMethod>('any');
   const [sort, setSort] = useState<'ranked' | 'trust' | 'price'>('ranked');
+  const [showFilters, setShowFilters] = useState(false);
   const preferences = useMemo(() => (fulfilment === 'any' ? {} : { fulfilment }), [fulfilment]);
   const ranked = useMemo(() => rankOffers(offers, market, undefined, preferences), [offers, market, preferences]);
   const liveTrust = (offer: Offer) => nigeriaRetailers.find(r => r.name === offer.retailer)?.trust ?? offer.trust;
@@ -129,6 +130,49 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
     ? `Based on ${pricedStoreCount} of ${listingCount} stores`
     : null;
 
+  // Best match is the top-ranked offer — shown as a calm, distinct card.
+  const bestMatch = displayed[0] ?? null;
+  const restOffers = displayed.slice(1);
+  const hasAdvancedFilters = channels.length > 1 || fulfilments.length > 1 || filtered.length > 1;
+
+  function renderOfferRow(offer: Offer, index: number) {
+    const fresh = isOfferFresh(offer);
+    const price = observedMarketPrice(offer, market);
+    const checked = shortDate(offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt ?? offer.checkedAt);
+    const stock = observedStockLabel(offer, fresh);
+    const fulfilmentText = offerFulfilmentLabel(offer);
+    const deliveryFee = offer.priceObservation?.landedCost === 'excluded' ? observedDeliveryFee(offer, market) : null;
+    const movement = selectRetailerPriceMovement(priceTrends, market, offer.retailer);
+    return (
+      <a
+        key={`${offer.retailer}-${offer.url}`}
+        className={`retailer-row ${offer.available && fresh ? '' : 'retailer-row-unavailable'}`}
+        href={`/go?product=${encodeURIComponent(productSlug)}&retailer=${encodeURIComponent(offer.retailer)}`}
+      >
+        <span className="retailer-rank">{String(index + 1).padStart(2, '0')}</span>
+        <span>
+          <strong>{offer.retailer}</strong>
+          <small>{stock}{checked ? ` · ${checked}` : ''}</small>
+          {fulfilmentText ? <small>{fulfilmentText}</small> : null}
+          {deliveryFee != null ? <small className="retailer-delivery">+{formatAmount(deliveryFee, market)} delivery</small> : null}
+          {offer.priceObservation ? <small>{offer.priceObservation.size}</small> : null}
+          {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}{hasSellerIdentityEvidence(offer) ? '' : ' · Check seller'}</small> : null}
+          {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Check with store</small> : null}
+          {hasBrandAuthorizationEvidence(offer) ? <small>Listed by the brand</small> : null}
+          <small className="retailer-trust">Trust {liveTrust(offer)}</small>
+        </span>
+        <span className="retailer-price">
+          <span className="retailer-price-line">
+            <strong>{price != null ? formatAmount(price, market) : 'Check price'}</strong>
+            {price != null ? <PriceTrend movement={movement} subject={`${offer.retailer} price`} /> : null}
+          </span>
+          <small>{offerActionLabel(offer)}</small>
+        </span>
+        <ArrowUpRight className="retailer-arrow" size={19}/>
+      </a>
+    );
+  }
+
   return (
     <div className="retailer-panel">
       <div className="retailer-market">
@@ -159,73 +203,65 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
         </div> : null}
       </div> : null}
       {coverageNote ? <p className="market-summary-coverage">{coverageNote}</p> : null}
-      {channels.length > 1 ? <div className="retailer-channel-filter" role="group" aria-label="Order channel">
-        <button className={activeChannel === 'all' ? 'active' : ''} type="button" onClick={() => setChannel('all')}>All</button>
-        {channels.map(value => <button
-          className={activeChannel === value ? 'active' : ''}
-          key={value}
+
+      {/* Best match — one calm recommended option */}
+      {bestMatch ? (
+        <div className="retailer-best-match" aria-label="Recommended store">
+          <p className="retailer-best-match-label">Best match</p>
+          {renderOfferRow(bestMatch, 0)}
+        </div>
+      ) : null}
+
+      {/* Advanced filters — progressively disclosed */}
+      {hasAdvancedFilters ? (
+        <button
           type="button"
-          onClick={() => setChannel(value)}
-        >{orderChannelLabel(value)}</button>)}
-      </div> : null}
-      {fulfilments.length > 1 ? <div className="retailer-market retailer-fulfilment">
-        <span><Truck size={15}/> Prefer</span>
-        <div role="group" aria-label="Fulfilment preference">
-          <button className={activeFulfilment === 'any' ? 'active' : ''} type="button" onClick={() => setFulfilment('any')}>Any</button>
-          {fulfilments.map(method => <button
-            className={activeFulfilment === method ? 'active' : ''}
-            key={method}
-            type="button"
-            onClick={() => setFulfilment(method)}
-          >{fulfilmentMethodLabel(method)}</button>)}
+          className="retailer-filters-toggle"
+          aria-expanded={showFilters}
+          aria-controls="retailer-advanced-filters"
+          onClick={() => setShowFilters(!showFilters)}
+        >
+          <SlidersHorizontal size={14} aria-hidden="true" /> {showFilters ? 'Hide filters' : 'More filters'}
+        </button>
+      ) : null}
+      {showFilters && hasAdvancedFilters ? (
+        <div id="retailer-advanced-filters" className="retailer-advanced-filters">
+          {channels.length > 1 ? <div className="retailer-channel-filter" role="group" aria-label="Order channel">
+            <button className={activeChannel === 'all' ? 'active' : ''} type="button" onClick={() => setChannel('all')}>All</button>
+            {channels.map(value => <button
+              className={activeChannel === value ? 'active' : ''}
+              key={value}
+              type="button"
+              onClick={() => setChannel(value)}
+            >{orderChannelLabel(value)}</button>)}
+          </div> : null}
+          {fulfilments.length > 1 ? <div className="retailer-market retailer-fulfilment">
+            <span><Truck size={15}/> Prefer</span>
+            <div role="group" aria-label="Fulfilment preference">
+              <button className={activeFulfilment === 'any' ? 'active' : ''} type="button" onClick={() => setFulfilment('any')}>Any</button>
+              {fulfilments.map(method => <button
+                className={activeFulfilment === method ? 'active' : ''}
+                key={method}
+                type="button"
+                onClick={() => setFulfilment(method)}
+              >{fulfilmentMethodLabel(method)}</button>)}
+            </div>
+          </div> : null}
+          {filtered.length > 1 ? <div className="retailer-market retailer-sort" role="group" aria-label="Sort stores">
+            <span>Sort by</span>
+            <div>
+              <button className={sort === 'ranked' ? 'active' : ''} type="button" onClick={() => setSort('ranked')}>Best match</button>
+              <button className={sort === 'trust' ? 'active' : ''} type="button" onClick={() => setSort('trust')}>Trust</button>
+              <button className={sort === 'price' ? 'active' : ''} type="button" onClick={() => setSort('price')}>Price</button>
+            </div>
+          </div> : null}
         </div>
-      </div> : null}
-      {filtered.length > 1 ? <div className="retailer-market retailer-sort" role="group" aria-label="Sort stores">
-        <span>Sort by</span>
-        <div>
-          <button className={sort === 'ranked' ? 'active' : ''} type="button" onClick={() => setSort('ranked')}>Best match</button>
-          <button className={sort === 'trust' ? 'active' : ''} type="button" onClick={() => setSort('trust')}>Trust</button>
-          <button className={sort === 'price' ? 'active' : ''} type="button" onClick={() => setSort('price')}>Price</button>
-        </div>
-      </div> : null}
+      ) : null}
+
+      {/* Remaining offers */}
       <div className="retailer-list">
-        {displayed.length ? displayed.map((offer, index) => {
-          const fresh = isOfferFresh(offer);
-          const price = observedMarketPrice(offer, market);
-          const checked = shortDate(offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt ?? offer.checkedAt);
-          const stock = observedStockLabel(offer, fresh);
-          const fulfilmentText = offerFulfilmentLabel(offer);
-          const deliveryFee = offer.priceObservation?.landedCost === 'excluded' ? observedDeliveryFee(offer, market) : null;
-          const movement = selectRetailerPriceMovement(priceTrends, market, offer.retailer);
-          return (
-          <a
-            key={`${offer.retailer}-${offer.url}`}
-            className={`retailer-row ${offer.available && fresh ? '' : 'retailer-row-unavailable'}`}
-            href={`/go?product=${encodeURIComponent(productSlug)}&retailer=${encodeURIComponent(offer.retailer)}`}
-          >
-            <span className="retailer-rank">{String(index + 1).padStart(2, '0')}</span>
-            <span>
-              <strong>{offer.retailer}</strong>
-              <small>{stock}{checked ? ` · ${checked}` : ''}</small>
-              {fulfilmentText ? <small>{fulfilmentText}</small> : null}
-              {deliveryFee != null ? <small className="retailer-delivery">+{formatAmount(deliveryFee, market)} delivery</small> : null}
-              {offer.priceObservation ? <small>{offer.priceObservation.size}</small> : null}
-              {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}{hasSellerIdentityEvidence(offer) ? '' : ' · Check seller'}</small> : null}
-              {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Check with store</small> : null}
-              {hasBrandAuthorizationEvidence(offer) ? <small>Listed by the brand</small> : null}
-              <small className="retailer-trust">Trust {liveTrust(offer)}</small>
-            </span>
-            <span className="retailer-price">
-              <span className="retailer-price-line">
-                <strong>{price != null ? formatAmount(price, market) : 'Check price'}</strong>
-                {price != null ? <PriceTrend movement={movement} subject={`${offer.retailer} price`} /> : null}
-              </span>
-              <small>{offerActionLabel(offer)}</small>
-            </span>
-            <ArrowUpRight className="retailer-arrow" size={19}/>
-          </a>
-          );
-        }) : <div className="retailer-empty"><p>No exact offer yet.</p><button type="button" onClick={() => setMarket(market === 'NG' ? 'US' : 'NG')}>Try {market === 'NG' ? 'United States' : 'Nigeria'}</button></div>}
+        {restOffers.length ? restOffers.map((offer, index) => renderOfferRow(offer, index + 1)) : null}
+        {displayed.length === 0 ? <div className="retailer-empty"><p>No exact offer yet.</p><button type="button" onClick={() => setMarket(market === 'NG' ? 'US' : 'NG')}>Try {market === 'NG' ? 'United States' : 'Nigeria'}</button></div> : null}
       </div>
       <div className="retailer-foot">
         <p className="retailer-disclosure">Prices can change. Delivery may cost extra.</p>
