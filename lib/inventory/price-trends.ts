@@ -9,6 +9,7 @@ import {
   type PriceTrendOfferSnapshot,
   type ProductPriceTrends,
 } from '@/modules/commerce/price-trends';
+import { computeStaticPriceTrends } from './static-price-trends';
 
 type ObservationRow = CurrentPriceObservation;
 type ProductObservationRow = ObservationRow & {
@@ -77,7 +78,9 @@ export async function getProductsPriceTrends(
     }
   }
 
-  if (!hasPostgresConfig() || snapshots.size === 0) return results;
+  if (!hasPostgresConfig() || snapshots.size === 0) {
+    return computeStaticPriceTrends(requests);
+  }
 
   const slugs = [...snapshots.keys()];
   try {
@@ -136,10 +139,10 @@ export async function getProductsPriceTrends(
     console.error(
       `Price history unavailable for ${slugs.length} ${
         slugs.length === 1 ? 'product' : 'products'
-      }; hiding movement.`,
+      }; falling back to static trends.`,
       error,
     );
-    return results;
+    return computeStaticPriceTrends(requests);
   }
 }
 
