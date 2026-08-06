@@ -193,6 +193,7 @@ export function ProductQuickPanelSheet({
               offers={data.offers}
               productSlug={data.productSlug}
               priceTrends={data.priceTrends}
+              marketSnapshot={data.marketSnapshot}
               footer={shareable ? (
                 <ShareButton
                   path={`/share/${data.productSlug}`}

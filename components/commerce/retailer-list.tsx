@@ -13,8 +13,8 @@ import {
   orderChannelLabel,
 } from '@/modules/commerce/offer-channel';
 import { rankOffers } from '@/modules/commerce/rank-offers';
-import { summarizeMarket } from '@/modules/commerce/market-summary';
 import { isOfferFresh } from '@/modules/commerce/offer-freshness';
+import type { ProductMarketSnapshot } from '@/modules/commerce/product-market-snapshot';
 import {
   hasBrandAuthorizationEvidence,
   hasListingEvidence,
@@ -76,7 +76,7 @@ function PriceTrend({
   );
 }
 
-export function RetailerList({ offers, productSlug, priceTrends, footer }: { offers: Offer[]; productSlug: string; priceTrends?: ProductPriceTrends; footer?: ReactNode }) {
+export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot, footer }: { offers: Offer[]; productSlug: string; priceTrends?: ProductPriceTrends; marketSnapshot?: ProductMarketSnapshot; footer?: ReactNode }) {
   // Nigeria is deliberately the first product-page market. JeloCare should show
   // local buying intelligence before asking shoppers to consider international routes.
   const [market, setMarket] = useState<Market>('NG');
@@ -94,13 +94,26 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
     : visible.filter(offer => offerOrderChannels(offer).includes(activeChannel));
   const fulfilments = [...new Set(visible.flatMap(offerFulfilmentMethods))];
   const activeFulfilment = fulfilment === 'any' || fulfilments.includes(fulfilment) ? fulfilment : 'any';
-  const summary = useMemo(() => summarizeMarket(offers, market), [offers, market]);
+
+  // Use the server-owned market snapshot when available — one source of truth.
+  // Fall back to deriving from offers only when no snapshot is passed (public pages).
+  const snapshot = marketSnapshot?.[market];
+  const reading = snapshot?.reading;
+  const extras = snapshot?.extras;
+  const lowestPrice = reading?.state === 'priced' ? parseFloat(reading.priceLabel.replace(/^[^\d]*/, '').replace(/,/g, '')) : null;
+  const pricedStoreCount = extras?.pricedStoreCount ?? 0;
+  const listingCount = extras?.listingCount ?? 0;
+  const lastCheckedAt = reading?.state === 'priced' || reading?.state === 'listing-only' ? reading.observedAt : null;
+  const priceBasis = reading?.state === 'priced' ? reading.basis : 'none';
+  const typicalPrice = extras?.typicalPrice ?? null;
+  const savings = extras?.savings ?? null;
+
   const marketMovement = preferredPriceMovement(priceTrends?.[market]);
   // Confidence, surfaced as compared-set coverage — never a grade (ADR 0006). Only
   // shown when some checked stores are unpriced, so the reader knows the summary
   // reflects a subset (out-of-stock or comparison-excluded stores are the gap).
-  const coverageNote = summary.pricedRetailerCount > 0 && summary.retailerCount > summary.pricedRetailerCount
-    ? `Based on ${summary.pricedRetailerCount} of ${summary.retailerCount} stores`
+  const coverageNote = pricedStoreCount > 0 && listingCount > pricedStoreCount
+    ? `Based on ${pricedStoreCount} of ${listingCount} stores`
     : null;
 
   return (
@@ -112,24 +125,24 @@ export function RetailerList({ offers, productSlug, priceTrends, footer }: { off
           <button className={market === 'US' ? 'active' : ''} type="button" onClick={() => setMarket('US')}>United States</button>
         </div>
       </div>
-      {summary.retailerCount ? <div className="market-summary" aria-label={`${market === 'NG' ? 'Nigeria' : 'United States'} market summary`}>
+      {listingCount ? <div className="market-summary" aria-label={`${market === 'NG' ? 'Nigeria' : 'United States'} market summary`}>
         <span>
-          <small>{summary.priceBasis === 'multi-source' ? 'Lowest observed' : 'Observed'}</small>
+          <small>{priceBasis === 'multi-source' ? 'Lowest observed' : 'Observed'}</small>
           <span className="market-price-line">
-            <strong>{summary.lowestPrice == null ? 'Pending' : formatAmount(summary.lowestPrice, market)}</strong>
+            <strong>{lowestPrice == null ? 'Pending' : formatAmount(lowestPrice, market)}</strong>
           </span>
         </span>
-        {summary.typicalPrice != null && summary.typicalPrice !== summary.lowestPrice ? <span>
+        {typicalPrice != null && typicalPrice !== lowestPrice ? <span>
           <small>Typical</small>
           <span className="market-price-line">
-            <strong>{formatAmount(summary.typicalPrice, market)}</strong>
+            <strong>{formatAmount(typicalPrice, market)}</strong>
             <PriceTrend movement={marketMovement} subject="Market price" />
           </span>
         </span> : null}
-        <span><small>Stores</small><strong>{summary.pricedRetailerCount}</strong></span>
-        {summary.lastCheckedAt ? <span><small>Checked</small><strong>{shortDate(summary.lastCheckedAt)}</strong></span> : null}
-        {summary.savings ? <div className="market-summary-notes">
-          {summary.savings ? <span>Save {formatAmount(summary.savings, market)}.</span> : null}
+        <span><small>Stores</small><strong>{pricedStoreCount}</strong></span>
+        {lastCheckedAt ? <span><small>Checked</small><strong>{shortDate(lastCheckedAt)}</strong></span> : null}
+        {savings ? <div className="market-summary-notes">
+          {savings ? <span>Save {formatAmount(savings, market)}.</span> : null}
         </div> : null}
       </div> : null}
       {coverageNote ? <p className="market-summary-coverage">{coverageNote}</p> : null}

@@ -63,9 +63,11 @@ export default async function MeRoutePage({
     // One exact catalogue lookup — shared by the read model and the panel.
     const selectedProduct = await findCatalogueProduct(route.slug);
     if (!selectedProduct) notFound();
+    // One `now` for the entire route — inline reading and panel agree.
+    const now = Date.now();
     const [productReadModel, productPanelData] = await Promise.all([
-      readMeProduct(customer, route.slug),
-      readProductPanelData(selectedProduct),
+      readMeProduct(customer, selectedProduct, now),
+      readProductPanelData(selectedProduct, now),
     ]);
     if (!productReadModel.product) notFound();
     return createElement(MePortal, {

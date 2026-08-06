@@ -7,6 +7,14 @@ export type CustomerRoutineReadResult =
   | { status: 'ready'; routines: CustomerRoutineRecord[] }
   | { status: 'unavailable'; routines: []; message: string };
 
+export type CustomerRoutineSummaryResult =
+  | { status: 'ready'; routineCount: number; stepCount: number }
+  | { status: 'unavailable'; routineCount: 0; stepCount: 0; message: string };
+
+export type CustomerRoutineContextResult =
+  | { status: 'ready'; routines: CustomerRoutineRecord[] }
+  | { status: 'unavailable'; routines: []; message: string };
+
 export type CustomerRoutineActionResult = {
   status: 'created' | 'updated' | 'removed' | 'already_removed' | 'conflict' | 'error';
   message: string;
@@ -26,6 +34,31 @@ export function createCustomerRoutineService(repository: CustomerRoutineReposito
         return { status: 'ready', routines: await repository.list(identity.subject) };
       } catch {
         console.error('Customer Routine read unavailable.');
+        return { status: 'unavailable', routines: [], message: 'Routine is unavailable right now. Try again.' };
+      }
+    },
+
+    async summary(identity: CustomerAccessIdentity): Promise<CustomerRoutineSummaryResult> {
+      if (!availableOwner(identity)) {
+        return { status: 'unavailable', routineCount: 0, stepCount: 0, message: 'Routine is unavailable right now. Try again.' };
+      }
+      try {
+        const result = await repository.summary(identity.subject);
+        return { status: 'ready', routineCount: result.routineCount, stepCount: result.stepCount };
+      } catch {
+        console.error('Customer Routine summary unavailable.');
+        return { status: 'unavailable', routineCount: 0, stepCount: 0, message: 'Routine is unavailable right now. Try again.' };
+      }
+    },
+
+    async contextForProduct(identity: CustomerAccessIdentity, slug: string): Promise<CustomerRoutineContextResult> {
+      if (!availableOwner(identity)) {
+        return { status: 'unavailable', routines: [], message: 'Routine is unavailable right now. Try again.' };
+      }
+      try {
+        return { status: 'ready', routines: await repository.contextForProduct(identity.subject, slug) };
+      } catch {
+        console.error('Customer Routine context unavailable.');
         return { status: 'unavailable', routines: [], message: 'Routine is unavailable right now. Try again.' };
       }
     },

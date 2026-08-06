@@ -108,21 +108,26 @@ function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPorta
 
 // Same transitional bridge for the route-scoped product read model.
 // Uses the real shell summary from the read model — not a fake adapter.
-// The shell chrome only needs account, shelf state, and counts.
+// For synthetic customers, passes the complete preview shelf and catalogue
+// so Add to Shelf, Export Shelf, and Clear Shelf work correctly.
 function shellViewModelFromProduct(readModel: CustomerProductReadModel): CustomerPortalViewModel {
-  const { shell, shelfContext } = readModel;
+  const { shell, shelfContext, previewShelf } = readModel;
   return {
     account: shell.account,
     featuredProduct: null,
-    catalogue: undefined,
+    // Synthetic customers need the full catalogue to add unsaved products.
+    catalogue: previewShelf?.catalogue,
     concerns: [],
     selectedRetailers: [],
     shelfState: shell.shelfAvailable
       ? { status: 'ready' as const, message: null }
       : { status: 'unavailable' as const, message: shell.shelfUnavailableMessage },
-    shelf: shelfContext.state === 'saved-current' || shelfContext.state === 'saved-changed'
-      ? [shelfContext.shelfItem]
-      : [],
+    // Synthetic customers need the full shelf for export and clear.
+    shelf: previewShelf
+      ? previewShelf.shelf
+      : shelfContext.state === 'saved-current' || shelfContext.state === 'saved-changed'
+        ? [shelfContext.shelfItem]
+        : [],
     routineProvenance: null,
     routine: [],
     routineState: shell.routineAvailable

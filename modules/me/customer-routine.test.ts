@@ -62,6 +62,21 @@ function memoryRepository() {
     async list(owner) {
       return [...ownerRows(owner).values()];
     },
+    async summary(owner) {
+      const routines = [...ownerRows(owner).values()];
+      return {
+        routineCount: routines.length,
+        stepCount: routines.reduce((total, r) => total + r.steps.length, 0),
+      };
+    },
+    async contextForProduct(owner, slug) {
+      return [...ownerRows(owner).values()].filter(routine =>
+        routine.steps.some(step =>
+          step.currentProductSlug === slug
+          || step.referenceState === 'none'
+        ),
+      );
+    },
     async create(owner, input) {
       sequence += 1;
       const id = `11111111-1111-4111-8111-${String(sequence).padStart(12, '0')}`;

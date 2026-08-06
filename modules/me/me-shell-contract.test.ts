@@ -296,7 +296,7 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.match(home, /currentHref: resolveMeActiveParentHref\(route\)/);
   assert.match(home, /createMeStackBack\(route\)/);
   assert.match(homeView, /memberProductHref\(.*'home'\)/);
-  assert.match(route, /if \(route\.kind === 'product'\) \{[\s\S]*findCatalogueProduct\(route\.slug\)[\s\S]*readProductPanelData\(selectedProduct\)/);
+  assert.match(route, /if \(route\.kind === 'product'\) \{[\s\S]*findCatalogueProduct\(route\.slug\)[\s\S]*readProductPanelData\(selectedProduct, now\)/);
   assert.equal(route.match(/readProductPanelData\(/g)?.length, 1);
   assert.equal(home.match(/<ProductQuickPanelSheet/g)?.length, 1);
   assert.match(home, /<ProductQuickPanelSheet[\s\S]*data=\{productPanelData\}[\s\S]*open=\{productPanelOpen\}[\s\S]*tab=\{productPanelState\.tab\}/);
@@ -554,23 +554,22 @@ test('Me loading and error states keep recognizable route, dock, and FAB identit
   assert.match(error, /<MeRouteState state="error" onRetry=\{reset\}/);
 });
 
-test('Product route does one catalogue lookup, not two', () => {
+test('Product route passes the resolved product to readMeProduct, not a slug', () => {
+  // Source contract: the route calls readMeProduct with the resolved product,
+  // not a slug. readMeProduct does NOT call the catalogue lookup internally.
   const page = readFileSync('app/(customer)/me/[...route]/page.ts', 'utf8');
-  // The route does one findCatalogueProduct call, then passes the result
-  // to both readMeProduct and readProductPanelData in parallel.
-  assert.match(page, /findCatalogueProduct\(route\.slug\)/);
-  // Count total occurrences of findCatalogueProduct in the product branch.
-  // The product branch starts at "if (route.kind === 'product')" and ends
-  // at the next "const viewModel" (the non-product branch).
-  const productStart = page.indexOf("if (route.kind === 'product')");
-  const productEnd = page.indexOf('const viewModel', productStart);
-  const productBranch = page.slice(productStart, productEnd);
-  const lookupCount = (productBranch.match(/findCatalogueProduct/g) || []).length;
-  assert.equal(lookupCount, 1, 'Product route must call findCatalogueProduct exactly once');
-  // The read model and panel data are derived in parallel.
-  assert.match(page, /Promise\.all\(\[/);
-  assert.match(page, /readMeProduct\(customer, route\.slug\)/);
-  assert.match(page, /readProductPanelData\(selectedProduct\)/);
+  assert.match(page, /readMeProduct\(customer, selectedProduct/);
+  // readMeProduct accepts a Product, not a string slug.
+  const readModels = readFileSync('lib/customer/route-read-models.ts', 'utf8');
+  assert.match(readModels, /readMeProduct\(identity: CustomerAccessIdentity, product: Product/);
+  // readMeProduct does NOT import the catalogue lookup.
+  assert.doesNotMatch(readModels, /import\s+\{[^}]*findCatalogueProduct/);
+  // The function body does NOT call the catalogue lookup.
+  const fnBody = readModels.slice(
+    readModels.indexOf('export async function readMeProduct'),
+    readModels.indexOf('export async function', readModels.indexOf('export async function readMeProduct') + 1),
+  );
+  assert.doesNotMatch(fnBody, /findCatalogueProduct\(/);
 });
 
 test('Product read model includes a real shell summary with global Shelf count', () => {

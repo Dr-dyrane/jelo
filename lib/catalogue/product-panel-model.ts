@@ -9,6 +9,7 @@ import {
   priceTrendOfferSnapshot,
   type ProductPriceTrends,
 } from '@/modules/commerce/price-trends';
+import { buildProductMarketSnapshot, type ProductMarketSnapshot } from '@/modules/commerce/product-market-snapshot';
 
 export type ProductPanelTab = 'buy' | 'stores' | 'details';
 
@@ -16,6 +17,8 @@ export type ProductPanelData = {
   productSlug: string;
   productName: string;
   offers: Offer[];
+  /** Server-owned market snapshot — one source of truth for the entire panel. */
+  marketSnapshot?: ProductMarketSnapshot;
   priceTrends?: ProductPriceTrends;
   careNote: string;
   usage: string;
@@ -28,7 +31,7 @@ export type ProductPanelData = {
  * Keeping this server-owned prevents the public page and member workspace from
  * drifting on offer freshness, price history, care review, or ingredient safety.
  */
-export async function readProductPanelData(product: Product): Promise<ProductPanelData> {
+export async function readProductPanelData(product: Product, now: number | Date = Date.now()): Promise<ProductPanelData> {
   const trendSnapshot = product.offers.flatMap(offer => {
     if (offer.match === 'search') return [];
 
@@ -69,6 +72,7 @@ export async function readProductPanelData(product: Product): Promise<ProductPan
     productSlug: product.slug,
     productName: product.name,
     offers: product.offers,
+    marketSnapshot: buildProductMarketSnapshot(product.offers, now),
     priceTrends,
     careNote,
     usage: product.usage,

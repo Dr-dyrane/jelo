@@ -30,20 +30,30 @@ export function deriveProductShelfContext(
     return { state: 'unavailable', message: shelfUnavailableMessage ?? 'Shelf unavailable' };
   }
 
-  const matching = shelfItems.find(item =>
+  const matching = shelfItems.filter(item =>
     item.product?.slug === productSlug
     || item.snapshot.slug === productSlug,
   );
 
-  if (!matching) {
+  if (!matching.length) {
     return { state: 'not-saved' };
   }
 
-  if (matching.availability === 'available' && matching.lifecycleState === 'active') {
-    return { state: 'saved-current', shelfItem: matching };
+  // Prefer saved-current (active, available) over saved-changed. When multiple
+  // identity records correspond to one slug, the current identity wins.
+  const current = matching.find(item =>
+    item.availability === 'available' && item.lifecycleState === 'active',
+  );
+  if (current) {
+    return { state: 'saved-current', shelfItem: current };
   }
 
-  return { state: 'saved-changed', shelfItem: matching };
+  // No current identity — select the most relevant changed identity deterministically:
+  // the most recently saved item.
+  const changed = matching.reduce((latest, item) =>
+    item.savedAt > latest.savedAt ? item : latest,
+  );
+  return { state: 'saved-changed', shelfItem: changed };
 }
 
 /**

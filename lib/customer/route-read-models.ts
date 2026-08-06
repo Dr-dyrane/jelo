@@ -1,7 +1,8 @@
 import 'server-only';
 
 import { products as staticProducts } from '@/data/catalogue';
-import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
+import type { Product } from '@/data/products';
 import type { CustomerAccessIdentity } from './access-policy';
 import { createSyntheticCustomerPortal } from './development-fixture';
 import {
@@ -153,6 +154,11 @@ export type CustomerProductReadModel = {
   /** Routine context with ready/unavailable authority. */
   routineContext: ProductRoutineContext;
   synthetic: boolean;
+  /** Complete preview shelf and catalogue for synthetic customers. Null in production. */
+  previewShelf: {
+    shelf: readonly CustomerPortalShelfItem[];
+    catalogue: readonly CustomerPortalProduct[];
+  } | null;
 };
 
 // --- Internal helpers ---
@@ -355,6 +361,10 @@ function syntheticProduct(slug: string): CustomerProductReadModel {
     },
     routineContext,
     synthetic: true,
+    previewShelf: {
+      shelf: portal.shelf,
+      catalogue,
+    },
   };
 }
 
@@ -537,62 +547,60 @@ export async function readMeConsult(identity: CustomerAccessIdentity): Promise<C
   };
 }
 
-export async function readMeProduct(identity: CustomerAccessIdentity, slug: string): Promise<CustomerProductReadModel> {
-  if (identity.source === 'synthetic-development') return syntheticProduct(slug);
+/**
+ * Read the Member Product route model from a pre-resolved catalogue product.
+ *
+ * The caller performs the single catalogue lookup and passes the result here.
+ * This function does NOT call findCatalogueProduct — one lookup for the entire
+ * route.
+ */
+export async function readMeProduct(identity: CustomerAccessIdentity, product: Product, now: number | Date = Date.now()): Promise<CustomerProductReadModel> {
+  if (identity.source === 'synthetic-development') return syntheticProduct(product.slug);
 
-  // One exact catalogue lookup — not the full catalogue.
-  const rawProduct = await findCatalogueProduct(slug);
-  if (!rawProduct) {
-    return {
-      account: {
-        displayName: identity.displayName,
-        preferredFirstName: identity.preferredFirstName,
-        email: identity.email,
-        synthetic: false,
-      },
-      product: null,
-      marketReading: buildMarketReading([], 'NG'),
-      shelfContext: { state: 'not-saved' },
-      shell: {
-        account: {
-          displayName: identity.displayName,
-          preferredFirstName: identity.preferredFirstName,
-          email: identity.email,
-          synthetic: false,
-        },
-        shelfCount: 0,
-        shelfAvailable: true,
-        shelfUnavailableMessage: null,
-        routineStepCount: 0,
-        routineAvailable: true,
-        routineUnavailableMessage: null,
-        synthetic: false,
-      },
-      routineContext: { state: 'ready', stepCount: 0, routineCount: 0, routineNames: [], label: 'Not in my Routine' },
-      synthetic: false,
-    };
-  }
+  const slug = product.slug;
+  const portalProduct = toCustomerPortalProduct(product);
+  const catalogueBySlug = new Map([[slug, portalProduct]]);
 
-  const product = toCustomerPortalProduct(rawProduct);
-  const catalogueBySlug = new Map([[slug, product]]);
-
-  // Parallel derivation: shelf context, routine context, shell summary.
-  const [shelfData, routineData] = await Promise.all([
-    readShelf(identity, catalogueBySlug),
-    readRoutines(identity, catalogueBySlug),
+  // Route-scoped reads: count + contextForProduct for shelf, summary +
+  // contextForProduct for routine. Does NOT load the complete shelf or every
+  // routine merely to render one product.
+  const [shelfCountResult, shelfContextResult, routineSummaryResult, routineContextResult] = await Promise.all([
+    customerShelfService.count(identity),
+    customerShelfService.contextForProduct(identity, slug),
+    customerRoutineService.summary(identity),
+    customerRoutineService.contextForProduct(identity, slug),
   ]);
 
-  const shelfAvailable = shelfData.shelfState.status === 'ready';
+  const shelfAvailable = shelfCountResult.status === 'ready' && shelfContextResult.status === 'ready';
+  const shelfUnavailableMessage = shelfCountResult.status === 'unavailable'
+    ? shelfCountResult.message
+    : shelfContextResult.status === 'unavailable'
+      ? shelfContextResult.message
+      : null;
+
+  const shelfItems = shelfContextResult.status === 'ready'
+    ? shelfContextResult.items.map(item => resolveCustomerPortalShelfItem(item, catalogueBySlug))
+    : [];
   const shelfContext = deriveProductShelfContext(
-    shelfData.shelf,
+    shelfItems,
     slug,
     shelfAvailable,
-    shelfData.shelfState.message,
+    shelfUnavailableMessage,
   );
 
-  const routineContext = routineData.routineState.status === 'unavailable'
+  const routineAvailable = routineSummaryResult.status === 'ready' && routineContextResult.status === 'ready';
+  const routineUnavailableMessage = routineSummaryResult.status === 'unavailable'
+    ? routineSummaryResult.message
+    : routineContextResult.status === 'unavailable'
+      ? routineContextResult.message
+      : null;
+
+  const routines = routineContextResult.status === 'ready'
+    ? routineContextResult.routines.map(routine => resolveCustomerPortalRoutine(routine, catalogueBySlug))
+    : [];
+  const routineContext = !routineAvailable
     ? unavailableRoutineContext()
-    : deriveRoutineContext(routineData.routines, slug);
+    : deriveRoutineContext(routines, slug);
 
   const account = {
     displayName: identity.displayName,
@@ -603,22 +611,21 @@ export async function readMeProduct(identity: CustomerAccessIdentity, slug: stri
 
   return {
     account,
-    product,
-    marketReading: buildMarketReading(rawProduct.offers, 'NG'),
+    product: portalProduct,
+    marketReading: buildMarketReading(product.offers, 'NG', now),
     shelfContext,
     shell: {
       account,
-      shelfCount: shelfAvailable ? shelfData.shelf.length : 0,
+      shelfCount: shelfCountResult.status === 'ready' ? shelfCountResult.count : 0,
       shelfAvailable,
-      shelfUnavailableMessage: shelfData.shelfState.message,
-      routineStepCount: routineData.routineState.status === 'ready'
-        ? routineData.routines.reduce((total, r) => total + r.steps.length, 0)
-        : 0,
-      routineAvailable: routineData.routineState.status === 'ready',
-      routineUnavailableMessage: routineData.routineState.message,
+      shelfUnavailableMessage,
+      routineStepCount: routineSummaryResult.status === 'ready' ? routineSummaryResult.stepCount : 0,
+      routineAvailable,
+      routineUnavailableMessage,
       synthetic: false,
     },
     routineContext,
     synthetic: false,
+    previewShelf: null,
   };
 }

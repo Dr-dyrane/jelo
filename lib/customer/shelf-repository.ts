@@ -29,6 +29,8 @@ export type CustomerShelfRecord = {
 
 export type CustomerShelfRepository = {
   list(ownerSubject: string): Promise<CustomerShelfRecord[]>;
+  count(ownerSubject: string): Promise<number>;
+  contextForProduct(ownerSubject: string, slug: string): Promise<CustomerShelfRecord[]>;
   addCurrentBySlug(ownerSubject: string, slug: string): Promise<'added' | 'already_saved' | 'unavailable'>;
   remove(ownerSubject: string, identityVersionId: string): Promise<'removed' | 'already_removed'>;
   clear(ownerSubject: string): Promise<number>;
@@ -120,6 +122,57 @@ export const postgresCustomerShelfRepository: CustomerShelfRepository = {
           on version.identity_version_id = item.product_identity_version_id
         left join public.products product on product.id = version.product_id
         where item.owner_subject = ${owner}
+        order by item.saved_at desc, item.product_identity_version_id
+      `;
+      return rows.map(mapShelfRow);
+    });
+  },
+
+  async count(ownerSubject) {
+    const owner = requiredOwnerSubject(ownerSubject);
+    const sql = getCustomerShelfPostgresClient();
+    return sql.begin(async transaction => {
+      await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
+      await assertCustomerShelfRlsRole(transaction);
+      await transaction`select pg_catalog.set_config('app.customer_subject', ${owner}, true)`;
+      const rows = await transaction<{ count: number }[]>`
+        select count(*)::int as count
+        from public.customer_shelf_items
+        where owner_subject = ${owner}
+      `;
+      return rows[0]?.count ?? 0;
+    });
+  },
+
+  async contextForProduct(ownerSubject, slug) {
+    const owner = requiredOwnerSubject(ownerSubject);
+    const productSlug = requiredSlug(slug);
+    const sql = getCustomerShelfPostgresClient();
+    return sql.begin(async transaction => {
+      await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
+      await assertCustomerShelfRlsRole(transaction);
+      await transaction`select pg_catalog.set_config('app.customer_subject', ${owner}, true)`;
+      const rows = await transaction<CustomerShelfRow[]>`
+        select
+          item.product_identity_version_id,
+          item.saved_at,
+          item.save_origin,
+          version.lifecycle_state,
+          version.slug_at_review,
+          version.brand_at_review,
+          version.variant_at_review,
+          version.size_at_review,
+          version.version_number,
+          version.package_version_at_review,
+          version.formula_version_at_review,
+          product.slug as current_slug,
+          product.is_published as current_product_published
+        from public.customer_shelf_items item
+        join public.catalogue_product_identity_versions version
+          on version.identity_version_id = item.product_identity_version_id
+        left join public.products product on product.id = version.product_id
+        where item.owner_subject = ${owner}
+          and (version.slug_at_review = ${productSlug} or product.slug = ${productSlug})
         order by item.saved_at desc, item.product_identity_version_id
       `;
       return rows.map(mapShelfRow);

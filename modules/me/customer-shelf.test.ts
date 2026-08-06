@@ -159,6 +159,16 @@ function memoryRepository() {
       calls += 1;
       return [...ownerRows(owner).values()];
     },
+    async count(owner) {
+      calls += 1;
+      return ownerRows(owner).size;
+    },
+    async contextForProduct(owner, productSlug) {
+      calls += 1;
+      return [...ownerRows(owner).values()].filter(
+        item => item.snapshot.slug === productSlug || item.currentSlug === productSlug,
+      );
+    },
     async addCurrentBySlug(owner, productSlug) {
       calls += 1;
       if (productSlug !== slug) return 'unavailable';

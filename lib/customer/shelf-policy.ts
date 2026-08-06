@@ -10,6 +10,14 @@ export type CustomerShelfReadResult =
   | { status: 'ready'; items: CustomerShelfRecord[] }
   | { status: 'unavailable'; items: []; message: string };
 
+export type CustomerShelfCountResult =
+  | { status: 'ready'; count: number }
+  | { status: 'unavailable'; count: 0; message: string };
+
+export type CustomerShelfContextResult =
+  | { status: 'ready'; items: CustomerShelfRecord[] }
+  | { status: 'unavailable'; items: []; message: string };
+
 export function isValidCustomerShelfOwnerSubject(ownerSubject: unknown): ownerSubject is string {
   return typeof ownerSubject === 'string'
     && ownerSubject === ownerSubject.trim()
@@ -30,6 +38,36 @@ export function createCustomerShelfService(repository: CustomerShelfRepository) 
         return { status: 'ready', items: await repository.list(identity.subject) };
       } catch {
         console.error('Customer Shelf read unavailable.');
+        return { status: 'unavailable', items: [], message: 'Shelf is unavailable right now. Try again.' };
+      }
+    },
+
+    async count(identity: CustomerAccessIdentity): Promise<CustomerShelfCountResult> {
+      if (identity.source === 'synthetic-development') {
+        return { status: 'unavailable', count: 0, message: 'Synthetic Shelf is local preview data.' };
+      }
+      if (!isValidCustomerShelfOwnerSubject(identity.subject)) {
+        return { status: 'unavailable', count: 0, message: 'Shelf is unavailable right now. Try again.' };
+      }
+      try {
+        return { status: 'ready', count: await repository.count(identity.subject) };
+      } catch {
+        console.error('Customer Shelf count unavailable.');
+        return { status: 'unavailable', count: 0, message: 'Shelf is unavailable right now. Try again.' };
+      }
+    },
+
+    async contextForProduct(identity: CustomerAccessIdentity, slug: string): Promise<CustomerShelfContextResult> {
+      if (identity.source === 'synthetic-development') {
+        return { status: 'unavailable', items: [], message: 'Synthetic Shelf is local preview data.' };
+      }
+      if (!isValidCustomerShelfOwnerSubject(identity.subject)) {
+        return { status: 'unavailable', items: [], message: 'Shelf is unavailable right now. Try again.' };
+      }
+      try {
+        return { status: 'ready', items: await repository.contextForProduct(identity.subject, slug) };
+      } catch {
+        console.error('Customer Shelf context unavailable.');
         return { status: 'unavailable', items: [], message: 'Shelf is unavailable right now. Try again.' };
       }
     },

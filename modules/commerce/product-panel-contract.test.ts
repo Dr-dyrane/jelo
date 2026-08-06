@@ -37,7 +37,7 @@ test('the public wrapper keeps its two familiar triggers and delegates to the co
 test('one server read model owns evidence and the public page consumes it', () => {
   assert.match(model, /export type ProductPanelTab = 'buy' \| 'stores' \| 'details'/);
   assert.match(model, /export type ProductPanelData/);
-  assert.match(model, /export async function readProductPanelData\(product: Product\)/);
+  assert.match(model, /export async function readProductPanelData\(product: Product, now: number \| Date = Date\.now\(\)\)/);
   assert.match(model, /if \(offer\.match === 'search'\) return \[\]/);
   assert.match(model, /\(\['NG', 'US'\] as const\)/);
   assert.match(model, /getProductPriceTrends\(product\.slug, trendSnapshot\)/);

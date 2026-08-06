@@ -118,3 +118,52 @@ test('matches by snapshot slug when product is null (changed identity)', () => {
   );
   assert.equal(ctx.state, 'saved-changed');
 });
+
+test('prefers saved-current over saved-changed when both identity records match', () => {
+  const items = [
+    makeShelfItem({
+      identityVersionId: 'iv-changed',
+      slug: 'target-product',
+      savedAt: '2026-07-05T00:00:00Z',
+      lifecycleState: 'retired',
+      availability: 'unavailable',
+      product: null,
+    }),
+    makeShelfItem({
+      identityVersionId: 'iv-current',
+      slug: 'target-product',
+      savedAt: '2026-07-01T00:00:00Z',
+      lifecycleState: 'active',
+      availability: 'available',
+    }),
+  ];
+  const ctx = deriveProductShelfContext(items, 'target-product', true, null);
+  assert.equal(ctx.state, 'saved-current');
+  if (ctx.state !== 'saved-current') return;
+  assert.equal(ctx.shelfItem.identityVersionId, 'iv-current');
+});
+
+test('selects the most recently saved changed identity when no current identity exists', () => {
+  const items = [
+    makeShelfItem({
+      identityVersionId: 'iv-older',
+      slug: 'target-product',
+      savedAt: '2026-07-01T00:00:00Z',
+      lifecycleState: 'merged',
+      availability: 'changed',
+      product: null,
+    }),
+    makeShelfItem({
+      identityVersionId: 'iv-newer',
+      slug: 'target-product',
+      savedAt: '2026-07-10T00:00:00Z',
+      lifecycleState: 'superseded',
+      availability: 'unavailable',
+      product: null,
+    }),
+  ];
+  const ctx = deriveProductShelfContext(items, 'target-product', true, null);
+  assert.equal(ctx.state, 'saved-changed');
+  if (ctx.state !== 'saved-changed') return;
+  assert.equal(ctx.shelfItem.identityVersionId, 'iv-newer');
+});
