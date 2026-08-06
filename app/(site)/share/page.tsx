@@ -20,7 +20,7 @@ export default async function ShareIndex() {
     getMarketTrendsReadModel(),
   ]);
   const { priceGaps: gaps } = signals;
-  const { priceDrops, outOfStockAlerts } = marketTrends;
+  const { priceDrops, priceIncreases, outOfStockAlerts } = marketTrends;
   const topics = concerns.filter(isProductMatchConcern);
 
   return (
@@ -48,6 +48,31 @@ export default async function ShareIndex() {
                   <span className={styles.micro}>{signal.microtag}</span>
                   <span className={`${styles.stat} ${styles.down}`}>{signal.trendLabel}</span>
                   <span className={styles.sub}>{naira.format(signal.amountNaira)} lower · {signal.comparableStoreCount} stores</span>
+                </span>
+                <ArrowUpRight size={16} aria-hidden />
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {priceIncreases.length > 0 ? (
+        <section className={styles.lane}>
+          <div className={styles.laneHead}>
+            <p className={styles.kicker}>Price increases</p>
+            <h2>Higher than before.</h2>
+          </div>
+          <div className={styles.grid}>
+            {priceIncreases.map(signal => (
+              <Link key={signal.slug} href={`/share/${signal.slug}`} className={styles.card}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className={styles.shot} src={signal.image} alt={`${signal.brand} ${signal.name}`} loading="lazy" decoding="async" />
+                <span className={styles.body}>
+                  <span className={styles.brand}>{signal.brand}</span>
+                  <strong className={styles.name}>{signal.name}</strong>
+                  <span className={styles.micro}>{signal.microtag}</span>
+                  <span className={styles.stat}>{signal.trendLabel}</span>
+                  <span className={styles.sub}>{naira.format(signal.amountNaira)} higher · {signal.comparableStoreCount} stores</span>
                 </span>
                 <ArrowUpRight size={16} aria-hidden />
               </Link>
