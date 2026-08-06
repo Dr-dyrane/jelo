@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, ArrowUpRight, MapPin, Truck } from 'lucide-react';
 import { type ReactNode, useMemo, useState } from 'react';
 import type { FulfilmentMethod, Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
+import { nigeriaRetailers } from '@/data/retailers';
 import {
   fulfilmentMethodLabel,
   offerActionLabel,
@@ -82,8 +83,10 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
   const [market, setMarket] = useState<Market>('NG');
   const [channel, setChannel] = useState<'all' | OrderChannel>('all');
   const [fulfilment, setFulfilment] = useState<'any' | FulfilmentMethod>('any');
+  const [sort, setSort] = useState<'ranked' | 'trust' | 'price'>('ranked');
   const preferences = useMemo(() => (fulfilment === 'any' ? {} : { fulfilment }), [fulfilment]);
   const ranked = useMemo(() => rankOffers(offers, market, undefined, preferences), [offers, market, preferences]);
+  const liveTrust = (offer: Offer) => nigeriaRetailers.find(r => r.name === offer.retailer)?.trust ?? offer.trust;
   const visible = ranked.filter(offer => offer.match !== 'search'
     && hasListingEvidence(offer)
     && (offer.location.includes(market) || offer.location.includes('INTL')));
@@ -92,6 +95,15 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
   const filtered = activeChannel === 'all'
     ? visible
     : visible.filter(offer => offerOrderChannels(offer).includes(activeChannel));
+  const displayed = useMemo(() => {
+    const arr = [...filtered];
+    if (sort === 'trust') arr.sort((a, b) => liveTrust(b) - liveTrust(a));
+    if (sort === 'price') {
+      const priceOf = (offer: Offer) => observedMarketPrice(offer, market) ?? Infinity;
+      arr.sort((a, b) => priceOf(a) - priceOf(b));
+    }
+    return arr;
+  }, [filtered, sort, market]);
   const fulfilments = [...new Set(visible.flatMap(offerFulfilmentMethods))];
   const activeFulfilment = fulfilment === 'any' || fulfilments.includes(fulfilment) ? fulfilment : 'any';
 
@@ -168,8 +180,16 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
           >{fulfilmentMethodLabel(method)}</button>)}
         </div>
       </div> : null}
+      {filtered.length > 1 ? <div className="retailer-market retailer-sort" role="group" aria-label="Sort stores">
+        <span>Sort by</span>
+        <div>
+          <button className={sort === 'ranked' ? 'active' : ''} type="button" onClick={() => setSort('ranked')}>Best match</button>
+          <button className={sort === 'trust' ? 'active' : ''} type="button" onClick={() => setSort('trust')}>Trust</button>
+          <button className={sort === 'price' ? 'active' : ''} type="button" onClick={() => setSort('price')}>Price</button>
+        </div>
+      </div> : null}
       <div className="retailer-list">
-        {filtered.length ? filtered.map((offer, index) => {
+        {displayed.length ? displayed.map((offer, index) => {
           const fresh = isOfferFresh(offer);
           const price = observedMarketPrice(offer, market);
           const checked = shortDate(offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt ?? offer.checkedAt);
@@ -193,6 +213,7 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
               {offer.sellerName ? <small className="retailer-seller">Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}{hasSellerIdentityEvidence(offer) ? '' : ' · Check seller'}</small> : null}
               {offer.retailerEvidence?.reviewStatus === 'provisional' ? <small>Check with store</small> : null}
               {hasBrandAuthorizationEvidence(offer) ? <small>Listed by the brand</small> : null}
+              <small className="retailer-trust">Trust {liveTrust(offer)}</small>
             </span>
             <span className="retailer-price">
               <span className="retailer-price-line">
