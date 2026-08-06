@@ -76,6 +76,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0012 · Superseded private member Shelf and Routine portal](./adr/0012-private-member-shelf-and-routine-portal.md)
 - [ADR 0013 · Founder-led JeloCare Me](./adr/0013-founder-led-jelocare-me.md)
 - [ADR 0014 · Customer Shelf data boundary](./adr/0014-customer-shelf-data-boundary.md)
+- [ADR 0015 · Customer concern consultation](./adr/0015-customer-concern-consultation.md)
 
 ## What is authoritative
 
