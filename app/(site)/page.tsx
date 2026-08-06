@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, TrendingDown, TrendingUp } from 'lucide-react';
 import { SafeEditorialImage } from '@/components/editorial/safe-editorial-image';
 import { ProductRail } from '@/components/products/product-grid';
-import { MarketTrendsSection } from '@/components/market-trends/market-trends';
 import { products as curatedCatalogue } from '@/data/catalogue';
 import { editorialAsset } from '@/data/editorial';
 import { marketSignals } from '@/data/market-signals';
@@ -47,6 +46,42 @@ function DiscoveryRail({ kicker, title, products: railProducts, href = '/product
         <Link className="text-link" href={href}>{linkLabel} <ArrowRight size={16} aria-hidden="true" /></Link>
       </div>
       <ProductRail products={railProducts} />
+    </section>
+  );
+}
+
+function MarketTrendsTeaser({ trends }: { trends: Awaited<ReturnType<typeof getMarketTrendsReadModel>> }) {
+  const { priceDrops, priceIncreases } = trends;
+  const topDrop = priceDrops[0];
+  const topRise = priceIncreases[0];
+  if (!topDrop && !topRise) return null;
+
+  return (
+    <section className={styles.tickerSection} aria-label="Market trends">
+      <div className={styles.tickerCanvas}>
+        <div className={styles.tickerHead}>
+          <p className={styles.kicker}>Market trends</p>
+          <Link className={styles.tickerCta} href="/share">See all <ArrowRight size={14} aria-hidden="true" /></Link>
+        </div>
+        <div className={styles.tickerGrid}>
+          {topDrop ? (
+            <Link href={`/share/${topDrop.slug}`} className={styles.tickerCard}>
+              <TrendingDown size={14} strokeWidth={1.5} aria-hidden="true" className={styles.iconDown} />
+              <span className={styles.tickerBrand}>{topDrop.brand}</span>
+              <strong className={styles.tickerName}>{topDrop.name}</strong>
+              <span className={`${styles.tickerStat} ${styles.down}`}>{topDrop.trendLabel}</span>
+            </Link>
+          ) : null}
+          {topRise ? (
+            <Link href={`/share/${topRise.slug}`} className={styles.tickerCard}>
+              <TrendingUp size={14} strokeWidth={1.5} aria-hidden="true" className={styles.iconUp} />
+              <span className={styles.tickerBrand}>{topRise.brand}</span>
+              <strong className={styles.tickerName}>{topRise.name}</strong>
+              <span className={`${styles.tickerStat} ${styles.up}`}>{topRise.trendLabel}</span>
+            </Link>
+          ) : null}
+        </div>
+      </div>
     </section>
   );
 }
@@ -143,7 +178,7 @@ export default async function HomePage() {
       </section>
 
       <div className={styles.trendsWrap}>
-        <MarketTrendsSection trends={marketTrends} />
+        <MarketTrendsTeaser trends={marketTrends} />
       </div>
 
       <DiscoveryRail
