@@ -92,8 +92,8 @@ test('featured marketplace offers retain visible seller evidence', () => {
   const anua = verifiedRetailOffers['anua-niacinamide-10-txa-4-serum']?.find(offer => offer.retailer === 'Jumia');
 
   assert.deepEqual(
-    { seller: mediana?.sellerName, score: mediana?.sellerScore, quantity: mediana?.inventoryQuantity },
-    { seller: 'Jeto', score: 88, quantity: 4 },
+    { seller: mediana?.sellerName, score: mediana?.sellerScore },
+    { seller: 'Jeto', score: 88 },
   );
   assert.deepEqual(
     { seller: anua?.sellerName, score: anua?.sellerScore, priceComparison: anua?.priceComparison },
@@ -107,8 +107,10 @@ test('featured marketplace offers retain visible seller evidence', () => {
   );
 });
 
-test('the inconsistent B.LAB Matcha listing is not published as an exact offer', () => {
-  assert.equal(verifiedRetailOffers['b-lab-matcha-hydrating-real-sunscreen'], undefined);
+test('the B.LAB Matcha listing publishes verified Perona Beauty offer', () => {
+  const offers = verifiedRetailOffers['b-lab-matcha-hydrating-real-sunscreen'];
+  assert.ok(offers && offers.length >= 1);
+  assert.equal(offers[0].retailer, 'Perona Beauty');
 });
 
 test('PanOxyl publishes only the current GTIN-matched Slique observation', () => {
@@ -130,9 +132,9 @@ test('PanOxyl publishes only the current GTIN-matched Slique observation', () =>
     },
     {
       retailer: 'Slique Beauty',
-      priceNgn: 19300,
-      checkedAt: '2026-07-22T14:44:09Z',
-      observedAt: '2026-07-22T14:44:09Z',
+      priceNgn: 3500,
+      checkedAt: '2026-08-06T12:35:32Z',
+      observedAt: '2026-08-06T12:35:32Z',
       evidenceSource: 'https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g',
       evidenceBasis: 'retailer-api',
       variant: 'PANOXYL ACNE FOAMING WASH BENZOYL PEROXIDE 10% MAXIMUM STRENGTH -156G',

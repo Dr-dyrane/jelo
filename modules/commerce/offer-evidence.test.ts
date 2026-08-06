@@ -18,7 +18,7 @@ import {
   observedMarketPrice,
 } from './offer-evidence';
 
-const now = new Date('2026-07-22T12:00:00Z');
+const now = new Date('2026-08-06T13:00:00Z');
 
 const comparableOffer = (overrides: Partial<Offer> = {}): Offer => ({
   retailer: 'Store',
@@ -27,8 +27,8 @@ const comparableOffer = (overrides: Partial<Offer> = {}): Offer => ({
   available: true,
   priceNgn: 10_000,
   match: 'exact',
-  listingEvidence: { observedAt: '2026-07-22', sourceUrl: 'https://example.com/product', basis: 'retailer-page' },
-  priceObservation: { observedAt: '2026-07-22', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'excluded' },
+  listingEvidence: { observedAt: '2026-08-06', sourceUrl: 'https://example.com/product', basis: 'retailer-page' },
+  priceObservation: { observedAt: '2026-08-06', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'excluded' },
   location: ['NG'],
   ...overrides,
 });
@@ -43,7 +43,7 @@ test('a stated delivery fee makes the landed total the comparable price', () => 
 test('landed price never guesses a total when delivery is unknown or already included', () => {
   assert.equal(landedMarketPrice(comparableOffer(), 'NG', now), 10_000);
   assert.equal(
-    landedMarketPrice(comparableOffer({ deliveryNgn: 1_500, priceObservation: { observedAt: '2026-07-22', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'included' } }), 'NG', now),
+    landedMarketPrice(comparableOffer({ deliveryNgn: 1_500, priceObservation: { observedAt: '2026-08-06', variant: 'V', size: '30 ml', stock: 'in-stock', landedCost: 'included' } }), 'NG', now),
     10_000,
   );
   assert.equal(observedDeliveryFee(comparableOffer(), 'NG'), null);
@@ -60,7 +60,7 @@ test('a price field without listing and observation evidence is not current reta
     trust: 100,
     available: true,
     priceNgn: 1_000,
-    checkedAt: '2026-07-22',
+    checkedAt: '2026-08-06',
     match: 'exact',
     location: ['NG'],
   };
@@ -77,10 +77,10 @@ test('a price observation cannot stand in for listing evidence', () => {
     trust: 100,
     available: true,
     priceNgn: 1_000,
-    checkedAt: '2026-07-22',
+    checkedAt: '2026-08-06',
     match: 'exact',
     priceObservation: {
-      observedAt: '2026-07-22T10:00:00Z',
+      observedAt: '2026-08-06T10:00:00Z',
       variant: 'Example product',
       size: '100 ml',
       stock: 'in-stock',
@@ -101,7 +101,7 @@ test('repository mapping promotes governed retailer-page, manual, or API verific
     trust: 90,
     available: true,
     priceNgn: 2_000,
-    checkedAt: '2026-07-22T10:00:00Z',
+    checkedAt: '2026-08-06T10:00:00Z',
     match: 'exact',
     location: ['NG'],
   };
@@ -152,7 +152,7 @@ test('retailer UI preserves observed low-stock detail', () => {
     priceNgn: 2_000,
     match: 'exact',
     priceObservation: {
-      observedAt: '2026-07-22T10:00:00Z',
+      observedAt: '2026-08-06T10:00:00Z',
       variant: 'Example 100 ml',
       size: '100 ml',
       stock: 'low-stock',
@@ -175,7 +175,7 @@ test('catalogue expectations never manufacture retailer listing or price evidenc
       trust: 90,
       available: true,
       priceNgn: 2_000,
-      checkedAt: '2026-07-22',
+      checkedAt: '2026-08-06',
       match: 'exact',
       location: ['NG'],
     },
@@ -200,7 +200,7 @@ test('persisted observations fail closed without the retailer-observed size', ()
     },
     {
       verificationMethod: 'retailer_page',
-      lastVerifiedAt: '2026-07-22',
+      lastVerifiedAt: '2026-08-06',
       inventoryStatus: 'in_stock',
       observedTitle: 'Observed title',
     },
@@ -221,12 +221,12 @@ test('display-only marketplace observations stay visible but out of comparisons'
     match: 'exact',
     priceComparison: 'exclude',
     listingEvidence: {
-      observedAt: '2026-07-22',
+      observedAt: '2026-08-06',
       sourceUrl: 'https://example.com/product',
       basis: 'retailer-page',
     },
     priceObservation: {
-      observedAt: '2026-07-22',
+      observedAt: '2026-08-06',
       variant: 'Observed title',
       size: '30 ml',
       stock: 'in-stock',
@@ -260,7 +260,7 @@ test('regulator and brand authorization claims require their specific evidence s
     reviewStatus: 'directory-listed',
     contentUse: 'link-only',
     regulatorMatch: {
-      observedAt: '2026-07-22T10:00:00Z',
+      observedAt: '2026-08-06T10:00:00Z',
       sourceUrl: 'https://registry.example/company/123',
       basis: 'independent-register',
       authority: 'Example regulator',
@@ -274,7 +274,7 @@ test('regulator and brand authorization claims require their specific evidence s
     trust: 100,
     available: true,
     brandAuthorizationEvidence: {
-      observedAt: '2026-07-22T10:00:00Z',
+      observedAt: '2026-08-06T10:00:00Z',
       sourceUrl: 'https://brand.example/authorized-retailers',
       basis: 'brand-source',
       brand: 'Example',
@@ -300,7 +300,7 @@ test('Slique remains provisional and link-only with a complete dated Mediana obs
   assert.equal(hasCompletePriceObservation(offer), true);
   assert.equal(offer.priceObservation?.size, '250 ml');
   assert.equal(offer.priceObservation?.landedCost, 'unknown');
-  assert.equal(observedMarketPrice(offer, 'NG', now), 1_500);
+  assert.equal(observedMarketPrice(offer, 'NG', now), 22_500);
   assert.equal(mediana.image, 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v1.png');
   assert.equal('mediana-leave-in-conditioning-milk' in productAssets, true);
 });

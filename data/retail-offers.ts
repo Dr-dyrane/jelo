@@ -2,7 +2,7 @@ import type { Offer, Product } from '@/data/products';
 import { materializeOfferEvidence } from '@/modules/commerce/offer-evidence';
 import { isOfferFresh } from '@/modules/commerce/offer-freshness';
 
-const checkedAt = '2026-07-22';
+const checkedAt = '2026-08-06T12:37:00Z';
 
 type ExactNgOptions = Pick<Offer, 'available' | 'expiresAt' | 'inventoryQuantity' | 'sellerName' | 'sellerScore' | 'priceComparison'> & {
   observedAt?: string;
@@ -209,7 +209,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/', 96, 9850, 'COSRX Salicylic Acid Daily Gentle Cleanser', '150 ml', { observedAt: '2026-08-04T19:55:10Z', expiresAt: '2026-08-11T19:55:10Z' }),
   ],
   'some-by-mi-aha-bha-pha-miracle-toner': [
-    exactNg('Teeka4', 'https://teeka4.com/shop/somebymi-aha-bha-pha-30days-miracle-toner-150ml-5oz/', 98, 13495, 'SOME BY MI AHA BHA PHA 30 Days Miracle Toner', '150 ml', { available: false }),
+    exactNg('Care to Beauty', 'https://www.caretobeauty.com/ng/some-by-mi-30-days-miracle-toner-150ml/', 88, 25100, 'Some By Mi AHA-BHA-PHA 30 Days Miracle Toner', '150 ml'),
+    exactNg('Teeka4', 'https://teeka4.com/shop/somebymi-aha-bha-pha-30days-miracle-toner-150ml-5oz/', 98, 13495, 'SOME BY MI AHA BHA PHA 30 Days Miracle Toner', '150 ml', { available: false, stock: 'out-of-stock' }),
   ],
   'anua-niacinamide-10-txa-4-serum': [
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/', 100, 18850, 'ANUA Niacinamide 10% + TXA 4% Serum', '30 ml', { available: false, observedAt: '2026-08-04T19:51:57Z' }),
@@ -218,11 +219,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('BuyBetter', 'https://buybetter.ng/product/anua-10-niacinamide-4-txa-acid-serum/', 97, 17738, 'Anua 10% Niacinamide + 4% TXA Acid Serum', '30 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
   ],
   'face-facts-wonder-cream-fragrance-free': [
-    exactNg('Teeka4', 'https://teeka4.com/shop/face-facts-wonder-cream-fragrance-free-50ml-copy/', 98, 7700, 'Face Facts Wonder Cream Fragrance Free', '50 ml'),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/face-facts-wonder-cream-fragrance-free/', 86, 7350, 'Face Facts Wonder Cream Fragrance Free', '50 ml'),
+    exactNg('Teeka4', 'https://teeka4.com/shop/face-facts-wonder-cream-fragrance-free-50ml-copy/', 98, 7700, 'FaceFacts Wonder Cream Fragrance Free', '50 ml'),
   ],
   'face-facts-bright-clear-face-cream': [
-    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/treatment/face-facts-bright-clear-face-cream-75ml/', 100, 7500, 'Face Facts Bright + Clear Face Cream', '75 ml'),
-    exactNg('Perona Beauty', 'https://peronabeauty.com/product/face-facts-bright-clear-face-cream-75ml/', 86, 7750, 'Face Facts Bright + Clear Face Cream', '75 ml'),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/treatment/face-facts-bright-clear-face-cream-75ml/', 100, 7500, 'FaceFacts Bright + Clear Face Cream', '75 ml'),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/face-facts-bright-clear-face-cream-75ml/', 86, 7900, 'Face Facts Bright + Clear Face Cream', '75 ml'),
   ],
   'miracle-natural-hair-anti-dandruff-shampoo': [
     exactNg('AGT Plaza', 'https://www.agtplaza.com/products/miracle-shampoo-natural-hair-anti-dandruff-anti-itch-with-castor-oil-400ml-ugm41a', 78, 1695, 'Miracle Shampoo Natural Hair Anti-Dandruff Anti-Itch with Castor Oil', '400 ml'),
@@ -230,23 +232,26 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'lush-hair-mentholated-conditioner': [
     exactNg('Lush Hair Nigeria', 'https://nigeria.lushhairafrica.com/products/mentholated-conditioner-370ml', 98, 1687, 'Mentholated Conditioner', '370 ml'),
   ],
+  'b-lab-matcha-hydrating-real-sunscreen': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/', 86, 10400, 'B Lab Matcha Hydrating Real Sun Screen SPF50+ PA++++', '50 ml', { available: false, stock: 'out-of-stock' }),
+  ],
   'mediana-leave-in-conditioning-milk': [
-    exactNg('Jumia', 'https://www.jumia.com.ng/mediana-leave-in-conditioning-milk-250ml-215118251.html', 62, 2084, 'Mediana Leave-In Conditioning Milk', '250 ml', { inventoryQuantity: 4, sellerName: 'Jeto', sellerScore: 88, stock: 'low-stock' }),
+    exactNg('Jumia', 'https://www.jumia.com.ng/mediana-leave-in-conditioning-milk-250ml-215118251.html', 62, 2000, 'Mediana Leave-In Conditioning Milk', '250 ml', { sellerName: 'Jeto', sellerScore: 88 }),
     {
       retailer: 'Slique Beauty',
       url: 'https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/',
       trust: 78,
       available: true,
-      priceNgn: 1500,
-      checkedAt: '2026-07-22T09:42:32Z',
+      priceNgn: 22500,
+      checkedAt: '2026-08-06T12:35:21Z',
       match: 'exact',
       listingEvidence: {
-        observedAt: '2026-07-22T09:42:32Z',
+        observedAt: '2026-08-06T12:35:21Z',
         sourceUrl: 'https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=mediana-leave-in-conditioning-milk-250ml',
         basis: 'retailer-api',
       },
       priceObservation: {
-        observedAt: '2026-07-22T09:42:32Z',
+        observedAt: '2026-08-06T12:35:21Z',
         variant: 'Leave-In Conditioning Milk',
         size: '250 ml',
         stock: 'in-stock',
@@ -256,6 +261,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     },
   ],
   'disaar-argan-oil-body-oil-gel': [
+    exactNg('Choices Beauty', 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', 78, 4000, 'Disaar Argan Oil Body Oil Gel', '200 ml'),
     exactNg('Jumia', 'https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html', 62, 4500, 'Disaar Argan Oil Body Oil Gel Deep Moisturizing Skin Care', '200 ml', { sellerName: 'Christodel Global Services', sellerScore: 88, stock: 'low-stock' }),
   ],
   'dove-melanin-even-tone-body-wash-18-5oz': [
@@ -320,8 +326,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
   ],
   'cosrx-advanced-snail-96-mucin-power-essence': [
-    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/oils-serum/cosrx-advanced-snail-96-mucin-power-essence/', 100, 12500, 'COSRX Advanced Snail 96 Mucin Power Essence', '100 ml', { available: false }),
-    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/', 96, 12400, 'COSRX Advanced Snail 96 Mucin Power Essence', '100 ml'),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/oils-serum/cosrx-advanced-snail-96-mucin-power-essence/', 100, 12500, 'COSRX Advanced Snail 96 Mucin Power Essence', '100 ml', { available: false, stock: 'out-of-stock' }),
+    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/', 96, 12400, 'Cosrx Snail Mucin 96% Power Essence', '100 ml'),
+    exactNg('Care to Beauty', 'https://www.caretobeauty.com/ng/cosrx-advanced-snail-96-mucin-power-essence-100ml/', 88, 43508, 'COSRX Advanced Snail 96 Mucin Power Essence', '100 ml'),
   ],
   'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': [
     {
@@ -329,16 +336,16 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       url: 'https://sliquebeautylimited.com/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g/',
       trust: 78,
       available: true,
-      priceNgn: 19300,
-      checkedAt: '2026-07-22T14:44:09Z',
+      priceNgn: 3500,
+      checkedAt: '2026-08-06T12:35:32Z',
       match: 'exact',
       listingEvidence: {
-        observedAt: '2026-07-22T14:44:09Z',
+        observedAt: '2026-08-06T12:35:32Z',
         sourceUrl: 'https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g',
         basis: 'retailer-api',
       },
       priceObservation: {
-        observedAt: '2026-07-22T14:44:09Z',
+        observedAt: '2026-08-06T12:35:32Z',
         variant: 'PANOXYL ACNE FOAMING WASH BENZOYL PEROXIDE 10% MAXIMUM STRENGTH -156G',
         size: '156 g',
         stock: 'in-stock',
@@ -489,6 +496,48 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'facefacts-soothe-glow-niacinamide-serum-30ml': [
     exactNg('Perona Beauty', 'https://peronabeauty.com/product/face-facts-niacinamide-soothe-glow-serum-purple-pack/', 86, 4500, 'Face Facts Niacinamide Soothe + Glow Serum (Purple Pack) 30ml', '30 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+  ],
+  'ogx-renewing-argan-oil-of-morocco': [
+    exactNg('Care to Beauty', 'https://www.caretobeauty.com/ng/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml/', 88, 21778, 'OGX Renewing + Argan Oil of Morocco Extra Penetrating Oil', '100 ml'),
+  ],
+  'aqua-rich-turmeric-vitamin-c-body-lotion-500ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/', 97, 12800, 'Aqua Rich Hydrate + Protect Body Lotion (Ceramide) 500ml', '500 ml', { stock: 'low-stock' }),
+    exactNg('Kadimez Essentials', 'https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/', 78, 12000, 'Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml', '500 ml'),
+  ],
+  'facefacts-ceramide-hydrating-gentle-cleanser-400ml': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/', 100, 6950, 'Facefacts Ceramide Hydrating Gentle Cleanser 400ml', '400 ml'),
+    exactNg('Teeka4', 'https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/', 98, 7200, 'Facefacts Ceramide Hydrating Gentle Cleanser 400ml', '400 ml'),
+    exactNg('24Eleven', 'https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml/', 82, 7300, 'Face Facts Ceramide Hydrating Gentle Cleanser 400ml', '400 ml'),
+  ],
+  'de-la-cruz-acne-treatment-10-sulfur-73-7g': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/de-la-cruz-maximum-strength-acne-treatment-ointment-2-6oz/', 100, 12500, 'De La Cruz Maximum Strength Acne Treatment Ointment 2.6oz', '73.7 g'),
+    exactNg('BuyBetter', 'https://buybetter.ng/product/de-la-cruz-acne-treatment-with-10-sulfur-ointment-2-6-oz-73-7g/', 97, 17738, 'De La Cruz Acne Treatment With 10% Sulfur Ointment 2.6 oz 73.7g', '73.7 g', { available: false, stock: 'out-of-stock' }),
+  ],
+  'olay-super-serum-body-wash-normal-skin-547ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/olay-super-serum-normal-skin-body-wash-18-5fl-oz-547ml/', 97, 20963, 'Olay Super Serum Normal Skin Body Wash 18.5fl oz 547ml', '547 ml'),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/olay-super-serum-body-wash-for-normal-skin/', 86, 21200, 'Olay Super Serum Body Wash for Normal Skin', '547 ml'),
+  ],
+  'sheamoisture-jamaican-black-castor-oil-shampoo-384ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/', 97, 12685, 'SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo 384ml', '384 ml', { available: false, stock: 'out-of-stock' }),
+    exactNg('Perfect Trust Beauty', 'https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml', 78, 13300, 'Jamaican Black Castor Oil Strengthen & Restore Shampoo 384ml', '384 ml'),
+  ],
+  'sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/raw-shea-butter-moisture-conditioner/', 97, 13223, 'SheaMoisture Raw Shea Butter Deep Moisturizing Conditioner 384ml', '384 ml', { stock: 'low-stock' }),
+    exactNg('Jumia', 'https://www.jumia.com.ng/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner-for-dry-damaged-hair-moisture-restoration-384ml-419964981.html', 62, 35400, 'Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner 384ml', '384 ml', { stock: 'low-stock' }),
+  ],
+  'tresemme-keratin-smooth-weightless-conditioner-828ml': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/', 100, 7950, 'Tresemme Keratin Smooth Weightless Conditioner 828ml', '828 ml', { available: false, stock: 'out-of-stock' }),
+    exactNg('BuyBetter', 'https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/', 97, 9138, 'TRESemme Keratin Smooth Weightless Conditioner 828ml', '828 ml', { available: false, stock: 'out-of-stock' }),
+    exactNg('Perfect Trust Beauty', 'https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot', 78, 9900, 'Tresemme Conditioner Keratin Smooth 828ml', '828 ml'),
+  ],
+  'beauty-formulas-glowing-serum-2-vitamin-c-30ml': [
+    exactNg('CSi Grocery', 'https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/beauty-formulas-glowing-serum/', 90, 3300, 'Beauty Formulas Glowing Serum 2% Vitamin C 30ml', '30 ml'),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/face/beauty-formulas-glowing-serum-2-vitamin-c/', 100, 3999, 'Beauty Formulas Glowing Serum 2% Vitamin C', '30 ml'),
+    exactNg('24Eleven', 'https://www.24eleven.ng/beauty-formulas-glowing-serum-2-vitamin-c-30ml/', 82, 3800, 'Beauty Formulas Glowing Serum 2% Vitamin C 30ml', '30 ml'),
+  ],
+  'prequel-gleanser-glycolic-acid-cleanser-400ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/', 97, 37088, 'Prequel Gleanser + Glycolic Acid Cleanser 400ml', '400 ml', { available: false, stock: 'out-of-stock' }),
+    exactNg('Nihet Beauty', 'https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/', 78, 96000, 'Prequel Cleanser + Glycolic Acid Cleanser 400ml', '400 ml'),
   ],
 };
 
