@@ -5,6 +5,8 @@ import { createCustomerConcernService } from './concern-policy';
 
 const sessionIdentity: CustomerAccessIdentity = {
   subject: 'auth0|customer-session-001',
+  email: 'amara@example.com',
+  emailVerified: true,
   name: 'Amara Okafor',
   source: 'session',
   displayName: 'Amara',
@@ -13,6 +15,8 @@ const sessionIdentity: CustomerAccessIdentity = {
 
 const syntheticIdentity: CustomerAccessIdentity = {
   subject: 'synthetic-development',
+  email: null,
+  emailVerified: false,
   name: 'Synthetic Customer',
   source: 'synthetic-development',
   displayName: 'Synthetic',
@@ -65,7 +69,9 @@ describe('customerConcernService', () => {
     const result = await service.read(syntheticIdentity);
     expect(result.status).toBe('unavailable');
     expect(result.concerns).toEqual([]);
-    expect(result.message).toBeTruthy();
+    if (result.status === 'unavailable') {
+      expect(result.message).toBeTruthy();
+    }
   });
 
   it('returns error for add with a synthetic identity', async () => {
