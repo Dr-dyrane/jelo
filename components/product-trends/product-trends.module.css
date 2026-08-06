@@ -333,6 +333,11 @@
   background: var(--surface-3);
 }
 
+:global(html[data-theme="dark"]) .filterActive {
+  background: var(--paper);
+  color: var(--ink);
+}
+
 @media (prefers-color-scheme: dark) {
   :global(html:not([data-theme="light"])) .section {
     background: var(--surface-2);
@@ -344,5 +349,9 @@
   }
   :global(html:not([data-theme="light"])) .filters {
     background: var(--surface-3);
+  }
+  :global(html:not([data-theme="light"])) .filterActive {
+    background: var(--paper);
+    color: var(--ink);
   }
 }
