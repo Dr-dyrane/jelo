@@ -1,0 +1,65 @@
+.button {
+  position: fixed;
+  top: clamp(1rem, 3vw, 1.8rem);
+  left: clamp(1rem, 3vw, 1.8rem);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.button:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.button:active {
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.done {
+  color: var(--state-success, #2a8e5c);
+}
+
+.flashing {
+  color: var(--wine);
+}
+
+.flash {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: #fff;
+  pointer-events: none;
+  animation: flashFade 300ms ease-out forwards;
+}
+
+@keyframes flashFade {
+  0% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+/* Dark theme */
+:global(html[data-theme="dark"]) .button {
+  color: var(--cream);
+}
+
+:global(html[data-theme="dark"]) .button:hover {
+  background: color-mix(in srgb, var(--cream) 10%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .button {
+    color: var(--cream);
+  }
+  :global(html:not([data-theme="light"])) .button:hover {
+    background: color-mix(in srgb, var(--cream) 10%, transparent);
+  }
+}

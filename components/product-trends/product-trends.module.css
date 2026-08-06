@@ -1,6 +1,7 @@
 .section {
   width: min(100%, 30rem);
   display: grid;
+  grid-template-rows: auto auto 1fr auto;
   gap: 1.4rem;
   padding: 1.6rem;
   border-radius: 1.75rem;
@@ -11,6 +12,7 @@
 @media (min-width: 980px) {
   .section {
     width: 100%;
+    height: 100%;
   }
 }
 
@@ -119,6 +121,7 @@
 .chartWrap {
   display: grid;
   gap: .6rem;
+  min-height: 0;
 }
 
 .chart {
@@ -126,6 +129,13 @@
   height: 160px;
   border-radius: .8rem;
   background: var(--surface-2);
+}
+
+@media (min-width: 980px) {
+  .chart {
+    height: 100%;
+    min-height: 160px;
+  }
 }
 
 .gridLine {
@@ -167,6 +177,29 @@
   border-radius: 50%;
   flex-shrink: 0;
 }
+
+.chartFooter {
+  min-height: 1.2rem;
+}
+
+.hoverReadout {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.hoverDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hoverReadout strong { color: var(--ink); font-weight: 600; }
+.hoverReadout .hoverPrice { color: var(--wine); font-weight: 600; }
+.hoverReadout small { color: var(--muted); font-size: .62rem; }
 
 /* --- Store breakdown --- */
 

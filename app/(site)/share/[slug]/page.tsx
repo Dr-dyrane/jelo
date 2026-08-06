@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { buildShareData } from './share-data';
 import { ShareAlternatives, ShareCard } from './share-card';
 import { ShareButton } from '@/components/share/share-button';
+import { ScreenshotButton } from '@/components/share/screenshot-button';
 import { ProductTrendsChart } from '@/components/product-trends/product-trends-chart';
 import { getWorthSharingReadModel } from '@/lib/share/worth-sharing';
 import { getProductTrendData } from '@/lib/share/product-trends';
@@ -40,12 +41,15 @@ export default async function SharePage({ params }: { params: Promise<{ slug: st
 
   return (
     <main className={styles.stage}>
+      <ScreenshotButton cardId="share-card" fileName={`${data.view.brand}-${data.view.name}-jelocare`} />
       <h1 className={styles.headline}>
         {data.headlineLead}
         {data.headlineEmph ? <><br /><em>{data.headlineEmph}</em></> : null}
       </h1>
       <div className={styles.cardGrid}>
-        <ShareCard view={data.view} />
+        <div id="share-card">
+          <ShareCard view={data.view} />
+        </div>
         {trendData ? <ProductTrendsChart data={trendData} /> : null}
       </div>
       <div className={styles.actions}>

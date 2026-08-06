@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { TrendingDown, TrendingUp, Minus, Package, ShieldCheck } from 'lucide-react';
 import type { ProductTrendData, TrendPricePoint } from '@/lib/share/product-trends';
 import styles from './product-trends.module.css';
@@ -26,70 +26,148 @@ const RETAILER_COLORS = [
   '#c44a4a', // red
 ];
 
+const CHART_W = 800;
+const CHART_H = 240;
+const PAD = 12;
+
 function filterPointsByWindow(points: TrendPricePoint[], days: number, now: number) {
   const cutoff = now - days * 86_400_000;
   return points.filter(p => Date.parse(p.observedAt) >= cutoff);
 }
 
-function buildSparklinePath(
-  points: { x: number; y: number }[],
-  width: number,
-  height: number,
-  padding = 4,
-) {
-  if (points.length < 2) return '';
-  const xs = points.map(p => p.x);
-  const ys = points.map(p => p.y);
-  const xMin = Math.min(...xs);
-  const xMax = Math.max(...xs);
-  const yMin = Math.min(...ys);
-  const yMax = Math.max(...ys);
-  const xRange = xMax - xMin || 1;
-  const yRange = yMax - yMin || 1;
-  const w = width - padding * 2;
-  const h = height - padding * 2;
-  return points
-    .map((p, i) => {
-      const x = padding + ((p.x - xMin) / xRange) * w;
-      const y = padding + h - ((p.y - yMin) / yRange) * h;
-      return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(' ');
+type FlatPoint = { x: number; y: number; retailer: string; observedAt: string; priceNaira: number };
+
+/**
+ * Catmull-Rom spline → cubic bezier conversion for smooth curved lines.
+ * Returns an SVG path string that passes through all points smoothly.
+ */
+function buildCurvedPath(pts: { x: number; y: number }[]) {
+  if (pts.length < 2) return '';
+  if (pts.length === 2) return `M${pts[0].x},${pts[0].y} L${pts[1].x},${pts[1].y}`;
+  let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] ?? pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] ?? p2;
+    const tension = 0.18;
+    const c1x = p1.x + (p2.x - p0.x) * tension;
+    const c1y = p1.y + (p2.y - p0.y) * tension;
+    const c2x = p2.x - (p3.x - p1.x) * tension;
+    const c2y = p2.y - (p3.y - p1.y) * tension;
+    d += ` C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+  }
+  return d;
+}
+
+function buildAreaPath(pts: { x: number; y: number }[], height: number) {
+  if (pts.length < 2) return '';
+  const line = buildCurvedPath(pts);
+  return `${line} L${pts.at(-1)!.x.toFixed(1)},${height} L${pts[0].x.toFixed(1)},${height} Z`;
 }
 
 type SeriesGroup = {
   retailer: string;
   color: string;
-  points: { x: number; y: number; observedAt: string }[];
+  points: FlatPoint[];
+  globalX: number;
+  globalY: number;
 };
 
 export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
-  const [window, setWindow] = useState<TimeWindow>('1m');
+  const [windowKey, setWindowKey] = useState<TimeWindow>('1m');
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
   const now = Date.now();
-  const days = WINDOWS.find(w => w.key === window)?.days ?? 30;
+  const days = WINDOWS.find(w => w.key === windowKey)?.days ?? 30;
 
   const filtered = useMemo(() => filterPointsByWindow(data.points, days, now), [data.points, days, now]);
 
-  // Group by retailer
-  const series: SeriesGroup[] = useMemo(() => {
+  // Compute global min/max across all series for shared axes
+  const { allPoints, xMin, xMax, yMin, yMax } = useMemo(() => {
     const byRetailer = new Map<string, TrendPricePoint[]>();
     for (const point of filtered) {
-      const key = point.retailer;
-      if (!byRetailer.has(key)) byRetailer.set(key, []);
-      byRetailer.get(key)!.push(point);
+      if (!byRetailer.has(point.retailer)) byRetailer.set(point.retailer, []);
+      byRetailer.get(point.retailer)!.push(point);
+    }
+    const flat: FlatPoint[] = [];
+    for (const point of filtered) {
+      flat.push({
+        x: Date.parse(point.observedAt),
+        y: point.priceNaira,
+        retailer: point.retailer,
+        observedAt: point.observedAt,
+        priceNaira: point.priceNaira,
+      });
+    }
+    const xs = flat.map(p => p.x);
+    const ys = flat.map(p => p.y);
+    return {
+      allPoints: flat,
+      xMin: Math.min(...xs),
+      xMax: Math.max(...xs),
+      yMin: Math.min(...ys),
+      yMax: Math.max(...ys),
+    };
+  }, [filtered]);
+
+  const series: SeriesGroup[] = useMemo(() => {
+    const byRetailer = new Map<string, FlatPoint[]>();
+    for (const p of allPoints) {
+      if (!byRetailer.has(p.retailer)) byRetailer.set(p.retailer, []);
+      byRetailer.get(p.retailer)!.push(p);
     }
     const retailers = [...byRetailer.keys()].sort();
-    return retailers.map((retailer, i) => ({
-      retailer,
-      color: RETAILER_COLORS[i % RETAILER_COLORS.length],
-      points: byRetailer.get(retailer)!
-        .map(p => ({ x: Date.parse(p.observedAt), y: p.priceNaira, observedAt: p.observedAt }))
-        .sort((a, b) => a.x - b.x),
-    }));
-  }, [filtered]);
+    const xRange = xMax - xMin || 1;
+    const yRange = yMax - yMin || 1;
+    const w = CHART_W - PAD * 2;
+    const h = CHART_H - PAD * 2;
+    return retailers.map((retailer, i) => {
+      const pts = byRetailer.get(retailer)!
+        .map(p => ({
+          ...p,
+          x: PAD + ((p.x - xMin) / xRange) * w,
+          y: PAD + h - ((p.y - yMin) / yRange) * h,
+        }))
+        .sort((a, b) => a.x - b.x);
+      return {
+        retailer,
+        color: RETAILER_COLORS[i % RETAILER_COLORS.length],
+        points: pts,
+        globalX: 0,
+        globalY: 0,
+      };
+    });
+  }, [allPoints, xMin, xMax, yMin, yMax]);
 
   const hasChart = series.some(s => s.points.length >= 2);
   const { summary } = data;
+
+  // Hover interaction — find nearest point across all series
+  function handleMove(e: React.MouseEvent<SVGSVGElement>) {
+    if (!hasChart || !svgRef.current) return;
+    const rect = svgRef.current.getBoundingClientRect();
+    const px = ((e.clientX - rect.left) / rect.width) * CHART_W;
+    // Find the closest x across all series points
+    let bestIdx: number | null = null;
+    let bestDist = Infinity;
+    series.forEach((s, si) => {
+      s.points.forEach((p, pi) => {
+        const dist = Math.abs(p.x - px);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = si * 1000 + pi;
+        }
+      });
+    });
+    setHoverIdx(bestIdx);
+  }
+
+  const hoverSeriesIdx = hoverIdx != null ? Math.floor(hoverIdx / 1000) : null;
+  const hoverPointIdx = hoverIdx != null ? hoverIdx % 1000 : null;
+  const hoverPoint = hoverSeriesIdx != null && hoverPointIdx != null
+    ? series[hoverSeriesIdx]?.points[hoverPointIdx]
+    : null;
 
   return (
     <section className={styles.section} aria-label="Price trends and insights">
@@ -102,10 +180,10 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
           {WINDOWS.map(w => (
             <button
               key={w.key}
-              className={`${styles.filter} ${window === w.key ? styles.filterActive : ''}`}
-              onClick={() => setWindow(w.key)}
+              className={`${styles.filter} ${windowKey === w.key ? styles.filterActive : ''}`}
+              onClick={() => setWindowKey(w.key)}
               role="tab"
-              aria-selected={window === w.key}
+              aria-selected={windowKey === w.key}
             >
               {w.label}
             </button>
@@ -113,7 +191,7 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
         </div>
       </div>
 
-      {/* Stat strip — show don't tell */}
+      {/* Stat strip */}
       <div className={styles.stats}>
         <div className={styles.stat}>
           <span className={styles.statLabel}>Lowest</span>
@@ -148,29 +226,76 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
       {/* Chart */}
       <div className={styles.chartWrap}>
         {hasChart ? (
-          <svg className={styles.chart} viewBox="0 0 800 240" preserveAspectRatio="none" aria-hidden="true">
+          <svg
+            ref={svgRef}
+            className={styles.chart}
+            viewBox={`0 0 ${CHART_W} ${CHART_H}`}
+            preserveAspectRatio="none"
+            onMouseMove={handleMove}
+            onMouseLeave={() => setHoverIdx(null)}
+            aria-hidden="true"
+          >
+            <defs>
+              {series.map(s => (
+                <linearGradient key={s.retailer} id={`grad-${s.retailer.replace(/[^a-z0-9]/gi, '')}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={s.color} stopOpacity="0.18" />
+                  <stop offset="100%" stopColor={s.color} stopOpacity="0" />
+                </linearGradient>
+              ))}
+            </defs>
             {/* Grid lines */}
-            <line x1="0" y1="60" x2="800" y2="60" className={styles.gridLine} />
-            <line x1="0" y1="120" x2="800" y2="120" className={styles.gridLine} />
-            <line x1="0" y1="180" x2="800" y2="180" className={styles.gridLine} />
-            {/* Series */}
+            <line x1="0" y1={CHART_H * 0.25} x2={CHART_W} y2={CHART_H * 0.25} className={styles.gridLine} />
+            <line x1="0" y1={CHART_H * 0.5} x2={CHART_W} y2={CHART_H * 0.5} className={styles.gridLine} />
+            <line x1="0" y1={CHART_H * 0.75} x2={CHART_W} y2={CHART_H * 0.75} className={styles.gridLine} />
+            {/* Series with gradient fill + curved line */}
             {series.map(s => {
-              const path = buildSparklinePath(s.points, 800, 240);
+              const linePath = buildCurvedPath(s.points);
+              const areaPath = buildAreaPath(s.points, CHART_H);
+              const gradId = `grad-${s.retailer.replace(/[^a-z0-9]/gi, '')}`;
+              const isHovered = hoverSeriesIdx === series.indexOf(s);
               return (
                 <g key={s.retailer}>
-                  <path d={path} fill="none" stroke={s.color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+                  <path d={areaPath} fill={`url(#${gradId})`} opacity={isHovered ? 0.3 : 1} />
+                  <path
+                    d={linePath}
+                    fill="none"
+                    stroke={s.color}
+                    strokeWidth={isHovered ? 2.5 : 1.8}
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    opacity={hoverSeriesIdx == null || isHovered ? 1 : 0.4}
+                    style={{ transition: 'opacity 160ms ease, stroke-width 160ms ease' }}
+                  />
+                  {/* Points — only show on hover */}
                   {s.points.map((p, i) => (
                     <circle
                       key={i}
-                      cx={4 + ((p.x - Math.min(...s.points.map(sp => sp.x))) / (Math.max(...s.points.map(sp => sp.x)) - Math.min(...s.points.map(sp => sp.x)) || 1)) * (800 - 8)}
-                      cy={4 + 232 - ((p.y - Math.min(...s.points.map(sp => sp.y))) / (Math.max(...s.points.map(sp => sp.y)) - Math.min(...s.points.map(sp => sp.y)) || 1)) * 232}
-                      r="3"
+                      cx={p.x}
+                      cy={p.y}
+                      r={hoverPointIdx === i && isHovered ? 5 : 3}
                       fill={s.color}
+                      opacity={hoverSeriesIdx == null || isHovered ? 0.7 : 0.2}
+                      style={{ transition: 'r 160ms ease, opacity 160ms ease' }}
                     />
                   ))}
                 </g>
               );
             })}
+            {/* Hover tooltip */}
+            {hoverPoint ? (
+              <g pointerEvents="none">
+                <line
+                  x1={hoverPoint.x}
+                  y1={PAD}
+                  x2={hoverPoint.x}
+                  y2={CHART_H - PAD}
+                  stroke={series[hoverSeriesIdx!].color}
+                  strokeWidth="1"
+                  strokeDasharray="3 4"
+                  opacity="0.5"
+                />
+              </g>
+            ) : null}
           </svg>
         ) : (
           <div className={styles.noChart}>
@@ -178,19 +303,31 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
             <span>Not enough history for this window.</span>
           </div>
         )}
+        {/* Hover readout + legend */}
         {hasChart ? (
-          <div className={styles.legend}>
-            {series.map(s => (
-              <span key={s.retailer} className={styles.legendItem}>
-                <span className={styles.legendDot} style={{ background: s.color }} />
-                {s.retailer}
+          <div className={styles.chartFooter}>
+            {hoverPoint ? (
+              <span className={styles.hoverReadout}>
+                <span className={styles.hoverDot} style={{ background: series[hoverSeriesIdx!].color }} />
+                <strong>{series[hoverSeriesIdx!].retailer}</strong>
+                <span className={styles.hoverPrice}>{naira.format(hoverPoint.priceNaira)}</span>
+                <small>{shortDate.format(new Date(hoverPoint.observedAt))}</small>
               </span>
-            ))}
+            ) : (
+              <div className={styles.legend}>
+                {series.map(s => (
+                  <span key={s.retailer} className={styles.legendItem}>
+                    <span className={styles.legendDot} style={{ background: s.color }} />
+                    {s.retailer}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         ) : null}
       </div>
 
-      {/* Store breakdown — compact rows */}
+      {/* Store breakdown */}
       <div className={styles.stores}>
         <div className={styles.storesHead}>
           <span>Store</span>
