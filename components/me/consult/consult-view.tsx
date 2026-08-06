@@ -1,12 +1,16 @@
 'use client';
 
 import { Search } from 'lucide-react';
+import { useMemo } from 'react';
 import { ProductCard } from '@/components/products/product-card';
 import { ME_PORTAL_SURFACES } from '@/components/me/shell/me-shell-model';
 import type {
   CustomerPortalProduct,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
+import { concerns as knowledgeConcerns } from '@/data/knowledge';
+import { matchConcerns } from '@/lib/customer/concern-matching';
+import { ConcernContent } from './concern-content';
 import styles from '../home/me-home.module.css';
 
 function SearchField({
@@ -54,6 +58,15 @@ export function ConsultView({
   searchRef: React.RefObject<HTMLInputElement | null>;
 }) {
   const surface = ME_PORTAL_SURFACES.consult;
+  const concernMatches = useMemo(
+    () => (search.trim() ? matchConcerns(search, knowledgeConcerns) : []),
+    [search],
+  );
+  const savedSlugs = useMemo(
+    () => new Set(viewModel.concerns.map((concern) => concern.slug)),
+    [viewModel.concerns],
+  );
+
   return (
     <section className={`${styles.routePage} ${styles.stackPage}`} aria-labelledby="me-consult-title">
       <div className={styles.routeHeading}>
@@ -95,15 +108,35 @@ export function ConsultView({
       </div>
       <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search my care" />
       {search.trim() ? (
-        products.length ? (
-          <div className="product-grid">
-            {products.slice(0, 6).map((product) => (
-              <ProductCard key={product.slug} product={product} href={memberProductHref(product, 'home')} />
-            ))}
+        <>
+          {concernMatches.length > 0 ? (
+            <div className={styles.concernContentStack}>
+              {concernMatches.map((match) => (
+                <ConcernContent
+                  key={match.concern.slug}
+                  concern={match.concern}
+                  matchedTerms={match.matchedTerms}
+                  matchedSignals={match.matchedSignals}
+                  saved={savedSlugs.has(match.concern.slug)}
+                  onSave={() => {
+                    /* persistence comes in Slice 4 */
+                  }}
+                />
+              ))}
+            </div>
+          ) : null}
+          <div id="me-consult-products">
+            {products.length ? (
+              <div className="product-grid">
+                {products.slice(0, 6).map((product) => (
+                  <ProductCard key={product.slug} product={product} href={memberProductHref(product, 'home')} />
+                ))}
+              </div>
+            ) : (
+              <p className={styles.empty}>No exact catalogue products match that search.</p>
+            )}
           </div>
-        ) : (
-          <p className={styles.empty}>No exact catalogue products match that search.</p>
-        )
+        </>
       ) : (
         <p className={styles.consultBoundary}>Suggestions and saved concern reporting are not available yet.</p>
       )}

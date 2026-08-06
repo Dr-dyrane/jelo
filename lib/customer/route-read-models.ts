@@ -14,9 +14,12 @@ import {
   type CustomerPortalRoutineStep,
   type CustomerPortalSavedRoutine,
   type CustomerPortalViewModel,
+  type CustomerPortalConcernReference,
 } from './portal-model';
 import { customerShelfService } from './shelf-service';
 import { customerRoutineService } from './routine-service';
+import { customerConcernService } from './concern-service';
+import { concerns as knowledgeLibraryConcerns } from '@/data/knowledge';
 import { buildMarketReading, type MarketReading } from '@/modules/commerce/market-reading';
 import { deriveRoutineContext, unavailableRoutineContext, type ProductRoutineContext } from './routine-context';
 import { deriveProductShelfContext, type ProductShelfContext } from './product-shelf-context';
@@ -211,6 +214,24 @@ async function readRoutines(identity: CustomerAccessIdentity, catalogueBySlug: R
     routine,
     routineState: { status: 'ready' as const, message: null },
   };
+}
+
+async function readConcerns(identity: CustomerAccessIdentity): Promise<readonly CustomerPortalConcernReference[]> {
+  const concernResult = await customerConcernService.read(identity);
+  if (concernResult.status !== 'ready') return [];
+  return concernResult.concerns
+    .map(record => {
+      const knowledge = knowledgeLibraryConcerns.find(c => c.slug === record.concernSlug);
+      if (!knowledge) return null;
+      return {
+        slug: knowledge.slug,
+        name: knowledge.name,
+        area: knowledge.area,
+        kind: knowledge.kind,
+        source: record.origin === 'synthetic-development' ? 'synthetic-development' as const : 'customer' as const,
+      } satisfies CustomerPortalConcernReference;
+    })
+    .filter((c): c is CustomerPortalConcernReference => c !== null);
 }
 
 // --- Synthetic helpers ---
@@ -475,16 +496,17 @@ export async function readMeExplore(identity: CustomerAccessIdentity): Promise<C
 
   const catalogue = await readCatalogue();
   const catalogueBySlug = new Map(catalogue.map(p => [p.slug, p]));
-  const [shelfData, routineData] = await Promise.all([
+  const [shelfData, routineData, concerns] = await Promise.all([
     readShelf(identity, catalogueBySlug),
     readRoutines(identity, catalogueBySlug),
+    readConcerns(identity),
   ]);
   return {
     catalogue,
     shelf: shelfData.shelf,
     shelfState: shelfData.shelfState,
     routine: routineData.routine,
-    concerns: [],
+    concerns,
     selectedRetailers: [],
     synthetic: false,
   };
@@ -533,7 +555,10 @@ export async function readMeRoutine(identity: CustomerAccessIdentity): Promise<C
 export async function readMeConsult(identity: CustomerAccessIdentity): Promise<CustomerConsultReadModel> {
   if (identity.source === 'synthetic-development') return syntheticConsult();
 
-  const catalogue = await readCatalogue();
+  const [catalogue, concerns] = await Promise.all([
+    readCatalogue(),
+    readConcerns(identity),
+  ]);
   return {
     account: {
       displayName: identity.displayName,
@@ -542,7 +567,7 @@ export async function readMeConsult(identity: CustomerAccessIdentity): Promise<C
       synthetic: false,
     },
     catalogue,
-    concerns: [],
+    concerns,
     synthetic: false,
   };
 }

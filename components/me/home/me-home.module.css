@@ -1041,6 +1041,191 @@
 .askSearchHeading > p:last-child { margin: 12px 0 0; color: var(--muted); font-size: 0.8rem; }
 .consultBoundary { margin: -26px 0 0; color: var(--muted); font-size: 0.76rem; }
 
+/* --- ADR 0015 Slice 2: concern content shown above product results ---
+   Card-like container with the same glassmorphic, warm-paper treatment as the
+   filter sheet, so the reviewed knowledge reads as a calm consultation answer. */
+.concernContentStack {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+  margin: 28px 0 48px;
+}
+.concernContent {
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--rose) 22%, transparent), transparent 22rem),
+    color-mix(in srgb, var(--paper) 94%, var(--peach));
+  box-shadow: 0 18px 60px rgb(61 35 31 / 14%);
+  border: 1px solid color-mix(in srgb, var(--peach) 40%, transparent);
+}
+.concernContentArea {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.concernContentName {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--ink);
+}
+.concernContentSummary {
+  margin: 14px 0 0;
+  max-width: 44rem;
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.concernContentSection {
+  margin-top: clamp(18px, 2.5vw, 26px);
+}
+.concernContentSectionTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--wine);
+  font-weight: 600;
+}
+.concernContentList {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--ink);
+  font-size: 0.86rem;
+  line-height: 1.7;
+  list-style: none;
+  padding: 0;
+}
+.concernContentList ul,
+.concernContentList { display: block; }
+.concernContentIngredient {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.concernContentIngredient + .concernContentIngredient::before {
+  content: '·';
+  margin-right: 4px;
+  color: var(--muted);
+}
+.concernContentSafetyNote {
+  color: var(--wine);
+  font-weight: 500;
+}
+.concernContentIngredientSource {
+  display: inline-flex;
+  align-items: center;
+  color: var(--wine);
+  text-decoration: none;
+}
+.concernContentIngredientSource:hover { text-decoration: underline; }
+.concernContentMatched {
+  color: var(--wine);
+  font-weight: 600;
+}
+.concernContentEscalation {
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--peach) 26%, transparent);
+  border: 1px solid color-mix(in srgb, var(--peach) 50%, transparent);
+}
+.concernContentEscalation p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+.concernContentUrgent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--wine) 14%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--wine) 40%, transparent);
+  color: var(--ink);
+}
+.concernContentUrgent p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  font-weight: 500;
+}
+.concernContentUrgent svg { flex: none; margin-top: 2px; color: var(--wine); }
+.concernContentSources {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.concernContentSources a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--wine);
+  text-decoration: none;
+  font-size: 0.82rem;
+}
+.concernContentSources a:hover { text-decoration: underline; }
+.concernContentDisclaimer {
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.6;
+}
+.concernContentActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin-top: 22px;
+}
+.concernContentSaveButton,
+.concernContentSeeProducts {
+  min-height: 3rem;
+  padding: .75rem 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 253, 249, .58);
+  color: var(--ink);
+  box-shadow: 0 14px 38px rgba(77, 46, 40, .08);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.86rem;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+.concernContentSaveButton {
+  background: var(--ink);
+  color: #fff;
+}
+.concernContentSaveButton[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--wine) 80%, var(--ink));
+}
+.concernContentSeeProducts {
+  background: rgba(255, 253, 249, .58);
+  color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .concernContentSaveButton:hover,
+  .concernContentSeeProducts:hover { transform: translateY(-2px); }
+}
+
 .productPage { padding-bottom: 40px; }
 
 .productHero {
@@ -1364,6 +1549,26 @@
   background: var(--accent-solid);
   color: var(--on-accent);
 }
+:global(html[data-theme="dark"]) .concernContent {
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--rose) 18%, transparent), transparent 22rem),
+    linear-gradient(145deg, var(--card-2), var(--surface-2));
+  box-shadow: var(--elevation-1);
+}
+:global(html[data-theme="dark"]) .concernContentEscalation {
+  background: color-mix(in srgb, var(--peach) 14%, transparent);
+  border-color: var(--border);
+}
+:global(html[data-theme="dark"]) .concernContentUrgent {
+  background: color-mix(in srgb, var(--wine) 22%, var(--card));
+  border-color: color-mix(in srgb, var(--wine) 50%, transparent);
+}
+:global(html[data-theme="dark"]) .concernContentSaveButton { background: var(--accent-solid); color: var(--on-accent); }
+:global(html[data-theme="dark"]) .concernContentSaveButton[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--wine) 70%, var(--accent-solid));
+}
+:global(html[data-theme="dark"]) .concernContentSeeProducts { background: var(--ghost-bg); }
 @media (prefers-color-scheme: dark) {
   :global(html:not([data-theme="light"])) .shell {
     background:
@@ -1400,6 +1605,26 @@
     background: var(--accent-solid);
     color: var(--on-accent);
   }
+  :global(html:not([data-theme="light"])) .concernContent {
+    border: 1px solid var(--border);
+    background:
+      radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--rose) 18%, transparent), transparent 22rem),
+      linear-gradient(145deg, var(--card-2), var(--surface-2));
+    box-shadow: var(--elevation-1);
+  }
+  :global(html:not([data-theme="light"])) .concernContentEscalation {
+    background: color-mix(in srgb, var(--peach) 14%, transparent);
+    border-color: var(--border);
+  }
+  :global(html:not([data-theme="light"])) .concernContentUrgent {
+    background: color-mix(in srgb, var(--wine) 22%, var(--card));
+    border-color: color-mix(in srgb, var(--wine) 50%, transparent);
+  }
+  :global(html:not([data-theme="light"])) .concernContentSaveButton { background: var(--accent-solid); color: var(--on-accent); }
+  :global(html:not([data-theme="light"])) .concernContentSaveButton[aria-pressed="true"] {
+    background: color-mix(in srgb, var(--wine) 70%, var(--accent-solid));
+  }
+  :global(html:not([data-theme="light"])) .concernContentSeeProducts { background: var(--ghost-bg); }
 }
 
 @media (forced-colors: active) {

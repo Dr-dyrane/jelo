@@ -9,9 +9,12 @@ import {
   resolveCustomerPortalShelfItem,
   resolveCustomerPortalRoutine,
   type CustomerPortalViewModel,
+  type CustomerPortalConcernReference,
 } from './portal-model';
 import { customerShelfService } from './shelf-service';
 import { customerRoutineService } from './routine-service';
+import { customerConcernService } from './concern-service';
+import { concerns as knowledgeLibraryConcerns } from '@/data/knowledge';
 
 export async function readCustomerPortal(
   identity: CustomerAccessIdentity,
@@ -24,10 +27,11 @@ export async function readCustomerPortal(
     };
   }
 
-  const [products, shelfRead, routineRead] = await Promise.all([
+  const [products, shelfRead, routineRead, concernRead] = await Promise.all([
     listCatalogueProducts(),
     customerShelfService.read(identity),
     customerRoutineService.read(identity),
+    customerConcernService.read(identity),
   ]);
   const catalogue = products.map(toCustomerPortalProduct);
   const catalogueBySlug = new Map(catalogue.map(product => [product.slug, product]));
@@ -48,6 +52,21 @@ export async function readCustomerPortal(
       product: step.product,
     }] : [])
   ));
+  const concerns = concernRead.status === 'ready'
+    ? concernRead.concerns
+        .map(record => {
+          const knowledge = knowledgeLibraryConcerns.find(c => c.slug === record.concernSlug);
+          if (!knowledge) return null;
+          return {
+            slug: knowledge.slug,
+            name: knowledge.name,
+            area: knowledge.area,
+            kind: knowledge.kind,
+            source: record.origin === 'synthetic-development' ? 'synthetic-development' as const : 'customer' as const,
+          } satisfies CustomerPortalConcernReference;
+        })
+        .filter((c): c is CustomerPortalConcernReference => c !== null)
+    : [];
 
   return {
     account: {
@@ -58,7 +77,7 @@ export async function readCustomerPortal(
     },
     featuredProduct: firstSavedProduct,
     catalogue,
-    concerns: [],
+    concerns,
     selectedRetailers: [],
     shelfState: {
       status: shelfRead.status,
