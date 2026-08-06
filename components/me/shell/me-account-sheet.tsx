@@ -236,7 +236,7 @@ export function MeAccountSheet({
               <Trash2 size={18} aria-hidden="true" /> {clearingConcerns ? 'Clearing…' : 'Clear concerns'}
             </button>
           ) : null}
-          <p role="status" aria-live="polite">{concernFeedback}</p>
+          {concernFeedback ? <p role="status" aria-live="polite">{concernFeedback}</p> : null}
         </section>
 
         <footer className={styles.footer}>

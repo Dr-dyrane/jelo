@@ -10,12 +10,14 @@ export function ConcernContent({
   matchedSignals,
   saved,
   onSave,
+  compact = false,
 }: {
   concern: Concern;
   matchedTerms: string[];
   matchedSignals: string[];
   saved: boolean;
   onSave: () => void;
+  compact?: boolean;
 }) {
   const isConditionPattern = concern.kind === 'condition-pattern';
   const seeProductsTarget = 'me-consult-products';
@@ -26,6 +28,43 @@ export function ConcernContent({
       region.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
+  if (compact) {
+    return (
+      <article className={`${styles.concernContent} ${styles.concernContentCompact}`}>
+        <header>
+          <p className={styles.concernContentArea}>{concern.area}</p>
+          <h3 className={styles.concernContentName}>{concern.name}</h3>
+        </header>
+        <p className={styles.concernContentSummary}>{concern.summary}</p>
+        {isConditionPattern ? (
+          <p className={`${styles.concernContentEscalation} ${styles.concernContentEscalationInline}`}>
+            <AlertTriangle size={14} aria-hidden="true" /> {concern.escalation}
+          </p>
+        ) : null}
+        <div className={styles.concernContentActions}>
+          <button
+            type="button"
+            className={styles.concernContentSaveButton}
+            aria-pressed={saved}
+            onClick={onSave}
+          >
+            {saved ? <Check size={16} aria-hidden="true" /> : null}
+            {saved ? 'Dealing with this' : 'I’m dealing with this'}
+          </button>
+          {!isConditionPattern ? (
+            <button
+              type="button"
+              className={styles.concernContentSeeProducts}
+              onClick={handleSeeProducts}
+            >
+              See products
+            </button>
+          ) : null}
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article className={styles.concernContent}>

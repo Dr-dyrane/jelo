@@ -66,6 +66,9 @@ export function ConsultView({
     () => new Set(viewModel.concerns.map((concern) => concern.slug)),
     [viewModel.concerns],
   );
+  const isSearching = Boolean(search.trim());
+  const primaryMatch = concernMatches[0] ?? null;
+  const secondaryMatches = concernMatches.slice(1);
 
   return (
     <section className={`${styles.routePage} ${styles.stackPage}`} aria-labelledby="me-consult-title">
@@ -73,56 +76,75 @@ export function ConsultView({
         <p className={styles.eyebrow}>{surface.eyebrow}</p>
         <h1 id="me-consult-title">{surface.title}</h1>
       </div>
-      <section className={styles.concernsLanding} aria-labelledby="me-concerns-title">
-        <header>
-          <div>
-            <p className={styles.eyebrow}>My concerns</p>
-            <h2 id="me-concerns-title">What I’ve noticed.</h2>
-          </div>
-          <span>{viewModel.concerns.length}</span>
-        </header>
-        {viewModel.concerns.length ? (
-          <>
-            <div className={styles.concernList} aria-label="My concerns">
-              {viewModel.concerns.map((concern) => (
-                <span key={concern.slug}>{concern.name}<small>{concern.area}</small></span>
-              ))}
+      {!isSearching ? (
+        <section className={styles.concernsLanding} aria-labelledby="me-concerns-title">
+          <header>
+            <div>
+              <p className={styles.eyebrow}>My concerns</p>
+              <h2 id="me-concerns-title">What I’ve noticed.</h2>
             </div>
+            <span>{viewModel.concerns.length}</span>
+          </header>
+          {viewModel.concerns.length ? (
+            <>
+              <div className={styles.concernList} aria-label="My concerns">
+                {viewModel.concerns.map((concern) => (
+                  <span key={concern.slug}>{concern.name}<small>{concern.area}</small></span>
+                ))}
+              </div>
+              <p>
+                {viewModel.account.synthetic
+                  ? 'Local preview only · These examples are not a diagnosis.'
+                  : 'Educational care context only · Not a diagnosis.'}
+              </p>
+            </>
+          ) : (
             <p>
-              {viewModel.account.synthetic
-                ? 'Local preview only · These examples are not a diagnosis.'
-                : 'Educational care context only · Not a diagnosis.'}
+              No concerns saved yet. Search what you notice below to read reviewed guidance.
             </p>
-          </>
-        ) : (
-          <p>
-            No concerns have been reported here. Search what you notice below; this does not save or diagnose a concern.
-          </p>
-        )}
-      </section>
+          )}
+        </section>
+      ) : null}
 
       <div className={styles.askSearchHeading}>
-        <p className={styles.eyebrow}>Ask Me</p>
-        <h2>Explore your care.</h2>
-        <p>Search the exact catalogue in your own words.</p>
+        <h2>Search what you notice.</h2>
+        <p>Reviewed guidance and matching products from the catalogue.</p>
       </div>
       <SearchField value={search} onChange={setSearch} inputRef={searchRef} label="Search my care" />
-      {search.trim() ? (
+      {isSearching ? (
         <>
-          {concernMatches.length > 0 ? (
+          {primaryMatch ? (
             <div className={styles.concernContentStack}>
-              {concernMatches.map((match) => (
-                <ConcernContent
-                  key={match.concern.slug}
-                  concern={match.concern}
-                  matchedTerms={match.matchedTerms}
-                  matchedSignals={match.matchedSignals}
-                  saved={savedSlugs.has(match.concern.slug)}
-                  onSave={() => {
-                    /* persistence comes in Slice 4 */
-                  }}
-                />
-              ))}
+              <ConcernContent
+                concern={primaryMatch.concern}
+                matchedTerms={primaryMatch.matchedTerms}
+                matchedSignals={primaryMatch.matchedSignals}
+                saved={savedSlugs.has(primaryMatch.concern.slug)}
+                onSave={() => {
+                  /* persistence comes in Slice 4 */
+                }}
+              />
+              {secondaryMatches.length > 0 ? (
+                <div className={styles.concernContentRelated} aria-label="Related concerns">
+                  <p className={styles.concernContentRelatedLabel}>Related concerns</p>
+                  <ul>
+                    {secondaryMatches.map((match) => (
+                      <li key={match.concern.slug}>
+                        <ConcernContent
+                          concern={match.concern}
+                          matchedTerms={match.matchedTerms}
+                          matchedSignals={match.matchedSignals}
+                          saved={savedSlugs.has(match.concern.slug)}
+                          onSave={() => {
+                            /* persistence comes in Slice 4 */
+                          }}
+                          compact
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </div>
           ) : null}
           <div id="me-consult-products">
@@ -138,7 +160,9 @@ export function ConsultView({
           </div>
         </>
       ) : (
-        <p className={styles.consultBoundary}>Suggestions and saved concern reporting are not available yet.</p>
+        <p className={styles.consultBoundary}>
+          Search a concern like “acne”, “dark spots” or “sensitive skin” to read reviewed guidance and find matching products.
+        </p>
       )}
     </section>
   );

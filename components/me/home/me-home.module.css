@@ -1152,6 +1152,50 @@
   box-shadow: 0 18px 60px rgb(61 35 31 / 14%);
   border: 1px solid color-mix(in srgb, var(--peach) 40%, transparent);
 }
+.concernContentCompact {
+  padding: clamp(16px, 3vw, 24px);
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgb(61 35 31 / 8%);
+}
+.concernContentCompact .concernContentName {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+}
+.concernContentCompact .concernContentSummary {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+}
+.concernContentCompact .concernContentActions {
+  margin-top: 12px;
+}
+.concernContentRelated {
+  margin: 0;
+}
+.concernContentRelatedLabel {
+  margin: 0 0 10px;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.concernContentRelated ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.concernContentEscalationInline {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--peach) 28%, transparent);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
 .concernContentArea {
   margin: 0 0 6px;
   color: var(--muted);
