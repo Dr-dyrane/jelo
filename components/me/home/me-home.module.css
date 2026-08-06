@@ -1131,27 +1131,43 @@
 .productActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: .65rem;
   margin-top: 16px;
 }
 
 .productEvidenceActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: .65rem;
 }
 
+/* Evidence buttons share the public product-quick-actions design tokens:
+   glassmorphic pill, ink primary, dark-theme-aware via global tokens. */
 .productEvidenceAction {
-  padding: 0 18px;
+  min-height: 3.25rem;
+  padding: .85rem 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
   border: 0;
   border-radius: 999px;
+  background: rgba(255, 253, 249, .58);
+  color: var(--ink);
+  box-shadow: 0 14px 38px rgba(77, 46, 40, .08);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
   cursor: pointer;
   font: inherit;
 }
 
+/* Primary evidence action (Find a store) uses the ink solid pill. */
+.productEvidenceActions .productEvidenceAction:first-child {
+  background: var(--ink);
+  color: #fff;
+}
+
 .productEvidenceActionSecondary {
-  background: color-mix(in srgb, var(--paper) 80%, transparent);
-  box-shadow: 0 10px 28px rgb(107 59 53 / 8%);
   color: var(--ink);
 }
 
@@ -1232,6 +1248,8 @@
   .productStory { padding: 28px 22px 36px; }
   .productStory h1 { font-size: clamp(2rem, 9vw, 3.4rem); }
   .stateDock nav a { padding-inline: 8px; font-size: 0.66rem; }
+  .productEvidenceActions { flex: 1 1 100%; }
+  .productEvidenceAction { flex: 1 1 0; min-width: 0; min-height: 3rem; padding-inline: .8rem; }
 }
 
 /* Ultra-narrow: stack feed section headings and trailing actions vertically
@@ -1340,6 +1358,12 @@
 }
 :global(html[data-theme="dark"]) .filterDialog::backdrop { background: var(--glass-scrim); }
 :global(html[data-theme="dark"]) .filterSheet { box-shadow: 0 -30px 90px rgb(0 0 0 / 72%); }
+/* Dark theme: evidence buttons use ghost-bg, primary uses accent solid */
+:global(html[data-theme="dark"]) .productEvidenceAction { background: var(--ghost-bg); }
+:global(html[data-theme="dark"]) .productEvidenceActions .productEvidenceAction:first-child {
+  background: var(--accent-solid);
+  color: var(--on-accent);
+}
 @media (prefers-color-scheme: dark) {
   :global(html:not([data-theme="light"])) .shell {
     background:
@@ -1371,6 +1395,11 @@
   }
   :global(html:not([data-theme="light"])) .filterDialog::backdrop { background: var(--glass-scrim); }
   :global(html:not([data-theme="light"])) .filterSheet { box-shadow: 0 -30px 90px rgb(0 0 0 / 72%); }
+  :global(html:not([data-theme="light"])) .productEvidenceAction { background: var(--ghost-bg); }
+  :global(html:not([data-theme="light"])) .productEvidenceActions .productEvidenceAction:first-child {
+    background: var(--accent-solid);
+    color: var(--on-accent);
+  }
 }
 
 @media (forced-colors: active) {
