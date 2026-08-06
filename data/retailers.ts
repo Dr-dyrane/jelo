@@ -438,6 +438,17 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: 'Direct Shopify catalogue with visible Naira pricing, stock counts, pickup availability and WhatsApp contact.',
   },
   {
+    name: 'Beauty Hut Africa',
+    homepage: 'https://beautyhutafrica.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 80,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    searchUrl: wordpressSearch('https://beautyhutafrica.com/'),
+    note: 'Nigeria beauty retailer with UK/Europe skincare catalogue and Naira pricing.',
+  },
+  {
     name: 'AGT Plaza',
     homepage: 'https://www.agtplaza.com/',
     market: 'NG',

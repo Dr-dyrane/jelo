@@ -557,7 +557,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Nihet Beauty', 'https://nihetbeauty.com/product/advanced-clinicals-vitamin-c-serum-52ml/', 78, 39500, 'Advanced Clinicals Vitamin C Serum 52ml', '52 ml'),
   ],
   'la-roche-posay-effaclar-purifying-foaming-gel-400ml': [
-    exactNg('Perona Beauty', 'https://peronabeauty.com/product/la-roche-posay-effaclar-purifying-foaming-gel-cleanser-for-oily-sensitive-skin-400ml/', 86, 23300, 'La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml', '400 ml'),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/la-roche-posay-effaclar-purifying-foaming-gel-cleanser-for-oily-sensitive-skin-400ml/', 86, 23300, 'La Roche-Posay Effaclar Purifying Foaming Gel Cleanser for Oily Sensitive Skin 400ml', '400 ml'),
+    exactNg('Beauty Hut Africa', 'https://beautyhutafrica.com/product/la-roche-posay-effaclar-purifying-foaming-gel/', 80, 15511, 'La Roche Posay Effaclar Foam Cleanser', '400 ml'),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/la-roche-posay-effaclar-cleanser/', 86, 15910, 'La Roche-Posay Effaclar Gel Moussant Purifying Foaming Gel for Oily Sensitive Skin 400ml', '400 ml'),
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/la-roche-posay-effaclar-purifying-foaming-wash/', 78, 24000, 'La Roche Posay Effaclar Purifying Foaming Wash 400ml', '400 ml'),
+    exactNg('Teeka4', 'https://teeka4.com/shop/la-roche-posay-effaclar-purifying-foaming-gel-cleanser-400ml/', 98, 20999, 'La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml', '400 ml'),
   ],
 };
 
