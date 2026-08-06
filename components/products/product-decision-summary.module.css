@@ -138,3 +138,72 @@ html[data-theme="dark"] .chipLink {
     transform: none;
   }
 }
+
+/* New clinical content elements */
+.cellBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.cellWhy {
+  margin: .3rem 0 0;
+  font-size: .68rem;
+  color: var(--wine);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.formulaCaveat {
+  margin: 1rem 0 0;
+  padding: .8rem 1rem;
+  border-radius: .8rem;
+  background: color-mix(in srgb, var(--paper) 42%, transparent);
+  font-size: .72rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.evidenceSources {
+  margin: 1rem 0 0;
+  padding-top: .8rem;
+  border-top: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
+}
+
+.sourceLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .4rem;
+}
+
+.sourceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  color: var(--wine);
+  font-size: .68rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.sourceLink:hover { text-decoration: underline; text-underline-offset: .15em; }
+.sourceLink:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+.reviewedOn {
+  margin: .5rem 0 0;
+  font-size: .65rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Dark theme */
+html[data-theme="dark"] .formulaCaveat { background: color-mix(in srgb, var(--paper) 22%, transparent); }
+html[data-theme="dark"] .evidenceSources { border-top-color: color-mix(in srgb, var(--muted) 12%, transparent); }
+html[data-theme="dark"] .sourceLink { color: var(--muted); }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .formulaCaveat { background: color-mix(in srgb, var(--paper) 22%, transparent); }
+  html:not([data-theme="light"]) .evidenceSources { border-top-color: color-mix(in srgb, var(--muted) 12%, transparent); }
+  html:not([data-theme="light"]) .sourceLink { color: var(--muted); }
+}

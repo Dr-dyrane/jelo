@@ -4,31 +4,43 @@ import { IngredientExplorer, type IngredientCard } from '@/components/ingredient
 import { products } from '@/data/catalogue';
 import { editorialAsset } from '@/data/editorial';
 import { ingredientSeeds, verifiedProductIngredients } from '@/data/product-ingredients';
+import { ingredientById } from '@/modules/clinical/core/ingredients';
 import { publicSocialMetadata, staticSocialCard } from '@/lib/og/social-card';
 
 export const metadata: Metadata = publicSocialMetadata(staticSocialCard('ingredients'), '/ingredients');
 
-const ingredientCards: IngredientCard[] = ingredientSeeds.map(ingredient => ({
-  slug: ingredient.slug,
-  name: ingredient.commonName,
-  inciName: ingredient.inciName,
-  summary: ingredient.summary,
-  evidenceGrade: ingredient.evidenceGrade,
-  sensitiveSkinStatus: ingredient.sensitiveSkinStatus,
-  products: Object.entries(verifiedProductIngredients).flatMap(([productSlug, productIngredients]) => {
-    const product = products.find(item => item.slug === productSlug);
-    if (!product) return [];
-    return productIngredients
-      .filter(item => item.ingredientSlug === ingredient.slug)
-      .map(item => ({
-        slug: product.slug,
-        brand: product.brand,
-        name: product.name,
-        concentrationPercent: item.concentrationPercent,
-        sourceUrl: item.sourceUrl,
-      }));
-  }),
-})).filter(ingredient => ingredient.products.length > 0);
+const ingredientCards: IngredientCard[] = ingredientSeeds.map(ingredient => {
+  const knowledge = ingredientById.get(ingredient.slug);
+  return {
+    slug: ingredient.slug,
+    name: ingredient.commonName,
+    inciName: ingredient.inciName,
+    summary: ingredient.summary,
+    evidenceGrade: ingredient.evidenceGrade,
+    sensitiveSkinStatus: ingredient.sensitiveSkinStatus,
+    products: Object.entries(verifiedProductIngredients).flatMap(([productSlug, productIngredients]) => {
+      const product = products.find(item => item.slug === productSlug);
+      if (!product) return [];
+      return productIngredients
+        .filter(item => item.ingredientSlug === ingredient.slug)
+        .map(item => ({
+          slug: product.slug,
+          brand: product.brand,
+          name: product.name,
+          concentrationPercent: item.concentrationPercent,
+          sourceUrl: item.sourceUrl,
+        }));
+    }),
+    // Enrich with clinical knowledge where available
+    family: knowledge?.family,
+    concerns: knowledge?.concerns,
+    allowedTimes: knowledge?.allowedTimes,
+    pregnancyStatus: knowledge?.pregnancy,
+    nursingStatus: knowledge?.breastfeeding,
+    photosensitivity: knowledge?.photosensitivity,
+    irritationRisk: knowledge?.irritationRisk,
+  };
+}).filter(ingredient => ingredient.products.length > 0);
 
 const storyAsset = editorialAsset('ingredient-label-reader-story');
 

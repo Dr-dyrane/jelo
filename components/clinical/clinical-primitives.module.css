@@ -1,0 +1,93 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  line-height: 1.4;
+  background: color-mix(in srgb, var(--paper) 62%, transparent);
+  color: var(--ink);
+}
+
+.badgeNote {
+  font-weight: 400;
+  font-size: .62rem;
+  opacity: .8;
+}
+
+.badgeHigh { background: color-mix(in srgb, #2a8e5c 12%, transparent); color: #1a6b43; }
+.badgeModerate { background: color-mix(in srgb, #c98a2b 14%, transparent); color: #8a5e1a; }
+.badgeEmerging { background: color-mix(in srgb, var(--wine) 12%, transparent); color: var(--wine); }
+.badgeInsufficient,
+.badgeLimited { background: color-mix(in srgb, var(--muted) 14%, transparent); color: var(--muted); }
+
+.caution {
+  padding: 1rem 1.2rem;
+  border-radius: 1.1rem;
+  background: color-mix(in srgb, var(--peach) 38%, transparent);
+  border-left: 3px solid var(--wine);
+}
+
+.cautionLabel {
+  margin: 0 0 .35rem;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+
+.cautionText {
+  margin: 0;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.sourceList {
+  display: grid;
+  gap: .5rem;
+}
+
+.sourceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  width: max-content;
+  max-width: 100%;
+  color: var(--wine);
+  font-size: .72rem;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.sourceLink:hover { text-decoration: underline; text-underline-offset: .15em; }
+.sourceLink:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+.reviewedOn {
+  margin: 0;
+  font-size: .68rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Dark theme */
+html[data-theme="dark"] .badge { background: color-mix(in srgb, var(--paper) 32%, transparent); }
+html[data-theme="dark"] .badgeHigh { background: color-mix(in srgb, #2a8e5c 22%, transparent); color: #4eb380; }
+html[data-theme="dark"] .badgeModerate { background: color-mix(in srgb, #c98a2b 22%, transparent); color: #e0a94a; }
+html[data-theme="dark"] .badgeEmerging { background: color-mix(in srgb, var(--wine) 22%, transparent); color: var(--wine); }
+html[data-theme="dark"] .caution { background: color-mix(in srgb, var(--wine) 14%, transparent); }
+html[data-theme="dark"] .sourceLink { color: var(--muted); }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .badge { background: color-mix(in srgb, var(--paper) 32%, transparent); }
+  html:not([data-theme="light"]) .badgeHigh { background: color-mix(in srgb, #2a8e5c 22%, transparent); color: #4eb380; }
+  html:not([data-theme="light"]) .badgeModerate { background: color-mix(in srgb, #c98a2b 22%, transparent); color: #e0a94a; }
+  html:not([data-theme="light"]) .badgeEmerging { background: color-mix(in srgb, var(--wine) 22%, transparent); color: var(--wine); }
+  html:not([data-theme="light"]) .caution { background: color-mix(in srgb, var(--wine) 14%, transparent); }
+  html:not([data-theme="light"]) .sourceLink { color: var(--muted); }
+}

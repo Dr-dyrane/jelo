@@ -742,3 +742,119 @@
   :global(html:not([data-theme="light"])) .product > a:last-child { background: var(--card); color: var(--ink); }
   :global(html:not([data-theme="light"])) .sheetNote { color: var(--muted); }
 }
+
+/* Progressive disclosure clinical detail */
+.sheetFamily {
+  margin: .3rem 0 0;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sheetConcerns { margin: 1rem 0 0; }
+
+.sheetSectionLabel {
+  margin: 0 0 .5rem;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+
+.sheetChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.sheetChip {
+  padding: .35rem .65rem;
+  border-radius: 999px;
+  background: rgba(244, 212, 197, .5);
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.sheetBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin: 1rem 0 0;
+}
+
+.disclosureWrap {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid rgba(112, 71, 61, .12);
+  padding-top: 1rem;
+}
+
+.disclosureToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .6rem .2rem;
+  border: 0;
+  background: transparent;
+  color: var(--wine);
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color .15s ease;
+}
+
+.disclosureToggle:hover { color: var(--ink); }
+.disclosureToggle:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: .4rem; }
+
+.chevronOpen { transform: rotate(180deg); }
+.disclosureToggle svg { transition: transform .2s ease; }
+
+.disclosureBody {
+  display: grid;
+  gap: .6rem;
+  padding: .6rem 0 0;
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: .6rem;
+  align-items: baseline;
+}
+
+.detailRow dt {
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.detailRow dd {
+  margin: 0;
+  font-size: .78rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.detailSources { margin-top: .4rem; }
+
+@media (max-width: 420px) {
+  .detailRow { grid-template-columns: 1fr; gap: .15rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosureToggle svg { transition: none; }
+}
+
+/* Dark theme for new elements */
+:global(html[data-theme="dark"]) .sheetChip { background: var(--ghost-bg); }
+:global(html[data-theme="dark"]) .disclosureWrap { border-top-color: rgba(255, 255, 255, .08); }
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .sheetChip { background: var(--ghost-bg); }
+  :global(html:not([data-theme="light"])) .disclosureWrap { border-top-color: rgba(255, 255, 255, .08); }
+}

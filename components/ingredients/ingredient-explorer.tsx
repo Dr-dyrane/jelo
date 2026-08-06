@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Search, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronDown, Search, X } from 'lucide-react';
 import { useId, useMemo, useState } from 'react';
 import { useModalDialog } from '@/components/ui/use-modal-dialog';
 import { ShareButton } from '@/components/share/share-button';
+import { EvidenceGradeBadge, SafetyBadge, ClinicalCaution, SourceList, ReviewedOn } from '@/components/clinical/clinical-primitives';
+import type { EvidenceGradeLevel, SafetyStatus, SourceEntry } from '@/components/clinical/clinical-primitives';
 import styles from './ingredient-explorer.module.css';
 
 export type IngredientProduct = {
@@ -20,9 +22,19 @@ export type IngredientCard = {
   name: string;
   inciName: string;
   summary: string;
-  evidenceGrade: 'high' | 'moderate' | 'emerging' | 'insufficient';
-  sensitiveSkinStatus: 'generally_safe' | 'use_with_caution' | 'avoid' | 'unknown';
+  evidenceGrade: EvidenceGradeLevel;
+  sensitiveSkinStatus: SafetyStatus;
   products: IngredientProduct[];
+  /** Enriched clinical knowledge — only present when source data supports it */
+  family?: string;
+  concerns?: string[];
+  allowedTimes?: string[];
+  pregnancyStatus?: SafetyStatus;
+  nursingStatus?: SafetyStatus;
+  photosensitivity?: 'none' | 'low' | 'moderate' | 'high';
+  irritationRisk?: 'low' | 'moderate' | 'high';
+  sources?: SourceEntry[];
+  reviewedAt?: string;
 };
 
 type LibraryView = 'all' | 'high' | 'gentle';
@@ -32,13 +44,65 @@ const evidenceLabel = {
   moderate: 'Moderate evidence',
   emerging: 'Early evidence',
   insufficient: 'Not enough evidence',
+  limited: 'Limited evidence',
 };
 
-const skinLabel = {
+const skinLabel: Record<SafetyStatus, string> = {
+  safe: 'Usually gentle',
   generally_safe: 'Usually gentle',
+  caution: 'Go slowly',
   use_with_caution: 'Go slowly',
   avoid: 'Avoid on sensitive skin',
   unknown: 'Sensitivity unknown',
+};
+
+const familyLabels: Record<string, string> = {
+  retinoid: 'Retinoid',
+  exfoliant: 'Exfoliant',
+  antimicrobial: 'Antimicrobial',
+  brightening: 'Brightening',
+  barrier: 'Barrier support',
+  hydrating: 'Hydrating',
+  sunscreen: 'Sunscreen',
+  other: 'Other',
+};
+
+const timeLabels: Record<string, string> = {
+  morning: 'Morning',
+  evening: 'Evening',
+  weekly: 'Weekly',
+  any: 'Any time',
+};
+
+const photosensitivityLabels: Record<string, string> = {
+  none: 'No sun sensitivity',
+  low: 'Low sun sensitivity',
+  moderate: 'Use with daily SPF',
+  high: 'Use with daily SPF',
+};
+
+const irritationLabels: Record<string, string> = {
+  low: 'Low irritation risk',
+  moderate: 'Moderate irritation risk',
+  high: 'Higher irritation risk',
+};
+
+const pregnancyLabels: Record<SafetyStatus, string> = {
+  safe: 'Generally safe in pregnancy',
+  generally_safe: 'Generally safe in pregnancy',
+  caution: 'Check with a clinician during pregnancy',
+  use_with_caution: 'Check with a clinician during pregnancy',
+  avoid: 'Avoid during pregnancy',
+  unknown: 'Pregnancy safety unknown',
+};
+
+const nursingLabels: Record<SafetyStatus, string> = {
+  safe: 'Generally safe while nursing',
+  generally_safe: 'Generally safe while nursing',
+  caution: 'Check with a clinician while nursing',
+  use_with_caution: 'Check with a clinician while nursing',
+  avoid: 'Avoid while nursing',
+  unknown: 'Nursing safety unknown',
 };
 
 const views: Array<{ id: LibraryView; label: string }> = [
@@ -171,47 +235,182 @@ export function IngredientExplorer({ ingredients }: { ingredients: IngredientCar
         }}
         onClick={event => { if (event.target === dialogRef.current) closeIngredient(); }}
       >
-        {selected ? <div className={styles.sheet}>
-          <span className={styles.handle} aria-hidden="true" />
-          <header className={styles.sheetHeader}>
-            <div>
-              <p>Ingredient guide</p>
-              <h2 id={`${dialogId}-title`}>{selected.name}</h2>
-              {selected.inciName !== selected.name ? <span>{selected.inciName}</span> : null}
-            </div>
-            <button type="button" onClick={closeIngredient} aria-label={`Close ${selected.name} guide`}><X size={20} aria-hidden="true" /></button>
-          </header>
-
-          <div className={styles.sheetBody}>
-            <p className={styles.sheetSummary}>{selected.summary}</p>
-            <dl className={styles.signals}>
-              <div><dt>Evidence</dt><dd>{evidenceLabel[selected.evidenceGrade]}</dd></div>
-              <div><dt>Sensitive skin</dt><dd>{skinLabel[selected.sensitiveSkinStatus]}</dd></div>
-            </dl>
-
-            <section className={styles.productSection} aria-labelledby={`${dialogId}-products`}>
-              <div className={styles.productHeading}>
-                <h3 id={`${dialogId}-products`}>Found in</h3>
-                <span>{productCountLabel(selected.products.length)}</span>
-              </div>
-              <div className={styles.products}>
-                {selected.products.map(product => <article className={styles.product} key={product.slug}>
-                  <Link href={`/products/${product.slug}`} onClick={closeIngredient}>
-                    <span>{product.brand}</span>
-                    <strong>{concentration(product.concentrationPercent, product.name)}{product.name}</strong>
-                  </Link>
-                  <a href={product.sourceUrl} target="_blank" rel="noreferrer">Source <ArrowUpRight size={14} aria-hidden="true" /></a>
-                </article>)}
-              </div>
-            </section>
-
-            <div className={styles.sheetFoot}>
-              <p className={styles.sheetNote}>Evidence describes the ingredient, not the whole formula.</p>
-              <ShareButton path={`/share/ingredient/${selected.slug}`} title={selected.name} label="Share" inline />
-            </div>
-          </div>
-        </div> : null}
+        {selected ? <IngredientDetailSheet
+          selected={selected}
+          dialogId={dialogId}
+          onClose={closeIngredient}
+        /> : null}
       </dialog>
     </section>
+  );
+}
+
+/**
+ * Progressive disclosure ingredient detail sheet.
+ *
+ * First view answers:
+ * - What is it? (name, INCI, family, summary)
+ * - Why might I use it? (concerns it may help with)
+ * - Is there anything important I should know? (sensitive skin, pregnancy, caution)
+ *
+ * Deeper evidence (timing, photosensitivity, irritation, sources, products)
+ * is behind a disclosure toggle.
+ */
+function IngredientDetailSheet({
+  selected,
+  dialogId,
+  onClose,
+}: {
+  selected: IngredientCard;
+  dialogId: string;
+  onClose: () => void;
+}) {
+  const [showDetails, setShowDetails] = useState(false);
+  const detailsId = useId();
+
+  const hasCaution = selected.sensitiveSkinStatus === 'use_with_caution'
+    || selected.sensitiveSkinStatus === 'caution'
+    || selected.sensitiveSkinStatus === 'avoid'
+    || selected.irritationRisk === 'high'
+    || selected.pregnancyStatus === 'avoid'
+    || selected.pregnancyStatus === 'caution'
+    || selected.pregnancyStatus === 'use_with_caution';
+
+  const cautionText = selected.sensitiveSkinStatus === 'avoid'
+    ? 'Avoid on sensitive skin. Patch test before any use.'
+    : selected.sensitiveSkinStatus === 'use_with_caution' || selected.sensitiveSkinStatus === 'caution'
+      ? 'Go slowly. Patch test first and reduce frequency if irritation occurs.'
+      : selected.irritationRisk === 'high'
+        ? 'Higher irritation risk. Introduce gradually and reduce frequency if needed.'
+        : selected.pregnancyStatus === 'avoid'
+          ? 'Avoid during pregnancy. Check with a clinician before use.'
+          : selected.pregnancyStatus === 'caution' || selected.pregnancyStatus === 'use_with_caution'
+            ? 'Check with a clinician before use during pregnancy.'
+            : null;
+
+  const hasDeeperData = Boolean(
+    selected.family
+    || (selected.concerns && selected.concerns.length > 0)
+    || (selected.allowedTimes && selected.allowedTimes.length > 0)
+    || selected.photosensitivity
+    || selected.irritationRisk
+    || selected.pregnancyStatus
+    || selected.nursingStatus
+    || (selected.sources && selected.sources.length > 0)
+    || selected.reviewedAt,
+  );
+
+  return (
+    <div className={styles.sheet}>
+      <span className={styles.handle} aria-hidden="true" />
+      <header className={styles.sheetHeader}>
+        <div>
+          <p>Ingredient guide</p>
+          <h2 id={`${dialogId}-title`}>{selected.name}</h2>
+          {selected.inciName !== selected.name ? <span>{selected.inciName}</span> : null}
+        </div>
+        <button type="button" onClick={onClose} aria-label={`Close ${selected.name} guide`}><X size={20} aria-hidden="true" /></button>
+      </header>
+
+      <div className={styles.sheetBody}>
+        {/* First view: What is it? */}
+        <p className={styles.sheetSummary}>{selected.summary}</p>
+        {selected.family ? <p className={styles.sheetFamily}>{familyLabels[selected.family] ?? selected.family}</p> : null}
+
+        {/* First view: Why might I use it? */}
+        {selected.concerns && selected.concerns.length > 0 ? (
+          <div className={styles.sheetConcerns}>
+            <p className={styles.sheetSectionLabel}>May help with</p>
+            <div className={styles.sheetChips}>
+              {selected.concerns.map(concern => <span key={concern} className={styles.sheetChip}>{concern}</span>)}
+            </div>
+          </div>
+        ) : null}
+
+        {/* First view: Is there anything important I should know? */}
+        <div className={styles.sheetBadges}>
+          <EvidenceGradeBadge level={selected.evidenceGrade} />
+          <SafetyBadge status={selected.sensitiveSkinStatus} />
+        </div>
+        {hasCaution ? <ClinicalCaution text={cautionText} /> : null}
+
+        {/* Deeper evidence behind progressive disclosure */}
+        {hasDeeperData ? (
+          <div className={styles.disclosureWrap}>
+            <button
+              type="button"
+              className={styles.disclosureToggle}
+              aria-expanded={showDetails}
+              aria-controls={detailsId}
+              onClick={() => setShowDetails(v => !v)}
+            >
+              <span>{showDetails ? 'Hide details' : 'More detail'}</span>
+              <ChevronDown size={16} aria-hidden="true" className={showDetails ? styles.chevronOpen : ''} />
+            </button>
+            {showDetails ? (
+              <div id={detailsId} className={styles.disclosureBody}>
+                {selected.allowedTimes && selected.allowedTimes.length > 0 ? (
+                  <div className={styles.detailRow}>
+                    <dt>Routine timing</dt>
+                    <dd>{selected.allowedTimes.map(t => timeLabels[t] ?? t).join(' · ')}</dd>
+                  </div>
+                ) : null}
+                {selected.photosensitivity ? (
+                  <div className={styles.detailRow}>
+                    <dt>Sun sensitivity</dt>
+                    <dd>{photosensitivityLabels[selected.photosensitivity]}</dd>
+                  </div>
+                ) : null}
+                {selected.irritationRisk ? (
+                  <div className={styles.detailRow}>
+                    <dt>Irritation</dt>
+                    <dd>{irritationLabels[selected.irritationRisk]}</dd>
+                  </div>
+                ) : null}
+                {selected.pregnancyStatus ? (
+                  <div className={styles.detailRow}>
+                    <dt>Pregnancy</dt>
+                    <dd>{pregnancyLabels[selected.pregnancyStatus]}</dd>
+                  </div>
+                ) : null}
+                {selected.nursingStatus ? (
+                  <div className={styles.detailRow}>
+                    <dt>Nursing</dt>
+                    <dd>{nursingLabels[selected.nursingStatus]}</dd>
+                  </div>
+                ) : null}
+                {selected.sources && selected.sources.length > 0 ? (
+                  <div className={styles.detailSources}>
+                    <SourceList sources={selected.sources} label="Sources" />
+                  </div>
+                ) : null}
+                {selected.reviewedAt ? <ReviewedOn date={selected.reviewedAt} /> : null}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        <section className={styles.productSection} aria-labelledby={`${dialogId}-products`}>
+          <div className={styles.productHeading}>
+            <h3 id={`${dialogId}-products`}>Found in</h3>
+            <span>{productCountLabel(selected.products.length)}</span>
+          </div>
+          <div className={styles.products}>
+            {selected.products.map(product => <article className={styles.product} key={product.slug}>
+              <Link href={`/products/${product.slug}`} onClick={onClose}>
+                <span>{product.brand}</span>
+                <strong>{concentration(product.concentrationPercent, product.name)}{product.name}</strong>
+              </Link>
+              <a href={product.sourceUrl} target="_blank" rel="noreferrer">Source <ArrowUpRight size={14} aria-hidden="true" /></a>
+            </article>)}
+          </div>
+        </section>
+
+        <div className={styles.sheetFoot}>
+          <p className={styles.sheetNote}>Evidence describes the ingredient, not the whole formula.</p>
+          <ShareButton path={`/share/ingredient/${selected.slug}`} title={selected.name} label="Share" inline />
+        </div>
+      </div>
+    </div>
   );
 }
