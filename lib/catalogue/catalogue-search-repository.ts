@@ -2,6 +2,7 @@ import 'server-only';
 
 import { matchingCatalogueSearchSuggestions, type CatalogueSearchSuggestion } from '@/components/products/catalogue-search-suggestions';
 import publicCatalogueSearchArtifact from '@/data/public-catalogue-search.json';
+import { canonicalBrandName } from '@/data/brand-canonical-names';
 import { getPostgresClient, hasPostgresConfig } from '@/lib/db/postgres';
 import {
   catalogueSearchTokens,
@@ -18,6 +19,7 @@ type NeonSearchRow = {
   brand: string;
   name: string;
   size: string;
+  category: 'Face' | 'Hair' | 'Body' | null;
   approved_gtin: string | null;
 };
 
@@ -31,9 +33,10 @@ const publicSearchProducts = parsePublicCatalogueSearchArtifact(publicCatalogueS
 function staticSearchRecords(): CatalogueSearchRecord[] {
   return publicSearchProducts.map(product => ({
     source: 'reviewed' as const,
-    brand: product.brand,
+    brand: canonicalBrandName(product.brand),
     name: product.name,
     size: product.size,
+    category: product.category,
     href: `/products/${product.slug}`,
     barcode: product.approvedGtin ?? undefined,
   }));
@@ -42,11 +45,12 @@ function staticSearchRecords(): CatalogueSearchRecord[] {
 function companiesFromRecords(records: CatalogueSearchRecord[]) {
   const companies = new Map<string, CatalogueSearchCompany>();
   for (const record of records) {
-    const key = normalizeCatalogueSearchText(record.brand);
+    const canonical = canonicalBrandName(record.brand);
+    const key = normalizeCatalogueSearchText(canonical);
     if (!key) continue;
     const current = companies.get(key);
     if (current) current.count += 1;
-    else companies.set(key, { label: record.brand, count: 1 });
+    else companies.set(key, { label: canonical, count: 1 });
   }
   return [...companies.values()];
 }
@@ -76,6 +80,7 @@ async function searchNeonCatalogue(query: string, limit: number) {
         b.name as brand,
         p.name,
         p.size,
+        p.category,
         p.approved_gtin
       from products p
       join brands b on b.id = p.brand_id
@@ -120,14 +125,15 @@ async function searchNeonCatalogue(query: string, limit: number) {
   return {
     records: rows.map(row => ({
       source: 'reviewed' as const,
-      brand: row.brand,
+      brand: canonicalBrandName(row.brand),
       name: row.name,
       size: row.size,
+      category: row.category ?? undefined,
       href: `/products/${row.slug}`,
       barcode: row.approved_gtin ?? undefined,
     })),
     companies: companyRows.map(row => ({
-      label: row.label,
+      label: canonicalBrandName(row.label),
       count: Number(row.product_count),
     })),
   };

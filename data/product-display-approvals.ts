@@ -83,7 +83,7 @@ export const productDisplayApprovals = {
     reviewedAt: '2026-07-22T12:34:11.000Z',
   }),
   'dove-moroccan-argan-oil-beauty-bar': approval({
-    brand: 'DOVE',
+    brand: 'Dove',
     name: 'Dry Oil Beauty Bar with Moroccan Argan Oil',
     size: '6 pack',
     sourceUrl: 'https://assets.unileversolutions.com/v1/946691.png',
@@ -91,7 +91,7 @@ export const productDisplayApprovals = {
     reviewedAt: '2026-07-22T12:34:11.000Z',
   }),
   'dove-go-fresh-cucumber-green-tea-spray': approval({
-    brand: 'DOVE',
+    brand: 'Dove',
     name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea',
     size: '4 oz / 113 g',
     sourceUrl: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600',

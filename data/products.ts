@@ -117,14 +117,14 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/shop/face/sunscreens/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/'), perona('https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/')]
   },
   {
-    slug: 'dove-moroccan-argan-oil-beauty-bar', brand: 'DOVE', name: 'Dry Oil Beauty Bar with Moroccan Argan Oil', size: '6 pack', category: 'Body', step: 'Cleanse',
+    slug: 'dove-moroccan-argan-oil-beauty-bar', brand: 'Dove', name: 'Dry Oil Beauty Bar with Moroccan Argan Oil', size: '6 pack', category: 'Body', step: 'Cleanse',
     image: 'https://assets.unileversolutions.com/v1/946691.png', displayLine: 'Cleanse · soften',
     bestFor: ['daily cleansing', 'comfortable body skin'], concerns: ['body dryness'], skinTypes: ['all'], sensitiveFriendly: true,
     usage: 'Daily bath or shower.', evidence: 'moderate',
     offers: [beautyByDaz('https://beautybydaz.com/?s=dove+moroccan+argan+oil+beauty+bar&post_type=product'), careToBeauty('https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20argan%20oil')]
   },
   {
-    slug: 'dove-go-fresh-cucumber-green-tea-spray', brand: 'DOVE', name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea', size: '4 oz / 113 g', category: 'Body', step: 'Protect',
+    slug: 'dove-go-fresh-cucumber-green-tea-spray', brand: 'Dove', name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea', size: '4 oz / 113 g', category: 'Body', step: 'Protect',
     image: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600', displayLine: 'Freshen · protect',
     bestFor: ['daily freshness', 'aluminum-free odor protection'], concerns: ['body odour', 'perspiration'], skinTypes: ['all'], sensitiveFriendly: true,
     usage: 'Use on clean, dry underarms.', evidence: 'moderate',

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { products } from '../data/catalogue';
 import { catalogueIntakeCandidates } from '../data/catalogue-intake';
 import { publishedIntakeProducts } from '../data/published-intake-products';
+import { canonicalBrandName, canonicalBrandNameMap } from '../data/brand-canonical-names';
 import {
   parsePublicCatalogueSearchArtifact,
   publicCatalogueSearchSchemaVersion,
@@ -11,7 +12,41 @@ import {
 
 const artifactPath = path.join(process.cwd(), 'data', 'public-catalogue-search.json');
 
+/**
+ * Scrubs the catalogue for brand names that normalize to the same canonical
+ * form but are not in the canonical brand map. This catches future duplicates
+ * before they ship.
+ */
+function assertNoBrandDuplicates() {
+  // Group raw brand strings by their normalized canonical key
+  const byCanonicalKey = new Map<string, Set<string>>();
+  for (const product of products) {
+    const canonical = canonicalBrandName(product.brand);
+    const key = canonical.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!byCanonicalKey.has(key)) byCanonicalKey.set(key, new Set());
+    byCanonicalKey.get(key)!.add(product.brand);
+  }
+  // Flag any group where a raw brand is neither the canonical form nor in the map
+  const unmapped: string[] = [];
+  for (const [key, rawBrands] of byCanonicalKey) {
+    if (rawBrands.size <= 1) continue;
+    const unknown = [...rawBrands].filter(
+      brand => brand !== canonicalBrandName(brand)
+        && !Object.prototype.hasOwnProperty.call(canonicalBrandNameMap, brand),
+    );
+    if (unknown.length > 0) {
+      unmapped.push(`${key}: ${unknown.map(b => `"${b}"`).join(', ')}`);
+    }
+  }
+  if (unmapped.length > 0) {
+    throw new Error(
+      `Brand duplicate detected. Add these variants to data/brand-canonical-names.ts:\n  ${unmapped.join('\n  ')}`,
+    );
+  }
+}
+
 export function buildPublicCatalogueSearchArtifact(): PublicCatalogueSearchArtifact {
+  assertNoBrandDuplicates();
   const releasedSlugs = new Set(publishedIntakeProducts.map(product => product.slug));
   const approvedGtinBySlug = new Map(
     catalogueIntakeCandidates
@@ -27,9 +62,10 @@ export function buildPublicCatalogueSearchArtifact(): PublicCatalogueSearchArtif
     products: products
       .map(product => ({
         slug: product.slug,
-        brand: product.brand,
+        brand: canonicalBrandName(product.brand),
         name: product.name,
         size: product.size,
+        category: product.category,
         approvedGtin: approvedGtinBySlug.get(product.slug) ?? null,
         source: releasedSlugs.has(product.slug)
           ? 'dossier-release' as const

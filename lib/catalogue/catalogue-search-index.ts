@@ -5,6 +5,7 @@ export type CatalogueSearchRecord = {
   brand: string;
   name: string;
   size: string;
+  category?: 'Face' | 'Hair' | 'Body';
   href: string;
   barcode?: string;
 };

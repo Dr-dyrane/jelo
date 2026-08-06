@@ -7,6 +7,7 @@
       "brand": "La Roche-Posay",
       "name": "Vitamin C Purifying Cleanser",
       "size": "200 ml",
+      "category": "Face",
       "approvedGtin": "3337875923613",
       "source": "dossier-release"
     },
@@ -15,6 +16,7 @@
       "brand": "Advanced Clinicals",
       "name": "Vitamin C Face Serum",
       "size": "1-75oz",
+      "category": "Face",
       "approvedGtin": null,
       "source": "dossier-release"
     },
@@ -23,6 +25,7 @@
       "brand": "amika",
       "name": "The Kure Conditioner",
       "size": "9.2 oz / 275 ml",
+      "category": "Hair",
       "approvedGtin": "840117805743",
       "source": "dossier-release"
     },
@@ -31,6 +34,7 @@
       "brand": "ANUA",
       "name": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "8809640737190",
       "source": "dossier-release"
     },
@@ -39,6 +43,7 @@
       "brand": "ANUA",
       "name": "Niacinamide 10% + TXA 4% Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -47,6 +52,7 @@
       "brand": "ANUA",
       "name": "Zero Cast Moisturizing Finish Sunscreen",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": "8809640738838",
       "source": "dossier-release"
     },
@@ -55,6 +61,7 @@
       "brand": "Aqua Rich",
       "name": "Hydrate + Protect Body Lotion",
       "size": "500 ml",
+      "category": "Body",
       "approvedGtin": "4897073187549",
       "source": "dossier-release"
     },
@@ -63,6 +70,7 @@
       "brand": "Aqua Rich",
       "name": "Turmeric and Vitamin C Body Lotion",
       "size": "500 ml",
+      "category": "Body",
       "approvedGtin": "4897073186542",
       "source": "dossier-release"
     },
@@ -71,6 +79,7 @@
       "brand": "B.LAB",
       "name": "Matcha Hydrating Real Sunscreen SPF50+ PA++++",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -79,6 +88,7 @@
       "brand": "Balance Active Formula",
       "name": "Niacinamide Blemish Recovery Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "5015833328165",
       "source": "dossier-release"
     },
@@ -87,6 +97,7 @@
       "brand": "Balance Active Formula",
       "name": "Salicylic Acid + Zinc Clarifying Toner",
       "size": "200 ml",
+      "category": "Face",
       "approvedGtin": "5015833000351",
       "source": "dossier-release"
     },
@@ -95,6 +106,7 @@
       "brand": "Beauty Formulas",
       "name": "Glowing Serum 2% Vitamin C",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "5012251013611",
       "source": "dossier-release"
     },
@@ -103,6 +115,7 @@
       "brand": "Benton",
       "name": "Honest Cleansing Foam",
       "size": "150 g",
+      "category": "Face",
       "approvedGtin": "8809540510251",
       "source": "dossier-release"
     },
@@ -111,6 +124,7 @@
       "brand": "Simple",
       "name": "Kind to Skin Replenishing Rich Moisturiser",
       "size": "125 ml",
+      "category": "Face",
       "approvedGtin": "5011451103948",
       "source": "dossier-release"
     },
@@ -119,6 +133,7 @@
       "brand": "Cécred",
       "name": "Moisturizing Deep Conditioner",
       "size": "300 ml / 10 fl oz",
+      "category": "Hair",
       "approvedGtin": "850044935406",
       "source": "dossier-release"
     },
@@ -127,6 +142,7 @@
       "brand": "CeraVe",
       "name": "Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
       "size": "150 ml",
+      "category": "Face",
       "approvedGtin": "3606000512238",
       "source": "dossier-release"
     },
@@ -135,6 +151,7 @@
       "brand": "CeraVe",
       "name": "Acne Foaming Cream Wash 10% Benzoyl Peroxide",
       "size": "150 ml",
+      "category": "Face",
       "approvedGtin": "3606000604520",
       "source": "dossier-release"
     },
@@ -143,6 +160,7 @@
       "brand": "CeraVe",
       "name": "Blemish Control Cleanser",
       "size": "236 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -151,6 +169,7 @@
       "brand": "CeraVe",
       "name": "Foaming Facial Cleanser",
       "size": "355 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -159,6 +178,7 @@
       "brand": "CeraVe",
       "name": "Hydrating Cleanser",
       "size": "473 ml",
+      "category": "Face",
       "approvedGtin": "3337875597333",
       "source": "dossier-release"
     },
@@ -167,6 +187,7 @@
       "brand": "CeraVe",
       "name": "Moisturising Cream Pot",
       "size": "454 g",
+      "category": "Body",
       "approvedGtin": "3337875597388",
       "source": "dossier-release"
     },
@@ -175,6 +196,7 @@
       "brand": "CeraVe",
       "name": "PM Facial Moisturising Lotion",
       "size": "52 ml",
+      "category": "Face",
       "approvedGtin": "3337875597449",
       "source": "dossier-release"
     },
@@ -183,6 +205,7 @@
       "brand": "CeraVe",
       "name": "SA Smoothing Cleanser",
       "size": "473 ml",
+      "category": "Face",
       "approvedGtin": "3337875795456",
       "source": "dossier-release"
     },
@@ -191,6 +214,7 @@
       "brand": "COSRX",
       "name": "Advanced Snail 96 Mucin Power Essence",
       "size": "100 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -199,6 +223,7 @@
       "brand": "COSRX",
       "name": "Salicylic Acid Daily Gentle Cleanser",
       "size": "150 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -207,22 +232,25 @@
       "brand": "DANG",
       "name": "Azelaic Acid Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "6154000333867",
       "source": "dossier-release"
     },
     {
       "slug": "dang-hydra-glow-sun-protection-gel-60ml",
-      "brand": "Dang Lifestyle",
+      "brand": "DANG",
       "name": "Hydra Glow Sun Protection Gel",
       "size": "60 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "dossier-release"
     },
     {
       "slug": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
-      "brand": "Dang! Lifestyle Inc.",
+      "brand": "DANG",
       "name": "Ageless Niacinamide + N-Acetyl Glucosamine Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "dossier-release"
     },
@@ -231,6 +259,7 @@
       "brand": "De La Cruz",
       "name": "Acne Treatment Ointment",
       "size": "2.6 oz / 73.7 g",
+      "category": "Face",
       "approvedGtin": "024286150426",
       "source": "dossier-release"
     },
@@ -239,6 +268,7 @@
       "brand": "DISAAR",
       "name": "Argan Oil Body Oil Gel",
       "size": "200 ml",
+      "category": "Body",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -247,14 +277,16 @@
       "brand": "Dove",
       "name": "Calming Moisture 3% Body Wash",
       "size": "18.5 fl oz / 547 ml",
+      "category": "Body",
       "approvedGtin": "00011111049437",
       "source": "dossier-release"
     },
     {
       "slug": "dove-go-fresh-cucumber-green-tea-spray",
-      "brand": "DOVE",
+      "brand": "Dove",
       "name": "Aluminum Free Deodorant Spray Cucumber & Green Tea",
       "size": "4 oz / 113 g",
+      "category": "Body",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -263,14 +295,16 @@
       "brand": "Dove",
       "name": "Melanin Even Tone 5% Body Wash",
       "size": "18.5 oz",
+      "category": "Body",
       "approvedGtin": "00011111040090",
       "source": "dossier-release"
     },
     {
       "slug": "dove-moroccan-argan-oil-beauty-bar",
-      "brand": "DOVE",
+      "brand": "Dove",
       "name": "Dry Oil Beauty Bar with Moroccan Argan Oil",
       "size": "6 pack",
+      "category": "Body",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -279,6 +313,7 @@
       "brand": "Dove",
       "name": "Skin Replenish 2% Body Wash",
       "size": "18.5 fl oz / 547 ml",
+      "category": "Body",
       "approvedGtin": "00011111055230",
       "source": "dossier-release"
     },
@@ -287,6 +322,7 @@
       "brand": "Dr Teal's",
       "name": "Nourish & Protect with Coconut Oil Body Wash",
       "size": "24 fl oz / 710 mL",
+      "category": "Body",
       "approvedGtin": "811068015857",
       "source": "dossier-release"
     },
@@ -295,6 +331,7 @@
       "brand": "estelinindia",
       "name": "Vitamin C & Turmeric Face Oil",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "dossier-release"
     },
@@ -303,6 +340,7 @@
       "brand": "Eucerin",
       "name": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": "8850029013671",
       "source": "dossier-release"
     },
@@ -311,6 +349,7 @@
       "brand": "Eucerin",
       "name": "UreaRepair PLUS 10% Urea Body Lotion",
       "size": "250 ml",
+      "category": "Body",
       "approvedGtin": "6001051001606",
       "source": "dossier-release"
     },
@@ -319,6 +358,7 @@
       "brand": "FACE FACTS",
       "name": "Bright + Clear Face Cream",
       "size": "75 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -327,6 +367,7 @@
       "brand": "FACE FACTS",
       "name": "Wonder Cream Fragrance Free",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -335,6 +376,7 @@
       "brand": "FACE FACTS",
       "name": "Ceramide Blemish Gel Moisturiser",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": "5031413935691",
       "source": "dossier-release"
     },
@@ -343,6 +385,7 @@
       "brand": "FACE FACTS",
       "name": "Ceramide Foaming Cleanser",
       "size": "400 ml",
+      "category": "Face",
       "approvedGtin": "5031413936636",
       "source": "dossier-release"
     },
@@ -351,6 +394,7 @@
       "brand": "FACE FACTS",
       "name": "Ceramide Hydrating Gentle Cleanser",
       "size": "400 ml",
+      "category": "Face",
       "approvedGtin": "5031413928662",
       "source": "dossier-release"
     },
@@ -359,6 +403,7 @@
       "brand": "FACE FACTS",
       "name": "Ceramide Moisturising Gel Cream",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": "5031413928570",
       "source": "dossier-release"
     },
@@ -367,22 +412,25 @@
       "brand": "FACE FACTS",
       "name": "Ceramide Oil Control Foaming Cleanser",
       "size": "400 ml",
+      "category": "Face",
       "approvedGtin": "5031413953923",
       "source": "dossier-release"
     },
     {
       "slug": "facefacts-enhance-gel-cream-cleanser-150ml",
-      "brand": "FaceFacts",
+      "brand": "FACE FACTS",
       "name": "Enhance Gel-Cream Cleanser",
       "size": "150 ml",
+      "category": "Face",
       "approvedGtin": "5031413952803",
       "source": "dossier-release"
     },
     {
       "slug": "facefacts-soothe-glow-niacinamide-serum-30ml",
-      "brand": "FaceFacts",
+      "brand": "FACE FACTS",
       "name": "Soothe & Glow Niacinamide Facial Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "dossier-release"
     },
@@ -391,14 +439,16 @@
       "brand": "FACE FACTS",
       "name": "Vitamin C Body Lotion",
       "size": "400 ml",
+      "category": "Body",
       "approvedGtin": "5031413929089",
       "source": "dossier-release"
     },
     {
       "slug": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
-      "brand": "FaceFacts",
+      "brand": "FACE FACTS",
       "name": "Vitamin C Brightening Jelly Cleanser",
       "size": "150 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "dossier-release"
     },
@@ -407,6 +457,7 @@
       "brand": "Fenty Skin",
       "name": "Butta Drop Whipped Oil Body Cream with Tropical Oils + Shea Butter — Fenty Fresh",
       "size": "200 mL / 6.7 fl oz",
+      "category": "Body",
       "approvedGtin": "840026653251",
       "source": "dossier-release"
     },
@@ -415,6 +466,7 @@
       "brand": "Garnier",
       "name": "Vitamin C Brightening Day Cream",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": "3600542453110",
       "source": "dossier-release"
     },
@@ -423,6 +475,7 @@
       "brand": "KeraCare",
       "name": "Dry & Itchy Conditioner",
       "size": "32 oz",
+      "category": "Hair",
       "approvedGtin": "850068103058",
       "source": "dossier-release"
     },
@@ -431,6 +484,7 @@
       "brand": "KUZA",
       "name": "100% Indian Hemp Hair & Scalp Treatment",
       "size": "7.7 oz / 226 g",
+      "category": "Hair",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -439,6 +493,7 @@
       "brand": "La Roche-Posay",
       "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -447,6 +502,7 @@
       "brand": "La Roche-Posay",
       "name": "Effaclar Purifying Foaming Gel",
       "size": "400 ml",
+      "category": "Face",
       "approvedGtin": "3337872411991",
       "source": "dossier-release"
     },
@@ -455,6 +511,7 @@
       "brand": "La Roche-Posay",
       "name": "Lipikar Baume AP+MAX",
       "size": "200 mL",
+      "category": "Body",
       "approvedGtin": "3337875930048",
       "source": "dossier-release"
     },
@@ -463,6 +520,7 @@
       "brand": "La Roche-Posay",
       "name": "Lipikar Baume AP+MAX",
       "size": "400 mL",
+      "category": "Body",
       "approvedGtin": "3337875930239",
       "source": "dossier-release"
     },
@@ -471,6 +529,7 @@
       "brand": "La Roche-Posay",
       "name": "Toleriane Double Repair Matte Moisturizer",
       "size": "75 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -479,6 +538,7 @@
       "brand": "La Roche-Posay",
       "name": "Toleriane Double Repair Face Moisturizer UV SPF 30",
       "size": "100 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -487,6 +547,7 @@
       "brand": "La Roche-Posay",
       "name": "Mela B3 Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "3337875890021",
       "source": "dossier-release"
     },
@@ -495,6 +556,7 @@
       "brand": "L'Occitane en Provence",
       "name": "Almond (Amande) Shower Oil",
       "size": "250 ml",
+      "category": "Body",
       "approvedGtin": "3253581785706",
       "source": "dossier-release"
     },
@@ -503,6 +565,7 @@
       "brand": "LUSH HAIR",
       "name": "Rinse Me Out Mentholated Conditioner",
       "size": "370 ml",
+      "category": "Hair",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -511,6 +574,7 @@
       "brand": "MEDIANA",
       "name": "Leave-In Conditioning Milk",
       "size": "250 ml",
+      "category": "Hair",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -519,6 +583,7 @@
       "brand": "Medik8",
       "name": "Medik8 Advanced Night Restore™",
       "size": "50 ml",
+      "category": "Face",
       "approvedGtin": "818625024444",
       "source": "dossier-release"
     },
@@ -527,6 +592,7 @@
       "brand": "Medik8",
       "name": "Crystal Retinal 3",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "818625024529",
       "source": "dossier-release"
     },
@@ -535,6 +601,7 @@
       "brand": "Medik8",
       "name": "Crystal Retinal 6",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "818625024536",
       "source": "dossier-release"
     },
@@ -543,6 +610,7 @@
       "brand": "Naturium",
       "name": "The Perfector Salicylic Acid Body Wash",
       "size": "16.9 fl oz / 500 mL",
+      "category": "Body",
       "approvedGtin": "850010792934",
       "source": "dossier-release"
     },
@@ -551,6 +619,7 @@
       "brand": "NINELESS",
       "name": "A-Control 10% Azelaic Acid Serum",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": "8809875270073",
       "source": "dossier-release"
     },
@@ -559,6 +628,7 @@
       "brand": "NINELESS",
       "name": "Mela-Pro Rice & TXA Toner",
       "size": "200 ml",
+      "category": "Face",
       "approvedGtin": "8809875270172",
       "source": "dossier-release"
     },
@@ -567,6 +637,7 @@
       "brand": "NIVEA",
       "name": "Perfect & Radiant Body Lotion",
       "size": "400 ml",
+      "category": "Body",
       "approvedGtin": "4005900378606",
       "source": "dossier-release"
     },
@@ -575,6 +646,7 @@
       "brand": "OGX",
       "name": "Renewing + Argan Oil of Morocco Extra Penetrating Oil",
       "size": "100 ml",
+      "category": "Hair",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -583,6 +655,7 @@
       "brand": "Olay",
       "name": "Super Serum Body Wash, Normal Skin",
       "size": "18.5 fl oz / 547 ml",
+      "category": "Body",
       "approvedGtin": "00030772160350",
       "source": "dossier-release"
     },
@@ -591,6 +664,7 @@
       "brand": "PanOxyl",
       "name": "Acne Foaming Wash 10% Benzoyl Peroxide",
       "size": "156 g",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -599,6 +673,7 @@
       "brand": "PREQUEL",
       "name": "Gleanser + Glycolic Acid Cleanser",
       "size": "400 ml",
+      "category": "Face",
       "approvedGtin": "810129110562",
       "source": "dossier-release"
     },
@@ -607,6 +682,7 @@
       "brand": "SheaMoisture",
       "name": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
       "size": "13 oz",
+      "category": "Hair",
       "approvedGtin": "00764302215837",
       "source": "dossier-release"
     },
@@ -615,6 +691,7 @@
       "brand": "SheaMoisture",
       "name": "Raw Shea Butter Deep Moisturizing Conditioner",
       "size": "13 fl oz / 384 ml",
+      "category": "Hair",
       "approvedGtin": "00764302280217",
       "source": "dossier-release"
     },
@@ -623,6 +700,7 @@
       "brand": "Simple",
       "name": "Kind to Skin Refreshing Facial Gel Wash",
       "size": "150 ml",
+      "category": "Face",
       "approvedGtin": "5011451103863",
       "source": "dossier-release"
     },
@@ -631,6 +709,7 @@
       "brand": "Skin by Zaron",
       "name": "Vitamin C Brightening/Moisturizing Body Lotion",
       "size": "500 ml",
+      "category": "Body",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -639,6 +718,7 @@
       "brand": "Skin by Zaron",
       "name": "Vitamin C Body Wash",
       "size": "650 ml",
+      "category": "Body",
       "approvedGtin": "6908137011248",
       "source": "dossier-release"
     },
@@ -647,6 +727,7 @@
       "brand": "SOME BY MI",
       "name": "AHA·BHA·PHA 30 Days Miracle Toner",
       "size": "150 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -655,6 +736,7 @@
       "brand": "The Ordinary",
       "name": "Azelaic Acid Suspension 10%",
       "size": "30 ml",
+      "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
     },
@@ -663,6 +745,7 @@
       "brand": "TRESemmé",
       "name": "Keratin Smooth Weightless Conditioner",
       "size": "28 fl oz / 828 ml",
+      "category": "Hair",
       "approvedGtin": "00022400011738",
       "source": "dossier-release"
     }

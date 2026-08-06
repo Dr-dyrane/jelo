@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { products as staticProducts } from '@/data/catalogue';
+import { canonicalBrandName } from '@/data/brand-canonical-names';
 import { getReviewedProductCare } from '@/data/product-care-review';
 import { publishedIntakeProducts } from '@/data/published-intake-products';
 import type { Offer, Product } from '@/data/products';
@@ -46,19 +47,25 @@ type ProductRow = {
   offers: PersistedProductOffer[] | null;
 };
 
+function normalizeProductBrand(product: Product): Product {
+  const canonical = canonicalBrandName(product.brand);
+  return canonical === product.brand ? product : { ...product, brand: canonical };
+}
+
 const staticRepository: CatalogueRepository = {
   async listPublished() {
-    return staticProducts;
+    return staticProducts.map(normalizeProductBrand);
   },
   async findBySlug(slug) {
-    return staticProducts.find(product => product.slug === slug);
+    const product = staticProducts.find(product => product.slug === slug);
+    return product ? normalizeProductBrand(product) : undefined;
   },
 };
 
 function mapRow(row: ProductRow): Product {
   return {
     slug: row.slug,
-    brand: row.brand,
+    brand: canonicalBrandName(row.brand),
     name: row.name,
     size: row.size,
     category: row.category,

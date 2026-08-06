@@ -65,7 +65,7 @@ test('the checked-in public search projection exposes only the approved minimum 
   assert.equal(artifact.exposure, 'public-catalogue-search');
   assert.ok(artifact.products.length > 24);
 
-  const allowedKeys = ['approvedGtin', 'brand', 'name', 'size', 'slug', 'source'];
+  const allowedKeys = ['approvedGtin', 'brand', 'category', 'name', 'size', 'slug', 'source'];
   for (const product of artifact.products) {
     assert.deepEqual(Object.keys(product).sort(), allowedKeys);
     assert.match(product.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);

@@ -7,6 +7,7 @@ export type PublicCatalogueSearchProduct = {
   brand: string;
   name: string;
   size: string;
+  category: 'Face' | 'Hair' | 'Body';
   approvedGtin: string | null;
   source: PublicCatalogueSearchSource;
 };
@@ -18,7 +19,7 @@ export type PublicCatalogueSearchArtifact = {
 };
 
 const rootKeys = ['exposure', 'products', 'schemaVersion'] as const;
-const productKeys = ['approvedGtin', 'brand', 'name', 'size', 'slug', 'source'] as const;
+const productKeys = ['approvedGtin', 'brand', 'category', 'name', 'size', 'slug', 'source'] as const;
 const validGtin = /^\d{8,14}$/;
 const validSlug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -39,6 +40,7 @@ function isProduct(value: unknown): value is PublicCatalogueSearchProduct {
     && product.name.trim().length > 0
     && typeof product.size === 'string'
     && product.size.trim().length > 0
+    && (product.category === 'Face' || product.category === 'Hair' || product.category === 'Body')
     && (product.approvedGtin === null || (typeof product.approvedGtin === 'string' && validGtin.test(product.approvedGtin)))
     && (product.source === 'reviewed-catalogue' || product.source === 'dossier-release');
 }
@@ -81,6 +83,7 @@ export function publicCatalogueSearchText(product: PublicCatalogueSearchProduct)
     product.brand,
     product.name,
     product.size,
+    product.category,
     product.approvedGtin ?? '',
     product.slug,
   ]
