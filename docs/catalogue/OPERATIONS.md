@@ -1,6 +1,6 @@
 # Catalogue operations
 
-Updated: 2026-07-28
+Updated: 2026-08-06
 
 Release one exact product at a time. Discovery can run in parallel; evidence and publication cannot be assumed.
 
@@ -9,6 +9,9 @@ Routine exact-SKU work uses the
 commit, focused per-SKU verification, and periodic full release verification.
 The fast lane removes repeated global work; it does not weaken publication
 evidence.
+
+For a log of errors encountered and their fixes, see
+[troubleshooting](./TROUBLESHOOTING.md).
 
 ## The pipeline
 

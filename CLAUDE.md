@@ -3,7 +3,8 @@
 Start with [the JeloCare handbook](./docs/README.md). For routine product work,
 use [the catalogue fast lane](./docs/catalogue/FAST_LANE.md) and the enforcing
 manifests and verifiers instead of reconstructing the workflow from git
-history.
+history. For a log of errors encountered and their fixes, see
+[troubleshooting](./docs/catalogue/TROUBLESHOOTING.md).
 
 That means do not re-derive the *whole* workflow from history. It does not mean
 avoid history. When a single step is unclear — how an asset is produced, what a
