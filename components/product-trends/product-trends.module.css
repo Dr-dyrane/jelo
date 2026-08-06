@@ -247,6 +247,14 @@
   min-width: 0;
 }
 
+.storeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--muted) 30%, transparent);
+  flex-shrink: 0;
+}
+
 .lowDot {
   width: 6px;
   height: 6px;

@@ -338,7 +338,7 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
         {data.stores.map(store => (
           <div key={store.retailer} className={styles.storeRow}>
             <span className={styles.storeName}>
-              {store.isLowest ? <span className={styles.lowDot} aria-label="Lowest" /> : null}
+              <span className={`${styles.storeDot} ${store.isLowest ? styles.lowDot : ''}`} aria-label={store.isLowest ? 'Lowest' : undefined} />
               {store.retailer}
               {store.trendLabel ? (
                 <span className={`${styles.storeTrend} ${
