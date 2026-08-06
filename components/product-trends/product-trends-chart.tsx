@@ -121,7 +121,7 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
         </div>
         {summary.medianNaira != null ? (
           <div className={styles.stat}>
-            <span className={styles.statLabel}>Median</span>
+            <span className={styles.statLabel}>Typical</span>
             <span className={styles.statValue}>{naira.format(summary.medianNaira)}</span>
           </div>
         ) : null}
@@ -131,20 +131,6 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
             <span className={styles.statValue}>{naira.format(summary.highestNaira)}</span>
           </div>
         ) : null}
-        {summary.spreadNaira != null ? (
-          <div className={styles.stat}>
-            <span className={styles.statLabel}>Spread</span>
-            <span className={styles.statValue}>{naira.format(summary.spreadNaira)}</span>
-          </div>
-        ) : null}
-        <div className={styles.stat}>
-          <span className={styles.statLabel}>Stores</span>
-          <span className={styles.statValue}>{summary.storeCount}</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statLabel}>Trust</span>
-          <span className={styles.statValue}>{summary.avgTrust}<small>/100</small></span>
-        </div>
         {summary.marketTrendLabel ? (
           <div className={`${styles.stat} ${styles.statTrend}`}>
             <span className={styles.statLabel}>Market</span>

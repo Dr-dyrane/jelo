@@ -44,12 +44,14 @@ export default async function SharePage({ params }: { params: Promise<{ slug: st
         {data.headlineLead}
         {data.headlineEmph ? <><br /><em>{data.headlineEmph}</em></> : null}
       </h1>
-      <ShareCard view={data.view} />
+      <div className={styles.cardGrid}>
+        <ShareCard view={data.view} />
+        {trendData ? <ProductTrendsChart data={trendData} /> : null}
+      </div>
       <div className={styles.actions}>
         <ShareButton path={`/share/${slug}`} title={`${data.view.brand} ${data.view.name}`} />
         <Link href={`/products/${slug}`} className={styles.textLink}>See the full product →</Link>
       </div>
-      {trendData ? <ProductTrendsChart data={trendData} /> : null}
       {alternatives.length > 0 ? <ShareAlternatives items={alternatives} /> : null}
     </main>
   );

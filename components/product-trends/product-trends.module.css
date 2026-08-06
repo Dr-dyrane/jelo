@@ -8,6 +8,12 @@
   box-shadow: var(--shadow);
 }
 
+@media (min-width: 980px) {
+  .section {
+    width: 100%;
+  }
+}
+
 /* --- Header --- */
 
 .head {

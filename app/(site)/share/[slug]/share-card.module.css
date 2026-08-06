@@ -11,6 +11,24 @@
     var(--cream);
 }
 
+.cardGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  width: 100%;
+  max-width: 64rem;
+}
+
+@media (min-width: 980px) {
+  .cardGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 30rem) minmax(0, 1fr);
+    align-items: start;
+    gap: 2rem;
+  }
+}
+
 .headline {
   width: min(100%, 30rem);
   margin: 0;

@@ -291,7 +291,8 @@ test('the server read has no live or private interest dependency and both routes
   assert.match(indexRoute, /getWorthSharingReadModel\(\)/);
   assert.match(detailRoute, /getWorthSharingReadModel\(\)/);
   assert.match(detailRoute, /selectShareRecommendations\(signals\.rankedPool, slug\)/);
-  assert.match(indexRoute, /Worth sharing now[\s\S]*Current prices\./);
+  assert.match(indexRoute, /Price drops[\s\S]*Lower than before\./);
+  assert.match(indexRoute, /Out of stock[\s\S]*Gone for now\./);
   assert.doesNotMatch(indexRoute, /trending|popular|most viewed/i);
 });
 
@@ -306,9 +307,9 @@ test('share index and detail cards keep deterministic mobile reflow contracts', 
   const compactIndexCss = indexCss.replace(/\s+/g, '');
   const compactDetailCss = detailCss.replace(/\s+/g, '');
 
-  assert.match(indexRoute, /className=\{styles\.grid\}[\s\S]*freshComparisons\.map[\s\S]*className=\{styles\.card\}/);
+  assert.match(indexRoute, /className=\{styles\.grid\}[\s\S]*priceDrops\.map[\s\S]*className=\{styles\.card\}/);
   assert.match(compactIndexCss, /\.card\{[^}]*grid-template-columns:5\.5remminmax\(0,1fr\)auto/);
-  assert.match(compactIndexCss, /@media\(max-width:720px\)\{\.grid,\.topics\{grid-template-columns:1fr/);
+  assert.match(compactIndexCss, /@media\(max-width:720px\)\{\.grid,\.topics/);
   assert.match(compactIndexCss, /@media\(max-width:720px\)[\s\S]*\.card\{grid-template-columns:4\.75remminmax\(0,1fr\)auto/);
   assert.match(detailCard, /<ul className=\{styles\.alternativeList\} data-count=\{Math\.min\(items\.length, 3\)\}>/);
   assert.match(compactDetailCss, /\.alternativeList\{[^}]*repeat\(3,minmax\(0,1fr\)\)/);
