@@ -5,21 +5,34 @@ import { isOfferFresh } from './offer-freshness';
 import { comparableMarketPrice, hasListingEvidence } from './offer-evidence';
 
 /**
+ * Normalized retailer identity key: trim + case-fold.
+ * Two offers from "Store A" and "store a " resolve to the same retailer.
+ */
+function retailerKey(offer: Offer): string {
+  return offer.retailer.trim().toLowerCase();
+}
+
+/**
  * Panel-level market extras that do not contradict the inline reading.
  * These are additional facts (median, savings, coverage) derived from the
  * same eligible set — not independent interpretations.
+ *
+ * All counts are unique-retailer counts, not raw offer-entry counts.
+ * All prices are numeric — presentation layers format them.
  */
 export type MarketPanelExtras = {
-  /** Median price across the priced set, or null when not multi-source. */
+  /** Lowest comparable price across unique priced retailers. */
+  lowestPrice: number | null;
+  /** Median price across unique priced retailers, or null when single-source. */
   typicalPrice: number | null;
-  /** Highest price in the priced set, or null. */
+  /** Highest price across unique priced retailers, or null. */
   highestPrice: number | null;
   /** Savings between lowest and highest, or null. */
   savings: number | null;
-  /** Total exact listing count (priced + unpriced). */
-  listingCount: number;
-  /** Priced store count (same as reading.storeCount when priced). */
-  pricedStoreCount: number;
+  /** Unique retailer count with any fresh listing evidence (priced + unpriced). */
+  uniqueListingStoreCount: number;
+  /** Unique retailer count with a comparable current price. */
+  uniquePricedStoreCount: number;
   /** Confidence score (0-100). */
   confidence: number;
 };
@@ -62,10 +75,23 @@ function buildPanelExtras(offers: readonly Offer[], market: Market, now: number 
     && hasListingEvidence(offer)
     && isOfferFresh(offer, now),
   );
-  const priced = exact
-    .filter(offer => offer.available)
-    .map(offer => comparableMarketPrice(offer, market, now))
-    .filter((price): price is number => price != null)
+
+  // Group by normalized retailer identity. For each retailer, select the
+  // relevant current eligible listing and comparable price. This ensures
+  // duplicate offers from one retailer count as one store.
+  const byRetailer = new Map<string, { offer: Offer; price: number | null }>();
+  for (const offer of exact) {
+    const key = retailerKey(offer);
+    const price = offer.available ? comparableMarketPrice(offer, market, now) : null;
+    const existing = byRetailer.get(key);
+    if (!existing || (price != null && (existing.price == null || price < existing.price))) {
+      byRetailer.set(key, { offer, price });
+    }
+  }
+
+  const uniquePricedStores = [...byRetailer.values()].filter(entry => entry.price != null);
+  const priced = uniquePricedStores
+    .map(entry => entry.price as number)
     .sort((a, b) => a - b);
 
   const lowestPrice = priced[0] ?? null;
@@ -77,20 +103,24 @@ function buildPanelExtras(offers: readonly Offer[], market: Market, now: number 
       : Number((highestPrice - lowestPrice).toFixed(2))
     : null;
 
+  const uniqueListingStoreCount = byRetailer.size;
+  const uniquePricedStoreCount = priced.length;
+
   const averageTrust = exact.length
     ? exact.reduce((total, offer) => total + offer.trust, 0) / exact.length
     : 0;
-  const priceCoverage = exact.length ? priced.length / exact.length : 0;
+  const priceCoverage = uniqueListingStoreCount ? uniquePricedStoreCount / uniqueListingStoreCount : 0;
   const checkedCount = exact.filter(o => o.priceObservation?.observedAt ?? o.listingEvidence?.observedAt).length;
   const checkCoverage = exact.length ? checkedCount / exact.length : 0;
   const confidence = Math.min(Math.round(priceCoverage * 50 + checkCoverage * 25 + (averageTrust / 100) * 25), 100);
 
   return {
+    lowestPrice,
     typicalPrice,
     highestPrice,
     savings,
-    listingCount: exact.length,
-    pricedStoreCount: priced.length,
+    uniqueListingStoreCount,
+    uniquePricedStoreCount,
     confidence,
   };
 }

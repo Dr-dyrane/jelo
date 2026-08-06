@@ -50,12 +50,16 @@ export function deriveRoutineContext(
   }
   const routineNames = matchingRoutines.map(r => r.name);
   if (matchingRoutines.length === 1) {
+    const routineName = matchingRoutines[0].name;
+    // Append "routine" only when the saved name does not already contain it.
+    // "Morning" becomes "In Morning routine"; "Evening routine" stays as-is.
+    const hasRoutineNoun = /\broutine\b/i.test(routineName);
     return {
       state: 'ready',
       stepCount,
       routineCount: 1,
       routineNames,
-      label: `In ${matchingRoutines[0].name}`,
+      label: hasRoutineNoun ? `In ${routineName}` : `In ${routineName} routine`,
     };
   }
   return {

@@ -100,9 +100,10 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
   const snapshot = marketSnapshot?.[market];
   const reading = snapshot?.reading;
   const extras = snapshot?.extras;
-  const lowestPrice = reading?.state === 'priced' ? parseFloat(reading.priceLabel.replace(/^[^\d]*/, '').replace(/,/g, '')) : null;
-  const pricedStoreCount = extras?.pricedStoreCount ?? 0;
-  const listingCount = extras?.listingCount ?? 0;
+  // Use numeric lowestPrice from extras — never parse the formatted priceLabel.
+  const lowestPrice = extras?.lowestPrice ?? null;
+  const pricedStoreCount = extras?.uniquePricedStoreCount ?? 0;
+  const listingCount = extras?.uniqueListingStoreCount ?? 0;
   const lastCheckedAt = reading?.state === 'priced' || reading?.state === 'listing-only' ? reading.observedAt : null;
   const priceBasis = reading?.state === 'priced' ? reading.basis : 'none';
   const typicalPrice = extras?.typicalPrice ?? null;

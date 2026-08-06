@@ -498,7 +498,9 @@ function MePortalView({
       <MeAccountSheet
         account={portalViewModel.account}
         shelfItems={portalViewModel.shelf}
-        shelfCount={productReadModel?.shell.shelfCount}
+        shelfCount={shelfState.previewOnly
+          ? (portalViewModel.shelfState.status === 'ready' ? portalViewModel.shelf.length : 0)
+          : productReadModel?.shell.shelfCount}
         shelfAvailable={portalViewModel.shelfState.status === 'ready'}
         onPreviewClear={shelfState.clearPreviewShelf}
         open={accountSheetOpen}

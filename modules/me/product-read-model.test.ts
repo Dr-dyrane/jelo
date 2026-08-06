@@ -61,6 +61,24 @@ test('derives "In <routine name>" when one routine references the product', () =
   assert.equal(ctx.label, 'In Morning routine');
 });
 
+test('appends "routine" when the saved name lacks it', () => {
+  const routines: CustomerPortalSavedRoutine[] = [
+    makeRoutine('r1', 'Morning', ['target-product']),
+  ];
+  const ctx = deriveRoutineContext(routines, 'target-product');
+  if (ctx.state !== 'ready') return;
+  assert.equal(ctx.label, 'In Morning routine');
+});
+
+test('does not append "routine" when the saved name already contains it', () => {
+  const routines: CustomerPortalSavedRoutine[] = [
+    makeRoutine('r1', 'Evening routine', ['target-product']),
+  ];
+  const ctx = deriveRoutineContext(routines, 'target-product');
+  if (ctx.state !== 'ready') return;
+  assert.equal(ctx.label, 'In Evening routine');
+});
+
 test('derives "In N routines" when multiple routines reference the product', () => {
   const routines: CustomerPortalSavedRoutine[] = [
     makeRoutine('r1', 'Morning routine', ['target-product']),

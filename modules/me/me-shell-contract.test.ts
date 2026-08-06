@@ -314,19 +314,18 @@ test('member routes are guarded, stack-owned, and never replace public product r
   assert.match(sharedPanel, /href=\{`\/go\?product=/);
 });
 
-test('Shelf removal is exclusive to Shelf-origin product detail actions', () => {
-  const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
+test('Saved Product is removable from any origin, not just Shelf', () => {
   const productView = readFileSync('components/me/product/member-product-view.tsx', 'utf8');
   const button = readFileSync('components/me/shelf/shelf-action-button.tsx', 'utf8');
-  assert.doesNotMatch(home, /showRemove/);
-  assert.doesNotMatch(productView, /showRemove/);
-  assert.match(productView, /const fromShelf = origin === 'shelf'/);
   assert.match(productView, /className=\{styles\.productActions\}/);
   assert.match(productView, /<ShoppingBag size=\{16\}[\s\S]*Find a store/);
   assert.match(productView, /<Info size=\{16\}[\s\S]*Details/);
-  assert.match(productView, /shelfItem=\{fromShelf \? shelfItem : undefined\}/);
-  assert.match(productView, /saved=\{!fromShelf && Boolean\(shelfItem\)\}/);
-  assert.match(productView, /onSettled=\{fromShelf \? onShelfMutation : undefined\}/);
+  // The shelf item is always passed — removal works from Home, Explore, Routine, or Shelf.
+  assert.match(productView, /shelfItem=\{shelfItem\}/);
+  // saved is always false — the button is never a disabled "Saved" state.
+  assert.match(productView, /saved=\{false\}/);
+  // The mutation handler is always wired — announcements work from every origin.
+  assert.match(productView, /onSettled=\{onShelfMutation\}/);
   assert.doesNotMatch(productView, /Public product evidence/);
   assert.match(button, /Remove from Shelf/);
 });
@@ -590,9 +589,11 @@ test('MeAccountSheet accepts a shelf count independently from the item array', (
   const account = readFileSync('components/me/shell/me-account-sheet.tsx', 'utf8');
   assert.match(account, /shelfCount\?: number/);
   assert.match(account, /resolvedShelfCount/);
-  // The product page passes the shell count.
+  // The product page passes the live count for synthetic preview, and the
+  // server count for production. Both must be present in the wiring.
   const home = readFileSync('components/me/home/me-home.tsx', 'utf8');
-  assert.match(home, /shelfCount=\{productReadModel\?\.shell\.shelfCount\}/);
+  assert.match(home, /shelfCount=\{shelfState\.previewOnly/);
+  assert.match(home, /productReadModel\?\.shell\.shelfCount/);
 });
 
 test('Product Shelf context uses explicit states, not slug detection alone', () => {

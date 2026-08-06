@@ -268,6 +268,10 @@
 @media (max-width: 240px) {
   .contextDetail { display: none; }
   .contextDetailCompact { display: block; }
+  /* Hide navigation labels at extreme narrow width / 200% text.
+     Icons + aria-labels preserve accessibility without overflow. */
+  .navigationItem span { display: none; }
+  .navigationItem { padding: 0 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

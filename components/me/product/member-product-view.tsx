@@ -1,12 +1,13 @@
 'use client';
 
 import { Info, ShoppingBag } from 'lucide-react';
+import { useMemo } from 'react';
 import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import type { MeProductOrigin } from '@/components/me/shell/me-shell-model';
 import type { CustomerPortalProduct, CustomerPortalViewModel } from '@/lib/customer/portal-model';
 import type { CustomerProductReadModel } from '@/lib/customer/route-read-models';
-import { shelfContextLabel } from '@/lib/customer/product-shelf-context';
+import { deriveProductShelfContext, shelfContextLabel } from '@/lib/customer/product-shelf-context';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import type { ShelfActionHandler } from '@/components/me/shelf/me-shelf-state';
 import type { ProductPanelTab } from '@/lib/catalogue/product-panel-model';
@@ -33,10 +34,21 @@ export function MemberProductView({
   panelTab: ProductPanelTab;
   onOpenPanel: (tab: ProductPanelTab, opener?: HTMLElement | null) => void;
 }) {
-  const shelfContext = productReadModel?.shelfContext;
-  const shelfAvailable = shelfContext
-    ? shelfContext.state !== 'unavailable'
-    : viewModel.shelfState.status === 'ready';
+  // Derive shelf context from the live view model shelf, not the stale server
+  // read model. In synthetic preview mode, viewModel.shelf is the live preview
+  // shelf owned by useMeShelfState — so Add/Remove/Clear converge immediately.
+  // In production, viewModel.shelf reflects the server-rendered items until a
+  // router.refresh() replaces them.
+  const shelfAvailable = viewModel.shelfState.status === 'ready';
+  const shelfContext = useMemo(
+    () => deriveProductShelfContext(
+      viewModel.shelf,
+      product.slug,
+      shelfAvailable,
+      viewModel.shelfState.status === 'unavailable' ? viewModel.shelfState.message : null,
+    ),
+    [viewModel.shelf, product.slug, shelfAvailable, viewModel.shelfState],
+  );
   const fromShelf = origin === 'shelf';
   const showShelfAction = shelfAvailable && (!fromShelf || Boolean(shelfContext && (shelfContext.state === 'saved-current' || shelfContext.state === 'saved-changed')));
   const reading = productReadModel?.marketReading;
@@ -125,11 +137,11 @@ export function MemberProductView({
             {showShelfAction ? (
               <ShelfActionButton
                 productSlug={product.slug}
-                shelfItem={fromShelf ? shelfItem : undefined}
-                saved={!fromShelf && Boolean(shelfItem)}
+                shelfItem={shelfItem}
+                saved={false}
                 placement="product"
                 onAction={shelfAction}
-                onSettled={fromShelf ? onShelfMutation : undefined}
+                onSettled={onShelfMutation}
               />
             ) : null}
           </div>

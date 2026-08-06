@@ -1071,7 +1071,7 @@
   padding: clamp(34px, 6vw, 82px);
 }
 
-.productStory h1 { max-width: 10ch; font-size: clamp(3rem, 5.7vw, 6.2rem); }
+.productStory h1 { max-width: 12ch; font-size: clamp(2.4rem, 5.7vw, 6.2rem); line-height: 1.05; }
 .productStory > p:not(.eyebrow) { margin: 20px 0 0; }
 
 .productMeta {
@@ -1226,10 +1226,10 @@
   .concernsLanding { padding: 26px 20px; }
   .productHero { border-radius: 28px; }
   .productPage { padding-bottom: calc(148px + env(safe-area-inset-bottom)); }
-  .productVisualLarge { min-height: clamp(280px, calc(100dvh - 544px), 400px); }
-  .productVisualLarge img { width: 76%; height: clamp(230px, calc(100dvh - 594px), 330px); }
-  .productStory { padding: 36px 24px 44px; }
-  .productStory h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
+  .productVisualLarge { min-height: clamp(220px, calc(100dvh - 620px), 340px); }
+  .productVisualLarge img { width: 72%; height: clamp(190px, calc(100dvh - 680px), 280px); }
+  .productStory { padding: 28px 22px 36px; }
+  .productStory h1 { font-size: clamp(2rem, 9vw, 3.4rem); }
   .stateDock nav a { padding-inline: 8px; font-size: 0.66rem; }
 }
 
@@ -1261,6 +1261,15 @@
   /* Ensure section headings and actions can scroll above the fixed dock */
   .scroll { scroll-padding-bottom: 100px; }
   .content { padding-bottom: calc(220px + env(safe-area-inset-bottom)); }
+  /* Product page: cap title and reduce media so identity, context, and
+     market reading remain readable at extreme text enlargement. */
+  .productStory h1 { font-size: 1.3rem; max-width: 100%; }
+  .productVisualLarge { min-height: 160px; }
+  .productVisualLarge img { height: 140px; }
+  .productStory { padding: 20px 16px 28px; }
+  .productStory > p:not(.eyebrow) { margin: 10px 0 0; }
+  .marketReading { margin: 12px 0 0; }
+  .productUsage { font-size: 0.8rem; }
 }
 
 /* List-card sections grow from 1 to 2 to 3 columns as the screen widens */

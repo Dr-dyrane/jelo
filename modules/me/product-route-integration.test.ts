@@ -3,7 +3,6 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import { buildProductMarketSnapshot } from '@/modules/commerce/product-market-snapshot';
 import { buildMarketReading } from '@/modules/commerce/market-reading';
-import { summarizeMarket } from '@/modules/commerce/market-summary';
 import type { Offer } from '@/data/products';
 import { deriveProductShelfContext } from '@/lib/customer/product-shelf-context';
 import type { CustomerPortalShelfItem } from '@/lib/customer/portal-model';
@@ -71,8 +70,11 @@ test('market snapshot and inline reading agree on priced state', () => {
     assert.equal(snapshot.NG.reading.observedAt, inline.observedAt);
     assert.equal(snapshot.NG.reading.basis, inline.basis);
   }
-  assert.equal(snapshot.NG.extras.pricedStoreCount, 2);
-  assert.equal(snapshot.NG.extras.listingCount, 2);
+  assert.equal(snapshot.NG.extras.uniquePricedStoreCount, 2);
+  assert.equal(snapshot.NG.extras.uniqueListingStoreCount, 2);
+  // Numeric prices are exposed for presentation — no string parsing needed.
+  assert.equal(snapshot.NG.extras.lowestPrice, 5000);
+  assert.equal(snapshot.NG.extras.highestPrice, 6000);
 });
 
 test('market snapshot and inline reading agree on listing-only state', () => {
@@ -92,8 +94,8 @@ test('market snapshot and inline reading agree on listing-only state', () => {
     assert.equal(snapshot.NG.reading.listingCount, inline.listingCount);
     assert.equal(snapshot.NG.reading.observedAt, inline.observedAt);
   }
-  assert.equal(snapshot.NG.extras.pricedStoreCount, 0);
-  assert.equal(snapshot.NG.extras.listingCount, 1);
+  assert.equal(snapshot.NG.extras.uniquePricedStoreCount, 0);
+  assert.equal(snapshot.NG.extras.uniqueListingStoreCount, 1);
 });
 
 test('market snapshot and inline reading agree on unavailable state', () => {
@@ -114,16 +116,29 @@ test('duplicate retailer offers do not inflate store count in snapshot or inline
   ];
   const snapshot = buildProductMarketSnapshot(offers, now);
   const inline = buildMarketReading(offers, 'NG', now);
-  const summary = summarizeMarket(offers, 'NG', now);
 
-  // summarizeMarket counts exact offers, not unique retailers. The snapshot
-  // and inline reading use the same foundation, so they agree.
+  // Both inline reading and panel extras must count unique retailers.
   if (snapshot.NG.reading.state === 'priced' && inline.state === 'priced') {
     assert.equal(snapshot.NG.reading.storeCount, inline.storeCount);
-    assert.equal(snapshot.NG.reading.priceLabel, inline.priceLabel);
+    assert.equal(snapshot.NG.reading.storeCount, 1, 'inline must deduplicate to 1 store');
   }
-  // The panel extras also agree with the summary on priced store count.
-  assert.equal(snapshot.NG.extras.pricedStoreCount, summary.pricedRetailerCount);
+  assert.equal(snapshot.NG.extras.uniquePricedStoreCount, 1, 'panel must deduplicate to 1 store');
+  assert.equal(snapshot.NG.extras.uniqueListingStoreCount, 1, 'panel listing count must deduplicate to 1 store');
+});
+
+test('retailer names differing by case and whitespace deduplicate', () => {
+  const now = Date.parse('2025-01-16T10:00:00Z');
+  const offers = [
+    makeOffer({ retailer: 'Store A' }),
+    makeOffer({ retailer: 'store a ', url: 'https://example.com/other' }),
+  ];
+  const snapshot = buildProductMarketSnapshot(offers, now);
+  const inline = buildMarketReading(offers, 'NG', now);
+
+  if (snapshot.NG.reading.state === 'priced' && inline.state === 'priced') {
+    assert.equal(inline.storeCount, 1, 'inline must deduplicate case/whitespace variants');
+  }
+  assert.equal(snapshot.NG.extras.uniquePricedStoreCount, 1, 'panel must deduplicate case/whitespace variants');
 });
 
 test('newer unpriced listing does not refresh older displayed price', () => {
@@ -320,6 +335,13 @@ test('RetailerList accepts a marketSnapshot prop and does not call summarizeMark
   assert.match(source, /marketSnapshot\?: ProductMarketSnapshot/, 'RetailerList must accept marketSnapshot');
   assert.doesNotMatch(source, /summarizeMarket\(/, 'RetailerList must not call summarizeMarket');
   assert.doesNotMatch(source, /from.*market-summary/, 'RetailerList must not import from market-summary');
+});
+
+test('RetailerList does not parse priceLabel back into a number', () => {
+  const source = readFileSync('components/commerce/retailer-list.tsx', 'utf8');
+  assert.doesNotMatch(source, /parseFloat.*priceLabel/, 'RetailerList must not parse priceLabel');
+  assert.doesNotMatch(source, /priceLabel\.replace.*\d/, 'RetailerList must not strip characters from priceLabel');
+  assert.match(source, /extras\?\.lowestPrice/, 'RetailerList must use numeric lowestPrice from extras');
 });
 
 test('ProductPanelData includes a marketSnapshot field', () => {
