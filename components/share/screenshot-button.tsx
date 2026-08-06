@@ -24,22 +24,46 @@ export function ScreenshotButton({ cardId, fileName }: Props) {
   const [state, setState] = useState<'idle' | 'flashing' | 'done'>('idle');
   const audioCtxRef = useRef<AudioContext | null>(null);
 
-  function playClick() {
+  function playShutter() {
     try {
       if (!audioCtxRef.current) {
         audioCtxRef.current = new AudioContext();
       }
       const ctx = audioCtxRef.current;
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.setValueAtTime(1200, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.04);
-      gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.07);
+      const now = ctx.currentTime;
+
+      // Shutter = two mechanical clicks (mirror-up, then mirror-down)
+      // Each click is a short burst of filtered noise with a fast decay.
+      function click(at: number) {
+        const bufferSize = Math.floor(ctx.sampleRate * 0.03);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 3);
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const bandpass = ctx.createBiquadFilter();
+        bandpass.type = 'bandpass';
+        bandpass.frequency.setValueAtTime(2500, at);
+        bandpass.Q.setValueAtTime(2, at);
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.35, at);
+        gain.gain.exponentialRampToValueAtTime(0.001, at + 0.025);
+
+        noise.connect(bandpass);
+        bandpass.connect(gain);
+        gain.connect(ctx.destination);
+        noise.start(at);
+        noise.stop(at + 0.03);
+      }
+
+      // First click (mirror up) — sharper
+      click(now);
+      // Second click (mirror down) — slightly delayed and softer
+      click(now + 0.06);
     } catch {
       // Audio is a nice-to-have; ignore failures silently.
     }
@@ -50,7 +74,7 @@ export function ScreenshotButton({ cardId, fileName }: Props) {
     if (!card) return;
 
     setState('flashing');
-    playClick();
+    playShutter();
 
     try {
       // Get the actual rendered dimensions
