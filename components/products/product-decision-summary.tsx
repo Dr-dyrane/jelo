@@ -24,9 +24,9 @@ type Props = {
 };
 
 const evidenceLabels: Record<string, string> = {
-  high: 'High evidence',
-  moderate: 'Moderate evidence',
-  emerging: 'Emerging evidence',
+  high: 'High ingredient evidence',
+  moderate: 'Moderate ingredient evidence',
+  emerging: 'Emerging ingredient evidence',
 };
 
 /**

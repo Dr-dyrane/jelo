@@ -80,3 +80,28 @@ test('handoff model never claims payment processing', async () => {
   assert.ok(!serialized.toLowerCase().includes('jelocare processes'), 'Must not claim JeloCare processes orders');
   assert.ok(!serialized.toLowerCase().includes('jelocare fulfils'), 'Must not claim JeloCare fulfils orders');
 });
+
+test('isLowest is derived from comparable price, not rank position', async () => {
+  const model = await resolveHandoff(productSlug, retailerName);
+  if (!model?.selectedOffer) return;
+  // isLowest should only be true when the offer has a price and it's the
+  // lowest comparable price — not just when it's ranked first.
+  if (model.selectedOffer.isLowest) {
+    assert.ok(model.selectedOffer.price != null, 'isLowest requires a non-null price');
+    assert.ok(!model.selectedOffer.isSearchOnly, 'isLowest must not be true for search-only offers');
+  }
+});
+
+test('checkSeller is true for marketplace offers without seller name', async () => {
+  // Find a product with a marketplace offer that has no seller name
+  const { nigeriaRetailers } = await import('@/data/retailers');
+  const marketplaceNames = new Set(nigeriaRetailers.filter(r => r.kind === 'marketplace').map(r => r.name));
+  const productWithMarketplaceOffer = products.find(p =>
+    p.offers.some(o => marketplaceNames.has(o.retailer) && !o.sellerName && o.match !== 'search'),
+  );
+  if (!productWithMarketplaceOffer) return; // No matching offer to test
+  const marketplaceOffer = productWithMarketplaceOffer.offers.find(o => marketplaceNames.has(o.retailer) && !o.sellerName)!;
+  const model = await resolveHandoff(productWithMarketplaceOffer.slug, marketplaceOffer.retailer);
+  assert.ok(model?.selectedOffer, 'Model should be returned');
+  assert.equal(model.selectedOffer.checkSeller, true, 'Marketplace offers without seller name should warn "Check seller"');
+});

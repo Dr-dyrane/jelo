@@ -207,7 +207,7 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
       {/* Best match — one calm recommended option */}
       {bestMatch ? (
         <div className="retailer-best-match" aria-label="Recommended store">
-          <p className="retailer-best-match-label">Best match</p>
+          <p className="retailer-best-match-label">JeloCare pick</p>
           {renderOfferRow(bestMatch, 0)}
         </div>
       ) : null}

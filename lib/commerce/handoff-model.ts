@@ -12,6 +12,7 @@ import {
   hasSellerIdentityEvidence,
   observedMarketPrice,
   observedStockLabel,
+  comparableMarketPrice,
 } from '@/modules/commerce/offer-evidence';
 import { offerFreshnessDays } from '@/modules/commerce/price-rank';
 import { isOfferFresh } from '@/modules/commerce/offer-freshness';
@@ -96,9 +97,18 @@ function buildOffer(
   const price = observedMarketPrice(offer, market);
   const observedAt = offer.priceObservation?.observedAt ?? offer.listingEvidence?.observedAt ?? offer.checkedAt ?? null;
   const trust = nigeriaRetailers.find(r => r.name === offer.retailer)?.trust ?? offer.trust;
-  const position = ranked.findIndex(item => item.retailer === offer.retailer && item.url === offer.url);
-  const isLowest = position === 0;
   const isSearchOnly = offer.match === 'search' || !hasListingEvidence(offer);
+  // "Lowest observed" means the offer has the lowest comparable price across
+  // all fresh, exact-listing offers in the same market — not just the top-ranked.
+  const isLowest = (() => {
+    if (isSearchOnly || price == null) return false;
+    const competingPrices = ranked
+      .filter(item => item.retailer !== offer.retailer && hasListingEvidence(item) && item.match !== 'search')
+      .filter(item => item.location.includes(market) || item.location.includes('INTL'))
+      .map(item => comparableMarketPrice(item, market))
+      .filter((p): p is number => p != null);
+    return competingPrices.length === 0 || price <= Math.min(...competingPrices);
+  })();
 
   return {
     retailer: offer.retailer,
@@ -110,7 +120,9 @@ function buildOffer(
     actionLabel: offerActionLabel(offer),
     fulfilmentLabel: offerFulfilmentLabel(offer),
     trust,
-    checkSeller: offer.sellerName ? !hasSellerIdentityEvidence(offer) : false,
+    checkSeller: offer.sellerName
+      ? !hasSellerIdentityEvidence(offer)
+      : nigeriaRetailers.find(r => r.name === offer.retailer)?.kind === 'marketplace',
     checkWithStore: offer.retailerEvidence?.reviewStatus === 'provisional',
     listedByBrand: hasBrandAuthorizationEvidence(offer),
     sellerName: offer.sellerName ?? null,
@@ -159,7 +171,7 @@ export async function resolveHandoff(
     if (selectedOffer.isSearchOnly) {
       reasonLabel = 'No exact listing observed. This is a search link to the retailer.';
     } else if (selectedOffer.isLowest) {
-      reasonLabel = 'Lowest observed price across checked stores.';
+      reasonLabel = 'Lowest observed price among checked stores with exact listings.';
     } else {
       reasonLabel = 'One of the checked stores with an exact listing.';
     }
