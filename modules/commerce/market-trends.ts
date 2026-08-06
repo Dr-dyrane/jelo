@@ -162,6 +162,7 @@ function selectOutOfStockAlerts(
 
 export type MarketTrendsOptions = {
   now?: number | Date;
+  totalProductCount?: number;
 };
 
 export async function buildMarketTrendsReadModel(
@@ -208,7 +209,7 @@ export async function buildMarketTrendsReadModel(
 
   return {
     summary: {
-      productCount: products.length,
+      productCount: options.totalProductCount ?? products.length,
       offerCount,
       storeCount: storeSet.size,
       pricedCount,

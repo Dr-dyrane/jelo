@@ -36,6 +36,6 @@ export async function getMarketTrendsReadModel(
   return buildMarketTrendsReadModel(
     Promise.resolve(shareableProducts),
     trendsPromise,
-    { now },
+    { now, totalProductCount: products.length },
   );
 }
