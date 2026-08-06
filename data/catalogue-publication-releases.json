@@ -1465,6 +1465,30 @@
         "publishedAt": "2026-08-06T12:13:00Z"
       },
       "releaseFingerprint": "d8648afccbea7b989252f2a983b89e660abace97488555c0120f33bb31f092b1"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+      "dossierFingerprint": "08a0e983a106169c437aa14676735dc328376599307754e06fd2a52f7723f1e4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid cream · 50 ml",
+        "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-06T23:49:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-06T23:50:00Z"
+      },
+      "releaseFingerprint": "05169e093cf80613b2f309e74d73c3f0f8ab764877b67cdce1286fe47251f457"
     }
   ]
 }

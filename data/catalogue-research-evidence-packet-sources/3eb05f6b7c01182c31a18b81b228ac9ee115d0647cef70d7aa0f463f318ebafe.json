@@ -1,0 +1,1780 @@
+{
+  "schemaVersion": 1,
+  "policy": "private-evidence-packet-only",
+  "publicationStatus": "not-a-catalogue-candidate",
+  "generatedAt": "2026-07-27T18:11:20.602Z",
+  "selection": {
+    "source": "static-priority",
+    "mode": "batch",
+    "requestedCount": 12
+  },
+  "source": {
+    "staticQueueSha256": "c1f3c3770b61ec198b7e98c3efc5931114ad53d7272719cd63f0b862d41e300b",
+    "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "packets": [
+    {
+      "id": "e6c412ff66aded226f1b11d7",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 13,
+        "lane": "pigment-support",
+        "priorityScore": 171,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "fd07898619801a68999f2850",
+        "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
+        "brandHint": "FACEFACTS",
+        "size": "30ml",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/facefacts-niacinamide-face-serum-30ml/",
+            "sourceProductId": 330796,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330796",
+            "observedAt": "2026-07-27T18:11:07.194Z",
+            "observedTitle": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
+            "observedSize": "30ml",
+            "priceNgn": 3999,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/04/odoo-11886.png?fit=1080%2C1080&quality=80&ssl=1",
+            "response": {
+              "id": "f0661b04a8bbd02e29588c5e",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:07.194Z",
+              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
+              "responseByteSize": 652018,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/facefacts-niacinamide-serum-50ml/",
+            "sourceProductId": 14635,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14635",
+            "observedAt": "2026-07-27T18:11:16.079Z",
+            "observedTitle": "FACEFACTS NIACINAMIDE SERUM 50ML",
+            "observedSize": "50ml",
+            "priceNgn": 5500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/08/FACEFACTS-NIACINAMIDE-SERUM-30ML.webp",
+            "response": {
+              "id": "0ee5f08fcb6b2304857ad674",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:16.079Z",
+              "responseSha256": "8ca2420b8bea0e35ff5c21f22c00e18ed584bfd9d26d00aaba06807aa8c18dd1",
+              "responseByteSize": 440934,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "5031413940619",
+            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "5031413940619",
+            "responseEvidenceId": "0ee5f08fcb6b2304857ad674",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "32f7b0d9d472895d9c2d43f2",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 14,
+        "lane": "moisture-barrier",
+        "priorityScore": 170,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "6635e9027b7821ef2ff04dbd",
+        "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
+        "brandHint": "Advanced Korean Skin",
+        "size": "100g",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-active-fair-face-cream-100g/",
+            "sourceProductId": 418344,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418344",
+            "observedAt": "2026-07-27T18:11:01.067Z",
+            "observedTitle": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
+            "observedSize": "100g",
+            "priceNgn": 10000,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/05/6156000469720.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "2a2a95e220b9b15dec72f8fc",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:01.067Z",
+              "responseSha256": "4485590fa34f3fe23f1660a02e21292dc4332bf9e38b568ac5c8573d2e463446",
+              "responseByteSize": 744027,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-active-fair-cream-100g/",
+            "sourceProductId": 21440,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21440",
+            "observedAt": "2026-07-27T18:11:13.231Z",
+            "observedTitle": "ADVANCED KOREAN SKIN ACTIVE FAIR CREAM 100G",
+            "observedSize": "100g",
+            "priceNgn": 12000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/05/ADVANCED-KOREAN-SKIN-ACTIVE-FAIR-CREAM-100G.jpg",
+            "response": {
+              "id": "718cdee18bf69d9a4350d85e",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:13.231Z",
+              "responseSha256": "066c1fe095176beb0cc0179beb002201a8bd5046717ad7087efda883a3cedd4c",
+              "responseByteSize": 423616,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "6156000469720",
+            "responseEvidenceId": "2a2a95e220b9b15dec72f8fc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "6156000469720",
+            "responseEvidenceId": "718cdee18bf69d9a4350d85e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "e7b8894ebe80c275ee8cb391",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 15,
+        "lane": "moisture-barrier",
+        "priorityScore": 170,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "f1ebe655a947668241b4d240",
+        "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
+        "brandHint": "Advanced Korean Skin",
+        "size": "17.6 oz / 500ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-bright-moisture-body-lotion-17-6-oz-500ml/",
+            "sourceProductId": 359488,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/359488",
+            "observedAt": "2026-07-27T18:11:06.797Z",
+            "observedTitle": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
+            "observedSize": "17.6 oz / 500ml",
+            "priceNgn": 12800,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/07/813zwept.png?fit=2048%2C2048&quality=80&ssl=1",
+            "response": {
+              "id": "2a002703da9d9798e29502f4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.797Z",
+              "responseSha256": "26f1c679222e0a7e48c7892372085f79d7237fc73beb73e3d2560c9232aeadcf",
+              "responseByteSize": 569138,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-bright-moisture-body-lotion-500ml/",
+            "sourceProductId": 15309,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/15309",
+            "observedAt": "2026-07-27T18:11:16.079Z",
+            "observedTitle": "ADVANCED KOREAN SKIN BRIGHT & MOISTURE BODY LOTION 500ML",
+            "observedSize": "500ml",
+            "priceNgn": 14000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/09/ADVANCED-KOREAN-SKIN-BRIGHT-MOISTURE-BODY-LOTION-500ML.webp",
+            "response": {
+              "id": "0ee5f08fcb6b2304857ad674",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:16.079Z",
+              "responseSha256": "8ca2420b8bea0e35ff5c21f22c00e18ed584bfd9d26d00aaba06807aa8c18dd1",
+              "responseByteSize": 440934,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "6156000469782",
+            "responseEvidenceId": "2a002703da9d9798e29502f4",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "6156000469782",
+            "responseEvidenceId": "0ee5f08fcb6b2304857ad674",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "c9a1d5e6b6b260984c2463d0",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 16,
+        "lane": "moisture-barrier",
+        "priorityScore": 170,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "b7c8a1240541dd5a7869b2eb",
+        "title": "ADVANCED KOREAN SKIN Bright And Smooth Body Lotion 500ml",
+        "brandHint": "Advanced Korean Skin",
+        "size": "500ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-bright-smooth-body-lotion-500ml/",
+            "sourceProductId": 332325,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332325",
+            "observedAt": "2026-07-27T18:11:06.479Z",
+            "observedTitle": "ADVANCED KOREAN SKIN Bright And Smooth Body Lotion 500ml",
+            "observedSize": "500ml",
+            "priceNgn": 12800,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/05/Advanced-Korean-Skin-Bright-Smooth-Body-Lotion-500ml-1.jpeg?fit=736%2C736&quality=89&ssl=1",
+            "response": {
+              "id": "e047c601cb2c7638ad744cde",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.479Z",
+              "responseSha256": "a65b265a7c0fe6ee0a08a456d80edf777d6ebebdd130d49e1d3a0d63350cb1c4",
+              "responseByteSize": 641340,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-bright-smooth-body-lotion-500ml/",
+            "sourceProductId": 15310,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/15310",
+            "observedAt": "2026-07-27T18:11:16.079Z",
+            "observedTitle": "ADVANCED KOREAN SKIN BRIGHT & SMOOTH BODY LOTION 500ML",
+            "observedSize": "500ml",
+            "priceNgn": 14000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/09/ADVANCED-KOREAN-SKIN-BRIGHT-SMOOTH-BODY-LOTION-500ML.webp",
+            "response": {
+              "id": "0ee5f08fcb6b2304857ad674",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:16.079Z",
+              "responseSha256": "8ca2420b8bea0e35ff5c21f22c00e18ed584bfd9d26d00aaba06807aa8c18dd1",
+              "responseByteSize": 440934,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "6156000469751",
+            "responseEvidenceId": "e047c601cb2c7638ad744cde",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "6156000469751",
+            "responseEvidenceId": "0ee5f08fcb6b2304857ad674",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "af7e509f9b6ff6e4c83a0eb6",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 17,
+        "lane": "moisture-barrier",
+        "priorityScore": 170,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "4b13a12fadc04b34d8290d5b",
+        "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
+        "brandHint": "AQUA RICH",
+        "size": "500ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/",
+            "sourceProductId": 386392,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/386392",
+            "observedAt": "2026-07-27T18:11:01.414Z",
+            "observedTitle": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
+            "observedSize": "500ml",
+            "priceNgn": 10804,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/12/Aqua-bright-and-Glow.jpg?fit=810%2C1080&quality=89&ssl=1",
+            "response": {
+              "id": "2cf749d74b28c13f98e9495f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:01.414Z",
+              "responseSha256": "06db3391c7a83c116d90a7a513efb74e683df5d37c577a2b376dac6aad4a9b6b",
+              "responseByteSize": 646030,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-bright-glow/",
+            "sourceProductId": 24956,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/24956",
+            "observedAt": "2026-07-27T18:11:12.361Z",
+            "observedTitle": "AQUA RICH BODY LOTION 500ML - BRIGHT + GLOW",
+            "observedSize": "500ml",
+            "priceNgn": 10500,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/11/AQUA-RICH-BODY-LOTION-500ML-BRIGHT-GLOW.webp",
+            "response": {
+              "id": "4ac1251f5670605bdb4d72b5",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.361Z",
+              "responseSha256": "9a87ea96d8c0b78a74350ed048d102eef76a01a4a55cebd352fded3c66c4477c",
+              "responseByteSize": 367036,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "4897073187532",
+            "responseEvidenceId": "2cf749d74b28c13f98e9495f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "4897073187532",
+            "responseEvidenceId": "4ac1251f5670605bdb4d72b5",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "bc30eadf44f2f7a2d9f4f144",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 18,
+        "lane": "pigment-support",
+        "priorityScore": 168,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "retailer-code-unverified",
+          "abrasive-or-peel-review"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "814c2d49e6ef3327cebd67d5",
+        "title": "DR TEALS Shea Sugar Scrub (Citrus Essential Oils With Vitamin C) 538g",
+        "brandHint": "Dr Teals",
+        "size": "538g",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/dr-teals-shea-sugar-scrub-with-vitamin-c-538g/",
+            "sourceProductId": 329434,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329434",
+            "observedAt": "2026-07-27T18:11:09.743Z",
+            "observedTitle": "DR TEALS Shea Sugar Scrub (Citrus Essential Oils With Vitamin C) 538g",
+            "observedSize": "538g",
+            "priceNgn": 11300,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2023/08/4167669000000086034.jpg?fit=680%2C680&quality=89&ssl=1",
+            "response": {
+              "id": "0bf15cb6dd6d62eb74bb1d6f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:09.743Z",
+              "responseSha256": "0e38e61afa2e4789c3dc73cc44498bb5b46d3fc3290dc77412dfa81dd916f129",
+              "responseByteSize": 399695,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-shea-sugar-scrub-with-vit-c/",
+            "sourceProductId": 4499,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4499",
+            "observedAt": "2026-07-27T18:11:20.602Z",
+            "observedTitle": "DR TEAL'S SHEA SUGAR SCRUB WITH VIT C 538G",
+            "observedSize": "538g",
+            "priceNgn": 12500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/Dr-Teal-vitamin-c-sugar-scrub.jpg",
+            "response": {
+              "id": "667b614acf73bef523fb2949",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=23&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=23&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:20.602Z",
+              "responseSha256": "91eb98fa4ac7ff16667100f92b8c5ecab83cfbb6bad616bcb6e442b6703f5049",
+              "responseByteSize": 512255,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "810021207254",
+            "responseEvidenceId": "0bf15cb6dd6d62eb74bb1d6f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "810021207254",
+            "responseEvidenceId": "667b614acf73bef523fb2949",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "779abfc23925ba26c3b6d14b",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 19,
+        "lane": "gentle-cleansing",
+        "priorityScore": 167,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "bf9ba6790a3343c9ef316925",
+        "title": "ACWELL Licorice pH Balancing Cleansing Toner 150ml",
+        "brandHint": "ACWELL",
+        "size": "150ml",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/acwell-licorice-ph-balancing-cleansing-toner/",
+            "sourceProductId": 328999,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328999",
+            "observedAt": "2026-07-27T18:11:09.743Z",
+            "observedTitle": "ACWELL Licorice pH Balancing Cleansing Toner 150ml",
+            "observedSize": "150ml",
+            "priceNgn": 11150,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2020/06/acwell-1.jpg?fit=1080%2C1080&quality=89&ssl=1",
+            "response": {
+              "id": "0bf15cb6dd6d62eb74bb1d6f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:09.743Z",
+              "responseSha256": "0e38e61afa2e4789c3dc73cc44498bb5b46d3fc3290dc77412dfa81dd916f129",
+              "responseByteSize": 399695,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/acwell-licorice-cleansing-toner-150ml/",
+            "sourceProductId": 5155,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/5155",
+            "observedAt": "2026-07-27T18:11:19.624Z",
+            "observedTitle": "ACWELL LICORICE CLEANSING TONER 150ML",
+            "observedSize": "150ml",
+            "priceNgn": 15000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/ACWELL-LICORICE-CLEANSING-TONER.jpg",
+            "response": {
+              "id": "8c380f5749733508dc990f4b",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=20&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=20&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:19.624Z",
+              "responseSha256": "c64e532d69e5d1d7726952d806eb5860de1c2970df8a2500034229d043ea5274",
+              "responseByteSize": 530497,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "8809129643189",
+            "responseEvidenceId": "0bf15cb6dd6d62eb74bb1d6f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "8809129643189",
+            "responseEvidenceId": "8c380f5749733508dc990f4b",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "7108e00bfaf03e02b749a0f4",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 20,
+        "lane": "body-care",
+        "priorityScore": 158,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "e3e002f6425926e8343cb8e9",
+        "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
+        "brandHint": "EOS",
+        "size": "16oz / 473ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/eos-shea-better-cashmere-body-wash-coconut-waters-16-oz/",
+            "sourceProductId": 333882,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333882",
+            "observedAt": "2026-07-27T18:11:06.075Z",
+            "observedTitle": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
+            "observedSize": "16oz / 473ml",
+            "priceNgn": 19000,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/eos-coconut-waters-body-wash.jpeg?fit=1000%2C1000&quality=89&ssl=1",
+            "response": {
+              "id": "ac64c6b040726b854474a573",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.075Z",
+              "responseSha256": "ae8c4f2ea8948d19a8833111f379d22d5c91ce9cb773ce8e06271767b84f714a",
+              "responseByteSize": 579801,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-coconut-waters/",
+            "sourceProductId": 23024,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23024",
+            "observedAt": "2026-07-27T18:11:12.209Z",
+            "observedTitle": "EOS CASHMERE BODY WASH 473ML - COCONUT WATERS",
+            "observedSize": "473ml",
+            "priceNgn": 23500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/08/EOS-CASHMERE-BODY-WASH-473ML-COCONUT-WATERS.jpg",
+            "response": {
+              "id": "603e2c0cc50ddc16295330aa",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.209Z",
+              "responseSha256": "decab11b8a3b0b8b821e43f1aea0b463de3fc4683c5b8cad8ae3451de4d65c51",
+              "responseByteSize": 439703,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "840044714088",
+            "responseEvidenceId": "ac64c6b040726b854474a573",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "840044714088",
+            "responseEvidenceId": "603e2c0cc50ddc16295330aa",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "92b7380b76ea55d58e387244",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 21,
+        "lane": "body-care",
+        "priorityScore": 158,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "af4cf984d6ae1296e4ffd1b0",
+        "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
+        "brandHint": "EOS",
+        "size": "16oz / 473ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/byoma-creamy-jelly-face-cleanser-unscented/",
+            "sourceProductId": 333775,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333775",
+            "observedAt": "2026-07-27T18:11:06.075Z",
+            "observedTitle": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
+            "observedSize": "16oz / 473ml",
+            "priceNgn": 19000,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/013114512-1.webp?fit=1300%2C1300&quality=80&ssl=1",
+            "response": {
+              "id": "ac64c6b040726b854474a573",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.075Z",
+              "responseSha256": "ae8c4f2ea8948d19a8833111f379d22d5c91ce9cb773ce8e06271767b84f714a",
+              "responseByteSize": 579801,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-vanilla-cashmere/",
+            "sourceProductId": 23020,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23020",
+            "observedAt": "2026-07-27T18:11:12.209Z",
+            "observedTitle": "EOS CASHMERE BODY WASH 473ML - VANILLA CASHMERE",
+            "observedSize": "473ml",
+            "priceNgn": 23500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/08/EOS-CASHMERE-BODY-WASH-473ML-VANILLA-CASHMERE.jpg",
+            "response": {
+              "id": "603e2c0cc50ddc16295330aa",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.209Z",
+              "responseSha256": "decab11b8a3b0b8b821e43f1aea0b463de3fc4683c5b8cad8ae3451de4d65c51",
+              "responseByteSize": 439703,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "840044714163",
+            "responseEvidenceId": "ac64c6b040726b854474a573",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "840044714163",
+            "responseEvidenceId": "603e2c0cc50ddc16295330aa",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "258b05593ae6b7cb1e1d5ddf",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 22,
+        "lane": "body-care",
+        "priorityScore": 158,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "0b79938ca156f8c9fac4469f",
+        "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
+        "brandHint": "EOS",
+        "size": "473ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/eos-shea-better-cashmere-body-wash-pink-champagne-16-oz/",
+            "sourceProductId": 333859,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/333859",
+            "observedAt": "2026-07-27T18:11:06.075Z",
+            "observedTitle": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
+            "observedSize": "473ml",
+            "priceNgn": 19000,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/eos-pink-champagne-body-wash.jpg?fit=1000%2C1000&quality=89&ssl=1",
+            "response": {
+              "id": "ac64c6b040726b854474a573",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=7&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.075Z",
+              "responseSha256": "ae8c4f2ea8948d19a8833111f379d22d5c91ce9cb773ce8e06271767b84f714a",
+              "responseByteSize": 579801,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-pink-champagne/",
+            "sourceProductId": 23019,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23019",
+            "observedAt": "2026-07-27T18:11:12.209Z",
+            "observedTitle": "EOS CASHMERE BODY WASH 473ML - PINK CHAMPAGNE",
+            "observedSize": "473ml",
+            "priceNgn": 23500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/08/EOS-CASHMERE-BODY-WASH-473ML-PINK-CHAMPAGNE.jpg",
+            "response": {
+              "id": "603e2c0cc50ddc16295330aa",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.209Z",
+              "responseSha256": "decab11b8a3b0b8b821e43f1aea0b463de3fc4683c5b8cad8ae3451de4d65c51",
+              "responseByteSize": 439703,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "840044714101",
+            "responseEvidenceId": "ac64c6b040726b854474a573",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "840044714101",
+            "responseEvidenceId": "603e2c0cc50ddc16295330aa",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "1ab27c4f5eafb2518100ecbe",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 23,
+        "lane": "body-care",
+        "priorityScore": 158,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "9fc5cda37324b6c43ce2ccb2",
+        "title": "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
+        "brandHint": "Neutrogena",
+        "size": "8.5 oz / 250ml",
+        "categoryHint": "Body care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/neutrogena-light-sesame-formula-body-oil-8-5-oz-250ml/",
+            "sourceProductId": 360906,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/360906",
+            "observedAt": "2026-07-27T18:11:06.797Z",
+            "observedTitle": "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
+            "observedSize": "8.5 oz / 250ml",
+            "priceNgn": 20000,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/08/k1250kuq.png?fit=650%2C650&quality=80&ssl=1",
+            "response": {
+              "id": "2a002703da9d9798e29502f4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.797Z",
+              "responseSha256": "26f1c679222e0a7e48c7892372085f79d7237fc73beb73e3d2560c9232aeadcf",
+              "responseByteSize": 569138,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/neutrogena-body-oil-250ml/",
+            "sourceProductId": 9532,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/9532",
+            "observedAt": "2026-07-27T18:11:17.510Z",
+            "observedTitle": "NEUTROGENA BODY OIL 250ML",
+            "observedSize": "250ml",
+            "priceNgn": 25500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/Neutrogena-oil.jpg",
+            "response": {
+              "id": "55de8612a798415ac84d7c05",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=15&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=15&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:17.510Z",
+              "responseSha256": "bf89ed1fb1055cbe8365cb568ca8a73e2c627c90a16d0eccb200ff5a77f7ead8",
+              "responseByteSize": 379182,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "070501618202",
+            "responseEvidenceId": "2a002703da9d9798e29502f4",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "070501618202",
+            "responseEvidenceId": "55de8612a798415ac84d7c05",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "16904e359f5d8aed4df6ca91",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "rank": 24,
+        "lane": "sun-protection",
+        "priorityScore": 158,
+        "reasons": [
+          "directory-retailer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "confirm-official-manufacturer-identity"
+      },
+      "productLead": {
+        "discoveryId": "f234692457fb9dcea6ab4000",
+        "title": "NINELESS MELA-PRO Tranexamic Acid Sunscreen 100ml",
+        "brandHint": "NINELESS",
+        "size": "100ml",
+        "categoryHint": "Face care",
+        "identityStatus": "unverified-retailer-lead",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/",
+            "sourceProductId": 399284,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/399284",
+            "observedAt": "2026-07-27T18:11:00.796Z",
+            "observedTitle": "NINELESS MELA-PRO Tranexamic Acid Sunscreen 100ml",
+            "observedSize": "100ml",
+            "priceNgn": 14000,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/02/8809875270158.jpg?fit=500%2C500&quality=89&ssl=1",
+            "response": {
+              "id": "15f291ba68c850c00edc8bd4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:00.796Z",
+              "responseSha256": "06b35427c6c1b042e2a3c37d81afa128039a40bf1f9486c27e29633f9b1c5094",
+              "responseByteSize": 498868,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "8809875270158",
+            "responseEvidenceId": "15f291ba68c850c00edc8bd4",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    }
+  ]
+}

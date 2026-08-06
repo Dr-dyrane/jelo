@@ -701,5 +701,22 @@
     "width": 2000,
     "height": 2000,
     "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml"
+  },
+  {
+    "id": "nineless-a-control-azelaic-acid-cream-50ml-v1",
+    "active": true,
+    "productSlug": "nineless-a-control-azelaic-acid-cream-50ml",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
+    "localPath": "data/catalogue-intake-assets/nineless-a-control-azelaic-acid-cream-50ml/packshot.png",
+    "blobPath": "products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v1-8f5981be456a00c0.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v1-8f5981be456a00c0.png",
+    "contentType": "image/png",
+    "byteSize": 1080167,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
+    "destination": "publication",
+    "candidateId": "nineless-a-control-azelaic-acid-cream-50ml"
   }
 ]

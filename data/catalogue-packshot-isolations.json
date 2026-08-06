@@ -1069,5 +1069,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
+      "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e",
+      "byteSize": 1549697,
+      "width": 1500,
+      "height": 1500,
+      "retrievedAt": "2026-08-06T23:25:05Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "8809875270189"
+      },
+      "officialProductUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "9ac9a23d86b3bb7f928f93748df81a13d3a3000c2060bf00811dcb4ac4ec8b18",
+      "generatedAt": "2026-08-06T23:45:31Z",
+      "inferredComponentCount": 58,
+      "retainedComponentCount": 18,
+      "removedComponentCount": 40,
+      "removedForegroundFraction": 0.027791,
+      "componentReviewRequired": true,
+      "sourceEdgeContactFraction": 0.007544
+    },
+    "output": {
+      "sha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
+      "byteSize": 1080167,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-06T23:46:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-06T23:46:15Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "c82008eecf8f18c0a07c04038aebe5186451c7318e496d2a2e78fb01597c5b98",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

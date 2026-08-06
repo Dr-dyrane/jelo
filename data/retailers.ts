@@ -566,6 +566,28 @@ export const nigeriaRetailers: RetailerReference[] = [
     searchUrl: query => `https://www.jumia.com.ng/catalog/?q=${encodeURIComponent(query)}`,
     note: 'Marketplace results vary by seller; verify the listing before purchase.',
   },
+  {
+    name: 'Bismid Cosmetics Abuja',
+    homepage: 'https://bismidcosmeticsabuja.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 88,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    searchUrl: wordpressSearch('https://bismidcosmeticsabuja.com/'),
+    note: 'Abuja K-beauty store with physical outlets in Wuse, Gwarinpa and Kubwa; direct catalogue pages with visible Naira pricing and stock counts.',
+  },
+  {
+    name: 'Sonavine Beauty',
+    homepage: 'https://sonavinebeauty.com/',
+    market: 'NG',
+    kind: 'retailer',
+    trust: 85,
+    reviewStatus: 'directory-listed',
+    contentUse: 'link-only',
+    searchUrl: wordpressSearch('https://sonavinebeauty.com/'),
+    note: 'Lagos beauty retailer with direct catalogue pages, visible Naira pricing and stock status.',
+  },
 ];
 
 export function retailerSearchUrl(retailerName: string, query: string) {

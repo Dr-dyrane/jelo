@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+    "candidateFingerprint": "5df1f83a939e7d75038e37e15018b3f0234b2a7bee68c4c9bb033863cd5c1aab",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "8809875270189",
+      "brand": "NINELESS",
+      "name": "A-Control Azelaic Acid Cream",
+      "variant": "A-Control Azelaic Acid Cream",
+      "size": "50 ml",
+      "packageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+      "officialIdentity": {
+        "url": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "observedGtin": "8809875270189",
+        "observedVariant": "A-Control Azelaic Acid Cream",
+        "observedSize": "50 ml",
+        "observedPackageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/nineless-a-control-azelaic-acid-cream-50ml.json",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "[A-CONTROL] Azelaic Acid Cream 50ml – NINELESS",
+            "surface": "Playwright MCP browser"
+          },
+          "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+          "fields": {
+            "gtin": {
+              "locator": "identifierCorroborations[*].fields.gtin",
+              "sourceText": "EAN 8809875270189 is independently corroborated by Qudo Beauty and TSMPK; the official NINELESS product variant publishes no barcode.",
+              "value": "8809875270189"
+            },
+            "variant": {
+              "locator": "Rendered official HTML product title",
+              "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml – NINELESS",
+              "value": "A-Control Azelaic Acid Cream"
+            },
+            "size": {
+              "locator": "Rendered official HTML product title size",
+              "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml",
+              "value": "50 ml"
+            },
+            "manufacturerIdentifierStatus": {
+              "locator": "Rendered official Shopify product variant object",
+              "sourceText": "Official Shopify product variant: \"sku\":\"\",\"barcode\":null",
+              "value": "not-published"
+            },
+            "packageVersion": {
+              "evidenceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
+              "locator": "Official manufacturer product heading and main pack image",
+              "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml",
+              "value": "NINELESS A-Control Azelaic Acid Cream 50ml"
+            }
+          },
+          "identifierCorroborations": [
+            {
+              "browserCapture": {
+                "documentReadyState": "complete",
+                "pageTitle": "NINE LESS - A-Control Azelaic Acid Cream - 50ml - Qudo Beauty",
+                "surface": "Playwright MCP browser"
+              },
+              "fields": {
+                "gtin": {
+                  "locator": "Rendered HTML h2.qudo-ean",
+                  "sourceText": "EAN: 8809875270189",
+                  "value": "8809875270189"
+                },
+                "variant": {
+                  "locator": "Rendered HTML h1.product_title",
+                  "sourceText": "NINE LESS – A-Control Azelaic Acid Cream – 50ml",
+                  "value": "NINE LESS A-Control Azelaic Acid Cream 50ml"
+                },
+                "size": {
+                  "locator": "Rendered HTML product title size suffix",
+                  "sourceText": "NINE LESS – A-Control Azelaic Acid Cream – 50ml",
+                  "value": "50 ml"
+                }
+              },
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseUrl": "https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/",
+              "retrievedAt": "2026-08-06T23:25:17Z",
+              "reviewedAt": "2026-08-06T23:25:53Z",
+              "reviewer": "JeloCare catalogue evidence review",
+              "sourceResponseByteSize": 243454,
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseSha256": "3091ba75f9e0a6117d65e3f73e03561d900cd90de8f8a38b04edf6d4e1e8d424",
+              "sourceUrl": "https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/"
+            },
+            {
+              "browserCapture": {
+                "documentReadyState": "complete",
+                "pageTitle": "Nineless - A-Control Azelaic Acid Cream 50ml 8809875270189 ...",
+                "surface": "Playwright MCP browser"
+              },
+              "fields": {
+                "gtin": {
+                  "locator": "Rendered product specification row labelled UPC",
+                  "sourceText": "UPC: 8809875270189",
+                  "value": "8809875270189"
+                },
+                "variant": {
+                  "locator": "Rendered product title",
+                  "sourceText": "Nineless - A-Control Azelaic Acid Cream 50ml",
+                  "value": "Nineless A-Control Azelaic Acid Cream 50ml"
+                },
+                "size": {
+                  "locator": "Rendered product title size suffix",
+                  "sourceText": "Nineless - A-Control Azelaic Acid Cream 50ml",
+                  "value": "50 ml"
+                }
+              },
+              "method": "reviewed-browser-dom-independent-ean-corroboration",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseUrl": "https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml",
+              "retrievedAt": "2026-08-06T23:25:26Z",
+              "reviewedAt": "2026-08-06T23:25:53Z",
+              "reviewer": "JeloCare catalogue evidence review",
+              "sourceResponseByteSize": 924642,
+              "sourceResponseMimeType": "text/html",
+              "sourceResponseSha256": "acd091008981fe2e82a68dcff5f3b57326ea601fbcd01509e47f03ed2dc39d61",
+              "sourceUrl": "https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml"
+            }
+          ],
+          "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+          "retrievedAt": "2026-08-06T23:25:05Z",
+          "reviewedAt": "2026-08-06T23:25:53Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 5,
+          "sourceResponseByteSize": 159245,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "0d7fbea366ebc84cc9497a4856d6a2d33be4052e753cbf200a4ad523f28e08a5",
+          "sourceUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 167110,
+              "responseMimeType": "image/png",
+              "responseSha256": "502ccf00c30909237973af84ffa2c3037d33bff49ed7dd60439cff70f199b430",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
+              "retrievedAt": "2026-08-06T23:25:05Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483"
+            }
+          ]
+        },
+        "snapshotByteSize": 4666,
+        "snapshotSha256": "9c56eb641427f1fe33dc9ba3cbc07b9b2f1ab557558ee8d007a34c81148616fc",
+        "retrievedAt": "2026-08-06T23:25:05Z",
+        "snapshotMimeType": "application/json"
+      },
+      "checkedAt": "2026-08-06T23:36:00Z",
+      "demandEvidenceUrls": [
+        "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
+        "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on azelaic-acid facial cream with panthenol, snail secretion filtrate, lactic acid, green tea and pine leaf extracts.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A cosmetic moisturiser, not treatment for acne, dermatitis, or another skin condition. Azelaic acid and blemish-safe language does not guarantee tolerance for every person. Patch test, introduce slowly, avoid already-irritated skin, and stop if burning or a persistent rash develops. Deep, painful, scarring, widespread, sudden, or persistent breakouts need a pharmacist or clinician.",
+      "manufacturerEvidenceUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
+      "evidenceUrls": [
+        "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
+      ],
+      "reviewedAt": "2026-08-06T23:36:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
+        "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e",
+        "mimeType": "image/png",
+        "byteSize": 1549697,
+        "width": 1500,
+        "height": 1500,
+        "retrievedAt": "2026-08-06T23:25:05Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+        "model": "isnet-general-use",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current NINELESS A-Control Azelaic Acid Cream 50ml tube/pump pack and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the NINELESS brand, A-Control Azelaic Acid Cream title, and 50ml size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+        "inputs": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
+            "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e"
+          }
+        ],
+        "outputSha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
+        "generatedAt": "2026-08-06T23:45:31Z",
+        "recordSha256": "c8fe1ee9dd51fa35cce0f22d68e8738f1adf99bd4b4ab5aa0672a6e4d2db4f8b"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v1-8f5981be456a00c0.png",
+      "sha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
+      "mimeType": "image/png",
+      "byteSize": 1080167,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-06T23:46:15Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-06T23:48:00Z"
+    },
+    "dossierFingerprint": "08a0e983a106169c437aa14676735dc328376599307754e06fd2a52f7723f1e4"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+    "dossierFingerprint": "08a0e983a106169c437aa14676735dc328376599307754e06fd2a52f7723f1e4",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Azelaic acid cream · 50 ml",
+      "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
+      "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-06T23:49:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-06T23:50:00Z"
+    },
+    "releaseFingerprint": "05169e093cf80613b2f309e74d73c3f0f8ab764877b67cdce1286fe47251f457"
+  }
+}

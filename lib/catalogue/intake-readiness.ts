@@ -770,7 +770,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   medik8: ['www.medik8.com'],
   naturium: ['naturium.com'],
   nivea: ['www.nivea.com.ng'],
-  nineless: ['ninelessshop.com'],
+  nineless: ['ninelessshop.com', 'cdn.shopify.com'],
   olay: ['www.olay.com'],
   prequel: ['prequelskin.com', 'www.prequelskin.com'],
   sheamoisture: ['www.sheamoisture.com'],
@@ -835,7 +835,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   medik8: ['www.medik8.com', 'cdn.shopify.com'],
   naturium: ['naturium.com', 'cdn.shopify.com'],
   nivea: ['www.nivea.com.ng', 'img.nivea.com'],
-  nineless: ['ninelessshop.com'],
+  nineless: ['ninelessshop.com', 'cdn.shopify.com'],
   olay: ['www.olay.com'],
   prequel: ['prequelskin.com', 'www.prequelskin.com'],
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],
@@ -867,6 +867,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
   'nineless-mela-pro-rice-txa-toner-200ml': [
     'https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/',
     'https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm',
+  ],
+  'nineless-a-control-azelaic-acid-cream-50ml': [
+    'https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/',
+    'https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml',
   ],
   'skin-by-zaron-vitamin-c-body-wash-650ml': [
     'https://lamifragrance.com/product/skin-by-zaron-vitamin-c-body-wash/',
