@@ -47,11 +47,11 @@ export default async function SharePage({ params }: { params: Promise<{ slug: st
           {data.headlineEmph ? <><br /><em>{data.headlineEmph}</em></> : null}
         </h1>
         <ScreenshotButton
-          ogUrl={`/og?kind=product&slug=${slug}&surface=share`}
+          targetId="card-grid"
           fileName={`${data.view.brand}-${data.view.name}-jelocare`}
         />
       </div>
-      <div className={styles.cardGrid}>
+      <div id="card-grid" className={styles.cardGrid}>
         <ShareCard view={data.view} />
         {trendData ? <ProductTrendsChart data={trendData} /> : null}
       </div>
