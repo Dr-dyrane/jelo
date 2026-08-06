@@ -234,6 +234,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'b-lab-matcha-hydrating-real-sunscreen': [
     exactNg('Perona Beauty', 'https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/', 86, 10400, 'B Lab Matcha Hydrating Real Sun Screen SPF50+ PA++++', '50 ml', { available: false, stock: 'out-of-stock' }),
+    exactNg('Nihet Beauty', 'https://nihetbeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/', 78, 36000, 'BLab Matcha Hydrating Real Sun Screen SPF50+ PA++++', '50 ml'),
   ],
   'mediana-leave-in-conditioning-milk': [
     exactNg('Jumia', 'https://www.jumia.com.ng/mediana-leave-in-conditioning-milk-250ml-215118251.html', 62, 2000, 'Mediana Leave-In Conditioning Milk', '250 ml', { sellerName: 'Jeto', sellerScore: 88 }),
@@ -265,7 +266,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Jumia', 'https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html', 62, 4500, 'Disaar Argan Oil Body Oil Gel Deep Moisturizing Skin Care', '200 ml', { sellerName: 'Christodel Global Services', sellerScore: 88, stock: 'low-stock' }),
   ],
   'dove-melanin-even-tone-body-wash-18-5oz': [
-    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/bath-body/bath-wash-gels/dove-melanin-even-tone-body-wash-547ml/', 100, 19500, 'Dove Melanin Even Tone Body Wash with Pro-Ceramide Serum', '547 ml / 18.5 fl oz', { available: false, observedAt: '2026-08-03T03:37:23Z' }),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/bath-body/bath-wash-gels/dove-melanin-even-tone-body-wash-547ml/', 100, 19500, 'Dove Melanin Even Tone Body Wash with Pro-Ceramide Serum', '547 ml / 18.5 fl oz', { available: false, observedAt: '2026-08-03T03:37:23Z', stock: 'out-of-stock' }),
+    exactNg('BuyBetter', 'https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/', 97, 22600, 'Dove Melanin Even Tone 5% Body Wash 547ml', '547 ml / 18.5 fl oz'),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/dove-melanin-even-tone-body-wash-547ml/', 86, 20000, 'Dove Melanin Even Tone Body Wash 547ml', '547 ml / 18.5 fl oz'),
   ],
   'cerave-foaming-facial-cleanser': [
     exactNg('CSi Grocery', 'https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-foaming-facial/', 90, 27500, 'CeraVe Foaming Facial Cleanser', '355 ml'),
@@ -538,6 +541,23 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'prequel-gleanser-glycolic-acid-cleanser-400ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/', 97, 37088, 'Prequel Gleanser + Glycolic Acid Cleanser 400ml', '400 ml', { available: false, stock: 'out-of-stock' }),
     exactNg('Nihet Beauty', 'https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/', 78, 96000, 'Prequel Cleanser + Glycolic Acid Cleanser 400ml', '400 ml'),
+  ],
+  'amika-the-kure-conditioner-275ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/amika-the-kure-conditioner-275ml/', 97, 35690, 'AMIKA The Kure Conditioner 275ml', '275 ml', { available: false, stock: 'out-of-stock' }),
+  ],
+  'facefacts-enhance-gel-cream-cleanser-150ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/facefacts-enhance-salicylic-acid-rice-cherry-extract-gel-cream-cleanser-150ml/', 97, 35690, 'FaceFacts Enhance Gel Cream Cleanser 150ml', '150 ml', { available: false, stock: 'out-of-stock' }),
+  ],
+  'anua-zero-cast-moisturizing-finish-sunscreen-50ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/anua-zero-cast-moisturizing-finnish-sunscreen-50ml/', 97, 15049, 'ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml', '50 ml'),
+    exactNg('Nihet Beauty', 'https://nihetbeauty.com/product/anua-zero-cast-moisturizing-finish-sunscreen/', 78, 36000, 'ANUA Zero Cast Moisturizing Finish Sunscreen', '50 ml'),
+  ],
+  'advanced-clinicals-vitamin-c-face-serum-52ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/advanced-clinicals-vitamin-c-anti-aging-serum-52ml/', 97, 12000, 'Advanced Clinicals Vitamin C Anti-Aging Serum 52ml', '52 ml'),
+    exactNg('Nihet Beauty', 'https://nihetbeauty.com/product/advanced-clinicals-vitamin-c-serum-52ml/', 78, 39500, 'Advanced Clinicals Vitamin C Serum 52ml', '52 ml'),
+  ],
+  'la-roche-posay-effaclar-purifying-foaming-gel-400ml': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/la-roche-posay-effaclar-purifying-foaming-gel-cleanser-for-oily-sensitive-skin-400ml/', 86, 23300, 'La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml', '400 ml'),
   ],
 };
 
