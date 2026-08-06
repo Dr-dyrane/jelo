@@ -142,7 +142,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <MarketTrendsSection trends={marketTrends} />
+      <div className={styles.trendsWrap}>
+        <MarketTrendsSection trends={marketTrends} />
+      </div>
 
       <DiscoveryRail
         kicker="Catalogue"
