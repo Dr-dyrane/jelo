@@ -6,11 +6,9 @@ import { hasListingEvidence, comparableMarketPrice } from './offer-evidence';
 import { summarizeMarket } from './market-summary';
 import {
   compactPriceMovementLabel,
-  preferredPriceMovement,
-  type PriceMovement,
   type ProductPriceTrends,
 } from './price-trends';
-import { hasShareableNgOffer, isShareableNgOffer } from './shareable-offer';
+import { hasShareableNgOffer } from './shareable-offer';
 
 // --- Thresholds ---
 

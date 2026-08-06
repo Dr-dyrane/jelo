@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, TrendingDown, TrendingUp, PackageX } from 'lucide-react';
+import { ArrowRight, TrendingDown, TrendingUp, PackageX } from 'lucide-react';
 import type { MarketTrendsReadModel } from '@/modules/commerce/market-trends';
 import styles from './market-trends.module.css';
 

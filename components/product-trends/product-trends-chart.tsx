@@ -77,8 +77,8 @@ type SeriesGroup = {
 export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
   const [windowKey, setWindowKey] = useState<TimeWindow>('1m');
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const [now] = useState(() => Date.now());
   const svgRef = useRef<SVGSVGElement>(null);
-  const now = Date.now();
   const days = WINDOWS.find(w => w.key === windowKey)?.days ?? 30;
 
   const filtered = useMemo(() => filterPointsByWindow(data.points, days, now), [data.points, days, now]);

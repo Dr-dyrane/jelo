@@ -8,8 +8,6 @@ import {
   compactPriceMovementLabel,
   preferredPriceMovement,
   priceTrendOfferSnapshot,
-  selectCurrentPriceObservations,
-  type CurrentPriceObservation,
   type PriceObservation,
   type PriceTrendOfferSnapshot,
 } from '@/modules/commerce/price-trends';
@@ -58,10 +56,7 @@ export type ProductTrendData = {
   summary: TrendSummary;
 };
 
-const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
 const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' });
-
-type RawObservationRow = CurrentPriceObservation & { productSlug: string };
 
 /**
  * Fetches raw price observations from the database for a single product.
