@@ -6,14 +6,13 @@ import styles from '../home/me-home.module.css';
 
 export function ConcernContent({
   concern,
-  matchedTerms,
   matchedSignals,
   saved,
   onSave,
   compact = false,
 }: {
   concern: Concern;
-  matchedTerms: string[];
+  matchedTerms?: string[];
   matchedSignals: string[];
   saved: boolean;
   onSave: () => void;
