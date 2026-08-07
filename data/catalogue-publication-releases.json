@@ -2041,6 +2041,30 @@
         "publishedAt": "2026-08-07T12:19:00Z"
       },
       "releaseFingerprint": "51484c058fc23ea8914f799520351e7c892438b04f2e7f8931ef7ab5f4789233"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+      "dossierFingerprint": "1a6dfc4dbe6a80c8a2b0ea27021c05e29d5d483bdb6e0823a7bf3d20fc5b8cd2",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Quadruple Hyaluronic Acid Serum 5% 1.0 fl oz",
+        "usage": "Apply 4-5 drops to clean damp skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:20:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:21:00Z"
+      },
+      "releaseFingerprint": "f319166c024aeb4190a3d4a54c352a5c50fa3967ead98e83ff8f6134d071b318"
     }
   ]
 }

@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+    "candidateFingerprint": "0317ed2f68f5860124ff4bd0e663b40d96dc3b266747e92c5d68a69cc15f6c48",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792026",
+      "brand": "Naturium",
+      "name": "Quadruple Hyaluronic Acid Serum 5%",
+      "variant": "Quadruple Hyaluronic Acid Serum 5%",
+      "size": "1.0 fl oz / 30 mL",
+      "packageVersion": "Quadruple Hyaluronic Acid Serum 5% 1.0 fl oz / 30 mL dropper bottle",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+        "observedGtin": "850010792026",
+        "observedVariant": "Quadruple Hyaluronic Acid Serum 5%",
+        "observedSize": "1.0 fl oz / 30 mL",
+        "observedPackageVersion": "Quadruple Hyaluronic Acid Serum 5% 1.0 fl oz / 30 mL dropper bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz.json",
+        "snapshotSha256": "fc46830dbf144c9d21e928e835fd236b0e4a6f8dce33966e131472cf4fc45268",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2024,
+        "retrievedAt": "2026-08-07T12:17:55Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Quadruple Hyaluronic Acid Serum 5% | Hydrating Face Serum | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+          "responseUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+          "retrievedAt": "2026-08-07T12:17:55Z",
+          "reviewedAt": "2026-08-07T12:19:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "28b5c462b9d98821b25cd94b8f863c13f7bfbfc813a29e1f9dc5e7d82b19bbb3",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 877752,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"850010792026\"",
+              "value": "850010792026"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Quadruple Hyaluronic Acid Serum 5%",
+              "value": "Quadruple Hyaluronic Acid Serum 5%"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+              "value": "1.0 fl oz / 30 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_HA-Serum-CapOn.webp?v=1774294628&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_HA-Serum-CapOn.webp?v=1774294628&width=2048",
+              "retrievedAt": "2026-08-07T12:17:55Z",
+              "responseSha256": "d9ade7d0c8a9c1c3f879957ba44c27daf1a2ea4d371d831f1a973a3ea6abf5a5",
+              "responseMimeType": "image/png",
+              "responseByteSize": 300581
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T12:19:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/quadruple-hyaluronic-acid-serum-5/",
+        "https://peronabeauty.com/product/naturium-quadruple-hyaluronic-acid-serum-5/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described quadruple hyaluronic acid hydrating face serum.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-07T12:19:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR_Catalog_HA-Serum-CapOn.webp?v=1774294628&width=2048",
+        "sha256": "d9ade7d0c8a9c1c3f879957ba44c27daf1a2ea4d371d831f1a973a3ea6abf5a5",
+        "mimeType": "image/png",
+        "byteSize": 300581,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T12:17:55Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Catalog_HA-Serum-CapOn.webp?v=1774294628&width=2048",
+          "sha256": "d9ade7d0c8a9c1c3f879957ba44c27daf1a2ea4d371d831f1a973a3ea6abf5a5",
+          "byteSize": 300581,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:17:55Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792026"
+          },
+          "officialProductUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "8441192f9fd3db91afaae984418d513d89c1a901d996bb7c72ecac1d4bc34893",
+          "generatedAt": "2026-08-07T12:19:18Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "57cb92a822c7bd5b45bf710b2d5e2082c353c19c3bdfdcf5573e0e41164a436a",
+          "byteSize": 311242,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T12:19:18Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T12:19:18Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "8441192f9fd3db91afaae984418d513d89c1a901d996bb7c72ecac1d4bc34893",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz/packshot-v1-57cb92a822c7bd5b.png",
+      "sha256": "57cb92a822c7bd5b45bf710b2d5e2082c353c19c3bdfdcf5573e0e41164a436a",
+      "mimeType": "image/png",
+      "byteSize": 311242,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T12:19:18Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T12:20:00Z"
+    },
+    "dossierFingerprint": "1a6dfc4dbe6a80c8a2b0ea27021c05e29d5d483bdb6e0823a7bf3d20fc5b8cd2"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+    "dossierFingerprint": "1a6dfc4dbe6a80c8a2b0ea27021c05e29d5d483bdb6e0823a7bf3d20fc5b8cd2",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Quadruple Hyaluronic Acid Serum 5% 1.0 fl oz",
+      "usage": "Apply 4-5 drops to clean damp skin morning and evening",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/quadruple-hyaluronic-acid-serum-5",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T12:20:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T12:21:00Z"
+    },
+    "releaseFingerprint": "f319166c024aeb4190a3d4a54c352a5c50fa3967ead98e83ff8f6134d071b318"
+  }
+}
