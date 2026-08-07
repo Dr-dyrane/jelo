@@ -19276,6 +19276,214 @@
         "approvedAt": "2026-08-07T11:43:00Z"
       },
       "dossierFingerprint": "ea6d2b422c3cfef03661065094c52e4cabdce7e6e016202b4c2f495433f7cb27"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+      "candidateFingerprint": "4200c3cec8abd5f9d90cd0d3fc247f4fb7c38e7bc1cc3d0dde4218e51f3a84b3",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792767",
+        "brand": "Naturium",
+        "name": "Salicylic Acid Serum 2%",
+        "variant": "Salicylic Acid Serum 2%",
+        "size": "1.0 fl oz / 30 mL",
+        "packageVersion": "Salicylic Acid Serum 2% 1.0 fl oz / 30 mL dropper bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/salicylic-acid-serum-2",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/salicylic-acid-serum-2",
+          "observedGtin": "850010792767",
+          "observedVariant": "Salicylic Acid Serum 2%",
+          "observedSize": "1.0 fl oz / 30 mL",
+          "observedPackageVersion": "Salicylic Acid Serum 2% 1.0 fl oz / 30 mL dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-salicylic-acid-serum-2-percent-1fl-oz.json",
+          "snapshotSha256": "529127e6cae64e6c726727582cf1718812b0b5838ce364d3ec336bf98f0ebc0b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1967,
+          "retrievedAt": "2026-08-07T11:42:14Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Salicylic Acid Serum 2% | Salicylic Acid Serum for Acne | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/salicylic-acid-serum-2",
+            "responseUrl": "https://naturium.com/products/salicylic-acid-serum-2",
+            "retrievedAt": "2026-08-07T11:42:14Z",
+            "reviewedAt": "2026-08-07T11:43:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "49a774acb433456f8a70245d9beddee0a0a74d9326c2c2b061345d181c6a6a02",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 811639,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792767\"",
+                "value": "850010792767"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Salicylic Acid Serum 2%",
+                "value": "Salicylic Acid Serum 2%"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1 FL OZ / 30 mL",
+                "value": "1.0 fl oz / 30 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_SalicylicAcid-Serum-CAPON.webp?v=1774291822&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_SalicylicAcid-Serum-CAPON.webp?v=1774291822&width=2048",
+                "retrievedAt": "2026-08-07T11:42:14Z",
+                "responseSha256": "6de120a769f0cc241aea6fa52880799aed7d1f9a463956ee72e6c1d21451f473",
+                "responseMimeType": "image/png",
+                "responseByteSize": 297133
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T11:43:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/salicylic-acid-serum-2/",
+          "https://peronabeauty.com/product/naturium-salicylic-acid-serum-2/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described salicylic acid exfoliating face serum.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for acne, rosacea, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/salicylic-acid-serum-2",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://naturium.com/products/salicylic-acid-serum-2",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-08-07T11:43:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/salicylic-acid-serum-2",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_SalicylicAcid-Serum-CAPON.webp?v=1774291822&width=2048",
+          "sha256": "6de120a769f0cc241aea6fa52880799aed7d1f9a463956ee72e6c1d21451f473",
+          "mimeType": "image/png",
+          "byteSize": 297133,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:42:14Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_SalicylicAcid-Serum-CAPON.webp?v=1774291822&width=2048",
+            "sha256": "6de120a769f0cc241aea6fa52880799aed7d1f9a463956ee72e6c1d21451f473",
+            "byteSize": 297133,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T11:42:14Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792767"
+            },
+            "officialProductUrl": "https://naturium.com/products/salicylic-acid-serum-2"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "13249825fe367d5508b21f600b81808f8ae073103196d014b2656294a3614f48",
+            "generatedAt": "2026-08-07T11:43:28Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "41a112ced6d3b459277ef9de8febf9eff52045f4d0f8f70d1e9e2d393a572698",
+            "byteSize": 578968,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T11:44:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T11:44:00Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "13249825fe367d5508b21f600b81808f8ae073103196d014b2656294a3614f48",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-salicylic-acid-serum-2-percent-1fl-oz/packshot-v1-41a112ced6d3b459.png",
+        "sha256": "41a112ced6d3b459277ef9de8febf9eff52045f4d0f8f70d1e9e2d393a572698",
+        "mimeType": "image/png",
+        "byteSize": 578968,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T11:44:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T11:45:00Z"
+      },
+      "dossierFingerprint": "b373336b4a4fa33ccf3161572c4d7aaa3c3f0d7bde90e6dfeba7c1c0a14527a5"
     }
   ]
 }

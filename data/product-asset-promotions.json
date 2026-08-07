@@ -956,5 +956,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "f643ea8e35178060a9317a955ec7fcd843c7b5196baf66364c41a33d56f6dbb0"
+  },
+  {
+    "id": "naturium-salicylic-acid-serum-2-percent-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_SalicylicAcid-Serum-CAPON.webp?v=1774291822&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-salicylic-acid-serum-2-percent-1fl-oz/packshot-v1-41a112ced6d3b459.png",
+    "blobPath": "products/naturium/naturium-salicylic-acid-serum-2-percent-1fl-oz/packshot-v1-41a112ced6d3b459.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-salicylic-acid-serum-2-percent-1fl-oz/packshot-v1-41a112ced6d3b459.png",
+    "contentType": "image/png",
+    "byteSize": 578968,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "41a112ced6d3b459277ef9de8febf9eff52045f4d0f8f70d1e9e2d393a572698"
   }
 ]

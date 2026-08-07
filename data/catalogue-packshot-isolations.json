@@ -2014,5 +2014,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_SalicylicAcid-Serum-CAPON.webp?v=1774291822&width=2048",
+      "sha256": "6de120a769f0cc241aea6fa52880799aed7d1f9a463956ee72e6c1d21451f473",
+      "byteSize": 297133,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T11:42:14Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792767"
+      },
+      "officialProductUrl": "https://naturium.com/products/salicylic-acid-serum-2"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "13249825fe367d5508b21f600b81808f8ae073103196d014b2656294a3614f48",
+      "generatedAt": "2026-08-07T11:43:28Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "41a112ced6d3b459277ef9de8febf9eff52045f4d0f8f70d1e9e2d393a572698",
+      "byteSize": 578968,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T11:44:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T11:44:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "13249825fe367d5508b21f600b81808f8ae073103196d014b2656294a3614f48",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

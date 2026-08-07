@@ -1825,6 +1825,30 @@
         "publishedAt": "2026-08-07T11:44:00Z"
       },
       "releaseFingerprint": "8e316bf2cdd75e6eef7b4b0ecdc856dc0e59eac2d9424630e600d1ba390b787b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+      "dossierFingerprint": "b373336b4a4fa33ccf3161572c4d7aaa3c3f0d7bde90e6dfeba7c1c0a14527a5",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Salicylic Acid Serum 2% 1.0 fl oz",
+        "usage": "Apply 4-5 drops to clean dry skin evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/salicylic-acid-serum-2",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:45:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:46:00Z"
+      },
+      "releaseFingerprint": "09e7cc73fb9e23d152230d6652f4fb0dbf2fe4d4481e7e08a9f0a25e690f2c02"
     }
   ]
 }
