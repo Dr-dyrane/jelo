@@ -780,6 +780,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   tresemme: ['www.tresemme.com'],
   advancedclinicals: ['advancedclinicals.com'],
   panoxyl: ['panoxyl.com'],
+  abib: ['en.abib.com', 'cdn.shopify.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -799,6 +800,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   ],
   'tresemme-keratin-smooth-weightless-conditioner-828ml': [
     'https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738',
+  ],
+  'abib-heartleaf-foam-cleanser-150ml': [
+    'https://en.abib.com/products/heartleaf-foam',
   ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
@@ -850,6 +854,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   tresemme: ['www.tresemme.com', 'assets.unileversolutions.com'],
   advancedclinicals: ['advancedclinicals.com', 'cdn.shopify.com'],
   panoxyl: ['panoxyl.com', 'www.panoxyl.com'],
+  abib: ['en.abib.com', 'cdn.shopify.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
   'benton-honest-cleansing-foam-150g': [

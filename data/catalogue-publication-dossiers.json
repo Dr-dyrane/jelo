@@ -17028,6 +17028,164 @@
         "approvedAt": "2026-08-07T02:35:00Z"
       },
       "dossierFingerprint": "ba0944b402c67312d9d13f44bf4aaebd38c2da626632970d28374ef3c623d757"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "candidateFingerprint": "22b92ec383d9d36a30dec94cc0a73778c4d264bdbf69f9ce37aee4089c57e36b",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "08809562559108",
+        "brand": "ABIB",
+        "name": "Mild foam cleanser Heartleaf foam",
+        "variant": "Mild foam cleanser Heartleaf foam",
+        "size": "150 ml",
+        "packageVersion": "ABIB Mild foam cleanser Heartleaf foam 150ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://en.abib.com/products/heartleaf-foam",
+        "officialIdentity": {
+          "url": "https://en.abib.com/products/heartleaf-foam",
+          "observedGtin": "8809562559108",
+          "observedVariant": "Mild foam cleanser Heartleaf foam",
+          "observedSize": "150 ml",
+          "observedPackageVersion": "ABIB Mild foam cleanser Heartleaf foam 150ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/abib-heartleaf-foam-cleanser-150ml.json",
+          "snapshotSha256": "e3e10eb221bc74c60c76ed79cb895e29414725005f9be2fbd4a3bb58341b5f07",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2081,
+          "retrievedAt": "2026-08-07T03:39:30Z",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "Heartleaf acne foam cleanser",
+              "surface": "Playwright MCP browser"
+            },
+            "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+            "fields": {
+              "gtin": {
+                "locator": "JSON-LD structured data Product.offers[0].gtin13 and Product.sku",
+                "sourceText": "gtin13: 8809562559108 (also published as sku: 8809562559108) in schema.org Product structured data on official ABIB English site",
+                "value": "8809562559108"
+              },
+              "variant": {
+                "locator": "JSON-LD structured data Product.name and rendered product page heading",
+                "sourceText": "Mild foam cleanser Heartleaf foam",
+                "value": "Mild foam cleanser Heartleaf foam"
+              },
+              "size": {
+                "locator": "JSON-LD structured data Product.brand.name and rendered product page",
+                "sourceText": "150ml / 5.07 fl.oz",
+                "value": "150 ml"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://en.abib.com/products/heartleaf-foam",
+            "retrievedAt": "2026-08-07T03:39:30Z",
+            "reviewedAt": "2026-08-07T03:45:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 1304523,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "a94aa787ebbac09cb01c5d46925a111b09f8a1f5292f94c90f5dae0b5d0754ff",
+            "sourceUrl": "https://en.abib.com/products/heartleaf-foam",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 52356,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "ca57984e1291e5ede5a46c728d4a998e20f2eef4711701a5bdd46110b6752730",
+                "responseUrl": "https://en.abib.com/cdn/shop/files/HF_7799f9f1-8d9c-4031-bf22-a787f90e60b2.jpg?v=1772178787&width=2048",
+                "retrievedAt": "2026-08-07T03:40:00Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://en.abib.com/cdn/shop/files/HF_7799f9f1-8d9c-4031-bf22-a787f90e60b2.jpg?v=1772178787&width=2048"
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T03:45:00Z",
+        "demandEvidenceUrls": [
+          "https://en.abib.com/products/heartleaf-foam"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "rinse-off heartleaf-based foam cleanser for acne-prone skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only, not a diagnosis or personal treatment plan. Heartleaf (Houttuynia cordata) is a soothing botanical ingredient. For persistent, painful, cystic or scarring acne, seek professional care.",
+        "manufacturerEvidenceUrl": "https://en.abib.com/products/heartleaf-foam",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://en.abib.com/products/heartleaf-foam",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-07T03:45:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://en.abib.com/cdn/shop/files/HF_7799f9f1-8d9c-4031-bf22-a787f90e60b2.jpg?v=1772178787&width=2048",
+          "sha256": "ca57984e1291e5ede5a46c728d4a998e20f2eef4711701a5bdd46110b6752730",
+          "mimeType": "image/jpeg",
+          "byteSize": 52356,
+          "width": 1600,
+          "height": 1600,
+          "retrievedAt": "2026-08-07T03:40:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current ABIB Mild foam cleanser Heartleaf foam 150ml tube and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the ABIB brand, Heartleaf foam title, and 150ml size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://en.abib.com/cdn/shop/files/HF_7799f9f1-8d9c-4031-bf22-a787f90e60b2.jpg?v=1772178787&width=2048",
+              "sha256": "ca57984e1291e5ede5a46c728d4a998e20f2eef4711701a5bdd46110b6752730"
+            }
+          ],
+          "outputSha256": "75f80d9e33654980d713f355cbfb89f885a19a2f3929e3cd9eb758a10e28c222",
+          "generatedAt": "2026-08-07T03:42:00Z",
+          "recordSha256": "8a101c73627151cce381a539d3c390cb8ac1d5d2be74a938553275685dece879"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/abib/abib-heartleaf-foam-cleanser-150ml/packshot-v1-75f80d9e33654980.png",
+        "sha256": "75f80d9e33654980d713f355cbfb89f885a19a2f3929e3cd9eb758a10e28c222",
+        "mimeType": "image/png",
+        "byteSize": 453399,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T03:45:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T03:46:00Z"
+      },
+      "dossierFingerprint": "eaa7c1ebc6e1ef5dbd11ffd8aea7b963c5a1fb9de08cce3af3d3650ff62270df"
     }
   ]
 }

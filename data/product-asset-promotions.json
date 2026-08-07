@@ -752,5 +752,22 @@
     "destination": "publication",
     "candidateId": "panoxyl-acne-creamy-wash-4-170g",
     "publicationBrandSlug": "panoxyl"
+  },
+  {
+    "id": "abib-heartleaf-foam-cleanser-150ml-v1",
+    "active": true,
+    "sourceUrl": "https://en.abib.com/cdn/shop/files/HF_7799f9f1-8d9c-4031-bf22-a787f90e60b2.jpg?v=1772178787&width=2048",
+    "localPath": "data/catalogue-intake-assets/abib-heartleaf-foam-cleanser-150ml/packshot.png",
+    "blobPath": "products/abib/abib-heartleaf-foam-cleanser-150ml/packshot-v1-75f80d9e33654980.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/abib/abib-heartleaf-foam-cleanser-150ml/packshot-v1-75f80d9e33654980.png",
+    "contentType": "image/png",
+    "byteSize": 453399,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "75f80d9e33654980d713f355cbfb89f885a19a2f3929e3cd9eb758a10e28c222",
+    "destination": "publication",
+    "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+    "publicationBrandSlug": "abib"
   }
 ]

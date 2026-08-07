@@ -1258,5 +1258,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://en.abib.com/cdn/shop/files/HF_7799f9f1-8d9c-4031-bf22-a787f90e60b2.jpg?v=1772178787&width=2048",
+      "sha256": "ca57984e1291e5ede5a46c728d4a998e20f2eef4711701a5bdd46110b6752730",
+      "byteSize": 52356,
+      "width": 1600,
+      "height": 1600,
+      "retrievedAt": "2026-08-07T03:40:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "08809562559108"
+      },
+      "officialProductUrl": "https://en.abib.com/products/heartleaf-foam"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "8a101c73627151cce381a539d3c390cb8ac1d5d2be74a938553275685dece879",
+      "generatedAt": "2026-08-07T03:42:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "75f80d9e33654980d713f355cbfb89f885a19a2f3929e3cd9eb758a10e28c222",
+      "byteSize": 453399,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T03:45:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T03:45:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

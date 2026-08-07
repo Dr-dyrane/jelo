@@ -1537,6 +1537,30 @@
         "publishedAt": "2026-08-07T02:40:00Z"
       },
       "releaseFingerprint": "d6f0f585f5f1c953192a2062ae824b62a1c7129fe108f3dedfaad1b995e03494"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "dossierFingerprint": "eaa7c1ebc6e1ef5dbd11ffd8aea7b963c5a1fb9de08cce3af3d3650ff62270df",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Heartleaf acne foam cleanser · 150 ml",
+        "usage": "Wet face, dispense a small amount, and massage into a gentle foam. Rinse thoroughly with lukewarm water. Use morning and evening. Follow with moisturiser. Avoid the eye area and discontinue if irritation occurs.",
+        "manufacturerDirectionsUrl": "https://en.abib.com/products/heartleaf-foam",
+        "reviewer": "Codex visual audit",
+        "reviewedAt": "2026-08-07T03:46:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T03:47:00Z"
+      },
+      "releaseFingerprint": "47ded45e66cb939c06783bd6dd1117c5e9c04717ba90fde6abc90eb724a5cc74"
     }
   ]
 }

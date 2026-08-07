@@ -958,6 +958,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'abib-heartleaf-foam-cleanser-150ml': {
+    productSlug: 'abib-heartleaf-foam-cleanser-150ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://en.abib.com/products/heartleaf-foam',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
