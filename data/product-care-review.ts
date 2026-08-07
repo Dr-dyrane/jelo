@@ -1087,6 +1087,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-niacinamide-gel-cream-5-1-7oz': {
+    productSlug: 'naturium-niacinamide-gel-cream-5-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/niacinamide-gel-cream-5',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-tranexamic-topical-acid-5-1fl-oz': {
+    productSlug: 'naturium-tranexamic-topical-acid-5-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/tranexamic-topical-acid-5',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

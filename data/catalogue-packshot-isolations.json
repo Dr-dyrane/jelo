@@ -2770,5 +2770,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-tranexamic-topical-acid-5-1fl-oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/Naturium_Tranexamic_Acid_Front_CapOn_Bone_1.webp?v=1774294545&width=2048",
+      "sha256": "6aa17b9e41014706d99da689b971ba7e1566f2ba18c98b4205765b7060234597",
+      "byteSize": 261790,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:33:08Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792194"
+      },
+      "officialProductUrl": "https://naturium.com/products/tranexamic-topical-acid-5"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "44e07312212f15f7a5e924c0c5e72b993c91993881c1a619525f2c8a76cdb55f",
+      "generatedAt": "2026-08-07T12:34:34Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "a08519ba0cffb770cad10ed201967f7edf286a67df5e7bcd4721ce58cf48369c",
+      "byteSize": 272671,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:36:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:36:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "44e07312212f15f7a5e924c0c5e72b993c91993881c1a619525f2c8a76cdb55f",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

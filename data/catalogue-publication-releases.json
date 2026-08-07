@@ -2113,6 +2113,30 @@
         "publishedAt": "2026-08-07T12:33:00Z"
       },
       "releaseFingerprint": "e4715776b46ed36a56550a93badd1dd35fffc435a8c9ea5b411a681adc41322f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-tranexamic-topical-acid-5-1fl-oz",
+      "dossierFingerprint": "2a0759e088a5524566f73abd774d63ccf7206dedf880469130027a617572230d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Tranexamic Topical Acid 5% 1.0 fl oz",
+        "usage": "Apply 4-5 drops to clean dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/tranexamic-topical-acid-5",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:37:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:38:00Z"
+      },
+      "releaseFingerprint": "00467db8a9a067d04b096de6bb7ff3338f4968cc3d51cfa245cf06f1cc3e0a2e"
     }
   ]
 }

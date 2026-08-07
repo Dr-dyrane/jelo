@@ -1160,5 +1160,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "43672fd0aec0b369b405a825f05edeb88b270d2c3e5e62ab9152f4e90d4e384a"
+  },
+  {
+    "id": "naturium-tranexamic-topical-acid-5-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-tranexamic-topical-acid-5-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/Naturium_Tranexamic_Acid_Front_CapOn_Bone_1.webp?v=1774294545&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-tranexamic-topical-acid-5-1fl-oz/packshot-v1-a08519ba0cffb770.png",
+    "blobPath": "products/naturium/naturium-tranexamic-topical-acid-5-1fl-oz/packshot-v1-a08519ba0cffb770.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-tranexamic-topical-acid-5-1fl-oz/packshot-v1-a08519ba0cffb770.png",
+    "contentType": "image/png",
+    "byteSize": 272671,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "a08519ba0cffb770cad10ed201967f7edf286a67df5e7bcd4721ce58cf48369c"
   }
 ]
