@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-07T15:15:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,7 +120,7 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "owned-identity-verified-render",
+      "origin": "official-brand-media",
       "role": "packshot",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
       "sourceAssetSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
@@ -128,7 +128,22 @@
       "sourceAssetByteSize": 463227,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-07T12:57:02Z"
+      "sourceAssetRetrievedAt": "2026-08-07T12:57:02Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-active-exosome-serum-1fl-oz/packshot-v1-2a39ae1c6a509af2.png",
+      "publicImageSha256": "2a39ae1c6a509af277762014c282aa46db13bc0040158a33a00c266b58de6a64",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 584624,
+      "width": 2000,
+      "height": 2000,
+      "backgroundTreatment": "source-pixel-isolation",
+      "rightsUrl": "https://naturium.com/products/multi-active-exosome-serum",
+      "packaging": "intact",
+      "artReviewedAt": "2026-08-07T15:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true
     }
   }
 }

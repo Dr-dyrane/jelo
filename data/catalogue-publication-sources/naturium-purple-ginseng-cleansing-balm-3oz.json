@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+    "candidateFingerprint": "d1f5d9a1e913537b5fb7d437069603e7790277ce0e9e0a30cf741698d07ea8c6",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792446",
+      "brand": "Naturium",
+      "name": "Purple Ginseng Cleansing Balm",
+      "variant": "Purple Ginseng Cleansing Balm",
+      "size": "3.0 fl oz / 88 mL",
+      "packageVersion": "Purple Ginseng Cleansing Balm 3.0 fl oz / 88 mL jar",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "observedGtin": "850010792446",
+        "observedVariant": "Purple Ginseng Cleansing Balm",
+        "observedSize": "3.0 fl oz / 88 mL",
+        "observedPackageVersion": "Purple Ginseng Cleansing Balm 3.0 fl oz / 88 mL jar",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-purple-ginseng-cleansing-balm-3oz.json",
+        "snapshotSha256": "ce44c2f521c072a519a88f4ff82221e84f8a04e638c481c175ecbe6968946aa9",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2037,
+        "retrievedAt": "2026-08-07T13:02:35Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Purple Ginseng Cleansing Balm | Makeup Melting Balm Cleanser | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+          "responseUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+          "retrievedAt": "2026-08-07T13:02:35Z",
+          "reviewedAt": "2026-08-07T13:04:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "b2da63180609de1c8fa1a79ad8f9d88e387b9459c21fc5442e6fedbd23a56e6d",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 840239,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant barcode field",
+              "sourceText": "\"barcode\":\"850010792446\"",
+              "value": "850010792446"
+            },
+            "variant": {
+              "locator": "Rendered official Shopify structured product data variant name field",
+              "sourceText": "Purple Ginseng Cleansing Balm",
+              "value": "Purple Ginseng Cleansing Balm"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 3.0 FL OZ / 88 mL",
+              "value": "3.0 fl oz / 88 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
+              "retrievedAt": "2026-08-07T13:02:35Z",
+              "responseSha256": "c1177343b8459a18256c5f4c8d9e6e18586300098301534546f3dafcc2817951",
+              "responseMimeType": "image/png",
+              "responseByteSize": 436344
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T13:04:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/purple-ginseng-cleansing-balm/",
+        "https://peronabeauty.com/product/naturium-purple-ginseng-cleansing-balm/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described purple ginseng makeup melting balm cleanser.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A rinse-off cosmetic cleanser, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-07T13:04:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
+        "sha256": "c1177343b8459a18256c5f4c8d9e6e18586300098301534546f3dafcc2817951",
+        "mimeType": "image/png",
+        "byteSize": 436344,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T13:04:23Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
+          "sha256": "c1177343b8459a18256c5f4c8d9e6e18586300098301534546f3dafcc2817951",
+          "byteSize": 436344,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:04:23Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792446"
+          },
+          "officialProductUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "a1c2ab873f54de137924ed2873fc7e06714bb498877c9fbd03cf8738d4c124e2",
+          "generatedAt": "2026-08-07T15:15:00Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "a1c2ab873f54de137924ed2873fc7e06714bb498877c9fbd03cf8738d4c124e2",
+          "byteSize": 741451,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:15:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "33bd5e6eba0423ee9d5884642d0f897e7f23f68a37ecd421603487824b356cad",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-purple-ginseng-cleansing-balm-3oz/packshot-v1-a1c2ab873f54de13.png",
+      "sha256": "a1c2ab873f54de137924ed2873fc7e06714bb498877c9fbd03cf8738d4c124e2",
+      "mimeType": "image/png",
+      "byteSize": 741451,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:20:00Z"
+    },
+    "dossierFingerprint": "b658ee8efe6c766d030868cf416f4d23cee1a8845d1c239192943ad2b91ef016"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+    "dossierFingerprint": "b658ee8efe6c766d030868cf416f4d23cee1a8845d1c239192943ad2b91ef016",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Purple Ginseng Cleansing Balm 3.0 fl oz",
+      "usage": "Scoop a small amount and massage onto dry skin in circular motions. Add water to emulsify then rinse thoroughly. Use morning and night.",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:21:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:22:00Z"
+    },
+    "releaseFingerprint": "28cd1b8683e632d83ffc352f75245d311f8f3e609782a24d9cf6fcecf2d4d168"
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+    "candidateFingerprint": "948b7a5939ecc57ced9e544f41bd8d4446b16a8194b5742eb46003c617dc2de4",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792354",
+      "brand": "Naturium",
+      "name": "Multi-Peptide Moisturizer",
+      "variant": "Multi-Peptide Moisturizer",
+      "size": "1.7 oz / 50 mL",
+      "packageVersion": "Multi-Peptide Moisturizer 1.7 oz / 50 mL tube",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/multi-peptide-moisturizer",
+        "observedGtin": "850010792354",
+        "observedVariant": "Multi-Peptide Moisturizer",
+        "observedSize": "1.7 oz / 50 mL",
+        "observedPackageVersion": "Multi-Peptide Moisturizer 1.7 oz / 50 mL tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-peptide-moisturizer-1-7oz.json",
+        "snapshotSha256": "09ecffaea13d958151030ea37ea1ec00364dc8b3eab700a963e9c5274c6e3250",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2024,
+        "retrievedAt": "2026-08-07T13:30:06Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Multi-Peptide Moisturizer for Fine Lines & Wrinkles | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+          "responseUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+          "retrievedAt": "2026-08-07T13:30:06Z",
+          "reviewedAt": "2026-08-07T13:32:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "921e25e9e7cba25d06e17cf0d8202c6af7b7e04e22b81813de51a16589986dcb",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 906605,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant barcode field",
+              "sourceText": "\"barcode\":\"850010792354\"",
+              "value": "850010792354"
+            },
+            "variant": {
+              "locator": "Rendered official Shopify structured product data variant name field",
+              "sourceText": "Multi-Peptide Moisturizer",
+              "value": "Multi-Peptide Moisturizer"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.7 OZ / 50 mL",
+              "value": "1.7 oz / 50 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10065_Multi-Peptide-Moisturizer-Front-CapOn-bonebkgd.jpg?v=1777319292&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR-10065_Multi-Peptide-Moisturizer-Front-CapOn-bonebkgd.jpg?v=1777319292&width=2048",
+              "retrievedAt": "2026-08-07T13:30:06Z",
+              "responseSha256": "d4d2cd041d970c80fb8084e4bb13749907a3c3ee386f0f90a27ca27f691b1ab5",
+              "responseMimeType": "image/png",
+              "responseByteSize": 532928
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T13:32:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/multi-peptide-moisturizer/",
+        "https://peronabeauty.com/product/naturium-multi-peptide-moisturizer/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described multi-peptide moisturizer for fine lines and wrinkles.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic moisturizer, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://naturium.com/products/multi-peptide-moisturizer",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T13:32:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR-10065_Multi-Peptide-Moisturizer-Front-CapOn-bonebkgd.jpg?v=1777319292&width=2048",
+        "sha256": "d4d2cd041d970c80fb8084e4bb13749907a3c3ee386f0f90a27ca27f691b1ab5",
+        "mimeType": "image/png",
+        "byteSize": 532928,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T13:31:40Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-10065_Multi-Peptide-Moisturizer-Front-CapOn-bonebkgd.jpg?v=1777319292&width=2048",
+          "sha256": "d4d2cd041d970c80fb8084e4bb13749907a3c3ee386f0f90a27ca27f691b1ab5",
+          "byteSize": 532928,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:31:40Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792354"
+          },
+          "officialProductUrl": "https://naturium.com/products/multi-peptide-moisturizer"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "0d5e0866be5ae63fa26304ad3db3c6872961b428e11a7c311819e0b85ddf4ba8",
+          "generatedAt": "2026-08-07T15:15:00Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "0d5e0866be5ae63fa26304ad3db3c6872961b428e11a7c311819e0b85ddf4ba8",
+          "byteSize": 889392,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:15:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "87d4abbb8dc29a0e4323fbec4458c22e8917983e56a5c06a9e3eac9f7c0becb7",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-peptide-moisturizer-1-7oz/packshot-v1-0d5e0866be5ae63f.png",
+      "sha256": "0d5e0866be5ae63fa26304ad3db3c6872961b428e11a7c311819e0b85ddf4ba8",
+      "mimeType": "image/png",
+      "byteSize": 889392,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:20:00Z"
+    },
+    "dossierFingerprint": "34b683157e65cf2cb51eb0d426663720bba231e4311eec750e52de37221c40ff"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+    "dossierFingerprint": "34b683157e65cf2cb51eb0d426663720bba231e4311eec750e52de37221c40ff",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Moisturize",
+      "displayLine": "Multi-Peptide Moisturizer 1.7 oz",
+      "usage": "Apply a small amount to clean skin morning and night. Gently massage until fully absorbed.",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:21:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:22:00Z"
+    },
+    "releaseFingerprint": "e59139f6e6eb2f6c3f9a73ba1d8bfcf4861f8a4774cd21b3b5df5723147b2f0b"
+  }
+}

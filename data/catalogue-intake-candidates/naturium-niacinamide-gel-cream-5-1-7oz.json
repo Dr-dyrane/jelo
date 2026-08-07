@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-07T15:15:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,7 +120,7 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "owned-identity-verified-render",
+      "origin": "official-brand-media",
       "role": "packshot",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
       "sourceAssetSha256": "f91ab6b9154f1359ad689f94380ccd07e5a2b19339aefde08cd597e419aa435a",
@@ -128,7 +128,22 @@
       "sourceAssetByteSize": 421610,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-07T12:32:58Z"
+      "sourceAssetRetrievedAt": "2026-08-07T12:32:58Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-niacinamide-gel-cream-5-1-7oz/packshot-v1-07bed449f01a3f5f.png",
+      "publicImageSha256": "07bed449f01a3f5f81c48933bdb5ae6213e4e378d08ae8e3180cb40509934546",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 429256,
+      "width": 2000,
+      "height": 2000,
+      "backgroundTreatment": "source-pixel-isolation",
+      "rightsUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+      "packaging": "intact",
+      "artReviewedAt": "2026-08-07T15:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true
     }
   }
 }

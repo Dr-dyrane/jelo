@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-07T15:15:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,7 +120,7 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "owned-identity-verified-render",
+      "origin": "official-brand-media",
       "role": "packshot",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Retinadehyde_0.webp?v=1774291618&width=2048",
       "sourceAssetSha256": "7dcc235b8512191020718782e0b25ceeb58db78c1dbf3a9151af301718044412",
@@ -128,7 +128,22 @@
       "sourceAssetByteSize": 414152,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-07T13:33:52Z"
+      "sourceAssetRetrievedAt": "2026-08-07T13:33:52Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-10-1-7oz/packshot-v1-92ea6cbb3abc5567.png",
+      "publicImageSha256": "92ea6cbb3abc55676499887c84a5a8d684578132907142f806053bef006eb020",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 446773,
+      "width": 2000,
+      "height": 2000,
+      "backgroundTreatment": "source-pixel-isolation",
+      "rightsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-10",
+      "packaging": "intact",
+      "artReviewedAt": "2026-08-07T15:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true
     }
   }
 }

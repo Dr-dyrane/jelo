@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-07T15:15:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -16167,7 +16167,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Azelaic-Acid-Emulsion-10_Cap-on.webp?v=1774290946&width=2048",
         "sourceAssetSha256": "e881cab5014f4b3a2183ca84312c352df8940d8f91929dd88ea16e72276e12b0",
@@ -16175,7 +16175,22 @@
         "sourceAssetByteSize": 201739,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T12:38:00Z"
+        "sourceAssetRetrievedAt": "2026-08-07T12:38:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-azelaic-acid-emulsion-10-1fl-oz/packshot-v1-16029ebf58c00f96.png",
+        "publicImageSha256": "16029ebf58c00f9681b1dd10afb9c072608382ee532d96c40eb8539d6352aea4",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 257930,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -16847,7 +16862,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
         "sourceAssetSha256": "2fef27d9b756e9d375bdd12614640c200a6f6647b5de2e840ae68adddf950ceb",
@@ -16855,7 +16870,22 @@
         "sourceAssetByteSize": 616172,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T12:57:43Z"
+        "sourceAssetRetrievedAt": "2026-08-07T12:57:43Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-dew-glow-mineral-spf-50-1-7fl-oz/packshot-v1-8a8259370215e861.png",
+        "publicImageSha256": "8a8259370215e861a80ce30665a76754b91bfa663d49e0a9cee12d7f1b3b7798",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 640617,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -17805,7 +17835,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
         "sourceAssetSha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
@@ -17813,7 +17843,22 @@
         "sourceAssetByteSize": 526200,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T12:58:41Z"
+        "sourceAssetRetrievedAt": "2026-08-07T12:58:41Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-scrub-8oz/packshot-v1-5454bb6022caebf2.png",
+        "publicImageSha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 860792,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -18485,7 +18530,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
         "sourceAssetSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
@@ -18493,7 +18538,22 @@
         "sourceAssetByteSize": 463227,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T12:57:02Z"
+        "sourceAssetRetrievedAt": "2026-08-07T12:57:02Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-active-exosome-serum-1fl-oz/packshot-v1-2a39ae1c6a509af2.png",
+        "publicImageSha256": "2a39ae1c6a509af277762014c282aa46db13bc0040158a33a00c266b58de6a64",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 584624,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/multi-active-exosome-serum",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -18748,7 +18808,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
         "sourceAssetSha256": "930e9b84c798c451bfa64402a0d26e73603c57b115e8c8f3574a99d7bfda67bc",
@@ -18756,7 +18816,22 @@
         "sourceAssetByteSize": 338479,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T13:22:13Z"
+        "sourceAssetRetrievedAt": "2026-08-07T13:22:13Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-peptide-advanced-serum-1fl-oz/packshot-v1-5b3fa4fb836407b5.png",
+        "publicImageSha256": "5b3fa4fb836407b5cfc54dfad23a76f917e55d74b84f66a43917fbef1c241252",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 443060,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -18872,7 +18947,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_MP-Eye-Cream_Front_capon.webp?v=1774289423&width=2048",
         "sourceAssetSha256": "04ce35bc00bf47323501c9aff937d77ed3da9c8708d5db428259bd92ddde9e8c",
@@ -18880,7 +18955,22 @@
         "sourceAssetByteSize": 316284,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T12:46:00Z"
+        "sourceAssetRetrievedAt": "2026-08-07T12:46:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-peptide-eye-cream-0-5oz/packshot-v1-c9470c5825104e9c.png",
+        "publicImageSha256": "c9470c5825104e9c727eb58d02a7831551141c207d8156c114cf06c0f1c72d3e",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 405304,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -18996,7 +19086,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10065_Multi-Peptide-Moisturizer-Front-CapOn-bonebkgd.jpg?v=1777319292&width=2048",
         "sourceAssetSha256": "d4d2cd041d970c80fb8084e4bb13749907a3c3ee386f0f90a27ca27f691b1ab5",
@@ -19004,7 +19094,22 @@
         "sourceAssetByteSize": 532928,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T13:31:40Z"
+        "sourceAssetRetrievedAt": "2026-08-07T13:31:40Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-peptide-moisturizer-1-7oz/packshot-v1-0d5e0866be5ae63f.png",
+        "publicImageSha256": "0d5e0866be5ae63fa26304ad3db3c6872961b428e11a7c311819e0b85ddf4ba8",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 889392,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -19259,7 +19364,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
         "sourceAssetSha256": "f91ab6b9154f1359ad689f94380ccd07e5a2b19339aefde08cd597e419aa435a",
@@ -19267,7 +19372,22 @@
         "sourceAssetByteSize": 421610,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T12:32:58Z"
+        "sourceAssetRetrievedAt": "2026-08-07T12:32:58Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-niacinamide-gel-cream-5-1-7oz/packshot-v1-07bed449f01a3f5f.png",
+        "publicImageSha256": "07bed449f01a3f5f81c48933bdb5ae6213e4e378d08ae8e3180cb40509934546",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 429256,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -19939,7 +20059,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
         "sourceAssetSha256": "c1177343b8459a18256c5f4c8d9e6e18586300098301534546f3dafcc2817951",
@@ -19947,7 +20067,22 @@
         "sourceAssetByteSize": 436344,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T13:04:23Z"
+        "sourceAssetRetrievedAt": "2026-08-07T13:04:23Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-purple-ginseng-cleansing-balm-3oz/packshot-v1-a1c2ab873f54de13.png",
+        "publicImageSha256": "a1c2ab873f54de137924ed2873fc7e06714bb498877c9fbd03cf8738d4c124e2",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 741451,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -20341,7 +20476,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Retinadehyde_0.webp?v=1774291618&width=2048",
         "sourceAssetSha256": "7dcc235b8512191020718782e0b25ceeb58db78c1dbf3a9151af301718044412",
@@ -20349,7 +20484,22 @@
         "sourceAssetByteSize": 414152,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T13:33:52Z"
+        "sourceAssetRetrievedAt": "2026-08-07T13:33:52Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-10-1-7oz/packshot-v1-92ea6cbb3abc5567.png",
+        "publicImageSha256": "92ea6cbb3abc55676499887c84a5a8d684578132907142f806053bef006eb020",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 446773,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-10",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {
@@ -21021,7 +21171,7 @@
       },
       "asset": {
         "rightsStatus": "documented",
-        "origin": "owned-identity-verified-render",
+        "origin": "official-brand-media",
         "role": "packshot",
         "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
         "sourceAssetSha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
@@ -21029,7 +21179,22 @@
         "sourceAssetByteSize": 394940,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T13:34:55Z"
+        "sourceAssetRetrievedAt": "2026-08-07T13:34:55Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v1-071972905568868d.png",
+        "publicImageSha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 397235,
+        "width": 2000,
+        "height": 2000,
+        "backgroundTreatment": "source-pixel-isolation",
+        "rightsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "packaging": "intact",
+        "artReviewedAt": "2026-08-07T15:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true
       }
     },
     {

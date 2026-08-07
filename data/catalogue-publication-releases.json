@@ -2473,6 +2473,270 @@
         "publishedAt": "2026-08-07T15:02:00Z"
       },
       "releaseFingerprint": "3f0e1cf668e874799857b6cf05ecd36fe42091c487c07b0a17f85cfe80f7a799"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-azelaic-acid-emulsion-10-1fl-oz",
+      "dossierFingerprint": "c10d195f1a371794aa71b41c77c235b69909841b1dffa706cf07e7f37b3da3cd",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic Acid Emulsion 10% 1.0 fl oz",
+        "usage": "Apply a small amount to clean skin in the evening. Start with 2-3 nights per week and gradually increase as tolerated. Always follow with SPF during the day.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "ed12d5c7ed13db50a79053ec9cc65ee1bc146a5e208d8be4fa60823c121e9437"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+      "dossierFingerprint": "0ae049afcbe9ec97d4ab503703e4b4f5b4c595d4ef01167efcdfc3ecc087b2f7",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz",
+        "usage": "Apply generously to face and neck as the last step in your morning routine 15 minutes before sun exposure. Reapply every 2 hours during direct sun exposure.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "5f09d696f6ee906865c8e3d054a75f746113a97c9a675723a61907980219a4b2"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+      "dossierFingerprint": "b5afd8c66f2fe1c8da078bb2598aa683a2ee2d704a9fb753bc9283b8d23c94af",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Treat",
+        "displayLine": "The Glow Getter Multi-Oil Body Scrub 8 oz",
+        "usage": "Apply to damp skin in circular motions then rinse thoroughly. Use 2-3 times per week for smooth glowing skin.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "b7063b705b819eb642ec868cd111a10b7267a6b54aa5baec3264809787f42492"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+      "dossierFingerprint": "16c3df7f64ce9d0979b73bc3b7f88feea93a0f7551280e18e9bc21aa83d9ba06",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Multi-Active Exosome Serum 1.0 fl oz",
+        "usage": "Apply a few drops to clean skin morning and night. Gently press into the skin until absorbed. Follow with moisturizer.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/multi-active-exosome-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "62df7faa67f9c72990af7bfa8a62201dc0f67830bb43c8e19718d0698fa7c29a"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+      "dossierFingerprint": "07d60e9a783ff4bb0d134de2b11d089451e0b3c79e2d345234447ddb1869be54",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Multi-Peptide Advanced Serum 1.0 fl oz",
+        "usage": "Apply a few drops to clean skin morning and night. Gently press into the skin until absorbed. Follow with moisturizer.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "93468abf1c679165963afa27d33996d3ee7c437c5e7f87d61af86c227a3549b3"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-multi-peptide-eye-cream-0-5oz",
+      "dossierFingerprint": "fc95e70204b247d931d975ba08e52b56d3782d4da466cb8c536da00bbb22ee13",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Multi-Peptide Eye Cream 0.5 fl oz",
+        "usage": "Using your ring finger gently pat a small amount around the orbital bone morning and night. Avoid direct contact with eyes.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "f7b24f4791bb040012564f1ab5351d3cc1869a93bf55b144272ed8a55f9e6320"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+      "dossierFingerprint": "34b683157e65cf2cb51eb0d426663720bba231e4311eec750e52de37221c40ff",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Multi-Peptide Moisturizer 1.7 oz",
+        "usage": "Apply a small amount to clean skin morning and night. Gently massage until fully absorbed.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/multi-peptide-moisturizer",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "e59139f6e6eb2f6c3f9a73ba1d8bfcf4861f8a4774cd21b3b5df5723147b2f0b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
+      "dossierFingerprint": "72bf0edcc0e07247a40a0fd1b6feb610348662898e468f3148e877ca7eea84e8",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Niacinamide Gel Cream 5% 1.7 oz",
+        "usage": "Apply a small amount to clean skin morning and night. Gently massage until absorbed. Suitable for all skin types.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "d2e8511657bebc4d9eed73221869c3da6aebf4db1f7024f8a99e2c0c80222e2e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+      "dossierFingerprint": "b658ee8efe6c766d030868cf416f4d23cee1a8845d1c239192943ad2b91ef016",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Purple Ginseng Cleansing Balm 3.0 fl oz",
+        "usage": "Scoop a small amount and massage onto dry skin in circular motions. Add water to emulsify then rinse thoroughly. Use morning and night.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "28cd1b8683e632d83ffc352f75245d311f8f3e609782a24d9cf6fcecf2d4d168"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-retinaldehyde-cream-serum-0-10-1-7oz",
+      "dossierFingerprint": "f85ac542b472605fc914d6a54d53cefb21b7f524fbb29fdb886553818af3778a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Retinaldehyde Cream Serum 0.10% 1.7 fl oz",
+        "usage": "Apply a pea-sized amount to clean dry skin in the evening. Start with 1-2 nights per week and gradually increase. Always follow with SPF during the day.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-10",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "85a6f905a2ed7012f17dc7db7edd2c89bc10f4dc3a10cf181cd7a6a92bd14828"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+      "dossierFingerprint": "7d179b5c9a28c0c886f10b284f99ac9fa628c40ad96790b28f696f5d8e4b3959",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Treat",
+        "displayLine": "The Smoother Glycolic Acid Body Lotion 8 fl oz",
+        "usage": "Apply liberally to clean dry skin. Use daily or as tolerated. Always follow with SPF on exposed areas during the day.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:21:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:22:00Z"
+      },
+      "releaseFingerprint": "175cf5d503949510007f7d4a2667a19cf4aab7aa10683f70a876333496ae07c8"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-07T15:15:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,7 +120,7 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "owned-identity-verified-render",
+      "origin": "official-brand-media",
       "role": "packshot",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
       "sourceAssetSha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
@@ -128,7 +128,22 @@
       "sourceAssetByteSize": 526200,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-07T12:58:41Z"
+      "sourceAssetRetrievedAt": "2026-08-07T12:58:41Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-scrub-8oz/packshot-v1-5454bb6022caebf2.png",
+      "publicImageSha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 860792,
+      "width": 2000,
+      "height": 2000,
+      "backgroundTreatment": "source-pixel-isolation",
+      "rightsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+      "packaging": "intact",
+      "artReviewedAt": "2026-08-07T15:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true
     }
   }
 }

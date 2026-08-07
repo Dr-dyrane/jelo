@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+    "candidateFingerprint": "dfee3adbbd738990c11de5816b56bcef1dd68bb6f412bc1b5a1504f4dde5b416",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "810120260921",
+      "brand": "Naturium",
+      "name": "Multi-Peptide Advanced Serum",
+      "variant": "Multi-Peptide Advanced Serum",
+      "size": "1.0 fl oz / 30 mL",
+      "packageVersion": "Multi-Peptide Advanced Serum 1.0 fl oz / 30 mL dropper bottle",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/multi-peptide-advanced-serum",
+        "observedGtin": "810120260921",
+        "observedVariant": "Multi-Peptide Advanced Serum",
+        "observedSize": "1.0 fl oz / 30 mL",
+        "observedPackageVersion": "Multi-Peptide Advanced Serum 1.0 fl oz / 30 mL dropper bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-peptide-advanced-serum-1fl-oz.json",
+        "snapshotSha256": "072c7735066b810b17827958eecd6335840607fca69cf270db16e986e72047d7",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2074,
+        "retrievedAt": "2026-08-07T13:20:15Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Multi-Peptide Advanced Serum | Copper Peptides & Argireline | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+          "responseUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+          "retrievedAt": "2026-08-07T13:20:15Z",
+          "reviewedAt": "2026-08-07T13:22:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "c5e14667361ab3722a1612bf007273fe4be1aa98d84641fdfaa2dc23ebc65e9c",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 906074,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant barcode field",
+              "sourceText": "\"barcode\":\"810120260921\"",
+              "value": "810120260921"
+            },
+            "variant": {
+              "locator": "Rendered official Shopify structured product data variant name field",
+              "sourceText": "Multi-Peptide Advanced Serum",
+              "value": "Multi-Peptide Advanced Serum"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+              "value": "1.0 fl oz / 30 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
+              "retrievedAt": "2026-08-07T13:20:15Z",
+              "responseSha256": "930e9b84c798c451bfa64402a0d26e73603c57b115e8c8f3574a99d7bfda67bc",
+              "responseMimeType": "image/png",
+              "responseByteSize": 338479
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T13:22:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/multi-peptide-advanced-serum/",
+        "https://peronabeauty.com/product/naturium-multi-peptide-advanced-serum/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described multi-peptide advanced serum with copper peptides and argireline.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://naturium.com/products/multi-peptide-advanced-serum",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T13:22:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
+        "sha256": "930e9b84c798c451bfa64402a0d26e73603c57b115e8c8f3574a99d7bfda67bc",
+        "mimeType": "image/png",
+        "byteSize": 338479,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T13:22:13Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
+          "sha256": "930e9b84c798c451bfa64402a0d26e73603c57b115e8c8f3574a99d7bfda67bc",
+          "byteSize": 338479,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:22:13Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00810120260921"
+          },
+          "officialProductUrl": "https://naturium.com/products/multi-peptide-advanced-serum"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "5b3fa4fb836407b5cfc54dfad23a76f917e55d74b84f66a43917fbef1c241252",
+          "generatedAt": "2026-08-07T15:15:00Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "5b3fa4fb836407b5cfc54dfad23a76f917e55d74b84f66a43917fbef1c241252",
+          "byteSize": 443060,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:15:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "d9ceacf0516a89a155364b02c22033f1ba3db2fc8191c32660dbff8d734bd314",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-peptide-advanced-serum-1fl-oz/packshot-v1-5b3fa4fb836407b5.png",
+      "sha256": "5b3fa4fb836407b5cfc54dfad23a76f917e55d74b84f66a43917fbef1c241252",
+      "mimeType": "image/png",
+      "byteSize": 443060,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:20:00Z"
+    },
+    "dossierFingerprint": "07d60e9a783ff4bb0d134de2b11d089451e0b3c79e2d345234447ddb1869be54"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+    "dossierFingerprint": "07d60e9a783ff4bb0d134de2b11d089451e0b3c79e2d345234447ddb1869be54",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Multi-Peptide Advanced Serum 1.0 fl oz",
+      "usage": "Apply a few drops to clean skin morning and night. Gently press into the skin until absorbed. Follow with moisturizer.",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:21:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:22:00Z"
+    },
+    "releaseFingerprint": "93468abf1c679165963afa27d33996d3ee7c437c5e7f87d61af86c227a3549b3"
+  }
+}

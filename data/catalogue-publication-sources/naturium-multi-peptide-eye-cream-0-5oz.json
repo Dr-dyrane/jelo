@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-multi-peptide-eye-cream-0-5oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-multi-peptide-eye-cream-0-5oz",
+    "candidateFingerprint": "4fb18d4a1938d29969924126fc2fa96b9bc7e6673e12c2215ac5c80cf24e67d5",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792682",
+      "brand": "Naturium",
+      "name": "Multi-Peptide Eye Cream",
+      "variant": "Multi-Peptide Eye Cream",
+      "size": "0.5 fl oz / 15 mL",
+      "packageVersion": "Multi-Peptide Eye Cream 0.5 fl oz / 15 mL tube",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/multi-peptide-eye-cream",
+        "observedGtin": "850010792682",
+        "observedVariant": "Multi-Peptide Eye Cream",
+        "observedSize": "0.5 fl oz / 15 mL",
+        "observedPackageVersion": "Multi-Peptide Eye Cream 0.5 fl oz / 15 mL tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-peptide-eye-cream-0-5oz.json",
+        "snapshotSha256": "4cb795a4d590ed3b8826dd8f48cb7d1954595bc9b5e4e351042481e1f0334257",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1929,
+        "retrievedAt": "2026-08-07T12:44:31Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-multi-peptide-eye-cream-0-5oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Multi-Peptide Eye Cream for Dark Circles & Fine Lines | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+          "responseUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+          "retrievedAt": "2026-08-07T12:44:31Z",
+          "reviewedAt": "2026-08-07T12:46:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "ab22c699d86aaac2e8afccf03af2b2fa4caada38a7f0a605993e6db586271060",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 848769,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"850010792682\"",
+              "value": "850010792682"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Multi-Peptide Eye Cream",
+              "value": "Multi-Peptide Eye Cream"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 0.5 FL OZ / 15 mL",
+              "value": "0.5 fl oz / 15 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_MP-Eye-Cream_Front_capon.webp?v=1774289423&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_MP-Eye-Cream_Front_capon.webp?v=1774289423&width=2048",
+              "retrievedAt": "2026-08-07T12:44:31Z",
+              "responseSha256": "04ce35bc00bf47323501c9aff937d77ed3da9c8708d5db428259bd92ddde9e8c",
+              "responseMimeType": "image/png",
+              "responseByteSize": 316284
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T12:46:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/multi-peptide-eye-cream/",
+        "https://peronabeauty.com/product/naturium-multi-peptide-eye-cream/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described multi-peptide eye cream for dark circles and fine lines.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic eye cream, not a diagnosis or treatment for any eye or skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://naturium.com/products/multi-peptide-eye-cream",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T12:46:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR_MP-Eye-Cream_Front_capon.webp?v=1774289423&width=2048",
+        "sha256": "04ce35bc00bf47323501c9aff937d77ed3da9c8708d5db428259bd92ddde9e8c",
+        "mimeType": "image/png",
+        "byteSize": 316284,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T12:46:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-multi-peptide-eye-cream-0-5oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_MP-Eye-Cream_Front_capon.webp?v=1774289423&width=2048",
+          "sha256": "04ce35bc00bf47323501c9aff937d77ed3da9c8708d5db428259bd92ddde9e8c",
+          "byteSize": 316284,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:46:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792682"
+          },
+          "officialProductUrl": "https://naturium.com/products/multi-peptide-eye-cream"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "c9470c5825104e9c727eb58d02a7831551141c207d8156c114cf06c0f1c72d3e",
+          "generatedAt": "2026-08-07T15:15:00Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "c9470c5825104e9c727eb58d02a7831551141c207d8156c114cf06c0f1c72d3e",
+          "byteSize": 405304,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:15:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "5b1091a66161cb2c57c0bf4a42be990f7a5ce911205d9f011aa17789d73322eb",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-peptide-eye-cream-0-5oz/packshot-v1-c9470c5825104e9c.png",
+      "sha256": "c9470c5825104e9c727eb58d02a7831551141c207d8156c114cf06c0f1c72d3e",
+      "mimeType": "image/png",
+      "byteSize": 405304,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:20:00Z"
+    },
+    "dossierFingerprint": "fc95e70204b247d931d975ba08e52b56d3782d4da466cb8c536da00bbb22ee13"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-multi-peptide-eye-cream-0-5oz",
+    "dossierFingerprint": "fc95e70204b247d931d975ba08e52b56d3782d4da466cb8c536da00bbb22ee13",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Multi-Peptide Eye Cream 0.5 fl oz",
+      "usage": "Using your ring finger gently pat a small amount around the orbital bone morning and night. Avoid direct contact with eyes.",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/multi-peptide-eye-cream",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:21:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:22:00Z"
+    },
+    "releaseFingerprint": "f7b24f4791bb040012564f1ab5351d3cc1869a93bf55b144272ed8a55f9e6320"
+  }
+}

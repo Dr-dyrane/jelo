@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+    "candidateFingerprint": "a7252dff1806e3b51ac4551452794bc5e687ac34e62183c9d23f3c00f5c9b546",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "609332213661",
+      "brand": "Naturium",
+      "name": "Multi-Active Exosome Serum",
+      "variant": "Multi-Active Exosome Serum",
+      "size": "1.0 fl oz / 30 mL",
+      "packageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/multi-active-exosome-serum",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/multi-active-exosome-serum",
+        "observedGtin": "609332213661",
+        "observedVariant": "Multi-Active Exosome Serum",
+        "observedSize": "1.0 fl oz / 30 mL",
+        "observedPackageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-active-exosome-serum-1fl-oz.json",
+        "snapshotSha256": "f6e6bcfaca2295d962e331e56d1efa46406f54beddd6587b4d9b2aa1dc6dcf92",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2069,
+        "retrievedAt": "2026-08-07T12:55:16Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Multi-Active Exosome Serum for Fine Lines and Wrinkles | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+          "responseUrl": "https://naturium.com/products/multi-active-exosome-serum",
+          "retrievedAt": "2026-08-07T12:55:16Z",
+          "reviewedAt": "2026-08-07T12:57:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "f3758a5cb1b77cb065d3a6f294bac2d25f5545255754f9134d53408dfc00a609",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 879160,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant barcode field",
+              "sourceText": "\"barcode\":\"609332213661\"",
+              "value": "609332213661"
+            },
+            "variant": {
+              "locator": "Rendered official Shopify structured product data variant name field",
+              "sourceText": "Multi-Active Exosome Serum",
+              "value": "Multi-Active Exosome Serum"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+              "value": "1.0 fl oz / 30 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+              "retrievedAt": "2026-08-07T12:55:16Z",
+              "responseSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
+              "responseMimeType": "image/png",
+              "responseByteSize": 463227
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T12:57:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/multi-active-exosome-serum/",
+        "https://peronabeauty.com/product/naturium-multi-active-exosome-serum/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described multi-active exosome serum for fine lines and wrinkles.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://naturium.com/products/multi-active-exosome-serum",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T12:57:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+        "sha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
+        "mimeType": "image/png",
+        "byteSize": 463227,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T12:57:02Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+          "sha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
+          "byteSize": 463227,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:57:02Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00609332213661"
+          },
+          "officialProductUrl": "https://naturium.com/products/multi-active-exosome-serum"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "2a39ae1c6a509af277762014c282aa46db13bc0040158a33a00c266b58de6a64",
+          "generatedAt": "2026-08-07T15:15:00Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "2a39ae1c6a509af277762014c282aa46db13bc0040158a33a00c266b58de6a64",
+          "byteSize": 584624,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:15:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "dcf606504e7d07aa2795f4f5901f31b2cb47047946af721b1530b8d1afc2d2f6",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-active-exosome-serum-1fl-oz/packshot-v1-2a39ae1c6a509af2.png",
+      "sha256": "2a39ae1c6a509af277762014c282aa46db13bc0040158a33a00c266b58de6a64",
+      "mimeType": "image/png",
+      "byteSize": 584624,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:20:00Z"
+    },
+    "dossierFingerprint": "16c3df7f64ce9d0979b73bc3b7f88feea93a0f7551280e18e9bc21aa83d9ba06"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+    "dossierFingerprint": "16c3df7f64ce9d0979b73bc3b7f88feea93a0f7551280e18e9bc21aa83d9ba06",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Multi-Active Exosome Serum 1.0 fl oz",
+      "usage": "Apply a few drops to clean skin morning and night. Gently press into the skin until absorbed. Follow with moisturizer.",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/multi-active-exosome-serum",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:21:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:22:00Z"
+    },
+    "releaseFingerprint": "62df7faa67f9c72990af7bfa8a62201dc0f67830bb43c8e19718d0698fa7c29a"
+  }
+}

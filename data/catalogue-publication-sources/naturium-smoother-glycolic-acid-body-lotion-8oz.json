@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+    "candidateFingerprint": "6a0a3f1e7bbbc510bda8071cdc234d8f1602e8e8b6a0967a0108ce48e5d4d7df",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "810120260235",
+      "brand": "Naturium",
+      "name": "The Smoother Glycolic Acid Body Lotion",
+      "variant": "The Smoother Glycolic Acid Body Lotion",
+      "size": "8 fl oz / 234 mL",
+      "packageVersion": "The Smoother Glycolic Acid Body Lotion 8 fl oz / 234 mL pump bottle",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "observedGtin": "810120260235",
+        "observedVariant": "The Smoother Glycolic Acid Body Lotion",
+        "observedSize": "8 fl oz / 234 mL",
+        "observedPackageVersion": "The Smoother Glycolic Acid Body Lotion 8 fl oz / 234 mL pump bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz.json",
+        "snapshotSha256": "b34192eb882bbb07ef44de1e7b0c5a8083c688b883e5ce31df97d327e8fed6c6",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2034,
+        "retrievedAt": "2026-08-07T11:52:51Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "The Smoother Glycolic Acid Body Lotion"
+          },
+          "sourceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+          "responseUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+          "retrievedAt": "2026-08-07T11:52:51Z",
+          "reviewedAt": "2026-08-07T11:53:30Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "ffb1d9aab45d9ce0c61e0bd02752dba56404ba251b247169c218f1a1c11cb818",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 868265,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"810120260235\"",
+              "value": "810120260235"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "The Smoother Glycolic Acid Body Lotion",
+              "value": "The Smoother Glycolic Acid Body Lotion"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 8 FL OZ / 234 mL",
+              "value": "8 fl oz / 234 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+              "retrievedAt": "2026-08-07T11:52:51Z",
+              "responseSha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
+              "responseMimeType": "image/png",
+              "responseByteSize": 394940
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T11:53:30Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/the-smoother-glycolic-acid-body-lotion/",
+        "https://peronabeauty.com/product/naturium-smoother-glycolic-acid-body-lotion/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described glycolic acid exfoliating body lotion.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A leave-on cosmetic body lotion, not a diagnosis or treatment for keratosis pilaris, acne, eczema, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+      "independentClinicalGuidanceUrl": "https://www.nhs.uk/conditions/keratosis-pilaris/",
+      "evidenceUrls": [
+        "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "https://www.nhs.uk/conditions/keratosis-pilaris/"
+      ],
+      "reviewedAt": "2026-08-07T11:53:30Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+        "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
+        "mimeType": "image/png",
+        "byteSize": 394940,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T13:34:55Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+          "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
+          "byteSize": 394940,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:34:55Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00810120260235"
+          },
+          "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
+          "generatedAt": "2026-08-07T15:15:00Z",
+          "inferredComponentCount": 6,
+          "retainedComponentCount": 6,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
+          "byteSize": 397235,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:15:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "ea5f6f735fa649ef37aa43af636fd98736a8a96a309c7e765052660f7592c9e7",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v1-071972905568868d.png",
+      "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
+      "mimeType": "image/png",
+      "byteSize": 397235,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:20:00Z"
+    },
+    "dossierFingerprint": "7d179b5c9a28c0c886f10b284f99ac9fa628c40ad96790b28f696f5d8e4b3959"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+    "dossierFingerprint": "7d179b5c9a28c0c886f10b284f99ac9fa628c40ad96790b28f696f5d8e4b3959",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Treat",
+      "displayLine": "The Smoother Glycolic Acid Body Lotion 8 fl oz",
+      "usage": "Apply liberally to clean dry skin. Use daily or as tolerated. Always follow with SPF on exposed areas during the day.",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:21:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:22:00Z"
+    },
+    "releaseFingerprint": "175cf5d503949510007f7d4a2667a19cf4aab7aa10683f70a876333496ae07c8"
+  }
+}

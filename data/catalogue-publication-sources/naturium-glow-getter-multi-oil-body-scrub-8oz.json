@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "candidateFingerprint": "ced3c501571dd12994e1c0d50dbe15551a59a6413e39aadc9b94aae6b70ea879",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "810120263076",
+      "brand": "Naturium",
+      "name": "The Glow Getter Multi-Oil Body Scrub",
+      "variant": "The Glow Getter Multi-Oil Body Scrub",
+      "size": "8 oz / 226 mL",
+      "packageVersion": "The Glow Getter Multi-Oil Body Scrub 8 oz / 226 mL jar",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+        "observedGtin": "810120263076",
+        "observedVariant": "The Glow Getter Multi-Oil Body Scrub",
+        "observedSize": "8 oz / 226 mL",
+        "observedPackageVersion": "The Glow Getter Multi-Oil Body Scrub 8 oz / 226 mL jar",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-glow-getter-multi-oil-body-scrub-8oz.json",
+        "snapshotSha256": "31e60f8b4e9ba15615914cd3e07e345a90c8bb11db81aefca0b30208a699b910",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2036,
+        "retrievedAt": "2026-08-07T11:38:56Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "The Glow Getter Multi-Oil Body Scrub"
+          },
+          "sourceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+          "responseUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+          "retrievedAt": "2026-08-07T11:38:56Z",
+          "reviewedAt": "2026-08-07T11:39:30Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "bbd76cf5d87430b5e775f6974787ac9440fd0cd8cad9b82c4f0d47ac13904a23",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 901485,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"810120263076\"",
+              "value": "810120263076"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "The Glow Getter Multi-Oil Body Scrub",
+              "value": "The Glow Getter Multi-Oil Body Scrub"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 8 OZ / 226 mL",
+              "value": "8 oz / 226 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+              "retrievedAt": "2026-08-07T11:38:56Z",
+              "responseSha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
+              "responseMimeType": "image/png",
+              "responseByteSize": 526200
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T11:39:30Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/the-glow-getter-multi-oil-body-scrub/",
+        "https://peronabeauty.com/product/naturium-glow-getter-multi-oil-body-scrub/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described multi-oil exfoliating body scrub.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A rinse-off cosmetic body scrub, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-07T11:39:30Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+        "sha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
+        "mimeType": "image/png",
+        "byteSize": 526200,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T12:58:41Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+          "sha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
+          "byteSize": 526200,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:58:41Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00810120263076"
+          },
+          "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
+          "generatedAt": "2026-08-07T15:15:00Z",
+          "inferredComponentCount": 2,
+          "retainedComponentCount": 2,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
+          "byteSize": 860792,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:15:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "953991471d63fa757ec3fcdc5eef2cd966f058e8f5f5b3fb195f6f436c6f4ade",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-scrub-8oz/packshot-v1-5454bb6022caebf2.png",
+      "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
+      "mimeType": "image/png",
+      "byteSize": 860792,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:20:00Z"
+    },
+    "dossierFingerprint": "b5afd8c66f2fe1c8da078bb2598aa683a2ee2d704a9fb753bc9283b8d23c94af"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "dossierFingerprint": "b5afd8c66f2fe1c8da078bb2598aa683a2ee2d704a9fb753bc9283b8d23c94af",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Treat",
+      "displayLine": "The Glow Getter Multi-Oil Body Scrub 8 oz",
+      "usage": "Apply to damp skin in circular motions then rinse thoroughly. Use 2-3 times per week for smooth glowing skin.",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:21:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:22:00Z"
+    },
+    "releaseFingerprint": "b7063b705b819eb642ec868cd111a10b7267a6b54aa5baec3264809787f42492"
+  }
+}

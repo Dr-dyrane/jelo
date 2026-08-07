@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-07T15:15:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,7 +120,7 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "owned-identity-verified-render",
+      "origin": "official-brand-media",
       "role": "packshot",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Azelaic-Acid-Emulsion-10_Cap-on.webp?v=1774290946&width=2048",
       "sourceAssetSha256": "e881cab5014f4b3a2183ca84312c352df8940d8f91929dd88ea16e72276e12b0",
@@ -128,7 +128,22 @@
       "sourceAssetByteSize": 201739,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-07T12:38:00Z"
+      "sourceAssetRetrievedAt": "2026-08-07T12:38:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-azelaic-acid-emulsion-10-1fl-oz/packshot-v1-16029ebf58c00f96.png",
+      "publicImageSha256": "16029ebf58c00f9681b1dd10afb9c072608382ee532d96c40eb8539d6352aea4",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 257930,
+      "width": 2000,
+      "height": 2000,
+      "backgroundTreatment": "source-pixel-isolation",
+      "rightsUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+      "packaging": "intact",
+      "artReviewedAt": "2026-08-07T15:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true
     }
   }
 }

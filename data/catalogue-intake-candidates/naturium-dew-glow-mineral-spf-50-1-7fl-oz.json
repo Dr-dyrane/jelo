@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-07T15:15:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,7 +120,7 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "owned-identity-verified-render",
+      "origin": "official-brand-media",
       "role": "packshot",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
       "sourceAssetSha256": "2fef27d9b756e9d375bdd12614640c200a6f6647b5de2e840ae68adddf950ceb",
@@ -128,7 +128,22 @@
       "sourceAssetByteSize": 616172,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-07T12:57:43Z"
+      "sourceAssetRetrievedAt": "2026-08-07T12:57:43Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-dew-glow-mineral-spf-50-1-7fl-oz/packshot-v1-8a8259370215e861.png",
+      "publicImageSha256": "8a8259370215e861a80ce30665a76754b91bfa663d49e0a9cee12d7f1b3b7798",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 640617,
+      "width": 2000,
+      "height": 2000,
+      "backgroundTreatment": "source-pixel-isolation",
+      "rightsUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+      "packaging": "intact",
+      "artReviewedAt": "2026-08-07T15:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true
     }
   }
 }

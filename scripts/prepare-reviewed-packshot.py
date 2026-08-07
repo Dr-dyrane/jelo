@@ -77,6 +77,13 @@ def arguments() -> argparse.Namespace:
         action="store_true",
         help="Skip small-component removal so the isolation record reports zero removal.",
     )
+    parser.add_argument(
+        "--pad-source",
+        type=int,
+        default=0,
+        metavar="PIXELS",
+        help="Pad the source image with transparent pixels before processing to eliminate edge contact.",
+    )
     return parser.parse_args()
 
 
@@ -526,8 +533,10 @@ def process_source(
     requested_provider: str,
     *,
     keep_all_components: bool = False,
+    pad_source: int = 0,
 ) -> tuple[Any, str, Path, str, dict[str, Any], dict[str, Any]]:
     from rembg import new_session, remove
+    from PIL import Image
 
     provider, providers = execution_provider(requested_provider)
     weights = model_path(model)
@@ -539,6 +548,10 @@ def process_source(
     session_contract = verified_loaded_session_contract(session, providers)
     if file_sha256(weights) != weights_sha256:
         raise ValueError("model weights changed while the inference session was loading")
+    if pad_source > 0:
+        padded = Image.new("RGBA", (source.width + 2 * pad_source, source.height + 2 * pad_source), (0, 0, 0, 0))
+        padded.alpha_composite(source.convert("RGBA"), (pad_source, pad_source))
+        source = padded
     mask = remove(source, session=session, only_mask=True, post_process_mask=True)
     if file_sha256(weights) != weights_sha256:
         raise ValueError("model weights changed during inference")
@@ -671,7 +684,7 @@ def main() -> int:
         raise ValueError("decoded source MIME type does not match the intake snapshot")
     source, color_treatment = to_srgb(opened)
     output, provider, _weights, model_sha256, session_options, metrics = process_source(
-        source, args.model, args.provider, keep_all_components=args.keep_all_components
+        source, args.model, args.provider, keep_all_components=args.keep_all_components, pad_source=args.pad_source
     )
     if provider != runtime["executionProvider"]:
         raise ValueError("execution provider changed after runtime validation")

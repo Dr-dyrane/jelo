@@ -651,6 +651,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-azelaic-acid-emulsion-10-1fl-oz",
+      "brand": "Naturium",
+      "name": "Azelaic Acid Emulsion 10%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792378",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-barrier-bounce-bi-phase-mist-100ml",
       "brand": "Naturium",
       "name": "Barrier Bounce Bi-Phase Mist",
@@ -684,6 +693,15 @@
       "size": "16.9 fl oz / 500 mL",
       "category": "Body",
       "approvedGtin": "850010792927",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+      "brand": "Naturium",
+      "name": "Dew-Glow Moisturizer Mineral SPF 50",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "810120263083",
       "source": "dossier-release"
     },
     {
@@ -741,6 +759,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+      "brand": "Naturium",
+      "name": "The Glow Getter Multi-Oil Body Scrub",
+      "size": "8 oz / 226 mL",
+      "category": "Body",
+      "approvedGtin": "810120263076",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
       "brand": "Naturium",
       "name": "The Glow Getter Multi-Oil Hydrating Body Wash",
@@ -777,6 +804,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-multi-active-exosome-serum-1fl-oz",
+      "brand": "Naturium",
+      "name": "Multi-Active Exosome Serum",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "609332213661",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-multi-peptide-advanced-body-wash-500ml",
       "brand": "Naturium",
       "name": "The Multi-Peptide Advanced Body Wash",
@@ -786,12 +822,48 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-multi-peptide-advanced-serum-1fl-oz",
+      "brand": "Naturium",
+      "name": "Multi-Peptide Advanced Serum",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "810120260921",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-multi-peptide-eye-cream-0-5oz",
+      "brand": "Naturium",
+      "name": "Multi-Peptide Eye Cream",
+      "size": "0.5 fl oz / 15 mL",
+      "category": "Face",
+      "approvedGtin": "850010792682",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-multi-peptide-moisturizer-1-7oz",
+      "brand": "Naturium",
+      "name": "Multi-Peptide Moisturizer",
+      "size": "1.7 oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "850010792354",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
       "brand": "Naturium",
       "name": "Niacinamide Cleansing Gelée 3%",
       "size": "7.1 fl oz / 210 mL",
       "category": "Face",
       "approvedGtin": "850010792163",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-niacinamide-gel-cream-5-1-7oz",
+      "brand": "Naturium",
+      "name": "Niacinamide Gel Cream 5%",
+      "size": "1.7 oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "810120260600",
       "source": "dossier-release"
     },
     {
@@ -831,6 +903,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-purple-ginseng-cleansing-balm-3oz",
+      "brand": "Naturium",
+      "name": "Purple Ginseng Cleansing Balm",
+      "size": "3.0 fl oz / 88 mL",
+      "category": "Face",
+      "approvedGtin": "850010792446",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
       "brand": "Naturium",
       "name": "Quadruple Hyaluronic Acid Serum 5%",
@@ -846,6 +927,15 @@
       "size": "1.7 fl oz / 50 mL",
       "category": "Face",
       "approvedGtin": "810120260013",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-retinaldehyde-cream-serum-0-10-1-7oz",
+      "brand": "Naturium",
+      "name": "Retinaldehyde Cream Serum 0.10%",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "810120260471",
       "source": "dossier-release"
     },
     {
@@ -882,6 +972,15 @@
       "size": "8 fl oz / 234 mL",
       "category": "Body",
       "approvedGtin": "810120260037",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+      "brand": "Naturium",
+      "name": "The Smoother Glycolic Acid Body Lotion",
+      "size": "8 fl oz / 234 mL",
+      "category": "Body",
+      "approvedGtin": "810120260235",
       "source": "dossier-release"
     },
     {
