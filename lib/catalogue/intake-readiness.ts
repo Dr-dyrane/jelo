@@ -804,6 +804,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   'abib-heartleaf-foam-cleanser-150ml': [
     'https://en.abib.com/products/heartleaf-foam',
   ],
+  'abib-clear-spot-serum-7-325-30ml': [
+    'https://en.abib.com/products/clear-spot-serum-7-325-pump-option',
+  ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
   amika: ['loveamika.com', 'cdn.shopify.com'],

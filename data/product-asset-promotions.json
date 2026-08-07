@@ -769,5 +769,22 @@
     "destination": "publication",
     "candidateId": "abib-heartleaf-foam-cleanser-150ml",
     "publicationBrandSlug": "abib"
+  },
+  {
+    "id": "abib-clear-spot-serum-7-325-30ml-v1",
+    "active": true,
+    "sourceUrl": "https://en.abib.com/cdn/shop/files/SP_92e44245-e2c8-4fbc-b109-da6db98ebf63.jpg?v=1783321669&width=2048",
+    "localPath": "data/catalogue-intake-assets/abib-clear-spot-serum-7-325-30ml/packshot.png",
+    "blobPath": "products/abib/abib-clear-spot-serum-7-325-30ml/packshot-v1-c448c4a71fb0b47a.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/abib/abib-clear-spot-serum-7-325-30ml/packshot-v1-c448c4a71fb0b47a.png",
+    "contentType": "image/png",
+    "byteSize": 388643,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "c448c4a71fb0b47acff0bc0ebf5b27532a267a19f9e9916cb5193dda9a7b6c4e",
+    "destination": "publication",
+    "candidateId": "abib-clear-spot-serum-7-325-30ml",
+    "publicationBrandSlug": "abib"
   }
 ]

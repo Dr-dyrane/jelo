@@ -670,33 +670,6 @@
     },
     {
       "rank": 25,
-      "discoveryId": "68dd71a67def9960124cd112",
-      "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
-      "brandHint": "ABIB",
-      "size": "30ml",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 156,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "08800280693693",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 26,
       "discoveryId": "fe369f475a0d890702084b1b",
       "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
       "brandHint": "COS DE BAHA",
@@ -723,7 +696,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 27,
+      "rank": 26,
       "discoveryId": "f87e67c0fb61e9574f74ef21",
       "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
       "brandHint": "Garnier",
@@ -750,7 +723,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 28,
+      "rank": 27,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -777,7 +750,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 29,
+      "rank": 28,
       "discoveryId": "005fe384576be5e38689857f",
       "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
       "brandHint": "Replenix",
@@ -804,7 +777,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 29,
       "discoveryId": "cd29efd703d9f5ad9192bf01",
       "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
       "brandHint": "SKIN BY ZARON",
@@ -831,7 +804,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 30,
       "discoveryId": "b9f9c3fe07895c6ce9945f8a",
       "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
       "brandHint": "GLAMFOX",
@@ -858,7 +831,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 31,
       "discoveryId": "980f4a6663d7e3bdca521609",
       "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
       "brandHint": "MEDICUBE",
@@ -885,7 +858,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 33,
+      "rank": 32,
       "discoveryId": "7f5e4463688a37e008b523ff",
       "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
       "brandHint": "ANUA",
@@ -911,7 +884,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 34,
+      "rank": 33,
       "discoveryId": "9454deec37a4fc5fcd1e7fa7",
       "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
       "brandHint": "PACCI PRISTINE",
@@ -937,7 +910,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 35,
+      "rank": 34,
       "discoveryId": "fe5f1f274910514b3aa73df6",
       "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Gel 90g",
       "brandHint": "SHISEIDO Professional",
@@ -963,7 +936,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 36,
+      "rank": 35,
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -990,7 +963,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 37,
+      "rank": 36,
       "discoveryId": "860730ad73fa749bf2599ba4",
       "title": "ABIB -Heartleaf Acne Foam Cleanser 150ml",
       "brandHint": "ABIB",
@@ -1016,7 +989,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 38,
+      "rank": 37,
       "discoveryId": "5a7b8f18c791cfb6a61354ac",
       "title": "BIODERMA Sebium Hydra Ultra-Moisturizing Cream Very Dry Acne Prone Skin 40ml",
       "brandHint": "Bioderma",
@@ -1027,6 +1000,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "03401348840421",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 38,
+      "discoveryId": "e16bef398ccb4bbef30078b2",
+      "title": "CELIMAX -The Real NONI Acne Bubble Cleanser 155ml",
+      "brandHint": "CELIMAX",
+      "size": "155ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 146,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "08809463993223",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

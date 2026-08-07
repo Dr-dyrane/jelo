@@ -5,11 +5,11 @@
   "publicationAuthority": "none",
   "generatedAt": "2026-08-05T03:31:47.088Z",
   "source": {
-    "researchPacketProjectionSha256": "5d7585d835900575c0ad1fa6d29a2f11ead9117f785ea6fa0c4dacd0d9114d4f",
+    "researchPacketProjectionSha256": "e04d1e05a77e2ee82eebac661af04a9d951daec667714a7e9b552d14cbff66b7",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 43,
+    "packetCount": 42,
     "packetIds": [
       "16904e359f5d8aed4df6ca91",
       "258b05593ae6b7cb1e1d5ddf",
@@ -36,7 +36,6 @@
       "f020ac8386430486b94e1ce2",
       "42a91a1bc91841763d974680",
       "861874fd1cfe8bb36f77912b",
-      "8ae1b6abf6fe77ce94d1c319",
       "8c9317ef63c239fa932e1f1b",
       "a58cf5de47116310cc34e91a",
       "aff07100d6424f43489e1eb0",
@@ -55,14 +54,14 @@
       "69bf90baf39309039402ae19",
       "a86b042330160d53b65b056e"
     ],
-    "responseCount": 65
+    "responseCount": 64
   },
   "sources": [
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/2068540d9757263e1293bcc2d58810686cfed6b78624eee5314cf6fe3074c555.json",
-      "sourceSha256": "2068540d9757263e1293bcc2d58810686cfed6b78624eee5314cf6fe3074c555",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/d68086037fca328bcee99983ccc480f7721dfe60be5a6987eb71de6d565d0d50.json",
-      "researchPacketSourceSha256": "d68086037fca328bcee99983ccc480f7721dfe60be5a6987eb71de6d565d0d50",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/98ad660d1bfb63b3fd772fd7dd551aa6b1a7f848dcdff900384937367cb24aeb.json",
+      "sourceSha256": "98ad660d1bfb63b3fd772fd7dd551aa6b1a7f848dcdff900384937367cb24aeb",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/00fc01432a71935fb254d0cca17972c0aa9043a3c942aef8adfb8fc9049edf01.json",
+      "researchPacketSourceSha256": "00fc01432a71935fb254d0cca17972c0aa9043a3c942aef8adfb8fc9049edf01",
       "packetCount": 11,
       "packetIds": [
         "16904e359f5d8aed4df6ca91",
@@ -80,10 +79,10 @@
       "responseCount": 21
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/446586a1038deda6c1d6496bfb7afbb939c87dfbd526a792c75d263361421880.json",
-      "sourceSha256": "446586a1038deda6c1d6496bfb7afbb939c87dfbd526a792c75d263361421880",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/0b0906179755891a7f8e54b180dcd6d392a28992a4b9194df19ff0fe4ff7dc66.json",
-      "researchPacketSourceSha256": "0b0906179755891a7f8e54b180dcd6d392a28992a4b9194df19ff0fe4ff7dc66",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/ee0548313733e37ac90df410fe81b899fc18c7a6e18074ebdf1e6cabb5b1a867.json",
+      "sourceSha256": "ee0548313733e37ac90df410fe81b899fc18c7a6e18074ebdf1e6cabb5b1a867",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/c5397fb82dfad4621bb97875bd03d400b3f511ceb88e3803dc69f9c7bfa96287.json",
+      "researchPacketSourceSha256": "c5397fb82dfad4621bb97875bd03d400b3f511ceb88e3803dc69f9c7bfa96287",
       "packetCount": 12,
       "packetIds": [
         "1920014afae80ba00e4169ca",
@@ -102,15 +101,14 @@
       "responseCount": 24
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/fcba7e7cbfc92e6936556e9ecf51da78ad6be38534b5314888378f183587c0a2.json",
-      "sourceSha256": "fcba7e7cbfc92e6936556e9ecf51da78ad6be38534b5314888378f183587c0a2",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c.json",
-      "researchPacketSourceSha256": "808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c",
-      "packetCount": 9,
+      "sourcePath": "data/catalogue-research-offer-capture-sources/ece54d3677bdd85f49fe7280b23a909108f951b039586c12ada559ce91f91279.json",
+      "sourceSha256": "ece54d3677bdd85f49fe7280b23a909108f951b039586c12ada559ce91f91279",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d.json",
+      "researchPacketSourceSha256": "ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d",
+      "packetCount": 8,
       "packetIds": [
         "42a91a1bc91841763d974680",
         "861874fd1cfe8bb36f77912b",
-        "8ae1b6abf6fe77ce94d1c319",
         "8c9317ef63c239fa932e1f1b",
         "a58cf5de47116310cc34e91a",
         "aff07100d6424f43489e1eb0",
@@ -118,13 +116,13 @@
         "d11231e8aa7256f65a5b6ddd",
         "ff4b61e5e7b3c86b68407794"
       ],
-      "responseCount": 9
+      "responseCount": 8
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/102390cfec6f8a274a31820b589fed132eff88363aa9af32ba0c1778316fda39.json",
-      "sourceSha256": "102390cfec6f8a274a31820b589fed132eff88363aa9af32ba0c1778316fda39",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/4a4e7afb752901d55fe96b600841a64d4bf59233d4f4b156691266677534d113.json",
-      "researchPacketSourceSha256": "4a4e7afb752901d55fe96b600841a64d4bf59233d4f4b156691266677534d113",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/5dd70ec9612e302e9bb30b211b6850f4cae31f4ee848d2e9ee8e2ef5f2e528ad.json",
+      "sourceSha256": "5dd70ec9612e302e9bb30b211b6850f4cae31f4ee848d2e9ee8e2ef5f2e528ad",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/c3e11ce491c51c5685bacff8fb691321d8190631bebed42cbbc39fdcd9a4ba66.json",
+      "researchPacketSourceSha256": "c3e11ce491c51c5685bacff8fb691321d8190631bebed42cbbc39fdcd9a4ba66",
       "packetCount": 9,
       "packetIds": [
         "459b8806590d2750e22a8906",
@@ -140,10 +138,10 @@
       "responseCount": 9
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/f6fb47f0470414b3e359956260a9887a2cd7f10e04f293f67638b1600f64f26b.json",
-      "sourceSha256": "f6fb47f0470414b3e359956260a9887a2cd7f10e04f293f67638b1600f64f26b",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c.json",
-      "researchPacketSourceSha256": "808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/cb85d538cf4fd0e0835f6a8d05d199221776b939f39197b1a1254f63af4e325f.json",
+      "sourceSha256": "cb85d538cf4fd0e0835f6a8d05d199221776b939f39197b1a1254f63af4e325f",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d.json",
+      "researchPacketSourceSha256": "ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d",
       "packetCount": 1,
       "packetIds": [
         "69bf90baf39309039402ae19"
@@ -151,10 +149,10 @@
       "responseCount": 1
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/69ebcf2d53adbfb37db7e1ce747cc09e3ea0063b14cd0f2316929e6eeff2425d.json",
-      "sourceSha256": "69ebcf2d53adbfb37db7e1ce747cc09e3ea0063b14cd0f2316929e6eeff2425d",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c.json",
-      "researchPacketSourceSha256": "808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/549cedcf2fe474b7f911a1be8792f004dd20b0d208a944729a340148df3f43c8.json",
+      "sourceSha256": "549cedcf2fe474b7f911a1be8792f004dd20b0d208a944729a340148df3f43c8",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d.json",
+      "researchPacketSourceSha256": "ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d",
       "packetCount": 1,
       "packetIds": [
         "a86b042330160d53b65b056e"
@@ -1078,40 +1076,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8697711701023",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "6a87114c28b42e2d292536ce",
-      "packetId": "8ae1b6abf6fe77ce94d1c319",
-      "discoveryId": "68dd71a67def9960124cd112",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/68dd71a67def9960124cd112--buybetter.json",
-      "source": {
-        "productId": 429825,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
-        "listingUrl": "https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/",
-        "capturedAt": "2026-07-29T04:12:15.317Z",
-        "responseSha256": "16dbd74d06034de74cc6d2096f16c7724c6a0bebb0a667a10fe12cf87586ce94",
-        "responseByteSize": 4531,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
-        "size": "30ml",
-        "price": {
-          "amount": 16500,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "8800280693693",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

@@ -1321,5 +1321,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "abib-clear-spot-serum-7-325-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://en.abib.com/cdn/shop/files/SP_92e44245-e2c8-4fbc-b109-da6db98ebf63.jpg?v=1783321669&width=2048",
+      "sha256": "282d7bf7eed59bab1b203db0b579a1c7d426b1a1701913bc8447550b871a4d55",
+      "byteSize": 50441,
+      "width": 1600,
+      "height": 1600,
+      "retrievedAt": "2026-08-07T03:49:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "08800280693693"
+      },
+      "officialProductUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "26732774ceee0d26a625ba96cb598d8d159fa55fb578895e0c0d9a09b7410fad",
+      "generatedAt": "2026-08-07T03:50:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "c448c4a71fb0b47acff0bc0ebf5b27532a267a19f9e9916cb5193dda9a7b6c4e",
+      "byteSize": 388643,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T03:52:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T03:52:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

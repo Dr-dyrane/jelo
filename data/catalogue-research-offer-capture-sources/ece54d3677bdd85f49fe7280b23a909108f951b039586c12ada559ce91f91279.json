@@ -5,15 +5,14 @@
   "publicationAuthority": "none",
   "generatedAt": "2026-08-05T03:31:47.074Z",
   "source": {
-    "researchPacketsSha256": "808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c",
+    "researchPacketsSha256": "ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 9,
+    "packetCount": 8,
     "packetIds": [
       "42a91a1bc91841763d974680",
       "861874fd1cfe8bb36f77912b",
-      "8ae1b6abf6fe77ce94d1c319",
       "8c9317ef63c239fa932e1f1b",
       "a58cf5de47116310cc34e91a",
       "aff07100d6424f43489e1eb0",
@@ -21,7 +20,7 @@
       "d11231e8aa7256f65a5b6ddd",
       "ff4b61e5e7b3c86b68407794"
     ],
-    "responseCount": 9
+    "responseCount": 8
   },
   "qualityCautions": [],
   "captures": [
@@ -89,40 +88,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8800289473159",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "6a87114c28b42e2d292536ce",
-      "packetId": "8ae1b6abf6fe77ce94d1c319",
-      "discoveryId": "68dd71a67def9960124cd112",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/68dd71a67def9960124cd112--buybetter.json",
-      "source": {
-        "productId": 429825,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
-        "listingUrl": "https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/",
-        "capturedAt": "2026-07-29T04:12:15.317Z",
-        "responseSha256": "16dbd74d06034de74cc6d2096f16c7724c6a0bebb0a667a10fe12cf87586ce94",
-        "responseByteSize": 4531,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
-        "size": "30ml",
-        "price": {
-          "amount": 16500,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "8800280693693",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

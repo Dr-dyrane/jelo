@@ -968,6 +968,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'abib-clear-spot-serum-7-325-30ml': {
+    productSlug: 'abib-clear-spot-serum-7-325-30ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://en.abib.com/products/clear-spot-serum-7-325-pump-option',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

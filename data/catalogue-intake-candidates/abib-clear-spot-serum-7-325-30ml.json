@@ -1,0 +1,168 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T03:52:00Z",
+    "origin": {
+        "kind": "static-research-packet",
+        "packetId": "8ae1b6abf6fe77ce94d1c319",
+        "discoveryId": "68dd71a67def9960124cd112",
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+    },
+    "candidate": {
+        "id": "abib-clear-spot-serum-7-325-30ml",
+        "brand": "ABIB",
+        "brandAliases": [
+            "Abib",
+            "abib"
+        ],
+        "name": "Clear spot serum 7.325 pump",
+        "variant": "Clear spot serum 7.325 pump",
+        "size": "30 ml",
+        "category": "Face care",
+        "reason": "Korean azelaic acid 7% + sea moss 0.325% spot serum with verified GTIN published in official JSON-LD structured data, official brand packshot from Shopify CDN, and supportive-care boundary for acne-prone skin.",
+        "priority": "important",
+        "gapIds": [
+            "azelaic-acid-serum",
+            "acne-spot-treatment",
+            "korean-acne-care"
+        ],
+        "demandEvidenceUrls": [
+            "https://en.abib.com/products/clear-spot-serum-7-325-pump-option"
+        ],
+        "identity": {
+            "gtin": "08800280693693",
+            "officialProductUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+            "checkedAt": "2026-08-07T03:52:00Z",
+            "basis": "official-brand",
+            "packageVersion": "ABIB Clear spot serum 7.325 pump 30ml",
+            "officialEvidence": {
+                "url": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+                "observedGtin": "8800280693693",
+                "observedVariant": "Clear spot serum 7.325 pump",
+                "observedSize": "30 ml",
+                "observedPackageVersion": "ABIB Clear spot serum 7.325 pump 30ml",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/abib-clear-spot-serum-7-325-30ml.json",
+                "snapshotSha256": "46816584e55291c73ce746230f807fac719635a427d2c9bb96e8ffb813e04736",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2090,
+                "retrievedAt": "2026-08-07T03:48:43Z",
+                "canonicalExtraction": {
+                    "browserCapture": {
+                        "documentReadyState": "complete",
+                        "pageTitle": "Clear spot serum 7.325 pump",
+                        "surface": "Playwright MCP browser"
+                    },
+                    "candidateId": "abib-clear-spot-serum-7-325-30ml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "JSON-LD structured data Product.sku and Product.offers[*].sku",
+                            "sourceText": "sku: 8800280693693 (valid EAN-13 with Korean GS1 prefix 880) in schema.org Product structured data on official ABIB English site",
+                            "value": "8800280693693"
+                        },
+                        "packageVersion": {
+                            "evidenceUrl": "https://en.abib.com/cdn/shop/files/SP_92e44245-e2c8-4fbc-b109-da6db98ebf63.jpg?v=1783321669&width=1920",
+                            "locator": "Official manufacturer product heading and main pack image",
+                            "sourceText": "Clear spot serum 7.325 pump",
+                            "value": "ABIB Clear spot serum 7.325 pump 30ml"
+                        },
+                        "size": {
+                            "locator": "JSON-LD structured data Product.brand.name and rendered product page",
+                            "sourceText": "30ml / 1.01 fl. oz.",
+                            "value": "30 ml"
+                        },
+                        "variant": {
+                            "locator": "JSON-LD structured data Product.name and rendered product page heading",
+                            "sourceText": "Clear spot serum 7.325 pump",
+                            "value": "Clear spot serum 7.325 pump"
+                        }
+                    },
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "responseUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+                    "retrievedAt": "2026-08-07T03:48:43Z",
+                    "reviewedAt": "2026-08-07T03:52:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "schemaVersion": 4,
+                    "sourceResponseByteSize": 1304412,
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseSha256": "b9d762e0975ef847dba39c2961b4ad7dc4846200691a46c40b159018f7099b9c",
+                    "sourceUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+                    "supplementalResponses": [
+                        {
+                            "responseByteSize": 50441,
+                            "responseMimeType": "image/jpeg",
+                            "responseSha256": "282d7bf7eed59bab1b203db0b579a1c7d426b1a1701913bc8447550b871a4d55",
+                            "responseUrl": "https://en.abib.com/cdn/shop/files/SP_92e44245-e2c8-4fbc-b109-da6db98ebf63.jpg?v=1783321669&width=2048",
+                            "retrievedAt": "2026-08-07T03:49:00Z",
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://en.abib.com/cdn/shop/files/SP_92e44245-e2c8-4fbc-b109-da6db98ebf63.jpg?v=1783321669&width=2048"
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "leave-on azelaic acid 7% + sea moss 0.325% spot serum for acne-prone skin",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "Catalogue context only, not a diagnosis or personal treatment plan. Azelaic acid can cause mild tingling or dryness. For persistent, painful, cystic or scarring acne, seek professional care.",
+            "manufacturerEvidenceUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+            "evidenceUrls": [
+                "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+                "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+            ],
+            "reviewedAt": "2026-08-07T03:52:00Z",
+            "reviewer": "JeloCare catalogue care review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "sourceUrl": "https://en.abib.com/cdn/shop/files/SP_92e44245-e2c8-4fbc-b109-da6db98ebf63.jpg?v=1783321669&width=2048",
+            "sourceAssetSha256": "282d7bf7eed59bab1b203db0b579a1c7d426b1a1701913bc8447550b871a4d55",
+            "sourceAssetMimeType": "image/jpeg",
+            "sourceAssetByteSize": 50441,
+            "sourceAssetWidth": 1600,
+            "sourceAssetHeight": 1600,
+            "sourceAssetRetrievedAt": "2026-08-07T03:49:00Z",
+            "origin": "owned-identity-verified-render",
+            "role": "packshot",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/abib/abib-clear-spot-serum-7-325-30ml/packshot-v1-c448c4a71fb0b47a.png",
+            "publicImageSha256": "c448c4a71fb0b47acff0bc0ebf5b27532a267a19f9e9916cb5193dda9a7b6c4e",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 388643,
+            "width": 2000,
+            "height": 2000,
+            "packaging": "intact",
+            "backgroundTreatment": "identity-verified-render",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T03:52:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "generationRecord": {
+                "schemaVersion": 1,
+                "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+                "model": "isnet-general-use",
+                "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current ABIB Clear spot serum 7.325 pump 30ml bottle and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the ABIB brand, Clear spot serum title, and 30ml size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+                "inputs": [
+                    {
+                        "url": "https://en.abib.com/cdn/shop/files/SP_92e44245-e2c8-4fbc-b109-da6db98ebf63.jpg?v=1783321669&width=2048",
+                        "sha256": "282d7bf7eed59bab1b203db0b579a1c7d426b1a1701913bc8447550b871a4d55"
+                    }
+                ],
+                "outputSha256": "c448c4a71fb0b47acff0bc0ebf5b27532a267a19f9e9916cb5193dda9a7b6c4e",
+                "generatedAt": "2026-08-07T03:50:00Z",
+                "recordSha256": "26732774ceee0d26a625ba96cb598d8d159fa55fb578895e0c0d9a09b7410fad"
+            }
+        }
+    }
+}
