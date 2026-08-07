@@ -588,6 +588,18 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'naturium-multi-peptide-advanced-serum-1fl-oz': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-multi-peptide-advanced-serum/', 97, 38500, 'NATURIUM Multi-Peptide Advanced Serum 1.0 oz 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
   ],
+  'aqua-rich-licorice-mulberry-body-lotion-500ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/', 97, 10804, 'AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml', '500 ml', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z' }),
+  ],
+  'aqua-rich-turmeric-vitamin-c-body-wash-1000ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/aqua-rich-hydrating-bright-body-gel-wash-1000ml/', 97, 10750, 'AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml', '1000 ml', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z', stock: 'low-stock' }),
+  ],
+  'naturium-glow-getter-body-oil-100ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-the-glow-getter-body-oil-3-4-oz-100ml/', 97, 50500, 'Naturium The Glow Getter Body Oil 3.4 oz 100ml', '100 ml', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z', stock: 'low-stock' }),
+  ],
+  'naturium-multi-peptide-moisturizer-1-7oz': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-multi-peptide-moisturizer/', 97, 40500, 'Naturium Multi-Peptide Moisturizer 50g', '50 g', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z', stock: 'low-stock' }),
+  ],
 };
 
 const excludedRetailers: Partial<Record<string, string[]>> = {

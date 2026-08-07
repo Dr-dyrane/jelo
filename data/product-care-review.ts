@@ -1501,6 +1501,15 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g': {
+    productSlug: 'estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

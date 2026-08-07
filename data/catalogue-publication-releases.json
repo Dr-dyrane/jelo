@@ -2881,6 +2881,30 @@
         "publishedAt": "2026-08-07T17:02:00Z"
       },
       "releaseFingerprint": "50a482d63339d548eff9561483e34ca5366a9d13d628ab86a5e53e58aa65ecaf"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
+      "dossierFingerprint": "ad9d0f0458c2c338795de3aa0850c32f1d5d7665cd5dc346e0c46eaa299e9bdf",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++ 50 g",
+        "usage": "Cleanse your face thoroughly and complete your daily moisturizing routine. Apply generously 15-20 minutes before sun exposure. Gently smooth and blend using light, circular motions until fully absorbed. Reapply every 2-3 hours during extended sun exposure, heavy sweating, or swimming.",
+        "manufacturerDirectionsUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T17:47:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T17:48:00Z"
+      },
+      "releaseFingerprint": "2d060411808e2d6992d6dd868a518b2754cca751ff77e23f5f102a5013a98c62"
     }
   ]
 }

@@ -4786,5 +4786,69 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850",
+      "sha256": "3869af0535b9542b69a8d1e8075529adfcd323967c5a38d48c49879f7fe6b97b",
+      "byteSize": 772243,
+      "width": 1500,
+      "height": 1500,
+      "retrievedAt": "2026-08-07T17:10:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "ES0295",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "dc8ca6404cbca24885542979dad36ad89a5601d909e74a3df0f69e2a12e59b8f",
+      "generatedAt": "2026-08-07T17:43:17Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "c6f6e2adc24144c7110c63e3ee751ed0c0dec04149b4c902dbf16c4a29a9b81c",
+      "byteSize": 1028055,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T17:43:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T17:44:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "33a93e3d73e859f4de8dadb46f76460611ac6a247b677100426570affaae849e",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

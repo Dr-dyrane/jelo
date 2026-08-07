@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T17:45:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "15d3b28a89dbabb5c1f251a0",
+    "discoveryId": "05cc48ce5f6754b42257acd9",
+    "sourceSnapshotSha256": "15d3b28a89dbabb5c1f251a005cc48ce5f6754b42257acd983cbe3b4a8433433"
+  },
+  "candidate": {
+    "id": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
+    "brand": "ESTELIN",
+    "name": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++",
+    "variant": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++",
+    "size": "50g",
+    "category": "Face care",
+    "reason": "Adds an ESTELIN SPF 50 invisible sunscreen with an exact official manufacturer SKU; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
+    "priority": "important",
+    "gapIds": [
+      "sun-protection",
+      "hydration-support"
+    ],
+    "demandEvidenceUrls": [
+      "https://buybetter.ng/?s=estelin+sunscreen+sPF+50"
+    ],
+    "identity": {
+      "officialProductUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1",
+      "checkedAt": "2026-08-07T17:12:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current tube packaging with ESTELIN sunscreen label",
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "ES0295",
+        "label": "SKU"
+      },
+      "officialProductCrosswalk": {
+        "schemaVersion": 2,
+        "canonicalManufacturerProductKey": {
+          "basis": "manufacturer-sku",
+          "value": "ES0295",
+          "manufacturerHost": "estelin.co.in",
+          "sourceLocator": "Official Shopify product response variants[0].sku",
+          "sourceText": "\"sku\":\"ES0295\"",
+          "sourceTextSha256": "26563ef3081e27a87dabf95261aa8e3c0ec064d7be840a19dc5c1ad7c99a41b5"
+        },
+        "officialSourceResponseSha256": "35f06795e38b69df40322f21b1fea4c20dc8ad928da4520a0077149eb8f748a7",
+        "officialProductUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1",
+        "variant": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++",
+        "size": "50 g",
+        "packageVersion": "Current tube packaging with ESTELIN sunscreen label"
+      },
+      "officialEvidence": {
+        "snapshotPath": "data/catalogue-identity-evidence/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g.json",
+        "snapshotSha256": "e8ba06a567823a09a9cf1ddac1d6767fe0782132c6fcb212f97ac47e4eac0f80",
+        "snapshotByteSize": 8974,
+        "snapshotMimeType": "application/json",
+        "snapshotKind": "canonical-extraction",
+        "retrievedAt": "2026-08-07T17:10:00Z",
+        "url": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1",
+        "observedVariant": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++",
+        "observedSize": "50 g",
+        "canonicalExtraction": {
+          "candidateId": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
+          "fields": {
+            "gtinPublicationStatus": {
+              "locator": "Complete official response structured identifier scan and variants[0].barcode",
+              "sourceText": "{\"id\":47864885280986,\"title\":\"50g\",\"option1\":\"50g\",\"option2\":null,\"option3\":null,\"sku\":\"ES0295\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++ - 50g\",\"public_title\":\"50g\",\"options\":[\"50g\"],\"price\":54900,\"weight\":0,\"compare_at_price\":69900,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}",
+              "value": "not-published"
+            },
+            "manufacturerBrand": {
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor ESTELIN",
+              "value": "ESTELIN"
+            },
+            "manufacturerSku": {
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"ES0295\"",
+              "value": "ES0295"
+            },
+            "packageVersion": {
+              "locator": "Official Shopify product response image[0].src, visually reviewed",
+              "sourceText": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850",
+              "value": "Current tube packaging with ESTELIN sunscreen label",
+              "reviewedMedia": {
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850",
+                "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850",
+                "sourceAssetSha256": "3869af0535b9542b69a8d1e8075529adfcd323967c5a38d48c49879f7fe6b97b"
+              }
+            },
+            "size": {
+              "locator": "Official Shopify product response options[0].values[0]",
+              "sourceText": "50g",
+              "value": "50g"
+            },
+            "variant": {
+              "locator": "Official Shopify product response title",
+              "sourceText": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++",
+              "value": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++"
+            }
+          },
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "productRecord": {
+            "byteEnd": 5460,
+            "byteStart": 0,
+            "locator": "Complete official Shopify product response root object",
+            "sourceFragmentSha256": "35f06795e38b69df40322f21b1fea4c20dc8ad928da4520a0077149eb8f748a7",
+            "sourceText": "{\"id\":9256307425498,\"title\":\"Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++\",\"handle\":\"ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1\",\"description\":\"\",\"published_at\":\"2026-05-14T17:12:38+05:30\",\"created_at\":\"2026-05-14T17:12:38+05:30\",\"vendor\":\"ESTELIN\",\"type\":\"\",\"tags\":[\"Sun Screen\"],\"price\":54900,\"price_min\":54900,\"price_max\":54900,\"available\":true,\"price_varies\":false,\"compare_at_price\":69900,\"compare_at_price_min\":69900,\"compare_at_price_max\":69900,\"compare_at_price_varies\":false,\"variants\":[{\"id\":47864885280986,\"title\":\"50g\",\"option1\":\"50g\",\"option2\":null,\"option3\":null,\"sku\":\"ES0295\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++ - 50g\",\"public_title\":\"50g\",\"options\":[\"50g\"],\"price\":54900,\"weight\":0,\"compare_at_price\":69900,\"inventory_management\":\"shopify\",\"barcode\":null,\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5g.png?v=1778760482\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5.png?v=1778760482\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5a.png?v=1778760482\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5b.png?v=1778760482\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5c.png?v=1778760482\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5d.png?v=1778760482\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5e.png?v=1778760482\",\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5f.png?v=1778760482\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850\",\"options\":[{\"name\":\"Capacity\",\"position\":1,\"values\":[\"50g\"]}],\"url\":\"/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1\",\"media\":[{\"alt\":null,\"id\":42091574427866,\"position\":1,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850\",\"width\":1500},{\"alt\":null,\"id\":42091489755354,\"position\":2,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5g.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5g.png?v=1778760482\",\"width\":1500},{\"alt\":null,\"id\":42091489525978,\"position\":3,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5.png?v=1778760482\",\"width\":1500},{\"alt\":null,\"id\":42091489558746,\"position\":4,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5a.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5a.png?v=1778760482\",\"width\":1500},{\"alt\":null,\"id\":42091489591514,\"position\":5,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5b.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5b.png?v=1778760482\",\"width\":1500},{\"alt\":null,\"id\":42091489624282,\"position\":6,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5c.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5c.png?v=1778760482\",\"width\":1500},{\"alt\":null,\"id\":42091489657050,\"position\":7,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5d.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5d.png?v=1778760482\",\"width\":1500},{\"alt\":null,\"id\":42091489689818,\"position\":8,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5e.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5e.png?v=1778760482\",\"width\":1500},{\"alt\":null,\"id\":42091489722586,\"position\":9,\"preview_image\":{\"aspect_ratio\":1.0,\"height\":1500,\"width\":1500,\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5f.png?v=1778760482\"},\"aspect_ratio\":1.0,\"height\":1500,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard5f.png?v=1778760482\",\"width\":1500}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+          },
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1.js",
+          "retrievedAt": "2026-08-07T17:10:00Z",
+          "reviewedAt": "2026-08-07T17:12:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 8,
+          "sourceResponseByteSize": 5460,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "35f06795e38b69df40322f21b1fea4c20dc8ad928da4520a0077149eb8f748a7",
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g.json",
+          "sourceUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1"
+        },
+        "identityKind": "manufacturer-sku",
+        "observedManufacturerSku": "ES0295",
+        "observedManufacturerSkuLabel": "SKU",
+        "observedPackageVersion": "Current tube packaging with ESTELIN sunscreen label"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on daily facial sunscreen SPF 50 PA+++ described by the manufacturer as ultra-light, hydrating and invisible, containing sodium hyaluronate, panthenol, glycerin and dimethicone with advanced photostable UV filters",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday sun protection against UVA/UVB rays with a transparent finish. Reapply every 2-3 hours during extended sun exposure, heavy sweating, or swimming. Do not use as the sole sun protection measure \u2014 seek shade and wear protective clothing. Stop if irritation occurs and seek clinician advice for persistent skin concerns.",
+      "manufacturerEvidenceUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+      "evidenceUrls": [
+        "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1",
+        "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+      ],
+      "reviewedAt": "2026-08-07T17:12:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850",
+      "sourceAssetSha256": "3869af0535b9542b69a8d1e8075529adfcd323967c5a38d48c49879f7fe6b97b",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 772243,
+      "sourceAssetWidth": 1500,
+      "sourceAssetHeight": 1500,
+      "sourceAssetRetrievedAt": "2026-08-07T17:10:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/estelin/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/packshot-v1-c6f6e2adc24144c7.png",
+      "publicImageSha256": "c6f6e2adc24144c7110c63e3ee751ed0c0dec04149b4c902dbf16c4a29a9b81c",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1028055,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T17:44:00Z",
+      "artReviewer": "Devin visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

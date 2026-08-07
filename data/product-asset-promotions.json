@@ -548,5 +548,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "49c649774b2d42e4db3c4d3491a750f5febc6af92269c6f045c8748749ec9142"
+  },
+  {
+    "candidateId": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
+    "active": true,
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/estelin/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/packshot-v1-c6f6e2adc24144c7.png",
+    "contentHash": "c6f6e2adc24144c7110c63e3ee751ed0c0dec04149b4c902dbf16c4a29a9b81c",
+    "byteSize": 1028055,
+    "width": 2000,
+    "height": 2000,
+    "localPath": "data/catalogue-intake-assets/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/packshot-v1-c6f6e2adc24144c7110c63e3ee751ed0c0dec04149b4c902dbf16c4a29a9b81c.png",
+    "id": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g-packshot-v1",
+    "publicationBrandSlug": "estelin",
+    "destination": "publication",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0776/8172/1562/files/Artboard_1_copy_9_ac1f0e86-51eb-4096-83d3-883a83cfa87d.png?v=1778760850",
+    "contentType": "image/png",
+    "hasAlpha": true,
+    "blobPath": "products/estelin/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/packshot-v1-c6f6e2adc24144c7.png"
   }
 ]
