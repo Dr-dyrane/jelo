@@ -1279,5 +1279,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "1832ff6e12104230d1dc544fcc234147f1037531796c5f864b640e4224f5e0d3"
+  },
+  {
+    "id": "naturium-vitamin-c-super-serum-plus-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-vitamin-c-super-serum-plus-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_CPlus-Serum-CapOn.webp?v=1774295176&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-vitamin-c-super-serum-plus-1fl-oz/packshot-v1-1c50ba6529d8b7a8.png",
+    "blobPath": "products/naturium/naturium-vitamin-c-super-serum-plus-1fl-oz/packshot-v1-1c50ba6529d8b7a8.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-vitamin-c-super-serum-plus-1fl-oz/packshot-v1-1c50ba6529d8b7a8.png",
+    "contentType": "image/png",
+    "byteSize": 244240,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "1c50ba6529d8b7a829e9b11aa355cf750b13126435cba622330314ad6a9d4f2c"
   }
 ]

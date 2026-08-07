@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T13:11:00Z",
+  "updatedAt": "2026-08-07T13:14:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -21395,6 +21395,145 @@
         "publicImageSha256": "1b8711121786adab8c7353eeffd3205896848761b0e6aeee59bde0679519da79",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 274772,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-vitamin-c-super-serum-plus-1fl-oz",
+      "brand": "Naturium",
+      "name": "Vitamin C Super Serum Plus",
+      "variant": "Vitamin C Super Serum Plus",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 30 mL Naturium Vitamin C Super Serum Plus. Official Shopify structured data publishes GTIN 850010792019. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "vitamin-c-serum",
+        "brightening-support",
+        "leave-on-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/vitamin-c-super-serum-plus/",
+        "https://peronabeauty.com/product/naturium-vitamin-c-super-serum-plus/"
+      ],
+      "identity": {
+        "gtin": "850010792019",
+        "officialProductUrl": "https://naturium.com/products/vitamin-c-super-serum-plus",
+        "checkedAt": "2026-08-07T13:13:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Vitamin C Super Serum Plus 1.0 fl oz / 30 mL dropper bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/vitamin-c-super-serum-plus",
+          "observedGtin": "850010792019",
+          "observedVariant": "Vitamin C Super Serum Plus",
+          "observedSize": "1.0 fl oz / 30 mL",
+          "observedPackageVersion": "Vitamin C Super Serum Plus 1.0 fl oz / 30 mL dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-vitamin-c-super-serum-plus-1fl-oz.json",
+          "snapshotSha256": "94f21d782d6dc5825ad71943173c531473e60ad352f6a50702d0aef474774457",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1976,
+          "retrievedAt": "2026-08-07T13:11:40Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-vitamin-c-super-serum-plus-1fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Vitamin C Super Serum Plus"
+            },
+            "sourceUrl": "https://naturium.com/products/vitamin-c-super-serum-plus",
+            "responseUrl": "https://naturium.com/products/vitamin-c-super-serum-plus",
+            "retrievedAt": "2026-08-07T13:11:40Z",
+            "reviewedAt": "2026-08-07T13:13:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "513734bc93c5a28f67955fea761038fe22eb75c1fb0445c315ea679ed372ced7",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 898322,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792019\"",
+                "value": "850010792019"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Vitamin C Super Serum Plus",
+                "value": "Vitamin C Super Serum Plus"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+                "value": "1.0 fl oz / 30 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Vitamin C Super Serum Plus 1.0 FL OZ / 30 mL dropper bottle",
+                "value": "Vitamin C Super Serum Plus 1.0 fl oz / 30 mL dropper bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_CPlus-Serum-CapOn.webp?v=1774295176&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_CPlus-Serum-CapOn.webp?v=1774295176&width=2048",
+                "retrievedAt": "2026-08-07T13:11:40Z",
+                "responseSha256": "ef31f7fc497c3d704c4fffa697b131e94cfa08136b9f5f5b3bf6bf49a3668c2b",
+                "responseMimeType": "image/png",
+                "responseByteSize": 235893
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described vitamin C super serum plus for brighter skin.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for hyperpigmentation or any skin condition. Introduce cautiously, avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/vitamin-c-super-serum-plus",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://naturium.com/products/vitamin-c-super-serum-plus",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-07T13:13:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/vitamin-c-super-serum-plus",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/vitamin-c-super-serum-plus",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_CPlus-Serum-CapOn.webp?v=1774295176&width=2048",
+        "sourceAssetSha256": "ef31f7fc497c3d704c4fffa697b131e94cfa08136b9f5f5b3bf6bf49a3668c2b",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 235893,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T13:11:40Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:14:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-vitamin-c-super-serum-plus-1fl-oz/packshot-v1-1c50ba6529d8b7a8.png",
+        "publicImageSha256": "1c50ba6529d8b7a829e9b11aa355cf750b13126435cba622330314ad6a9d4f2c",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 244240,
         "width": 2000,
         "height": 2000
       }
