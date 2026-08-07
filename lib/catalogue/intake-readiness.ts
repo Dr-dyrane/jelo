@@ -912,6 +912,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
     'https://www.upcitemdb.com/upc/303160227066',
     'https://www.buycott.com/upc/303160227066',
   ],
+  'advanced-clinicals-vitamin-c-face-serum-52ml': [
+    'https://www.upcitemdb.com/upc/819265008016',
+    'https://www.buycott.com/upc/819265008016',
+  ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=4a1591e8-6135-4b22-b54c-5553c2dc0540',
