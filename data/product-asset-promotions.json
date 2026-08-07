@@ -1330,5 +1330,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "360782bcbdd8a578e1f80b0b4e9b8b3a54bef2dd210e41d2481c92bdacf2906e"
+  },
+  {
+    "id": "naturium-glow-getter-multi-oil-body-butter-7-7oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/PDP_GlowGetterBodyButter_front_v2.webp?v=1774290302&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-glow-getter-multi-oil-body-butter-7-7oz/packshot-v1-a16a6611a162ba38.png",
+    "blobPath": "products/naturium/naturium-glow-getter-multi-oil-body-butter-7-7oz/packshot-v1-a16a6611a162ba38.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-butter-7-7oz/packshot-v1-a16a6611a162ba38.png",
+    "contentType": "image/png",
+    "byteSize": 940781,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "a16a6611a162ba38e2871d0a9b8671710dbc7ac6d4695030049e3985544f7e00"
   }
 ]

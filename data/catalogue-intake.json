@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T13:20:00Z",
+  "updatedAt": "2026-08-07T13:25:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -17572,6 +17572,145 @@
       }
     },
     {
+      "id": "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+      "brand": "Naturium",
+      "name": "The Glow Getter Multi-Oil Body Butter",
+      "variant": "The Glow Getter Multi-Oil Body Butter",
+      "size": "7.7 fl oz / 232 mL",
+      "category": "Body care",
+      "reason": "Adds the exact current 232 mL Naturium The Glow Getter Multi-Oil Body Butter. Official Shopify structured data publishes GTIN 810120260594. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "body-butter",
+        "body-care",
+        "moisturizing-body-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/the-glow-getter-multi-oil-body-butter/",
+        "https://peronabeauty.com/product/naturium-the-glow-getter-multi-oil-body-butter/"
+      ],
+      "identity": {
+        "gtin": "810120260594",
+        "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+        "checkedAt": "2026-08-07T13:24:00Z",
+        "basis": "official-brand",
+        "packageVersion": "The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 mL jar",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+          "observedGtin": "810120260594",
+          "observedVariant": "The Glow Getter Multi-Oil Body Butter",
+          "observedSize": "7.7 fl oz / 232 mL",
+          "observedPackageVersion": "The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 mL jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-glow-getter-multi-oil-body-butter-7-7oz.json",
+          "snapshotSha256": "906d2aa7c7158d2db7273d74db1e4d9f82250f1b37de22c91cd4b817530e69c9",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2074,
+          "retrievedAt": "2026-08-07T13:22:23Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "The Glow Getter Multi-Oil Body Butter | Hydrated Glow | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+            "responseUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+            "retrievedAt": "2026-08-07T13:22:23Z",
+            "reviewedAt": "2026-08-07T13:24:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "a71ada32c24d0fe7dcdaf3605e3ca68e481946f0655fa4fa4e904b3c33611007",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 891501,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260594\"",
+                "value": "810120260594"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "The Glow Getter Multi-Oil Body Butter",
+                "value": "The Glow Getter Multi-Oil Body Butter"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 7.7 FL OZ / 232 mL",
+                "value": "7.7 fl oz / 232 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "The Glow Getter Multi-Oil Body Butter 7.7 FL OZ / 232 mL jar",
+                "value": "The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 mL jar"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/PDP_GlowGetterBodyButter_front_v2.webp?v=1774290302&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/PDP_GlowGetterBodyButter_front_v2.webp?v=1774290302&width=2048",
+                "retrievedAt": "2026-08-07T13:22:23Z",
+                "responseSha256": "5b5b10483a173d09e88feb99c63ede1ee2f8d58b9d400a93273e57e84a4dd598",
+                "responseMimeType": "image/png",
+                "responseByteSize": 553742
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described multi-oil body butter for hydrated glow.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic body butter, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T13:24:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/PDP_GlowGetterBodyButter_front_v2.webp?v=1774290302&width=2048",
+        "sourceAssetSha256": "5b5b10483a173d09e88feb99c63ede1ee2f8d58b9d400a93273e57e84a4dd598",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 553742,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T13:22:23Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:25:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-butter-7-7oz/packshot-v1-a16a6611a162ba38.png",
+        "publicImageSha256": "a16a6611a162ba38e2871d0a9b8671710dbc7ac6d4695030049e3985544f7e00",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 940781,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
       "id": "naturium-glow-getter-multi-oil-body-scrub-8oz",
       "brand": "Naturium",
       "name": "The Glow Getter Multi-Oil Body Scrub",
@@ -18536,9 +18675,9 @@
       "reason": "Adds the exact current 30 mL Naturium Multi-Peptide Advanced Serum. Official Shopify structured data publishes GTIN 810120260921. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
       "gapIds": [
-        "peptide-serum",
+        "multi-peptide-serum",
         "anti-aging-support",
-        "copper-peptides"
+        "leave-on-face-care"
       ],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/multi-peptide-advanced-serum/",
@@ -18547,7 +18686,7 @@
       "identity": {
         "gtin": "810120260921",
         "officialProductUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
-        "checkedAt": "2026-08-07T12:13:00Z",
+        "checkedAt": "2026-08-07T13:22:00Z",
         "basis": "official-brand",
         "packageVersion": "Multi-Peptide Advanced Serum 1.0 fl oz / 30 mL dropper bottle",
         "officialEvidence": {
@@ -18558,10 +18697,10 @@
           "observedPackageVersion": "Multi-Peptide Advanced Serum 1.0 fl oz / 30 mL dropper bottle",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-peptide-advanced-serum-1fl-oz.json",
-          "snapshotSha256": "92c31273661ee2ab46981d9b514fb03d91594abcca871890ca1ddc03d5e822b2",
+          "snapshotSha256": "072c7735066b810b17827958eecd6335840607fca69cf270db16e986e72047d7",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 2033,
-          "retrievedAt": "2026-08-07T12:11:54Z",
+          "snapshotByteSize": 2074,
+          "retrievedAt": "2026-08-07T13:20:15Z",
           "canonicalExtraction": {
             "schemaVersion": 4,
             "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
@@ -18573,21 +18712,21 @@
             },
             "sourceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
             "responseUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
-            "retrievedAt": "2026-08-07T12:11:54Z",
-            "reviewedAt": "2026-08-07T12:13:00Z",
+            "retrievedAt": "2026-08-07T13:20:15Z",
+            "reviewedAt": "2026-08-07T13:22:00Z",
             "reviewer": "JeloCare catalogue evidence review",
-            "sourceResponseSha256": "9af4b8fc85803f6db0e057f4f08bf223006ec5c28dd0875d2a2cc7832e729704",
+            "sourceResponseSha256": "c5e14667361ab3722a1612bf007273fe4be1aa98d84641fdfaa2dc23ebc65e9c",
             "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 906134,
+            "sourceResponseByteSize": 906074,
             "responseDigestScope": "rendered-dom-outerhtml",
             "fields": {
               "gtin": {
-                "locator": "Rendered official Shopify structured product data variant gtin field",
-                "sourceText": "\"gtin\":\"810120260921\"",
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260921\"",
                 "value": "810120260921"
               },
               "variant": {
-                "locator": "Rendered official product heading",
+                "locator": "Rendered official Shopify structured product data variant name field",
                 "sourceText": "Multi-Peptide Advanced Serum",
                 "value": "Multi-Peptide Advanced Serum"
               },
@@ -18607,7 +18746,7 @@
                 "role": "official-pack-image",
                 "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
                 "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
-                "retrievedAt": "2026-08-07T12:11:54Z",
+                "retrievedAt": "2026-08-07T13:20:15Z",
                 "responseSha256": "930e9b84c798c451bfa64402a0d26e73603c57b115e8c8f3574a99d7bfda67bc",
                 "responseMimeType": "image/png",
                 "responseByteSize": 338479
@@ -18618,17 +18757,17 @@
       },
       "care": {
         "status": "reviewed",
-        "formulaArchetype": "Manufacturer-described multi-peptide advanced face serum with copper peptides and argireline.",
+        "formulaArchetype": "Manufacturer-described multi-peptide advanced serum with copper peptides and argireline.",
         "careTier": "targeted-care",
         "reviewScope": "catalogue-supportive-care",
         "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
         "manufacturerEvidenceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
         "evidenceUrls": [
           "https://naturium.com/products/multi-peptide-advanced-serum",
-          "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles"
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
         ],
-        "reviewedAt": "2026-08-07T12:13:00Z",
+        "reviewedAt": "2026-08-07T13:22:00Z",
         "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
@@ -18648,13 +18787,13 @@
         "sourceAssetByteSize": 338479,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T12:11:54Z",
+        "sourceAssetRetrievedAt": "2026-08-07T13:20:15Z",
         "packaging": "intact",
         "backgroundTreatment": "source-pixel-isolation",
         "labelVariantSizeUnchanged": true,
         "packagingInvented": false,
         "manualSourceOutputQa": true,
-        "artReviewedAt": "2026-08-07T12:13:00Z",
+        "artReviewedAt": "2026-08-07T13:23:00Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }

@@ -2353,6 +2353,30 @@
         "publishedAt": "2026-08-07T13:22:00Z"
       },
       "releaseFingerprint": "b64e8e8bc538bba52e9e1f23177e167c6205ede8336f3e524e207933ab866b52"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+      "dossierFingerprint": "457bcf008f6f476b2a45d0d381b4edcd4086d940b85de909ff5f83628f8f593f",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "The Glow Getter Multi-Oil Body Butter 7.7 fl oz",
+        "usage": "Apply to clean dry skin as needed morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-butter",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T13:26:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T13:27:00Z"
+      },
+      "releaseFingerprint": "dd07b4010d5904eeb9e424d07fed7cccc0e9176c1665638e5bbd60d99c9ffc21"
     }
   ]
 }
