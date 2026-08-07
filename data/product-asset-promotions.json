@@ -1075,5 +1075,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "ebfce7f51164bc745e86c25d0a5760aa792973a43f104af394d05a58913e06db"
+  },
+  {
+    "id": "naturium-niacinamide-cleansing-gelee-3-7-1oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATRM_Ecomm_Niacinamide-Cleansing-Gelee_Front.webp?v=1774289601&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-niacinamide-cleansing-gelee-3-7-1oz/packshot-v1-504d30d9ea33b94e.png",
+    "blobPath": "products/naturium/naturium-niacinamide-cleansing-gelee-3-7-1oz/packshot-v1-504d30d9ea33b94e.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-niacinamide-cleansing-gelee-3-7-1oz/packshot-v1-504d30d9ea33b94e.png",
+    "contentType": "image/png",
+    "byteSize": 458347,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "504d30d9ea33b94e3f3d527efd934ecf0b96057c6895fa26042875f6be49e87e"
   }
 ]

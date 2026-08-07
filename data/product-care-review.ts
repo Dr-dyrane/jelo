@@ -1017,6 +1017,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-niacinamide-cleansing-gelee-3-7-1oz': {
+    productSlug: 'naturium-niacinamide-cleansing-gelee-3-7-1oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/niacinamide-cleansing-gelee-3',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

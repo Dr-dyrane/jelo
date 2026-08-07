@@ -2455,5 +2455,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATRM_Ecomm_Niacinamide-Cleansing-Gelee_Front.webp?v=1774289601&width=2048",
+      "sha256": "81e77b87c7c83cbf388647ffdc3942107ea85244f95e9ef02cb5e33d8d9dddee",
+      "byteSize": 465005,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:08:07Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792163"
+      },
+      "officialProductUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "b08275e172d1f3c82ffd76aa1c416502b5d13f99c097c4da254c629e6a407003",
+      "generatedAt": "2026-08-07T12:09:29Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "504d30d9ea33b94e3f3d527efd934ecf0b96057c6895fa26042875f6be49e87e",
+      "byteSize": 458347,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:10:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:10:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "b08275e172d1f3c82ffd76aa1c416502b5d13f99c097c4da254c629e6a407003",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

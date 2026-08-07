@@ -1993,6 +1993,30 @@
         "publishedAt": "2026-08-07T12:08:00Z"
       },
       "releaseFingerprint": "f0df1feec6817ca2c2e106909f70e312828d7c925f6da66ca53dca71e7fc1008"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+      "dossierFingerprint": "e225ce575561be390bdc45346eb469eb8d717051bb26c113ae5bbb239664ea6c",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Niacinamide Cleansing Gelée 3% 7.1 fl oz",
+        "usage": "Massage onto wet skin rinse thoroughly morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:12:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:13:00Z"
+      },
+      "releaseFingerprint": "7b88ec3d84d4f0d0b228dd7495df4f9ed189982a8e6a9dac3ac2d57e87dabfac"
     }
   ]
 }

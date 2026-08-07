@@ -20732,6 +20732,214 @@
         "approvedAt": "2026-08-07T12:07:00Z"
       },
       "dossierFingerprint": "bcb41feea231d909af8ee602ed261d76c4d1e9beaa8088bf569c668f42472c3b"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+      "candidateFingerprint": "a3779ad65025a5bd65c1a4effb4d74e465b39a80b05d07bafacfbb099b45818a",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792163",
+        "brand": "Naturium",
+        "name": "Niacinamide Cleansing Gelée 3%",
+        "variant": "Niacinamide Cleansing Gelée 3%",
+        "size": "7.1 fl oz / 210 mL",
+        "packageVersion": "Niacinamide Cleansing Gelée 3% 7.1 fl oz / 210 mL tube",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+          "observedGtin": "850010792163",
+          "observedVariant": "Niacinamide Cleansing Gelée 3%",
+          "observedSize": "7.1 fl oz / 210 mL",
+          "observedPackageVersion": "Niacinamide Cleansing Gelée 3% 7.1 fl oz / 210 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-niacinamide-cleansing-gelee-3-7-1oz.json",
+          "snapshotSha256": "c568324613e8c728947e0e7fe3d566722a3e8e616bab8a6279385eb1c8250484",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2007,
+          "retrievedAt": "2026-08-07T12:08:07Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Niacinamide Cleanser for Dark Spots & Texture | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+            "responseUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+            "retrievedAt": "2026-08-07T12:08:07Z",
+            "reviewedAt": "2026-08-07T12:09:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "c79d275f3f9df72e1df073e9eb917ad1ab2d6210b28d77bbd1f903628057682d",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 910402,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792163\"",
+                "value": "850010792163"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Niacinamide Cleansing Gelée 3%",
+                "value": "Niacinamide Cleansing Gelée 3%"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 7.1 FL OZ / 210 mL",
+                "value": "7.1 fl oz / 210 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATRM_Ecomm_Niacinamide-Cleansing-Gelee_Front.webp?v=1774289601&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATRM_Ecomm_Niacinamide-Cleansing-Gelee_Front.webp?v=1774289601&width=2048",
+                "retrievedAt": "2026-08-07T12:08:07Z",
+                "responseSha256": "81e77b87c7c83cbf388647ffdc3942107ea85244f95e9ef02cb5e33d8d9dddee",
+                "responseMimeType": "image/png",
+                "responseByteSize": 465005
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T12:09:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/niacinamide-cleansing-gelee-3/",
+          "https://peronabeauty.com/product/naturium-niacinamide-cleansing-gelee-3/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described niacinamide rinse-off face cleanser.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic face cleanser, not a diagnosis or treatment for acne, hyperpigmentation, or another condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-07T12:09:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATRM_Ecomm_Niacinamide-Cleansing-Gelee_Front.webp?v=1774289601&width=2048",
+          "sha256": "81e77b87c7c83cbf388647ffdc3942107ea85244f95e9ef02cb5e33d8d9dddee",
+          "mimeType": "image/png",
+          "byteSize": 465005,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:08:07Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATRM_Ecomm_Niacinamide-Cleansing-Gelee_Front.webp?v=1774289601&width=2048",
+            "sha256": "81e77b87c7c83cbf388647ffdc3942107ea85244f95e9ef02cb5e33d8d9dddee",
+            "byteSize": 465005,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T12:08:07Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792163"
+            },
+            "officialProductUrl": "https://naturium.com/products/niacinamide-cleansing-gelee-3"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "b08275e172d1f3c82ffd76aa1c416502b5d13f99c097c4da254c629e6a407003",
+            "generatedAt": "2026-08-07T12:09:29Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "504d30d9ea33b94e3f3d527efd934ecf0b96057c6895fa26042875f6be49e87e",
+            "byteSize": 458347,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T12:10:30Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T12:10:30Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "b08275e172d1f3c82ffd76aa1c416502b5d13f99c097c4da254c629e6a407003",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-niacinamide-cleansing-gelee-3-7-1oz/packshot-v1-504d30d9ea33b94e.png",
+        "sha256": "504d30d9ea33b94e3f3d527efd934ecf0b96057c6895fa26042875f6be49e87e",
+        "mimeType": "image/png",
+        "byteSize": 458347,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T12:10:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T12:12:00Z"
+      },
+      "dossierFingerprint": "e225ce575561be390bdc45346eb469eb8d717051bb26c113ae5bbb239664ea6c"
     }
   ]
 }
