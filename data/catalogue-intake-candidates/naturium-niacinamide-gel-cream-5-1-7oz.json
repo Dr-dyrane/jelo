@@ -1,143 +1,149 @@
 {
-    "schemaVersion": 1,
-    "publicationStatus": "private-research-only",
-    "updatedAt": "2026-08-07T12:34:00Z",
-    "origin": {
-        "kind": "community-aggregate-packet",
-        "packetId": "d34092980dce29db8a0a356b",
-        "reportSha256": "19d3b07c628657e75fb02806523ab38cfc6b604353810974d98c5a4dcedd7f2e"
-    },
-    "candidate": {
-        "id": "naturium-niacinamide-gel-cream-5-1-7oz",
-        "brand": "Naturium",
-        "name": "Niacinamide Gel Cream 5%",
-        "variant": "Niacinamide Gel Cream 5%",
-        "size": "1.7 oz / 50 mL",
-        "category": "Face care",
-        "reason": "Adds the exact current 1.7 oz Naturium Niacinamide Gel Cream 5%. Official Shopify structured data publishes GTIN 810120260600. No exact Nigerian offers yet bound, so reference only.",
-        "priority": "important",
-        "gapIds": [
-            "niacinamide-moisturizer",
-            "oil-control",
-            "leave-on-face-care"
-        ],
-        "demandEvidenceUrls": [
-            "https://www.urbanskinng.com/shop/niacinamide-gel-cream-5/",
-            "https://peronabeauty.com/product/naturium-niacinamide-gel-cream-5/"
-        ],
-        "identity": {
-            "gtin": "810120260600",
-            "officialProductUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
-            "checkedAt": "2026-08-07T12:33:00Z",
-            "basis": "official-brand",
-            "packageVersion": "Niacinamide Gel Cream 5% 1.7 oz / 50 mL tube",
-            "officialEvidence": {
-                "url": "https://naturium.com/products/niacinamide-gel-cream-5",
-                "observedGtin": "810120260600",
-                "observedVariant": "Niacinamide Gel Cream 5%",
-                "observedSize": "1.7 oz / 50 mL",
-                "observedPackageVersion": "Niacinamide Gel Cream 5% 1.7 oz / 50 mL tube",
-                "snapshotKind": "canonical-extraction",
-                "snapshotPath": "data/catalogue-identity-evidence/naturium-niacinamide-gel-cream-5-1-7oz.json",
-                "snapshotSha256": "19d3b07c628657e75fb02806523ab38cfc6b604353810974d98c5a4dcedd7f2e",
-                "snapshotMimeType": "application/json",
-                "snapshotByteSize": 1939,
-                "retrievedAt": "2026-08-07T12:31:38Z",
-                "canonicalExtraction": {
-                    "schemaVersion": 4,
-                    "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
-                    "method": "reviewed-browser-dom-identity-field-extraction",
-                    "browserCapture": {
-                        "surface": "Playwright MCP browser",
-                        "documentReadyState": "complete",
-                        "pageTitle": "Niacinamide Moisturizer for Pores & Dewy Skin | Naturium"
-                    },
-                    "sourceUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
-                    "responseUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
-                    "retrievedAt": "2026-08-07T12:31:38Z",
-                    "reviewedAt": "2026-08-07T12:33:00Z",
-                    "reviewer": "JeloCare catalogue evidence review",
-                    "sourceResponseSha256": "ae77ca0279483f101f4f598cedf6ef25bb95f912a9d4125c03f1588a4a0de1e5",
-                    "sourceResponseMimeType": "text/html",
-                    "sourceResponseByteSize": 861439,
-                    "responseDigestScope": "rendered-dom-outerhtml",
-                    "fields": {
-                        "gtin": {
-                            "locator": "Rendered official Shopify structured product data variant gtin field",
-                            "sourceText": "\"gtin\":\"810120260600\"",
-                            "value": "810120260600"
-                        },
-                        "variant": {
-                            "locator": "Rendered official product heading",
-                            "sourceText": "Niacinamide Gel Cream 5%",
-                            "value": "Niacinamide Gel Cream 5%"
-                        },
-                        "size": {
-                            "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Official front-pack principal display panel: 1.7 OZ / 50 mL",
-                            "value": "1.7 oz / 50 mL"
-                        },
-                        "packageVersion": {
-                            "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Niacinamide Gel Cream 5% 1.7 OZ / 50 mL tube",
-                            "value": "Niacinamide Gel Cream 5% 1.7 oz / 50 mL tube"
-                        }
-                    },
-                    "supplementalResponses": [
-                        {
-                            "role": "official-pack-image",
-                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
-                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
-                            "retrievedAt": "2026-08-07T12:31:38Z",
-                            "responseSha256": "f91ab6b9154f1359ad689f94380ccd07e5a2b19339aefde08cd597e419aa435a",
-                            "responseMimeType": "image/png",
-                            "responseByteSize": 421610
-                        }
-                    ]
-                }
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T15:02:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "d34092980dce29db8a0a356b",
+    "reportSha256": "19d3b07c628657e75fb02806523ab38cfc6b604353810974d98c5a4dcedd7f2e"
+  },
+  "candidate": {
+    "id": "naturium-niacinamide-gel-cream-5-1-7oz",
+    "brand": "Naturium",
+    "name": "Niacinamide Gel Cream 5%",
+    "variant": "Niacinamide Gel Cream 5%",
+    "size": "1.7 oz / 50 mL",
+    "category": "Face care",
+    "reason": "Adds the exact current 1.7 oz Naturium Niacinamide Gel Cream 5%. Official Shopify structured data publishes GTIN 810120260600. No exact Nigerian offers yet bound, so reference only.",
+    "priority": "important",
+    "gapIds": [
+      "niacinamide-moisturizer",
+      "oil-control",
+      "leave-on-face-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.urbanskinng.com/shop/niacinamide-gel-cream-5/",
+      "https://peronabeauty.com/product/naturium-niacinamide-gel-cream-5/"
+    ],
+    "identity": {
+      "gtin": "810120260600",
+      "officialProductUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+      "checkedAt": "2026-08-07T12:33:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Niacinamide Gel Cream 5% 1.7 oz / 50 mL tube",
+      "officialEvidence": {
+        "url": "https://naturium.com/products/niacinamide-gel-cream-5",
+        "observedGtin": "810120260600",
+        "observedVariant": "Niacinamide Gel Cream 5%",
+        "observedSize": "1.7 oz / 50 mL",
+        "observedPackageVersion": "Niacinamide Gel Cream 5% 1.7 oz / 50 mL tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-niacinamide-gel-cream-5-1-7oz.json",
+        "snapshotSha256": "19d3b07c628657e75fb02806523ab38cfc6b604353810974d98c5a4dcedd7f2e",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1939,
+        "retrievedAt": "2026-08-07T12:31:38Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Niacinamide Moisturizer for Pores & Dewy Skin | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+          "responseUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+          "retrievedAt": "2026-08-07T12:31:38Z",
+          "reviewedAt": "2026-08-07T12:33:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "ae77ca0279483f101f4f598cedf6ef25bb95f912a9d4125c03f1588a4a0de1e5",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 861439,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"810120260600\"",
+              "value": "810120260600"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Niacinamide Gel Cream 5%",
+              "value": "Niacinamide Gel Cream 5%"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.7 OZ / 50 mL",
+              "value": "1.7 oz / 50 mL"
+            },
+            "packageVersion": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Niacinamide Gel Cream 5% 1.7 OZ / 50 mL tube",
+              "value": "Niacinamide Gel Cream 5% 1.7 oz / 50 mL tube"
             }
-        },
-        "care": {
-            "status": "reviewed",
-            "formulaArchetype": "Manufacturer-described 5% niacinamide gel cream moisturizer for pores and dewy skin.",
-            "careTier": "targeted-care",
-            "reviewScope": "catalogue-supportive-care",
-            "advisoryBoundary": "A leave-on cosmetic moisturizer, not a diagnosis or treatment for acne, hyperpigmentation, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
-            "manufacturerEvidenceUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
-            "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
-            "evidenceUrls": [
-                "https://naturium.com/products/niacinamide-gel-cream-5",
-                "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
-            ],
-            "reviewedAt": "2026-08-07T12:33:00Z",
-            "reviewer": "JeloCare catalogue evidence review"
-        },
-        "nigeria": {
-            "regulatoryStatus": "pending",
-            "tierAIdentityEvidenceUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
-            "exactOffers": [],
-            "excludedObservations": []
-        },
-        "asset": {
-            "rightsStatus": "documented",
-            "origin": "official-brand-media",
-            "role": "packshot",
-            "rightsUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
-            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
-            "sourceAssetSha256": "f91ab6b9154f1359ad689f94380ccd07e5a2b19339aefde08cd597e419aa435a",
-            "sourceAssetMimeType": "image/png",
-            "sourceAssetByteSize": 421610,
-            "sourceAssetWidth": 2000,
-            "sourceAssetHeight": 2000,
-            "sourceAssetRetrievedAt": "2026-08-07T12:31:38Z",
-            "packaging": "intact",
-            "backgroundTreatment": "source-pixel-isolation",
-            "labelVariantSizeUnchanged": true,
-            "packagingInvented": false,
-            "manualSourceOutputQa": true,
-            "artReviewedAt": "2026-08-07T12:34:00Z",
-            "artReviewer": "Codex visual audit",
-            "presentationQuality": "magazine-ready"
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
+              "retrievedAt": "2026-08-07T12:31:38Z",
+              "responseSha256": "f91ab6b9154f1359ad689f94380ccd07e5a2b19339aefde08cd597e419aa435a",
+              "responseMimeType": "image/png",
+              "responseByteSize": 421610
+            }
+          ]
         }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described 5% niacinamide gel cream moisturizer for pores and dewy skin.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A leave-on cosmetic moisturizer, not a diagnosis or treatment for acne, hyperpigmentation, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+      "evidenceUrls": [
+        "https://naturium.com/products/niacinamide-gel-cream-5",
+        "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+      ],
+      "reviewedAt": "2026-08-07T12:33:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+      "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiaGelCream_tube_front_CapOn_bonebkgd.webp?v=1774294431&width=2048",
+      "sourceAssetSha256": "f91ab6b9154f1359ad689f94380ccd07e5a2b19339aefde08cd597e419aa435a",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 421610,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-08-07T12:32:58Z",
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T12:32:58Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-niacinamide-gel-cream-5-1-7oz/packshot-v1-5d5f8afaf285dde6fc646c621a87b15d5f31c06c2ef04fc40f158100ef181348.png",
+      "publicImageSha256": "5d5f8afaf285dde6fc646c621a87b15d5f31c06c2ef04fc40f158100ef181348",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 411199,
+      "width": 2000,
+      "height": 2000
     }
+  }
 }

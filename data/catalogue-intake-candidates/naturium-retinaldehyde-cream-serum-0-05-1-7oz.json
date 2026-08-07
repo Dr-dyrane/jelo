@@ -1,143 +1,149 @@
 {
-    "schemaVersion": 1,
-    "publicationStatus": "private-research-only",
-    "updatedAt": "2026-08-07T13:07:00Z",
-    "origin": {
-        "kind": "community-aggregate-packet",
-        "packetId": "d34092980dce29db8a0a356b",
-        "reportSha256": "835bb24e5d8aad08b3e71789212105afbb3bcd38dac86be3af1cf4a0df8e6198"
-    },
-    "candidate": {
-        "id": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
-        "brand": "Naturium",
-        "name": "Retinaldehyde Cream Serum 0.05%",
-        "variant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
-        "size": "1.7 fl oz / 50 mL",
-        "category": "Face care",
-        "reason": "Adds the exact current 50 mL Naturium Retinaldehyde Cream Serum 0.05%. Official Shopify structured data publishes GTIN 810120260013. No exact Nigerian offers yet bound, so reference only.",
-        "priority": "important",
-        "gapIds": [
-            "retinaldehyde",
-            "anti-aging-support",
-            "leave-on-face-care"
-        ],
-        "demandEvidenceUrls": [
-            "https://www.urbanskinng.com/shop/retinaldehyde-cream-serum-0-05/",
-            "https://peronabeauty.com/product/naturium-retinaldehyde-cream-serum-0-05/"
-        ],
-        "identity": {
-            "gtin": "810120260013",
-            "officialProductUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-            "checkedAt": "2026-08-07T13:06:00Z",
-            "basis": "official-brand",
-            "packageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
-            "officialEvidence": {
-                "url": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-                "observedGtin": "810120260013",
-                "observedVariant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
-                "observedSize": "1.7 fl oz / 50 mL",
-                "observedPackageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
-                "snapshotKind": "canonical-extraction",
-                "snapshotPath": "data/catalogue-identity-evidence/naturium-retinaldehyde-cream-serum-0-05-1-7oz.json",
-                "snapshotSha256": "835bb24e5d8aad08b3e71789212105afbb3bcd38dac86be3af1cf4a0df8e6198",
-                "snapshotMimeType": "application/json",
-                "snapshotByteSize": 2063,
-                "retrievedAt": "2026-08-07T13:04:30Z",
-                "canonicalExtraction": {
-                    "schemaVersion": 4,
-                    "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
-                    "method": "reviewed-browser-dom-identity-field-extraction",
-                    "browserCapture": {
-                        "surface": "Playwright MCP browser",
-                        "documentReadyState": "complete",
-                        "pageTitle": "Retinaldehyde Cream Serum 0.05% | Retinol Serum for Smoother Skin | Naturium"
-                    },
-                    "sourceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-                    "responseUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-                    "retrievedAt": "2026-08-07T13:04:30Z",
-                    "reviewedAt": "2026-08-07T13:06:00Z",
-                    "reviewer": "JeloCare catalogue evidence review",
-                    "sourceResponseSha256": "72b1978c517644622692e523e9d6ae718a9c0991eb467850a9ff17c5907bff93",
-                    "sourceResponseMimeType": "text/html",
-                    "sourceResponseByteSize": 852774,
-                    "responseDigestScope": "rendered-dom-outerhtml",
-                    "fields": {
-                        "gtin": {
-                            "locator": "Rendered official Shopify structured product data variant barcode field",
-                            "sourceText": "\"barcode\":\"810120260013\"",
-                            "value": "810120260013"
-                        },
-                        "variant": {
-                            "locator": "Rendered official Shopify structured product data variant name field",
-                            "sourceText": "Retinaldehyde Cream Serum 0.05% - 0.05%",
-                            "value": "Retinaldehyde Cream Serum 0.05% - 0.05%"
-                        },
-                        "size": {
-                            "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
-                            "value": "1.7 fl oz / 50 mL"
-                        },
-                        "packageVersion": {
-                            "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Retinaldehyde Cream Serum 0.05% 1.7 FL OZ / 50 mL tube",
-                            "value": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube"
-                        }
-                    },
-                    "supplementalResponses": [
-                        {
-                            "role": "official-pack-image",
-                            "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
-                            "responseUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
-                            "retrievedAt": "2026-08-07T13:04:30Z",
-                            "responseSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
-                            "responseMimeType": "image/png",
-                            "responseByteSize": 413568
-                        }
-                    ]
-                }
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T15:02:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "d34092980dce29db8a0a356b",
+    "reportSha256": "835bb24e5d8aad08b3e71789212105afbb3bcd38dac86be3af1cf4a0df8e6198"
+  },
+  "candidate": {
+    "id": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+    "brand": "Naturium",
+    "name": "Retinaldehyde Cream Serum 0.05%",
+    "variant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+    "size": "1.7 fl oz / 50 mL",
+    "category": "Face care",
+    "reason": "Adds the exact current 50 mL Naturium Retinaldehyde Cream Serum 0.05%. Official Shopify structured data publishes GTIN 810120260013. No exact Nigerian offers yet bound, so reference only.",
+    "priority": "important",
+    "gapIds": [
+      "retinaldehyde",
+      "anti-aging-support",
+      "leave-on-face-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.urbanskinng.com/shop/retinaldehyde-cream-serum-0-05/",
+      "https://peronabeauty.com/product/naturium-retinaldehyde-cream-serum-0-05/"
+    ],
+    "identity": {
+      "gtin": "810120260013",
+      "officialProductUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+      "checkedAt": "2026-08-07T13:06:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
+      "officialEvidence": {
+        "url": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "observedGtin": "810120260013",
+        "observedVariant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+        "observedSize": "1.7 fl oz / 50 mL",
+        "observedPackageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-retinaldehyde-cream-serum-0-05-1-7oz.json",
+        "snapshotSha256": "835bb24e5d8aad08b3e71789212105afbb3bcd38dac86be3af1cf4a0df8e6198",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2063,
+        "retrievedAt": "2026-08-07T13:04:30Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Retinaldehyde Cream Serum 0.05% | Retinol Serum for Smoother Skin | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+          "responseUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+          "retrievedAt": "2026-08-07T13:04:30Z",
+          "reviewedAt": "2026-08-07T13:06:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "72b1978c517644622692e523e9d6ae718a9c0991eb467850a9ff17c5907bff93",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 852774,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant barcode field",
+              "sourceText": "\"barcode\":\"810120260013\"",
+              "value": "810120260013"
+            },
+            "variant": {
+              "locator": "Rendered official Shopify structured product data variant name field",
+              "sourceText": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+              "value": "Retinaldehyde Cream Serum 0.05% - 0.05%"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+              "value": "1.7 fl oz / 50 mL"
+            },
+            "packageVersion": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Retinaldehyde Cream Serum 0.05% 1.7 FL OZ / 50 mL tube",
+              "value": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube"
             }
-        },
-        "care": {
-            "status": "reviewed",
-            "formulaArchetype": "Manufacturer-described 0.05% retinaldehyde cream serum for smoother skin.",
-            "careTier": "targeted-care",
-            "reviewScope": "catalogue-supportive-care",
-            "advisoryBoundary": "A topical cosmetic retinaldehyde serum, not a diagnosis or treatment for any skin condition. Introduce gradually (2-3 nights per week), avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
-            "manufacturerEvidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
-            "evidenceUrls": [
-                "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-                "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
-            ],
-            "reviewedAt": "2026-08-07T13:06:00Z",
-            "reviewer": "JeloCare catalogue evidence review"
-        },
-        "nigeria": {
-            "regulatoryStatus": "pending",
-            "tierAIdentityEvidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-            "exactOffers": [],
-            "excludedObservations": []
-        },
-        "asset": {
-            "rightsStatus": "documented",
-            "origin": "official-brand-media",
-            "role": "packshot",
-            "rightsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-            "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
-            "sourceAssetSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
-            "sourceAssetMimeType": "image/png",
-            "sourceAssetByteSize": 413568,
-            "sourceAssetWidth": 2000,
-            "sourceAssetHeight": 2000,
-            "sourceAssetRetrievedAt": "2026-08-07T13:04:30Z",
-            "packaging": "intact",
-            "backgroundTreatment": "source-pixel-isolation",
-            "labelVariantSizeUnchanged": true,
-            "packagingInvented": false,
-            "manualSourceOutputQa": true,
-            "artReviewedAt": "2026-08-07T13:07:00Z",
-            "artReviewer": "Codex visual audit",
-            "presentationQuality": "magazine-ready"
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+              "retrievedAt": "2026-08-07T13:04:30Z",
+              "responseSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
+              "responseMimeType": "image/png",
+              "responseByteSize": 413568
+            }
+          ]
         }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described 0.05% retinaldehyde cream serum for smoother skin.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic retinaldehyde serum, not a diagnosis or treatment for any skin condition. Introduce gradually (2-3 nights per week), avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T13:06:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+      "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+      "sourceAssetSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 413568,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-08-07T13:06:18Z",
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T14:59:57Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-05-1-7oz/packshot-v1-20f612bc9b629ce9.png",
+      "publicImageSha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 466755,
+      "width": 2000,
+      "height": 2000
     }
+  }
 }

@@ -2401,6 +2401,78 @@
         "publishedAt": "2026-08-07T13:31:00Z"
       },
       "releaseFingerprint": "4e6844dc914fee3b00a25c3e14a847968c6d5671f3cd81319547290d0d4467ae"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-kp-body-scrub-mask-8oz",
+      "dossierFingerprint": "cc6b7e74a603ceb4009d902afbeff66c88403995e87d5b633c8fbdc5a08c9981",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Treat",
+        "displayLine": "KP Body Scrub & Mask 8 oz",
+        "usage": "Apply to clean dry skin in the shower. Leave on for 2-3 minutes then gently massage and rinse thoroughly. Use 2-3 times per week.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:02:00Z"
+      },
+      "releaseFingerprint": "4d96380de58fca2d3f7f5af4bf04f979708bba0ccd25ba3a97d90bc3400ea913"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+      "dossierFingerprint": "d0a6f6e690ef8806b9c77344c96299aeabba5c7672b697d3bc3c3b42ba793336",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Plant Ceramide Rich Moisture Cream 1.7 oz",
+        "usage": "Apply a small amount to clean skin morning and night. Gently massage until absorbed.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:02:00Z"
+      },
+      "releaseFingerprint": "c28d42c53ec4bda756ac51fb7ea4621c579b0a1ce2b1ce6f435893f0c66deb3b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+      "dossierFingerprint": "2a85a47fb3028aeb1def6f641421bb19437aa897d588bdf2fe42fd8e9196fa10",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz",
+        "usage": "Apply a pea-sized amount to clean dry skin in the evening. Start with 2-3 nights per week and gradually increase. Always follow with SPF during the day.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:02:00Z"
+      },
+      "releaseFingerprint": "3f0e1cf668e874799857b6cf05ecd36fe42091c487c07b0a17f85cfe80f7a799"
     }
   ]
 }

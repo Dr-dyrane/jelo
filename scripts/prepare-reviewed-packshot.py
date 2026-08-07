@@ -72,6 +72,11 @@ def arguments() -> argparse.Namespace:
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     parser.add_argument("--model", default="isnet-general-use")
     parser.add_argument("--provider", choices=("cpu",), required=True)
+    parser.add_argument(
+        "--keep-all-components",
+        action="store_true",
+        help="Skip small-component removal so the isolation record reports zero removal.",
+    )
     return parser.parse_args()
 
 
@@ -400,7 +405,7 @@ def component_removal_metrics(
     }
 
 
-def clean_mask(mask: Any) -> tuple[Any, dict[str, Any]]:
+def clean_mask(mask: Any, *, keep_all: bool = False) -> tuple[Any, dict[str, Any]]:
     import numpy as np
     from scipy import ndimage
 
@@ -411,7 +416,10 @@ def clean_mask(mask: Any) -> tuple[Any, dict[str, Any]]:
     areas = np.bincount(labels.ravel())
     areas[0] = 0
     largest = int(areas.max(initial=0))
-    minimum = max(24, int(largest * 0.003), int(alpha.size * 0.00005))
+    if keep_all:
+        minimum = 1
+    else:
+        minimum = max(24, int(largest * 0.003), int(alpha.size * 0.00005))
     keep = np.flatnonzero(areas >= minimum)
     cleaned = np.where(np.isin(labels, keep), alpha, 0).astype(np.uint8)
     raw_foreground = int((alpha >= MASK_THRESHOLD).sum())
@@ -516,6 +524,8 @@ def process_source(
     source: Any,
     model: str,
     requested_provider: str,
+    *,
+    keep_all_components: bool = False,
 ) -> tuple[Any, str, Path, str, dict[str, Any], dict[str, Any]]:
     from rembg import new_session, remove
 
@@ -532,7 +542,7 @@ def process_source(
     mask = remove(source, session=session, only_mask=True, post_process_mask=True)
     if file_sha256(weights) != weights_sha256:
         raise ValueError("model weights changed during inference")
-    alpha, component_metrics = clean_mask(mask)
+    alpha, component_metrics = clean_mask(mask, keep_all=keep_all_components)
     output, metrics = normalize(source, alpha)
     return (
         output,
@@ -661,7 +671,7 @@ def main() -> int:
         raise ValueError("decoded source MIME type does not match the intake snapshot")
     source, color_treatment = to_srgb(opened)
     output, provider, _weights, model_sha256, session_options, metrics = process_source(
-        source, args.model, args.provider
+        source, args.model, args.provider, keep_all_components=args.keep_all_components
     )
     if provider != runtime["executionProvider"]:
         raise ValueError("execution provider changed after runtime validation")

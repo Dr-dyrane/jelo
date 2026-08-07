@@ -1,143 +1,149 @@
 {
-    "schemaVersion": 1,
-    "publicationStatus": "private-research-only",
-    "updatedAt": "2026-08-07T11:36:00Z",
-    "origin": {
-        "kind": "community-aggregate-packet",
-        "packetId": "d34092980dce29db8a0a356b",
-        "reportSha256": "a7151aa6ef91cd8632640063a51d9122adffe763cb3497b8b98438aa60dc0db1"
-    },
-    "candidate": {
-        "id": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
-        "brand": "Naturium",
-        "name": "Dew-Glow Moisturizer Mineral SPF 50",
-        "variant": "Dew-Glow Moisturizer Mineral SPF 50",
-        "size": "1.7 fl oz / 50 mL",
-        "category": "Face care",
-        "reason": "Adds the exact current 50 mL Naturium Dew-Glow Moisturizer Mineral SPF 50. Official Shopify structured data publishes GTIN 810120263083. No exact Nigerian offers yet bound, so reference only.",
-        "priority": "important",
-        "gapIds": [
-            "spf-moisturizer",
-            "mineral-sunscreen",
-            "sun-protection"
-        ],
-        "demandEvidenceUrls": [
-            "https://www.urbanskinng.com/shop/dew-glow-moisturizer-mineral-spf-50/",
-            "https://peronabeauty.com/product/naturium-dew-glow-mineral-spf-50/"
-        ],
-        "identity": {
-            "gtin": "810120263083",
-            "officialProductUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-            "checkedAt": "2026-08-07T11:36:00Z",
-            "basis": "official-brand",
-            "packageVersion": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz / 50 mL tube",
-            "officialEvidence": {
-                "url": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-                "observedGtin": "810120263083",
-                "observedVariant": "Dew-Glow Moisturizer Mineral SPF 50",
-                "observedSize": "1.7 fl oz / 50 mL",
-                "observedPackageVersion": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz / 50 mL tube",
-                "snapshotKind": "canonical-extraction",
-                "snapshotPath": "data/catalogue-identity-evidence/naturium-dew-glow-mineral-spf-50-1-7fl-oz.json",
-                "snapshotSha256": "a7151aa6ef91cd8632640063a51d9122adffe763cb3497b8b98438aa60dc0db1",
-                "snapshotMimeType": "application/json",
-                "snapshotByteSize": 2078,
-                "retrievedAt": "2026-08-07T11:35:18Z",
-                "canonicalExtraction": {
-                    "schemaVersion": 4,
-                    "candidateId": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
-                    "method": "reviewed-browser-dom-identity-field-extraction",
-                    "browserCapture": {
-                        "surface": "Playwright MCP browser",
-                        "documentReadyState": "complete",
-                        "pageTitle": "Dew-Glow Moisturizer SPF 50 | Mineral Sunscreen Moisturizer | Naturium"
-                    },
-                    "sourceUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-                    "responseUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-                    "retrievedAt": "2026-08-07T11:35:18Z",
-                    "reviewedAt": "2026-08-07T11:36:00Z",
-                    "reviewer": "JeloCare catalogue evidence review",
-                    "sourceResponseSha256": "e6bec8f58151d04e23955fa9a3cf135d4600e63ed1e3ee71eb24129654db8eb8",
-                    "sourceResponseMimeType": "text/html",
-                    "sourceResponseByteSize": 862724,
-                    "responseDigestScope": "rendered-dom-outerhtml",
-                    "fields": {
-                        "gtin": {
-                            "locator": "Rendered official Shopify structured product data variant gtin field",
-                            "sourceText": "\"gtin\":\"810120263083\"",
-                            "value": "810120263083"
-                        },
-                        "variant": {
-                            "locator": "Rendered official product heading",
-                            "sourceText": "Dew-Glow Moisturizer Mineral SPF 50",
-                            "value": "Dew-Glow Moisturizer Mineral SPF 50"
-                        },
-                        "size": {
-                            "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
-                            "value": "1.7 fl oz / 50 mL"
-                        },
-                        "packageVersion": {
-                            "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Dew-Glow Moisturizer Mineral SPF 50 1.7 FL OZ / 50 mL tube",
-                            "value": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz / 50 mL tube"
-                        }
-                    },
-                    "supplementalResponses": [
-                        {
-                            "role": "official-pack-image",
-                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
-                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
-                            "retrievedAt": "2026-08-07T11:35:18Z",
-                            "responseSha256": "2fef27d9b756e9d375bdd12614640c200a6f6647b5de2e840ae68adddf950ceb",
-                            "responseMimeType": "image/png",
-                            "responseByteSize": 616172
-                        }
-                    ]
-                }
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T15:02:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "d34092980dce29db8a0a356b",
+    "reportSha256": "a7151aa6ef91cd8632640063a51d9122adffe763cb3497b8b98438aa60dc0db1"
+  },
+  "candidate": {
+    "id": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+    "brand": "Naturium",
+    "name": "Dew-Glow Moisturizer Mineral SPF 50",
+    "variant": "Dew-Glow Moisturizer Mineral SPF 50",
+    "size": "1.7 fl oz / 50 mL",
+    "category": "Face care",
+    "reason": "Adds the exact current 50 mL Naturium Dew-Glow Moisturizer Mineral SPF 50. Official Shopify structured data publishes GTIN 810120263083. No exact Nigerian offers yet bound, so reference only.",
+    "priority": "important",
+    "gapIds": [
+      "spf-moisturizer",
+      "mineral-sunscreen",
+      "sun-protection"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.urbanskinng.com/shop/dew-glow-moisturizer-mineral-spf-50/",
+      "https://peronabeauty.com/product/naturium-dew-glow-mineral-spf-50/"
+    ],
+    "identity": {
+      "gtin": "810120263083",
+      "officialProductUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+      "checkedAt": "2026-08-07T11:36:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz / 50 mL tube",
+      "officialEvidence": {
+        "url": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+        "observedGtin": "810120263083",
+        "observedVariant": "Dew-Glow Moisturizer Mineral SPF 50",
+        "observedSize": "1.7 fl oz / 50 mL",
+        "observedPackageVersion": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz / 50 mL tube",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-dew-glow-mineral-spf-50-1-7fl-oz.json",
+        "snapshotSha256": "a7151aa6ef91cd8632640063a51d9122adffe763cb3497b8b98438aa60dc0db1",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2078,
+        "retrievedAt": "2026-08-07T11:35:18Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Dew-Glow Moisturizer SPF 50 | Mineral Sunscreen Moisturizer | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+          "responseUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+          "retrievedAt": "2026-08-07T11:35:18Z",
+          "reviewedAt": "2026-08-07T11:36:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "e6bec8f58151d04e23955fa9a3cf135d4600e63ed1e3ee71eb24129654db8eb8",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 862724,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"810120263083\"",
+              "value": "810120263083"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Dew-Glow Moisturizer Mineral SPF 50",
+              "value": "Dew-Glow Moisturizer Mineral SPF 50"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+              "value": "1.7 fl oz / 50 mL"
+            },
+            "packageVersion": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Dew-Glow Moisturizer Mineral SPF 50 1.7 FL OZ / 50 mL tube",
+              "value": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz / 50 mL tube"
             }
-        },
-        "care": {
-            "status": "reviewed",
-            "formulaArchetype": "Manufacturer-described mineral SPF 50 moisturizer with skincare benefits.",
-            "careTier": "targeted-care",
-            "reviewScope": "catalogue-supportive-care",
-            "advisoryBoundary": "A topical cosmetic sunscreen moisturizer, not a diagnosis or treatment for sun damage, hyperpigmentation, or another condition. Apply generously 15 minutes before sun exposure. Reapply every 2 hours. Stop if persistent irritation occurs. Persistent skin changes need clinical review.",
-            "manufacturerEvidenceUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
-            "evidenceUrls": [
-                "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-                "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
-            ],
-            "reviewedAt": "2026-08-07T11:36:00Z",
-            "reviewer": "JeloCare catalogue evidence review"
-        },
-        "nigeria": {
-            "regulatoryStatus": "pending",
-            "tierAIdentityEvidenceUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-            "exactOffers": [],
-            "excludedObservations": []
-        },
-        "asset": {
-            "rightsStatus": "documented",
-            "origin": "official-brand-media",
-            "role": "packshot",
-            "rightsUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
-            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
-            "sourceAssetSha256": "2fef27d9b756e9d375bdd12614640c200a6f6647b5de2e840ae68adddf950ceb",
-            "sourceAssetMimeType": "image/png",
-            "sourceAssetByteSize": 616172,
-            "sourceAssetWidth": 2000,
-            "sourceAssetHeight": 2000,
-            "sourceAssetRetrievedAt": "2026-08-07T11:35:18Z",
-            "packaging": "intact",
-            "backgroundTreatment": "source-pixel-isolation",
-            "labelVariantSizeUnchanged": true,
-            "packagingInvented": false,
-            "manualSourceOutputQa": true,
-            "artReviewedAt": "2026-08-07T11:36:00Z",
-            "artReviewer": "Codex visual audit",
-            "presentationQuality": "magazine-ready"
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
+              "retrievedAt": "2026-08-07T11:35:18Z",
+              "responseSha256": "2fef27d9b756e9d375bdd12614640c200a6f6647b5de2e840ae68adddf950ceb",
+              "responseMimeType": "image/png",
+              "responseByteSize": 616172
+            }
+          ]
         }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described mineral SPF 50 moisturizer with skincare benefits.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic sunscreen moisturizer, not a diagnosis or treatment for sun damage, hyperpigmentation, or another condition. Apply generously 15 minutes before sun exposure. Reapply every 2 hours. Stop if persistent irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+      "evidenceUrls": [
+        "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+        "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+      ],
+      "reviewedAt": "2026-08-07T11:36:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50",
+      "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10163_Dew-Glow-Moisturizer-Mineral-SPF_front_capon-bonebkgd.jpg?v=1777412894&width=2048",
+      "sourceAssetSha256": "2fef27d9b756e9d375bdd12614640c200a6f6647b5de2e840ae68adddf950ceb",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 616172,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-08-07T12:57:43Z",
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T12:57:43Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-dew-glow-mineral-spf-50-1-7fl-oz/packshot-v1-3b042e1928964653f2d3e8d745c6014c0bf383070bfc92e76400b3f4d842360d.png",
+      "publicImageSha256": "3b042e1928964653f2d3e8d745c6014c0bf383070bfc92e76400b3f4d842360d",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 590492,
+      "width": 2000,
+      "height": 2000
     }
+  }
 }

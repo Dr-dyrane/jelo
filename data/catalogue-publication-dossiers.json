@@ -24268,6 +24268,630 @@
         "approvedAt": "2026-08-07T13:30:00Z"
       },
       "dossierFingerprint": "032898daa24a3af35b54f9d7cc6177c12d327d0e448e68950acfdebf135226c0"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-kp-body-scrub-mask-8oz",
+      "candidateFingerprint": "ef8e1dc8f22350a938a72d4175994d2424336d10f61b30aa7e2acbd288c1b005",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810120260044",
+        "brand": "Naturium",
+        "name": "KP Body Scrub & Mask",
+        "variant": "KP Body Scrub & Mask",
+        "size": "8 oz / 226 mL",
+        "packageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/kp-body-scrub-mask",
+          "observedGtin": "810120260044",
+          "observedVariant": "KP Body Scrub & Mask",
+          "observedSize": "8 oz / 226 mL",
+          "observedPackageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-kp-body-scrub-mask-8oz.json",
+          "snapshotSha256": "4e1102ce7e01329806a747e8813d37bd5d505cbb16d1714c7601711e34546f77",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1907,
+          "retrievedAt": "2026-08-07T13:06:28Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-kp-body-scrub-mask-8oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "KP Body Scrub & Mask | AHA BHA PHA Exfoliating Body Scrub | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "responseUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "retrievedAt": "2026-08-07T13:06:28Z",
+            "reviewedAt": "2026-08-07T13:08:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "80b61c425fdb8e6ad9ea0490971c362b22b6509137bcfca4a7b03a7de94eed6b",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 852102,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260044\"",
+                "value": "810120260044"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "KP Body Scrub & Mask",
+                "value": "KP Body Scrub & Mask"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 8 OZ / 226 mL",
+                "value": "8 oz / 226 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                "retrievedAt": "2026-08-07T13:06:28Z",
+                "responseSha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+                "responseMimeType": "image/png",
+                "responseByteSize": 363205
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T13:08:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/kp-body-scrub-mask/",
+          "https://peronabeauty.com/product/naturium-kp-body-scrub-mask/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described AHA BHA PHA exfoliating body scrub and mask for keratosis pilaris.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic body scrub and mask, not a diagnosis or treatment for keratosis pilaris or any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/kp-body-scrub-mask",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T13:08:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+          "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+          "mimeType": "image/png",
+          "byteSize": 363205,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:08:01Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-kp-body-scrub-mask-8oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+            "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+            "byteSize": 363205,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T13:08:01Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00810120260044"
+            },
+            "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
+            "generatedAt": "2026-08-07T14:59:46Z",
+            "inferredComponentCount": 4,
+            "retainedComponentCount": 4,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
+            "byteSize": 297158,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T14:59:46Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T14:59:46Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "cae7ebb938e44d6e0ac3469b5811a7021d53cb13720b28f18111fe9ce707994a",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v1-78ceb70e267aded1.png",
+        "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
+        "mimeType": "image/png",
+        "byteSize": 297158,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T14:59:46Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T15:00:00Z"
+      },
+      "dossierFingerprint": "cc6b7e74a603ceb4009d902afbeff66c88403995e87d5b633c8fbdc5a08c9981"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+      "candidateFingerprint": "ed85d1c1ef6febb92a4aa38d6fdf9fa4babbb8aa0ce2ac3064616ae82021cfa1",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792200",
+        "brand": "Naturium",
+        "name": "Plant Ceramide Rich Moisture Cream",
+        "variant": "Plant Ceramide Rich Moisture Cream",
+        "size": "1.7 oz / 48 mL",
+        "packageVersion": "Plant Ceramide Rich Moisture Cream 1.7 oz / 48 mL jar",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+          "observedGtin": "850010792200",
+          "observedVariant": "Plant Ceramide Rich Moisture Cream",
+          "observedSize": "1.7 oz / 48 mL",
+          "observedPackageVersion": "Plant Ceramide Rich Moisture Cream 1.7 oz / 48 mL jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-plant-ceramide-rich-moisture-cream-1-7oz.json",
+          "snapshotSha256": "5b2689907cdfaf7e7cfc103db565a55127740aa02b247ff9eb003b02c1ed666d",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2050,
+          "retrievedAt": "2026-08-07T13:28:33Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Plant Ceramide Rich Moisture Cream | Ceramide Moisturizer for Dry Skin | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+            "responseUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+            "retrievedAt": "2026-08-07T13:28:33Z",
+            "reviewedAt": "2026-08-07T13:30:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "f7fa9c24588152d12ca2e7eb869580f6dd977e5bba094bec00d82c16227d398d",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 902213,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792200\"",
+                "value": "850010792200"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Plant Ceramide Rich Moisture Cream",
+                "value": "Plant Ceramide Rich Moisture Cream"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.7 OZ / 48 mL",
+                "value": "1.7 oz / 48 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
+                "retrievedAt": "2026-08-07T13:28:33Z",
+                "responseSha256": "e72708efef9c2d06e9d69297a682d8ad1b5f51719fc39533d7dd4a4641571516",
+                "responseMimeType": "image/png",
+                "responseByteSize": 249929
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T13:30:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/plant-ceramide-rich-moisture-cream/",
+          "https://peronabeauty.com/product/naturium-plant-ceramide-rich-moisture-cream/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described plant ceramide rich moisture cream for dry skin.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic moisturizer, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T13:30:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
+          "sha256": "e72708efef9c2d06e9d69297a682d8ad1b5f51719fc39533d7dd4a4641571516",
+          "mimeType": "image/png",
+          "byteSize": 249929,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:29:57Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
+            "sha256": "e72708efef9c2d06e9d69297a682d8ad1b5f51719fc39533d7dd4a4641571516",
+            "byteSize": 249929,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T13:29:57Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792200"
+            },
+            "officialProductUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "0e5ae8f2962b175994efc0d53c5238f12ee57087a17f678f1aeb0d2895cae0ee",
+            "generatedAt": "2026-08-07T14:59:30Z",
+            "inferredComponentCount": 2,
+            "retainedComponentCount": 2,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "0e5ae8f2962b175994efc0d53c5238f12ee57087a17f678f1aeb0d2895cae0ee",
+            "byteSize": 489926,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T14:59:30Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T14:59:30Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "de57284281287f3e98db37ff091d94087deec4cb1374d55e06ec5ef3d35f5321",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-plant-ceramide-rich-moisture-cream-1-7oz/packshot-v1-0e5ae8f2962b1759.png",
+        "sha256": "0e5ae8f2962b175994efc0d53c5238f12ee57087a17f678f1aeb0d2895cae0ee",
+        "mimeType": "image/png",
+        "byteSize": 489926,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T14:59:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T15:00:00Z"
+      },
+      "dossierFingerprint": "d0a6f6e690ef8806b9c77344c96299aeabba5c7672b697d3bc3c3b42ba793336"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+      "candidateFingerprint": "d9988d249a0de5f57590551664a7691f7149ab5fcbd987451b36a490dd11f7f0",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810120260013",
+        "brand": "Naturium",
+        "name": "Retinaldehyde Cream Serum 0.05%",
+        "variant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+        "size": "1.7 fl oz / 50 mL",
+        "packageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+          "observedGtin": "810120260013",
+          "observedVariant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+          "observedSize": "1.7 fl oz / 50 mL",
+          "observedPackageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-retinaldehyde-cream-serum-0-05-1-7oz.json",
+          "snapshotSha256": "835bb24e5d8aad08b3e71789212105afbb3bcd38dac86be3af1cf4a0df8e6198",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2063,
+          "retrievedAt": "2026-08-07T13:04:30Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Retinaldehyde Cream Serum 0.05% | Retinol Serum for Smoother Skin | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+            "responseUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+            "retrievedAt": "2026-08-07T13:04:30Z",
+            "reviewedAt": "2026-08-07T13:06:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "72b1978c517644622692e523e9d6ae718a9c0991eb467850a9ff17c5907bff93",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 852774,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260013\"",
+                "value": "810120260013"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+                "value": "Retinaldehyde Cream Serum 0.05% - 0.05%"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+                "value": "1.7 fl oz / 50 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+                "retrievedAt": "2026-08-07T13:04:30Z",
+                "responseSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
+                "responseMimeType": "image/png",
+                "responseByteSize": 413568
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T13:06:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/retinaldehyde-cream-serum-0-05/",
+          "https://peronabeauty.com/product/naturium-retinaldehyde-cream-serum-0-05/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described 0.05% retinaldehyde cream serum for smoother skin.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic retinaldehyde serum, not a diagnosis or treatment for any skin condition. Introduce gradually (2-3 nights per week), avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-07T13:06:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+          "sha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
+          "mimeType": "image/png",
+          "byteSize": 413568,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:06:18Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+            "sha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
+            "byteSize": 413568,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T13:06:18Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00810120260013"
+            },
+            "officialProductUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
+            "generatedAt": "2026-08-07T14:59:57Z",
+            "inferredComponentCount": 7,
+            "retainedComponentCount": 7,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
+            "byteSize": 466755,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T14:59:57Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T14:59:57Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "79bbb5f522c10a5c2bd39bb76efa4713b461659dc12d7529738f477b93233f0f",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-05-1-7oz/packshot-v1-20f612bc9b629ce9.png",
+        "sha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
+        "mimeType": "image/png",
+        "byteSize": 466755,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T14:59:57Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T15:00:00Z"
+      },
+      "dossierFingerprint": "2a85a47fb3028aeb1def6f641421bb19437aa897d588bdf2fe42fd8e9196fa10"
     }
   ]
 }

@@ -759,6 +759,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-kp-body-scrub-mask-8oz",
+      "brand": "Naturium",
+      "name": "KP Body Scrub & Mask",
+      "size": "8 oz / 226 mL",
+      "category": "Body",
+      "approvedGtin": "810120260044",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-marshmallow-root-barrier-balm-1-7oz",
       "brand": "Naturium",
       "name": "Marshmallow Root Barrier Balm",
@@ -804,6 +813,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+      "brand": "Naturium",
+      "name": "Plant Ceramide Rich Moisture Cream",
+      "size": "1.7 oz / 48 mL",
+      "category": "Face",
+      "approvedGtin": "850010792200",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-purifier-niacinamide-body-wash-500ml",
       "brand": "Naturium",
       "name": "The Purifier Niacinamide Serum Body Wash",
@@ -819,6 +837,15 @@
       "size": "1.0 fl oz / 30 mL",
       "category": "Face",
       "approvedGtin": "850010792026",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+      "brand": "Naturium",
+      "name": "Retinaldehyde Cream Serum 0.05%",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "810120260013",
       "source": "dossier-release"
     },
     {

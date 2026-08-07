@@ -1321,6 +1321,132 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-azelaic-acid-emulsion-10-1fl-oz': {
+    productSlug: 'naturium-azelaic-acid-emulsion-10-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/azelaic-acid-emulsion-10',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-dew-glow-mineral-spf-50-1-7fl-oz': {
+    productSlug: 'naturium-dew-glow-mineral-spf-50-1-7fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-glow-getter-multi-oil-body-scrub-8oz': {
+    productSlug: 'naturium-glow-getter-multi-oil-body-scrub-8oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-glow-getter-multi-oil-body-scrub',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-kp-body-scrub-mask-8oz': {
+    productSlug: 'naturium-kp-body-scrub-mask-8oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/kp-body-scrub-mask',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-multi-active-exosome-serum-1fl-oz': {
+    productSlug: 'naturium-multi-active-exosome-serum-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-active-exosome-serum',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-multi-peptide-advanced-serum-1fl-oz': {
+    productSlug: 'naturium-multi-peptide-advanced-serum-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-peptide-advanced-serum',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-multi-peptide-eye-cream-0-5oz': {
+    productSlug: 'naturium-multi-peptide-eye-cream-0-5oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-peptide-eye-cream',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-multi-peptide-moisturizer-1-7oz': {
+    productSlug: 'naturium-multi-peptide-moisturizer-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-peptide-moisturizer',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-niacinamide-gel-cream-5-1-7oz': {
+    productSlug: 'naturium-niacinamide-gel-cream-5-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/niacinamide-gel-cream-5',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-plant-ceramide-rich-moisture-cream-1-7oz': {
+    productSlug: 'naturium-plant-ceramide-rich-moisture-cream-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/plant-ceramide-rich-moisture-cream',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-purple-ginseng-cleansing-balm-3oz': {
+    productSlug: 'naturium-purple-ginseng-cleansing-balm-3oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/purple-ginseng-cleansing-balm',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-retinaldehyde-cream-serum-0-05-1-7oz': {
+    productSlug: 'naturium-retinaldehyde-cream-serum-0-05-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/retinaldehyde-cream-serum-0-05',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-retinaldehyde-cream-serum-0-10-1-7oz': {
+    productSlug: 'naturium-retinaldehyde-cream-serum-0-10-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/retinaldehyde-cream-serum-0-10',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-smoother-glycolic-acid-body-lotion-8oz': {
+    productSlug: 'naturium-smoother-glycolic-acid-body-lotion-8oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-smoother-glycolic-acid-body-lotion',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
