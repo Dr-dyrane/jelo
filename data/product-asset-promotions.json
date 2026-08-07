@@ -1262,5 +1262,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "55270948000d47bcd14c8389f04e63ed2267a0114e5cc35c729dc1c5a8550015"
+  },
+  {
+    "id": "naturium-skin-renewing-retinol-body-lotion-8oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-skin-renewing-retinol-body-lotion-8oz/packshot-v1-1832ff6e12104230.png",
+    "blobPath": "products/naturium/naturium-skin-renewing-retinol-body-lotion-8oz/packshot-v1-1832ff6e12104230.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-skin-renewing-retinol-body-lotion-8oz/packshot-v1-1832ff6e12104230.png",
+    "contentType": "image/png",
+    "byteSize": 677700,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "1832ff6e12104230d1dc544fcc234147f1037531796c5f864b640e4224f5e0d3"
   }
 ]

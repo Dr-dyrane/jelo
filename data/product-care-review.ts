@@ -1187,6 +1187,46 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-purple-ginseng-cleansing-balm-3oz': {
+    productSlug: 'naturium-purple-ginseng-cleansing-balm-3oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/purple-ginseng-cleansing-balm',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-retinaldehyde-cream-serum-0-05-1-7oz': {
+    productSlug: 'naturium-retinaldehyde-cream-serum-0-05-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/retinaldehyde-cream-serum-0-05',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-kp-body-scrub-mask-8oz': {
+    productSlug: 'naturium-kp-body-scrub-mask-8oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/kp-body-scrub-mask',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-skin-renewing-retinol-body-lotion-8oz': {
+    productSlug: 'naturium-skin-renewing-retinol-body-lotion-8oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/skin-renewing-retinol-body-lotion',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

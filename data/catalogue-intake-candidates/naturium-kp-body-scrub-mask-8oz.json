@@ -1,0 +1,143 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T13:09:00Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "4e1102ce7e01329806a747e8813d37bd5d505cbb16d1714c7601711e34546f77"
+    },
+    "candidate": {
+        "id": "naturium-kp-body-scrub-mask-8oz",
+        "brand": "Naturium",
+        "name": "KP Body Scrub & Mask",
+        "variant": "KP Body Scrub & Mask",
+        "size": "8 oz / 226 mL",
+        "category": "Body care",
+        "reason": "Adds the exact current 8 oz Naturium KP Body Scrub & Mask. Official Shopify structured data publishes GTIN 810120260044. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "kp-body-scrub",
+            "exfoliating-body-care",
+            "body-care"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/kp-body-scrub-mask/",
+            "https://peronabeauty.com/product/naturium-kp-body-scrub-mask/"
+        ],
+        "identity": {
+            "gtin": "810120260044",
+            "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "checkedAt": "2026-08-07T13:08:00Z",
+            "basis": "official-brand",
+            "packageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/kp-body-scrub-mask",
+                "observedGtin": "810120260044",
+                "observedVariant": "KP Body Scrub & Mask",
+                "observedSize": "8 oz / 226 mL",
+                "observedPackageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-kp-body-scrub-mask-8oz.json",
+                "snapshotSha256": "4e1102ce7e01329806a747e8813d37bd5d505cbb16d1714c7601711e34546f77",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 1907,
+                "retrievedAt": "2026-08-07T13:06:28Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-kp-body-scrub-mask-8oz",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "KP Body Scrub & Mask | AHA BHA PHA Exfoliating Body Scrub | Naturium"
+                    },
+                    "sourceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+                    "responseUrl": "https://naturium.com/products/kp-body-scrub-mask",
+                    "retrievedAt": "2026-08-07T13:06:28Z",
+                    "reviewedAt": "2026-08-07T13:08:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "80b61c425fdb8e6ad9ea0490971c362b22b6509137bcfca4a7b03a7de94eed6b",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 852102,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant barcode field",
+                            "sourceText": "\"barcode\":\"810120260044\"",
+                            "value": "810120260044"
+                        },
+                        "variant": {
+                            "locator": "Rendered official Shopify structured product data variant name field",
+                            "sourceText": "KP Body Scrub & Mask",
+                            "value": "KP Body Scrub & Mask"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 8 OZ / 226 mL",
+                            "value": "8 oz / 226 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "KP Body Scrub & Mask 8 OZ / 226 mL jar",
+                            "value": "KP Body Scrub & Mask 8 oz / 226 mL jar"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                            "retrievedAt": "2026-08-07T13:06:28Z",
+                            "responseSha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 363205
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described AHA BHA PHA exfoliating body scrub and mask for keratosis pilaris.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A topical cosmetic body scrub and mask, not a diagnosis or treatment for keratosis pilaris or any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+            "evidenceUrls": [
+                "https://naturium.com/products/kp-body-scrub-mask",
+                "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+            ],
+            "reviewedAt": "2026-08-07T13:08:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+            "sourceAssetSha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 363205,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T13:06:28Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T13:09:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready"
+        }
+    }
+}

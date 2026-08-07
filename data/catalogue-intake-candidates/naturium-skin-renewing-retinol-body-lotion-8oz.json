@@ -1,0 +1,149 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T13:11:00Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "081d68dc0ab45dc329d4648d74c91c70393fe265e520a19dc02f241018de75a7"
+    },
+    "candidate": {
+        "id": "naturium-skin-renewing-retinol-body-lotion-8oz",
+        "brand": "Naturium",
+        "name": "Skin-Renewing Retinol Body Lotion",
+        "variant": "Skin-Renewing Retinol Body Lotion",
+        "size": "8 fl oz / 234 mL",
+        "category": "Body care",
+        "reason": "Adds the exact current 8 fl oz Naturium Skin-Renewing Retinol Body Lotion. Official Shopify structured data publishes GTIN 810120260037. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "retinol-body-lotion",
+            "body-care",
+            "anti-aging-body-care"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/skin-renewing-retinol-body-lotion/",
+            "https://peronabeauty.com/product/naturium-skin-renewing-retinol-body-lotion/"
+        ],
+        "identity": {
+            "gtin": "810120260037",
+            "officialProductUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+            "checkedAt": "2026-08-07T13:10:00Z",
+            "basis": "official-brand",
+            "packageVersion": "Skin-Renewing Retinol Body Lotion 8 fl oz / 234 mL pump bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+                "observedGtin": "810120260037",
+                "observedVariant": "Skin-Renewing Retinol Body Lotion",
+                "observedSize": "8 fl oz / 234 mL",
+                "observedPackageVersion": "Skin-Renewing Retinol Body Lotion 8 fl oz / 234 mL pump bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-skin-renewing-retinol-body-lotion-8oz.json",
+                "snapshotSha256": "081d68dc0ab45dc329d4648d74c91c70393fe265e520a19dc02f241018de75a7",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2041,
+                "retrievedAt": "2026-08-07T13:08:08Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "Retinol Body Lotion For Smoother Looking Skin"
+                    },
+                    "sourceUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+                    "responseUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+                    "retrievedAt": "2026-08-07T13:08:08Z",
+                    "reviewedAt": "2026-08-07T13:10:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "2f1bf8277f7589497677f70a26420ffa132edba1dd538df8dd86619c3fb1793e",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 887004,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant barcode field",
+                            "sourceText": "\"barcode\":\"810120260037\"",
+                            "value": "810120260037"
+                        },
+                        "variant": {
+                            "locator": "Rendered official Shopify structured product data variant name field",
+                            "sourceText": "Skin-Renewing Retinol Body Lotion",
+                            "value": "Skin-Renewing Retinol Body Lotion"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 8 FL OZ / 234 mL",
+                            "value": "8 fl oz / 234 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Skin-Renewing Retinol Body Lotion 8 FL OZ / 234 mL pump bottle",
+                            "value": "Skin-Renewing Retinol Body Lotion 8 fl oz / 234 mL pump bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+                            "retrievedAt": "2026-08-07T13:08:08Z",
+                            "responseSha256": "bd0f085690ef4509f875e5812e8ff71b2ca8128c3a31dcfa635523d65ed70fad",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 695941
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described retinol body lotion for smoother looking skin.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A topical cosmetic body lotion, not a diagnosis or treatment for any skin condition. Introduce gradually, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+            "evidenceUrls": [
+                "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+                "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+            ],
+            "reviewedAt": "2026-08-07T13:10:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+            "sourceAssetSha256": "bd0f085690ef4509f875e5812e8ff71b2ca8128c3a31dcfa635523d65ed70fad",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 695941,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T13:08:08Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T13:11:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-skin-renewing-retinol-body-lotion-8oz/packshot-v1-1832ff6e12104230.png",
+            "publicImageSha256": "1832ff6e12104230d1dc544fcc234147f1037531796c5f864b640e4224f5e0d3",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 677700,
+            "width": 2000,
+            "height": 2000
+        }
+    }
+}

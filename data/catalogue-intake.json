@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T13:02:00Z",
+  "updatedAt": "2026-08-07T13:11:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -17844,6 +17844,139 @@
       }
     },
     {
+      "id": "naturium-kp-body-scrub-mask-8oz",
+      "brand": "Naturium",
+      "name": "KP Body Scrub & Mask",
+      "variant": "KP Body Scrub & Mask",
+      "size": "8 oz / 226 mL",
+      "category": "Body care",
+      "reason": "Adds the exact current 8 oz Naturium KP Body Scrub & Mask. Official Shopify structured data publishes GTIN 810120260044. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "kp-body-scrub",
+        "exfoliating-body-care",
+        "body-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/kp-body-scrub-mask/",
+        "https://peronabeauty.com/product/naturium-kp-body-scrub-mask/"
+      ],
+      "identity": {
+        "gtin": "810120260044",
+        "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "checkedAt": "2026-08-07T13:08:00Z",
+        "basis": "official-brand",
+        "packageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/kp-body-scrub-mask",
+          "observedGtin": "810120260044",
+          "observedVariant": "KP Body Scrub & Mask",
+          "observedSize": "8 oz / 226 mL",
+          "observedPackageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-kp-body-scrub-mask-8oz.json",
+          "snapshotSha256": "4e1102ce7e01329806a747e8813d37bd5d505cbb16d1714c7601711e34546f77",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1907,
+          "retrievedAt": "2026-08-07T13:06:28Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-kp-body-scrub-mask-8oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "KP Body Scrub & Mask | AHA BHA PHA Exfoliating Body Scrub | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "responseUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "retrievedAt": "2026-08-07T13:06:28Z",
+            "reviewedAt": "2026-08-07T13:08:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "80b61c425fdb8e6ad9ea0490971c362b22b6509137bcfca4a7b03a7de94eed6b",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 852102,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260044\"",
+                "value": "810120260044"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "KP Body Scrub & Mask",
+                "value": "KP Body Scrub & Mask"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 8 OZ / 226 mL",
+                "value": "8 oz / 226 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "KP Body Scrub & Mask 8 OZ / 226 mL jar",
+                "value": "KP Body Scrub & Mask 8 oz / 226 mL jar"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                "retrievedAt": "2026-08-07T13:06:28Z",
+                "responseSha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+                "responseMimeType": "image/png",
+                "responseByteSize": 363205
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described AHA BHA PHA exfoliating body scrub and mask for keratosis pilaris.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic body scrub and mask, not a diagnosis or treatment for keratosis pilaris or any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/kp-body-scrub-mask",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T13:08:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+        "sourceAssetSha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 363205,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T13:06:28Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:09:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
       "id": "naturium-marshmallow-root-barrier-balm-1-7oz",
       "brand": "Naturium",
       "name": "Marshmallow Root Barrier Balm",
@@ -19476,6 +19609,139 @@
       }
     },
     {
+      "id": "naturium-purple-ginseng-cleansing-balm-3oz",
+      "brand": "Naturium",
+      "name": "Purple Ginseng Cleansing Balm",
+      "variant": "Purple Ginseng Cleansing Balm",
+      "size": "3.0 fl oz / 88 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 88 mL Naturium Purple Ginseng Cleansing Balm. Official Shopify structured data publishes GTIN 850010792446. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "cleansing-balm",
+        "makeup-removal",
+        "rinse-off-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/purple-ginseng-cleansing-balm/",
+        "https://peronabeauty.com/product/naturium-purple-ginseng-cleansing-balm/"
+      ],
+      "identity": {
+        "gtin": "850010792446",
+        "officialProductUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "checkedAt": "2026-08-07T13:04:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Purple Ginseng Cleansing Balm 3.0 fl oz / 88 mL jar",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+          "observedGtin": "850010792446",
+          "observedVariant": "Purple Ginseng Cleansing Balm",
+          "observedSize": "3.0 fl oz / 88 mL",
+          "observedPackageVersion": "Purple Ginseng Cleansing Balm 3.0 fl oz / 88 mL jar",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-purple-ginseng-cleansing-balm-3oz.json",
+          "snapshotSha256": "ce44c2f521c072a519a88f4ff82221e84f8a04e638c481c175ecbe6968946aa9",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2037,
+          "retrievedAt": "2026-08-07T13:02:35Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Purple Ginseng Cleansing Balm | Makeup Melting Balm Cleanser | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+            "responseUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+            "retrievedAt": "2026-08-07T13:02:35Z",
+            "reviewedAt": "2026-08-07T13:04:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "b2da63180609de1c8fa1a79ad8f9d88e387b9459c21fc5442e6fedbd23a56e6d",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 840239,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792446\"",
+                "value": "850010792446"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Purple Ginseng Cleansing Balm",
+                "value": "Purple Ginseng Cleansing Balm"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 3.0 FL OZ / 88 mL",
+                "value": "3.0 fl oz / 88 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Purple Ginseng Cleansing Balm 3.0 FL OZ / 88 mL jar",
+                "value": "Purple Ginseng Cleansing Balm 3.0 fl oz / 88 mL jar"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
+                "retrievedAt": "2026-08-07T13:02:35Z",
+                "responseSha256": "c1177343b8459a18256c5f4c8d9e6e18586300098301534546f3dafcc2817951",
+                "responseMimeType": "image/png",
+                "responseByteSize": 436344
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described purple ginseng makeup melting balm cleanser.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic cleanser, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://naturium.com/products/purple-ginseng-cleansing-balm",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-07T13:04:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
+        "sourceAssetSha256": "c1177343b8459a18256c5f4c8d9e6e18586300098301534546f3dafcc2817951",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 436344,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T13:02:35Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:05:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
       "id": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
       "brand": "Naturium",
       "name": "Quadruple Hyaluronic Acid Serum 5%",
@@ -19612,6 +19878,139 @@
         "publicImageByteSize": 311242,
         "width": 2000,
         "height": 2000
+      }
+    },
+    {
+      "id": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+      "brand": "Naturium",
+      "name": "Retinaldehyde Cream Serum 0.05%",
+      "variant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 50 mL Naturium Retinaldehyde Cream Serum 0.05%. Official Shopify structured data publishes GTIN 810120260013. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "retinaldehyde",
+        "anti-aging-support",
+        "leave-on-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/retinaldehyde-cream-serum-0-05/",
+        "https://peronabeauty.com/product/naturium-retinaldehyde-cream-serum-0-05/"
+      ],
+      "identity": {
+        "gtin": "810120260013",
+        "officialProductUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "checkedAt": "2026-08-07T13:06:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+          "observedGtin": "810120260013",
+          "observedVariant": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+          "observedSize": "1.7 fl oz / 50 mL",
+          "observedPackageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-retinaldehyde-cream-serum-0-05-1-7oz.json",
+          "snapshotSha256": "835bb24e5d8aad08b3e71789212105afbb3bcd38dac86be3af1cf4a0df8e6198",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2063,
+          "retrievedAt": "2026-08-07T13:04:30Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Retinaldehyde Cream Serum 0.05% | Retinol Serum for Smoother Skin | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+            "responseUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+            "retrievedAt": "2026-08-07T13:04:30Z",
+            "reviewedAt": "2026-08-07T13:06:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "72b1978c517644622692e523e9d6ae718a9c0991eb467850a9ff17c5907bff93",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 852774,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260013\"",
+                "value": "810120260013"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Retinaldehyde Cream Serum 0.05% - 0.05%",
+                "value": "Retinaldehyde Cream Serum 0.05% - 0.05%"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+                "value": "1.7 fl oz / 50 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Retinaldehyde Cream Serum 0.05% 1.7 FL OZ / 50 mL tube",
+                "value": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+                "retrievedAt": "2026-08-07T13:04:30Z",
+                "responseSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
+                "responseMimeType": "image/png",
+                "responseByteSize": 413568
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described 0.05% retinaldehyde cream serum for smoother skin.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic retinaldehyde serum, not a diagnosis or treatment for any skin condition. Introduce gradually (2-3 nights per week), avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-07T13:06:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+        "sourceAssetSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 413568,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T13:04:30Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:07:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
       }
     },
     {
@@ -20027,6 +20426,145 @@
         "publicImageSha256": "41a112ced6d3b459277ef9de8febf9eff52045f4d0f8f70d1e9e2d393a572698",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 578968,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "brand": "Naturium",
+      "name": "Skin-Renewing Retinol Body Lotion",
+      "variant": "Skin-Renewing Retinol Body Lotion",
+      "size": "8 fl oz / 234 mL",
+      "category": "Body care",
+      "reason": "Adds the exact current 8 fl oz Naturium Skin-Renewing Retinol Body Lotion. Official Shopify structured data publishes GTIN 810120260037. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "retinol-body-lotion",
+        "body-care",
+        "anti-aging-body-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/skin-renewing-retinol-body-lotion/",
+        "https://peronabeauty.com/product/naturium-skin-renewing-retinol-body-lotion/"
+      ],
+      "identity": {
+        "gtin": "810120260037",
+        "officialProductUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+        "checkedAt": "2026-08-07T13:10:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Skin-Renewing Retinol Body Lotion 8 fl oz / 234 mL pump bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+          "observedGtin": "810120260037",
+          "observedVariant": "Skin-Renewing Retinol Body Lotion",
+          "observedSize": "8 fl oz / 234 mL",
+          "observedPackageVersion": "Skin-Renewing Retinol Body Lotion 8 fl oz / 234 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-skin-renewing-retinol-body-lotion-8oz.json",
+          "snapshotSha256": "081d68dc0ab45dc329d4648d74c91c70393fe265e520a19dc02f241018de75a7",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2041,
+          "retrievedAt": "2026-08-07T13:08:08Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Retinol Body Lotion For Smoother Looking Skin"
+            },
+            "sourceUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+            "responseUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+            "retrievedAt": "2026-08-07T13:08:08Z",
+            "reviewedAt": "2026-08-07T13:10:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "2f1bf8277f7589497677f70a26420ffa132edba1dd538df8dd86619c3fb1793e",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 887004,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260037\"",
+                "value": "810120260037"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Skin-Renewing Retinol Body Lotion",
+                "value": "Skin-Renewing Retinol Body Lotion"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 8 FL OZ / 234 mL",
+                "value": "8 fl oz / 234 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Skin-Renewing Retinol Body Lotion 8 FL OZ / 234 mL pump bottle",
+                "value": "Skin-Renewing Retinol Body Lotion 8 fl oz / 234 mL pump bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+                "retrievedAt": "2026-08-07T13:08:08Z",
+                "responseSha256": "bd0f085690ef4509f875e5812e8ff71b2ca8128c3a31dcfa635523d65ed70fad",
+                "responseMimeType": "image/png",
+                "responseByteSize": 695941
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described retinol body lotion for smoother looking skin.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic body lotion, not a diagnosis or treatment for any skin condition. Introduce gradually, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T13:10:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+        "sourceAssetSha256": "bd0f085690ef4509f875e5812e8ff71b2ca8128c3a31dcfa635523d65ed70fad",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 695941,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T13:08:08Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:11:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-skin-renewing-retinol-body-lotion-8oz/packshot-v1-1832ff6e12104230.png",
+        "publicImageSha256": "1832ff6e12104230d1dc544fcc234147f1037531796c5f864b640e4224f5e0d3",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 677700,
         "width": 2000,
         "height": 2000
       }

@@ -3148,5 +3148,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR-Retinol_body_lotion_front_bone.webp?v=1774293199&width=2048",
+      "sha256": "bd0f085690ef4509f875e5812e8ff71b2ca8128c3a31dcfa635523d65ed70fad",
+      "byteSize": 695941,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T13:08:08Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810120260037"
+      },
+      "officialProductUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "c863873087d549bc29ea923b414a7b39f0b438d71d38f20114205905640d512a",
+      "generatedAt": "2026-08-07T13:09:59Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "1832ff6e12104230d1dc544fcc234147f1037531796c5f864b640e4224f5e0d3",
+      "byteSize": 677700,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T13:11:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T13:11:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "c863873087d549bc29ea923b414a7b39f0b438d71d38f20114205905640d512a",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

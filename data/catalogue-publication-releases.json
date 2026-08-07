@@ -2257,6 +2257,30 @@
         "publishedAt": "2026-08-07T13:04:00Z"
       },
       "releaseFingerprint": "d7859b3fc464e02c6cb4e7c4c1d10621652033974461aba68bcd11f412510acc"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "dossierFingerprint": "0fef8546d463223be3a99936e36583c38d42e878011616845aad862fc91a9e33",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Skin-Renewing Retinol Body Lotion 8 fl oz",
+        "usage": "Apply to clean dry skin evening start 2-3 nights per week",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/skin-renewing-retinol-body-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T13:12:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T13:13:00Z"
+      },
+      "releaseFingerprint": "1ccdabffec1709dfdacfdd8f491c952e7927a3aeaf5004009cfe58953a8bdd43"
     }
   ]
 }
