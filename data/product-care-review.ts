@@ -907,6 +907,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-glow-getter-multi-oil-body-scrub-8oz': {
+    productSlug: 'naturium-glow-getter-multi-oil-body-scrub-8oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-glow-getter-multi-oil-body-scrub',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-alpha-arbutin-serum-2-percent-1fl-oz': {
+    productSlug: 'naturium-alpha-arbutin-serum-2-percent-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/alpha-arbutin-serum-2',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

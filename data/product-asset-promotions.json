@@ -939,5 +939,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "71223533980f7c456b406f833af4fe57b2af37ec90239dd9d834b54e59dd8f59"
+  },
+  {
+    "id": "naturium-alpha-arbutin-serum-2-percent-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_AA-Serum_CapOn.webp?v=1774296886&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-alpha-arbutin-serum-2-percent-1fl-oz/packshot-v1-f643ea8e35178060.png",
+    "blobPath": "products/naturium/naturium-alpha-arbutin-serum-2-percent-1fl-oz/packshot-v1-f643ea8e35178060.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-alpha-arbutin-serum-2-percent-1fl-oz/packshot-v1-f643ea8e35178060.png",
+    "contentType": "image/png",
+    "byteSize": 292864,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "f643ea8e35178060a9317a955ec7fcd843c7b5196baf66364c41a33d56f6dbb0"
   }
 ]

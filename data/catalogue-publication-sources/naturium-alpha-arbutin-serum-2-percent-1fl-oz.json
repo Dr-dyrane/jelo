@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+    "candidateFingerprint": "bef0bea335a3ee75d008fb22a55c409e9b09f7d2f0851bf894c14134939171e4",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792248",
+      "brand": "Naturium",
+      "name": "Alpha Arbutin Serum 2%",
+      "variant": "Alpha Arbutin Serum 2%",
+      "size": "1.0 fl oz / 30 mL",
+      "packageVersion": "Alpha Arbutin Serum 2% 1.0 fl oz / 30 mL dropper bottle",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/alpha-arbutin-serum-2",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/alpha-arbutin-serum-2",
+        "observedGtin": "850010792248",
+        "observedVariant": "Alpha Arbutin Serum 2%",
+        "observedSize": "1.0 fl oz / 30 mL",
+        "observedPackageVersion": "Alpha Arbutin Serum 2% 1.0 fl oz / 30 mL dropper bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-alpha-arbutin-serum-2-percent-1fl-oz.json",
+        "snapshotSha256": "4b2982e70e4c9201885aad13b036ecee6d0f7da84555d709c4d39c236a026fa8",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1945,
+        "retrievedAt": "2026-08-07T11:40:29Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Alpha Arbutin Serum 2% | Niacinamide & Lemon Fruit Extract | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/alpha-arbutin-serum-2",
+          "responseUrl": "https://naturium.com/products/alpha-arbutin-serum-2",
+          "retrievedAt": "2026-08-07T11:40:29Z",
+          "reviewedAt": "2026-08-07T11:41:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "873005e32c1989dee743af3ca3c9386bb61b11b2c19812baad14cefe219c1e26",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 831174,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"850010792248\"",
+              "value": "850010792248"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Alpha Arbutin Serum 2%",
+              "value": "Alpha Arbutin Serum 2%"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+              "value": "1.0 fl oz / 30 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_AA-Serum_CapOn.webp?v=1774296886&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_AA-Serum_CapOn.webp?v=1774296886&width=2048",
+              "retrievedAt": "2026-08-07T11:40:29Z",
+              "responseSha256": "c0b3959aac791c908974ee02eb98aa2dc721bb80570fd623346461acfecc72a6",
+              "responseMimeType": "image/png",
+              "responseByteSize": 282662
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T11:41:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/alpha-arbutin-serum-2/",
+        "https://peronabeauty.com/product/naturium-alpha-arbutin-serum-2/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described alpha arbutin brightening face serum.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for melasma, hyperpigmentation, or another condition. Introduce cautiously, use AM SPF, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/alpha-arbutin-serum-2",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://naturium.com/products/alpha-arbutin-serum-2",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T11:41:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/alpha-arbutin-serum-2",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_AA-Serum_CapOn.webp?v=1774296886&width=2048",
+        "sha256": "c0b3959aac791c908974ee02eb98aa2dc721bb80570fd623346461acfecc72a6",
+        "mimeType": "image/png",
+        "byteSize": 282662,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T11:40:29Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_AA-Serum_CapOn.webp?v=1774296886&width=2048",
+          "sha256": "c0b3959aac791c908974ee02eb98aa2dc721bb80570fd623346461acfecc72a6",
+          "byteSize": 282662,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:40:29Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792248"
+          },
+          "officialProductUrl": "https://naturium.com/products/alpha-arbutin-serum-2"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "d71f56d2d74745e903286c00399e58444b8f0ea2b9e603e85e293426c50326e3",
+          "generatedAt": "2026-08-07T11:41:32Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "f643ea8e35178060a9317a955ec7fcd843c7b5196baf66364c41a33d56f6dbb0",
+          "byteSize": 292864,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T11:42:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T11:42:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "d71f56d2d74745e903286c00399e58444b8f0ea2b9e603e85e293426c50326e3",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-alpha-arbutin-serum-2-percent-1fl-oz/packshot-v1-f643ea8e35178060.png",
+      "sha256": "f643ea8e35178060a9317a955ec7fcd843c7b5196baf66364c41a33d56f6dbb0",
+      "mimeType": "image/png",
+      "byteSize": 292864,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T11:42:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T11:43:00Z"
+    },
+    "dossierFingerprint": "ea6d2b422c3cfef03661065094c52e4cabdce7e6e016202b4c2f495433f7cb27"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+    "dossierFingerprint": "ea6d2b422c3cfef03661065094c52e4cabdce7e6e016202b4c2f495433f7cb27",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Alpha Arbutin Serum 2% 1.0 fl oz",
+      "usage": "Apply 4-5 drops to clean dry skin morning and evening",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/alpha-arbutin-serum-2",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T11:43:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T11:44:00Z"
+    },
+    "releaseFingerprint": "8e316bf2cdd75e6eef7b4b0ecdc856dc0e59eac2d9424630e600d1ba390b787b"
+  }
+}

@@ -1,0 +1,143 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T11:39:30Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "31e60f8b4e9ba15615914cd3e07e345a90c8bb11db81aefca0b30208a699b910"
+    },
+    "candidate": {
+        "id": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+        "brand": "Naturium",
+        "name": "The Glow Getter Multi-Oil Body Scrub",
+        "variant": "The Glow Getter Multi-Oil Body Scrub",
+        "size": "8 oz / 226 mL",
+        "category": "Body care",
+        "reason": "Adds the exact current 8 oz Naturium Glow Getter Multi-Oil Body Scrub. Official Shopify structured data publishes GTIN 810120263076. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "body-scrub",
+            "exfoliating-body-care",
+            "multi-oil-care"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/the-glow-getter-multi-oil-body-scrub/",
+            "https://peronabeauty.com/product/naturium-glow-getter-multi-oil-body-scrub/"
+        ],
+        "identity": {
+            "gtin": "810120263076",
+            "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+            "checkedAt": "2026-08-07T11:39:30Z",
+            "basis": "official-brand",
+            "packageVersion": "The Glow Getter Multi-Oil Body Scrub 8 oz / 226 mL jar",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+                "observedGtin": "810120263076",
+                "observedVariant": "The Glow Getter Multi-Oil Body Scrub",
+                "observedSize": "8 oz / 226 mL",
+                "observedPackageVersion": "The Glow Getter Multi-Oil Body Scrub 8 oz / 226 mL jar",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-glow-getter-multi-oil-body-scrub-8oz.json",
+                "snapshotSha256": "31e60f8b4e9ba15615914cd3e07e345a90c8bb11db81aefca0b30208a699b910",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2036,
+                "retrievedAt": "2026-08-07T11:38:56Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "The Glow Getter Multi-Oil Body Scrub"
+                    },
+                    "sourceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+                    "responseUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+                    "retrievedAt": "2026-08-07T11:38:56Z",
+                    "reviewedAt": "2026-08-07T11:39:30Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "bbd76cf5d87430b5e775f6974787ac9440fd0cd8cad9b82c4f0d47ac13904a23",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 901485,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"810120263076\"",
+                            "value": "810120263076"
+                        },
+                        "variant": {
+                            "locator": "Rendered official product heading",
+                            "sourceText": "The Glow Getter Multi-Oil Body Scrub",
+                            "value": "The Glow Getter Multi-Oil Body Scrub"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 8 OZ / 226 mL",
+                            "value": "8 oz / 226 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "The Glow Getter Multi-Oil Body Scrub 8 OZ / 226 mL jar",
+                            "value": "The Glow Getter Multi-Oil Body Scrub 8 oz / 226 mL jar"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+                            "retrievedAt": "2026-08-07T11:38:56Z",
+                            "responseSha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 526200
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described multi-oil exfoliating body scrub.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A rinse-off cosmetic body scrub, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+            "evidenceUrls": [
+                "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+                "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+            ],
+            "reviewedAt": "2026-08-07T11:39:30Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+            "sourceAssetSha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 526200,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T11:38:56Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T11:39:30Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready"
+        }
+    }
+}
