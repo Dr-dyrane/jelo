@@ -120,30 +120,15 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "official-brand-media",
+      "origin": "owned-identity-verified-render",
       "role": "packshot",
-      "rightsUrl": "https://naturium.com/products/purple-ginseng-cleansing-balm",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Purple-Ginseng-Cleansing-Balm_front.webp?v=1774290539&width=2048",
       "sourceAssetSha256": "c1177343b8459a18256c5f4c8d9e6e18586300098301534546f3dafcc2817951",
       "sourceAssetMimeType": "image/png",
       "sourceAssetByteSize": 436344,
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
-      "sourceAssetRetrievedAt": "2026-08-07T13:04:23Z",
-      "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
-      "labelVariantSizeUnchanged": true,
-      "packagingInvented": false,
-      "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-08-07T13:04:23Z",
-      "artReviewer": "Codex visual audit",
-      "presentationQuality": "magazine-ready",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-purple-ginseng-cleansing-balm-3oz/packshot-v1-7487b807a85dabe01ea690b439f029debdffda61a50cefda20f268f640e1a05e.png",
-      "publicImageSha256": "7487b807a85dabe01ea690b439f029debdffda61a50cefda20f268f640e1a05e",
-      "publicImageMimeType": "image/png",
-      "publicImageByteSize": 795508,
-      "width": 2000,
-      "height": 2000
+      "sourceAssetRetrievedAt": "2026-08-07T13:04:23Z"
     }
   }
 }

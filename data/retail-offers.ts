@@ -563,6 +563,28 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/la-roche-posay-effaclar-purifying-foaming-wash/', 78, 24000, 'La Roche Posay Effaclar Purifying Foaming Wash 400ml', '400 ml'),
     exactNg('Teeka4', 'https://teeka4.com/shop/la-roche-posay-effaclar-purifying-foaming-gel-cleanser-400ml/', 98, 20999, 'La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml', '400 ml'),
   ],
+  'abib-clear-spot-serum-7-325-30ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/', 97, 16500, 'ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml', '30 ml', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
+  'abib-heartleaf-foam-cleanser-150ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/abib-heartleaf-acne-foam-cleanser-150ml/', 97, 11900, 'ABIB Heartleaf Acne Foam Cleanser 150ml', '150 ml', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
+  'elf-suntouchable-invisible-sunscreen-spf-35-50ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/', 97, 28200, 'ELF Invisible Sunscreen (Suntouchable) 50ml', '50 ml', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
+  'neutrogena-light-sesame-body-oil-8-5oz': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/neutrogena-light-sesame-formula-body-oil-8-5-oz-250ml/', 97, 20000, 'NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml', '8.5 fl oz', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'in-stock' }),
+    exactNg('Slique Beauty', 'https://sliquebeautylimited.com/product/neutrogena-body-oil-250ml/', 85, 25500, 'NEUTROGENA Light Sesame Formula Body Oil', '8.5 fl oz / 250 ml', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
+  'nineless-a-control-azelaic-acid-cream-50ml': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/nineless-a-control-azelaic-acid-cream-50ml/', 97, 14500, 'NINELESS A-Control Azelaic Acid Cream 50ml', '50 ml', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
+  'panoxyl-acne-creamy-wash-4-170g': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-control-4/', 97, 13250, 'PANOXYL Acne Creamy Wash Benzoyl Peroxide Control 4% 170g', '170 g', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
+  'replenix-bp-10-acne-wash-aloe-vera-7oz': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/', 97, 30100, 'REPLENIX 10% Acne Wash + Aloe Vera Benzoyl Peroxide Acne Wash 200ml', '7 oz', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
 };
 
 const excludedRetailers: Partial<Record<string, string[]>> = {
