@@ -3,23 +3,23 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-08-05T03:31:47.088Z",
+  "generatedAt": "2026-08-07T16:27:20.230Z",
   "source": {
-    "researchPacketsSha256": "e8998393a6288b271cc1378b4bf0b0b73358a4a98bfe41735c174037fc0239b7",
+    "researchPacketsSha256": "aba3334f83d32633e7d4b17ec1ea69183788577730e8007b1f31bfdc074d477a",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
     "packetCount": 9,
     "packetIds": [
-      "459b8806590d2750e22a8906",
-      "586ef0ac5c086de562296593",
-      "656a1a60466fc29f11d0059f",
-      "8146f37c47cff6d9cd0c6193",
-      "863eec92f7291e3d307be521",
-      "9cb4a3ee328b1dec80f44f6c",
-      "cbc834ef2dfe1921106b9ad0",
       "de73b1b69dc56e877ea37999",
-      "ed48f1fea49846a7db551502"
+      "863eec92f7291e3d307be521",
+      "586ef0ac5c086de562296593",
+      "8146f37c47cff6d9cd0c6193",
+      "ed48f1fea49846a7db551502",
+      "cbc834ef2dfe1921106b9ad0",
+      "9cb4a3ee328b1dec80f44f6c",
+      "656a1a60466fc29f11d0059f",
+      "459b8806590d2750e22a8906"
     ],
     "responseCount": 9
   },

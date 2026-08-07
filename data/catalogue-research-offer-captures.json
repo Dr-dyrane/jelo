@@ -3,159 +3,135 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-08-05T03:31:47.088Z",
+  "generatedAt": "2026-08-07T16:27:20.230Z",
   "source": {
-    "researchPacketProjectionSha256": "933eecada71abdfa74b71302f5cc652e4d1f2635631829e74a8748ef2d791729",
+    "researchPacketProjectionSha256": "15e6e837f7bb445dda8455d1289c3ac99d25b3cfb8e0eeb3415d7a86a2d88f7a",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 41,
+    "packetCount": 39,
     "packetIds": [
-      "16904e359f5d8aed4df6ca91",
-      "258b05593ae6b7cb1e1d5ddf",
+      "1920014afae80ba00e4169ca",
+      "b55494943c535dd1b7f63929",
+      "d4f0fa500b7c661235f056d8",
+      "c513f8766b8a5963d380ecfc",
+      "d8b1ae52cb7da0eb678282e9",
+      "9461a4a54aec53613167f7c5",
+      "37a75aa63b334a44df82d6c2",
+      "95ae7ea127cc3fa98e364ebf",
+      "42f32d48d0fbcf7e7f56607a",
+      "f020ac8386430486b94e1ce2",
+      "e6c412ff66aded226f1b11d7",
       "32f7b0d9d472895d9c2d43f2",
-      "7108e00bfaf03e02b749a0f4",
-      "779abfc23925ba26c3b6d14b",
-      "92b7380b76ea55d58e387244",
+      "aff07100d6424f43489e1eb0",
+      "ff4b61e5e7b3c86b68407794",
+      "a58cf5de47116310cc34e91a",
+      "861874fd1cfe8bb36f77912b",
+      "42a91a1bc91841763d974680",
+      "a86b042330160d53b65b056e",
+      "69bf90baf39309039402ae19",
+      "de73b1b69dc56e877ea37999",
+      "863eec92f7291e3d307be521",
+      "586ef0ac5c086de562296593",
+      "8146f37c47cff6d9cd0c6193",
+      "ed48f1fea49846a7db551502",
+      "cbc834ef2dfe1921106b9ad0",
+      "9cb4a3ee328b1dec80f44f6c",
+      "656a1a60466fc29f11d0059f",
+      "459b8806590d2750e22a8906",
+      "e7b8894ebe80c275ee8cb391",
+      "c9a1d5e6b6b260984c2463d0",
       "af7e509f9b6ff6e4c83a0eb6",
       "bc30eadf44f2f7a2d9f4f144",
-      "c9a1d5e6b6b260984c2463d0",
-      "e6c412ff66aded226f1b11d7",
-      "e7b8894ebe80c275ee8cb391",
-      "1920014afae80ba00e4169ca",
-      "37a75aa63b334a44df82d6c2",
-      "40b98e378e2d706b14d203c6",
-      "42f32d48d0fbcf7e7f56607a",
-      "5e5eaf99bf5cf8c6218633cd",
-      "9461a4a54aec53613167f7c5",
-      "95ae7ea127cc3fa98e364ebf",
-      "b55494943c535dd1b7f63929",
-      "c513f8766b8a5963d380ecfc",
-      "d4f0fa500b7c661235f056d8",
-      "d8b1ae52cb7da0eb678282e9",
-      "f020ac8386430486b94e1ce2",
-      "42a91a1bc91841763d974680",
-      "861874fd1cfe8bb36f77912b",
-      "8c9317ef63c239fa932e1f1b",
-      "a58cf5de47116310cc34e91a",
-      "aff07100d6424f43489e1eb0",
+      "779abfc23925ba26c3b6d14b",
+      "7108e00bfaf03e02b749a0f4",
+      "92b7380b76ea55d58e387244",
+      "258b05593ae6b7cb1e1d5ddf",
+      "16904e359f5d8aed4df6ca91",
       "d11231e8aa7256f65a5b6ddd",
-      "ff4b61e5e7b3c86b68407794",
-      "459b8806590d2750e22a8906",
-      "586ef0ac5c086de562296593",
-      "656a1a60466fc29f11d0059f",
-      "8146f37c47cff6d9cd0c6193",
-      "863eec92f7291e3d307be521",
-      "9cb4a3ee328b1dec80f44f6c",
-      "cbc834ef2dfe1921106b9ad0",
-      "de73b1b69dc56e877ea37999",
-      "ed48f1fea49846a7db551502",
-      "69bf90baf39309039402ae19",
-      "a86b042330160d53b65b056e"
+      "8c9317ef63c239fa932e1f1b"
     ],
-    "responseCount": 63
+    "responseCount": 59
   },
   "sources": [
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/58669f2531107bf51cde7daed1c91b6f52e6b1c911818bbeb4fc2f872044317f.json",
-      "sourceSha256": "58669f2531107bf51cde7daed1c91b6f52e6b1c911818bbeb4fc2f872044317f",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/a67f80bfac6e328abffe28f1d5f78ff494ab6dd480b27333b2560c2d1744b47b.json",
-      "researchPacketSourceSha256": "a67f80bfac6e328abffe28f1d5f78ff494ab6dd480b27333b2560c2d1744b47b",
-      "packetCount": 11,
-      "packetIds": [
-        "16904e359f5d8aed4df6ca91",
-        "258b05593ae6b7cb1e1d5ddf",
-        "32f7b0d9d472895d9c2d43f2",
-        "7108e00bfaf03e02b749a0f4",
-        "779abfc23925ba26c3b6d14b",
-        "92b7380b76ea55d58e387244",
-        "af7e509f9b6ff6e4c83a0eb6",
-        "bc30eadf44f2f7a2d9f4f144",
-        "c9a1d5e6b6b260984c2463d0",
-        "e6c412ff66aded226f1b11d7",
-        "e7b8894ebe80c275ee8cb391"
-      ],
-      "responseCount": 21
-    },
-    {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/473a4db9fac3ee6d000815079f1563e24f641abd8eb94ca65efef1a1fefecb11.json",
-      "sourceSha256": "473a4db9fac3ee6d000815079f1563e24f641abd8eb94ca65efef1a1fefecb11",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ae5f0ad249bcf512a0a9444de6fe082c71a81f4bfd9df4332bdae58b4a45dbef.json",
-      "researchPacketSourceSha256": "ae5f0ad249bcf512a0a9444de6fe082c71a81f4bfd9df4332bdae58b4a45dbef",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/39d5c8638345f5ab1e32e4a7dd8b8b974027e6049dd5a3acdd9bc8b6dc20fa87.json",
+      "sourceSha256": "39d5c8638345f5ab1e32e4a7dd8b8b974027e6049dd5a3acdd9bc8b6dc20fa87",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/db3613a7b0fe6d288d3f48c352a12e094734a37ba70710ba5928d235ec6c6e11.json",
+      "researchPacketSourceSha256": "db3613a7b0fe6d288d3f48c352a12e094734a37ba70710ba5928d235ec6c6e11",
       "packetCount": 12,
       "packetIds": [
         "1920014afae80ba00e4169ca",
-        "37a75aa63b334a44df82d6c2",
-        "40b98e378e2d706b14d203c6",
-        "42f32d48d0fbcf7e7f56607a",
-        "5e5eaf99bf5cf8c6218633cd",
-        "9461a4a54aec53613167f7c5",
-        "95ae7ea127cc3fa98e364ebf",
         "b55494943c535dd1b7f63929",
-        "c513f8766b8a5963d380ecfc",
         "d4f0fa500b7c661235f056d8",
+        "c513f8766b8a5963d380ecfc",
         "d8b1ae52cb7da0eb678282e9",
-        "f020ac8386430486b94e1ce2"
+        "9461a4a54aec53613167f7c5",
+        "37a75aa63b334a44df82d6c2",
+        "95ae7ea127cc3fa98e364ebf",
+        "42f32d48d0fbcf7e7f56607a",
+        "f020ac8386430486b94e1ce2",
+        "e6c412ff66aded226f1b11d7",
+        "32f7b0d9d472895d9c2d43f2"
       ],
       "responseCount": 24
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/d63e6598056aec69b859427de5d2d8a4aab2ad87c82d90930869f74e86fa9b7b.json",
-      "sourceSha256": "d63e6598056aec69b859427de5d2d8a4aab2ad87c82d90930869f74e86fa9b7b",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5.json",
-      "researchPacketSourceSha256": "da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/ae3bf57de14fc65add217fc6bc97f4258115f8dd4c5ed7d76993369293d15458.json",
+      "sourceSha256": "ae3bf57de14fc65add217fc6bc97f4258115f8dd4c5ed7d76993369293d15458",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ed51894027d8d4ff1801c7acf6da5aafbfe6bf9de025717de97c74f0964f415a.json",
+      "researchPacketSourceSha256": "ed51894027d8d4ff1801c7acf6da5aafbfe6bf9de025717de97c74f0964f415a",
       "packetCount": 7,
       "packetIds": [
-        "42a91a1bc91841763d974680",
-        "861874fd1cfe8bb36f77912b",
-        "8c9317ef63c239fa932e1f1b",
-        "a58cf5de47116310cc34e91a",
         "aff07100d6424f43489e1eb0",
-        "d11231e8aa7256f65a5b6ddd",
-        "ff4b61e5e7b3c86b68407794"
+        "ff4b61e5e7b3c86b68407794",
+        "a58cf5de47116310cc34e91a",
+        "861874fd1cfe8bb36f77912b",
+        "42a91a1bc91841763d974680",
+        "a86b042330160d53b65b056e",
+        "69bf90baf39309039402ae19"
       ],
       "responseCount": 7
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/1a572ea348dc2d7f752c242695c5b6f959474f3a248c378ab084568a29e6494e.json",
-      "sourceSha256": "1a572ea348dc2d7f752c242695c5b6f959474f3a248c378ab084568a29e6494e",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/e8998393a6288b271cc1378b4bf0b0b73358a4a98bfe41735c174037fc0239b7.json",
-      "researchPacketSourceSha256": "e8998393a6288b271cc1378b4bf0b0b73358a4a98bfe41735c174037fc0239b7",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/201c6ef9173eec9747ea756d84fb2d213783bef86a1e317fa921dd92c300549a.json",
+      "sourceSha256": "201c6ef9173eec9747ea756d84fb2d213783bef86a1e317fa921dd92c300549a",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/aba3334f83d32633e7d4b17ec1ea69183788577730e8007b1f31bfdc074d477a.json",
+      "researchPacketSourceSha256": "aba3334f83d32633e7d4b17ec1ea69183788577730e8007b1f31bfdc074d477a",
       "packetCount": 9,
       "packetIds": [
-        "459b8806590d2750e22a8906",
-        "586ef0ac5c086de562296593",
-        "656a1a60466fc29f11d0059f",
-        "8146f37c47cff6d9cd0c6193",
-        "863eec92f7291e3d307be521",
-        "9cb4a3ee328b1dec80f44f6c",
-        "cbc834ef2dfe1921106b9ad0",
         "de73b1b69dc56e877ea37999",
-        "ed48f1fea49846a7db551502"
+        "863eec92f7291e3d307be521",
+        "586ef0ac5c086de562296593",
+        "8146f37c47cff6d9cd0c6193",
+        "ed48f1fea49846a7db551502",
+        "cbc834ef2dfe1921106b9ad0",
+        "9cb4a3ee328b1dec80f44f6c",
+        "656a1a60466fc29f11d0059f",
+        "459b8806590d2750e22a8906"
       ],
       "responseCount": 9
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/f7b7ff73cf18b104922c63104e6138f106ff722da9ddff3ac94f474f2f8d9716.json",
-      "sourceSha256": "f7b7ff73cf18b104922c63104e6138f106ff722da9ddff3ac94f474f2f8d9716",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5.json",
-      "researchPacketSourceSha256": "da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5",
-      "packetCount": 1,
+      "sourcePath": "data/catalogue-research-offer-capture-sources/d35a13cb1a290355ab34dc095a6dbf69b698285a7ef47ff16f5ded10f24a5bae.json",
+      "sourceSha256": "d35a13cb1a290355ab34dc095a6dbf69b698285a7ef47ff16f5ded10f24a5bae",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/cbc33107562cab134324b64b3342f75167abef63df5e02ecf6787621e84fcdc2.json",
+      "researchPacketSourceSha256": "cbc33107562cab134324b64b3342f75167abef63df5e02ecf6787621e84fcdc2",
+      "packetCount": 11,
       "packetIds": [
-        "69bf90baf39309039402ae19"
+        "e7b8894ebe80c275ee8cb391",
+        "c9a1d5e6b6b260984c2463d0",
+        "af7e509f9b6ff6e4c83a0eb6",
+        "bc30eadf44f2f7a2d9f4f144",
+        "779abfc23925ba26c3b6d14b",
+        "7108e00bfaf03e02b749a0f4",
+        "92b7380b76ea55d58e387244",
+        "258b05593ae6b7cb1e1d5ddf",
+        "16904e359f5d8aed4df6ca91",
+        "d11231e8aa7256f65a5b6ddd",
+        "8c9317ef63c239fa932e1f1b"
       ],
-      "responseCount": 1
-    },
-    {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/70767d84ff833d19c9730c4b4653e8aac1bcd43d56b1825ea9c627f522a7bab9.json",
-      "sourceSha256": "70767d84ff833d19c9730c4b4653e8aac1bcd43d56b1825ea9c627f522a7bab9",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5.json",
-      "researchPacketSourceSha256": "da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5",
-      "packetCount": 1,
-      "packetIds": [
-        "a86b042330160d53b65b056e"
-      ],
-      "responseCount": 1
+      "responseCount": 19
     }
   ],
   "qualityCautions": [],
@@ -467,74 +443,6 @@
       }
     },
     {
-      "id": "1a19a40e5f6aa0163df6411a",
-      "packetId": "40b98e378e2d706b14d203c6",
-      "discoveryId": "e0574c12b77f4a4eafd63ed0",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/e0574c12b77f4a4eafd63ed0--buybetter.json",
-      "source": {
-        "productId": 377469,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
-        "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrating-bright-body-gel-wash-1000ml/",
-        "capturedAt": "2026-07-28T14:40:36.349Z",
-        "responseSha256": "65cf621609602181a7cc75e139012a42bde11e6a901b40a073472e8e94b8dcf2",
-        "responseByteSize": 11492,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
-        "size": "1000ml",
-        "price": {
-          "amount": 10750,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "4897073186566",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "c487910477e8dd2da129c27d",
-      "packetId": "40b98e378e2d706b14d203c6",
-      "discoveryId": "e0574c12b77f4a4eafd63ed0",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/e0574c12b77f4a4eafd63ed0--slique-beauty.json",
-      "source": {
-        "productId": 23687,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
-        "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-hydrating-bright/",
-        "capturedAt": "2026-07-28T14:40:35.788Z",
-        "responseSha256": "23e0cc3774c4f34bb3e650290c6607eafdf73fa188a0cdd6cbcde579d92afd57",
-        "responseByteSize": 4106,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH BODY GEL WASH 1000ML - HYDRATING BRIGHT",
-        "size": "1000ml",
-        "price": {
-          "amount": 10500,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "4897073186566",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
       "id": "114225f00949eaf68620ec2b",
       "packetId": "42a91a1bc91841763d974680",
       "discoveryId": "7f5e4463688a37e008b523ff",
@@ -700,74 +608,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8697711701009",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "2a1f7245fffeb3274122aa4c",
-      "packetId": "5e5eaf99bf5cf8c6218633cd",
-      "discoveryId": "f8248dfef755c72bc5ba70a1",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/f8248dfef755c72bc5ba70a1--buybetter.json",
-      "source": {
-        "productId": 377475,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
-        "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-balance-body-gel-wash-1000ml/",
-        "capturedAt": "2026-07-28T14:40:35.789Z",
-        "responseSha256": "170ba0d49a6cad49acef90874bfa6e2bcc9b30f2463bd74b3a13e0611591aa9a",
-        "responseByteSize": 14045,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
-        "size": "1000ml",
-        "price": {
-          "amount": 11300,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "4897073186573",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "618164467f4e9787c9e037a9",
-      "packetId": "5e5eaf99bf5cf8c6218633cd",
-      "discoveryId": "f8248dfef755c72bc5ba70a1",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/f8248dfef755c72bc5ba70a1--slique-beauty.json",
-      "source": {
-        "productId": 23688,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
-        "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-balance/",
-        "capturedAt": "2026-07-28T14:40:34.741Z",
-        "responseSha256": "988fa3e610c644374a309f7ebe8c79667bca6dd1f5d959e142fb51b93ad32903",
-        "responseByteSize": 4085,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH BODY GEL WASH 1000ML - BRIGHT + BALANCE",
-        "size": "1000ml",
-        "price": {
-          "amount": 10500,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "4897073186573",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

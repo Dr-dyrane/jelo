@@ -3,21 +3,21 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-08-05T03:31:47.074Z",
+  "generatedAt": "2026-08-07T16:27:20.219Z",
   "source": {
-    "researchPacketsSha256": "da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5",
+    "researchPacketsSha256": "ed51894027d8d4ff1801c7acf6da5aafbfe6bf9de025717de97c74f0964f415a",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
     "packetCount": 7,
     "packetIds": [
-      "42a91a1bc91841763d974680",
-      "861874fd1cfe8bb36f77912b",
-      "8c9317ef63c239fa932e1f1b",
-      "a58cf5de47116310cc34e91a",
       "aff07100d6424f43489e1eb0",
-      "d11231e8aa7256f65a5b6ddd",
-      "ff4b61e5e7b3c86b68407794"
+      "ff4b61e5e7b3c86b68407794",
+      "a58cf5de47116310cc34e91a",
+      "861874fd1cfe8bb36f77912b",
+      "42a91a1bc91841763d974680",
+      "a86b042330160d53b65b056e",
+      "69bf90baf39309039402ae19"
     ],
     "responseCount": 7
   },
@@ -58,6 +58,40 @@
       }
     },
     {
+      "id": "e0f8300586b973d368ed99cf",
+      "packetId": "69bf90baf39309039402ae19",
+      "discoveryId": "c65508f695a5dcd240da0eb3",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/c65508f695a5dcd240da0eb3--buybetter.json",
+      "source": {
+        "productId": 332181,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
+        "listingUrl": "https://buybetter.ng/product/glamfox-glowing-moisturizing-rice-niacinamide-foam-cleanser-230g/",
+        "capturedAt": "2026-07-29T04:12:21.312Z",
+        "responseSha256": "9413a16973824c97d64bee2020d34201b6c054a9e74019151fe2a2b1706b1075",
+        "responseByteSize": 4483,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
+        "size": "230g",
+        "price": {
+          "amount": 10213,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "8809109680876",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
       "id": "3cbb9ed46258faf8de65ba42",
       "packetId": "861874fd1cfe8bb36f77912b",
       "discoveryId": "980f4a6663d7e3bdca521609",
@@ -87,40 +121,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8800289473159",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "adad1b73ea695e54f3d5f220",
-      "packetId": "8c9317ef63c239fa932e1f1b",
-      "discoveryId": "f87e67c0fb61e9574f74ef21",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/f87e67c0fb61e9574f74ef21--buybetter.json",
-      "source": {
-        "productId": 332657,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
-        "listingUrl": "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-masks-23g/",
-        "capturedAt": "2026-07-29T04:12:16.465Z",
-        "responseSha256": "a9fd55c00d65e8fd0671dff691b4268e9d6b743cfe9d71e9b98204a7ec25b68a",
-        "responseByteSize": 4186,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
-        "size": "23g",
-        "price": {
-          "amount": 3548,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "3600542368810",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }
@@ -160,6 +160,40 @@
       }
     },
     {
+      "id": "515de7d63e2264e9ca673b68",
+      "packetId": "a86b042330160d53b65b056e",
+      "discoveryId": "9454deec37a4fc5fcd1e7fa7",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/9454deec37a4fc5fcd1e7fa7--buybetter.json",
+      "source": {
+        "productId": 422148,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422148",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422148",
+        "listingUrl": "https://buybetter.ng/product/pacci-pristine-sun-haven-aqua-spf50-sunscreen-80ml/",
+        "capturedAt": "2026-07-29T04:12:20.872Z",
+        "responseSha256": "c29fff7be02e9aa18922eb73cb4d9a477ab178d5f90b2169f7724dbd5ea6915e",
+        "responseByteSize": 4254,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
+        "size": "80ml",
+        "price": {
+          "amount": 10858,
+          "currency": "NGN"
+        },
+        "stock": "out-of-stock",
+        "retailerSku": {
+          "value": "7222408428368",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
       "id": "302687b5b34ab7482212d57b",
       "packetId": "aff07100d6424f43489e1eb0",
       "discoveryId": "0b73f42e4c3d2f14656610ae",
@@ -189,40 +223,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8809563103980",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "c2c3cf8099fbbd4c786b9737",
-      "packetId": "d11231e8aa7256f65a5b6ddd",
-      "discoveryId": "fe369f475a0d890702084b1b",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/fe369f475a0d890702084b1b--buybetter.json",
-      "source": {
-        "productId": 426866,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
-        "listingUrl": "https://buybetter.ng/product/cos-de-baha-az15-azelaic-acid-15-msm-serum-30ml/",
-        "capturedAt": "2026-07-29T04:12:15.315Z",
-        "responseSha256": "38812d87bd6a8f07578b8edd71168e4048f84f786274d0590bf4a9e78e1513e1",
-        "responseByteSize": 6168,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
-        "size": "30ml",
-        "price": {
-          "amount": 12470,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "8809240319406",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

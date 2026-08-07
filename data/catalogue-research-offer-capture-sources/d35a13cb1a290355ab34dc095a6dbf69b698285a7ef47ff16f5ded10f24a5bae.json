@@ -3,27 +3,27 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-08-05T03:31:47.060Z",
+  "generatedAt": "2026-08-07T16:27:20.200Z",
   "source": {
-    "researchPacketsSha256": "a67f80bfac6e328abffe28f1d5f78ff494ab6dd480b27333b2560c2d1744b47b",
+    "researchPacketsSha256": "cbc33107562cab134324b64b3342f75167abef63df5e02ecf6787621e84fcdc2",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
     "packetCount": 11,
     "packetIds": [
-      "16904e359f5d8aed4df6ca91",
-      "258b05593ae6b7cb1e1d5ddf",
-      "32f7b0d9d472895d9c2d43f2",
-      "7108e00bfaf03e02b749a0f4",
-      "779abfc23925ba26c3b6d14b",
-      "92b7380b76ea55d58e387244",
+      "e7b8894ebe80c275ee8cb391",
+      "c9a1d5e6b6b260984c2463d0",
       "af7e509f9b6ff6e4c83a0eb6",
       "bc30eadf44f2f7a2d9f4f144",
-      "c9a1d5e6b6b260984c2463d0",
-      "e6c412ff66aded226f1b11d7",
-      "e7b8894ebe80c275ee8cb391"
+      "779abfc23925ba26c3b6d14b",
+      "7108e00bfaf03e02b749a0f4",
+      "92b7380b76ea55d58e387244",
+      "258b05593ae6b7cb1e1d5ddf",
+      "16904e359f5d8aed4df6ca91",
+      "d11231e8aa7256f65a5b6ddd",
+      "8c9317ef63c239fa932e1f1b"
     ],
-    "responseCount": 21
+    "responseCount": 19
   },
   "qualityCautions": [],
   "captures": [
@@ -125,74 +125,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "840044714101",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "f11033fe4f56c5951f9b8ed3",
-      "packetId": "32f7b0d9d472895d9c2d43f2",
-      "discoveryId": "6635e9027b7821ef2ff04dbd",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/6635e9027b7821ef2ff04dbd--buybetter.json",
-      "source": {
-        "productId": 418344,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418344",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418344",
-        "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-active-fair-face-cream-100g/",
-        "capturedAt": "2026-07-29T04:12:07.523Z",
-        "responseSha256": "f379cd9e96e9b64d65e78984ff9cc2cf6bbc4aa1a1e8ca451481e8586cc50de8",
-        "responseByteSize": 8534,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
-        "size": "100g",
-        "price": {
-          "amount": 10000,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "6156000469720",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "cc4278955fbaea552f07a246",
-      "packetId": "32f7b0d9d472895d9c2d43f2",
-      "discoveryId": "6635e9027b7821ef2ff04dbd",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/6635e9027b7821ef2ff04dbd--slique-beauty.json",
-      "source": {
-        "productId": 21440,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21440",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21440",
-        "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-active-fair-cream-100g/",
-        "capturedAt": "2026-07-29T04:12:07.315Z",
-        "responseSha256": "7c64c2286c7f42f1f4ce7b535776aae3dde6843c081075669ebce712265993cd",
-        "responseByteSize": 4266,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "ADVANCED KOREAN SKIN ACTIVE FAIR CREAM 100G",
-        "size": "100g",
-        "price": {
-          "amount": 12000,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "6156000469720",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }
@@ -329,6 +261,40 @@
         "stock": "in-stock",
         "retailerSku": {
           "value": "8809129643189",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "adad1b73ea695e54f3d5f220",
+      "packetId": "8c9317ef63c239fa932e1f1b",
+      "discoveryId": "f87e67c0fb61e9574f74ef21",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f87e67c0fb61e9574f74ef21--buybetter.json",
+      "source": {
+        "productId": 332657,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
+        "listingUrl": "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-masks-23g/",
+        "capturedAt": "2026-07-29T04:12:16.465Z",
+        "responseSha256": "a9fd55c00d65e8fd0671dff691b4268e9d6b743cfe9d71e9b98204a7ec25b68a",
+        "responseByteSize": 4186,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
+        "size": "23g",
+        "price": {
+          "amount": 3548,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "3600542368810",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }
@@ -606,69 +572,35 @@
       }
     },
     {
-      "id": "35542ea865c8a01650235779",
-      "packetId": "e6c412ff66aded226f1b11d7",
-      "discoveryId": "fd07898619801a68999f2850",
+      "id": "c2c3cf8099fbbd4c786b9737",
+      "packetId": "d11231e8aa7256f65a5b6ddd",
+      "discoveryId": "fe369f475a0d890702084b1b",
       "retailer": "BuyBetter",
       "retailerStatus": "directory-listed",
       "publicationStatus": "not-a-catalogue-candidate",
       "publicationAuthority": "none",
       "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/fd07898619801a68999f2850--buybetter.json",
+      "evidencePath": "data/catalogue-offer-source-evidence/fe369f475a0d890702084b1b--buybetter.json",
       "source": {
-        "productId": 330796,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330796",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330796",
-        "listingUrl": "https://buybetter.ng/product/facefacts-niacinamide-face-serum-30ml/",
-        "capturedAt": "2026-07-29T04:12:07.981Z",
-        "responseSha256": "2c30b41319d2f7bbed3718c8d4367f97b7e5a5c8356c7908b739ed74bc6c4d75",
-        "responseByteSize": 7930,
+        "productId": 426866,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
+        "listingUrl": "https://buybetter.ng/product/cos-de-baha-az15-azelaic-acid-15-msm-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:15.315Z",
+        "responseSha256": "38812d87bd6a8f07578b8edd71168e4048f84f786274d0590bf4a9e78e1513e1",
+        "responseByteSize": 6168,
         "responseMimeType": "application/json"
       },
       "offer": {
-        "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
+        "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
         "size": "30ml",
         "price": {
-          "amount": 3999,
+          "amount": 12470,
           "currency": "NGN"
         },
         "stock": "low-stock",
         "retailerSku": {
-          "value": "5031413940619",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "1751513b7344814975ce7300",
-      "packetId": "e6c412ff66aded226f1b11d7",
-      "discoveryId": "fd07898619801a68999f2850",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/fd07898619801a68999f2850--slique-beauty.json",
-      "source": {
-        "productId": 14635,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14635",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14635",
-        "listingUrl": "https://sliquebeautylimited.com/product/facefacts-niacinamide-serum-50ml/",
-        "capturedAt": "2026-07-29T04:12:06.917Z",
-        "responseSha256": "1868d6719a910c51258f04a1c8f0b9d3df04e4da15e165ac8936c7399bed565d",
-        "responseByteSize": 4049,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "FACEFACTS NIACINAMIDE SERUM 50ML",
-        "size": "50ml",
-        "price": {
-          "amount": 5500,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "5031413940619",
+          "value": "8809240319406",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

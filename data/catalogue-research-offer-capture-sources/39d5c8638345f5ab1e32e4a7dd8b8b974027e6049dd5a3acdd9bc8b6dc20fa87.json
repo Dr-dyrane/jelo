@@ -3,26 +3,26 @@
   "policy": "private-retained-offer-source-evidence-only",
   "publicationStatus": "not-a-catalogue-candidate",
   "publicationAuthority": "none",
-  "generatedAt": "2026-08-05T03:31:47.031Z",
+  "generatedAt": "2026-08-07T16:27:20.175Z",
   "source": {
-    "researchPacketsSha256": "ae5f0ad249bcf512a0a9444de6fe082c71a81f4bfd9df4332bdae58b4a45dbef",
+    "researchPacketsSha256": "db3613a7b0fe6d288d3f48c352a12e094734a37ba70710ba5928d235ec6c6e11",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
     "packetCount": 12,
     "packetIds": [
       "1920014afae80ba00e4169ca",
-      "37a75aa63b334a44df82d6c2",
-      "40b98e378e2d706b14d203c6",
-      "42f32d48d0fbcf7e7f56607a",
-      "5e5eaf99bf5cf8c6218633cd",
-      "9461a4a54aec53613167f7c5",
-      "95ae7ea127cc3fa98e364ebf",
       "b55494943c535dd1b7f63929",
-      "c513f8766b8a5963d380ecfc",
       "d4f0fa500b7c661235f056d8",
+      "c513f8766b8a5963d380ecfc",
       "d8b1ae52cb7da0eb678282e9",
-      "f020ac8386430486b94e1ce2"
+      "9461a4a54aec53613167f7c5",
+      "37a75aa63b334a44df82d6c2",
+      "95ae7ea127cc3fa98e364ebf",
+      "42f32d48d0fbcf7e7f56607a",
+      "f020ac8386430486b94e1ce2",
+      "e6c412ff66aded226f1b11d7",
+      "32f7b0d9d472895d9c2d43f2"
     ],
     "responseCount": 24
   },
@@ -97,6 +97,74 @@
       }
     },
     {
+      "id": "f11033fe4f56c5951f9b8ed3",
+      "packetId": "32f7b0d9d472895d9c2d43f2",
+      "discoveryId": "6635e9027b7821ef2ff04dbd",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/6635e9027b7821ef2ff04dbd--buybetter.json",
+      "source": {
+        "productId": 418344,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418344",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418344",
+        "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-active-fair-face-cream-100g/",
+        "capturedAt": "2026-07-29T04:12:07.523Z",
+        "responseSha256": "f379cd9e96e9b64d65e78984ff9cc2cf6bbc4aa1a1e8ca451481e8586cc50de8",
+        "responseByteSize": 8534,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
+        "size": "100g",
+        "price": {
+          "amount": 10000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6156000469720",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "cc4278955fbaea552f07a246",
+      "packetId": "32f7b0d9d472895d9c2d43f2",
+      "discoveryId": "6635e9027b7821ef2ff04dbd",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/6635e9027b7821ef2ff04dbd--slique-beauty.json",
+      "source": {
+        "productId": 21440,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21440",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/21440",
+        "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-active-fair-cream-100g/",
+        "capturedAt": "2026-07-29T04:12:07.315Z",
+        "responseSha256": "7c64c2286c7f42f1f4ce7b535776aae3dde6843c081075669ebce712265993cd",
+        "responseByteSize": 4266,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ADVANCED KOREAN SKIN ACTIVE FAIR CREAM 100G",
+        "size": "100g",
+        "price": {
+          "amount": 12000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "6156000469720",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
       "id": "669c2d22d7752c3156bfc07c",
       "packetId": "37a75aa63b334a44df82d6c2",
       "discoveryId": "73f96c6c3931cdc9b240b758",
@@ -165,74 +233,6 @@
       }
     },
     {
-      "id": "1a19a40e5f6aa0163df6411a",
-      "packetId": "40b98e378e2d706b14d203c6",
-      "discoveryId": "e0574c12b77f4a4eafd63ed0",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/e0574c12b77f4a4eafd63ed0--buybetter.json",
-      "source": {
-        "productId": 377469,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
-        "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrating-bright-body-gel-wash-1000ml/",
-        "capturedAt": "2026-07-28T14:40:36.349Z",
-        "responseSha256": "65cf621609602181a7cc75e139012a42bde11e6a901b40a073472e8e94b8dcf2",
-        "responseByteSize": 11492,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
-        "size": "1000ml",
-        "price": {
-          "amount": 10750,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "4897073186566",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "c487910477e8dd2da129c27d",
-      "packetId": "40b98e378e2d706b14d203c6",
-      "discoveryId": "e0574c12b77f4a4eafd63ed0",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/e0574c12b77f4a4eafd63ed0--slique-beauty.json",
-      "source": {
-        "productId": 23687,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
-        "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-hydrating-bright/",
-        "capturedAt": "2026-07-28T14:40:35.788Z",
-        "responseSha256": "23e0cc3774c4f34bb3e650290c6607eafdf73fa188a0cdd6cbcde579d92afd57",
-        "responseByteSize": 4106,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH BODY GEL WASH 1000ML - HYDRATING BRIGHT",
-        "size": "1000ml",
-        "price": {
-          "amount": 10500,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "4897073186566",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
       "id": "3801ffc016844c6b85c3d273",
       "packetId": "42f32d48d0fbcf7e7f56607a",
       "discoveryId": "17bd496cb38c558d4e8a56f9",
@@ -296,74 +296,6 @@
         "stock": "in-stock",
         "retailerSku": {
           "value": "811068019237",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "2a1f7245fffeb3274122aa4c",
-      "packetId": "5e5eaf99bf5cf8c6218633cd",
-      "discoveryId": "f8248dfef755c72bc5ba70a1",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/f8248dfef755c72bc5ba70a1--buybetter.json",
-      "source": {
-        "productId": 377475,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
-        "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-balance-body-gel-wash-1000ml/",
-        "capturedAt": "2026-07-28T14:40:35.789Z",
-        "responseSha256": "170ba0d49a6cad49acef90874bfa6e2bcc9b30f2463bd74b3a13e0611591aa9a",
-        "responseByteSize": 14045,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
-        "size": "1000ml",
-        "price": {
-          "amount": 11300,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "4897073186573",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "618164467f4e9787c9e037a9",
-      "packetId": "5e5eaf99bf5cf8c6218633cd",
-      "discoveryId": "f8248dfef755c72bc5ba70a1",
-      "retailer": "Slique Beauty",
-      "retailerStatus": "provisional",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/f8248dfef755c72bc5ba70a1--slique-beauty.json",
-      "source": {
-        "productId": 23688,
-        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
-        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
-        "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-balance/",
-        "capturedAt": "2026-07-28T14:40:34.741Z",
-        "responseSha256": "988fa3e610c644374a309f7ebe8c79667bca6dd1f5d959e142fb51b93ad32903",
-        "responseByteSize": 4085,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "AQUA RICH BODY GEL WASH 1000ML - BRIGHT + BALANCE",
-        "size": "1000ml",
-        "price": {
-          "amount": 10500,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "4897073186573",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }
@@ -772,6 +704,74 @@
         "stock": "in-stock",
         "retailerSku": {
           "value": "8804435184562",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "35542ea865c8a01650235779",
+      "packetId": "e6c412ff66aded226f1b11d7",
+      "discoveryId": "fd07898619801a68999f2850",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/fd07898619801a68999f2850--buybetter.json",
+      "source": {
+        "productId": 330796,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330796",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330796",
+        "listingUrl": "https://buybetter.ng/product/facefacts-niacinamide-face-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:07.981Z",
+        "responseSha256": "2c30b41319d2f7bbed3718c8d4367f97b7e5a5c8356c7908b739ed74bc6c4d75",
+        "responseByteSize": 7930,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 3999,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "5031413940619",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "1751513b7344814975ce7300",
+      "packetId": "e6c412ff66aded226f1b11d7",
+      "discoveryId": "fd07898619801a68999f2850",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/fd07898619801a68999f2850--slique-beauty.json",
+      "source": {
+        "productId": 14635,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14635",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/14635",
+        "listingUrl": "https://sliquebeautylimited.com/product/facefacts-niacinamide-serum-50ml/",
+        "capturedAt": "2026-07-29T04:12:06.917Z",
+        "responseSha256": "1868d6719a910c51258f04a1c8f0b9d3df04e4da15e165ac8936c7399bed565d",
+        "responseByteSize": 4049,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "FACEFACTS NIACINAMIDE SERUM 50ML",
+        "size": "50ml",
+        "price": {
+          "amount": 5500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "5031413940619",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }
