@@ -1168,9 +1168,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "96766e0b76f0c4117cb650d4eac70b02d5928bd5f67006805bd4187073631e7d",
@@ -1191,6 +1191,69 @@
         "dark"
       ],
       "surfaceReviewSha256": "cad4c2f647ba901ef05f8ec3f2f93ca8aacf95c8137a2bbea9e8c3c2b9f0792b",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://panoxyl.com/wp-content/uploads/2023/06/PanOxyl_Acne-Creamy-Wash_Front_6oz_Tube_wide.webp",
+      "sha256": "22d50b49ef74dd29c3fbdaadbf747dd01b7cfc4d706039d46d30a8f797dc3c8b",
+      "byteSize": 266604,
+      "width": 1200,
+      "height": 1200,
+      "retrievedAt": "2026-08-07T02:28:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00303160227066"
+      },
+      "officialProductUrl": "https://panoxyl.com/acne-products/acne-creamy-wash/"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "5dc075f91eff939e39c94151db97caf7980971d31ccc022f3d5613da728c04a9",
+      "generatedAt": "2026-08-07T02:32:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "9eb3bb7a39a53248565e0986a145e075d16054192418522cd0691a0a8727353a",
+      "byteSize": 883805,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T02:30:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T02:35:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true

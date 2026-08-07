@@ -948,6 +948,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'panoxyl-acne-creamy-wash-4-170g': {
+    productSlug: 'panoxyl-acne-creamy-wash-4-170g',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://panoxyl.com/acne-products/acne-creamy-wash/',
+      'https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

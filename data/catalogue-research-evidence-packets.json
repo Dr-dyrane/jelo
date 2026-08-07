@@ -4,7 +4,7 @@
   "publicationStatus": "not-a-catalogue-candidate",
   "generatedAt": "2026-07-27T18:11:20.602Z",
   "source": {
-    "staticQueueSha256": "89c4a1ccd7ecb3f6b030a2f4e395ec3c3792ed3f480bc356fa38a8dce286dc29",
+    "staticQueueSha256": "6c9b0fa09d869b7f5bd5f680b6c4725492314a6b4cd05f6fd50d5493b1334fda",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "sharding": {
@@ -16,8 +16,8 @@
   "shards": [
     {
       "index": 1,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/84f8127d1a65d4f83c5086a0e165814c1ed6b13b66cb17caa0235d7c8a272128.json",
-      "sourceSha256": "84f8127d1a65d4f83c5086a0e165814c1ed6b13b66cb17caa0235d7c8a272128",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/0b0906179755891a7f8e54b180dcd6d392a28992a4b9194df19ff0fe4ff7dc66.json",
+      "sourceSha256": "0b0906179755891a7f8e54b180dcd6d392a28992a4b9194df19ff0fe4ff7dc66",
       "packetCount": 12,
       "firstRank": 1,
       "lastRank": 12,
@@ -52,8 +52,8 @@
     },
     {
       "index": 2,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/c332dac77babbc05be35fba87313895d6408cdbdbeff3216616b0c4d97f7320d.json",
-      "sourceSha256": "c332dac77babbc05be35fba87313895d6408cdbdbeff3216616b0c4d97f7320d",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/d68086037fca328bcee99983ccc480f7721dfe60be5a6987eb71de6d565d0d50.json",
+      "sourceSha256": "d68086037fca328bcee99983ccc480f7721dfe60be5a6987eb71de6d565d0d50",
       "packetCount": 12,
       "firstRank": 13,
       "lastRank": 24,
@@ -88,8 +88,8 @@
     },
     {
       "index": 3,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/af9133de74564e9fec198b2529119fe0f56a367959f67eb3d6316c2c1bb64222.json",
-      "sourceSha256": "af9133de74564e9fec198b2529119fe0f56a367959f67eb3d6316c2c1bb64222",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c.json",
+      "sourceSha256": "808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c",
       "packetCount": 12,
       "firstRank": 25,
       "lastRank": 36,
@@ -102,10 +102,10 @@
         "ff4b61e5e7b3c86b68407794",
         "a58cf5de47116310cc34e91a",
         "861874fd1cfe8bb36f77912b",
-        "5b30ed9c84df71d748dea61c",
         "42a91a1bc91841763d974680",
         "a86b042330160d53b65b056e",
-        "43c022de59a14a050f7c2983"
+        "43c022de59a14a050f7c2983",
+        "69bf90baf39309039402ae19"
       ],
       "discoveryIds": [
         "68dd71a67def9960124cd112",
@@ -116,22 +116,22 @@
         "cd29efd703d9f5ad9192bf01",
         "b9f9c3fe07895c6ce9945f8a",
         "980f4a6663d7e3bdca521609",
-        "7cfe4bf6d573f111552a8ea7",
         "7f5e4463688a37e008b523ff",
         "9454deec37a4fc5fcd1e7fa7",
-        "fe5f1f274910514b3aa73df6"
+        "fe5f1f274910514b3aa73df6",
+        "c65508f695a5dcd240da0eb3"
       ]
     },
     {
       "index": 4,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/bea1fd473fc806aaf8e01f4d8e3fab07875dd800ae97c5498016e687d65e9b4f.json",
-      "sourceSha256": "bea1fd473fc806aaf8e01f4d8e3fab07875dd800ae97c5498016e687d65e9b4f",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/4a4e7afb752901d55fe96b600841a64d4bf59233d4f4b156691266677534d113.json",
+      "sourceSha256": "4a4e7afb752901d55fe96b600841a64d4bf59233d4f4b156691266677534d113",
       "packetCount": 12,
       "firstRank": 37,
       "lastRank": 48,
       "packetIds": [
-        "69bf90baf39309039402ae19",
         "413542f9fd2dfef408f82fd6",
+        "91265ea56f1b62a4fa669e88",
         "de73b1b69dc56e877ea37999",
         "863eec92f7291e3d307be521",
         "586ef0ac5c086de562296593",
@@ -144,8 +144,8 @@
         "459b8806590d2750e22a8906"
       ],
       "discoveryIds": [
-        "c65508f695a5dcd240da0eb3",
         "860730ad73fa749bf2599ba4",
+        "5a7b8f18c791cfb6a61354ac",
         "8ac4f70510214db024b57c46",
         "4a65be1a58dd495b7eab8b5b",
         "a3844e0ff4ce89736040eb4e",

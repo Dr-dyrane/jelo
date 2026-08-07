@@ -779,6 +779,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   skinbyzaron: ['www.zaroncosmetics.com'],
   tresemme: ['www.tresemme.com'],
   advancedclinicals: ['advancedclinicals.com'],
+  panoxyl: ['panoxyl.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -848,6 +849,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   ],
   tresemme: ['www.tresemme.com', 'assets.unileversolutions.com'],
   advancedclinicals: ['advancedclinicals.com', 'cdn.shopify.com'],
+  panoxyl: ['panoxyl.com', 'www.panoxyl.com'],
 };
 const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, readonly string[]>> = {
   'benton-honest-cleansing-foam-150g': [
@@ -905,6 +907,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
   'facefacts-enhance-gel-cream-cleanser-150ml': [
     'https://store.shure-cosmetics.co.uk/face-facts-enhance-gel-cream-cleanser---150ml-2803-52803-150',
     'https://www.barcodelookup.com/5031413952803',
+  ],
+  'panoxyl-acne-creamy-wash-4-170g': [
+    'https://www.upcitemdb.com/upc/303160227066',
+    'https://www.buycott.com/upc/303160227066',
   ],
 };
 const reviewedIndependentClinicalGuidanceUrls = new Set([

@@ -735,5 +735,22 @@
     "destination": "publication",
     "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
     "publicationBrandSlug": "elf"
+  },
+  {
+    "id": "panoxyl-acne-creamy-wash-4-170g-v1",
+    "active": true,
+    "sourceUrl": "https://panoxyl.com/wp-content/uploads/2023/06/PanOxyl_Acne-Creamy-Wash_Front_6oz_Tube_wide.webp",
+    "localPath": "data/catalogue-intake-assets/panoxyl-acne-creamy-wash-4-170g/packshot.png",
+    "blobPath": "products/panoxyl/panoxyl-acne-creamy-wash-4-170g/packshot-v1-9eb3bb7a39a53248.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/panoxyl/panoxyl-acne-creamy-wash-4-170g/packshot-v1-9eb3bb7a39a53248.png",
+    "contentType": "image/png",
+    "byteSize": 883805,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "9eb3bb7a39a53248565e0986a145e075d16054192418522cd0691a0a8727353a",
+    "destination": "publication",
+    "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+    "publicationBrandSlug": "panoxyl"
   }
 ]

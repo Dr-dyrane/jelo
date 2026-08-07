@@ -1513,6 +1513,30 @@
         "publishedAt": "2026-08-07T00:07:30Z"
       },
       "releaseFingerprint": "066ce8c4abfdeeaafa7ac1240af1fe7a83fc4278f47bb7d70c5a729c0befa28e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+      "dossierFingerprint": "ba0944b402c67312d9d13f44bf4aaebd38c2da626632970d28374ef3c623d757",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "4% Benzoyl Peroxide acne wash · 170 g",
+        "usage": "Wet the affected area. Apply and work into a lather. Rinse thoroughly and pat dry. Use once or twice daily. Start with one application daily and increase to twice if needed. If bothersome dryness or peeling occurs, reduce applications. Avoid contact with eyes, lips and mouth.",
+        "manufacturerDirectionsUrl": "https://panoxyl.com/acne-products/acne-creamy-wash/",
+        "reviewer": "Codex visual audit",
+        "reviewedAt": "2026-08-07T02:35:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T02:40:00Z"
+      },
+      "releaseFingerprint": "d6f0f585f5f1c953192a2062ae824b62a1c7129fe108f3dedfaad1b995e03494"
     }
   ]
 }

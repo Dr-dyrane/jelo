@@ -5,15 +5,13 @@
   "publicationAuthority": "none",
   "generatedAt": "2026-08-05T03:31:47.074Z",
   "source": {
-    "researchPacketsSha256": "bc4bdb20d248a1ba38ccc4826610f03a76a8fc2344188683eef6dcef33ae70c6",
+    "researchPacketsSha256": "808e70e050259ff515eed2c044d649ece89957622c90d9ed6ca29de266192c1c",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 11,
+    "packetCount": 9,
     "packetIds": [
-      "3a1b3865e0ffdccb01e85b0c",
       "42a91a1bc91841763d974680",
-      "533c74704d64dbc2fcf85770",
       "861874fd1cfe8bb36f77912b",
       "8ae1b6abf6fe77ce94d1c319",
       "8c9317ef63c239fa932e1f1b",
@@ -23,44 +21,10 @@
       "d11231e8aa7256f65a5b6ddd",
       "ff4b61e5e7b3c86b68407794"
     ],
-    "responseCount": 11
+    "responseCount": 9
   },
   "qualityCautions": [],
   "captures": [
-    {
-      "id": "99c96d5823791125dd5b7ea7",
-      "packetId": "3a1b3865e0ffdccb01e85b0c",
-      "discoveryId": "a7562a6f718c64e4a046f3e3",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/a7562a6f718c64e4a046f3e3--buybetter.json",
-      "source": {
-        "productId": 433434,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
-        "listingUrl": "https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/",
-        "capturedAt": "2026-07-29T04:12:21.311Z",
-        "responseSha256": "8f2692475631c4809947a23538b9baa067dfedda7191d802ffe8cd913bc3af51",
-        "responseByteSize": 5666,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
-        "size": "50ml",
-        "price": {
-          "amount": 28200,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "609332818071",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
     {
       "id": "114225f00949eaf68620ec2b",
       "packetId": "42a91a1bc91841763d974680",
@@ -91,40 +55,6 @@
         "stock": "in-stock",
         "retailerSku": {
           "value": "8809640739507",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "49825a957cbe89674277a704",
-      "packetId": "533c74704d64dbc2fcf85770",
-      "discoveryId": "f6fdad85c61090e67bea6ec9",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/f6fdad85c61090e67bea6ec9--buybetter.json",
-      "source": {
-        "productId": 330720,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330720",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330720",
-        "listingUrl": "https://buybetter.ng/product/nineless-a-control-azelaic-acid-cream-50ml/",
-        "capturedAt": "2026-07-29T04:12:16.322Z",
-        "responseSha256": "9d64f3fe112be1841eafe6c883fb157fdbb296cc0461610aa16b656d713f3c93",
-        "responseByteSize": 4512,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
-        "size": "50ml",
-        "price": {
-          "amount": 14500,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "8809875270189",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

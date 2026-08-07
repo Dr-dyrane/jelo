@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+    "candidateFingerprint": "2aa3ec94e0d32e2509b8b684f1a8264a0a315d7bd5125afd135dba838f4c76ec",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "00303160227066",
+      "brand": "PanOxyl",
+      "name": "Acne Creamy Wash Benzoyl Peroxide 4%",
+      "variant": "Acne Creamy Wash Benzoyl Peroxide 4%",
+      "size": "170 g",
+      "packageVersion": "PanOxyl Acne Creamy Wash 4% Benzoyl Peroxide 170g",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://panoxyl.com/acne-products/acne-creamy-wash/",
+      "officialIdentity": {
+        "url": "https://panoxyl.com/acne-products/acne-creamy-wash/",
+        "observedGtin": "303160227066",
+        "observedVariant": "Acne Creamy Wash Benzoyl Peroxide 4%",
+        "observedSize": "170 g",
+        "observedPackageVersion": "PanOxyl Acne Creamy Wash 4% Benzoyl Peroxide 170g",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/panoxyl-acne-creamy-wash-4-170g.json",
+        "snapshotSha256": "cbf66be1d9436747242d58829d6c5d69c69d120963ef74188e7c199b9b4ab9d3",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1291,
+        "retrievedAt": "2026-08-07T02:25:20Z",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "Acne Creamy Wash Benzoyl Peroxide 4% | PanOxyl US",
+            "surface": "Playwright MCP browser"
+          },
+          "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official HTML data-upc attribute on size selector button",
+              "sourceText": "data-upc=\"303160227066\" (6 oz size button); UPC 303160227066 published on official PanOxyl product page",
+              "value": "303160227066"
+            },
+            "variant": {
+              "locator": "Rendered official HTML product heading and meta description",
+              "sourceText": "Acne Creamy Wash Benzoyl Peroxide 4% | PanOxyl US",
+              "value": "Acne Creamy Wash Benzoyl Peroxide 4%"
+            },
+            "size": {
+              "locator": "Rendered official HTML size selector button (6 oz)",
+              "sourceText": "6 oz (170 g)",
+              "value": "170 g"
+            }
+          },
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://panoxyl.com/acne-products/acne-creamy-wash/",
+          "retrievedAt": "2026-08-07T02:25:20Z",
+          "reviewedAt": "2026-08-07T02:30:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 4,
+          "sourceResponseByteSize": 308617,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "2a2f82716bd1d48f356ff46f1d3672a93044d9247ef67deaed7a20d149c86e8e",
+          "sourceUrl": "https://panoxyl.com/acne-products/acne-creamy-wash/"
+        }
+      },
+      "checkedAt": "2026-08-07T02:30:00Z",
+      "demandEvidenceUrls": [
+        "https://panoxyl.com/acne-products/acne-creamy-wash/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "rinse-off 4% benzoyl peroxide acne creamy wash for face, chest and back",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Catalogue context only, not a diagnosis or personal treatment plan. Benzoyl peroxide can cause dryness, peeling or irritation and can bleach hair or fabric. Follow the label, avoid broken skin and the eye area, and seek professional care for painful, scarring, widespread, nodular, cystic or persistent acne.",
+      "manufacturerEvidenceUrl": "https://panoxyl.com/acne-products/acne-creamy-wash/",
+      "independentClinicalGuidanceUrl": "https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/",
+      "evidenceUrls": [
+        "https://panoxyl.com/acne-products/acne-creamy-wash/",
+        "https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/"
+      ],
+      "reviewedAt": "2026-08-07T02:30:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://panoxyl.com/wp-content/uploads/2023/06/PanOxyl_Acne-Creamy-Wash_Front_6oz_Tube_wide.webp",
+        "sha256": "22d50b49ef74dd29c3fbdaadbf747dd01b7cfc4d706039d46d30a8f797dc3c8b",
+        "mimeType": "image/webp",
+        "byteSize": 266604,
+        "width": 1200,
+        "height": 1200,
+        "retrievedAt": "2026-08-07T02:28:00Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+        "model": "isnet-general-use",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current PanOxyl Acne Creamy Wash 4% Benzoyl Peroxide 170g tube and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the PanOxyl brand, Acne Creamy Wash title, 4% Benzoyl Peroxide active, and 170g (6 oz) size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+        "inputs": [
+          {
+            "url": "https://panoxyl.com/wp-content/uploads/2023/06/PanOxyl_Acne-Creamy-Wash_Front_6oz_Tube_wide.webp",
+            "sha256": "22d50b49ef74dd29c3fbdaadbf747dd01b7cfc4d706039d46d30a8f797dc3c8b"
+          }
+        ],
+        "outputSha256": "9eb3bb7a39a53248565e0986a145e075d16054192418522cd0691a0a8727353a",
+        "generatedAt": "2026-08-07T02:32:00Z",
+        "recordSha256": "5dc075f91eff939e39c94151db97caf7980971d31ccc022f3d5613da728c04a9"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/panoxyl/panoxyl-acne-creamy-wash-4-170g/packshot-v1-9eb3bb7a39a53248.png",
+      "sha256": "9eb3bb7a39a53248565e0986a145e075d16054192418522cd0691a0a8727353a",
+      "mimeType": "image/png",
+      "byteSize": 883805,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T02:35:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T02:35:00Z"
+    },
+    "dossierFingerprint": "ba0944b402c67312d9d13f44bf4aaebd38c2da626632970d28374ef3c623d757"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+    "dossierFingerprint": "ba0944b402c67312d9d13f44bf4aaebd38c2da626632970d28374ef3c623d757",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "4% Benzoyl Peroxide acne wash · 170 g",
+      "usage": "Wet the affected area. Apply and work into a lather. Rinse thoroughly and pat dry. Use once or twice daily. Start with one application daily and increase to twice if needed. If bothersome dryness or peeling occurs, reduce applications. Avoid contact with eyes, lips and mouth.",
+      "manufacturerDirectionsUrl": "https://panoxyl.com/acne-products/acne-creamy-wash/",
+      "reviewer": "Codex visual audit",
+      "reviewedAt": "2026-08-07T02:35:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T02:40:00Z"
+    },
+    "releaseFingerprint": "d6f0f585f5f1c953192a2062ae824b62a1c7129fe108f3dedfaad1b995e03494"
+  }
+}

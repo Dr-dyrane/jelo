@@ -5,25 +5,23 @@
   "publicationAuthority": "none",
   "generatedAt": "2026-08-05T03:31:47.088Z",
   "source": {
-    "researchPacketsSha256": "6cdd881fa447299283df3a6133066bd5e17e2259548921c8577f82d01b1afe65",
+    "researchPacketsSha256": "4a4e7afb752901d55fe96b600841a64d4bf59233d4f4b156691266677534d113",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 11,
+    "packetCount": 9,
     "packetIds": [
       "459b8806590d2750e22a8906",
       "586ef0ac5c086de562296593",
       "656a1a60466fc29f11d0059f",
-      "69bf90baf39309039402ae19",
       "8146f37c47cff6d9cd0c6193",
       "863eec92f7291e3d307be521",
       "9cb4a3ee328b1dec80f44f6c",
-      "a86b042330160d53b65b056e",
       "cbc834ef2dfe1921106b9ad0",
       "de73b1b69dc56e877ea37999",
       "ed48f1fea49846a7db551502"
     ],
-    "responseCount": 11
+    "responseCount": 9
   },
   "qualityCautions": [],
   "captures": [
@@ -130,40 +128,6 @@
       }
     },
     {
-      "id": "e0f8300586b973d368ed99cf",
-      "packetId": "69bf90baf39309039402ae19",
-      "discoveryId": "c65508f695a5dcd240da0eb3",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/c65508f695a5dcd240da0eb3--buybetter.json",
-      "source": {
-        "productId": 332181,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
-        "listingUrl": "https://buybetter.ng/product/glamfox-glowing-moisturizing-rice-niacinamide-foam-cleanser-230g/",
-        "capturedAt": "2026-07-29T04:12:21.312Z",
-        "responseSha256": "9413a16973824c97d64bee2020d34201b6c054a9e74019151fe2a2b1706b1075",
-        "responseByteSize": 4483,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
-        "size": "230g",
-        "price": {
-          "amount": 10213,
-          "currency": "NGN"
-        },
-        "stock": "in-stock",
-        "retailerSku": {
-          "value": "8809109680876",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
       "id": "df7f7c2e02fa8ad04fef1fa5",
       "packetId": "8146f37c47cff6d9cd0c6193",
       "discoveryId": "f67f222e9d4c90404e22904d",
@@ -261,40 +225,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8809934860870",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "515de7d63e2264e9ca673b68",
-      "packetId": "a86b042330160d53b65b056e",
-      "discoveryId": "9454deec37a4fc5fcd1e7fa7",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/9454deec37a4fc5fcd1e7fa7--buybetter.json",
-      "source": {
-        "productId": 422148,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422148",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422148",
-        "listingUrl": "https://buybetter.ng/product/pacci-pristine-sun-haven-aqua-spf50-sunscreen-80ml/",
-        "capturedAt": "2026-07-29T04:12:20.872Z",
-        "responseSha256": "c29fff7be02e9aa18922eb73cb4d9a477ab178d5f90b2169f7724dbd5ea6915e",
-        "responseByteSize": 4254,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
-        "size": "80ml",
-        "price": {
-          "amount": 10858,
-          "currency": "NGN"
-        },
-        "stock": "out-of-stock",
-        "retailerSku": {
-          "value": "7222408428368",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

@@ -886,33 +886,6 @@
     },
     {
       "rank": 33,
-      "discoveryId": "7cfe4bf6d573f111552a8ea7",
-      "title": "PANOXYL Acne Creamy Wash Benzoyl Peroxide Control 4% 170g",
-      "brandHint": "PANOXYL",
-      "size": "170g",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 151,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "00303160227066",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 34,
       "discoveryId": "7f5e4463688a37e008b523ff",
       "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
       "brandHint": "ANUA",
@@ -938,7 +911,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 35,
+      "rank": 34,
       "discoveryId": "9454deec37a4fc5fcd1e7fa7",
       "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
       "brandHint": "PACCI PRISTINE",
@@ -964,7 +937,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 36,
+      "rank": 35,
       "discoveryId": "fe5f1f274910514b3aa73df6",
       "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Gel 90g",
       "brandHint": "SHISEIDO Professional",
@@ -990,7 +963,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 37,
+      "rank": 36,
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -1017,7 +990,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 38,
+      "rank": 37,
       "discoveryId": "860730ad73fa749bf2599ba4",
       "title": "ABIB -Heartleaf Acne Foam Cleanser 150ml",
       "brandHint": "ABIB",
@@ -1028,6 +1001,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "08809864769229",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 38,
+      "discoveryId": "5a7b8f18c791cfb6a61354ac",
+      "title": "BIODERMA Sebium Hydra Ultra-Moisturizing Cream Very Dry Acne Prone Skin 40ml",
+      "brandHint": "Bioderma",
+      "size": "40ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 146,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "03401348840421",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
