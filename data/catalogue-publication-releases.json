@@ -2233,6 +2233,30 @@
         "publishedAt": "2026-08-07T12:56:00Z"
       },
       "releaseFingerprint": "ea943e3b57c9ce37bbb800b05b09a58bc5d65af45cbe3cca5d9a7760a72ce7fe"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "dossierFingerprint": "22e94862d38fd3b6da4d7da4fc5caafc9fbbbda192ecc115c7fa3d96d9bbf639",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Fermented Camellia Creamy Cleansing Oil 3.5 fl oz",
+        "usage": "Massage onto dry skin add water to emulsify rinse thoroughly",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T13:03:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T13:04:00Z"
+      },
+      "releaseFingerprint": "d7859b3fc464e02c6cb4e7c4c1d10621652033974461aba68bcd11f412510acc"
     }
   ]
 }

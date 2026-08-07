@@ -1245,5 +1245,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "1e09457a720a2f7d528b54cb8fe192106721f620050fbf655e07452e1af9e2d9"
+  },
+  {
+    "id": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-fermented-camellia-creamy-cleansing-oil-3-5oz/packshot-v1-55270948000d47bc.png",
+    "blobPath": "products/naturium/naturium-fermented-camellia-creamy-cleansing-oil-3-5oz/packshot-v1-55270948000d47bc.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-fermented-camellia-creamy-cleansing-oil-3-5oz/packshot-v1-55270948000d47bc.png",
+    "contentType": "image/png",
+    "byteSize": 379530,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "55270948000d47bcd14c8389f04e63ed2267a0114e5cc35c729dc1c5a8550015"
   }
 ]

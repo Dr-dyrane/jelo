@@ -22812,6 +22812,214 @@
         "approvedAt": "2026-08-07T12:55:00Z"
       },
       "dossierFingerprint": "db1a2346d52cfd9df17f58c535fd72feecb205da20a5409d253e1710cec8e775"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "candidateFingerprint": "0b8bb27cd05eccede6e9ee50c52f5b2446b71fa3c5fd553faea32e015cb55fc1",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792385",
+        "brand": "Naturium",
+        "name": "Fermented Camellia Creamy Cleansing Oil",
+        "variant": "Fermented Camellia Creamy Cleansing Oil",
+        "size": "3.5 fl oz / 103.5 mL",
+        "packageVersion": "Fermented Camellia Creamy Cleansing Oil 3.5 fl oz / 103.5 mL bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+          "observedGtin": "850010792385",
+          "observedVariant": "Fermented Camellia Creamy Cleansing Oil",
+          "observedSize": "3.5 fl oz / 103.5 mL",
+          "observedPackageVersion": "Fermented Camellia Creamy Cleansing Oil 3.5 fl oz / 103.5 mL bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-fermented-camellia-creamy-cleansing-oil-3-5oz.json",
+          "snapshotSha256": "4cffdca853546dd2340f3283bc2a493c8ac28f765238939b022f2900f406f66b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2209,
+          "retrievedAt": "2026-08-07T12:59:10Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Fermented Camellia Creamy Cleansing Oil | Makeup & SPF Removal | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+            "responseUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+            "retrievedAt": "2026-08-07T12:59:10Z",
+            "reviewedAt": "2026-08-07T13:01:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "53118e99900533c072aa3cf5c2d0ebb2aa5aed8e6319d36564c9dea863673de6",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 826433,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792385\"",
+                "value": "850010792385"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Fermented Camellia Creamy Cleansing Oil",
+                "value": "Fermented Camellia Creamy Cleansing Oil"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 3.5 FL OZ / 103.5 mL",
+                "value": "3.5 fl oz / 103.5 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+                "retrievedAt": "2026-08-07T12:59:10Z",
+                "responseSha256": "e37cde12e87f0b48cbcf709668193d531df630708f543ec9ef08159e7a8238ba",
+                "responseMimeType": "image/png",
+                "responseByteSize": 346174
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T13:01:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/fermented-camellia-creamy-cleansing-oil/",
+          "https://peronabeauty.com/product/naturium-fermented-camellia-creamy-cleansing-oil/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described fermented camellia creamy cleansing oil for makeup and SPF removal.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic cleanser, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-07T13:01:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+          "sha256": "e37cde12e87f0b48cbcf709668193d531df630708f543ec9ef08159e7a8238ba",
+          "mimeType": "image/png",
+          "byteSize": 346174,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:59:10Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+            "sha256": "e37cde12e87f0b48cbcf709668193d531df630708f543ec9ef08159e7a8238ba",
+            "byteSize": 346174,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T12:59:10Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792385"
+            },
+            "officialProductUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "a1ee0fd2a614d65c35fadfcb60faa5172c2ddb78f2e395eea96f82a43ce51989",
+            "generatedAt": "2026-08-07T13:00:51Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "55270948000d47bcd14c8389f04e63ed2267a0114e5cc35c729dc1c5a8550015",
+            "byteSize": 379530,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T13:02:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T13:02:00Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "a1ee0fd2a614d65c35fadfcb60faa5172c2ddb78f2e395eea96f82a43ce51989",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-fermented-camellia-creamy-cleansing-oil-3-5oz/packshot-v1-55270948000d47bc.png",
+        "sha256": "55270948000d47bcd14c8389f04e63ed2267a0114e5cc35c729dc1c5a8550015",
+        "mimeType": "image/png",
+        "byteSize": 379530,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T13:02:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T13:03:00Z"
+      },
+      "dossierFingerprint": "22e94862d38fd3b6da4d7da4fc5caafc9fbbbda192ecc115c7fa3d96d9bbf639"
     }
   ]
 }

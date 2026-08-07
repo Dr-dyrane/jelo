@@ -1,11 +1,11 @@
 {
     "schemaVersion": 1,
     "publicationStatus": "private-research-only",
-    "updatedAt": "2026-08-07T11:46:00Z",
+    "updatedAt": "2026-08-07T12:58:00Z",
     "origin": {
         "kind": "community-aggregate-packet",
         "packetId": "d34092980dce29db8a0a356b",
-        "reportSha256": "20c663c8f8ec489a7c3c091f409f544f2ffa34ab6034ae1d9b3b303ee631d93d"
+        "reportSha256": "f6e6bcfaca2295d962e331e56d1efa46406f54beddd6587b4d9b2aa1dc6dcf92"
     },
     "candidate": {
         "id": "naturium-multi-active-exosome-serum-1fl-oz",
@@ -19,7 +19,7 @@
         "gapIds": [
             "exosome-serum",
             "anti-aging-support",
-            "peptide-serum"
+            "leave-on-face-care"
         ],
         "demandEvidenceUrls": [
             "https://www.urbanskinng.com/shop/multi-active-exosome-serum/",
@@ -28,7 +28,7 @@
         "identity": {
             "gtin": "609332213661",
             "officialProductUrl": "https://naturium.com/products/multi-active-exosome-serum",
-            "checkedAt": "2026-08-07T11:46:00Z",
+            "checkedAt": "2026-08-07T12:57:00Z",
             "basis": "official-brand",
             "packageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
             "officialEvidence": {
@@ -39,10 +39,10 @@
                 "observedPackageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
                 "snapshotKind": "canonical-extraction",
                 "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-active-exosome-serum-1fl-oz.json",
-                "snapshotSha256": "20c663c8f8ec489a7c3c091f409f544f2ffa34ab6034ae1d9b3b303ee631d93d",
+                "snapshotSha256": "f6e6bcfaca2295d962e331e56d1efa46406f54beddd6587b4d9b2aa1dc6dcf92",
                 "snapshotMimeType": "application/json",
-                "snapshotByteSize": 2028,
-                "retrievedAt": "2026-08-07T11:45:28Z",
+                "snapshotByteSize": 2069,
+                "retrievedAt": "2026-08-07T12:55:16Z",
                 "canonicalExtraction": {
                     "schemaVersion": 4,
                     "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
@@ -54,21 +54,21 @@
                     },
                     "sourceUrl": "https://naturium.com/products/multi-active-exosome-serum",
                     "responseUrl": "https://naturium.com/products/multi-active-exosome-serum",
-                    "retrievedAt": "2026-08-07T11:45:28Z",
-                    "reviewedAt": "2026-08-07T11:46:00Z",
+                    "retrievedAt": "2026-08-07T12:55:16Z",
+                    "reviewedAt": "2026-08-07T12:57:00Z",
                     "reviewer": "JeloCare catalogue evidence review",
-                    "sourceResponseSha256": "32375ff2ff4ccca4e616bf2e85cedbe52998e4f06cc15f987d86ee942f2c300d",
+                    "sourceResponseSha256": "f3758a5cb1b77cb065d3a6f294bac2d25f5545255754f9134d53408dfc00a609",
                     "sourceResponseMimeType": "text/html",
-                    "sourceResponseByteSize": 879208,
+                    "sourceResponseByteSize": 879160,
                     "responseDigestScope": "rendered-dom-outerhtml",
                     "fields": {
                         "gtin": {
-                            "locator": "Rendered official Shopify structured product data variant gtin field",
-                            "sourceText": "\"gtin\":\"609332213661\"",
+                            "locator": "Rendered official Shopify structured product data variant barcode field",
+                            "sourceText": "\"barcode\":\"609332213661\"",
                             "value": "609332213661"
                         },
                         "variant": {
-                            "locator": "Rendered official product heading",
+                            "locator": "Rendered official Shopify structured product data variant name field",
                             "sourceText": "Multi-Active Exosome Serum",
                             "value": "Multi-Active Exosome Serum"
                         },
@@ -88,7 +88,7 @@
                             "role": "official-pack-image",
                             "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
                             "responseUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
-                            "retrievedAt": "2026-08-07T11:45:28Z",
+                            "retrievedAt": "2026-08-07T12:55:16Z",
                             "responseSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
                             "responseMimeType": "image/png",
                             "responseByteSize": 463227
@@ -99,17 +99,17 @@
         },
         "care": {
             "status": "reviewed",
-            "formulaArchetype": "Manufacturer-described multi-active exosome face serum for fine lines and wrinkles.",
+            "formulaArchetype": "Manufacturer-described multi-active exosome serum for fine lines and wrinkles.",
             "careTier": "targeted-care",
             "reviewScope": "catalogue-supportive-care",
             "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
             "manufacturerEvidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
-            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
             "evidenceUrls": [
                 "https://naturium.com/products/multi-active-exosome-serum",
-                "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles"
+                "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
             ],
-            "reviewedAt": "2026-08-07T11:46:00Z",
+            "reviewedAt": "2026-08-07T12:57:00Z",
             "reviewer": "JeloCare catalogue evidence review"
         },
         "nigeria": {
@@ -129,13 +129,13 @@
             "sourceAssetByteSize": 463227,
             "sourceAssetWidth": 2000,
             "sourceAssetHeight": 2000,
-            "sourceAssetRetrievedAt": "2026-08-07T11:45:28Z",
+            "sourceAssetRetrievedAt": "2026-08-07T12:55:16Z",
             "packaging": "intact",
             "backgroundTreatment": "source-pixel-isolation",
             "labelVariantSizeUnchanged": true,
             "packagingInvented": false,
             "manualSourceOutputQa": true,
-            "artReviewedAt": "2026-08-07T11:46:00Z",
+            "artReviewedAt": "2026-08-07T12:58:00Z",
             "artReviewer": "Codex visual audit",
             "presentationQuality": "magazine-ready"
         }

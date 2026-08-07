@@ -1167,6 +1167,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-multi-active-exosome-serum-1fl-oz': {
+    productSlug: 'naturium-multi-active-exosome-serum-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-active-exosome-serum',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-fermented-camellia-creamy-cleansing-oil-3-5oz': {
+    productSlug: 'naturium-fermented-camellia-creamy-cleansing-oil-3-5oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/fermented-camellia-creamy-cleansing-oil',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T12:54:00Z",
+  "updatedAt": "2026-08-07T13:02:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -17016,6 +17016,145 @@
       }
     },
     {
+      "id": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "brand": "Naturium",
+      "name": "Fermented Camellia Creamy Cleansing Oil",
+      "variant": "Fermented Camellia Creamy Cleansing Oil",
+      "size": "3.5 fl oz / 103.5 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 103.5 mL Naturium Fermented Camellia Creamy Cleansing Oil. Official Shopify structured data publishes GTIN 850010792385. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "cleansing-oil",
+        "makeup-removal",
+        "rinse-off-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/fermented-camellia-creamy-cleansing-oil/",
+        "https://peronabeauty.com/product/naturium-fermented-camellia-creamy-cleansing-oil/"
+      ],
+      "identity": {
+        "gtin": "850010792385",
+        "officialProductUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "checkedAt": "2026-08-07T13:01:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Fermented Camellia Creamy Cleansing Oil 3.5 fl oz / 103.5 mL bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+          "observedGtin": "850010792385",
+          "observedVariant": "Fermented Camellia Creamy Cleansing Oil",
+          "observedSize": "3.5 fl oz / 103.5 mL",
+          "observedPackageVersion": "Fermented Camellia Creamy Cleansing Oil 3.5 fl oz / 103.5 mL bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-fermented-camellia-creamy-cleansing-oil-3-5oz.json",
+          "snapshotSha256": "4cffdca853546dd2340f3283bc2a493c8ac28f765238939b022f2900f406f66b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2209,
+          "retrievedAt": "2026-08-07T12:59:10Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Fermented Camellia Creamy Cleansing Oil | Makeup & SPF Removal | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+            "responseUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+            "retrievedAt": "2026-08-07T12:59:10Z",
+            "reviewedAt": "2026-08-07T13:01:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "53118e99900533c072aa3cf5c2d0ebb2aa5aed8e6319d36564c9dea863673de6",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 826433,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792385\"",
+                "value": "850010792385"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Fermented Camellia Creamy Cleansing Oil",
+                "value": "Fermented Camellia Creamy Cleansing Oil"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 3.5 FL OZ / 103.5 mL",
+                "value": "3.5 fl oz / 103.5 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Fermented Camellia Creamy Cleansing Oil 3.5 FL OZ / 103.5 mL bottle",
+                "value": "Fermented Camellia Creamy Cleansing Oil 3.5 fl oz / 103.5 mL bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+                "retrievedAt": "2026-08-07T12:59:10Z",
+                "responseSha256": "e37cde12e87f0b48cbcf709668193d531df630708f543ec9ef08159e7a8238ba",
+                "responseMimeType": "image/png",
+                "responseByteSize": 346174
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described fermented camellia creamy cleansing oil for makeup and SPF removal.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic cleanser, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-07T13:01:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/fermented-camellia-creamy-cleansing-oil",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Camellia-Cleansing-Oil-Front_89e29227-a6bc-43e9-9993-e1c6c49a34ad.webp?v=1774290864&width=2048",
+        "sourceAssetSha256": "e37cde12e87f0b48cbcf709668193d531df630708f543ec9ef08159e7a8238ba",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 346174,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T12:59:10Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:02:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-fermented-camellia-creamy-cleansing-oil-3-5oz/packshot-v1-55270948000d47bc.png",
+        "publicImageSha256": "55270948000d47bcd14c8389f04e63ed2267a0114e5cc35c729dc1c5a8550015",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 379530,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
       "id": "naturium-fermented-rice-enzyme-cleanser-4oz",
       "brand": "Naturium",
       "name": "Fermented Rice Enzyme Cleanser",
@@ -17855,7 +17994,7 @@
       "gapIds": [
         "exosome-serum",
         "anti-aging-support",
-        "peptide-serum"
+        "leave-on-face-care"
       ],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/multi-active-exosome-serum/",
@@ -17864,7 +18003,7 @@
       "identity": {
         "gtin": "609332213661",
         "officialProductUrl": "https://naturium.com/products/multi-active-exosome-serum",
-        "checkedAt": "2026-08-07T11:46:00Z",
+        "checkedAt": "2026-08-07T12:57:00Z",
         "basis": "official-brand",
         "packageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
         "officialEvidence": {
@@ -17875,10 +18014,10 @@
           "observedPackageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-active-exosome-serum-1fl-oz.json",
-          "snapshotSha256": "20c663c8f8ec489a7c3c091f409f544f2ffa34ab6034ae1d9b3b303ee631d93d",
+          "snapshotSha256": "f6e6bcfaca2295d962e331e56d1efa46406f54beddd6587b4d9b2aa1dc6dcf92",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 2028,
-          "retrievedAt": "2026-08-07T11:45:28Z",
+          "snapshotByteSize": 2069,
+          "retrievedAt": "2026-08-07T12:55:16Z",
           "canonicalExtraction": {
             "schemaVersion": 4,
             "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
@@ -17890,21 +18029,21 @@
             },
             "sourceUrl": "https://naturium.com/products/multi-active-exosome-serum",
             "responseUrl": "https://naturium.com/products/multi-active-exosome-serum",
-            "retrievedAt": "2026-08-07T11:45:28Z",
-            "reviewedAt": "2026-08-07T11:46:00Z",
+            "retrievedAt": "2026-08-07T12:55:16Z",
+            "reviewedAt": "2026-08-07T12:57:00Z",
             "reviewer": "JeloCare catalogue evidence review",
-            "sourceResponseSha256": "32375ff2ff4ccca4e616bf2e85cedbe52998e4f06cc15f987d86ee942f2c300d",
+            "sourceResponseSha256": "f3758a5cb1b77cb065d3a6f294bac2d25f5545255754f9134d53408dfc00a609",
             "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 879208,
+            "sourceResponseByteSize": 879160,
             "responseDigestScope": "rendered-dom-outerhtml",
             "fields": {
               "gtin": {
-                "locator": "Rendered official Shopify structured product data variant gtin field",
-                "sourceText": "\"gtin\":\"609332213661\"",
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"609332213661\"",
                 "value": "609332213661"
               },
               "variant": {
-                "locator": "Rendered official product heading",
+                "locator": "Rendered official Shopify structured product data variant name field",
                 "sourceText": "Multi-Active Exosome Serum",
                 "value": "Multi-Active Exosome Serum"
               },
@@ -17924,7 +18063,7 @@
                 "role": "official-pack-image",
                 "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
                 "responseUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
-                "retrievedAt": "2026-08-07T11:45:28Z",
+                "retrievedAt": "2026-08-07T12:55:16Z",
                 "responseSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
                 "responseMimeType": "image/png",
                 "responseByteSize": 463227
@@ -17935,17 +18074,17 @@
       },
       "care": {
         "status": "reviewed",
-        "formulaArchetype": "Manufacturer-described multi-active exosome face serum for fine lines and wrinkles.",
+        "formulaArchetype": "Manufacturer-described multi-active exosome serum for fine lines and wrinkles.",
         "careTier": "targeted-care",
         "reviewScope": "catalogue-supportive-care",
         "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
         "manufacturerEvidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
         "evidenceUrls": [
           "https://naturium.com/products/multi-active-exosome-serum",
-          "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles"
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
         ],
-        "reviewedAt": "2026-08-07T11:46:00Z",
+        "reviewedAt": "2026-08-07T12:57:00Z",
         "reviewer": "JeloCare catalogue evidence review"
       },
       "nigeria": {
@@ -17965,13 +18104,13 @@
         "sourceAssetByteSize": 463227,
         "sourceAssetWidth": 2000,
         "sourceAssetHeight": 2000,
-        "sourceAssetRetrievedAt": "2026-08-07T11:45:28Z",
+        "sourceAssetRetrievedAt": "2026-08-07T12:55:16Z",
         "packaging": "intact",
         "backgroundTreatment": "source-pixel-isolation",
         "labelVariantSizeUnchanged": true,
         "packagingInvented": false,
         "manualSourceOutputQa": true,
-        "artReviewedAt": "2026-08-07T11:46:00Z",
+        "artReviewedAt": "2026-08-07T12:58:00Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }
