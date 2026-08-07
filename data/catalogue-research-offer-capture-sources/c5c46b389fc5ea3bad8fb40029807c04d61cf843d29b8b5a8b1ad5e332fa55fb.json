@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 2,
+  "policy": "private-retained-offer-source-evidence-only",
+  "publicationStatus": "not-a-catalogue-candidate",
+  "publicationAuthority": "none",
+  "generatedAt": "2026-08-05T03:31:47.074Z",
+  "source": {
+    "researchPacketsSha256": "af9133de74564e9fec198b2529119fe0f56a367959f67eb3d6316c2c1bb64222",
+    "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "selection": {
+    "packetCount": 9,
+    "packetIds": [
+      "42a91a1bc91841763d974680",
+      "861874fd1cfe8bb36f77912b",
+      "8ae1b6abf6fe77ce94d1c319",
+      "8c9317ef63c239fa932e1f1b",
+      "a58cf5de47116310cc34e91a",
+      "aff07100d6424f43489e1eb0",
+      "ce0f3f38b3ead84fdecdaf07",
+      "d11231e8aa7256f65a5b6ddd",
+      "ff4b61e5e7b3c86b68407794"
+    ],
+    "responseCount": 9
+  },
+  "qualityCautions": [],
+  "captures": [
+    {
+      "id": "114225f00949eaf68620ec2b",
+      "packetId": "42a91a1bc91841763d974680",
+      "discoveryId": "7f5e4463688a37e008b523ff",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/7f5e4463688a37e008b523ff--buybetter.json",
+      "source": {
+        "productId": 383321,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/383321",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/383321",
+        "listingUrl": "https://buybetter.ng/product/anua-zero-cast-moisturizing-finnish-sunscreen-50ml/",
+        "capturedAt": "2026-07-29T04:12:18.955Z",
+        "responseSha256": "7acf5aaefa318896172777dad23905c689d577298e1f4d346bc8ef75232ecedc",
+        "responseByteSize": 7054,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
+        "size": "50ml",
+        "price": {
+          "amount": 14000,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "8809640739507",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "3cbb9ed46258faf8de65ba42",
+      "packetId": "861874fd1cfe8bb36f77912b",
+      "discoveryId": "980f4a6663d7e3bdca521609",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/980f4a6663d7e3bdca521609--buybetter.json",
+      "source": {
+        "productId": 422248,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422248",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/422248",
+        "listingUrl": "https://buybetter.ng/product/medicube-pdrn-pink-niacinamide-whip-cleanser-120g/",
+        "capturedAt": "2026-07-29T04:12:18.558Z",
+        "responseSha256": "35a6202307f96b345fea6ab5a4477e3b2817eb59488f54a4c32da6bf411de0b2",
+        "responseByteSize": 4801,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
+        "size": "120g",
+        "price": {
+          "amount": 12800,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8800289473159",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "6a87114c28b42e2d292536ce",
+      "packetId": "8ae1b6abf6fe77ce94d1c319",
+      "discoveryId": "68dd71a67def9960124cd112",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/68dd71a67def9960124cd112--buybetter.json",
+      "source": {
+        "productId": 429825,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/429825",
+        "listingUrl": "https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:15.317Z",
+        "responseSha256": "16dbd74d06034de74cc6d2096f16c7724c6a0bebb0a667a10fe12cf87586ce94",
+        "responseByteSize": 4531,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 16500,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8800280693693",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "adad1b73ea695e54f3d5f220",
+      "packetId": "8c9317ef63c239fa932e1f1b",
+      "discoveryId": "f87e67c0fb61e9574f74ef21",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f87e67c0fb61e9574f74ef21--buybetter.json",
+      "source": {
+        "productId": 332657,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332657",
+        "listingUrl": "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-masks-23g/",
+        "capturedAt": "2026-07-29T04:12:16.465Z",
+        "responseSha256": "a9fd55c00d65e8fd0671dff691b4268e9d6b743cfe9d71e9b98204a7ec25b68a",
+        "responseByteSize": 4186,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
+        "size": "23g",
+        "price": {
+          "amount": 3548,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "3600542368810",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "4ff2e53bb7a5f2879e7f05ae",
+      "packetId": "a58cf5de47116310cc34e91a",
+      "discoveryId": "b9f9c3fe07895c6ce9945f8a",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/b9f9c3fe07895c6ce9945f8a--buybetter.json",
+      "source": {
+        "productId": 335880,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/335880",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/335880",
+        "listingUrl": "https://buybetter.ng/product/glamfox-double-effect-retinol-collagen-foam-cleanser-120ml/",
+        "capturedAt": "2026-07-29T04:12:17.789Z",
+        "responseSha256": "915e0262ed12f6e3530bcb11a6c0fe2bf51da6ab944c6cc0d310f480269c8c0f",
+        "responseByteSize": 4753,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
+        "size": "120ml",
+        "price": {
+          "amount": 10965,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809109689688",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "302687b5b34ab7482212d57b",
+      "packetId": "aff07100d6424f43489e1eb0",
+      "discoveryId": "0b73f42e4c3d2f14656610ae",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0b73f42e4c3d2f14656610ae--buybetter.json",
+      "source": {
+        "productId": 415589,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/415589",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/415589",
+        "listingUrl": "https://buybetter.ng/product/purito-azelaic-acid-10-kojic-tea-tree-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:16.746Z",
+        "responseSha256": "4c60e20de4fafea2bb2c40777e2752229ea63f4c26c35968731005ed5056a71b",
+        "responseByteSize": 5156,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 18000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809563103980",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "feac5fa7a7b83b978d9e393a",
+      "packetId": "ce0f3f38b3ead84fdecdaf07",
+      "discoveryId": "005fe384576be5e38689857f",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/005fe384576be5e38689857f--buybetter.json",
+      "source": {
+        "productId": 329416,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329416",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329416",
+        "listingUrl": "https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/",
+        "capturedAt": "2026-07-29T04:12:17.484Z",
+        "responseSha256": "8ccc6982c0201c6f3470ec05fbd6ef47574eb207a724a58e2ffe4b81515c8537",
+        "responseByteSize": 6841,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
+        "size": "200ml",
+        "price": {
+          "amount": 30100,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "358211113003",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "c2c3cf8099fbbd4c786b9737",
+      "packetId": "d11231e8aa7256f65a5b6ddd",
+      "discoveryId": "fe369f475a0d890702084b1b",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/fe369f475a0d890702084b1b--buybetter.json",
+      "source": {
+        "productId": 426866,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/426866",
+        "listingUrl": "https://buybetter.ng/product/cos-de-baha-az15-azelaic-acid-15-msm-serum-30ml/",
+        "capturedAt": "2026-07-29T04:12:15.315Z",
+        "responseSha256": "38812d87bd6a8f07578b8edd71168e4048f84f786274d0590bf4a9e78e1513e1",
+        "responseByteSize": 6168,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
+        "size": "30ml",
+        "price": {
+          "amount": 12470,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809240319406",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "15d5b49e38b50dc762ecf0db",
+      "packetId": "ff4b61e5e7b3c86b68407794",
+      "discoveryId": "cd29efd703d9f5ad9192bf01",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/cd29efd703d9f5ad9192bf01--buybetter.json",
+      "source": {
+        "productId": 330924,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330924",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330924",
+        "listingUrl": "https://buybetter.ng/product/skin-by-zaron-salicylic-acid-2-clarifying-brightening-exfoliating-toner-150ml/",
+        "capturedAt": "2026-07-29T04:12:17.449Z",
+        "responseSha256": "aae256ec36c8f1a479978d9f9f31c0f5a68932ba095e3ffc7f4e4089d8c7d38f",
+        "responseByteSize": 4738,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
+        "size": "150ml",
+        "price": {
+          "amount": 11564,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6908137011460",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    }
+  ]
+}

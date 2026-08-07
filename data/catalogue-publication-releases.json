@@ -1489,6 +1489,30 @@
         "publishedAt": "2026-08-06T23:50:00Z"
       },
       "releaseFingerprint": "05169e093cf80613b2f309e74d73c3f0f8ab764877b67cdce1286fe47251f457"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "dossierFingerprint": "e62fda495e905d302313e47b198f5efa6374f9db8e3b864a4eb5c686625a20b5",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Invisible SPF 35 sunscreen · 50 ml",
+        "usage": "Apply generously to face and neck as the last step in your morning routine, 15 minutes before sun exposure. Reapply every two hours during direct sun exposure. Works as a blurring makeup primer under foundation.",
+        "manufacturerDirectionsUrl": "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T00:06:45Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T00:07:30Z"
+      },
+      "releaseFingerprint": "066ce8c4abfdeeaafa7ac1240af1fe7a83fc4278f47bb7d70c5a729c0befa28e"
     }
   ]
 }

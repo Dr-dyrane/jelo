@@ -40,6 +40,8 @@ This is the entry point for product, engineering, data, and operations.
 - [DANG Hydra Glow offer blocker](./research/2026-07-28-dang-hydra-glow-nigeria-offer-blocker.md)
 - [Skin by Zaron salicylic toner EAN resolution](./research/2026-08-02-skin-by-zaron-salicylic-acid-ean-resolution.md)
 - [4 August founder/pharmacist catalogue offer targets](./research/catalogue-founder-pharmacist-offer-targets-2026-08-04.md)
+- [NINELESS A-Control azelaic acid cream research](./research/2026-08-06-nineless-a-control-azelaic-acid-cream-50ml-research.md)
+- [Garnier Pure Active tissue mask image handoff](./research/2026-08-06-garnier-pure-active-tissue-mask-image-handoff.md)
 - [Retail intelligence](./RETAIL_INTELLIGENCE.md)
 - [Nigeria retailer reference](./NIGERIA_RETAILERS.md)
 - [Smart store guide](./retailers/SMART_STORE_GUIDE.md)
@@ -58,6 +60,7 @@ This is the entry point for product, engineering, data, and operations.
 - [Catalogue publication gate](./CATALOGUE_PUBLICATION_GATE.md)
 - [Exact-SKU packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md)
 - [Product image workflow](./PRODUCT_IMAGE_WORKFLOW.md)
+- [Public experience audit](./PUBLIC_EXPERIENCE_AUDIT.md)
 - [Infrastructure](./INFRASTRUCTURE.md)
 
 ## Decisions

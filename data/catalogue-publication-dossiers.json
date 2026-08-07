@@ -16630,6 +16630,257 @@
         "approvedAt": "2026-08-06T23:48:00Z"
       },
       "dossierFingerprint": "08a0e983a106169c437aa14676735dc328376599307754e06fd2a52f7723f1e4"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "candidateFingerprint": "9ffdb8193e753cb3e608cee2d0d36e9d6059f129f1ac40d8c22b61289d109136",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "00609332818071",
+        "brand": "e.l.f.",
+        "name": "Suntouchable Invisible Sunscreen SPF 35",
+        "variant": "Suntouchable Invisible Sunscreen SPF 35",
+        "size": "50 ml",
+        "packageVersion": "e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35 50ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35",
+        "officialIdentity": {
+          "url": "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35",
+          "observedGtin": "00609332818071",
+          "observedVariant": "Suntouchable Invisible Sunscreen SPF 35",
+          "observedSize": "50 ml",
+          "observedPackageVersion": "e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35 50ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/elf-suntouchable-invisible-sunscreen-spf-35-50ml.json",
+          "snapshotSha256": "aa324e9aa5ad34c6784ca3667067c1854b1599a5ce44a88f5fdb61fd783a1cab",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 5109,
+          "retrievedAt": "2026-08-07T00:01:05Z",
+          "canonicalExtraction": {
+            "schemaVersion": 5,
+            "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+            "sourceUrl": "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35",
+            "responseUrl": "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35",
+            "retrievedAt": "2026-08-07T00:01:05Z",
+            "reviewedAt": "2026-08-07T00:06:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "sourceResponseSha256": "b68036e8fa8c86eb303355f254fd25eebde67ec4f2d84fc732be6adabd9fbc8c",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 518414,
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "e.l.f. Suntouchable Invisible Makeup Primer w/ Sunscreen SPF 35 | e.l.f. Cosmetics"
+            },
+            "fields": {
+              "gtin": {
+                "value": "00609332818071",
+                "locator": "identifierCorroborations[*].fields.gtin",
+                "sourceText": "UPC 609332818071 (GTIN-14 00609332818071) is independently corroborated by Amazon and UPC Item DB; the official e.l.f. product page publishes SKU 81807UP but no barcode."
+              },
+              "variant": {
+                "value": "Suntouchable Invisible Sunscreen SPF 35",
+                "locator": "Rendered official HTML product heading",
+                "sourceText": "Suntouchable Invisible Sunscreen SPF 35"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "Rendered official HTML size selector",
+                "sourceText": "Regular 1.7 oz / 50 ml"
+              },
+              "manufacturerIdentifierStatus": {
+                "value": "not-published",
+                "locator": "Rendered official product page SKU field",
+                "sourceText": "Official product page: SKU: 81807UP (no barcode published)",
+                "absenceProof": {
+                  "searchScope": "complete-rendered-dom-outerhtml",
+                  "searchedTerms": [
+                    "barcode",
+                    "ean",
+                    "gtin",
+                    "upc"
+                  ],
+                  "matchStrategy": "whole-word",
+                  "caseInsensitive": true,
+                  "matchCount": 0
+                }
+              },
+              "packageVersion": {
+                "value": "e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35 50ml",
+                "locator": "Official manufacturer product heading and main pack image",
+                "sourceText": "Suntouchable Invisible Sunscreen SPF 35",
+                "evidenceUrl": "https://cdn.shopify.com/s/files/1/0661/2251/4520/files/81807_Closed_MAIN_v3_R_3c9f6d88-592e-4d1a-9f04-62d031ca975c.png?v=1778006929&width=2048"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0661/2251/4520/files/81807_Closed_MAIN_v3_R_3c9f6d88-592e-4d1a-9f04-62d031ca975c.png?v=1778006929&width=2048",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0661/2251/4520/files/81807_Closed_MAIN_v3_R_3c9f6d88-592e-4d1a-9f04-62d031ca975c.png?v=1778006929&width=2048",
+                "retrievedAt": "2026-08-07T00:02:00Z",
+                "responseSha256": "d1e28eed6e4a9c0f2c4e1381715be1e9fe90c9700a4b52d7fe6c83ce12849f50",
+                "responseMimeType": "image/png",
+                "responseByteSize": 1778332
+              }
+            ],
+            "identifierCorroborations": [
+              {
+                "sourceUrl": "https://www.amazon.com/dp/B0C7SFTTV3",
+                "responseUrl": "https://www.amazon.com/dp/B0C7SFTTV3",
+                "retrievedAt": "2026-08-07T00:01:23Z",
+                "reviewedAt": "2026-08-07T00:06:00Z",
+                "reviewer": "JeloCare catalogue evidence review",
+                "method": "reviewed-browser-dom-independent-ean-corroboration",
+                "responseDigestScope": "rendered-dom-outerhtml",
+                "sourceResponseSha256": "111e8da25a4d5dfc1f5f35e0a1f9466a6d2a9abf242a4ddb2eecf8636238596e",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 2931897,
+                "browserCapture": {
+                  "surface": "Playwright MCP browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "Amazon.com : e.l.f. SKIN Suntouchable Invisible SPF 35 Sunscreen | Lightweight Gel for Under Makeup, Daily Face Sunscreen for Women, Vegan & Cruelty-Free : Beauty & Personal Care"
+                },
+                "fields": {
+                  "gtin": {
+                    "value": "00609332818071",
+                    "locator": "Rendered Amazon product details UPC field",
+                    "sourceText": "UPC: 609332818071 (GTIN-14: 00609332818071)"
+                  },
+                  "variant": {
+                    "value": "e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35",
+                    "locator": "Rendered Amazon product title",
+                    "sourceText": "e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35"
+                  },
+                  "size": {
+                    "value": "50 ml",
+                    "locator": "Rendered Amazon product details",
+                    "sourceText": "1.7 oz / 50 ml"
+                  }
+                }
+              },
+              {
+                "sourceUrl": "https://www.upcitemdb.com/upc/609332818071",
+                "responseUrl": "https://www.upcitemdb.com/upc/609332818071",
+                "retrievedAt": "2026-08-07T00:01:40Z",
+                "reviewedAt": "2026-08-07T00:06:00Z",
+                "reviewer": "JeloCare catalogue evidence review",
+                "method": "reviewed-browser-dom-independent-ean-corroboration",
+                "responseDigestScope": "rendered-dom-outerhtml",
+                "sourceResponseSha256": "635331ddcfbb94cfe166fb78cadcc56c5007bf19c7364a963955ff3ef24ca11a",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 76322,
+                "browserCapture": {
+                  "surface": "Playwright MCP browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "UPC 609332818071 - e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35 | upcitemdb.com"
+                },
+                "fields": {
+                  "gtin": {
+                    "value": "00609332818071",
+                    "locator": "UPC Item DB page heading",
+                    "sourceText": "UPC 609332818071 (GTIN-14: 00609332818071) - e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35"
+                  },
+                  "variant": {
+                    "value": "e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35",
+                    "locator": "UPC Item DB product title",
+                    "sourceText": "e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35"
+                  },
+                  "size": {
+                    "value": "50 ml",
+                    "locator": "UPC Item DB product details",
+                    "sourceText": "1.7 oz / 50 ml"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T00:06:00Z",
+        "demandEvidenceUrls": [
+          "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Broad-spectrum SPF 35 lightweight clear gel sunscreen that doubles as a blurring makeup primer. Infused with aloe and meadowfoam seed.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic sunscreen, not treatment for a skin condition. SPF 35 broad-spectrum protection helps prevent sun damage when applied correctly. Reapply every two hours during sun exposure. Visible blur and priming effects do not guarantee tolerance for every person. Stop if persistent irritation develops. Severe or persistent skin concerns need a clinician.",
+        "manufacturerEvidenceUrl": "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-07T00:06:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0661/2251/4520/files/81807_Closed_MAIN_v3_R_3c9f6d88-592e-4d1a-9f04-62d031ca975c.png?v=1778006929&width=2048",
+          "sha256": "d1e28eed6e4a9c0f2c4e1381715be1e9fe90c9700a4b52d7fe6c83ce12849f50",
+          "mimeType": "image/png",
+          "byteSize": 1778332,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T00:02:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current e.l.f. SKIN Suntouchable Invisible Sunscreen SPF 35 50ml tube and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the e.l.f. brand, Suntouchable Invisible Sunscreen SPF 35 title, and 50ml size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0661/2251/4520/files/81807_Closed_MAIN_v3_R_3c9f6d88-592e-4d1a-9f04-62d031ca975c.png?v=1778006929&width=2048",
+              "sha256": "d1e28eed6e4a9c0f2c4e1381715be1e9fe90c9700a4b52d7fe6c83ce12849f50"
+            }
+          ],
+          "outputSha256": "96766e0b76f0c4117cb650d4eac70b02d5928bd5f67006805bd4187073631e7d",
+          "generatedAt": "2026-08-07T00:05:00Z",
+          "recordSha256": "d50acc8093384abd8e7a59c2704d7e842fcb177a0d806e15843647b5c04ce064"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/elf/elf-suntouchable-invisible-sunscreen-spf-35-50ml/packshot-v1-96766e0b76f0c411.png",
+        "sha256": "96766e0b76f0c4117cb650d4eac70b02d5928bd5f67006805bd4187073631e7d",
+        "mimeType": "image/png",
+        "byteSize": 1662479,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T00:06:15Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T00:06:30Z"
+      },
+      "dossierFingerprint": "e62fda495e905d302313e47b198f5efa6374f9db8e3b864a4eb5c686625a20b5"
     }
   ]
 }

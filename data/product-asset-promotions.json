@@ -705,7 +705,6 @@
   {
     "id": "nineless-a-control-azelaic-acid-cream-50ml-v1",
     "active": true,
-    "productSlug": "nineless-a-control-azelaic-acid-cream-50ml",
     "sourceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
     "localPath": "data/catalogue-intake-assets/nineless-a-control-azelaic-acid-cream-50ml/packshot.png",
     "blobPath": "products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v1-8f5981be456a00c0.png",
@@ -717,6 +716,24 @@
     "hasAlpha": true,
     "contentHash": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
     "destination": "publication",
-    "candidateId": "nineless-a-control-azelaic-acid-cream-50ml"
+    "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+    "publicationBrandSlug": "nineless"
+  },
+  {
+    "id": "elf-suntouchable-invisible-sunscreen-spf-35-50ml-v1",
+    "active": true,
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0661/2251/4520/files/81807_Closed_MAIN_v3_R_3c9f6d88-592e-4d1a-9f04-62d031ca975c.png?v=1778006929&width=2048",
+    "localPath": "data/catalogue-intake-assets/elf-suntouchable-invisible-sunscreen-spf-35-50ml/packshot.png",
+    "blobPath": "products/elf/elf-suntouchable-invisible-sunscreen-spf-35-50ml/packshot-v1-96766e0b76f0c411.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/elf/elf-suntouchable-invisible-sunscreen-spf-35-50ml/packshot-v1-96766e0b76f0c411.png",
+    "contentType": "image/png",
+    "byteSize": 1662479,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "96766e0b76f0c4117cb650d4eac70b02d5928bd5f67006805bd4187073631e7d",
+    "destination": "publication",
+    "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+    "publicationBrandSlug": "elf"
   }
 ]

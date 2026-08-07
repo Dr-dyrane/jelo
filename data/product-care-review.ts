@@ -928,6 +928,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-06',
   },
+  'nineless-a-control-azelaic-acid-cream-50ml': {
+    productSlug: 'nineless-a-control-azelaic-acid-cream-50ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://ninelessshop.com/products/a-control-azelaic-acid-cream',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/cleansing/dry-skin',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'elf-suntouchable-invisible-sunscreen-spf-35-50ml': {
+    productSlug: 'elf-suntouchable-invisible-sunscreen-spf-35-50ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

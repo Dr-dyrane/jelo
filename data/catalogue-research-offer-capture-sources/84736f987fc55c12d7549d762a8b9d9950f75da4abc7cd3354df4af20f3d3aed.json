@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 2,
+  "policy": "private-retained-offer-source-evidence-only",
+  "publicationStatus": "not-a-catalogue-candidate",
+  "publicationAuthority": "none",
+  "generatedAt": "2026-08-05T03:31:47.088Z",
+  "source": {
+    "researchPacketsSha256": "bea1fd473fc806aaf8e01f4d8e3fab07875dd800ae97c5498016e687d65e9b4f",
+    "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "selection": {
+    "packetCount": 10,
+    "packetIds": [
+      "459b8806590d2750e22a8906",
+      "586ef0ac5c086de562296593",
+      "656a1a60466fc29f11d0059f",
+      "69bf90baf39309039402ae19",
+      "8146f37c47cff6d9cd0c6193",
+      "863eec92f7291e3d307be521",
+      "9cb4a3ee328b1dec80f44f6c",
+      "cbc834ef2dfe1921106b9ad0",
+      "de73b1b69dc56e877ea37999",
+      "ed48f1fea49846a7db551502"
+    ],
+    "responseCount": 10
+  },
+  "qualityCautions": [],
+  "captures": [
+    {
+      "id": "77e96bca51ecb7ab2a1acd23",
+      "packetId": "459b8806590d2750e22a8906",
+      "discoveryId": "5154a75f6a4315ba69ff7bdf",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/5154a75f6a4315ba69ff7bdf--buybetter.json",
+      "source": {
+        "productId": 363775,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/363775",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/363775",
+        "listingUrl": "https://buybetter.ng/product/keracare-no1-dry-and-itchy-scalp-anti-dandruff-moisturizing-shampoo-950ml/",
+        "capturedAt": "2026-07-29T04:12:24.596Z",
+        "responseSha256": "b613812b080102e9f8429cbc853b8a0ce9f573685535dd64f10e4dd00ea0f27f",
+        "responseByteSize": 4937,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "KERACARE Dry And Itchy Shampoo 950ml",
+        "size": "950ml",
+        "price": {
+          "amount": 35474,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "796708350188",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "524e9ce9966cccffa5692169",
+      "packetId": "586ef0ac5c086de562296593",
+      "discoveryId": "a3844e0ff4ce89736040eb4e",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/a3844e0ff4ce89736040eb4e--buybetter.json",
+      "source": {
+        "productId": 389121,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389121",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389121",
+        "listingUrl": "https://buybetter.ng/product/biobalance-dermasebum-purifying-facial-cleansing-gel-250ml/",
+        "capturedAt": "2026-08-02T18:16:00.778Z",
+        "responseSha256": "778078cc759af6e1da11a92195d56dc9730c0d34631db2545d44057ed47774d0",
+        "responseByteSize": 8314,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "BIOBALANCE Dermasebum Purifying Facial Cleansing Gel 250ml",
+        "size": "250ml",
+        "price": {
+          "amount": 11515,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8697711701009",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "228670f729ef4b4c1582d004",
+      "packetId": "656a1a60466fc29f11d0059f",
+      "discoveryId": "0defb63ca2f722fc93d4e0d5",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/0defb63ca2f722fc93d4e0d5--buybetter.json",
+      "source": {
+        "productId": 332178,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332178",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332178",
+        "listingUrl": "https://buybetter.ng/product/shiseido-professional-sublimic-fuente-forte-shampoo-oily-scalp-1000ml/",
+        "capturedAt": "2026-07-29T04:12:24.600Z",
+        "responseSha256": "6e59bbc17f12ff4dd86f65daddfd1994fd646b66ebdf8c512b5f5cbfc3b0c46d",
+        "responseByteSize": 5888,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SHISEIDO Professional -SUBLIMIC Fuente Forte SHAMPOO (Oily Scalp) 1000ml",
+        "size": "1000ml",
+        "price": {
+          "amount": 32000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "4901872933303",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "e0f8300586b973d368ed99cf",
+      "packetId": "69bf90baf39309039402ae19",
+      "discoveryId": "c65508f695a5dcd240da0eb3",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/c65508f695a5dcd240da0eb3--buybetter.json",
+      "source": {
+        "productId": 332181,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332181",
+        "listingUrl": "https://buybetter.ng/product/glamfox-glowing-moisturizing-rice-niacinamide-foam-cleanser-230g/",
+        "capturedAt": "2026-07-29T04:12:21.312Z",
+        "responseSha256": "9413a16973824c97d64bee2020d34201b6c054a9e74019151fe2a2b1706b1075",
+        "responseByteSize": 4483,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
+        "size": "230g",
+        "price": {
+          "amount": 10213,
+          "currency": "NGN"
+        },
+        "stock": "in-stock",
+        "retailerSku": {
+          "value": "8809109680876",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "df7f7c2e02fa8ad04fef1fa5",
+      "packetId": "8146f37c47cff6d9cd0c6193",
+      "discoveryId": "f67f222e9d4c90404e22904d",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/f67f222e9d4c90404e22904d--buybetter.json",
+      "source": {
+        "productId": 402566,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402566",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402566",
+        "listingUrl": "https://buybetter.ng/product/amika-the-kure-conditioner-275ml/",
+        "capturedAt": "2026-07-29T04:12:23.017Z",
+        "responseSha256": "3d11276ea0e9337da18de3e5134b87620f378155907fa7e332f34d0b94fd12f3",
+        "responseByteSize": 4686,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "Amika - The kure Conditioner 275ml",
+        "size": "275ml",
+        "price": {
+          "amount": 35690,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "840117807082",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "012c6b2fb6f8e5740eb73043",
+      "packetId": "863eec92f7291e3d307be521",
+      "discoveryId": "4a65be1a58dd495b7eab8b5b",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/4a65be1a58dd495b7eab8b5b--buybetter.json",
+      "source": {
+        "productId": 389106,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389106",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/389106",
+        "listingUrl": "https://buybetter.ng/product/bio-balance-derma-age-rejuvenating-facial-cleansing-gel-250ml/",
+        "capturedAt": "2026-07-29T04:12:22.386Z",
+        "responseSha256": "947f29d189cdb4368af5bfd72446d779bbc71fa03fdfdbb600e7e72d85cd854d",
+        "responseByteSize": 6441,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
+        "size": "250ml",
+        "price": {
+          "amount": 11163,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8697711701023",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "069a8a25d1cabf16e730765c",
+      "packetId": "9cb4a3ee328b1dec80f44f6c",
+      "discoveryId": "434e6d0e45a3bea8326d0911",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/434e6d0e45a3bea8326d0911--buybetter.json",
+      "source": {
+        "productId": 418660,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418660",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/418660",
+        "listingUrl": "https://buybetter.ng/product/seapuri-scalpy-hair-serum-20ml/",
+        "capturedAt": "2026-07-29T04:12:24.129Z",
+        "responseSha256": "543e97d1f2d4a6227cd7bacbbe38970655915aa113ef5db5f11b64bac4a61dc9",
+        "responseByteSize": 8544,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SEAPURI Scalpy Hair Serum 20ml",
+        "size": "20ml",
+        "price": {
+          "amount": 17200,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8809934860870",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "9a1ec1fa9c7a933838e35cd2",
+      "packetId": "cbc834ef2dfe1921106b9ad0",
+      "discoveryId": "7afa2f6eac15547f92afd336",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/7afa2f6eac15547f92afd336--buybetter.json",
+      "source": {
+        "productId": 402803,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402803",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/402803",
+        "listingUrl": "https://buybetter.ng/product/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/",
+        "capturedAt": "2026-07-29T04:12:23.499Z",
+        "responseSha256": "563123f114cb5c162398a35b4d4576e78d55cfb74f6fd7300609a3d90b7eab17",
+        "responseByteSize": 3919,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
+        "size": "50ml",
+        "price": {
+          "amount": 27200,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "810083682860",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "0213cba80ef15dad99080f61",
+      "packetId": "de73b1b69dc56e877ea37999",
+      "discoveryId": "8ac4f70510214db024b57c46",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/8ac4f70510214db024b57c46--buybetter.json",
+      "source": {
+        "productId": 330708,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330708",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330708",
+        "listingUrl": "https://buybetter.ng/product/beauty-formulas-gentle-soft-apricot-cleansing-facial-wipes-30pcs/",
+        "capturedAt": "2026-07-29T04:12:21.948Z",
+        "responseSha256": "60bb783b3f0b11f951fce895cac5a6c0bda6275700a25207b3f04de57ca14402",
+        "responseByteSize": 4217,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
+        "size": "30pcs",
+        "price": {
+          "amount": 2473,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "5012251009423",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "169dd1f012c67c15e5070ed7",
+      "packetId": "ed48f1fea49846a7db551502",
+      "discoveryId": "409d46e2deb8d4a892997d7c",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/409d46e2deb8d4a892997d7c--buybetter.json",
+      "source": {
+        "productId": 332130,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332130",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332130",
+        "listingUrl": "https://buybetter.ng/product/medicube-soymint-scaling-shampoo-490ml/",
+        "capturedAt": "2026-07-29T04:12:23.489Z",
+        "responseSha256": "3bd19b59a7668b40718b1de2b970eb539e5e0f81d11b2a3836056e75179abaf9",
+        "responseByteSize": 8607,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "MEDICUBE -Soymint Scaling Shampoo 490ml",
+        "size": "490ml",
+        "price": {
+          "amount": 17830,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "8800256112487",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    }
+  ]
+}

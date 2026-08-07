@@ -760,6 +760,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   drteals: ['www.drteals.com'],
   estelin: ['estelin.co.in'],
   estelinindia: ['estelin.co.in'],
+  elf: ['www.elfcosmetics.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
   fentyskin: ['fentybeauty.com'],
@@ -821,6 +822,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   drteals: ['www.drteals.com'],
   estelin: ['estelin.co.in', 'cdn.shopify.com'],
   estelinindia: ['estelin.co.in', 'cdn.shopify.com'],
+  elf: ['www.elfcosmetics.com', 'cdn.shopify.com'],
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
   fentyskin: ['fentybeauty.com', 'cdn.shopify.com'],
@@ -871,6 +873,10 @@ const reviewedCandidateIdentifierCorroborationUrls: Readonly<Record<string, read
   'nineless-a-control-azelaic-acid-cream-50ml': [
     'https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/',
     'https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml',
+  ],
+  'elf-suntouchable-invisible-sunscreen-spf-35-50ml': [
+    'https://www.amazon.com/dp/B0C7SFTTV3',
+    'https://www.upcitemdb.com/upc/609332818071',
   ],
   'skin-by-zaron-vitamin-c-body-wash-650ml': [
     'https://lamifragrance.com/product/skin-by-zaron-vitamin-c-body-wash/',

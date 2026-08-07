@@ -1132,5 +1132,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0661/2251/4520/files/81807_Closed_MAIN_v3_R_3c9f6d88-592e-4d1a-9f04-62d031ca975c.png?v=1778006929&width=2048",
+      "sha256": "d1e28eed6e4a9c0f2c4e1381715be1e9fe90c9700a4b52d7fe6c83ce12849f50",
+      "byteSize": 1778332,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T00:02:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00609332818071"
+      },
+      "officialProductUrl": "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "8a40bdc22675383ffddff8677ca1286a1c70a5fe033852c900a31327056dc6ee",
+      "generatedAt": "2026-08-07T00:05:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "96766e0b76f0c4117cb650d4eac70b02d5928bd5f67006805bd4187073631e7d",
+      "byteSize": 1662479,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T00:06:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T00:06:15Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "cad4c2f647ba901ef05f8ec3f2f93ca8aacf95c8137a2bbea9e8c3c2b9f0792b",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]
