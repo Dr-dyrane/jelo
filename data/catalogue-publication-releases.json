@@ -2737,6 +2737,54 @@
         "publishedAt": "2026-08-07T15:22:00Z"
       },
       "releaseFingerprint": "175cf5d503949510007f7d4a2667a19cf4aab7aa10683f70a876333496ae07c8"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+      "dossierFingerprint": "ebd2f32d116e00641a2ed28b395f36ef37efbcede406da56a27e6989a25396af",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Bright + Balance Body Gel Wash 1000 ml",
+        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:51:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:52:00Z"
+      },
+      "releaseFingerprint": "78a273db82e83ceaaec4e5ecf59b8b08b77d38b8c3e20f7dee25b1d0301d0975"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+      "dossierFingerprint": "e5a2b8677b041e73db895023596c7a6c76e30cd526490c1f4288bfd0e5b4a42e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Hydrating Bright Body Gel Wash 1000 ml",
+        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T15:51:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T15:52:00Z"
+      },
+      "releaseFingerprint": "52c7c9d985de7874495b623b70245cf75f16fb4f5c62d5e45cb970d5ee7fe394"
     }
   ]
 }

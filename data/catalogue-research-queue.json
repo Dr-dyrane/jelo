@@ -219,60 +219,6 @@
     },
     {
       "rank": 8,
-      "discoveryId": "f8248dfef755c72bc5ba70a1",
-      "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
-      "brandHint": "AQUA RICH",
-      "size": "1000ml",
-      "categoryHint": "Body care",
-      "lane": "pigment-support",
-      "priorityScore": 176,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "04897073186573",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 9,
-      "discoveryId": "e0574c12b77f4a4eafd63ed0",
-      "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
-      "brandHint": "AQUA RICH",
-      "size": "1000ml",
-      "categoryHint": "Body care",
-      "lane": "pigment-support",
-      "priorityScore": 176,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "04897073186566",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 10,
       "discoveryId": "c7e76dd320bb3c521744597c",
       "title": "NIU SKIN Glowing (Niacinamide, Vitamin C And AHA) Body Wash 800ml",
       "brandHint": "NIU SKIN",
@@ -299,7 +245,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 11,
+      "rank": 9,
       "discoveryId": "17bd496cb38c558d4e8a56f9",
       "title": "DR TEALS (Vitamin C And Citrus) Body Lotion with Essential oil 532ml",
       "brandHint": "DR",
@@ -326,7 +272,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 12,
+      "rank": 10,
       "discoveryId": "9a010c0186b1418272fce5bb",
       "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
       "brandHint": "ADVANCED",
@@ -353,7 +299,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 13,
+      "rank": 11,
       "discoveryId": "fd07898619801a68999f2850",
       "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
       "brandHint": "FACEFACTS",
@@ -380,7 +326,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 14,
+      "rank": 12,
       "discoveryId": "6635e9027b7821ef2ff04dbd",
       "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
       "brandHint": "Advanced Korean Skin",
@@ -406,7 +352,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 15,
+      "rank": 13,
       "discoveryId": "f1ebe655a947668241b4d240",
       "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -432,7 +378,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 16,
+      "rank": 14,
       "discoveryId": "b7c8a1240541dd5a7869b2eb",
       "title": "ADVANCED KOREAN SKIN Bright And Smooth Body Lotion 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -458,7 +404,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 17,
+      "rank": 15,
       "discoveryId": "4b13a12fadc04b34d8290d5b",
       "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "brandHint": "AQUA RICH",
@@ -484,7 +430,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 16,
       "discoveryId": "814c2d49e6ef3327cebd67d5",
       "title": "DR TEALS Shea Sugar Scrub (Citrus Essential Oils With Vitamin C) 538g",
       "brandHint": "Dr Teals",
@@ -512,7 +458,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 19,
+      "rank": 17,
       "discoveryId": "bf9ba6790a3343c9ef316925",
       "title": "ACWELL Licorice pH Balancing Cleansing Toner 150ml",
       "brandHint": "ACWELL",
@@ -538,7 +484,33 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 20,
+      "rank": 18,
+      "discoveryId": "7e605cd6690ac73d599d9c2b",
+      "title": "AQUA RICH Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract) 1000ml",
+      "brandHint": "AQUA RICH",
+      "size": "1000ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 158,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "04897073187587",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 19,
       "discoveryId": "e3e002f6425926e8343cb8e9",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
       "brandHint": "EOS",
@@ -564,7 +536,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 21,
+      "rank": 20,
       "discoveryId": "af4cf984d6ae1296e4ffd1b0",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
       "brandHint": "EOS",
@@ -590,7 +562,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
+      "rank": 21,
       "discoveryId": "0b79938ca156f8c9fac4469f",
       "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
       "brandHint": "EOS",
@@ -616,33 +588,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
-      "discoveryId": "492cfec4b5d57894f3917ecc",
-      "title": "ST IVES -Exfoliating (Fresh Peach and Jasmine) Body Wash 650ml",
-      "brandHint": "ST IVES",
-      "size": "650ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "00077043003213",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 24,
+      "rank": 22,
       "discoveryId": "f234692457fb9dcea6ab4000",
       "title": "NINELESS MELA-PRO Tranexamic Acid Sunscreen 100ml",
       "brandHint": "NINELESS",
@@ -669,7 +615,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 25,
+      "rank": 23,
       "discoveryId": "fe369f475a0d890702084b1b",
       "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
       "brandHint": "COS DE BAHA",
@@ -696,7 +642,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 26,
+      "rank": 24,
       "discoveryId": "f87e67c0fb61e9574f74ef21",
       "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
       "brandHint": "Garnier",
@@ -723,7 +669,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 27,
+      "rank": 25,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -750,7 +696,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 28,
+      "rank": 26,
       "discoveryId": "cd29efd703d9f5ad9192bf01",
       "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
       "brandHint": "SKIN BY ZARON",
@@ -777,7 +723,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 29,
+      "rank": 27,
       "discoveryId": "b9f9c3fe07895c6ce9945f8a",
       "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
       "brandHint": "GLAMFOX",
@@ -804,7 +750,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 28,
       "discoveryId": "980f4a6663d7e3bdca521609",
       "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
       "brandHint": "MEDICUBE",
@@ -831,7 +777,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 29,
       "discoveryId": "7f5e4463688a37e008b523ff",
       "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
       "brandHint": "ANUA",
@@ -857,7 +803,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 30,
       "discoveryId": "9454deec37a4fc5fcd1e7fa7",
       "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
       "brandHint": "PACCI PRISTINE",
@@ -883,7 +829,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 33,
+      "rank": 31,
       "discoveryId": "fe5f1f274910514b3aa73df6",
       "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Gel 90g",
       "brandHint": "SHISEIDO Professional",
@@ -909,7 +855,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 34,
+      "rank": 32,
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -936,7 +882,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 35,
+      "rank": 33,
       "discoveryId": "860730ad73fa749bf2599ba4",
       "title": "ABIB -Heartleaf Acne Foam Cleanser 150ml",
       "brandHint": "ABIB",
@@ -953,6 +899,60 @@
         "high-consumer-utility",
         "gtin-shaped-identity-lead",
         "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 34,
+      "discoveryId": "e187cb58e2c4a6f75aef8299",
+      "title": "BALANCE Active Formula Vitamin C Brightening Fluid Protect SPF 50 50ml",
+      "brandHint": "BALANCE",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "pigment-support",
+      "priorityScore": 146,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "05015833000986",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 35,
+      "discoveryId": "3701e49c3044d45b559ab7f2",
+      "title": "BALANCE VITAMIN C (Brightening, Glow and Radiance) SUPERSIZE Serum 60ml",
+      "brandHint": "BALANCE",
+      "size": "60ml",
+      "categoryHint": "Face care",
+      "lane": "pigment-support",
+      "priorityScore": 146,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "05015833328189",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
       ],
       "cautions": [
         "single-retailer-observation",

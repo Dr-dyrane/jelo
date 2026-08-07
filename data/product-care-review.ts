@@ -1447,6 +1447,24 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml': {
+    productSlug: 'aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'aqua-rich-turmeric-vitamin-c-body-wash-1000ml': {
+    productSlug: 'aqua-rich-turmeric-vitamin-c-body-wash-1000ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

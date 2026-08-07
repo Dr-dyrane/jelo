@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+    "candidateFingerprint": "12b3d58169972e5b91fd8d4fbd11d6f0524885fbf4cf1d626f6f6cf60fa84218",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "4897073186573",
+      "brand": "Aqua Rich",
+      "name": "Bright + Balance Body Gel Wash",
+      "variant": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash",
+      "size": "1000 ml",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+      "officialIdentity": {
+        "url": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+        "observedGtin": "4897073186573",
+        "observedVariant": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash",
+        "observedSize": "1000 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml.json",
+        "canonicalExtraction": {
+          "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official back-package image printed EAN-13 barcode",
+              "sourceText": "EAN-13 barcode 4897073186573",
+              "value": "4897073186573"
+            },
+            "variant": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash – 1000 ml",
+              "value": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash"
+            },
+            "size": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash – 1000 ml",
+              "value": "1000 ml"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+          "retrievedAt": "2026-08-07T12:00:00Z",
+          "reviewedAt": "2026-08-07T12:00:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 256890,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "a36671fde8111a988bb4e5d1bbaa5644687a86757de568156f3947bde50cbbe8",
+          "sourceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+          "supplementalResponses": [
+            {
+              "responseByteSize": 45967,
+              "responseMimeType": "image/jpeg",
+              "responseSha256": "2462de45e6d9751ddf04810d28268e2d65f408f119d1a64330ea02dce4fcd3b4",
+              "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash-Back.jpg",
+              "retrievedAt": "2026-08-07T12:00:00Z",
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash-Back.jpg"
+            }
+          ]
+        },
+        "snapshotSha256": "711a8cac523bad3652bc453883c80fb7f36e77f3cfa2dc3f462352b94f19d137",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1662,
+        "retrievedAt": "2026-08-07T12:00:00Z"
+      },
+      "checkedAt": "2026-08-07T12:00:00Z",
+      "demandEvidenceUrls": [
+        "https://giftybeautystoree.com/product/aqua-rich-body-gel-wash-with-niacinamide-alpha-arbutin-and-tranexamic-acid/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing niacinamide and alpha arbutin, for dull or uneven-tone body skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+      "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-07T12:00:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+      "sourceAsset": {
+        "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
+        "sha256": "eba0da054f4fc371bf084f862e7e78834969d3832847385105bbae48ace9f642",
+        "mimeType": "image/jpeg",
+        "byteSize": 36141,
+        "width": 800,
+        "height": 800,
+        "retrievedAt": "2026-08-07T15:46:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
+          "sha256": "eba0da054f4fc371bf084f862e7e78834969d3832847385105bbae48ace9f642",
+          "byteSize": 36141,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-07T15:46:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "04897073186573"
+          },
+          "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "7fb72b77016cca529c1afedaeb7dbbeacc12615394554298625a9a3de3ca4855",
+          "generatedAt": "2026-08-07T15:46:51Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561",
+          "byteSize": 667415,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T15:47:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T15:48:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "3fbb8f094ccc140c6097102d1f2166067112eea6f4d8a0b489a7f9c39692f95c",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml/packshot-v1-935da2d0a2d6a182.png",
+      "sha256": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561",
+      "mimeType": "image/png",
+      "byteSize": 667415,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T15:48:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T15:50:00Z"
+    },
+    "dossierFingerprint": "ebd2f32d116e00641a2ed28b395f36ef37efbcede406da56a27e6989a25396af"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+    "dossierFingerprint": "ebd2f32d116e00641a2ed28b395f36ef37efbcede406da56a27e6989a25396af",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Cleanse",
+      "displayLine": "Bright + Balance Body Gel Wash 1000 ml",
+      "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+      "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T15:51:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T15:52:00Z"
+    },
+    "releaseFingerprint": "78a273db82e83ceaaec4e5ecf59b8b08b77d38b8c3e20f7dee25b1d0301d0975"
+  }
+}

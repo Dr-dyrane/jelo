@@ -4,7 +4,7 @@
   "publicationStatus": "not-a-catalogue-candidate",
   "generatedAt": "2026-07-27T18:11:20.602Z",
   "source": {
-    "staticQueueSha256": "e8781051204778d88cb20abaf65afde2840f12c5dd49b365b53c9dd35e586d2b",
+    "staticQueueSha256": "fea6579e4b5d8f2affe4ce7e3cbb570bb9ac0a0262d77f3b429ca7b27679183a",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "sharding": {
@@ -16,8 +16,8 @@
   "shards": [
     {
       "index": 1,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/ae5f0ad249bcf512a0a9444de6fe082c71a81f4bfd9df4332bdae58b4a45dbef.json",
-      "sourceSha256": "ae5f0ad249bcf512a0a9444de6fe082c71a81f4bfd9df4332bdae58b4a45dbef",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/db3613a7b0fe6d288d3f48c352a12e094734a37ba70710ba5928d235ec6c6e11.json",
+      "sourceSha256": "db3613a7b0fe6d288d3f48c352a12e094734a37ba70710ba5928d235ec6c6e11",
       "packetCount": 12,
       "firstRank": 1,
       "lastRank": 12,
@@ -29,11 +29,11 @@
         "d8b1ae52cb7da0eb678282e9",
         "9461a4a54aec53613167f7c5",
         "37a75aa63b334a44df82d6c2",
-        "5e5eaf99bf5cf8c6218633cd",
-        "40b98e378e2d706b14d203c6",
         "95ae7ea127cc3fa98e364ebf",
         "42f32d48d0fbcf7e7f56607a",
-        "f020ac8386430486b94e1ce2"
+        "f020ac8386430486b94e1ce2",
+        "e6c412ff66aded226f1b11d7",
+        "32f7b0d9d472895d9c2d43f2"
       ],
       "discoveryIds": [
         "138dd87819a57f6a7a3f68ca",
@@ -43,59 +43,57 @@
         "d54e619a7ab95a080c216402",
         "0f6340275dfe1257901f0bf0",
         "73f96c6c3931cdc9b240b758",
-        "f8248dfef755c72bc5ba70a1",
-        "e0574c12b77f4a4eafd63ed0",
         "c7e76dd320bb3c521744597c",
         "17bd496cb38c558d4e8a56f9",
-        "9a010c0186b1418272fce5bb"
+        "9a010c0186b1418272fce5bb",
+        "fd07898619801a68999f2850",
+        "6635e9027b7821ef2ff04dbd"
       ]
     },
     {
       "index": 2,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/a67f80bfac6e328abffe28f1d5f78ff494ab6dd480b27333b2560c2d1744b47b.json",
-      "sourceSha256": "a67f80bfac6e328abffe28f1d5f78ff494ab6dd480b27333b2560c2d1744b47b",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/cbc33107562cab134324b64b3342f75167abef63df5e02ecf6787621e84fcdc2.json",
+      "sourceSha256": "cbc33107562cab134324b64b3342f75167abef63df5e02ecf6787621e84fcdc2",
       "packetCount": 12,
       "firstRank": 13,
       "lastRank": 24,
       "packetIds": [
-        "e6c412ff66aded226f1b11d7",
-        "32f7b0d9d472895d9c2d43f2",
         "e7b8894ebe80c275ee8cb391",
         "c9a1d5e6b6b260984c2463d0",
         "af7e509f9b6ff6e4c83a0eb6",
         "bc30eadf44f2f7a2d9f4f144",
         "779abfc23925ba26c3b6d14b",
+        "3c27ebe066edee802b1d74bb",
         "7108e00bfaf03e02b749a0f4",
         "92b7380b76ea55d58e387244",
         "258b05593ae6b7cb1e1d5ddf",
-        "77f7c3e72f5dabc701ffe2d1",
-        "16904e359f5d8aed4df6ca91"
+        "16904e359f5d8aed4df6ca91",
+        "d11231e8aa7256f65a5b6ddd",
+        "8c9317ef63c239fa932e1f1b"
       ],
       "discoveryIds": [
-        "fd07898619801a68999f2850",
-        "6635e9027b7821ef2ff04dbd",
         "f1ebe655a947668241b4d240",
         "b7c8a1240541dd5a7869b2eb",
         "4b13a12fadc04b34d8290d5b",
         "814c2d49e6ef3327cebd67d5",
         "bf9ba6790a3343c9ef316925",
+        "7e605cd6690ac73d599d9c2b",
         "e3e002f6425926e8343cb8e9",
         "af4cf984d6ae1296e4ffd1b0",
         "0b79938ca156f8c9fac4469f",
-        "492cfec4b5d57894f3917ecc",
-        "f234692457fb9dcea6ab4000"
+        "f234692457fb9dcea6ab4000",
+        "fe369f475a0d890702084b1b",
+        "f87e67c0fb61e9574f74ef21"
       ]
     },
     {
       "index": 3,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5.json",
-      "sourceSha256": "da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/ed51894027d8d4ff1801c7acf6da5aafbfe6bf9de025717de97c74f0964f415a.json",
+      "sourceSha256": "ed51894027d8d4ff1801c7acf6da5aafbfe6bf9de025717de97c74f0964f415a",
       "packetCount": 12,
       "firstRank": 25,
       "lastRank": 36,
       "packetIds": [
-        "d11231e8aa7256f65a5b6ddd",
-        "8c9317ef63c239fa932e1f1b",
         "aff07100d6424f43489e1eb0",
         "ff4b61e5e7b3c86b68407794",
         "a58cf5de47116310cc34e91a",
@@ -105,11 +103,11 @@
         "43c022de59a14a050f7c2983",
         "69bf90baf39309039402ae19",
         "413542f9fd2dfef408f82fd6",
+        "a79a5a68c1933bdad36114f4",
+        "f59eb71b797cb52da8631120",
         "91265ea56f1b62a4fa669e88"
       ],
       "discoveryIds": [
-        "fe369f475a0d890702084b1b",
-        "f87e67c0fb61e9574f74ef21",
         "0b73f42e4c3d2f14656610ae",
         "cd29efd703d9f5ad9192bf01",
         "b9f9c3fe07895c6ce9945f8a",
@@ -119,13 +117,15 @@
         "fe5f1f274910514b3aa73df6",
         "c65508f695a5dcd240da0eb3",
         "860730ad73fa749bf2599ba4",
+        "e187cb58e2c4a6f75aef8299",
+        "3701e49c3044d45b559ab7f2",
         "5a7b8f18c791cfb6a61354ac"
       ]
     },
     {
       "index": 4,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/e8998393a6288b271cc1378b4bf0b0b73358a4a98bfe41735c174037fc0239b7.json",
-      "sourceSha256": "e8998393a6288b271cc1378b4bf0b0b73358a4a98bfe41735c174037fc0239b7",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/aba3334f83d32633e7d4b17ec1ea69183788577730e8007b1f31bfdc074d477a.json",
+      "sourceSha256": "aba3334f83d32633e7d4b17ec1ea69183788577730e8007b1f31bfdc074d477a",
       "packetCount": 12,
       "firstRank": 37,
       "lastRank": 48,

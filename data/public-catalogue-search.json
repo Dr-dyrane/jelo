@@ -84,12 +84,30 @@
       "source": "dossier-release"
     },
     {
+      "slug": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+      "brand": "Aqua Rich",
+      "name": "Bright + Balance Body Gel Wash",
+      "size": "1000 ml",
+      "category": "Body",
+      "approvedGtin": "4897073186573",
+      "source": "dossier-release"
+    },
+    {
       "slug": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
       "brand": "Aqua Rich",
       "name": "Turmeric and Vitamin C Body Lotion",
       "size": "500 ml",
       "category": "Body",
       "approvedGtin": "4897073186542",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+      "brand": "Aqua Rich",
+      "name": "Hydrating Bright Body Gel Wash",
+      "size": "1000 ml",
+      "category": "Body",
+      "approvedGtin": "4897073186566",
       "source": "dossier-release"
     },
     {

@@ -446,5 +446,39 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a"
+  },
+  {
+    "contentHash": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml/packshot-v1-935da2d0a2d6a182.png",
+    "byteSize": 667415,
+    "width": 2000,
+    "height": 2000,
+    "active": true,
+    "localPath": "data/catalogue-intake-assets/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml/packshot-v1-935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561.png",
+    "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+    "destination": "publication",
+    "publicationBrandSlug": "aqua-rich",
+    "id": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml-packshot-v1",
+    "contentType": "image/png",
+    "hasAlpha": true,
+    "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
+    "blobPath": "products/aqua-rich/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml/packshot-v1-935da2d0a2d6a182.png"
+  },
+  {
+    "contentHash": "26eb956090f833e202c4e12cf83381b69d2051bd5ad8060802e9fec9b49ada5c",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v1-26eb956090f833e2.png",
+    "byteSize": 675390,
+    "width": 2000,
+    "height": 2000,
+    "active": true,
+    "localPath": "data/catalogue-intake-assets/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v1-26eb956090f833e202c4e12cf83381b69d2051bd5ad8060802e9fec9b49ada5c.png",
+    "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+    "destination": "publication",
+    "publicationBrandSlug": "aqua-rich",
+    "id": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml-packshot-v1",
+    "contentType": "image/png",
+    "hasAlpha": true,
+    "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-1.jpg",
+    "blobPath": "products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v1-26eb956090f833e2.png"
   }
 ]

@@ -4408,5 +4408,131 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
+      "sha256": "eba0da054f4fc371bf084f862e7e78834969d3832847385105bbae48ace9f642",
+      "byteSize": 36141,
+      "width": 800,
+      "height": 800,
+      "retrievedAt": "2026-08-07T15:46:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "04897073186573"
+      },
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "7fb72b77016cca529c1afedaeb7dbbeacc12615394554298625a9a3de3ca4855",
+      "generatedAt": "2026-08-07T15:46:51Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561",
+      "byteSize": 667415,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T15:47:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T15:48:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "3fbb8f094ccc140c6097102d1f2166067112eea6f4d8a0b489a7f9c39692f95c",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-1.jpg",
+      "sha256": "e55d0025558868c06c9bb43aba4cc3b407f4293f5c64f2e23fddd446026bd490",
+      "byteSize": 37665,
+      "width": 800,
+      "height": 800,
+      "retrievedAt": "2026-08-07T15:46:50Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "04897073186566"
+      },
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "110ca63872427dfb044321c8c740a1a6b7ed606056de943652bc7473a63e0ab5",
+      "generatedAt": "2026-08-07T15:47:01Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "26eb956090f833e202c4e12cf83381b69d2051bd5ad8060802e9fec9b49ada5c",
+      "byteSize": 675390,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T15:47:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T15:48:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "4dcc0466ff66a2804c6af856d7f3fc6ae4d1aebdf3e8ef7b59b7d0b985c4e4e2",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]
