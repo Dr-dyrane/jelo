@@ -757,6 +757,69 @@
   },
   {
     "schemaVersion": 1,
+    "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577",
+      "sha256": "3fcbb8343ec201166b541b308c616e7d2d29fc23359c1a74a9028dacbaa089cf",
+      "byteSize": 26596,
+      "width": 800,
+      "height": 1067,
+      "retrievedAt": "2026-08-07T22:57:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "08809416470009"
+      },
+      "officialProductUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84",
+      "generatedAt": "2026-08-07T22:57:30Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84",
+      "byteSize": 379099,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T22:57:45Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T22:58:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "28285caf618710ee4e3207c1d8fed1782e984cfb32c36095fc6d46b5a3418d0a",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
     "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
     "publicationScope": "catalogue-publication",
     "source": {

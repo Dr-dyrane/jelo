@@ -1,0 +1,43 @@
+{
+  "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
+  "sourceUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+  "responseUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+  "retrievedAt": "2026-08-07T22:57:00Z",
+  "reviewedAt": "2026-08-07T22:58:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "schemaVersion": 8,
+  "sourceResponseSha256": "44fd88a1c79a287c138f19e3c6a2b5229f64234968a9ffb2c48e7c797178a65b",
+  "sourceResponseMimeType": "text/html",
+  "sourceResponseByteSize": 2045414,
+  "responseDigestScope": "rendered-dom-outerhtml",
+  "method": "reviewed-browser-dom-identity-field-extraction",
+  "browserCapture": {
+    "surface": "Playwright MCP browser",
+    "documentReadyState": "complete",
+    "pageTitle": "COSRX Snail 96 Mucin Essence | Award-Winning Hydration & Glow \u2013 COSRX Official"
+  },
+  "productRecord": {
+    "locator": "DOM JSON-LD Product mpn field representing EAN-13 barcode",
+    "byteStart": 0,
+    "byteEnd": 0,
+    "sourceText": "\"mpn\":\"8809416470009\"",
+    "sourceFragmentSha256": "070b13f2faddfc78273212491168079f24b8a1435381b04ae4becab5439c321c"
+  },
+  "fields": {
+    "gtin": {
+      "value": "8809416470009",
+      "locator": "DOM JSON-LD Product mpn field representing EAN-13 barcode",
+      "sourceText": "\"mpn\":\"8809416470009\""
+    },
+    "variant": {
+      "value": "Advanced Snail 96 Mucin Power Essence",
+      "locator": "DOM JSON-LD Product name field",
+      "sourceText": "Advanced Snail 96 Mucin Power Essence"
+    },
+    "size": {
+      "value": "100 ml",
+      "locator": "DOM product page variant selector and product title",
+      "sourceText": "100ml"
+    }
+  }
+}

@@ -270,28 +270,6 @@
       "reviewedAt": "2026-07-22T19:25:36Z"
     }
   },
-  "cosrx-advanced-snail-96-mucin-power-essence": {
-    "sourceUrl": "https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-advanced-snail-96-mucin-power-essence/packshot-v2.png",
-    "contentType": "image/png",
-    "byteSize": 379099,
-    "importedAt": "2026-07-22T19:58:00Z",
-    "width": 2000,
-    "height": 2000,
-    "hasAlpha": true,
-    "contentHash": "4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84",
-    "derivation": {
-      "kind": "source-pixel-isolation",
-      "tool": "exact-sku-source-pixel-isolation-v3",
-      "localPath": "/products/cosrx/cosrx-advanced-snail-96-mucin-power-essence-transparent-v2.png",
-      "sourceAssetSha256": "22b8bbab660b7e97fab71abb3f04ef4cb2e0eaad03eb67ad8b307107327da0d4",
-      "auditSha256": "f77e2aefe45384e7b41935bba1702219b0d4ce9fe6f9baf741ec2b53dd73d10d",
-      "isolationRecordId": "cosrx-advanced-snail-96-mucin-power-essence-v2",
-      "sourceCompared": true,
-      "reviewer": "Codex visual audit",
-      "reviewedAt": "2026-07-22T19:56:32Z"
-    }
-  },
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": {
     "sourceUrl": "https://panoxyl.com/wp-content/uploads/2023/06/PanOxyl_Acne-Foaming-Wash_Front_5.5oz-Tube_SILO_wide.webp",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/panoxyl/panoxyl-acne-foaming-wash-10-benzoyl-peroxide/packshot.webp",

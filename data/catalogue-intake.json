@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T22:53:00Z",
+  "updatedAt": "2026-08-07T22:58:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -13279,6 +13279,125 @@
         "packagingInvented": false,
         "manualSourceOutputQa": true,
         "artReviewedAt": "2026-08-07T22:35:00Z",
+        "artReviewer": "Devin visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "cosrx-advanced-snail-96-mucin-power-essence",
+      "brand": "COSRX",
+      "name": "Advanced Snail 96 Mucin Power Essence",
+      "variant": "Advanced Snail 96 Mucin Power Essence",
+      "size": "100 ml",
+      "category": "Face care",
+      "reason": "A snail mucin essence for hydration and barrier support, with an official EAN from the COSRX official site and existing Nigerian retailer offers.",
+      "priority": "important",
+      "gapIds": [
+        "hydration",
+        "barrier-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.caretobeauty.com/ng/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
+        "https://www.ulta.com/p/advanced-snail-96-mucin-power-essence-xlsImpprod15641052"
+      ],
+      "identity": {
+        "gtin": "8809416470009",
+        "officialProductUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+        "checkedAt": "2026-08-07T22:58:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+          "observedGtin": "8809416470009",
+          "observedVariant": "Advanced Snail 96 Mucin Power Essence",
+          "observedSize": "100 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cosrx-advanced-snail-96-mucin-power-essence.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
+            "sourceUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+            "responseUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "retrievedAt": "2026-08-07T22:57:00Z",
+            "fields": {
+              "gtin": {
+                "value": "8809416470009",
+                "locator": "DOM JSON-LD Product mpn field representing EAN-13 barcode",
+                "sourceText": "\"mpn\":\"8809416470009\""
+              },
+              "variant": {
+                "value": "Advanced Snail 96 Mucin Power Essence",
+                "locator": "DOM JSON-LD Product name field",
+                "sourceText": "Advanced Snail 96 Mucin Power Essence"
+              },
+              "size": {
+                "value": "100 ml",
+                "locator": "DOM product page variant selector and product title",
+                "sourceText": "100ml"
+              }
+            },
+            "sourceResponseSha256": "44fd88a1c79a287c138f19e3c6a2b5229f64234968a9ffb2c48e7c797178a65b",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 2045414,
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "COSRX Snail 96 Mucin Essence | Award-Winning Hydration & Glow – COSRX Official"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-07T22:58:00Z"
+          },
+          "snapshotSha256": "9de8de0ed5d1a714c0eac4756ff6acd44282db5848ac802d9e37fe89d4cdbf13",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1237,
+          "retrievedAt": "2026-08-07T22:57:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Snail mucin essence with 96% snail secretion filtrate for hydration and barrier support",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports hydration and post-blemish recovery for all skin types. Pat onto damp skin after cleansing and before moisturizer. Do not present as treatment for skin conditions. Stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T22:58:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+        "sourceUrl": "https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577",
+        "sourceAssetSha256": "3fcbb8343ec201166b541b308c616e7d2d29fc23359c1a74a9028dacbaa089cf",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 26596,
+        "sourceAssetWidth": 800,
+        "sourceAssetHeight": 1067,
+        "sourceAssetRetrievedAt": "2026-08-07T22:57:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-advanced-snail-96-mucin-power-essence/packshot-v2-4101d7087e1912d3.png",
+        "publicImageSha256": "4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 379099,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T22:58:00Z",
         "artReviewer": "Devin visual audit",
         "presentationQuality": "magazine-ready"
       }

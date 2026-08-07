@@ -12,13 +12,6 @@ export const expandedProducts: Product[] = [
     offers: [ngOffer('Beauty by Daz', 'https://beautybydaz.com/?s=the+ordinary+azelaic+acid&post_type=product', 88), usOffer('Ulta Beauty', 'https://www.ulta.com/p/azelaic-acid-suspension-10-cream-redness-blemish-prone-skin-pimprod2007104', 94, 12.2)]
   },
   {
-    slug: 'cosrx-advanced-snail-96-mucin-power-essence', brand: 'COSRX', name: 'Advanced Snail 96 Mucin Power Essence', size: '100 ml', category: 'Face', step: 'Essence',
-    image: 'https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577', displayLine: 'Hydrate · recover',
-    bestFor: ['dehydration', 'post-blemish recovery', 'barrier support'], concerns: ['dryness', 'barrier', 'sensitivity', 'dark spots'], skinTypes: ['all'], sensitiveFriendly: true,
-    usage: 'Pat onto damp skin after cleansing and before moisturizer.', evidence: 'moderate',
-    offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/cosrx-advanced-snail-96-mucin-power-essence-100ml/'), usOffer('Ulta Beauty', 'https://www.ulta.com/p/advanced-snail-96-mucin-power-essence-xlsImpprod15641052', 94, 20.9)]
-  },
-  {
     slug: 'panoxyl-acne-foaming-wash-10-benzoyl-peroxide', brand: 'PanOxyl', name: 'Acne Foaming Wash 10% Benzoyl Peroxide', size: '156 g', category: 'Face', step: 'Cleanse',
     image: 'https://panoxyl.com/wp-content/uploads/2023/06/PanOxyl_Acne-Foaming-Wash_Front_5.5oz-Tube_SILO_wide.webp', displayLine: 'Treat · clear',
     bestFor: ['inflammatory acne', 'body acne', 'oily skin'], concerns: ['acne', 'body acne', 'breakouts'], skinTypes: ['oily', 'combination'], sensitiveFriendly: false,

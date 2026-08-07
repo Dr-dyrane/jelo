@@ -14,8 +14,8 @@ test('ranking requires canonical concern slugs instead of raw lexicon concern id
     ['eucerin-oil-control-sun-gel-cream-spf50-50ml', 'facefacts-ceramide-oil-control-foaming-cleanser-400ml', 'cerave-foaming-facial-cleanser'],
   );
   assert.deepEqual(
-    rankProducts(catalogue, { concernSlugs: ['dry-dehydrated-skin'] }).map(product => product.slug),
-    ['cosrx-advanced-snail-96-mucin-power-essence'],
+    rankProducts(fullCatalogue, { concernSlugs: ['dry-dehydrated-skin'] }).map(product => product.slug),
+    ['cerave-hydrating-cleanser-473ml', 'facefacts-ceramide-hydrating-gentle-cleanser-400ml', 'cerave-pm-facial-moisturising-lotion-52ml', 'facefacts-ceramide-moisturising-gel-cream-50ml', 'cosrx-advanced-snail-96-mucin-power-essence'],
   );
   assert.deepEqual(
     rankProducts(fullCatalogue, { concernSlugs: ['oiliness'] }),

@@ -170,14 +170,6 @@ export const productDisplayApprovals = {
     contentHash: '4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d',
     reviewedAt: '2026-07-22T19:25:36Z',
   }),
-  'cosrx-advanced-snail-96-mucin-power-essence': approval({
-    brand: 'COSRX',
-    name: 'Advanced Snail 96 Mucin Power Essence',
-    size: '100 ml',
-    sourceUrl: 'https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577',
-    contentHash: '4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84',
-    reviewedAt: '2026-07-22T19:56:32Z',
-  }),
   'kuza-indian-hemp-hair-scalp-treatment': approval({
     brand: 'KUZA',
     name: '100% Indian Hemp Hair & Scalp Treatment',
