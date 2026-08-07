@@ -2707,5 +2707,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-retinol-complex-cream-1-7oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+      "sha256": "380f4edbf99ed0d35c8d36c23e3ceb93900669a1284181ca8e0490469fa8d128",
+      "byteSize": 304028,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:28:31Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792040"
+      },
+      "officialProductUrl": "https://naturium.com/products/retinol-complex-cream"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "d55ba85d779481d3dc641e7db0c256a892ddbc848e575afd94a7abe0668bfee3",
+      "generatedAt": "2026-08-07T12:29:56Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "43672fd0aec0b369b405a825f05edeb88b270d2c3e5e62ab9152f4e90d4e384a",
+      "byteSize": 304788,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:31:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:31:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "d55ba85d779481d3dc641e7db0c256a892ddbc848e575afd94a7abe0668bfee3",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

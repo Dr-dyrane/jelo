@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T12:25:31Z",
+  "updatedAt": "2026-08-07T12:31:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -18655,6 +18655,145 @@
         "publicImageSha256": "57cb92a822c7bd5b45bf710b2d5e2082c353c19c3bdfdcf5573e0e41164a436a",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 311242,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-retinol-complex-cream-1-7oz",
+      "brand": "Naturium",
+      "name": "Retinol Complex Cream",
+      "variant": "Retinol Complex Cream",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 50 mL Naturium Retinol Complex Cream. Official Shopify structured data publishes GTIN 850010792040. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "retinol-cream",
+        "anti-aging-support",
+        "leave-on-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/retinol-complex-cream/",
+        "https://peronabeauty.com/product/naturium-retinol-complex-cream/"
+      ],
+      "identity": {
+        "gtin": "850010792040",
+        "officialProductUrl": "https://naturium.com/products/retinol-complex-cream",
+        "checkedAt": "2026-08-07T12:30:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Retinol Complex Cream 1.7 fl oz / 50 mL tube",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/retinol-complex-cream",
+          "observedGtin": "850010792040",
+          "observedVariant": "Retinol Complex Cream",
+          "observedSize": "1.7 fl oz / 50 mL",
+          "observedPackageVersion": "Retinol Complex Cream 1.7 fl oz / 50 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-retinol-complex-cream-1-7oz.json",
+          "snapshotSha256": "2a1c90c3ff81d36edc9429491aa370fdc1a4c676b451bbaebe40fd96caaec6d1",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1940,
+          "retrievedAt": "2026-08-07T12:28:31Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-retinol-complex-cream-1-7oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Retinol Cream | Retinol Complex Cream for Fine Lines | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/retinol-complex-cream",
+            "responseUrl": "https://naturium.com/products/retinol-complex-cream",
+            "retrievedAt": "2026-08-07T12:28:31Z",
+            "reviewedAt": "2026-08-07T12:30:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "52cba74370d8d7902f5703fa942a484c88c75cbc19071f42d60c57e0b1793642",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 825860,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792040\"",
+                "value": "850010792040"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Retinol Complex Cream",
+                "value": "Retinol Complex Cream"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+                "value": "1.7 fl oz / 50 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Retinol Complex Cream 1.7 FL OZ / 50 mL tube",
+                "value": "Retinol Complex Cream 1.7 fl oz / 50 mL tube"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+                "retrievedAt": "2026-08-07T12:28:31Z",
+                "responseSha256": "380f4edbf99ed0d35c8d36c23e3ceb93900669a1284181ca8e0490469fa8d128",
+                "responseMimeType": "image/png",
+                "responseByteSize": 304028
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described retinol complex face cream for fine lines.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic retinol cream, not a diagnosis or treatment for any skin condition. Introduce gradually (2-3 nights per week), avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/retinol-complex-cream",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://naturium.com/products/retinol-complex-cream",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-07T12:30:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/retinol-complex-cream",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/retinol-complex-cream",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+        "sourceAssetSha256": "380f4edbf99ed0d35c8d36c23e3ceb93900669a1284181ca8e0490469fa8d128",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 304028,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T12:28:31Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T12:31:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinol-complex-cream-1-7oz/packshot-v1-43672fd0aec0b369.png",
+        "publicImageSha256": "43672fd0aec0b369b405a825f05edeb88b270d2c3e5e62ab9152f4e90d4e384a",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 304788,
         "width": 2000,
         "height": 2000
       }

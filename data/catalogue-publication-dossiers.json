@@ -21564,6 +21564,214 @@
         "approvedAt": "2026-08-07T12:27:00Z"
       },
       "dossierFingerprint": "3c09b0c314f73106cdfe693c91e6cecfcc083ff62f51a991fbb773830cf5731c"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-retinol-complex-cream-1-7oz",
+      "candidateFingerprint": "908d7de2ebf2f0a6b3ae15e61466b51e6112bbfa3feccd5cef1d7971579f1c40",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792040",
+        "brand": "Naturium",
+        "name": "Retinol Complex Cream",
+        "variant": "Retinol Complex Cream",
+        "size": "1.7 fl oz / 50 mL",
+        "packageVersion": "Retinol Complex Cream 1.7 fl oz / 50 mL tube",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/retinol-complex-cream",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/retinol-complex-cream",
+          "observedGtin": "850010792040",
+          "observedVariant": "Retinol Complex Cream",
+          "observedSize": "1.7 fl oz / 50 mL",
+          "observedPackageVersion": "Retinol Complex Cream 1.7 fl oz / 50 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-retinol-complex-cream-1-7oz.json",
+          "snapshotSha256": "2a1c90c3ff81d36edc9429491aa370fdc1a4c676b451bbaebe40fd96caaec6d1",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1940,
+          "retrievedAt": "2026-08-07T12:28:31Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-retinol-complex-cream-1-7oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Retinol Cream | Retinol Complex Cream for Fine Lines | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/retinol-complex-cream",
+            "responseUrl": "https://naturium.com/products/retinol-complex-cream",
+            "retrievedAt": "2026-08-07T12:28:31Z",
+            "reviewedAt": "2026-08-07T12:30:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "52cba74370d8d7902f5703fa942a484c88c75cbc19071f42d60c57e0b1793642",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 825860,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792040\"",
+                "value": "850010792040"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Retinol Complex Cream",
+                "value": "Retinol Complex Cream"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+                "value": "1.7 fl oz / 50 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+                "retrievedAt": "2026-08-07T12:28:31Z",
+                "responseSha256": "380f4edbf99ed0d35c8d36c23e3ceb93900669a1284181ca8e0490469fa8d128",
+                "responseMimeType": "image/png",
+                "responseByteSize": 304028
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T12:30:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/retinol-complex-cream/",
+          "https://peronabeauty.com/product/naturium-retinol-complex-cream/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described retinol complex face cream for fine lines.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic retinol cream, not a diagnosis or treatment for any skin condition. Introduce gradually (2-3 nights per week), avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/retinol-complex-cream",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://naturium.com/products/retinol-complex-cream",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-07T12:30:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/retinol-complex-cream",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+          "sha256": "380f4edbf99ed0d35c8d36c23e3ceb93900669a1284181ca8e0490469fa8d128",
+          "mimeType": "image/png",
+          "byteSize": 304028,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:28:31Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-retinol-complex-cream-1-7oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+            "sha256": "380f4edbf99ed0d35c8d36c23e3ceb93900669a1284181ca8e0490469fa8d128",
+            "byteSize": 304028,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T12:28:31Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792040"
+            },
+            "officialProductUrl": "https://naturium.com/products/retinol-complex-cream"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "d55ba85d779481d3dc641e7db0c256a892ddbc848e575afd94a7abe0668bfee3",
+            "generatedAt": "2026-08-07T12:29:56Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "43672fd0aec0b369b405a825f05edeb88b270d2c3e5e62ab9152f4e90d4e384a",
+            "byteSize": 304788,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T12:31:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T12:31:00Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "d55ba85d779481d3dc641e7db0c256a892ddbc848e575afd94a7abe0668bfee3",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinol-complex-cream-1-7oz/packshot-v1-43672fd0aec0b369.png",
+        "sha256": "43672fd0aec0b369b405a825f05edeb88b270d2c3e5e62ab9152f4e90d4e384a",
+        "mimeType": "image/png",
+        "byteSize": 304788,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T12:31:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T12:32:00Z"
+      },
+      "dossierFingerprint": "ad418afa66ca4d0bc46ac65897b2ce6eafb7ebeba3c955c50f7f7ada8a5f5aa6"
     }
   ]
 }

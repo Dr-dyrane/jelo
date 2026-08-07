@@ -2089,6 +2089,30 @@
         "publishedAt": "2026-08-07T12:28:00Z"
       },
       "releaseFingerprint": "1599778cd97f156b2347b3aa5733f0c9fb9c829bdf1d52fe2d6da472dabdd36d"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-retinol-complex-cream-1-7oz",
+      "dossierFingerprint": "ad418afa66ca4d0bc46ac65897b2ce6eafb7ebeba3c955c50f7f7ada8a5f5aa6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Retinol Complex Cream 1.7 fl oz",
+        "usage": "Apply pea-sized amount to clean dry skin evening start 2-3 nights per week",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/retinol-complex-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:32:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:33:00Z"
+      },
+      "releaseFingerprint": "e4715776b46ed36a56550a93badd1dd35fffc435a8c9ea5b411a681adc41322f"
     }
   ]
 }

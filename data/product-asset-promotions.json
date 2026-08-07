@@ -1143,5 +1143,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "ec453859a6501acd3a1963a98546ba2bb568aadcd02d1b7978615266dadd8375"
+  },
+  {
+    "id": "naturium-retinol-complex-cream-1-7oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-retinol-complex-cream-1-7oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Retinol-Cream-New-Formula_Front_capon.webp?v=1774296747&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-retinol-complex-cream-1-7oz/packshot-v1-43672fd0aec0b369.png",
+    "blobPath": "products/naturium/naturium-retinol-complex-cream-1-7oz/packshot-v1-43672fd0aec0b369.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinol-complex-cream-1-7oz/packshot-v1-43672fd0aec0b369.png",
+    "contentType": "image/png",
+    "byteSize": 304788,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "43672fd0aec0b369b405a825f05edeb88b270d2c3e5e62ab9152f4e90d4e384a"
   }
 ]
