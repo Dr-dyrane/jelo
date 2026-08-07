@@ -1,0 +1,149 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T11:38:30Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "9cca508fa4bc21b129113bb3266bda7c197c4ad8e0b03c311739e2fcb9573088"
+    },
+    "candidate": {
+        "id": "naturium-barrier-bounce-bi-phase-mist-100ml",
+        "brand": "Naturium",
+        "name": "Barrier Bounce Bi-Phase Mist",
+        "variant": "Barrier Bounce Bi-Phase Mist",
+        "size": "3.4 fl oz / 100 mL",
+        "category": "Face care",
+        "reason": "Adds the exact current 100 mL Naturium Barrier Bounce Bi-Phase Mist. Official Shopify structured data publishes GTIN 810120263328. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "barrier-support",
+            "hydrating-toner",
+            "bi-phase-mist"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/barrier-bounce-bi-phase-mist/",
+            "https://peronabeauty.com/product/naturium-barrier-bounce-bi-phase-mist/"
+        ],
+        "identity": {
+            "gtin": "810120263328",
+            "officialProductUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+            "checkedAt": "2026-08-07T11:37:30Z",
+            "basis": "official-brand",
+            "packageVersion": "Barrier Bounce Bi-Phase Mist 3.4 fl oz / 100 mL bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+                "observedGtin": "810120263328",
+                "observedVariant": "Barrier Bounce Bi-Phase Mist",
+                "observedSize": "3.4 fl oz / 100 mL",
+                "observedPackageVersion": "Barrier Bounce Bi-Phase Mist 3.4 fl oz / 100 mL bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-barrier-bounce-bi-phase-mist-100ml.json",
+                "snapshotSha256": "9cca508fa4bc21b129113bb3266bda7c197c4ad8e0b03c311739e2fcb9573088",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2010,
+                "retrievedAt": "2026-08-07T11:36:51Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "Barrier Bounce Bi-Phase Mist"
+                    },
+                    "sourceUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+                    "responseUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+                    "retrievedAt": "2026-08-07T11:36:51Z",
+                    "reviewedAt": "2026-08-07T11:37:30Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "6b290a31f5e30cb9630feb78b8669c776a6b87ef74d18543cb58b5a0658e2f92",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 875510,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"810120263328\"",
+                            "value": "810120263328"
+                        },
+                        "variant": {
+                            "locator": "Rendered official product heading",
+                            "sourceText": "Barrier Bounce Bi-Phase Mist",
+                            "value": "Barrier Bounce Bi-Phase Mist"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 3.4 FL OZ / 100 mL",
+                            "value": "3.4 fl oz / 100 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Barrier Bounce Bi-Phase Mist 3.4 FL OZ / 100 mL bottle",
+                            "value": "Barrier Bounce Bi-Phase Mist 3.4 fl oz / 100 mL bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+                            "retrievedAt": "2026-08-07T11:36:51Z",
+                            "responseSha256": "231537c42f2a8c86ba286acbf7ffa8639c78ff69240902bd3a6ce55e69ce9433",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 490204
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described bi-phase barrier mist.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A topical cosmetic face mist, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+            "evidenceUrls": [
+                "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+                "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+            ],
+            "reviewedAt": "2026-08-07T11:37:30Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+            "sourceAssetSha256": "231537c42f2a8c86ba286acbf7ffa8639c78ff69240902bd3a6ce55e69ce9433",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 490204,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T11:36:51Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T11:38:30Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-barrier-bounce-bi-phase-mist-100ml/packshot-v1-71223533980f7c45.png",
+            "publicImageSha256": "71223533980f7c456b406f833af4fe57b2af37ec90239dd9d834b54e59dd8f59",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 507138,
+            "width": 2000,
+            "height": 2000
+        }
+    }
+}

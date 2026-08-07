@@ -887,6 +887,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-dew-glow-mineral-spf-50-1-7fl-oz': {
+    productSlug: 'naturium-dew-glow-mineral-spf-50-1-7fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50',
+      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-barrier-bounce-bi-phase-mist-100ml': {
+    productSlug: 'naturium-barrier-bounce-bi-phase-mist-100ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/barrier-bounce-bi-phase-mist',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

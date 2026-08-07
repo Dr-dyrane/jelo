@@ -18860,6 +18860,214 @@
         "approvedAt": "2026-08-07T11:36:00Z"
       },
       "dossierFingerprint": "39eac6839ec4eb28a315729150b23b3fc4f79e069dfbf88179fa38c3f54d2ee4"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+      "candidateFingerprint": "3018e6473b80fb31c8ea3adeb4e495203bf11af98b94fc781d27a98f8fafa7be",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810120263328",
+        "brand": "Naturium",
+        "name": "Barrier Bounce Bi-Phase Mist",
+        "variant": "Barrier Bounce Bi-Phase Mist",
+        "size": "3.4 fl oz / 100 mL",
+        "packageVersion": "Barrier Bounce Bi-Phase Mist 3.4 fl oz / 100 mL bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+          "observedGtin": "810120263328",
+          "observedVariant": "Barrier Bounce Bi-Phase Mist",
+          "observedSize": "3.4 fl oz / 100 mL",
+          "observedPackageVersion": "Barrier Bounce Bi-Phase Mist 3.4 fl oz / 100 mL bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-barrier-bounce-bi-phase-mist-100ml.json",
+          "snapshotSha256": "9cca508fa4bc21b129113bb3266bda7c197c4ad8e0b03c311739e2fcb9573088",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2010,
+          "retrievedAt": "2026-08-07T11:36:51Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Barrier Bounce Bi-Phase Mist"
+            },
+            "sourceUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+            "responseUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+            "retrievedAt": "2026-08-07T11:36:51Z",
+            "reviewedAt": "2026-08-07T11:37:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "6b290a31f5e30cb9630feb78b8669c776a6b87ef74d18543cb58b5a0658e2f92",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 875510,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"810120263328\"",
+                "value": "810120263328"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Barrier Bounce Bi-Phase Mist",
+                "value": "Barrier Bounce Bi-Phase Mist"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 3.4 FL OZ / 100 mL",
+                "value": "3.4 fl oz / 100 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+                "retrievedAt": "2026-08-07T11:36:51Z",
+                "responseSha256": "231537c42f2a8c86ba286acbf7ffa8639c78ff69240902bd3a6ce55e69ce9433",
+                "responseMimeType": "image/png",
+                "responseByteSize": 490204
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T11:37:30Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/barrier-bounce-bi-phase-mist/",
+          "https://peronabeauty.com/product/naturium-barrier-bounce-bi-phase-mist/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described bi-phase barrier mist.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic face mist, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T11:37:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+          "sha256": "231537c42f2a8c86ba286acbf7ffa8639c78ff69240902bd3a6ce55e69ce9433",
+          "mimeType": "image/png",
+          "byteSize": 490204,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:36:51Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+            "sha256": "231537c42f2a8c86ba286acbf7ffa8639c78ff69240902bd3a6ce55e69ce9433",
+            "byteSize": 490204,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T11:36:51Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00810120263328"
+            },
+            "officialProductUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "07ec331320054a19ea9367c33b089d811dbb4dc6c852ffabd6cb148178314566",
+            "generatedAt": "2026-08-07T11:37:59Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "71223533980f7c456b406f833af4fe57b2af37ec90239dd9d834b54e59dd8f59",
+            "byteSize": 507138,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T11:38:30Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T11:38:30Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "07ec331320054a19ea9367c33b089d811dbb4dc6c852ffabd6cb148178314566",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-barrier-bounce-bi-phase-mist-100ml/packshot-v1-71223533980f7c45.png",
+        "sha256": "71223533980f7c456b406f833af4fe57b2af37ec90239dd9d834b54e59dd8f59",
+        "mimeType": "image/png",
+        "byteSize": 507138,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T11:38:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T11:39:00Z"
+      },
+      "dossierFingerprint": "e93bc98c9c3af696011a6b1a5a22c9428a526dc391ff842f36335da2b5783e15"
     }
   ]
 }

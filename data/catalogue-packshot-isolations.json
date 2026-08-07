@@ -1888,5 +1888,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR-10167_Barrier-Bounce-Bi-Phase-Toner-Mist_front_capon_bonebkgd.webp?v=1773875844&width=2048",
+      "sha256": "231537c42f2a8c86ba286acbf7ffa8639c78ff69240902bd3a6ce55e69ce9433",
+      "byteSize": 490204,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T11:36:51Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810120263328"
+      },
+      "officialProductUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "07ec331320054a19ea9367c33b089d811dbb4dc6c852ffabd6cb148178314566",
+      "generatedAt": "2026-08-07T11:37:59Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "71223533980f7c456b406f833af4fe57b2af37ec90239dd9d834b54e59dd8f59",
+      "byteSize": 507138,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T11:38:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T11:38:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "07ec331320054a19ea9367c33b089d811dbb4dc6c852ffabd6cb148178314566",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

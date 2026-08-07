@@ -1777,6 +1777,30 @@
         "publishedAt": "2026-08-07T11:37:00Z"
       },
       "releaseFingerprint": "ecbc91a1247e2532f7c6e7d6291fdd9e6e84261adbc5a9527b36b2b96807fb94"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+      "dossierFingerprint": "e93bc98c9c3af696011a6b1a5a22c9428a526dc391ff842f36335da2b5783e15",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Prep",
+        "displayLine": "Barrier Bounce Bi-Phase Mist 3.4 fl oz",
+        "usage": "Shake well and mist over clean skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/barrier-bounce-bi-phase-mist",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:39:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:40:00Z"
+      },
+      "releaseFingerprint": "0ad4856763b6bc8f0d9c2ffc95978e78928faba5d6b09490846ff6caef330658"
     }
   ]
 }
