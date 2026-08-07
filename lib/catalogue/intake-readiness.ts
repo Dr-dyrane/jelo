@@ -764,7 +764,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
   fentyskin: ['fentybeauty.com'],
-  garnier: ['www.garnier.co.uk'],
+  garnier: ['www.garnier.co.uk', 'www.garnier.com.au'],
   keracare: ['keracare.com'],
   larocheposay: ['www.laroche-posay.co.uk', 'www.laroche-posay.fr'],
   loccitaneenprovence: ['no.loccitane.com'],
@@ -845,7 +845,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   eucerin: ['www.eucerin-cewa.com'],
   facefacts: ['facefacts.me'],
   fentyskin: ['fentybeauty.com', 'cdn.shopify.com'],
-  garnier: ['www.garnier.co.uk'],
+  garnier: ['www.garnier.co.uk', 'www.garnier.com.au'],
   keracare: ['keracare.com'],
   larocheposay: [
     'www.laroche-posay.co.uk',

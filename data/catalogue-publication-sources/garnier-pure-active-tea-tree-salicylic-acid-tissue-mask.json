@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+    "candidateFingerprint": "2cceeb1d33a83cc4896736757d52d645bfc7f9ddff9d5586414684fbe3b2bdb3",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "3600542368810",
+      "brand": "Garnier",
+      "name": "Pure Active Anti-Imperfection Sheet Mask",
+      "variant": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask",
+      "size": "1 pack",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+      "officialIdentity": {
+        "url": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+        "observedGtin": "3600542368810",
+        "observedVariant": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask",
+        "observedSize": "1 pack",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask.json",
+        "canonicalExtraction": {
+          "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+          "fields": {
+            "gtin": {
+              "locator": "Retailer-corroborated EAN-13 barcode",
+              "sourceText": "EAN-13 barcode 3600542368810",
+              "value": "3600542368810"
+            },
+            "variant": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask – 1 mask",
+              "value": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask"
+            },
+            "size": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask – 1 pack",
+              "value": "1 pack"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+          "retrievedAt": "2026-08-07T16:35:00Z",
+          "reviewedAt": "2026-08-07T16:38:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 263622,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "7d69a7e38cbeebb4b0c5d8f0061c47e9b5d334f5f08bc69a56b7cdd8dc32d03a",
+          "sourceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask"
+        },
+        "snapshotSha256": "4f822bb5fadbfdb2f5e2438dfd2b98c8338f5b6b8eb7067a7dfe6a0baf012470",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1206,
+        "retrievedAt": "2026-08-07T16:35:00Z"
+      },
+      "checkedAt": "2026-08-07T16:40:00Z",
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Single-use leave-on tissue mask described by the manufacturer as containing tea tree oil and salicylic acid, for acne-prone or blemish-prone facial skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports occasional blemish-care for acne-prone facial skin. It does not diagnose or treat severe acne, cystic breakouts, infection, or scarring; worsening, inflamed, infected, or persistent breakouts need clinical review.",
+      "manufacturerEvidenceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+      "evidenceUrls": [
+        "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+        "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+      ],
+      "reviewedAt": "2026-08-07T16:42:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+      "sourceAsset": {
+        "url": "https://www.garnier.com.au/-/media/project/loreal/brand-sites/garnier/apac/au/products/skincare/skin-active/pure-active/pure-active-imperfect-sheet-mask/pure-active-sheet-mask_3600542368810_1.jpg",
+        "sha256": "7cda10a9521ef01a035210c7b7359dfb3fd5921059b5bd93a2ec87c673d8df63",
+        "mimeType": "image/jpeg",
+        "byteSize": 82512,
+        "width": 800,
+        "height": 800,
+        "retrievedAt": "2026-08-07T16:35:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://www.garnier.com.au/-/media/project/loreal/brand-sites/garnier/apac/au/products/skincare/skin-active/pure-active/pure-active-imperfect-sheet-mask/pure-active-sheet-mask_3600542368810_1.jpg",
+          "sha256": "7cda10a9521ef01a035210c7b7359dfb3fd5921059b5bd93a2ec87c673d8df63",
+          "byteSize": 82512,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "03600542368810"
+          },
+          "officialProductUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "c75599aa1920f174be0f1e6afb2a259476c1008f25d7eecdf148c51f948da72a",
+          "generatedAt": "2026-08-07T16:59:59Z",
+          "inferredComponentCount": 2,
+          "retainedComponentCount": 2,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "94e157c51366427cfb6ec01f7b6776da9d6d870fd1b81721849b9e31204e7665",
+          "byteSize": 1724375,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T17:00:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T17:00:30Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "577630c670383ac1b1fa9928a400a825764d5e8122dfb1c16c5682f2914c1df3",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/garnier/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask/packshot-v1-94e157c51366427c.png",
+      "sha256": "94e157c51366427cfb6ec01f7b6776da9d6d870fd1b81721849b9e31204e7665",
+      "mimeType": "image/png",
+      "byteSize": 1724375,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T17:00:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T17:01:00Z"
+    },
+    "dossierFingerprint": "67fa8884e79f28b7378bc85d5adabd6915ec9b869eb2982e5e0d5496a3b2d401"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+    "dossierFingerprint": "67fa8884e79f28b7378bc85d5adabd6915ec9b869eb2982e5e0d5496a3b2d401",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Pure Active Anti-Imperfection Tissue Mask",
+      "usage": "Unfold the mask and apply onto clean, dry face, smoothing to fit. Leave for 15 minutes. Remove and gently massage any excess serum into the skin. No rinsing needed.",
+      "manufacturerDirectionsUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T17:01:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T17:02:00Z"
+    },
+    "releaseFingerprint": "50a482d63339d548eff9561483e34ca5366a9d13d628ab86a5e53e58aa65ecaf"
+  }
+}

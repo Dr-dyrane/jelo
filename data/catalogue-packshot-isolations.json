@@ -4534,5 +4534,257 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-1.jpg",
+      "sha256": "ceb6a332c4918380f370a5754ac89074b5b085ae6c24095cbc68cad068dd573c",
+      "byteSize": 33062,
+      "width": 800,
+      "height": 800,
+      "retrievedAt": "2026-08-07T16:35:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "04897073187532"
+      },
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "9290669393c7d376760cb0a3a52bad77397c47e77333684366c7cf30081973cb",
+      "generatedAt": "2026-08-07T16:43:18Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a",
+      "byteSize": 639089,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T16:44:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T16:45:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "9ef0d8fa8375c05fa58c95691d3087ffe401a6f0e1b322c7ba445e434cb0586d",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
+      "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
+      "byteSize": 33898,
+      "width": 800,
+      "height": 800,
+      "retrievedAt": "2026-08-07T16:35:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "04897073187587"
+      },
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "62815b85eaf8017b9897e380e1293a006673476ea668179dbf24aab8be54ef8e",
+      "generatedAt": "2026-08-07T16:43:25Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
+      "byteSize": 645699,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T16:44:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T16:45:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "ad7d564f6ac6460718e044205dd7738a002664731d5724c3d02e2a0e71e36cb7",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.garnier.com.au/-/media/project/loreal/brand-sites/garnier/apac/au/products/skincare/skin-active/pure-active/pure-active-imperfect-sheet-mask/pure-active-sheet-mask_3600542368810_1.jpg",
+      "sha256": "7cda10a9521ef01a035210c7b7359dfb3fd5921059b5bd93a2ec87c673d8df63",
+      "byteSize": 82512,
+      "width": 800,
+      "height": 800,
+      "retrievedAt": "2026-08-07T16:35:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03600542368810"
+      },
+      "officialProductUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "c75599aa1920f174be0f1e6afb2a259476c1008f25d7eecdf148c51f948da72a",
+      "generatedAt": "2026-08-07T16:59:59Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "94e157c51366427cfb6ec01f7b6776da9d6d870fd1b81721849b9e31204e7665",
+      "byteSize": 1724375,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T17:00:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T17:00:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "577630c670383ac1b1fa9928a400a825764d5e8122dfb1c16c5682f2914c1df3",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
+      "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d",
+      "byteSize": 180732,
+      "width": 900,
+      "height": 900,
+      "retrievedAt": "2026-08-07T16:35:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "08809875270158"
+      },
+      "officialProductUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "1786b757b538be1d92c221db7f269dadc7903b4d6d160d0a1bf4181017ebf5d7",
+      "generatedAt": "2026-08-07T16:43:40Z",
+      "inferredComponentCount": 3,
+      "retainedComponentCount": 3,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "49c649774b2d42e4db3c4d3491a750f5febc6af92269c6f045c8748749ec9142",
+      "byteSize": 612664,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T16:44:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T16:45:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "83644da61b944db0e6f3357575e731da0410e5f0847b275ade93e16ae72c74b3",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

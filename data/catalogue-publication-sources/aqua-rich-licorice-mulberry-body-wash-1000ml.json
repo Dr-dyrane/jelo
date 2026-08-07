@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+    "candidateFingerprint": "bac91a04f02e796cab1c0fc1586dbdd031cc4e2fe8a1ac5283aaeb8a40d9cceb",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "4897073187587",
+      "brand": "Aqua Rich",
+      "name": "Bright + Glow Body Gel Wash",
+      "variant": "Aqua Rich Licorice and Mulbery Root Extract Body Wash",
+      "size": "1000 ml",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+      "officialIdentity": {
+        "url": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+        "observedGtin": "4897073187587",
+        "observedVariant": "Aqua Rich Licorice and Mulbery Root Extract Body Wash",
+        "observedSize": "1000 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-licorice-mulberry-body-wash-1000ml.json",
+        "canonicalExtraction": {
+          "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official back-package image printed EAN-13 barcode",
+              "sourceText": "EAN-13 barcode 4897073187587",
+              "value": "4897073187587"
+            },
+            "variant": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Wash – 1000 ml",
+              "value": "Aqua Rich Licorice and Mulbery Root Extract Body Wash"
+            },
+            "size": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Wash – 1000 ml",
+              "value": "1000 ml"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+          "retrievedAt": "2026-08-07T16:35:00Z",
+          "reviewedAt": "2026-08-07T16:38:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 257506,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "06160748dcd825bcb0cb84eafb37f90d6cb26bbecb5fc4a831851e7c22bd0d62",
+          "sourceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-Back.jpg",
+              "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-Back.jpg",
+              "retrievedAt": "2026-08-07T16:35:00Z",
+              "responseSha256": "47668de6bde8006fb4d4a09852057244a8966cac446ea25d91d5aeb8814ce4bd",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 40581
+            }
+          ]
+        },
+        "snapshotSha256": "77706ecc35d224b0af59c639275eaa2214f5c8d205229893acd8f9049dad5cec",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1682,
+        "retrievedAt": "2026-08-07T16:35:00Z"
+      },
+      "checkedAt": "2026-08-07T16:40:00Z",
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing licorice and mulberry root extract, for dull or uneven-tone body skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+      "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-07T16:42:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+      "sourceAsset": {
+        "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
+        "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
+        "mimeType": "image/jpeg",
+        "byteSize": 33898,
+        "width": 800,
+        "height": 800,
+        "retrievedAt": "2026-08-07T16:35:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
+          "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
+          "byteSize": 33898,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "04897073187587"
+          },
+          "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "62815b85eaf8017b9897e380e1293a006673476ea668179dbf24aab8be54ef8e",
+          "generatedAt": "2026-08-07T16:43:25Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
+          "byteSize": 645699,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T16:44:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T16:45:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "ad7d564f6ac6460718e044205dd7738a002664731d5724c3d02e2a0e71e36cb7",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-wash-1000ml/packshot-v1-11197a072a0d343f.png",
+      "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
+      "mimeType": "image/png",
+      "byteSize": 645699,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T16:45:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T16:50:00Z"
+    },
+    "dossierFingerprint": "d57f6b2b3bf17716509265fdf5fed9cdf8f1e14d01979dc2864ca1134a2099e5"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+    "dossierFingerprint": "d57f6b2b3bf17716509265fdf5fed9cdf8f1e14d01979dc2864ca1134a2099e5",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Cleanse",
+      "displayLine": "Bright + Glow Body Gel Wash 1000 ml",
+      "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+      "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T16:55:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T17:00:00Z"
+    },
+    "releaseFingerprint": "a8e1d06f571873e1ac48128a146b052e5ba947b2148373ab31244cb5080288b7"
+  }
+}

@@ -405,16 +405,16 @@
     },
     {
       "rank": 15,
-      "discoveryId": "4b13a12fadc04b34d8290d5b",
-      "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
-      "brandHint": "AQUA RICH",
-      "size": "500ml",
+      "discoveryId": "228728aa93580571b165ad66",
+      "title": "AVEENO Daily Moisturizing Body Oil Mist (Oat And Jojoba Oil) 200ml",
+      "brandHint": "AVEENO",
+      "size": "200ml",
       "categoryHint": "Body care",
       "lane": "moisture-barrier",
       "priorityScore": 170,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
-      "identityLead": "04897073187532",
+      "identityLead": "00381371192731",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -485,32 +485,6 @@
     },
     {
       "rank": 18,
-      "discoveryId": "7e605cd6690ac73d599d9c2b",
-      "title": "AQUA RICH Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract) 1000ml",
-      "brandHint": "AQUA RICH",
-      "size": "1000ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "04897073187587",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 19,
       "discoveryId": "e3e002f6425926e8343cb8e9",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
       "brandHint": "EOS",
@@ -536,7 +510,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 20,
+      "rank": 19,
       "discoveryId": "af4cf984d6ae1296e4ffd1b0",
       "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
       "brandHint": "EOS",
@@ -562,7 +536,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 21,
+      "rank": 20,
       "discoveryId": "0b79938ca156f8c9fac4469f",
       "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
       "brandHint": "EOS",
@@ -588,34 +562,33 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
-      "discoveryId": "f234692457fb9dcea6ab4000",
-      "title": "NINELESS MELA-PRO Tranexamic Acid Sunscreen 100ml",
-      "brandHint": "NINELESS",
-      "size": "100ml",
-      "categoryHint": "Face care",
-      "lane": "sun-protection",
+      "rank": 21,
+      "discoveryId": "492cfec4b5d57894f3917ecc",
+      "title": "ST IVES -Exfoliating (Fresh Peach and Jasmine) Body Wash 650ml",
+      "brandHint": "ST IVES",
+      "size": "650ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
       "priorityScore": 158,
-      "retailerObservationCount": 1,
+      "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
-      "identityLead": "08809875270158",
+      "identityLead": "00077043003213",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
         "high-consumer-utility",
+        "multi-retailer-observed",
         "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
+        "current-stock-observed"
       ],
       "cautions": [
-        "single-retailer-observation",
         "retailer-code-unverified"
       ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 22,
       "discoveryId": "fe369f475a0d890702084b1b",
       "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
       "brandHint": "COS DE BAHA",
@@ -642,34 +615,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 24,
-      "discoveryId": "f87e67c0fb61e9574f74ef21",
-      "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
-      "brandHint": "Garnier",
-      "size": "23g",
-      "categoryHint": "Face care",
-      "lane": "acne-care",
-      "priorityScore": 156,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "03600542368810",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed",
-        "formula-or-active-visible"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 25,
+      "rank": 23,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -696,7 +642,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 26,
+      "rank": 24,
       "discoveryId": "cd29efd703d9f5ad9192bf01",
       "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
       "brandHint": "SKIN BY ZARON",
@@ -723,7 +669,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 27,
+      "rank": 25,
       "discoveryId": "b9f9c3fe07895c6ce9945f8a",
       "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
       "brandHint": "GLAMFOX",
@@ -750,7 +696,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 28,
+      "rank": 26,
       "discoveryId": "980f4a6663d7e3bdca521609",
       "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
       "brandHint": "MEDICUBE",
@@ -777,7 +723,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 29,
+      "rank": 27,
       "discoveryId": "7f5e4463688a37e008b523ff",
       "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
       "brandHint": "ANUA",
@@ -803,7 +749,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 28,
       "discoveryId": "9454deec37a4fc5fcd1e7fa7",
       "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
       "brandHint": "PACCI PRISTINE",
@@ -829,7 +775,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 29,
       "discoveryId": "fe5f1f274910514b3aa73df6",
       "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Gel 90g",
       "brandHint": "SHISEIDO Professional",
@@ -855,7 +801,33 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 30,
+      "discoveryId": "d3fa39510608390e2ac79f8b",
+      "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Milk 60ml",
+      "brandHint": "SHISEIDO Professional",
+      "size": "60ml",
+      "categoryHint": "Face care",
+      "lane": "sun-protection",
+      "priorityScore": 148,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "04909978147105",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 31,
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -882,7 +854,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 33,
+      "rank": 32,
       "discoveryId": "860730ad73fa749bf2599ba4",
       "title": "ABIB -Heartleaf Acne Foam Cleanser 150ml",
       "brandHint": "ABIB",
@@ -908,7 +880,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 34,
+      "rank": 33,
       "discoveryId": "e187cb58e2c4a6f75aef8299",
       "title": "BALANCE Active Formula Vitamin C Brightening Fluid Protect SPF 50 50ml",
       "brandHint": "BALANCE",
@@ -935,7 +907,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 35,
+      "rank": 34,
       "discoveryId": "3701e49c3044d45b559ab7f2",
       "title": "BALANCE VITAMIN C (Brightening, Glow and Radiance) SUPERSIZE Serum 60ml",
       "brandHint": "BALANCE",
@@ -962,7 +934,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 36,
+      "rank": 35,
       "discoveryId": "5a7b8f18c791cfb6a61354ac",
       "title": "BIODERMA Sebium Hydra Ultra-Moisturizing Cream Very Dry Acne Prone Skin 40ml",
       "brandHint": "Bioderma",
@@ -988,7 +960,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 37,
+      "rank": 36,
       "discoveryId": "e16bef398ccb4bbef30078b2",
       "title": "CELIMAX -The Real NONI Acne Bubble Cleanser 155ml",
       "brandHint": "CELIMAX",
@@ -1014,7 +986,7 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 38,
+      "rank": 37,
       "discoveryId": "90712aba930db88df002dc55",
       "title": "CERAVE Blemish Control Cleanser 473ML",
       "brandHint": "CERAVE",
@@ -1025,6 +997,32 @@
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
       "identityLead": "03337875923859",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 38,
+      "discoveryId": "2b711f31d76d3d5c8d6a79e2",
+      "title": "ELF Skin Blemish Breakthrough Acne Fighting Spot Gel 7.5ml",
+      "brandHint": "ELF",
+      "size": "7.5ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 146,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "00609332572508",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",

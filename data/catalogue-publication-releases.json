@@ -2785,6 +2785,102 @@
         "publishedAt": "2026-08-07T15:52:00Z"
       },
       "releaseFingerprint": "52c7c9d985de7874495b623b70245cf75f16fb4f5c62d5e45cb970d5ee7fe394"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+      "dossierFingerprint": "7e81daf253251eaf7d7ee371ba100b4d40180742cd2095196fb7fdefcabcbd38",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturise",
+        "displayLine": "Bright + Glow Body Lotion 500 ml",
+        "usage": "Apply onto clean, slightly damp skin after bath or shower. Massage gently in circular motions until fully absorbed. Focus on areas prone to dryness or uneven tone.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T16:55:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T17:00:00Z"
+      },
+      "releaseFingerprint": "b7f4b9117ce687fe9bb5b9e3931feb4956abd4ba1e1f88cd3822bbd87ae407c3"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+      "dossierFingerprint": "d57f6b2b3bf17716509265fdf5fed9cdf8f1e14d01979dc2864ca1134a2099e5",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Bright + Glow Body Gel Wash 1000 ml",
+        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T16:55:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T17:00:00Z"
+      },
+      "releaseFingerprint": "a8e1d06f571873e1ac48128a146b052e5ba947b2148373ab31244cb5080288b7"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+      "dossierFingerprint": "4978e8791a8aef99d47d1212cde7530bb3cf76bd905be3636700428684826d71",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "MELA-PRO Tranexamic Acid Sun Screen 100 ml",
+        "usage": "Apply generously as the last step in your morning routine, 15 minutes before sun exposure. Reapply every two hours during direct sun exposure and after swimming or sweating.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T16:55:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T17:00:00Z"
+      },
+      "releaseFingerprint": "61befd98f819bae54db8746bb6b03b5dd9b8933086c0f3246edde6ccdf68c0de"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+      "dossierFingerprint": "67fa8884e79f28b7378bc85d5adabd6915ec9b869eb2982e5e0d5496a3b2d401",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Pure Active Anti-Imperfection Tissue Mask",
+        "usage": "Unfold the mask and apply onto clean, dry face, smoothing to fit. Leave for 15 minutes. Remove and gently massage any excess serum into the skin. No rinsing needed.",
+        "manufacturerDirectionsUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T17:01:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T17:02:00Z"
+      },
+      "releaseFingerprint": "50a482d63339d548eff9561483e34ca5366a9d13d628ab86a5e53e58aa65ecaf"
     }
   ]
 }

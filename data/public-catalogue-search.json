@@ -84,6 +84,24 @@
       "source": "dossier-release"
     },
     {
+      "slug": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+      "brand": "Aqua Rich",
+      "name": "Bright + Glow Body Lotion",
+      "size": "500 ml",
+      "category": "Body",
+      "approvedGtin": "4897073187532",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+      "brand": "Aqua Rich",
+      "name": "Bright + Glow Body Gel Wash",
+      "size": "1000 ml",
+      "category": "Body",
+      "approvedGtin": "4897073187587",
+      "source": "dossier-release"
+    },
+    {
       "slug": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
       "brand": "Aqua Rich",
       "name": "Bright + Balance Body Gel Wash",
@@ -504,6 +522,15 @@
       "size": "200 mL / 6.7 fl oz",
       "category": "Body",
       "approvedGtin": "840026653251",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+      "brand": "Garnier",
+      "name": "Pure Active Anti-Imperfection Sheet Mask",
+      "size": "1 pack",
+      "category": "Face",
+      "approvedGtin": "3600542368810",
       "source": "dossier-release"
     },
     {
@@ -1107,6 +1134,15 @@
       "size": "200 ml",
       "category": "Face",
       "approvedGtin": "8809875270172",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+      "brand": "NINELESS",
+      "name": "MELA-PRO Tranexamic Acid Sun Screen",
+      "size": "100 ml",
+      "category": "Face",
+      "approvedGtin": "8809875270158",
       "source": "dossier-release"
     },
     {

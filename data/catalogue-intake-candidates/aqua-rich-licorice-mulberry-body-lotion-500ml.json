@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T17:03:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "fd08657f0a1a29f57b818ed1",
+    "discoveryId": "99d1947c0237ecb3faa943a4",
+    "sourceSnapshotSha256": "fd08657f0a1a29f57b818ed199d1947c0237ecb3faa943a4525a2e3483e2abeb"
+  },
+  "candidate": {
+    "id": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+    "brand": "Aqua Rich",
+    "name": "Bright + Glow Body Lotion",
+    "variant": "Aqua Rich Licorice and Mulbery Root Extract Body Lotion",
+    "size": "500 ml",
+    "category": "Body care",
+    "reason": "Adds a Nigerian-observed brightening body lotion candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
+    "priority": "important",
+    "gapIds": [
+      "body-brightening-moisture"
+    ],
+    "demandEvidenceUrls": [
+      "https://buybetter.ng/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/"
+    ],
+    "identity": {
+      "gtin": "4897073187532",
+      "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+      "checkedAt": "2026-08-07T16:40:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+        "observedGtin": "4897073187532",
+        "observedVariant": "Aqua Rich Licorice and Mulbery Root Extract Body Lotion",
+        "observedSize": "500 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-licorice-mulberry-body-lotion-500ml.json",
+        "canonicalExtraction": {
+          "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+          "fields": {
+            "gtin": {
+              "locator": "Official back-package image printed EAN-13 barcode",
+              "sourceText": "EAN-13 barcode 4897073187532",
+              "value": "4897073187532"
+            },
+            "size": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Lotion \u2013 500 ml",
+              "value": "500 ml"
+            },
+            "variant": {
+              "locator": "HTML h1.product_title entry-title",
+              "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Lotion \u2013 500 ml",
+              "value": "Aqua Rich Licorice and Mulbery Root Extract Body Lotion"
+            }
+          },
+          "method": "reviewed-exact-identity-field-extraction",
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+          "retrievedAt": "2026-08-07T16:35:00Z",
+          "reviewedAt": "2026-08-07T16:38:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 3,
+          "sourceResponseByteSize": 257361,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "0bf8745bdf46c7cd571b58b2d4178a768f494c47ed690d57e62bbbeb24f01649",
+          "sourceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-Back.jpg",
+              "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-Back.jpg",
+              "retrievedAt": "2026-08-07T16:35:00Z",
+              "responseSha256": "78309292ef7c1af566e402dc0ef85e7707f77c4350f244c3e7c245d0844021ee",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 40139
+            }
+          ]
+        },
+        "snapshotSha256": "29f9915c95d7104173e7bc6156c2ceb0bae1eca2966cca8fe727c89a8b748246",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1692,
+        "retrievedAt": "2026-08-07T16:35:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on brightening body lotion described by the manufacturer as containing licorice and mulberry root extract, for dull or uneven-tone body skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday moisturising and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+      "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-07T16:42:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-1.jpg",
+      "sourceAssetWidth": 800,
+      "sourceAssetHeight": 800,
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetSha256": "ceb6a332c4918380f370a5754ac89074b5b085ae6c24095cbc68cad068dd573c",
+      "sourceAssetByteSize": 33062,
+      "sourceAssetRetrievedAt": "2026-08-07T16:35:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v1-b405acb34f2088a0.png",
+      "backgroundTreatment": "source-pixel-isolation",
+      "origin": "official-brand-media",
+      "rightsStatus": "documented",
+      "role": "packshot",
+      "rightsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+      "publicImageSha256": "b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 639089,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T16:45:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

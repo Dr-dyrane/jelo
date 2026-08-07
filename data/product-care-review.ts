@@ -1465,6 +1465,42 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'aqua-rich-licorice-mulberry-body-lotion-500ml': {
+    productSlug: 'aqua-rich-licorice-mulberry-body-lotion-500ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'aqua-rich-licorice-mulberry-body-wash-1000ml': {
+    productSlug: 'aqua-rich-licorice-mulberry-body-wash-1000ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'garnier-pure-active-tea-tree-salicylic-acid-tissue-mask': {
+    productSlug: 'garnier-pure-active-tea-tree-salicylic-acid-tissue-mask',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'nineless-mela-pro-tranexamic-acid-sunscreen-100ml': {
+    productSlug: 'nineless-mela-pro-tranexamic-acid-sunscreen-100ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml',
+    ],
+    reviewedAt: '2026-08-07',
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {
