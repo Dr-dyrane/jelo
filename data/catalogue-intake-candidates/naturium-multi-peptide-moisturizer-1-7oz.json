@@ -1,11 +1,11 @@
 {
     "schemaVersion": 1,
     "publicationStatus": "private-research-only",
-    "updatedAt": "2026-08-07T12:15:00Z",
+    "updatedAt": "2026-08-07T13:33:00Z",
     "origin": {
         "kind": "community-aggregate-packet",
         "packetId": "d34092980dce29db8a0a356b",
-        "reportSha256": "6407d04dc862ae3eee384b0f51ca364dbbd91f5e34f696f60bf40f99dcf3df6c"
+        "reportSha256": "09ecffaea13d958151030ea37ea1ec00364dc8b3eab700a963e9c5274c6e3250"
     },
     "candidate": {
         "id": "naturium-multi-peptide-moisturizer-1-7oz",
@@ -17,9 +17,9 @@
         "reason": "Adds the exact current 1.7 oz Naturium Multi-Peptide Moisturizer. Official Shopify structured data publishes GTIN 850010792354. No exact Nigerian offers yet bound, so reference only.",
         "priority": "important",
         "gapIds": [
-            "peptide-moisturizer",
-            "anti-aging-support",
-            "leave-on-face-care"
+            "multi-peptide-moisturizer",
+            "moisturizer",
+            "anti-aging-support"
         ],
         "demandEvidenceUrls": [
             "https://www.urbanskinng.com/shop/multi-peptide-moisturizer/",
@@ -28,21 +28,21 @@
         "identity": {
             "gtin": "850010792354",
             "officialProductUrl": "https://naturium.com/products/multi-peptide-moisturizer",
-            "checkedAt": "2026-08-07T12:15:00Z",
+            "checkedAt": "2026-08-07T13:32:00Z",
             "basis": "official-brand",
-            "packageVersion": "Multi-Peptide Moisturizer 1.7 oz / 50 mL jar",
+            "packageVersion": "Multi-Peptide Moisturizer 1.7 oz / 50 mL tube",
             "officialEvidence": {
                 "url": "https://naturium.com/products/multi-peptide-moisturizer",
                 "observedGtin": "850010792354",
                 "observedVariant": "Multi-Peptide Moisturizer",
                 "observedSize": "1.7 oz / 50 mL",
-                "observedPackageVersion": "Multi-Peptide Moisturizer 1.7 oz / 50 mL jar",
+                "observedPackageVersion": "Multi-Peptide Moisturizer 1.7 oz / 50 mL tube",
                 "snapshotKind": "canonical-extraction",
                 "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-peptide-moisturizer-1-7oz.json",
-                "snapshotSha256": "6407d04dc862ae3eee384b0f51ca364dbbd91f5e34f696f60bf40f99dcf3df6c",
+                "snapshotSha256": "09ecffaea13d958151030ea37ea1ec00364dc8b3eab700a963e9c5274c6e3250",
                 "snapshotMimeType": "application/json",
-                "snapshotByteSize": 1981,
-                "retrievedAt": "2026-08-07T12:13:48Z",
+                "snapshotByteSize": 2024,
+                "retrievedAt": "2026-08-07T13:30:06Z",
                 "canonicalExtraction": {
                     "schemaVersion": 4,
                     "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
@@ -54,21 +54,21 @@
                     },
                     "sourceUrl": "https://naturium.com/products/multi-peptide-moisturizer",
                     "responseUrl": "https://naturium.com/products/multi-peptide-moisturizer",
-                    "retrievedAt": "2026-08-07T12:13:48Z",
-                    "reviewedAt": "2026-08-07T12:15:00Z",
+                    "retrievedAt": "2026-08-07T13:30:06Z",
+                    "reviewedAt": "2026-08-07T13:32:00Z",
                     "reviewer": "JeloCare catalogue evidence review",
-                    "sourceResponseSha256": "4aa4a2e22f85d018d27c655e05a26c3b9969f424a3ceee291cc285a08ac948ca",
+                    "sourceResponseSha256": "921e25e9e7cba25d06e17cf0d8202c6af7b7e04e22b81813de51a16589986dcb",
                     "sourceResponseMimeType": "text/html",
-                    "sourceResponseByteSize": 906400,
+                    "sourceResponseByteSize": 906605,
                     "responseDigestScope": "rendered-dom-outerhtml",
                     "fields": {
                         "gtin": {
-                            "locator": "Rendered official Shopify structured product data variant gtin field",
-                            "sourceText": "\"gtin\":\"850010792354\"",
+                            "locator": "Rendered official Shopify structured product data variant barcode field",
+                            "sourceText": "\"barcode\":\"850010792354\"",
                             "value": "850010792354"
                         },
                         "variant": {
-                            "locator": "Rendered official product heading",
+                            "locator": "Rendered official Shopify structured product data variant name field",
                             "sourceText": "Multi-Peptide Moisturizer",
                             "value": "Multi-Peptide Moisturizer"
                         },
@@ -79,8 +79,8 @@
                         },
                         "packageVersion": {
                             "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Multi-Peptide Moisturizer 1.7 OZ / 50 mL jar",
-                            "value": "Multi-Peptide Moisturizer 1.7 oz / 50 mL jar"
+                            "sourceText": "Multi-Peptide Moisturizer 1.7 OZ / 50 mL tube",
+                            "value": "Multi-Peptide Moisturizer 1.7 oz / 50 mL tube"
                         }
                     },
                     "supplementalResponses": [
@@ -88,7 +88,7 @@
                             "role": "official-pack-image",
                             "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10065_Multi-Peptide-Moisturizer-Front-CapOn-bonebkgd.jpg?v=1777319292&width=2048",
                             "responseUrl": "https://naturium.com/cdn/shop/files/NATR-10065_Multi-Peptide-Moisturizer-Front-CapOn-bonebkgd.jpg?v=1777319292&width=2048",
-                            "retrievedAt": "2026-08-07T12:13:48Z",
+                            "retrievedAt": "2026-08-07T13:30:06Z",
                             "responseSha256": "d4d2cd041d970c80fb8084e4bb13749907a3c3ee386f0f90a27ca27f691b1ab5",
                             "responseMimeType": "image/png",
                             "responseByteSize": 532928
@@ -99,17 +99,17 @@
         },
         "care": {
             "status": "reviewed",
-            "formulaArchetype": "Manufacturer-described multi-peptide face moisturizer for fine lines and wrinkles.",
+            "formulaArchetype": "Manufacturer-described multi-peptide moisturizer for fine lines and wrinkles.",
             "careTier": "targeted-care",
             "reviewScope": "catalogue-supportive-care",
-            "advisoryBoundary": "A leave-on cosmetic moisturizer, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "advisoryBoundary": "A topical cosmetic moisturizer, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
             "manufacturerEvidenceUrl": "https://naturium.com/products/multi-peptide-moisturizer",
-            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
             "evidenceUrls": [
                 "https://naturium.com/products/multi-peptide-moisturizer",
-                "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles"
+                "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
             ],
-            "reviewedAt": "2026-08-07T12:15:00Z",
+            "reviewedAt": "2026-08-07T13:32:00Z",
             "reviewer": "JeloCare catalogue evidence review"
         },
         "nigeria": {
@@ -129,13 +129,13 @@
             "sourceAssetByteSize": 532928,
             "sourceAssetWidth": 2000,
             "sourceAssetHeight": 2000,
-            "sourceAssetRetrievedAt": "2026-08-07T12:13:48Z",
+            "sourceAssetRetrievedAt": "2026-08-07T13:30:06Z",
             "packaging": "intact",
             "backgroundTreatment": "source-pixel-isolation",
             "labelVariantSizeUnchanged": true,
             "packagingInvented": false,
             "manualSourceOutputQa": true,
-            "artReviewedAt": "2026-08-07T12:15:00Z",
+            "artReviewedAt": "2026-08-07T13:33:00Z",
             "artReviewer": "Codex visual audit",
             "presentationQuality": "magazine-ready"
         }

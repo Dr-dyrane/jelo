@@ -1,24 +1,24 @@
 {
     "schemaVersion": 1,
     "publicationStatus": "private-research-only",
-    "updatedAt": "2026-08-07T12:21:30Z",
+    "updatedAt": "2026-08-07T13:31:00Z",
     "origin": {
         "kind": "community-aggregate-packet",
         "packetId": "d34092980dce29db8a0a356b",
-        "reportSha256": "fe9f74be9766c6cf7f997fddf9b26b3777c4620a43904d2bf6f6f85a6c750886"
+        "reportSha256": "5b2689907cdfaf7e7cfc103db565a55127740aa02b247ff9eb003b02c1ed666d"
     },
     "candidate": {
         "id": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
         "brand": "Naturium",
         "name": "Plant Ceramide Rich Moisture Cream",
         "variant": "Plant Ceramide Rich Moisture Cream",
-        "size": "1.7 oz / 50 mL",
+        "size": "1.7 oz / 48 mL",
         "category": "Face care",
         "reason": "Adds the exact current 1.7 oz Naturium Plant Ceramide Rich Moisture Cream. Official Shopify structured data publishes GTIN 850010792200. No exact Nigerian offers yet bound, so reference only.",
         "priority": "important",
         "gapIds": [
-            "ceramide-moisturizer",
-            "barrier-support",
+            "ceramide-cream",
+            "moisturizer",
             "leave-on-face-care"
         ],
         "demandEvidenceUrls": [
@@ -28,21 +28,21 @@
         "identity": {
             "gtin": "850010792200",
             "officialProductUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
-            "checkedAt": "2026-08-07T12:21:30Z",
+            "checkedAt": "2026-08-07T13:30:00Z",
             "basis": "official-brand",
-            "packageVersion": "Plant Ceramide Rich Moisture Cream 1.7 oz / 50 mL jar",
+            "packageVersion": "Plant Ceramide Rich Moisture Cream 1.7 oz / 48 mL jar",
             "officialEvidence": {
                 "url": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
                 "observedGtin": "850010792200",
                 "observedVariant": "Plant Ceramide Rich Moisture Cream",
-                "observedSize": "1.7 oz / 50 mL",
-                "observedPackageVersion": "Plant Ceramide Rich Moisture Cream 1.7 oz / 50 mL jar",
+                "observedSize": "1.7 oz / 48 mL",
+                "observedPackageVersion": "Plant Ceramide Rich Moisture Cream 1.7 oz / 48 mL jar",
                 "snapshotKind": "canonical-extraction",
                 "snapshotPath": "data/catalogue-identity-evidence/naturium-plant-ceramide-rich-moisture-cream-1-7oz.json",
-                "snapshotSha256": "fe9f74be9766c6cf7f997fddf9b26b3777c4620a43904d2bf6f6f85a6c750886",
+                "snapshotSha256": "5b2689907cdfaf7e7cfc103db565a55127740aa02b247ff9eb003b02c1ed666d",
                 "snapshotMimeType": "application/json",
-                "snapshotByteSize": 2009,
-                "retrievedAt": "2026-08-07T12:20:12Z",
+                "snapshotByteSize": 2050,
+                "retrievedAt": "2026-08-07T13:28:33Z",
                 "canonicalExtraction": {
                     "schemaVersion": 4,
                     "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
@@ -54,33 +54,33 @@
                     },
                     "sourceUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
                     "responseUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
-                    "retrievedAt": "2026-08-07T12:20:12Z",
-                    "reviewedAt": "2026-08-07T12:21:30Z",
+                    "retrievedAt": "2026-08-07T13:28:33Z",
+                    "reviewedAt": "2026-08-07T13:30:00Z",
                     "reviewer": "JeloCare catalogue evidence review",
-                    "sourceResponseSha256": "183dfd091455207aff1613549bcf6c5ebec2adcb536192d39c4551b0ab2f371e",
+                    "sourceResponseSha256": "f7fa9c24588152d12ca2e7eb869580f6dd977e5bba094bec00d82c16227d398d",
                     "sourceResponseMimeType": "text/html",
-                    "sourceResponseByteSize": 902202,
+                    "sourceResponseByteSize": 902213,
                     "responseDigestScope": "rendered-dom-outerhtml",
                     "fields": {
                         "gtin": {
-                            "locator": "Rendered official Shopify structured product data variant gtin field",
-                            "sourceText": "\"gtin\":\"850010792200\"",
+                            "locator": "Rendered official Shopify structured product data variant barcode field",
+                            "sourceText": "\"barcode\":\"850010792200\"",
                             "value": "850010792200"
                         },
                         "variant": {
-                            "locator": "Rendered official product heading",
+                            "locator": "Rendered official Shopify structured product data variant name field",
                             "sourceText": "Plant Ceramide Rich Moisture Cream",
                             "value": "Plant Ceramide Rich Moisture Cream"
                         },
                         "size": {
                             "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Official front-pack principal display panel: 1.7 OZ / 50 mL",
-                            "value": "1.7 oz / 50 mL"
+                            "sourceText": "Official front-pack principal display panel: 1.7 OZ / 48 mL",
+                            "value": "1.7 oz / 48 mL"
                         },
                         "packageVersion": {
                             "locator": "Official front-pack principal display panel in supplemental response",
-                            "sourceText": "Plant Ceramide Rich Moisture Cream 1.7 OZ / 50 mL jar",
-                            "value": "Plant Ceramide Rich Moisture Cream 1.7 oz / 50 mL jar"
+                            "sourceText": "Plant Ceramide Rich Moisture Cream 1.7 OZ / 48 mL jar",
+                            "value": "Plant Ceramide Rich Moisture Cream 1.7 oz / 48 mL jar"
                         }
                     },
                     "supplementalResponses": [
@@ -88,7 +88,7 @@
                             "role": "official-pack-image",
                             "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
                             "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
-                            "retrievedAt": "2026-08-07T12:20:12Z",
+                            "retrievedAt": "2026-08-07T13:28:33Z",
                             "responseSha256": "e72708efef9c2d06e9d69297a682d8ad1b5f51719fc39533d7dd4a4641571516",
                             "responseMimeType": "image/png",
                             "responseByteSize": 249929
@@ -102,14 +102,14 @@
             "formulaArchetype": "Manufacturer-described plant ceramide rich moisture cream for dry skin.",
             "careTier": "targeted-care",
             "reviewScope": "catalogue-supportive-care",
-            "advisoryBoundary": "A leave-on cosmetic moisturizer, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "advisoryBoundary": "A topical cosmetic moisturizer, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
             "manufacturerEvidenceUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
             "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
             "evidenceUrls": [
                 "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
                 "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
             ],
-            "reviewedAt": "2026-08-07T12:21:30Z",
+            "reviewedAt": "2026-08-07T13:30:00Z",
             "reviewer": "JeloCare catalogue evidence review"
         },
         "nigeria": {
@@ -129,13 +129,13 @@
             "sourceAssetByteSize": 249929,
             "sourceAssetWidth": 2000,
             "sourceAssetHeight": 2000,
-            "sourceAssetRetrievedAt": "2026-08-07T12:20:12Z",
+            "sourceAssetRetrievedAt": "2026-08-07T13:28:33Z",
             "packaging": "intact",
             "backgroundTreatment": "source-pixel-isolation",
             "labelVariantSizeUnchanged": true,
             "packagingInvented": false,
             "manualSourceOutputQa": true,
-            "artReviewedAt": "2026-08-07T12:21:30Z",
+            "artReviewedAt": "2026-08-07T13:31:00Z",
             "artReviewer": "Codex visual audit",
             "presentationQuality": "magazine-ready"
         }

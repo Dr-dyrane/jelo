@@ -1287,6 +1287,36 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-plant-ceramide-rich-moisture-cream-1-7oz': {
+    productSlug: 'naturium-plant-ceramide-rich-moisture-cream-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/plant-ceramide-rich-moisture-cream',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-multi-peptide-moisturizer-1-7oz': {
+    productSlug: 'naturium-multi-peptide-moisturizer-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-peptide-moisturizer',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-retinaldehyde-cream-serum-0-10-1-7oz': {
+    productSlug: 'naturium-retinaldehyde-cream-serum-0-10-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/retinaldehyde-cream-serum-0-10',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',
