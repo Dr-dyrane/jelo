@@ -124,13 +124,6 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/?s=dove+moroccan+argan+oil+beauty+bar&post_type=product'), careToBeauty('https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20argan%20oil')]
   },
   {
-    slug: 'dove-go-fresh-cucumber-green-tea-spray', brand: 'Dove', name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea', size: '4 oz / 113 g', category: 'Body', step: 'Protect',
-    image: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600', displayLine: 'Freshen · protect',
-    bestFor: ['daily freshness', 'aluminum-free odor protection'], concerns: ['body odour', 'perspiration'], skinTypes: ['all'], sensitiveFriendly: true,
-    usage: 'Use on clean, dry underarms.', evidence: 'moderate',
-    offers: [beautyByDaz('https://beautybydaz.com/?s=dove+go+fresh+cucumber+green+tea+spray&post_type=product'), careToBeauty('https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20cucumber%20deodorant')]
-  },
-  {
     slug: 'miracle-natural-hair-anti-dandruff-shampoo', brand: 'BEAUTIFUL YOU · MIRACLE', name: 'Natural Hair Anti-Dandruff & Anti-Itch Shampoo', size: '400 ml', category: 'Hair', step: 'Cleanse',
     image: 'https://www.agtplaza.com/cdn/shop/files/background-editor_output_7b61d159-dd7a-41f8-a083-ec9548d9bdf2.png?v=1735099870', displayLine: 'Cleanse · calm',
     bestFor: ['dandruff', 'itchy scalp'], concerns: ['dandruff', 'itch'], skinTypes: ['scalp'], sensitiveFriendly: true,

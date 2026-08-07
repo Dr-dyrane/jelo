@@ -5,13 +5,12 @@ import { verifiedRetailOffers } from '@/data/retail-offers';
 import { nigeriaRetailers } from '@/data/retailers';
 
 const expectedSlugs = [
-  'dove-go-fresh-cucumber-green-tea-spray',
   'dove-moroccan-argan-oil-beauty-bar',
   'la-roche-posay-toleriane-double-repair-matte',
   'la-roche-posay-toleriane-double-repair-spf30',
 ];
 
-test('the fresh Nigerian offer-gap audit covers the four unresolved products', () => {
+test('the fresh Nigerian offer-gap audit covers the three unresolved products', () => {
   assert.equal(audit.method, 'direct-retailer-product-page-review');
   assert.ok(!Number.isNaN(Date.parse(audit.observedAt)));
   assert.deepEqual(audit.products.map(product => product.slug).sort(), expectedSlugs);

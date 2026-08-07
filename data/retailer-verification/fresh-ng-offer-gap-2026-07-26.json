@@ -19,26 +19,9 @@
       "sellerName": "Glow-Empire",
       "sellerScore": 88,
       "disposition": "withheld",
-      "reasons": ["catalogue-pack-count-mismatch", "four-bars-observed-six-bars-required"]
-    },
-    {
-      "slug": "dove-go-fresh-cucumber-green-tea-spray",
-      "catalogueVariant": "DOVE Aluminum Free Deodorant Spray Cucumber & Green Tea",
-      "catalogueSize": "4 oz / 113 g",
-      "retailer": "Ubuy",
-      "retailerDirectoryStatus": "not-listed",
-      "requestedUrl": "https://www.u-buy.com.ng/product/1N79UP9TG-dove-0-aluminum-deodorant-spray-cucumber-green-tea-aluminum-free-4-oz",
-      "finalUrl": "https://www.u-buy.com.ng/product/1N79UP9TG-dove-0-aluminum-deodorant-spray-cucumber-green-tea-aluminum-free-4-oz",
-      "observedTitle": "Dove Cucumber & Green Tea Deodorant Spray - 48 Hour Protection, 4 oz",
-      "observedSize": "4 oz",
-      "priceNgn": 92339,
-      "stock": "in-stock",
-      "disposition": "withheld",
       "reasons": [
-        "retailer-not-directory-listed",
-        "cross-border-import-from-usa",
-        "not-fulfilled-by-retailer",
-        "landed-cost-not-established"
+        "catalogue-pack-count-mismatch",
+        "four-bars-observed-six-bars-required"
       ]
     },
     {
@@ -54,7 +37,10 @@
       "priceNgn": 48500,
       "stock": "out-of-stock",
       "disposition": "withheld",
-      "reasons": ["catalogue-size-not-visible-on-product-page", "one-hundred-millilitre-identity-not-established"]
+      "reasons": [
+        "catalogue-size-not-visible-on-product-page",
+        "one-hundred-millilitre-identity-not-established"
+      ]
     },
     {
       "slug": "la-roche-posay-toleriane-double-repair-matte",
@@ -71,7 +57,10 @@
       "sellerName": "luxury skin care",
       "sellerScore": 92,
       "disposition": "withheld",
-      "reasons": ["catalogue-size-not-visible-on-product-page", "seventy-five-millilitre-identity-not-established"]
+      "reasons": [
+        "catalogue-size-not-visible-on-product-page",
+        "seventy-five-millilitre-identity-not-established"
+      ]
     }
   ]
 }

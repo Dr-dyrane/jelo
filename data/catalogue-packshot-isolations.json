@@ -883,6 +883,69 @@
   },
   {
     "schemaVersion": 1,
+    "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600",
+      "sha256": "718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937",
+      "byteSize": 330489,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T23:27:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00079400482280"
+      },
+      "officialProductUrl": "https://www.dove.com/us/en/p/dove-aluminum-free-deodorant-spray-cucumber-green-tea.html/00079400482280"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937",
+      "generatedAt": "2026-08-07T23:27:30Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937",
+      "byteSize": 330489,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T23:27:45Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T23:28:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "4b257ac3d63ac3eafa1ceec6af16f204fe86ac3cc0848f0d65e38085b8ea929f",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
     "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
     "publicationScope": "catalogue-publication",
     "source": {

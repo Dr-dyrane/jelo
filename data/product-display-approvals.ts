@@ -90,14 +90,6 @@ export const productDisplayApprovals = {
     contentHash: '4a1f7378a4a7a89fd685da21df393906ea9a3315dbef29ae82c0af829aec0856',
     reviewedAt: '2026-07-22T12:34:11.000Z',
   }),
-  'dove-go-fresh-cucumber-green-tea-spray': approval({
-    brand: 'Dove',
-    name: 'Aluminum Free Deodorant Spray Cucumber & Green Tea',
-    size: '4 oz / 113 g',
-    sourceUrl: 'https://assets.unileversolutions.com/v1/130217801.png?im=Resize,width=1600',
-    contentHash: '718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937',
-    reviewedAt: '2026-08-04T14:00:00.000Z',
-  }),
   'lush-hair-mentholated-conditioner': approval({
     brand: 'LUSH HAIR',
     name: 'Rinse Me Out Mentholated Conditioner',

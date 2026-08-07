@@ -955,6 +955,7 @@ const reviewedIndependentClinicalGuidanceUrls = new Set([
   'https://www.nhs.uk/tests-and-treatments/emollients/',
   'https://www.nhs.uk/conditions/keratosis-pilaris/',
   'https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/',
+  'https://www.nhs.uk/symptoms/body-odour-bo/',
   'https://pubmed.ncbi.nlm.nih.gov/34596890/',
   'https://pubmed.ncbi.nlm.nih.gov/38722460/',
 ]);

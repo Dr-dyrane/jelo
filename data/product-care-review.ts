@@ -58,21 +58,6 @@ export const reviewedProductCareManifest = {
     productSlug: 'dove-moroccan-argan-oil-beauty-bar',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
   },
-  'dove-go-fresh-cucumber-green-tea-spray': {
-    productSlug: 'dove-go-fresh-cucumber-green-tea-spray',
-    careState: 'supportive_eligible',
-    approvedUses: [{
-      id: 'everyday-underarm-odour-control',
-      label: 'Everyday underarm odour control',
-      concernIds: ['body odour', 'underarm odour'],
-      concernSlugs: ['sweat-body-odour'],
-    }],
-    evidenceSourceUrls: [
-      'https://www.dove.com/us/en/p/dove-0-aluminum-deodorant-spray-cucumber-green-tea.html/00079400482280',
-      'https://www.nhs.uk/symptoms/body-odour-bo/',
-    ],
-    reviewedAt: '2026-07-27',
-  },
   'miracle-natural-hair-anti-dandruff-shampoo': {
     productSlug: 'miracle-natural-hair-anti-dandruff-shampoo',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
@@ -1514,6 +1499,21 @@ export const publishedProductCareManifest = {
     careState: 'supportive_eligible',
     approvedUses: [{ id: 'hydration-conditioning', label: 'Hydration and skin conditioning', concernIds: ['dryness', 'dehydration'], concernSlugs: ['dry-dehydrated-skin'] }],
     evidenceSourceUrls: ['https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence'],
+    reviewedAt: '2026-08-07',
+  },
+  'dove-go-fresh-cucumber-green-tea-spray': {
+    productSlug: 'dove-go-fresh-cucumber-green-tea-spray',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'everyday-underarm-odour-control',
+      label: 'Everyday underarm odour control',
+      concernIds: ['body odour', 'underarm odour'],
+      concernSlugs: ['sweat-body-odour'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.dove.com/us/en/p/dove-aluminum-free-deodorant-spray-cucumber-green-tea.html/00079400482280',
+      'https://www.nhs.uk/symptoms/body-odour-bo/',
+    ],
     reviewedAt: '2026-08-07',
   },
 } as const satisfies Record<string, ReviewedProductCare>;
