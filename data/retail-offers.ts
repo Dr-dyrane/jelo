@@ -95,6 +95,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       '16.9 fl oz / 500 mL',
       { observedAt: '2026-08-04T19:54:41Z', expiresAt: '2026-08-11T19:54:41Z' },
     ),
+    exactNg('Kadimez Essentials', 'https://kadimezessentials.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/', 82, 43000, 'Naturium The Perfector  Salicylic Acid Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
   ],
   'la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml': [
     exactNg(
@@ -587,6 +588,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'naturium-multi-peptide-advanced-serum-1fl-oz': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-multi-peptide-advanced-serum/', 97, 38500, 'NATURIUM Multi-Peptide Advanced Serum 1.0 oz 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-multi-peptide-advanced-serum-1-0-fl-oz-30ml/', 98, 41454, 'Naturium Multi Peptide Advanced Serum 1.0 FL OZ/ 30ML', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-multi-peptide-advanced-serum-30ml/', 86, 55000, 'Naturium Multi-Peptide Advanced Serum 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-multi-bright-advanced-serum-30ml/', 86, 48000, 'Naturium Multi-Bright Advanced Serum – 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
   ],
   'aqua-rich-licorice-mulberry-body-lotion-500ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/', 97, 10804, 'AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml', '500 ml', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z' }),
@@ -596,9 +600,103 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'naturium-glow-getter-body-oil-100ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-the-glow-getter-body-oil-3-4-oz-100ml/', 97, 50500, 'Naturium The Glow Getter Body Oil 3.4 oz 100ml', '100 ml', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z', stock: 'low-stock' }),
+    exactNg('Sonavine Beauty', 'https://sonavinebeauty.com/product/naturium-the-glow-getter-body-oil-100ml/', 85, 56500, 'Naturium The Glow Getter Body Oil 100ml', '3.4 fl oz / 100 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-alpha-arbutin-serum-2-percent-1fl-oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-alpha-arbutin-serum-2-1fl-oz-30ml/', 98, 32966, 'Naturium Alpha Arbutin Serum 2% 1fl oz/ 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-azelaic-acid-derivative-complex-10-1fl-oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-azelaic-acid-derivative-complex-10-1fl-30ml/', 98, 32966, 'Naturium Azelaic Acid Derivative Complex 10% 1fl oz / 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-azelaic-topical-acid-10-30ml/', 86, 43000, 'Naturium Azelaic Topical Acid 10% | 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-azelaic-topical-acid-10-30ml/', 86, 45000, 'Naturium Azelaic Topical Acid 10% – 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-bha-liquid-exfoliant-2-4oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-bha-liquid-exfoliant-2-4-0-fl-oz-120ml/', 98, 29999, 'Naturium BHA Liquid Exfoliant 2% 4.0 FL OZ /120ml', '4.0 fl oz / 120 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-bio-lipid-restoring-body-lotion-14oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/urban-skin-rx-pro-strength-lacticglow-micropolish-resurface-brighten-cleanser/', 98, 38000, 'Naturium Bio-Lipid Restoring Body Lotion 414ml', '14 fl oz / 414 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-bio-lipid-body-lotion-414ml/', 86, 43000, 'Naturium Bio-Lipid Body Lotion 414ml', '14 fl oz / 414 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-bio-lipid-body-lotion-414ml/', 86, 45000, 'Naturium Bio-Lipid Restoring Body Lotion – 414ml', '14 fl oz / 414 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-brightener-vitamin-c-body-wash-500ml': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/uncategorized/naturium-the-brightener-vitamin-c-body-wash-500ml/', 100, 38000, 'Naturium The Brightener Vitamin C Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-the-brightener-vitamin-c-brightening-body-wash-500ml/', 98, 38999, 'Naturium -The Brightener Vitamin C Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-the-brightener-vitamin-c-brightening-body-wash-500ml/', 86, 43000, 'Naturium The Brightener Vitamin C Brightening Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-energizer-mandelic-acid-body-wash-500ml': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-the-energizer-mandelic-acid-body-wash-500ml/', 86, 43500, 'Naturium The Energizer Mandelic Acid Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-the-energizer-mandelic-acid-body-wash-500ml/', 78, 48000, 'Naturium The Energizer Mandelic Acid Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-glow-getter-multi-oil-body-butter-7-7oz': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/bath-body/naturium-the-glow-getter-multi-oil-body-butter-232ml/', 100, 45000, 'Naturium The Glow Getter Multi-Oil Body Butter 232ml', '7.7 fl oz / 232 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-the-glow-getter-multi-oil-body-butter-7-7fl-232ml/', 98, 43000, 'Naturium The Glow Getter Multi-Oil Body Butter 7.7fl/232ml', '7.7 fl oz / 232 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-the-glow-getter-multi-oil-body-butter-232ml/', 86, 52500, 'Naturium The Glow Getter Multi-Oil Body Butter - 232ml', '7.7 fl oz / 232 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-glow-getter-multi-oil-body-scrub-8oz': [
+    exactNg('Sonavine Beauty', 'https://sonavinebeauty.com/product/naturium-the-glow-getter-multi-oil-body-scrub-226g-2/', 85, 49500, 'Naturium The Glow Getter Multi Oil Body Scrub 226G-', '8 oz / 226 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-the-glow-getter-multi-oil-body-scrub/', 78, 49500, 'Naturium The Glow Getter Multi-Oil Body Scrub - 226g', '8 oz / 226 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-glow-getter-multi-oil-hydrating-body-wash-500ml': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-glow-getter-multi-oil-hydrating-body-wash-16-9-oz/', 100, 38000, 'Naturium The Glow Getter Multi-Oil Hydrating Body Wash 16.9 oz', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-the-glow-getter-multi-oil-body-wash-500ml/', 98, 38999, 'Naturium -The Glow Getter Multi-Oil Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-the-glow-getter-multi-oil-hydrating-body-wash-500ml/', 86, 43000, 'Naturium The Glow Getter Multi-Oil Hydrating Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-kp-body-scrub-mask-8oz': [
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-kp-body-scrub-mask-226g/', 78, 40000, 'Naturium KP Body Scrub & Mask - 226g', '8 oz / 226 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-multi-peptide-advanced-body-wash-500ml': [
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-the-multi-peptide-advanced-body-wash-500ml/', 78, 42500, 'Naturium The Multi-Peptide Advanced Body Wash - 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
   ],
   'naturium-multi-peptide-moisturizer-1-7oz': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-multi-peptide-moisturizer/', 97, 40500, 'Naturium Multi-Peptide Moisturizer 50g', '50 g', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z', stock: 'low-stock' }),
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-multi-peptide-moisturizer-50ml/', 78, 45000, 'Naturium Multi-Peptide Moisturizer - 50ml', '1.7 oz / 50 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-niacinamide-cleansing-gelee-3-7-1oz': [
+    exactNg('Sonavine Beauty', 'https://sonavinebeauty.com/product/naturium-niacinamide-cleansing-gelee3-210ml-7-1-fl-oz/', 85, 19650, 'NATURIUM Niacinamide Cleansing Gelee3% 210ml ( 7.1 FL oz)', '7.1 fl oz / 210 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-niacinamide-cleansing-gelee-3-210ml/', 78, 38000, 'Naturium Niacinamide Cleansing Gelée 3% - 210ml', '7.1 fl oz / 210 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-niacinamide-serum-12-percent-1fl-oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-niacinamide-serum-12-plus-zinc-2-30ml/', 98, 28999, 'Naturium Niacinamide Serum 12% Plus Zinc 2% 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-niacinamide-serum-12-plus-zinc-2-30ml/', 86, 44612, 'Naturium Niacinamide Serum 12% Plus Zinc 2% – 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-niacinamide-serum-12-zinc-2-1-0-fl-0z-30-ml/', 78, 60000, 'Naturium niacinamide serum 12% + Zinc 2% 1.0 FL 0Z/30 ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-purifier-niacinamide-body-wash-500ml': [
+    exactNg('Kadimez Essentials', 'https://kadimezessentials.com/product/naturium-the-purifier-niacinamide-body-wash-500ml/', 82, 43000, 'Naturium The Purifier Niacinamide Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-the-purifier-niacinamide-body-wash-16-9floz-500ml/', 78, 48500, 'Naturium The Purifier Niacinamide Body Wash 16.9floz/500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz': [
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-quadruple-hyaluronic-acid-serum-5-1-fl-oz-30-ml/', 78, 60000, 'Naturium Quadruple Hyaluronic Acid Serum 5% 1 fl oz/30 ml(Packaging may Vary)', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-quadruple-hyaluronic-acid-serum-5-30ml/', 78, 44000, 'Naturium Quadruple Hyaluronic Acid Serum 5% - 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-retinol-complex-serum-1fl-oz': [
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-retinol-complex-serum/', 86, 47300, 'Naturium Retinol Complex Serum – 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-retinol-complex-serum-1-0-fl-0z-30-ml/', 78, 60000, 'Naturium Retinol Complex Serum 1.0 FL 0Z/30 ml(Packaging may Vary)', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-retinol-complex-serum-30ml/', 78, 44000, 'Naturium Retinol Complex Serum - 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-skin-renewing-retinol-body-lotion-8oz': [
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-skin-renewing-retinol-body-lotion-8-fl-oz-234ml/', 78, 56000, 'Naturium Skin-Renewing Retinol Body Lotion 8 fl Oz/ 234ml', '8 fl oz / 234 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-smoother-glycolic-acid-body-lotion-8oz': [
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-the-smoother-glycolic-acid-body-lotion/', 86, 59125, 'Naturium The Smoother Glycolic Acid Body Lotion - 234ml', '8 fl oz / 234 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Sonavine Beauty', 'https://sonavinebeauty.com/product/naturium-the-smoother-glycolic-body-lotion-234ml-8oz/', 85, 48500, 'Naturium The Smoother Glycolic Body Lotion 234ml 8oz.', '8 fl oz / 234 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Kadimez Essentials', 'https://kadimezessentials.com/product/naturium-the-smoother-glycolic-acid-body-lotion-234ml/', 82, 45500, 'Naturium The Smoother Glycolic Acid Body Lotion 234ml', '8 fl oz / 234 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml': [
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-smoother-glycolic-acid-exfoliating-body-wash16-9-oz/', 100, 38000, 'Naturium The Smoother Glycolic Acid Exfoliating Body Wash16.9 oz', '16.9 oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-the-smoother-glycolic-acid-body-wash-500ml/', 98, 38999, 'Naturium - The Smoother Glycolic Acid Body Wash 500ml', '16.9 oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-the-smoother-glycolic-acid-body-wash-500ml/', 86, 43500, 'Naturium The Smoother Glycolic Acid Body Wash 500ml', '16.9 oz / 500 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-tranexamic-topical-acid-5-1fl-oz': [
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-multi-bright-tranexamic-acid-treatment-5-serum-30ml/', 78, 53500, 'Naturium Multi-Bright Tranexamic Acid Treatment 5% Serum 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-vitamin-c-complex-serum-1fl-oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-vitamin-c-complex-serum-1fl-oz-30ml/', 98, 35913, 'Naturium Vitamin C Complex Serum 1fl oz / 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-vitamin-c-complex-face-serum-30ml/', 86, 44000, 'Naturium Vitamin C Complex Face Serum | 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/naturium-vitamin-c-complex-serum-30ml/', 86, 45300, 'Naturium Vitamin C Complex Serum – 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-vitamin-c-super-serum-plus-1fl-oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-vitamin-c-super-serum-plus-1fl-30ml/', 98, 40510, 'Naturium Vitamin C Super Serum Plus 1fl / 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-vitamin-c-super-serum-plus-1-fl-oz-30-ml/', 78, 60000, 'Naturium Vitamin C Super Serum Plus 1 fl oz/30 ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
   ],
 };
 
