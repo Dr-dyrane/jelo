@@ -888,8 +888,11 @@ export const publishedProductCareManifest = {
     productSlug: 'anua-zero-cast-moisturizing-finish-sunscreen-50ml',
     careState: 'insufficient_data',
     approvedUses: [],
-    evidenceSourceUrls: [],
-    reviewedAt: '2026-08-05',
+    evidenceSourceUrls: [
+      'https://anua.com/products/zero-cast-moisturizing-finish-sunscreen',
+      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+    ],
+    reviewedAt: '2026-08-07',
   },
   'facefacts-enhance-gel-cream-cleanser-150ml': {
     productSlug: 'facefacts-enhance-gel-cream-cleanser-150ml',

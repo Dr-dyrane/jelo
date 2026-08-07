@@ -811,6 +811,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   'neutrogena-light-sesame-body-oil-8-5oz': [
     'https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101',
   ],
+  'anua-zero-cast-moisturizing-finish-sunscreen-50ml': [
+    'https://anua.com/products/zero-cast-moisturizing-finish-sunscreen',
+  ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
   amika: ['loveamika.com', 'cdn.shopify.com'],

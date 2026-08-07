@@ -820,69 +820,6 @@
   },
   {
     "schemaVersion": 1,
-    "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
-    "publicationScope": "catalogue-publication",
-    "source": {
-      "url": "https://www.mirai-skin.com/cdn/shop/files/final_1_08895b3a-584f-4c7c-87d7-5126e73f1f94.jpg?v=1775767985",
-      "sha256": "67ed33193d3459666bf5affde52f1ed151d1556f2cae966a31f006cd6c827834",
-      "byteSize": 46093,
-      "width": 1500,
-      "height": 1500,
-      "retrievedAt": "2026-08-05T01:30:00Z"
-    },
-    "identity": {
-      "canonicalIdentifier": {
-        "kind": "gtin",
-        "value": "08809640738838"
-      },
-      "officialProductUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen"
-    },
-    "processing": {
-      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-      "packageRgbOrigin": "identity-master-source-pixels-only",
-      "tool": "rembg alpha mask over source RGB pixels",
-      "model": "isnet-general-use",
-      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-      "provider": "CPUExecutionProvider",
-      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-    },
-    "audit": {
-      "sha256": "9399df3e70a917051d2b935b1fdc56cd32ec1cebe2fd9a92d14168ebc678055c",
-      "generatedAt": "2026-08-05T01:44:22Z",
-      "inferredComponentCount": 1,
-      "retainedComponentCount": 1,
-      "removedComponentCount": 0,
-      "removedForegroundFraction": 0,
-      "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0
-    },
-    "output": {
-      "sha256": "9399df3e70a917051d2b935b1fdc56cd32ec1cebe2fd9a92d14168ebc678055c",
-      "byteSize": 525785,
-      "mimeType": "image/png",
-      "width": 2000,
-      "height": 2000,
-      "hasAlpha": true
-    },
-    "review": {
-      "identityReviewedAt": "2026-08-05T01:45:00Z",
-      "identityReviewer": "JeloCare catalogue identity review",
-      "artReviewedAt": "2026-08-05T01:46:00Z",
-      "artReviewer": "JeloCare catalogue art review",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
-      "surfaceReviewSha256": "4b1ad8f40b9bd86df4d24ada0e88cdd738f888261b4db130fbabee9830e45f4b",
-      "packagingIntact": true,
-      "labelVariantSizeUnchanged": true,
-      "magazineReady": true
-    }
-  },
-  {
-    "schemaVersion": 1,
     "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml",
     "publicationScope": "catalogue-publication",
     "source": {
@@ -1436,6 +1373,69 @@
       "identityReviewedAt": "2026-08-07T04:02:00Z",
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T04:02:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://anua.com/cdn/shop/files/anua-us-sunscreen-zero-cast-moisturizing-sunscreen-spf-50-1219139642.png?v=1770124450&width=2000",
+      "sha256": "7cd81f7b236ac0c1449aed4ef627b402ea4dd5f09e8649659ff85c9db2a1b0d1",
+      "byteSize": 702865,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T04:12:55Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "8809640738838"
+      },
+      "officialProductUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "69ea5a51beb01378566de7f7cf2817deac2652ffe11caf6b84e845d76d56fb1d",
+      "generatedAt": "2026-08-07T04:13:30Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "7e27ad4c0faad65477ee602751d16fabf65b59a32547307005a4337fb565a212",
+      "byteSize": 1683625,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T04:13:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T04:13:30Z",
       "artReviewer": "Codex visual audit",
       "surfaces": [
         "peach",

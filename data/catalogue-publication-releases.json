@@ -1372,30 +1372,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
-      "dossierFingerprint": "7dfee9b6c3f3dbe22fc0d1568d9c1c8d167203765496e371c6283aceea5e8ac1",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Protect",
-        "displayLine": "SPF50+ PA++++ daily sunscreen with hydrating finish.",
-        "usage": "Apply liberally to face and neck as the last step in your morning routine. Reapply every two hours during sun exposure.",
-        "manufacturerDirectionsUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-05T01:46:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-05T01:46:45Z"
-      },
-      "releaseFingerprint": "d3aa60e318dab07a9da228b7123b2d9896c952731dd3061a7abc8bffe548b8da"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml",
       "dossierFingerprint": "d417a204ed25a41034bba5cbd4e14dbcc5b1c8d803d75eda18eb1ca6bec1f306",
       "exposure": "public-catalogue",
@@ -1609,6 +1585,30 @@
         "publishedAt": "2026-08-07T04:03:00Z"
       },
       "releaseFingerprint": "f24b72108474d24aaec4e866da0d5c02cdb03c6b093529ead8c3779357aec448"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+      "dossierFingerprint": "b75363b9db352649675dc0503c27edd164084f2338c1378651ba0a0b90367a3d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Zero-cast moisturizing sunscreen · 50 ml",
+        "usage": "Apply liberally as the last step in your skincare routine, 15 minutes before sun exposure. Reapply every two hours during sun exposure and after swimming or sweating. Suitable for daily use.",
+        "manufacturerDirectionsUrl": "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen",
+        "reviewer": "Codex visual audit",
+        "reviewedAt": "2026-08-07T04:18:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T04:19:00Z"
+      },
+      "releaseFingerprint": "6a833a25bd7a7ce917ec2d45592fc6b590fcf466d9eefa566a986c86fd38a585"
     }
   ]
 }

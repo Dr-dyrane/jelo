@@ -635,23 +635,6 @@
     "contentHash": "19f6bbbd919b68238d8708b3b71da7a7aec265acfc5e3f4fc9a95c4de753be06"
   },
   {
-    "id": "anua-zero-cast-moisturizing-finish-sunscreen-50ml-packshot-v1",
-    "active": true,
-    "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
-    "destination": "publication",
-    "publicationBrandSlug": "anua",
-    "sourceUrl": "https://www.mirai-skin.com/cdn/shop/files/final_1_08895b3a-584f-4c7c-87d7-5126e73f1f94.jpg?v=1775767985",
-    "localPath": "data/catalogue-intake-assets/anua-zero-cast-moisturizing-finish-sunscreen-50ml/packshot-v1-9399df3e70a91705.png",
-    "blobPath": "products/anua/anua-zero-cast-moisturizing-finish-sunscreen-50ml/packshot-v1-9399df3e70a91705.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-zero-cast-moisturizing-finish-sunscreen-50ml/packshot-v1-9399df3e70a91705.png",
-    "contentType": "image/png",
-    "byteSize": 525785,
-    "width": 2000,
-    "height": 2000,
-    "hasAlpha": true,
-    "contentHash": "9399df3e70a917051d2b935b1fdc56cd32ec1cebe2fd9a92d14168ebc678055c"
-  },
-  {
     "localPath": "data/catalogue-intake-assets/estelin-vitamin-c-turmeric-face-oil-30ml/packshot-v1-560db61dc1ab.png",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/estelinindia/estelin-vitamin-c-turmeric-face-oil-30ml/packshot-v1-560db61dc1ab1f16.png",
     "active": true,
@@ -803,5 +786,22 @@
     "destination": "publication",
     "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
     "publicationBrandSlug": "neutrogena"
+  },
+  {
+    "id": "anua-zero-cast-moisturizing-finish-sunscreen-50ml-v1",
+    "active": true,
+    "sourceUrl": "https://anua.com/cdn/shop/files/anua-us-sunscreen-zero-cast-moisturizing-sunscreen-spf-50-1219139642.png?v=1770124450&width=2000",
+    "localPath": "data/catalogue-intake-assets/anua-zero-cast-moisturizing-finish-sunscreen-50ml/packshot.png",
+    "blobPath": "products/anua/anua-zero-cast-moisturizing-finish-sunscreen-50ml/packshot-v1-7e27ad4c0faad654.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-zero-cast-moisturizing-finish-sunscreen-50ml/packshot-v1-7e27ad4c0faad654.png",
+    "contentType": "image/png",
+    "byteSize": 1683625,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "7e27ad4c0faad65477ee602751d16fabf65b59a32547307005a4337fb565a212",
+    "destination": "publication",
+    "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+    "publicationBrandSlug": "anua"
   }
 ]
