@@ -12,22 +12,23 @@ import { assessClinicalRoutine } from '@/modules/clinical/core/engine';
 import { evaluateProductClinically } from './clinical-product-filter';
 
 const catalogue = [...coreProducts, ...expandedProducts];
+const fullCatalogue = [...catalogue, ...publishedIntakeProducts];
 
 function product(slug: string) {
-  const match = catalogue.find(item => item.slug === slug);
+  const match = fullCatalogue.find(item => item.slug === slug);
   assert.ok(match, `Missing product fixture: ${slug}`);
   return match;
 }
 
-test('the care manifest covers all 24 products with the audited state counts', () => {
+test('the care manifest covers all 23 products with the audited state counts', () => {
   const productSlugs = catalogue.map(item => item.slug).sort();
   const reviewSlugs = Object.keys(reviewedProductCareManifest).sort();
   const states = Object.values(reviewedProductCareManifest).map(review => review.careState);
 
-  assert.equal(productSlugs.length, 24);
+  assert.equal(productSlugs.length, 23);
   assert.deepEqual(reviewSlugs, productSlugs);
   assert.equal(states.filter(state => state === 'supportive_eligible').length, 3);
-  assert.equal(states.filter(state => state === 'pharmacist_review').length, 5);
+  assert.equal(states.filter(state => state === 'pharmacist_review').length, 4);
   assert.equal(states.filter(state => state === 'insufficient_data').length, 16);
 });
 

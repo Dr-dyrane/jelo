@@ -105,12 +105,6 @@ export const reviewedProductCareManifest = {
     }],
     evidenceSourceUrls: ['https://www.cerave.com/skincare/cleansers/foaming-facial-cleanser'], reviewedAt,
   },
-  'cerave-blemish-control-cleanser': {
-    productSlug: 'cerave-blemish-control-cleanser',
-    careState: 'pharmacist_review',
-    approvedUses: [{ id: 'blemish-cleansing-review', label: 'Blemish-cleansing review', concernIds: ['acne', 'blackheads', 'whiteheads'], concernSlugs: ['acne-breakouts'] }],
-    evidenceSourceUrls: ['https://africa.cerave.com/our-products/cleansers/blemish-control-cleanser'], reviewedAt,
-  },
   'the-ordinary-azelaic-acid-suspension-10': {
     productSlug: 'the-ordinary-azelaic-acid-suspension-10',
     careState: 'pharmacist_review',
@@ -1508,6 +1502,13 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [
       'https://estelin.co.in/products/ultra-light-hydrating-invisible-sunscreen-spf-50-pa-1',
     ],
+    reviewedAt: '2026-08-07',
+  },
+  'cerave-blemish-control-cleanser': {
+    productSlug: 'cerave-blemish-control-cleanser',
+    careState: 'pharmacist_review',
+    approvedUses: [{ id: 'blemish-cleansing-review', label: 'Blemish-cleansing review', concernIds: ['acne', 'blackheads', 'whiteheads'], concernSlugs: ['acne-breakouts'] }],
+    evidenceSourceUrls: ['https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser'],
     reviewedAt: '2026-08-07',
   },
 } as const satisfies Record<string, ReviewedProductCare>;

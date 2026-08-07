@@ -10,7 +10,7 @@ import {
 } from './product-matching';
 
 function product(slug: string) {
-  const match = reviewedProductRecords.find(item => item.slug === slug);
+  const match = catalogueProducts.find(item => item.slug === slug);
   assert.ok(match, `Missing product fixture: ${slug}`);
   return match;
 }

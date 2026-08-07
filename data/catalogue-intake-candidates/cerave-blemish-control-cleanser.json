@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T22:20:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "38a04ee5e235507f5ed55b10",
+    "discoveryId": "0f4d03fe9eba2d27ef90ba0c",
+    "sourceSnapshotSha256": "1040aecae4f1ad321fdb086dd733b0f9306e84659ca80d6f9baa5bf42ca1888d"
+  },
+  "candidate": {
+    "id": "cerave-blemish-control-cleanser",
+    "brand": "CeraVe",
+    "name": "Blemish Control Cleanser",
+    "variant": "Blemish Control Cleanser",
+    "size": "236 ml",
+    "category": "Face care",
+    "reason": "A salicylic acid cleanser for blemish-prone skin coverage, with an official EAN from the CeraVe Africa site and existing Nigerian retailer offers.",
+    "priority": "important",
+    "gapIds": [
+      "blemish-cleanse",
+      "salicylic-acid-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://buybetter.ng/shop/specific-concern/acne/cerave-blemish-control-cleanser-236ml/",
+      "https://www.dermastore.co.za/cerave-blemish-control-cleanser/",
+      "https://www.dischem.co.za/cerave-blemish-control-cleanser-236ml-213"
+    ],
+    "identity": {
+      "gtin": "3337875784054",
+      "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+      "checkedAt": "2026-08-07T22:20:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+        "observedGtin": "3337875784054",
+        "observedVariant": "Blemish Control Cleanser",
+        "observedSize": "236 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/cerave-blemish-control-cleanser.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "cerave-blemish-control-cleanser",
+          "sourceUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+          "responseUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-08-07T22:15:00Z",
+          "fields": {
+            "gtin": {
+              "value": "3337875784054",
+              "locator": "HTML input#prod_name data-eans, first position",
+              "sourceText": "3337875784054"
+            },
+            "variant": {
+              "value": "Blemish Control Cleanser",
+              "locator": "HTML h1.product-name[itemprop=name]",
+              "sourceText": "CeraVe Gentle Blemish Control Cleanser: Discover CeraVe's Effective Cleansing Solution"
+            },
+            "size": {
+              "value": "236 ml",
+              "locator": "HTML input#prod_name data-gtm-size, first position",
+              "sourceText": " 236 ml"
+            }
+          },
+          "sourceResponseSha256": "1040aecae4f1ad321fdb086dd733b0f9306e84659ca80d6f9baa5bf42ca1888d",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 60748,
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-07T22:20:00Z"
+        },
+        "snapshotSha256": "3e389317d6433710e80a01c5189c2d5516973d8f387a686a75dbd2ed45e4b6e0",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1070,
+        "retrievedAt": "2026-08-07T22:15:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Gel-to-foam facial cleanser with 2% salicylic acid, niacinamide, and ceramides for blemish-prone skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday cleansing for blemish-prone skin with salicylic acid exfoliation. Do not present as treatment for severe acne, cystic acne, or another skin condition. Use morning and evening; reduce frequency if dry or irritated. Follow with moisturiser and sunscreen. Stop if excessive dryness, irritation, or sensitivity occurs, and seek clinician advice for persistent or worsening blemishes.",
+      "manufacturerEvidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T22:20:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+      "sourceUrl": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/Blemish-control-cleanser/Blemish-Control-Cleanser.png",
+      "sourceAssetSha256": "e70f13010db3cd00ba464ffa1fafff88ff49428cbc45898c0775507c53090189",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 59112,
+      "sourceAssetWidth": 360,
+      "sourceAssetHeight": 800,
+      "sourceAssetRetrievedAt": "2026-08-07T22:15:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-blemish-control-cleanser/packshot-v2-dc995193903dc26f.png",
+      "publicImageSha256": "dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 623767,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T22:20:00Z",
+      "artReviewer": "Devin visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

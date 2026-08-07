@@ -1,0 +1,38 @@
+{
+  "candidateId": "cerave-blemish-control-cleanser",
+  "sourceUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+  "responseUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+  "retrievedAt": "2026-08-07T22:15:00Z",
+  "reviewedAt": "2026-08-07T22:20:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "schemaVersion": 8,
+  "sourceResponseSha256": "1040aecae4f1ad321fdb086dd733b0f9306e84659ca80d6f9baa5bf42ca1888d",
+  "sourceResponseMimeType": "text/html",
+  "sourceResponseByteSize": 60748,
+  "responseDigestScope": "decoded-response-body",
+  "method": "reviewed-exact-identity-field-extraction",
+  "productRecord": {
+    "locator": "HTML input#prod_name element with data-eans and data-gtm-size attributes",
+    "byteStart": 14249,
+    "byteEnd": 14718,
+    "sourceText": "<input type=\"hidden\" value=\"Gentle Blemish Control Cleanser: Discover CeraVe&#39;s Effective Cleansing Solution\" id=\"prod_name\" class=\"gtm-prod-load\"\n                       data-gtm-code=\"\"\n                       data-gtm-id=\"836DB8447BAB4A598AB744D0FFB1EDBEen\"\n                       data-gtm-category=\"skincare-facecleansing\"\n                       data-gtm-position=\"\"\n                       data-gtm-size=\" 236 ml\"\n                       data-eans=\"3337875784054\"/>",
+    "sourceFragmentSha256": "b5f736c725472322fc174a842b24e7175f10b97f3d9de687cbb8c061d9f82318"
+  },
+  "fields": {
+    "gtin": {
+      "value": "3337875784054",
+      "locator": "HTML input#prod_name data-eans, first position",
+      "sourceText": "3337875784054"
+    },
+    "size": {
+      "value": "236 ml",
+      "locator": "HTML input#prod_name data-gtm-size, first position",
+      "sourceText": "236 ml"
+    },
+    "variant": {
+      "value": "Blemish Control Cleanser",
+      "locator": "HTML h1.product-name[itemprop=name]",
+      "sourceText": "CeraVe Gentle Blemish Control Cleanser: Discover CeraVe's Effective Cleansing Solution"
+    }
+  }
+}

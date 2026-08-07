@@ -2905,6 +2905,30 @@
         "publishedAt": "2026-08-07T17:48:00Z"
       },
       "releaseFingerprint": "2d060411808e2d6992d6dd868a518b2754cca751ff77e23f5f102a5013a98c62"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-blemish-control-cleanser",
+      "dossierFingerprint": "050b9be3153b98dc4ee6c2cdbaf0dfe551b4c7d6626e62d8942beaad52f0711e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Unclog · smooth",
+        "usage": "Begin once daily or every other day; reduce if dry or irritated.",
+        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T22:20:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T22:21:00Z"
+      },
+      "releaseFingerprint": "694f7ae080330ce0f6f207bc5e01eb1c88f5d0bfebe1a6e07127c152991c7d5a"
     }
   ]
 }

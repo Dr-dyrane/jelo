@@ -194,14 +194,6 @@ export const productDisplayApprovals = {
     contentHash: '4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d',
     reviewedAt: '2026-07-22T19:25:36Z',
   }),
-  'cerave-blemish-control-cleanser': approval({
-    brand: 'CeraVe',
-    name: 'Blemish Control Cleanser',
-    size: '236 ml',
-    sourceUrl: 'https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/Blemish-control-cleanser/Blemish-Control-Cleanser.png',
-    contentHash: 'dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e',
-    reviewedAt: '2026-07-22T19:56:31Z',
-  }),
   'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': approval({
     brand: 'La Roche-Posay',
     name: 'Anthelios UVMune 400 Oil Control Fluid SPF50+',

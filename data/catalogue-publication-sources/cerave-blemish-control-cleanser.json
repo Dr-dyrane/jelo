@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "cerave-blemish-control-cleanser",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "cerave-blemish-control-cleanser",
+    "candidateFingerprint": "ac0d26eb6ab0a63785746ea2694f1fb2995d8cb5f97f880c57268a04c3f20ed3",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "3337875784054",
+      "brand": "CeraVe",
+      "name": "Blemish Control Cleanser",
+      "variant": "Blemish Control Cleanser",
+      "size": "236 ml",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+      "officialIdentity": {
+        "url": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+        "observedGtin": "3337875784054",
+        "observedVariant": "Blemish Control Cleanser",
+        "observedSize": "236 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/cerave-blemish-control-cleanser.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "cerave-blemish-control-cleanser",
+          "sourceUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+          "responseUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-08-07T22:15:00Z",
+          "fields": {
+            "gtin": {
+              "value": "3337875784054",
+              "locator": "HTML input#prod_name data-eans, first position",
+              "sourceText": "3337875784054"
+            },
+            "variant": {
+              "value": "Blemish Control Cleanser",
+              "locator": "HTML h1.product-name[itemprop=name]",
+              "sourceText": "CeraVe Gentle Blemish Control Cleanser: Discover CeraVe's Effective Cleansing Solution"
+            },
+            "size": {
+              "value": "236 ml",
+              "locator": "HTML input#prod_name data-gtm-size, first position",
+              "sourceText": " 236 ml"
+            }
+          },
+          "sourceResponseSha256": "1040aecae4f1ad321fdb086dd733b0f9306e84659ca80d6f9baa5bf42ca1888d",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 60748,
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-07T22:20:00Z"
+        },
+        "snapshotSha256": "3e389317d6433710e80a01c5189c2d5516973d8f387a686a75dbd2ed45e4b6e0",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1070,
+        "retrievedAt": "2026-08-07T22:15:00Z"
+      },
+      "checkedAt": "2026-08-07T22:20:00Z",
+      "demandEvidenceUrls": [
+        "https://buybetter.ng/shop/specific-concern/acne/cerave-blemish-control-cleanser-236ml/",
+        "https://www.dermastore.co.za/cerave-blemish-control-cleanser/",
+        "https://www.dischem.co.za/cerave-blemish-control-cleanser-236ml-213"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Gel-to-foam facial cleanser with 2% salicylic acid, niacinamide, and ceramides for blemish-prone skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday cleansing for blemish-prone skin with salicylic acid exfoliation. Do not present as treatment for severe acne, cystic acne, or another skin condition. Use morning and evening; reduce frequency if dry or irritated. Follow with moisturiser and sunscreen. Stop if excessive dryness, irritation, or sensitivity occurs, and seek clinician advice for persistent or worsening blemishes.",
+      "manufacturerEvidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-07T22:20:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+      "sourceAsset": {
+        "url": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/Blemish-control-cleanser/Blemish-Control-Cleanser.png",
+        "sha256": "e70f13010db3cd00ba464ffa1fafff88ff49428cbc45898c0775507c53090189",
+        "mimeType": "image/png",
+        "byteSize": 59112,
+        "width": 360,
+        "height": 800,
+        "retrievedAt": "2026-08-07T22:15:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "cerave-blemish-control-cleanser",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/Blemish-control-cleanser/Blemish-Control-Cleanser.png",
+          "sha256": "e70f13010db3cd00ba464ffa1fafff88ff49428cbc45898c0775507c53090189",
+          "byteSize": 59112,
+          "width": 360,
+          "height": 800,
+          "retrievedAt": "2026-08-07T22:15:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "03337875784054"
+          },
+          "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "u2net",
+          "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e",
+          "generatedAt": "2026-08-07T22:18:00Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e",
+          "byteSize": 623767,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T22:19:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T22:20:00Z",
+          "artReviewer": "Devin visual audit",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "surfaceReviewSha256": "fe7b8c94caaa8bee14c9445fe063ad5e930b693f098ee8f88a70662f6220ea9f",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-blemish-control-cleanser/packshot-v2-dc995193903dc26f.png",
+      "sha256": "dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e",
+      "mimeType": "image/png",
+      "byteSize": 623767,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T22:20:00Z",
+      "reviewer": "Devin visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T22:20:00Z"
+    },
+    "dossierFingerprint": "050b9be3153b98dc4ee6c2cdbaf0dfe551b4c7d6626e62d8942beaad52f0711e"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "cerave-blemish-control-cleanser",
+    "dossierFingerprint": "050b9be3153b98dc4ee6c2cdbaf0dfe551b4c7d6626e62d8942beaad52f0711e",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Unclog · smooth",
+      "usage": "Begin once daily or every other day; reduce if dry or irritated.",
+      "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T22:20:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T22:21:00Z"
+    },
+    "releaseFingerprint": "694f7ae080330ce0f6f207bc5e01eb1c88f5d0bfebe1a6e07127c152991c7d5a"
+  }
+}
