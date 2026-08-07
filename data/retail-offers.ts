@@ -708,6 +708,18 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Perona Beauty', 'https://peronabeauty.com/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/', 86, 13000, 'Nineless MELA-PRO Tranexamic Acid Sunscreen 100ml', '100 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
     exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/nineless-mela-pro-tranexamic-acid-sunscreen-spf50-100ml/', 86, 20962, 'NINELESS MELA-PRO Tranexamic Acid Sunscreen SPF50+ - 100ml', '100 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
   ],
+  'naturium-retinaldehyde-cream-serum-0-05-1-7oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-retinaldehyde-cream-serum-0-05-50ml-1-7fl/', 98, 45000, 'Naturium Retinaldehyde Cream Serum 0.05% 50ml /1.7fl', '1.7 fl oz / 50 mL', { observedAt: '2026-08-07T19:00:00Z', expiresAt: '2026-08-14T19:00:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-retinaldehyde-cream-serum-0-10-1-7oz': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/naturium-retinaldehyde-cream-serum-0-10-50ml-1-7fl/', 98, 46999, 'Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl', '1.7 fl oz / 50 mL', { observedAt: '2026-08-07T19:00:00Z', expiresAt: '2026-08-14T19:00:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-intense-overnight-sleeping-cream-1-7oz': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-intense-overnight-sleeping-cream/', 86, 59000, 'Naturium Intense Overnight Sleeping Cream', '1.7 fl oz / 50 mL', { observedAt: '2026-08-07T19:00:00Z', expiresAt: '2026-08-14T19:00:00Z', stock: 'in-stock' }),
+  ],
+  'estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g': [
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/', 86, 4000, 'Estelin Ultra Light Hydrating Invisible Sunscreen SPF 50+++ 50g', '50 g', { observedAt: '2026-08-07T19:00:00Z', expiresAt: '2026-08-14T19:00:00Z', stock: 'in-stock' }),
+  ],
 };
 
 const excludedRetailers: Partial<Record<string, string[]>> = {
