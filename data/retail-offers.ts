@@ -442,6 +442,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'c28f590dd2739ea73f1b5ea3': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/simple-kind-to-skin-replenishing-rich-moisturizer-125ml/', 97, 4790, 'Simple Kind To Skin Replenishing Rich Moisturizer', '125 ml', { observedAt: '2026-08-04T20:25:00Z', expiresAt: '2026-08-11T20:25:00Z' }),
+    exactNg('Teeka4', 'https://teeka4.com/shop/simple-kind-to-skin-replenishing-rich-moisturiser-125ml/', 98, 4999, 'Simple Kind To Skin Replenishing Rich Moisturizer 125ml', '125 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
+    exactNg('Lux Beauty', 'https://www.luxbeautyng.com/product/simple-kind-to-skin-replenishing-rich-moisturiser/', 96, 5999, 'Simple Kind to Skin Replenishing Rich Moisturiser', '125 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/simple-kind-to-skin-replenishing-rich-moisturiser/', 86, 8600, 'Simple Kind to Skin Replenishing Rich Moisturiser', '125 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
   ],
   'cerave-pm-facial-moisturising-lotion-52ml': [
     exactNg('Dunes Center', 'https://dunescenter.com/product/cerave-facial-moisturising-lotion-pm-52ml/', 96, 47500, 'CeraVe Facial Moisturising Lotion PM 52ml', '52 ml', { observedAt: '2026-08-04T20:30:00Z', expiresAt: '2026-08-11T20:30:00Z' }),
@@ -453,6 +456,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   '11d3a6116ccfc1cbce191430': [
     exactNg('Deoset', 'https://deoset.com/product/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml/', 86, 22920, 'La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml', '200 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
+    exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml/', 100, 21500, 'La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml', '200 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
+    exactNg('Sonavine Beauty', 'https://sonavinebeauty.com/product/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml/', 85, 25000, 'La Roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml', '200 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
   ],
   'cerave-hydrating-cleanser-473ml': [
     exactNg('Deoset', 'https://deoset.com/product/cerave-hydrating-facial-cleanser-face-wash-for-normal-to-dry-skin-473ml-us-version/', 86, 22000, 'Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)', '473 ml', { observedAt: '2026-08-05T00:00:00Z', expiresAt: '2026-08-12T00:00:00Z' }),
@@ -697,6 +702,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'naturium-vitamin-c-super-serum-plus-1fl-oz': [
     exactNg('Teeka4', 'https://teeka4.com/shop/naturium-vitamin-c-super-serum-plus-1fl-30ml/', 98, 40510, 'Naturium Vitamin C Super Serum Plus 1fl / 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
     exactNg('TOS Nigeria', 'https://tosnigeria.com/shop/naturium-vitamin-c-super-serum-plus-1-fl-oz-30-ml/', 78, 60000, 'Naturium Vitamin C Super Serum Plus 1 fl oz/30 ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+  ],
+  'nineless-mela-pro-tranexamic-acid-sunscreen-100ml': [
+    exactNg('Teeka4', 'https://teeka4.com/shop/nineless-mela-pro-tranexamic-acid-sun-screen-100ml/', 98, 12000, 'NINELESS MELA-PRO Tranexamic Acid Sun Screen 100ml', '100 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
+    exactNg('Perona Beauty', 'https://peronabeauty.com/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/', 86, 13000, 'Nineless MELA-PRO Tranexamic Acid Sunscreen 100ml', '100 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
+    exactNg('Rhema Beauty Shop', 'https://rhemabeautyshop.com/shop/nineless-mela-pro-tranexamic-acid-sunscreen-spf50-100ml/', 86, 20962, 'NINELESS MELA-PRO Tranexamic Acid Sunscreen SPF50+ - 100ml', '100 ml', { observedAt: '2026-08-07T18:30:00Z', expiresAt: '2026-08-14T18:30:00Z', stock: 'in-stock' }),
   ],
 };
 
