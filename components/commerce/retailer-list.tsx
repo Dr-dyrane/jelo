@@ -133,7 +133,7 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
   // Best match is the top-ranked offer — shown as a calm, distinct card.
   const bestMatch = displayed[0] ?? null;
   const restOffers = displayed.slice(1);
-  const hasAdvancedFilters = channels.length > 1 || fulfilments.length > 1 || filtered.length > 1;
+  const hasChannelOrFulfilmentFilters = channels.length > 1 || fulfilments.length > 1;
 
   function renderOfferRow(offer: Offer, index: number) {
     const fresh = isOfferFresh(offer);
@@ -212,8 +212,20 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
         </div>
       ) : null}
 
+      {/* Sort controls — always visible when there are 2+ offers */}
+      {filtered.length > 1 ? (
+        <div className="retailer-market retailer-sort" role="group" aria-label="Sort stores">
+          <span>Sort by</span>
+          <div>
+            <button className={sort === 'ranked' ? 'active' : ''} type="button" onClick={() => setSort('ranked')}>Best match</button>
+            <button className={sort === 'trust' ? 'active' : ''} type="button" onClick={() => setSort('trust')}>Trust</button>
+            <button className={sort === 'price' ? 'active' : ''} type="button" onClick={() => setSort('price')}>Price</button>
+          </div>
+        </div>
+      ) : null}
+
       {/* Advanced filters — progressively disclosed */}
-      {hasAdvancedFilters ? (
+      {hasChannelOrFulfilmentFilters ? (
         <button
           type="button"
           className="retailer-filters-toggle"
@@ -224,7 +236,7 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
           <SlidersHorizontal size={14} aria-hidden="true" /> {showFilters ? 'Hide filters' : 'More filters'}
         </button>
       ) : null}
-      {showFilters && hasAdvancedFilters ? (
+      {showFilters && hasChannelOrFulfilmentFilters ? (
         <div id="retailer-advanced-filters" className="retailer-advanced-filters">
           {channels.length > 1 ? <div className="retailer-channel-filter" role="group" aria-label="Order channel">
             <button className={activeChannel === 'all' ? 'active' : ''} type="button" onClick={() => setChannel('all')}>All</button>
@@ -245,14 +257,6 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
                 type="button"
                 onClick={() => setFulfilment(method)}
               >{fulfilmentMethodLabel(method)}</button>)}
-            </div>
-          </div> : null}
-          {filtered.length > 1 ? <div className="retailer-market retailer-sort" role="group" aria-label="Sort stores">
-            <span>Sort by</span>
-            <div>
-              <button className={sort === 'ranked' ? 'active' : ''} type="button" onClick={() => setSort('ranked')}>Best match</button>
-              <button className={sort === 'trust' ? 'active' : ''} type="button" onClick={() => setSort('trust')}>Trust</button>
-              <button className={sort === 'price' ? 'active' : ''} type="button" onClick={() => setSort('price')}>Price</button>
             </div>
           </div> : null}
         </div>
