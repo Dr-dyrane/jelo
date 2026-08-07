@@ -23436,6 +23436,214 @@
         "approvedAt": "2026-08-07T13:15:00Z"
       },
       "dossierFingerprint": "135e35e5f50d621bc139ce1dc64c9f1e9c56bdfce4881763c2bc587f7148abe4"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+      "candidateFingerprint": "57cfea98537b8554a92ac82bea742324382949efdb315d357ef5eed663b47196",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792231",
+        "brand": "Naturium",
+        "name": "Azelaic Acid Derivative Complex 10%",
+        "variant": "Azelaic Acid Derivative Complex 10%",
+        "size": "1.0 fl oz / 30 mL",
+        "packageVersion": "Azelaic Acid Derivative Complex 10% 1.0 fl oz / 30 mL dropper bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+          "observedGtin": "850010792231",
+          "observedVariant": "Azelaic Acid Derivative Complex 10%",
+          "observedSize": "1.0 fl oz / 30 mL",
+          "observedPackageVersion": "Azelaic Acid Derivative Complex 10% 1.0 fl oz / 30 mL dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-azelaic-acid-derivative-complex-10-1fl-oz.json",
+          "snapshotSha256": "bea32b5ccb6dfce845a0911f5012298438a807cb56b75cef9b39e2a8521c76e5",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2151,
+          "retrievedAt": "2026-08-07T13:14:20Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Azelaic Acid Derivative Complex 10% for Uneven Skin Tone | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+            "responseUrl": "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+            "retrievedAt": "2026-08-07T13:14:20Z",
+            "reviewedAt": "2026-08-07T13:16:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "f586fdfcbfc7266f1606fcc4ae390a1c2dfb32e7b31c73135d887c3abdd81d58",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 922916,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792231\"",
+                "value": "850010792231"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Azelaic Acid Derivative Complex 10%",
+                "value": "Azelaic Acid Derivative Complex 10%"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+                "value": "1.0 fl oz / 30 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10023-Azelaic-Acid-Derivative-Complex-10_-Front-CapOn-Bonebkgd.webp?v=1774301109&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-10023-Azelaic-Acid-Derivative-Complex-10_-Front-CapOn-Bonebkgd.webp?v=1774301109&width=2048",
+                "retrievedAt": "2026-08-07T13:14:20Z",
+                "responseSha256": "21b641de1f8e44bf03799ae3a8827b2ea2b2edad0724e110a6dc88264fe9cee8",
+                "responseMimeType": "image/png",
+                "responseByteSize": 256048
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T13:16:00Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/azelaic-acid-derivative-complex-10/",
+          "https://peronabeauty.com/product/naturium-azelaic-acid-derivative-complex-10/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described 10% azelaic acid derivative complex for uneven skin tone.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for hyperpigmentation, rosacea, acne, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-08-07T13:16:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-10023-Azelaic-Acid-Derivative-Complex-10_-Front-CapOn-Bonebkgd.webp?v=1774301109&width=2048",
+          "sha256": "21b641de1f8e44bf03799ae3a8827b2ea2b2edad0724e110a6dc88264fe9cee8",
+          "mimeType": "image/png",
+          "byteSize": 256048,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:14:20Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR-10023-Azelaic-Acid-Derivative-Complex-10_-Front-CapOn-Bonebkgd.webp?v=1774301109&width=2048",
+            "sha256": "21b641de1f8e44bf03799ae3a8827b2ea2b2edad0724e110a6dc88264fe9cee8",
+            "byteSize": 256048,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T13:14:20Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792231"
+            },
+            "officialProductUrl": "https://naturium.com/products/azelaic-acid-derivative-complex-10"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "746739def7979eb1f0b21bb3cf7800d365591c397d3969faa1012eb0aa718804",
+            "generatedAt": "2026-08-07T13:16:52Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "09c8c60eb9f471b62412e06649f7a83bddd04bbb1386b7330790d95a8706c0b4",
+            "byteSize": 273101,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T13:17:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T13:17:00Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "746739def7979eb1f0b21bb3cf7800d365591c397d3969faa1012eb0aa718804",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-azelaic-acid-derivative-complex-10-1fl-oz/packshot-v1-09c8c60eb9f471b6.png",
+        "sha256": "09c8c60eb9f471b62412e06649f7a83bddd04bbb1386b7330790d95a8706c0b4",
+        "mimeType": "image/png",
+        "byteSize": 273101,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T13:17:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T13:18:00Z"
+      },
+      "dossierFingerprint": "df50a72f018a45cd0b6af7ccc7d82d2e557f261eab21c119b7fb607e4616c55e"
     }
   ]
 }

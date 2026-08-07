@@ -1296,5 +1296,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "1c50ba6529d8b7a829e9b11aa355cf750b13126435cba622330314ad6a9d4f2c"
+  },
+  {
+    "id": "naturium-azelaic-acid-derivative-complex-10-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10023-Azelaic-Acid-Derivative-Complex-10_-Front-CapOn-Bonebkgd.webp?v=1774301109&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-azelaic-acid-derivative-complex-10-1fl-oz/packshot-v1-09c8c60eb9f471b6.png",
+    "blobPath": "products/naturium/naturium-azelaic-acid-derivative-complex-10-1fl-oz/packshot-v1-09c8c60eb9f471b6.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-azelaic-acid-derivative-complex-10-1fl-oz/packshot-v1-09c8c60eb9f471b6.png",
+    "contentType": "image/png",
+    "byteSize": 273101,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "09c8c60eb9f471b62412e06649f7a83bddd04bbb1386b7330790d95a8706c0b4"
   }
 ]

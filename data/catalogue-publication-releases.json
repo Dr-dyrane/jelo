@@ -2305,6 +2305,30 @@
         "publishedAt": "2026-08-07T13:16:00Z"
       },
       "releaseFingerprint": "1ccca8e89dbcb8fb951b4a94cbe7c14b9e317ae2adf6dbb769bc0ab7f1b8b78e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+      "dossierFingerprint": "df50a72f018a45cd0b6af7ccc7d82d2e557f261eab21c119b7fb607e4616c55e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic Acid Derivative Complex 10% 1.0 fl oz",
+        "usage": "Apply 4-5 drops to clean dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/azelaic-acid-derivative-complex-10",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T13:18:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T13:19:00Z"
+      },
+      "releaseFingerprint": "3eed2caa6acbf5c7a69da06d77bd2af30a870d4c621e3cd38339542ccb60e2ae"
     }
   ]
 }
