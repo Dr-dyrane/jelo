@@ -1167,16 +1167,6 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
-  'naturium-multi-active-exosome-serum-1fl-oz': {
-    productSlug: 'naturium-multi-active-exosome-serum-1fl-oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/multi-active-exosome-serum',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
-    ],
-    reviewedAt: '2026-08-07',
-  },
   'naturium-fermented-camellia-creamy-cleansing-oil-3-5oz': {
     productSlug: 'naturium-fermented-camellia-creamy-cleansing-oil-3-5oz',
     careState: 'insufficient_data',
@@ -1257,16 +1247,6 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
-  'naturium-multi-peptide-advanced-serum-1fl-oz': {
-    productSlug: 'naturium-multi-peptide-advanced-serum-1fl-oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/multi-peptide-advanced-serum',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
-    ],
-    reviewedAt: '2026-08-07',
-  },
   'naturium-glow-getter-multi-oil-body-butter-7-7oz': {
     productSlug: 'naturium-glow-getter-multi-oil-body-butter-7-7oz',
     careState: 'insufficient_data',
@@ -1294,16 +1274,6 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [
       'https://naturium.com/products/plant-ceramide-rich-moisture-cream',
       'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-multi-peptide-moisturizer-1-7oz': {
-    productSlug: 'naturium-multi-peptide-moisturizer-1-7oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/multi-peptide-moisturizer',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
     ],
     reviewedAt: '2026-08-07',
   },
