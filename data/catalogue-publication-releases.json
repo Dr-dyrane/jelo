@@ -1705,6 +1705,30 @@
         "publishedAt": "2026-08-07T11:29:00Z"
       },
       "releaseFingerprint": "a3521ce1fbffdd544c6f4181b4e8cbda96dd4bc707617e19115d4d11e92303a2"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-multi-peptide-advanced-body-wash-500ml",
+      "dossierFingerprint": "fd48d5134809dfd85f1ed23033f60a1e183c817c225201a422aa6a3e04297db8",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "The Multi-Peptide Advanced Body Wash 16.9 fl oz",
+        "usage": "Apply to wet skin lather and rinse thoroughly",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:31:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:32:00Z"
+      },
+      "releaseFingerprint": "405c337cfc4762c31f783600a7e9bff340d653e4356d1ee23067b6c7c80d8482"
     }
   ]
 }

@@ -1699,5 +1699,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-multi-peptide-advanced-body-wash-500ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR-40029_Multi-Peptide-Advanced-BW_front-bonebkgd.webp?v=1776370952&width=2048",
+      "sha256": "90941d8fa9bde404d8b609fd2ed045b227baabf73b50e0c3e460b13de8ae9537",
+      "byteSize": 278488,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T11:28:07Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810120263335"
+      },
+      "officialProductUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "3dc7276271866f98d7850082a98c50c86c19c7d96b38edf473a6fdb6745cf844",
+      "generatedAt": "2026-08-07T11:29:58Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "ce1d53c2bdb9dcfba2847a16e520de4b89e4b7ae826d5b39b67f37ab8ab9af46",
+      "byteSize": 350020,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T11:30:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T11:30:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "3dc7276271866f98d7850082a98c50c86c19c7d96b38edf473a6fdb6745cf844",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

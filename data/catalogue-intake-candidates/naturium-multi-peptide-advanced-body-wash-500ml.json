@@ -1,0 +1,149 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T11:30:30Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "44bd972fd5c776777e0523c2c04838fe86d0df8a99b106ccfc65e85666d54780"
+    },
+    "candidate": {
+        "id": "naturium-multi-peptide-advanced-body-wash-500ml",
+        "brand": "Naturium",
+        "name": "The Multi-Peptide Advanced Body Wash",
+        "variant": "The Multi-Peptide Advanced Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "category": "Body care",
+        "reason": "Adds the exact current 500 mL Naturium Multi-Peptide Advanced Body Wash. Official Shopify structured data publishes GTIN 810120263335. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "rinse-off-body-care",
+            "peptide-body-care",
+            "moisture-barrier-support"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/the-multi-peptide-advanced-body-wash/",
+            "https://peronabeauty.com/product/naturium-multi-peptide-advanced-body-wash/"
+        ],
+        "identity": {
+            "gtin": "810120263335",
+            "officialProductUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+            "checkedAt": "2026-08-07T11:29:00Z",
+            "basis": "official-brand",
+            "packageVersion": "The Multi-Peptide Advanced Body Wash 16.9 fl oz / 500 mL pump bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+                "observedGtin": "810120263335",
+                "observedVariant": "The Multi-Peptide Advanced Body Wash",
+                "observedSize": "16.9 fl oz / 500 mL",
+                "observedPackageVersion": "The Multi-Peptide Advanced Body Wash 16.9 fl oz / 500 mL pump bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-peptide-advanced-body-wash-500ml.json",
+                "snapshotSha256": "44bd972fd5c776777e0523c2c04838fe86d0df8a99b106ccfc65e85666d54780",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2094,
+                "retrievedAt": "2026-08-07T11:28:07Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-multi-peptide-advanced-body-wash-500ml",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "Multi-Peptide Advanced Body Wash | Rich, Creamy Peptide Body Wash | Naturium"
+                    },
+                    "sourceUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+                    "responseUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+                    "retrievedAt": "2026-08-07T11:28:07Z",
+                    "reviewedAt": "2026-08-07T11:29:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "f9be902966d96ce0b3462e47e01ae8207768f8fa7974f64625c87284f7ecad5e",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 891928,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"810120263335\"",
+                            "value": "810120263335"
+                        },
+                        "variant": {
+                            "locator": "Rendered official product heading",
+                            "sourceText": "The Multi-Peptide Advanced Body Wash",
+                            "value": "The Multi-Peptide Advanced Body Wash"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 16.9 FL OZ / 500 mL",
+                            "value": "16.9 fl oz / 500 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "The Multi-Peptide Advanced Body Wash 16.9 FL OZ / 500 mL pump bottle",
+                            "value": "The Multi-Peptide Advanced Body Wash 16.9 fl oz / 500 mL pump bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40029_Multi-Peptide-Advanced-BW_front-bonebkgd.webp?v=1776370952&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-40029_Multi-Peptide-Advanced-BW_front-bonebkgd.webp?v=1776370952&width=2048",
+                            "retrievedAt": "2026-08-07T11:28:07Z",
+                            "responseSha256": "90941d8fa9bde404d8b609fd2ed045b227baabf73b50e0c3e460b13de8ae9537",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 278488
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described peptide rinse-off body wash.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+            "evidenceUrls": [
+                "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+                "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+            ],
+            "reviewedAt": "2026-08-07T11:29:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/the-multi-peptide-advanced-body-wash",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40029_Multi-Peptide-Advanced-BW_front-bonebkgd.webp?v=1776370952&width=2048",
+            "sourceAssetSha256": "90941d8fa9bde404d8b609fd2ed045b227baabf73b50e0c3e460b13de8ae9537",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 278488,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T11:28:07Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T11:30:30Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-multi-peptide-advanced-body-wash-500ml/packshot-v1-ce1d53c2bdb9dcfb.png",
+            "publicImageSha256": "ce1d53c2bdb9dcfba2847a16e520de4b89e4b7ae826d5b39b67f37ab8ab9af46",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 350020,
+            "width": 2000,
+            "height": 2000
+        }
+    }
+}
