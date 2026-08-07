@@ -854,5 +854,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "d0d9ff6793be724b4ef51b9cfd96ffb994bb076f153b36df147134d62f244839"
+  },
+  {
+    "id": "naturium-niacinamide-serum-12-percent-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiacinamideSerum_Anniv_Front_CapOn_ecomm.webp?v=1774292312&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-niacinamide-serum-12-percent-1fl-oz/packshot-v1-fecb87fde12e6958.png",
+    "blobPath": "products/naturium/naturium-niacinamide-serum-12-percent-1fl-oz/packshot-v1-fecb87fde12e6958.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-niacinamide-serum-12-percent-1fl-oz/packshot-v1-fecb87fde12e6958.png",
+    "contentType": "image/png",
+    "byteSize": 449571,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "fecb87fde12e695861f7d6ccc22d840ea6ee3c81db274079e66136fafd9ce99b"
   }
 ]

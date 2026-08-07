@@ -1681,6 +1681,30 @@
         "publishedAt": "2026-08-07T11:26:00Z"
       },
       "releaseFingerprint": "e42aee95adf433ab35d0a5383bc994dd0e3401bd0b1cc57d7800aa9a5ba8a0d3"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+      "dossierFingerprint": "e96cada33b9c004d52baaa2e952d85480177cbe60f2ff9e3084af350b6dfb8dd",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Niacinamide Serum 12% Plus Zinc 2% 1.0 fl oz",
+        "usage": "Apply 4-5 drops to clean dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:28:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:29:00Z"
+      },
+      "releaseFingerprint": "a3521ce1fbffdd544c6f4181b4e8cbda96dd4bc707617e19115d4d11e92303a2"
     }
   ]
 }

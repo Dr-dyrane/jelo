@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "candidateFingerprint": "31ba358f55c77e00ea97bf8f659a737c58b06dda328fbfeb4846a3f8374d0e60",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792064",
+      "brand": "Naturium",
+      "name": "Niacinamide Serum 12% Plus Zinc 2%",
+      "variant": "Niacinamide Serum 12% Plus Zinc 2%",
+      "size": "1.0 fl oz / 30 mL",
+      "packageVersion": "Niacinamide Serum 12% Plus Zinc 2% 1.0 fl oz / 30 mL dropper bottle",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+        "observedGtin": "850010792064",
+        "observedVariant": "Niacinamide Serum 12% Plus Zinc 2%",
+        "observedSize": "1.0 fl oz / 30 mL",
+        "observedPackageVersion": "Niacinamide Serum 12% Plus Zinc 2% 1.0 fl oz / 30 mL dropper bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-niacinamide-serum-12-percent-1fl-oz.json",
+        "snapshotSha256": "08f4c7c3ba1aa32fe623e43392fb9f178e20f01d42277364a63f16ee7f3f9255",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2002,
+        "retrievedAt": "2026-08-07T11:26:03Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Niacinamide Serum"
+          },
+          "sourceUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+          "responseUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+          "retrievedAt": "2026-08-07T11:26:03Z",
+          "reviewedAt": "2026-08-07T11:27:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "47e027d2f6beebffb60084603866499e884d051e343bd76cd0a11d153506d7d2",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 915262,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"850010792064\"",
+              "value": "850010792064"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Niacinamide Serum 12% Plus Zinc 2%",
+              "value": "Niacinamide Serum 12% Plus Zinc 2%"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+              "value": "1.0 fl oz / 30 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_NiacinamideSerum_Anniv_Front_CapOn_ecomm.webp?v=1774292312&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_NiacinamideSerum_Anniv_Front_CapOn_ecomm.webp?v=1774292312&width=2048",
+              "retrievedAt": "2026-08-07T11:26:03Z",
+              "responseSha256": "c8b5c5a0ae7a53314499dc429a4a5203e10b9b7185c5d8163c6711d1e5ef6f83",
+              "responseMimeType": "image/png",
+              "responseByteSize": 458216
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T11:27:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/niacinamide-serum-12-plus-zinc-2/",
+        "https://peronabeauty.com/product/naturium-niacinamide-serum-12-plus-zinc-2/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described niacinamide and zinc face serum.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for acne, rosacea, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+      "evidenceUrls": [
+        "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+        "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+      ],
+      "reviewedAt": "2026-08-07T11:27:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR_NiacinamideSerum_Anniv_Front_CapOn_ecomm.webp?v=1774292312&width=2048",
+        "sha256": "c8b5c5a0ae7a53314499dc429a4a5203e10b9b7185c5d8163c6711d1e5ef6f83",
+        "mimeType": "image/png",
+        "byteSize": 458216,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T11:26:03Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_NiacinamideSerum_Anniv_Front_CapOn_ecomm.webp?v=1774292312&width=2048",
+          "sha256": "c8b5c5a0ae7a53314499dc429a4a5203e10b9b7185c5d8163c6711d1e5ef6f83",
+          "byteSize": 458216,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:26:03Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792064"
+          },
+          "officialProductUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "5e670bad7b5926c0437c824164b2348aaca522d6a6846c511714ef0595241482",
+          "generatedAt": "2026-08-07T11:27:24Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "fecb87fde12e695861f7d6ccc22d840ea6ee3c81db274079e66136fafd9ce99b",
+          "byteSize": 449571,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T11:27:30Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T11:27:30Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "5e670bad7b5926c0437c824164b2348aaca522d6a6846c511714ef0595241482",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-niacinamide-serum-12-percent-1fl-oz/packshot-v1-fecb87fde12e6958.png",
+      "sha256": "fecb87fde12e695861f7d6ccc22d840ea6ee3c81db274079e66136fafd9ce99b",
+      "mimeType": "image/png",
+      "byteSize": 449571,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T11:27:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T11:28:00Z"
+    },
+    "dossierFingerprint": "e96cada33b9c004d52baaa2e952d85480177cbe60f2ff9e3084af350b6dfb8dd"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "dossierFingerprint": "e96cada33b9c004d52baaa2e952d85480177cbe60f2ff9e3084af350b6dfb8dd",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Niacinamide Serum 12% Plus Zinc 2% 1.0 fl oz",
+      "usage": "Apply 4-5 drops to clean dry skin morning and evening",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/niacinamide-serum-12-plus-zinc-2",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T11:28:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T11:29:00Z"
+    },
+    "releaseFingerprint": "a3521ce1fbffdd544c6f4181b4e8cbda96dd4bc707617e19115d4d11e92303a2"
+  }
+}
