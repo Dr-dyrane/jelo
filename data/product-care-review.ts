@@ -957,6 +957,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-purifier-niacinamide-body-wash-500ml': {
+    productSlug: 'naturium-purifier-niacinamide-body-wash-500ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-purifier-niacinamide-serum-body-wash',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

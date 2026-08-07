@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T11:48:30Z",
+  "updatedAt": "2026-08-07T11:52:30Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -17144,6 +17144,145 @@
         "publicImageSha256": "fecb87fde12e695861f7d6ccc22d840ea6ee3c81db274079e66136fafd9ce99b",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 449571,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-purifier-niacinamide-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Purifier Niacinamide Serum Body Wash",
+      "variant": "The Purifier Niacinamide Serum Body Wash",
+      "size": "16.9 fl oz / 500 mL",
+      "category": "Body care",
+      "reason": "Adds the exact current 500 mL Naturium Purifier Niacinamide Serum Body Wash. Official Shopify structured data publishes GTIN 810120260143. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "rinse-off-body-care",
+        "niacinamide-body-care",
+        "oil-control-body-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/the-purifier-niacinamide-serum-body-wash/",
+        "https://peronabeauty.com/product/naturium-purifier-niacinamide-body-wash/"
+      ],
+      "identity": {
+        "gtin": "810120260143",
+        "officialProductUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "checkedAt": "2026-08-07T11:51:30Z",
+        "basis": "official-brand",
+        "packageVersion": "The Purifier Niacinamide Serum Body Wash 16.9 fl oz / 500 mL pump bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+          "observedGtin": "810120260143",
+          "observedVariant": "The Purifier Niacinamide Serum Body Wash",
+          "observedSize": "16.9 fl oz / 500 mL",
+          "observedPackageVersion": "The Purifier Niacinamide Serum Body Wash 16.9 fl oz / 500 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-purifier-niacinamide-body-wash-500ml.json",
+          "snapshotSha256": "45896e642c8308d901961bcd4239b24e7d8b328349622cb0757a5d1e02951e06",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2097,
+          "retrievedAt": "2026-08-07T11:50:37Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-purifier-niacinamide-body-wash-500ml",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "The Purifier Niacinamide Body Wash | Niacinamide Body Wash | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+            "responseUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+            "retrievedAt": "2026-08-07T11:50:37Z",
+            "reviewedAt": "2026-08-07T11:51:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "d7fe2a0721df0ee5d253f76f6ed4b3a9e4f8cc7075cd208d96d84e494762afc3",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 832267,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"810120260143\"",
+                "value": "810120260143"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "The Purifier Niacinamide Serum Body Wash",
+                "value": "The Purifier Niacinamide Serum Body Wash"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 16.9 FL OZ / 500 mL",
+                "value": "16.9 fl oz / 500 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "The Purifier Niacinamide Serum Body Wash 16.9 FL OZ / 500 mL pump bottle",
+                "value": "The Purifier Niacinamide Serum Body Wash 16.9 fl oz / 500 mL pump bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+                "retrievedAt": "2026-08-07T11:50:37Z",
+                "responseSha256": "0c29ddb98adf85124a4ac963f264a7dc71606fcf9324922f04eb67e3d5952b85",
+                "responseMimeType": "image/png",
+                "responseByteSize": 500564
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described niacinamide rinse-off body wash.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for acne, eczema, dermatitis, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-08-07T11:51:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+        "sourceAssetSha256": "0c29ddb98adf85124a4ac963f264a7dc71606fcf9324922f04eb67e3d5952b85",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 500564,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T11:50:37Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T11:52:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-purifier-niacinamide-body-wash-500ml/packshot-v1-a7cb32bc22a8f8af.png",
+        "publicImageSha256": "a7cb32bc22a8f8afaa99c916c99b142245387ce242a85d5c15d246b345213d9f",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 611572,
         "width": 2000,
         "height": 2000
       }

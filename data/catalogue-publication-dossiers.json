@@ -19692,6 +19692,214 @@
         "approvedAt": "2026-08-07T11:49:00Z"
       },
       "dossierFingerprint": "b15aa146b8971996adb1a5c0e03d4422b287e23f38da4ba18c5272babb4105bd"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-purifier-niacinamide-body-wash-500ml",
+      "candidateFingerprint": "c9e5de37c8aea90902751980a3ee439cf41bfadbba79f512053e4722586324fe",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810120260143",
+        "brand": "Naturium",
+        "name": "The Purifier Niacinamide Serum Body Wash",
+        "variant": "The Purifier Niacinamide Serum Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "packageVersion": "The Purifier Niacinamide Serum Body Wash 16.9 fl oz / 500 mL pump bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+          "observedGtin": "810120260143",
+          "observedVariant": "The Purifier Niacinamide Serum Body Wash",
+          "observedSize": "16.9 fl oz / 500 mL",
+          "observedPackageVersion": "The Purifier Niacinamide Serum Body Wash 16.9 fl oz / 500 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-purifier-niacinamide-body-wash-500ml.json",
+          "snapshotSha256": "45896e642c8308d901961bcd4239b24e7d8b328349622cb0757a5d1e02951e06",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2097,
+          "retrievedAt": "2026-08-07T11:50:37Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-purifier-niacinamide-body-wash-500ml",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "The Purifier Niacinamide Body Wash | Niacinamide Body Wash | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+            "responseUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+            "retrievedAt": "2026-08-07T11:50:37Z",
+            "reviewedAt": "2026-08-07T11:51:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "d7fe2a0721df0ee5d253f76f6ed4b3a9e4f8cc7075cd208d96d84e494762afc3",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 832267,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"810120260143\"",
+                "value": "810120260143"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "The Purifier Niacinamide Serum Body Wash",
+                "value": "The Purifier Niacinamide Serum Body Wash"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 16.9 FL OZ / 500 mL",
+                "value": "16.9 fl oz / 500 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+                "retrievedAt": "2026-08-07T11:50:37Z",
+                "responseSha256": "0c29ddb98adf85124a4ac963f264a7dc71606fcf9324922f04eb67e3d5952b85",
+                "responseMimeType": "image/png",
+                "responseByteSize": 500564
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T11:51:30Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/the-purifier-niacinamide-serum-body-wash/",
+          "https://peronabeauty.com/product/naturium-purifier-niacinamide-body-wash/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described niacinamide rinse-off body wash.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for acne, eczema, dermatitis, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-08-07T11:51:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+          "sha256": "0c29ddb98adf85124a4ac963f264a7dc71606fcf9324922f04eb67e3d5952b85",
+          "mimeType": "image/png",
+          "byteSize": 500564,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:50:37Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-purifier-niacinamide-body-wash-500ml",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+            "sha256": "0c29ddb98adf85124a4ac963f264a7dc71606fcf9324922f04eb67e3d5952b85",
+            "byteSize": 500564,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T11:50:37Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00810120260143"
+            },
+            "officialProductUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "d02b8f43adfaaba3d92c53bd5ec1565c3d253962983947a22c909ddc99f75461",
+            "generatedAt": "2026-08-07T11:51:50Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "a7cb32bc22a8f8afaa99c916c99b142245387ce242a85d5c15d246b345213d9f",
+            "byteSize": 611572,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T11:52:30Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T11:52:30Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "d02b8f43adfaaba3d92c53bd5ec1565c3d253962983947a22c909ddc99f75461",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-purifier-niacinamide-body-wash-500ml/packshot-v1-a7cb32bc22a8f8af.png",
+        "sha256": "a7cb32bc22a8f8afaa99c916c99b142245387ce242a85d5c15d246b345213d9f",
+        "mimeType": "image/png",
+        "byteSize": 611572,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T11:52:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T11:53:00Z"
+      },
+      "dossierFingerprint": "27836f0a8397b39d6ab7711c31c3866e7fac3a282574f6b4ff3b7f791fdf3c58"
     }
   ]
 }

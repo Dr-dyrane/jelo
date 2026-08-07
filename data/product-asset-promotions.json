@@ -990,5 +990,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "992e424cc550dfa1eb55ba3df0e18b656a5a0f758cd9f5197c254f1bba470ae2"
+  },
+  {
+    "id": "naturium-purifier-niacinamide-body-wash-500ml-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-purifier-niacinamide-body-wash-500ml",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-The-Purifier-Niacinamide-Body-Wash_front.webp?v=1774293711&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-purifier-niacinamide-body-wash-500ml/packshot-v1-a7cb32bc22a8f8af.png",
+    "blobPath": "products/naturium/naturium-purifier-niacinamide-body-wash-500ml/packshot-v1-a7cb32bc22a8f8af.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-purifier-niacinamide-body-wash-500ml/packshot-v1-a7cb32bc22a8f8af.png",
+    "contentType": "image/png",
+    "byteSize": 611572,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "a7cb32bc22a8f8afaa99c916c99b142245387ce242a85d5c15d246b345213d9f"
   }
 ]

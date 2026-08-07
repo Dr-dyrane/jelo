@@ -1873,6 +1873,30 @@
         "publishedAt": "2026-08-07T11:50:00Z"
       },
       "releaseFingerprint": "7723f7ddb31bbb0e524b8c980a3f3556e676890267ea34cf8c5b979fac842d0e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-purifier-niacinamide-body-wash-500ml",
+      "dossierFingerprint": "27836f0a8397b39d6ab7711c31c3866e7fac3a282574f6b4ff3b7f791fdf3c58",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "The Purifier Niacinamide Serum Body Wash 16.9 fl oz",
+        "usage": "Apply to wet skin lather and rinse thoroughly",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-purifier-niacinamide-serum-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:53:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:54:00Z"
+      },
+      "releaseFingerprint": "a4b58ecdfa676e0e3153bd8496c300be15837e344ed90da50d51229ac1f54736"
     }
   ]
 }
