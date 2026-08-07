@@ -2161,6 +2161,30 @@
         "publishedAt": "2026-08-07T12:43:00Z"
       },
       "releaseFingerprint": "f0b77da9051c5543968434c85edea4a566be8936a253432b056ca22e1752dc01"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "dossierFingerprint": "d536e4abf10e2a9c5839add14195bb59c81c752f0b06a2ca76e11f0235d07f63",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Intense Overnight Sleeping Cream 1.7 oz",
+        "usage": "Apply to clean dry skin evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/intense-overnight-sleeping-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:45:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:46:00Z"
+      },
+      "releaseFingerprint": "d0f33c1f91ac152cd93d8b13951eb9a75c88fc9b9e4528559f3770d68cb175f7"
     }
   ]
 }

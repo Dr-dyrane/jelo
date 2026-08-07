@@ -1194,5 +1194,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "6f202f30591dd6d6fa5967e5ee4da4ce78ce7fb44fa3ae1b31fa9aab4d0c9f7e"
+  },
+  {
+    "id": "naturium-intense-overnight-sleeping-cream-1-7oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_Overnight-Cream-CapOn.webp?v=1774295762&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-intense-overnight-sleeping-cream-1-7oz/packshot-v1-735914599c7c005f.png",
+    "blobPath": "products/naturium/naturium-intense-overnight-sleeping-cream-1-7oz/packshot-v1-735914599c7c005f.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-intense-overnight-sleeping-cream-1-7oz/packshot-v1-735914599c7c005f.png",
+    "contentType": "image/png",
+    "byteSize": 503307,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "735914599c7c005f29704c81b587d9128f3c213f53ecd410fee9190dc5b07c1e"
   }
 ]
