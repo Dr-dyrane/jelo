@@ -195,14 +195,9 @@ function ProductRequestProvenance({ request }: { request: ProductRequest }) {
   return (
     <dl className={styles.provenance}>
       <div><dt>Origin</dt><dd><ProductRequestOriginLabel request={request} /></dd></div>
-      <div><dt>Original entity ref</dt><dd>{request.normalizedEntityRef}</dd></div>
       <div><dt>Created</dt><dd>{formatProductRequestDate(request.createdAt)}</dd></div>
       <div><dt>Submitted</dt><dd>{formatProductRequestDate(request.submittedAt)}</dd></div>
       <div><dt>Last updated</dt><dd>{formatProductRequestDate(request.updatedAt)}</dd></div>
-      <div><dt>Revision</dt><dd>{request.revision}</dd></div>
-      {request.matchedIdentityVersionId ? (
-        <div><dt>Matched identity version</dt><dd>{request.matchedIdentityVersionId}</dd></div>
-      ) : null}
     </dl>
   );
 }
