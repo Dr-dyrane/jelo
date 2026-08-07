@@ -655,6 +655,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'naturium-multi-peptide-moisturizer-1-7oz': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-multi-peptide-moisturizer/', 97, 40500, 'Naturium Multi-Peptide Moisturizer 50g', '50 g', { observedAt: '2026-08-07T17:50:00Z', expiresAt: '2026-08-14T17:50:00Z', stock: 'low-stock' }),
     exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-multi-peptide-moisturizer-50ml/', 78, 45000, 'Naturium Multi-Peptide Moisturizer - 50ml', '1.7 oz / 50 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
+    exactNg('MakeupAlleyNG', 'https://makeupalleyng.com/products/naturium-peptide-moisturizer', 75, 52500, 'Naturium Peptide Moisturizer', '1.7 oz / 50 mL', { observedAt: '2026-08-07T19:05:00Z', expiresAt: '2026-08-14T19:05:00Z', stock: 'in-stock' }),
   ],
   'naturium-niacinamide-cleansing-gelee-3-7-1oz': [
     exactNg('Sonavine Beauty', 'https://sonavinebeauty.com/product/naturium-niacinamide-cleansing-gelee3-210ml-7-1-fl-oz/', 85, 19650, 'NATURIUM Niacinamide Cleansing Gelee3% 210ml ( 7.1 FL oz)', '7.1 fl oz / 210 mL', { observedAt: '2026-08-07T18:15:00Z', expiresAt: '2026-08-14T18:15:00Z', stock: 'in-stock' }),
@@ -719,6 +720,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g': [
     exactNg('Perona Beauty', 'https://peronabeauty.com/product/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/', 86, 4000, 'Estelin Ultra Light Hydrating Invisible Sunscreen SPF 50+++ 50g', '50 g', { observedAt: '2026-08-07T19:00:00Z', expiresAt: '2026-08-14T19:00:00Z', stock: 'in-stock' }),
+  ],
+  'naturium-azelaic-acid-emulsion-10-1fl-oz': [
+    exactNg('MakeupAlleyNG', 'https://makeupalleyng.com/products/naturium-azelaic-acid-emulsion-10', 75, 50000, 'Naturium Azelaic Acid Emulsion 10%', '1.0 fl oz / 30 mL', { observedAt: '2026-08-07T19:05:00Z', expiresAt: '2026-08-14T19:05:00Z', stock: 'in-stock' }),
   ],
 };
 
