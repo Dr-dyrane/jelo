@@ -2377,6 +2377,30 @@
         "publishedAt": "2026-08-07T13:27:00Z"
       },
       "releaseFingerprint": "dd07b4010d5904eeb9e424d07fed7cccc0e9176c1665638e5bbd60d99c9ffc21"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml",
+      "dossierFingerprint": "032898daa24a3af35b54f9d7cc6177c12d327d0e448e68950acfdebf135226c0",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "The Smoother Glycolic Acid Exfoliating Body Wash 16.9 oz",
+        "usage": "Apply to wet skin massage into lather rinse thoroughly",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T13:30:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T13:31:00Z"
+      },
+      "releaseFingerprint": "4e6844dc914fee3b00a25c3e14a847968c6d5671f3cd81319547290d0d4467ae"
     }
   ]
 }

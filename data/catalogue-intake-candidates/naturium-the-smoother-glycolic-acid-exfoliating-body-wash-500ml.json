@@ -1,0 +1,149 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T13:28:00Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "778b0505b3abf4020065b94b2b28b351b73d31012cc79e4fd440043c1286b7ba"
+    },
+    "candidate": {
+        "id": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml",
+        "brand": "Naturium",
+        "name": "The Smoother Glycolic Acid Exfoliating Body Wash",
+        "variant": "The Smoother Glycolic Acid Exfoliating Body Wash",
+        "size": "16.9 oz / 500 mL",
+        "category": "Body care",
+        "reason": "Adds the exact current 500 mL Naturium The Smoother Glycolic Acid Exfoliating Body Wash. Official Shopify structured data publishes GTIN 850010792903. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "glycolic-body-wash",
+            "exfoliating-body-care",
+            "body-care"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/the-smoother-glycolic-acid-exfoliating-body-wash/",
+            "https://peronabeauty.com/product/naturium-the-smoother-glycolic-acid-exfoliating-body-wash/"
+        ],
+        "identity": {
+            "gtin": "850010792903",
+            "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+            "checkedAt": "2026-08-07T13:27:00Z",
+            "basis": "official-brand",
+            "packageVersion": "The Smoother Glycolic Acid Exfoliating Body Wash 16.9 oz / 500 mL pump bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+                "observedGtin": "850010792903",
+                "observedVariant": "The Smoother Glycolic Acid Exfoliating Body Wash",
+                "observedSize": "16.9 oz / 500 mL",
+                "observedPackageVersion": "The Smoother Glycolic Acid Exfoliating Body Wash 16.9 oz / 500 mL pump bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml.json",
+                "snapshotSha256": "778b0505b3abf4020065b94b2b28b351b73d31012cc79e4fd440043c1286b7ba",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2148,
+                "retrievedAt": "2026-08-07T13:25:29Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "Glycolic Acid Body Wash For Exfoliating"
+                    },
+                    "sourceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+                    "responseUrl": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+                    "retrievedAt": "2026-08-07T13:25:29Z",
+                    "reviewedAt": "2026-08-07T13:27:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "566c920f5e159cf75b232db7114debbebdb570360236daf9061240e94521deb5",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 875275,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant barcode field",
+                            "sourceText": "\"barcode\":\"850010792903\"",
+                            "value": "850010792903"
+                        },
+                        "variant": {
+                            "locator": "Rendered official Shopify structured product data variant name field",
+                            "sourceText": "The Smoother Glycolic Acid Exfoliating Body Wash",
+                            "value": "The Smoother Glycolic Acid Exfoliating Body Wash"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 16.9 OZ / 500 mL",
+                            "value": "16.9 oz / 500 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "The Smoother Glycolic Acid Exfoliating Body Wash 16.9 OZ / 500 mL pump bottle",
+                            "value": "The Smoother Glycolic Acid Exfoliating Body Wash 16.9 oz / 500 mL pump bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40002_The-Smoother_bonebkgd_front.webp?v=1776370953&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-40002_The-Smoother_bonebkgd_front.webp?v=1776370953&width=2048",
+                            "retrievedAt": "2026-08-07T13:25:29Z",
+                            "responseSha256": "42b957b0783aea37edf44b6b681127e62e3db4dfc32d7a6e3da47908ed3c938c",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 300136
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described glycolic acid exfoliating body wash.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+            "evidenceUrls": [
+                "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+                "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+            ],
+            "reviewedAt": "2026-08-07T13:27:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40002_The-Smoother_bonebkgd_front.webp?v=1776370953&width=2048",
+            "sourceAssetSha256": "42b957b0783aea37edf44b6b681127e62e3db4dfc32d7a6e3da47908ed3c938c",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 300136,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T13:25:29Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T13:28:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml/packshot-v1-8983e73638cf7b17.png",
+            "publicImageSha256": "8983e73638cf7b17b8431c7192eb238123b24f6a0814b4ececfe7289df8d66c4",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 317487,
+            "width": 2000,
+            "height": 2000
+        }
+    }
+}

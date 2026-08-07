@@ -1347,5 +1347,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "a16a6611a162ba38e2871d0a9b8671710dbc7ac6d4695030049e3985544f7e00"
+  },
+  {
+    "id": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-40002_The-Smoother_bonebkgd_front.webp?v=1776370953&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml/packshot-v1-8983e73638cf7b17.png",
+    "blobPath": "products/naturium/naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml/packshot-v1-8983e73638cf7b17.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml/packshot-v1-8983e73638cf7b17.png",
+    "contentType": "image/png",
+    "byteSize": 317487,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "8983e73638cf7b17b8431c7192eb238123b24f6a0814b4ececfe7289df8d66c4"
   }
 ]
