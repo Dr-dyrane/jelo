@@ -1657,6 +1657,30 @@
         "publishedAt": "2026-08-07T11:18:00Z"
       },
       "releaseFingerprint": "605f60f040b05bab1892d1835d94912ae352aa3deb0ba5d9f5221b9212ae80d8"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz",
+      "dossierFingerprint": "d70d6a2a634159694aad628eaf1ab266a566ae319378d3d5a45aa5841dc5b714",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Dew-Glow Moisturizer SPF 50 1.7 fl oz",
+        "usage": "Apply generously 15 minutes before sun exposure",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/dew-glow-moisturizer-spf-50-original",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:25:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:26:00Z"
+      },
+      "releaseFingerprint": "e42aee95adf433ab35d0a5383bc994dd0e3401bd0b1cc57d7800aa9a5ba8a0d3"
     }
   ]
 }

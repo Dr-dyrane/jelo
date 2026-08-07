@@ -837,5 +837,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "1b8711121786adab8c7353eeffd3205896848761b0e6aeee59bde0679519da79"
+  },
+  {
+    "id": "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_DewGlow_SPF50_Front_CapOn_bonebkgd.webp?v=1774295804&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-dew-glow-moisturizer-spf-50-1-7fl-oz/packshot-v1-d0d9ff6793be724b.png",
+    "blobPath": "products/naturium/naturium-dew-glow-moisturizer-spf-50-1-7fl-oz/packshot-v1-d0d9ff6793be724b.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-dew-glow-moisturizer-spf-50-1-7fl-oz/packshot-v1-d0d9ff6793be724b.png",
+    "contentType": "image/png",
+    "byteSize": 458910,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "d0d9ff6793be724b4ef51b9cfd96ffb994bb076f153b36df147134d62f244839"
   }
 ]
