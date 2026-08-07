@@ -901,6 +901,16 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [],
     reviewedAt: '2026-08-05',
   },
+  'replenix-bp-10-acne-wash-aloe-vera-7oz': {
+    productSlug: 'replenix-bp-10-acne-wash-aloe-vera-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://replenix.com/products/bp-10-acne-wash-aloe-vera',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'estelin-vitamin-c-turmeric-face-oil-30ml': {
     productSlug: 'estelin-vitamin-c-turmeric-face-oil-30ml',
     careState: 'insufficient_data',

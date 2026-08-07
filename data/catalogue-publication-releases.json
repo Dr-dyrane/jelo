@@ -1609,6 +1609,30 @@
         "publishedAt": "2026-08-07T04:19:00Z"
       },
       "releaseFingerprint": "6a833a25bd7a7ce917ec2d45592fc6b590fcf466d9eefa566a986c86fd38a585"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+      "dossierFingerprint": "300e5c57ba3e766a8403222d61e629a860107a64841ba800b9e71a0462ee5a61",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "10% benzoyl peroxide acne wash with aloe vera · 7 oz",
+        "usage": "Wet affected area, wash and rinse well. Use once or twice daily or as directed by your doctor. Start with once daily to assess skin tolerance. May cause dryness; follow with a moisturizer.",
+        "manufacturerDirectionsUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+        "reviewer": "Codex visual audit",
+        "reviewedAt": "2026-08-07T04:29:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T04:30:00Z"
+      },
+      "releaseFingerprint": "9d3bcf6cd1e3f5d2faba8fc9f091869a018c71cdf38c94eea5685dbabcda3e1f"
     }
   ]
 }

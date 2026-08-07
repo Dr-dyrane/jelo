@@ -803,5 +803,22 @@
     "destination": "publication",
     "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
     "publicationBrandSlug": "anua"
+  },
+  {
+    "id": "replenix-bp-10-acne-wash-aloe-vera-7oz-v1",
+    "active": true,
+    "sourceUrl": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472",
+    "localPath": "data/catalogue-intake-assets/replenix-bp-10-acne-wash-aloe-vera-7oz/packshot.png",
+    "blobPath": "products/replenix/replenix-bp-10-acne-wash-aloe-vera-7oz/packshot-v1-b017760fb6d638fe.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/replenix/replenix-bp-10-acne-wash-aloe-vera-7oz/packshot-v1-b017760fb6d638fe.png",
+    "contentType": "image/png",
+    "byteSize": 454878,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "b017760fb6d638fecbd05ad1c8775abac7a080ec962f1fc62b0f5e1f050858a0",
+    "destination": "publication",
+    "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+    "publicationBrandSlug": "replenix"
   }
 ]

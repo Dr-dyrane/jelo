@@ -5,22 +5,21 @@
   "publicationAuthority": "none",
   "generatedAt": "2026-08-05T03:31:47.074Z",
   "source": {
-    "researchPacketsSha256": "6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752",
+    "researchPacketsSha256": "da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
-    "packetCount": 8,
+    "packetCount": 7,
     "packetIds": [
       "42a91a1bc91841763d974680",
       "861874fd1cfe8bb36f77912b",
       "8c9317ef63c239fa932e1f1b",
       "a58cf5de47116310cc34e91a",
       "aff07100d6424f43489e1eb0",
-      "ce0f3f38b3ead84fdecdaf07",
       "d11231e8aa7256f65a5b6ddd",
       "ff4b61e5e7b3c86b68407794"
     ],
-    "responseCount": 8
+    "responseCount": 7
   },
   "qualityCautions": [],
   "captures": [
@@ -190,40 +189,6 @@
         "stock": "low-stock",
         "retailerSku": {
           "value": "8809563103980",
-          "treatment": "retailer-local-code-not-manufacturer-identity"
-        }
-      }
-    },
-    {
-      "id": "feac5fa7a7b83b978d9e393a",
-      "packetId": "ce0f3f38b3ead84fdecdaf07",
-      "discoveryId": "005fe384576be5e38689857f",
-      "retailer": "BuyBetter",
-      "retailerStatus": "directory-listed",
-      "publicationStatus": "not-a-catalogue-candidate",
-      "publicationAuthority": "none",
-      "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/005fe384576be5e38689857f--buybetter.json",
-      "source": {
-        "productId": 329416,
-        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329416",
-        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329416",
-        "listingUrl": "https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/",
-        "capturedAt": "2026-07-29T04:12:17.484Z",
-        "responseSha256": "8ccc6982c0201c6f3470ec05fbd6ef47574eb207a724a58e2ffe4b81515c8537",
-        "responseByteSize": 6841,
-        "responseMimeType": "application/json"
-      },
-      "offer": {
-        "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
-        "size": "200ml",
-        "price": {
-          "amount": 30100,
-          "currency": "NGN"
-        },
-        "stock": "low-stock",
-        "retailerSku": {
-          "value": "358211113003",
           "treatment": "retailer-local-code-not-manufacturer-identity"
         }
       }

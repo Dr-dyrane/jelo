@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T04:18:00Z",
+  "updatedAt": "2026-08-07T04:29:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -17218,6 +17218,162 @@
         "artReviewedAt": "2026-07-28T08:46:30Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+      "brand": "Replenix",
+      "brandAliases": [
+        "replenix"
+      ],
+      "name": "BP 10% Acne Wash + Aloe Vera",
+      "variant": "BP 10% Acne Wash + Aloe Vera",
+      "size": "7 oz",
+      "category": "Face care",
+      "reason": "Replenix BP 10% Acne Wash + Aloe Vera with GTIN 358211113003 published as barcode in Shopify product variant data on the official Replenix site, official Shopify CDN packshot (2000x2000), and daily-care boundary for acne-prone skin.",
+      "priority": "important",
+      "gapIds": [
+        "acne",
+        "benzoyl-peroxide",
+        "cleanser"
+      ],
+      "demandEvidenceUrls": [
+        "https://replenix.com/products/bp-10-acne-wash-aloe-vera"
+      ],
+      "identity": {
+        "gtin": "358211113003",
+        "officialProductUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+        "checkedAt": "2026-08-07T04:28:30Z",
+        "basis": "official-brand",
+        "packageVersion": "Replenix BP 10% Acne Wash + Aloe Vera 7 oz",
+        "officialEvidence": {
+          "url": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+          "observedGtin": "358211113003",
+          "observedVariant": "BP 10% Acne Wash + Aloe Vera",
+          "observedSize": "7 oz",
+          "observedPackageVersion": "Replenix BP 10% Acne Wash + Aloe Vera 7 oz",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/replenix-bp-10-acne-wash-aloe-vera-7oz.json",
+          "snapshotSha256": "9d935ed5195b1824afb6be3a8ac119b960cada398c477bea5e71df0f23b47cf1",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2126,
+          "retrievedAt": "2026-08-07T04:27:48Z",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "REPLENIX Benzoyl Peroxide 10% Acne Wash + Aloe Vera | Acne Skincare",
+              "surface": "Playwright MCP browser"
+            },
+            "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+            "fields": {
+              "gtin": {
+                "locator": "Shopify product JSON variant barcode field embedded in page HTML",
+                "sourceText": "barcode\":\"358211113003\" in Shopify product variant data on official Replenix site",
+                "value": "358211113003"
+              },
+              "packageVersion": {
+                "evidenceUrl": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472",
+                "locator": "Official manufacturer product heading and main pack image",
+                "sourceText": "Replenix BP 10% Acne Wash + Aloe Vera 7 oz",
+                "value": "Replenix BP 10% Acne Wash + Aloe Vera 7 oz"
+              },
+              "size": {
+                "locator": "Product page HTML body text and product description",
+                "sourceText": "7 oz",
+                "value": "7 oz"
+              },
+              "variant": {
+                "locator": "JSON-LD structured data Product.name and rendered product page heading",
+                "sourceText": "BP 10% Acne Wash + Aloe Vera",
+                "value": "BP 10% Acne Wash + Aloe Vera"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+            "retrievedAt": "2026-08-07T04:27:48Z",
+            "reviewedAt": "2026-08-07T04:28:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 944854,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "f48f7fd5ecea6b18c37bfb02ec9732ff70d583b0f0631b821f274736d8110f60",
+            "sourceUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 68802,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "4a52244fa35fbcbdb5880d6a1ad365f773677def4b5cc8ba4ed2305e63eabbb6",
+                "responseUrl": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472",
+                "retrievedAt": "2026-08-07T04:28:05Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472"
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "medical-grade 10% benzoyl peroxide acne wash with soothing aloe vera for acne-prone skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only, not a diagnosis or personal treatment plan. Benzoyl peroxide may cause dryness or irritation. For persistent acne or irritation, consult a dermatologist.",
+        "manufacturerEvidenceUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-08-07T04:28:30Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472",
+        "sourceAssetSha256": "4a52244fa35fbcbdb5880d6a1ad365f773677def4b5cc8ba4ed2305e63eabbb6",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 68802,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T04:28:05Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/replenix/replenix-bp-10-acne-wash-aloe-vera-7oz/packshot-v1-b017760fb6d638fe.png",
+        "publicImageSha256": "b017760fb6d638fecbd05ad1c8775abac7a080ec962f1fc62b0f5e1f050858a0",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 454878,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T04:28:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Replenix BP 10% Acne Wash + Aloe Vera 7 oz bottle and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the Replenix brand, BP 10% Acne Wash + Aloe Vera variant, and 7 oz size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472",
+              "sha256": "4a52244fa35fbcbdb5880d6a1ad365f773677def4b5cc8ba4ed2305e63eabbb6"
+            }
+          ],
+          "outputSha256": "b017760fb6d638fecbd05ad1c8775abac7a080ec962f1fc62b0f5e1f050858a0",
+          "generatedAt": "2026-08-07T04:28:30Z",
+          "recordSha256": "7ebf62c31d76a6684961c5f064712ec69e4a7130a0d3a71e8bc5db47c6b2cb70"
+        }
       }
     },
     {

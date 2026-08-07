@@ -1447,5 +1447,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472",
+      "sha256": "4a52244fa35fbcbdb5880d6a1ad365f773677def4b5cc8ba4ed2305e63eabbb6",
+      "byteSize": 68802,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T04:28:05Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "358211113003"
+      },
+      "officialProductUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "7ebf62c31d76a6684961c5f064712ec69e4a7130a0d3a71e8bc5db47c6b2cb70",
+      "generatedAt": "2026-08-07T04:28:30Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "b017760fb6d638fecbd05ad1c8775abac7a080ec962f1fc62b0f5e1f050858a0",
+      "byteSize": 454878,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T04:28:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T04:28:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

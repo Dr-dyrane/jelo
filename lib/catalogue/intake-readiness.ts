@@ -772,6 +772,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   naturium: ['naturium.com'],
   nivea: ['www.nivea.com.ng'],
   nineless: ['ninelessshop.com', 'cdn.shopify.com'],
+  replenix: ['replenix.com'],
   olay: ['www.olay.com'],
   prequel: ['prequelskin.com', 'www.prequelskin.com'],
   sheamoisture: ['www.sheamoisture.com'],
@@ -814,6 +815,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   'anua-zero-cast-moisturizing-finish-sunscreen-50ml': [
     'https://anua.com/products/zero-cast-moisturizing-finish-sunscreen',
   ],
+  'replenix-bp-10-acne-wash-aloe-vera-7oz': [
+    'https://replenix.com/products/bp-10-acne-wash-aloe-vera',
+  ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
   amika: ['loveamika.com', 'cdn.shopify.com'],
@@ -854,6 +858,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   nivea: ['www.nivea.com.ng', 'img.nivea.com'],
   nineless: ['ninelessshop.com', 'cdn.shopify.com'],
   neutrogena: ['www.neutrogena.com', 'images.ctfassets.net'],
+  replenix: ['replenix.com'],
   olay: ['www.olay.com'],
   prequel: ['prequelskin.com', 'www.prequelskin.com'],
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],

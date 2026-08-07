@@ -4,7 +4,7 @@
   "publicationStatus": "not-a-catalogue-candidate",
   "generatedAt": "2026-07-27T18:11:20.602Z",
   "source": {
-    "staticQueueSha256": "56fa005c863f0630eaeedb44136433b11c347c8b009395f250a2777914521ce2",
+    "staticQueueSha256": "e8781051204778d88cb20abaf65afde2840f12c5dd49b365b53c9dd35e586d2b",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "sharding": {
@@ -16,8 +16,8 @@
   "shards": [
     {
       "index": 1,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/dc844d6d63ddf693538ba50a7a0e2cde7ab277ffee09239c1c6505087a310409.json",
-      "sourceSha256": "dc844d6d63ddf693538ba50a7a0e2cde7ab277ffee09239c1c6505087a310409",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/ae5f0ad249bcf512a0a9444de6fe082c71a81f4bfd9df4332bdae58b4a45dbef.json",
+      "sourceSha256": "ae5f0ad249bcf512a0a9444de6fe082c71a81f4bfd9df4332bdae58b4a45dbef",
       "packetCount": 12,
       "firstRank": 1,
       "lastRank": 12,
@@ -52,8 +52,8 @@
     },
     {
       "index": 2,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/4e18c2d9886965a40d84ae58e9c13b56b289daa1deb3fb93d40297a0bd70875f.json",
-      "sourceSha256": "4e18c2d9886965a40d84ae58e9c13b56b289daa1deb3fb93d40297a0bd70875f",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/a67f80bfac6e328abffe28f1d5f78ff494ab6dd480b27333b2560c2d1744b47b.json",
+      "sourceSha256": "a67f80bfac6e328abffe28f1d5f78ff494ab6dd480b27333b2560c2d1744b47b",
       "packetCount": 12,
       "firstRank": 13,
       "lastRank": 24,
@@ -88,8 +88,8 @@
     },
     {
       "index": 3,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752.json",
-      "sourceSha256": "6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5.json",
+      "sourceSha256": "da832749bbb284bb7c1705ef135412b52861f3d2aa88f86febb1d5e40f848be5",
       "packetCount": 12,
       "firstRank": 25,
       "lastRank": 36,
@@ -97,7 +97,6 @@
         "d11231e8aa7256f65a5b6ddd",
         "8c9317ef63c239fa932e1f1b",
         "aff07100d6424f43489e1eb0",
-        "ce0f3f38b3ead84fdecdaf07",
         "ff4b61e5e7b3c86b68407794",
         "a58cf5de47116310cc34e91a",
         "861874fd1cfe8bb36f77912b",
@@ -105,13 +104,13 @@
         "a86b042330160d53b65b056e",
         "43c022de59a14a050f7c2983",
         "69bf90baf39309039402ae19",
-        "413542f9fd2dfef408f82fd6"
+        "413542f9fd2dfef408f82fd6",
+        "91265ea56f1b62a4fa669e88"
       ],
       "discoveryIds": [
         "fe369f475a0d890702084b1b",
         "f87e67c0fb61e9574f74ef21",
         "0b73f42e4c3d2f14656610ae",
-        "005fe384576be5e38689857f",
         "cd29efd703d9f5ad9192bf01",
         "b9f9c3fe07895c6ce9945f8a",
         "980f4a6663d7e3bdca521609",
@@ -119,19 +118,20 @@
         "9454deec37a4fc5fcd1e7fa7",
         "fe5f1f274910514b3aa73df6",
         "c65508f695a5dcd240da0eb3",
-        "860730ad73fa749bf2599ba4"
+        "860730ad73fa749bf2599ba4",
+        "5a7b8f18c791cfb6a61354ac"
       ]
     },
     {
       "index": 4,
-      "sourcePath": "data/catalogue-research-evidence-packet-sources/b96fe14d3c906179dc9e58ba2e6595b4374ce4c4fb593358fb7ab892537a603a.json",
-      "sourceSha256": "b96fe14d3c906179dc9e58ba2e6595b4374ce4c4fb593358fb7ab892537a603a",
+      "sourcePath": "data/catalogue-research-evidence-packet-sources/e8998393a6288b271cc1378b4bf0b0b73358a4a98bfe41735c174037fc0239b7.json",
+      "sourceSha256": "e8998393a6288b271cc1378b4bf0b0b73358a4a98bfe41735c174037fc0239b7",
       "packetCount": 12,
       "firstRank": 37,
       "lastRank": 48,
       "packetIds": [
-        "91265ea56f1b62a4fa669e88",
         "a9d070d6a4fb0afcb3d11a00",
+        "c48febd77a45d7ffaf2a9925",
         "de73b1b69dc56e877ea37999",
         "863eec92f7291e3d307be521",
         "586ef0ac5c086de562296593",
@@ -144,8 +144,8 @@
         "459b8806590d2750e22a8906"
       ],
       "discoveryIds": [
-        "5a7b8f18c791cfb6a61354ac",
         "e16bef398ccb4bbef30078b2",
+        "90712aba930db88df002dc55",
         "8ac4f70510214db024b57c46",
         "4a65be1a58dd495b7eab8b5b",
         "a3844e0ff4ce89736040eb4e",
