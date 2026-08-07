@@ -3,15 +3,18 @@ import test from 'node:test';
 import { canonicalBrandName, canonicalBrandNameMap, brandAliasesFor } from '@/data/brand-canonical-names';
 
 test('canonicalBrandName returns the canonical name for known variants', () => {
-  assert.equal(canonicalBrandName('Dang Lifestyle'), 'DANG');
-  assert.equal(canonicalBrandName('Dang! Lifestyle Inc.'), 'DANG');
+  assert.equal(canonicalBrandName('DANG'), 'DANG! Lifestyle');
+  assert.equal(canonicalBrandName('Dang Lifestyle'), 'DANG! Lifestyle');
+  assert.equal(canonicalBrandName('Dang! Lifestyle Inc.'), 'DANG! Lifestyle');
   assert.equal(canonicalBrandName('DOVE'), 'Dove');
   assert.equal(canonicalBrandName('FaceFacts'), 'FACE FACTS');
+  assert.equal(canonicalBrandName('Anua'), 'ANUA');
+  assert.equal(canonicalBrandName('estelinindia'), 'ESTELIN');
 });
 
 test('canonicalBrandName returns the original for unmapped brands', () => {
   assert.equal(canonicalBrandName('CeraVe'), 'CeraVe');
-  assert.equal(canonicalBrandName('ANUA'), 'ANUA');
+  assert.equal(canonicalBrandName('Naturium'), 'Naturium');
   assert.equal(canonicalBrandName('Unknown Brand'), 'Unknown Brand');
 });
 
@@ -22,9 +25,11 @@ test('canonicalBrandName is idempotent on canonical names', () => {
 });
 
 test('brandAliasesFor returns all variants for a canonical name', () => {
-  assert.deepEqual(brandAliasesFor('DANG').sort(), ['Dang Lifestyle', 'Dang! Lifestyle Inc.']);
+  assert.deepEqual(brandAliasesFor('DANG! Lifestyle').sort(), ['DANG', 'Dang Lifestyle', 'Dang! Lifestyle Inc.']);
   assert.deepEqual(brandAliasesFor('Dove'), ['DOVE']);
   assert.deepEqual(brandAliasesFor('FACE FACTS'), ['FaceFacts']);
+  assert.deepEqual(brandAliasesFor('ANUA'), ['Anua']);
+  assert.deepEqual(brandAliasesFor('ESTELIN'), ['estelinindia']);
 });
 
 test('brandAliasesFor returns empty for unknown canonical names', () => {

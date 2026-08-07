@@ -15,13 +15,18 @@
  * 3. Add a test case in brand-canonical-names.test.ts.
  */
 export const canonicalBrandNameMap: Readonly<Record<string, string>> = {
-  // DANG Lifestyle — danglifestyle.co
-  'Dang Lifestyle': 'DANG',
-  'Dang! Lifestyle Inc.': 'DANG',
+  // DANG! Lifestyle — danglifestyle.co
+  'DANG': 'DANG! Lifestyle',
+  'Dang Lifestyle': 'DANG! Lifestyle',
+  'Dang! Lifestyle Inc.': 'DANG! Lifestyle',
   // Dove — unilever brand, casing varies by source
   'DOVE': 'Dove',
   // FACE FACTS — facefactsskincare.com
   'FaceFacts': 'FACE FACTS',
+  // ANUA — anua.kr, casing varies by source
+  'Anua': 'ANUA',
+  // Estelin — estelin.co.in, source domain variant
+  'estelinindia': 'ESTELIN',
 };
 
 /**
