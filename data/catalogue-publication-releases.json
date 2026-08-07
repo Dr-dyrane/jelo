@@ -1921,6 +1921,30 @@
         "publishedAt": "2026-08-07T11:58:00Z"
       },
       "releaseFingerprint": "d9fcfa0f783a42a1611d5f2f2f2744b7f6235940edf999cb18a89b52be37a510"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+      "dossierFingerprint": "73f6ca15f0cd762c8459fe89526f168de598b4f3b11e8b862e2eb04092f4386c",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Marshmallow Root Barrier Balm 1.7 oz",
+        "usage": "Apply to clean skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/marshmallow-root-barrier-balm",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:00:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:01:00Z"
+      },
+      "releaseFingerprint": "6af400919d3f36d16c3e6779fcfd860c8b9d613ed599c2a9e198892fb4372426"
     }
   ]
 }

@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+    "candidateFingerprint": "ef6816da10446a5ff07838ff4d67a97af61cd3337e589ca2e4d775fd49a51456",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792750",
+      "brand": "Naturium",
+      "name": "Marshmallow Root Barrier Balm",
+      "variant": "Marshmallow Root Barrier Balm",
+      "size": "1.7 oz / 50 mL",
+      "packageVersion": "Marshmallow Root Barrier Balm 1.7 oz / 50 mL jar",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/marshmallow-root-barrier-balm",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/marshmallow-root-barrier-balm",
+        "observedGtin": "850010792750",
+        "observedVariant": "Marshmallow Root Barrier Balm",
+        "observedSize": "1.7 oz / 50 mL",
+        "observedPackageVersion": "Marshmallow Root Barrier Balm 1.7 oz / 50 mL jar",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-marshmallow-root-barrier-balm-1-7oz.json",
+        "snapshotSha256": "b26ef9f71b2412caacfc2bcf968860f46755cfaf85ad76b673c9b7a84ea36f44",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1990,
+        "retrievedAt": "2026-08-07T11:56:53Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Marshmallow Root Barrier Balm | Skin Barrier Support Moisturizer | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/marshmallow-root-barrier-balm",
+          "responseUrl": "https://naturium.com/products/marshmallow-root-barrier-balm",
+          "retrievedAt": "2026-08-07T11:56:53Z",
+          "reviewedAt": "2026-08-07T11:57:30Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "383f1caec8f52911d902586c779da2f60452412d2a0877b79f67adbe29c78a4a",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 821828,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"850010792750\"",
+              "value": "850010792750"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Marshmallow Root Barrier Balm",
+              "value": "Marshmallow Root Barrier Balm"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 1.7 OZ / 50 mL",
+              "value": "1.7 oz / 50 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Marshmallow-Root-Barrier-Balm-front.webp?v=1774291343&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Marshmallow-Root-Barrier-Balm-front.webp?v=1774291343&width=2048",
+              "retrievedAt": "2026-08-07T11:56:53Z",
+              "responseSha256": "43549dffad1701d3fb73160be1014c66abfbbcb7988e3632cb1fd119656ec212",
+              "responseMimeType": "image/png",
+              "responseByteSize": 311368
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T11:57:30Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/marshmallow-root-barrier-balm/",
+        "https://peronabeauty.com/product/naturium-marshmallow-root-barrier-balm/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described marshmallow root barrier support moisturizer.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A leave-on cosmetic moisturizer, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/marshmallow-root-barrier-balm",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://naturium.com/products/marshmallow-root-barrier-balm",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-07T11:57:30Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/marshmallow-root-barrier-balm",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR_Marshmallow-Root-Barrier-Balm-front.webp?v=1774291343&width=2048",
+        "sha256": "43549dffad1701d3fb73160be1014c66abfbbcb7988e3632cb1fd119656ec212",
+        "mimeType": "image/png",
+        "byteSize": 311368,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T11:56:53Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Marshmallow-Root-Barrier-Balm-front.webp?v=1774291343&width=2048",
+          "sha256": "43549dffad1701d3fb73160be1014c66abfbbcb7988e3632cb1fd119656ec212",
+          "byteSize": 311368,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:56:53Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792750"
+          },
+          "officialProductUrl": "https://naturium.com/products/marshmallow-root-barrier-balm"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "03a0700e169ab746446515e153c1e167dcb10ace2f46bf6daabecbe62523c89d",
+          "generatedAt": "2026-08-07T11:58:45Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "addcc92a2ef6c3c7d4a33ad793aae1cb384978828e86f750552ae37292a16176",
+          "byteSize": 594893,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T11:59:30Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T11:59:30Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "03a0700e169ab746446515e153c1e167dcb10ace2f46bf6daabecbe62523c89d",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-marshmallow-root-barrier-balm-1-7oz/packshot-v1-addcc92a2ef6c3c7.png",
+      "sha256": "addcc92a2ef6c3c7d4a33ad793aae1cb384978828e86f750552ae37292a16176",
+      "mimeType": "image/png",
+      "byteSize": 594893,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T11:59:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T12:00:00Z"
+    },
+    "dossierFingerprint": "73f6ca15f0cd762c8459fe89526f168de598b4f3b11e8b862e2eb04092f4386c"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+    "dossierFingerprint": "73f6ca15f0cd762c8459fe89526f168de598b4f3b11e8b862e2eb04092f4386c",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Moisturize",
+      "displayLine": "Marshmallow Root Barrier Balm 1.7 oz",
+      "usage": "Apply to clean skin morning and evening",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/marshmallow-root-barrier-balm",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T12:00:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T12:01:00Z"
+    },
+    "releaseFingerprint": "6af400919d3f36d16c3e6779fcfd860c8b9d613ed599c2a9e198892fb4372426"
+  }
+}

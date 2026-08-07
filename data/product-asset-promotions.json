@@ -1024,5 +1024,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "94324822b4ab0e5e5c0d2d37c69ad6f2e546fad5a9504861a7ca6ad34ebd00d7"
+  },
+  {
+    "id": "naturium-marshmallow-root-barrier-balm-1-7oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Marshmallow-Root-Barrier-Balm-front.webp?v=1774291343&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-marshmallow-root-barrier-balm-1-7oz/packshot-v1-addcc92a2ef6c3c7.png",
+    "blobPath": "products/naturium/naturium-marshmallow-root-barrier-balm-1-7oz/packshot-v1-addcc92a2ef6c3c7.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-marshmallow-root-barrier-balm-1-7oz/packshot-v1-addcc92a2ef6c3c7.png",
+    "contentType": "image/png",
+    "byteSize": 594893,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "addcc92a2ef6c3c7d4a33ad793aae1cb384978828e86f750552ae37292a16176"
   }
 ]
