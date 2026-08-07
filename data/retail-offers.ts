@@ -585,6 +585,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   'replenix-bp-10-acne-wash-aloe-vera-7oz': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/', 97, 30100, 'REPLENIX 10% Acne Wash + Aloe Vera Benzoyl Peroxide Acne Wash 200ml', '7 oz', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
   ],
+  'naturium-multi-peptide-advanced-serum-1fl-oz': [
+    exactNg('BuyBetter', 'https://buybetter.ng/product/naturium-multi-peptide-advanced-serum/', 97, 38500, 'NATURIUM Multi-Peptide Advanced Serum 1.0 oz 30ml', '1.0 fl oz / 30 mL', { observedAt: '2026-08-05T12:00:00Z', expiresAt: '2026-08-12T12:00:00Z', stock: 'low-stock' }),
+  ],
 };
 
 const excludedRetailers: Partial<Record<string, string[]>> = {
