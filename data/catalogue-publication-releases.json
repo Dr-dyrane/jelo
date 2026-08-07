@@ -1729,6 +1729,30 @@
         "publishedAt": "2026-08-07T11:32:00Z"
       },
       "releaseFingerprint": "405c337cfc4762c31f783600a7e9bff340d653e4356d1ee23067b6c7c80d8482"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+      "dossierFingerprint": "cab4625d345a01ea1a1b5fefae6222f336e35d6417b2f38166dcf661df58b8a5",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "The Glow Getter Multi-Oil Hydrating Body Wash 16.9 fl oz",
+        "usage": "Apply to wet skin lather and rinse thoroughly",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:34:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:35:00Z"
+      },
+      "releaseFingerprint": "9f6ddaa658608d490ca17e1beb14c9ac71af316336145be7ce3318cfc7bb32d0"
     }
   ]
 }

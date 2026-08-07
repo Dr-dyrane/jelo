@@ -888,5 +888,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "ce1d53c2bdb9dcfba2847a16e520de4b89e4b7ae826d5b39b67f37ab8ab9af46"
+  },
+  {
+    "id": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/PDP_GlowGetter_MultiOil_BodyWash_front_v2.webp?v=1774290712&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-glow-getter-multi-oil-hydrating-body-wash-500ml/packshot-v1-d52bc1ce372ed994.png",
+    "blobPath": "products/naturium/naturium-glow-getter-multi-oil-hydrating-body-wash-500ml/packshot-v1-d52bc1ce372ed994.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-hydrating-body-wash-500ml/packshot-v1-d52bc1ce372ed994.png",
+    "contentType": "image/png",
+    "byteSize": 445805,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "d52bc1ce372ed9947ce8e760fd39396ad7e76877263cc3b3fb9a021cd20bae97"
   }
 ]

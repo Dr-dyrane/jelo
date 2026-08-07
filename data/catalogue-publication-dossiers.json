@@ -18444,6 +18444,214 @@
         "approvedAt": "2026-08-07T11:31:00Z"
       },
       "dossierFingerprint": "fd48d5134809dfd85f1ed23033f60a1e183c817c225201a422aa6a3e04297db8"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+      "candidateFingerprint": "f97fc01ca72fa8871670abd9fe0610791656e36e5181a1f6c488cbcc5fe1db15",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792897",
+        "brand": "Naturium",
+        "name": "The Glow Getter Multi-Oil Hydrating Body Wash",
+        "variant": "The Glow Getter Multi-Oil Hydrating Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "packageVersion": "The Glow Getter Multi-Oil Hydrating Body Wash 16.9 fl oz / 500 mL pump bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+          "observedGtin": "850010792897",
+          "observedVariant": "The Glow Getter Multi-Oil Hydrating Body Wash",
+          "observedSize": "16.9 fl oz / 500 mL",
+          "observedPackageVersion": "The Glow Getter Multi-Oil Hydrating Body Wash 16.9 fl oz / 500 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-glow-getter-multi-oil-hydrating-body-wash-500ml.json",
+          "snapshotSha256": "c6dadc93c6fd31ed6b3ba65ecf405ff50bacf75a9c56432aa3b3fa6bd2c367dd",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2134,
+          "retrievedAt": "2026-08-07T11:30:55Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "The Glow Getter Multi-Oil Hydrating Body Wash | Gentle Cleanse | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+            "responseUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+            "retrievedAt": "2026-08-07T11:30:55Z",
+            "reviewedAt": "2026-08-07T11:31:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "0cfc3c9fdce4272dbfefdd9635d9cea33f3112ae44dad460d6d896b67599e33a",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 890617,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792897\"",
+                "value": "850010792897"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "The Glow Getter Multi-Oil Hydrating Body Wash",
+                "value": "The Glow Getter Multi-Oil Hydrating Body Wash"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 16.9 FL OZ / 500 mL",
+                "value": "16.9 fl oz / 500 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/PDP_GlowGetter_MultiOil_BodyWash_front_v2.webp?v=1774290712&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/PDP_GlowGetter_MultiOil_BodyWash_front_v2.webp?v=1774290712&width=2048",
+                "retrievedAt": "2026-08-07T11:30:55Z",
+                "responseSha256": "633e7900488e23c3aa3b15767e9d69b8a5cea84116a570819f59aeb95c97ceef",
+                "responseMimeType": "image/png",
+                "responseByteSize": 365709
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T11:31:30Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/the-glow-getter-multi-oil-hydrating-body-wash/",
+          "https://peronabeauty.com/product/naturium-glow-getter-multi-oil-hydrating-body-wash/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described multi-oil hydrating rinse-off body wash.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T11:31:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/PDP_GlowGetter_MultiOil_BodyWash_front_v2.webp?v=1774290712&width=2048",
+          "sha256": "633e7900488e23c3aa3b15767e9d69b8a5cea84116a570819f59aeb95c97ceef",
+          "mimeType": "image/png",
+          "byteSize": 365709,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:30:55Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/PDP_GlowGetter_MultiOil_BodyWash_front_v2.webp?v=1774290712&width=2048",
+            "sha256": "633e7900488e23c3aa3b15767e9d69b8a5cea84116a570819f59aeb95c97ceef",
+            "byteSize": 365709,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T11:30:55Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792897"
+            },
+            "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "3aba96919cc2789656e7db506975e6052b69349447260b3c5b72ba9825750ffe",
+            "generatedAt": "2026-08-07T11:32:23Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "d52bc1ce372ed9947ce8e760fd39396ad7e76877263cc3b3fb9a021cd20bae97",
+            "byteSize": 445805,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T11:33:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T11:33:00Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "3aba96919cc2789656e7db506975e6052b69349447260b3c5b72ba9825750ffe",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-hydrating-body-wash-500ml/packshot-v1-d52bc1ce372ed994.png",
+        "sha256": "d52bc1ce372ed9947ce8e760fd39396ad7e76877263cc3b3fb9a021cd20bae97",
+        "mimeType": "image/png",
+        "byteSize": 445805,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T11:33:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T11:34:00Z"
+      },
+      "dossierFingerprint": "cab4625d345a01ea1a1b5fefae6222f336e35d6417b2f38166dcf661df58b8a5"
     }
   ]
 }

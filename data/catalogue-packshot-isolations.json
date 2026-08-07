@@ -1762,5 +1762,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/PDP_GlowGetter_MultiOil_BodyWash_front_v2.webp?v=1774290712&width=2048",
+      "sha256": "633e7900488e23c3aa3b15767e9d69b8a5cea84116a570819f59aeb95c97ceef",
+      "byteSize": 365709,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T11:30:55Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792897"
+      },
+      "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-hydrating-body-wash"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "3aba96919cc2789656e7db506975e6052b69349447260b3c5b72ba9825750ffe",
+      "generatedAt": "2026-08-07T11:32:23Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "d52bc1ce372ed9947ce8e760fd39396ad7e76877263cc3b3fb9a021cd20bae97",
+      "byteSize": 445805,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T11:33:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T11:33:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "3aba96919cc2789656e7db506975e6052b69349447260b3c5b72ba9825750ffe",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]
