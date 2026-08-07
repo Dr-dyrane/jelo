@@ -2959,5 +2959,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/HR-vitaminbright_5215_revised_crop_358f212b-4c02-447b-a020-3fcecfbd39c5.webp?v=1774292972&width=2048",
+      "sha256": "3a4044e8fcb74f57dcc39e1ca5326875f9c972def208d535d0cf04ccbb5cd383",
+      "byteSize": 2617588,
+      "width": 2048,
+      "height": 2047,
+      "retrievedAt": "2026-08-07T12:46:11Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810120260211"
+      },
+      "officialProductUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "b75891cf057e425813a4b51f72140dbf30e3e8708fbd175a62e7ea0c1326e144",
+      "generatedAt": "2026-08-07T12:48:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "5d6995aa6322261021ea6117fdb2bbcda26f9b5e04b61b95dabe1ebc1d2687e9",
+      "byteSize": 897357,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:49:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:49:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "b75891cf057e425813a4b51f72140dbf30e3e8708fbd175a62e7ea0c1326e144",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

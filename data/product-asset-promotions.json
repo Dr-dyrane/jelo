@@ -1211,5 +1211,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "735914599c7c005f29704c81b587d9128f3c213f53ecd410fee9190dc5b07c1e"
+  },
+  {
+    "id": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/HR-vitaminbright_5215_revised_crop_358f212b-4c02-447b-a020-3fcecfbd39c5.webp?v=1774292972&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-vitamin-bright-illuminating-eye-cream-0-5oz/packshot-v1-5d6995aa63222610.png",
+    "blobPath": "products/naturium/naturium-vitamin-bright-illuminating-eye-cream-0-5oz/packshot-v1-5d6995aa63222610.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-vitamin-bright-illuminating-eye-cream-0-5oz/packshot-v1-5d6995aa63222610.png",
+    "contentType": "image/png",
+    "byteSize": 897357,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "5d6995aa6322261021ea6117fdb2bbcda26f9b5e04b61b95dabe1ebc1d2687e9"
   }
 ]

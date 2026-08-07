@@ -2185,6 +2185,30 @@
         "publishedAt": "2026-08-07T12:46:00Z"
       },
       "releaseFingerprint": "d0f33c1f91ac152cd93d8b13951eb9a75c88fc9b9e4528559f3770d68cb175f7"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+      "dossierFingerprint": "ad75cc2e587b74598a869521cd75e2366afe676a2bee27f2cb6f08665d31f560",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Vitamin Bright Illuminating Eye Cream 0.5 fl oz",
+        "usage": "Apply small amount around eye area morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:51:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:52:00Z"
+      },
+      "releaseFingerprint": "fd4b1123b487fb73a68c709f2f6cfeb6d744d01e3393a0c507a02e95ecb640a4"
     }
   ]
 }

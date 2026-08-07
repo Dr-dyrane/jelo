@@ -1137,6 +1137,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-multi-peptide-eye-cream-0-5oz': {
+    productSlug: 'naturium-multi-peptide-eye-cream-0-5oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-peptide-eye-cream',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-vitamin-bright-illuminating-eye-cream-0-5oz': {
+    productSlug: 'naturium-vitamin-bright-illuminating-eye-cream-0-5oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/vitamin-bright-illuminating-eye-cream',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

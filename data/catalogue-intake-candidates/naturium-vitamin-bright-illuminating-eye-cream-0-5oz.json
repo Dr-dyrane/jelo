@@ -1,0 +1,149 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T12:49:00Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "13b8b37277a41ca207fe491bf16ba7f52bd30753f07cf12d164a0fe87248ea81"
+    },
+    "candidate": {
+        "id": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+        "brand": "Naturium",
+        "name": "Vitamin Bright Illuminating Eye Cream",
+        "variant": "Vitamin Bright Illuminating Eye Cream - Light/Medium",
+        "size": "0.5 fl oz / 15 mL",
+        "category": "Face care",
+        "reason": "Adds the exact current 15 mL Naturium Vitamin Bright Illuminating Eye Cream (Light/Medium shade). Official Shopify structured data publishes GTIN 810120260211. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "eye-cream",
+            "vitamin-c-eye-care",
+            "brightening-support"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/vitamin-bright-illuminating-eye-cream/",
+            "https://peronabeauty.com/product/naturium-vitamin-bright-illuminating-eye-cream/"
+        ],
+        "identity": {
+            "gtin": "810120260211",
+            "officialProductUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+            "checkedAt": "2026-08-07T12:48:00Z",
+            "basis": "official-brand",
+            "packageVersion": "Vitamin Bright Illuminating Eye Cream Light/Medium 0.5 fl oz / 15 mL tube",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+                "observedGtin": "810120260211",
+                "observedVariant": "Vitamin Bright Illuminating Eye Cream - Light/Medium",
+                "observedSize": "0.5 fl oz / 15 mL",
+                "observedPackageVersion": "Vitamin Bright Illuminating Eye Cream Light/Medium 0.5 fl oz / 15 mL tube",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-vitamin-bright-illuminating-eye-cream-0-5oz.json",
+                "snapshotSha256": "13b8b37277a41ca207fe491bf16ba7f52bd30753f07cf12d164a0fe87248ea81",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2216,
+                "retrievedAt": "2026-08-07T12:46:11Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "Vitamin Bright Illuminating Eye Cream | Eye Cream for Dark Circles | Naturium"
+                    },
+                    "sourceUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+                    "responseUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+                    "retrievedAt": "2026-08-07T12:46:11Z",
+                    "reviewedAt": "2026-08-07T12:48:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "3f6235bec8edee8b6184cfdb6e46e7387000f2ee9b7bd2af62ffa649359bf795",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 951567,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"810120260211\"",
+                            "value": "810120260211"
+                        },
+                        "variant": {
+                            "locator": "Rendered official Shopify structured product data variant name field",
+                            "sourceText": "Vitamin Bright Illuminating Eye Cream - Light/Medium",
+                            "value": "Vitamin Bright Illuminating Eye Cream - Light/Medium"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 0.5 FL OZ / 15 mL",
+                            "value": "0.5 fl oz / 15 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Vitamin Bright Illuminating Eye Cream Light/Medium 0.5 FL OZ / 15 mL tube",
+                            "value": "Vitamin Bright Illuminating Eye Cream Light/Medium 0.5 fl oz / 15 mL tube"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/HR-vitaminbright_5215_revised_crop_358f212b-4c02-447b-a020-3fcecfbd39c5.webp?v=1774292972&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/HR-vitaminbright_5215_revised_crop_358f212b-4c02-447b-a020-3fcecfbd39c5.webp?v=1774292972&width=2048",
+                            "retrievedAt": "2026-08-07T12:46:11Z",
+                            "responseSha256": "3a4044e8fcb74f57dcc39e1ca5326875f9c972def208d535d0cf04ccbb5cd383",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 2617588
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described vitamin bright illuminating eye cream for dark circles.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A topical cosmetic eye cream, not a diagnosis or treatment for any eye or skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+            "evidenceUrls": [
+                "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+                "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+            ],
+            "reviewedAt": "2026-08-07T12:48:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/vitamin-bright-illuminating-eye-cream",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/HR-vitaminbright_5215_revised_crop_358f212b-4c02-447b-a020-3fcecfbd39c5.webp?v=1774292972&width=2048",
+            "sourceAssetSha256": "3a4044e8fcb74f57dcc39e1ca5326875f9c972def208d535d0cf04ccbb5cd383",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 2617588,
+            "sourceAssetWidth": 2048,
+            "sourceAssetHeight": 2047,
+            "sourceAssetRetrievedAt": "2026-08-07T12:46:11Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T12:49:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-vitamin-bright-illuminating-eye-cream-0-5oz/packshot-v1-5d6995aa63222610.png",
+            "publicImageSha256": "5d6995aa6322261021ea6117fdb2bbcda26f9b5e04b61b95dabe1ebc1d2687e9",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 897357,
+            "width": 2000,
+            "height": 2000
+        }
+    }
+}
