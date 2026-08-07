@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T12:03:00Z",
+  "updatedAt": "2026-08-07T12:06:30Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -16050,6 +16050,145 @@
         "publicImageSha256": "71223533980f7c456b406f833af4fe57b2af37ec90239dd9d834b54e59dd8f59",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 507138,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-bio-lipid-restoring-body-lotion-14oz",
+      "brand": "Naturium",
+      "name": "Bio-Lipid Restoring Body Lotion",
+      "variant": "Bio-Lipid Restoring Body Lotion",
+      "size": "14 fl oz / 414 mL",
+      "category": "Body care",
+      "reason": "Adds the exact current 14 oz Naturium Bio-Lipid Restoring Body Lotion. Official Shopify structured data publishes GTIN 850010792804. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "leave-on-body-care",
+        "body-lotion",
+        "dry-skin-support"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/bio-lipid-restoring-body-lotion/",
+        "https://peronabeauty.com/product/naturium-bio-lipid-restoring-body-lotion/"
+      ],
+      "identity": {
+        "gtin": "850010792804",
+        "officialProductUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+        "checkedAt": "2026-08-07T12:05:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Bio-Lipid Restoring Body Lotion 14 fl oz / 414 mL pump bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+          "observedGtin": "850010792804",
+          "observedVariant": "Bio-Lipid Restoring Body Lotion",
+          "observedSize": "14 fl oz / 414 mL",
+          "observedPackageVersion": "Bio-Lipid Restoring Body Lotion 14 fl oz / 414 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-bio-lipid-restoring-body-lotion-14oz.json",
+          "snapshotSha256": "0154d377bbab43a57a0cf701ba71769a717a466181029f4a5091489135ffb6b1",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2052,
+          "retrievedAt": "2026-08-07T12:03:57Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-bio-lipid-restoring-body-lotion-14oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Bio-Lipid Restoring Body Lotion for Soft, Supple Skin | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+            "responseUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+            "retrievedAt": "2026-08-07T12:03:57Z",
+            "reviewedAt": "2026-08-07T12:05:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "ae43dd51441fabaed7477ee99857604de619ef21201d34712c954801d5c0538c",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 862267,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792804\"",
+                "value": "850010792804"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Bio-Lipid Restoring Body Lotion",
+                "value": "Bio-Lipid Restoring Body Lotion"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 14 FL OZ / 414 mL",
+                "value": "14 fl oz / 414 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Bio-Lipid Restoring Body Lotion 14 FL OZ / 414 mL pump bottle",
+                "value": "Bio-Lipid Restoring Body Lotion 14 fl oz / 414 mL pump bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Bio-Lipid-Restoring-Body-Lotion_Allure_Front_Bone_2.webp?v=1774293413&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Bio-Lipid-Restoring-Body-Lotion_Allure_Front_Bone_2.webp?v=1774293413&width=2048",
+                "retrievedAt": "2026-08-07T12:03:57Z",
+                "responseSha256": "9a1dc64a4ba2f212b679eed33f45e63ac780938a16773012f56be15f6aaf714b",
+                "responseMimeType": "image/png",
+                "responseByteSize": 582131
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described bio-lipid restoring body lotion.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A leave-on cosmetic body lotion, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T12:05:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Bio-Lipid-Restoring-Body-Lotion_Allure_Front_Bone_2.webp?v=1774293413&width=2048",
+        "sourceAssetSha256": "9a1dc64a4ba2f212b679eed33f45e63ac780938a16773012f56be15f6aaf714b",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 582131,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T12:03:57Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T12:06:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-bio-lipid-restoring-body-lotion-14oz/packshot-v1-ebfce7f51164bc74.png",
+        "publicImageSha256": "ebfce7f51164bc745e86c25d0a5760aa792973a43f104af394d05a58913e06db",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 603988,
         "width": 2000,
         "height": 2000
       }

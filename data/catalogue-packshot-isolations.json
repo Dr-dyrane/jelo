@@ -2392,5 +2392,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-bio-lipid-restoring-body-lotion-14oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_Bio-Lipid-Restoring-Body-Lotion_Allure_Front_Bone_2.webp?v=1774293413&width=2048",
+      "sha256": "9a1dc64a4ba2f212b679eed33f45e63ac780938a16773012f56be15f6aaf714b",
+      "byteSize": 582131,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:03:57Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792804"
+      },
+      "officialProductUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "aa380764e211ed6d0634179d21da249fd78cec81a1630549cb99049b51b646cc",
+      "generatedAt": "2026-08-07T12:05:30Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "ebfce7f51164bc745e86c25d0a5760aa792973a43f104af394d05a58913e06db",
+      "byteSize": 603988,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:06:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:06:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "aa380764e211ed6d0634179d21da249fd78cec81a1630549cb99049b51b646cc",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

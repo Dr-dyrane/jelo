@@ -1969,6 +1969,30 @@
         "publishedAt": "2026-08-07T12:05:00Z"
       },
       "releaseFingerprint": "49f3c4e012848959fb1bfe69aaf74d38d155784cc7c2652bf6f6dabba4283ef8"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-bio-lipid-restoring-body-lotion-14oz",
+      "dossierFingerprint": "bcb41feea231d909af8ee602ed261d76c4d1e9beaa8088bf569c668f42472c3b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Bio-Lipid Restoring Body Lotion 14 fl oz",
+        "usage": "Apply to clean dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:07:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:08:00Z"
+      },
+      "releaseFingerprint": "f0df1feec6817ca2c2e106909f70e312828d7c925f6da66ca53dca71e7fc1008"
     }
   ]
 }
