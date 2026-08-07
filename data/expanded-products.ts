@@ -12,13 +12,6 @@ export const expandedProducts: Product[] = [
     offers: [ngOffer('Beauty by Daz', 'https://beautybydaz.com/?s=the+ordinary+azelaic+acid&post_type=product', 88), usOffer('Ulta Beauty', 'https://www.ulta.com/p/azelaic-acid-suspension-10-cream-redness-blemish-prone-skin-pimprod2007104', 94, 12.2)]
   },
   {
-    slug: 'la-roche-posay-toleriane-double-repair-spf30', brand: 'La Roche-Posay', name: 'Toleriane Double Repair Face Moisturizer UV SPF 30', size: '100 ml', category: 'Face', step: 'Protect',
-    image: 'https://media.ulta.com/i/ulta/2503390?fmt=auto&qlt=90&wid=1200', displayLine: 'Repair · protect',
-    bestFor: ['barrier support', 'daily moisture', 'sensitive skin'], concerns: ['barrier', 'dryness', 'sensitivity', 'hyperpigmentation'], skinTypes: ['normal', 'dry', 'combination', 'sensitive'], sensitiveFriendly: true,
-    usage: 'Use every morning as moisturizer and sunscreen; reapply sunscreen as needed.', evidence: 'high',
-    offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/catalogsearch/result/?q=toleriane%20double%20repair'), usOffer('Ulta Beauty', 'https://www.ulta.com/p/toleriane-double-repair-face-moisturizer-uv-spf-30-xlsImpprod15681007?sku=2503390', 94, 28.99)]
-  },
-  {
     slug: 'cosrx-advanced-snail-96-mucin-power-essence', brand: 'COSRX', name: 'Advanced Snail 96 Mucin Power Essence', size: '100 ml', category: 'Face', step: 'Essence',
     image: 'https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577', displayLine: 'Hydrate · recover',
     bestFor: ['dehydration', 'post-blemish recovery', 'barrier support'], concerns: ['dryness', 'barrier', 'sensitivity', 'dark spots'], skinTypes: ['all'], sensitiveFriendly: true,

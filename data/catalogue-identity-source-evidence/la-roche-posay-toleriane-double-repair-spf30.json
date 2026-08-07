@@ -1,0 +1,43 @@
+{
+  "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
+  "sourceUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-facial-moisturizer-with-spf-3337875545846.html",
+  "responseUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-facial-moisturizer-with-spf-3337875545846.html",
+  "retrievedAt": "2026-08-07T22:52:00Z",
+  "reviewedAt": "2026-08-07T22:53:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "schemaVersion": 8,
+  "sourceResponseSha256": "dd3742b7aa40ace60fd7d8136e402eb20ab5f2de3bf1a220241f0b833708b55e",
+  "sourceResponseMimeType": "text/html",
+  "sourceResponseByteSize": 1113741,
+  "responseDigestScope": "rendered-dom-outerhtml",
+  "method": "reviewed-browser-dom-identity-field-extraction",
+  "browserCapture": {
+    "surface": "Playwright MCP browser",
+    "documentReadyState": "complete",
+    "pageTitle": "Toleriane Double Repair Facial Moisturizer with SPF 30"
+  },
+  "productRecord": {
+    "locator": "DOM analytics product upc field",
+    "byteStart": 0,
+    "byteEnd": 0,
+    "sourceText": "\"upc\":\"3337875545846\"",
+    "sourceFragmentSha256": "8faabcccfa228affdf342af8f70188df0d76f1e34a949f37365fcf53b89a7d6a"
+  },
+  "fields": {
+    "gtin": {
+      "value": "3337875545846",
+      "locator": "DOM analytics product upc field",
+      "sourceText": "\"upc\":\"3337875545846\""
+    },
+    "variant": {
+      "value": "Toleriane Double Repair Facial Moisturizer With SPF",
+      "locator": "DOM h1 element text content",
+      "sourceText": "Toleriane Double Repair Facial Moisturizer With SPF"
+    },
+    "size": {
+      "value": "100 ml",
+      "locator": "DOM product page size selector and URL path",
+      "sourceText": "100ml"
+    }
+  }
+}

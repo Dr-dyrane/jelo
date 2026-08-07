@@ -1577,6 +1577,69 @@
   },
   {
     "schemaVersion": 1,
+    "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dwccbace41/img/3337875545846/1_Toleriane_DblRepairMoisturizerUV_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+      "sha256": "f8f72260b6987fae32986a33fd2e4a686dd80444c9784cdcecc81363d0269679",
+      "byteSize": 280985,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T22:52:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03337875545846"
+      },
+      "officialProductUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-facial-moisturizer-with-spf-3337875545846.html"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "a6699d6baae90863fb52cbcb0991c6d6e61ccaef780ba4629372f47e77e2a7bf",
+      "generatedAt": "2026-08-07T22:52:30Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "a6699d6baae90863fb52cbcb0991c6d6e61ccaef780ba4629372f47e77e2a7bf",
+      "byteSize": 704058,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T22:52:45Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T22:53:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "9bd02e8c823f92b4bbf5ab8f7e7614db6093a92a5687717d4bf3521e2d599777",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
     "candidateId": "loccitane-almond-softening-shower-oil-250ml",
     "publicationScope": "catalogue-publication",
     "source": {

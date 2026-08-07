@@ -603,5 +603,22 @@
     "contentType": "image/png",
     "hasAlpha": true,
     "blobPath": "products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png"
+  },
+  {
+    "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
+    "active": true,
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-spf30/packshot-v2-a6699d6baae90863.png",
+    "contentHash": "a6699d6baae90863fb52cbcb0991c6d6e61ccaef780ba4629372f47e77e2a7bf",
+    "byteSize": 704058,
+    "width": 2000,
+    "height": 2000,
+    "localPath": "data/catalogue-intake-assets/la-roche-posay-toleriane-double-repair-spf30/packshot-v2-a6699d6baae90863.png",
+    "id": "la-roche-posay-toleriane-double-repair-spf30-packshot-v2",
+    "publicationBrandSlug": "la-roche-posay",
+    "destination": "publication",
+    "sourceUrl": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dwccbace41/img/3337875545846/1_Toleriane_DblRepairMoisturizerUV_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+    "contentType": "image/png",
+    "hasAlpha": true,
+    "blobPath": "products/la-roche-posay/la-roche-posay-toleriane-double-repair-spf30/packshot-v2-a6699d6baae90863.png"
   }
 ]

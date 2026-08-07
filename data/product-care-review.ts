@@ -103,10 +103,6 @@ export const reviewedProductCareManifest = {
     approvedUses: [{ id: 'azelaic-acid-review', label: 'Azelaic-acid review', concernIds: ['acne', 'hyperpigmentation', 'dark spots', 'redness'], concernSlugs: ['acne-breakouts', 'dark-spots'] }],
     evidenceSourceUrls: ['https://theordinary.com/en-ca/azelaic-acid-suspension-10-exfoliator-100407.html'], reviewedAt,
   },
-  'la-roche-posay-toleriane-double-repair-spf30': {
-    productSlug: 'la-roche-posay-toleriane-double-repair-spf30',
-    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
-  },
   'cosrx-advanced-snail-96-mucin-power-essence': {
     productSlug: 'cosrx-advanced-snail-96-mucin-power-essence',
     careState: 'supportive_eligible',
@@ -1511,6 +1507,11 @@ export const publishedProductCareManifest = {
   },
   'la-roche-posay-toleriane-double-repair-matte': {
     productSlug: 'la-roche-posay-toleriane-double-repair-matte',
+    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [],
+    reviewedAt: '2026-08-07',
+  },
+  'la-roche-posay-toleriane-double-repair-spf30': {
+    productSlug: 'la-roche-posay-toleriane-double-repair-spf30',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [],
     reviewedAt: '2026-08-07',
   },

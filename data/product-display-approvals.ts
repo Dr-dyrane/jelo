@@ -138,14 +138,6 @@ export const productDisplayApprovals = {
     contentHash: 'c5403d6e8e094b8a8c4cffd681c31edefad65fa3350854bf623f726048739e79',
     reviewedAt: '2026-07-22T20:09:49Z',
   }),
-  'la-roche-posay-toleriane-double-repair-spf30': approval({
-    brand: 'La Roche-Posay',
-    name: 'Toleriane Double Repair Face Moisturizer UV SPF 30',
-    size: '100 ml',
-    sourceUrl: 'https://media.ulta.com/i/ulta/2503390?fmt=auto&qlt=90&wid=1200',
-    contentHash: '95e3135c3509632122187ac3cdf162da986a65d782cb9a1c92b17a24f3a63c67',
-    reviewedAt: '2026-07-22T12:34:11.000Z',
-  }),
   'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': approval({
     brand: 'PanOxyl',
     name: 'Acne Foaming Wash 10% Benzoyl Peroxide',

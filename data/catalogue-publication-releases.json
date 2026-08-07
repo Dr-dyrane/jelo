@@ -3001,6 +3001,30 @@
         "publishedAt": "2026-08-07T22:51:00Z"
       },
       "releaseFingerprint": "29281dbc67a04d0bfd41a06cfee8aadfbadb8e95cd3c093cc57024ccc92ca53a"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
+      "dossierFingerprint": "acb89dc9549f1cecd4f45c2b5002208530133c113813b82d0b5cbaee77c26ffe",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Repair · protect",
+        "usage": "Use every morning as moisturizer and sunscreen; reapply sunscreen as needed.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-facial-moisturizer-with-spf-3337875545846.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T22:53:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T22:54:00Z"
+      },
+      "releaseFingerprint": "ec0d425c9836d475a5922bc595df4e05c7006651e063e6fd0e20f3139ee358da"
     }
   ]
 }
