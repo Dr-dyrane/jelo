@@ -2209,6 +2209,30 @@
         "publishedAt": "2026-08-07T12:52:00Z"
       },
       "releaseFingerprint": "fd4b1123b487fb73a68c709f2f6cfeb6d744d01e3393a0c507a02e95ecb640a4"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-phyto-glow-lip-balm-clear-0-34oz",
+      "dossierFingerprint": "db1a2346d52cfd9df17f58c535fd72feecb205da20a5409d253e1710cec8e775",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Phyto-Glow Lip Balm Clear 0.34 fl oz",
+        "usage": "Apply to lips as needed throughout the day",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:55:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:56:00Z"
+      },
+      "releaseFingerprint": "ea943e3b57c9ce37bbb800b05b09a58bc5d65af45cbe3cca5d9a7760a72ce7fe"
     }
   ]
 }

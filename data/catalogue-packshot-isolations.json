@@ -3022,5 +3022,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-phyto-glow-lip-balm-clear-0-34oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR-60066_PhytoGlow_Clear_primary_capon_front-bonebkgd.webp?v=1774292130&width=2048",
+      "sha256": "cf50c21ea978dba51d7f9118c91e30c683269d31177b49a1b72bd1b219e196d9",
+      "byteSize": 227015,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:50:57Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792392"
+      },
+      "officialProductUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "648131700854416eb02b848224bba85f7fc4dc2a0d7a15f49123d6c5b66f675a",
+      "generatedAt": "2026-08-07T12:52:41Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "1e09457a720a2f7d528b54cb8fe192106721f620050fbf655e07452e1af9e2d9",
+      "byteSize": 337469,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:54:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:54:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "648131700854416eb02b848224bba85f7fc4dc2a0d7a15f49123d6c5b66f675a",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T12:49:00Z",
+  "updatedAt": "2026-08-07T12:54:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -18921,6 +18921,145 @@
         "publicImageSha256": "fecb87fde12e695861f7d6ccc22d840ea6ee3c81db274079e66136fafd9ce99b",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 449571,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-phyto-glow-lip-balm-clear-0-34oz",
+      "brand": "Naturium",
+      "name": "Phyto-Glow Lip Balm Clear",
+      "variant": "Phyto-Glow Lip Balm Clear - Clear",
+      "size": "0.34 fl oz / 10 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 10 mL Naturium Phyto-Glow Lip Balm Clear. Official Shopify structured data publishes GTIN 850010792392. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "lip-balm",
+        "lip-care",
+        "clear-lip-balm"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/phyto-glow-lip-balm-clear/",
+        "https://peronabeauty.com/product/naturium-phyto-glow-lip-balm-clear/"
+      ],
+      "identity": {
+        "gtin": "850010792392",
+        "officialProductUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+        "checkedAt": "2026-08-07T12:53:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Phyto-Glow Lip Balm Clear 0.34 fl oz / 10 mL tube",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+          "observedGtin": "850010792392",
+          "observedVariant": "Phyto-Glow Lip Balm Clear - Clear",
+          "observedSize": "0.34 fl oz / 10 mL",
+          "observedPackageVersion": "Phyto-Glow Lip Balm Clear 0.34 fl oz / 10 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-phyto-glow-lip-balm-clear-0-34oz.json",
+          "snapshotSha256": "107dc336998e0f03ea2244bd2ade4b5cc8c798ed0c2c400393901c4d1211dfd0",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2018,
+          "retrievedAt": "2026-08-07T12:50:57Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-phyto-glow-lip-balm-clear-0-34oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Phyto-Glow Lip Balm Clear"
+            },
+            "sourceUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+            "responseUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+            "retrievedAt": "2026-08-07T12:50:57Z",
+            "reviewedAt": "2026-08-07T12:53:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "482449c46390ffc7d7468b16bda7fb53bd98a2f61d9543319a2ee2b49f7599a6",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 893750,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792392\"",
+                "value": "850010792392"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Phyto-Glow Lip Balm Clear - Clear",
+                "value": "Phyto-Glow Lip Balm Clear - Clear"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 0.34 FL OZ / 10 mL",
+                "value": "0.34 fl oz / 10 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Phyto-Glow Lip Balm Clear 0.34 FL OZ / 10 mL tube",
+                "value": "Phyto-Glow Lip Balm Clear 0.34 fl oz / 10 mL tube"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-60066_PhytoGlow_Clear_primary_capon_front-bonebkgd.webp?v=1774292130&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-60066_PhytoGlow_Clear_primary_capon_front-bonebkgd.webp?v=1774292130&width=2048",
+                "retrievedAt": "2026-08-07T12:50:57Z",
+                "responseSha256": "cf50c21ea978dba51d7f9118c91e30c683269d31177b49a1b72bd1b219e196d9",
+                "responseMimeType": "image/png",
+                "responseByteSize": 227015
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described phyto-glow clear lip balm.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic lip balm, not a diagnosis or treatment for any lip or skin condition. Introduce cautiously, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/phyto-glow-lip-balm-clear",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T12:53:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/phyto-glow-lip-balm-clear",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-60066_PhytoGlow_Clear_primary_capon_front-bonebkgd.webp?v=1774292130&width=2048",
+        "sourceAssetSha256": "cf50c21ea978dba51d7f9118c91e30c683269d31177b49a1b72bd1b219e196d9",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 227015,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T12:50:57Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T12:54:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-phyto-glow-lip-balm-clear-0-34oz/packshot-v1-1e09457a720a2f7d.png",
+        "publicImageSha256": "1e09457a720a2f7d528b54cb8fe192106721f620050fbf655e07452e1af9e2d9",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 337469,
         "width": 2000,
         "height": 2000
       }
