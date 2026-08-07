@@ -1633,6 +1633,30 @@
         "publishedAt": "2026-08-07T04:30:00Z"
       },
       "releaseFingerprint": "9d3bcf6cd1e3f5d2faba8fc9f091869a018c71cdf38c94eea5685dbabcda3e1f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-vitamin-c-complex-serum-1fl-oz",
+      "dossierFingerprint": "fb56384ebb1db2247146e75418aea480c4402864a72e5f93d929878b491add15",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Vitamin C Complex Serum 1.0 fl oz",
+        "usage": "Apply 4-5 drops to clean dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/vitamin-c-complex-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:17:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:18:00Z"
+      },
+      "releaseFingerprint": "605f60f040b05bab1892d1835d94912ae352aa3deb0ba5d9f5221b9212ae80d8"
     }
   ]
 }

@@ -820,5 +820,22 @@
     "destination": "publication",
     "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
     "publicationBrandSlug": "replenix"
+  },
+  {
+    "id": "naturium-vitamin-c-complex-serum-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-vitamin-c-complex-serum-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_VitaminC_ComplexSerum_brighter_Front_CapOn_2_ecomm.webp?v=1774291207&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-vitamin-c-complex-serum-1fl-oz/packshot-v1-1b8711121786adab.png",
+    "blobPath": "products/naturium/naturium-vitamin-c-complex-serum-1fl-oz/packshot-v1-1b8711121786adab.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-vitamin-c-complex-serum-1fl-oz/packshot-v1-1b8711121786adab.png",
+    "contentType": "image/png",
+    "byteSize": 274772,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "1b8711121786adab8c7353eeffd3205896848761b0e6aeee59bde0679519da79"
   }
 ]
