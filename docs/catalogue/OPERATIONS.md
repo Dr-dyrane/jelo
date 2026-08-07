@@ -341,26 +341,92 @@ Already-published products often need additional Nigerian offers beyond the
 one or zero they shipped with. This is a routine enrichment operation that
 does not reopen identity, care, or image review. The workflow:
 
-1. **Identify gaps.** Query the database or static offers for products with
-   zero or few NG exact offers. Cross-reference with the retailer registry
-   in `data/retailers.ts` to find candidate retailers.
+1. **Identify gaps.** Check which slugs in `data/catalogue-intake.json` have
+   no entry in `data/retail-offers.ts`. The intake JSON's `exactOffers` array
+   is not the source of truth for published offers — `verifiedRetailOffers`
+   in `data/retail-offers.ts` is. A product with `exactOffers: []` in intake
+   may still have live offers in `retail-offers.ts`. Use a script:
+
+   ```python
+   import re, json
+   with open('data/retail-offers.ts') as f:
+       content = f.read()
+   offer_slugs = set(re.findall(r"'([a-z0-9-]+)':\s*\[\s*exactNg", content))
+   offer_slugs |= set(re.findall(r"'([a-f0-9]{24})':\s*\[\s*exactNg", content))
+   with open('data/catalogue-intake.json') as f:
+       intake = json.load(f)
+   no_offer = [c['id'] for c in intake['candidates'] if c['id'] not in offer_slugs]
+   ```
 
 2. **Search by brand.** For each retailer, search by brand name rather than
    individual product names. WooCommerce stores expose a REST API at
-   `/wp-json/wc/store/v1/products?search=<brand>&per_page=50` that returns
+   `/wp-json/wc/store/v1/products?search=<brand>&per_page=100` that returns
    structured JSON with name, price, stock, and permalink — no browser
-   needed. For non-WooCommerce stores, use Playwright browser navigation
-   to the retailer's search URL (`/?s=<brand>&post_type=product`).
+   needed. For non-WooCommerce stores (Shopify, custom), use Playwright
+   browser navigation to the retailer's collection or search URL.
+
+   **WooCommerce stores** (15 of 37 retailers as of 2026-08-07): Beauty by
+   Daz, Teeka4, Lux Beauty, Bismid Cosmetics Abuja, Perona Beauty, Rhema
+   Beauty Shop, Sonavine Beauty, Kadimez Essentials, TOS Nigeria, The Beauty
+   Prism, Choices Beauty, Allure Beauty, Beauty Hut Africa, Slique Beauty,
+   CSi Grocery. These all respond to `curl` with a Chrome User-Agent:
+
+   ```bash
+   curl -sL -A "Mozilla/5.0" "<store>/wp-json/wc/store/v1/products?search=naturium&per_page=100"
+   ```
+
+   **Non-WooCommerce stores**: MakeupAlleyNG (Shopify), Jumia (Cloudflare
+   blocked), Konga (connection aborted), Medplus, Bracketts Beauty, Ediths
+   Essentials, Muna Cosmetics, Perfect Trust Beauty, My Skin Hub NG,
+   Skincare Plug NG. Use Playwright MCP `browser_navigate` + `browser_evaluate`
+   for these. Jumia and Konga actively block automated access.
+
+   **Blocked Woo stores**: GlowMart, 24Eleven, BabesQuarters, Essentials Hub
+   return HTTP 403 to curl. Use Playwright for these.
 
 3. **Match exactly.** Compare each retailer result against the catalogue
    product's brand, name, and size. Only exact brand + product + size
    matches qualify. A 236 ml cleanser is not a 473 ml cleanser. A
    "calming moisture" body wash is not a "skin replenish" body wash.
 
+   **Matching algorithm** (used successfully in the 2026-08-07 Naturium
+   sweep that took coverage from 44 to 100 products):
+
+   - Extract size from both catalogue variant and retailer product name
+     (`\d+(\.\d+)?\s*(ml|fl\.?\s*oz|oz|g|kg|L)`). Require a size match.
+   - Extract product type (oil, wash, lotion, serum, butter, scrub, mask,
+     cream, balm, gelee, exfoliant, toner, essence, sunscreen). Require at
+     least one type to overlap — this prevents a "body oil" matching to a
+     "body wash" of the same brand and size.
+   - Extract distinctive words (remove generic words: naturium, the, body,
+     wash, serum, lotion, cream, oil, ml, fl, oz, skin, care, etc.).
+     Require at least 2 distinctive words to overlap.
+   - For each product, pick the best match per store (highest overlap).
+   - Sort stores by trust score; keep top 2–3 per product.
+
+   **False positive patterns to watch for:**
+   - All 500 ml body washes from the same brand match each other (size +
+     brand overlap without product-type filtering).
+   - "Glow Getter Body Oil 100ml" matches "Glow Getter Body Wash 100ml"
+     (same brand + same collection name + same size, different product
+     type). The product-type filter catches this.
+   - "Azelaic Acid Derivative Complex" matches "Azelaic Acid Emulsion"
+     (same active ingredient, different formulation). Distinctive-word
+     filtering on "derivative" vs "emulsion" catches this.
+   - "Tranexamic Topical Acid 5%" matches "Azelaic Topical Acid 10%"
+     (same "Topical Acid" naming pattern, different active). Require the
+     active ingredient word to be in the overlap set.
+
 4. **Add to `data/retail-offers.ts`.** Use the `exactNg` helper. Include
    `observedAt` and `expiresAt` timestamps (7-day window). Set
    `available: false` for delisted products. Update the pharmacist offer
    batch audit JSON when a product in that batch changes.
+
+   **Avoid duplicate keys.** `verifiedRetailOffers` is a single object
+   literal — TypeScript errors on duplicate property names (TS1117). Before
+   inserting a new product block, grep for the slug to confirm it doesn't
+   already exist. When enriching an existing product, append the new
+   `exactNg` call inside the existing array, not in a new block.
 
 5. **Update tests.** Tests in `modules/commerce/verified-retail-offers.test.ts`
    and `modules/catalogue/catalogue-seed-evidence-reconciliation.test.ts`
@@ -374,6 +440,24 @@ Run retailer searches in parallel using background subagents — one per
 retailer. The Playwright MCP browser is shared, so subagents must retry
 on browser contention. WooCommerce API searches via `curl` do not need
 the browser and can run concurrently without contention.
+
+### Retailer coverage audit
+
+As of 2026-08-07, the registry has 37 Nigerian retailers. Coverage:
+
+- **29 retailers** have at least one bound offer in `retail-offers.ts`.
+- **8 retailers** have zero offers: BabesQuarters, Bracketts Beauty,
+  Essentials Hub, Medplus, My Skin Hub NG, Skincare Plug NG, TOS Nigeria
+  (now has offers), The Beauty Prism (now has offers). These either block
+  automated access (403/Cloudflare) or stock brands not yet in the
+  catalogue.
+- **Top retailers by offer count**: BuyBetter (48), Perona Beauty (41),
+  Teeka4 (23), Deoset (22), Beauty by Daz (16).
+
+The WooCommerce API probe script (`/wp-json/wc/store/v1/products?search=X`)
+is the fastest way to discover which stores stock a brand. Run it for all
+15 Woo stores in one batch before falling back to Playwright for non-Woo
+stores.
 
 ## 7. Produce the image
 

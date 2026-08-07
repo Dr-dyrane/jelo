@@ -225,6 +225,40 @@ the first one. If a retailer is not in the registry
 (`data/retailers.ts`), add it first with the correct trust value and
 descending-order position.
 
+### Duplicate product slug in retail-offers.ts (TS1117)
+
+**Symptom:** `tsc --noEmit` fails with `TS1117: An object literal cannot have
+multiple properties with the same name` at lines in `data/retail-offers.ts`.
+
+**Root cause:** `verifiedRetailOffers` is a single object literal. When batch-
+adding offers, a product slug that already has an entry earlier in the file
+gets a second block appended near the closing `};`. TypeScript rejects this
+even if both blocks have valid `exactNg` calls.
+
+**Fix:** Before inserting a new product block, grep for the slug:
+`grep -n "'<slug>'" data/retail-offers.ts`. If it already exists, append the
+new `exactNg` call inside the existing array instead of creating a new block.
+When a Python script generates the insertion, filter the candidate list
+against existing slugs first — do not rely on `catalogue-intake.json`'s
+`exactOffers` array, which is the intake-time snapshot, not the live offer
+source of truth.
+
+### Intake exactOffers empty but product already has offers
+
+**Symptom:** A gap-finding script reports a product as "no offers" because
+`catalogue-intake.json` shows `exactOffers: []`, but the product page
+actually displays retailer offers.
+
+**Root cause:** `data/catalogue-intake.json` records the intake-time offer
+snapshot. Offers added later via `data/retail-offers.ts` (the
+`verifiedRetailOffers` map) are merged at runtime by `mergeRetailOffers` and
+never written back to the intake JSON. The intake file is not the source of
+truth for current offer coverage.
+
+**Fix:** Check `data/retail-offers.ts` for the slug, not the intake JSON. Use
+the regex `'<slug>':\s*\[\s*exactNg` to detect existing entries. Only products
+absent from `retail-offers.ts` are genuinely offer-less.
+
 ## Playwright and retailer scraping notes
 
 ### Beauty by Daz JS redirect hijack
