@@ -1107,6 +1107,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-azelaic-acid-emulsion-10-1fl-oz': {
+    productSlug: 'naturium-azelaic-acid-emulsion-10-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/azelaic-acid-emulsion-10',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-fermented-rice-enzyme-cleanser-4oz': {
+    productSlug: 'naturium-fermented-rice-enzyme-cleanser-4oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/fermented-rice-enzyme-cleanser',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

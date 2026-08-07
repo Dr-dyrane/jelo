@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+    "candidateFingerprint": "b38448335851586eca6755e4ba59ed0a781a89040bedc8c564a616cfdcb2eaeb",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "850010792361",
+      "brand": "Naturium",
+      "name": "Fermented Rice Enzyme Cleanser",
+      "variant": "Fermented Rice Enzyme Cleanser",
+      "size": "4.0 fl oz / 120 mL",
+      "packageVersion": "Fermented Rice Enzyme Cleanser 4.0 fl oz / 120 mL bottle",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+      "officialIdentity": {
+        "url": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+        "observedGtin": "850010792361",
+        "observedVariant": "Fermented Rice Enzyme Cleanser",
+        "observedSize": "4.0 fl oz / 120 mL",
+        "observedPackageVersion": "Fermented Rice Enzyme Cleanser 4.0 fl oz / 120 mL bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/naturium-fermented-rice-enzyme-cleanser-4oz.json",
+        "snapshotSha256": "ed4622e901e18277814fb9d270afcf706bb201daa875ef6539a73390ea7b9f03",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 2016,
+        "retrievedAt": "2026-08-07T12:38:07Z",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Fermented Rice Enzyme Cleanser | Gentle Exfoliating Face Wash | Naturium"
+          },
+          "sourceUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+          "responseUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+          "retrievedAt": "2026-08-07T12:38:07Z",
+          "reviewedAt": "2026-08-07T12:40:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "sourceResponseSha256": "89e4243050764af0ff8a610bd6ec5858ffa3e3ea3ffdeb847a3760a8ebc75e57",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 828933,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "fields": {
+            "gtin": {
+              "locator": "Rendered official Shopify structured product data variant gtin field",
+              "sourceText": "\"gtin\":\"850010792361\"",
+              "value": "850010792361"
+            },
+            "variant": {
+              "locator": "Rendered official product heading",
+              "sourceText": "Fermented Rice Enzyme Cleanser",
+              "value": "Fermented Rice Enzyme Cleanser"
+            },
+            "size": {
+              "locator": "Official front-pack principal display panel in supplemental response",
+              "sourceText": "Official front-pack principal display panel: 4.0 FL OZ / 120 mL",
+              "value": "4.0 fl oz / 120 mL"
+            }
+          },
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+              "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+              "retrievedAt": "2026-08-07T12:38:07Z",
+              "responseSha256": "259c17813a102181e24f9ac5056e8b10ebc5b1aa1b5aa636ad3d4bddee0d117c",
+              "responseMimeType": "image/png",
+              "responseByteSize": 370505
+            }
+          ]
+        }
+      },
+      "checkedAt": "2026-08-07T12:40:00Z",
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/fermented-rice-enzyme-cleanser/",
+        "https://peronabeauty.com/product/naturium-fermented-rice-enzyme-cleanser/"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Manufacturer-described fermented rice enzyme gentle exfoliating face cleanser.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "A rinse-off cosmetic cleanser, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+      "manufacturerEvidenceUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-07T12:40:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+      "sourceAsset": {
+        "url": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+        "sha256": "259c17813a102181e24f9ac5056e8b10ebc5b1aa1b5aa636ad3d4bddee0d117c",
+        "mimeType": "image/png",
+        "byteSize": 370505,
+        "width": 2000,
+        "height": 2000,
+        "retrievedAt": "2026-08-07T12:38:07Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+          "sha256": "259c17813a102181e24f9ac5056e8b10ebc5b1aa1b5aa636ad3d4bddee0d117c",
+          "byteSize": 370505,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:38:07Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00850010792361"
+          },
+          "officialProductUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "119e3eacfd8b583d9fe550d8b31d2b7a53e6ba954e99a3868bf9dd88420a5105",
+          "generatedAt": "2026-08-07T12:39:38Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "6f202f30591dd6d6fa5967e5ee4da4ce78ce7fb44fa3ae1b31fa9aab4d0c9f7e",
+          "byteSize": 380224,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-07T12:41:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-07T12:41:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaceReviewSha256": "119e3eacfd8b583d9fe550d8b31d2b7a53e6ba954e99a3868bf9dd88420a5105",
+          "surfaces": [
+            "peach",
+            "pink",
+            "dark"
+          ],
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-fermented-rice-enzyme-cleanser-4oz/packshot-v1-6f202f30591dd6d6.png",
+      "sha256": "6f202f30591dd6d6fa5967e5ee4da4ce78ce7fb44fa3ae1b31fa9aab4d0c9f7e",
+      "mimeType": "image/png",
+      "byteSize": 380224,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-07T12:41:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-07T12:42:00Z"
+    },
+    "dossierFingerprint": "2b6e020da41b321f370932751b28c152f61cd00e764843e83ff79c6b7c343535"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+    "dossierFingerprint": "2b6e020da41b321f370932751b28c152f61cd00e764843e83ff79c6b7c343535",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Cleanse",
+      "displayLine": "Fermented Rice Enzyme Cleanser 4.0 fl oz",
+      "usage": "Massage onto wet skin rinse thoroughly morning and evening",
+      "manufacturerDirectionsUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-07T12:42:30Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-07T12:43:00Z"
+    },
+    "releaseFingerprint": "f0b77da9051c5543968434c85edea4a566be8936a253432b056ca22e1752dc01"
+  }
+}

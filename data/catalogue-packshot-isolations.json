@@ -2833,5 +2833,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+      "sha256": "259c17813a102181e24f9ac5056e8b10ebc5b1aa1b5aa636ad3d4bddee0d117c",
+      "byteSize": 370505,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:38:07Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792361"
+      },
+      "officialProductUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "119e3eacfd8b583d9fe550d8b31d2b7a53e6ba954e99a3868bf9dd88420a5105",
+      "generatedAt": "2026-08-07T12:39:38Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "6f202f30591dd6d6fa5967e5ee4da4ce78ce7fb44fa3ae1b31fa9aab4d0c9f7e",
+      "byteSize": 380224,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:41:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:41:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "119e3eacfd8b583d9fe550d8b31d2b7a53e6ba954e99a3868bf9dd88420a5105",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

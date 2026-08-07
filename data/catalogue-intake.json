@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T12:36:00Z",
+  "updatedAt": "2026-08-07T12:41:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -15916,6 +15916,139 @@
       }
     },
     {
+      "id": "naturium-azelaic-acid-emulsion-10-1fl-oz",
+      "brand": "Naturium",
+      "name": "Azelaic Acid Emulsion 10%",
+      "variant": "Azelaic Acid Emulsion 10%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 30 mL Naturium Azelaic Acid Emulsion 10%. Official Shopify structured data publishes GTIN 850010792378. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "azelaic-acid",
+        "redness-support",
+        "leave-on-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/azelaic-acid-emulsion-10/",
+        "https://peronabeauty.com/product/naturium-azelaic-acid-emulsion-10/"
+      ],
+      "identity": {
+        "gtin": "850010792378",
+        "officialProductUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+        "checkedAt": "2026-08-07T12:38:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Azelaic Acid Emulsion 10% 1.0 fl oz / 30 mL dropper bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/azelaic-acid-emulsion-10",
+          "observedGtin": "850010792378",
+          "observedVariant": "Azelaic Acid Emulsion 10%",
+          "observedSize": "1.0 fl oz / 30 mL",
+          "observedPackageVersion": "Azelaic Acid Emulsion 10% 1.0 fl oz / 30 mL dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-azelaic-acid-emulsion-10-1fl-oz.json",
+          "snapshotSha256": "c78e862bac49a02de2f73b0c5507144079a4bf16949a1709a2630f2cc80e08cf",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1980,
+          "retrievedAt": "2026-08-07T12:36:30Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-azelaic-acid-emulsion-10-1fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Azelaic Acid Emulsion 10% | Helps Calm the Look of Redness | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+            "responseUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+            "retrievedAt": "2026-08-07T12:36:30Z",
+            "reviewedAt": "2026-08-07T12:38:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "e89d7a91fb8d440f7dd945a108b883269895d2ec5852ba304801b92ae1c33f01",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 823182,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792378\"",
+                "value": "850010792378"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Azelaic Acid Emulsion 10%",
+                "value": "Azelaic Acid Emulsion 10%"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+                "value": "1.0 fl oz / 30 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Azelaic Acid Emulsion 10% 1.0 FL OZ / 30 mL dropper bottle",
+                "value": "Azelaic Acid Emulsion 10% 1.0 fl oz / 30 mL dropper bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Azelaic-Acid-Emulsion-10_Cap-on.webp?v=1774290946&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Azelaic-Acid-Emulsion-10_Cap-on.webp?v=1774290946&width=2048",
+                "retrievedAt": "2026-08-07T12:36:30Z",
+                "responseSha256": "e881cab5014f4b3a2183ca84312c352df8940d8f91929dd88ea16e72276e12b0",
+                "responseMimeType": "image/png",
+                "responseByteSize": 201739
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described 10% azelaic acid emulsion that helps calm the look of redness.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic emulsion, not a diagnosis or treatment for rosacea, acne, hyperpigmentation, or another condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://naturium.com/products/azelaic-acid-emulsion-10",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-08-07T12:38:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/azelaic-acid-emulsion-10",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Azelaic-Acid-Emulsion-10_Cap-on.webp?v=1774290946&width=2048",
+        "sourceAssetSha256": "e881cab5014f4b3a2183ca84312c352df8940d8f91929dd88ea16e72276e12b0",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 201739,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T12:36:30Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T12:39:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
       "id": "naturium-barrier-bounce-bi-phase-mist-100ml",
       "brand": "Naturium",
       "name": "Barrier Bounce Bi-Phase Mist",
@@ -16878,6 +17011,145 @@
         "publicImageSha256": "3712c7790a2b0123be3a9d863102c0aa97b07a3da1ab87d5b74e1d0a73ed8c56",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 590923,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-fermented-rice-enzyme-cleanser-4oz",
+      "brand": "Naturium",
+      "name": "Fermented Rice Enzyme Cleanser",
+      "variant": "Fermented Rice Enzyme Cleanser",
+      "size": "4.0 fl oz / 120 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 120 mL Naturium Fermented Rice Enzyme Cleanser. Official Shopify structured data publishes GTIN 850010792361. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "enzyme-cleanser",
+        "gentle-exfoliation",
+        "rinse-off-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/fermented-rice-enzyme-cleanser/",
+        "https://peronabeauty.com/product/naturium-fermented-rice-enzyme-cleanser/"
+      ],
+      "identity": {
+        "gtin": "850010792361",
+        "officialProductUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+        "checkedAt": "2026-08-07T12:40:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Fermented Rice Enzyme Cleanser 4.0 fl oz / 120 mL bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+          "observedGtin": "850010792361",
+          "observedVariant": "Fermented Rice Enzyme Cleanser",
+          "observedSize": "4.0 fl oz / 120 mL",
+          "observedPackageVersion": "Fermented Rice Enzyme Cleanser 4.0 fl oz / 120 mL bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-fermented-rice-enzyme-cleanser-4oz.json",
+          "snapshotSha256": "ed4622e901e18277814fb9d270afcf706bb201daa875ef6539a73390ea7b9f03",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2016,
+          "retrievedAt": "2026-08-07T12:38:07Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Fermented Rice Enzyme Cleanser | Gentle Exfoliating Face Wash | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+            "responseUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+            "retrievedAt": "2026-08-07T12:38:07Z",
+            "reviewedAt": "2026-08-07T12:40:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "89e4243050764af0ff8a610bd6ec5858ffa3e3ea3ffdeb847a3760a8ebc75e57",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 828933,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792361\"",
+                "value": "850010792361"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Fermented Rice Enzyme Cleanser",
+                "value": "Fermented Rice Enzyme Cleanser"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 4.0 FL OZ / 120 mL",
+                "value": "4.0 fl oz / 120 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Fermented Rice Enzyme Cleanser 4.0 FL OZ / 120 mL bottle",
+                "value": "Fermented Rice Enzyme Cleanser 4.0 fl oz / 120 mL bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+                "retrievedAt": "2026-08-07T12:38:07Z",
+                "responseSha256": "259c17813a102181e24f9ac5056e8b10ebc5b1aa1b5aa636ad3d4bddee0d117c",
+                "responseMimeType": "image/png",
+                "responseByteSize": 370505
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described fermented rice enzyme gentle exfoliating face cleanser.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A rinse-off cosmetic cleanser, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-07T12:40:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+        "sourceAssetSha256": "259c17813a102181e24f9ac5056e8b10ebc5b1aa1b5aa636ad3d4bddee0d117c",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 370505,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T12:38:07Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T12:41:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-fermented-rice-enzyme-cleanser-4oz/packshot-v1-6f202f30591dd6d6.png",
+        "publicImageSha256": "6f202f30591dd6d6fa5967e5ee4da4ce78ce7fb44fa3ae1b31fa9aab4d0c9f7e",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 380224,
         "width": 2000,
         "height": 2000
       }

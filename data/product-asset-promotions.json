@@ -1177,5 +1177,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "a08519ba0cffb770cad10ed201967f7edf286a67df5e7bcd4721ce58cf48369c"
+  },
+  {
+    "id": "naturium-fermented-rice-enzyme-cleanser-4oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Fermented-Rice-Enzyme-Cleanser-Front.webp?v=1774291179&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-fermented-rice-enzyme-cleanser-4oz/packshot-v1-6f202f30591dd6d6.png",
+    "blobPath": "products/naturium/naturium-fermented-rice-enzyme-cleanser-4oz/packshot-v1-6f202f30591dd6d6.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-fermented-rice-enzyme-cleanser-4oz/packshot-v1-6f202f30591dd6d6.png",
+    "contentType": "image/png",
+    "byteSize": 380224,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "6f202f30591dd6d6fa5967e5ee4da4ce78ce7fb44fa3ae1b31fa9aab4d0c9f7e"
   }
 ]

@@ -2137,6 +2137,30 @@
         "publishedAt": "2026-08-07T12:38:00Z"
       },
       "releaseFingerprint": "00467db8a9a067d04b096de6bb7ff3338f4968cc3d51cfa245cf06f1cc3e0a2e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+      "dossierFingerprint": "2b6e020da41b321f370932751b28c152f61cd00e764843e83ff79c6b7c343535",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Fermented Rice Enzyme Cleanser 4.0 fl oz",
+        "usage": "Massage onto wet skin rinse thoroughly morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/fermented-rice-enzyme-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:42:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:43:00Z"
+      },
+      "releaseFingerprint": "f0b77da9051c5543968434c85edea4a566be8936a253432b056ca22e1752dc01"
     }
   ]
 }
