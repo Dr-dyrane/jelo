@@ -1,0 +1,43 @@
+{
+  "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+  "sourceUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+  "responseUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+  "retrievedAt": "2026-08-07T22:42:00Z",
+  "reviewedAt": "2026-08-07T22:45:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "schemaVersion": 8,
+  "sourceResponseSha256": "2a9c5c94b499fc117807dbbcc36649a1f3904ca71b68be3ba81aa0dd8ed3d196",
+  "sourceResponseMimeType": "text/html",
+  "sourceResponseByteSize": 1329510,
+  "responseDigestScope": "rendered-dom-outerhtml",
+  "method": "reviewed-browser-dom-identity-field-extraction",
+  "browserCapture": {
+    "surface": "Playwright MCP browser",
+    "documentReadyState": "complete",
+    "pageTitle": "Anthelios UVMune 400 Oil Control Invisible Fluid | La Roche Posay UK"
+  },
+  "productRecord": {
+    "locator": "DOM URL path segment containing product ID and Demandware Product-Show pid parameter",
+    "byteStart": 0,
+    "byteEnd": 0,
+    "sourceText": "pid=3337875847292",
+    "sourceFragmentSha256": "dbf049299989e38a3678202b6c29fca0f00e73069d72244f556dd6ef02c02bff"
+  },
+  "fields": {
+    "gtin": {
+      "value": "3337875847292",
+      "locator": "DOM analytics product upc field",
+      "sourceText": "\"upc\":\"3337875847292\""
+    },
+    "size": {
+      "value": "50 ml",
+      "locator": "DOM product URL path segment containing 50ml",
+      "sourceText": "50ml"
+    },
+    "variant": {
+      "value": "Anthelios UVMune 400 Oil Control Invisible Fluid",
+      "locator": "DOM h1 element text content",
+      "sourceText": "Anthelios UVMune 400 Oil Control Invisible Fluid"
+    }
+  }
+}

@@ -186,14 +186,6 @@ export const productDisplayApprovals = {
     contentHash: '4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d',
     reviewedAt: '2026-07-22T19:25:36Z',
   }),
-  'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': approval({
-    brand: 'La Roche-Posay',
-    name: 'Anthelios UVMune 400 Oil Control Fluid SPF50+',
-    size: '50 ml',
-    sourceUrl: 'https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95',
-    contentHash: '561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced',
-    reviewedAt: '2026-07-22T19:57:02Z',
-  }),
   'cosrx-advanced-snail-96-mucin-power-essence': approval({
     brand: 'COSRX',
     name: 'Advanced Snail 96 Mucin Power Essence',

@@ -2953,6 +2953,30 @@
         "publishedAt": "2026-08-07T22:36:00Z"
       },
       "releaseFingerprint": "23a3b1e643ac6bac0d83df8bcd9c22fc859945b773e116c5f74ffd5e0cec5519"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+      "dossierFingerprint": "e81caf03f85a642edc5f7f2db2dc7207168e0b0450a457003284f96fa4eaff8b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Protect · mattify",
+        "usage": "Apply generously every morning and reapply with sun exposure.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T22:45:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T22:46:00Z"
+      },
+      "releaseFingerprint": "b9ab64e7b624de6c89bce25113af9a0685ec6ed7e67e727008176604027ff134"
     }
   ]
 }

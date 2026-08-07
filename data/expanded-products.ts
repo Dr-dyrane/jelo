@@ -12,13 +12,6 @@ export const expandedProducts: Product[] = [
     offers: [ngOffer('Beauty by Daz', 'https://beautybydaz.com/?s=the+ordinary+azelaic+acid&post_type=product', 88), usOffer('Ulta Beauty', 'https://www.ulta.com/p/azelaic-acid-suspension-10-cream-redness-blemish-prone-skin-pimprod2007104', 94, 12.2)]
   },
   {
-    slug: 'la-roche-posay-anthelios-uvmune-400-oil-control-fluid', brand: 'La Roche-Posay', name: 'Anthelios UVMune 400 Oil Control Fluid SPF50+', size: '50 ml', category: 'Face', step: 'Protect',
-    image: 'https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95', displayLine: 'Protect · mattify',
-    bestFor: ['oily skin', 'high UVA protection', 'pigmentation prevention'], concerns: ['oiliness', 'hyperpigmentation', 'dark spots', 'sensitivity'], skinTypes: ['oily', 'combination', 'sensitive'], sensitiveFriendly: true,
-    usage: 'Apply generously every morning and reapply with sun exposure.', evidence: 'high',
-    offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50/'), usOffer('Amazon US', 'https://www.amazon.com/s?k=La+Roche-Posay+UVMune+400+Oil+Control')]
-  },
-  {
     slug: 'la-roche-posay-toleriane-double-repair-spf30', brand: 'La Roche-Posay', name: 'Toleriane Double Repair Face Moisturizer UV SPF 30', size: '100 ml', category: 'Face', step: 'Protect',
     image: 'https://media.ulta.com/i/ulta/2503390?fmt=auto&qlt=90&wid=1200', displayLine: 'Repair · protect',
     bestFor: ['barrier support', 'daily moisture', 'sensitive skin'], concerns: ['barrier', 'dryness', 'sensitivity', 'hyperpigmentation'], skinTypes: ['normal', 'dry', 'combination', 'sensitive'], sensitiveFriendly: true,

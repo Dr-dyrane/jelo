@@ -15,7 +15,7 @@ const hash = /^[0-9a-f]{64}$/;
 const blobHost = 'm6aftkbqbwtkxooa.public.blob.vercel-storage.com';
 
 test('keeps the frozen bulk manifest private behind a hard-disabled legacy gate', () => {
-  assert.equal(reviewedProductRecords.length, 22);
+  assert.equal(reviewedProductRecords.length, 21);
   assert.equal(externalCatalogueCandidates.length, 977);
   assert.equal(externalCatalogueApprovals.approvals.length, 0);
   assert.equal(externalProducts.length, 0);

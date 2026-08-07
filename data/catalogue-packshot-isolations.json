@@ -1262,6 +1262,69 @@
   },
   {
     "schemaVersion": 1,
+    "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
+      "sha256": "1f6aeb13e7b0d70e02b22d0cb6ee47f294b2ecdaac225eaf79a27ec9c8339d78",
+      "byteSize": 128427,
+      "width": 1356,
+      "height": 1356,
+      "retrievedAt": "2026-08-07T22:42:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03337875847292"
+      },
+      "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
+      "generatedAt": "2026-08-07T22:43:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
+      "byteSize": 589307,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T22:44:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T22:45:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "a65faaf612d38c05296c7d21deade913cb50dcc921da2a56b85710862c5828f4",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
     "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
     "publicationScope": "catalogue-publication",
     "source": {

@@ -103,10 +103,6 @@ export const reviewedProductCareManifest = {
     approvedUses: [{ id: 'azelaic-acid-review', label: 'Azelaic-acid review', concernIds: ['acne', 'hyperpigmentation', 'dark spots', 'redness'], concernSlugs: ['acne-breakouts', 'dark-spots'] }],
     evidenceSourceUrls: ['https://theordinary.com/en-ca/azelaic-acid-suspension-10-exfoliator-100407.html'], reviewedAt,
   },
-  'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': {
-    productSlug: 'la-roche-posay-anthelios-uvmune-400-oil-control-fluid',
-    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
-  },
   'la-roche-posay-toleriane-double-repair-spf30': {
     productSlug: 'la-roche-posay-toleriane-double-repair-spf30',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
@@ -1510,6 +1506,11 @@ export const publishedProductCareManifest = {
       id: 'normal-oily-cleansing', label: 'Cleansing for normal or oily skin', concernIds: ['oiliness'], concernSlugs: ['oily-congested-skin'], skinTypes: ['normal', 'oily'],
     }],
     evidenceSourceUrls: ['https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser'],
+    reviewedAt: '2026-08-07',
+  },
+  'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': {
+    productSlug: 'la-roche-posay-anthelios-uvmune-400-oil-control-fluid',
+    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [],
     reviewedAt: '2026-08-07',
   },
 } as const satisfies Record<string, ReviewedProductCare>;

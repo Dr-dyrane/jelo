@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T22:45:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "2a963f0c079e7e744b302b5f",
+    "discoveryId": "03958c05891936e04fb8a356",
+    "sourceSnapshotSha256": "2a9c5c94b499fc117807dbbcc36649a1f3904ca71b68be3ba81aa0dd8ed3d196"
+  },
+  "candidate": {
+    "id": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+    "brand": "La Roche-Posay",
+    "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
+    "variant": "Anthelios UVMune 400 Oil Control Invisible Fluid",
+    "size": "50 ml",
+    "category": "Face care",
+    "reason": "A high-protection sunscreen for oily skin with UVMune 400 technology, with an official EAN from the La Roche-Posay UK site and existing Nigerian retailer offers.",
+    "priority": "important",
+    "gapIds": [
+      "daily-sun-protection",
+      "oily-skin-care"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.caretobeauty.com/ng/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50/",
+      "https://www.amazon.com/s?k=La+Roche-Posay+UVMune+400+Oil+Control"
+    ],
+    "identity": {
+      "gtin": "3337875847292",
+      "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+      "checkedAt": "2026-08-07T22:45:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+        "observedGtin": "3337875847292",
+        "observedVariant": "Anthelios UVMune 400 Oil Control Invisible Fluid",
+        "observedSize": "50 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/la-roche-posay-anthelios-uvmune-400-oil-control-fluid.json",
+        "canonicalExtraction": {
+          "browserCapture": {
+            "documentReadyState": "complete",
+            "pageTitle": "Anthelios UVMune 400 Oil Control Invisible Fluid | La Roche Posay UK",
+            "surface": "Playwright MCP browser"
+          },
+          "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+          "fields": {
+            "gtin": {
+              "value": "3337875847292",
+              "locator": "DOM analytics product upc field",
+              "sourceText": "\"upc\":\"3337875847292\""
+            },
+            "size": {
+              "value": "50 ml",
+              "locator": "DOM product URL path segment containing 50ml",
+              "sourceText": "50ml"
+            },
+            "variant": {
+              "value": "Anthelios UVMune 400 Oil Control Invisible Fluid",
+              "locator": "DOM h1 element text content",
+              "sourceText": "Anthelios UVMune 400 Oil Control Invisible Fluid"
+            }
+          },
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "responseUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+          "retrievedAt": "2026-08-07T22:42:00Z",
+          "reviewedAt": "2026-08-07T22:45:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 4,
+          "sourceResponseByteSize": 1329510,
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseSha256": "2a9c5c94b499fc117807dbbcc36649a1f3904ca71b68be3ba81aa0dd8ed3d196",
+          "sourceUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html"
+        },
+        "snapshotSha256": "25284d681b77cbe425c56907878434d4da9dbf9c7287ac75b77dda2c5388d087",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1293,
+        "retrievedAt": "2026-08-07T22:42:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Lightweight fluid sunscreen with Mexoryl 400 filter for ultra-long UVA protection and Airlicium for oil control",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports daily sun protection for oily skin. Apply generously every morning and reapply with sun exposure. Do not present as treatment for skin conditions. Stop if irritation occurs.",
+      "manufacturerEvidenceUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+      "evidenceUrls": [
+        "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+        "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+      ],
+      "reviewedAt": "2026-08-07T22:45:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+      "sourceUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
+      "sourceAssetSha256": "1f6aeb13e7b0d70e02b22d0cb6ee47f294b2ecdaac225eaf79a27ec9c8339d78",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 128427,
+      "sourceAssetWidth": 1356,
+      "sourceAssetHeight": 1356,
+      "sourceAssetRetrievedAt": "2026-08-07T22:42:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid/packshot-v2-561fc98be60cacbb.png",
+      "publicImageSha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 589307,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T22:45:00Z",
+      "artReviewer": "Devin visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

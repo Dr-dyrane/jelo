@@ -81,31 +81,6 @@
       }
     },
     {
-      "id": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
-      "productSlug": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
-      "brand": "La Roche-Posay",
-      "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
-      "variant": "Anthelios UVMune 400 Oil Control Invisible Fluid SPF50+",
-      "size": "50 ml",
-      "identity": {
-        "gtin": "3337875847292",
-        "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/LRP_930.html",
-        "officialIdentifierUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/LRP_930.html",
-        "officialFrontImageUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
-        "reviewedAt": "2026-07-22T19:48:45Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "asset": {
-        "sourceUrl": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
-        "sourceAssetSha256": "30f310d802c87d2a0c848ca9b932f7bcbd7564573509eb79811970e5f35ce7c9",
-        "sourceAssetByteSize": 144121,
-        "sourceAssetWidth": 1356,
-        "sourceAssetHeight": 1356,
-        "sourceAssetMimeType": "image/jpeg",
-        "sourceAssetRetrievedAt": "2026-07-22T19:48:45Z"
-      }
-    },
-    {
       "id": "dove-go-fresh-cucumber-green-tea-spray",
       "productSlug": "dove-go-fresh-cucumber-green-tea-spray",
       "brand": "Dove",

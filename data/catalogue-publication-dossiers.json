@@ -28983,6 +28983,201 @@
         "approvedAt": "2026-08-07T22:35:00Z"
       },
       "dossierFingerprint": "0b3aa3379ec723751bdbe6bec6dc60e167769f23bf3905ef5d7cfa8f6d083b20"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+      "candidateFingerprint": "153020c22e877c955ce8777d1e8fde460b969bc79c541d5ed2efd144e99d1c92",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "3337875847292",
+        "brand": "La Roche-Posay",
+        "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
+        "variant": "Anthelios UVMune 400 Oil Control Invisible Fluid",
+        "size": "50 ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+        "officialIdentity": {
+          "url": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+          "observedGtin": "3337875847292",
+          "observedVariant": "Anthelios UVMune 400 Oil Control Invisible Fluid",
+          "observedSize": "50 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/la-roche-posay-anthelios-uvmune-400-oil-control-fluid.json",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "Anthelios UVMune 400 Oil Control Invisible Fluid | La Roche Posay UK",
+              "surface": "Playwright MCP browser"
+            },
+            "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+            "fields": {
+              "gtin": {
+                "value": "3337875847292",
+                "locator": "DOM analytics product upc field",
+                "sourceText": "\"upc\":\"3337875847292\""
+              },
+              "variant": {
+                "value": "Anthelios UVMune 400 Oil Control Invisible Fluid",
+                "locator": "DOM h1 element text content",
+                "sourceText": "Anthelios UVMune 400 Oil Control Invisible Fluid"
+              },
+              "size": {
+                "value": "50 ml",
+                "locator": "DOM product URL path segment containing 50ml",
+                "sourceText": "50ml"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+            "retrievedAt": "2026-08-07T22:42:00Z",
+            "reviewedAt": "2026-08-07T22:45:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 1329510,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "2a9c5c94b499fc117807dbbcc36649a1f3904ca71b68be3ba81aa0dd8ed3d196",
+            "sourceUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html"
+          },
+          "snapshotSha256": "25284d681b77cbe425c56907878434d4da9dbf9c7287ac75b77dda2c5388d087",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1293,
+          "retrievedAt": "2026-08-07T22:42:00Z"
+        },
+        "checkedAt": "2026-08-07T22:45:00Z",
+        "demandEvidenceUrls": [
+          "https://www.caretobeauty.com/ng/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50/",
+          "https://www.amazon.com/s?k=La+Roche-Posay+UVMune+400+Oil+Control"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Lightweight fluid sunscreen with Mexoryl 400 filter for ultra-long UVA protection and Airlicium for oil control",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports daily sun protection for oily skin. Apply generously every morning and reapply with sun exposure. Do not present as treatment for skin conditions. Stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-07T22:45:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html",
+        "sourceAsset": {
+          "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
+          "sha256": "1f6aeb13e7b0d70e02b22d0cb6ee47f294b2ecdaac225eaf79a27ec9c8339d78",
+          "mimeType": "image/jpeg",
+          "byteSize": 128427,
+          "width": 1356,
+          "height": 1356,
+          "retrievedAt": "2026-08-07T22:42:00Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://www.laroche-posay.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-lrp-ng-master-catalog/default/dw8210e9ef/LRP_Product/Anthelios/3337875847292_Anthelios-UVMune-400-Oil-Control-Invisible-Fluid_50ml_01_La_Roche_Posay.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=95",
+            "sha256": "1f6aeb13e7b0d70e02b22d0cb6ee47f294b2ecdaac225eaf79a27ec9c8339d78",
+            "byteSize": 128427,
+            "width": 1356,
+            "height": 1356,
+            "retrievedAt": "2026-08-07T22:42:00Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "03337875847292"
+            },
+            "officialProductUrl": "https://www.laroche-posay.co.uk/en_GB/anthelios-uvmune-400-oil-control-invisible-fluid/3337875847292.html"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "u2net",
+            "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
+            "generatedAt": "2026-08-07T22:43:00Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
+            "byteSize": 589307,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T22:44:00Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T22:45:00Z",
+            "artReviewer": "Devin visual audit",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "surfaceReviewSha256": "a65faaf612d38c05296c7d21deade913cb50dcc921da2a56b85710862c5828f4",
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid/packshot-v2-561fc98be60cacbb.png",
+        "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
+        "mimeType": "image/png",
+        "byteSize": 589307,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T22:45:00Z",
+        "reviewer": "Devin visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T22:45:00Z"
+      },
+      "dossierFingerprint": "e81caf03f85a642edc5f7f2db2dc7207168e0b0450a457003284f96fa4eaff8b"
     }
   ]
 }
