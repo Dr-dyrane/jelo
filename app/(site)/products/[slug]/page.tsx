@@ -11,7 +11,6 @@ import { ProductGrid } from '@/components/products/product-grid';
 import { ProductQuickPanel } from '@/components/products/product-quick-panel';
 import { ProductSizeSelector } from '@/components/products/product-size-selector';
 import { SafeProductImage } from '@/components/products/safe-product-image';
-import { ProductDecisionSummary } from '@/components/products/product-decision-summary';
 import { resolveCatalogueProductFamily } from '@/lib/catalogue/product-family';
 import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
 import { findCatalogueProduct, listCatalogueProducts } from '@/lib/catalogue/repository';
@@ -85,19 +84,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           {matchedConcerns.length ? <div className="product-concern-links">{matchedConcerns.map(concern => <Link key={concern.slug} href={`/concerns/${concern.slug}`}>{concern.name}</Link>)}</div> : null}
         </div>
       </section>
-
-      <ProductDecisionSummary
-        careStatus={careStatus}
-        careNote={panelData.careNote}
-        concernFit={matchedConcerns.map(concern => ({ slug: concern.slug, name: concern.name }))}
-        ingredients={panelData.ingredients}
-        step={product.step}
-        category={product.category}
-        evidence={product.evidence}
-        approvedUses={careReview?.careState === 'supportive_eligible' ? careReview.approvedUses.map(use => use.label) : undefined}
-        evidenceSourceUrls={careReview?.evidenceSourceUrls.length ? [...careReview.evidenceSourceUrls] : undefined}
-        reviewedAt={careReview?.reviewedAt}
-      />
 
         {related.length ? <section className="related-products"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>More to browse.</h2></div><Link className="text-link" href="/products">View all <ArrowRight size={16} aria-hidden="true" /></Link></div><ProductGrid products={related}/></section> : null}
       </main>

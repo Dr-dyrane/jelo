@@ -129,10 +129,7 @@ test('product decision summary shows evidence sources only when care review prov
   assert.match(decisionSummary, /reviewedAt/);
 });
 
-test('product page passes care review data to the decision summary', () => {
-  assert.match(productPage, /approvedUses=/);
-  assert.match(productPage, /evidenceSourceUrls=/);
-  assert.match(productPage, /reviewedAt=/);
+test('product page derives care status from care review data', () => {
   assert.match(productPage, /careReview\?\.careState === 'supportive_eligible'/);
 });
 
