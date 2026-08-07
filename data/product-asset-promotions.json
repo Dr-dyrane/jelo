@@ -1126,5 +1126,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "57cb92a822c7bd5b45bf710b2d5e2082c353c19c3bdfdcf5573e0e41164a436a"
+  },
+  {
+    "id": "naturium-retinol-complex-serum-1fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_Retinol-Serum_Cap-On.webp?v=1774296074&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-retinol-complex-serum-1fl-oz/packshot-v1-ec453859a6501acd.png",
+    "blobPath": "products/naturium/naturium-retinol-complex-serum-1fl-oz/packshot-v1-ec453859a6501acd.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinol-complex-serum-1fl-oz/packshot-v1-ec453859a6501acd.png",
+    "contentType": "image/png",
+    "byteSize": 284265,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "ec453859a6501acd3a1963a98546ba2bb568aadcd02d1b7978615266dadd8375"
   }
 ]

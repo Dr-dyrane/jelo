@@ -2065,6 +2065,30 @@
         "publishedAt": "2026-08-07T12:21:00Z"
       },
       "releaseFingerprint": "f319166c024aeb4190a3d4a54c352a5c50fa3967ead98e83ff8f6134d071b318"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+      "dossierFingerprint": "3c09b0c314f73106cdfe693c91e6cecfcc083ff62f51a991fbb773830cf5731c",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Retinol Complex Serum 1.0 fl oz",
+        "usage": "Apply 2-3 drops to clean dry skin evening start 2-3 nights per week",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/retinol-complex-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:27:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:28:00Z"
+      },
+      "releaseFingerprint": "1599778cd97f156b2347b3aa5733f0c9fb9c829bdf1d52fe2d6da472dabdd36d"
     }
   ]
 }

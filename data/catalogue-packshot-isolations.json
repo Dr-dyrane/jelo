@@ -2644,5 +2644,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_Retinol-Serum_Cap-On.webp?v=1774296074&width=2048",
+      "sha256": "f86a7a6bc612064ed7a789aefa633310cb90b9fbd87553786f066a04f9f8e569",
+      "byteSize": 280691,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:24:09Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792033"
+      },
+      "officialProductUrl": "https://naturium.com/products/retinol-complex-serum"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "70f53a92bcf274385155893ab6e921718e4ddbce319ef01c327cf4d8538cceae",
+      "generatedAt": "2026-08-07T12:25:31Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "ec453859a6501acd3a1963a98546ba2bb568aadcd02d1b7978615266dadd8375",
+      "byteSize": 284265,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:25:31Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:25:31Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "70f53a92bcf274385155893ab6e921718e4ddbce319ef01c327cf4d8538cceae",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

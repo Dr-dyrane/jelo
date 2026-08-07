@@ -21356,6 +21356,214 @@
         "approvedAt": "2026-08-07T12:20:00Z"
       },
       "dossierFingerprint": "1a6dfc4dbe6a80c8a2b0ea27021c05e29d5d483bdb6e0823a7bf3d20fc5b8cd2"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+      "candidateFingerprint": "df80fac7bb30ec99c9462afad3b13e0fab729b536a1fca818c1311ca4de7c797",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "850010792033",
+        "brand": "Naturium",
+        "name": "Retinol Complex Serum",
+        "variant": "Retinol Complex Serum",
+        "size": "1.0 fl oz / 30 mL",
+        "packageVersion": "Retinol Complex Serum 1.0 fl oz / 30 mL dropper bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/retinol-complex-serum",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/retinol-complex-serum",
+          "observedGtin": "850010792033",
+          "observedVariant": "Retinol Complex Serum",
+          "observedSize": "1.0 fl oz / 30 mL",
+          "observedPackageVersion": "Retinol Complex Serum 1.0 fl oz / 30 mL dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-retinol-complex-serum-1fl-oz.json",
+          "snapshotSha256": "21e30ce6be2eb5e119380ce346df2e7a6167bd1bd4b31aebe80324ab5824a30b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1939,
+          "retrievedAt": "2026-08-07T12:24:09Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Retinol Complex Serum | Retinol Serum for Fine Lines | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/retinol-complex-serum",
+            "responseUrl": "https://naturium.com/products/retinol-complex-serum",
+            "retrievedAt": "2026-08-07T12:24:09Z",
+            "reviewedAt": "2026-08-07T12:25:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "3028da7461ded09e6554dbaea8322b75569750de36c46ef516e053476239699a",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 852410,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"850010792033\"",
+                "value": "850010792033"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Retinol Complex Serum",
+                "value": "Retinol Complex Serum"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+                "value": "1.0 fl oz / 30 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_Retinol-Serum_Cap-On.webp?v=1774296074&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Ecomm_Retinol-Serum_Cap-On.webp?v=1774296074&width=2048",
+                "retrievedAt": "2026-08-07T12:24:09Z",
+                "responseSha256": "f86a7a6bc612064ed7a789aefa633310cb90b9fbd87553786f066a04f9f8e569",
+                "responseMimeType": "image/png",
+                "responseByteSize": 280691
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T12:25:30Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/retinol-complex-serum/",
+          "https://peronabeauty.com/product/naturium-retinol-complex-serum/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described retinol complex face serum for fine lines.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic retinol serum, not a diagnosis or treatment for any skin condition. Introduce gradually (2-3 nights per week), avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/retinol-complex-serum",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://naturium.com/products/retinol-complex-serum",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-07T12:25:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/retinol-complex-serum",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_Retinol-Serum_Cap-On.webp?v=1774296074&width=2048",
+          "sha256": "f86a7a6bc612064ed7a789aefa633310cb90b9fbd87553786f066a04f9f8e569",
+          "mimeType": "image/png",
+          "byteSize": 280691,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T12:24:09Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR_Ecomm_Retinol-Serum_Cap-On.webp?v=1774296074&width=2048",
+            "sha256": "f86a7a6bc612064ed7a789aefa633310cb90b9fbd87553786f066a04f9f8e569",
+            "byteSize": 280691,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T12:24:09Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00850010792033"
+            },
+            "officialProductUrl": "https://naturium.com/products/retinol-complex-serum"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "70f53a92bcf274385155893ab6e921718e4ddbce319ef01c327cf4d8538cceae",
+            "generatedAt": "2026-08-07T12:25:31Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "ec453859a6501acd3a1963a98546ba2bb568aadcd02d1b7978615266dadd8375",
+            "byteSize": 284265,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T12:25:31Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T12:25:31Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "70f53a92bcf274385155893ab6e921718e4ddbce319ef01c327cf4d8538cceae",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinol-complex-serum-1fl-oz/packshot-v1-ec453859a6501acd.png",
+        "sha256": "ec453859a6501acd3a1963a98546ba2bb568aadcd02d1b7978615266dadd8375",
+        "mimeType": "image/png",
+        "byteSize": 284265,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T12:25:31Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T12:27:00Z"
+      },
+      "dossierFingerprint": "3c09b0c314f73106cdfe693c91e6cecfcc083ff62f51a991fbb773830cf5731c"
     }
   ]
 }
