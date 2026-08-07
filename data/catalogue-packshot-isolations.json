@@ -2203,5 +2203,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-glow-getter-body-oil-100ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_Glow_Getter_Body_Oil_bonebkgd_front.webp?v=1774290582&width=2048",
+      "sha256": "331e647fbb259907978855f589b56fa24b2189c5c9af832353f4a368c35739d5",
+      "byteSize": 262911,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T11:54:30Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810120261089"
+      },
+      "officialProductUrl": "https://naturium.com/products/the-glow-getter-body-oil"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "b81ed9d0389bd5a2f74b463495a3423b4a32e10267fbd1295f46a3888eadeecf",
+      "generatedAt": "2026-08-07T11:55:53Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "94324822b4ab0e5e5c0d2d37c69ad6f2e546fad5a9504861a7ca6ad34ebd00d7",
+      "byteSize": 316991,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T11:56:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T11:56:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "b81ed9d0389bd5a2f74b463495a3423b4a32e10267fbd1295f46a3888eadeecf",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

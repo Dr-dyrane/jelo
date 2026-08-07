@@ -967,6 +967,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-smoother-glycolic-acid-body-lotion-8oz': {
+    productSlug: 'naturium-smoother-glycolic-acid-body-lotion-8oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-smoother-glycolic-acid-body-lotion',
+      'https://www.nhs.uk/conditions/keratosis-pilaris/',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-glow-getter-body-oil-100ml': {
+    productSlug: 'naturium-glow-getter-body-oil-100ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-glow-getter-body-oil',
+      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

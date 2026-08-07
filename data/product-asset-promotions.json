@@ -1007,5 +1007,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "a7cb32bc22a8f8afaa99c916c99b142245387ce242a85d5c15d246b345213d9f"
+  },
+  {
+    "id": "naturium-glow-getter-body-oil-100ml-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-glow-getter-body-oil-100ml",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Glow_Getter_Body_Oil_bonebkgd_front.webp?v=1774290582&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-glow-getter-body-oil-100ml/packshot-v1-94324822b4ab0e5e.png",
+    "blobPath": "products/naturium/naturium-glow-getter-body-oil-100ml/packshot-v1-94324822b4ab0e5e.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-body-oil-100ml/packshot-v1-94324822b4ab0e5e.png",
+    "contentType": "image/png",
+    "byteSize": 316991,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "94324822b4ab0e5e5c0d2d37c69ad6f2e546fad5a9504861a7ca6ad34ebd00d7"
   }
 ]

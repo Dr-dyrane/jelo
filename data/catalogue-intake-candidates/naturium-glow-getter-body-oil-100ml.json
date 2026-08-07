@@ -1,0 +1,149 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T11:56:30Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "8785b11ee7ed30f3735ceb4d2a145b5222a5198740080e3057dfa4cc8b782ff3"
+    },
+    "candidate": {
+        "id": "naturium-glow-getter-body-oil-100ml",
+        "brand": "Naturium",
+        "name": "The Glow Getter Body Oil",
+        "variant": "The Glow Getter Body Oil",
+        "size": "3.4 fl oz / 100 mL",
+        "category": "Body care",
+        "reason": "Adds the exact current 100 mL Naturium Glow Getter Body Oil. Official Shopify structured data publishes GTIN 810120261089. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "leave-on-body-care",
+            "body-oil",
+            "dry-skin-support"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/the-glow-getter-body-oil/",
+            "https://peronabeauty.com/product/naturium-glow-getter-body-oil/"
+        ],
+        "identity": {
+            "gtin": "810120261089",
+            "officialProductUrl": "https://naturium.com/products/the-glow-getter-body-oil",
+            "checkedAt": "2026-08-07T11:55:30Z",
+            "basis": "official-brand",
+            "packageVersion": "The Glow Getter Body Oil 3.4 fl oz / 100 mL bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/the-glow-getter-body-oil",
+                "observedGtin": "810120261089",
+                "observedVariant": "The Glow Getter Body Oil",
+                "observedSize": "3.4 fl oz / 100 mL",
+                "observedPackageVersion": "The Glow Getter Body Oil 3.4 fl oz / 100 mL bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-glow-getter-body-oil-100ml.json",
+                "snapshotSha256": "8785b11ee7ed30f3735ceb4d2a145b5222a5198740080e3057dfa4cc8b782ff3",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 1971,
+                "retrievedAt": "2026-08-07T11:54:30Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-glow-getter-body-oil-100ml",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "The Glow Getter Body Oil | Hydrating Body Oil for Glowing Skin | Naturium"
+                    },
+                    "sourceUrl": "https://naturium.com/products/the-glow-getter-body-oil",
+                    "responseUrl": "https://naturium.com/products/the-glow-getter-body-oil",
+                    "retrievedAt": "2026-08-07T11:54:30Z",
+                    "reviewedAt": "2026-08-07T11:55:30Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "3d89b2c92794f38b4c9b15b68413873e7804f534ef44aa6b6cd8a6ada06311b6",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 867354,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"810120261089\"",
+                            "value": "810120261089"
+                        },
+                        "variant": {
+                            "locator": "Rendered official product heading",
+                            "sourceText": "The Glow Getter Body Oil",
+                            "value": "The Glow Getter Body Oil"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 3.4 FL OZ / 100 mL",
+                            "value": "3.4 fl oz / 100 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "The Glow Getter Body Oil 3.4 FL OZ / 100 mL bottle",
+                            "value": "The Glow Getter Body Oil 3.4 fl oz / 100 mL bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Glow_Getter_Body_Oil_bonebkgd_front.webp?v=1774290582&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR_Glow_Getter_Body_Oil_bonebkgd_front.webp?v=1774290582&width=2048",
+                            "retrievedAt": "2026-08-07T11:54:30Z",
+                            "responseSha256": "331e647fbb259907978855f589b56fa24b2189c5c9af832353f4a368c35739d5",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 262911
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described hydrating body oil.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A leave-on cosmetic body oil, not a diagnosis or treatment for eczema, dermatitis, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/the-glow-getter-body-oil",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+            "evidenceUrls": [
+                "https://naturium.com/products/the-glow-getter-body-oil",
+                "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+            ],
+            "reviewedAt": "2026-08-07T11:55:30Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-glow-getter-body-oil",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/the-glow-getter-body-oil",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Glow_Getter_Body_Oil_bonebkgd_front.webp?v=1774290582&width=2048",
+            "sourceAssetSha256": "331e647fbb259907978855f589b56fa24b2189c5c9af832353f4a368c35739d5",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 262911,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T11:54:30Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T11:56:30Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-body-oil-100ml/packshot-v1-94324822b4ab0e5e.png",
+            "publicImageSha256": "94324822b4ab0e5e5c0d2d37c69ad6f2e546fad5a9504861a7ca6ad34ebd00d7",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 316991,
+            "width": 2000,
+            "height": 2000
+        }
+    }
+}

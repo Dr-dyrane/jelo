@@ -1897,6 +1897,30 @@
         "publishedAt": "2026-08-07T11:54:00Z"
       },
       "releaseFingerprint": "a4b58ecdfa676e0e3153bd8496c300be15837e344ed90da50d51229ac1f54736"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-glow-getter-body-oil-100ml",
+      "dossierFingerprint": "b778af0d16de42b8af445e4de22c0997862bb46003d95bd2b02d90ea713a7735",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "The Glow Getter Body Oil 3.4 fl oz",
+        "usage": "Apply to dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-body-oil",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:57:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:58:00Z"
+      },
+      "releaseFingerprint": "d9fcfa0f783a42a1611d5f2f2f2744b7f6235940edf999cb18a89b52be37a510"
     }
   ]
 }
