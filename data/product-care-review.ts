@@ -937,6 +937,26 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-multi-active-exosome-serum-1fl-oz': {
+    productSlug: 'naturium-multi-active-exosome-serum-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-active-exosome-serum',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz': {
+    productSlug: 'naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/uv-reflect-antioxidant-spf-50',
+      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

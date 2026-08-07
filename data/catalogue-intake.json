@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T11:44:00Z",
+  "updatedAt": "2026-08-07T11:48:30Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -16738,6 +16738,139 @@
       }
     },
     {
+      "id": "naturium-multi-active-exosome-serum-1fl-oz",
+      "brand": "Naturium",
+      "name": "Multi-Active Exosome Serum",
+      "variant": "Multi-Active Exosome Serum",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 30 mL Naturium Multi-Active Exosome Serum. Official Shopify structured data publishes GTIN 609332213661. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "exosome-serum",
+        "anti-aging-support",
+        "peptide-serum"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/multi-active-exosome-serum/",
+        "https://peronabeauty.com/product/naturium-multi-active-exosome-serum/"
+      ],
+      "identity": {
+        "gtin": "609332213661",
+        "officialProductUrl": "https://naturium.com/products/multi-active-exosome-serum",
+        "checkedAt": "2026-08-07T11:46:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/multi-active-exosome-serum",
+          "observedGtin": "609332213661",
+          "observedVariant": "Multi-Active Exosome Serum",
+          "observedSize": "1.0 fl oz / 30 mL",
+          "observedPackageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-active-exosome-serum-1fl-oz.json",
+          "snapshotSha256": "20c663c8f8ec489a7c3c091f409f544f2ffa34ab6034ae1d9b3b303ee631d93d",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2028,
+          "retrievedAt": "2026-08-07T11:45:28Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Multi-Active Exosome Serum for Fine Lines and Wrinkles | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+            "responseUrl": "https://naturium.com/products/multi-active-exosome-serum",
+            "retrievedAt": "2026-08-07T11:45:28Z",
+            "reviewedAt": "2026-08-07T11:46:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "32375ff2ff4ccca4e616bf2e85cedbe52998e4f06cc15f987d86ee942f2c300d",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 879208,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"609332213661\"",
+                "value": "609332213661"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "Multi-Active Exosome Serum",
+                "value": "Multi-Active Exosome Serum"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+                "value": "1.0 fl oz / 30 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Multi-Active Exosome Serum 1.0 FL OZ / 30 mL dropper bottle",
+                "value": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+                "retrievedAt": "2026-08-07T11:45:28Z",
+                "responseSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
+                "responseMimeType": "image/png",
+                "responseByteSize": 463227
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described multi-active exosome face serum for fine lines and wrinkles.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles",
+        "evidenceUrls": [
+          "https://naturium.com/products/multi-active-exosome-serum",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles"
+        ],
+        "reviewedAt": "2026-08-07T11:46:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/multi-active-exosome-serum",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+        "sourceAssetSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 463227,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T11:45:28Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T11:46:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
       "id": "naturium-multi-peptide-advanced-body-wash-500ml",
       "brand": "Naturium",
       "name": "The Multi-Peptide Advanced Body Wash",
@@ -17292,6 +17425,145 @@
         "artReviewedAt": "2026-08-04T13:04:15Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "brand": "Naturium",
+      "name": "UV Reflect Antioxidant SPF 50",
+      "variant": "UV Reflect Antioxidant SPF 50",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 50 mL Naturium UV Reflect Antioxidant SPF 50. Official Shopify structured data publishes GTIN 810120260181. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "spf-face",
+        "antioxidant-sunscreen",
+        "sun-protection"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/uv-reflect-antioxidant-spf-50/",
+        "https://peronabeauty.com/product/naturium-uv-reflect-antioxidant-spf-50/"
+      ],
+      "identity": {
+        "gtin": "810120260181",
+        "officialProductUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "checkedAt": "2026-08-07T11:47:30Z",
+        "basis": "official-brand",
+        "packageVersion": "UV Reflect Antioxidant SPF 50 1.7 fl oz / 50 mL tube",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+          "observedGtin": "810120260181",
+          "observedVariant": "UV Reflect Antioxidant SPF 50",
+          "observedSize": "1.7 fl oz / 50 mL",
+          "observedPackageVersion": "UV Reflect Antioxidant SPF 50 1.7 fl oz / 50 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz.json",
+          "snapshotSha256": "965cdaf4e7b6debca305f152cccb5498bc3a32eaa932bed61df7276ceee8e172",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2009,
+          "retrievedAt": "2026-08-07T11:46:42Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "UV Reflect Antioxidant SPF 50 | Antioxidant Face Sunscreen | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+            "responseUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+            "retrievedAt": "2026-08-07T11:46:42Z",
+            "reviewedAt": "2026-08-07T11:47:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "3adc8e80e1a7ace0265e54bca59a87ba1b4bd80a0bcc7eb06f0e4771a5ad3756",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 843404,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"810120260181\"",
+                "value": "810120260181"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "UV Reflect Antioxidant SPF 50",
+                "value": "UV Reflect Antioxidant SPF 50"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+                "value": "1.7 fl oz / 50 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "UV Reflect Antioxidant SPF 50 1.7 FL OZ / 50 mL tube",
+                "value": "UV Reflect Antioxidant SPF 50 1.7 fl oz / 50 mL tube"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+                "retrievedAt": "2026-08-07T11:46:42Z",
+                "responseSha256": "820737fb69fe4c9e216fa2f246db00d21e2e1e5b9bea123edc7eac2e438987db",
+                "responseMimeType": "image/png",
+                "responseByteSize": 542242
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described antioxidant SPF 50 face sunscreen.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic sunscreen, not a diagnosis or treatment for sun damage, hyperpigmentation, or another condition. Apply generously 15 minutes before sun exposure. Reapply every 2 hours. Stop if persistent irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-07T11:47:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+        "sourceAssetSha256": "820737fb69fe4c9e216fa2f246db00d21e2e1e5b9bea123edc7eac2e438987db",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 542242,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T11:46:42Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T11:48:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz/packshot-v1-992e424cc550dfa1.png",
+        "publicImageSha256": "992e424cc550dfa1eb55ba3df0e18b656a5a0f758cd9f5197c254f1bba470ae2",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 579423,
+        "width": 2000,
+        "height": 2000
       }
     },
     {

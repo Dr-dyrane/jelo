@@ -1849,6 +1849,30 @@
         "publishedAt": "2026-08-07T11:46:00Z"
       },
       "releaseFingerprint": "09e7cc73fb9e23d152230d6652f4fb0dbf2fe4d4481e7e08a9f0a25e690f2c02"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "dossierFingerprint": "b15aa146b8971996adb1a5c0e03d4422b287e23f38da4ba18c5272babb4105bd",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "UV Reflect Antioxidant SPF 50 1.7 fl oz",
+        "usage": "Apply generously 15 minutes before sun exposure",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:49:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:50:00Z"
+      },
+      "releaseFingerprint": "7723f7ddb31bbb0e524b8c980a3f3556e676890267ea34cf8c5b979fac842d0e"
     }
   ]
 }

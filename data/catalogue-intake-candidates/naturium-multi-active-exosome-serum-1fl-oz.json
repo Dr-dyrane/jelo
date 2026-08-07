@@ -1,0 +1,143 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T11:46:00Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "20c663c8f8ec489a7c3c091f409f544f2ffa34ab6034ae1d9b3b303ee631d93d"
+    },
+    "candidate": {
+        "id": "naturium-multi-active-exosome-serum-1fl-oz",
+        "brand": "Naturium",
+        "name": "Multi-Active Exosome Serum",
+        "variant": "Multi-Active Exosome Serum",
+        "size": "1.0 fl oz / 30 mL",
+        "category": "Face care",
+        "reason": "Adds the exact current 30 mL Naturium Multi-Active Exosome Serum. Official Shopify structured data publishes GTIN 609332213661. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "exosome-serum",
+            "anti-aging-support",
+            "peptide-serum"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/multi-active-exosome-serum/",
+            "https://peronabeauty.com/product/naturium-multi-active-exosome-serum/"
+        ],
+        "identity": {
+            "gtin": "609332213661",
+            "officialProductUrl": "https://naturium.com/products/multi-active-exosome-serum",
+            "checkedAt": "2026-08-07T11:46:00Z",
+            "basis": "official-brand",
+            "packageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/multi-active-exosome-serum",
+                "observedGtin": "609332213661",
+                "observedVariant": "Multi-Active Exosome Serum",
+                "observedSize": "1.0 fl oz / 30 mL",
+                "observedPackageVersion": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-active-exosome-serum-1fl-oz.json",
+                "snapshotSha256": "20c663c8f8ec489a7c3c091f409f544f2ffa34ab6034ae1d9b3b303ee631d93d",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2028,
+                "retrievedAt": "2026-08-07T11:45:28Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "Multi-Active Exosome Serum for Fine Lines and Wrinkles | Naturium"
+                    },
+                    "sourceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+                    "responseUrl": "https://naturium.com/products/multi-active-exosome-serum",
+                    "retrievedAt": "2026-08-07T11:45:28Z",
+                    "reviewedAt": "2026-08-07T11:46:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "32375ff2ff4ccca4e616bf2e85cedbe52998e4f06cc15f987d86ee942f2c300d",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 879208,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"609332213661\"",
+                            "value": "609332213661"
+                        },
+                        "variant": {
+                            "locator": "Rendered official product heading",
+                            "sourceText": "Multi-Active Exosome Serum",
+                            "value": "Multi-Active Exosome Serum"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+                            "value": "1.0 fl oz / 30 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Multi-Active Exosome Serum 1.0 FL OZ / 30 mL dropper bottle",
+                            "value": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+                            "retrievedAt": "2026-08-07T11:45:28Z",
+                            "responseSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 463227
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described multi-active exosome face serum for fine lines and wrinkles.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles",
+            "evidenceUrls": [
+                "https://naturium.com/products/multi-active-exosome-serum",
+                "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles"
+            ],
+            "reviewedAt": "2026-08-07T11:46:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/multi-active-exosome-serum",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/multi-active-exosome-serum",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-21366-Multi-Active-Exosome-Serum-Front-CapOn-bonebkgd.jpg?v=1784050827&width=2048",
+            "sourceAssetSha256": "877e77dec514c79325da3ae14913c20d8b1b5b081f5a93cb35cc659da0501fbc",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 463227,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T11:45:28Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T11:46:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready"
+        }
+    }
+}

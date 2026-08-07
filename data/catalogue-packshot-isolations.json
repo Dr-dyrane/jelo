@@ -2077,5 +2077,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+      "sha256": "820737fb69fe4c9e216fa2f246db00d21e2e1e5b9bea123edc7eac2e438987db",
+      "byteSize": 542242,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T11:46:42Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810120260181"
+      },
+      "officialProductUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "f76c642f895b97ae6783590166eff32c31a52f440921dd8e3b6963aa3da9c164",
+      "generatedAt": "2026-08-07T11:47:50Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "992e424cc550dfa1eb55ba3df0e18b656a5a0f758cd9f5197c254f1bba470ae2",
+      "byteSize": 579423,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T11:48:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T11:48:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "f76c642f895b97ae6783590166eff32c31a52f440921dd8e3b6963aa3da9c164",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

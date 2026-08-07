@@ -19484,6 +19484,214 @@
         "approvedAt": "2026-08-07T11:45:00Z"
       },
       "dossierFingerprint": "b373336b4a4fa33ccf3161572c4d7aaa3c3f0d7bde90e6dfeba7c1c0a14527a5"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "candidateFingerprint": "58c45eb1573b4653b64d139284ec73cba2480d30f387122a52894711ed9542b2",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810120260181",
+        "brand": "Naturium",
+        "name": "UV Reflect Antioxidant SPF 50",
+        "variant": "UV Reflect Antioxidant SPF 50",
+        "size": "1.7 fl oz / 50 mL",
+        "packageVersion": "UV Reflect Antioxidant SPF 50 1.7 fl oz / 50 mL tube",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+          "observedGtin": "810120260181",
+          "observedVariant": "UV Reflect Antioxidant SPF 50",
+          "observedSize": "1.7 fl oz / 50 mL",
+          "observedPackageVersion": "UV Reflect Antioxidant SPF 50 1.7 fl oz / 50 mL tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz.json",
+          "snapshotSha256": "965cdaf4e7b6debca305f152cccb5498bc3a32eaa932bed61df7276ceee8e172",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2009,
+          "retrievedAt": "2026-08-07T11:46:42Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "UV Reflect Antioxidant SPF 50 | Antioxidant Face Sunscreen | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+            "responseUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+            "retrievedAt": "2026-08-07T11:46:42Z",
+            "reviewedAt": "2026-08-07T11:47:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "3adc8e80e1a7ace0265e54bca59a87ba1b4bd80a0bcc7eb06f0e4771a5ad3756",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 843404,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"810120260181\"",
+                "value": "810120260181"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "UV Reflect Antioxidant SPF 50",
+                "value": "UV Reflect Antioxidant SPF 50"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 1.7 FL OZ / 50 mL",
+                "value": "1.7 fl oz / 50 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+                "retrievedAt": "2026-08-07T11:46:42Z",
+                "responseSha256": "820737fb69fe4c9e216fa2f246db00d21e2e1e5b9bea123edc7eac2e438987db",
+                "responseMimeType": "image/png",
+                "responseByteSize": 542242
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T11:47:30Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/uv-reflect-antioxidant-spf-50/",
+          "https://peronabeauty.com/product/naturium-uv-reflect-antioxidant-spf-50/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described antioxidant SPF 50 face sunscreen.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic sunscreen, not a diagnosis or treatment for sun damage, hyperpigmentation, or another condition. Apply generously 15 minutes before sun exposure. Reapply every 2 hours. Stop if persistent irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-07T11:47:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+          "sha256": "820737fb69fe4c9e216fa2f246db00d21e2e1e5b9bea123edc7eac2e438987db",
+          "mimeType": "image/png",
+          "byteSize": 542242,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T11:46:42Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR_UV_Reflect_primary_front_capon_bonebkgd.webp?v=1774295065&width=2048",
+            "sha256": "820737fb69fe4c9e216fa2f246db00d21e2e1e5b9bea123edc7eac2e438987db",
+            "byteSize": 542242,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T11:46:42Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00810120260181"
+            },
+            "officialProductUrl": "https://naturium.com/products/uv-reflect-antioxidant-spf-50"
+          },
+          "processing": {
+            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "rembg alpha mask over source RGB pixels",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          },
+          "audit": {
+            "sha256": "f76c642f895b97ae6783590166eff32c31a52f440921dd8e3b6963aa3da9c164",
+            "generatedAt": "2026-08-07T11:47:50Z",
+            "inferredComponentCount": 1,
+            "retainedComponentCount": 1,
+            "removedComponentCount": 0,
+            "removedForegroundFraction": 0,
+            "componentReviewRequired": false,
+            "sourceEdgeContactFraction": 0
+          },
+          "output": {
+            "sha256": "992e424cc550dfa1eb55ba3df0e18b656a5a0f758cd9f5197c254f1bba470ae2",
+            "byteSize": 579423,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-07T11:48:30Z",
+            "identityReviewer": "JeloCare catalogue identity review",
+            "artReviewedAt": "2026-08-07T11:48:30Z",
+            "artReviewer": "Codex visual audit",
+            "surfaceReviewSha256": "f76c642f895b97ae6783590166eff32c31a52f440921dd8e3b6963aa3da9c164",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz/packshot-v1-992e424cc550dfa1.png",
+        "sha256": "992e424cc550dfa1eb55ba3df0e18b656a5a0f758cd9f5197c254f1bba470ae2",
+        "mimeType": "image/png",
+        "byteSize": 579423,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-07T11:48:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-07T11:49:00Z"
+      },
+      "dossierFingerprint": "b15aa146b8971996adb1a5c0e03d4422b287e23f38da4ba18c5272babb4105bd"
     }
   ]
 }
