@@ -2017,6 +2017,30 @@
         "publishedAt": "2026-08-07T12:13:00Z"
       },
       "releaseFingerprint": "7b88ec3d84d4f0d0b228dd7495df4f9ed189982a8e6a9dac3ac2d57e87dabfac"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-bha-liquid-exfoliant-2-4oz",
+      "dossierFingerprint": "49be5eecf1b0637a406ff54620324c33d60030bcef483ad0cd2a793af167216d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Exfoliate",
+        "displayLine": "BHA Liquid Exfoliant 2% 4.0 fl oz",
+        "usage": "Apply to clean skin with cotton pad evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/bha-liquid-exfoliant-2",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:18:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:19:00Z"
+      },
+      "releaseFingerprint": "51484c058fc23ea8914f799520351e7c892438b04f2e7f8931ef7ab5f4789233"
     }
   ]
 }

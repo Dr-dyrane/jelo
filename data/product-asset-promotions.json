@@ -1092,5 +1092,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "504d30d9ea33b94e3f3d527efd934ecf0b96057c6895fa26042875f6be49e87e"
+  },
+  {
+    "id": "naturium-bha-liquid-exfoliant-2-4oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-bha-liquid-exfoliant-2-4oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-10027_BHA-Liquid-Exfoliant-2_front_capon_bonebkgd.webp?v=1774289560&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-bha-liquid-exfoliant-2-4oz/packshot-v1-43659ad991e215c4.png",
+    "blobPath": "products/naturium/naturium-bha-liquid-exfoliant-2-4oz/packshot-v1-43659ad991e215c4.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-bha-liquid-exfoliant-2-4oz/packshot-v1-43659ad991e215c4.png",
+    "contentType": "image/png",
+    "byteSize": 481889,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "43659ad991e215c4973920807d9e055c7c79de09519af0290c7a686eeedc2611"
   }
 ]

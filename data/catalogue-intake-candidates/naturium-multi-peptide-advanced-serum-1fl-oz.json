@@ -1,0 +1,143 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T12:13:00Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "92c31273661ee2ab46981d9b514fb03d91594abcca871890ca1ddc03d5e822b2"
+    },
+    "candidate": {
+        "id": "naturium-multi-peptide-advanced-serum-1fl-oz",
+        "brand": "Naturium",
+        "name": "Multi-Peptide Advanced Serum",
+        "variant": "Multi-Peptide Advanced Serum",
+        "size": "1.0 fl oz / 30 mL",
+        "category": "Face care",
+        "reason": "Adds the exact current 30 mL Naturium Multi-Peptide Advanced Serum. Official Shopify structured data publishes GTIN 810120260921. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "peptide-serum",
+            "anti-aging-support",
+            "copper-peptides"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/multi-peptide-advanced-serum/",
+            "https://peronabeauty.com/product/naturium-multi-peptide-advanced-serum/"
+        ],
+        "identity": {
+            "gtin": "810120260921",
+            "officialProductUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+            "checkedAt": "2026-08-07T12:13:00Z",
+            "basis": "official-brand",
+            "packageVersion": "Multi-Peptide Advanced Serum 1.0 fl oz / 30 mL dropper bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/multi-peptide-advanced-serum",
+                "observedGtin": "810120260921",
+                "observedVariant": "Multi-Peptide Advanced Serum",
+                "observedSize": "1.0 fl oz / 30 mL",
+                "observedPackageVersion": "Multi-Peptide Advanced Serum 1.0 fl oz / 30 mL dropper bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-multi-peptide-advanced-serum-1fl-oz.json",
+                "snapshotSha256": "92c31273661ee2ab46981d9b514fb03d91594abcca871890ca1ddc03d5e822b2",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2033,
+                "retrievedAt": "2026-08-07T12:11:54Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "Multi-Peptide Advanced Serum | Copper Peptides & Argireline | Naturium"
+                    },
+                    "sourceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+                    "responseUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+                    "retrievedAt": "2026-08-07T12:11:54Z",
+                    "reviewedAt": "2026-08-07T12:13:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "9af4b8fc85803f6db0e057f4f08bf223006ec5c28dd0875d2a2cc7832e729704",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 906134,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"810120260921\"",
+                            "value": "810120260921"
+                        },
+                        "variant": {
+                            "locator": "Rendered official product heading",
+                            "sourceText": "Multi-Peptide Advanced Serum",
+                            "value": "Multi-Peptide Advanced Serum"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 1.0 FL OZ / 30 mL",
+                            "value": "1.0 fl oz / 30 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Multi-Peptide Advanced Serum 1.0 FL OZ / 30 mL dropper bottle",
+                            "value": "Multi-Peptide Advanced Serum 1.0 fl oz / 30 mL dropper bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
+                            "retrievedAt": "2026-08-07T12:11:54Z",
+                            "responseSha256": "930e9b84c798c451bfa64402a0d26e73603c57b115e8c8f3574a99d7bfda67bc",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 338479
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described multi-peptide advanced face serum with copper peptides and argireline.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for any skin condition. Introduce cautiously, avoid direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles",
+            "evidenceUrls": [
+                "https://naturium.com/products/multi-peptide-advanced-serum",
+                "https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles"
+            ],
+            "reviewedAt": "2026-08-07T12:13:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/multi-peptide-advanced-serum",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Multi-Peptide_Serum_Front_capoff_primary_bone.webp?v=1774292955&width=2048",
+            "sourceAssetSha256": "930e9b84c798c451bfa64402a0d26e73603c57b115e8c8f3574a99d7bfda67bc",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 338479,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T12:11:54Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T12:13:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready"
+        }
+    }
+}

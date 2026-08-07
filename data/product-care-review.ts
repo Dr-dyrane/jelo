@@ -1027,6 +1027,36 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-multi-peptide-advanced-serum-1fl-oz': {
+    productSlug: 'naturium-multi-peptide-advanced-serum-1fl-oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-peptide-advanced-serum',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-multi-peptide-moisturizer-1-7oz': {
+    productSlug: 'naturium-multi-peptide-moisturizer-1-7oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/multi-peptide-moisturizer',
+      'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles',
+    ],
+    reviewedAt: '2026-08-07',
+  },
+  'naturium-bha-liquid-exfoliant-2-4oz': {
+    productSlug: 'naturium-bha-liquid-exfoliant-2-4oz',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/bha-liquid-exfoliant-2',
+      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

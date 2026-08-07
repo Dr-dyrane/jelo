@@ -2518,5 +2518,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-bha-liquid-exfoliant-2-4oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR-10027_BHA-Liquid-Exfoliant-2_front_capon_bonebkgd.webp?v=1774289560&width=2048",
+      "sha256": "fe6e49579a88b6ae3a9c6d23605e6241301bff31a0897e8db080cde74078ea2c",
+      "byteSize": 398172,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:15:08Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792279"
+      },
+      "officialProductUrl": "https://naturium.com/products/bha-liquid-exfoliant-2"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "6b1a36d4ec2ff18f1df0f785ede3975f8d99057e132dc176eb919a2f312a521e",
+      "generatedAt": "2026-08-07T12:16:19Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "43659ad991e215c4973920807d9e055c7c79de09519af0290c7a686eeedc2611",
+      "byteSize": 481889,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:17:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:17:30Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "6b1a36d4ec2ff18f1df0f785ede3975f8d99057e132dc176eb919a2f312a521e",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]
