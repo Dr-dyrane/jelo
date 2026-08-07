@@ -229,17 +229,6 @@
       "reviewedAt": "2026-08-04T14:14:00Z"
     }
   },
-  "cerave-foaming-facial-cleanser": {
-    "sourceUrl": "https://media.ulta.com/i/ulta/2254420?fmt=auto&qlt=90&wid=1200",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-foaming-facial-cleanser/packshot.webp",
-    "contentType": "image/webp",
-    "byteSize": 89216,
-    "importedAt": "2026-07-22T00:51:10.738Z",
-    "width": 2000,
-    "height": 2000,
-    "hasAlpha": true,
-    "contentHash": "5b2afb052acf0fd9b11e93e065b64763fcde0ebd1912e51dd0e300321818320c"
-  },
   "the-ordinary-azelaic-acid-suspension-10": {
     "sourceUrl": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/the-ordinary/the-ordinary-azelaic-acid-suspension-10/packshot-v2.png",

@@ -1,0 +1,38 @@
+{
+  "candidateId": "cerave-foaming-facial-cleanser",
+  "sourceUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+  "responseUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+  "retrievedAt": "2026-08-07T22:30:00Z",
+  "reviewedAt": "2026-08-07T22:35:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "schemaVersion": 8,
+  "sourceResponseSha256": "c4f4cdf1546a04593530beded9348d040e7bd6e8714587e58e821f77d4947b8b",
+  "sourceResponseMimeType": "text/html",
+  "sourceResponseByteSize": 55046,
+  "responseDigestScope": "decoded-response-body",
+  "method": "reviewed-exact-identity-field-extraction",
+  "productRecord": {
+    "locator": "HTML input#prod_name element with data-eans and data-gtm-size attributes",
+    "byteStart": 15918,
+    "byteEnd": 16344,
+    "sourceText": "<input type=\"hidden\" value=\"Foaming Cleanser\" id=\"prod_name\" class=\"gtm-prod-load\"\n                       data-gtm-code=\"facfoamclr\"\n                       data-gtm-id=\"36EF908BC761445C903873ECC7AF4F2Den\"\n                       data-gtm-category=\"skincare-facecleansing\"\n                       data-gtm-position=\"\"\n                       data-gtm-size=\" 88ml, 236 ml, 473 ml\"\n                       data-eans=\"3337875597197\"/>",
+    "sourceFragmentSha256": "f8752718ecbeda2106f52402a66d7281735d7fa1520f45433ce6d4fe694980ff"
+  },
+  "fields": {
+    "gtin": {
+      "value": "3337875597197",
+      "locator": "HTML input#prod_name data-eans, first position",
+      "sourceText": "3337875597197"
+    },
+    "variant": {
+      "value": "Foaming Cleanser",
+      "locator": "HTML h1.product-name[itemprop=name]",
+      "sourceText": "CeraVe Foaming Cleanser"
+    },
+    "size": {
+      "value": "236 ml",
+      "locator": "HTML input#prod_name data-gtm-size, second position",
+      "sourceText": " 236 ml"
+    }
+  }
+}

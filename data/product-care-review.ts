@@ -97,14 +97,6 @@ export const reviewedProductCareManifest = {
     productSlug: 'disaar-argan-oil-body-oil-gel',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
   },
-  'cerave-foaming-facial-cleanser': {
-    productSlug: 'cerave-foaming-facial-cleanser',
-    careState: 'supportive_eligible',
-    approvedUses: [{
-      id: 'normal-oily-cleansing', label: 'Cleansing for normal or oily skin', concernIds: ['oiliness'], concernSlugs: ['oily-congested-skin'], skinTypes: ['normal', 'oily'],
-    }],
-    evidenceSourceUrls: ['https://www.cerave.com/skincare/cleansers/foaming-facial-cleanser'], reviewedAt,
-  },
   'the-ordinary-azelaic-acid-suspension-10': {
     productSlug: 'the-ordinary-azelaic-acid-suspension-10',
     careState: 'pharmacist_review',
@@ -1509,6 +1501,15 @@ export const publishedProductCareManifest = {
     careState: 'pharmacist_review',
     approvedUses: [{ id: 'blemish-cleansing-review', label: 'Blemish-cleansing review', concernIds: ['acne', 'blackheads', 'whiteheads'], concernSlugs: ['acne-breakouts'] }],
     evidenceSourceUrls: ['https://africa.cerave.com/en/our-products/cleansers/blemish-control-cleanser'],
+    reviewedAt: '2026-08-07',
+  },
+  'cerave-foaming-facial-cleanser': {
+    productSlug: 'cerave-foaming-facial-cleanser',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'normal-oily-cleansing', label: 'Cleansing for normal or oily skin', concernIds: ['oiliness'], concernSlugs: ['oily-congested-skin'], skinTypes: ['normal', 'oily'],
+    }],
+    evidenceSourceUrls: ['https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser'],
     reviewedAt: '2026-08-07',
   },
 } as const satisfies Record<string, ReviewedProductCare>;

@@ -8,20 +8,21 @@ import { rankProducts } from './product-ranker';
 const catalogue = [...coreProducts, ...expandedProducts];
 
 test('ranking requires canonical concern slugs instead of raw lexicon concern ids', () => {
+  const fullCatalogue = [...catalogue, ...publishedIntakeProducts];
   assert.deepEqual(
-    rankProducts(catalogue, { concernSlugs: ['oily-congested-skin'] }).map(product => product.slug),
-    ['cerave-foaming-facial-cleanser'],
+    rankProducts(fullCatalogue, { concernSlugs: ['oily-congested-skin'] }).map(product => product.slug),
+    ['eucerin-oil-control-sun-gel-cream-spf50-50ml', 'facefacts-ceramide-oil-control-foaming-cleanser-400ml', 'cerave-foaming-facial-cleanser'],
   );
   assert.deepEqual(
     rankProducts(catalogue, { concernSlugs: ['dry-dehydrated-skin'] }).map(product => product.slug),
     ['cosrx-advanced-snail-96-mucin-power-essence'],
   );
   assert.deepEqual(
-    rankProducts(catalogue, { concernSlugs: ['oiliness'] }),
+    rankProducts(fullCatalogue, { concernSlugs: ['oiliness'] }),
     [],
   );
   assert.deepEqual(
-    rankProducts(catalogue, { concernSlugs: ['dryness'] }),
+    rankProducts(fullCatalogue, { concernSlugs: ['dryness'] }),
     [],
   );
 });
@@ -58,8 +59,8 @@ test('an explicit product step narrows otherwise eligible products', () => {
       productSteps: ['Cleanse'],
     }).map(product => product.slug),
     [
-      'cerave-foaming-facial-cleanser',
       'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
+      'cerave-foaming-facial-cleanser',
     ],
   );
   assert.deepEqual(

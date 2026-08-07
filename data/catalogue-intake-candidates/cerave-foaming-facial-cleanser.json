@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T22:35:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "747de62eb028ac30608f19b5",
+    "discoveryId": "ddddbcd6e6b0987458c82a04",
+    "sourceSnapshotSha256": "c4f4cdf1546a04593530beded9348d040e7bd6e8714587e58e821f77d4947b8b"
+  },
+  "candidate": {
+    "id": "cerave-foaming-facial-cleanser",
+    "brand": "CeraVe",
+    "name": "Foaming Facial Cleanser",
+    "variant": "Foaming Cleanser",
+    "size": "236 ml",
+    "category": "Face care",
+    "reason": "A foaming gel cleanser for normal-to-oily skin coverage, with an official EAN from the CeraVe Africa site and existing Nigerian retailer offers.",
+    "priority": "important",
+    "gapIds": [
+      "normal-oily-cleansing",
+      "barrier-support"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.caretobeauty.com/ng/cerave-foaming-cleanser-normal-to-oily-skin-236ml/",
+      "https://www.ulta.com/p/foaming-facial-cleanser-xlsImpprod5140065",
+      "https://www.amazon.com/CeraVe-Foaming-Cleanser-Normal-Oily/dp/B00F6Y3VEY"
+    ],
+    "identity": {
+      "gtin": "3337875597197",
+      "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+      "checkedAt": "2026-08-07T22:35:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+        "observedGtin": "3337875597197",
+        "observedVariant": "Foaming Cleanser",
+        "observedSize": "236 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/cerave-foaming-facial-cleanser.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "cerave-foaming-facial-cleanser",
+          "sourceUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+          "responseUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+          "responseDigestScope": "decoded-response-body",
+          "retrievedAt": "2026-08-07T22:30:00Z",
+          "fields": {
+            "gtin": {
+              "value": "3337875597197",
+              "locator": "HTML input#prod_name data-eans, first position",
+              "sourceText": "3337875597197"
+            },
+            "variant": {
+              "value": "Foaming Cleanser",
+              "locator": "HTML h1.product-name[itemprop=name]",
+              "sourceText": "CeraVe Foaming Cleanser"
+            },
+            "size": {
+              "value": "236 ml",
+              "locator": "HTML input#prod_name data-gtm-size, second position",
+              "sourceText": " 236 ml"
+            }
+          },
+          "sourceResponseSha256": "c4f4cdf1546a04593530beded9348d040e7bd6e8714587e58e821f77d4947b8b",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 55046,
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-07T22:35:00Z"
+        },
+        "snapshotSha256": "e56f74a9993b3437d3609014713af215678d2ec59a234f9510bc183973c91492",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 983,
+        "retrievedAt": "2026-08-07T22:30:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Gel-to-foam facial cleanser with ceramides, hyaluronic acid, and niacinamide for normal-to-oily skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports everyday cleansing for normal-to-oily skin without disrupting the skin barrier. Use morning and evening. Follow with moisturiser. Stop if excessive dryness or irritation occurs.",
+      "manufacturerEvidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-07T22:35:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+      "sourceUrl": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/cleansers/CeraVe_FoamingCleanser_NEW_v021.png",
+      "sourceAssetSha256": "116a6994697044d6a1fe005db1f8c9c8ac3a3a741efad6137c22951fa0cea3c1",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 23374,
+      "sourceAssetWidth": 177,
+      "sourceAssetHeight": 400,
+      "sourceAssetRetrievedAt": "2026-08-07T22:30:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-foaming-facial-cleanser/packshot-v2-b0334a0752f80087.png",
+      "publicImageSha256": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 724267,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T22:35:00Z",
+      "artReviewer": "Devin visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

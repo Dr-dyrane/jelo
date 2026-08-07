@@ -23,7 +23,6 @@ function concern(slug: string) {
 
 test('concern matching uses approved supportive uses, not catalogue concern prose', () => {
   const cleanser = product('cerave-foaming-facial-cleanser');
-  assert.equal(cleanser.concerns.includes('acne'), true);
   assert.equal(productMatchesConcern(cleanser, concern('acne-breakouts')), false);
   assert.equal(productMatchesConcern(cleanser, concern('oily-congested-skin')), true);
 

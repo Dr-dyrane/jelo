@@ -2929,6 +2929,30 @@
         "publishedAt": "2026-08-07T22:21:00Z"
       },
       "releaseFingerprint": "694f7ae080330ce0f6f207bc5e01eb1c88f5d0bfebe1a6e07127c152991c7d5a"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-foaming-facial-cleanser",
+      "dossierFingerprint": "0b3aa3379ec723751bdbe6bec6dc60e167769f23bf3905ef5d7cfa8f6d083b20",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Cleanse · balance",
+        "usage": "Massage onto damp skin, rinse, and avoid over-cleansing.",
+        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T22:35:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T22:36:00Z"
+      },
+      "releaseFingerprint": "23a3b1e643ac6bac0d83df8bcd9c22fc859945b773e116c5f74ffd5e0cec5519"
     }
   ]
 }

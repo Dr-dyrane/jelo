@@ -130,14 +130,6 @@ export const productDisplayApprovals = {
     contentHash: '89710c910c6b1b1a05d508b031c8a4b795899f9671df1674ea44ca4c6952ecc5',
     reviewedAt: '2026-08-04T14:14:00.000Z',
   }),
-  'cerave-foaming-facial-cleanser': approval({
-    brand: 'CeraVe',
-    name: 'Foaming Facial Cleanser',
-    size: '355 ml',
-    sourceUrl: 'https://media.ulta.com/i/ulta/2254420?fmt=auto&qlt=90&wid=1200',
-    contentHash: '5b2afb052acf0fd9b11e93e065b64763fcde0ebd1912e51dd0e300321818320c',
-    reviewedAt: '2026-07-22T12:34:11.000Z',
-  }),
   'the-ordinary-azelaic-acid-suspension-10': approval({
     brand: 'The Ordinary',
     name: 'Azelaic Acid Suspension 10%',

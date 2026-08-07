@@ -694,6 +694,69 @@
   },
   {
     "schemaVersion": 1,
+    "candidateId": "cerave-foaming-facial-cleanser",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/cleansers/CeraVe_FoamingCleanser_NEW_v021.png",
+      "sha256": "116a6994697044d6a1fe005db1f8c9c8ac3a3a741efad6137c22951fa0cea3c1",
+      "byteSize": 23374,
+      "width": 177,
+      "height": 400,
+      "retrievedAt": "2026-08-07T22:30:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03337875597197"
+      },
+      "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
+      "generatedAt": "2026-08-07T22:33:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
+      "byteSize": 724267,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T22:34:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T22:35:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "97a57e012106a38faaf7f3824825f5f97a85d3191e4f49c31afefc836424d0f6",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
     "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
     "publicationScope": "catalogue-publication",
     "source": {

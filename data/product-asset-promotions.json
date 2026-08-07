@@ -567,5 +567,22 @@
     "contentType": "image/png",
     "hasAlpha": true,
     "blobPath": "products/cerave/cerave-blemish-control-cleanser/packshot-v2-dc995193903dc26f.png"
+  },
+  {
+    "candidateId": "cerave-foaming-facial-cleanser",
+    "active": true,
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-foaming-facial-cleanser/packshot-v2-b0334a0752f80087.png",
+    "contentHash": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
+    "byteSize": 724267,
+    "width": 2000,
+    "height": 2000,
+    "localPath": "data/catalogue-intake-assets/cerave-foaming-facial-cleanser/packshot-v2-b0334a0752f80087.png",
+    "id": "cerave-foaming-facial-cleanser-packshot-v2",
+    "publicationBrandSlug": "cerave",
+    "destination": "publication",
+    "sourceUrl": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/cleansers/CeraVe_FoamingCleanser_NEW_v021.png",
+    "contentType": "image/png",
+    "hasAlpha": true,
+    "blobPath": "products/cerave/cerave-foaming-facial-cleanser/packshot-v2-b0334a0752f80087.png"
   }
 ]

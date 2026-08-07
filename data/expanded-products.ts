@@ -5,13 +5,6 @@ const usOffer = (retailer: string, url: string, trust = 94, priceUsd?: number): 
 
 export const expandedProducts: Product[] = [
   {
-    slug: 'cerave-foaming-facial-cleanser', brand: 'CeraVe', name: 'Foaming Facial Cleanser', size: '355 ml', category: 'Face', step: 'Cleanse',
-    image: 'https://media.ulta.com/i/ulta/2254420?fmt=auto&qlt=90&wid=1200', displayLine: 'Cleanse · balance',
-    bestFor: ['normal to oily skin', 'excess oil', 'daily cleansing'], concerns: ['oiliness', 'pores', 'acne', 'barrier'], skinTypes: ['normal', 'oily', 'combination'], sensitiveFriendly: true,
-    usage: 'Massage onto damp skin, rinse, and avoid over-cleansing.', evidence: 'high',
-    offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/cerave-foaming-cleanser-normal-to-oily-skin-236ml/'), usOffer('Ulta Beauty', 'https://www.ulta.com/p/foaming-facial-cleanser-xlsImpprod5140065?sku=2254420', 94, 16.99)]
-  },
-  {
     slug: 'the-ordinary-azelaic-acid-suspension-10', brand: 'The Ordinary', name: 'Azelaic Acid Suspension 10%', size: '30 ml', category: 'Face', step: 'Treat',
     image: 'https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit', displayLine: 'Clarify · even',
     bestFor: ['post-acne marks', 'redness', 'uneven texture'], concerns: ['acne', 'hyperpigmentation', 'dark spots', 'redness', 'texture'], skinTypes: ['oily', 'combination', 'normal'], sensitiveFriendly: true,
