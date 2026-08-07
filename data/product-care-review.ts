@@ -887,32 +887,12 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
-  'naturium-dew-glow-mineral-spf-50-1-7fl-oz': {
-    productSlug: 'naturium-dew-glow-mineral-spf-50-1-7fl-oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/dew-glow-moisturizer-mineral-spf-50',
-      'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen',
-    ],
-    reviewedAt: '2026-08-07',
-  },
   'naturium-barrier-bounce-bi-phase-mist-100ml': {
     productSlug: 'naturium-barrier-bounce-bi-phase-mist-100ml',
     careState: 'insufficient_data',
     approvedUses: [],
     evidenceSourceUrls: [
       'https://naturium.com/products/barrier-bounce-bi-phase-mist',
-      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-glow-getter-multi-oil-body-scrub-8oz': {
-    productSlug: 'naturium-glow-getter-multi-oil-body-scrub-8oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/the-glow-getter-multi-oil-body-scrub',
       'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
     ],
     reviewedAt: '2026-08-07',
@@ -937,16 +917,6 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
-  'naturium-multi-active-exosome-serum-1fl-oz': {
-    productSlug: 'naturium-multi-active-exosome-serum-1fl-oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/multi-active-exosome-serum',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles',
-    ],
-    reviewedAt: '2026-08-07',
-  },
   'naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz': {
     productSlug: 'naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz',
     careState: 'insufficient_data',
@@ -964,16 +934,6 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [
       'https://naturium.com/products/the-purifier-niacinamide-serum-body-wash',
       'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-smoother-glycolic-acid-body-lotion-8oz': {
-    productSlug: 'naturium-smoother-glycolic-acid-body-lotion-8oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/the-smoother-glycolic-acid-body-lotion',
-      'https://www.nhs.uk/conditions/keratosis-pilaris/',
     ],
     reviewedAt: '2026-08-07',
   },
@@ -1027,26 +987,6 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
-  'naturium-multi-peptide-advanced-serum-1fl-oz': {
-    productSlug: 'naturium-multi-peptide-advanced-serum-1fl-oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/multi-peptide-advanced-serum',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-multi-peptide-moisturizer-1-7oz': {
-    productSlug: 'naturium-multi-peptide-moisturizer-1-7oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/multi-peptide-moisturizer',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging-skin-care/fine-lines-wrinkles',
-    ],
-    reviewedAt: '2026-08-07',
-  },
   'naturium-bha-liquid-exfoliant-2-4oz': {
     productSlug: 'naturium-bha-liquid-exfoliant-2-4oz',
     careState: 'insufficient_data',
@@ -1087,16 +1027,6 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
-  'naturium-niacinamide-gel-cream-5-1-7oz': {
-    productSlug: 'naturium-niacinamide-gel-cream-5-1-7oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/niacinamide-gel-cream-5',
-      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
-    ],
-    reviewedAt: '2026-08-07',
-  },
   'naturium-tranexamic-topical-acid-5-1fl-oz': {
     productSlug: 'naturium-tranexamic-topical-acid-5-1fl-oz',
     careState: 'insufficient_data',
@@ -1104,16 +1034,6 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [
       'https://naturium.com/products/tranexamic-topical-acid-5',
       'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-azelaic-acid-emulsion-10-1fl-oz': {
-    productSlug: 'naturium-azelaic-acid-emulsion-10-1fl-oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/azelaic-acid-emulsion-10',
-      'https://www.aad.org/public/diseases/acne/diy/types-breakouts',
     ],
     reviewedAt: '2026-08-07',
   },
@@ -1134,16 +1054,6 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [
       'https://naturium.com/products/intense-overnight-sleeping-cream',
       'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-multi-peptide-eye-cream-0-5oz': {
-    productSlug: 'naturium-multi-peptide-eye-cream-0-5oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/multi-peptide-eye-cream',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
     ],
     reviewedAt: '2026-08-07',
   },
@@ -1174,36 +1084,6 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [
       'https://naturium.com/products/fermented-camellia-creamy-cleansing-oil',
       'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-purple-ginseng-cleansing-balm-3oz': {
-    productSlug: 'naturium-purple-ginseng-cleansing-balm-3oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/purple-ginseng-cleansing-balm',
-      'https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-retinaldehyde-cream-serum-0-05-1-7oz': {
-    productSlug: 'naturium-retinaldehyde-cream-serum-0-05-1-7oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/retinaldehyde-cream-serum-0-05',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-kp-body-scrub-mask-8oz': {
-    productSlug: 'naturium-kp-body-scrub-mask-8oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/kp-body-scrub-mask',
-      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
     ],
     reviewedAt: '2026-08-07',
   },
@@ -1264,26 +1144,6 @@ export const publishedProductCareManifest = {
     evidenceSourceUrls: [
       'https://naturium.com/products/the-smoother-glycolic-acid-exfoliating-body-wash',
       'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-plant-ceramide-rich-moisture-cream-1-7oz': {
-    productSlug: 'naturium-plant-ceramide-rich-moisture-cream-1-7oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/plant-ceramide-rich-moisture-cream',
-      'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin',
-    ],
-    reviewedAt: '2026-08-07',
-  },
-  'naturium-retinaldehyde-cream-serum-0-10-1-7oz': {
-    productSlug: 'naturium-retinaldehyde-cream-serum-0-10-1-7oz',
-    careState: 'insufficient_data',
-    approvedUses: [],
-    evidenceSourceUrls: [
-      'https://naturium.com/products/retinaldehyde-cream-serum-0-10',
-      'https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots',
     ],
     reviewedAt: '2026-08-07',
   },

@@ -83,6 +83,8 @@ test('indexes only manifest-approved supportive discovery terms', () => {
   assert.deepEqual(barrier.items.map(item => item.id), [
     'reviewed:cerave-pm-facial-moisturising-lotion-52ml',
     'reviewed:facefacts-ceramide-moisturising-gel-cream-50ml',
+    'reviewed:naturium-barrier-bounce-bi-phase-mist-100ml',
+    'reviewed:naturium-marshmallow-root-barrier-balm-1-7oz',
     'reviewed:simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
   ]);
 

@@ -633,12 +633,300 @@
       "source": "dossier-release"
     },
     {
+      "slug": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+      "brand": "Naturium",
+      "name": "Alpha Arbutin Serum 2%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792248",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+      "brand": "Naturium",
+      "name": "Azelaic Acid Derivative Complex 10%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792231",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-barrier-bounce-bi-phase-mist-100ml",
+      "brand": "Naturium",
+      "name": "Barrier Bounce Bi-Phase Mist",
+      "size": "3.4 fl oz / 100 mL",
+      "category": "Face",
+      "approvedGtin": "810120263328",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-bha-liquid-exfoliant-2-4oz",
+      "brand": "Naturium",
+      "name": "BHA Liquid Exfoliant 2%",
+      "size": "4.0 fl oz / 120 mL",
+      "category": "Face",
+      "approvedGtin": "850010792279",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-bio-lipid-restoring-body-lotion-14oz",
+      "brand": "Naturium",
+      "name": "Bio-Lipid Restoring Body Lotion",
+      "size": "14 fl oz / 414 mL",
+      "category": "Body",
+      "approvedGtin": "850010792804",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-brightener-vitamin-c-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Brightener Vitamin C Brightening Body Wash",
+      "size": "16.9 fl oz / 500 mL",
+      "category": "Body",
+      "approvedGtin": "850010792927",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz",
+      "brand": "Naturium",
+      "name": "Dew-Glow Moisturizer SPF 50",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "810456020329",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-energizer-mandelic-acid-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Energizer Mandelic Acid Body Wash",
+      "size": "16.9 fl oz / 500 mL",
+      "category": "Body",
+      "approvedGtin": "810120261188",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "brand": "Naturium",
+      "name": "Fermented Camellia Creamy Cleansing Oil",
+      "size": "3.5 fl oz / 103.5 mL",
+      "category": "Face",
+      "approvedGtin": "850010792385",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-fermented-rice-enzyme-cleanser-4oz",
+      "brand": "Naturium",
+      "name": "Fermented Rice Enzyme Cleanser",
+      "size": "4.0 fl oz / 120 mL",
+      "category": "Face",
+      "approvedGtin": "850010792361",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-glow-getter-body-oil-100ml",
+      "brand": "Naturium",
+      "name": "The Glow Getter Body Oil",
+      "size": "3.4 fl oz / 100 mL",
+      "category": "Body",
+      "approvedGtin": "810120261089",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+      "brand": "Naturium",
+      "name": "The Glow Getter Multi-Oil Body Butter",
+      "size": "7.7 fl oz / 232 mL",
+      "category": "Body",
+      "approvedGtin": "810120260594",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Glow Getter Multi-Oil Hydrating Body Wash",
+      "size": "16.9 fl oz / 500 mL",
+      "category": "Body",
+      "approvedGtin": "850010792897",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "brand": "Naturium",
+      "name": "Intense Overnight Sleeping Cream",
+      "size": "1.7 oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "850010792170",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-marshmallow-root-barrier-balm-1-7oz",
+      "brand": "Naturium",
+      "name": "Marshmallow Root Barrier Balm",
+      "size": "1.7 oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "850010792750",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-multi-peptide-advanced-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Multi-Peptide Advanced Body Wash",
+      "size": "16.9 fl oz / 500 mL",
+      "category": "Body",
+      "approvedGtin": "810120263335",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+      "brand": "Naturium",
+      "name": "Niacinamide Cleansing Gelée 3%",
+      "size": "7.1 fl oz / 210 mL",
+      "category": "Face",
+      "approvedGtin": "850010792163",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-niacinamide-serum-12-percent-1fl-oz",
+      "brand": "Naturium",
+      "name": "Niacinamide Serum 12% Plus Zinc 2%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792064",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-phyto-glow-lip-balm-clear-0-34oz",
+      "brand": "Naturium",
+      "name": "Phyto-Glow Lip Balm Clear",
+      "size": "0.34 fl oz / 10 mL",
+      "category": "Face",
+      "approvedGtin": "850010792392",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-purifier-niacinamide-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Purifier Niacinamide Serum Body Wash",
+      "size": "16.9 fl oz / 500 mL",
+      "category": "Body",
+      "approvedGtin": "810120260143",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+      "brand": "Naturium",
+      "name": "Quadruple Hyaluronic Acid Serum 5%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792026",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-retinol-complex-cream-1-7oz",
+      "brand": "Naturium",
+      "name": "Retinol Complex Cream",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "850010792040",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-retinol-complex-serum-1fl-oz",
+      "brand": "Naturium",
+      "name": "Retinol Complex Serum",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792033",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+      "brand": "Naturium",
+      "name": "Salicylic Acid Serum 2%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792767",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "brand": "Naturium",
+      "name": "Skin-Renewing Retinol Body Lotion",
+      "size": "8 fl oz / 234 mL",
+      "category": "Body",
+      "approvedGtin": "810120260037",
+      "source": "dossier-release"
+    },
+    {
       "slug": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
       "brand": "Naturium",
       "name": "The Perfector Salicylic Acid Body Wash",
       "size": "16.9 fl oz / 500 mL",
       "category": "Body",
       "approvedGtin": "850010792934",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml",
+      "brand": "Naturium",
+      "name": "The Smoother Glycolic Acid Exfoliating Body Wash",
+      "size": "16.9 oz / 500 mL",
+      "category": "Body",
+      "approvedGtin": "850010792903",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-tranexamic-topical-acid-5-1fl-oz",
+      "brand": "Naturium",
+      "name": "Tranexamic Topical Acid 5%",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792194",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "brand": "Naturium",
+      "name": "UV Reflect Antioxidant SPF 50",
+      "size": "1.7 fl oz / 50 mL",
+      "category": "Face",
+      "approvedGtin": "810120260181",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+      "brand": "Naturium",
+      "name": "Vitamin Bright Illuminating Eye Cream",
+      "size": "0.5 fl oz / 15 mL",
+      "category": "Face",
+      "approvedGtin": "810120260211",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-vitamin-c-complex-serum-1fl-oz",
+      "brand": "Naturium",
+      "name": "Vitamin C Complex Serum",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792071",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "brand": "Naturium",
+      "name": "Vitamin C Complex Serum Jumbo",
+      "size": "2.0 fl oz / 60 mL",
+      "category": "Face",
+      "approvedGtin": "850010792644",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "naturium-vitamin-c-super-serum-plus-1fl-oz",
+      "brand": "Naturium",
+      "name": "Vitamin C Super Serum Plus",
+      "size": "1.0 fl oz / 30 mL",
+      "category": "Face",
+      "approvedGtin": "850010792019",
       "source": "dossier-release"
     },
     {
