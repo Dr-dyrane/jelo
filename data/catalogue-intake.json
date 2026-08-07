@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T03:52:00Z",
+  "updatedAt": "2026-08-07T04:02:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -15888,6 +15888,162 @@
         "artReviewedAt": "2026-08-04T13:04:15Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "neutrogena-light-sesame-body-oil-8-5oz",
+      "brand": "Neutrogena",
+      "brandAliases": [
+        "neutrogena"
+      ],
+      "name": "Body Oil, Light Sesame Formula",
+      "variant": "Body Oil, Light Sesame Formula",
+      "size": "8.5 fl oz",
+      "category": "Body care",
+      "reason": "Neutrogena Light Sesame Formula Body Oil with GTIN 070501618202 published in official JSON-LD structured data on the Neutrogena US site, official Kenvue CDN packshot (2000x2000), and supportive-care boundary for dry skin.",
+      "priority": "important",
+      "gapIds": [
+        "body-oil",
+        "dry-skin-body",
+        "sesame-oil"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101"
+      ],
+      "identity": {
+        "gtin": "070501618202",
+        "officialProductUrl": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+        "checkedAt": "2026-08-07T04:02:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Neutrogena Body Oil Light Sesame Formula 8.5 fl oz",
+        "officialEvidence": {
+          "url": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+          "observedGtin": "070501618202",
+          "observedVariant": "Body Oil, Light Sesame Formula",
+          "observedSize": "8.5 fl oz",
+          "observedPackageVersion": "Neutrogena Body Oil Light Sesame Formula 8.5 fl oz",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/neutrogena-light-sesame-body-oil-8-5oz.json",
+          "snapshotSha256": "6a3ab563b6bfa637ac6663b06054ec61c1b805b49e6ce17dc8bac795ed02f58e",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2384,
+          "retrievedAt": "2026-08-07T04:00:08Z",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "Body Oil, Light Sesame Formula To Hydrate Dry Skin, 8.5 oz",
+              "surface": "Playwright MCP browser"
+            },
+            "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+            "fields": {
+              "gtin": {
+                "locator": "JSON-LD structured data Product.gtin and Product.gtin12",
+                "sourceText": "gtin: 070501618202, gtin12: 070501618202 in schema.org Product structured data on official Neutrogena US site",
+                "value": "070501618202"
+              },
+              "packageVersion": {
+                "evidenceUrl": "https://images.ctfassets.net/3zfcttr0ztpr/7uyx3MKlYnQt1S343Oqptu/e95d313a51c3c829db3347ec08a90920/NTG_70501618202_30034228_30034229_Light_Sesame_Formula_Body_Oil_8.5oz_0000.webp?w=1200",
+                "locator": "Official manufacturer product heading and main pack image",
+                "sourceText": "Neutrogena Body Oil Light Sesame Formula 8.5 fl oz",
+                "value": "Neutrogena Body Oil Light Sesame Formula 8.5 fl oz"
+              },
+              "size": {
+                "locator": "JSON-LD structured data Product.name and rendered product page heading",
+                "sourceText": "8.5 Fl. Oz",
+                "value": "8.5 fl oz"
+              },
+              "variant": {
+                "locator": "JSON-LD structured data Product.name and rendered product page heading",
+                "sourceText": "Neutrogena® Body Oil, Light Sesame Formula, 8.5 Fl. Oz",
+                "value": "Body Oil, Light Sesame Formula"
+              }
+            },
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+            "retrievedAt": "2026-08-07T04:00:08Z",
+            "reviewedAt": "2026-08-07T04:02:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 4,
+            "sourceResponseByteSize": 955223,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "a3722a74776eaf11667c1d28ed79accaaa9cb126758c1b5124538868a80d343b",
+            "sourceUrl": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 89495,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "5cc1c2ae4ff06dcdc8e30b377eba86b9c7723f0b6726d5eb0757b609e1c0f86b",
+                "responseUrl": "https://images.ctfassets.net/bcjr30vxh6td/5TmKvRnMUYi8GZUjV2d81g/6265cd1ec857bfe346615e95ef61c87b/6811101_Carousel_2.jpeg?w=2048",
+                "retrievedAt": "2026-08-07T03:57:43Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://images.ctfassets.net/bcjr30vxh6td/5TmKvRnMUYi8GZUjV2d81g/6265cd1ec857bfe346615e95ef61c87b/6811101_Carousel_2.jpeg?w=2048"
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "leave-on sesame oil body moisturiser for dry skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only, not a diagnosis or personal treatment plan. Body oil is for external use only. For persistent skin conditions, severe dryness, or irritation, seek professional care.",
+        "manufacturerEvidenceUrl": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T04:02:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://images.ctfassets.net/bcjr30vxh6td/5TmKvRnMUYi8GZUjV2d81g/6265cd1ec857bfe346615e95ef61c87b/6811101_Carousel_2.jpeg?w=2048",
+        "sourceAssetSha256": "5cc1c2ae4ff06dcdc8e30b377eba86b9c7723f0b6726d5eb0757b609e1c0f86b",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 89495,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T03:57:43Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/neutrogena/neutrogena-light-sesame-body-oil-8-5oz/packshot-v1-3b3fa771a8daaf29.png",
+        "publicImageSha256": "3b3fa771a8daaf29994302779e857c15939f7ad6f61ce7e7f9a6a84dbb0375ba",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 337905,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T04:02:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Neutrogena Body Oil Light Sesame Formula 8.5 fl oz bottle and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the Neutrogena brand, Body Oil title, Light Sesame Formula variant, and 8.5 fl oz size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://images.ctfassets.net/bcjr30vxh6td/5TmKvRnMUYi8GZUjV2d81g/6265cd1ec857bfe346615e95ef61c87b/6811101_Carousel_2.jpeg?w=2048",
+              "sha256": "5cc1c2ae4ff06dcdc8e30b377eba86b9c7723f0b6726d5eb0757b609e1c0f86b"
+            }
+          ],
+          "outputSha256": "3b3fa771a8daaf29994302779e857c15939f7ad6f61ce7e7f9a6a84dbb0375ba",
+          "generatedAt": "2026-08-07T04:01:00Z",
+          "recordSha256": "887ef80f285ba8e777e122488052828f3dd0899712ccc4e4238654a9f7498735"
+        }
       }
     },
     {

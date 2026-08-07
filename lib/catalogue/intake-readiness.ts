@@ -781,6 +781,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   advancedclinicals: ['advancedclinicals.com'],
   panoxyl: ['panoxyl.com'],
   abib: ['en.abib.com', 'cdn.shopify.com'],
+  neutrogena: ['www.neutrogena.com'],
 };
 const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly string[]>> = {
   'balance-salicylic-acid-zinc-clarifying-toner-200ml': [
@@ -806,6 +807,9 @@ const reviewedCandidateManufacturerCareUrls: Readonly<Record<string, readonly st
   ],
   'abib-clear-spot-serum-7-325-30ml': [
     'https://en.abib.com/products/clear-spot-serum-7-325-pump-option',
+  ],
+  'neutrogena-light-sesame-body-oil-8-5oz': [
+    'https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101',
   ],
 };
 const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>> = {
@@ -846,6 +850,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   naturium: ['naturium.com', 'cdn.shopify.com'],
   nivea: ['www.nivea.com.ng', 'img.nivea.com'],
   nineless: ['ninelessshop.com', 'cdn.shopify.com'],
+  neutrogena: ['www.neutrogena.com', 'images.ctfassets.net'],
   olay: ['www.olay.com'],
   prequel: ['prequelskin.com', 'www.prequelskin.com'],
   sheamoisture: ['www.sheamoisture.com', 'assets.unileversolutions.com'],

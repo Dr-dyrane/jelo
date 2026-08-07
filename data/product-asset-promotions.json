@@ -786,5 +786,22 @@
     "destination": "publication",
     "candidateId": "abib-clear-spot-serum-7-325-30ml",
     "publicationBrandSlug": "abib"
+  },
+  {
+    "id": "neutrogena-light-sesame-body-oil-8-5oz-v1",
+    "active": true,
+    "sourceUrl": "https://images.ctfassets.net/bcjr30vxh6td/5TmKvRnMUYi8GZUjV2d81g/6265cd1ec857bfe346615e95ef61c87b/6811101_Carousel_2.jpeg?w=2048",
+    "localPath": "data/catalogue-intake-assets/neutrogena-light-sesame-body-oil-8-5oz/packshot.png",
+    "blobPath": "products/neutrogena/neutrogena-light-sesame-body-oil-8-5oz/packshot-v1-3b3fa771a8daaf29.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/neutrogena/neutrogena-light-sesame-body-oil-8-5oz/packshot-v1-3b3fa771a8daaf29.png",
+    "contentType": "image/png",
+    "byteSize": 337905,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "3b3fa771a8daaf29994302779e857c15939f7ad6f61ce7e7f9a6a84dbb0375ba",
+    "destination": "publication",
+    "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+    "publicationBrandSlug": "neutrogena"
   }
 ]

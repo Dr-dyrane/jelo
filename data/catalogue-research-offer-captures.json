@@ -5,7 +5,7 @@
   "publicationAuthority": "none",
   "generatedAt": "2026-08-05T03:31:47.088Z",
   "source": {
-    "researchPacketProjectionSha256": "e04d1e05a77e2ee82eebac661af04a9d951daec667714a7e9b552d14cbff66b7",
+    "researchPacketProjectionSha256": "98f7f1642cb38af8012c9e3131229a2d8ff55d29bffa846f675178fb5ff081b2",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
@@ -58,10 +58,10 @@
   },
   "sources": [
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/98ad660d1bfb63b3fd772fd7dd551aa6b1a7f848dcdff900384937367cb24aeb.json",
-      "sourceSha256": "98ad660d1bfb63b3fd772fd7dd551aa6b1a7f848dcdff900384937367cb24aeb",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/00fc01432a71935fb254d0cca17972c0aa9043a3c942aef8adfb8fc9049edf01.json",
-      "researchPacketSourceSha256": "00fc01432a71935fb254d0cca17972c0aa9043a3c942aef8adfb8fc9049edf01",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/2e6f6bb6d449c19c2fe6be1f20f3ffc6523ee0fe1e358f24f7465ea7a848c690.json",
+      "sourceSha256": "2e6f6bb6d449c19c2fe6be1f20f3ffc6523ee0fe1e358f24f7465ea7a848c690",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/4e18c2d9886965a40d84ae58e9c13b56b289daa1deb3fb93d40297a0bd70875f.json",
+      "researchPacketSourceSha256": "4e18c2d9886965a40d84ae58e9c13b56b289daa1deb3fb93d40297a0bd70875f",
       "packetCount": 11,
       "packetIds": [
         "16904e359f5d8aed4df6ca91",
@@ -79,10 +79,10 @@
       "responseCount": 21
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/ee0548313733e37ac90df410fe81b899fc18c7a6e18074ebdf1e6cabb5b1a867.json",
-      "sourceSha256": "ee0548313733e37ac90df410fe81b899fc18c7a6e18074ebdf1e6cabb5b1a867",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/c5397fb82dfad4621bb97875bd03d400b3f511ceb88e3803dc69f9c7bfa96287.json",
-      "researchPacketSourceSha256": "c5397fb82dfad4621bb97875bd03d400b3f511ceb88e3803dc69f9c7bfa96287",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/662d4fabf42d7a813a3e1fdf085bbfdd988c1b70126686c1f306500badba8f15.json",
+      "sourceSha256": "662d4fabf42d7a813a3e1fdf085bbfdd988c1b70126686c1f306500badba8f15",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/dc844d6d63ddf693538ba50a7a0e2cde7ab277ffee09239c1c6505087a310409.json",
+      "researchPacketSourceSha256": "dc844d6d63ddf693538ba50a7a0e2cde7ab277ffee09239c1c6505087a310409",
       "packetCount": 12,
       "packetIds": [
         "1920014afae80ba00e4169ca",
@@ -101,10 +101,10 @@
       "responseCount": 24
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/ece54d3677bdd85f49fe7280b23a909108f951b039586c12ada559ce91f91279.json",
-      "sourceSha256": "ece54d3677bdd85f49fe7280b23a909108f951b039586c12ada559ce91f91279",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d.json",
-      "researchPacketSourceSha256": "ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/e70b9199f4b680ae77b028825dab045216a3e8bc7e3734691055ec1834def8f9.json",
+      "sourceSha256": "e70b9199f4b680ae77b028825dab045216a3e8bc7e3734691055ec1834def8f9",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752.json",
+      "researchPacketSourceSha256": "6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752",
       "packetCount": 8,
       "packetIds": [
         "42a91a1bc91841763d974680",
@@ -119,10 +119,10 @@
       "responseCount": 8
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/5dd70ec9612e302e9bb30b211b6850f4cae31f4ee848d2e9ee8e2ef5f2e528ad.json",
-      "sourceSha256": "5dd70ec9612e302e9bb30b211b6850f4cae31f4ee848d2e9ee8e2ef5f2e528ad",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/c3e11ce491c51c5685bacff8fb691321d8190631bebed42cbbc39fdcd9a4ba66.json",
-      "researchPacketSourceSha256": "c3e11ce491c51c5685bacff8fb691321d8190631bebed42cbbc39fdcd9a4ba66",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/01ba0339d5fbd3cbdcd4bcf5d7e624921c49f3e4d2e9286b2cbd2470fd87787d.json",
+      "sourceSha256": "01ba0339d5fbd3cbdcd4bcf5d7e624921c49f3e4d2e9286b2cbd2470fd87787d",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/b96fe14d3c906179dc9e58ba2e6595b4374ce4c4fb593358fb7ab892537a603a.json",
+      "researchPacketSourceSha256": "b96fe14d3c906179dc9e58ba2e6595b4374ce4c4fb593358fb7ab892537a603a",
       "packetCount": 9,
       "packetIds": [
         "459b8806590d2750e22a8906",
@@ -138,10 +138,10 @@
       "responseCount": 9
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/cb85d538cf4fd0e0835f6a8d05d199221776b939f39197b1a1254f63af4e325f.json",
-      "sourceSha256": "cb85d538cf4fd0e0835f6a8d05d199221776b939f39197b1a1254f63af4e325f",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d.json",
-      "researchPacketSourceSha256": "ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/17b51435910de78ec272c91d3a633df5ab0fae06cb57508cf3892aa8954d813b.json",
+      "sourceSha256": "17b51435910de78ec272c91d3a633df5ab0fae06cb57508cf3892aa8954d813b",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752.json",
+      "researchPacketSourceSha256": "6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752",
       "packetCount": 1,
       "packetIds": [
         "69bf90baf39309039402ae19"
@@ -149,10 +149,10 @@
       "responseCount": 1
     },
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/549cedcf2fe474b7f911a1be8792f004dd20b0d208a944729a340148df3f43c8.json",
-      "sourceSha256": "549cedcf2fe474b7f911a1be8792f004dd20b0d208a944729a340148df3f43c8",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d.json",
-      "researchPacketSourceSha256": "ad2deb8b7440e8e0cb9e83740099d747a2d579f5af71c946f03f21fe2a89792d",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/e462679167f30c8f107a3170e35db37feea313aca611fadad96108d52e0286f4.json",
+      "sourceSha256": "e462679167f30c8f107a3170e35db37feea313aca611fadad96108d52e0286f4",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752.json",
+      "researchPacketSourceSha256": "6a562754d0c1a93dea45abdc8a5cbf843232e8b972bf0c899212fea1b57e8752",
       "packetCount": 1,
       "packetIds": [
         "a86b042330160d53b65b056e"

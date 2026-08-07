@@ -1384,5 +1384,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://images.ctfassets.net/bcjr30vxh6td/5TmKvRnMUYi8GZUjV2d81g/6265cd1ec857bfe346615e95ef61c87b/6811101_Carousel_2.jpeg?w=2048",
+      "sha256": "5cc1c2ae4ff06dcdc8e30b377eba86b9c7723f0b6726d5eb0757b609e1c0f86b",
+      "byteSize": 89495,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T03:57:43Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "070501618202"
+      },
+      "officialProductUrl": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "887ef80f285ba8e777e122488052828f3dd0899712ccc4e4238654a9f7498735",
+      "generatedAt": "2026-08-07T04:01:00Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "3b3fa771a8daaf29994302779e857c15939f7ad6f61ce7e7f9a6a84dbb0375ba",
+      "byteSize": 337905,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T04:02:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T04:02:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

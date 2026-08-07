@@ -1585,6 +1585,30 @@
         "publishedAt": "2026-08-07T03:53:00Z"
       },
       "releaseFingerprint": "97bd69d2d63379b2a18595cf34b402d1ddb695b156b02a73c98f7e5b5699bea1"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+      "dossierFingerprint": "97121c41df55ceb687444d7bf7bdd15f45e915bc3a9522ec99b7c1d613fec692",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturise",
+        "displayLine": "Light sesame body oil · 8.5 fl oz",
+        "usage": "Apply to damp skin after showering or bathing. Smooth over body and allow to absorb. Use daily as needed for dry skin. Avoid broken or irritated skin. Discontinue if irritation occurs.",
+        "manufacturerDirectionsUrl": "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101",
+        "reviewer": "Codex visual audit",
+        "reviewedAt": "2026-08-07T04:02:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T04:03:00Z"
+      },
+      "releaseFingerprint": "f24b72108474d24aaec4e866da0d5c02cdb03c6b093529ead8c3779357aec448"
     }
   ]
 }
