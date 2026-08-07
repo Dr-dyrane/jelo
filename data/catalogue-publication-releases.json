@@ -1753,6 +1753,30 @@
         "publishedAt": "2026-08-07T11:35:00Z"
       },
       "releaseFingerprint": "9f6ddaa658608d490ca17e1beb14c9ac71af316336145be7ce3318cfc7bb32d0"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-energizer-mandelic-acid-body-wash-500ml",
+      "dossierFingerprint": "39eac6839ec4eb28a315729150b23b3fc4f79e069dfbf88179fa38c3f54d2ee4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "The Energizer Mandelic Acid Body Wash 16.9 fl oz",
+        "usage": "Apply to wet skin lather and rinse thoroughly",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-energizer-mandelic-acid-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T11:36:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T11:37:00Z"
+      },
+      "releaseFingerprint": "ecbc91a1247e2532f7c6e7d6291fdd9e6e84261adbc5a9527b36b2b96807fb94"
     }
   ]
 }

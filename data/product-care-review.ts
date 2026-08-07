@@ -877,6 +877,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: '2026-08-07',
   },
+  'naturium-energizer-mandelic-acid-body-wash-500ml': {
+    productSlug: 'naturium-energizer-mandelic-acid-body-wash-500ml',
+    careState: 'insufficient_data',
+    approvedUses: [],
+    evidenceSourceUrls: [
+      'https://naturium.com/products/the-energizer-mandelic-acid-body-wash',
+      'https://www.nhs.uk/conditions/keratosis-pilaris/',
+    ],
+    reviewedAt: '2026-08-07',
+  },
   'medik8-advanced-night-restore-50ml': {
     productSlug: 'medik8-advanced-night-restore-50ml',
     careState: 'insufficient_data',

@@ -905,5 +905,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "d52bc1ce372ed9947ce8e760fd39396ad7e76877263cc3b3fb9a021cd20bae97"
+  },
+  {
+    "id": "naturium-energizer-mandelic-acid-body-wash-500ml-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-energizer-mandelic-acid-body-wash-500ml",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_TheEnergizer_bonebkgd_front.webp?v=1776370945&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-energizer-mandelic-acid-body-wash-500ml/packshot-v1-3712c7790a2b0123.png",
+    "blobPath": "products/naturium/naturium-energizer-mandelic-acid-body-wash-500ml/packshot-v1-3712c7790a2b0123.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-energizer-mandelic-acid-body-wash-500ml/packshot-v1-3712c7790a2b0123.png",
+    "contentType": "image/png",
+    "byteSize": 590923,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "3712c7790a2b0123be3a9d863102c0aa97b07a3da1ab87d5b74e1d0a73ed8c56"
   }
 ]
