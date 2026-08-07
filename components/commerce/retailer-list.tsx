@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowDown, ArrowUp, ArrowUpRight, MapPin, SlidersHorizontal, Truck } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, BadgeCheck, MapPin, SlidersHorizontal, Truck } from 'lucide-react';
 import { type ReactNode, useMemo, useState } from 'react';
 import type { FulfilmentMethod, Offer, OrderChannel } from '@/data/products';
 import type { Market } from '@/data/prices';
@@ -204,14 +204,6 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
       </div> : null}
       {coverageNote ? <p className="market-summary-coverage">{coverageNote}</p> : null}
 
-      {/* Best match — one calm recommended option */}
-      {bestMatch ? (
-        <div className="retailer-best-match" aria-label="Recommended store">
-          <p className="retailer-best-match-label">JeloCare pick</p>
-          {renderOfferRow(bestMatch, 0)}
-        </div>
-      ) : null}
-
       {/* Sort controls — always visible when there are 2+ offers */}
       {filtered.length > 1 ? (
         <div className="retailer-market retailer-sort" role="group" aria-label="Sort stores">
@@ -221,6 +213,16 @@ export function RetailerList({ offers, productSlug, priceTrends, marketSnapshot,
             <button className={sort === 'trust' ? 'active' : ''} type="button" onClick={() => setSort('trust')}>Trust</button>
             <button className={sort === 'price' ? 'active' : ''} type="button" onClick={() => setSort('price')}>Price</button>
           </div>
+        </div>
+      ) : null}
+
+      {/* Best match — the top-ranked offer with a verified badge */}
+      {bestMatch ? (
+        <div className="retailer-best-match" aria-label="JeloCare verified pick">
+          <span className="retailer-pick-badge" aria-hidden="true">
+            <BadgeCheck size={20} strokeWidth={2.2} />
+          </span>
+          {renderOfferRow(bestMatch, 0)}
         </div>
       ) : null}
 

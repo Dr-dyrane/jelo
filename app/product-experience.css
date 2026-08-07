@@ -374,24 +374,30 @@
 .retailer-foot { margin-top: 1rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .retailer-foot .retailer-disclosure { margin: 0; }
 
-/* Best match — calm recommended option */
+/* Best match — verified badge on the primary card */
 .retailer-best-match {
+  position: relative;
   margin-bottom: .8rem;
-  padding: .6rem;
-  border-radius: 1.25rem;
-  background: color-mix(in srgb, var(--peach) 18%, transparent);
 }
-.retailer-best-match-label {
-  margin: 0 0 .4rem .25rem;
-  font-size: .6rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--wine);
+.retailer-pick-badge {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--wine);
+  color: var(--cream);
+  box-shadow: 0 2px 8px rgba(107, 59, 53, .28);
+  pointer-events: none;
 }
 .retailer-best-match .retailer-row {
   border-radius: .9rem;
-  background: var(--paper);
+  background: color-mix(in srgb, var(--peach) 12%, var(--paper));
 }
 
 /* Filters toggle */
@@ -431,21 +437,25 @@
 }
 
 /* Dark theme */
-html[data-theme="dark"] .retailer-best-match {
-  background: color-mix(in srgb, var(--peach) 10%, transparent);
+html[data-theme="dark"] .retailer-pick-badge {
+  background: var(--wine);
+  color: var(--cream);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
 }
 html[data-theme="dark"] .retailer-best-match .retailer-row {
-  background: var(--paper);
+  background: color-mix(in srgb, var(--peach) 8%, var(--paper));
 }
 html[data-theme="dark"] .retailer-filters-toggle {
   background: color-mix(in srgb, var(--paper) 32%, transparent);
 }
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .retailer-best-match {
-    background: color-mix(in srgb, var(--peach) 10%, transparent);
+  html:not([data-theme="light"]) .retailer-pick-badge {
+    background: var(--wine);
+    color: var(--cream);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
   }
   html:not([data-theme="light"]) .retailer-best-match .retailer-row {
-    background: var(--paper);
+    background: color-mix(in srgb, var(--peach) 8%, var(--paper));
   }
   html:not([data-theme="light"]) .retailer-filters-toggle {
     background: color-mix(in srgb, var(--paper) 32%, transparent);
