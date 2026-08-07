@@ -259,17 +259,6 @@
     "hasAlpha": true,
     "contentHash": "95e3135c3509632122187ac3cdf162da986a65d782cb9a1c92b17a24f3a63c67"
   },
-  "la-roche-posay-toleriane-double-repair-matte": {
-    "sourceUrl": "https://media.ulta.com/i/ulta/2591830?fmt=auto&qlt=90&wid=1200",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot.webp",
-    "contentType": "image/webp",
-    "byteSize": 84864,
-    "importedAt": "2026-07-22T00:51:18.671Z",
-    "width": 2000,
-    "height": 2000,
-    "hasAlpha": true,
-    "contentHash": "186689f9a63c9a0872454e3b18f82b688dffa6f06337f23e689ef6577645126e"
-  },
   "ogx-renewing-argan-oil-of-morocco": {
     "sourceUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp",
     "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/ogx/ogx-renewing-argan-oil-of-morocco/packshot-v2.png",

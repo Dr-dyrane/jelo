@@ -2977,6 +2977,30 @@
         "publishedAt": "2026-08-07T22:46:00Z"
       },
       "releaseFingerprint": "b9ab64e7b624de6c89bce25113af9a0685ec6ed7e67e727008176604027ff134"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "dossierFingerprint": "a23187da9e4dab9c0136e739a5e48fe9c68a15d1581eb0be07a476cb9892295e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Hydrate · mattify",
+        "usage": "Apply after treatment steps morning or evening.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T22:50:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T22:51:00Z"
+      },
+      "releaseFingerprint": "29281dbc67a04d0bfd41a06cfee8aadfbadb8e95cd3c093cc57024ccc92ca53a"
     }
   ]
 }

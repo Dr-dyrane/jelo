@@ -1514,6 +1514,69 @@
   },
   {
     "schemaVersion": 1,
+    "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+      "sha256": "2bf4f269f4867b2fd2c791ff171a797ebb5efeed89f777fa28703b991b12f436",
+      "byteSize": 130323,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T22:49:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "03337875782999"
+      },
+      "officialProductUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "u2net",
+      "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
+      "generatedAt": "2026-08-07T22:49:30Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0.0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0.0
+    },
+    "output": {
+      "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
+      "byteSize": 751090,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T22:49:45Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T22:50:00Z",
+      "artReviewer": "Devin visual audit",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "surfaceReviewSha256": "cd40bbcf0de2fa04f4a2626e1ee19ec3143e959e143c1521c809d18557d84891",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
     "candidateId": "loccitane-almond-softening-shower-oil-250ml",
     "publicationScope": "catalogue-publication",
     "source": {

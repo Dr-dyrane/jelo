@@ -146,14 +146,6 @@ export const productDisplayApprovals = {
     contentHash: '95e3135c3509632122187ac3cdf162da986a65d782cb9a1c92b17a24f3a63c67',
     reviewedAt: '2026-07-22T12:34:11.000Z',
   }),
-  'la-roche-posay-toleriane-double-repair-matte': approval({
-    brand: 'La Roche-Posay',
-    name: 'Toleriane Double Repair Matte Moisturizer',
-    size: '75 ml',
-    sourceUrl: 'https://media.ulta.com/i/ulta/2591830?fmt=auto&qlt=90&wid=1200',
-    contentHash: '186689f9a63c9a0872454e3b18f82b688dffa6f06337f23e689ef6577645126e',
-    reviewedAt: '2026-07-22T12:34:11.000Z',
-  }),
   'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': approval({
     brand: 'PanOxyl',
     name: 'Acne Foaming Wash 10% Benzoyl Peroxide',

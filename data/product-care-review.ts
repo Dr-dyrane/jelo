@@ -107,10 +107,6 @@ export const reviewedProductCareManifest = {
     productSlug: 'la-roche-posay-toleriane-double-repair-spf30',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
   },
-  'la-roche-posay-toleriane-double-repair-matte': {
-    productSlug: 'la-roche-posay-toleriane-double-repair-matte',
-    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
-  },
   'cosrx-advanced-snail-96-mucin-power-essence': {
     productSlug: 'cosrx-advanced-snail-96-mucin-power-essence',
     careState: 'supportive_eligible',
@@ -1510,6 +1506,11 @@ export const publishedProductCareManifest = {
   },
   'la-roche-posay-anthelios-uvmune-400-oil-control-fluid': {
     productSlug: 'la-roche-posay-anthelios-uvmune-400-oil-control-fluid',
+    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [],
+    reviewedAt: '2026-08-07',
+  },
+  'la-roche-posay-toleriane-double-repair-matte': {
+    productSlug: 'la-roche-posay-toleriane-double-repair-matte',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [],
     reviewedAt: '2026-08-07',
   },

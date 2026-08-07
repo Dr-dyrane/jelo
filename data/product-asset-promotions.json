@@ -586,5 +586,22 @@
     "contentType": "image/png",
     "hasAlpha": true,
     "blobPath": "products/la-roche-posay/la-roche-posay-anthelios-uvmune-400-oil-control-fluid/packshot-v2-561fc98be60cacbb.png"
+  },
+  {
+    "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+    "active": true,
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png",
+    "contentHash": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
+    "byteSize": 751090,
+    "width": 2000,
+    "height": 2000,
+    "localPath": "data/catalogue-intake-assets/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png",
+    "id": "la-roche-posay-toleriane-double-repair-matte-packshot-v2",
+    "publicationBrandSlug": "la-roche-posay",
+    "destination": "publication",
+    "sourceUrl": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+    "contentType": "image/png",
+    "hasAlpha": true,
+    "blobPath": "products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png"
   }
 ]

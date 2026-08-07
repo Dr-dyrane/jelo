@@ -766,7 +766,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   fentyskin: ['fentybeauty.com'],
   garnier: ['www.garnier.co.uk', 'www.garnier.com.au'],
   keracare: ['keracare.com'],
-  larocheposay: ['www.laroche-posay.co.uk', 'www.laroche-posay.fr'],
+  larocheposay: ['www.laroche-posay.co.uk', 'www.laroche-posay.fr', 'www.laroche-posay.us'],
   loccitaneenprovence: ['no.loccitane.com'],
   medik8: ['www.medik8.com'],
   naturium: ['naturium.com'],
@@ -850,6 +850,7 @@ const reviewedOfficialIdentityHosts: Readonly<Record<string, readonly string[]>>
   larocheposay: [
     'www.laroche-posay.co.uk',
     'www.laroche-posay.fr',
+    'www.laroche-posay.us',
     'uk.lorealdermatologicalbeautypartnershop.com',
   ],
   loccitaneenprovence: ['no.loccitane.com', 'cdn.shopify.com'],

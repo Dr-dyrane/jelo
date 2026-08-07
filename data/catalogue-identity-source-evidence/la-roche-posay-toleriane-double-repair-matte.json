@@ -1,0 +1,43 @@
+{
+  "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+  "sourceUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+  "responseUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+  "retrievedAt": "2026-08-07T22:49:00Z",
+  "reviewedAt": "2026-08-07T22:50:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "schemaVersion": 8,
+  "sourceResponseSha256": "35e4d82b1b9071731c715160fdbd1f053192b8f6b1dc211b84fd8adb4e24fe1c",
+  "sourceResponseMimeType": "text/html",
+  "sourceResponseByteSize": 1011684,
+  "responseDigestScope": "rendered-dom-outerhtml",
+  "method": "reviewed-browser-dom-identity-field-extraction",
+  "browserCapture": {
+    "surface": "Playwright MCP browser",
+    "documentReadyState": "complete",
+    "pageTitle": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin | La Roche-Posay"
+  },
+  "productRecord": {
+    "locator": "DOM analytics product upc field",
+    "byteStart": 0,
+    "byteEnd": 0,
+    "sourceText": "\"upc\":\"3337875782999\"",
+    "sourceFragmentSha256": "a13c50cce975f5874ecd209a0d72fff99f6acb6826ef629f5707e065b811ccb4"
+  },
+  "fields": {
+    "gtin": {
+      "value": "3337875782999",
+      "locator": "DOM analytics product upc field",
+      "sourceText": "\"upc\":\"3337875782999\""
+    },
+    "variant": {
+      "value": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+      "locator": "DOM h1 element text content",
+      "sourceText": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin"
+    },
+    "size": {
+      "value": "75 ml",
+      "locator": "DOM product page size selector and URL path",
+      "sourceText": "75ml"
+    }
+  }
+}

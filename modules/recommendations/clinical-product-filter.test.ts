@@ -20,16 +20,16 @@ function product(slug: string) {
   return match;
 }
 
-test('the care manifest covers all 21 products with the audited state counts', () => {
+test('the care manifest covers all 20 products with the audited state counts', () => {
   const productSlugs = catalogue.map(item => item.slug).sort();
   const reviewSlugs = Object.keys(reviewedProductCareManifest).sort();
   const states = Object.values(reviewedProductCareManifest).map(review => review.careState);
 
-  assert.equal(productSlugs.length, 21);
+  assert.equal(productSlugs.length, 20);
   assert.deepEqual(reviewSlugs, productSlugs);
   assert.equal(states.filter(state => state === 'supportive_eligible').length, 2);
   assert.equal(states.filter(state => state === 'pharmacist_review').length, 4);
-  assert.equal(states.filter(state => state === 'insufficient_data').length, 15);
+  assert.equal(states.filter(state => state === 'insufficient_data').length, 14);
 });
 
 test('every dossier-released product has an explicit post-publication care decision', () => {

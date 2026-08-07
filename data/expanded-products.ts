@@ -19,13 +19,6 @@ export const expandedProducts: Product[] = [
     offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/catalogsearch/result/?q=toleriane%20double%20repair'), usOffer('Ulta Beauty', 'https://www.ulta.com/p/toleriane-double-repair-face-moisturizer-uv-spf-30-xlsImpprod15681007?sku=2503390', 94, 28.99)]
   },
   {
-    slug: 'la-roche-posay-toleriane-double-repair-matte', brand: 'La Roche-Posay', name: 'Toleriane Double Repair Matte Moisturizer', size: '75 ml', category: 'Face', step: 'Moisturize',
-    image: 'https://media.ulta.com/i/ulta/2591830?fmt=auto&qlt=90&wid=1200', displayLine: 'Hydrate · mattify',
-    bestFor: ['oily skin', 'visible pores', 'barrier support'], concerns: ['oiliness', 'pores', 'barrier', 'texture'], skinTypes: ['oily', 'combination'], sensitiveFriendly: true,
-    usage: 'Apply after treatment steps morning or evening.', evidence: 'high',
-    offers: [ngOffer('Care to Beauty', 'https://www.caretobeauty.com/ng/catalogsearch/result/?q=toleriane%20double%20repair%20matte'), usOffer('Ulta Beauty', 'https://www.ulta.com/p/toleriane-double-repair-matte-face-moisturizer-oily-skin-pimprod2030179', 94, 27.99)]
-  },
-  {
     slug: 'cosrx-advanced-snail-96-mucin-power-essence', brand: 'COSRX', name: 'Advanced Snail 96 Mucin Power Essence', size: '100 ml', category: 'Face', step: 'Essence',
     image: 'https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806.jpg?v=1763111577', displayLine: 'Hydrate · recover',
     bestFor: ['dehydration', 'post-blemish recovery', 'barrier support'], concerns: ['dryness', 'barrier', 'sensitivity', 'dark spots'], skinTypes: ['all'], sensitiveFriendly: true,

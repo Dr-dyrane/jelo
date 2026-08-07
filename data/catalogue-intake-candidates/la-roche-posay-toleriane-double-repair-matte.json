@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-07T22:50:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "ef1c1ca7e03335c12a915a82",
+    "discoveryId": "9cdfdb7b61a532de85db8cdc",
+    "sourceSnapshotSha256": "35e4d82b1b9071731c715160fdbd1f053192b8f6b1dc211b84fd8adb4e24fe1c"
+  },
+  "candidate": {
+    "id": "la-roche-posay-toleriane-double-repair-matte",
+    "brand": "La Roche-Posay",
+    "name": "Toleriane Double Repair Matte Moisturizer",
+    "variant": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+    "size": "75 ml",
+    "category": "Face care",
+    "reason": "A matte moisturizer for oily skin with ceramides and niacinamide, with an official EAN from the La Roche-Posay US site and existing Nigerian retailer offers.",
+    "priority": "important",
+    "gapIds": [
+      "oily-skin-care",
+      "barrier-support"
+    ],
+    "demandEvidenceUrls": [
+      "https://www.caretobeauty.com/ng/catalogsearch/result/?q=toleriane%20double%20repair%20matte",
+      "https://www.ulta.com/p/toleriane-double-repair-matte-face-moisturizer-oily-skin-pimprod2030179"
+    ],
+    "identity": {
+      "gtin": "3337875782999",
+      "officialProductUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+      "checkedAt": "2026-08-07T22:50:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+        "observedGtin": "3337875782999",
+        "observedVariant": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+        "observedSize": "75 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/la-roche-posay-toleriane-double-repair-matte.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+          "sourceUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+          "responseUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-08-07T22:49:00Z",
+          "fields": {
+            "gtin": {
+              "value": "3337875782999",
+              "locator": "DOM analytics product upc field",
+              "sourceText": "\"upc\":\"3337875782999\""
+            },
+            "variant": {
+              "value": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+              "locator": "DOM h1 element text content",
+              "sourceText": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin"
+            },
+            "size": {
+              "value": "75 ml",
+              "locator": "DOM product page size selector and URL path",
+              "sourceText": "75ml"
+            }
+          },
+          "sourceResponseSha256": "35e4d82b1b9071731c715160fdbd1f053192b8f6b1dc211b84fd8adb4e24fe1c",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 1011684,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Playwright MCP browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin | La Roche-Posay"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-07T22:50:00Z"
+        },
+        "snapshotSha256": "4300def241da14aabb971399618d03637884a6b9fb9bebb6038f04b76878f57d",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1392,
+        "retrievedAt": "2026-08-07T22:49:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Oil-free matte moisturizer with ceramides and niacinamide for oily skin",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Supports daily oil control and barrier support for oily skin. Apply after treatment steps morning or evening. Do not present as treatment for skin conditions. Stop if irritation occurs.",
+      "manufacturerEvidenceUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+      "evidenceUrls": [
+        "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer"
+      ],
+      "reviewedAt": "2026-08-07T22:50:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+      "sourceUrl": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+      "sourceAssetSha256": "2bf4f269f4867b2fd2c791ff171a797ebb5efeed89f777fa28703b991b12f436",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 130323,
+      "sourceAssetWidth": 2000,
+      "sourceAssetHeight": 2000,
+      "sourceAssetRetrievedAt": "2026-08-07T22:49:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png",
+      "publicImageSha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 751090,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-07T22:50:00Z",
+      "artReviewer": "Devin visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}
