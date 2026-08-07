@@ -1,0 +1,149 @@
+{
+    "schemaVersion": 1,
+    "publicationStatus": "private-research-only",
+    "updatedAt": "2026-08-07T12:03:00Z",
+    "origin": {
+        "kind": "community-aggregate-packet",
+        "packetId": "d34092980dce29db8a0a356b",
+        "reportSha256": "66293a93bfbf45e64a66f2105c1f5f418d1b3abc9bf731c9e10bfbbb2ec801d2"
+    },
+    "candidate": {
+        "id": "naturium-brightener-vitamin-c-body-wash-500ml",
+        "brand": "Naturium",
+        "name": "The Brightener Vitamin C Brightening Body Wash",
+        "variant": "The Brightener Vitamin C Brightening Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "category": "Body care",
+        "reason": "Adds the exact current 500 mL Naturium Brightener Vitamin C Brightening Body Wash. Official Shopify structured data publishes GTIN 850010792927. No exact Nigerian offers yet bound, so reference only.",
+        "priority": "important",
+        "gapIds": [
+            "rinse-off-body-care",
+            "vitamin-c-body-care",
+            "brightening-body-care"
+        ],
+        "demandEvidenceUrls": [
+            "https://www.urbanskinng.com/shop/the-brightener-vitamin-c-body-wash/",
+            "https://peronabeauty.com/product/naturium-brightener-vitamin-c-body-wash/"
+        ],
+        "identity": {
+            "gtin": "850010792927",
+            "officialProductUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+            "checkedAt": "2026-08-07T12:02:00Z",
+            "basis": "official-brand",
+            "packageVersion": "The Brightener Vitamin C Brightening Body Wash 16.9 fl oz / 500 mL pump bottle",
+            "officialEvidence": {
+                "url": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+                "observedGtin": "850010792927",
+                "observedVariant": "The Brightener Vitamin C Brightening Body Wash",
+                "observedSize": "16.9 fl oz / 500 mL",
+                "observedPackageVersion": "The Brightener Vitamin C Brightening Body Wash 16.9 fl oz / 500 mL pump bottle",
+                "snapshotKind": "canonical-extraction",
+                "snapshotPath": "data/catalogue-identity-evidence/naturium-brightener-vitamin-c-body-wash-500ml.json",
+                "snapshotSha256": "66293a93bfbf45e64a66f2105c1f5f418d1b3abc9bf731c9e10bfbbb2ec801d2",
+                "snapshotMimeType": "application/json",
+                "snapshotByteSize": 2187,
+                "retrievedAt": "2026-08-07T12:01:13Z",
+                "canonicalExtraction": {
+                    "schemaVersion": 4,
+                    "candidateId": "naturium-brightener-vitamin-c-body-wash-500ml",
+                    "method": "reviewed-browser-dom-identity-field-extraction",
+                    "browserCapture": {
+                        "surface": "Playwright MCP browser",
+                        "documentReadyState": "complete",
+                        "pageTitle": "The Brightener Vitamin C Body Wash | Brightening Body Wash | Naturium"
+                    },
+                    "sourceUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+                    "responseUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+                    "retrievedAt": "2026-08-07T12:01:13Z",
+                    "reviewedAt": "2026-08-07T12:02:00Z",
+                    "reviewer": "JeloCare catalogue evidence review",
+                    "sourceResponseSha256": "d93db329c467481dc2641c45b7251be7e5c7f63e8c72c548d5f9a0d3d2790c15",
+                    "sourceResponseMimeType": "text/html",
+                    "sourceResponseByteSize": 859643,
+                    "responseDigestScope": "rendered-dom-outerhtml",
+                    "fields": {
+                        "gtin": {
+                            "locator": "Rendered official Shopify structured product data variant gtin field",
+                            "sourceText": "\"gtin\":\"850010792927\"",
+                            "value": "850010792927"
+                        },
+                        "variant": {
+                            "locator": "Rendered official product heading",
+                            "sourceText": "The Brightener Vitamin C Brightening Body Wash",
+                            "value": "The Brightener Vitamin C Brightening Body Wash"
+                        },
+                        "size": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "Official front-pack principal display panel: 16.9 FL OZ / 500 mL",
+                            "value": "16.9 fl oz / 500 mL"
+                        },
+                        "packageVersion": {
+                            "locator": "Official front-pack principal display panel in supplemental response",
+                            "sourceText": "The Brightener Vitamin C Brightening Body Wash 16.9 FL OZ / 500 mL pump bottle",
+                            "value": "The Brightener Vitamin C Brightening Body Wash 16.9 fl oz / 500 mL pump bottle"
+                        }
+                    },
+                    "supplementalResponses": [
+                        {
+                            "role": "official-pack-image",
+                            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-The-Brightener-Body-Wash_front_aaef2448-f4cd-4b11-b355-f72e8e2c75c9.webp?v=1776370946&width=2048",
+                            "responseUrl": "https://naturium.com/cdn/shop/files/NATR-The-Brightener-Body-Wash_front_aaef2448-f4cd-4b11-b355-f72e8e2c75c9.webp?v=1776370946&width=2048",
+                            "retrievedAt": "2026-08-07T12:01:13Z",
+                            "responseSha256": "080a9b61b52d8173921e02da8370da251e6f1f0a6fc11b6aae75c704ab2c1282",
+                            "responseMimeType": "image/png",
+                            "responseByteSize": 355276
+                        }
+                    ]
+                }
+            }
+        },
+        "care": {
+            "status": "reviewed",
+            "formulaArchetype": "Manufacturer-described vitamin C brightening rinse-off body wash.",
+            "careTier": "targeted-care",
+            "reviewScope": "catalogue-supportive-care",
+            "advisoryBoundary": "A rinse-off cosmetic body wash, not a diagnosis or treatment for hyperpigmentation, melasma, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+            "manufacturerEvidenceUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+            "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+            "evidenceUrls": [
+                "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+                "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+            ],
+            "reviewedAt": "2026-08-07T12:02:00Z",
+            "reviewer": "JeloCare catalogue evidence review"
+        },
+        "nigeria": {
+            "regulatoryStatus": "pending",
+            "tierAIdentityEvidenceUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+            "exactOffers": [],
+            "excludedObservations": []
+        },
+        "asset": {
+            "rightsStatus": "documented",
+            "origin": "official-brand-media",
+            "role": "packshot",
+            "rightsUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+            "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-The-Brightener-Body-Wash_front_aaef2448-f4cd-4b11-b355-f72e8e2c75c9.webp?v=1776370946&width=2048",
+            "sourceAssetSha256": "080a9b61b52d8173921e02da8370da251e6f1f0a6fc11b6aae75c704ab2c1282",
+            "sourceAssetMimeType": "image/png",
+            "sourceAssetByteSize": 355276,
+            "sourceAssetWidth": 2000,
+            "sourceAssetHeight": 2000,
+            "sourceAssetRetrievedAt": "2026-08-07T12:01:13Z",
+            "packaging": "intact",
+            "backgroundTreatment": "source-pixel-isolation",
+            "labelVariantSizeUnchanged": true,
+            "packagingInvented": false,
+            "manualSourceOutputQa": true,
+            "artReviewedAt": "2026-08-07T12:03:00Z",
+            "artReviewer": "Codex visual audit",
+            "presentationQuality": "magazine-ready",
+            "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-brightener-vitamin-c-body-wash-500ml/packshot-v1-d63acab5940ee27e.png",
+            "publicImageSha256": "d63acab5940ee27eaa7c3d16c9defd410f275e8d2bb3ac185b524bc8116d14de",
+            "publicImageMimeType": "image/png",
+            "publicImageByteSize": 437014,
+            "width": 2000,
+            "height": 2000
+        }
+    }
+}

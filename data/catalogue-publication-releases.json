@@ -1945,6 +1945,30 @@
         "publishedAt": "2026-08-07T12:01:00Z"
       },
       "releaseFingerprint": "6af400919d3f36d16c3e6779fcfd860c8b9d613ed599c2a9e198892fb4372426"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-brightener-vitamin-c-body-wash-500ml",
+      "dossierFingerprint": "266fa88f643c1cb7dda70ef6bd7b70a23aa93cacab4db265f8629e25fcb738be",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "The Brightener Vitamin C Body Wash 16.9 fl oz",
+        "usage": "Apply to wet skin lather and rinse thoroughly",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T12:04:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T12:05:00Z"
+      },
+      "releaseFingerprint": "49f3c4e012848959fb1bfe69aaf74d38d155784cc7c2652bf6f6dabba4283ef8"
     }
   ]
 }

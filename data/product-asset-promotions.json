@@ -1041,5 +1041,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "addcc92a2ef6c3c7d4a33ad793aae1cb384978828e86f750552ae37292a16176"
+  },
+  {
+    "id": "naturium-brightener-vitamin-c-body-wash-500ml-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-brightener-vitamin-c-body-wash-500ml",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-The-Brightener-Body-Wash_front_aaef2448-f4cd-4b11-b355-f72e8e2c75c9.webp?v=1776370946&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-brightener-vitamin-c-body-wash-500ml/packshot-v1-d63acab5940ee27e.png",
+    "blobPath": "products/naturium/naturium-brightener-vitamin-c-body-wash-500ml/packshot-v1-d63acab5940ee27e.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-brightener-vitamin-c-body-wash-500ml/packshot-v1-d63acab5940ee27e.png",
+    "contentType": "image/png",
+    "byteSize": 437014,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "d63acab5940ee27eaa7c3d16c9defd410f275e8d2bb3ac185b524bc8116d14de"
   }
 ]

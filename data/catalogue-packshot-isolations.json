@@ -2329,5 +2329,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-brightener-vitamin-c-body-wash-500ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR-The-Brightener-Body-Wash_front_aaef2448-f4cd-4b11-b355-f72e8e2c75c9.webp?v=1776370946&width=2048",
+      "sha256": "080a9b61b52d8173921e02da8370da251e6f1f0a6fc11b6aae75c704ab2c1282",
+      "byteSize": 355276,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T12:01:13Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792927"
+      },
+      "officialProductUrl": "https://naturium.com/products/the-brightener-vitamin-c-brightening-body-wash"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "76c3b105b785232782e0f3dfd1f3c3298bbcd5a59a438c572474351b39dead6e",
+      "generatedAt": "2026-08-07T12:02:22Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "d63acab5940ee27eaa7c3d16c9defd410f275e8d2bb3ac185b524bc8116d14de",
+      "byteSize": 437014,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T12:03:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T12:03:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "76c3b105b785232782e0f3dfd1f3c3298bbcd5a59a438c572474351b39dead6e",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]
