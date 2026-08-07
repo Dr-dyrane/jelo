@@ -2329,6 +2329,30 @@
         "publishedAt": "2026-08-07T13:19:00Z"
       },
       "releaseFingerprint": "3eed2caa6acbf5c7a69da06d77bd2af30a870d4c621e3cd38339542ccb60e2ae"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "dossierFingerprint": "f8921c1846db4db8b7009557e237da16e0398a8b711ab5dddef71aa738c64391",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Vitamin C Complex Serum Jumbo 2.0 fl oz",
+        "usage": "Apply 4-5 drops to clean dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T13:21:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T13:22:00Z"
+      },
+      "releaseFingerprint": "b64e8e8bc538bba52e9e1f23177e167c6205ede8336f3e524e207933ab866b52"
     }
   ]
 }

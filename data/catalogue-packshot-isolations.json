@@ -3337,5 +3337,68 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://naturium.com/cdn/shop/files/NATR_VitaminC_ComplexSerum_jumbo_revcolor2_Front_CapOn_ecomm.webp?v=1774289258&width=2048",
+      "sha256": "78aa3e44c31118d476acf07a5b0b135da920bf5931d4d9f6a6f8dcc775c0e7d8",
+      "byteSize": 331764,
+      "width": 2000,
+      "height": 2000,
+      "retrievedAt": "2026-08-07T13:17:46Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00850010792644"
+      },
+      "officialProductUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "bcfccece3a4cfdb7be585201bd8921477b0e7f9e24080c04197a5803c12ec8c2",
+      "generatedAt": "2026-08-07T13:19:31Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "360782bcbdd8a578e1f80b0b4e9b8b3a54bef2dd210e41d2481c92bdacf2906e",
+      "byteSize": 356023,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-07T13:20:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-07T13:20:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaceReviewSha256": "bcfccece3a4cfdb7be585201bd8921477b0e7f9e24080c04197a5803c12ec8c2",
+      "surfaces": [
+        "peach",
+        "pink",
+        "dark"
+      ],
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

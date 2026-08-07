@@ -1313,5 +1313,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "09c8c60eb9f471b62412e06649f7a83bddd04bbb1386b7330790d95a8706c0b4"
+  },
+  {
+    "id": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz-packshot-v1",
+    "active": true,
+    "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+    "destination": "publication",
+    "publicationBrandSlug": "naturium",
+    "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_VitaminC_ComplexSerum_jumbo_revcolor2_Front_CapOn_ecomm.webp?v=1774289258&width=2048",
+    "localPath": "data/catalogue-intake-assets/naturium-vitamin-c-complex-serum-jumbo-2fl-oz/packshot-v1-360782bcbdd8a578.png",
+    "blobPath": "products/naturium/naturium-vitamin-c-complex-serum-jumbo-2fl-oz/packshot-v1-360782bcbdd8a578.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-vitamin-c-complex-serum-jumbo-2fl-oz/packshot-v1-360782bcbdd8a578.png",
+    "contentType": "image/png",
+    "byteSize": 356023,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "360782bcbdd8a578e1f80b0b4e9b8b3a54bef2dd210e41d2481c92bdacf2906e"
   }
 ]

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-07T13:17:00Z",
+  "updatedAt": "2026-08-07T13:20:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -21534,6 +21534,145 @@
         "publicImageSha256": "1b8711121786adab8c7353eeffd3205896848761b0e6aeee59bde0679519da79",
         "publicImageMimeType": "image/png",
         "publicImageByteSize": 274772,
+        "width": 2000,
+        "height": 2000
+      }
+    },
+    {
+      "id": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "brand": "Naturium",
+      "name": "Vitamin C Complex Serum Jumbo",
+      "variant": "Vitamin C Complex Serum - Jumbo - 2.0 fl oz",
+      "size": "2.0 fl oz / 60 mL",
+      "category": "Face care",
+      "reason": "Adds the exact current 60 mL Naturium Vitamin C Complex Serum Jumbo. Official Shopify structured data publishes GTIN 850010792644. No exact Nigerian offers yet bound, so reference only.",
+      "priority": "important",
+      "gapIds": [
+        "vitamin-c-serum",
+        "brightening-support",
+        "leave-on-face-care"
+      ],
+      "demandEvidenceUrls": [
+        "https://www.urbanskinng.com/shop/vitamin-c-complex-serum-jumbo/",
+        "https://peronabeauty.com/product/naturium-vitamin-c-complex-serum-jumbo/"
+      ],
+      "identity": {
+        "gtin": "850010792644",
+        "officialProductUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+        "checkedAt": "2026-08-07T13:19:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Vitamin C Complex Serum Jumbo 2.0 fl oz / 60 mL dropper bottle",
+        "officialEvidence": {
+          "url": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+          "observedGtin": "850010792644",
+          "observedVariant": "Vitamin C Complex Serum - Jumbo - 2.0 fl oz",
+          "observedSize": "2.0 fl oz / 60 mL",
+          "observedPackageVersion": "Vitamin C Complex Serum Jumbo 2.0 fl oz / 60 mL dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-vitamin-c-complex-serum-jumbo-2fl-oz.json",
+          "snapshotSha256": "3ecf3e8eea482a9111c580cd629dd725f8aafa995e6f2844bf08f7ba1261e340",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2129,
+          "retrievedAt": "2026-08-07T13:17:46Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Vitamin C Complex Serum Jumbo | Brightening Vitamin C Serum | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+            "responseUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+            "retrievedAt": "2026-08-07T13:17:46Z",
+            "reviewedAt": "2026-08-07T13:19:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "5cfef9ade08c4664e4ed47ef6d17327f819c7522d86b428c2d714f4e72585e59",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 919036,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"850010792644\"",
+                "value": "850010792644"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "Vitamin C Complex Serum - Jumbo - 2.0 fl oz",
+                "value": "Vitamin C Complex Serum - Jumbo - 2.0 fl oz"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 2.0 FL OZ / 60 mL",
+                "value": "2.0 fl oz / 60 mL"
+              },
+              "packageVersion": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Vitamin C Complex Serum Jumbo 2.0 FL OZ / 60 mL dropper bottle",
+                "value": "Vitamin C Complex Serum Jumbo 2.0 fl oz / 60 mL dropper bottle"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_VitaminC_ComplexSerum_jumbo_revcolor2_Front_CapOn_ecomm.webp?v=1774289258&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR_VitaminC_ComplexSerum_jumbo_revcolor2_Front_CapOn_ecomm.webp?v=1774289258&width=2048",
+                "retrievedAt": "2026-08-07T13:17:46Z",
+                "responseSha256": "78aa3e44c31118d476acf07a5b0b135da920bf5931d4d9f6a6f8dcc775c0e7d8",
+                "responseMimeType": "image/png",
+                "responseByteSize": 331764
+              }
+            ]
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described brightening vitamin C complex serum in jumbo size.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic serum, not a diagnosis or treatment for hyperpigmentation or any skin condition. Introduce cautiously, avoid direct eye contact, use sunscreen during the day, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-07T13:19:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://naturium.com/products/vitamin-c-complex-serum-jumbo",
+        "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_VitaminC_ComplexSerum_jumbo_revcolor2_Front_CapOn_ecomm.webp?v=1774289258&width=2048",
+        "sourceAssetSha256": "78aa3e44c31118d476acf07a5b0b135da920bf5931d4d9f6a6f8dcc775c0e7d8",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 331764,
+        "sourceAssetWidth": 2000,
+        "sourceAssetHeight": 2000,
+        "sourceAssetRetrievedAt": "2026-08-07T13:17:46Z",
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-07T13:20:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-vitamin-c-complex-serum-jumbo-2fl-oz/packshot-v1-360782bcbdd8a578.png",
+        "publicImageSha256": "360782bcbdd8a578e1f80b0b4e9b8b3a54bef2dd210e41d2481c92bdacf2906e",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 356023,
         "width": 2000,
         "height": 2000
       }
