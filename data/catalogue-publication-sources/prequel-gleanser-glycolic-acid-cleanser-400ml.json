@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
-    "candidateFingerprint": "20fb62198ea4f7e48bb3f8a93e77d1c34901316a27d44a71307d7ae250f3fe1c",
+    "candidateFingerprint": "e1ca3c9dadcdf9d0914e458cc68eb222d81ea4f78cf9f4d6c5149b45b199f92a",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -104,8 +104,8 @@
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-          "observedAt": "2026-07-28T08:25:13Z",
-          "observedTitle": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml",
+          "observedAt": "2026-08-08T05:14:43Z",
+          "observedTitle": "PREQUEL – Gleanser + Glycolic Acid Cleanser 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "retailerSku": "810129110562",
@@ -113,101 +113,111 @@
           "stock": "out-of-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
             "responseUrl": "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-            "responseSha256": "4502f772ecfde938e8df46d8eb0c9508fda1f70a80d97daecc24afb668fb5596",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "7afb16340aca999fb359fe756d465fce42a275d7d23e3d1e0669eefee0032e6c",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 814941,
-            "retrievedAt": "2026-07-28T08:25:13Z",
+            "responseByteSize": 525876,
+            "retrievedAt": "2026-08-08T05:14:43Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "810129110562",
-                "locator": "Bound manufacturer identity lead; retailer HTML separately labels the same digits as SKU",
-                "sourceText": "Official identity GTIN 810129110562",
+                "locator": "Bound official Prequel catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 810129110562",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml",
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml"
+                "value": "PREQUEL – Gleanser + Glycolic Acid Cleanser 400ml",
+                "locator": "HTML product heading",
+                "sourceText": "PREQUEL – Gleanser + Glycolic Acid Cleanser 400ml"
               },
               "size": {
                 "value": "400 ml",
-                "locator": "HTML h1 product title size suffix",
-                "sourceText": "PREQUEL Gleanser + Glycolic Acid Cleanser 400ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ml"
               },
               "price": {
                 "value": 37088,
                 "currency": "NGN",
-                "locator": "HTML p.price.woobt-price-390443",
-                "sourceText": "₦37,088.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦37,088"
               },
               "stock": {
                 "value": "out-of-stock",
-                "locator": "HTML p.stock.out-of-stock",
+                "locator": "Rendered availability status",
                 "sourceText": "Out of stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-28T08:38:00Z"
+            "reviewedAt": "2026-08-08T05:15:30Z"
           }
         },
         {
           "retailer": "Nihet Beauty",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-          "observedAt": "2026-07-28T08:25:14Z",
+          "observedAt": "2026-08-08T05:14:54Z",
           "observedTitle": "Prequel Cleanser + Glycolic Acid Cleanser 400ml",
           "reviewedTitleAlias": "Glycolic Acid Cleanser",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "priceNgn": 96000,
+          "priceNgn": 36500,
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
             "responseUrl": "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
-            "responseSha256": "b8808b46f943ee3ff3e45c0a4ee98fa07d4265629826d612ecb9f3507f578edc",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "bbe4a800116cf4077a4ad1cd9b03639bb52d31524a2223478e8b0078ca083461",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 485264,
-            "retrievedAt": "2026-07-28T08:25:14Z",
+            "responseByteSize": 488167,
+            "retrievedAt": "2026-08-08T05:14:54Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Prequel Cleanser + Glycolic Acid Cleanser 400ml | NIHETBEAUTY"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "810129110562",
-                "locator": "Bound manufacturer identity lead; no retailer UPC/EAN/GTIN field was used",
-                "sourceText": "Official identity GTIN 810129110562",
+                "locator": "Bound official Prequel catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 810129110562",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Prequel Cleanser + Glycolic Acid Cleanser 400ml",
-                "locator": "HTML h1.product_title entry-title",
+                "locator": "HTML product heading",
                 "sourceText": "Prequel Cleanser + Glycolic Acid Cleanser 400ml"
               },
               "size": {
                 "value": "400 ml",
-                "locator": "HTML h1 product title size suffix",
-                "sourceText": "Prequel Cleanser + Glycolic Acid Cleanser 400ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ml"
               },
               "price": {
-                "value": 96000,
+                "value": 36500,
                 "currency": "NGN",
-                "locator": "HTML p.price",
-                "sourceText": "₦96,000"
+                "locator": "Rendered product summary price",
+                "sourceText": "₦36,500"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "HTML p.stock.in-stock",
-                "sourceText": "In stock"
+                "locator": "Rendered availability status",
+                "sourceText": "IN STOCK"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-28T08:38:00Z"
+            "reviewedAt": "2026-08-08T05:15:30Z"
           }
         }
       ],
@@ -261,14 +271,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-28T08:50:30Z"
+      "approvedAt": "2026-08-08T05:15:50Z"
     },
-    "dossierFingerprint": "b9cbba499bc79bd89e9e67efabc4a1be4caf344ef288793bcbe69f275853cfa4"
+    "dossierFingerprint": "fb9de66da98619f78ef434a6173602830f6f51330ac7f78a86dc674e2c33d0d6"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
-    "dossierFingerprint": "b9cbba499bc79bd89e9e67efabc4a1be4caf344ef288793bcbe69f275853cfa4",
+    "dossierFingerprint": "fb9de66da98619f78ef434a6173602830f6f51330ac7f78a86dc674e2c33d0d6",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -280,13 +290,13 @@
       "usage": "Apply a generous amount to wet skin, massage gently, then rinse thoroughly. Suitable for face and body; use morning and night.",
       "manufacturerDirectionsUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-28T08:50:40Z"
+      "reviewedAt": "2026-08-08T05:16:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-28T08:50:50Z"
+      "publishedAt": "2026-08-08T05:16:10Z"
     },
-    "releaseFingerprint": "6d588988f014a69d9da0d8812e6d79702d728a5a44bb8f6670f829241670bb57"
+    "releaseFingerprint": "bff252339151af9fc7b7a7d97ab9c71492c6159d23bad6684a4c3bd83f008895"
   }
 }

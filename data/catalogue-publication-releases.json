@@ -124,30 +124,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
-      "dossierFingerprint": "b9cbba499bc79bd89e9e67efabc4a1be4caf344ef288793bcbe69f275853cfa4",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Glycerin + glycolic cleanser · 400 ml",
-        "usage": "Apply a generous amount to wet skin, massage gently, then rinse thoroughly. Suitable for face and body; use morning and night.",
-        "manufacturerDirectionsUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-28T08:50:40Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-28T08:50:50Z"
-      },
-      "releaseFingerprint": "6d588988f014a69d9da0d8812e6d79702d728a5a44bb8f6670f829241670bb57"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "dang-hydra-glow-sun-protection-gel-60ml",
       "dossierFingerprint": "57d2c25fc01fa1ec7b017ec6c6b4163f855da3927cda8299706839559aa12441",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T05:12:10Z"
       },
       "releaseFingerprint": "287548c655f73b5b4330592ad31902aba23f250526ce30f1a36bf29de878511c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+      "dossierFingerprint": "fb9de66da98619f78ef434a6173602830f6f51330ac7f78a86dc674e2c33d0d6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Glycerin + glycolic cleanser · 400 ml",
+        "usage": "Apply a generous amount to wet skin, massage gently, then rinse thoroughly. Suitable for face and body; use morning and night.",
+        "manufacturerDirectionsUrl": "https://prequelskin.com/products/gleanser-glycerin-and-glycolic-acid-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T05:16:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T05:16:10Z"
+      },
+      "releaseFingerprint": "bff252339151af9fc7b7a7d97ab9c71492c6159d23bad6684a4c3bd83f008895"
     }
   ]
 }

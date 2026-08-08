@@ -99,14 +99,14 @@ test('the Prequel Gleanser lead binds official identity, current Nigerian offers
     item.id === 'prequel-gleanser-glycolic-acid-cleanser-400ml'
   ));
   assert.ok(candidate);
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T05:15:50Z'));
   assert.equal(candidate.identity.gtin, '810129110562');
   assert.equal(candidate.identity.officialEvidence?.snapshotKind, 'canonical-extraction');
   assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.fields.variant.value, 'GLEANSER + GLYCOLIC');
   assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.fields.size.value, '400 ml');
   assert.deepEqual(decision.freshExactOffers.map(offer => [offer.retailer, offer.priceNgn, offer.stock]), [
     ['BuyBetter', 37_088, 'out-of-stock'],
-    ['Nihet Beauty', 96_000, 'in-stock'],
+    ['Nihet Beauty', 36_500, 'in-stock'],
   ]);
   assert.equal(decision.excludedMarketObservations[0]?.retailer, 'Essentials Hub');
   assert.equal(candidate.asset.rightsStatus, 'documented');
