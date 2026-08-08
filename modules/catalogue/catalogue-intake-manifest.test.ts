@@ -1081,7 +1081,7 @@ test('the Face Facts Vitamin C lotion binds independent EAN evidence and two Nig
   assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [6_095, 8_000]);
   assert.equal(candidate.asset.publicImageSha256, 'b66f84a8068e2bd1d4be2c99748d7a27f8b38dacefb13960c05e724c5d39bf41');
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T03:50:30Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.nigeriaMarketRoute, 'tier-a');
   assert.deepEqual(decision.blockers, []);

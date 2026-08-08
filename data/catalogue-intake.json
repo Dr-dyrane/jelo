@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T03:48:00Z",
+  "updatedAt": "2026-08-08T03:50:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -7405,73 +7405,73 @@
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/face-facts-vitamin-c-body-lotion-400ml-2/",
-            "observedAt": "2026-07-23T17:28:30Z",
+            "observedAt": "2026-08-08T03:49:19Z",
             "observedTitle": "FACEFACTS Vitamin C Body Lotion 400ml",
             "observedSize": "400 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "observedPackageVersion": "Current white 400 ml pump bottle with orange Vitamin C label",
             "retailerSku": "5031413929089",
             "priceNgn": 6095,
-            "stock": "in-stock",
+            "stock": "low-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://buybetter.ng/product/face-facts-vitamin-c-body-lotion-400ml-2/",
               "responseUrl": "https://buybetter.ng/product/face-facts-vitamin-c-body-lotion-400ml-2/",
-              "responseSha256": "57a694ac93e1ff6333354c110a6c63185951d29f681d3bdc25d14da63d7dc0e6",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "ff40a6bdbfc254165736fb11737523dfaa9ee848a2dfff1ec76b6b44b12ccf31",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 13693,
-              "retrievedAt": "2026-07-23T17:28:30Z",
+              "responseByteSize": 532987,
+              "retrievedAt": "2026-08-08T03:49:19Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
-                "pageTitle": "FACEFACTS Vitamin C Body Lotion 400ml – Buybetter"
+                "pageTitle": "Face Facts Vitamin C Body | Body Lotion | BuyBetter"
               },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
                   "value": "5031413929089",
-                  "locator": "Bound independently corroborated Face Facts 400 ml identity",
+                  "locator": "Bound official Face Facts catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 5031413929089",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "FACEFACTS Vitamin C Body Lotion 400ml",
-                  "locator": "Rendered accessibility h1 product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "FACEFACTS Vitamin C Body Lotion 400ml"
                 },
                 "size": {
                   "value": "400 ml",
-                  "locator": "Rendered accessibility h1 size suffix",
-                  "sourceText": "FACEFACTS Vitamin C Body Lotion 400ml"
-                },
-                "packageVersion": {
-                  "value": "Current white 400 ml pump bottle with orange Vitamin C label",
-                  "locator": "Rendered listing image matched to the official current pump bottle",
-                  "sourceText": "Current white 400 ml pump bottle with orange Vitamin C label"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "400ml"
                 },
                 "price": {
                   "value": 6095,
                   "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "₦6,095.00"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦6,095"
                 },
                 "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered accessibility stock count",
-                  "sourceText": "14 in stock"
+                  "value": "low-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Only 10 left"
+                },
+                "packageVersion": {
+                  "value": "Current white 400 ml pump bottle with orange Vitamin C label",
+                  "locator": "Bound official Face Facts catalogue identity package version",
+                  "sourceText": "Current white 400 ml pump bottle with orange Vitamin C label"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T17:56:00Z"
+              "reviewedAt": "2026-08-08T03:50:00Z"
             }
           },
           {
             "retailer": "Allure Beauty",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://allure.com.ng/face-facts-vitamin-c-body-lotion/",
-            "observedAt": "2026-07-23T17:30:30Z",
+            "observedAt": "2026-08-08T03:49:27Z",
             "observedTitle": "Face Facts Vitamin C Body Lotion 400ml",
             "observedSize": "400 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -7481,16 +7481,16 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://allure.com.ng/face-facts-vitamin-c-body-lotion/",
               "responseUrl": "https://allure.com.ng/face-facts-vitamin-c-body-lotion/",
-              "responseSha256": "8c4e85665d2d07ac906a7ee195f24abd469152842f97cb5e9349478ee61e5bcb",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "018afeb92f388209a820888f5eea370e3af9ac41b71c128f8ed9d796ade75231",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 16260,
-              "retrievedAt": "2026-07-23T17:30:30Z",
+              "responseByteSize": 618084,
+              "retrievedAt": "2026-08-08T03:49:27Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Face Facts Vitamin C Body Lotion 400ml Price In Nigeria | Buy Online - Allure"
               },
@@ -7498,39 +7498,39 @@
                 "gtin": {
                   "label": "GTIN",
                   "value": "5031413929089",
-                  "locator": "Bound independently corroborated Face Facts 400 ml identity",
+                  "locator": "Bound official Face Facts catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 5031413929089",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "Face Facts Vitamin C Body Lotion 400ml",
-                  "locator": "Rendered accessibility h1 product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "Face Facts Vitamin C Body Lotion 400ml"
                 },
                 "size": {
                   "value": "400 ml",
-                  "locator": "Rendered accessibility h1 size suffix",
-                  "sourceText": "Face Facts Vitamin C Body Lotion 400ml"
-                },
-                "packageVersion": {
-                  "value": "Current white 400 ml pump bottle with orange Vitamin C label",
-                  "locator": "Rendered listing image matched to the official current pump bottle",
-                  "sourceText": "Current white 400 ml pump bottle with orange Vitamin C label"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "400ml"
                 },
                 "price": {
                   "value": 8000,
                   "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
+                  "locator": "Rendered product price",
                   "sourceText": "₦8,000"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "Rendered accessibility stock status",
-                  "sourceText": "In stock"
+                  "locator": "Rendered availability status",
+                  "sourceText": "IN STOCK"
+                },
+                "packageVersion": {
+                  "value": "Current white 400 ml pump bottle with orange Vitamin C label",
+                  "locator": "Bound official Face Facts catalogue identity package version",
+                  "sourceText": "Current white 400 ml pump bottle with orange Vitamin C label"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T17:56:00Z"
+              "reviewedAt": "2026-08-08T03:50:00Z"
             }
           }
         ],

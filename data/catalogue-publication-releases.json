@@ -388,30 +388,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "facefacts-vitamin-c-body-lotion-400ml",
-      "dossierFingerprint": "33d9de1f3cfab983b8043f29ff63c43e78e09d8b0d13b6355c83e992ee60818f",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturize",
-        "displayLine": "Vitamin C and betaine body lotion · 400 ml",
-        "usage": "Apply to dry skin and massage until fully absorbed. Do not rinse.",
-        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/vitamin-c/products/vitamin-c-body-lotion",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T18:00:05Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T18:00:10Z"
-      },
-      "releaseFingerprint": "04a5aad76f7bdb158c9e63c8a452809dce603b724f5abc39ab660abdcc647473"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
       "dossierFingerprint": "6a63728f48b310c5c8475f8014db85a6df2788f6edc9a5333e35cad05804ead0",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T03:48:50Z"
       },
       "releaseFingerprint": "909310a079937a1262f9e58b3120fdeb58db7d01392d5417684316c139e03485"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-vitamin-c-body-lotion-400ml",
+      "dossierFingerprint": "d49dee64c51b97434803e4c2a5f0380bb3f0cbc58cc63e30411440898b49d596",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Vitamin C and betaine body lotion · 400 ml",
+        "usage": "Apply to dry skin and massage until fully absorbed. Do not rinse.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/vitamin-c/products/vitamin-c-body-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T03:50:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T03:50:50Z"
+      },
+      "releaseFingerprint": "24c3920fa8be2b84ea2d92a28e655431914856c3864a9ebaf038536b365121a6"
     }
   ]
 }
