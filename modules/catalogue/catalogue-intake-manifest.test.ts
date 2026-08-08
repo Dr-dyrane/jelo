@@ -808,8 +808,8 @@ test('the Face Facts moisturising gel cream binds two independent EAN sources, t
   assert.deepEqual(
     candidate.nigeria.exactOffers.map(offer => [offer.retailer, offer.priceNgn, offer.stock]),
     [
-      ['BuyBetter', 3_655, 'in-stock'],
-      ['CSi Grocery', 3_600, 'low-stock'],
+      ['BuyBetter', 3_440, 'out-of-stock'],
+      ['CSi Grocery', 3_600, 'in-stock'],
     ],
   );
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
@@ -828,7 +828,7 @@ test('the Face Facts moisturising gel cream binds two independent EAN sources, t
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T05:04:20Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.nigeriaMarketRoute, 'tier-a');
