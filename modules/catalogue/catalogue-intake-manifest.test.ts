@@ -77,9 +77,9 @@ test('the community-requested Mela B3 serum binds official identity, Nigerian pr
     offer.stock,
   ]), [
     ['Lux Beauty', 48_500, 'in-stock'],
-    ['BuyBetter', 43_100, 'out-of-stock'],
+    ['Beauty by Daz', 44_700, 'out-of-stock'],
   ]);
-  assert.equal(candidate.nigeria.exactOffers[1]?.retailerSku, '3337875890021');
+  assert.equal(candidate.nigeria.exactOffers[1]?.retailerSku, undefined);
   assert.equal(
     candidate.nigeria.exactOffers[1]?.evidence?.fields.gtin?.responseRole,
     'official-identity-correlation',
@@ -89,7 +89,7 @@ test('the community-requested Mela B3 serum binds official identity, Nigerian pr
   assert.deepEqual([candidate.asset.width, candidate.asset.height], [2000, 2000]);
   assert.equal(candidate.asset.packaging, 'intact');
   assert.equal(
-    evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T08:20:00Z')).stage,
+    evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:55:50Z')).stage,
     'approval-ready',
   );
 });

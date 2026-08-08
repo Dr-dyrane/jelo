@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T04:51:00Z",
+  "updatedAt": "2026-08-08T04:55:30Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -9408,7 +9408,7 @@
             "retailer": "Lux Beauty",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
-            "observedAt": "2026-07-26T08:14:04Z",
+            "observedAt": "2026-08-08T04:54:50Z",
             "observedTitle": "La Roche-Posay Mela B3 dark spot serum 30ml",
             "observedSize": "30 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -9416,14 +9416,19 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
               "responseUrl": "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
-              "responseSha256": "0d7bdb0c16b0e812f1e6b1ab0ff77b45f2ac275c63356110f24c6a712fcf56f6",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "b15d81210f876fac3ced2bf6bd786901499d6a75260e2506b2cfc90f2263ad6f",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 126612,
-              "retrievedAt": "2026-07-26T08:14:04Z",
+              "responseByteSize": 130751,
+              "retrievedAt": "2026-08-08T04:54:50Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "La Roche-Posay Mela B3 dark spot serum 30ml – Luxbeauty Store"
+              },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -9434,51 +9439,55 @@
                 },
                 "title": {
                   "value": "La Roche-Posay Mela B3 dark spot serum 30ml",
-                  "locator": "HTML h1.product_title entry-title",
+                  "locator": "HTML product heading",
                   "sourceText": "La Roche-Posay Mela B3 dark spot serum 30ml"
                 },
                 "size": {
                   "value": "30 ml",
-                  "locator": "HTML h1.product_title size suffix",
-                  "sourceText": "La Roche-Posay Mela B3 dark spot serum 30ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "30ml"
                 },
                 "price": {
                   "value": 48500,
                   "currency": "NGN",
-                  "locator": "HTML div.product-price WooCommerce amount",
+                  "locator": "Rendered product price",
                   "sourceText": "₦48,500.00"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "HTML div.product-stock in-stock",
+                  "locator": "Rendered availability status",
                   "sourceText": "In Stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T08:15:00Z"
+              "reviewedAt": "2026-08-08T04:55:30Z"
             }
           },
           {
-            "retailer": "BuyBetter",
+            "retailer": "Beauty by Daz",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/la-roche-posay-mela-b3-10-serum-30ml/",
-            "observedAt": "2026-07-26T08:14:36Z",
-            "observedTitle": "LA ROCHE-POSAY Mela B3 10 Serum 30ml",
+            "listingUrl": "https://beautybydaz.com/shop/face/serums/la-roche-posay-mela-b3-serum-dark-spot-corrector-30ml/",
+            "observedAt": "2026-08-08T04:55:19Z",
+            "priceNgn": 44700,
+            "stock": "out-of-stock",
+            "observedTitle": "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml",
             "observedSize": "30 ml",
             "observedGtinBasis": "exact-variant-and-size",
-            "retailerSku": "3337875890021",
-            "priceNgn": 43100,
-            "stock": "out-of-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/la-roche-posay-mela-b3-10-serum-30ml/",
-              "responseUrl": "https://buybetter.ng/product/la-roche-posay-mela-b3-10-serum-30ml/",
-              "responseSha256": "9511d9453aaee075ef0c3cdea3dacf8b61b72f9ff6d33e8de497c55a92471af5",
-              "responseDigestScope": "decoded-response-body",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://beautybydaz.com/shop/face/serums/la-roche-posay-mela-b3-serum-dark-spot-corrector-30ml/",
+              "responseUrl": "https://beautybydaz.com/shop/face/serums/la-roche-posay-mela-b3-serum-dark-spot-corrector-30ml/",
+              "responseSha256": "f567982407325d58c28a1ae4e4fbbed5962ededfc9247281ea3cd1ede608bd60",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 806627,
-              "retrievedAt": "2026-07-26T08:14:36Z",
+              "responseByteSize": 251162,
+              "retrievedAt": "2026-08-08T04:55:19Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "La Roche Posay Mela B3 Serum - Dark Spot Corrector - 30ml"
+              },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -9488,29 +9497,29 @@
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
-                  "value": "LA ROCHE-POSAY Mela B3 10 Serum 30ml",
-                  "locator": "HTML document title and WooCommerce product data layer",
-                  "sourceText": "LA ROCHE-POSAY Mela B3 10 Serum 30ml"
+                  "value": "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml"
                 },
                 "size": {
                   "value": "30 ml",
-                  "locator": "HTML product title size suffix",
-                  "sourceText": "LA ROCHE-POSAY Mela B3 10 Serum 30ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "30ml"
                 },
                 "price": {
-                  "value": 43100,
+                  "value": 44700,
                   "currency": "NGN",
-                  "locator": "HTML p.price woobt-price-406041",
-                  "sourceText": "₦43,100.00 NG"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦44,700.00"
                 },
                 "stock": {
                   "value": "out-of-stock",
-                  "locator": "HTML p.stock out-of-stock",
-                  "sourceText": "Out of stock"
+                  "locator": "Rendered availability status",
+                  "sourceText": "OUT OF STOCK"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T08:15:00Z"
+              "reviewedAt": "2026-08-08T04:55:30Z"
             }
           }
         ],
