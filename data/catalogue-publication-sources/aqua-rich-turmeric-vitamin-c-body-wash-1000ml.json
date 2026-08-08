@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-    "candidateFingerprint": "0e8a023c1542b4236e2bf383d085609b04a7ddb67a9717768b97eb1c569ead01",
+    "candidateFingerprint": "c137adb0188176d0e85ad59cc0741c4b50e864567c5492a80f184608d7536b2e",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -114,30 +114,30 @@
       },
       "generationRecord": {
         "schemaVersion": 1,
-        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px normalization",
-        "model": "gpt-image-2",
-        "prompt": "Use case: product-mockup. Build one exact Aqua Rich Hydrating Bright Body Gel Wash with Turmeric and Vitamin C, 1000 ml / 35.2 FL.OZ front packshot from the exact official rear package and exact retailer front. Preserve the orange bottle and pump, AQUA RICH, Hydrating Bright, BODY GEL WASH, TURMERIC VITAMIN C, central graphic, vegan roundel and size. Center on chroma key for later removal. No Body Lotion, 500 ml, props, shadow, reflection, duplicate, clipping, redesign or invented claims.",
+        "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+        "model": "Pillow 11.3.0 MinFilter(3) x3",
+        "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green extraction rim around the pump, curved base and perimeter. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
         "inputs": [
           {
             "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
             "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37"
           },
           {
-            "url": "https://www.cocci.com.ng/cdn/shop/files/AQUA_RICH_TUMERIC_VITAMIN_C_HYDRATING_BRIGHT_BODY_GEL_WASH.gif?v=1763373624",
-            "sha256": "9c3bceea2cce2eb89a1c86532af6811976237ffa87b2966f2f228c99232442af"
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png",
+            "sha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b"
           }
         ],
-        "outputSha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
-        "generatedAt": "2026-08-08T18:15:00Z",
-        "recordSha256": "f61f7642eb8c85611a857f7e52d915e0a5336e0db27bf161e4c6272bf209d095"
+        "outputSha256": "0daad367036736e7403e7ca5a3dfb4c00a3bd6f9ceeb7bbe34d2636ed4038d07",
+        "generatedAt": "2026-08-08T20:00:20Z",
+        "recordSha256": "66d358bbd49b186248edb500dd35d34789015f40a13cb1e869f375be610cc412"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png",
-      "sha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v3-0daad367036736e7.png",
+      "sha256": "0daad367036736e7403e7ca5a3dfb4c00a3bd6f9ceeb7bbe34d2636ed4038d07",
       "mimeType": "image/png",
-      "byteSize": 1056156,
+      "byteSize": 1055171,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -146,20 +146,20 @@
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-08T18:25:00Z",
-      "reviewer": "Codex independent catalogue media recheck"
+      "reviewedAt": "2026-08-08T20:00:30Z",
+      "reviewer": "Codex catalogue media correction review"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-08T18:27:00Z"
+      "approvedAt": "2026-08-08T20:00:31Z"
     },
-    "dossierFingerprint": "4d5c097f4cbee8ebb267054a8e703c8fabc6d247fb9f09e2dba61cf229158b4d"
+    "dossierFingerprint": "a34dfeeedb8be8822f623740178be0f80b005ca2b6ebb7814c52ce13f58f113a"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-    "dossierFingerprint": "4d5c097f4cbee8ebb267054a8e703c8fabc6d247fb9f09e2dba61cf229158b4d",
+    "dossierFingerprint": "a34dfeeedb8be8822f623740178be0f80b005ca2b6ebb7814c52ce13f58f113a",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -171,13 +171,13 @@
       "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
       "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-08T18:29:00Z"
+      "reviewedAt": "2026-08-08T20:00:32Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-08T18:31:00Z"
+      "publishedAt": "2026-08-08T20:00:33Z"
     },
-    "releaseFingerprint": "449f8e4227ce3c7a14afa8d532aec16f6b62a93a1d07bf78fcbae02d8bc15ef8"
+    "releaseFingerprint": "72e5d658340f65220203e295b122841b2de7ddf841080a43e69e1edc97fe3223"
   }
 }

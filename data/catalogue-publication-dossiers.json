@@ -20801,281 +20801,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
-      "candidateFingerprint": "37050c408eb973f2f6fda088b694142b8ab0bc532de954b14c036805b1c2ffd9",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "4897073186542",
-        "brand": "Aqua Rich",
-        "name": "Turmeric and Vitamin C Body Lotion",
-        "variant": "Aqua Rich Turmeric and Vitamin C Body Lotion",
-        "size": "500 ml",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-        "officialIdentity": {
-          "url": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-          "observedGtin": "4897073186542",
-          "observedVariant": "Aqua Rich Turmeric and Vitamin C Body Lotion",
-          "observedSize": "500 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-turmeric-vitamin-c-body-lotion-500ml.json",
-          "canonicalExtraction": {
-            "schemaVersion": 3,
-            "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
-            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-            "responseUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-            "responseDigestScope": "decoded-response-body",
-            "retrievedAt": "2026-07-22T23:13:50Z",
-            "fields": {
-              "gtin": {
-                "value": "4897073186542",
-                "locator": "Official back-package image printed EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 4897073186542"
-              },
-              "variant": {
-                "value": "Aqua Rich Turmeric and Vitamin C Body Lotion",
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Lotion – 500ml"
-              },
-              "size": {
-                "value": "500 ml",
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Lotion – 500ml"
-              }
-            },
-            "sourceResponseSha256": "8bcc49661d3ec8ea5e3c7df5129bb325020b60fe52acd261f088a83422d621fe",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 259341,
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-Back-1.jpg",
-                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-Back-1.jpg",
-                "retrievedAt": "2026-07-22T23:14:12Z",
-                "responseSha256": "ecde7f59dbb4fe3504b90644e2aea08fda3e187259a026256e12fff523f1221e",
-                "responseMimeType": "image/jpeg",
-                "responseByteSize": 46466
-              }
-            ],
-            "method": "reviewed-exact-identity-field-extraction",
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-22T23:14:30Z"
-          },
-          "snapshotSha256": "32d055894aa0d54687cd7308536ed3da9fc42ea2c21be7970f5d375dbf92f01c",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1618,
-          "retrievedAt": "2026-07-22T23:13:50Z"
-        },
-        "checkedAt": "2026-07-22T23:14:30Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
-          "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
-          "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrating-bright/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Leave-on daily body moisturising lotion described by the manufacturer as containing turmeric and vitamin C, for hydration and cosmetic radiance",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday body moisturising and a cosmetic radiant or even-looking finish. The exact vitamin C form, concentration, stability, full formula, and clinical effect are not established, so do not present it as treatment for hyperpigmentation, melasma, post-inflammatory marks, acne, or another skin condition. It is not a sunscreen. Stop if it burns, stings, or irritates, and seek clinician advice for changing, painful, itchy, spreading, or persistent dark marks.",
-        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-07-22T23:25:37Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "tier-a",
-        "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-        "exactOffers": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
-            "observedAt": "2026-08-08T03:51:05Z",
-            "observedTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
-            "observedSize": "500 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "retailerSku": "4897073186542",
-            "priceNgn": 12800,
-            "stock": "low-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
-              "responseUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
-              "responseSha256": "13975ca83f12c0a4288f6037ad6a4c9d02b2695f34d9dbd1f52331555a30848d",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 529671,
-              "retrievedAt": "2026-08-08T03:51:05Z",
-              "browserCapture": {
-                "surface": "Playwright MCP browser",
-                "documentReadyState": "complete",
-                "pageTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml - Buybetter"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "4897073186542",
-                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 4897073186542",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
-                  "locator": "HTML product heading",
-                  "sourceText": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml"
-                },
-                "size": {
-                  "value": "500 ml",
-                  "locator": "HTML product heading size suffix",
-                  "sourceText": "500ml"
-                },
-                "price": {
-                  "value": 12800,
-                  "currency": "NGN",
-                  "locator": "Rendered product price",
-                  "sourceText": "₦12,800"
-                },
-                "stock": {
-                  "value": "low-stock",
-                  "locator": "Rendered availability status",
-                  "sourceText": "Only 9 left"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-08-08T03:52:00Z"
-            },
-            "reviewedTitleAlias": "Aqua Rich Body Lotion"
-          },
-          {
-            "retailer": "Kadimez Essentials",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
-            "observedAt": "2026-08-08T03:51:16Z",
-            "observedTitle": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
-            "observedSize": "500 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "priceNgn": 12000,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
-              "responseUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
-              "responseSha256": "1f9c336a50961d16a90ffcb233e2506818d44610175c0c0d3db90d66e4a814a4",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 229584,
-              "retrievedAt": "2026-08-08T03:51:16Z",
-              "browserCapture": {
-                "surface": "Playwright MCP browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml - Kadimez Essentials"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "4897073186542",
-                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 4897073186542",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
-                  "locator": "HTML product heading",
-                  "sourceText": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml"
-                },
-                "size": {
-                  "value": "500 ml",
-                  "locator": "HTML product heading size suffix",
-                  "sourceText": "500ml"
-                },
-                "price": {
-                  "value": 12000,
-                  "currency": "NGN",
-                  "locator": "Rendered product price",
-                  "sourceText": "₦12,000"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered availability status",
-                  "sourceText": "In stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-08-08T03:52:00Z"
-            }
-          }
-        ],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-1.jpg",
-          "sha256": "13634e456f2f89d812a0a50fc3b65d4f3b758c45c1fdfb06f2411ea397b8e121",
-          "mimeType": "image/jpeg",
-          "byteSize": 37566,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-07-23T07:30:00Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: product-mockup\nAsset type: JeloCare transparent catalogue packshot source on chroma key\nInput image: exact official Aqua Rich reference; identity and packaging lock\nPrimary request: Create a high-end, straight-on studio packshot of this exact Aqua Rich Hydrating Bright Body Lotion with Turmeric and Vitamin C, 500 ml pump bottle. Preserve the exact tall rounded orange bottle silhouette, complete orange pump and white collar, label layout, AQUA RICH red wordmark, “Hydrating Bright”, “BODY LOTION”, “TURMERIC VITAMIN C”, central orange/turmeric splash graphic, vegan roundel, bullet layout, and 500ml front size line. It must remain recognizable as the same exact manufacturer SKU, not a redesign or generic substitute.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background for later removal.\nComposition/framing: one complete upright bottle centered with generous even padding; entire pump nozzle, bottle shoulders, side edge, and curved base visible; no crop; no carton; no props; no overlapping geometry.\nLighting/mood: premium Vogue-quality catalogue lighting on the product only, soft clean highlights, readable front identity, realistic opaque plastic.\nText to preserve where legible: “AQUA RICH”, “Hydrating Bright”, “BODY LOTION”, “TURMERIC VITAMIN C”, “VEGAN”, “500ml”. Preserve the Korean label marks and small bullet copy as shapes without inventing different claims.\nConstraints: exact product identity; complete silhouette; front-facing camera; crisp edges; label undistorted; no invented badges; no SPF claim; no product redesign; no size or colour change.\nBackground constraints: one uniform #00ff00 colour with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Do not use chroma green anywhere in the product.\nAvoid: white background, cast shadow, contact shadow, reflection, floor, hands, people, botanicals, decorative shapes, watermark, added text, duplicate bottle, cropped pump, cropped base, skewed packaging.",
-          "inputs": [
-            {
-              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-1.jpg",
-              "sha256": "13634e456f2f89d812a0a50fc3b65d4f3b758c45c1fdfb06f2411ea397b8e121"
-            }
-          ],
-          "outputSha256": "f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b",
-          "generatedAt": "2026-07-23T07:31:00Z",
-          "recordSha256": "00444b6fcfc46e00d2f0ddcf0311378ef71e3c8c9faf7e1ed365b64d96078f50"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-lotion-500ml/packshot-v1-f2c087ec15a62033.png",
-        "sha256": "f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b",
-        "mimeType": "image/png",
-        "byteSize": 1238262,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-07-23T07:33:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-retail-rights-and-final-image",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-08T03:52:30Z"
-      },
-      "dossierFingerprint": "e449680ac0615acc73c915bd45f720a39866b801573f6178f3a3f7bc7bbff52f"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "cerave-hydrating-cleanser-473ml",
       "candidateFingerprint": "0bade0e3833e42aeee467bfab0c433ff0ab1a3cc35eceed644a5a4fe4ee6d1c9",
       "exposure": "private-only",
@@ -22722,279 +22447,6 @@
         "approvedAt": "2026-08-08T04:22:50Z"
       },
       "dossierFingerprint": "2f65a2742d145be6fdfe35440588a97e630c2b06084629602768d34ee866b7e8"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
-      "candidateFingerprint": "731a5b2efcb8952634fb5dd2c67a14538d94e9fbdebd57dbfa388ac2a1b7b255",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "4897073187549",
-        "brand": "Aqua Rich",
-        "name": "Hydrate + Protect Body Lotion",
-        "variant": "Aqua Rich Ceramide Body Lotion",
-        "size": "500 ml",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-        "officialIdentity": {
-          "url": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-          "observedGtin": "4897073187549",
-          "observedVariant": "Aqua Rich Ceramide Body Lotion",
-          "observedSize": "500 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-ceramide-body-lotion-500ml.json",
-          "canonicalExtraction": {
-            "schemaVersion": 3,
-            "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
-            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-            "responseUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-            "responseDigestScope": "decoded-response-body",
-            "retrievedAt": "2026-07-22T23:13:50Z",
-            "fields": {
-              "gtin": {
-                "value": "4897073187549",
-                "locator": "Official back-package image printed EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 4897073187549"
-              },
-              "variant": {
-                "value": "Aqua Rich Ceramide Body Lotion",
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Ceramide Body Lotion – 500ml"
-              },
-              "size": {
-                "value": "500 ml",
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Ceramide Body Lotion – 500ml"
-              }
-            },
-            "sourceResponseSha256": "c9a48c5fb552ac982b57d48c2783999bb825c98ea6c886465ae0e24209b1a05d",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 258001,
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-Back-1.jpg",
-                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-Back-1.jpg",
-                "retrievedAt": "2026-07-22T23:14:11Z",
-                "responseSha256": "1386977c69ec18f3f38ad6806b37d074f5030e9de7333b017130b96a718f0344",
-                "responseMimeType": "image/jpeg",
-                "responseByteSize": 37145
-              }
-            ],
-            "method": "reviewed-exact-identity-field-extraction",
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-22T23:14:30Z"
-          },
-          "snapshotSha256": "5c3a3584608e5255cf7f536f2de9924d93ed9f6f7a85a6358b9468df125c6c37",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1510,
-          "retrievedAt": "2026-07-22T23:13:50Z"
-        },
-        "checkedAt": "2026-07-22T23:14:30Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
-          "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Leave-on daily body moisturising lotion described by the manufacturer as containing ceramides, for dry or rough-feeling body skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday moisturising and comfort for dry or rough-feeling body skin. The package carries an SPF 50 claim, but the reviewed sources do not establish tested broad-spectrum sun protection, so do not classify or recommend it as sunscreen. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful cracking; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-07-22T23:25:37Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "tier-a",
-        "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-        "exactOffers": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
-            "observedAt": "2026-08-08T04:23:11Z",
-            "observedTitle": "AQUA RICH – Hydrate + Protect  Body Lotion (Ceramide) 500ml",
-            "observedSize": "500 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "retailerSku": "4897073187549",
-            "priceNgn": 11288,
-            "stock": "out-of-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
-              "responseUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
-              "responseSha256": "7df94d61758a03317d15424932b8e7c9ec6f74f881307e5727ecb075c6f89237",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 530661,
-              "retrievedAt": "2026-08-08T04:23:11Z",
-              "browserCapture": {
-                "surface": "Playwright MCP browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Aqua Rich Hydrate Protect | Body Lotion | BuyBetter"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "4897073187549",
-                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 4897073187549",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "AQUA RICH – Hydrate + Protect  Body Lotion (Ceramide) 500ml",
-                  "locator": "HTML product heading",
-                  "sourceText": "AQUA RICH – Hydrate + Protect  Body Lotion (Ceramide) 500ml"
-                },
-                "size": {
-                  "value": "500 ml",
-                  "locator": "HTML product heading size suffix",
-                  "sourceText": "500ml"
-                },
-                "price": {
-                  "value": 11288,
-                  "currency": "NGN",
-                  "locator": "Rendered product price",
-                  "sourceText": "₦11,288"
-                },
-                "stock": {
-                  "value": "out-of-stock",
-                  "locator": "Rendered availability status",
-                  "sourceText": "Out of stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-08-08T04:24:00Z"
-            }
-          },
-          {
-            "retailer": "CSi Grocery",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
-            "observedAt": "2026-08-08T04:23:18Z",
-            "observedTitle": "AQUA RICH Hydrate + Protect Body Lotion – 500ml",
-            "observedSize": "500 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "priceNgn": 13000,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
-              "responseUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
-              "responseSha256": "e15d38ec7d5f08efbf0885355bc75d2b0f7783904604ec9435638875a72fe33f",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 496485,
-              "retrievedAt": "2026-08-08T04:23:18Z",
-              "browserCapture": {
-                "surface": "Playwright MCP browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Buy AQUA RICH Hydrate + Protect Body Lotion | Order Online"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "4897073187549",
-                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 4897073187549",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "AQUA RICH Hydrate + Protect Body Lotion – 500ml",
-                  "locator": "HTML product heading",
-                  "sourceText": "AQUA RICH Hydrate + Protect Body Lotion – 500ml"
-                },
-                "size": {
-                  "value": "500 ml",
-                  "locator": "HTML product heading size suffix",
-                  "sourceText": "500ml"
-                },
-                "price": {
-                  "value": 13000,
-                  "currency": "NGN",
-                  "locator": "Rendered product price",
-                  "sourceText": "₦13,000.00"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered availability status",
-                  "sourceText": "In stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-08-08T04:24:00Z"
-            }
-          }
-        ],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-1.jpg",
-          "sha256": "d3b408a63d75cc380f2144ea0edb7617eff2e630d5898db972183a3460efa500",
-          "mimeType": "image/jpeg",
-          "byteSize": 31006,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-07-23T06:59:00Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: product-mockup\nAsset type: JeloCare transparent catalogue packshot source on chroma key\nInput image: exact official Aqua Rich reference; identity and packaging lock\nPrimary request: Create a high-end, straight-on studio packshot of this exact Aqua Rich Hydrate + Protect Body Lotion Ceramide 500 ml pump bottle. Preserve the exact tall rounded lavender bottle silhouette, complete lavender pump and white collar, label layout, AQUA RICH magenta wordmark, “Hydrate + Protect”, “BODY LOTION”, “Ceramide”, blue molecular-water graphic, vegan roundel, and 500ml front size line. It must remain recognizable as the same exact manufacturer SKU, not a redesign or generic substitute.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background for later removal.\nComposition/framing: one complete upright bottle centered with generous even padding; entire pump nozzle, bottle shoulders, side edge, and curved base visible; no crop; no carton; no props; no overlapping geometry.\nLighting/mood: premium Vogue-quality catalogue lighting on the product only, soft clean highlights, readable front identity, realistic opaque plastic.\nText to preserve where legible: “AQUA RICH”, “Hydrate + Protect”, “BODY LOTION”, “Ceramide”, “VEGAN”, “500ml”. Preserve the Korean label marks and small bullet copy as shapes without inventing different claims.\nConstraints: exact product identity; complete silhouette; front-facing camera; crisp edges; label undistorted; no invented badges; no SPF claim; no product redesign; no size or colour change.\nBackground constraints: one uniform #00ff00 colour with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Do not use chroma green anywhere in the product.\nAvoid: white background, cast shadow, contact shadow, reflection, floor, hands, people, botanicals, decorative shapes, watermark, added text, duplicate bottle, cropped pump, cropped base, skewed packaging.",
-          "inputs": [
-            {
-              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-1.jpg",
-              "sha256": "d3b408a63d75cc380f2144ea0edb7617eff2e630d5898db972183a3460efa500"
-            }
-          ],
-          "outputSha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324",
-          "generatedAt": "2026-07-23T07:00:00Z",
-          "recordSha256": "30ed6a826478a360325f7bbfe27874047175b7c5129110ff691bcf17d92218ee"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v1-9435ff0eb88c9189.png",
-        "sha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324",
-        "mimeType": "image/png",
-        "byteSize": 1296181,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-07-23T07:04:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-retail-rights-and-final-image",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-08T04:24:20Z"
-      },
-      "dossierFingerprint": "c82f27e38ae26d47381769b949abd5e78aeba2fe81d0d77348daff8a60169986"
     },
     {
       "schemaVersion": 8,
@@ -29803,301 +29255,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-      "candidateFingerprint": "0e8a023c1542b4236e2bf383d085609b04a7ddb67a9717768b97eb1c569ead01",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "4897073186566",
-        "brand": "Aqua Rich",
-        "name": "Hydrating Bright Body Gel Wash",
-        "variant": "Aqua Rich Turmeric and Vitamin C Body Wash",
-        "size": "1000 ml",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-        "officialIdentity": {
-          "url": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-          "observedGtin": "4897073186566",
-          "observedVariant": "Aqua Rich Turmeric and Vitamin C Body Wash",
-          "observedSize": "1000 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-turmeric-vitamin-c-body-wash-1000ml.json",
-          "canonicalExtraction": {
-            "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-            "fields": {
-              "gtin": {
-                "locator": "Official back-package image printed EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 4897073186566",
-                "value": "4897073186566"
-              },
-              "variant": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
-                "value": "Aqua Rich Turmeric and Vitamin C Body Wash"
-              },
-              "size": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
-                "value": "1000 ml"
-              }
-            },
-            "method": "reviewed-exact-identity-field-extraction",
-            "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-            "retrievedAt": "2026-08-07T12:00:00Z",
-            "reviewedAt": "2026-08-07T12:00:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 3,
-            "sourceResponseByteSize": 256528,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "8f1a8f5615afd7857337a81ea3f51f8f5c42ea4368c1c1869babd94446ee096e",
-            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-            "supplementalResponses": [
-              {
-                "responseByteSize": 38208,
-                "responseMimeType": "image/jpeg",
-                "responseSha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37",
-                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
-                "retrievedAt": "2026-08-07T12:00:00Z",
-                "role": "official-pack-image",
-                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg"
-              }
-            ]
-          },
-          "snapshotSha256": "98128056bd23ca5511229f833493c88b1cdffd40dac264efdcedbd9f8120e5fb",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1606,
-          "retrievedAt": "2026-08-07T12:00:00Z"
-        },
-        "checkedAt": "2026-08-07T12:00:00Z",
-        "demandEvidenceUrls": [
-          "https://giftybeautystoree.com/product/aqua-rich-hydrating-bright-body-gel-wash-with-turmeric-and-vitamin-c-1000ml/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing turmeric and vitamin C, for dull or uneven-tone body skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-08-07T12:00:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
-          "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37",
-          "mimeType": "image/jpeg",
-          "byteSize": 38208,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-08-08T18:10:37Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px normalization",
-          "model": "gpt-image-2",
-          "prompt": "Use case: product-mockup. Build one exact Aqua Rich Hydrating Bright Body Gel Wash with Turmeric and Vitamin C, 1000 ml / 35.2 FL.OZ front packshot from the exact official rear package and exact retailer front. Preserve the orange bottle and pump, AQUA RICH, Hydrating Bright, BODY GEL WASH, TURMERIC VITAMIN C, central graphic, vegan roundel and size. Center on chroma key for later removal. No Body Lotion, 500 ml, props, shadow, reflection, duplicate, clipping, redesign or invented claims.",
-          "inputs": [
-            {
-              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
-              "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37"
-            },
-            {
-              "url": "https://www.cocci.com.ng/cdn/shop/files/AQUA_RICH_TUMERIC_VITAMIN_C_HYDRATING_BRIGHT_BODY_GEL_WASH.gif?v=1763373624",
-              "sha256": "9c3bceea2cce2eb89a1c86532af6811976237ffa87b2966f2f228c99232442af"
-            }
-          ],
-          "outputSha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
-          "generatedAt": "2026-08-08T18:15:00Z",
-          "recordSha256": "f61f7642eb8c85611a857f7e52d915e0a5336e0db27bf161e4c6272bf209d095"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png",
-        "sha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
-        "mimeType": "image/png",
-        "byteSize": 1056156,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-08T18:25:00Z",
-        "reviewer": "Codex independent catalogue media recheck"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-08T18:27:00Z"
-      },
-      "dossierFingerprint": "4d5c097f4cbee8ebb267054a8e703c8fabc6d247fb9f09e2dba61cf229158b4d"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-      "candidateFingerprint": "ffa70d023cf0ded1b3179d6b7ccd708b32e9bbfe033626fdd180b04ee426a81b",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "8809875270158",
-        "brand": "NINELESS",
-        "name": "MELA-PRO Tranexamic Acid Sun Screen",
-        "variant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
-        "size": "100 ml",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-        "officialIdentity": {
-          "url": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-          "observedGtin": "8809875270158",
-          "observedVariant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
-          "observedSize": "100 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/nineless-mela-pro-tranexamic-acid-sunscreen-100ml.json",
-          "canonicalExtraction": {
-            "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-            "fields": {
-              "gtin": {
-                "locator": "Retailer-corroborated EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 8809875270158",
-                "value": "8809875270158"
-              },
-              "variant": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
-                "value": "NINELESS MELA-PRO Tranexamic Acid Sun Screen"
-              },
-              "size": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
-                "value": "100 ml"
-              }
-            },
-            "method": "reviewed-exact-identity-field-extraction",
-            "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-            "retrievedAt": "2026-08-07T16:35:00Z",
-            "reviewedAt": "2026-08-07T16:38:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 3,
-            "sourceResponseByteSize": 128659,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "15e3e7402997f116315d8e8784892f83f04d44afb65a892294d908168c190239",
-            "sourceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml"
-          },
-          "snapshotSha256": "2409cdb81d56f9b3b319548750a319015e2ef43e5b8ad740a4713a0248dcf2cb",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1110,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "checkedAt": "2026-08-07T16:40:00Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Leave-on daily facial sunscreen described by the manufacturer as containing tranexamic acid, for uneven-tone or blemish-mark-prone facial skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday sun protection and tone-evening for facial skin. It does not diagnose or treat melasma, post-inflammatory hyperpigmentation, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
-        "evidenceUrls": [
-          "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
-        ],
-        "reviewedAt": "2026-08-07T16:42:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
-          "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d",
-          "mimeType": "image/png",
-          "byteSize": 180732,
-          "width": 900,
-          "height": 900,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal, interior matte restoration and transparent 2000 px normalization",
-          "model": "gpt-image-2",
-          "prompt": "Use case: precise-object-edit. Retain the exact upright NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml tube only from the official source, preserving NINE LESS, MELA-PRO, TXA, Sunscreen SPF 50+ PA++++, IDEAL FOR UNEVEN & DEPLETED SKIN and 100 mL / 3.3 fl. oz.; center on chroma key. Remove cream rings, swatches and shadow. Do not alter variant, size, geometry or label. Restore only chroma-eroded interior label alpha and discard detached low-alpha residue.",
-          "inputs": [
-            {
-              "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
-              "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d"
-            }
-          ],
-          "outputSha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
-          "generatedAt": "2026-08-08T18:19:00Z",
-          "recordSha256": "6973a084152d4b136a9269488b3fa64040a78f2ec903e9542b70be87ec52d2b4"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
-        "sha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
-        "mimeType": "image/png",
-        "byteSize": 738310,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-08T18:25:00Z",
-        "reviewer": "Codex independent catalogue media recheck"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-08T18:27:00Z"
-      },
-      "dossierFingerprint": "8168cdcfb5f0c9d792925c362d59e8ca9c4d851e231831f7e9fa0887ea06db1a"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
       "candidateFingerprint": "31a031306665c21df49f3ab4cf4c24d0edc357f19b26d155caecf62cc9adc356",
       "exposure": "private-only",
@@ -30390,6 +29547,861 @@
         "approvedAt": "2026-08-08T19:25:30Z"
       },
       "dossierFingerprint": "710a8072c869ad25930646cc01931613932788fafae4daf14c262806cfe913a4"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "candidateFingerprint": "7ccba694fa6c11158a491f1e9761c91fc864e6bdb4fb545d26c3a6b90fc5a7c2",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "4897073187549",
+        "brand": "Aqua Rich",
+        "name": "Hydrate + Protect Body Lotion",
+        "variant": "Aqua Rich Ceramide Body Lotion",
+        "size": "500 ml",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+        "officialIdentity": {
+          "url": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+          "observedGtin": "4897073187549",
+          "observedVariant": "Aqua Rich Ceramide Body Lotion",
+          "observedSize": "500 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-ceramide-body-lotion-500ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+            "responseUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T23:13:50Z",
+            "fields": {
+              "gtin": {
+                "value": "4897073187549",
+                "locator": "Official back-package image printed EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 4897073187549"
+              },
+              "variant": {
+                "value": "Aqua Rich Ceramide Body Lotion",
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Ceramide Body Lotion – 500ml"
+              },
+              "size": {
+                "value": "500 ml",
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Ceramide Body Lotion – 500ml"
+              }
+            },
+            "sourceResponseSha256": "c9a48c5fb552ac982b57d48c2783999bb825c98ea6c886465ae0e24209b1a05d",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 258001,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-Back-1.jpg",
+                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-Back-1.jpg",
+                "retrievedAt": "2026-07-22T23:14:11Z",
+                "responseSha256": "1386977c69ec18f3f38ad6806b37d074f5030e9de7333b017130b96a718f0344",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 37145
+              }
+            ],
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T23:14:30Z"
+          },
+          "snapshotSha256": "5c3a3584608e5255cf7f536f2de9924d93ed9f6f7a85a6358b9468df125c6c37",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1510,
+          "retrievedAt": "2026-07-22T23:13:50Z"
+        },
+        "checkedAt": "2026-07-22T23:14:30Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+          "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on daily body moisturising lotion described by the manufacturer as containing ceramides, for dry or rough-feeling body skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday moisturising and comfort for dry or rough-feeling body skin. The package carries an SPF 50 claim, but the reviewed sources do not establish tested broad-spectrum sun protection, so do not classify or recommend it as sunscreen. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful cracking; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-07-22T23:25:37Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+            "observedAt": "2026-08-08T04:23:11Z",
+            "observedTitle": "AQUA RICH – Hydrate + Protect  Body Lotion (Ceramide) 500ml",
+            "observedSize": "500 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "4897073187549",
+            "priceNgn": 11288,
+            "stock": "out-of-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+              "responseUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+              "responseSha256": "7df94d61758a03317d15424932b8e7c9ec6f74f881307e5727ecb075c6f89237",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 530661,
+              "retrievedAt": "2026-08-08T04:23:11Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Aqua Rich Hydrate Protect | Body Lotion | BuyBetter"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "4897073187549",
+                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 4897073187549",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "AQUA RICH – Hydrate + Protect  Body Lotion (Ceramide) 500ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "AQUA RICH – Hydrate + Protect  Body Lotion (Ceramide) 500ml"
+                },
+                "size": {
+                  "value": "500 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "500ml"
+                },
+                "price": {
+                  "value": 11288,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦11,288"
+                },
+                "stock": {
+                  "value": "out-of-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Out of stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:24:00Z"
+            }
+          },
+          {
+            "retailer": "CSi Grocery",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
+            "observedAt": "2026-08-08T04:23:18Z",
+            "observedTitle": "AQUA RICH Hydrate + Protect Body Lotion – 500ml",
+            "observedSize": "500 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "priceNgn": 13000,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
+              "responseUrl": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
+              "responseSha256": "e15d38ec7d5f08efbf0885355bc75d2b0f7783904604ec9435638875a72fe33f",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 496485,
+              "retrievedAt": "2026-08-08T04:23:18Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy AQUA RICH Hydrate + Protect Body Lotion | Order Online"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "4897073187549",
+                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 4897073187549",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "AQUA RICH Hydrate + Protect Body Lotion – 500ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "AQUA RICH Hydrate + Protect Body Lotion – 500ml"
+                },
+                "size": {
+                  "value": "500 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "500ml"
+                },
+                "price": {
+                  "value": 13000,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦13,000.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:24:00Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-1.jpg",
+          "sha256": "d3b408a63d75cc380f2144ea0edb7617eff2e630d5898db972183a3460efa500",
+          "mimeType": "image/jpeg",
+          "byteSize": 31006,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-07-23T06:59:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Hydrate + Protect Ceramide Body Lotion 500 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin cyan/green curved-base fringe and pale pump-edge rim. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+          "inputs": [
+            {
+              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-1.jpg",
+              "sha256": "d3b408a63d75cc380f2144ea0edb7617eff2e630d5898db972183a3460efa500"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v1-9435ff0eb88c9189.png",
+              "sha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324"
+            }
+          ],
+          "outputSha256": "684207f5bc33db699ee8fb3042d969cf2f88108d337449ece70a849683a6dd93",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "a624b92cff07356d4e864c02c5bf4d2aae3d788e0491c7b13f5e30c49edb7156"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v2-684207f5bc33db69.png",
+        "sha256": "684207f5bc33db699ee8fb3042d969cf2f88108d337449ece70a849683a6dd93",
+        "mimeType": "image/png",
+        "byteSize": 970396,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T20:00:30Z",
+        "reviewer": "Codex catalogue media correction review"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T20:00:31Z"
+      },
+      "dossierFingerprint": "a2828c6f6bae23b53bc46dddbe382a901f0930a1ae62222a8a2db5f35626ab48"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "candidateFingerprint": "4474ba2ceeb694095f89ca2bfbd6af4991aa7a1700d18d34b027d7854f3a0606",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "4897073186542",
+        "brand": "Aqua Rich",
+        "name": "Turmeric and Vitamin C Body Lotion",
+        "variant": "Aqua Rich Turmeric and Vitamin C Body Lotion",
+        "size": "500 ml",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+        "officialIdentity": {
+          "url": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+          "observedGtin": "4897073186542",
+          "observedVariant": "Aqua Rich Turmeric and Vitamin C Body Lotion",
+          "observedSize": "500 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-turmeric-vitamin-c-body-lotion-500ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+            "responseUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+            "responseDigestScope": "decoded-response-body",
+            "retrievedAt": "2026-07-22T23:13:50Z",
+            "fields": {
+              "gtin": {
+                "value": "4897073186542",
+                "locator": "Official back-package image printed EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 4897073186542"
+              },
+              "variant": {
+                "value": "Aqua Rich Turmeric and Vitamin C Body Lotion",
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Lotion – 500ml"
+              },
+              "size": {
+                "value": "500 ml",
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Lotion – 500ml"
+              }
+            },
+            "sourceResponseSha256": "8bcc49661d3ec8ea5e3c7df5129bb325020b60fe52acd261f088a83422d621fe",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 259341,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-Back-1.jpg",
+                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-Back-1.jpg",
+                "retrievedAt": "2026-07-22T23:14:12Z",
+                "responseSha256": "ecde7f59dbb4fe3504b90644e2aea08fda3e187259a026256e12fff523f1221e",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 46466
+              }
+            ],
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-22T23:14:30Z"
+          },
+          "snapshotSha256": "32d055894aa0d54687cd7308536ed3da9fc42ea2c21be7970f5d375dbf92f01c",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1618,
+          "retrievedAt": "2026-07-22T23:13:50Z"
+        },
+        "checkedAt": "2026-07-22T23:14:30Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
+          "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
+          "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrating-bright/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on daily body moisturising lotion described by the manufacturer as containing turmeric and vitamin C, for hydration and cosmetic radiance",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday body moisturising and a cosmetic radiant or even-looking finish. The exact vitamin C form, concentration, stability, full formula, and clinical effect are not established, so do not present it as treatment for hyperpigmentation, melasma, post-inflammatory marks, acne, or another skin condition. It is not a sunscreen. Stop if it burns, stings, or irritates, and seek clinician advice for changing, painful, itchy, spreading, or persistent dark marks.",
+        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-07-22T23:25:37Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
+            "observedAt": "2026-08-08T03:51:05Z",
+            "observedTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
+            "observedSize": "500 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "4897073186542",
+            "priceNgn": 12800,
+            "stock": "low-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
+              "responseUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
+              "responseSha256": "13975ca83f12c0a4288f6037ad6a4c9d02b2695f34d9dbd1f52331555a30848d",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 529671,
+              "retrievedAt": "2026-08-08T03:51:05Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml - Buybetter"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "4897073186542",
+                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 4897073186542",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml"
+                },
+                "size": {
+                  "value": "500 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "500ml"
+                },
+                "price": {
+                  "value": 12800,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦12,800"
+                },
+                "stock": {
+                  "value": "low-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Only 9 left"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T03:52:00Z"
+            },
+            "reviewedTitleAlias": "Aqua Rich Body Lotion"
+          },
+          {
+            "retailer": "Kadimez Essentials",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
+            "observedAt": "2026-08-08T03:51:16Z",
+            "observedTitle": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
+            "observedSize": "500 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "priceNgn": 12000,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
+              "responseUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
+              "responseSha256": "1f9c336a50961d16a90ffcb233e2506818d44610175c0c0d3db90d66e4a814a4",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 229584,
+              "retrievedAt": "2026-08-08T03:51:16Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml - Kadimez Essentials"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "4897073186542",
+                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 4897073186542",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml"
+                },
+                "size": {
+                  "value": "500 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "500ml"
+                },
+                "price": {
+                  "value": 12000,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦12,000"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T03:52:00Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-1.jpg",
+          "sha256": "13634e456f2f89d812a0a50fc3b65d4f3b758c45c1fdfb06f2411ea397b8e121",
+          "mimeType": "image/jpeg",
+          "byteSize": 37566,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-07-23T07:30:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Hydrating Bright Turmeric + Vitamin C Body Lotion 500 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green extraction rim around the pump, base and perimeter. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+          "inputs": [
+            {
+              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-1.jpg",
+              "sha256": "13634e456f2f89d812a0a50fc3b65d4f3b758c45c1fdfb06f2411ea397b8e121"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-lotion-500ml/packshot-v1-f2c087ec15a62033.png",
+              "sha256": "f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b"
+            }
+          ],
+          "outputSha256": "a8dafcbbed5d7aa895ccce2853f93f47a2524c2618772fe86fce961bd941b8ad",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "f8cc2537ba644451ec7b7dd15341b25586264e0a8ce764068e494c12400ba31f"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-lotion-500ml/packshot-v2-a8dafcbbed5d7aa8.png",
+        "sha256": "a8dafcbbed5d7aa895ccce2853f93f47a2524c2618772fe86fce961bd941b8ad",
+        "mimeType": "image/png",
+        "byteSize": 924878,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T20:00:30Z",
+        "reviewer": "Codex catalogue media correction review"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T20:00:31Z"
+      },
+      "dossierFingerprint": "b3d6a025a705c7a1d8ae14e8531ca2d9097e4cb4809bacd6f568deff6e05eb3b"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+      "candidateFingerprint": "c137adb0188176d0e85ad59cc0741c4b50e864567c5492a80f184608d7536b2e",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "4897073186566",
+        "brand": "Aqua Rich",
+        "name": "Hydrating Bright Body Gel Wash",
+        "variant": "Aqua Rich Turmeric and Vitamin C Body Wash",
+        "size": "1000 ml",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+        "officialIdentity": {
+          "url": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+          "observedGtin": "4897073186566",
+          "observedVariant": "Aqua Rich Turmeric and Vitamin C Body Wash",
+          "observedSize": "1000 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-turmeric-vitamin-c-body-wash-1000ml.json",
+          "canonicalExtraction": {
+            "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official back-package image printed EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 4897073186566",
+                "value": "4897073186566"
+              },
+              "variant": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
+                "value": "Aqua Rich Turmeric and Vitamin C Body Wash"
+              },
+              "size": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
+                "value": "1000 ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+            "retrievedAt": "2026-08-07T12:00:00Z",
+            "reviewedAt": "2026-08-07T12:00:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 256528,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "8f1a8f5615afd7857337a81ea3f51f8f5c42ea4368c1c1869babd94446ee096e",
+            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 38208,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37",
+                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
+                "retrievedAt": "2026-08-07T12:00:00Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg"
+              }
+            ]
+          },
+          "snapshotSha256": "98128056bd23ca5511229f833493c88b1cdffd40dac264efdcedbd9f8120e5fb",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1606,
+          "retrievedAt": "2026-08-07T12:00:00Z"
+        },
+        "checkedAt": "2026-08-07T12:00:00Z",
+        "demandEvidenceUrls": [
+          "https://giftybeautystoree.com/product/aqua-rich-hydrating-bright-body-gel-wash-with-turmeric-and-vitamin-c-1000ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing turmeric and vitamin C, for dull or uneven-tone body skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T12:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
+          "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37",
+          "mimeType": "image/jpeg",
+          "byteSize": 38208,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-08T18:10:37Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green extraction rim around the pump, curved base and perimeter. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+          "inputs": [
+            {
+              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
+              "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png",
+              "sha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b"
+            }
+          ],
+          "outputSha256": "0daad367036736e7403e7ca5a3dfb4c00a3bd6f9ceeb7bbe34d2636ed4038d07",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "66d358bbd49b186248edb500dd35d34789015f40a13cb1e869f375be610cc412"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v3-0daad367036736e7.png",
+        "sha256": "0daad367036736e7403e7ca5a3dfb4c00a3bd6f9ceeb7bbe34d2636ed4038d07",
+        "mimeType": "image/png",
+        "byteSize": 1055171,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T20:00:30Z",
+        "reviewer": "Codex catalogue media correction review"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T20:00:31Z"
+      },
+      "dossierFingerprint": "a34dfeeedb8be8822f623740178be0f80b005ca2b6ebb7814c52ce13f58f113a"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+      "candidateFingerprint": "9be9c740517f407c23ff6a308da6893d35340e99b56ff39a2682fc6a8e11d325",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "8809875270158",
+        "brand": "NINELESS",
+        "name": "MELA-PRO Tranexamic Acid Sun Screen",
+        "variant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
+        "size": "100 ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+        "officialIdentity": {
+          "url": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+          "observedGtin": "8809875270158",
+          "observedVariant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
+          "observedSize": "100 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/nineless-mela-pro-tranexamic-acid-sunscreen-100ml.json",
+          "canonicalExtraction": {
+            "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+            "fields": {
+              "gtin": {
+                "locator": "Retailer-corroborated EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 8809875270158",
+                "value": "8809875270158"
+              },
+              "variant": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
+                "value": "NINELESS MELA-PRO Tranexamic Acid Sun Screen"
+              },
+              "size": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
+                "value": "100 ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+            "retrievedAt": "2026-08-07T16:35:00Z",
+            "reviewedAt": "2026-08-07T16:38:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 128659,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "15e3e7402997f116315d8e8784892f83f04d44afb65a892294d908168c190239",
+            "sourceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml"
+          },
+          "snapshotSha256": "2409cdb81d56f9b3b319548750a319015e2ef43e5b8ad740a4713a0248dcf2cb",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1110,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "checkedAt": "2026-08-07T16:40:00Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on daily facial sunscreen described by the manufacturer as containing tranexamic acid, for uneven-tone or blemish-mark-prone facial skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday sun protection and tone-evening for facial skin. It does not diagnose or treat melasma, post-inflammatory hyperpigmentation, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-07T16:42:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
+          "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d",
+          "mimeType": "image/png",
+          "byteSize": 180732,
+          "width": 900,
+          "height": 900,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green cap-bottom extraction rim. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+          "inputs": [
+            {
+              "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
+              "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
+              "sha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556"
+            }
+          ],
+          "outputSha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "e303ac80fd63776ce8b23088a530ce40aaca5d68f01b2f569d14dfa1381d79c9"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v3-f762bf0584a6fb85.png",
+        "sha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
+        "mimeType": "image/png",
+        "byteSize": 739196,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T20:00:30Z",
+        "reviewer": "Codex catalogue media correction review"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T20:00:31Z"
+      },
+      "dossierFingerprint": "e435cdb13497563db63e3bc2c67298cf8760a3296aa3ec87aee6413672ef54f7"
     }
   ]
 }

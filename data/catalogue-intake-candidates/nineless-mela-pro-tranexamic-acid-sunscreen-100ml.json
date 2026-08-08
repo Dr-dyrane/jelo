@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-08T18:26:00Z",
+  "updatedAt": "2026-08-08T20:00:33Z",
   "origin": {
     "kind": "static-research-packet",
     "packetId": "ebae670520f80e19a6aafd8a",
@@ -47,12 +47,12 @@
             },
             "size": {
               "locator": "HTML h1.product_title entry-title",
-              "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen \u2013 100 ml",
+              "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
               "value": "100 ml"
             },
             "variant": {
               "locator": "HTML h1.product_title entry-title",
-              "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen \u2013 100 ml",
+              "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
               "value": "NINELESS MELA-PRO Tranexamic Acid Sun Screen"
             }
           },
@@ -105,35 +105,39 @@
       "sourceAssetRetrievedAt": "2026-08-07T16:35:00Z",
       "generationRecord": {
         "schemaVersion": 1,
-        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal, interior matte restoration and transparent 2000 px normalization",
-        "model": "gpt-image-2",
-        "prompt": "Use case: precise-object-edit. Retain the exact upright NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml tube only from the official source, preserving NINE LESS, MELA-PRO, TXA, Sunscreen SPF 50+ PA++++, IDEAL FOR UNEVEN & DEPLETED SKIN and 100 mL / 3.3 fl. oz.; center on chroma key. Remove cream rings, swatches and shadow. Do not alter variant, size, geometry or label. Restore only chroma-eroded interior label alpha and discard detached low-alpha residue.",
+        "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+        "model": "Pillow 11.3.0 MinFilter(3) x3",
+        "prompt": "Use case: precise-object-edit. From the exact official NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green cap-bottom extraction rim. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
         "inputs": [
           {
             "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
             "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
+            "sha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556"
           }
         ],
-        "outputSha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
-        "generatedAt": "2026-08-08T18:19:00Z",
-        "recordSha256": "6973a084152d4b136a9269488b3fa64040a78f2ec903e9542b70be87ec52d2b4"
+        "outputSha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
+        "generatedAt": "2026-08-08T20:00:20Z",
+        "recordSha256": "e303ac80fd63776ce8b23088a530ce40aaca5d68f01b2f569d14dfa1381d79c9"
       },
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v3-f762bf0584a6fb85.png",
       "backgroundTreatment": "identity-verified-render",
       "origin": "owned-identity-verified-render",
       "rightsStatus": "documented",
       "role": "packshot",
-      "publicImageSha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
+      "publicImageSha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 738310,
+      "publicImageByteSize": 739196,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-08-08T18:25:00Z",
-      "artReviewer": "Codex independent catalogue media recheck",
+      "artReviewedAt": "2026-08-08T20:00:30Z",
+      "artReviewer": "Codex catalogue media correction review",
       "presentationQuality": "magazine-ready"
     }
   }

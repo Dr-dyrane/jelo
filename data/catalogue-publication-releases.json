@@ -2260,30 +2260,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
-      "dossierFingerprint": "e449680ac0615acc73c915bd45f720a39866b801573f6178f3a3f7bc7bbff52f",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturize",
-        "displayLine": "Daily body moisture with turmeric and vitamin C.",
-        "usage": "Apply to clean, towel-dried body skin after bathing. Massage until absorbed and use daily.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-08T03:52:40Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-08T03:52:50Z"
-      },
-      "releaseFingerprint": "ea3223b48c6aa25dcf80371e15542bfb207c9571dd0cc3adbd99da17b6424414"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "cerave-hydrating-cleanser-473ml",
       "dossierFingerprint": "2fa56ac72b5c978de0dd9f280e49788344a403e9de125070c9b289f9a4b0972d",
       "exposure": "public-catalogue",
@@ -2425,30 +2401,6 @@
         "publishedAt": "2026-08-08T04:23:10Z"
       },
       "releaseFingerprint": "7b026f56bd2f7420273abaca8ebb72e9d7c430f3fff942884ca9170ec9367297"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
-      "dossierFingerprint": "c82f27e38ae26d47381769b949abd5e78aeba2fe81d0d77348daff8a60169986",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturize",
-        "displayLine": "Daily moisture with ceramides.",
-        "usage": "Apply generously to clean, slightly damp body skin after bathing. Massage until absorbed and use daily.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-08T04:24:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-08T04:24:40Z"
-      },
-      "releaseFingerprint": "6d784167b4257a8267d586f9dd45d605ba2008e0a3279b205d8354b890009a0b"
     },
     {
       "schemaVersion": 2,
@@ -3004,54 +2956,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-      "dossierFingerprint": "4d5c097f4cbee8ebb267054a8e703c8fabc6d247fb9f09e2dba61cf229158b4d",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Cleanse",
-        "displayLine": "Hydrating Bright Body Gel Wash 1000 ml",
-        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-08T18:29:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-08T18:31:00Z"
-      },
-      "releaseFingerprint": "449f8e4227ce3c7a14afa8d532aec16f6b62a93a1d07bf78fcbae02d8bc15ef8"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-      "dossierFingerprint": "8168cdcfb5f0c9d792925c362d59e8ca9c4d851e231831f7e9fa0887ea06db1a",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Protect",
-        "displayLine": "MELA-PRO Tranexamic Acid Sun Screen 100 ml",
-        "usage": "Apply generously as the last step in your morning routine, 15 minutes before sun exposure. Reapply every two hours during direct sun exposure and after swimming or sweating.",
-        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-08T18:29:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-08T18:31:00Z"
-      },
-      "releaseFingerprint": "903a88ba4acd8454ae081e30ace68f13f24e72e9c6ef8a4e8f77c942cd297098"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
       "dossierFingerprint": "cfc88727ab0a9ac342cd923b2f8f2bfd3cb25df1a1f5572e155fdccab1b401c4",
       "exposure": "public-catalogue",
@@ -3097,6 +3001,102 @@
         "publishedAt": "2026-08-08T19:26:30Z"
       },
       "releaseFingerprint": "8ce041a3eae72f51f1a56f2fdf3f1203eab19fe34f3e9ee0d869a1bcab663aaf"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "dossierFingerprint": "a2828c6f6bae23b53bc46dddbe382a901f0930a1ae62222a8a2db5f35626ab48",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily moisture with ceramides.",
+        "usage": "Apply generously to clean, slightly damp body skin after bathing. Massage until absorbed and use daily.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-ceramide-body-lotion-500ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T20:00:32Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T20:00:33Z"
+      },
+      "releaseFingerprint": "579577c08fec3e0b5e8f626e9e9098d7ead00689d59dcd038cb3313d15451621"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "dossierFingerprint": "b3d6a025a705c7a1d8ae14e8531ca2d9097e4cb4809bacd6f568deff6e05eb3b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily body moisture with turmeric and vitamin C.",
+        "usage": "Apply to clean, towel-dried body skin after bathing. Massage until absorbed and use daily.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T20:00:32Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T20:00:33Z"
+      },
+      "releaseFingerprint": "0f3bef221719dfe7a4204b3559e77d12e8402500d2a73986b1149084abfb559c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+      "dossierFingerprint": "a34dfeeedb8be8822f623740178be0f80b005ca2b6ebb7814c52ce13f58f113a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Hydrating Bright Body Gel Wash 1000 ml",
+        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T20:00:32Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T20:00:33Z"
+      },
+      "releaseFingerprint": "72e5d658340f65220203e295b122841b2de7ddf841080a43e69e1edc97fe3223"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+      "dossierFingerprint": "e435cdb13497563db63e3bc2c67298cf8760a3296aa3ec87aee6413672ef54f7",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "MELA-PRO Tranexamic Acid Sun Screen 100 ml",
+        "usage": "Apply generously as the last step in your morning routine, 15 minutes before sun exposure. Reapply every two hours during direct sun exposure and after swimming or sweating.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T20:00:32Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T20:00:33Z"
+      },
+      "releaseFingerprint": "0bdd84087dfd38e2ee52002e4fe967ae221b9de07532678b1d877b339363af49"
     }
   ]
 }

@@ -952,13 +952,13 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
     && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(ceramide.nigeria.excludedObservations.length, 1);
-  assert.equal(ceramide.asset.publicImageSha256, '9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324');
+  assert.equal(ceramide.asset.publicImageSha256, '684207f5bc33db699ee8fb3042d969cf2f88108d337449ece70a849683a6dd93');
   const generation = ceramide.asset.generationRecord;
   assert.ok(generation);
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const ceramideDecision = evaluateCatalogueIntakeCandidate(ceramide, Date.parse('2026-08-08T04:24:20Z'));
+  const ceramideDecision = evaluateCatalogueIntakeCandidate(ceramide, Date.parse('2026-08-08T20:01:00Z'));
   assert.equal(ceramideDecision.stage, 'approval-ready');
   assert.equal(ceramideDecision.approvalDraftReady, true);
   assert.equal(ceramideDecision.freshExactOffers.length, 2);
@@ -978,12 +978,12 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
     && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(turmeric.nigeria.excludedObservations.length, 1);
-  assert.equal(turmeric.asset.publicImageSha256, 'f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b');
+  assert.equal(turmeric.asset.publicImageSha256, 'a8dafcbbed5d7aa895ccce2853f93f47a2524c2618772fe86fce961bd941b8ad');
   const turmericGeneration = turmeric.asset.generationRecord;
   assert.ok(turmericGeneration);
   const { recordSha256: turmericRecordSha256, ...turmericGenerationContent } = turmericGeneration;
   assert.equal(turmericRecordSha256, catalogueGenerationRecordSha256(turmericGenerationContent));
-  const turmericDecision = evaluateCatalogueIntakeCandidate(turmeric, Date.parse('2026-08-08T03:52:30Z'));
+  const turmericDecision = evaluateCatalogueIntakeCandidate(turmeric, Date.parse('2026-08-08T20:01:00Z'));
   assert.equal(turmericDecision.stage, 'approval-ready');
   assert.equal(turmericDecision.approvalDraftReady, true);
   assert.equal(turmericDecision.freshExactOffers.length, 2);

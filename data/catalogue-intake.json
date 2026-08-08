@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T19:26:30Z",
+  "updatedAt": "2026-08-08T20:00:33Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -2656,23 +2656,27 @@
         "sourceAssetRetrievedAt": "2026-07-23T06:59:00Z",
         "generationRecord": {
           "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: product-mockup\nAsset type: JeloCare transparent catalogue packshot source on chroma key\nInput image: exact official Aqua Rich reference; identity and packaging lock\nPrimary request: Create a high-end, straight-on studio packshot of this exact Aqua Rich Hydrate + Protect Body Lotion Ceramide 500 ml pump bottle. Preserve the exact tall rounded lavender bottle silhouette, complete lavender pump and white collar, label layout, AQUA RICH magenta wordmark, “Hydrate + Protect”, “BODY LOTION”, “Ceramide”, blue molecular-water graphic, vegan roundel, and 500ml front size line. It must remain recognizable as the same exact manufacturer SKU, not a redesign or generic substitute.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background for later removal.\nComposition/framing: one complete upright bottle centered with generous even padding; entire pump nozzle, bottle shoulders, side edge, and curved base visible; no crop; no carton; no props; no overlapping geometry.\nLighting/mood: premium Vogue-quality catalogue lighting on the product only, soft clean highlights, readable front identity, realistic opaque plastic.\nText to preserve where legible: “AQUA RICH”, “Hydrate + Protect”, “BODY LOTION”, “Ceramide”, “VEGAN”, “500ml”. Preserve the Korean label marks and small bullet copy as shapes without inventing different claims.\nConstraints: exact product identity; complete silhouette; front-facing camera; crisp edges; label undistorted; no invented badges; no SPF claim; no product redesign; no size or colour change.\nBackground constraints: one uniform #00ff00 colour with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Do not use chroma green anywhere in the product.\nAvoid: white background, cast shadow, contact shadow, reflection, floor, hands, people, botanicals, decorative shapes, watermark, added text, duplicate bottle, cropped pump, cropped base, skewed packaging.",
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Hydrate + Protect Ceramide Body Lotion 500 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin cyan/green curved-base fringe and pale pump-edge rim. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
           "inputs": [
             {
               "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Ceramide-Body-Lotion-1.jpg",
               "sha256": "d3b408a63d75cc380f2144ea0edb7617eff2e630d5898db972183a3460efa500"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v1-9435ff0eb88c9189.png",
+              "sha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324"
             }
           ],
-          "outputSha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324",
-          "generatedAt": "2026-07-23T07:00:00Z",
-          "recordSha256": "30ed6a826478a360325f7bbfe27874047175b7c5129110ff691bcf17d92218ee"
+          "outputSha256": "684207f5bc33db699ee8fb3042d969cf2f88108d337449ece70a849683a6dd93",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "a624b92cff07356d4e864c02c5bf4d2aae3d788e0491c7b13f5e30c49edb7156"
         },
-        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v1-9435ff0eb88c9189.png",
-        "publicImageSha256": "9435ff0eb88c9189179108e7cbcd5d486c0d6452e1f842bf2b95f24db3a2f324",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v2-684207f5bc33db69.png",
+        "publicImageSha256": "684207f5bc33db699ee8fb3042d969cf2f88108d337449ece70a849683a6dd93",
         "publicImageMimeType": "image/png",
-        "publicImageByteSize": 1296181,
+        "publicImageByteSize": 970396,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
@@ -2680,8 +2684,8 @@
         "labelVariantSizeUnchanged": true,
         "packagingInvented": false,
         "manualSourceOutputQa": true,
-        "artReviewedAt": "2026-07-23T07:04:00Z",
-        "artReviewer": "Codex visual audit",
+        "artReviewedAt": "2026-08-08T20:00:30Z",
+        "artReviewer": "Codex catalogue media correction review",
         "presentationQuality": "magazine-ready"
       }
     },
@@ -2974,23 +2978,27 @@
         "sourceAssetRetrievedAt": "2026-07-23T07:30:00Z",
         "generationRecord": {
           "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: product-mockup\nAsset type: JeloCare transparent catalogue packshot source on chroma key\nInput image: exact official Aqua Rich reference; identity and packaging lock\nPrimary request: Create a high-end, straight-on studio packshot of this exact Aqua Rich Hydrating Bright Body Lotion with Turmeric and Vitamin C, 500 ml pump bottle. Preserve the exact tall rounded orange bottle silhouette, complete orange pump and white collar, label layout, AQUA RICH red wordmark, “Hydrating Bright”, “BODY LOTION”, “TURMERIC VITAMIN C”, central orange/turmeric splash graphic, vegan roundel, bullet layout, and 500ml front size line. It must remain recognizable as the same exact manufacturer SKU, not a redesign or generic substitute.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background for later removal.\nComposition/framing: one complete upright bottle centered with generous even padding; entire pump nozzle, bottle shoulders, side edge, and curved base visible; no crop; no carton; no props; no overlapping geometry.\nLighting/mood: premium Vogue-quality catalogue lighting on the product only, soft clean highlights, readable front identity, realistic opaque plastic.\nText to preserve where legible: “AQUA RICH”, “Hydrating Bright”, “BODY LOTION”, “TURMERIC VITAMIN C”, “VEGAN”, “500ml”. Preserve the Korean label marks and small bullet copy as shapes without inventing different claims.\nConstraints: exact product identity; complete silhouette; front-facing camera; crisp edges; label undistorted; no invented badges; no SPF claim; no product redesign; no size or colour change.\nBackground constraints: one uniform #00ff00 colour with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Do not use chroma green anywhere in the product.\nAvoid: white background, cast shadow, contact shadow, reflection, floor, hands, people, botanicals, decorative shapes, watermark, added text, duplicate bottle, cropped pump, cropped base, skewed packaging.",
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Hydrating Bright Turmeric + Vitamin C Body Lotion 500 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green extraction rim around the pump, base and perimeter. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
           "inputs": [
             {
               "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Lotion-1.jpg",
               "sha256": "13634e456f2f89d812a0a50fc3b65d4f3b758c45c1fdfb06f2411ea397b8e121"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-lotion-500ml/packshot-v1-f2c087ec15a62033.png",
+              "sha256": "f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b"
             }
           ],
-          "outputSha256": "f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b",
-          "generatedAt": "2026-07-23T07:31:00Z",
-          "recordSha256": "00444b6fcfc46e00d2f0ddcf0311378ef71e3c8c9faf7e1ed365b64d96078f50"
+          "outputSha256": "a8dafcbbed5d7aa895ccce2853f93f47a2524c2618772fe86fce961bd941b8ad",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "f8cc2537ba644451ec7b7dd15341b25586264e0a8ce764068e494c12400ba31f"
         },
-        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-lotion-500ml/packshot-v1-f2c087ec15a62033.png",
-        "publicImageSha256": "f2c087ec15a62033eaa0097317ffbb50d9144979dcb2578acf324faa26c89d6b",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-lotion-500ml/packshot-v2-a8dafcbbed5d7aa8.png",
+        "publicImageSha256": "a8dafcbbed5d7aa895ccce2853f93f47a2524c2618772fe86fce961bd941b8ad",
         "publicImageMimeType": "image/png",
-        "publicImageByteSize": 1238262,
+        "publicImageByteSize": 924878,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
@@ -2998,8 +3006,8 @@
         "labelVariantSizeUnchanged": true,
         "packagingInvented": false,
         "manualSourceOutputQa": true,
-        "artReviewedAt": "2026-07-23T07:33:00Z",
-        "artReviewer": "Codex visual audit",
+        "artReviewedAt": "2026-08-08T20:00:30Z",
+        "artReviewer": "Codex catalogue media correction review",
         "presentationQuality": "magazine-ready"
       }
     },
@@ -12500,39 +12508,39 @@
         "sourceAssetRetrievedAt": "2026-08-08T18:10:37Z",
         "generationRecord": {
           "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px normalization",
-          "model": "gpt-image-2",
-          "prompt": "Use case: product-mockup. Build one exact Aqua Rich Hydrating Bright Body Gel Wash with Turmeric and Vitamin C, 1000 ml / 35.2 FL.OZ front packshot from the exact official rear package and exact retailer front. Preserve the orange bottle and pump, AQUA RICH, Hydrating Bright, BODY GEL WASH, TURMERIC VITAMIN C, central graphic, vegan roundel and size. Center on chroma key for later removal. No Body Lotion, 500 ml, props, shadow, reflection, duplicate, clipping, redesign or invented claims.",
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green extraction rim around the pump, curved base and perimeter. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
           "inputs": [
             {
               "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
               "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37"
             },
             {
-              "url": "https://www.cocci.com.ng/cdn/shop/files/AQUA_RICH_TUMERIC_VITAMIN_C_HYDRATING_BRIGHT_BODY_GEL_WASH.gif?v=1763373624",
-              "sha256": "9c3bceea2cce2eb89a1c86532af6811976237ffa87b2966f2f228c99232442af"
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png",
+              "sha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b"
             }
           ],
-          "outputSha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
-          "generatedAt": "2026-08-08T18:15:00Z",
-          "recordSha256": "f61f7642eb8c85611a857f7e52d915e0a5336e0db27bf161e4c6272bf209d095"
+          "outputSha256": "0daad367036736e7403e7ca5a3dfb4c00a3bd6f9ceeb7bbe34d2636ed4038d07",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "66d358bbd49b186248edb500dd35d34789015f40a13cb1e869f375be610cc412"
         },
-        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v3-0daad367036736e7.png",
         "backgroundTreatment": "identity-verified-render",
         "origin": "owned-identity-verified-render",
         "rightsStatus": "documented",
         "role": "packshot",
-        "publicImageSha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
+        "publicImageSha256": "0daad367036736e7403e7ca5a3dfb4c00a3bd6f9ceeb7bbe34d2636ed4038d07",
         "publicImageMimeType": "image/png",
-        "publicImageByteSize": 1056156,
+        "publicImageByteSize": 1055171,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
         "labelVariantSizeUnchanged": true,
         "packagingInvented": false,
         "manualSourceOutputQa": true,
-        "artReviewedAt": "2026-08-08T18:25:00Z",
-        "artReviewer": "Codex independent catalogue media recheck",
+        "artReviewedAt": "2026-08-08T20:00:30Z",
+        "artReviewer": "Codex catalogue media correction review",
         "presentationQuality": "magazine-ready"
       }
     },
@@ -24818,35 +24826,39 @@
         "sourceAssetRetrievedAt": "2026-08-07T16:35:00Z",
         "generationRecord": {
           "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal, interior matte restoration and transparent 2000 px normalization",
-          "model": "gpt-image-2",
-          "prompt": "Use case: precise-object-edit. Retain the exact upright NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml tube only from the official source, preserving NINE LESS, MELA-PRO, TXA, Sunscreen SPF 50+ PA++++, IDEAL FOR UNEVEN & DEPLETED SKIN and 100 mL / 3.3 fl. oz.; center on chroma key. Remove cream rings, swatches and shadow. Do not alter variant, size, geometry or label. Restore only chroma-eroded interior label alpha and discard detached low-alpha residue.",
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green cap-bottom extraction rim. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
           "inputs": [
             {
               "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
               "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
+              "sha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556"
             }
           ],
-          "outputSha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
-          "generatedAt": "2026-08-08T18:19:00Z",
-          "recordSha256": "6973a084152d4b136a9269488b3fa64040a78f2ec903e9542b70be87ec52d2b4"
+          "outputSha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
+          "generatedAt": "2026-08-08T20:00:20Z",
+          "recordSha256": "e303ac80fd63776ce8b23088a530ce40aaca5d68f01b2f569d14dfa1381d79c9"
         },
-        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v3-f762bf0584a6fb85.png",
         "backgroundTreatment": "identity-verified-render",
         "origin": "owned-identity-verified-render",
         "rightsStatus": "documented",
         "role": "packshot",
-        "publicImageSha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
+        "publicImageSha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
         "publicImageMimeType": "image/png",
-        "publicImageByteSize": 738310,
+        "publicImageByteSize": 739196,
         "width": 2000,
         "height": 2000,
         "packaging": "intact",
         "labelVariantSizeUnchanged": true,
         "packagingInvented": false,
         "manualSourceOutputQa": true,
-        "artReviewedAt": "2026-08-08T18:25:00Z",
-        "artReviewer": "Codex independent catalogue media recheck",
+        "artReviewedAt": "2026-08-08T20:00:30Z",
+        "artReviewer": "Codex catalogue media correction review",
         "presentationQuality": "magazine-ready"
       }
     },

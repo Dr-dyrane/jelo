@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-    "candidateFingerprint": "ffa70d023cf0ded1b3179d6b7ccd708b32e9bbfe033626fdd180b04ee426a81b",
+    "candidateFingerprint": "9be9c740517f407c23ff6a308da6893d35340e99b56ff39a2682fc6a8e11d325",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -103,26 +103,30 @@
       },
       "generationRecord": {
         "schemaVersion": 1,
-        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal, interior matte restoration and transparent 2000 px normalization",
-        "model": "gpt-image-2",
-        "prompt": "Use case: precise-object-edit. Retain the exact upright NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml tube only from the official source, preserving NINE LESS, MELA-PRO, TXA, Sunscreen SPF 50+ PA++++, IDEAL FOR UNEVEN & DEPLETED SKIN and 100 mL / 3.3 fl. oz.; center on chroma key. Remove cream rings, swatches and shadow. Do not alter variant, size, geometry or label. Restore only chroma-eroded interior label alpha and discard detached low-alpha residue.",
+        "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+        "model": "Pillow 11.3.0 MinFilter(3) x3",
+        "prompt": "Use case: precise-object-edit. From the exact official NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the thin green cap-bottom extraction rim. Preserve every RGB pixel, the connected product silhouette, package geometry, label, variant, size, side walls, crop and centering. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
         "inputs": [
           {
             "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
             "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
+            "sha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556"
           }
         ],
-        "outputSha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
-        "generatedAt": "2026-08-08T18:19:00Z",
-        "recordSha256": "6973a084152d4b136a9269488b3fa64040a78f2ec903e9542b70be87ec52d2b4"
+        "outputSha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
+        "generatedAt": "2026-08-08T20:00:20Z",
+        "recordSha256": "e303ac80fd63776ce8b23088a530ce40aaca5d68f01b2f569d14dfa1381d79c9"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
-      "sha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v3-f762bf0584a6fb85.png",
+      "sha256": "f762bf0584a6fb859e8fe0280aa6a2468d49f53c289f96146167270338f6ccb6",
       "mimeType": "image/png",
-      "byteSize": 738310,
+      "byteSize": 739196,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -131,20 +135,20 @@
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-08T18:25:00Z",
-      "reviewer": "Codex independent catalogue media recheck"
+      "reviewedAt": "2026-08-08T20:00:30Z",
+      "reviewer": "Codex catalogue media correction review"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-08T18:27:00Z"
+      "approvedAt": "2026-08-08T20:00:31Z"
     },
-    "dossierFingerprint": "8168cdcfb5f0c9d792925c362d59e8ca9c4d851e231831f7e9fa0887ea06db1a"
+    "dossierFingerprint": "e435cdb13497563db63e3bc2c67298cf8760a3296aa3ec87aee6413672ef54f7"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-    "dossierFingerprint": "8168cdcfb5f0c9d792925c362d59e8ca9c4d851e231831f7e9fa0887ea06db1a",
+    "dossierFingerprint": "e435cdb13497563db63e3bc2c67298cf8760a3296aa3ec87aee6413672ef54f7",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -156,13 +160,13 @@
       "usage": "Apply generously as the last step in your morning routine, 15 minutes before sun exposure. Reapply every two hours during direct sun exposure and after swimming or sweating.",
       "manufacturerDirectionsUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-08T18:29:00Z"
+      "reviewedAt": "2026-08-08T20:00:32Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-08T18:31:00Z"
+      "publishedAt": "2026-08-08T20:00:33Z"
     },
-    "releaseFingerprint": "903a88ba4acd8454ae081e30ace68f13f24e72e9c6ef8a4e8f77c942cd297098"
+    "releaseFingerprint": "0bdd84087dfd38e2ee52002e4fe967ae221b9de07532678b1d877b339363af49"
   }
 }
