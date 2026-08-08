@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
-    "candidateFingerprint": "bac91a04f02e796cab1c0fc1586dbdd031cc4e2fe8a1ac5283aaeb8a40d9cceb",
+    "candidateFingerprint": "abbeeaab387d2d81fa5e1c8ee68cfc8227bd67ddff5ca2fbf1f3049feaa7a064",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -102,8 +102,7 @@
     },
     "rights": {
       "status": "documented",
-      "origin": "official-brand-media",
-      "evidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+      "origin": "owned-identity-verified-render",
       "sourceAsset": {
         "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
         "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
@@ -113,98 +112,54 @@
         "height": 800,
         "retrievedAt": "2026-08-07T16:35:00Z"
       },
-      "isolationRecord": {
+      "generationRecord": {
         "schemaVersion": 1,
-        "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
-        "publicationScope": "catalogue-publication",
-        "source": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
-          "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
-          "byteSize": 33898,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "identity": {
-          "canonicalIdentifier": {
-            "kind": "gtin",
-            "value": "04897073187587"
+        "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+        "model": "Pillow 11.3.0 MinFilter(3) x3",
+        "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Licorice + Mulberry Body Wash 1000 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the pale source-background rim. Preserve all connected product RGB, package geometry, label, variant and size. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+        "inputs": [
+          {
+            "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
+            "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717"
           },
-          "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/"
-        },
-        "processing": {
-          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-          "packageRgbOrigin": "identity-master-source-pixels-only",
-          "tool": "rembg alpha mask over source RGB pixels",
-          "model": "isnet-general-use",
-          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-          "provider": "CPUExecutionProvider",
-          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-        },
-        "audit": {
-          "sha256": "62815b85eaf8017b9897e380e1293a006673476ea668179dbf24aab8be54ef8e",
-          "generatedAt": "2026-08-07T16:43:25Z",
-          "inferredComponentCount": 1,
-          "retainedComponentCount": 1,
-          "removedComponentCount": 0,
-          "removedForegroundFraction": 0,
-          "componentReviewRequired": false,
-          "sourceEdgeContactFraction": 0
-        },
-        "output": {
-          "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
-          "byteSize": 645699,
-          "mimeType": "image/png",
-          "width": 2000,
-          "height": 2000,
-          "hasAlpha": true
-        },
-        "review": {
-          "identityReviewedAt": "2026-08-07T16:44:00Z",
-          "identityReviewer": "JeloCare catalogue identity review",
-          "artReviewedAt": "2026-08-07T16:45:00Z",
-          "artReviewer": "Codex visual audit",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
-          "surfaceReviewSha256": "ad7d564f6ac6460718e044205dd7738a002664731d5724c3d02e2a0e71e36cb7",
-          "packagingIntact": true,
-          "labelVariantSizeUnchanged": true,
-          "magazineReady": true
-        }
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-wash-1000ml/packshot-v1-11197a072a0d343f.png",
+            "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d"
+          }
+        ],
+        "outputSha256": "109251fe859bf5ab5cd717aafd733b92f19114fb9f066f1e64b6b4079add6ad8",
+        "generatedAt": "2026-08-08T18:19:00Z",
+        "recordSha256": "48ae561cfc135d64d106e02a4f1577066844ac3800ac93cb27665f9423368889"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-wash-1000ml/packshot-v1-11197a072a0d343f.png",
-      "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-wash-1000ml/packshot-v2-109251fe859bf5ab.png",
+      "sha256": "109251fe859bf5ab5cd717aafd733b92f19114fb9f066f1e64b6b4079add6ad8",
       "mimeType": "image/png",
-      "byteSize": 645699,
+      "byteSize": 670812,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T16:45:00Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-08T18:25:00Z",
+      "reviewer": "Codex independent catalogue media recheck"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T16:50:00Z"
+      "approvedAt": "2026-08-08T18:27:00Z"
     },
-    "dossierFingerprint": "d57f6b2b3bf17716509265fdf5fed9cdf8f1e14d01979dc2864ca1134a2099e5"
+    "dossierFingerprint": "911dbfeb0a5b7fa3023cca6f724172a4d1a12f0406e254a98b74f7931fd6e0ee"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
-    "dossierFingerprint": "d57f6b2b3bf17716509265fdf5fed9cdf8f1e14d01979dc2864ca1134a2099e5",
+    "dossierFingerprint": "911dbfeb0a5b7fa3023cca6f724172a4d1a12f0406e254a98b74f7931fd6e0ee",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -216,13 +171,13 @@
       "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
       "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T16:55:00Z"
+      "reviewedAt": "2026-08-08T18:29:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T17:00:00Z"
+      "publishedAt": "2026-08-08T18:31:00Z"
     },
-    "releaseFingerprint": "a8e1d06f571873e1ac48128a146b052e5ba947b2148373ab31244cb5080288b7"
+    "releaseFingerprint": "70d81c6821ca57b4f163e5e3433e75607733c5aa471afa82d9f380240fef3c0a"
   }
 }

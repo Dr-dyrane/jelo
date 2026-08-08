@@ -1708,54 +1708,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
-      "dossierFingerprint": "ebd2f32d116e00641a2ed28b395f36ef37efbcede406da56a27e6989a25396af",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Cleanse",
-        "displayLine": "Bright + Balance Body Gel Wash 1000 ml",
-        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:51:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:52:00Z"
-      },
-      "releaseFingerprint": "78a273db82e83ceaaec4e5ecf59b8b08b77d38b8c3e20f7dee25b1d0301d0975"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-      "dossierFingerprint": "e5a2b8677b041e73db895023596c7a6c76e30cd526490c1f4288bfd0e5b4a42e",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Cleanse",
-        "displayLine": "Hydrating Bright Body Gel Wash 1000 ml",
-        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:51:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:52:00Z"
-      },
-      "releaseFingerprint": "52c7c9d985de7874495b623b70245cf75f16fb4f5c62d5e45cb970d5ee7fe394"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
       "dossierFingerprint": "7e81daf253251eaf7d7ee371ba100b4d40180742cd2095196fb7fdefcabcbd38",
       "exposure": "public-catalogue",
@@ -1777,78 +1729,6 @@
         "publishedAt": "2026-08-07T17:00:00Z"
       },
       "releaseFingerprint": "b7f4b9117ce687fe9bb5b9e3931feb4956abd4ba1e1f88cd3822bbd87ae407c3"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
-      "dossierFingerprint": "d57f6b2b3bf17716509265fdf5fed9cdf8f1e14d01979dc2864ca1134a2099e5",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Cleanse",
-        "displayLine": "Bright + Glow Body Gel Wash 1000 ml",
-        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T16:55:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T17:00:00Z"
-      },
-      "releaseFingerprint": "a8e1d06f571873e1ac48128a146b052e5ba947b2148373ab31244cb5080288b7"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-      "dossierFingerprint": "4978e8791a8aef99d47d1212cde7530bb3cf76bd905be3636700428684826d71",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Protect",
-        "displayLine": "MELA-PRO Tranexamic Acid Sun Screen 100 ml",
-        "usage": "Apply generously as the last step in your morning routine, 15 minutes before sun exposure. Reapply every two hours during direct sun exposure and after swimming or sweating.",
-        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T16:55:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T17:00:00Z"
-      },
-      "releaseFingerprint": "61befd98f819bae54db8746bb6b03b5dd9b8933086c0f3246edde6ccdf68c0de"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
-      "dossierFingerprint": "67fa8884e79f28b7378bc85d5adabd6915ec9b869eb2982e5e0d5496a3b2d401",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Pure Active Anti-Imperfection Tissue Mask",
-        "usage": "Unfold the mask and apply onto clean, dry face, smoothing to fit. Leave for 15 minutes. Remove and gently massage any excess serum into the skin. No rinsing needed.",
-        "manufacturerDirectionsUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T17:01:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T17:02:00Z"
-      },
-      "releaseFingerprint": "50a482d63339d548eff9561483e34ca5366a9d13d628ab86a5e53e58aa65ecaf"
     },
     {
       "schemaVersion": 2,
@@ -3097,6 +2977,126 @@
         "publishedAt": "2026-08-08T15:27:20Z"
       },
       "releaseFingerprint": "9d7430d18aa52e093bbf6ea6ac1da8e129a85e721940fe51932ae9bf18a498e7"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+      "dossierFingerprint": "911dbfeb0a5b7fa3023cca6f724172a4d1a12f0406e254a98b74f7931fd6e0ee",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Bright + Glow Body Gel Wash 1000 ml",
+        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T18:29:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T18:31:00Z"
+      },
+      "releaseFingerprint": "70d81c6821ca57b4f163e5e3433e75607733c5aa471afa82d9f380240fef3c0a"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+      "dossierFingerprint": "b5d9679df7e680d6e8428929849e5273e3d83adcb09f20eaea2d21bf66015d76",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Bright + Balance Body Gel Wash 1000 ml",
+        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T18:29:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T18:31:00Z"
+      },
+      "releaseFingerprint": "45d6644a1b1a04445d105dc377d401b0c858b91d5ccb61e384a983ca69df66d0"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+      "dossierFingerprint": "4d5c097f4cbee8ebb267054a8e703c8fabc6d247fb9f09e2dba61cf229158b4d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Hydrating Bright Body Gel Wash 1000 ml",
+        "usage": "Dispense a small amount onto a wet loofah or sponge. Massage over damp skin in circular motions to create a creamy lather. Rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T18:29:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T18:31:00Z"
+      },
+      "releaseFingerprint": "449f8e4227ce3c7a14afa8d532aec16f6b62a93a1d07bf78fcbae02d8bc15ef8"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+      "dossierFingerprint": "8168cdcfb5f0c9d792925c362d59e8ca9c4d851e231831f7e9fa0887ea06db1a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "MELA-PRO Tranexamic Acid Sun Screen 100 ml",
+        "usage": "Apply generously as the last step in your morning routine, 15 minutes before sun exposure. Reapply every two hours during direct sun exposure and after swimming or sweating.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T18:29:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T18:31:00Z"
+      },
+      "releaseFingerprint": "903a88ba4acd8454ae081e30ace68f13f24e72e9c6ef8a4e8f77c942cd297098"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+      "dossierFingerprint": "cfc88727ab0a9ac342cd923b2f8f2bfd3cb25df1a1f5572e155fdccab1b401c4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Pure Active Anti-Imperfection Tissue Mask",
+        "usage": "Unfold the mask and apply onto clean, dry face, smoothing to fit. Leave for 15 minutes. Remove and gently massage any excess serum into the skin. No rinsing needed.",
+        "manufacturerDirectionsUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T18:50:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T18:50:45Z"
+      },
+      "releaseFingerprint": "01937cb016607828b7b75a623aa85931bd4226938ca6bd8bec47b8928177779e"
     }
   ]
 }

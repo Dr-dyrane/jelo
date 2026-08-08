@@ -14572,406 +14572,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
-      "candidateFingerprint": "12b3d58169972e5b91fd8d4fbd11d6f0524885fbf4cf1d626f6f6cf60fa84218",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "4897073186573",
-        "brand": "Aqua Rich",
-        "name": "Bright + Balance Body Gel Wash",
-        "variant": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash",
-        "size": "1000 ml",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-        "officialIdentity": {
-          "url": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-          "observedGtin": "4897073186573",
-          "observedVariant": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash",
-          "observedSize": "1000 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml.json",
-          "canonicalExtraction": {
-            "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
-            "fields": {
-              "gtin": {
-                "locator": "Official back-package image printed EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 4897073186573",
-                "value": "4897073186573"
-              },
-              "variant": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash – 1000 ml",
-                "value": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash"
-              },
-              "size": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash – 1000 ml",
-                "value": "1000 ml"
-              }
-            },
-            "method": "reviewed-exact-identity-field-extraction",
-            "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-            "retrievedAt": "2026-08-07T12:00:00Z",
-            "reviewedAt": "2026-08-07T12:00:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 3,
-            "sourceResponseByteSize": 256890,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "a36671fde8111a988bb4e5d1bbaa5644687a86757de568156f3947bde50cbbe8",
-            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-            "supplementalResponses": [
-              {
-                "responseByteSize": 45967,
-                "responseMimeType": "image/jpeg",
-                "responseSha256": "2462de45e6d9751ddf04810d28268e2d65f408f119d1a64330ea02dce4fcd3b4",
-                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash-Back.jpg",
-                "retrievedAt": "2026-08-07T12:00:00Z",
-                "role": "official-pack-image",
-                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash-Back.jpg"
-              }
-            ]
-          },
-          "snapshotSha256": "711a8cac523bad3652bc453883c80fb7f36e77f3cfa2dc3f462352b94f19d137",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1662,
-          "retrievedAt": "2026-08-07T12:00:00Z"
-        },
-        "checkedAt": "2026-08-07T12:00:00Z",
-        "demandEvidenceUrls": [
-          "https://giftybeautystoree.com/product/aqua-rich-body-gel-wash-with-niacinamide-alpha-arbutin-and-tranexamic-acid/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing niacinamide and alpha arbutin, for dull or uneven-tone body skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-08-07T12:00:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
-        "sourceAsset": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
-          "sha256": "eba0da054f4fc371bf084f862e7e78834969d3832847385105bbae48ace9f642",
-          "mimeType": "image/jpeg",
-          "byteSize": 36141,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-08-07T15:46:00Z"
-        },
-        "isolationRecord": {
-          "schemaVersion": 1,
-          "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
-          "publicationScope": "catalogue-publication",
-          "source": {
-            "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
-            "sha256": "eba0da054f4fc371bf084f862e7e78834969d3832847385105bbae48ace9f642",
-            "byteSize": 36141,
-            "width": 800,
-            "height": 800,
-            "retrievedAt": "2026-08-07T15:46:00Z"
-          },
-          "identity": {
-            "canonicalIdentifier": {
-              "kind": "gtin",
-              "value": "04897073186573"
-            },
-            "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/"
-          },
-          "processing": {
-            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-            "packageRgbOrigin": "identity-master-source-pixels-only",
-            "tool": "rembg alpha mask over source RGB pixels",
-            "model": "isnet-general-use",
-            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-            "provider": "CPUExecutionProvider",
-            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-          },
-          "audit": {
-            "sha256": "7fb72b77016cca529c1afedaeb7dbbeacc12615394554298625a9a3de3ca4855",
-            "generatedAt": "2026-08-07T15:46:51Z",
-            "inferredComponentCount": 1,
-            "retainedComponentCount": 1,
-            "removedComponentCount": 0,
-            "removedForegroundFraction": 0,
-            "componentReviewRequired": false,
-            "sourceEdgeContactFraction": 0
-          },
-          "output": {
-            "sha256": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561",
-            "byteSize": 667415,
-            "mimeType": "image/png",
-            "width": 2000,
-            "height": 2000,
-            "hasAlpha": true
-          },
-          "review": {
-            "identityReviewedAt": "2026-08-07T15:47:00Z",
-            "identityReviewer": "JeloCare catalogue identity review",
-            "artReviewedAt": "2026-08-07T15:48:00Z",
-            "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
-            "surfaceReviewSha256": "3fbb8f094ccc140c6097102d1f2166067112eea6f4d8a0b489a7f9c39692f95c",
-            "packagingIntact": true,
-            "labelVariantSizeUnchanged": true,
-            "magazineReady": true
-          }
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml/packshot-v1-935da2d0a2d6a182.png",
-        "sha256": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561",
-        "mimeType": "image/png",
-        "byteSize": 667415,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "source-pixel-isolation",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-07T15:48:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-07T15:50:00Z"
-      },
-      "dossierFingerprint": "ebd2f32d116e00641a2ed28b395f36ef37efbcede406da56a27e6989a25396af"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-      "candidateFingerprint": "da97f38152e33eea1677a5a91e7e374dec75cbe464f18ca39140af154babb397",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "4897073186566",
-        "brand": "Aqua Rich",
-        "name": "Hydrating Bright Body Gel Wash",
-        "variant": "Aqua Rich Turmeric and Vitamin C Body Wash",
-        "size": "1000 ml",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-        "officialIdentity": {
-          "url": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-          "observedGtin": "4897073186566",
-          "observedVariant": "Aqua Rich Turmeric and Vitamin C Body Wash",
-          "observedSize": "1000 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-turmeric-vitamin-c-body-wash-1000ml.json",
-          "canonicalExtraction": {
-            "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-            "fields": {
-              "gtin": {
-                "locator": "Official back-package image printed EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 4897073186566",
-                "value": "4897073186566"
-              },
-              "variant": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
-                "value": "Aqua Rich Turmeric and Vitamin C Body Wash"
-              },
-              "size": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
-                "value": "1000 ml"
-              }
-            },
-            "method": "reviewed-exact-identity-field-extraction",
-            "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-            "retrievedAt": "2026-08-07T12:00:00Z",
-            "reviewedAt": "2026-08-07T12:00:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 3,
-            "sourceResponseByteSize": 256528,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "8f1a8f5615afd7857337a81ea3f51f8f5c42ea4368c1c1869babd94446ee096e",
-            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-            "supplementalResponses": [
-              {
-                "responseByteSize": 38208,
-                "responseMimeType": "image/jpeg",
-                "responseSha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37",
-                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
-                "retrievedAt": "2026-08-07T12:00:00Z",
-                "role": "official-pack-image",
-                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg"
-              }
-            ]
-          },
-          "snapshotSha256": "98128056bd23ca5511229f833493c88b1cdffd40dac264efdcedbd9f8120e5fb",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1606,
-          "retrievedAt": "2026-08-07T12:00:00Z"
-        },
-        "checkedAt": "2026-08-07T12:00:00Z",
-        "demandEvidenceUrls": [
-          "https://giftybeautystoree.com/product/aqua-rich-hydrating-bright-body-gel-wash-with-turmeric-and-vitamin-c-1000ml/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing turmeric and vitamin C, for dull or uneven-tone body skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-08-07T12:00:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
-        "sourceAsset": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-1.jpg",
-          "sha256": "e55d0025558868c06c9bb43aba4cc3b407f4293f5c64f2e23fddd446026bd490",
-          "mimeType": "image/jpeg",
-          "byteSize": 37665,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-08-07T15:46:50Z"
-        },
-        "isolationRecord": {
-          "schemaVersion": 1,
-          "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
-          "publicationScope": "catalogue-publication",
-          "source": {
-            "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-1.jpg",
-            "sha256": "e55d0025558868c06c9bb43aba4cc3b407f4293f5c64f2e23fddd446026bd490",
-            "byteSize": 37665,
-            "width": 800,
-            "height": 800,
-            "retrievedAt": "2026-08-07T15:46:50Z"
-          },
-          "identity": {
-            "canonicalIdentifier": {
-              "kind": "gtin",
-              "value": "04897073186566"
-            },
-            "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/"
-          },
-          "processing": {
-            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-            "packageRgbOrigin": "identity-master-source-pixels-only",
-            "tool": "rembg alpha mask over source RGB pixels",
-            "model": "isnet-general-use",
-            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-            "provider": "CPUExecutionProvider",
-            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-          },
-          "audit": {
-            "sha256": "110ca63872427dfb044321c8c740a1a6b7ed606056de943652bc7473a63e0ab5",
-            "generatedAt": "2026-08-07T15:47:01Z",
-            "inferredComponentCount": 1,
-            "retainedComponentCount": 1,
-            "removedComponentCount": 0,
-            "removedForegroundFraction": 0,
-            "componentReviewRequired": false,
-            "sourceEdgeContactFraction": 0
-          },
-          "output": {
-            "sha256": "26eb956090f833e202c4e12cf83381b69d2051bd5ad8060802e9fec9b49ada5c",
-            "byteSize": 675390,
-            "mimeType": "image/png",
-            "width": 2000,
-            "height": 2000,
-            "hasAlpha": true
-          },
-          "review": {
-            "identityReviewedAt": "2026-08-07T15:47:30Z",
-            "identityReviewer": "JeloCare catalogue identity review",
-            "artReviewedAt": "2026-08-07T15:48:00Z",
-            "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
-            "surfaceReviewSha256": "4dcc0466ff66a2804c6af856d7f3fc6ae4d1aebdf3e8ef7b59b7d0b985c4e4e2",
-            "packagingIntact": true,
-            "labelVariantSizeUnchanged": true,
-            "magazineReady": true
-          }
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v1-26eb956090f833e2.png",
-        "sha256": "26eb956090f833e202c4e12cf83381b69d2051bd5ad8060802e9fec9b49ada5c",
-        "mimeType": "image/png",
-        "byteSize": 675390,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "source-pixel-isolation",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-07T15:48:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-07T15:50:00Z"
-      },
-      "dossierFingerprint": "e5a2b8677b041e73db895023596c7a6c76e30cd526490c1f4288bfd0e5b4a42e"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
       "candidateFingerprint": "f10f17bd829ca9312ce1fe8361b0bccfba97b31d1797fc5c2b20d8555bb5247c",
       "exposure": "private-only",
@@ -15169,584 +14769,6 @@
         "approvedAt": "2026-08-07T16:50:00Z"
       },
       "dossierFingerprint": "7e81daf253251eaf7d7ee371ba100b4d40180742cd2095196fb7fdefcabcbd38"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
-      "candidateFingerprint": "bac91a04f02e796cab1c0fc1586dbdd031cc4e2fe8a1ac5283aaeb8a40d9cceb",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "4897073187587",
-        "brand": "Aqua Rich",
-        "name": "Bright + Glow Body Gel Wash",
-        "variant": "Aqua Rich Licorice and Mulbery Root Extract Body Wash",
-        "size": "1000 ml",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-        "officialIdentity": {
-          "url": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-          "observedGtin": "4897073187587",
-          "observedVariant": "Aqua Rich Licorice and Mulbery Root Extract Body Wash",
-          "observedSize": "1000 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-licorice-mulberry-body-wash-1000ml.json",
-          "canonicalExtraction": {
-            "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
-            "fields": {
-              "gtin": {
-                "locator": "Official back-package image printed EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 4897073187587",
-                "value": "4897073187587"
-              },
-              "variant": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Wash – 1000 ml",
-                "value": "Aqua Rich Licorice and Mulbery Root Extract Body Wash"
-              },
-              "size": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Wash – 1000 ml",
-                "value": "1000 ml"
-              }
-            },
-            "method": "reviewed-exact-identity-field-extraction",
-            "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-            "retrievedAt": "2026-08-07T16:35:00Z",
-            "reviewedAt": "2026-08-07T16:38:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 3,
-            "sourceResponseByteSize": 257506,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "06160748dcd825bcb0cb84eafb37f90d6cb26bbecb5fc4a831851e7c22bd0d62",
-            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-Back.jpg",
-                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-Back.jpg",
-                "retrievedAt": "2026-08-07T16:35:00Z",
-                "responseSha256": "47668de6bde8006fb4d4a09852057244a8966cac446ea25d91d5aeb8814ce4bd",
-                "responseMimeType": "image/jpeg",
-                "responseByteSize": 40581
-              }
-            ]
-          },
-          "snapshotSha256": "77706ecc35d224b0af59c639275eaa2214f5c8d205229893acd8f9049dad5cec",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1682,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "checkedAt": "2026-08-07T16:40:00Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing licorice and mulberry root extract, for dull or uneven-tone body skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-08-07T16:42:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
-        "sourceAsset": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
-          "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
-          "mimeType": "image/jpeg",
-          "byteSize": 33898,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "isolationRecord": {
-          "schemaVersion": 1,
-          "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
-          "publicationScope": "catalogue-publication",
-          "source": {
-            "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
-            "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
-            "byteSize": 33898,
-            "width": 800,
-            "height": 800,
-            "retrievedAt": "2026-08-07T16:35:00Z"
-          },
-          "identity": {
-            "canonicalIdentifier": {
-              "kind": "gtin",
-              "value": "04897073187587"
-            },
-            "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/"
-          },
-          "processing": {
-            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-            "packageRgbOrigin": "identity-master-source-pixels-only",
-            "tool": "rembg alpha mask over source RGB pixels",
-            "model": "isnet-general-use",
-            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-            "provider": "CPUExecutionProvider",
-            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-          },
-          "audit": {
-            "sha256": "62815b85eaf8017b9897e380e1293a006673476ea668179dbf24aab8be54ef8e",
-            "generatedAt": "2026-08-07T16:43:25Z",
-            "inferredComponentCount": 1,
-            "retainedComponentCount": 1,
-            "removedComponentCount": 0,
-            "removedForegroundFraction": 0,
-            "componentReviewRequired": false,
-            "sourceEdgeContactFraction": 0
-          },
-          "output": {
-            "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
-            "byteSize": 645699,
-            "mimeType": "image/png",
-            "width": 2000,
-            "height": 2000,
-            "hasAlpha": true
-          },
-          "review": {
-            "identityReviewedAt": "2026-08-07T16:44:00Z",
-            "identityReviewer": "JeloCare catalogue identity review",
-            "artReviewedAt": "2026-08-07T16:45:00Z",
-            "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
-            "surfaceReviewSha256": "ad7d564f6ac6460718e044205dd7738a002664731d5724c3d02e2a0e71e36cb7",
-            "packagingIntact": true,
-            "labelVariantSizeUnchanged": true,
-            "magazineReady": true
-          }
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-wash-1000ml/packshot-v1-11197a072a0d343f.png",
-        "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
-        "mimeType": "image/png",
-        "byteSize": 645699,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "source-pixel-isolation",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-07T16:45:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-07T16:50:00Z"
-      },
-      "dossierFingerprint": "d57f6b2b3bf17716509265fdf5fed9cdf8f1e14d01979dc2864ca1134a2099e5"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-      "candidateFingerprint": "7310112b83dc13c16a2d2e902654bbda7295669c4943bac6e8b9eb634a85685d",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "8809875270158",
-        "brand": "NINELESS",
-        "name": "MELA-PRO Tranexamic Acid Sun Screen",
-        "variant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
-        "size": "100 ml",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-        "officialIdentity": {
-          "url": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-          "observedGtin": "8809875270158",
-          "observedVariant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
-          "observedSize": "100 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/nineless-mela-pro-tranexamic-acid-sunscreen-100ml.json",
-          "canonicalExtraction": {
-            "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-            "fields": {
-              "gtin": {
-                "locator": "Retailer-corroborated EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 8809875270158",
-                "value": "8809875270158"
-              },
-              "variant": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
-                "value": "NINELESS MELA-PRO Tranexamic Acid Sun Screen"
-              },
-              "size": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
-                "value": "100 ml"
-              }
-            },
-            "method": "reviewed-exact-identity-field-extraction",
-            "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-            "retrievedAt": "2026-08-07T16:35:00Z",
-            "reviewedAt": "2026-08-07T16:38:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 3,
-            "sourceResponseByteSize": 128659,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "15e3e7402997f116315d8e8784892f83f04d44afb65a892294d908168c190239",
-            "sourceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml"
-          },
-          "snapshotSha256": "2409cdb81d56f9b3b319548750a319015e2ef43e5b8ad740a4713a0248dcf2cb",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1110,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "checkedAt": "2026-08-07T16:40:00Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Leave-on daily facial sunscreen described by the manufacturer as containing tranexamic acid, for uneven-tone or blemish-mark-prone facial skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports everyday sun protection and tone-evening for facial skin. It does not diagnose or treat melasma, post-inflammatory hyperpigmentation, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
-        "evidenceUrls": [
-          "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
-        ],
-        "reviewedAt": "2026-08-07T16:42:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
-        "sourceAsset": {
-          "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
-          "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d",
-          "mimeType": "image/png",
-          "byteSize": 180732,
-          "width": 900,
-          "height": 900,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "isolationRecord": {
-          "schemaVersion": 1,
-          "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
-          "publicationScope": "catalogue-publication",
-          "source": {
-            "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
-            "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d",
-            "byteSize": 180732,
-            "width": 900,
-            "height": 900,
-            "retrievedAt": "2026-08-07T16:35:00Z"
-          },
-          "identity": {
-            "canonicalIdentifier": {
-              "kind": "gtin",
-              "value": "08809875270158"
-            },
-            "officialProductUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml"
-          },
-          "processing": {
-            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-            "packageRgbOrigin": "identity-master-source-pixels-only",
-            "tool": "rembg alpha mask over source RGB pixels",
-            "model": "isnet-general-use",
-            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-            "provider": "CPUExecutionProvider",
-            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-          },
-          "audit": {
-            "sha256": "1786b757b538be1d92c221db7f269dadc7903b4d6d160d0a1bf4181017ebf5d7",
-            "generatedAt": "2026-08-07T16:43:40Z",
-            "inferredComponentCount": 3,
-            "retainedComponentCount": 3,
-            "removedComponentCount": 0,
-            "removedForegroundFraction": 0,
-            "componentReviewRequired": false,
-            "sourceEdgeContactFraction": 0
-          },
-          "output": {
-            "sha256": "49c649774b2d42e4db3c4d3491a750f5febc6af92269c6f045c8748749ec9142",
-            "byteSize": 612664,
-            "mimeType": "image/png",
-            "width": 2000,
-            "height": 2000,
-            "hasAlpha": true
-          },
-          "review": {
-            "identityReviewedAt": "2026-08-07T16:44:00Z",
-            "identityReviewer": "JeloCare catalogue identity review",
-            "artReviewedAt": "2026-08-07T16:45:00Z",
-            "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
-            "surfaceReviewSha256": "83644da61b944db0e6f3357575e731da0410e5f0847b275ade93e16ae72c74b3",
-            "packagingIntact": true,
-            "labelVariantSizeUnchanged": true,
-            "magazineReady": true
-          }
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v1-49c649774b2d42e4.png",
-        "sha256": "49c649774b2d42e4db3c4d3491a750f5febc6af92269c6f045c8748749ec9142",
-        "mimeType": "image/png",
-        "byteSize": 612664,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "source-pixel-isolation",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-07T16:45:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-07T16:50:00Z"
-      },
-      "dossierFingerprint": "4978e8791a8aef99d47d1212cde7530bb3cf76bd905be3636700428684826d71"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
-      "candidateFingerprint": "2cceeb1d33a83cc4896736757d52d645bfc7f9ddff9d5586414684fbe3b2bdb3",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "3600542368810",
-        "brand": "Garnier",
-        "name": "Pure Active Anti-Imperfection Sheet Mask",
-        "variant": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask",
-        "size": "1 pack",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
-        "officialIdentity": {
-          "url": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
-          "observedGtin": "3600542368810",
-          "observedVariant": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask",
-          "observedSize": "1 pack",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask.json",
-          "canonicalExtraction": {
-            "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
-            "fields": {
-              "gtin": {
-                "locator": "Retailer-corroborated EAN-13 barcode",
-                "sourceText": "EAN-13 barcode 3600542368810",
-                "value": "3600542368810"
-              },
-              "variant": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask – 1 mask",
-                "value": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask"
-              },
-              "size": {
-                "locator": "HTML h1.product_title entry-title",
-                "sourceText": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask – 1 pack",
-                "value": "1 pack"
-              }
-            },
-            "method": "reviewed-exact-identity-field-extraction",
-            "responseDigestScope": "decoded-response-body",
-            "responseUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
-            "retrievedAt": "2026-08-07T16:35:00Z",
-            "reviewedAt": "2026-08-07T16:38:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 3,
-            "sourceResponseByteSize": 263622,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "7d69a7e38cbeebb4b0c5d8f0061c47e9b5d334f5f08bc69a56b7cdd8dc32d03a",
-            "sourceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask"
-          },
-          "snapshotSha256": "4f822bb5fadbfdb2f5e2438dfd2b98c8338f5b6b8eb7067a7dfe6a0baf012470",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1206,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "checkedAt": "2026-08-07T16:40:00Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Single-use leave-on tissue mask described by the manufacturer as containing tea tree oil and salicylic acid, for acne-prone or blemish-prone facial skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports occasional blemish-care for acne-prone facial skin. It does not diagnose or treat severe acne, cystic breakouts, infection, or scarring; worsening, inflamed, infected, or persistent breakouts need clinical review.",
-        "manufacturerEvidenceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
-        "evidenceUrls": [
-          "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
-          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
-        ],
-        "reviewedAt": "2026-08-07T16:42:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
-        "sourceAsset": {
-          "url": "https://www.garnier.com.au/-/media/project/loreal/brand-sites/garnier/apac/au/products/skincare/skin-active/pure-active/pure-active-imperfect-sheet-mask/pure-active-sheet-mask_3600542368810_1.jpg",
-          "sha256": "7cda10a9521ef01a035210c7b7359dfb3fd5921059b5bd93a2ec87c673d8df63",
-          "mimeType": "image/jpeg",
-          "byteSize": 82512,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "isolationRecord": {
-          "schemaVersion": 1,
-          "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
-          "publicationScope": "catalogue-publication",
-          "source": {
-            "url": "https://www.garnier.com.au/-/media/project/loreal/brand-sites/garnier/apac/au/products/skincare/skin-active/pure-active/pure-active-imperfect-sheet-mask/pure-active-sheet-mask_3600542368810_1.jpg",
-            "sha256": "7cda10a9521ef01a035210c7b7359dfb3fd5921059b5bd93a2ec87c673d8df63",
-            "byteSize": 82512,
-            "width": 800,
-            "height": 800,
-            "retrievedAt": "2026-08-07T16:35:00Z"
-          },
-          "identity": {
-            "canonicalIdentifier": {
-              "kind": "gtin",
-              "value": "03600542368810"
-            },
-            "officialProductUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask"
-          },
-          "processing": {
-            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-            "packageRgbOrigin": "identity-master-source-pixels-only",
-            "tool": "rembg alpha mask over source RGB pixels",
-            "model": "isnet-general-use",
-            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-            "provider": "CPUExecutionProvider",
-            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-          },
-          "audit": {
-            "sha256": "c75599aa1920f174be0f1e6afb2a259476c1008f25d7eecdf148c51f948da72a",
-            "generatedAt": "2026-08-07T16:59:59Z",
-            "inferredComponentCount": 2,
-            "retainedComponentCount": 2,
-            "removedComponentCount": 0,
-            "removedForegroundFraction": 0,
-            "componentReviewRequired": false,
-            "sourceEdgeContactFraction": 0
-          },
-          "output": {
-            "sha256": "94e157c51366427cfb6ec01f7b6776da9d6d870fd1b81721849b9e31204e7665",
-            "byteSize": 1724375,
-            "mimeType": "image/png",
-            "width": 2000,
-            "height": 2000,
-            "hasAlpha": true
-          },
-          "review": {
-            "identityReviewedAt": "2026-08-07T17:00:00Z",
-            "identityReviewer": "JeloCare catalogue identity review",
-            "artReviewedAt": "2026-08-07T17:00:30Z",
-            "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
-            "surfaceReviewSha256": "577630c670383ac1b1fa9928a400a825764d5e8122dfb1c16c5682f2914c1df3",
-            "packagingIntact": true,
-            "labelVariantSizeUnchanged": true,
-            "magazineReady": true
-          }
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/garnier/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask/packshot-v1-94e157c51366427c.png",
-        "sha256": "94e157c51366427cfb6ec01f7b6776da9d6d870fd1b81721849b9e31204e7665",
-        "mimeType": "image/png",
-        "byteSize": 1724375,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "source-pixel-isolation",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-07T17:00:30Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-07T17:01:00Z"
-      },
-      "dossierFingerprint": "67fa8884e79f28b7378bc85d5adabd6915ec9b869eb2982e5e0d5496a3b2d401"
     },
     {
       "schemaVersion": 8,
@@ -30668,6 +29690,751 @@
         "approvedAt": "2026-08-08T15:27:00Z"
       },
       "dossierFingerprint": "9b0dcd15479f1050d94cddcdf6bb915fe2517ff0bc4e879f2b4cc9da4f588f63"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+      "candidateFingerprint": "abbeeaab387d2d81fa5e1c8ee68cfc8227bd67ddff5ca2fbf1f3049feaa7a064",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "4897073187587",
+        "brand": "Aqua Rich",
+        "name": "Bright + Glow Body Gel Wash",
+        "variant": "Aqua Rich Licorice and Mulbery Root Extract Body Wash",
+        "size": "1000 ml",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+        "officialIdentity": {
+          "url": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+          "observedGtin": "4897073187587",
+          "observedVariant": "Aqua Rich Licorice and Mulbery Root Extract Body Wash",
+          "observedSize": "1000 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-licorice-mulberry-body-wash-1000ml.json",
+          "canonicalExtraction": {
+            "candidateId": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official back-package image printed EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 4897073187587",
+                "value": "4897073187587"
+              },
+              "variant": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Wash – 1000 ml",
+                "value": "Aqua Rich Licorice and Mulbery Root Extract Body Wash"
+              },
+              "size": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Licorice and Mulbery Root Extract Body Wash – 1000 ml",
+                "value": "1000 ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+            "retrievedAt": "2026-08-07T16:35:00Z",
+            "reviewedAt": "2026-08-07T16:38:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 257506,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "06160748dcd825bcb0cb84eafb37f90d6cb26bbecb5fc4a831851e7c22bd0d62",
+            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-Back.jpg",
+                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-Back.jpg",
+                "retrievedAt": "2026-08-07T16:35:00Z",
+                "responseSha256": "47668de6bde8006fb4d4a09852057244a8966cac446ea25d91d5aeb8814ce4bd",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 40581
+              }
+            ]
+          },
+          "snapshotSha256": "77706ecc35d224b0af59c639275eaa2214f5c8d205229893acd8f9049dad5cec",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1682,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "checkedAt": "2026-08-07T16:40:00Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing licorice and mulberry root extract, for dull or uneven-tone body skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-wash-1000ml/",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T16:42:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
+          "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717",
+          "mimeType": "image/jpeg",
+          "byteSize": 33898,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Licorice + Mulberry Body Wash 1000 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the pale source-background rim. Preserve all connected product RGB, package geometry, label, variant and size. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+          "inputs": [
+            {
+              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Wash-1.jpg",
+              "sha256": "c71028e61d059d461b172ed2949fbc769b55de2c924794b4e753987e5086b717"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-wash-1000ml/packshot-v1-11197a072a0d343f.png",
+              "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d"
+            }
+          ],
+          "outputSha256": "109251fe859bf5ab5cd717aafd733b92f19114fb9f066f1e64b6b4079add6ad8",
+          "generatedAt": "2026-08-08T18:19:00Z",
+          "recordSha256": "48ae561cfc135d64d106e02a4f1577066844ac3800ac93cb27665f9423368889"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-wash-1000ml/packshot-v2-109251fe859bf5ab.png",
+        "sha256": "109251fe859bf5ab5cd717aafd733b92f19114fb9f066f1e64b6b4079add6ad8",
+        "mimeType": "image/png",
+        "byteSize": 670812,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T18:25:00Z",
+        "reviewer": "Codex independent catalogue media recheck"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T18:27:00Z"
+      },
+      "dossierFingerprint": "911dbfeb0a5b7fa3023cca6f724172a4d1a12f0406e254a98b74f7931fd6e0ee"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+      "candidateFingerprint": "6af5136b33fb6f9f4faeba8800cf74a808ac0f592c3fc790c0f0945decbd1ee8",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "4897073186573",
+        "brand": "Aqua Rich",
+        "name": "Bright + Balance Body Gel Wash",
+        "variant": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash",
+        "size": "1000 ml",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+        "officialIdentity": {
+          "url": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+          "observedGtin": "4897073186573",
+          "observedVariant": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash",
+          "observedSize": "1000 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml.json",
+          "canonicalExtraction": {
+            "candidateId": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official back-package image printed EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 4897073186573",
+                "value": "4897073186573"
+              },
+              "variant": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash – 1000 ml",
+                "value": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash"
+              },
+              "size": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Niacinamide and Alpha Arbutin Body Wash – 1000 ml",
+                "value": "1000 ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+            "retrievedAt": "2026-08-07T12:00:00Z",
+            "reviewedAt": "2026-08-07T12:00:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 256890,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "a36671fde8111a988bb4e5d1bbaa5644687a86757de568156f3947bde50cbbe8",
+            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 45967,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "2462de45e6d9751ddf04810d28268e2d65f408f119d1a64330ea02dce4fcd3b4",
+                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash-Back.jpg",
+                "retrievedAt": "2026-08-07T12:00:00Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash-Back.jpg"
+              }
+            ]
+          },
+          "snapshotSha256": "711a8cac523bad3652bc453883c80fb7f36e77f3cfa2dc3f462352b94f19d137",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1662,
+          "retrievedAt": "2026-08-07T12:00:00Z"
+        },
+        "checkedAt": "2026-08-07T12:00:00Z",
+        "demandEvidenceUrls": [
+          "https://giftybeautystoree.com/product/aqua-rich-body-gel-wash-with-niacinamide-alpha-arbutin-and-tranexamic-acid/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing niacinamide and alpha arbutin, for dull or uneven-tone body skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aquarich.net/product/aqua-rich-niacinamide-and-alpha-arbutin-body-wash-1000ml/",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T12:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
+          "sha256": "eba0da054f4fc371bf084f862e7e78834969d3832847385105bbae48ace9f642",
+          "mimeType": "image/jpeg",
+          "byteSize": 36141,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-07T15:46:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+          "model": "Pillow 11.3.0 MinFilter(3) x3",
+          "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Niacinamide + Alpha Arbutin Body Wash 1000 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the pale source-background rim. Preserve all connected product RGB, package geometry, label, variant and size. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+          "inputs": [
+            {
+              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Niacinamide-and-Alpha-arbutin-body-wash.jpg",
+              "sha256": "eba0da054f4fc371bf084f862e7e78834969d3832847385105bbae48ace9f642"
+            },
+            {
+              "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml/packshot-v1-935da2d0a2d6a182.png",
+              "sha256": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561"
+            }
+          ],
+          "outputSha256": "9d4b83e0071124958bed030753114f39f35a253da1f40ab89066e25bfdf57611",
+          "generatedAt": "2026-08-08T18:19:00Z",
+          "recordSha256": "fc3452eff69042d01de69674de2ab919402f7586147a3123718085f710da975a"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml/packshot-v2-9d4b83e007112495.png",
+        "sha256": "9d4b83e0071124958bed030753114f39f35a253da1f40ab89066e25bfdf57611",
+        "mimeType": "image/png",
+        "byteSize": 695514,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T18:25:00Z",
+        "reviewer": "Codex independent catalogue media recheck"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T18:27:00Z"
+      },
+      "dossierFingerprint": "b5d9679df7e680d6e8428929849e5273e3d83adcb09f20eaea2d21bf66015d76"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+      "candidateFingerprint": "0e8a023c1542b4236e2bf383d085609b04a7ddb67a9717768b97eb1c569ead01",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "4897073186566",
+        "brand": "Aqua Rich",
+        "name": "Hydrating Bright Body Gel Wash",
+        "variant": "Aqua Rich Turmeric and Vitamin C Body Wash",
+        "size": "1000 ml",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+        "officialIdentity": {
+          "url": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+          "observedGtin": "4897073186566",
+          "observedVariant": "Aqua Rich Turmeric and Vitamin C Body Wash",
+          "observedSize": "1000 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aqua-rich-turmeric-vitamin-c-body-wash-1000ml.json",
+          "canonicalExtraction": {
+            "candidateId": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+            "fields": {
+              "gtin": {
+                "locator": "Official back-package image printed EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 4897073186566",
+                "value": "4897073186566"
+              },
+              "variant": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
+                "value": "Aqua Rich Turmeric and Vitamin C Body Wash"
+              },
+              "size": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Aqua Rich Turmeric and Vitamin C Body Wash – 1000 ml",
+                "value": "1000 ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+            "retrievedAt": "2026-08-07T12:00:00Z",
+            "reviewedAt": "2026-08-07T12:00:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 256528,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "8f1a8f5615afd7857337a81ea3f51f8f5c42ea4368c1c1869babd94446ee096e",
+            "sourceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 38208,
+                "responseMimeType": "image/jpeg",
+                "responseSha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37",
+                "responseUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
+                "retrievedAt": "2026-08-07T12:00:00Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg"
+              }
+            ]
+          },
+          "snapshotSha256": "98128056bd23ca5511229f833493c88b1cdffd40dac264efdcedbd9f8120e5fb",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1606,
+          "retrievedAt": "2026-08-07T12:00:00Z"
+        },
+        "checkedAt": "2026-08-07T12:00:00Z",
+        "demandEvidenceUrls": [
+          "https://giftybeautystoree.com/product/aqua-rich-hydrating-bright-body-gel-wash-with-turmeric-and-vitamin-c-1000ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Rinse-off brightening body wash described by the manufacturer as containing turmeric and vitamin C, for dull or uneven-tone body skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday cleansing and brightening for dull or uneven-tone body skin. It does not diagnose or treat eczema, dermatitis, psoriasis, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-wash-1000ml/",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-07T12:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
+          "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37",
+          "mimeType": "image/jpeg",
+          "byteSize": 38208,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-08T18:10:37Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px normalization",
+          "model": "gpt-image-2",
+          "prompt": "Use case: product-mockup. Build one exact Aqua Rich Hydrating Bright Body Gel Wash with Turmeric and Vitamin C, 1000 ml / 35.2 FL.OZ front packshot from the exact official rear package and exact retailer front. Preserve the orange bottle and pump, AQUA RICH, Hydrating Bright, BODY GEL WASH, TURMERIC VITAMIN C, central graphic, vegan roundel and size. Center on chroma key for later removal. No Body Lotion, 500 ml, props, shadow, reflection, duplicate, clipping, redesign or invented claims.",
+          "inputs": [
+            {
+              "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Turmeric-and-Vitamin-C-Body-Wash-back.jpg",
+              "sha256": "96c581f8d6e9eef8d2b1f7a465bf3b52ae1b3d6c7381fc41340358bf8b6a2d37"
+            },
+            {
+              "url": "https://www.cocci.com.ng/cdn/shop/files/AQUA_RICH_TUMERIC_VITAMIN_C_HYDRATING_BRIGHT_BODY_GEL_WASH.gif?v=1763373624",
+              "sha256": "9c3bceea2cce2eb89a1c86532af6811976237ffa87b2966f2f228c99232442af"
+            }
+          ],
+          "outputSha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
+          "generatedAt": "2026-08-08T18:15:00Z",
+          "recordSha256": "f61f7642eb8c85611a857f7e52d915e0a5336e0db27bf161e4c6272bf209d095"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png",
+        "sha256": "5a28f8a4f287c503ed0b306c379e87e95377295598fb0020a78b211f34606f3b",
+        "mimeType": "image/png",
+        "byteSize": 1056156,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T18:25:00Z",
+        "reviewer": "Codex independent catalogue media recheck"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T18:27:00Z"
+      },
+      "dossierFingerprint": "4d5c097f4cbee8ebb267054a8e703c8fabc6d247fb9f09e2dba61cf229158b4d"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+      "candidateFingerprint": "ffa70d023cf0ded1b3179d6b7ccd708b32e9bbfe033626fdd180b04ee426a81b",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "8809875270158",
+        "brand": "NINELESS",
+        "name": "MELA-PRO Tranexamic Acid Sun Screen",
+        "variant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
+        "size": "100 ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+        "officialIdentity": {
+          "url": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+          "observedGtin": "8809875270158",
+          "observedVariant": "NINELESS MELA-PRO Tranexamic Acid Sun Screen",
+          "observedSize": "100 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/nineless-mela-pro-tranexamic-acid-sunscreen-100ml.json",
+          "canonicalExtraction": {
+            "candidateId": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+            "fields": {
+              "gtin": {
+                "locator": "Retailer-corroborated EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 8809875270158",
+                "value": "8809875270158"
+              },
+              "variant": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
+                "value": "NINELESS MELA-PRO Tranexamic Acid Sun Screen"
+              },
+              "size": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "NINELESS MELA-PRO Tranexamic Acid Sun Screen – 100 ml",
+                "value": "100 ml"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+            "retrievedAt": "2026-08-07T16:35:00Z",
+            "reviewedAt": "2026-08-07T16:38:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 128659,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "15e3e7402997f116315d8e8784892f83f04d44afb65a892294d908168c190239",
+            "sourceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml"
+          },
+          "snapshotSha256": "2409cdb81d56f9b3b319548750a319015e2ef43e5b8ad740a4713a0248dcf2cb",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1110,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "checkedAt": "2026-08-07T16:40:00Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on daily facial sunscreen described by the manufacturer as containing tranexamic acid, for uneven-tone or blemish-mark-prone facial skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports everyday sun protection and tone-evening for facial skin. It does not diagnose or treat melasma, post-inflammatory hyperpigmentation, infection, or persistent painful conditions; worsening, inflamed, weeping, infected, painful, or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://ninelessshop.com/products/mela-pro-tranexamic-acid-sun-screen-100ml",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-07T16:42:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
+          "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d",
+          "mimeType": "image/png",
+          "byteSize": 180732,
+          "width": 900,
+          "height": 900,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal, interior matte restoration and transparent 2000 px normalization",
+          "model": "gpt-image-2",
+          "prompt": "Use case: precise-object-edit. Retain the exact upright NINELESS MELA-PRO Tranexamic Acid Sunscreen 100 ml tube only from the official source, preserving NINE LESS, MELA-PRO, TXA, Sunscreen SPF 50+ PA++++, IDEAL FOR UNEVEN & DEPLETED SKIN and 100 mL / 3.3 fl. oz.; center on chroma key. Remove cream rings, swatches and shadow. Do not alter variant, size, geometry or label. Restore only chroma-eroded interior label alpha and discard detached low-alpha residue.",
+          "inputs": [
+            {
+              "url": "https://ninelessshop.com/cdn/shop/files/2_fcc32c8e-afe7-4e13-bb00-c3f93302e159.png",
+              "sha256": "130c98af597d4b5cfaa078ead6aa5b06ad4c5c27f81299cbd6e7b4420ce8dc2d"
+            }
+          ],
+          "outputSha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
+          "generatedAt": "2026-08-08T18:19:00Z",
+          "recordSha256": "6973a084152d4b136a9269488b3fa64040a78f2ec903e9542b70be87ec52d2b4"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/packshot-v2-404a2fb78f8a0f66.png",
+        "sha256": "404a2fb78f8a0f66ffd2ffec4c8081ebb2b6480c4625fc442ae587086d2da556",
+        "mimeType": "image/png",
+        "byteSize": 738310,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T18:25:00Z",
+        "reviewer": "Codex independent catalogue media recheck"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T18:27:00Z"
+      },
+      "dossierFingerprint": "8168cdcfb5f0c9d792925c362d59e8ca9c4d851e231831f7e9fa0887ea06db1a"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+      "candidateFingerprint": "31a031306665c21df49f3ab4cf4c24d0edc357f19b26d155caecf62cc9adc356",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "3600542368810",
+        "brand": "Garnier",
+        "name": "Pure Active Anti-Imperfection Sheet Mask",
+        "variant": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask",
+        "size": "1 pack",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+        "officialIdentity": {
+          "url": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+          "observedGtin": "3600542368810",
+          "observedVariant": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask",
+          "observedSize": "1 pack",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask.json",
+          "canonicalExtraction": {
+            "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+            "fields": {
+              "gtin": {
+                "locator": "Retailer-corroborated EAN-13 barcode",
+                "sourceText": "EAN-13 barcode 3600542368810",
+                "value": "3600542368810"
+              },
+              "variant": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask – 1 mask",
+                "value": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask"
+              },
+              "size": {
+                "locator": "HTML h1.product_title entry-title",
+                "sourceText": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask – 1 pack",
+                "value": "1 pack"
+              }
+            },
+            "method": "reviewed-exact-identity-field-extraction",
+            "responseDigestScope": "decoded-response-body",
+            "responseUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+            "retrievedAt": "2026-08-07T16:35:00Z",
+            "reviewedAt": "2026-08-07T16:38:00Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 3,
+            "sourceResponseByteSize": 263622,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "7d69a7e38cbeebb4b0c5d8f0061c47e9b5d334f5f08bc69a56b7cdd8dc32d03a",
+            "sourceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask"
+          },
+          "snapshotSha256": "4f822bb5fadbfdb2f5e2438dfd2b98c8338f5b6b8eb7067a7dfe6a0baf012470",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1206,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "checkedAt": "2026-08-07T16:40:00Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Single-use leave-on tissue mask described by the manufacturer as containing tea tree oil and salicylic acid, for acne-prone or blemish-prone facial skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports occasional blemish-care for acne-prone facial skin. It does not diagnose or treat severe acne, cystic breakouts, infection, or scarring; worsening, inflamed, infected, or persistent breakouts need clinical review.",
+        "manufacturerEvidenceUrl": "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+        "evidenceUrls": [
+          "https://www.garnier.com.au/about-our-brands/skin-active/pure-active/anti-imperfection-sheet-mask",
+          "https://www.aad.org/public/diseases/acne/diy/types-breakouts"
+        ],
+        "reviewedAt": "2026-08-07T16:42:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.garnier.com.au/-/media/project/loreal/brand-sites/garnier/apac/au/products/skincare/skin-active/pure-active/pure-active-imperfect-sheet-mask/pure-active-sheet-mask_3600542368810_1.jpg",
+          "sha256": "7cda10a9521ef01a035210c7b7359dfb3fd5921059b5bd93a2ec87c673d8df63",
+          "mimeType": "image/jpeg",
+          "byteSize": 82512,
+          "width": 800,
+          "height": 800,
+          "retrievedAt": "2026-08-07T16:35:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px normalization",
+          "model": "gpt-image-2",
+          "prompt": "Use case: precise-object-edit. Isolate one complete exact Garnier Pure Active Tea Tree + Salicylic Acid single tissue-mask sachet from the official front. Preserve the exact silhouette, true hanger opening, label, colours and x1 tissue-mask identity; center on chroma key for later removal. No missing white package regions, detached icon, promotional ribbon, props, shadow, reflection, duplicate, clipping, altered wording or invented claims.",
+          "inputs": [
+            {
+              "url": "https://www.garnier.com.au/-/media/project/loreal/brand-sites/garnier/apac/au/products/skincare/skin-active/pure-active/pure-active-imperfect-sheet-mask/pure-active-sheet-mask_3600542368810_1.jpg",
+              "sha256": "7cda10a9521ef01a035210c7b7359dfb3fd5921059b5bd93a2ec87c673d8df63"
+            }
+          ],
+          "outputSha256": "8b572da5da4dee24714a08cd290ee06da986d69793f336645eae717b03b471ee",
+          "generatedAt": "2026-08-08T18:15:00Z",
+          "recordSha256": "9e7f2943440494cfd98e7e8b6a11c3af74d3bde6bbf97fc1a765a32b70d182c4"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/garnier/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask/packshot-v2-8b572da5da4dee24.png",
+        "sha256": "8b572da5da4dee24714a08cd290ee06da986d69793f336645eae717b03b471ee",
+        "mimeType": "image/png",
+        "byteSize": 2283516,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T18:50:00Z",
+        "reviewer": "Codex independent catalogue media recheck"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T18:50:15Z"
+      },
+      "dossierFingerprint": "cfc88727ab0a9ac342cd923b2f8f2bfd3cb25df1a1f5572e155fdccab1b401c4"
     }
   ]
 }
