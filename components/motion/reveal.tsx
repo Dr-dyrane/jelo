@@ -20,7 +20,7 @@ type RevealProps = {
   duration?: number;
   once?: boolean;
   className?: string;
-  as?: "div" | "section" | "article" | "li" | "span";
+  as?: "div" | "section" | "article" | "li" | "span" | "aside";
 };
 
 /**
