@@ -145,7 +145,7 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/?s=mediana+leave-in+conditioning+milk&post_type=product', false), { retailer: 'Slique Beauty', url: 'https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/', trust: 78, available: true, location: ['NG'] }]
   },
   {
-    slug: 'kuza-indian-hemp-hair-scalp-treatment', brand: 'KUZA', name: '100% Indian Hemp Hair & Scalp Treatment', size: '7.7 oz / 226 g', category: 'Hair', step: 'Seal',
+    slug: 'kuza-indian-hemp-hair-scalp-treatment', brand: 'KUZA', name: '100% Indian Hemp Hair & Scalp Treatment', size: '7.7 oz / 218 g', category: 'Hair', step: 'Seal',
     image: 'https://kuzaproducts.com/cdn/shop/files/1-K035-08-0600_KUZA_IndianHempHair_ScalpTreatment_7.7ozJar_FRONT_1.jpg?v=1782416888&width=2048', displayLine: 'Treat · seal',
     bestFor: ['hair moisture', 'scalp treatment'], concerns: ['dry hair', 'dry scalp'], skinTypes: ['hair'], sensitiveFriendly: true,
     usage: 'Apply gently to hair and scalp, concentrating on dry areas. Style hair as usual. Use daily for best results.', evidence: 'emerging',
@@ -153,7 +153,7 @@ export const products: Product[] = [
   },
   {
     slug: 'disaar-argan-oil-body-oil-gel', brand: 'DISAAR', name: 'Argan Oil Body Oil Gel', size: '200 ml', category: 'Body', step: 'Moisturize',
-    image: 'https://mahamipharmacyng.com/wp-content/uploads/2026/05/Disaar-ARGAN-OIL-EFFICIENT-MOISTURIZING-Body-Oil-Gel-566.jpeg', displayLine: 'Moisturize · glow',
+    image: 'https://f.nooncdn.com/p/pzsku/Z2C891221F3259F5D3A6AZ/45/1767809439/db903634-894c-4f57-a677-0fe3b5fb3918.jpg', displayLine: 'Moisturize · glow',
     bestFor: ['body moisture', 'after-shower glow'], concerns: ['body dryness'], skinTypes: ['body'], sensitiveFriendly: true,
     usage: 'Apply to damp body skin after showering.', evidence: 'emerging',
     offers: [beautyByDaz('https://beautybydaz.com/?s=disaar+argan+oil+body+oil+gel&post_type=product', false), { retailer: 'Choices Beauty', url: 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', trust: 72, available: true, location: ['NG'] }]

@@ -118,9 +118,9 @@ export const productDisplayApprovals = {
     brand: 'DISAAR',
     name: 'Argan Oil Body Oil Gel',
     size: '200 ml',
-    sourceUrl: 'https://mahamipharmacyng.com/wp-content/uploads/2026/05/Disaar-ARGAN-OIL-EFFICIENT-MOISTURIZING-Body-Oil-Gel-566.jpeg',
-    contentHash: '89710c910c6b1b1a05d508b031c8a4b795899f9671df1674ea44ca4c6952ecc5',
-    reviewedAt: '2026-08-04T14:14:00.000Z',
+    sourceUrl: 'https://f.nooncdn.com/p/pzsku/Z2C891221F3259F5D3A6AZ/45/1767809439/db903634-894c-4f57-a677-0fe3b5fb3918.jpg',
+    contentHash: '62f489d01351dd2ad85d90570aa343e0767fe8b01376c14d09aabba1990b7a8e',
+    reviewedAt: '2026-08-08T21:17:00.000Z',
   }),
   'the-ordinary-azelaic-acid-suspension-10': approval({
     brand: 'The Ordinary',
@@ -157,10 +157,10 @@ export const productDisplayApprovals = {
   'kuza-indian-hemp-hair-scalp-treatment': approval({
     brand: 'KUZA',
     name: '100% Indian Hemp Hair & Scalp Treatment',
-    size: '7.7 oz / 226 g',
+    size: '7.7 oz / 218 g',
     sourceUrl: 'https://kuzaproducts.com/cdn/shop/files/1-K035-08-0600_KUZA_IndianHempHair_ScalpTreatment_7.7ozJar_FRONT_1.jpg?v=1782416888&width=2048',
     contentHash: 'cdc1398f2086e51a3cc4d19877aa1af4bb2ed752655da6e36ec9e6f59581524c',
-    reviewedAt: '2026-08-04T23:57:00.000Z',
+    reviewedAt: '2026-08-08T21:14:00.000Z',
   }),
 } as const satisfies Record<string, DisplayApproval>;
 
