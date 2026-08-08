@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
-    "candidateFingerprint": "8a91b55a9a82c8075dd0d9929b5ffc688ae950b8491926f4f34c8e286fbd5449",
+    "candidateFingerprint": "2944c2f50ee82b096be554eea41f58edd54710167a36fcca966cf6dcdf6d30de",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -92,120 +92,119 @@
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
-          "observedAt": "2026-07-23T03:19:34.319Z",
+          "observedAt": "2026-08-08T04:21:28Z",
           "observedTitle": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml",
           "observedSize": "250 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "retailerSku": "6001051001606",
           "priceNgn": 25000,
-          "stock": "in-stock",
+          "stock": "out-of-stock",
           "evidence": {
             "schemaVersion": 1,
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
             "responseUrl": "https://buybetter.ng/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
-            "responseSha256": "89548fa5f5649bf85ca4f9dc8a2b0ecf477bb787cb5121e9cd8ae88dc5f1233a",
+            "responseSha256": "1a01113da4988fb6d47966a909cf90c25ea110a6be85ed3eab673be882361ac2",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200092,
-            "retrievedAt": "2026-07-23T03:19:34.319Z",
+            "responseByteSize": 530551,
+            "retrievedAt": "2026-08-08T04:21:28Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
-              "pageTitle": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml – Buybetter"
+              "pageTitle": "Eucerin Urea Repair | Body Lotion | BuyBetter"
             },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "6001051001606",
-                "locator": "Bound official catalogue identity snapshot",
+                "locator": "Bound official Eucerin catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 6001051001606",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml",
-                "locator": "Rendered DOM h1 product heading",
+                "locator": "HTML product heading",
                 "sourceText": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml"
               },
               "size": {
                 "value": "250 ml",
-                "locator": "Rendered DOM h1 size suffix",
-                "sourceText": "EUCERIN Urea Repair Plus 10% Urea Lotion 250ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "250ml"
               },
               "price": {
                 "value": 25000,
                 "currency": "NGN",
-                "locator": "Rendered DOM product price",
-                "sourceText": "₦25,000.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦25,000"
               },
               "stock": {
-                "value": "in-stock",
-                "locator": "Rendered DOM stock status",
-                "sourceText": "9 in stock"
+                "value": "out-of-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "Out of stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T03:20:00Z"
+            "reviewedAt": "2026-08-08T04:22:30Z"
           }
         },
         {
-          "retailer": "Jumia",
+          "retailer": "Nectar Beauty Hub",
           "retailerStatus": "directory-listed",
-          "listingUrl": "https://www.jumia.com.ng/eucerin-urearepair-plus-10-urea-body-lotion-very-dry-skin-250ml-350932892.html",
-          "observedAt": "2026-07-23T03:19:34.319Z",
-          "observedTitle": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml",
+          "listingUrl": "https://nectarbeautyhub.com/products/eucerin-urearepair-plus-10-urea-body-lotion-for-very-dry-skin-250ml",
+          "observedAt": "2026-08-08T04:21:45Z",
+          "observedTitle": "Eucerin UreaRepair Plus 10% Urea Body Lotion 250ml",
           "observedSize": "250 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "retailerSku": "EU270ST5GD9R5NAFAMZ",
-          "priceNgn": 27410,
-          "stock": "low-stock",
+          "priceNgn": 27000,
+          "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
-            "listingUrl": "https://www.jumia.com.ng/eucerin-urearepair-plus-10-urea-body-lotion-very-dry-skin-250ml-350932892.html",
-            "responseUrl": "https://www.jumia.com.ng/eucerin-urearepair-plus-10-urea-body-lotion-very-dry-skin-250ml-350932892.html",
-            "responseSha256": "2c927e861d34fd72d5c996e3e13e7261b4b901b8442fdf569bcdd36921618e28",
+            "listingUrl": "https://nectarbeautyhub.com/products/eucerin-urearepair-plus-10-urea-body-lotion-for-very-dry-skin-250ml",
+            "responseUrl": "https://nectarbeautyhub.com/products/eucerin-urearepair-plus-10-urea-body-lotion-for-very-dry-skin-250ml",
+            "responseSha256": "2f91184e23f77e298819141f51d1757ff6a6721379ce2c0672be18553d65ff72",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 198173,
-            "retrievedAt": "2026-07-23T03:19:34.319Z",
+            "responseByteSize": 990357,
+            "retrievedAt": "2026-08-08T04:21:45Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
-              "pageTitle": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin"
+              "pageTitle": "Buy Original Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml – Nectar Beauty Hub"
             },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "6001051001606",
-                "locator": "Bound official catalogue identity snapshot",
+                "locator": "Bound official Eucerin catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 6001051001606",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml",
-                "locator": "Rendered DOM h1 product heading",
-                "sourceText": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml"
+                "value": "Eucerin UreaRepair Plus 10% Urea Body Lotion 250ml",
+                "locator": "HTML product heading",
+                "sourceText": "Eucerin UreaRepair Plus 10% Urea Body Lotion 250ml"
               },
               "size": {
                 "value": "250 ml",
-                "locator": "Rendered DOM h1 size suffix",
-                "sourceText": "Eucerin UreaRepair Plus 10% Urea Body Lotion Very Dry Skin - 250ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "250ml"
               },
               "price": {
-                "value": 27410,
+                "value": 27000,
                 "currency": "NGN",
-                "locator": "Rendered DOM current product price",
-                "sourceText": "₦ 27,410"
+                "locator": "Rendered product price",
+                "sourceText": "₦27,000.00"
               },
               "stock": {
-                "value": "low-stock",
-                "locator": "Rendered DOM stock status",
-                "sourceText": "2 units left"
+                "value": "in-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "In Stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T03:20:00Z"
+            "reviewedAt": "2026-08-08T04:22:30Z"
           }
         }
       ],
@@ -258,15 +257,15 @@
     },
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
-      "reviewer": "JeloCare catalogue publication review",
-      "approvedAt": "2026-07-23T03:32:35Z"
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-08T04:22:50Z"
     },
-    "dossierFingerprint": "c9951073b7cdd7514a9727e9b257fd53dc2ed3ab41520aea26bf4c5139220e70"
+    "dossierFingerprint": "2f65a2742d145be6fdfe35440588a97e630c2b06084629602768d34ee866b7e8"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
-    "dossierFingerprint": "c9951073b7cdd7514a9727e9b257fd53dc2ed3ab41520aea26bf4c5139220e70",
+    "dossierFingerprint": "2f65a2742d145be6fdfe35440588a97e630c2b06084629602768d34ee866b7e8",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -277,14 +276,14 @@
       "displayLine": "Intensive moisture for very dry skin.",
       "usage": "Massage into the skin until absorbed. Apply as often as needed.",
       "manufacturerDirectionsUrl": "https://www.eucerin-cewa.com/products/urea-repair-plus/urearepair-plus-10--urea-body-lotion",
-      "reviewer": "JeloCare catalogue presentation review",
-      "reviewedAt": "2026-07-23T03:32:40Z"
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-08T04:23:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
-      "reviewer": "JeloCare catalogue publication review",
-      "publishedAt": "2026-07-23T03:32:45Z"
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-08T04:23:10Z"
     },
-    "releaseFingerprint": "1f982da704c3d5425a2f68f562fb8495e502cc75763f71b4510f06a517677fa0"
+    "releaseFingerprint": "7b026f56bd2f7420273abaca8ebb72e9d7c430f3fff942884ca9170ec9367297"
   }
 }

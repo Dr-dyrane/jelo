@@ -1262,11 +1262,11 @@ test('the UreaRepair dossier binds its generated packshot and exact Nigerian off
   const { recordSha256, ...content } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:22:50Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
-  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), ['BuyBetter', 'Jumia']);
+  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), ['BuyBetter', 'Nectar Beauty Hub']);
   assert.equal(decision.freshExactOffers.every(offer => offer.observedGtin === undefined), true);
   assert.equal(decision.freshExactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
   assert.equal(decision.blockers.includes('identity-official-evidence-invalid'), false);
