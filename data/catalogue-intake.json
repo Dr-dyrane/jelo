@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T02:35:40Z",
+  "updatedAt": "2026-08-08T02:45:22Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -2015,7 +2015,7 @@
             "retailer": "Teeka4",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
-            "observedAt": "2026-07-23T06:00:33.919Z",
+            "observedAt": "2026-08-08T02:45:09Z",
             "observedTitle": "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
             "observedSize": "473 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -2027,13 +2027,13 @@
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
               "responseUrl": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
-              "responseSha256": "31e9be4c9a385bd26716c6db597efe43ff84566c831d39942429736c1173c43c",
+              "responseSha256": "d5c89804f7091ad2efc59a8dfdf5af4b4bc24f5b4260c54d2589eef9116de43f",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 200024,
-              "retrievedAt": "2026-07-23T06:00:33.919Z",
+              "responseByteSize": 375381,
+              "retrievedAt": "2026-08-08T02:45:09Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Shop for original Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml in Lagos Nigeria"
               },
@@ -2059,12 +2059,12 @@
                   "value": 20900,
                   "currency": "NGN",
                   "locator": "Rendered DOM product price",
-                  "sourceText": "₦20,900.00"
+                  "sourceText": "₦20,900"
                 },
                 "stock": {
                   "value": "in-stock",
                   "locator": "Rendered DOM availability status",
-                  "sourceText": "IN STOCK"
+                  "sourceText": "in stock"
                 },
                 "retailerIdentifier": {
                   "label": "SKU",
@@ -2074,14 +2074,14 @@
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T06:02:00Z"
+              "reviewedAt": "2026-08-08T02:45:22Z"
             }
           },
           {
             "retailer": "24Eleven",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
-            "observedAt": "2026-07-23T06:00:34.159Z",
+            "observedAt": "2026-08-08T02:45:22Z",
             "observedTitle": "Cerave SA Smoothing Cleanser - 473ml (16oz)",
             "observedSize": "473 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -2093,13 +2093,13 @@
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
               "responseUrl": "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
-              "responseSha256": "fbfac2057b8b76afb20f12d55cb898fa4ee7d047b1b4b803293a873e2068e605",
+              "responseSha256": "11d867335b742c91e07051230ab7e901d3327d4565833a30bf50a0b3c7c04d0a",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 93057,
-              "retrievedAt": "2026-07-23T06:00:34.159Z",
+              "responseByteSize": 83228,
+              "retrievedAt": "2026-08-08T02:45:22Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Cerave SA Smoothing Cleanser - 473ml (16oz) | 24eleven.ng - Best price in Nigeria"
               },
@@ -2130,7 +2130,7 @@
                 "stock": {
                   "value": "in-stock",
                   "locator": "Rendered DOM availability status",
-                  "sourceText": "Available"
+                  "sourceText": "available"
                 },
                 "retailerIdentifier": {
                   "label": "SKU",
@@ -2140,7 +2140,7 @@
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T06:02:00Z"
+              "reviewedAt": "2026-08-08T02:45:22Z"
             }
           }
         ],

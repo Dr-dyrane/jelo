@@ -196,30 +196,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "cerave-sa-smoothing-cleanser-473ml",
-      "dossierFingerprint": "51e922b18e9473d5be66240686443a3e52870cefa95f9a224ac6aeb3bcbcb135",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Salicylic acid for rough, bumpy skin.",
-        "usage": "Massage onto wet skin, then rinse.",
-        "manufacturerDirectionsUrl": "https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser",
-        "reviewer": "JeloCare catalogue presentation review",
-        "reviewedAt": "2026-07-23T06:15:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue publication review",
-        "publishedAt": "2026-07-23T06:15:30Z"
-      },
-      "releaseFingerprint": "5e7c205f18fa7e11fe76fc597be428785309856485061f67b83f02edda997f58"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
       "dossierFingerprint": "d7850d3431c7a7cec3d22c534b0395ae72425c372e44aac09b63aa30ea0ddacd",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T02:36:20Z"
       },
       "releaseFingerprint": "c8d2c4fc4b3ce778c622732ff6fac7aac356f96404eb5ff6ad85460162a5fc3c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-sa-smoothing-cleanser-473ml",
+      "dossierFingerprint": "9aef3cf85daddf37999790c82677c464236b29181c353c088b033d38eaafce7b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Salicylic acid for rough, bumpy skin.",
+        "usage": "Massage onto wet skin, then rinse.",
+        "manufacturerDirectionsUrl": "https://www.cerave.co.uk/skincare/cleansers/sa-smoothing-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T02:46:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T02:46:20Z"
+      },
+      "releaseFingerprint": "9f426e8dbd27af98018f46ad2869e9dd62e9f381e8c7cbcd9899790ecf13ec0f"
     }
   ]
 }
