@@ -12,11 +12,11 @@ const vercel = JSON.parse(
   readFileSync(resolve(root, 'vercel.json'), 'utf8'),
 ) as { crons?: Array<{ path: string; schedule: string }> };
 
-test('one Vercel cron feeds the existing Neon inventory queue', () => {
+test('one Vercel cron feeds the existing Neon inventory queue twice daily', () => {
   const inventoryCrons = vercel.crons?.filter(cron => cron.path === '/api/cron/inventory');
   assert.deepEqual(inventoryCrons, [{
     path: '/api/cron/inventory',
-    schedule: '17 4 * * *',
+    schedule: '17 4,16 * * *',
   }]);
   assert.match(route, /const batchSize = 100/);
   assert.match(route, /enqueueDueInventoryOffers\(batchSize\)/);
@@ -150,4 +150,27 @@ test('all Woo retailers in the extraction adapters have a matching Woo API host'
   for (const host of wooAdapterHosts) {
     assert.ok(worker.includes(`'${host}'`), `missing Woo API host entry for ${host}`);
   }
+});
+
+test('the cron supports a dry-run mode that skips fetching and writing', () => {
+  assert.match(route, /dry-run/);
+  assert.match(route, /searchParams\.has\('dry-run'\)/);
+  assert.match(route, /inventory_refresh_cron_dry_run/);
+});
+
+test('the cron sends alerts when offers fail or the backlog grows', () => {
+  assert.match(route, /sendRefreshAlertIfNeeded/);
+  const alerting = readFileSync(resolve(root, 'lib/inventory/refresh-alerting.ts'), 'utf8');
+  assert.match(alerting, /INVENTORY_ALERT_WEBHOOK/);
+  assert.match(alerting, /inventory_refresh_failed_offers/);
+  assert.match(alerting, /inventory_refresh_zero_completions/);
+  assert.match(alerting, /inventory_refresh_backlog_growing/);
+});
+
+test('the refresh worker uses confidence-based validity windows', () => {
+  assert.match(worker, /adapterKey === 'woo-store-api'/);
+  assert.match(worker, /'7 days'/);
+  assert.match(worker, /'5 days'/);
+  assert.match(worker, /'3 days'/);
+  assert.match(worker, /'1 day'/);
 });

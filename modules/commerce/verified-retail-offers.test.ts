@@ -102,8 +102,8 @@ test('featured marketplace offers retain visible seller evidence', () => {
 
   const disaar = verifiedRetailOffers['disaar-argan-oil-body-oil-gel']?.find(offer => offer.retailer === 'Jumia');
   assert.deepEqual(
-    { seller: disaar?.sellerName, score: disaar?.sellerScore, stock: disaar?.priceObservation?.stock },
-    { seller: 'Christodel Global Services', score: 88, stock: 'low-stock' },
+    { seller: disaar?.sellerName, score: disaar?.sellerScore, stock: disaar?.priceObservation?.stock, priceComparison: disaar?.priceComparison },
+    { seller: 'Christodel Global Services', score: 88, stock: 'low-stock', priceComparison: 'exclude' },
   );
 });
 

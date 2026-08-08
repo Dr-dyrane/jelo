@@ -3,7 +3,7 @@
   "crons": [
     {
       "path": "/api/cron/inventory",
-      "schedule": "17 4 * * *"
+      "schedule": "17 4,16 * * *"
     },
     {
       "path": "/api/cron/reconcile-requests",

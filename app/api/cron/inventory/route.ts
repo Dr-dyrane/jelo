@@ -8,6 +8,7 @@ import {
   summarizeInventoryRefreshRun,
 } from '@/lib/inventory/refresh-policy';
 import { processInventoryRefreshBatch } from '@/lib/inventory/refresh-worker';
+import { sendRefreshAlertIfNeeded } from '@/lib/inventory/refresh-alerting';
 import { isAuthorizedCronRequest } from '@/modules/retail-intelligence/cron-auth';
 
 export const runtime = 'nodejs';
@@ -20,8 +21,21 @@ export async function GET(request: Request) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  // Dry-run mode: enqueue due offers and report the backlog without fetching
+  // retailer pages or writing to the database. Useful for local testing and
+  // for verifying that the cron is wired up correctly.
+  const dryRun = new URL(request.url).searchParams.has('dry-run');
+
   const claimDeadlineAt = requestStartedAt + INVENTORY_CRON_CLAIM_BUDGET_MS;
   const enqueue = await enqueueDueInventoryOffers(batchSize);
+
+  if (dryRun) {
+    const backlog = await getInventoryRefreshBacklogSummary();
+    const summary = { dryRun: true, enqueue, backlog };
+    console.info(JSON.stringify({ event: 'inventory_refresh_cron_dry_run', ...summary }));
+    return Response.json(summary);
+  }
+
   const batch = await processInventoryRefreshBatch(batchSize, { claimDeadlineAt });
   const run = summarizeInventoryRefreshRun({
     ...enqueue,
@@ -44,6 +58,10 @@ export async function GET(request: Request) {
 
   const backlog = await getInventoryRefreshBacklogSummary();
   const summary = { run, backlog };
+
+  // Send an alert if the cron is failing or falling behind.
+  await sendRefreshAlertIfNeeded(run, backlog);
+
   console.info(JSON.stringify({ event: 'inventory_refresh_cron_completed', ...summary }));
   return Response.json(summary);
 }

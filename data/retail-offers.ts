@@ -198,7 +198,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       57000,
       'Almond (Amande) Softening Shower Oil',
       '250 ml',
-      { observedAt: '2026-08-08T13:15:00Z', expiresAt: '2026-08-15T13:15:00Z', stock: 'low-stock', sellerName: 'NFB Stores', sellerScore: 98 },
+      { observedAt: '2026-08-08T13:15:00Z', expiresAt: '2026-08-15T13:15:00Z', stock: 'low-stock', sellerName: 'NFB Stores', sellerScore: 98, priceComparison: 'exclude' },
     ),
   ],
   'anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml': [
@@ -238,7 +238,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Nihet Beauty', 'https://nihetbeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/', 78, 36000, 'BLab Matcha Hydrating Real Sun Screen SPF50+ PA++++', '50 ml'),
   ],
   'mediana-leave-in-conditioning-milk': [
-    exactNg('Jumia', 'https://www.jumia.com.ng/mediana-leave-in-conditioning-milk-250ml-215118251.html', 62, 2000, 'Mediana Leave-In Conditioning Milk', '250 ml', { sellerName: 'Jeto', sellerScore: 88 }),
+    exactNg('Jumia', 'https://www.jumia.com.ng/mediana-leave-in-conditioning-milk-250ml-215118251.html', 62, 2000, 'Mediana Leave-In Conditioning Milk', '250 ml', { sellerName: 'Jeto', sellerScore: 88, priceComparison: 'exclude' }),
     {
       retailer: 'Slique Beauty',
       url: 'https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/',
@@ -264,7 +264,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'disaar-argan-oil-body-oil-gel': [
     exactNg('Choices Beauty', 'https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/', 78, 4000, 'Disaar Argan Oil Body Oil Gel', '200 ml'),
-    exactNg('Jumia', 'https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html', 62, 4500, 'Disaar Argan Oil Body Oil Gel Deep Moisturizing Skin Care', '200 ml', { sellerName: 'Christodel Global Services', sellerScore: 88, stock: 'low-stock' }),
+    exactNg('Jumia', 'https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html', 62, 4500, 'Disaar Argan Oil Body Oil Gel Deep Moisturizing Skin Care', '200 ml', { sellerName: 'Christodel Global Services', sellerScore: 88, stock: 'low-stock', priceComparison: 'exclude' }),
   ],
   'dove-melanin-even-tone-body-wash-18-5oz': [
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/bath-body/bath-wash-gels/dove-melanin-even-tone-body-wash-547ml/', 100, 19500, 'Dove Melanin Even Tone Body Wash with Pro-Ceramide Serum', '547 ml / 18.5 fl oz', { available: false, observedAt: '2026-08-08T13:15:00Z', stock: 'out-of-stock' }),
@@ -532,7 +532,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   'sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml': [
     exactNg('BuyBetter', 'https://buybetter.ng/product/raw-shea-butter-moisture-conditioner/', 97, 13223, 'SheaMoisture Raw Shea Butter Deep Moisturizing Conditioner 384ml', '384 ml', { stock: 'low-stock' }),
-    exactNg('Jumia', 'https://www.jumia.com.ng/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner-for-dry-damaged-hair-moisture-restoration-384ml-419964981.html', 62, 35400, 'Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner 384ml', '384 ml', { stock: 'low-stock' }),
+    exactNg('Jumia', 'https://www.jumia.com.ng/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner-for-dry-damaged-hair-moisture-restoration-384ml-419964981.html', 62, 35400, 'Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner 384ml', '384 ml', { stock: 'low-stock', priceComparison: 'exclude' }),
   ],
   'tresemme-keratin-smooth-weightless-conditioner-828ml': [
     exactNg('Beauty by Daz', 'https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/', 100, 7950, 'Tresemme Keratin Smooth Weightless Conditioner 828ml', '828 ml', { available: false, stock: 'out-of-stock' }),
@@ -647,7 +647,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     exactNg('Perona Beauty', 'https://peronabeauty.com/product/naturium-the-glow-getter-multi-oil-hydrating-body-wash-500ml/', 86, 43000, 'Naturium The Glow Getter Multi-Oil Hydrating Body Wash 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-08T13:15:00Z', expiresAt: '2026-08-15T13:15:00Z', stock: 'in-stock' }),
   ],
   'naturium-kp-body-scrub-mask-8oz': [
-    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-kp-body-scrub-mask-226g/', 78, 40000, 'Naturium KP Body Scrub & Mask - 226g', '8 oz / 226 mL', { observedAt: '2026-08-08T13:15:00Z', expiresAt: '2026-08-15T13:15:00Z', stock: 'in-stock' }),
+    exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-kp-body-scrub-mask-226g/', 78, 40000, 'Naturium KP Body Scrub & Mask - 226g', '8 oz / 226 g', { observedAt: '2026-08-08T13:15:00Z', expiresAt: '2026-08-15T13:15:00Z', stock: 'in-stock' }),
   ],
   'naturium-multi-peptide-advanced-body-wash-500ml': [
     exactNg('The Beauty Prism', 'https://thebeautyprismng.com/shop/naturium-the-multi-peptide-advanced-body-wash-500ml/', 78, 42500, 'Naturium The Multi-Peptide Advanced Body Wash - 500ml', '16.9 fl oz / 500 mL', { observedAt: '2026-08-08T13:15:00Z', expiresAt: '2026-08-15T13:15:00Z', stock: 'in-stock' }),

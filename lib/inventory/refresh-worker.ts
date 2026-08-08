@@ -476,11 +476,19 @@ async function completeJob(
 ): Promise<ClaimSettlement> {
   const sql = getInventoryRefreshClient();
   const available = observation.inventoryStatus === 'in_stock' || observation.inventoryStatus === 'low_stock';
+
+  // Confidence-based validity: Woo API results (100% confidence) get 7 days,
+  // high-confidence HTML extractions get 5 days, medium get 3 days, low get 1 day.
+  // The Woo Store API adapter starts at 80 (10 + 25 + 35 + 5 + 5), so it lands
+  // in the 5-day bucket — more generous than the old 7-day flat window for
+  // HTML scrapes at 85%+ confidence, while still being conservative.
   const validity = observation.inventoryStatus === 'unknown' || observation.confidence < 60
     ? '1 day'
     : observation.confidence < 85
       ? '3 days'
-      : '7 days';
+      : observation.adapterKey === 'woo-store-api'
+        ? '7 days'
+        : '5 days';
   const verificationNote = observation.inventoryStatus === 'unknown'
     ? 'No product-scoped stock evidence found on the retailer page.'
     : observation.confidence < 60
