@@ -1,0 +1,43 @@
+{
+  "candidateId": "ogx-renewing-argan-oil-of-morocco",
+  "sourceUrl": "https://www.ogxbeauty.com/products/renewing-argan-oil-of-morocco-extra-penetrating-oil-3-3oz",
+  "responseUrl": "https://www.ogxbeauty.com/products/renewing-argan-oil-of-morocco-extra-penetrating-oil-3-3oz",
+  "retrievedAt": "2026-08-08T01:20:57Z",
+  "reviewedAt": "2026-08-08T01:20:57Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "schemaVersion": 8,
+  "sourceResponseSha256": "3a06446d10050fcfacb757d0a15c2bef6f780e90abc133145127c1e18a9385e5",
+  "sourceResponseMimeType": "text/html",
+  "sourceResponseByteSize": 773991,
+  "responseDigestScope": "rendered-dom-outerhtml",
+  "method": "reviewed-browser-dom-identity-field-extraction",
+  "browserCapture": {
+    "surface": "Playwright MCP browser",
+    "documentReadyState": "complete",
+    "pageTitle": "Argan Oil of Morocco Extra Penetrating Oil | OGX® Beauty"
+  },
+  "productRecord": {
+    "locator": "DOM JSON-LD Product gtin field (GTIN-14)",
+    "byteStart": 0,
+    "byteEnd": 0,
+    "sourceText": "\"gtin\": \"00022796916167\"",
+    "sourceFragmentSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "fields": {
+    "gtin": {
+      "value": "00022796916167",
+      "locator": "DOM JSON-LD Product gtin field (GTIN-14)",
+      "sourceText": "\"gtin\": \"00022796916167\""
+    },
+    "variant": {
+      "value": "Argan Oil of Morocco Extra Penetrating Oil",
+      "locator": "DOM JSON-LD Product name field",
+      "sourceText": "\"name\": \"Argan Oil of Morocco Extra Penetrating Oil\""
+    },
+    "size": {
+      "value": "3.3 fl oz",
+      "locator": "DOM product page description Sizes available field",
+      "sourceText": "Sizes available: 3.3 fl oz"
+    }
+  }
+}

@@ -142,7 +142,7 @@ test('concern browsing includes explicit reviewed references without turning the
       ['oily-congested-skin', 5],
       ['daily-sun-protection', 1],
       ['dandruff-itchy-scalp', 1],
-      ['dry-frizzy-hair', 4],
+      ['dry-frizzy-hair', 5],
     ],
   );
 

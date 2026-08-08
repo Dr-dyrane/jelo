@@ -381,7 +381,7 @@ test('explicit product forms never broaden into a different routine step', async
     },
     {
       query: 'I need a finishing oil for dry frizzy hair.',
-      productSlugs: [],
+      productSlugs: ['ogx-renewing-argan-oil-of-morocco'],
     },
     {
       query: 'I need a moisturising sunscreen for oily skin.',

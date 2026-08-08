@@ -152,13 +152,6 @@ export const products: Product[] = [
     offers: [beautyByDaz('https://beautybydaz.com/?s=kuza+indian+hemp+hair+scalp+treatment&post_type=product', false), { retailer: 'Perfect Picture Cosmetics', url: 'https://perfectpicturecosmetics.com/products/kuza-100-indian-hemp-hair-scalp-treatment-226g', trust: 76, available: true, location: ['GH'] }]
   },
   {
-    slug: 'ogx-renewing-argan-oil-of-morocco', brand: 'OGX', name: 'Renewing + Argan Oil of Morocco Extra Penetrating Oil', size: '100 ml', category: 'Hair', step: 'Finish',
-    image: 'https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp', displayLine: 'Gloss · finish',
-    bestFor: ['shine', 'dry lengths and ends'], concerns: ['dry hair', 'frizz'], skinTypes: ['hair'], sensitiveFriendly: true,
-    usage: 'Use a few drops through lengths and ends.', evidence: 'moderate',
-    offers: [beautyByDaz('https://beautybydaz.com/?s=OGX+Renewing+Argan+Oil+of+Morocco&post_type=product', false), careToBeauty('https://www.caretobeauty.com/ng/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml/')]
-  },
-  {
     slug: 'disaar-argan-oil-body-oil-gel', brand: 'DISAAR', name: 'Argan Oil Body Oil Gel', size: '200 ml', category: 'Body', step: 'Moisturize',
     image: 'https://mahamipharmacyng.com/wp-content/uploads/2026/05/Disaar-ARGAN-OIL-EFFICIENT-MOISTURIZING-Body-Oil-Gel-566.jpeg', displayLine: 'Moisturize · glow',
     bestFor: ['body moisture', 'after-shower glow'], concerns: ['body dryness'], skinTypes: ['body'], sensitiveFriendly: true,

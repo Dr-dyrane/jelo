@@ -74,10 +74,6 @@ export const reviewedProductCareManifest = {
     productSlug: 'kuza-indian-hemp-hair-scalp-treatment',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
   },
-  'ogx-renewing-argan-oil-of-morocco': {
-    productSlug: 'ogx-renewing-argan-oil-of-morocco',
-    careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
-  },
   'disaar-argan-oil-body-oil-gel': {
     productSlug: 'disaar-argan-oil-body-oil-gel',
     careState: 'insufficient_data', approvedUses: [], evidenceSourceUrls: [], reviewedAt,
@@ -1515,6 +1511,21 @@ export const publishedProductCareManifest = {
       'https://www.nhs.uk/symptoms/body-odour-bo/',
     ],
     reviewedAt: '2026-08-07',
+  },
+  'ogx-renewing-argan-oil-of-morocco': {
+    productSlug: 'ogx-renewing-argan-oil-of-morocco',
+    careState: 'supportive_eligible',
+    approvedUses: [{
+      id: 'dry-hair-nourishing-oil',
+      label: 'Nourishing dry hair lengths and ends',
+      concernIds: ['dry hair', 'frizz'],
+      concernSlugs: ['dry-frizzy-hair'],
+    }],
+    evidenceSourceUrls: [
+      'https://www.ogxbeauty.com/products/renewing-argan-oil-of-morocco-extra-penetrating-oil-3-3oz',
+      'https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips',
+    ],
+    reviewedAt: '2026-08-08',
   },
 } as const satisfies Record<string, ReviewedProductCare>;
 

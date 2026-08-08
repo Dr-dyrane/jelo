@@ -3049,6 +3049,54 @@
         "publishedAt": "2026-08-07T22:59:00Z"
       },
       "releaseFingerprint": "3dfcaaff0c5c5806066468fe4b60011042d05f443e4e7ddd34527baeaecebfc9"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+      "dossierFingerprint": "08fec6dbaed10118f3feba2b8613c01f908a2d42ab94e2fab5e7227cb0f2fa18",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Protect",
+        "displayLine": "Freshen · protect",
+        "usage": "Use on clean, dry underarms.",
+        "manufacturerDirectionsUrl": "https://www.dove.com/us/en/p/dove-aluminum-free-deodorant-spray-cucumber-green-tea.html/00079400482280",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-07T23:28:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-07T23:29:00Z"
+      },
+      "releaseFingerprint": "b4d5f78fa0027c599d083525323613b0291a0c8937a972f5942f3cdb0f21d681"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "ogx-renewing-argan-oil-of-morocco",
+      "dossierFingerprint": "d03326bc176eaf8acc6642ae5f8cf369784708da5fdf6fad20fa9171ab9da2fb",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Finish",
+        "displayLine": "Gloss · finish",
+        "usage": "Use a few drops through lengths and ends.",
+        "manufacturerDirectionsUrl": "https://www.ogxbeauty.com/products/renewing-argan-oil-of-morocco-extra-penetrating-oil-3-3oz",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T01:20:57Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T01:21:00Z"
+      },
+      "releaseFingerprint": "fab1796d0e8f87abf843d182e944b4bed395ea598515d655f37cd63b508048be"
     }
   ]
 }

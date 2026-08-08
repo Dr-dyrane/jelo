@@ -5,7 +5,23 @@ import path from 'node:path';
 import test from 'node:test';
 import sharp from 'sharp';
 import intake from '@/data/foundational-packshot-intake.json';
-import isolations from '@/data/foundational-packshot-isolations.json';
+import isolationsData from '@/data/foundational-packshot-isolations.json';
+
+type FoundationalIsolation = {
+  id: string;
+  productSlug: string;
+  source: { url: string; sha256: string; byteSize: number; retrievedAt: string };
+  identity: { gtin: string; officialProductUrl: string };
+  processing: { pipelineVersion: string; packageRgbOrigin: string; provider: string; modelSha256: string; runtimeLockSha256: string };
+  audit: { sha256: string; removedComponentCount: number; removedForegroundFraction: number; componentReviewRequired: boolean; generatedAt: string };
+  review: { identityReviewedAt: string; artReviewedAt: string; surfaces: string[]; packagingIntact: boolean; labelVariantSizeUnchanged: boolean; magazineReady: boolean; supersededReason?: string };
+  rightsStatus: string;
+  publicationScope: string;
+  output: { localPath: string; sha256: string; byteSize: number; width: number; height: number };
+  active?: boolean;
+};
+
+const isolations = isolationsData as unknown as FoundationalIsolation[];
 import productAssets from '@/data/product-assets.json';
 import { expandedProducts } from '@/data/expanded-products';
 import { products as coreProducts } from '@/data/products';
@@ -54,7 +70,7 @@ test('foundational source-pixel isolations bind the source, runtime, output and 
       assert.equal(canonical.contentHash, isolation.output.sha256);
     } else {
       assert.notEqual(canonical.contentHash, isolation.output.sha256);
-      assert.ok('supersededReason' in isolation.review && isolation.review.supersededReason.length > 0);
+      assert.ok('supersededReason' in isolation.review && (isolation.review.supersededReason ?? '').length > 0);
     }
     assert.equal('derivation' in canonical, true);
     if (!('derivation' in canonical)) throw new Error(`${isolation.productSlug}: missing derivation`);

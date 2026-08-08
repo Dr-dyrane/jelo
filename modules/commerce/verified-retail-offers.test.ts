@@ -27,7 +27,7 @@ test('verified Nigerian observations use exact secure product pages', () => {
   }
 });
 
-test('at least fourteen catalogue products have reliable exact Nigerian price evidence', () => {
+test('at least thirteen catalogue products have reliable exact Nigerian price evidence', () => {
   const priced = reviewedProductRecords.filter(product => product.offers.some(offer =>
     offer.location.includes('NG')
     && offer.match === 'exact'
@@ -35,7 +35,7 @@ test('at least fourteen catalogue products have reliable exact Nigerian price ev
     && offer.priceNgn > 0,
   ));
 
-  assert.ok(priced.length >= 14, `expected at least 14 priced products, received ${priced.length}`);
+  assert.ok(priced.length >= 13, `expected at least 13 priced products, received ${priced.length}`);
 });
 
 test('browser-verified Beauty by Daz prices serve exact original catalogue products', () => {

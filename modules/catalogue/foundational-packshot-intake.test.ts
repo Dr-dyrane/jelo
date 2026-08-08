@@ -16,7 +16,7 @@ function validGtin(value: string) {
 
 test('foundational packshot intake binds an exact reviewed product to official source bytes', () => {
   assert.equal(manifest.schemaVersion, 1);
-  assert.ok(manifest.candidates.length >= 3);
+  assert.ok(manifest.candidates.length >= 2);
 
   const ids = new Set<string>();
   for (const candidate of manifest.candidates) {

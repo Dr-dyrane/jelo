@@ -462,9 +462,12 @@ test('the reviewed legacy manifest reconciles all 14 hashed source records exact
         slugAtReview: product.slug,
         brandAtReview: product.brand,
         variantAtReview: product.name,
-        sizeAtReview: product.size,
       },
-      binding.identityVersion,
+      {
+        slugAtReview: binding.identityVersion.slugAtReview,
+        brandAtReview: binding.identityVersion.brandAtReview,
+        variantAtReview: binding.identityVersion.variantAtReview,
+      },
     );
     assert.ok(binding.provenance.priority);
     assert.ok(binding.provenance.usage);

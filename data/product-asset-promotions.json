@@ -30,19 +30,21 @@
     "contentHash": "d392e6f06ab8c2718a3ab43cb83cc37237a555b5ced2c6e7dfcf553b4e3bfcaf"
   },
   {
-    "id": "ogx-renewing-argan-oil-of-morocco-v2",
-    "active": false,
-    "productSlug": "ogx-renewing-argan-oil-of-morocco",
-    "sourceUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp",
-    "localPath": "/products/ogx/ogx-renewing-argan-oil-of-morocco-transparent-v2.png",
-    "blobPath": "products/ogx/ogx-renewing-argan-oil-of-morocco/packshot-v2.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/ogx/ogx-renewing-argan-oil-of-morocco/packshot-v2.png",
-    "contentType": "image/png",
+    "candidateId": "ogx-renewing-argan-oil-of-morocco",
+    "active": true,
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/ogx/ogx-renewing-argan-oil-of-morocco/packshot-v2-4d07e383b70138a4.png",
+    "contentHash": "4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d",
     "byteSize": 1406757,
     "width": 2000,
     "height": 2000,
+    "localPath": "data/catalogue-intake-assets/ogx-renewing-argan-oil-of-morocco/packshot-v2-4d07e383b70138a4.png",
+    "id": "ogx-renewing-argan-oil-of-morocco-packshot-v2",
+    "publicationBrandSlug": "ogx",
+    "destination": "publication",
+    "sourceUrl": "https://images.ctfassets.net/ya8mvjlg9l8b/3B76Sdr4luhOPdIh1Ltkb8/9d9fbd18444f0c5cf23a68a1baff9077/AOM_extra_strength_oil_FOP.webp",
+    "contentType": "image/png",
     "hasAlpha": true,
-    "contentHash": "4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d"
+    "blobPath": "products/ogx/ogx-renewing-argan-oil-of-morocco/packshot-v2-4d07e383b70138a4.png"
   },
   {
     "id": "the-ordinary-azelaic-acid-suspension-10-v2",
