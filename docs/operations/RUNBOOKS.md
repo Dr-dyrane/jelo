@@ -1,8 +1,59 @@
 # Operational runbooks
 
-Updated: 2026-08-03
+Updated: 2026-08-08
 
 Lead with evidence. Preserve data. Prefer a forward repair.
+
+## Runtime 500 on every page using next/image (sharp module missing)
+
+**Symptom:** Production returns 500 on `/products`, `/concerns`, `/consult`,
+`/contribute`, and any route that renders `next/image`. The root URL (`/`)
+works because it does not use `next/image`. Vercel runtime logs show:
+
+```
+Error: Failed to load external module sharp-4d49d2c113086808:
+  Error: Could not load the "sharp" module using the linux-x64 runtime
+  ERR_DLOPEN_FAILED: libvips-cpp.so.8.18.3: cannot open shared object file
+```
+
+**Root cause:** A `pnpm-lock.yaml` was committed to the repository (for
+example, by running `pnpm install` to update Husky or lint-staged
+dependencies). Vercel detects `pnpm-lock.yaml` and switches from npm to pnpm.
+pnpm 10.x on Vercel does not install the `linux-x64` optional dependencies
+for `sharp` (`@img/sharp-linux-x64` and `@img/sharp-libvips-linux-x64`),
+so the native `libvips-cpp.so` shared object is absent at runtime.
+
+The project uses npm (`package-lock.json`) as its package manager. The
+`package-lock.json` already includes the correct `linux-x64` sharp binaries.
+The `pnpm-lock.yaml` was an accidental artifact that overrode the intended
+package manager.
+
+**Warning:** Do not run `pnpm install` in this repository. It creates a
+`pnpm-lock.yaml` that changes Vercel's package manager and breaks sharp.
+Use `npm install` or `npm ci` instead. If a `pnpm-lock.yaml` appears,
+delete it and commit the removal.
+
+**Fix:**
+
+1. Delete `pnpm-lock.yaml`: `git rm pnpm-lock.yaml`
+2. Commit and push: `git commit -m "Remove pnpm-lock.yaml" && git push`
+3. Verify the next Vercel deployment uses npm (build log should say
+   `Installing dependencies... npm install`, not `pnpm install`)
+4. Verify all routes return 200 after deployment completes
+
+**Prevention:**
+
+- Never commit `pnpm-lock.yaml`. Add it to `.gitignore` if needed.
+- If Husky or lint-staged dependencies need updating, use
+  `npm install --save-dev husky lint-staged` and let npm update
+  `package-lock.json`.
+- The `pnpm-workspace.yaml` file is safe to keep (it configures build
+  permissions for local pnpm users), but it must not be accompanied by a
+  committed `pnpm-lock.yaml`.
+
+**Incident:** 2026-08-08, commits `c764bae` and `da3f2e8` introduced
+`pnpm-lock.yaml`. Fixed in commit `945bc96` by removing it. All pages
+verified returning 200 after deployment `jelo-dtwu1jb6d`.
 
 ## Production build fails
 

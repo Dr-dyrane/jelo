@@ -1,6 +1,12 @@
 # dependencies
 node_modules/
 
+# Do not commit pnpm-lock.yaml — this project uses npm (package-lock.json).
+# A committed pnpm-lock.yaml makes Vercel switch to pnpm, which does not
+# install the linux-x64 sharp binaries, causing runtime 500s on every page
+# that uses next/image. See docs/operations/RUNBOOKS.md.
+pnpm-lock.yaml
+
 # Next.js
 .next/
 out/
