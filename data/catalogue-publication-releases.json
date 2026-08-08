@@ -28,30 +28,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
-      "dossierFingerprint": "a471ac7bff98c703b36ec1692f19a2da32e65028aa85c245b0648c0877680860",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "4% benzoyl peroxide cleanser · 150 ml",
-        "usage": "Apply a dime-size amount to damp skin, gently massage while avoiding the eye area, then rinse well. Reduce frequency if dryness or peeling develops.",
-        "manufacturerDirectionsUrl": "https://www.cerave.com/skincare/cleansers/acne-benzoyl-peroxide-cleanser",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T17:13:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T17:14:00Z"
-      },
-      "releaseFingerprint": "1d0825eba7e3955cc9ed63282ff9193e9799f3810c4d4773c0c617c90c541aa4"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
       "dossierFingerprint": "afc8fc9cd1e12eab1af86aec91f9e429f3ee040e366a4310e4f0d83bdba16ef8",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T05:24:20Z"
       },
       "releaseFingerprint": "0d81b467071ba774721080026ecdff20a52cd7819a129ac6419aa617e8ffcb6b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
+      "dossierFingerprint": "1ab7eb108288d8309935b455d07a22b314cf39e8ccb2b1a7f26a680f71978025",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "4% benzoyl peroxide cleanser · 150 ml",
+        "usage": "Apply a dime-size amount to damp skin, gently massage while avoiding the eye area, then rinse well. Reduce frequency if dryness or peeling develops.",
+        "manufacturerDirectionsUrl": "https://www.cerave.com/skincare/cleansers/acne-benzoyl-peroxide-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T05:28:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T05:28:50Z"
+      },
+      "releaseFingerprint": "c9f285421d8510b1bc8880c06f910a56c6346ddb71005028e374ce91b93d41e8"
     }
   ]
 }

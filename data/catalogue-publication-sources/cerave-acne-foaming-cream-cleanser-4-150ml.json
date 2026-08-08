@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
-    "candidateFingerprint": "9a7e695697d7102dfee3aae93d3d806aa120516c41c54408deb067b879b1caef",
+    "candidateFingerprint": "dac6ea07c3382209c7bd7f934463a458f4c84b2eb57df644277efbfbb5c39916",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -102,88 +102,27 @@
       "tierAIdentityEvidenceUrl": "https://www.cerave.com/skincare/cleansers/acne-benzoyl-peroxide-cleanser",
       "exactOffers": [
         {
-          "retailer": "BuyBetter",
-          "retailerStatus": "directory-listed",
-          "listingUrl": "https://buybetter.ng/product/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/",
-          "observedAt": "2026-07-23T17:02:04.662Z",
-          "observedTitle": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml",
-          "observedSize": "150 ml",
-          "observedGtinBasis": "exact-variant-and-size",
-          "retailerSku": "3606000512238",
-          "priceNgn": 24000,
-          "stock": "low-stock",
-          "evidence": {
-            "schemaVersion": 1,
-            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-            "listingUrl": "https://buybetter.ng/product/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/",
-            "responseUrl": "https://buybetter.ng/product/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/",
-            "responseSha256": "95df133aecb84f4ab53cb1d000f03b6b7763bef6fb1e9372391809ec36877a0d",
-            "responseDigestScope": "rendered-accessibility-tree",
-            "responseMimeType": "text/html",
-            "responseByteSize": 13946,
-            "retrievedAt": "2026-07-23T17:02:04.662Z",
-            "browserCapture": {
-              "surface": "Codex in-app browser",
-              "documentReadyState": "complete",
-              "pageTitle": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml – Buybetter"
-            },
-            "fields": {
-              "gtin": {
-                "label": "GTIN",
-                "value": "3606000512238",
-                "locator": "Bound official CeraVe 150 ml identity snapshot",
-                "sourceText": "Official catalogue identity GTIN 3606000512238",
-                "responseRole": "official-identity-correlation"
-              },
-              "title": {
-                "value": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml",
-                "locator": "Rendered accessibility h1 product heading",
-                "sourceText": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml"
-              },
-              "size": {
-                "value": "150 ml",
-                "locator": "Rendered accessibility h1 size suffix",
-                "sourceText": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml"
-              },
-              "price": {
-                "value": 24000,
-                "currency": "NGN",
-                "locator": "Rendered accessibility product price",
-                "sourceText": "₦24,000.00"
-              },
-              "stock": {
-                "value": "low-stock",
-                "locator": "Rendered accessibility stock count",
-                "sourceText": "4 in stock"
-              }
-            },
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T17:03:00Z"
-          }
-        },
-        {
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/",
-          "observedAt": "2026-07-23T17:02:04.662Z",
+          "observedAt": "2026-08-08T05:26:59Z",
           "observedTitle": "Cerave Acne Foaming Cream Cleanser 4% benzoyl peroxide 150ml",
           "observedSize": "150 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "retailerSku": "TK-1432",
           "priceNgn": 23500,
           "stock": "out-of-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/",
             "responseUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/",
-            "responseSha256": "5c31be2125f1a0c43f4948ddc9e980a5b024da79997d4152dbf53fe9359f2066",
-            "responseDigestScope": "rendered-accessibility-tree",
+            "responseSha256": "f73898c9267261faea315d7c010e9a3a3aa69457f8ae15840d3849ae3d8b0b2a",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 8543,
-            "retrievedAt": "2026-07-23T17:02:04.662Z",
+            "responseByteSize": 363884,
+            "retrievedAt": "2026-08-08T05:26:59Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Buy Original Cerave Acne Foaming Cream Cleanser 4% benzoyl peroxide 150ml in Nigeria | Teeka4"
             },
@@ -191,34 +130,94 @@
               "gtin": {
                 "label": "GTIN",
                 "value": "3606000512238",
-                "locator": "Bound official CeraVe 150 ml identity snapshot",
+                "locator": "Bound official CeraVe catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 3606000512238",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Cerave Acne Foaming Cream Cleanser 4% benzoyl peroxide 150ml",
-                "locator": "Rendered accessibility h1 product heading",
+                "locator": "HTML product heading",
                 "sourceText": "Cerave Acne Foaming Cream Cleanser 4% benzoyl peroxide 150ml"
               },
               "size": {
                 "value": "150 ml",
-                "locator": "Rendered accessibility h1 size suffix",
-                "sourceText": "Cerave Acne Foaming Cream Cleanser 4% benzoyl peroxide 150ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "150ml"
               },
               "price": {
                 "value": 23500,
                 "currency": "NGN",
-                "locator": "Rendered accessibility product price",
+                "locator": "Rendered product price",
                 "sourceText": "₦23,500.00"
               },
               "stock": {
                 "value": "out-of-stock",
-                "locator": "Rendered accessibility availability category",
-                "sourceText": "Out of stock"
+                "locator": "Rendered availability status",
+                "sourceText": "Out of Stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T17:03:00Z"
+            "reviewedAt": "2026-08-08T05:28:00Z"
+          }
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-cleanser-4/",
+          "observedAt": "2026-08-08T05:27:16Z",
+          "observedTitle": "Cerave Acne Foaming Cream Cleanser 4%",
+          "reviewedTitleAlias": "Acne Foaming Cream Cleanser",
+          "observedSize": "150 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 23850,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-cleanser-4/",
+            "responseUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-cleanser-4/",
+            "responseSha256": "553bb167f3ad50f62539dc192247bb18bc54333da9da78cca8f299d74976669b",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 255251,
+            "retrievedAt": "2026-08-08T05:27:16Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "CeraVe Acne Foaming Cream Cleanser 4% – Clear & Soothe Breakouts"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "3606000512238",
+                "locator": "Bound official CeraVe catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 3606000512238",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Cerave Acne Foaming Cream Cleanser 4%",
+                "locator": "HTML product heading",
+                "sourceText": "Cerave Acne Foaming Cream Cleanser 4%"
+              },
+              "size": {
+                "value": "150 ml",
+                "locator": "Bound official CeraVe catalogue identity snapshot",
+                "sourceText": "150 ml"
+              },
+              "price": {
+                "value": 23850,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦23,850"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "IN STOCK"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-08T05:28:00Z"
           }
         }
       ],
@@ -272,14 +271,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T17:12:00Z"
+      "approvedAt": "2026-08-08T05:28:30Z"
     },
-    "dossierFingerprint": "a471ac7bff98c703b36ec1692f19a2da32e65028aa85c245b0648c0877680860"
+    "dossierFingerprint": "1ab7eb108288d8309935b455d07a22b314cf39e8ccb2b1a7f26a680f71978025"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
-    "dossierFingerprint": "a471ac7bff98c703b36ec1692f19a2da32e65028aa85c245b0648c0877680860",
+    "dossierFingerprint": "1ab7eb108288d8309935b455d07a22b314cf39e8ccb2b1a7f26a680f71978025",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -291,13 +290,13 @@
       "usage": "Apply a dime-size amount to damp skin, gently massage while avoiding the eye area, then rinse well. Reduce frequency if dryness or peeling develops.",
       "manufacturerDirectionsUrl": "https://www.cerave.com/skincare/cleansers/acne-benzoyl-peroxide-cleanser",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T17:13:00Z"
+      "reviewedAt": "2026-08-08T05:28:40Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T17:14:00Z"
+      "publishedAt": "2026-08-08T05:28:50Z"
     },
-    "releaseFingerprint": "1d0825eba7e3955cc9ed63282ff9193e9799f3810c4d4773c0c617c90c541aa4"
+    "releaseFingerprint": "c9f285421d8510b1bc8880c06f910a56c6346ddb71005028e374ce91b93d41e8"
   }
 }

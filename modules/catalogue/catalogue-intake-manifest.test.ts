@@ -1039,23 +1039,23 @@ test('the 4% acne cleanser keeps exact size evidence, current availability and i
   assert.equal(candidate.identity.gtin, '3606000512238');
   assert.equal(candidate.identity.officialEvidence?.observedVariant, 'CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide');
   assert.equal(candidate.identity.officialEvidence?.observedSize, '150 ml');
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [24_000, 23_500]);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['low-stock', 'out-of-stock']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['Teeka4', 'Beauty by Daz']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [23_500, 23_850]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['out-of-stock', 'in-stock']);
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
     offer.observedGtinBasis === 'exact-variant-and-size'
-    && offer.evidence?.method === 'reviewed-browser-accessibility-exact-offer-field-extraction'
+    && offer.evidence?.method === 'reviewed-browser-dom-exact-offer-field-extraction'
     && offer.evidence.fields.gtin?.responseRole === 'official-identity-correlation'
   )), true);
   assert.equal(candidate.demandEvidenceUrls.some(url => new URL(url).hostname === 'beautybydaz.com'), true);
-  assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Beauty by Daz'), false);
+  assert.equal(candidate.nigeria.exactOffers.some(offer => offer.retailer === 'Beauty by Daz'), true);
   assert.equal(candidate.asset.publicImageSha256, '0d11157551c6370db25cb976af5e61af7838008151ac3a257c9b1a51c1cf3bba');
   const generation = candidate.asset.generationRecord;
   assert.ok(generation);
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T05:28:30Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.nigeriaMarketRoute, 'tier-a');
