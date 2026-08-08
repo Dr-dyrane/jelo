@@ -206,17 +206,17 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
   assert.match(navigation, /href="\/contribute"[^>]*>Share skincare/);
   assert.match(
     navigation,
-    /label: 'Share skincare', detail: 'Tell us what you use'/,
+    /label: "Share skincare",[\s\S]*?detail: "Tell us what you use"/,
   );
   assert.match(layout, /href="\/contribute">Share skincare/);
   assert.equal((navigation.match(/href="\/me"/g) ?? []).length, 1);
   assert.match(
     navigation,
-    /<Link className=\{styles\.memberLink\} href="\/me">Me<\/Link>/,
+    /<Link className=\{styles\.memberLink\} href="\/me">[\s\S]*?Me[\s\S]*?<\/Link>/,
   );
   assert.match(
     navigation,
-    /\{ href: '\/me', label: 'Me', detail: 'Your care workspace' \}/,
+    /\{ href: "\/me", label: "Me", detail: "Your care workspace" \}/,
   );
   assert.doesNotMatch(navigation, /My JeloCare/);
   assert.equal((layout.match(/href="\/me"/g) ?? []).length, 1);

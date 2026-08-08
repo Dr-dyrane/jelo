@@ -12,6 +12,7 @@ import { KenBurns } from "@/components/motion/ken-burns";
 import { Parallax } from "@/components/motion/parallax";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { SwipeableRail } from "@/components/motion/swipeable-rail";
 import { SafeEditorialImage } from "@/components/editorial/safe-editorial-image";
 import { ProductRail } from "@/components/products/product-grid";
 import { products as curatedCatalogue } from "@/data/catalogue";
@@ -92,7 +93,9 @@ function DiscoveryRail({
           {linkLabel} <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </Reveal>
-      <ProductRail products={railProducts} />
+      <SwipeableRail>
+        <ProductRail products={railProducts} />
+      </SwipeableRail>
     </section>
   );
 }
