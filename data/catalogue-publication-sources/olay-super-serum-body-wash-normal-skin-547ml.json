@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
-    "candidateFingerprint": "dd5ea480a456d588681d415fdb7a4f6487779e8b3403ad6988e14f288a765a87",
+    "candidateFingerprint": "5012e87388cd6ad911b7df45c007003fb98cc65680690c63ed486265d832f905",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -109,110 +109,120 @@
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/olay-super-serum-normal-skin-body-wash-18-5fl-oz-547ml/",
-          "observedAt": "2026-07-23T14:36:52Z",
-          "observedTitle": "OLAY Super Serum (Normal Skin) Body Wash 18.5fl OZ 547ml",
+          "observedAt": "2026-08-08T04:34:39Z",
+          "observedTitle": "OLAY -Super Serum (Normal Skin) Body Wash 18.5fl OZ 547ml",
           "observedSize": "18.5 fl oz / 547 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "retailerSku": "030772160350",
-          "priceNgn": 20000,
+          "priceNgn": 20963,
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/olay-super-serum-normal-skin-body-wash-18-5fl-oz-547ml/",
             "responseUrl": "https://buybetter.ng/product/olay-super-serum-normal-skin-body-wash-18-5fl-oz-547ml/",
-            "responseSha256": "13d499aec09d9ee8c9591cdd138836e0a73f83ffe7b8bafe2297d22e20d55c42",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "66f58594e8eb0a37a58986eff297944e52be40762b25c7c211c418bb8a9b01fc",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 793551,
-            "retrievedAt": "2026-07-23T14:36:52Z",
+            "responseByteSize": 535857,
+            "retrievedAt": "2026-08-08T04:34:39Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Olay Super Serum Wash | Body Wash | BuyBetter"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "00030772160350",
-                "locator": "Bound official Olay identity snapshot",
+                "locator": "Bound official Olay catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 00030772160350",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "OLAY Super Serum (Normal Skin) Body Wash 18.5fl OZ 547ml",
-                "locator": "Decoded HTML h1 product heading",
-                "sourceText": "OLAY Super Serum (Normal Skin) Body Wash 18.5fl OZ 547ml"
+                "value": "OLAY -Super Serum (Normal Skin) Body Wash 18.5fl OZ 547ml",
+                "locator": "HTML product heading",
+                "sourceText": "OLAY -Super Serum (Normal Skin) Body Wash 18.5fl OZ 547ml"
               },
               "size": {
                 "value": "18.5 fl oz / 547 ml",
-                "locator": "Decoded HTML h1 size tokens",
-                "sourceText": "OLAY Super Serum (Normal Skin) Body Wash 18.5fl OZ 547ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "18.5fl OZ 547ml"
               },
               "price": {
-                "value": 20000,
+                "value": 20963,
                 "currency": "NGN",
-                "locator": "Decoded HTML product summary price",
-                "sourceText": "₦20,000.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦20,963"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Decoded HTML product summary stock count",
-                "sourceText": "12 in stock"
+                "locator": "Rendered availability status",
+                "sourceText": "available"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T14:45:30Z"
+            "reviewedAt": "2026-08-08T04:35:00Z"
           }
         },
         {
           "retailer": "Perona Beauty",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://peronabeauty.com/product/olay-super-serum-body-wash-for-normal-skin/",
-          "observedAt": "2026-07-23T14:36:55Z",
+          "observedAt": "2026-08-08T04:34:51Z",
           "observedTitle": "Olay Super Serum Body Wash for Normal Skin",
-          "observedSize": "18.5 fl oz / 547 ml",
+          "observedSize": "547 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "retailerSku": "10619-1-item",
           "priceNgn": 21200,
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://peronabeauty.com/product/olay-super-serum-body-wash-for-normal-skin/",
             "responseUrl": "https://peronabeauty.com/product/olay-super-serum-body-wash-for-normal-skin/",
-            "responseSha256": "d586f1d08266a0ee0e05cb3b9fa44867e36681f17253b98dbf148b4d129c329c",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "06708159a00bf5d538664d30138def419f813b5754b1e2e45beb40ff555d58a5",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 395399,
-            "retrievedAt": "2026-07-23T14:36:55Z",
+            "responseByteSize": 433995,
+            "retrievedAt": "2026-08-08T04:34:51Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Olay Super Serum Body Wash for Normal Skin | Best Price"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "00030772160350",
-                "locator": "Bound official Olay identity snapshot",
+                "locator": "Bound official Olay catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 00030772160350",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Olay Super Serum Body Wash for Normal Skin",
-                "locator": "Decoded HTML h1 product heading",
+                "locator": "HTML product heading",
                 "sourceText": "Olay Super Serum Body Wash for Normal Skin"
               },
               "size": {
-                "value": "18.5 fl oz / 547 ml",
-                "locator": "Rendered primary gallery image principal display panel",
-                "sourceText": "Olay Super Serum Body Wash for Normal Skin 18.5 FL OZ (547 mL)"
+                "value": "547 ml",
+                "locator": "Bound official Olay catalogue identity snapshot",
+                "sourceText": "547ml"
               },
               "price": {
                 "value": 21200,
                 "currency": "NGN",
-                "locator": "Decoded Product JSON-LD offer price",
-                "sourceText": "NGN 21,200"
+                "locator": "Rendered product price",
+                "sourceText": "NGN21,200"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Decoded Product JSON-LD availability",
-                "sourceText": "In stock"
+                "locator": "Rendered availability status",
+                "sourceText": "IN STOCK"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T14:45:30Z"
+            "reviewedAt": "2026-08-08T04:35:00Z"
           }
         }
       ],
@@ -266,14 +276,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T14:48:00Z"
+      "approvedAt": "2026-08-08T04:35:20Z"
     },
-    "dossierFingerprint": "1425641a20ee0e12070c34fcd147984e98ca07e3542edc14fd044f212638d6ec"
+    "dossierFingerprint": "0f4c92eeb85c9bcc32a50eb601c502aa6a908a60aeeba80ef00ea4d982c714ed"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
-    "dossierFingerprint": "1425641a20ee0e12070c34fcd147984e98ca07e3542edc14fd044f212638d6ec",
+    "dossierFingerprint": "0f4c92eeb85c9bcc32a50eb601c502aa6a908a60aeeba80ef00ea4d982c714ed",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -285,13 +295,13 @@
       "usage": "Wet skin. Lather with a puff, wash, then rinse.",
       "manufacturerDirectionsUrl": "https://www.olay.com/products/olay-super-serum-body-wash-normal-skin?pswtb=true",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T14:49:00Z"
+      "reviewedAt": "2026-08-08T04:35:30Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T14:50:00Z"
+      "publishedAt": "2026-08-08T04:35:40Z"
     },
-    "releaseFingerprint": "ea23642ebc2cdc540d18f0e1620bc1056237fca1ba4772dac49671a93760aa09"
+    "releaseFingerprint": "e3a62f6d176bdedfb56d0ff2145456fd61aa58753299f05a1a2b1d0c126efea5"
   }
 }

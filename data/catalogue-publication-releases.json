@@ -4,30 +4,6 @@
   "releases": [
     {
       "schemaVersion": 2,
-      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
-      "dossierFingerprint": "1425641a20ee0e12070c34fcd147984e98ca07e3542edc14fd044f212638d6ec",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Cleanse",
-        "displayLine": "Hydrating body wash for normal skin.",
-        "usage": "Wet skin. Lather with a puff, wash, then rinse.",
-        "manufacturerDirectionsUrl": "https://www.olay.com/products/olay-super-serum-body-wash-normal-skin?pswtb=true",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T14:49:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T14:50:00Z"
-      },
-      "releaseFingerprint": "ea23642ebc2cdc540d18f0e1620bc1056237fca1ba4772dac49671a93760aa09"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "dove-calming-moisture-body-wash-547ml",
       "dossierFingerprint": "d9f86bce70041cb996b867616f5375bc37831ae407989c5f2f3b560173f73c6c",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:33:40Z"
       },
       "releaseFingerprint": "2d64f2f3af50ec6bc2b5eeb9c96083dc1f283d0ee7c48390fe57f9a42567f207"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "dossierFingerprint": "0f4c92eeb85c9bcc32a50eb601c502aa6a908a60aeeba80ef00ea4d982c714ed",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Hydrating body wash for normal skin.",
+        "usage": "Wet skin. Lather with a puff, wash, then rinse.",
+        "manufacturerDirectionsUrl": "https://www.olay.com/products/olay-super-serum-body-wash-normal-skin?pswtb=true",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:35:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:35:40Z"
+      },
+      "releaseFingerprint": "e3a62f6d176bdedfb56d0ff2145456fd61aa58753299f05a1a2b1d0c126efea5"
     }
   ]
 }
