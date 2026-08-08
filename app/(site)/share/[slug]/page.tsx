@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { buildShareData } from "./share-data";
 import { ShareAlternatives, ShareCard } from "./share-card";
+import { Reveal } from "@/components/motion/reveal";
 import { ShareButton } from "@/components/share/share-button";
 import { ScreenshotButton } from "@/components/share/screenshot-button";
 import { ProductTrendsChart } from "@/components/product-trends/product-trends-chart";
@@ -61,7 +62,7 @@ export default async function SharePage({
 
   return (
     <main className={styles.stage}>
-      <div className={styles.headlineRow}>
+      <Reveal className={styles.headlineRow} duration={0.6}>
         <h1 className={styles.headline}>
           {data.headlineLead}
           {data.headlineEmph ? (
@@ -75,14 +76,14 @@ export default async function SharePage({
           targetId="card-grid"
           fileName={`${data.view.brand}-${data.view.name}-jelocare`}
         />
-      </div>
+      </Reveal>
       <div id="card-grid" className={styles.cardGrid}>
         <ShareCard view={data.view} />
         <Suspense fallback={null}>
           <ProductTrendsSection slug={slug} />
         </Suspense>
       </div>
-      <div className={styles.actions}>
+      <Reveal className={styles.actions} delay={0.2}>
         <ShareButton
           path={`/share/${slug}`}
           title={`${data.view.brand} ${data.view.name}`}
@@ -90,9 +91,11 @@ export default async function SharePage({
         <Link href={`/products/${slug}`} className={styles.textLink}>
           See the full product →
         </Link>
-      </div>
+      </Reveal>
       {alternatives.length > 0 ? (
-        <ShareAlternatives items={alternatives} />
+        <Reveal delay={0.3}>
+          <ShareAlternatives items={alternatives} />
+        </Reveal>
       ) : null}
     </main>
   );
