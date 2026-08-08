@@ -172,30 +172,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
-      "dossierFingerprint": "260ccf0627d0e4fb47002e86e679d826ed5fadd57c7c949d34f3ed111e490561",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturize",
-        "displayLine": "Daily body moisture with turmeric and vitamin C.",
-        "usage": "Apply to clean, towel-dried body skin after bathing. Massage until absorbed and use daily.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T07:35:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T07:36:00Z"
-      },
-      "releaseFingerprint": "e74bf75a64aaff6c0d2e5ac02e8e4a343269c041fae917dbf0aa097522aac5c1"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
       "dossierFingerprint": "9f7261c4cd5b4c6d828de3a326403cd5f0247cca35903d88185fa0f2cd2cbd57",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T03:50:50Z"
       },
       "releaseFingerprint": "24c3920fa8be2b84ea2d92a28e655431914856c3864a9ebaf038536b365121a6"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "dossierFingerprint": "e449680ac0615acc73c915bd45f720a39866b801573f6178f3a3f7bc7bbff52f",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily body moisture with turmeric and vitamin C.",
+        "usage": "Apply to clean, towel-dried body skin after bathing. Massage until absorbed and use daily.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-turmeric-and-vitamin-c-body-lotion-500ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T03:52:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T03:52:50Z"
+      },
+      "releaseFingerprint": "ea3223b48c6aa25dcf80371e15542bfb207c9571dd0cc3adbd99da17b6424414"
     }
   ]
 }

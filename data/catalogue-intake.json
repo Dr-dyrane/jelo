@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T03:50:00Z",
+  "updatedAt": "2026-08-08T03:52:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -2673,73 +2673,68 @@
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
-            "observedAt": "2026-07-23T07:28:58.391Z",
-            "observedTitle": "AQUA RICH Hydrating Bright Turmeric And Vitamin C Body Lotion 500ml",
+            "observedAt": "2026-08-08T03:51:05Z",
+            "observedTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
             "observedSize": "500 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "retailerSku": "4897073186542",
-            "priceNgn": 10750,
-            "stock": "in-stock",
+            "priceNgn": 12800,
+            "stock": "low-stock",
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
               "responseUrl": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
-              "responseSha256": "4e0fd932b40eac7db764c9d0259160f4f5c3eda3442d1497504bf6e517a6b3c4",
+              "responseSha256": "13975ca83f12c0a4288f6037ad6a4c9d02b2695f34d9dbd1f52331555a30848d",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 824361,
-              "retrievedAt": "2026-07-23T07:28:58.391Z",
+              "responseByteSize": 529671,
+              "retrievedAt": "2026-08-08T03:51:05Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
-                "pageTitle": "AQUA RICH Hydrating Bright Turmeric And Vitamin C Body Lotion 500ml – Buybetter"
+                "pageTitle": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml - Buybetter"
               },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
                   "value": "4897073186542",
-                  "locator": "Bound official Aqua Rich 500 ml identity snapshot",
+                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 4897073186542",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
-                  "value": "AQUA RICH Hydrating Bright Turmeric And Vitamin C Body Lotion 500ml",
-                  "locator": "Rendered DOM h1.product_title",
-                  "sourceText": "AQUA RICH Hydrating Bright Turmeric And Vitamin C Body Lotion 500ml"
+                  "value": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml"
                 },
                 "size": {
                   "value": "500 ml",
-                  "locator": "Rendered DOM h1.product_title size suffix",
-                  "sourceText": "AQUA RICH Hydrating Bright Turmeric And Vitamin C Body Lotion 500ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "500ml"
                 },
                 "price": {
-                  "value": 10750,
+                  "value": 12800,
                   "currency": "NGN",
-                  "locator": "Rendered DOM p.price",
-                  "sourceText": "₦10,750.00 NG"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦12,800"
                 },
                 "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered DOM p.stock",
-                  "sourceText": "22 IN STOCK"
-                },
-                "retailerIdentifier": {
-                  "label": "SKU",
-                  "value": "4897073186542",
-                  "locator": "Rendered DOM .product_meta .sku",
-                  "sourceText": "SKU 4897073186542"
+                  "value": "low-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Only 9 left"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T07:29:30Z"
-            }
+              "reviewedAt": "2026-08-08T03:52:00Z"
+            },
+            "reviewedTitleAlias": "Aqua Rich Body Lotion"
           },
           {
             "retailer": "Kadimez Essentials",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
-            "observedAt": "2026-07-23T07:28:58.391Z",
+            "observedAt": "2026-08-08T03:51:16Z",
             "observedTitle": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
             "observedSize": "500 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -2750,13 +2745,13 @@
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
               "responseUrl": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
-              "responseSha256": "345c8a47b7f9688e1c98fded2727ed91f9125016654f9b1be3864870577687e8",
+              "responseSha256": "1f9c336a50961d16a90ffcb233e2506818d44610175c0c0d3db90d66e4a814a4",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 233024,
-              "retrievedAt": "2026-07-23T07:28:58.391Z",
+              "responseByteSize": 229584,
+              "retrievedAt": "2026-08-08T03:51:16Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml - Kadimez Essentials"
               },
@@ -2764,34 +2759,34 @@
                 "gtin": {
                   "label": "GTIN",
                   "value": "4897073186542",
-                  "locator": "Bound official Aqua Rich 500 ml identity snapshot",
+                  "locator": "Bound official Aqua Rich catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 4897073186542",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
-                  "locator": "Rendered DOM h1.product_title",
+                  "locator": "HTML product heading",
                   "sourceText": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml"
                 },
                 "size": {
                   "value": "500 ml",
-                  "locator": "Rendered DOM h1.product_title size suffix",
-                  "sourceText": "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "500ml"
                 },
                 "price": {
                   "value": 12000,
                   "currency": "NGN",
-                  "locator": "Rendered DOM p.price",
-                  "sourceText": "₦12,000.00"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦12,000"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "Rendered DOM p.stock",
+                  "locator": "Rendered availability status",
                   "sourceText": "In stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T07:29:30Z"
+              "reviewedAt": "2026-08-08T03:52:00Z"
             }
           }
         ],

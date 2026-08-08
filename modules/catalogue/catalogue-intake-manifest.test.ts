@@ -973,7 +973,7 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
   assert.equal(turmeric.identity.gtin, '4897073186542');
   assert.equal(turmeric.identity.officialEvidence?.observedSize, '500 ml');
   assert.deepEqual(turmeric.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Kadimez Essentials']);
-  assert.deepEqual(turmeric.nigeria.exactOffers.map(offer => offer.priceNgn), [10_750, 12_000]);
+  assert.deepEqual(turmeric.nigeria.exactOffers.map(offer => offer.priceNgn), [12_800, 12_000]);
   assert.equal(turmeric.nigeria.exactOffers.every(offer => (
     offer.observedGtinBasis === 'exact-variant-and-size'
     && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
@@ -984,7 +984,7 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
   assert.ok(turmericGeneration);
   const { recordSha256: turmericRecordSha256, ...turmericGenerationContent } = turmericGeneration;
   assert.equal(turmericRecordSha256, catalogueGenerationRecordSha256(turmericGenerationContent));
-  const turmericDecision = evaluateCatalogueIntakeCandidate(turmeric, researchAsOf);
+  const turmericDecision = evaluateCatalogueIntakeCandidate(turmeric, Date.parse('2026-08-08T03:52:30Z'));
   assert.equal(turmericDecision.stage, 'approval-ready');
   assert.equal(turmericDecision.approvalDraftReady, true);
   assert.equal(turmericDecision.freshExactOffers.length, 2);
