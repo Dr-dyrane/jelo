@@ -1708,30 +1708,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
-      "dossierFingerprint": "7e81daf253251eaf7d7ee371ba100b4d40180742cd2095196fb7fdefcabcbd38",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturise",
-        "displayLine": "Bright + Glow Body Lotion 500 ml",
-        "usage": "Apply onto clean, slightly damp skin after bath or shower. Massage gently in circular motions until fully absorbed. Focus on areas prone to dryness or uneven tone.",
-        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T16:55:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T17:00:00Z"
-      },
-      "releaseFingerprint": "b7f4b9117ce687fe9bb5b9e3931feb4956abd4ba1e1f88cd3822bbd87ae407c3"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
       "dossierFingerprint": "ad9d0f0458c2c338795de3aa0850c32f1d5d7665cd5dc346e0c46eaa299e9bdf",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T18:50:45Z"
       },
       "releaseFingerprint": "01937cb016607828b7b75a623aa85931bd4226938ca6bd8bec47b8928177779e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+      "dossierFingerprint": "710a8072c869ad25930646cc01931613932788fafae4daf14c262806cfe913a4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturise",
+        "displayLine": "Bright + Glow Body Lotion 500 ml",
+        "usage": "Apply onto clean, slightly damp skin after bath or shower. Massage gently in circular motions until fully absorbed. Focus on areas prone to dryness or uneven tone.",
+        "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T19:26:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T19:26:30Z"
+      },
+      "releaseFingerprint": "8ce041a3eae72f51f1a56f2fdf3f1203eab19fe34f3e9ee0d869a1bcab663aaf"
     }
   ]
 }

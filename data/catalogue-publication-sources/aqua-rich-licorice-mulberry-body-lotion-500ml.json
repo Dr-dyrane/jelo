@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
-    "candidateFingerprint": "f10f17bd829ca9312ce1fe8361b0bccfba97b31d1797fc5c2b20d8555bb5247c",
+    "candidateFingerprint": "4ac4d3ee3128a72e577ae336a6b8d4d36d29306a74da5cd0e58269f9c06da492",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -102,8 +102,7 @@
     },
     "rights": {
       "status": "documented",
-      "origin": "official-brand-media",
-      "evidenceUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
+      "origin": "owned-identity-verified-render",
       "sourceAsset": {
         "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-1.jpg",
         "sha256": "ceb6a332c4918380f370a5754ac89074b5b085ae6c24095cbc68cad068dd573c",
@@ -113,98 +112,54 @@
         "height": 800,
         "retrievedAt": "2026-08-07T16:35:00Z"
       },
-      "isolationRecord": {
+      "generationRecord": {
         "schemaVersion": 1,
-        "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
-        "publicationScope": "catalogue-publication",
-        "source": {
-          "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-1.jpg",
-          "sha256": "ceb6a332c4918380f370a5754ac89074b5b085ae6c24095cbc68cad068dd573c",
-          "byteSize": 33062,
-          "width": 800,
-          "height": 800,
-          "retrievedAt": "2026-08-07T16:35:00Z"
-        },
-        "identity": {
-          "canonicalIdentifier": {
-            "kind": "gtin",
-            "value": "04897073187532"
+        "provider": "JeloCare local deterministic alpha-only edge repair and transparent PNG encoding",
+        "model": "Pillow 11.3.0 MinFilter(3) x3",
+        "prompt": "Use case: precise-object-edit. From the exact official Aqua Rich Licorice + Mulberry Bright + Glow Body Lotion 500 ml source and prior identity-reviewed public packshot, contract only the existing normalized alpha matte by three 1 px steps to remove the pale source-background rim. Preserve all connected product RGB, package geometry, label, variant and size. No RGB repainting, label edits, redraw, props, shadow, clipping or size change.",
+        "inputs": [
+          {
+            "url": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-1.jpg",
+            "sha256": "ceb6a332c4918380f370a5754ac89074b5b085ae6c24095cbc68cad068dd573c"
           },
-          "officialProductUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/"
-        },
-        "processing": {
-          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-          "packageRgbOrigin": "identity-master-source-pixels-only",
-          "tool": "rembg alpha mask over source RGB pixels",
-          "model": "isnet-general-use",
-          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-          "provider": "CPUExecutionProvider",
-          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-        },
-        "audit": {
-          "sha256": "9290669393c7d376760cb0a3a52bad77397c47e77333684366c7cf30081973cb",
-          "generatedAt": "2026-08-07T16:43:18Z",
-          "inferredComponentCount": 1,
-          "retainedComponentCount": 1,
-          "removedComponentCount": 0,
-          "removedForegroundFraction": 0,
-          "componentReviewRequired": false,
-          "sourceEdgeContactFraction": 0
-        },
-        "output": {
-          "sha256": "b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a",
-          "byteSize": 639089,
-          "mimeType": "image/png",
-          "width": 2000,
-          "height": 2000,
-          "hasAlpha": true
-        },
-        "review": {
-          "identityReviewedAt": "2026-08-07T16:44:00Z",
-          "identityReviewer": "JeloCare catalogue identity review",
-          "artReviewedAt": "2026-08-07T16:45:00Z",
-          "artReviewer": "Codex visual audit",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
-          "surfaceReviewSha256": "9ef0d8fa8375c05fa58c95691d3087ffe401a6f0e1b322c7ba445e434cb0586d",
-          "packagingIntact": true,
-          "labelVariantSizeUnchanged": true,
-          "magazineReady": true
-        }
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v1-b405acb34f2088a0.png",
+            "sha256": "b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a"
+          }
+        ],
+        "outputSha256": "af8e47053dfa09f8160ec30426a768cae6e6ef0e2532850571285db1b7bec8c8",
+        "generatedAt": "2026-08-08T19:23:00Z",
+        "recordSha256": "909b1e972dbc5dbb90b37b64e34cb481e1518773ce95d566886748242e57c799"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v1-b405acb34f2088a0.png",
-      "sha256": "b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v2-af8e47053dfa09f8.png",
+      "sha256": "af8e47053dfa09f8160ec30426a768cae6e6ef0e2532850571285db1b7bec8c8",
       "mimeType": "image/png",
-      "byteSize": 639089,
+      "byteSize": 637946,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T16:45:00Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-08T19:25:00Z",
+      "reviewer": "Codex independent catalogue media recheck"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T16:50:00Z"
+      "approvedAt": "2026-08-08T19:25:30Z"
     },
-    "dossierFingerprint": "7e81daf253251eaf7d7ee371ba100b4d40180742cd2095196fb7fdefcabcbd38"
+    "dossierFingerprint": "710a8072c869ad25930646cc01931613932788fafae4daf14c262806cfe913a4"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
-    "dossierFingerprint": "7e81daf253251eaf7d7ee371ba100b4d40180742cd2095196fb7fdefcabcbd38",
+    "dossierFingerprint": "710a8072c869ad25930646cc01931613932788fafae4daf14c262806cfe913a4",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -216,13 +171,13 @@
       "usage": "Apply onto clean, slightly damp skin after bath or shower. Massage gently in circular motions until fully absorbed. Focus on areas prone to dryness or uneven tone.",
       "manufacturerDirectionsUrl": "https://www.aquarich.net/product/aqua-rich-licorice-and-mulbery-root-extract-body-lotion-500ml/",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T16:55:00Z"
+      "reviewedAt": "2026-08-08T19:26:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T17:00:00Z"
+      "publishedAt": "2026-08-08T19:26:30Z"
     },
-    "releaseFingerprint": "b7f4b9117ce687fe9bb5b9e3931feb4956abd4ba1e1f88cd3822bbd87ae407c3"
+    "releaseFingerprint": "8ce041a3eae72f51f1a56f2fdf3f1203eab19fe34f3e9ee0d869a1bcab663aaf"
   }
 }

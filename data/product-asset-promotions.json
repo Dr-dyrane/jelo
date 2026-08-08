@@ -424,21 +424,21 @@
     "blobPath": "products/aqua-rich/aqua-rich-turmeric-vitamin-c-body-wash-1000ml/packshot-v2-5a28f8a4f287c503.png"
   },
   {
-    "id": "aqua-rich-licorice-mulberry-body-lotion-500ml-packshot-v1",
+    "id": "aqua-rich-licorice-mulberry-body-lotion-500ml-packshot-v2",
     "active": true,
     "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
     "publicationBrandSlug": "aqua-rich",
     "destination": "publication",
     "sourceUrl": "https://www.aquarich.net/wp-content/uploads/2026/01/Aqua-Rich-Licorice-and-Mulbery-Root-Extract-Body-Lotion-1.jpg",
-    "localPath": "data/catalogue-intake-assets/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v1-b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a.png",
-    "blobPath": "products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v1-b405acb34f2088a0.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v1-b405acb34f2088a0.png",
+    "localPath": "data/catalogue-intake-assets/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v2-af8e47053dfa09f8160ec30426a768cae6e6ef0e2532850571285db1b7bec8c8.png",
+    "blobPath": "products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v2-af8e47053dfa09f8.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-licorice-mulberry-body-lotion-500ml/packshot-v2-af8e47053dfa09f8.png",
     "contentType": "image/png",
-    "byteSize": 639089,
+    "byteSize": 637946,
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a"
+    "contentHash": "af8e47053dfa09f8160ec30426a768cae6e6ef0e2532850571285db1b7bec8c8"
   },
   {
     "id": "aqua-rich-licorice-mulberry-body-wash-1000ml-packshot-v2",
