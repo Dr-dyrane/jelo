@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
-    "candidateFingerprint": "4c2c676d73d49106d82d4ad08c731c73982c33d7168899d8085bf0819045625d",
+    "candidateFingerprint": "a2f013e377fefae28f9b9945401ef6eba23415b3e638568d826b76e947c4a598",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -104,7 +104,7 @@
           "retailer": "Beauty by Daz",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
-          "observedAt": "2026-07-23T05:20:00Z",
+          "observedAt": "2026-08-08T02:50:59Z",
           "observedTitle": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)",
           "observedSize": "150 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -116,13 +116,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
             "responseUrl": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
-            "responseSha256": "7e7a313dbe38fe4e4976c2276f8b81f269021ac47a0c028e1c8b1cb3a56755c3",
+            "responseSha256": "55b690a502d2a333922789771b6f5c57b912e8d2a4932793304dcc9308a8218c",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200071,
-            "retrievedAt": "2026-07-23T05:20:00Z",
+            "responseByteSize": 255920,
+            "retrievedAt": "2026-08-08T02:50:59Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5 FL OZ (150ML)"
             },
@@ -148,23 +148,23 @@
                 "value": 23850,
                 "currency": "NGN",
                 "locator": "Rendered DOM product price",
-                "sourceText": "₦23,850.00"
+                "sourceText": "₦23,850"
               },
               "stock": {
                 "value": "in-stock",
                 "locator": "Rendered DOM availability status",
-                "sourceText": "In stock"
+                "sourceText": "in stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T05:27:30Z"
+            "reviewedAt": "2026-08-08T02:51:11Z"
           }
         },
         {
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/",
-          "observedAt": "2026-07-23T05:20:00Z",
+          "observedAt": "2026-08-08T02:51:11Z",
           "observedTitle": "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml",
           "observedSize": "150 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -176,13 +176,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/",
             "responseUrl": "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/",
-            "responseSha256": "d1c8606933e1148de4229a6e394bc0eede3bbc1d2f88fa94ad70e3489d2bcc3c",
+            "responseSha256": "90720279129e3fedb0358555300b77d539b90ff4915e98796fde659ead98ae52",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200030,
-            "retrievedAt": "2026-07-23T05:20:00Z",
+            "responseByteSize": 371397,
+            "retrievedAt": "2026-08-08T02:51:11Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Buy Original Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml in Nigeria | Teeka4"
             },
@@ -208,16 +208,16 @@
                 "value": 24500,
                 "currency": "NGN",
                 "locator": "Rendered DOM product price",
-                "sourceText": "₦24,500.00"
+                "sourceText": "₦24,500"
               },
               "stock": {
                 "value": "in-stock",
                 "locator": "Rendered DOM availability status",
-                "sourceText": "In stock"
+                "sourceText": "in stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T05:27:30Z"
+            "reviewedAt": "2026-08-08T02:51:11Z"
           }
         }
       ],
@@ -271,14 +271,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T05:33:10Z"
+      "approvedAt": "2026-08-08T02:52:00Z"
     },
-    "dossierFingerprint": "c1aaa58884a084938322e72dc8b1adc435374380d18123fe17298b5c0ecd9c19"
+    "dossierFingerprint": "2d9a69b37cbcd5c4c4fb4681ca97fccc7504a3069f0fbb4b7befcb67b23245b9"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
-    "dossierFingerprint": "c1aaa58884a084938322e72dc8b1adc435374380d18123fe17298b5c0ecd9c19",
+    "dossierFingerprint": "2d9a69b37cbcd5c4c4fb4681ca97fccc7504a3069f0fbb4b7befcb67b23245b9",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -289,14 +289,14 @@
       "displayLine": "10% benzoyl peroxide wash.",
       "usage": "Use on wet skin, work into a foam, then rinse. Begin once daily and reduce use if dryness or peeling develops.",
       "manufacturerDirectionsUrl": "https://www.cerave.com/skincare/cleansers/facial-cleansers/benzoyl-peroxide-face-wash",
-      "reviewer": "JeloCare catalogue presentation review",
-      "reviewedAt": "2026-07-23T05:33:20Z"
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-08T02:52:10Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
-      "reviewer": "JeloCare catalogue publication review",
-      "publishedAt": "2026-07-23T05:33:25Z"
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-08T02:52:20Z"
     },
-    "releaseFingerprint": "9a3b4997368234abb0833a81522289d31e2536fde40ee360567df29c10e61549"
+    "releaseFingerprint": "d17179c6e1dc25457bd7d9d6a1dd1a4123ae4d1fd9c00513dc1c504d1aab2f1c"
   }
 }

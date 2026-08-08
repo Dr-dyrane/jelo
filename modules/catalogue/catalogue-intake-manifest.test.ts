@@ -1014,7 +1014,7 @@ test('the acne wash binds its official identity, exact Nigerian offers and gener
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T02:52:00Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.freshExactOffers.length, 2);
   assert.equal(decision.blockers.length, 0);
