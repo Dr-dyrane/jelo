@@ -4,30 +4,6 @@
   "releases": [
     {
       "schemaVersion": 2,
-      "candidateId": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
-      "dossierFingerprint": "cd1c94013511383030d50933307a4f3d12a5ad50a369be52ef1187b7f63c81ab",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "10% sulfur rinse-off acne treatment.",
-        "usage": "Apply a thin layer to acne areas for 10 minutes, then rinse. Start once daily.",
-        "manufacturerDirectionsUrl": "https://dlclabs.com/products/de-la-cruz-acne-treatment-maximum-strength-with-10-sulfur-2-6-oz-73-7-g",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T13:03:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T13:04:00Z"
-      },
-      "releaseFingerprint": "f3265e6fed167ff79bcec4038a9229a743d656ca92a2bfe78bf8241c7e9fe7f6"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
       "dossierFingerprint": "1425641a20ee0e12070c34fcd147984e98ca07e3542edc14fd044f212638d6ec",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:31:40Z"
       },
       "releaseFingerprint": "aea623a009645c1594c8492b518b2a0131e56006a191a6af75ba4d19fa702966"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
+      "dossierFingerprint": "f5a3de89da4ca100a04f5148e89a2b5d3080872b39e28ff4b83e0823b3d12701",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "10% sulfur rinse-off acne treatment.",
+        "usage": "Apply a thin layer to acne areas for 10 minutes, then rinse. Start once daily.",
+        "manufacturerDirectionsUrl": "https://dlclabs.com/products/de-la-cruz-acne-treatment-maximum-strength-with-10-sulfur-2-6-oz-73-7-g",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:33:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:33:40Z"
+      },
+      "releaseFingerprint": "2d64f2f3af50ec6bc2b5eeb9c96083dc1f283d0ee7c48390fe57f9a42567f207"
     }
   ]
 }

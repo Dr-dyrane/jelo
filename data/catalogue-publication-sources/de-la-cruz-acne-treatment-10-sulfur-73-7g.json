@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
-    "candidateFingerprint": "6faa90caaa7787074d0599f882f17318c406b1683d101094ace0264fa852c1a8",
+    "candidateFingerprint": "328324f844a8d0d2086d41db31e1e14393f9c5a0d5f7a55a35c38e2073626f53",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -109,7 +109,7 @@
           "retailer": "Beauty by Daz",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://beautybydaz.com/shop/face/de-la-cruz-maximum-strength-acne-treatment-ointment-2-6oz/",
-          "observedAt": "2026-07-23T12:45:30Z",
+          "observedAt": "2026-08-08T04:32:27Z",
           "observedTitle": "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
           "observedSize": "2.6 oz",
           "observedGtinBasis": "exact-variant-and-size",
@@ -118,16 +118,16 @@
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://beautybydaz.com/shop/face/de-la-cruz-maximum-strength-acne-treatment-ointment-2-6oz/",
             "responseUrl": "https://beautybydaz.com/shop/face/de-la-cruz-maximum-strength-acne-treatment-ointment-2-6oz/",
-            "responseSha256": "128be22f5d61c8124ec7fdac4473c3318edd6a15d66d1376d84a734da6e3a3c3",
-            "responseDigestScope": "rendered-accessibility-tree",
+            "responseSha256": "eafefa7397048f7f3de8b4667e52f7de9cf08bd1689f504b33ad98579dd6d292",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 8918,
-            "retrievedAt": "2026-07-23T12:45:30Z",
+            "responseByteSize": 257067,
+            "retrievedAt": "2026-08-08T04:32:27Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Shop De La Cruz Maximum Strength Acne Treatment Ointment in Nigeria | Beauty By Daz"
             },
@@ -135,41 +135,41 @@
               "gtin": {
                 "label": "GTIN",
                 "value": "024286150426",
-                "locator": "Bound official DLC Labs A1153 identity snapshot",
+                "locator": "Bound official De La Cruz catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 024286150426",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
-                "locator": "Rendered accessibility heading level 1",
+                "locator": "HTML product heading",
                 "sourceText": "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz"
               },
               "size": {
                 "value": "2.6 oz",
-                "locator": "Rendered accessibility product heading size suffix",
-                "sourceText": "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "2.6Oz"
               },
               "price": {
                 "value": 12500,
                 "currency": "NGN",
-                "locator": "Rendered accessibility product price",
+                "locator": "Rendered product price",
                 "sourceText": "₦12,500.00"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Rendered accessibility availability status",
-                "sourceText": "In stock"
+                "locator": "Rendered availability status",
+                "sourceText": "IN STOCK"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T12:54:00Z"
+            "reviewedAt": "2026-08-08T04:33:00Z"
           }
         },
         {
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/de-la-cruz-acne-treatment-with-10-sulfur-ointment-2-6-oz-73-7g/",
-          "observedAt": "2026-07-23T12:46:12Z",
+          "observedAt": "2026-08-08T04:32:40Z",
           "observedTitle": "DE LA CRUZ Acne Treatment (With 10% Sulfur) Ointment 2.6 oz 73.7g",
           "observedSize": "2.6 oz / 73.7 g",
           "observedGtinBasis": "exact-variant-and-size",
@@ -178,46 +178,51 @@
           "stock": "out-of-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/de-la-cruz-acne-treatment-with-10-sulfur-ointment-2-6-oz-73-7g/",
             "responseUrl": "https://buybetter.ng/product/de-la-cruz-acne-treatment-with-10-sulfur-ointment-2-6-oz-73-7g/",
-            "responseSha256": "b3db15a2ecb716748cc968e5e39a84de08f204f128597826b862a52ce89b6031",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "8b1a3f57c46e5805317fec741a733e18bd2d37a86100ad0e407f9bf5405fbf50",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 799031,
-            "retrievedAt": "2026-07-23T12:46:12Z",
+            "responseByteSize": 528540,
+            "retrievedAt": "2026-08-08T04:32:40Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "DE LA CRUZ Acne Treatment (With 10% Sulfur) Ointment 2.6 oz 73.7g - Buybetter"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "024286150426",
-                "locator": "Bound official DLC Labs A1153 identity snapshot",
+                "locator": "Bound official De La Cruz catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 024286150426",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "DE LA CRUZ Acne Treatment (With 10% Sulfur) Ointment 2.6 oz 73.7g",
-                "locator": "Decoded HTML h1 product heading",
+                "locator": "HTML product heading",
                 "sourceText": "DE LA CRUZ Acne Treatment (With 10% Sulfur) Ointment 2.6 oz 73.7g"
               },
               "size": {
                 "value": "2.6 oz / 73.7 g",
-                "locator": "Decoded HTML h1 size tokens",
-                "sourceText": "DE LA CRUZ Acne Treatment (With 10% Sulfur) Ointment 2.6 oz 73.7g"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "2.6 oz 73.7g"
               },
               "price": {
                 "value": 17738,
                 "currency": "NGN",
-                "locator": "Decoded HTML product price",
-                "sourceText": "₦17,738.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦17,738"
               },
               "stock": {
                 "value": "out-of-stock",
-                "locator": "Decoded HTML availability status",
+                "locator": "Rendered availability status",
                 "sourceText": "Out of stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T12:54:00Z"
+            "reviewedAt": "2026-08-08T04:33:00Z"
           }
         }
       ],
@@ -271,14 +276,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T13:02:00Z"
+      "approvedAt": "2026-08-08T04:33:20Z"
     },
-    "dossierFingerprint": "cd1c94013511383030d50933307a4f3d12a5ad50a369be52ef1187b7f63c81ab"
+    "dossierFingerprint": "f5a3de89da4ca100a04f5148e89a2b5d3080872b39e28ff4b83e0823b3d12701"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
-    "dossierFingerprint": "cd1c94013511383030d50933307a4f3d12a5ad50a369be52ef1187b7f63c81ab",
+    "dossierFingerprint": "f5a3de89da4ca100a04f5148e89a2b5d3080872b39e28ff4b83e0823b3d12701",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -290,13 +295,13 @@
       "usage": "Apply a thin layer to acne areas for 10 minutes, then rinse. Start once daily.",
       "manufacturerDirectionsUrl": "https://dlclabs.com/products/de-la-cruz-acne-treatment-maximum-strength-with-10-sulfur-2-6-oz-73-7-g",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T13:03:00Z"
+      "reviewedAt": "2026-08-08T04:33:30Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T13:04:00Z"
+      "publishedAt": "2026-08-08T04:33:40Z"
     },
-    "releaseFingerprint": "f3265e6fed167ff79bcec4038a9229a743d656ca92a2bfe78bf8241c7e9fe7f6"
+    "releaseFingerprint": "2d64f2f3af50ec6bc2b5eeb9c96083dc1f283d0ee7c48390fe57f9a42567f207"
   }
 }

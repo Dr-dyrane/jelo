@@ -1421,7 +1421,7 @@ test('the De La Cruz sulfur jar binds its official identity, two current Nigeria
   )), true);
   assert.equal(
     candidate.nigeria.exactOffers[0].evidence?.method,
-    'reviewed-browser-accessibility-exact-offer-field-extraction',
+    'reviewed-browser-dom-exact-offer-field-extraction',
   );
   assert.equal(candidate.asset.publicImageSha256, '07f60271a771ad7e84784b0677bf48bbc1e790360711708e986100fb6d8b7955');
   assert.equal(candidate.asset.publicImageByteSize, 3_844_784);
@@ -1432,7 +1432,7 @@ test('the De La Cruz sulfur jar binds its official identity, two current Nigeria
   const { recordSha256, ...content } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:33:20Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
