@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T19:47:16Z",
+  "updatedAt": "2026-08-08T02:35:40Z",
   "order": 31,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -96,7 +96,7 @@
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
-          "observedAt": "2026-07-26T14:53:00Z",
+          "observedAt": "2026-08-08T02:35:31Z",
           "observedTitle": "Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml",
           "observedSize": "150 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -105,14 +105,14 @@
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
             "responseUrl": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
-            "responseSha256": "582ca15f986e6e62eb889fd283f6b1c387c168b35fbfc52be56c273673fe7cb8",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "5584a91a0d4e2ba68709f28da12b7b37d31b8fe2e06d20a9d71c12295ba63b99",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 357760,
-            "retrievedAt": "2026-07-26T14:53:00Z",
+            "responseByteSize": 392093,
+            "retrievedAt": "2026-08-08T02:35:31Z",
             "fields": {
               "gtin": {
                 "label": "GTIN",
@@ -129,7 +129,7 @@
               "size": {
                 "value": "150 ml",
                 "locator": "HTML document title size suffix",
-                "sourceText": "5.1fl oz / 150ml"
+                "sourceText": "Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml"
               },
               "price": {
                 "value": 4999,
@@ -140,38 +140,43 @@
               "stock": {
                 "value": "in-stock",
                 "locator": "Twitter product availability meta",
-                "sourceText": "In stock"
+                "sourceText": "in stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-26T14:53:30Z"
+            "reviewedAt": "2026-08-08T02:35:40Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Shop for original Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml in Lagos Nigeria"
+            }
           }
         },
         {
           "retailer": "CSi Grocery",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/",
-          "observedAt": "2026-07-26T15:16:22.527Z",
+          "observedAt": "2026-08-08T02:35:40Z",
           "observedTitle": "Simple Refreshing Facial Wash – 150ml",
           "reviewedTitleAlias": "Refreshing Facial Wash",
           "observedSize": "150 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "priceNgn": 4800,
-          "stock": "in-stock",
+          "stock": "low-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/",
             "responseUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/",
-            "responseSha256": "3b2b5864ba3f8246d360d6af89f7a7ea674f5f94b548c7864cc3416509146c3c",
-            "responseDigestScope": "rendered-accessibility-tree",
+            "responseSha256": "7b88148ea3a15ca2bd9a58d78734d5b87f1965c2b39cc27981e3237a8821d73f",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 11759,
-            "retrievedAt": "2026-07-26T15:16:22.527Z",
+            "responseByteSize": 535532,
+            "retrievedAt": "2026-08-08T02:35:40Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
-              "pageTitle": "Simple Refreshing Facial Wash - 150ml @ Best Price | CSi Grocery"
+              "pageTitle": "Simple Refreshing Facial Wash - 150ml | CSi Grocery"
             },
             "fields": {
               "gtin": {
@@ -195,16 +200,16 @@
                 "value": 4800,
                 "currency": "NGN",
                 "locator": "Rendered accessibility product price",
-                "sourceText": "₦4,800.00"
+                "sourceText": "₦4,800"
               },
               "stock": {
-                "value": "in-stock",
+                "value": "low-stock",
                 "locator": "Rendered accessibility availability status",
-                "sourceText": "Availability: In stock"
+                "sourceText": "2 in stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-26T15:18:00Z"
+            "reviewedAt": "2026-08-08T02:35:40Z"
           }
         }
       ],

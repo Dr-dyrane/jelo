@@ -225,7 +225,7 @@ test('community-priority Simple and DANG leads preserve live evidence without by
   assert.equal(sunscreen.asset.rightsStatus, 'documented');
   assert.equal(niacinamide.nigeria.excludedObservations[0]?.retailer, 'Bracketts Beauty');
   assert.equal(sunscreen.nigeria.excludedObservations[0]?.priceNgn, 27_500);
-  assert.equal(evaluateCatalogueIntakeCandidate(simple, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');
+  assert.equal(evaluateCatalogueIntakeCandidate(simple, Date.parse('2026-08-08T02:36:00Z')).stage, 'approval-ready');
   assert.equal(evaluateCatalogueIntakeCandidate(azelaic, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');
   for (const candidate of [simple, azelaic, niacinamide, sunscreen]) {
     assert.equal(evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T15:20:00Z')).approvalDraftReady, false);

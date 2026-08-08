@@ -12,11 +12,9 @@ import {
   type CatalogueGenerationRecord,
 } from '@/lib/catalogue/intake-readiness';
 
-const asOf = Date.parse('2026-07-26T20:00:00Z');
+const asOf = Date.parse('2026-08-08T02:36:00Z');
 const completedCandidateIds = [
-  'nivea-perfect-radiant-body-lotion-400ml',
   'simple-kind-to-skin-refreshing-facial-gel-wash-150ml',
-  'dang-azelaic-acid-serum-30ml',
 ] as const;
 
 test('the completed packshot cohort leaves no unresolved generation plans', () => {
@@ -97,7 +95,7 @@ test('the empty plan still fails closed on schema or future-time drift', () => {
   );
   assert.throws(
     () => verifyCataloguePackshotGenerationSpecificationManifest(
-      { ...specifications, updatedAt: '2026-07-27T20:00:00Z' },
+      { ...specifications, updatedAt: '2026-08-09T02:36:00Z' },
       catalogueIntakeCandidates,
       { asOf },
     ),

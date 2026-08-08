@@ -748,30 +748,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
-      "dossierFingerprint": "0e63cc3be67396be6fa4d18a47112fde5f422a8698017b8dd201dc215268d08a",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Soap-free daily cleanse · 150 ml",
-        "usage": "Massage over wet facial skin in gentle circular motions, then rinse well with tepid water. Avoid the eye area and follow with moisturiser.",
-        "manufacturerDirectionsUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-26T19:52:20Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-26T19:53:20Z"
-      },
-      "releaseFingerprint": "5467c08dec630a922733fcc931a8758f33d7b964ff34ff52bd8499260edc272b"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
       "dossierFingerprint": "9fbff126ef67ad1dd11f7add2de1134b9767e4f3e6765cdc25897396438eb465",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T02:25:20Z"
       },
       "releaseFingerprint": "30c0124b993fb163de3b532c45925eac6f9faff7a044c2a1a72717d1ca715ffd"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "dossierFingerprint": "7df83ad5c4031aca2a735eac7d8feb42edfc5d510ddeb67babb36ec8d4b3625b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Soap-free daily cleanse · 150 ml",
+        "usage": "Massage over wet facial skin in gentle circular motions, then rinse well with tepid water. Avoid the eye area and follow with moisturiser.",
+        "manufacturerDirectionsUrl": "https://www.simpleskincare.com/sg/p/kind-to-skin-refreshing-facial-gel-wash.html/05011451103863",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T02:36:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T02:36:20Z"
+      },
+      "releaseFingerprint": "c8d2c4fc4b3ce778c622732ff6fac7aac356f96404eb5ff6ad85460162a5fc3c"
     }
   ]
 }
