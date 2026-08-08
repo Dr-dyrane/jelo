@@ -7994,271 +7994,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "dang-azelaic-acid-serum-30ml",
-      "candidateFingerprint": "7a60d43361efad92f2f3de42aedf9a290739d0cefecb59f1ba64c354f3205656",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "6154000333867",
-        "brand": "DANG",
-        "name": "Azelaic Acid Serum",
-        "variant": "Azelaic Acid Serum 30ml",
-        "size": "30 ml",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-        "officialIdentity": {
-          "url": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-          "observedGtin": "6154000333867",
-          "observedVariant": "Azelaic Acid Serum 30ml",
-          "observedSize": "30 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/dang-azelaic-acid-serum-30ml.json",
-          "canonicalExtraction": {
-            "schemaVersion": 3,
-            "candidateId": "dang-azelaic-acid-serum-30ml",
-            "sourceUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-            "responseUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-            "retrievedAt": "2026-07-26T14:50:00Z",
-            "fields": {
-              "gtin": {
-                "value": "6154000333867",
-                "locator": "Official Shopify variant barcode",
-                "sourceText": "barcode: 6154000333867"
-              },
-              "variant": {
-                "value": "Azelaic Acid Serum 30ml",
-                "locator": "Official product JSON title",
-                "sourceText": "Azelaic Acid Serum 30ml"
-              },
-              "size": {
-                "value": "30 ml",
-                "locator": "Official product title size suffix",
-                "sourceText": "Azelaic Acid Serum 30ml"
-              }
-            },
-            "sourceResponseSha256": "4b8ade24ccfdfa41c83067a933bbddbd5c1890d6ca0a295b4168db89dceedef5",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 452433,
-            "responseDigestScope": "decoded-response-body",
-            "method": "reviewed-exact-identity-field-extraction",
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-26T14:52:00Z"
-          },
-          "snapshotSha256": "027638c4c7bf5818d9aab4c2660f3d59f69d443db59474583ca3b0829c0bd0ac",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 982,
-          "retrievedAt": "2026-07-26T14:50:00Z"
-        },
-        "checkedAt": "2026-07-26T14:52:00Z",
-        "demandEvidenceUrls": [
-          "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
-          "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
-          "https://www.brackettsbeauty.com/products/azelaic-acid-serum"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Leave-on serum with azelaic acid, niacinamide, purslane and licorice listed by the manufacturer",
-        "careTier": "targeted-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat acne, rosacea or pigment disorders. Avoid the eyes, introduce one leave-on product at a time, stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
-        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
-        "evidenceUrls": [
-          "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
-        ],
-        "reviewedAt": "2026-07-26T14:53:00Z",
-        "reviewer": "JeloCare catalogue care review"
-      },
-      "nigeria": {
-        "marketRoute": "tier-a",
-        "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-        "exactOffers": [
-          {
-            "retailer": "Konga Health",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
-            "observedAt": "2026-07-26T14:53:00Z",
-            "observedTitle": "Dang Azelaic Acid Serum - 30ml",
-            "observedSize": "30 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "retailerSku": "6961916",
-            "priceNgn": 38700,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
-              "listingUrl": "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
-              "responseUrl": "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
-              "responseSha256": "b9243a572e396347b4a68bd54bc9e532b8d9616ab57d769d6423a3fc2dd6bcc3",
-              "responseDigestScope": "decoded-response-body",
-              "responseMimeType": "text/html",
-              "responseByteSize": 313637,
-              "retrievedAt": "2026-07-26T14:53:00Z",
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "6154000333867",
-                  "locator": "Bound official DANG catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 6154000333867",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Dang Azelaic Acid Serum - 30ml",
-                  "locator": "HTML document title and Product JSON-LD name",
-                  "sourceText": "Dang Azelaic Acid Serum - 30ml"
-                },
-                "size": {
-                  "value": "30 ml",
-                  "locator": "HTML document title size suffix",
-                  "sourceText": "Dang Azelaic Acid Serum - 30ml"
-                },
-                "price": {
-                  "value": 38700,
-                  "currency": "NGN",
-                  "locator": "Rendered product price span and product:price:amount meta",
-                  "sourceText": "₦38,700"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "product:availability meta",
-                  "sourceText": "in stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T14:53:30Z"
-            }
-          },
-          {
-            "retailer": "Perona Beauty",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
-            "observedAt": "2026-07-26T15:16:13.413Z",
-            "observedTitle": "Dang Azelaic Acid Serum 30ml",
-            "observedSize": "30 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "retailerSku": "11566-1-item",
-            "priceNgn": 19050,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-              "listingUrl": "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
-              "responseUrl": "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
-              "responseSha256": "4912dfb69e78900d5fbfa7e175323dc6b17ab556abe04a08f11890ac97f15485",
-              "responseDigestScope": "rendered-accessibility-tree",
-              "responseMimeType": "text/html",
-              "responseByteSize": 9711,
-              "retrievedAt": "2026-07-26T15:16:13.413Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Buy Dang Azelaic Acid Serum 30ml | Best Price"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "6154000333867",
-                  "locator": "Bound official DANG catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 6154000333867",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Dang Azelaic Acid Serum 30ml",
-                  "locator": "Rendered accessibility heading level 1",
-                  "sourceText": "Dang Azelaic Acid Serum 30ml"
-                },
-                "size": {
-                  "value": "30 ml",
-                  "locator": "Rendered accessibility product heading size suffix",
-                  "sourceText": "Dang Azelaic Acid Serum 30ml"
-                },
-                "price": {
-                  "value": 19050,
-                  "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "NGN19,050"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered accessibility availability status",
-                  "sourceText": "In stock"
-                },
-                "retailerIdentifier": {
-                  "label": "SKU",
-                  "value": "11566-1-item",
-                  "locator": "Rendered accessibility product metadata",
-                  "sourceText": "SKU: 11566-1-item"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T15:18:00Z"
-            }
-          }
-        ],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/azelaic-acid-pigmentationacne-control-30ml-114853.jpg?v=1783591062",
-          "sha256": "9e67f794d3ed1f69ef027201c29a6caf418603f1d7209c1c73ee316efc52dd6a",
-          "mimeType": "image/jpeg",
-          "byteSize": 107159,
-          "width": 1000,
-          "height": 1000,
-          "retrievedAt": "2026-07-26T14:50:00Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the exact current DANG Azelaic Acid Serum 30ml pack and the sole authority for product identity, bottle geometry, dropper, label layout, wording, colours, variant and size. The carton in Image 1 is identity reference only and must not appear in the output.\nPrimary request: recreate only the exact single serum bottle shown to the right of Image 1. Produce one complete upright deep warm-red 30 ml glass bottle, centered, perfectly front-facing, crisp, photorealistic and premium catalogue quality. Preserve its softly rounded rectangular body, fine metallic texture, salmon-red screw collar, complete glossy salmon-red dropper bulb, white Dang! mark, AZELAIC ACID SERUM title, supporting claim, ingredient line and exact printed size. Do not create a carton, barcode or additional package.\nText, verbatim where visible on the bottle: “Dang!”; “AZELAIC ACID”; “SERUM”; “Visibly Fade Pigmentation, Acne Control”; “Azelaic Acid. Niacinamide. Purslane Extract. Licorice Root Extract.”; “30ml”.\nComposition: square; full dropper tip, collar, bottle shoulders and complete rounded bottle base visible; generous even clear margin on all sides; product occupies about 66% of canvas height; no clipping, tilt, duplicate, carton, pedestal, floor, props, shadow or reflection.\nLighting: soft clean frontal product light contained on the bottle, with subtle edge definition and faithful warm-red material.\nScene/backdrop: perfectly flat uniform solid #ff00ff chroma-magenta for local removal, with no gradient, texture, vignette, spill, floor plane or lighting variation.\nConstraints: Image 1 overrides every generated assumption. Preserve the exact current bottle label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN. Use no #ff00ff anywhere on the product. The previously rejected render with an altered carton barcode is not an input and must never be reused.",
-          "inputs": [
-            {
-              "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/azelaic-acid-pigmentationacne-control-30ml-114853.jpg?v=1783591062",
-              "sha256": "9e67f794d3ed1f69ef027201c29a6caf418603f1d7209c1c73ee316efc52dd6a"
-            }
-          ],
-          "outputSha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
-          "generatedAt": "2026-07-26T19:11:17Z",
-          "recordSha256": "c955b7bc837f8c0b4b963e6aa6f3d30aad42b63870a63a37468409ecf7f37efb"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v1-b30b887a07133d28.png",
-        "sha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
-        "mimeType": "image/png",
-        "byteSize": 1745200,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-07-26T19:47:16Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-retail-rights-and-final-image",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-07-26T19:51:00Z"
-      },
-      "dossierFingerprint": "2a9785757bbdc9ffb858ef67734b5037de41fd3c8e74c2c6f4949434a18f94e2"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
       "candidateFingerprint": "f7626cf482a1f30cf5c57ff919575b9009863ed7c45dc03ff803ad22941bcc64",
       "exposure": "private-only",
@@ -30247,6 +29982,276 @@
         "approvedAt": "2026-08-08T02:52:00Z"
       },
       "dossierFingerprint": "2d9a69b37cbcd5c4c4fb4681ca97fccc7504a3069f0fbb4b7befcb67b23245b9"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "candidateFingerprint": "e618242916a475c0cd1f606f51822b38b3b68508c8506c4db6bace398b0065a4",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "6154000333867",
+        "brand": "DANG",
+        "name": "Azelaic Acid Serum",
+        "variant": "Azelaic Acid Serum 30ml",
+        "size": "30 ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+        "officialIdentity": {
+          "url": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+          "observedGtin": "6154000333867",
+          "observedVariant": "Azelaic Acid Serum 30ml",
+          "observedSize": "30 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-azelaic-acid-serum-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-azelaic-acid-serum-30ml",
+            "sourceUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+            "responseUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+            "retrievedAt": "2026-07-26T14:50:00Z",
+            "fields": {
+              "gtin": {
+                "value": "6154000333867",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: 6154000333867"
+              },
+              "variant": {
+                "value": "Azelaic Acid Serum 30ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Azelaic Acid Serum 30ml"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Azelaic Acid Serum 30ml"
+              }
+            },
+            "sourceResponseSha256": "4b8ade24ccfdfa41c83067a933bbddbd5c1890d6ca0a295b4168db89dceedef5",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 452433,
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T14:52:00Z"
+          },
+          "snapshotSha256": "027638c4c7bf5818d9aab4c2660f3d59f69d443db59474583ca3b0829c0bd0ac",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 982,
+          "retrievedAt": "2026-07-26T14:50:00Z"
+        },
+        "checkedAt": "2026-07-26T14:52:00Z",
+        "demandEvidenceUrls": [
+          "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
+          "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
+          "https://www.brackettsbeauty.com/products/azelaic-acid-serum"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on serum with azelaic acid, niacinamide, purslane and licorice listed by the manufacturer",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat acne, rosacea or pigment disorders. Avoid the eyes, introduce one leave-on product at a time, stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-07-26T14:53:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+        "exactOffers": [
+          {
+            "retailer": "Konga Health",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
+            "observedAt": "2026-08-08T02:55:11Z",
+            "observedTitle": "Dang Azelaic Acid Serum - 30ml",
+            "observedSize": "30 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "6961916",
+            "priceNgn": 38700,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
+              "responseUrl": "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
+              "responseSha256": "bb485218c4004197cd5cd5c81cbaffb62ccf0e960f2e155197d4aec2301ce27f",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 428263,
+              "retrievedAt": "2026-08-08T02:55:11Z",
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "6154000333867",
+                  "locator": "Bound official DANG catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 6154000333867",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Dang Azelaic Acid Serum - 30ml",
+                  "locator": "HTML document title and Product JSON-LD name",
+                  "sourceText": "Dang Azelaic Acid Serum - 30ml"
+                },
+                "size": {
+                  "value": "30 ml",
+                  "locator": "HTML document title size suffix",
+                  "sourceText": "Dang Azelaic Acid Serum - 30ml"
+                },
+                "price": {
+                  "value": 38700,
+                  "currency": "NGN",
+                  "locator": "Rendered product price span and product:price:amount meta",
+                  "sourceText": "₦38,700"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "product:availability meta",
+                  "sourceText": "available"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T02:55:58Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Dang Azelaic Acid Serum - 30ml | Konga"
+              }
+            }
+          },
+          {
+            "retailer": "Perona Beauty",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
+            "observedAt": "2026-08-08T02:55:58Z",
+            "observedTitle": "Dang Azelaic Acid Serum 30ml",
+            "observedSize": "30 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "11566-1-item",
+            "priceNgn": 16193,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
+              "responseUrl": "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
+              "responseSha256": "9b9776cb602e692f7acf8fb4caa097bceaf1454242430bdb3b274e56fc460eb9",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 425441,
+              "retrievedAt": "2026-08-08T02:55:58Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy Dang Azelaic Acid Serum 30ml | Best Price"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "6154000333867",
+                  "locator": "Bound official DANG catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 6154000333867",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Dang Azelaic Acid Serum 30ml",
+                  "locator": "Rendered accessibility heading level 1",
+                  "sourceText": "Dang Azelaic Acid Serum 30ml"
+                },
+                "size": {
+                  "value": "30 ml",
+                  "locator": "Rendered accessibility product heading size suffix",
+                  "sourceText": "Dang Azelaic Acid Serum 30ml"
+                },
+                "price": {
+                  "value": 16193,
+                  "currency": "NGN",
+                  "locator": "Rendered accessibility product price",
+                  "sourceText": "NGN16,193"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered accessibility availability status",
+                  "sourceText": "in stock"
+                },
+                "retailerIdentifier": {
+                  "label": "SKU",
+                  "value": "11566-1-item",
+                  "locator": "Rendered accessibility product metadata",
+                  "sourceText": "SKU: 11566-1-item"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T02:55:58Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/azelaic-acid-pigmentationacne-control-30ml-114853.jpg?v=1783591062",
+          "sha256": "9e67f794d3ed1f69ef027201c29a6caf418603f1d7209c1c73ee316efc52dd6a",
+          "mimeType": "image/jpeg",
+          "byteSize": 107159,
+          "width": 1000,
+          "height": 1000,
+          "retrievedAt": "2026-07-26T14:50:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the exact current DANG Azelaic Acid Serum 30ml pack and the sole authority for product identity, bottle geometry, dropper, label layout, wording, colours, variant and size. The carton in Image 1 is identity reference only and must not appear in the output.\nPrimary request: recreate only the exact single serum bottle shown to the right of Image 1. Produce one complete upright deep warm-red 30 ml glass bottle, centered, perfectly front-facing, crisp, photorealistic and premium catalogue quality. Preserve its softly rounded rectangular body, fine metallic texture, salmon-red screw collar, complete glossy salmon-red dropper bulb, white Dang! mark, AZELAIC ACID SERUM title, supporting claim, ingredient line and exact printed size. Do not create a carton, barcode or additional package.\nText, verbatim where visible on the bottle: “Dang!”; “AZELAIC ACID”; “SERUM”; “Visibly Fade Pigmentation, Acne Control”; “Azelaic Acid. Niacinamide. Purslane Extract. Licorice Root Extract.”; “30ml”.\nComposition: square; full dropper tip, collar, bottle shoulders and complete rounded bottle base visible; generous even clear margin on all sides; product occupies about 66% of canvas height; no clipping, tilt, duplicate, carton, pedestal, floor, props, shadow or reflection.\nLighting: soft clean frontal product light contained on the bottle, with subtle edge definition and faithful warm-red material.\nScene/backdrop: perfectly flat uniform solid #ff00ff chroma-magenta for local removal, with no gradient, texture, vignette, spill, floor plane or lighting variation.\nConstraints: Image 1 overrides every generated assumption. Preserve the exact current bottle label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN. Use no #ff00ff anywhere on the product. The previously rejected render with an altered carton barcode is not an input and must never be reused.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/azelaic-acid-pigmentationacne-control-30ml-114853.jpg?v=1783591062",
+              "sha256": "9e67f794d3ed1f69ef027201c29a6caf418603f1d7209c1c73ee316efc52dd6a"
+            }
+          ],
+          "outputSha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
+          "generatedAt": "2026-07-26T19:11:17Z",
+          "recordSha256": "c955b7bc837f8c0b4b963e6aa6f3d30aad42b63870a63a37468409ecf7f37efb"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v1-b30b887a07133d28.png",
+        "sha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
+        "mimeType": "image/png",
+        "byteSize": 1745200,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-26T19:47:16Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T02:57:00Z"
+      },
+      "dossierFingerprint": "43d23b4a1b10d7143b9e9fa836fe422b5a97f8a892e375f72489ad97121aea6b"
     }
   ]
 }

@@ -652,30 +652,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "dang-azelaic-acid-serum-30ml",
-      "dossierFingerprint": "2a9785757bbdc9ffb858ef67734b5037de41fd3c8e74c2c6f4949434a18f94e2",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Azelaic acid and niacinamide · 30 ml",
-        "usage": "Dispense 2–3 drops onto clean, dry skin and press over the face, neck and décolletage, avoiding the eye area. Follow with moisturiser and use SPF 30+ in the daytime. Begin three nights a week, then build as tolerated.",
-        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-26T19:52:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-26T19:53:00Z"
-      },
-      "releaseFingerprint": "5c8008d5da3b2eac89f7802331120b5bf86f5a72af63f3c1c04e2c0032ee2853"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
       "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T02:52:20Z"
       },
       "releaseFingerprint": "d17179c6e1dc25457bd7d9d6a1dd1a4123ae4d1fd9c00513dc1c504d1aab2f1c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "dossierFingerprint": "43d23b4a1b10d7143b9e9fa836fe422b5a97f8a892e375f72489ad97121aea6b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid and niacinamide · 30 ml",
+        "usage": "Dispense 2–3 drops onto clean, dry skin and press over the face, neck and décolletage, avoiding the eye area. Follow with moisturiser and use SPF 30+ in the daytime. Begin three nights a week, then build as tolerated.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T02:57:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T02:57:20Z"
+      },
+      "releaseFingerprint": "0cfd946a8dd04594f3e82c579a2d82dce0a8a136e2159fd7f53d4da14280f600"
     }
   ]
 }

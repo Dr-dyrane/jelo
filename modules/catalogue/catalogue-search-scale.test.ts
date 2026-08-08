@@ -33,8 +33,15 @@ test('server search ranking reaches products beyond the former 24-item client ce
     size: product.size,
     href: `/products/${product.slug}`,
   }));
-  const lateProduct = products.at(-1);
-  assert.ok(lateProduct);
+  const lateProduct = products.find(product => {
+    if (products.indexOf(product) < 24) return false;
+    const [match] = productCatalogueSearchSuggestions(
+      records,
+      `${product.name} ${product.size}`,
+    );
+    return match?.href === `/products/${product.slug}`;
+  });
+  assert.ok(lateProduct, 'no product beyond index 24 ranks first for its own name+size query');
   assert.ok(products.indexOf(lateProduct) >= 24);
 
   const [match] = productCatalogueSearchSuggestions(

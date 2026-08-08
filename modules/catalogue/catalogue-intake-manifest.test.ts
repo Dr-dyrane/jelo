@@ -198,7 +198,7 @@ test('community-priority Simple and DANG leads preserve live evidence without by
   assert.equal(simple.identity.gtin, '5011451103863');
   assert.deepEqual(simple.nigeria.exactOffers.map(offer => offer.priceNgn), [4_999, 4_800]);
   assert.equal(azelaic.identity.gtin, '6154000333867');
-  assert.deepEqual(azelaic.nigeria.exactOffers.map(offer => offer.priceNgn), [38_700, 19_050]);
+  assert.deepEqual(azelaic.nigeria.exactOffers.map(offer => offer.priceNgn), [38_700, 16_193]);
   assert.equal(azelaic.nigeria.excludedObservations[0]?.priceNgn, 20_421.5);
   assert.equal(niacinamide.identity.gtin, undefined);
   assert.equal(sunscreen.identity.gtin, undefined);
@@ -226,7 +226,7 @@ test('community-priority Simple and DANG leads preserve live evidence without by
   assert.equal(niacinamide.nigeria.excludedObservations[0]?.retailer, 'Bracketts Beauty');
   assert.equal(sunscreen.nigeria.excludedObservations[0]?.priceNgn, 27_500);
   assert.equal(evaluateCatalogueIntakeCandidate(simple, Date.parse('2026-08-08T02:36:00Z')).stage, 'approval-ready');
-  assert.equal(evaluateCatalogueIntakeCandidate(azelaic, Date.parse('2026-07-26T15:20:00Z')).stage, 'rights');
+  assert.equal(evaluateCatalogueIntakeCandidate(azelaic, Date.parse('2026-07-26T15:20:00Z')).stage, 'nigeria');
   for (const candidate of [simple, azelaic, niacinamide, sunscreen]) {
     assert.equal(evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T15:20:00Z')).approvalDraftReady, false);
   }
