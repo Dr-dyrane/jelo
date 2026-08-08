@@ -28,30 +28,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
-      "dossierFingerprint": "afc8fc9cd1e12eab1af86aec91f9e429f3ee040e366a4310e4f0d83bdba16ef8",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Hair",
-        "routineStep": "Condition",
-        "displayLine": "Moisture for dry curls and coils · 384 ml",
-        "usage": "Work through clean hair from roots to ends, leave for 3 minutes, then rinse well.",
-        "manufacturerDirectionsUrl": "https://www.sheamoisture.com/us/en/p/raw-shea-butter-deep-moisturizing-conditioner.html/00764302280217",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T19:41:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T19:42:00Z"
-      },
-      "releaseFingerprint": "6f87f998f7ab36e10ed9192915996d37c7b3c27d70ff5520fe260c57f30b3c27"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "dove-skin-replenish-serum-body-wash-547ml",
       "dossierFingerprint": "45dd41315d1d8238b0259ef18bd8dc8cba727c098723713b4862f7fe934648e9",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T05:28:50Z"
       },
       "releaseFingerprint": "c9f285421d8510b1bc8880c06f910a56c6346ddb71005028e374ce91b93d41e8"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "dossierFingerprint": "cf5058e848dee73d209c23c921d7c86c2e11fffff05ea1f00d248d9ca3985ab6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Condition",
+        "displayLine": "Moisture for dry curls and coils · 384 ml",
+        "usage": "Work through clean hair from roots to ends, leave for 3 minutes, then rinse well.",
+        "manufacturerDirectionsUrl": "https://www.sheamoisture.com/us/en/p/raw-shea-butter-deep-moisturizing-conditioner.html/00764302280217",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T05:32:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T05:32:20Z"
+      },
+      "releaseFingerprint": "bac8879d5df92b32b9f99ce0a46ce02ecd1e13ba739edc1ee50e0f8b4301e1ab"
     }
   ]
 }

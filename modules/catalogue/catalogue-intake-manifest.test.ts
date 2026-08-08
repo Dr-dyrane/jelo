@@ -360,15 +360,15 @@ test('the SheaMoisture conditioner binds its official GTIN, current Nigerian pri
   assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.schemaVersion, 4);
   assert.deepEqual(
     candidate.nigeria.exactOffers.map(offer => offer.retailer),
-    ['BuyBetter', 'Perfect Trust Beauty', 'Jumia'],
+    ['BuyBetter', 'Perfect Trust Beauty'],
   );
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [13223, 14100, 35400]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [13223, 14100]);
   assert.equal(candidate.asset.publicImageSha256, 'db03465017f922f85ad0695d2991bb7f300f04f028e88965efe6fb21ef50a33f');
   assert.equal(candidate.asset.backgroundTreatment, 'identity-verified-render');
   assert.equal(candidate.asset.presentationQuality, 'magazine-ready');
-  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T19:42:00Z'));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T05:32:00Z'));
   assert.equal(decision.approvalDraftReady, true);
-  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), ['BuyBetter', 'Jumia']);
+  assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), ['BuyBetter', 'Perfect Trust Beauty']);
 });
 
 test('the TRESemmé conditioner binds its official GTIN, three Nigerian prices and transparent official packshot', () => {

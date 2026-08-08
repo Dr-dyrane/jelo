@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
-    "candidateFingerprint": "801b556d00a50d954591456dea5c052adf6ddcfa1955b85b1845252986ca3f6e",
+    "candidateFingerprint": "c6845bf49d2452070bfdee9832ee58271d8227a48e57e4bb0dbfc42ca395cf4d",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -101,9 +101,9 @@
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/raw-shea-butter-moisture-conditioner/",
-          "observedAt": "2026-07-23T19:38:00Z",
+          "observedAt": "2026-08-08T05:30:19Z",
           "observedTitle": "SHEA MOISTURE -Raw Shea Butter (sea kelp and Argan Oil) Deep Moisturizing CONDITIONER 13 oz 384ml",
-          "observedSize": "13 oz / 384 ml",
+          "observedSize": "384 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "observedPackageVersion": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label",
           "retailerSku": "764302280217",
@@ -111,18 +111,18 @@
           "stock": "low-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/raw-shea-butter-moisture-conditioner/",
             "responseUrl": "https://buybetter.ng/product/raw-shea-butter-moisture-conditioner/",
-            "responseSha256": "cfdc5a9e64881fa6c8e2ee080809b1195fec197400ef643336571af63a5aa54a",
-            "responseDigestScope": "rendered-accessibility-tree",
+            "responseSha256": "979cf70a9811d183487231fec754fd5070f4aa6fded8e9a66a417dd41a53f2b0",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 12655,
-            "retrievedAt": "2026-07-23T19:38:00Z",
+            "responseByteSize": 535656,
+            "retrievedAt": "2026-08-08T05:30:19Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
-              "pageTitle": "SHEA MOISTURE -Raw Shea Butter (sea kelp and Argan Oil) Deep Moisturizing CONDITIONER 13 oz 384ml – Buybetter"
+              "pageTitle": "SheaMoisture Shea Butter | Conditioner | BuyBetter"
             },
             "fields": {
               "gtin": {
@@ -134,61 +134,61 @@
               },
               "title": {
                 "value": "SHEA MOISTURE -Raw Shea Butter (sea kelp and Argan Oil) Deep Moisturizing CONDITIONER 13 oz 384ml",
-                "locator": "Rendered accessibility product heading",
+                "locator": "HTML product heading",
                 "sourceText": "SHEA MOISTURE -Raw Shea Butter (sea kelp and Argan Oil) Deep Moisturizing CONDITIONER 13 oz 384ml"
               },
               "size": {
-                "value": "13 oz / 384 ml",
-                "locator": "Rendered accessibility product heading size suffix",
-                "sourceText": "13 oz / 384 ml"
-              },
-              "packageVersion": {
-                "value": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label",
-                "locator": "Rendered listing image matched to the current official product package",
-                "sourceText": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label"
+                "value": "384 ml",
+                "locator": "HTML product heading size suffix",
+                "sourceText": "384ml"
               },
               "price": {
                 "value": 13223,
                 "currency": "NGN",
-                "locator": "Rendered accessibility product price",
-                "sourceText": "₦13,223.00"
+                "locator": "JSON-LD product offer price",
+                "sourceText": "NGN 13223.00"
               },
               "stock": {
                 "value": "low-stock",
-                "locator": "Rendered accessibility stock status",
-                "sourceText": "2 in stock"
+                "locator": "Rendered availability status",
+                "sourceText": "Only 3 left"
+              },
+              "packageVersion": {
+                "value": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label",
+                "locator": "Bound official SheaMoisture catalogue identity snapshot",
+                "sourceText": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T19:39:00Z"
+            "reviewedAt": "2026-08-08T05:31:00Z"
           }
         },
         {
-          "retailer": "Jumia",
+          "retailer": "Perfect Trust Beauty",
           "retailerStatus": "directory-listed",
-          "listingUrl": "https://www.jumia.com.ng/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner-for-dry-damaged-hair-moisture-restoration-384ml-419964981.html",
-          "observedAt": "2026-07-23T19:38:00Z",
-          "observedTitle": "Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner for Dry, Damaged Hair & Moisture Restoration 384ml",
+          "listingUrl": "https://perfecttrustbeauty.com/products/raw-shea-but-restor-conditione-384ml",
+          "observedAt": "2026-08-08T05:30:28Z",
+          "observedTitle": "Shea Moisture Raw Shea Butter Restorative Conditioner, 384ml",
           "observedSize": "384 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "observedPackageVersion": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label",
-          "retailerSku": "SH933ST6XFHKFNAFAMZ",
-          "priceNgn": 35400,
+          "retailerSku": "764302280217",
+          "priceNgn": 14100,
           "stock": "low-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-            "listingUrl": "https://www.jumia.com.ng/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner-for-dry-damaged-hair-moisture-restoration-384ml-419964981.html",
-            "responseUrl": "https://www.jumia.com.ng/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner-for-dry-damaged-hair-moisture-restoration-384ml-419964981.html",
-            "responseSha256": "a44a219b70b44b5f6d759a0e43323e48b13b4a85ea891e977276bea277211d63",
-            "responseDigestScope": "rendered-accessibility-tree",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://perfecttrustbeauty.com/products/raw-shea-but-restor-conditione-384ml",
+            "responseUrl": "https://perfecttrustbeauty.com/products/raw-shea-but-restor-conditione-384ml",
+            "responseSha256": "563bb3de60b0c003d2775abad82d49c47b9d654287cba49e04e2d7cc208a732c",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 28997,
-            "retrievedAt": "2026-07-23T19:38:00Z",
+            "responseByteSize": 1426460,
+            "retrievedAt": "2026-08-08T05:30:28Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
-              "pageTitle": "Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner"
+              "pageTitle": "Buy Original Shea Moisture Raw Shea Butter Restorative Conditioner, 384ml | Best Online Prices in Nigeria"
             },
             "fields": {
               "gtin": {
@@ -199,35 +199,36 @@
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner for Dry, Damaged Hair & Moisture Restoration 384ml",
-                "locator": "Rendered accessibility product heading",
-                "sourceText": "Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner for Dry, Damaged Hair & Moisture Restoration 384ml"
+                "value": "Shea Moisture Raw Shea Butter Restorative Conditioner, 384ml",
+                "locator": "HTML product heading",
+                "sourceText": "Shea Moisture Raw Shea Butter Restorative Conditioner, 384ml"
               },
               "size": {
                 "value": "384 ml",
-                "locator": "Rendered accessibility product heading size suffix",
-                "sourceText": "384 ml"
-              },
-              "packageVersion": {
-                "value": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label",
-                "locator": "Rendered listing image matched to the current official product package",
-                "sourceText": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "384ml"
               },
               "price": {
-                "value": 35400,
+                "value": 14100,
                 "currency": "NGN",
-                "locator": "Rendered accessibility product price",
-                "sourceText": "₦ 35,400"
+                "locator": "Rendered product price",
+                "sourceText": "₦14,100.00"
               },
               "stock": {
                 "value": "low-stock",
-                "locator": "Rendered accessibility stock status",
-                "sourceText": "3 units left"
+                "locator": "Rendered availability status",
+                "sourceText": "Only 2 left"
+              },
+              "packageVersion": {
+                "value": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label",
+                "locator": "Bound official SheaMoisture catalogue identity snapshot",
+                "sourceText": "Current 13 fl oz / 384 ml clear pump bottle with metallic gold pump and gold Raw Shea Butter label"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T19:39:00Z"
-          }
+            "reviewedAt": "2026-08-08T05:31:00Z"
+          },
+          "reviewedTitleAlias": "Raw Shea Butter Conditioner"
         }
       ],
       "brandSellerAuthorizationEvidence": []
@@ -280,14 +281,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T19:41:00Z"
+      "approvedAt": "2026-08-08T05:32:00Z"
     },
-    "dossierFingerprint": "afc8fc9cd1e12eab1af86aec91f9e429f3ee040e366a4310e4f0d83bdba16ef8"
+    "dossierFingerprint": "cf5058e848dee73d209c23c921d7c86c2e11fffff05ea1f00d248d9ca3985ab6"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
-    "dossierFingerprint": "afc8fc9cd1e12eab1af86aec91f9e429f3ee040e366a4310e4f0d83bdba16ef8",
+    "dossierFingerprint": "cf5058e848dee73d209c23c921d7c86c2e11fffff05ea1f00d248d9ca3985ab6",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -299,13 +300,13 @@
       "usage": "Work through clean hair from roots to ends, leave for 3 minutes, then rinse well.",
       "manufacturerDirectionsUrl": "https://www.sheamoisture.com/us/en/p/raw-shea-butter-deep-moisturizing-conditioner.html/00764302280217",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T19:41:30Z"
+      "reviewedAt": "2026-08-08T05:32:10Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T19:42:00Z"
+      "publishedAt": "2026-08-08T05:32:20Z"
     },
-    "releaseFingerprint": "6f87f998f7ab36e10ed9192915996d37c7b3c27d70ff5520fe260c57f30b3c27"
+    "releaseFingerprint": "bac8879d5df92b32b9f99ce0a46ce02ecd1e13ba739edc1ee50e0f8b4301e1ab"
   }
 }
