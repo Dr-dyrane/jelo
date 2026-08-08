@@ -945,7 +945,7 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
   assert.equal(ceramide.identity.officialEvidence?.observedVariant, 'Aqua Rich Ceramide Body Lotion');
   assert.equal(ceramide.identity.officialEvidence?.observedSize, '500 ml');
   assert.deepEqual(ceramide.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'CSi Grocery']);
-  assert.deepEqual(ceramide.nigeria.exactOffers.map(offer => offer.priceNgn), [12_800, 13_000]);
+  assert.deepEqual(ceramide.nigeria.exactOffers.map(offer => offer.priceNgn), [11_288, 13_000]);
   assert.equal(ceramide.nigeria.exactOffers.every(offer => (
     offer.observedGtinBasis === 'exact-variant-and-size'
     && offer.evidence?.fields.gtin?.responseRole === 'official-identity-correlation'
@@ -957,7 +957,7 @@ test('both exact Aqua Rich body-lotion variants are release-ready', () => {
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const ceramideDecision = evaluateCatalogueIntakeCandidate(ceramide, researchAsOf);
+  const ceramideDecision = evaluateCatalogueIntakeCandidate(ceramide, Date.parse('2026-08-08T04:24:20Z'));
   assert.equal(ceramideDecision.stage, 'approval-ready');
   assert.equal(ceramideDecision.approvalDraftReady, true);
   assert.equal(ceramideDecision.freshExactOffers.length, 2);
