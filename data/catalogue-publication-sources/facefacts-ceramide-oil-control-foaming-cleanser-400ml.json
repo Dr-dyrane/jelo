@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
-    "candidateFingerprint": "f9bb37f20247e6b3594cdf559aaeba4076918b28fca2af3a90380d04b8f6caa7",
+    "candidateFingerprint": "c8ea60870755e5796709ca24fd14ea5443b4047fb9f470ed58d3f883ce21d9b7",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -184,75 +184,78 @@
       "tierAIdentityEvidenceUrl": "https://facefacts.me/en-la/collections/ceramide/products/face-facts-ceramide-oil-control-foaming-cleanser-400ml",
       "exactOffers": [
         {
-          "retailer": "BuyBetter",
+          "retailer": "CSi Grocery",
           "retailerStatus": "directory-listed",
-          "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
-          "observedAt": "2026-07-23T09:32:27Z",
-          "observedTitle": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
+          "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/face-facts-oil-control/",
+          "observedAt": "2026-08-08T03:40:08Z",
+          "observedTitle": "Facefacts Ceramide Oil Control Foaming Cleanser – 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "observedPackageVersion": "Current 400 ml white pump bottle with mint-green oil-control label",
-          "retailerSku": "5031413953923",
-          "priceNgn": 6880,
-          "stock": "in-stock",
+          "priceNgn": 7500,
+          "stock": "low-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
-            "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
-            "responseUrl": "https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
-            "responseSha256": "6be9900dfe914174e8f3e0ef41ce7f86b311a16a1af2b2ebc3a9bf8e6b7fb18c",
-            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/face-facts-oil-control/",
+            "responseUrl": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/face-facts-oil-control/",
+            "responseSha256": "36c3beeac623186bb673d73b8e76cb01dee8e36871b1ea5327b3a6332a11adb3",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 800183,
-            "retrievedAt": "2026-07-23T09:32:27Z",
+            "responseByteSize": 581204,
+            "retrievedAt": "2026-08-08T03:40:08Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Facefacts Ceramide Oil Control Foaming Cleanser - 400ml | CSi Grocery"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "5031413953923",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Bound official Face Facts catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 5031413953923",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
-                "locator": "HTML h1.product_title and product data layer name",
-                "sourceText": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml"
+                "value": "Facefacts Ceramide Oil Control Foaming Cleanser – 400ml",
+                "locator": "HTML product heading",
+                "sourceText": "Facefacts Ceramide Oil Control Foaming Cleanser – 400ml"
               },
               "size": {
                 "value": "400 ml",
-                "locator": "HTML h1.product_title size token",
-                "sourceText": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ml"
+              },
+              "price": {
+                "value": 7500,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦7,500.00"
+              },
+              "stock": {
+                "value": "low-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "5 In Stock"
               },
               "packageVersion": {
                 "value": "Current 400 ml white pump bottle with mint-green oil-control label",
-                "locator": "HTML primary product gallery image",
+                "locator": "Bound official Face Facts catalogue identity package version",
                 "sourceText": "Current 400 ml white pump bottle with mint-green oil-control label"
-              },
-              "price": {
-                "value": 6880,
-                "currency": "NGN",
-                "locator": "HTML p.price and product data layer",
-                "sourceText": "₦6,880.00 NG"
-              },
-              "stock": {
-                "value": "in-stock",
-                "locator": "HTML p.stock.low-stock",
-                "sourceText": "10 in stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T09:45:00Z"
-          }
+            "reviewedAt": "2026-08-08T03:40:30Z"
+          },
+          "observedPackageVersion": "Current 400 ml white pump bottle with mint-green oil-control label"
         },
         {
           "retailer": "24Eleven",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://www.24eleven.ng/face-facts-oil-control-foaming-cleanser-400ml",
-          "observedAt": "2026-07-23T09:56:23.090Z",
+          "observedAt": "2026-08-08T03:38:56Z",
           "observedTitle": "Face Facts Ceramide Oil Control Foaming Cleanser - 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "observedPackageVersion": "Current 400 ml white pump bottle with mint-green oil-control label",
           "retailerSku": "1023827",
           "priceNgn": 7300,
           "stock": "in-stock",
@@ -261,13 +264,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://www.24eleven.ng/face-facts-oil-control-foaming-cleanser-400ml",
             "responseUrl": "https://www.24eleven.ng/face-facts-oil-control-foaming-cleanser-400ml",
-            "responseSha256": "46303c2d6e7db1875c78f9b83a6f5bc556ec8dbacb6cd4b8c8dbd2f42779ae45",
+            "responseSha256": "7d5f5d2de5f4cc16828c4cd169220093b900d9f42a31ca15ebe30ac1f909e6ac",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 92410,
-            "retrievedAt": "2026-07-23T09:56:23.090Z",
+            "responseByteSize": 82574,
+            "retrievedAt": "2026-08-08T03:38:56Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Face Facts Oil Control Foaming Cleanser - 400ml | 24eleven.ng - Best price in Nigeria"
             },
@@ -275,24 +278,19 @@
               "gtin": {
                 "label": "GTIN",
                 "value": "5031413953923",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Bound official Face Facts catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 5031413953923",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Face Facts Ceramide Oil Control Foaming Cleanser - 400ml",
-                "locator": "Rendered h1 product heading",
+                "locator": "HTML product heading",
                 "sourceText": "Face Facts Ceramide Oil Control Foaming Cleanser - 400ml"
               },
               "size": {
                 "value": "400 ml",
-                "locator": "Rendered h1 product heading size token",
-                "sourceText": "Face Facts Ceramide Oil Control Foaming Cleanser - 400ml"
-              },
-              "packageVersion": {
-                "value": "Current 400 ml white pump bottle with mint-green oil-control label",
-                "locator": "Rendered primary product image ending face-facts-oil-control-foaming-cleanser-400ml-new_1.jpg",
-                "sourceText": "Current 400 ml white pump bottle with mint-green oil-control label"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ml"
               },
               "price": {
                 "value": 7300,
@@ -302,13 +300,19 @@
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Rendered Availability field",
+                "locator": "Rendered availability status",
                 "sourceText": "Available"
+              },
+              "packageVersion": {
+                "value": "Current 400 ml white pump bottle with mint-green oil-control label",
+                "locator": "Bound official Face Facts catalogue identity package version",
+                "sourceText": "Current 400 ml white pump bottle with mint-green oil-control label"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T09:57:00Z"
-          }
+            "reviewedAt": "2026-08-08T03:40:30Z"
+          },
+          "observedPackageVersion": "Current 400 ml white pump bottle with mint-green oil-control label"
         }
       ],
       "brandSellerAuthorizationEvidence": []
@@ -361,14 +365,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T09:59:00Z"
+      "approvedAt": "2026-08-08T03:43:00Z"
     },
-    "dossierFingerprint": "eedca1c9217f2340091e3a7947f2ad7c97b6351b9d484e9b2e084cfa5e57df87"
+    "dossierFingerprint": "32434dc96fa6158a65950ccb5daf89bcd12e1acf2cb6d9bfd110d555f4e96115"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
-    "dossierFingerprint": "eedca1c9217f2340091e3a7947f2ad7c97b6351b9d484e9b2e084cfa5e57df87",
+    "dossierFingerprint": "32434dc96fa6158a65950ccb5daf89bcd12e1acf2cb6d9bfd110d555f4e96115",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -380,13 +384,13 @@
       "usage": "Morning and evening, apply a small amount to damp skin on the face and neck, lather, and rinse thoroughly with warm water.",
       "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/ceramide/products/face-facts-ceramide-oil-control-foaming-cleanser-400ml",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T10:00:00Z"
+      "reviewedAt": "2026-08-08T03:43:10Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T10:01:00Z"
+      "publishedAt": "2026-08-08T03:43:20Z"
     },
-    "releaseFingerprint": "b4faf3e9d5ef289b247b0719071791a1599344aff69f245ac9394fd87fe5482e"
+    "releaseFingerprint": "355a6b55ef7114e3778a4c9e7d87ac2fddba13b7af5d30de29df4c1412849db6"
   }
 }

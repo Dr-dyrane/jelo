@@ -11,7 +11,7 @@ test('ranking requires canonical concern slugs instead of raw lexicon concern id
   const fullCatalogue = [...catalogue, ...publishedIntakeProducts];
   assert.deepEqual(
     rankProducts(fullCatalogue, { concernSlugs: ['oily-congested-skin'] }).map(product => product.slug),
-    ['eucerin-oil-control-sun-gel-cream-spf50-50ml', 'facefacts-ceramide-oil-control-foaming-cleanser-400ml', 'cerave-foaming-facial-cleanser'],
+    ['eucerin-oil-control-sun-gel-cream-spf50-50ml', 'cerave-foaming-facial-cleanser', 'facefacts-ceramide-oil-control-foaming-cleanser-400ml'],
   );
   assert.deepEqual(
     rankProducts(fullCatalogue, { concernSlugs: ['dry-dehydrated-skin'] }).map(product => product.slug),
@@ -59,8 +59,8 @@ test('an explicit product step narrows otherwise eligible products', () => {
       productSteps: ['Cleanse'],
     }).map(product => product.slug),
     [
-      'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
       'cerave-foaming-facial-cleanser',
+      'facefacts-ceramide-oil-control-foaming-cleanser-400ml',
     ],
   );
   assert.deepEqual(

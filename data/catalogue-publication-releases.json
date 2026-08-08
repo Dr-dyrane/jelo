@@ -268,30 +268,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
-      "dossierFingerprint": "eedca1c9217f2340091e3a7947f2ad7c97b6351b9d484e9b2e084cfa5e57df87",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Fragrance-free cleanser for oily skin.",
-        "usage": "Morning and evening, apply a small amount to damp skin on the face and neck, lather, and rinse thoroughly with warm water.",
-        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/ceramide/products/face-facts-ceramide-oil-control-foaming-cleanser-400ml",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T10:00:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T10:01:00Z"
-      },
-      "releaseFingerprint": "b4faf3e9d5ef289b247b0719071791a1599344aff69f245ac9394fd87fe5482e"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
       "dossierFingerprint": "75ec376cf2be44c4e8bcd5e0040a54d5ceb5e7fd36041db07de40c1457190eff",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T03:37:20Z"
       },
       "releaseFingerprint": "2affecfd258879ee3acd6602d19e55781a15adfa7e0ecbcedbd6edf70cbbb1e3"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "dossierFingerprint": "32434dc96fa6158a65950ccb5daf89bcd12e1acf2cb6d9bfd110d555f4e96115",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Fragrance-free cleanser for oily skin.",
+        "usage": "Morning and evening, apply a small amount to damp skin on the face and neck, lather, and rinse thoroughly with warm water.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/ceramide/products/face-facts-ceramide-oil-control-foaming-cleanser-400ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T03:43:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T03:43:20Z"
+      },
+      "releaseFingerprint": "355a6b55ef7114e3778a4c9e7d87ac2fddba13b7af5d30de29df4c1412849db6"
     }
   ]
 }

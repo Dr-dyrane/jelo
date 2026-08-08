@@ -750,11 +750,11 @@ test('the Face Facts oil-control cleanser binds two independent EAN sources, two
 
   assert.deepEqual(
     candidate.nigeria.exactOffers.map(offer => offer.retailer),
-    ['BuyBetter', '24Eleven'],
+    ['CSi Grocery', '24Eleven'],
   );
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [6_880, 7_300]);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku), [
-    '5031413953923',
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [7_500, 7_300]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku ?? null), [
+    null,
     '1023827',
   ]);
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
@@ -775,7 +775,7 @@ test('the Face Facts oil-control cleanser binds two independent EAN sources, two
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T03:43:00Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.nigeriaMarketRoute, 'tier-a');
