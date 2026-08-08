@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   motion,
   useReducedMotion,
@@ -8,6 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useRef } from "react";
+import { MagneticLink } from "@/components/motion/magnetic-link";
 import { MorningLightCanvas } from "@/components/motion/morning-light-canvas";
 
 type HomeHeroProps = {
@@ -124,12 +124,12 @@ export function HomeHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease, delay: 0.24 }}
         >
-          <Link className={classes.primary} href="/products">
+          <MagneticLink className={classes.primary} href="/products">
             Browse products
-          </Link>
-          <Link className={classes.secondary} href="/consult">
+          </MagneticLink>
+          <MagneticLink className={classes.secondary} href="/consult">
             Ask JeloCare
-          </Link>
+          </MagneticLink>
         </motion.div>
       </motion.div>
 
