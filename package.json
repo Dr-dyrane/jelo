@@ -55,6 +55,7 @@
     "catalogue:publication:build": "tsx scripts/build-catalogue-publication-manifests.ts",
     "catalogue:publication:verify": "tsx scripts/verify-catalogue-publication-dossiers.ts",
     "catalogue:publication:release": "tsx scripts/release-catalogue-candidate.ts",
+    "catalogue:publication:media:revise": "tsx scripts/revise-catalogue-publication-media.ts",
     "catalogue:publication:releases:verify": "tsx scripts/verify-catalogue-publication-releases.ts",
     "catalogue:publication:images:verify": "tsx scripts/verify-catalogue-publication-images.ts",
     "catalogue:media:history:verify": "tsx scripts/verify-catalogue-product-visual-revisions.ts",

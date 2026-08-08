@@ -623,22 +623,25 @@ export function reviewedExactOfferEvidenceValid(
   const supplementalResponses = 'supplementalResponses' in evidence
     ? evidence.supplementalResponses
     : undefined;
+  const browserCapture = evidence.browserCapture;
   const rawResponseEvidence = evidence.method === 'reviewed-exact-offer-field-extraction'
     && evidence.responseDigestScope === 'decoded-response-body'
-    && evidence.browserCapture == null;
+    && browserCapture == null;
   const browserResponseEvidence = evidence.method === 'reviewed-browser-dom-exact-offer-field-extraction'
     && evidence.responseDigestScope === 'rendered-dom-outerhtml'
     && evidence.responseMimeType === 'text/html'
-    && (reviewedBrowserCaptureSurfaces as readonly string[]).includes(evidence.browserCapture?.surface ?? '')
-    && evidence.browserCapture.documentReadyState === 'complete'
-    && evidence.browserCapture.pageTitle.trim().length >= 3;
+    && browserCapture != null
+    && (reviewedBrowserCaptureSurfaces as readonly string[]).includes(browserCapture.surface)
+    && browserCapture.documentReadyState === 'complete'
+    && browserCapture.pageTitle.trim().length >= 3;
   const accessibleBrowserResponseEvidence = (
     evidence.method === 'reviewed-browser-accessibility-exact-offer-field-extraction'
     && evidence.responseDigestScope === 'rendered-accessibility-tree'
     && evidence.responseMimeType === 'text/html'
-    && (reviewedBrowserCaptureSurfaces as readonly string[]).includes(evidence.browserCapture?.surface ?? '')
-    && evidence.browserCapture.documentReadyState === 'complete'
-    && evidence.browserCapture.pageTitle.trim().length >= 3
+    && browserCapture != null
+    && (reviewedBrowserCaptureSurfaces as readonly string[]).includes(browserCapture.surface)
+    && browserCapture.documentReadyState === 'complete'
+    && browserCapture.pageTitle.trim().length >= 3
   );
   const schemaVersionValid = canonicalIdentity?.kind === 'manufacturer-sku'
     ? evidence.schemaVersion

@@ -12076,214 +12076,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "naturium-kp-body-scrub-mask-8oz",
-      "candidateFingerprint": "ef8e1dc8f22350a938a72d4175994d2424336d10f61b30aa7e2acbd288c1b005",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "810120260044",
-        "brand": "Naturium",
-        "name": "KP Body Scrub & Mask",
-        "variant": "KP Body Scrub & Mask",
-        "size": "8 oz / 226 mL",
-        "packageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask",
-        "officialIdentity": {
-          "url": "https://naturium.com/products/kp-body-scrub-mask",
-          "observedGtin": "810120260044",
-          "observedVariant": "KP Body Scrub & Mask",
-          "observedSize": "8 oz / 226 mL",
-          "observedPackageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/naturium-kp-body-scrub-mask-8oz.json",
-          "snapshotSha256": "4e1102ce7e01329806a747e8813d37bd5d505cbb16d1714c7601711e34546f77",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1907,
-          "retrievedAt": "2026-08-07T13:06:28Z",
-          "canonicalExtraction": {
-            "schemaVersion": 4,
-            "candidateId": "naturium-kp-body-scrub-mask-8oz",
-            "method": "reviewed-browser-dom-identity-field-extraction",
-            "browserCapture": {
-              "surface": "Playwright MCP browser",
-              "documentReadyState": "complete",
-              "pageTitle": "KP Body Scrub & Mask | AHA BHA PHA Exfoliating Body Scrub | Naturium"
-            },
-            "sourceUrl": "https://naturium.com/products/kp-body-scrub-mask",
-            "responseUrl": "https://naturium.com/products/kp-body-scrub-mask",
-            "retrievedAt": "2026-08-07T13:06:28Z",
-            "reviewedAt": "2026-08-07T13:08:00Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "sourceResponseSha256": "80b61c425fdb8e6ad9ea0490971c362b22b6509137bcfca4a7b03a7de94eed6b",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 852102,
-            "responseDigestScope": "rendered-dom-outerhtml",
-            "fields": {
-              "gtin": {
-                "locator": "Rendered official Shopify structured product data variant barcode field",
-                "sourceText": "\"barcode\":\"810120260044\"",
-                "value": "810120260044"
-              },
-              "variant": {
-                "locator": "Rendered official Shopify structured product data variant name field",
-                "sourceText": "KP Body Scrub & Mask",
-                "value": "KP Body Scrub & Mask"
-              },
-              "size": {
-                "locator": "Official front-pack principal display panel in supplemental response",
-                "sourceText": "Official front-pack principal display panel: 8 OZ / 226 mL",
-                "value": "8 oz / 226 mL"
-              }
-            },
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
-                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
-                "retrievedAt": "2026-08-07T13:06:28Z",
-                "responseSha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
-                "responseMimeType": "image/png",
-                "responseByteSize": 363205
-              }
-            ]
-          }
-        },
-        "checkedAt": "2026-08-07T13:08:00Z",
-        "demandEvidenceUrls": [
-          "https://www.urbanskinng.com/shop/kp-body-scrub-mask/",
-          "https://peronabeauty.com/product/naturium-kp-body-scrub-mask/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Manufacturer-described AHA BHA PHA exfoliating body scrub and mask for keratosis pilaris.",
-        "careTier": "targeted-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "A topical cosmetic body scrub and mask, not a diagnosis or treatment for keratosis pilaris or any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
-        "manufacturerEvidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://naturium.com/products/kp-body-scrub-mask",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-08-07T13:08:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
-        "sourceAsset": {
-          "url": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
-          "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
-          "mimeType": "image/png",
-          "byteSize": 363205,
-          "width": 2000,
-          "height": 2000,
-          "retrievedAt": "2026-08-07T13:08:01Z"
-        },
-        "isolationRecord": {
-          "schemaVersion": 1,
-          "candidateId": "naturium-kp-body-scrub-mask-8oz",
-          "publicationScope": "catalogue-publication",
-          "source": {
-            "url": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
-            "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
-            "byteSize": 363205,
-            "width": 2000,
-            "height": 2000,
-            "retrievedAt": "2026-08-07T13:08:01Z"
-          },
-          "identity": {
-            "canonicalIdentifier": {
-              "kind": "gtin",
-              "value": "00810120260044"
-            },
-            "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask"
-          },
-          "processing": {
-            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-            "packageRgbOrigin": "identity-master-source-pixels-only",
-            "tool": "rembg alpha mask over source RGB pixels",
-            "model": "isnet-general-use",
-            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-            "provider": "CPUExecutionProvider",
-            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-          },
-          "audit": {
-            "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
-            "generatedAt": "2026-08-07T14:59:46Z",
-            "inferredComponentCount": 4,
-            "retainedComponentCount": 4,
-            "removedComponentCount": 0,
-            "removedForegroundFraction": 0,
-            "componentReviewRequired": false,
-            "sourceEdgeContactFraction": 0
-          },
-          "output": {
-            "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
-            "byteSize": 297158,
-            "mimeType": "image/png",
-            "width": 2000,
-            "height": 2000,
-            "hasAlpha": true
-          },
-          "review": {
-            "identityReviewedAt": "2026-08-07T14:59:46Z",
-            "identityReviewer": "JeloCare catalogue identity review",
-            "artReviewedAt": "2026-08-07T14:59:46Z",
-            "artReviewer": "Codex visual audit",
-            "surfaceReviewSha256": "cae7ebb938e44d6e0ac3469b5811a7021d53cb13720b28f18111fe9ce707994a",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
-            "packagingIntact": true,
-            "labelVariantSizeUnchanged": true,
-            "magazineReady": true
-          }
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v1-78ceb70e267aded1.png",
-        "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
-        "mimeType": "image/png",
-        "byteSize": 297158,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "source-pixel-isolation",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-07T14:59:46Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-07T15:00:00Z"
-      },
-      "dossierFingerprint": "cc6b7e74a603ceb4009d902afbeff66c88403995e87d5b633c8fbdc5a08c9981"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
       "candidateFingerprint": "ed85d1c1ef6febb92a4aa38d6fdf9fa4babbb8aa0ce2ac3064616ae82021cfa1",
       "exposure": "private-only",
@@ -14777,214 +14569,6 @@
         "approvedAt": "2026-08-07T15:20:00Z"
       },
       "dossierFingerprint": "f85ac542b472605fc914d6a54d53cefb21b7f524fbb29fdb886553818af3778a"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
-      "candidateFingerprint": "6a0a3f1e7bbbc510bda8071cdc234d8f1602e8e8b6a0967a0108ce48e5d4d7df",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "810120260235",
-        "brand": "Naturium",
-        "name": "The Smoother Glycolic Acid Body Lotion",
-        "variant": "The Smoother Glycolic Acid Body Lotion",
-        "size": "8 fl oz / 234 mL",
-        "packageVersion": "The Smoother Glycolic Acid Body Lotion 8 fl oz / 234 mL pump bottle",
-        "category": "Body care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-        "officialIdentity": {
-          "url": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-          "observedGtin": "810120260235",
-          "observedVariant": "The Smoother Glycolic Acid Body Lotion",
-          "observedSize": "8 fl oz / 234 mL",
-          "observedPackageVersion": "The Smoother Glycolic Acid Body Lotion 8 fl oz / 234 mL pump bottle",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz.json",
-          "snapshotSha256": "b34192eb882bbb07ef44de1e7b0c5a8083c688b883e5ce31df97d327e8fed6c6",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 2034,
-          "retrievedAt": "2026-08-07T11:52:51Z",
-          "canonicalExtraction": {
-            "schemaVersion": 4,
-            "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
-            "method": "reviewed-browser-dom-identity-field-extraction",
-            "browserCapture": {
-              "surface": "Playwright MCP browser",
-              "documentReadyState": "complete",
-              "pageTitle": "The Smoother Glycolic Acid Body Lotion"
-            },
-            "sourceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-            "responseUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-            "retrievedAt": "2026-08-07T11:52:51Z",
-            "reviewedAt": "2026-08-07T11:53:30Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "sourceResponseSha256": "ffb1d9aab45d9ce0c61e0bd02752dba56404ba251b247169c218f1a1c11cb818",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 868265,
-            "responseDigestScope": "rendered-dom-outerhtml",
-            "fields": {
-              "gtin": {
-                "locator": "Rendered official Shopify structured product data variant gtin field",
-                "sourceText": "\"gtin\":\"810120260235\"",
-                "value": "810120260235"
-              },
-              "variant": {
-                "locator": "Rendered official product heading",
-                "sourceText": "The Smoother Glycolic Acid Body Lotion",
-                "value": "The Smoother Glycolic Acid Body Lotion"
-              },
-              "size": {
-                "locator": "Official front-pack principal display panel in supplemental response",
-                "sourceText": "Official front-pack principal display panel: 8 FL OZ / 234 mL",
-                "value": "8 fl oz / 234 mL"
-              }
-            },
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
-                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
-                "retrievedAt": "2026-08-07T11:52:51Z",
-                "responseSha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
-                "responseMimeType": "image/png",
-                "responseByteSize": 394940
-              }
-            ]
-          }
-        },
-        "checkedAt": "2026-08-07T11:53:30Z",
-        "demandEvidenceUrls": [
-          "https://www.urbanskinng.com/shop/the-smoother-glycolic-acid-body-lotion/",
-          "https://peronabeauty.com/product/naturium-smoother-glycolic-acid-body-lotion/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Manufacturer-described glycolic acid exfoliating body lotion.",
-        "careTier": "targeted-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "A leave-on cosmetic body lotion, not a diagnosis or treatment for keratosis pilaris, acne, eczema, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
-        "manufacturerEvidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-        "independentClinicalGuidanceUrl": "https://www.nhs.uk/conditions/keratosis-pilaris/",
-        "evidenceUrls": [
-          "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-          "https://www.nhs.uk/conditions/keratosis-pilaris/"
-        ],
-        "reviewedAt": "2026-08-07T11:53:30Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-        "sourceAsset": {
-          "url": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
-          "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
-          "mimeType": "image/png",
-          "byteSize": 394940,
-          "width": 2000,
-          "height": 2000,
-          "retrievedAt": "2026-08-07T13:34:55Z"
-        },
-        "isolationRecord": {
-          "schemaVersion": 1,
-          "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
-          "publicationScope": "catalogue-publication",
-          "source": {
-            "url": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
-            "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
-            "byteSize": 394940,
-            "width": 2000,
-            "height": 2000,
-            "retrievedAt": "2026-08-07T13:34:55Z"
-          },
-          "identity": {
-            "canonicalIdentifier": {
-              "kind": "gtin",
-              "value": "00810120260235"
-            },
-            "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion"
-          },
-          "processing": {
-            "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-            "packageRgbOrigin": "identity-master-source-pixels-only",
-            "tool": "rembg alpha mask over source RGB pixels",
-            "model": "isnet-general-use",
-            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-            "provider": "CPUExecutionProvider",
-            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-          },
-          "audit": {
-            "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
-            "generatedAt": "2026-08-07T15:15:00Z",
-            "inferredComponentCount": 6,
-            "retainedComponentCount": 6,
-            "removedComponentCount": 0,
-            "removedForegroundFraction": 0,
-            "componentReviewRequired": false,
-            "sourceEdgeContactFraction": 0
-          },
-          "output": {
-            "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
-            "byteSize": 397235,
-            "mimeType": "image/png",
-            "width": 2000,
-            "height": 2000,
-            "hasAlpha": true
-          },
-          "review": {
-            "identityReviewedAt": "2026-08-07T15:15:00Z",
-            "identityReviewer": "JeloCare catalogue identity review",
-            "artReviewedAt": "2026-08-07T15:15:00Z",
-            "artReviewer": "Codex visual audit",
-            "surfaceReviewSha256": "ea5f6f735fa649ef37aa43af636fd98736a8a96a309c7e765052660f7592c9e7",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
-            "packagingIntact": true,
-            "labelVariantSizeUnchanged": true,
-            "magazineReady": true
-          }
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v1-071972905568868d.png",
-        "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
-        "mimeType": "image/png",
-        "byteSize": 397235,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "source-pixel-isolation",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-07T15:15:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-07T15:20:00Z"
-      },
-      "dossierFingerprint": "7d179b5c9a28c0c886f10b284f99ac9fa628c40ad96790b28f696f5d8e4b3959"
     },
     {
       "schemaVersion": 8,
@@ -30542,6 +30126,548 @@
         "approvedAt": "2026-08-08T05:39:30Z"
       },
       "dossierFingerprint": "53ab6ba3833d2a4d0f64ad6d4a15f7867d335365877215a843fe1c780235ab0d"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-kp-body-scrub-mask-8oz",
+      "candidateFingerprint": "e387d38fe4a3cfa881210ba5c8bd22ac33b8b6e446d7bd382c1f9191254180b3",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810120260044",
+        "brand": "Naturium",
+        "name": "KP Body Scrub & Mask",
+        "variant": "KP Body Scrub & Mask",
+        "size": "8 oz / 226 g",
+        "packageVersion": "KP Body Scrub & Mask 8 oz / 226 g tube",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/kp-body-scrub-mask",
+          "observedGtin": "810120260044",
+          "observedVariant": "KP Body Scrub & Mask",
+          "observedSize": "8 oz / 226 g",
+          "observedPackageVersion": "KP Body Scrub & Mask 8 oz / 226 g tube",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-kp-body-scrub-mask-8oz.json",
+          "snapshotSha256": "12a5b33d022a2321cc2bc4634cc7e712fc8a463786040639425ec1666dc8b306",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1916,
+          "retrievedAt": "2026-08-07T13:06:28Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-kp-body-scrub-mask-8oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "KP Body Scrub & Mask | AHA BHA PHA Exfoliating Body Scrub | Naturium"
+            },
+            "sourceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "responseUrl": "https://naturium.com/products/kp-body-scrub-mask",
+            "retrievedAt": "2026-08-07T13:06:28Z",
+            "reviewedAt": "2026-08-08T14:35:44Z",
+            "reviewer": "JeloCare catalogue identity correction review",
+            "sourceResponseSha256": "80b61c425fdb8e6ad9ea0490971c362b22b6509137bcfca4a7b03a7de94eed6b",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 852102,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant barcode field",
+                "sourceText": "\"barcode\":\"810120260044\"",
+                "value": "810120260044"
+              },
+              "variant": {
+                "locator": "Rendered official Shopify structured product data variant name field",
+                "sourceText": "KP Body Scrub & Mask",
+                "value": "KP Body Scrub & Mask"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 8 OZ / 226 G",
+                "value": "8 oz / 226 g"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+                "retrievedAt": "2026-08-07T13:06:28Z",
+                "responseSha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+                "responseMimeType": "image/png",
+                "responseByteSize": 363205
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-08T14:35:44Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/kp-body-scrub-mask/",
+          "https://peronabeauty.com/product/naturium-kp-body-scrub-mask/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described AHA BHA PHA exfoliating body scrub and mask for keratosis pilaris.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A topical cosmetic body scrub and mask, not a diagnosis or treatment for keratosis pilaris or any skin condition. Introduce cautiously, avoid direct eye contact, rinse thoroughly, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://naturium.com/products/kp-body-scrub-mask",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-08T14:36:00Z",
+        "reviewer": "JeloCare catalogue care recheck"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+          "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+          "mimeType": "image/png",
+          "byteSize": 363205,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:08:01Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-kp-body-scrub-mask-8oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+            "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+            "byteSize": 363205,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T13:08:01Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00810120260044"
+            },
+            "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask"
+          },
+          "processing": {
+            "pipelineVersion": "deterministic-source-rgb-destructive-alpha-repair-v1",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "deterministic geometry alpha repair over retained isnet-general-use source-pixel mask",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05",
+            "repairEvidence": {
+              "manifestPath": "data/catalogue-packshot-alpha-repair-evidence/manifest.json",
+              "manifestSha256": "cd89578ee6bb5e2f1eac808ea9d6ff9a1a1f92d3b7322ffea980108a0b3dd2da",
+              "replayScriptPath": "scripts/replay-reviewed-alpha-repair.py",
+              "replayScriptSha256": "8e1a89ac42fca6a6d0eeddbca90346de404607e6bdfb02c581f8ef4456e67087",
+              "prepareScriptPath": "scripts/prepare-reviewed-packshot.py",
+              "prepareScriptSha256": "98eac79846ced28ec9366cad48142093bea93a8181d9b278b23b4572728d4563",
+              "sourceInput": {
+                "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/source.png",
+                "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4"
+              },
+              "precursorInput": {
+                "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/precursor.png",
+                "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
+                "auditSha256": "7d8e10b0b6446a11c2786c9c92b4c3e3b42b4309a53bfdd3437a5b813e757b5f"
+              },
+              "geometryReferenceInput": {
+                "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/shared-official-background-reference.png",
+                "sha256": "ef31f7fc497c3d704c4fffa697b131e94cfa08136b9f5f5b3bf6bf49a3668c2b",
+                "contributesPackageRgb": false
+              },
+              "rollout": {
+                "sessionRolloutId": "019fe19c-5daa-7b23-87d1-aa3ad9ac98f2",
+                "geometryCallId": "call_RYCdA7SIgclrCgGx2oRtArpp",
+                "geometryCallInputSha256": "621942a812860f879fc68fca5e0654394afb34d48dcd4c57676e01577a1840bc",
+                "finalPackagingCallId": "call_bjaBBIBzhB9hwDBjjrMqZxTP",
+                "finalPackagingCallInputSha256": "be0cb6292e70a3606c666b72d50cf65c5125ed561c21d02d68c74284465ed58a"
+              },
+              "outputSha256": "5cc956c30672fdcd7c56db2bf156a330b48fe23dbb0cb84feb05e78fd9228edd",
+              "outputColorProfileSha256": "2bb2c5d0a923a30b44c059e69fab438ac220b3fd6f1dd42f34987be0d8b98758",
+              "surfaceReviewPath": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/surface-review.jpg",
+              "surfaceReviewSha256": "cb9924c912576e53e8519202d4d4049e097d9a07594edf64aca0c0ed41879c72"
+            }
+          },
+          "audit": {
+            "sha256": "cd89578ee6bb5e2f1eac808ea9d6ff9a1a1f92d3b7322ffea980108a0b3dd2da",
+            "generatedAt": "2026-08-08T14:01:44Z",
+            "repairMetrics": {
+              "maskThreshold": 32,
+              "restoredPrecursorComponentCount": 4,
+              "restoredPrecursorForegroundPixelCount": 841143,
+              "finalSourceComponentCount": 1,
+              "finalSourceForegroundPixelCount": 1112335,
+              "addedForegroundPixelCount": 271193,
+              "removedForegroundPixelCount": 1,
+              "removedForegroundFraction": 0.00000119,
+              "sourceEdgeContactFractionBefore": 0,
+              "sourceEdgeContactFractionAfter": 0,
+              "sourceAlphaBounds": [
+                606,
+                48,
+                1392,
+                1867
+              ],
+              "sourceForegroundFraction": 0.278084,
+              "subjectTargetSize": [
+                709,
+                1640
+              ],
+              "subjectScale": 0.901594,
+              "outputAlphaBounds": [
+                645,
+                180,
+                1354,
+                1820
+              ],
+              "transparentPixelCount": 3089925,
+              "partialAlphaPixelCount": 10887,
+              "opaquePixelCount": 899188,
+              "outputComponentCount": 1,
+              "outputHolePixelCount": 0,
+              "outputEdgeAlphaMax": 0,
+              "componentReviewRequired": true,
+              "componentReviewCompleted": true
+            }
+          },
+          "output": {
+            "sha256": "5cc956c30672fdcd7c56db2bf156a330b48fe23dbb0cb84feb05e78fd9228edd",
+            "byteSize": 369935,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-08T14:38:52Z",
+            "identityReviewer": "JeloCare catalogue identity correction review",
+            "artReviewedAt": "2026-08-08T15:17:00Z",
+            "artReviewer": "Codex independent alpha-repair release recheck",
+            "surfaceReviewSha256": "cb9924c912576e53e8519202d4d4049e097d9a07594edf64aca0c0ed41879c72",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v2-5cc956c30672fdcd.png",
+        "sha256": "5cc956c30672fdcd7c56db2bf156a330b48fe23dbb0cb84feb05e78fd9228edd",
+        "mimeType": "image/png",
+        "byteSize": 369935,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T15:17:00Z",
+        "reviewer": "Codex independent alpha-repair release recheck"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T15:27:00Z"
+      },
+      "dossierFingerprint": "7310e1108babbd067a70ce524f5e2fa929a5010aeda230baa8472a4c9013a164"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+      "candidateFingerprint": "a01534d9b389a9a19c079f6508fc04e8d3097a649e3631346c0c99a20a98cad5",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810120260235",
+        "brand": "Naturium",
+        "name": "The Smoother Glycolic Acid Body Lotion",
+        "variant": "The Smoother Glycolic Acid Body Lotion",
+        "size": "8 fl oz / 234 mL",
+        "packageVersion": "The Smoother Glycolic Acid Body Lotion 8 fl oz / 234 mL pump bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "officialIdentity": {
+          "url": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+          "observedGtin": "810120260235",
+          "observedVariant": "The Smoother Glycolic Acid Body Lotion",
+          "observedSize": "8 fl oz / 234 mL",
+          "observedPackageVersion": "The Smoother Glycolic Acid Body Lotion 8 fl oz / 234 mL pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz.json",
+          "snapshotSha256": "b34192eb882bbb07ef44de1e7b0c5a8083c688b883e5ce31df97d327e8fed6c6",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 2034,
+          "retrievedAt": "2026-08-07T11:52:51Z",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "The Smoother Glycolic Acid Body Lotion"
+            },
+            "sourceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+            "responseUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+            "retrievedAt": "2026-08-07T11:52:51Z",
+            "reviewedAt": "2026-08-07T11:53:30Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "sourceResponseSha256": "ffb1d9aab45d9ce0c61e0bd02752dba56404ba251b247169c218f1a1c11cb818",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 868265,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "fields": {
+              "gtin": {
+                "locator": "Rendered official Shopify structured product data variant gtin field",
+                "sourceText": "\"gtin\":\"810120260235\"",
+                "value": "810120260235"
+              },
+              "variant": {
+                "locator": "Rendered official product heading",
+                "sourceText": "The Smoother Glycolic Acid Body Lotion",
+                "value": "The Smoother Glycolic Acid Body Lotion"
+              },
+              "size": {
+                "locator": "Official front-pack principal display panel in supplemental response",
+                "sourceText": "Official front-pack principal display panel: 8 FL OZ / 234 mL",
+                "value": "8 fl oz / 234 mL"
+              }
+            },
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+                "responseUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+                "retrievedAt": "2026-08-07T11:52:51Z",
+                "responseSha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
+                "responseMimeType": "image/png",
+                "responseByteSize": 394940
+              }
+            ]
+          }
+        },
+        "checkedAt": "2026-08-07T11:53:30Z",
+        "demandEvidenceUrls": [
+          "https://www.urbanskinng.com/shop/the-smoother-glycolic-acid-body-lotion/",
+          "https://peronabeauty.com/product/naturium-smoother-glycolic-acid-body-lotion/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Manufacturer-described glycolic acid exfoliating body lotion.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A leave-on cosmetic body lotion, not a diagnosis or treatment for keratosis pilaris, acne, eczema, or another condition. Introduce cautiously, avoid broken or freshly shaved skin and direct eye contact, and stop if persistent burning or irritation occurs. Persistent skin changes need clinical review.",
+        "manufacturerEvidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "independentClinicalGuidanceUrl": "https://www.nhs.uk/conditions/keratosis-pilaris/",
+        "evidenceUrls": [
+          "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+          "https://www.nhs.uk/conditions/keratosis-pilaris/"
+        ],
+        "reviewedAt": "2026-08-07T11:53:30Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "sourceAsset": {
+          "url": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+          "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
+          "mimeType": "image/png",
+          "byteSize": 394940,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-08-07T13:34:55Z"
+        },
+        "isolationRecord": {
+          "schemaVersion": 1,
+          "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+          "publicationScope": "catalogue-publication",
+          "source": {
+            "url": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+            "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
+            "byteSize": 394940,
+            "width": 2000,
+            "height": 2000,
+            "retrievedAt": "2026-08-07T13:34:55Z"
+          },
+          "identity": {
+            "canonicalIdentifier": {
+              "kind": "gtin",
+              "value": "00810120260235"
+            },
+            "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion"
+          },
+          "processing": {
+            "pipelineVersion": "deterministic-source-rgb-destructive-alpha-repair-v1",
+            "packageRgbOrigin": "identity-master-source-pixels-only",
+            "tool": "deterministic geometry alpha repair over retained isnet-general-use source-pixel mask",
+            "model": "isnet-general-use",
+            "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+            "provider": "CPUExecutionProvider",
+            "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+            "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05",
+            "repairEvidence": {
+              "manifestPath": "data/catalogue-packshot-alpha-repair-evidence/manifest.json",
+              "manifestSha256": "cd89578ee6bb5e2f1eac808ea9d6ff9a1a1f92d3b7322ffea980108a0b3dd2da",
+              "replayScriptPath": "scripts/replay-reviewed-alpha-repair.py",
+              "replayScriptSha256": "8e1a89ac42fca6a6d0eeddbca90346de404607e6bdfb02c581f8ef4456e67087",
+              "prepareScriptPath": "scripts/prepare-reviewed-packshot.py",
+              "prepareScriptSha256": "98eac79846ced28ec9366cad48142093bea93a8181d9b278b23b4572728d4563",
+              "sourceInput": {
+                "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/source.png",
+                "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6"
+              },
+              "precursorInput": {
+                "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/precursor.png",
+                "sha256": "2102164cec10b43e248153b84d2d89f6770984ad4df13d1f8dd941b787e78ce7",
+                "auditSha256": "d29bae615977c5c1a7e5b0b6503f9175433e6bdd48353403e386f55a33b7c07f"
+              },
+              "geometryReferenceInput": null,
+              "rollout": {
+                "sessionRolloutId": "019fe19c-5daa-7b23-87d1-aa3ad9ac98f2",
+                "geometryCallId": "call_zVB5oBl5lBooNjH7MZVqP4u5",
+                "geometryCallInputSha256": "3f3c9e272a5a2d8988d9a56430fd27b1760582eb4d6726fd648d9924752bd873",
+                "finalPackagingCallId": "call_bjaBBIBzhB9hwDBjjrMqZxTP",
+                "finalPackagingCallInputSha256": "be0cb6292e70a3606c666b72d50cf65c5125ed561c21d02d68c74284465ed58a"
+              },
+              "outputSha256": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a",
+              "outputColorProfileSha256": "2bb2c5d0a923a30b44c059e69fab438ac220b3fd6f1dd42f34987be0d8b98758",
+              "surfaceReviewPath": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/surface-review.jpg",
+              "surfaceReviewSha256": "4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f"
+            }
+          },
+          "audit": {
+            "sha256": "cd89578ee6bb5e2f1eac808ea9d6ff9a1a1f92d3b7322ffea980108a0b3dd2da",
+            "generatedAt": "2026-08-08T14:01:44Z",
+            "repairMetrics": {
+              "maskThreshold": 32,
+              "restoredPrecursorComponentCount": 1,
+              "restoredPrecursorForegroundPixelCount": 1150630,
+              "finalSourceComponentCount": 1,
+              "finalSourceForegroundPixelCount": 1084598,
+              "addedForegroundPixelCount": 0,
+              "removedForegroundPixelCount": 66032,
+              "removedForegroundFraction": 0.05738769,
+              "sourceEdgeContactFractionBefore": 0.05988,
+              "sourceEdgeContactFractionAfter": 0,
+              "sourceAlphaBounds": [
+                620,
+                37,
+                1378,
+                1865
+              ],
+              "sourceForegroundFraction": 0.271149,
+              "subjectTargetSize": [
+                680,
+                1640
+              ],
+              "subjectScale": 0.897155,
+              "outputAlphaBounds": [
+                660,
+                180,
+                1340,
+                1820
+              ],
+              "transparentPixelCount": 3118855,
+              "partialAlphaPixelCount": 21717,
+              "opaquePixelCount": 859428,
+              "outputComponentCount": 1,
+              "outputHolePixelCount": 0,
+              "outputEdgeAlphaMax": 0,
+              "componentReviewRequired": true,
+              "componentReviewCompleted": true
+            }
+          },
+          "output": {
+            "sha256": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a",
+            "byteSize": 422450,
+            "mimeType": "image/png",
+            "width": 2000,
+            "height": 2000,
+            "hasAlpha": true
+          },
+          "review": {
+            "identityReviewedAt": "2026-08-08T14:38:52Z",
+            "identityReviewer": "JeloCare catalogue identity correction review",
+            "artReviewedAt": "2026-08-08T15:17:00Z",
+            "artReviewer": "Codex independent alpha-repair release recheck",
+            "surfaceReviewSha256": "4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f",
+            "surfaces": [
+              "peach",
+              "pink",
+              "dark"
+            ],
+            "packagingIntact": true,
+            "labelVariantSizeUnchanged": true,
+            "magazineReady": true
+          }
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v2-e1715a3073184a09.png",
+        "sha256": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a",
+        "mimeType": "image/png",
+        "byteSize": 422450,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-08T15:17:00Z",
+        "reviewer": "Codex independent alpha-repair release recheck"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T15:27:00Z"
+      },
+      "dossierFingerprint": "9b0dcd15479f1050d94cddcdf6bb915fe2517ff0bc4e879f2b4cc9da4f588f63"
     }
   ]
 }

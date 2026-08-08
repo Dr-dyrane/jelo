@@ -1420,30 +1420,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "naturium-kp-body-scrub-mask-8oz",
-      "dossierFingerprint": "cc6b7e74a603ceb4009d902afbeff66c88403995e87d5b633c8fbdc5a08c9981",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Treat",
-        "displayLine": "KP Body Scrub & Mask 8 oz",
-        "usage": "Apply to clean dry skin in the shower. Leave on for 2-3 minutes then gently massage and rinse thoroughly. Use 2-3 times per week.",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/kp-body-scrub-mask",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:01:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:02:00Z"
-      },
-      "releaseFingerprint": "4d96380de58fca2d3f7f5af4bf04f979708bba0ccd25ba3a97d90bc3400ea913"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
       "dossierFingerprint": "d0a6f6e690ef8806b9c77344c96299aeabba5c7672b697d3bc3c3b42ba793336",
       "exposure": "public-catalogue",
@@ -1729,30 +1705,6 @@
         "publishedAt": "2026-08-07T15:22:00Z"
       },
       "releaseFingerprint": "85a6f905a2ed7012f17dc7db7edd2c89bc10f4dc3a10cf181cd7a6a92bd14828"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
-      "dossierFingerprint": "7d179b5c9a28c0c886f10b284f99ac9fa628c40ad96790b28f696f5d8e4b3959",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Treat",
-        "displayLine": "The Smoother Glycolic Acid Body Lotion 8 fl oz",
-        "usage": "Apply liberally to clean dry skin. Use daily or as tolerated. Always follow with SPF on exposed areas during the day.",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:21:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:22:00Z"
-      },
-      "releaseFingerprint": "175cf5d503949510007f7d4a2667a19cf4aab7aa10683f70a876333496ae07c8"
     },
     {
       "schemaVersion": 2,
@@ -3097,6 +3049,54 @@
         "publishedAt": "2026-08-08T05:39:50Z"
       },
       "releaseFingerprint": "17f8645c80dc57843f8e456bbdfd25a0ecb46615addb52693cd9e4bb46651cf7"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-kp-body-scrub-mask-8oz",
+      "dossierFingerprint": "7310e1108babbd067a70ce524f5e2fa929a5010aeda230baa8472a4c9013a164",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Treat",
+        "displayLine": "KP Body Scrub & Mask 8 oz",
+        "usage": "Apply to clean dry skin in the shower. Leave on for 2-3 minutes then gently massage and rinse thoroughly. Use 2-3 times per week.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/kp-body-scrub-mask",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T15:27:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T15:27:20Z"
+      },
+      "releaseFingerprint": "99adc5247b669d6cbb97b28235fbe700059b4f4eac934dde5bd11d2bfed1df72"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+      "dossierFingerprint": "9b0dcd15479f1050d94cddcdf6bb915fe2517ff0bc4e879f2b4cc9da4f588f63",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Treat",
+        "displayLine": "The Smoother Glycolic Acid Body Lotion 8 fl oz",
+        "usage": "Apply liberally to clean dry skin. Use daily or as tolerated. Always follow with SPF on exposed areas during the day.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T15:27:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T15:27:20Z"
+      },
+      "releaseFingerprint": "9d7430d18aa52e093bbf6ea6ac1da8e129a85e721940fe51932ae9bf18a498e7"
     }
   ]
 }

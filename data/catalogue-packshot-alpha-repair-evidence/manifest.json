@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "scope": "private-catalogue-packshot-alpha-repair-evidence",
+  "pipelineVersion": "deterministic-source-rgb-destructive-alpha-repair-v1",
+  "generatedAt": "2026-08-08T14:01:44Z",
+  "replay": {
+    "scriptPath": "scripts/replay-reviewed-alpha-repair.py",
+    "scriptSha256": "8e1a89ac42fca6a6d0eeddbca90346de404607e6bdfb02c581f8ef4456e67087",
+    "prepareScriptPath": "scripts/prepare-reviewed-packshot.py",
+    "prepareScriptSha256": "98eac79846ced28ec9366cad48142093bea93a8181d9b278b23b4572728d4563",
+    "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+    "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05",
+    "tool": "deterministic geometry alpha repair over retained isnet-general-use source-pixel mask",
+    "model": "isnet-general-use",
+    "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+    "provider": "CPUExecutionProvider",
+    "pythonVersion": "3.12",
+    "dependencies": {
+      "numpy": "2.4.6",
+      "Pillow": "12.3.0",
+      "scipy": "1.18.0"
+    },
+    "packageRgbOrigin": "identity-master-source-pixels-only",
+    "colorProfile": {
+      "name": "stable-srgb-icc",
+      "sha256": "2bb2c5d0a923a30b44c059e69fab438ac220b3fd6f1dd42f34987be0d8b98758",
+      "byteSize": 588
+    },
+    "pngEncoding": {
+      "library": "Pillow 12.3.0",
+      "optimize": true,
+      "mode": "RGBA"
+    }
+  },
+  "rollout": {
+    "sessionRolloutId": "019fe19c-5daa-7b23-87d1-aa3ad9ac98f2",
+    "callInputSha256Convention": "sha256-utf8-tool-input-plus-line-feed",
+    "finalPackagingCallId": "call_bjaBBIBzhB9hwDBjjrMqZxTP",
+    "finalPackagingCallInputSha256": "be0cb6292e70a3606c666b72d50cf65c5125ed561c21d02d68c74284465ed58a"
+  },
+  "records": [
+    {
+      "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+      "generatedAt": "2026-08-08T14:01:44Z",
+      "source": {
+        "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/source.png",
+        "url": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
+        "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6",
+        "byteSize": 394940,
+        "mimeType": "image/png",
+        "width": 2000,
+        "height": 2000,
+        "colorTreatment": "embedded-profile-converted-to-srgb"
+      },
+      "precursor": {
+        "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/precursor.png",
+        "sha256": "2102164cec10b43e248153b84d2d89f6770984ad4df13d1f8dd941b787e78ce7",
+        "byteSize": 392088,
+        "mimeType": "image/png",
+        "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+        "runId": "20260807T115419Z-a84b1ae2cab4-99cb330f",
+        "auditSha256": "d29bae615977c5c1a7e5b0b6503f9175433e6bdd48353403e386f55a33b7c07f",
+        "sourceAlphaBounds": [620, 37, 1378, 2000],
+        "subjectTargetSize": [633, 1640],
+        "outputOffset": [683, 180]
+      },
+      "geometryReference": null,
+      "repair": {
+        "geometryCallId": "call_zVB5oBl5lBooNjH7MZVqP4u5",
+        "geometryCallInputSha256": "3f3c9e272a5a2d8988d9a56430fd27b1760582eb4d6726fd648d9924752bd873",
+        "operations": [
+          "restore-retained-v3-alpha-to-source-coordinates",
+          "detect-source-pixel-contact-curve",
+          "remove-photographed-reflection-below-package-base",
+          "transparent-trim",
+          "premultiplied-lanczos-resample",
+          "centre-on-transparent-srgb-canvas"
+        ],
+        "metrics": {
+          "maskThreshold": 32,
+          "restoredPrecursorComponentCount": 1,
+          "restoredPrecursorForegroundPixelCount": 1150630,
+          "finalSourceComponentCount": 1,
+          "finalSourceForegroundPixelCount": 1084598,
+          "addedForegroundPixelCount": 0,
+          "removedForegroundPixelCount": 66032,
+          "removedForegroundFraction": 0.05738769,
+          "sourceEdgeContactFractionBefore": 0.05988,
+          "sourceEdgeContactFractionAfter": 0,
+          "sourceAlphaBounds": [620, 37, 1378, 1865],
+          "sourceForegroundFraction": 0.271149,
+          "subjectTargetSize": [680, 1640],
+          "subjectScale": 0.897155,
+          "outputAlphaBounds": [660, 180, 1340, 1820],
+          "transparentPixelCount": 3118855,
+          "partialAlphaPixelCount": 21717,
+          "opaquePixelCount": 859428,
+          "outputComponentCount": 1,
+          "outputHolePixelCount": 0,
+          "outputEdgeAlphaMax": 0,
+          "componentReviewRequired": true,
+          "componentReviewCompleted": true
+        }
+      },
+      "output": {
+        "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/output.png",
+        "sha256": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a",
+        "byteSize": 422450,
+        "mimeType": "image/png",
+        "width": 2000,
+        "height": 2000,
+        "hasAlpha": true,
+        "colorProfileSha256": "2bb2c5d0a923a30b44c059e69fab438ac220b3fd6f1dd42f34987be0d8b98758"
+      },
+      "review": {
+        "surfaceReviewPath": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/surface-review.jpg",
+        "surfaceReviewSha256": "4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f",
+        "surfaceReviewByteSize": 180341,
+        "surfaces": ["peach", "pink", "dark"],
+        "identityReviewedAt": "2026-08-08T14:38:52Z",
+        "identityReviewer": "JeloCare catalogue identity correction review",
+        "artReviewedAt": "2026-08-08T15:17:00Z",
+        "artReviewer": "Codex independent alpha-repair release recheck",
+        "packagingIntact": true,
+        "labelVariantSizeUnchanged": true,
+        "magazineReady": true
+      }
+    },
+    {
+      "candidateId": "naturium-kp-body-scrub-mask-8oz",
+      "generatedAt": "2026-08-08T14:01:44Z",
+      "source": {
+        "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/source.png",
+        "url": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
+        "sha256": "d752e5e94722a34541b2522fb98d002026857dd684a864c9ca35a7336c574ef4",
+        "byteSize": 363205,
+        "mimeType": "image/png",
+        "width": 2000,
+        "height": 2000,
+        "colorTreatment": "embedded-profile-converted-to-srgb"
+      },
+      "precursor": {
+        "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/precursor.png",
+        "sha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
+        "byteSize": 297158,
+        "mimeType": "image/png",
+        "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+        "runId": "20260807T145946Z-28fae54a9bf3-06f2f098",
+        "auditSha256": "7d8e10b0b6446a11c2786c9c92b4c3e3b42b4309a53bfdd3437a5b813e757b5f",
+        "sourceAlphaBounds": [657, 77, 1281, 1866],
+        "subjectTargetSize": [572, 1640],
+        "outputOffset": [714, 180]
+      },
+      "geometryReference": {
+        "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/shared-official-background-reference.png",
+        "sha256": "ef31f7fc497c3d704c4fffa697b131e94cfa08136b9f5f5b3bf6bf49a3668c2b",
+        "byteSize": 235893,
+        "mimeType": "image/png",
+        "purpose": "shared-official-background-geometry-reference-only",
+        "contributesPackageRgb": false
+      },
+      "repair": {
+        "geometryCallId": "call_RYCdA7SIgclrCgGx2oRtArpp",
+        "geometryCallInputSha256": "621942a812860f879fc68fca5e0654394afb34d48dcd4c57676e01577a1840bc",
+        "operations": [
+          "compare-exact-source-to-shared-official-background",
+          "derive-smoothed-source-pixel-package-envelope",
+          "restore-retained-v3-alpha-near-envelope",
+          "close-package-interior-without-rgb-redraw",
+          "detect-source-pixel-contact-curve",
+          "remove-photographed-reflection-below-package-base",
+          "transparent-trim",
+          "premultiplied-lanczos-resample",
+          "centre-on-transparent-srgb-canvas"
+        ],
+        "metrics": {
+          "maskThreshold": 32,
+          "restoredPrecursorComponentCount": 4,
+          "restoredPrecursorForegroundPixelCount": 841143,
+          "finalSourceComponentCount": 1,
+          "finalSourceForegroundPixelCount": 1112335,
+          "addedForegroundPixelCount": 271193,
+          "removedForegroundPixelCount": 1,
+          "removedForegroundFraction": 0.00000119,
+          "sourceEdgeContactFractionBefore": 0,
+          "sourceEdgeContactFractionAfter": 0,
+          "sourceAlphaBounds": [606, 48, 1392, 1867],
+          "sourceForegroundFraction": 0.278084,
+          "subjectTargetSize": [709, 1640],
+          "subjectScale": 0.901594,
+          "outputAlphaBounds": [645, 180, 1354, 1820],
+          "transparentPixelCount": 3089925,
+          "partialAlphaPixelCount": 10887,
+          "opaquePixelCount": 899188,
+          "outputComponentCount": 1,
+          "outputHolePixelCount": 0,
+          "outputEdgeAlphaMax": 0,
+          "componentReviewRequired": true,
+          "componentReviewCompleted": true
+        }
+      },
+      "output": {
+        "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/output.png",
+        "sha256": "5cc956c30672fdcd7c56db2bf156a330b48fe23dbb0cb84feb05e78fd9228edd",
+        "byteSize": 369935,
+        "mimeType": "image/png",
+        "width": 2000,
+        "height": 2000,
+        "hasAlpha": true,
+        "colorProfileSha256": "2bb2c5d0a923a30b44c059e69fab438ac220b3fd6f1dd42f34987be0d8b98758"
+      },
+      "review": {
+        "surfaceReviewPath": "data/catalogue-packshot-alpha-repair-evidence/naturium-kp-body-scrub-mask-8oz/surface-review.jpg",
+        "surfaceReviewSha256": "cb9924c912576e53e8519202d4d4049e097d9a07594edf64aca0c0ed41879c72",
+        "surfaceReviewByteSize": 171840,
+        "surfaces": ["peach", "pink", "dark"],
+        "identityReviewedAt": "2026-08-08T14:38:52Z",
+        "identityReviewer": "JeloCare catalogue identity correction review",
+        "artReviewedAt": "2026-08-08T15:17:00Z",
+        "artReviewer": "Codex independent alpha-repair release recheck",
+        "packagingIntact": true,
+        "labelVariantSizeUnchanged": true,
+        "magazineReady": true
+      }
+    }
+  ]
+}

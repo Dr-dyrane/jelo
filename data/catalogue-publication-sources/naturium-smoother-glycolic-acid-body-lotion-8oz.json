@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
-    "candidateFingerprint": "6a0a3f1e7bbbc510bda8071cdc234d8f1602e8e8b6a0967a0108ce48e5d4d7df",
+    "candidateFingerprint": "a01534d9b389a9a19c079f6508fc04e8d3097a649e3631346c0c99a20a98cad5",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -141,39 +141,100 @@
           "officialProductUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion"
         },
         "processing": {
-          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "pipelineVersion": "deterministic-source-rgb-destructive-alpha-repair-v1",
           "packageRgbOrigin": "identity-master-source-pixels-only",
-          "tool": "rembg alpha mask over source RGB pixels",
+          "tool": "deterministic geometry alpha repair over retained isnet-general-use source-pixel mask",
           "model": "isnet-general-use",
           "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
           "provider": "CPUExecutionProvider",
           "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05",
+          "repairEvidence": {
+            "manifestPath": "data/catalogue-packshot-alpha-repair-evidence/manifest.json",
+            "manifestSha256": "cd89578ee6bb5e2f1eac808ea9d6ff9a1a1f92d3b7322ffea980108a0b3dd2da",
+            "replayScriptPath": "scripts/replay-reviewed-alpha-repair.py",
+            "replayScriptSha256": "8e1a89ac42fca6a6d0eeddbca90346de404607e6bdfb02c581f8ef4456e67087",
+            "prepareScriptPath": "scripts/prepare-reviewed-packshot.py",
+            "prepareScriptSha256": "98eac79846ced28ec9366cad48142093bea93a8181d9b278b23b4572728d4563",
+            "sourceInput": {
+              "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/source.png",
+              "sha256": "71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6"
+            },
+            "precursorInput": {
+              "path": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/precursor.png",
+              "sha256": "2102164cec10b43e248153b84d2d89f6770984ad4df13d1f8dd941b787e78ce7",
+              "auditSha256": "d29bae615977c5c1a7e5b0b6503f9175433e6bdd48353403e386f55a33b7c07f"
+            },
+            "geometryReferenceInput": null,
+            "rollout": {
+              "sessionRolloutId": "019fe19c-5daa-7b23-87d1-aa3ad9ac98f2",
+              "geometryCallId": "call_zVB5oBl5lBooNjH7MZVqP4u5",
+              "geometryCallInputSha256": "3f3c9e272a5a2d8988d9a56430fd27b1760582eb4d6726fd648d9924752bd873",
+              "finalPackagingCallId": "call_bjaBBIBzhB9hwDBjjrMqZxTP",
+              "finalPackagingCallInputSha256": "be0cb6292e70a3606c666b72d50cf65c5125ed561c21d02d68c74284465ed58a"
+            },
+            "outputSha256": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a",
+            "outputColorProfileSha256": "2bb2c5d0a923a30b44c059e69fab438ac220b3fd6f1dd42f34987be0d8b98758",
+            "surfaceReviewPath": "data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/surface-review.jpg",
+            "surfaceReviewSha256": "4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f"
+          }
         },
         "audit": {
-          "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
-          "generatedAt": "2026-08-07T15:15:00Z",
-          "inferredComponentCount": 6,
-          "retainedComponentCount": 6,
-          "removedComponentCount": 0,
-          "removedForegroundFraction": 0,
-          "componentReviewRequired": false,
-          "sourceEdgeContactFraction": 0
+          "sha256": "cd89578ee6bb5e2f1eac808ea9d6ff9a1a1f92d3b7322ffea980108a0b3dd2da",
+          "generatedAt": "2026-08-08T14:01:44Z",
+          "repairMetrics": {
+            "maskThreshold": 32,
+            "restoredPrecursorComponentCount": 1,
+            "restoredPrecursorForegroundPixelCount": 1150630,
+            "finalSourceComponentCount": 1,
+            "finalSourceForegroundPixelCount": 1084598,
+            "addedForegroundPixelCount": 0,
+            "removedForegroundPixelCount": 66032,
+            "removedForegroundFraction": 0.05738769,
+            "sourceEdgeContactFractionBefore": 0.05988,
+            "sourceEdgeContactFractionAfter": 0,
+            "sourceAlphaBounds": [
+              620,
+              37,
+              1378,
+              1865
+            ],
+            "sourceForegroundFraction": 0.271149,
+            "subjectTargetSize": [
+              680,
+              1640
+            ],
+            "subjectScale": 0.897155,
+            "outputAlphaBounds": [
+              660,
+              180,
+              1340,
+              1820
+            ],
+            "transparentPixelCount": 3118855,
+            "partialAlphaPixelCount": 21717,
+            "opaquePixelCount": 859428,
+            "outputComponentCount": 1,
+            "outputHolePixelCount": 0,
+            "outputEdgeAlphaMax": 0,
+            "componentReviewRequired": true,
+            "componentReviewCompleted": true
+          }
         },
         "output": {
-          "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
-          "byteSize": 397235,
+          "sha256": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a",
+          "byteSize": 422450,
           "mimeType": "image/png",
           "width": 2000,
           "height": 2000,
           "hasAlpha": true
         },
         "review": {
-          "identityReviewedAt": "2026-08-07T15:15:00Z",
-          "identityReviewer": "JeloCare catalogue identity review",
-          "artReviewedAt": "2026-08-07T15:15:00Z",
-          "artReviewer": "Codex visual audit",
-          "surfaceReviewSha256": "ea5f6f735fa649ef37aa43af636fd98736a8a96a309c7e765052660f7592c9e7",
+          "identityReviewedAt": "2026-08-08T14:38:52Z",
+          "identityReviewer": "JeloCare catalogue identity correction review",
+          "artReviewedAt": "2026-08-08T15:17:00Z",
+          "artReviewer": "Codex independent alpha-repair release recheck",
+          "surfaceReviewSha256": "4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f",
           "surfaces": [
             "peach",
             "pink",
@@ -187,10 +248,10 @@
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v1-071972905568868d.png",
-      "sha256": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v2-e1715a3073184a09.png",
+      "sha256": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a",
       "mimeType": "image/png",
-      "byteSize": 397235,
+      "byteSize": 422450,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -199,20 +260,20 @@
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T15:15:00Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-08T15:17:00Z",
+      "reviewer": "Codex independent alpha-repair release recheck"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T15:20:00Z"
+      "approvedAt": "2026-08-08T15:27:00Z"
     },
-    "dossierFingerprint": "7d179b5c9a28c0c886f10b284f99ac9fa628c40ad96790b28f696f5d8e4b3959"
+    "dossierFingerprint": "9b0dcd15479f1050d94cddcdf6bb915fe2517ff0bc4e879f2b4cc9da4f588f63"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
-    "dossierFingerprint": "7d179b5c9a28c0c886f10b284f99ac9fa628c40ad96790b28f696f5d8e4b3959",
+    "dossierFingerprint": "9b0dcd15479f1050d94cddcdf6bb915fe2517ff0bc4e879f2b4cc9da4f588f63",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -224,13 +285,13 @@
       "usage": "Apply liberally to clean dry skin. Use daily or as tolerated. Always follow with SPF on exposed areas during the day.",
       "manufacturerDirectionsUrl": "https://naturium.com/products/the-smoother-glycolic-acid-body-lotion",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T15:21:00Z"
+      "reviewedAt": "2026-08-08T15:27:10Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T15:22:00Z"
+      "publishedAt": "2026-08-08T15:27:20Z"
     },
-    "releaseFingerprint": "175cf5d503949510007f7d4a2667a19cf4aab7aa10683f70a876333496ae07c8"
+    "releaseFingerprint": "9d7430d18aa52e093bbf6ea6ac1da8e129a85e721940fe51932ae9bf18a498e7"
   }
 }

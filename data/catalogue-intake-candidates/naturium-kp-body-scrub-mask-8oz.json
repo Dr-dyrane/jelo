@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-08T15:17:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -12,7 +12,7 @@
     "brand": "Naturium",
     "name": "KP Body Scrub & Mask",
     "variant": "KP Body Scrub & Mask",
-    "size": "8 oz / 226 mL",
+    "size": "8 oz / 226 g",
     "category": "Body care",
     "reason": "Adds the exact current 8 oz Naturium KP Body Scrub & Mask. Official Shopify structured data publishes GTIN 810120260044. No exact Nigerian offers yet bound, so reference only.",
     "priority": "important",
@@ -28,20 +28,20 @@
     "identity": {
       "gtin": "810120260044",
       "officialProductUrl": "https://naturium.com/products/kp-body-scrub-mask",
-      "checkedAt": "2026-08-07T13:08:00Z",
+      "checkedAt": "2026-08-08T14:35:44Z",
       "basis": "official-brand",
-      "packageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+      "packageVersion": "KP Body Scrub & Mask 8 oz / 226 g tube",
       "officialEvidence": {
         "url": "https://naturium.com/products/kp-body-scrub-mask",
         "observedGtin": "810120260044",
         "observedVariant": "KP Body Scrub & Mask",
-        "observedSize": "8 oz / 226 mL",
-        "observedPackageVersion": "KP Body Scrub & Mask 8 oz / 226 mL jar",
+        "observedSize": "8 oz / 226 g",
+        "observedPackageVersion": "KP Body Scrub & Mask 8 oz / 226 g tube",
         "snapshotKind": "canonical-extraction",
         "snapshotPath": "data/catalogue-identity-evidence/naturium-kp-body-scrub-mask-8oz.json",
-        "snapshotSha256": "4e1102ce7e01329806a747e8813d37bd5d505cbb16d1714c7601711e34546f77",
+        "snapshotSha256": "12a5b33d022a2321cc2bc4634cc7e712fc8a463786040639425ec1666dc8b306",
         "snapshotMimeType": "application/json",
-        "snapshotByteSize": 1907,
+        "snapshotByteSize": 1916,
         "retrievedAt": "2026-08-07T13:06:28Z",
         "canonicalExtraction": {
           "schemaVersion": 4,
@@ -55,8 +55,8 @@
           "sourceUrl": "https://naturium.com/products/kp-body-scrub-mask",
           "responseUrl": "https://naturium.com/products/kp-body-scrub-mask",
           "retrievedAt": "2026-08-07T13:06:28Z",
-          "reviewedAt": "2026-08-07T13:08:00Z",
-          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-08T14:35:44Z",
+          "reviewer": "JeloCare catalogue identity correction review",
           "sourceResponseSha256": "80b61c425fdb8e6ad9ea0490971c362b22b6509137bcfca4a7b03a7de94eed6b",
           "sourceResponseMimeType": "text/html",
           "sourceResponseByteSize": 852102,
@@ -74,13 +74,13 @@
             },
             "size": {
               "locator": "Official front-pack principal display panel in supplemental response",
-              "sourceText": "Official front-pack principal display panel: 8 OZ / 226 mL",
-              "value": "8 oz / 226 mL"
+              "sourceText": "Official front-pack principal display panel: 8 OZ / 226 G",
+              "value": "8 oz / 226 g"
             },
             "packageVersion": {
               "locator": "Official front-pack principal display panel in supplemental response",
-              "sourceText": "KP Body Scrub & Mask 8 OZ / 226 mL jar",
-              "value": "KP Body Scrub & Mask 8 oz / 226 mL jar"
+              "sourceText": "KP Body Scrub & Mask 8 OZ / 226 G tube",
+              "value": "KP Body Scrub & Mask 8 oz / 226 g tube"
             }
           },
           "supplementalResponses": [
@@ -109,8 +109,8 @@
         "https://naturium.com/products/kp-body-scrub-mask",
         "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
       ],
-      "reviewedAt": "2026-08-07T13:08:00Z",
-      "reviewer": "JeloCare catalogue evidence review"
+      "reviewedAt": "2026-08-08T14:36:00Z",
+      "reviewer": "JeloCare catalogue care recheck"
     },
     "nigeria": {
       "regulatoryStatus": "pending",
@@ -135,13 +135,13 @@
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-08-07T14:59:46Z",
-      "artReviewer": "Codex visual audit",
+      "artReviewedAt": "2026-08-08T15:17:00Z",
+      "artReviewer": "Codex independent alpha-repair release recheck",
       "presentationQuality": "magazine-ready",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v1-78ceb70e267aded1.png",
-      "publicImageSha256": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v2-5cc956c30672fdcd.png",
+      "publicImageSha256": "5cc956c30672fdcd7c56db2bf156a330b48fe23dbb0cb84feb05e78fd9228edd",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 297158,
+      "publicImageByteSize": 369935,
       "width": 2000,
       "height": 2000
     }

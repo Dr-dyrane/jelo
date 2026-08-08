@@ -1,9 +1,15 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  cataloguePackshotAlphaRepairEvidenceManifestPath,
+  cataloguePackshotAlphaRepairEvidenceManifestSha256,
+  cataloguePackshotAlphaRepairPipelineVersion,
+  cataloguePackshotAlphaRepairReplayScriptPath,
   cataloguePackshotIsolationRecordFor,
   cataloguePackshotIsolationRecordValid,
+  type CataloguePackshotAlphaRepairRecord,
   type CataloguePackshotIsolationRecord,
+  type CataloguePackshotIsolationV3Record,
 } from '@/lib/catalogue/packshot-isolation-record';
 import {
   evaluateCatalogueIntakeCandidate,
@@ -12,6 +18,7 @@ import {
 import cataloguePackshotIsolations from '@/data/catalogue-packshot-isolations.json';
 
 const asOf = Date.parse('2026-07-29T06:00:00Z');
+const repairAsOf = Date.parse('2026-08-09T00:00:00Z');
 const sourceSha = 'a'.repeat(64);
 const outputSha = 'b'.repeat(64);
 const auditSha = 'c'.repeat(64);
@@ -100,7 +107,7 @@ function candidate(): CatalogueIntakeCandidate {
   } as unknown as CatalogueIntakeCandidate;
 }
 
-function record(): CataloguePackshotIsolationRecord {
+function record(): CataloguePackshotIsolationV3Record {
   return {
     schemaVersion: 1,
     candidateId: 'example-serum-30ml',
@@ -159,8 +166,250 @@ function record(): CataloguePackshotIsolationRecord {
   };
 }
 
+function repairCandidate(): CatalogueIntakeCandidate {
+  const value = candidate();
+  value.id = 'naturium-smoother-glycolic-acid-body-lotion-8oz';
+  value.brand = 'Naturium';
+  value.name = 'The Smoother Glycolic Acid Body Lotion';
+  value.variant = 'The Smoother Glycolic Acid Body Lotion';
+  value.size = '8 fl oz / 234 mL';
+  value.identity.officialProductUrl =
+    'https://naturium.com/products/the-smoother-glycolic-acid-body-lotion';
+  (value.identity as unknown as Record<string, unknown>).gtin = '810120260235';
+  value.identity.canonicalIdentifier = {
+    kind: 'gtin',
+    value: '810120260235',
+  };
+  value.asset.sourceUrl =
+    'https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048';
+  value.asset.sourceAssetSha256 =
+    '71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6';
+  value.asset.sourceAssetByteSize = 394940;
+  value.asset.sourceAssetWidth = 2000;
+  value.asset.sourceAssetHeight = 2000;
+  value.asset.sourceAssetRetrievedAt = '2026-08-07T13:34:55Z';
+  value.asset.publicImageSha256 =
+    'e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a';
+  value.asset.publicImageByteSize = 422450;
+  value.asset.publicImageMimeType = 'image/png';
+  value.asset.width = 2000;
+  value.asset.height = 2000;
+  value.asset.artReviewedAt = '2026-08-08T15:17:00Z';
+  value.asset.artReviewer = 'Codex independent alpha-repair release recheck';
+  return value;
+}
+
+function repairRecord(): CataloguePackshotAlphaRepairRecord {
+  return {
+    schemaVersion: 1,
+    candidateId: 'naturium-smoother-glycolic-acid-body-lotion-8oz',
+    publicationScope: 'catalogue-publication',
+    source: {
+      url: 'https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048',
+      sha256: '71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6',
+      byteSize: 394940,
+      width: 2000,
+      height: 2000,
+      retrievedAt: '2026-08-07T13:34:55Z',
+    },
+    identity: {
+      canonicalIdentifier: { kind: 'gtin', value: '00810120260235' },
+      officialProductUrl:
+        'https://naturium.com/products/the-smoother-glycolic-acid-body-lotion',
+    },
+    processing: {
+      pipelineVersion: cataloguePackshotAlphaRepairPipelineVersion,
+      packageRgbOrigin: 'identity-master-source-pixels-only',
+      tool: 'deterministic geometry alpha repair over retained isnet-general-use source-pixel mask',
+      model: 'isnet-general-use',
+      modelSha256: '60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a',
+      provider: 'CPUExecutionProvider',
+      runtimeLockPath: 'scripts/requirements-packshots.lock.txt',
+      runtimeLockSha256:
+        '2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05',
+      repairEvidence: {
+        manifestPath: cataloguePackshotAlphaRepairEvidenceManifestPath,
+        manifestSha256: cataloguePackshotAlphaRepairEvidenceManifestSha256,
+        replayScriptPath: cataloguePackshotAlphaRepairReplayScriptPath,
+        replayScriptSha256:
+          '8e1a89ac42fca6a6d0eeddbca90346de404607e6bdfb02c581f8ef4456e67087',
+        prepareScriptPath: 'scripts/prepare-reviewed-packshot.py',
+        prepareScriptSha256:
+          '98eac79846ced28ec9366cad48142093bea93a8181d9b278b23b4572728d4563',
+        sourceInput: {
+          path: 'data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/source.png',
+          sha256: '71f0a36856697f912bd72e9988b370815dd3bb43364bd036e742315accab71d6',
+        },
+        precursorInput: {
+          path: 'data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/precursor.png',
+          sha256: '2102164cec10b43e248153b84d2d89f6770984ad4df13d1f8dd941b787e78ce7',
+          auditSha256: 'd29bae615977c5c1a7e5b0b6503f9175433e6bdd48353403e386f55a33b7c07f',
+        },
+        geometryReferenceInput: null,
+        rollout: {
+          sessionRolloutId: '019fe19c-5daa-7b23-87d1-aa3ad9ac98f2',
+          geometryCallId: 'call_zVB5oBl5lBooNjH7MZVqP4u5',
+          geometryCallInputSha256:
+            '3f3c9e272a5a2d8988d9a56430fd27b1760582eb4d6726fd648d9924752bd873',
+          finalPackagingCallId: 'call_bjaBBIBzhB9hwDBjjrMqZxTP',
+          finalPackagingCallInputSha256:
+            'be0cb6292e70a3606c666b72d50cf65c5125ed561c21d02d68c74284465ed58a',
+        },
+        outputSha256:
+          'e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a',
+        outputColorProfileSha256:
+          '2bb2c5d0a923a30b44c059e69fab438ac220b3fd6f1dd42f34987be0d8b98758',
+        surfaceReviewPath:
+          'data/catalogue-packshot-alpha-repair-evidence/naturium-smoother-glycolic-acid-body-lotion-8oz/surface-review.jpg',
+        surfaceReviewSha256:
+          '4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f',
+      },
+    },
+    audit: {
+      sha256: cataloguePackshotAlphaRepairEvidenceManifestSha256,
+      generatedAt: '2026-08-08T14:01:44Z',
+      repairMetrics: {
+        maskThreshold: 32,
+        restoredPrecursorComponentCount: 1,
+        restoredPrecursorForegroundPixelCount: 1150630,
+        finalSourceComponentCount: 1,
+        finalSourceForegroundPixelCount: 1084598,
+        addedForegroundPixelCount: 0,
+        removedForegroundPixelCount: 66032,
+        removedForegroundFraction: 0.05738769,
+        sourceEdgeContactFractionBefore: 0.05988,
+        sourceEdgeContactFractionAfter: 0,
+        sourceAlphaBounds: [620, 37, 1378, 1865],
+        sourceForegroundFraction: 0.271149,
+        subjectTargetSize: [680, 1640],
+        subjectScale: 0.897155,
+        outputAlphaBounds: [660, 180, 1340, 1820],
+        transparentPixelCount: 3118855,
+        partialAlphaPixelCount: 21717,
+        opaquePixelCount: 859428,
+        outputComponentCount: 1,
+        outputHolePixelCount: 0,
+        outputEdgeAlphaMax: 0,
+        componentReviewRequired: true,
+        componentReviewCompleted: true,
+      },
+    },
+    output: {
+      sha256: 'e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a',
+      byteSize: 422450,
+      mimeType: 'image/png',
+      width: 2000,
+      height: 2000,
+      hasAlpha: true,
+    },
+    review: {
+      identityReviewedAt: '2026-08-08T14:38:52Z',
+      identityReviewer: 'JeloCare catalogue identity correction review',
+      artReviewedAt: '2026-08-08T15:17:00Z',
+      artReviewer: 'Codex independent alpha-repair release recheck',
+      surfaces: ['peach', 'pink', 'dark'],
+      surfaceReviewSha256:
+        '4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f',
+      packagingIntact: true,
+      labelVariantSizeUnchanged: true,
+      magazineReady: true,
+    },
+  };
+}
+
 test('a complete isolation record admits its own candidate', () => {
   assert.equal(cataloguePackshotIsolationRecordValid(record(), candidate(), asOf), true);
+});
+
+test('a fully bound repair record admits its reviewed candidate', () => {
+  assert.equal(
+    cataloguePackshotIsolationRecordValid(repairRecord(), repairCandidate(), repairAsOf),
+    true,
+  );
+});
+
+test('a repair record for a known candidate is rejected without the new repair fields', () => {
+  const missingRepairFields = repairRecord() as unknown as CataloguePackshotIsolationRecord;
+  delete (missingRepairFields.processing as unknown as Record<string, unknown>).repairEvidence;
+  delete (missingRepairFields.audit as unknown as Record<string, unknown>).repairMetrics;
+  assert.equal(
+    cataloguePackshotIsolationRecordValid(
+      missingRepairFields,
+      repairCandidate(),
+      repairAsOf,
+    ),
+    false,
+  );
+});
+
+test('a manifest-bound repair output cannot be downgraded to an ordinary v3 record', () => {
+  const downgraded = repairRecord() as unknown as CataloguePackshotIsolationRecord;
+  (downgraded.processing as { pipelineVersion: string }).pipelineVersion =
+    'exact-sku-source-pixel-isolation-v3';
+  delete (downgraded.processing as unknown as Record<string, unknown>).repairEvidence;
+  (downgraded as unknown as { audit: unknown }).audit = {
+    sha256: auditSha,
+    generatedAt: '2026-08-08T14:01:44Z',
+    inferredComponentCount: 1,
+    retainedComponentCount: 1,
+    removedComponentCount: 0,
+    removedForegroundFraction: 0,
+    componentReviewRequired: false,
+    sourceEdgeContactFraction: 0,
+  };
+  assert.equal(
+    cataloguePackshotIsolationRecordValid(downgraded, repairCandidate(), repairAsOf),
+    false,
+  );
+});
+
+test('missing nested repair bindings fail closed instead of throwing', () => {
+  const mutations: Array<(value: CataloguePackshotAlphaRepairRecord) => void> = [
+    value => {
+      delete (value.processing.repairEvidence as unknown as Record<string, unknown>).sourceInput;
+    },
+    value => {
+      delete (value.processing.repairEvidence as unknown as Record<string, unknown>).precursorInput;
+    },
+    value => {
+      delete (value.processing.repairEvidence as unknown as Record<string, unknown>).rollout;
+    },
+    value => {
+      delete (value.review as unknown as Record<string, unknown>).surfaces;
+    },
+  ];
+  for (const mutate of mutations) {
+    const value = repairRecord();
+    mutate(value);
+    let valid = true;
+    assert.doesNotThrow(() => {
+      valid = cataloguePackshotIsolationRecordValid(value, repairCandidate(), repairAsOf);
+    });
+    assert.equal(valid, false);
+  }
+});
+
+test('a repair record cannot drift from its script, rollout or measured edit', () => {
+  const scriptDrift = repairRecord();
+  scriptDrift.processing.repairEvidence.replayScriptSha256 = '0'.repeat(64);
+  assert.equal(
+    cataloguePackshotIsolationRecordValid(scriptDrift, repairCandidate(), repairAsOf),
+    false,
+  );
+
+  const callDrift = repairRecord();
+  callDrift.processing.repairEvidence.rollout.geometryCallId = 'call_some_other_geometry';
+  assert.equal(
+    cataloguePackshotIsolationRecordValid(callDrift, repairCandidate(), repairAsOf),
+    false,
+  );
+
+  const metricDrift = repairRecord();
+  metricDrift.audit.repairMetrics.removedForegroundPixelCount -= 1;
+  assert.equal(
+    cataloguePackshotIsolationRecordValid(metricDrift, repairCandidate(), repairAsOf),
+    false,
+  );
 });
 
 test('an absent record never admits an isolation packshot', () => {
@@ -185,7 +434,7 @@ test('duplicate records for one candidate are ambiguous and never resolve', () =
 });
 
 test('the record must bind the candidate source bytes, identity and output bytes', () => {
-  const mutations: Array<(value: CataloguePackshotIsolationRecord) => void> = [
+  const mutations: Array<(value: CataloguePackshotIsolationV3Record) => void> = [
     value => { value.source.sha256 = '0'.repeat(64); },
     value => { value.source.byteSize = 999; },
     value => { value.source.url = 'https://example.com/cdn/other.jpg'; },
@@ -205,7 +454,7 @@ test('the record must bind the candidate source bytes, identity and output bytes
 });
 
 test('an audit that discarded any foreground cannot admit the packshot', () => {
-  const mutations: Array<(value: CataloguePackshotIsolationRecord) => void> = [
+  const mutations: Array<(value: CataloguePackshotIsolationV3Record) => void> = [
     value => { value.audit.removedComponentCount = 1; },
     value => { value.audit.removedForegroundFraction = 0.0001; },
     value => { value.audit.componentReviewRequired = true; },
@@ -220,7 +469,7 @@ test('an audit that discarded any foreground cannot admit the packshot', () => {
 });
 
 test('an unpinned pipeline, runtime or relabelled origin cannot admit the packshot', () => {
-  const mutations: Array<(value: CataloguePackshotIsolationRecord) => void> = [
+  const mutations: Array<(value: CataloguePackshotIsolationV3Record) => void> = [
     value => { value.processing.pipelineVersion = 'exact-sku-source-pixel-isolation-v2' as never; },
     value => { value.processing.packageRgbOrigin = 'generated-pixels' as never; },
     value => { value.processing.provider = 'CUDAExecutionProvider' as never; },
@@ -237,7 +486,7 @@ test('an unpinned pipeline, runtime or relabelled origin cannot admit the packsh
 });
 
 test('incomplete or out-of-order human review cannot admit the packshot', () => {
-  const mutations: Array<(value: CataloguePackshotIsolationRecord) => void> = [
+  const mutations: Array<(value: CataloguePackshotIsolationV3Record) => void> = [
     value => { value.review.surfaces = ['peach', 'pink']; },
     value => { value.review.surfaces = ['peach', 'dark', 'pink']; },
     value => { value.review.packagingIntact = false as unknown as true; },
@@ -267,7 +516,7 @@ test('the record timeline cannot float free of the candidate it publishes', () =
   staleReview.asset.artReviewedAt = '2026-07-28T10:30:00Z';
   assert.equal(cataloguePackshotIsolationRecordValid(record(), staleReview, asOf), false);
 
-  const mutations: Array<(value: CataloguePackshotIsolationRecord) => void> = [
+  const mutations: Array<(value: CataloguePackshotIsolationV3Record) => void> = [
     // A source retrieval that disagrees with the candidate snapshot.
     value => { value.source.retrievedAt = '2020-01-01T00:00:00Z'; },
     // An art review attributed to someone other than the published reviewer.

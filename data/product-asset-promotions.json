@@ -152,21 +152,21 @@
     "contentHash": "cdc1398f2086e51a3cc4d19877aa1af4bb2ed752655da6e36ec9e6f59581524c"
   },
   {
-    "id": "naturium-kp-body-scrub-mask-8oz-packshot-v1",
+    "id": "naturium-kp-body-scrub-mask-8oz-packshot-v2",
     "active": true,
     "candidateId": "naturium-kp-body-scrub-mask-8oz",
     "destination": "publication",
     "publicationBrandSlug": "naturium",
     "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-KP_Scrub_Front.webp?v=1774290427&width=2048",
-    "localPath": "data/catalogue-intake-assets/naturium-kp-body-scrub-mask-8oz/packshot-v1-78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685.png",
-    "blobPath": "products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v1-78ceb70e267aded1.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v1-78ceb70e267aded1.png",
+    "localPath": "data/catalogue-intake-assets/naturium-kp-body-scrub-mask-8oz/packshot-v2-5cc956c30672fdcd7c56db2bf156a330b48fe23dbb0cb84feb05e78fd9228edd.png",
+    "blobPath": "products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v2-5cc956c30672fdcd.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-kp-body-scrub-mask-8oz/packshot-v2-5cc956c30672fdcd.png",
     "contentType": "image/png",
-    "byteSize": 297158,
+    "byteSize": 369935,
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "78ceb70e267aded1eb510b24f62e3a4a6cff9b156fb9336098ebe83a9a415685"
+    "contentHash": "5cc956c30672fdcd7c56db2bf156a330b48fe23dbb0cb84feb05e78fd9228edd"
   },
   {
     "id": "naturium-plant-ceramide-rich-moisture-cream-1-7oz-packshot-v1",
@@ -373,21 +373,21 @@
     "contentHash": "92ea6cbb3abc55676499887c84a5a8d684578132907142f806053bef006eb020"
   },
   {
-    "id": "naturium-smoother-glycolic-acid-body-lotion-8oz-packshot-v1",
+    "id": "naturium-smoother-glycolic-acid-body-lotion-8oz-packshot-v2",
     "active": true,
     "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
     "destination": "publication",
     "publicationBrandSlug": "naturium",
     "sourceUrl": "https://naturium.com/cdn/shop/files/NATR-Smoother_glycolic_body_lotion_front.webp?v=1774292492&width=2048",
-    "localPath": "data/catalogue-intake-assets/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v1-071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a.png",
-    "blobPath": "products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v1-071972905568868d.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v1-071972905568868d.png",
+    "localPath": "data/catalogue-intake-assets/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v2-e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a.png",
+    "blobPath": "products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v2-e1715a3073184a09.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-smoother-glycolic-acid-body-lotion-8oz/packshot-v2-e1715a3073184a09.png",
     "contentType": "image/png",
-    "byteSize": 397235,
+    "byteSize": 422450,
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "071972905568868d4eba13b35ca4ce64fdda4a2cb1ed78e8e020b52272b09c9a"
+    "contentHash": "e1715a3073184a090c50da6744a10c12f427a4b706820b5303e9b7c4a7c89d4a"
   },
   {
     "contentHash": "935da2d0a2d6a18211f9d08efff71dba0eb1c41c97ef7c130892202c6a7a1561",
