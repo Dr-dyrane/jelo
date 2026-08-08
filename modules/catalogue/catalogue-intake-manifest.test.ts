@@ -501,7 +501,7 @@ test('the KeraCare 32 oz identity keeps retailer SKUs local while exact Nigerian
   assert.equal(candidate.nigeria.excludedObservations.length, 0);
   assert.equal(candidate.asset.publicImageSha256, 'd37d0d5abab7580e7e4c094f4b848ef3250665ece05296769347cdb2cdf89652');
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:16:30Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);

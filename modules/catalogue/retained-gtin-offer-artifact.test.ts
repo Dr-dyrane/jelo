@@ -168,7 +168,7 @@ test('reopens a schema-4 GTIN offer and binds one exact Woo record to its listin
       repositoryRoot,
       `data/catalogue-offer-source-evidence/${candidateId}--buybetter.json`,
     ),
-    source.replace('In stock', 'Out of stock'),
+    source.replace('Out of stock', 'In stock'),
   );
   await assert.rejects(
     () => verifyCatalogueIdentityEvidenceArtifacts([candidate], repositoryRoot),

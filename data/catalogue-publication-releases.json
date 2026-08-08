@@ -52,30 +52,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "keracare-dry-itchy-scalp-conditioner-950ml",
-      "dossierFingerprint": "b7ed1d1eea6c89e88ee3f5575365e2ef3bc8c609c657a5bfa654bccccb31819c",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Hair",
-        "routineStep": "Condition",
-        "displayLine": "Conditioning care for a dry, itchy scalp.",
-        "usage": "Distribute through the hair after shampooing. Cover, leave on for a few minutes, then rinse thoroughly.",
-        "manufacturerDirectionsUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
-        "reviewer": "JeloCare catalogue presentation review",
-        "reviewedAt": "2026-07-23T04:40:50Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue publication review",
-        "publishedAt": "2026-07-23T04:41:00Z"
-      },
-      "releaseFingerprint": "0796a892b344cd9515d3b3692aa7a53db4c5316a959d04bdb30adbc3d439d602"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
       "dossierFingerprint": "6561e48988f3452cde60c0ce05650285491109beb48f645058bc98b308f257e4",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:11:50Z"
       },
       "releaseFingerprint": "69b0a639d0ed7983130a79a10557c0278d526cb51c43a2a709a6d4fdcfb1cd81"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "keracare-dry-itchy-scalp-conditioner-950ml",
+      "dossierFingerprint": "503eeea67a18e6e8df7377f8fe9b61c6f59724ee0df35097da21c86d187763e4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Condition",
+        "displayLine": "Conditioning care for a dry, itchy scalp.",
+        "usage": "Distribute through the hair after shampooing. Cover, leave on for a few minutes, then rinse thoroughly.",
+        "manufacturerDirectionsUrl": "https://keracare.com/products/dry-itchy-scalp-anti-dandruff-moisturizing-conditioner",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:16:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:16:50Z"
+      },
+      "releaseFingerprint": "93365df44975c8311aeec4424e454ae3fddc7c6e2e2efa3ac011d11f379820db"
     }
   ]
 }
