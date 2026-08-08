@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
-    "candidateFingerprint": "f7626cf482a1f30cf5c57ff919575b9009863ed7c45dc03ff803ad22941bcc64",
+    "candidateFingerprint": "3f192c04eb7a6dd1fa150fe92527f8ff7f9649ccc90ba79198124996fab16e65",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -104,7 +104,7 @@
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/241662/",
-          "observedAt": "2026-07-26T15:44:00Z",
+          "observedAt": "2026-08-08T03:08:51Z",
           "observedTitle": "Nivea Perfect & Radiant Body Lotion 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -113,14 +113,19 @@
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/241662/",
             "responseUrl": "https://teeka4.com/shop/241662/",
-            "responseSha256": "77430c7bf1a72ff3ddd26f2aefc688aa6bb9c53074bc95af592f6d57643b88ea",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "e74a48bab56c03524f65bc9544ffe5ea63d0dec0038d23c5af2d13ee04df9c29",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 337237,
-            "retrievedAt": "2026-07-26T15:44:00Z",
+            "responseByteSize": 371495,
+            "retrievedAt": "2026-08-08T03:08:51Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Shop for original Nivea Perfect & Radiant Body Lotion 400ml in Lagos Nigeria"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
@@ -143,38 +148,43 @@
                 "value": 5999,
                 "currency": "NGN",
                 "locator": "Rendered product price",
-                "sourceText": "₦5,999.00"
+                "sourceText": "₦5,999"
               },
               "stock": {
                 "value": "in-stock",
                 "locator": "Rendered availability status",
-                "sourceText": "In stock"
+                "sourceText": "IN STOCK"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-26T15:48:00Z"
+            "reviewedAt": "2026-08-08T03:16:30Z"
           }
         },
         {
-          "retailer": "Allure Beauty",
+          "retailer": "Beauty Hut Africa",
           "retailerStatus": "directory-listed",
-          "listingUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
-          "observedAt": "2026-07-26T15:44:00Z",
-          "observedTitle": "Nivea Perfect & Radiant Body Lotion",
+          "listingUrl": "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+          "observedAt": "2026-08-08T03:16:03Z",
+          "observedTitle": "Nivea Perfect and Radiant Body Lotion 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "priceNgn": 6500,
+          "priceNgn": 5156,
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
-            "listingUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
-            "responseUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
-            "responseSha256": "42eef4c3a6b9a570dddd1916a83825e8f3237a656bebe6e4e0d6711e9e2fb84a",
-            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+            "responseUrl": "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+            "responseSha256": "3d20bf1bd36d6e1350494b8d5d38e2e6ee936c11ddae40c5cac82ed11899df0d",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 597885,
-            "retrievedAt": "2026-07-26T15:44:00Z",
+            "responseByteSize": 844828,
+            "retrievedAt": "2026-08-08T03:16:03Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Nivea Perfect and Radiant Body Lotion 400ml - Beauty Hut Africa"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
@@ -184,29 +194,29 @@
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "Nivea Perfect & Radiant Body Lotion",
+                "value": "Nivea Perfect and Radiant Body Lotion 400ml",
                 "locator": "HTML product heading",
-                "sourceText": "Nivea Perfect & Radiant Body Lotion"
+                "sourceText": "Nivea Perfect and Radiant Body Lotion 400ml"
               },
               "size": {
                 "value": "400 ml",
-                "locator": "HTML product description",
-                "sourceText": "For Women 400ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ml"
               },
               "price": {
-                "value": 6500,
+                "value": 5156,
                 "currency": "NGN",
                 "locator": "Rendered product price",
-                "sourceText": "₦6,500"
+                "sourceText": "₦5,156.00"
               },
               "stock": {
                 "value": "in-stock",
                 "locator": "Rendered availability status",
-                "sourceText": "In stock"
+                "sourceText": "IN STOCK"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-26T15:49:00Z"
+            "reviewedAt": "2026-08-08T03:16:30Z"
           }
         }
       ],
@@ -246,14 +256,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-26T19:51:10Z"
+      "approvedAt": "2026-08-08T03:17:00Z"
     },
-    "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6"
+    "dossierFingerprint": "b264e70759387cacd3dd61eb639e6475a907b3ca5c4dfd61a81d0863909f338e"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
-    "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6",
+    "dossierFingerprint": "b264e70759387cacd3dd61eb639e6475a907b3ca5c4dfd61a81d0863909f338e",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -265,13 +275,13 @@
       "usage": "Apply over the body. Allow it to absorb before dressing, and store in a cool, dry place.",
       "manufacturerDirectionsUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-26T19:52:10Z"
+      "reviewedAt": "2026-08-08T03:17:10Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-26T19:53:10Z"
+      "publishedAt": "2026-08-08T03:17:20Z"
     },
-    "releaseFingerprint": "42b37ccaf51cf8f92dc180baed060e29ff67910e844035e82d34782053fc6b01"
+    "releaseFingerprint": "84798c0a4d116e5b194698abdb75078ee83c59fb039fbba780aaf23136a10df7"
   }
 }

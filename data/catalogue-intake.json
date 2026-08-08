@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T03:02:02Z",
+  "updatedAt": "2026-08-08T03:16:30Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -24772,7 +24772,7 @@
             "retailer": "Teeka4",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://teeka4.com/shop/241662/",
-            "observedAt": "2026-07-26T15:44:00Z",
+            "observedAt": "2026-08-08T03:08:51Z",
             "observedTitle": "Nivea Perfect & Radiant Body Lotion 400ml",
             "observedSize": "400 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -24781,14 +24781,19 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://teeka4.com/shop/241662/",
               "responseUrl": "https://teeka4.com/shop/241662/",
-              "responseSha256": "77430c7bf1a72ff3ddd26f2aefc688aa6bb9c53074bc95af592f6d57643b88ea",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "e74a48bab56c03524f65bc9544ffe5ea63d0dec0038d23c5af2d13ee04df9c29",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 337237,
-              "retrievedAt": "2026-07-26T15:44:00Z",
+              "responseByteSize": 371495,
+              "retrievedAt": "2026-08-08T03:08:51Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Shop for original Nivea Perfect & Radiant Body Lotion 400ml in Lagos Nigeria"
+              },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -24811,38 +24816,43 @@
                   "value": 5999,
                   "currency": "NGN",
                   "locator": "Rendered product price",
-                  "sourceText": "₦5,999.00"
+                  "sourceText": "₦5,999"
                 },
                 "stock": {
                   "value": "in-stock",
                   "locator": "Rendered availability status",
-                  "sourceText": "In stock"
+                  "sourceText": "IN STOCK"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T15:48:00Z"
+              "reviewedAt": "2026-08-08T03:16:30Z"
             }
           },
           {
-            "retailer": "Allure Beauty",
+            "retailer": "Beauty Hut Africa",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
-            "observedAt": "2026-07-26T15:44:00Z",
-            "observedTitle": "Nivea Perfect & Radiant Body Lotion",
+            "listingUrl": "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+            "observedAt": "2026-08-08T03:16:03Z",
+            "observedTitle": "Nivea Perfect and Radiant Body Lotion 400ml",
             "observedSize": "400 ml",
             "observedGtinBasis": "exact-variant-and-size",
-            "priceNgn": 6500,
+            "priceNgn": 5156,
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
-              "listingUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
-              "responseUrl": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
-              "responseSha256": "42eef4c3a6b9a570dddd1916a83825e8f3237a656bebe6e4e0d6711e9e2fb84a",
-              "responseDigestScope": "decoded-response-body",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+              "responseUrl": "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+              "responseSha256": "3d20bf1bd36d6e1350494b8d5d38e2e6ee936c11ddae40c5cac82ed11899df0d",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 597885,
-              "retrievedAt": "2026-07-26T15:44:00Z",
+              "responseByteSize": 844828,
+              "retrievedAt": "2026-08-08T03:16:03Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Nivea Perfect and Radiant Body Lotion 400ml - Beauty Hut Africa"
+              },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -24852,29 +24862,29 @@
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
-                  "value": "Nivea Perfect & Radiant Body Lotion",
+                  "value": "Nivea Perfect and Radiant Body Lotion 400ml",
                   "locator": "HTML product heading",
-                  "sourceText": "Nivea Perfect & Radiant Body Lotion"
+                  "sourceText": "Nivea Perfect and Radiant Body Lotion 400ml"
                 },
                 "size": {
                   "value": "400 ml",
-                  "locator": "HTML product description",
-                  "sourceText": "For Women 400ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "400ml"
                 },
                 "price": {
-                  "value": 6500,
+                  "value": 5156,
                   "currency": "NGN",
                   "locator": "Rendered product price",
-                  "sourceText": "₦6,500"
+                  "sourceText": "₦5,156.00"
                 },
                 "stock": {
                   "value": "in-stock",
                   "locator": "Rendered availability status",
-                  "sourceText": "In stock"
+                  "sourceText": "IN STOCK"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T15:49:00Z"
+              "reviewedAt": "2026-08-08T03:16:30Z"
             }
           }
         ],

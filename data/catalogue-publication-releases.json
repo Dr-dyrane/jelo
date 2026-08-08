@@ -628,30 +628,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
-      "dossierFingerprint": "392120ebb82c47604e34e338039d742cc4e5754f754c7d5f9a5c138954f645a6",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturize",
-        "displayLine": "Daily body moisture · 400 ml",
-        "usage": "Apply over the body. Allow it to absorb before dressing, and store in a cool, dry place.",
-        "manufacturerDirectionsUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-26T19:52:10Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-26T19:53:10Z"
-      },
-      "releaseFingerprint": "42b37ccaf51cf8f92dc180baed060e29ff67910e844035e82d34782053fc6b01"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
       "dossierFingerprint": "9fbff126ef67ad1dd11f7add2de1134b9767e4f3e6765cdc25897396438eb465",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T03:03:20Z"
       },
       "releaseFingerprint": "23a3a3731a3dced2e73d64a9df2607b082791fad4e24e84a1151806da56ae09c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "dossierFingerprint": "b264e70759387cacd3dd61eb639e6475a907b3ca5c4dfd61a81d0863909f338e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily body moisture · 400 ml",
+        "usage": "Apply over the body. Allow it to absorb before dressing, and store in a cool, dry place.",
+        "manufacturerDirectionsUrl": "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T03:17:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T03:17:20Z"
+      },
+      "releaseFingerprint": "84798c0a4d116e5b194698abdb75078ee83c59fb039fbba780aaf23136a10df7"
     }
   ]
 }
