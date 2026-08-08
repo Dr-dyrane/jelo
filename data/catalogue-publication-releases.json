@@ -124,30 +124,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
-      "dossierFingerprint": "061eddd7aba49fdea2cc5d1ed289316ab1d4f33885c9a257ad2aa9d7ebe7add2",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturize",
-        "displayLine": "Light moisture for blemish-prone skin.",
-        "usage": "After cleansing and toning, apply a small amount and massage in. Do not rinse.",
-        "manufacturerDirectionsUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-26T23:13:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-26T23:14:00Z"
-      },
-      "releaseFingerprint": "2d3773f114cedd984953bed6fcccac65ef594197657c6060ceba54ce905308be"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
       "dossierFingerprint": "b9cbba499bc79bd89e9e67efabc4a1be4caf344ef288793bcbe69f275853cfa4",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:58:40Z"
       },
       "releaseFingerprint": "119470c4a98fcd003931c03d54b5a95f87254b679ad8754c65c5b0ae4c32e5ee"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+      "dossierFingerprint": "3aa1ed854ca6443df3bbd8443fc4a749d4b66644d4e5056c4ec868e801441c56",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Light moisture for blemish-prone skin.",
+        "usage": "After cleansing and toning, apply a small amount and massage in. Do not rinse.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/collections/ceramide/products/ceramide-blemish-gel-moisturiser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T05:02:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T05:02:40Z"
+      },
+      "releaseFingerprint": "0b49a4de5547b381d3adbeeac8478ebfb6ad9a943db9018d542a7effb636cea6"
     }
   ]
 }
