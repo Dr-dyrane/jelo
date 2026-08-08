@@ -154,7 +154,7 @@ test("the selector routes to each exact public member and selects only the curre
   const page = readFileSync("app/(site)/products/[slug]/page.tsx", "utf8");
   assert.match(
     page,
-    /resolveCatalogueProductFamily\(product\.slug, staticProducts\)/,
+    /resolveCatalogueProductFamily\(\s*product\.slug,\s*staticProducts,?\s*\)/,
   );
   assert.match(page, /<ProductSizeSelector family=\{productFamily\}/);
   assert.match(page, /productFamily \? null : <span>\{product\.size\}<\/span>/);

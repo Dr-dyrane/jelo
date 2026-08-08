@@ -266,7 +266,10 @@ test("search reads are rate limited and remote-only searches show immediate feed
   assert.match(route, /Retry-After/);
   assert.match(route, /catalogueSearchRateLimit/);
   assert.match(security, /if \(!url && !token\)/);
-  assert.match(security, /allowed:\s*process\.env\.NODE_ENV !== 'production'/);
+  assert.match(
+    security,
+    /allowed:\s*process\.env\.NODE_ENV !== ["']production["']/,
+  );
   assert.match(security, /catch[\s\S]*allowed:\s*false/);
   assert.match(client, /matches\.length > 0 \|\| isLoading/);
   assert.match(client, /Finding matches/);

@@ -1,21 +1,30 @@
-import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { test } from 'node:test';
-import path from 'node:path';
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { test } from "node:test";
+import path from "node:path";
 
 const root = process.cwd();
 
-test('site metadata uses contextual cards instead of a generic root preview', async () => {
+test("site metadata uses contextual cards instead of a generic root preview", async () => {
   const [layoutSource, homeSource, socialCardSource] = await Promise.all([
-    readFile(path.join(root, 'app/layout.tsx'), 'utf8'),
-    readFile(path.join(root, 'app/(site)/page.tsx'), 'utf8'),
-    readFile(path.join(root, 'lib/og/social-card.tsx'), 'utf8'),
+    readFile(path.join(root, "app/layout.tsx"), "utf8"),
+    readFile(path.join(root, "app/(site)/page.tsx"), "utf8"),
+    readFile(path.join(root, "lib/og/social-card.tsx"), "utf8"),
   ]);
 
-  assert.doesNotMatch(layoutSource, /jelocare-open-graph-v1|openGraph:|twitter:/);
-  assert.match(homeSource, /publicSocialMetadata\(staticSocialCard\('home'\), '\/'\)/);
+  assert.doesNotMatch(
+    layoutSource,
+    /jelocare-open-graph-v1|openGraph:|twitter:/,
+  );
+  assert.match(
+    homeSource,
+    /publicSocialMetadata\(staticSocialCard\(["']home["']\), ["']\/["']\)/,
+  );
   assert.match(socialCardSource, /card: 'summary_large_image'/);
   assert.match(socialCardSource, /width: OG_SIZE\.width/);
   assert.match(socialCardSource, /height: OG_SIZE\.height/);
-  assert.match(socialCardSource, /openGraph:[\s\S]*images: \[imageDescriptor\][\s\S]*twitter:[\s\S]*images: \[imageDescriptor\]/);
+  assert.match(
+    socialCardSource,
+    /openGraph:[\s\S]*images: \[imageDescriptor\][\s\S]*twitter:[\s\S]*images: \[imageDescriptor\]/,
+  );
 });

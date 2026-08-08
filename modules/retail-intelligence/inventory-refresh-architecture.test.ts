@@ -1,30 +1,49 @@
-import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-import test from 'node:test';
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import test from "node:test";
 
 const root = process.cwd();
-const repository = readFileSync(resolve(root, 'lib/inventory/repository.ts'), 'utf8');
-const worker = readFileSync(resolve(root, 'lib/inventory/refresh-worker.ts'), 'utf8');
-const route = readFileSync(resolve(root, 'app/api/cron/inventory/route.ts'), 'utf8');
-const workerScript = readFileSync(resolve(root, 'scripts/process-inventory-refresh.ts'), 'utf8');
+const repository = readFileSync(
+  resolve(root, "lib/inventory/repository.ts"),
+  "utf8",
+);
+const worker = readFileSync(
+  resolve(root, "lib/inventory/refresh-worker.ts"),
+  "utf8",
+);
+const route = readFileSync(
+  resolve(root, "app/api/cron/inventory/route.ts"),
+  "utf8",
+);
+const workerScript = readFileSync(
+  resolve(root, "scripts/process-inventory-refresh.ts"),
+  "utf8",
+);
 const vercel = JSON.parse(
-  readFileSync(resolve(root, 'vercel.json'), 'utf8'),
+  readFileSync(resolve(root, "vercel.json"), "utf8"),
 ) as { crons?: Array<{ path: string; schedule: string }> };
 
-test('one Vercel cron feeds the existing Neon inventory queue twice daily', () => {
-  const inventoryCrons = vercel.crons?.filter(cron => cron.path === '/api/cron/inventory');
-  assert.deepEqual(inventoryCrons, [{
-    path: '/api/cron/inventory',
-    schedule: '17 4,16 * * *',
-  }]);
+test("one Vercel cron feeds the existing Neon inventory queue twice daily", () => {
+  const inventoryCrons = vercel.crons?.filter(
+    (cron) => cron.path === "/api/cron/inventory",
+  );
+  assert.deepEqual(inventoryCrons, [
+    {
+      path: "/api/cron/inventory",
+      schedule: "17 4,16 * * *",
+    },
+  ]);
   assert.match(route, /const batchSize = 100/);
   assert.match(route, /enqueueDueInventoryOffers\(batchSize\)/);
-  assert.match(route, /processInventoryRefreshBatch\(batchSize, \{ claimDeadlineAt \}\)/);
+  assert.match(
+    route,
+    /processInventoryRefreshBatch\(batchSize, \{ claimDeadlineAt \}\)/,
+  );
   assert.doesNotMatch(route, /insert\s+into\s+inventory_refresh_jobs/i);
 });
 
-test('runtime enqueue and claim both require a published exact HTTPS offer', () => {
+test("runtime enqueue and claim both require a published exact HTTPS offer", () => {
   assert.match(
     repository,
     /candidates as \([\s\S]*join products p on p\.id = o\.product_id[\s\S]*p\.is_published = true[\s\S]*o\.match_kind = 'exact'[\s\S]*o\.url ~\* '\^https:\/\/'/,
@@ -39,7 +58,7 @@ test('runtime enqueue and claim both require a published exact HTTPS offer', () 
   );
 });
 
-test('manual workers can scope every claim-side mutation to one market', () => {
+test("manual workers can scope every claim-side mutation to one market", () => {
   assert.match(
     worker,
     /exhausted_candidate as \([\s\S]*join offers o on o\.id = j\.offer_id[\s\S]*o\.market_code = \$\{marketCode \?\? null\}/,
@@ -50,11 +69,14 @@ test('manual workers can scope every claim-side mutation to one market', () => {
   );
   assert.match(worker, /claim\.current_market_code !== job\.market_code/);
   assert.match(worker, /o\.market_code = \$\{job\.market_code\}/);
-  assert.match(workerScript, /parseInventoryWorkerOptions\(process\.argv\.slice\(2\)\)/);
+  assert.match(
+    workerScript,
+    /parseInventoryWorkerOptions\(process\.argv\.slice\(2\)\)/,
+  );
   assert.match(workerScript, /marketCode: options\.market/);
 });
 
-test('claims recover only expired bounded leases and terminal-set exhausted work', () => {
+test("claims recover only expired bounded leases and terminal-set exhausted work", () => {
   assert.match(
     worker,
     /j\.status = 'processing'[\s\S]*j\.attempt_count < \$\{MAX_ATTEMPTS\}[\s\S]*j\.started_at <= now\(\) - \(\$\{INVENTORY_REFRESH_LEASE_MS\}/,
@@ -70,10 +92,10 @@ test('claims recover only expired bounded leases and terminal-set exhausted work
   );
 });
 
-test('completion and failure settle only the current claim generation', () => {
-  const lockIndex = worker.indexOf('async function lockCurrentClaim');
-  const offerUpdateIndex = worker.indexOf('update offers o');
-  const historyInsertIndex = worker.indexOf('insert into offer_price_history');
+test("completion and failure settle only the current claim generation", () => {
+  const lockIndex = worker.indexOf("async function lockCurrentClaim");
+  const offerUpdateIndex = worker.indexOf("update offers o");
+  const historyInsertIndex = worker.indexOf("insert into offer_price_history");
   assert.ok(lockIndex >= 0 && lockIndex < offerUpdateIndex);
   assert.ok(offerUpdateIndex < historyInsertIndex);
 
@@ -85,11 +107,15 @@ test('completion and failure settle only the current claim generation', () => {
     worker,
     /where o\.id = \$\{job\.offer_id\}[\s\S]*o\.url = \$\{job\.url\}[\s\S]*o\.updated_at\)::text = \$\{job\.offer_version\}[\s\S]*o\.match_kind = 'exact'[\s\S]*p\.is_published = true/,
   );
-  const guardedSettlements = worker.match(
-    /status = 'processing'[\s\S]{0,180}attempt_count = \$\{job\.attempt_count\}/g,
-  )?.length ?? 0;
+  const guardedSettlements =
+    worker.match(
+      /status = 'processing'[\s\S]{0,180}attempt_count = \$\{job\.attempt_count\}/g,
+    )?.length ?? 0;
   assert.ok(guardedSettlements >= 3);
-  assert.match(worker, /claim\.current_url !== job\.url[\s\S]*set status = 'queued'/);
+  assert.match(
+    worker,
+    /claim\.current_url !== job\.url[\s\S]*set status = 'queued'/,
+  );
   assert.match(
     worker,
     /extract\(epoch from o\.updated_at\)::text as offer_version[\s\S]*extract\(epoch from o\.updated_at\)::text as current_offer_version/,
@@ -98,16 +124,19 @@ test('completion and failure settle only the current claim generation', () => {
     worker,
     /claim\.current_offer_version !== job\.offer_version[\s\S]*set status = 'queued'/,
   );
-  assert.match(worker, /Inventory refresh claim was superseded before completion/);
-  assert.match(worker, /Inventory refresh claim was superseded before failure settlement/);
+  assert.match(
+    worker,
+    /Inventory refresh claim was superseded before completion/,
+  );
+  assert.match(
+    worker,
+    /Inventory refresh claim was superseded before failure settlement/,
+  );
 });
 
-test('the cron stops claims before maxDuration and invalidates only after success', () => {
+test("the cron stops claims before maxDuration and invalidates only after success", () => {
   assert.match(route, /export const maxDuration = 300/);
-  assert.match(
-    route,
-    /requestStartedAt \+ INVENTORY_CRON_CLAIM_BUDGET_MS/,
-  );
+  assert.match(route, /requestStartedAt \+ INVENTORY_CRON_CLAIM_BUDGET_MS/);
   assert.match(route, /if \(run\.affectedProductSlugs\.length > 0\)/);
   for (const path of [
     "revalidatePath('/')",
@@ -116,8 +145,8 @@ test('the cron stops claims before maxDuration and invalidates only after succes
     "revalidatePath('/concerns')",
     "revalidatePath('/concerns/[slug]', 'page')",
     "revalidatePath('/share')",
-    'revalidatePath(`/products/${slug}`)',
-    'revalidatePath(`/share/${slug}`)',
+    "revalidatePath(`/products/${slug}`)",
+    "revalidatePath(`/share/${slug}`)",
   ]) {
     assert.ok(route.includes(path), `missing inventory revalidation: ${path}`);
   }
@@ -126,41 +155,56 @@ test('the cron stops claims before maxDuration and invalidates only after succes
   assert.match(route, /return Response\.json\(summary\)/);
 });
 
-test('the refresh worker tries the Woo Store API before HTML scraping', () => {
+test("the refresh worker tries the Woo Store API before HTML scraping", () => {
   assert.match(worker, /WOO_API_HOSTS/);
   assert.match(worker, /fetchWooStoreApi/);
-  assert.match(worker, /await fetchWooStoreApi\(job\.url\) \?\? await fetchRetailerPage\(job\.url\)/);
+  assert.match(
+    worker,
+    /await fetchWooStoreApi\(\s*job\.url,?\s*\)\s*\)\s*\?\?\s*\(?\s*await fetchRetailerPage\(\s*job\.url,?\s*\)/,
+  );
   assert.match(worker, /wp-json\/wc\/store\/v1\/products\?slug=/);
 });
 
-test('the refresh worker skips Jumia offers that block server-side fetch', () => {
+test("the refresh worker skips Jumia offers that block server-side fetch", () => {
   assert.match(worker, /BLOCKED_HOSTS/);
   assert.match(worker, /jumia\.com\.ng/);
   assert.match(worker, /isBlockedHost\(job\.url\)/);
   assert.match(worker, /Retailer host blocks server-side fetch/);
 });
 
-test('all Woo retailers in the extraction adapters have a matching Woo API host', () => {
+test("all Woo retailers in the extraction adapters have a matching Woo API host", () => {
   const wooAdapterHosts = [
-    'beautybydaz.com', 'luxbeautyng.com', 'teeka4.com', 'peronabeauty.com',
-    'buybetter.ng', 'deoset.com', 'rhemabeautyshop.com', 'tosnigeria.com',
-    'thebeautyprismng.com', 'sonavinebeauty.com', 'kadimezessentials.com',
-    'dunescenter.com', 'sliquebeautylimited.com',
+    "beautybydaz.com",
+    "luxbeautyng.com",
+    "teeka4.com",
+    "peronabeauty.com",
+    "buybetter.ng",
+    "deoset.com",
+    "rhemabeautyshop.com",
+    "tosnigeria.com",
+    "thebeautyprismng.com",
+    "sonavinebeauty.com",
+    "kadimezessentials.com",
+    "dunescenter.com",
+    "sliquebeautylimited.com",
   ];
   for (const host of wooAdapterHosts) {
-    assert.ok(worker.includes(`'${host}'`), `missing Woo API host entry for ${host}`);
+    assert.ok(worker.includes(host), `missing Woo API host entry for ${host}`);
   }
 });
 
-test('the cron supports a dry-run mode that skips fetching and writing', () => {
+test("the cron supports a dry-run mode that skips fetching and writing", () => {
   assert.match(route, /dry-run/);
   assert.match(route, /searchParams\.has\('dry-run'\)/);
   assert.match(route, /inventory_refresh_cron_dry_run/);
 });
 
-test('the cron sends email alerts when offers fail or the backlog grows', () => {
+test("the cron sends email alerts when offers fail or the backlog grows", () => {
   assert.match(route, /sendRefreshAlertIfNeeded/);
-  const alerting = readFileSync(resolve(root, 'lib/inventory/refresh-alerting.ts'), 'utf8');
+  const alerting = readFileSync(
+    resolve(root, "lib/inventory/refresh-alerting.ts"),
+    "utf8",
+  );
   assert.match(alerting, /sendAlertEmail/);
   assert.match(alerting, /INVENTORY_ALERT_EMAIL/);
   assert.match(alerting, /hello@jelocare\.com/);
@@ -169,10 +213,10 @@ test('the cron sends email alerts when offers fail or the backlog grows', () => 
   assert.match(alerting, /inventory_refresh_backlog_growing/);
 });
 
-test('the refresh worker uses confidence-based validity windows', () => {
-  assert.match(worker, /adapterKey === 'woo-store-api'/);
-  assert.match(worker, /'7 days'/);
-  assert.match(worker, /'5 days'/);
-  assert.match(worker, /'3 days'/);
-  assert.match(worker, /'1 day'/);
+test("the refresh worker uses confidence-based validity windows", () => {
+  assert.match(worker, /adapterKey === ["']woo-store-api["']/);
+  assert.match(worker, /["']7 days["']/);
+  assert.match(worker, /["']5 days["']/);
+  assert.match(worker, /["']3 days["']/);
+  assert.match(worker, /["']1 day["']/);
 });
