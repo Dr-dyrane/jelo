@@ -666,10 +666,9 @@ right. The footer (theme toggle, social links) is pinned at the bottom.
 
 **Motion:**
 
-| Element     | Animation                                                        |
-| ----------- | ---------------------------------------------------------------- |
-| Menu open   | Slide from right (x: 100% → 0, spring stiffness 320, damping 34) |
-| Links       | Stagger in from right (0.04s interval, slide left + fade)        |
-| Footer      | Fade in after links (0.2s delay)                                 |
-| Menu close  | Slide right (x: 0 → 100%, 0.3s, ease-in)                         |
-| Bundle size | `next build` output — Framer Motion ~15KB expected               |
+| Element    | Animation                                                        |
+| ---------- | ---------------------------------------------------------------- |
+| Menu open  | Slide from right (x: 100% → 0, spring stiffness 320, damping 34) |
+| Links      | Stagger in from right (0.04s interval, slide left + fade)        |
+| Footer     | Fade in after links (0.2s delay)                                 |
+| Menu close | Slide right (x: 0 → 100%, 0.3s, ease-in)                         |
