@@ -6,30 +6,30 @@ This is the entry point for product, engineering, data, and operations.
 
 ## Start here
 
-| Need | Read |
-| --- | --- |
-| Understand what JeloCare is building | [North star](./product/NORTH_STAR.md) |
-| Choose the next piece of work | [Roadmap](./product/ROADMAP.md) |
-| Understand the application | [Architecture](./architecture/OVERVIEW.md) |
-| Review public API and security boundaries | [APIs and security](./architecture/APIS_AND_SECURITY.md) |
-| Understand the future customer workspace | [JeloCare Me](./product/JELOCARE_ME.md) |
-| Build or review an interface | [Design system](./design/SYSTEM.md) |
-| Build or review adaptive workspace chrome | [Adaptive workspace dock](./design/ADAPTIVE_WORKSPACE_DOCK.md) |
-| Plan the JeloCare Me consumer experience expansion | [Me commerce companion direction](./design/ME_COMMERCE_COMPANION_DIRECTION.md) |
-| Work on the native operations shell | [Operations shell](./design/OPS_SHELL.md) |
-| Apply the Observations split-view canon | [Operations UI canon](./OPS_UI_CANON.md) |
-| Build or review the queue-level Overview | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md) |
-| Plan or implement the operations console | [Operations console delivery](./operations/console/README.md) |
-| Release a routine verified product quickly | [Catalogue fast lane](./catalogue/FAST_LANE.md) |
-| Prepare exact-SKU image work for an image-capable operator | [Packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md) |
-| Research or operate the full catalogue pipeline | [Catalogue operations](./catalogue/OPERATIONS.md) |
-| Run Neon safely | [Neon and data](./data/NEON.md) |
-| Configure a local, preview, or production environment | [Environments](./operations/ENVIRONMENTS.md) |
-| Start and test the application | [Local development](./operations/LOCAL_DEVELOPMENT.md) |
-| Commit, deploy, and verify a release | [Release process](./operations/RELEASE.md) |
-| Respond to an operational issue | [Runbooks](./operations/RUNBOOKS.md) |
-| Hand the repository to another team | [Team handoff](./operations/HANDOFF.md) |
-| Keep the repository understandable | [Repository ownership](./REPOSITORY.md) |
+| Need                                                       | Read                                                                                                   |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Understand what JeloCare is building                       | [North star](./product/NORTH_STAR.md)                                                                  |
+| Choose the next piece of work                              | [Roadmap](./product/ROADMAP.md)                                                                        |
+| Understand the application                                 | [Architecture](./architecture/OVERVIEW.md)                                                             |
+| Review public API and security boundaries                  | [APIs and security](./architecture/APIS_AND_SECURITY.md)                                               |
+| Understand the future customer workspace                   | [JeloCare Me](./product/JELOCARE_ME.md)                                                                |
+| Build or review an interface                               | [Design system](./design/SYSTEM.md)                                                                    |
+| Build or review adaptive workspace chrome                  | [Adaptive workspace dock](./design/ADAPTIVE_WORKSPACE_DOCK.md)                                         |
+| Plan the JeloCare Me consumer experience expansion         | [Me commerce companion direction](./design/ME_COMMERCE_COMPANION_DIRECTION.md)                         |
+| Work on the native operations shell                        | [Operations shell](./design/OPS_SHELL.md)                                                              |
+| Apply the Observations split-view canon                    | [Operations UI canon](./OPS_UI_CANON.md)                                                               |
+| Build or review the queue-level Overview                   | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md) |
+| Plan or implement the operations console                   | [Operations console delivery](./operations/console/README.md)                                          |
+| Release a routine verified product quickly                 | [Catalogue fast lane](./catalogue/FAST_LANE.md)                                                        |
+| Prepare exact-SKU image work for an image-capable operator | [Packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md)                              |
+| Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                      |
+| Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                        |
+| Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                           |
+| Start and test the application                             | [Local development](./operations/LOCAL_DEVELOPMENT.md)                                                 |
+| Commit, deploy, and verify a release                       | [Release process](./operations/RELEASE.md)                                                             |
+| Respond to an operational issue                            | [Runbooks](./operations/RUNBOOKS.md)                                                                   |
+| Hand the repository to another team                        | [Team handoff](./operations/HANDOFF.md)                                                                |
+| Keep the repository understandable                         | [Repository ownership](./REPOSITORY.md)                                                                |
 
 ## Product systems
 
@@ -63,6 +63,10 @@ This is the entry point for product, engineering, data, and operations.
 - [Public experience audit](./PUBLIC_EXPERIENCE_AUDIT.md)
 - [Infrastructure](./INFRASTRUCTURE.md)
 
+## Design and experience
+
+- [Motion layer plan](./MOTION_LAYER_PLAN.md)
+
 ## Decisions
 
 - [ADR 0001 · Deferred trust, collections, community, and stock alerts](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md)
@@ -85,17 +89,17 @@ This is the entry point for product, engineering, data, and operations.
 
 Documentation explains the system. Code and checked-in manifests enforce it.
 
-| Question | Source of truth |
-| --- | --- |
-| Public catalogue records | `data/catalogue.ts`, `data/published-intake-products.ts`, and `lib/catalogue/repository.ts` |
-| Catalogue pipeline counts | `npm run catalogue:pipeline:status` |
+| Question                       | Source of truth                                                                                                      |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| Public catalogue records       | `data/catalogue.ts`, `data/published-intake-products.ts`, and `lib/catalogue/repository.ts`                          |
+| Catalogue pipeline counts      | `npm run catalogue:pipeline:status`                                                                                  |
 | Candidate source and readiness | `data/catalogue-intake-candidates/`, generated `data/catalogue-intake.json`, and `lib/catalogue/intake-readiness.ts` |
-| Explicit publication | `data/catalogue-publication-dossiers.json` and `data/catalogue-publication-releases.json` |
-| Database shape | Ordered files in `db/migrations/` |
-| Environment names | `.env.example` plus direct `process.env` reads |
-| Commands | `package.json` |
-| CI gates | `.github/workflows/validate.yml` |
-| Interface tokens | `app/globals.css`, then route and component CSS modules |
+| Explicit publication           | `data/catalogue-publication-dossiers.json` and `data/catalogue-publication-releases.json`                            |
+| Database shape                 | Ordered files in `db/migrations/`                                                                                    |
+| Environment names              | `.env.example` plus direct `process.env` reads                                                                       |
+| Commands                       | `package.json`                                                                                                       |
+| CI gates                       | `.github/workflows/validate.yml`                                                                                     |
+| Interface tokens               | `app/globals.css`, then route and component CSS modules                                                              |
 
 Never copy a changing count into a new document when a command can report it. Never weaken a code gate to make documentation true.
 
