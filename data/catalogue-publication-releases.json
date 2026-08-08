@@ -4,54 +4,6 @@
   "releases": [
     {
       "schemaVersion": 2,
-      "candidateId": "cerave-hydrating-cleanser-473ml",
-      "dossierFingerprint": "142adb241bea091676a5707f9fb192734f4145c22779c7945908ff00fe873754",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Gentle daily cleanse.",
-        "usage": "Massage onto wet skin, then rinse.",
-        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
-        "reviewer": "JeloCare catalogue presentation review",
-        "reviewedAt": "2026-07-23T02:08:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue publication review",
-        "publishedAt": "2026-07-23T02:09:00Z"
-      },
-      "releaseFingerprint": "8042faa6e6561157d046c16552c0a7a85ad498abdab7053dbee071363c5891c6"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "cerave-moisturising-cream-454g",
-      "dossierFingerprint": "6fdbc2d710f23adda4b019325d49b9eb0c2919b344e39231a3e0590994ad806a",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturize",
-        "displayLine": "Daily face and body moisture.",
-        "usage": "Apply to the face and body as needed.",
-        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
-        "reviewer": "JeloCare catalogue presentation review",
-        "reviewedAt": "2026-07-23T02:36:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue publication review",
-        "publishedAt": "2026-07-23T02:37:00Z"
-      },
-      "releaseFingerprint": "81bf2b9299797a3a8f6d5bb050b5975e576f402fd723477fb6e6ed6d7387ee3a"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
       "dossierFingerprint": "d83055ca6ce1a726c1815aae9a4e11e98cf8100df27240d3b3351c9e3e4acdfa",
       "exposure": "public-catalogue",
@@ -3097,6 +3049,54 @@
         "publishedAt": "2026-08-08T03:52:50Z"
       },
       "releaseFingerprint": "ea3223b48c6aa25dcf80371e15542bfb207c9571dd0cc3adbd99da17b6424414"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "dossierFingerprint": "2fa56ac72b5c978de0dd9f280e49788344a403e9de125070c9b289f9a4b0972d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Gentle daily cleanse.",
+        "usage": "Massage onto wet skin, then rinse.",
+        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/hydrating-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T03:58:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T03:58:50Z"
+      },
+      "releaseFingerprint": "418f77c6cb7bc48c1187b0a0b34f98d0f9ddd6c331df95bc1e689e1ee2c84d28"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-moisturising-cream-454g",
+      "dossierFingerprint": "4ac02892b26a2321804106eaab2a397701979f979aae8e2e421c0e4a84b6966b",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily face and body moisture.",
+        "usage": "Apply to the face and body as needed.",
+        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:01:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:01:50Z"
+      },
+      "releaseFingerprint": "9f152dc95cf52adafe0626019074d2d23afcf8ad4a69cb0112a770bce854480e"
     }
   ]
 }

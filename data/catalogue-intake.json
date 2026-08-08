@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T03:52:00Z",
+  "updatedAt": "2026-08-08T04:01:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -683,75 +683,119 @@
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
-            "observedAt": "2026-07-22T20:38:29Z",
+            "observedAt": "2026-08-08T03:57:05Z",
             "observedTitle": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML",
             "observedSize": "473 ml",
-            "observedGtin": "3337875597333",
-            "observedGtinBasis": "explicit-ean",
-            "retailerSku": "3337875597333",
+            "observedGtinBasis": "exact-variant-and-size",
             "priceNgn": 15265,
-            "stock": "in-stock",
+            "stock": "low-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
               "responseUrl": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-amp-body-wash-for-normal-to-dry-skin-473ml/",
-              "responseSha256": "b0d401904bdbaedc26c9a75bffd1d289998c8550a121d7a1bdceeeddc9aa6dcd",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "b75c5f71bf82dfa4fadd03d2d409fd820662255bbeea70ffd359a09812a764a6",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 829395,
-              "retrievedAt": "2026-07-22T20:38:29Z",
+              "responseByteSize": 537267,
+              "retrievedAt": "2026-08-08T03:57:05Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "CeraVe Hydrating Cleanser | Cleanser | BuyBetter"
+              },
               "fields": {
                 "gtin": {
-                  "label": "EAN",
+                  "label": "GTIN",
                   "value": "3337875597333",
-                  "locator": "Product gallery back-label barcode at lower right",
-                  "sourceText": "EAN-13 barcode 3337875597333",
-                  "responseRole": "package-barcode-image"
+                  "locator": "Bound official CeraVe catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875597333",
+                  "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML",
-                  "locator": "HTML h1.product_title",
+                  "locator": "HTML product heading",
                   "sourceText": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML"
                 },
                 "size": {
                   "value": "473 ml",
-                  "locator": "HTML h1.product_title size suffix",
-                  "sourceText": "CERAVE Hydrating Cleanser | Daily Face and Body Wash for Normal to Dry Skin | 473ML"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "473ML"
                 },
                 "price": {
                   "value": 15265,
                   "currency": "NGN",
-                  "locator": "HTML product summary price",
-                  "sourceText": "₦ 15,265.00 NG"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦15,265"
+                },
+                "stock": {
+                  "value": "low-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Only 5 left"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T03:58:00Z"
+            }
+          },
+          {
+            "retailer": "24Eleven",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.24eleven.ng/cerave-hydrating-cleanser-473ml-16oz-uk-version",
+            "observedAt": "2026-08-08T03:56:48Z",
+            "observedTitle": "Cerave Hydrating Cleanser - 473ml (16oz)",
+            "observedSize": "473 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "102004",
+            "priceNgn": 17800,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.24eleven.ng/cerave-hydrating-cleanser-473ml-16oz-uk-version",
+              "responseUrl": "https://www.24eleven.ng/cerave-hydrating-cleanser-473ml-16oz-uk-version",
+              "responseSha256": "100a96976535f5e3cc7d5c814df3ec939c783f03a5da3ff99a4887409bbea94c",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 82226,
+              "retrievedAt": "2026-08-08T03:56:48Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Cerave Hydrating Cleanser - 473ml (16oz) - UK Version | 24eleven.ng - Best price in Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "3337875597333",
+                  "locator": "Bound official CeraVe catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875597333",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Cerave Hydrating Cleanser - 473ml (16oz)",
+                  "locator": "HTML product heading",
+                  "sourceText": "Cerave Hydrating Cleanser - 473ml (16oz)"
+                },
+                "size": {
+                  "value": "473 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "473ml"
+                },
+                "price": {
+                  "value": 17800,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦17,800"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "HTML product summary stock count",
-                  "sourceText": "5 in stock"
+                  "locator": "Rendered availability status",
+                  "sourceText": "Available"
                 }
               },
-              "supplementalResponses": [
-                {
-                  "role": "package-barcode-image",
-                  "sourceUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
-                  "responseUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
-                  "responseSha256": "b3f15c92259eb814c7111b02026d95bcca14885219ab299c6e5cfcc6cd4a94c9",
-                  "responseMimeType": "image/png",
-                  "responseByteSize": 239216,
-                  "retrievedAt": "2026-07-22T20:38:29Z",
-                  "listingLocator": "HTML product gallery image src",
-                  "listingSourceText": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/06/CeraVe_HC_16oz_LBL_GP1_Back-scaled.png?fit=1097%2C2560&quality=80&ssl=1",
-                  "barcode": {
-                    "symbology": "EAN-13",
-                    "value": "3337875597333",
-                    "locator": "Printed barcode at lower-right of back label",
-                    "sourceText": "EAN-13 barcode 3337875597333"
-                  }
-                }
-              ],
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-22T20:40:15Z"
+              "reviewedAt": "2026-08-08T03:58:00Z"
             }
           }
         ],
@@ -893,54 +937,119 @@
             "retailer": "Nectar Beauty Hub",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
-            "observedAt": "2026-07-22T22:44:17.764Z",
+            "observedAt": "2026-08-08T03:59:35Z",
             "observedTitle": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
             "observedSize": "454 g",
-            "observedGtin": "3337875597388",
-            "observedGtinBasis": "explicit-gtin",
+            "observedGtinBasis": "exact-variant-and-size",
             "priceNgn": 22500,
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
               "responseUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
-              "responseSha256": "8256446f98ec8335a1063306f556734bbf18704c055b160a9699b84d40f1643b",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "7ced1a11329600810ddd3321060ee24d5b58aa55d572d1505d191e3780665719",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 865792,
-              "retrievedAt": "2026-07-22T22:44:17.764Z",
+              "responseByteSize": 1002218,
+              "retrievedAt": "2026-08-08T03:59:35Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy Original Cerave Moisturizing Cream For Dry To Very Dry Skin 454g – Nectar Beauty Hub"
+              },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
                   "value": "3337875597388",
-                  "locator": "JSON-LD Product.gtin13",
-                  "sourceText": "\"gtin13\":\"3337875597388\""
+                  "locator": "Bound official CeraVe catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875597388",
+                  "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
-                  "locator": "JSON-LD Product.name",
+                  "locator": "HTML product heading",
                   "sourceText": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g"
                 },
                 "size": {
                   "value": "454 g",
-                  "locator": "JSON-LD Product.name size suffix",
-                  "sourceText": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "454g"
                 },
                 "price": {
                   "value": 22500,
                   "currency": "NGN",
-                  "locator": "HTML main product price",
-                  "sourceText": "₦22,500.00"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦22,500"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "HTML main product availability",
-                  "sourceText": "Availability: In Stock"
+                  "locator": "Rendered availability status",
+                  "sourceText": "In Stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-22T22:50:00Z"
+              "reviewedAt": "2026-08-08T04:01:00Z"
+            }
+          },
+          {
+            "retailer": "24Eleven",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.24eleven.ng/cerave-moisturizing-cream-454g-16oz",
+            "observedAt": "2026-08-08T03:59:58Z",
+            "observedTitle": "Cerave Moisturising Cream - 454g (16oz)",
+            "observedSize": "454 g",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "101247",
+            "priceNgn": 22900,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.24eleven.ng/cerave-moisturizing-cream-454g-16oz",
+              "responseUrl": "https://www.24eleven.ng/cerave-moisturizing-cream-454g-16oz",
+              "responseSha256": "89cda2f0dc1af877bdedf26bec27aad29e0c25299e9e478abf0cbcfe2475db89",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 83607,
+              "retrievedAt": "2026-08-08T03:59:58Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Cerave Moisturizing Cream - 454g (16oz) | 24eleven.ng - Best price in Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "3337875597388",
+                  "locator": "Bound official CeraVe catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 3337875597388",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Cerave Moisturising Cream - 454g (16oz)",
+                  "locator": "HTML product heading",
+                  "sourceText": "Cerave Moisturising Cream - 454g (16oz)"
+                },
+                "size": {
+                  "value": "454 g",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "454g"
+                },
+                "price": {
+                  "value": 22900,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦22,900"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Available"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:01:00Z"
             }
           }
         ],

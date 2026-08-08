@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "cerave-moisturising-cream-454g",
-    "candidateFingerprint": "fcafbbd47277807d8992d2f1617c2dae09d0d312f37f29d2d1b37ae6d975ee46",
+    "candidateFingerprint": "7919c6edd3bb86f093cba2d5c9a2eece41bac990937e06b7d7c70d184ee37ac1",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -98,54 +98,119 @@
           "retailer": "Nectar Beauty Hub",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
-          "observedAt": "2026-07-22T22:44:17.764Z",
+          "observedAt": "2026-08-08T03:59:35Z",
           "observedTitle": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
           "observedSize": "454 g",
-          "observedGtin": "3337875597388",
-          "observedGtinBasis": "explicit-gtin",
+          "observedGtinBasis": "exact-variant-and-size",
           "priceNgn": 22500,
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
             "responseUrl": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
-            "responseSha256": "8256446f98ec8335a1063306f556734bbf18704c055b160a9699b84d40f1643b",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "7ced1a11329600810ddd3321060ee24d5b58aa55d572d1505d191e3780665719",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 865792,
-            "retrievedAt": "2026-07-22T22:44:17.764Z",
+            "responseByteSize": 1002218,
+            "retrievedAt": "2026-08-08T03:59:35Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Cerave Moisturizing Cream For Dry To Very Dry Skin 454g – Nectar Beauty Hub"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "3337875597388",
-                "locator": "JSON-LD Product.gtin13",
-                "sourceText": "\"gtin13\":\"3337875597388\""
+                "locator": "Bound official CeraVe catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 3337875597388",
+                "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
-                "locator": "JSON-LD Product.name",
+                "locator": "HTML product heading",
                 "sourceText": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g"
               },
               "size": {
                 "value": "454 g",
-                "locator": "JSON-LD Product.name size suffix",
-                "sourceText": "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "454g"
               },
               "price": {
                 "value": 22500,
                 "currency": "NGN",
-                "locator": "HTML main product price",
-                "sourceText": "₦22,500.00"
+                "locator": "Rendered product price",
+                "sourceText": "₦22,500"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "HTML main product availability",
-                "sourceText": "Availability: In Stock"
+                "locator": "Rendered availability status",
+                "sourceText": "In Stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-22T22:50:00Z"
+            "reviewedAt": "2026-08-08T04:01:00Z"
+          }
+        },
+        {
+          "retailer": "24Eleven",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.24eleven.ng/cerave-moisturizing-cream-454g-16oz",
+          "observedAt": "2026-08-08T03:59:58Z",
+          "observedTitle": "Cerave Moisturising Cream - 454g (16oz)",
+          "observedSize": "454 g",
+          "observedGtinBasis": "exact-variant-and-size",
+          "retailerSku": "101247",
+          "priceNgn": 22900,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://www.24eleven.ng/cerave-moisturizing-cream-454g-16oz",
+            "responseUrl": "https://www.24eleven.ng/cerave-moisturizing-cream-454g-16oz",
+            "responseSha256": "89cda2f0dc1af877bdedf26bec27aad29e0c25299e9e478abf0cbcfe2475db89",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 83607,
+            "retrievedAt": "2026-08-08T03:59:58Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Cerave Moisturizing Cream - 454g (16oz) | 24eleven.ng - Best price in Nigeria"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "3337875597388",
+                "locator": "Bound official CeraVe catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 3337875597388",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Cerave Moisturising Cream - 454g (16oz)",
+                "locator": "HTML product heading",
+                "sourceText": "Cerave Moisturising Cream - 454g (16oz)"
+              },
+              "size": {
+                "value": "454 g",
+                "locator": "HTML product heading size suffix",
+                "sourceText": "454g"
+              },
+              "price": {
+                "value": 22900,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦22,900"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "Available"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-08T04:01:00Z"
           }
         }
       ],
@@ -226,15 +291,15 @@
     },
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
-      "reviewer": "JeloCare catalogue approval review",
-      "approvedAt": "2026-07-23T02:36:00Z"
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-08T04:01:30Z"
     },
-    "dossierFingerprint": "6fdbc2d710f23adda4b019325d49b9eb0c2919b344e39231a3e0590994ad806a"
+    "dossierFingerprint": "4ac02892b26a2321804106eaab2a397701979f979aae8e2e421c0e4a84b6966b"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "cerave-moisturising-cream-454g",
-    "dossierFingerprint": "6fdbc2d710f23adda4b019325d49b9eb0c2919b344e39231a3e0590994ad806a",
+    "dossierFingerprint": "4ac02892b26a2321804106eaab2a397701979f979aae8e2e421c0e4a84b6966b",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -245,14 +310,14 @@
       "displayLine": "Daily face and body moisture.",
       "usage": "Apply to the face and body as needed.",
       "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/moisturizers/moisturising-cream",
-      "reviewer": "JeloCare catalogue presentation review",
-      "reviewedAt": "2026-07-23T02:36:30Z"
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-08T04:01:40Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
-      "reviewer": "JeloCare catalogue publication review",
-      "publishedAt": "2026-07-23T02:37:00Z"
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-08T04:01:50Z"
     },
-    "releaseFingerprint": "81bf2b9299797a3a8f6d5bb050b5975e576f402fd723477fb6e6ed6d7387ee3a"
+    "releaseFingerprint": "9f152dc95cf52adafe0626019074d2d23afcf8ad4a69cb0112a770bce854480e"
   }
 }
