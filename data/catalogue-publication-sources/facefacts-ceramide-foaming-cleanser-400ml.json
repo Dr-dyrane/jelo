@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
-    "candidateFingerprint": "3f915bd470515f50f9bb2a3e0e6020d0629a7ac4a9313bead1fff182094870bc",
+    "candidateFingerprint": "1100fbb7d3674489d6c431f664939034d4df07c09da5cce2b1ec969f0231a7bd",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -187,68 +187,73 @@
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-foaming-cleanser-400ml/",
-          "observedAt": "2026-07-23T11:57:05Z",
-          "observedTitle": "FACEFACTS CERAMIDE FOAMING CLEANSER 400ML",
+          "observedAt": "2026-08-08T03:47:47Z",
+          "observedTitle": "FACEFACTS -CERAMIDE FOAMING CLEANSER 400ML",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "observedPackageVersion": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label",
           "retailerSku": "5031413936636",
           "priceNgn": 6450,
-          "stock": "in-stock",
+          "stock": "low-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-foaming-cleanser-400ml/",
             "responseUrl": "https://buybetter.ng/product/facefacts-ceramide-foaming-cleanser-400ml/",
-            "responseSha256": "9e8659a8c67a6f9fb3525a1fbe32e7cb37f31f2bcc655ecc2b1d3322c1df2915",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "ef56ef13ef62c148b0fbcfdbdcbf0d9b526790ebfb195d561423b057fa3765c0",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 874153,
-            "retrievedAt": "2026-07-23T11:57:05Z",
+            "responseByteSize": 544802,
+            "retrievedAt": "2026-08-08T03:47:47Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Face Facts Ceramide Foaming | Facial Cleanser | BuyBetter"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "5031413936636",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Bound official Face Facts catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 5031413936636",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "FACEFACTS CERAMIDE FOAMING CLEANSER 400ML",
-                "locator": "HTML h1.product_title and product data layer name",
-                "sourceText": "FACEFACTS CERAMIDE FOAMING CLEANSER 400ML"
+                "value": "FACEFACTS -CERAMIDE FOAMING CLEANSER 400ML",
+                "locator": "HTML product heading",
+                "sourceText": "FACEFACTS -CERAMIDE FOAMING CLEANSER 400ML"
               },
               "size": {
                 "value": "400 ml",
-                "locator": "HTML h1.product_title size token",
-                "sourceText": "FACEFACTS CERAMIDE FOAMING CLEANSER 400ML"
-              },
-              "packageVersion": {
-                "value": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label",
-                "locator": "HTML primary product gallery image td4n9-optimized.jpg",
-                "sourceText": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label; all-white pump and oil-prone-skin front claim"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ML"
               },
               "price": {
                 "value": 6450,
                 "currency": "NGN",
-                "locator": "HTML p.price and product data layer",
-                "sourceText": "₦6,450.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦6,450"
               },
               "stock": {
-                "value": "in-stock",
-                "locator": "HTML p.stock.in-stock",
-                "sourceText": "24 in stock"
+                "value": "low-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "Only 3 left"
+              },
+              "packageVersion": {
+                "value": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label",
+                "locator": "Bound official Face Facts catalogue identity package version",
+                "sourceText": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T12:12:00Z"
+            "reviewedAt": "2026-08-08T03:48:00Z"
           }
         },
         {
           "retailer": "24Eleven",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-foaming-cleanser-400ml",
-          "observedAt": "2026-07-23T11:57:03Z",
+          "observedAt": "2026-08-08T03:47:57Z",
           "observedTitle": "Face Facts Ceramide Foaming Cleanser - 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -258,51 +263,56 @@
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-foaming-cleanser-400ml",
             "responseUrl": "https://www.24eleven.ng/face-facts-ceramide-foaming-cleanser-400ml",
-            "responseSha256": "d28d29cc994cebb6327a891e45cffe23000641497d60b41e555b93dad7ce8880",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "e4bbc3fb28cf07cc2a3535b55dcb5c8e21adbe19f1c7195c59de179f46a9724d",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 46381,
-            "retrievedAt": "2026-07-23T11:57:03Z",
+            "responseByteSize": 82405,
+            "retrievedAt": "2026-08-08T03:47:57Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Face Facts Ceramide Foaming Cleanser - 400ml | 24eleven.ng - Best price in Nigeria"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "5031413936636",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Bound official Face Facts catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 5031413936636",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Face Facts Ceramide Foaming Cleanser - 400ml",
-                "locator": "HTML page title, Open Graph title and product heading",
+                "locator": "HTML product heading",
                 "sourceText": "Face Facts Ceramide Foaming Cleanser - 400ml"
               },
               "size": {
                 "value": "400 ml",
-                "locator": "HTML product heading size token",
-                "sourceText": "Face Facts Ceramide Foaming Cleanser - 400ml"
-              },
-              "packageVersion": {
-                "value": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label",
-                "locator": "Magento gallery image facefacts-foaming-cleanser-new.jpg",
-                "sourceText": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label; all-white pump and oil-prone-skin front claim"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "400ml"
               },
               "price": {
                 "value": 6800,
                 "currency": "NGN",
-                "locator": "HTML product price",
+                "locator": "Rendered product price",
                 "sourceText": "₦6,800"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "HTML Availability field",
+                "locator": "Rendered availability status",
                 "sourceText": "Available"
+              },
+              "packageVersion": {
+                "value": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label",
+                "locator": "Bound official Face Facts catalogue identity package version",
+                "sourceText": "Current 400 ml white pump bottle with pale-green Ceramide Foaming label"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T12:12:00Z"
+            "reviewedAt": "2026-08-08T03:48:00Z"
           }
         }
       ],
@@ -360,14 +370,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T12:20:00Z"
+      "approvedAt": "2026-08-08T03:48:30Z"
     },
-    "dossierFingerprint": "75ec376cf2be44c4e8bcd5e0040a54d5ceb5e7fd36041db07de40c1457190eff"
+    "dossierFingerprint": "4ca4304385d5f08edcb6a56c665b55d10dcd3039023a0c0ca54b5b963a244f7e"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
-    "dossierFingerprint": "75ec376cf2be44c4e8bcd5e0040a54d5ceb5e7fd36041db07de40c1457190eff",
+    "dossierFingerprint": "4ca4304385d5f08edcb6a56c665b55d10dcd3039023a0c0ca54b5b963a244f7e",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -379,13 +389,13 @@
       "usage": "Apply 2–3 pumps to damp skin, gently massage, then rinse with warm water.",
       "manufacturerDirectionsUrl": "https://facefacts.me/en-la/collections/calm-comfort/products/ceramide-foaming-cleanser-400ml",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T12:21:00Z"
+      "reviewedAt": "2026-08-08T03:48:40Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T12:22:00Z"
+      "publishedAt": "2026-08-08T03:48:50Z"
     },
-    "releaseFingerprint": "16f5bee6d33e14805bcdca0bbd7492a597eaaf9f3b2f1ceea304f2f6ce44008c"
+    "releaseFingerprint": "909310a079937a1262f9e58b3120fdeb58db7d01392d5417684316c139e03485"
   }
 }

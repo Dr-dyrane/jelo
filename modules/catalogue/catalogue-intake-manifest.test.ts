@@ -1234,7 +1234,7 @@ test('the Face Facts ceramide foaming cleanser binds the current pack and exclud
   const { recordSha256, ...content } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T03:48:30Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
