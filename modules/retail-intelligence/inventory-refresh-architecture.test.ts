@@ -125,3 +125,29 @@ test('the cron stops claims before maxDuration and invalidates only after succes
   assert.match(route, /event: 'inventory_refresh_cron_completed'/);
   assert.match(route, /return Response\.json\(summary\)/);
 });
+
+test('the refresh worker tries the Woo Store API before HTML scraping', () => {
+  assert.match(worker, /WOO_API_HOSTS/);
+  assert.match(worker, /fetchWooStoreApi/);
+  assert.match(worker, /await fetchWooStoreApi\(job\.url\) \?\? await fetchRetailerPage\(job\.url\)/);
+  assert.match(worker, /wp-json\/wc\/store\/v1\/products\?slug=/);
+});
+
+test('the refresh worker skips Jumia offers that block server-side fetch', () => {
+  assert.match(worker, /BLOCKED_HOSTS/);
+  assert.match(worker, /jumia\.com\.ng/);
+  assert.match(worker, /isBlockedHost\(job\.url\)/);
+  assert.match(worker, /Retailer host blocks server-side fetch/);
+});
+
+test('all Woo retailers in the extraction adapters have a matching Woo API host', () => {
+  const wooAdapterHosts = [
+    'beautybydaz.com', 'luxbeautyng.com', 'teeka4.com', 'peronabeauty.com',
+    'buybetter.ng', 'deoset.com', 'rhemabeautyshop.com', 'tosnigeria.com',
+    'thebeautyprismng.com', 'sonavinebeauty.com', 'kadimezessentials.com',
+    'dunescenter.com', 'sliquebeautylimited.com',
+  ];
+  for (const host of wooAdapterHosts) {
+    assert.ok(worker.includes(`'${host}'`), `missing Woo API host entry for ${host}`);
+  }
+});

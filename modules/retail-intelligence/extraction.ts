@@ -24,7 +24,7 @@ type ExtractionConfig = {
   key: string;
   hosts: string[];
   defaultCurrency?: string;
-  platform?: 'woocommerce' | 'structured';
+  platform?: 'woocommerce' | 'structured' | 'shopify';
 };
 
 const PRICE_KEYS = ['price', 'lowPrice'] as const;
@@ -306,6 +306,16 @@ function extractDocument(input: { url: URL; html: string }, config?: ExtractionC
     if (priceMinor != null) evidence.push('WooCommerce product price');
   }
 
+  // Shopify stores emit NGN JSON-LD prices in kobo (×100). Detect and correct
+  // by checking if the extracted NGN price is divisible by 100 and large enough
+  // that dividing by 100 still yields a reasonable product price (≥ ₦1,000).
+  // A legitimate ₦145,000 price (145000) would not trigger this, but the kobo
+  // equivalent (14,500,000) would: 14,500,000 / 100 = 145,000.
+  if (config?.platform === 'shopify' && priceMinor != null && currencyCode === 'NGN' && priceMinor >= 1_000_000 && priceMinor % 100 === 0) {
+    priceMinor = Math.round(priceMinor / 100);
+    evidence.push('Shopify kobo-to-naira correction');
+  }
+
   if (inventoryStatus === 'unknown' && config?.platform === 'woocommerce') {
     inventoryStatus = productStockMarker(input.html);
     if (inventoryStatus !== 'unknown') evidence.push('WooCommerce product stock marker');
@@ -372,7 +382,21 @@ export const retailerAdapters: RetailerAdapter[] = [
   configuredAdapter({ key: 'teeka4', hosts: ['teeka4.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
   configuredAdapter({ key: 'perona-beauty', hosts: ['peronabeauty.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
   configuredAdapter({ key: 'buybetter', hosts: ['buybetter.ng'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'deoset', hosts: ['deoset.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'rhema-beauty-shop', hosts: ['rhemabeautyshop.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'tos-nigeria', hosts: ['tosnigeria.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'the-beauty-prism', hosts: ['thebeautyprismng.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'sonavine-beauty', hosts: ['sonavinebeauty.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'kadimez-essentials', hosts: ['kadimezessentials.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'dunes-center', hosts: ['dunescenter.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'slique-beauty', hosts: ['sliquebeautylimited.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
+  configuredAdapter({ key: 'makeupalley-ng', hosts: ['makeupalleyng.com'], defaultCurrency: 'NGN', platform: 'woocommerce' }),
   configuredAdapter({ key: 'care-to-beauty', hosts: ['caretobeauty.com'], platform: 'structured' }),
+  // Shopify-based NG retailers: JSON-LD prices arrive in kobo (minor units)
+  configuredAdapter({ key: 'my-skin-hub-ng', hosts: ['myskinhubng.com'], defaultCurrency: 'NGN', platform: 'shopify' }),
+  configuredAdapter({ key: 'skincare-plug-ng', hosts: ['skincareplugng.com'], defaultCurrency: 'NGN', platform: 'shopify' }),
+  configuredAdapter({ key: 'essentials-hub', hosts: ['essentialshub.com'], defaultCurrency: 'NGN', platform: 'shopify' }),
+  configuredAdapter({ key: 'medplus', hosts: ['medplusnig.com'], defaultCurrency: 'NGN', platform: 'structured' }),
 ];
 
 const genericAdapter: RetailerAdapter = {

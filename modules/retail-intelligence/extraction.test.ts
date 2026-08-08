@@ -243,3 +243,136 @@ test('does not manufacture a product size when the retailer omits it', () => {
 
   assert.equal(result.extraction.productSize, undefined);
 });
+
+test('uses the Deoset adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://deoset.com/product/example-150ml/'),
+    html: productPage({ price: '24000', availability: 'InStock' }).replaceAll('teeka4.com', 'deoset.com'),
+  });
+
+  assert.equal(result.adapterKey, 'deoset');
+  assert.equal(result.extraction.priceMinor, 24_000);
+  assert.equal(result.extraction.currencyCode, 'NGN');
+  assert.equal(result.extraction.inventoryStatus, 'in_stock');
+});
+
+test('uses the Rhema Beauty Shop adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://rhemabeautyshop.com/shop/example-30ml/'),
+    html: productPage({ price: '45000', availability: 'InStock' }).replaceAll('teeka4.com', 'rhemabeautyshop.com'),
+  });
+
+  assert.equal(result.adapterKey, 'rhema-beauty-shop');
+  assert.equal(result.extraction.priceMinor, 45_000);
+});
+
+test('uses the TOS Nigeria adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://tosnigeria.com/shop/example-500ml/'),
+    html: productPage({ price: '48500', availability: 'InStock' }).replaceAll('teeka4.com', 'tosnigeria.com'),
+  });
+
+  assert.equal(result.adapterKey, 'tos-nigeria');
+  assert.equal(result.extraction.priceMinor, 48_500);
+});
+
+test('uses the Beauty Prism adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://thebeautyprismng.com/shop/example-30ml/'),
+    html: productPage({ price: '42500', availability: 'InStock' }).replaceAll('teeka4.com', 'thebeautyprismng.com'),
+  });
+
+  assert.equal(result.adapterKey, 'the-beauty-prism');
+  assert.equal(result.extraction.priceMinor, 42_500);
+});
+
+test('uses the Sonavine Beauty adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://sonavinebeauty.com/product/example-100ml/'),
+    html: productPage({ price: '56500', availability: 'InStock' }).replaceAll('teeka4.com', 'sonavinebeauty.com'),
+  });
+
+  assert.equal(result.adapterKey, 'sonavine-beauty');
+  assert.equal(result.extraction.priceMinor, 56_500);
+});
+
+test('uses the Kadimez Essentials adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://kadimezessentials.com/product/example-500ml/'),
+    html: productPage({ price: '43000', availability: 'InStock' }).replaceAll('teeka4.com', 'kadimezessentials.com'),
+  });
+
+  assert.equal(result.adapterKey, 'kadimez-essentials');
+  assert.equal(result.extraction.priceMinor, 43_000);
+});
+
+test('uses the Dunes Center adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://dunescenter.com/product/example-52ml/'),
+    html: productPage({ price: '47500', availability: 'InStock' }).replaceAll('teeka4.com', 'dunescenter.com'),
+  });
+
+  assert.equal(result.adapterKey, 'dunes-center');
+  assert.equal(result.extraction.priceMinor, 47_500);
+});
+
+test('uses the Slique Beauty adapter for a Woo product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://sliquebeautylimited.com/product/example-156g/'),
+    html: productPage({ price: '3500', availability: 'InStock' }).replaceAll('teeka4.com', 'sliquebeautylimited.com'),
+  });
+
+  assert.equal(result.adapterKey, 'slique-beauty');
+  assert.equal(result.extraction.priceMinor, 3_500);
+});
+
+test('corrects Shopify kobo prices for NGN products', () => {
+  // Shopify stores emit NGN JSON-LD prices in kobo (×100).
+  // E.g., ₦145,000 is emitted as "14500000" in JSON-LD.
+  const html = `<script type="application/ld+json">{"@type":"Product","name":"Medik8 Crystal Retinal 6 30ml","offers":{"@type":"Offer","price":"14500000","priceCurrency":"NGN","availability":"https://schema.org/InStock"}}</script>`;
+  const result = extractRetailerPage({ url: new URL('https://myskinhubng.com/products/medik8-crystal-retinal-6/3176365'), html });
+
+  assert.equal(result.adapterKey, 'my-skin-hub-ng');
+  assert.equal(result.extraction.priceMinor, 145_000);
+  assert.equal(result.extraction.currencyCode, 'NGN');
+  assert.ok(result.extraction.evidence.includes('Shopify kobo-to-naira correction'));
+});
+
+test('does not apply kobo correction to reasonable Shopify NGN prices', () => {
+  // A price of ₦145,000 (145000) should not be divided by 100 — it's already in naira.
+  const html = `<script type="application/ld+json">{"@type":"Product","name":"Medik8 Crystal Retinal 3 30ml","offers":{"@type":"Offer","price":"145000","priceCurrency":"NGN","availability":"https://schema.org/InStock"}}</script>`;
+  const result = extractRetailerPage({ url: new URL('https://skincareplugng.com/products/example/123'), html });
+
+  assert.equal(result.extraction.priceMinor, 145_000);
+  assert.ok(!result.extraction.evidence.includes('Shopify kobo-to-naira correction'));
+});
+
+test('uses the Skincare Plug NG adapter for a Shopify product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://skincareplugng.com/products/example'),
+    html: productPage({ price: '145000', availability: 'InStock' }).replaceAll('teeka4.com', 'skincareplugng.com'),
+  });
+
+  assert.equal(result.adapterKey, 'skincare-plug-ng');
+  assert.equal(result.extraction.priceMinor, 145_000);
+});
+
+test('uses the Essentials Hub adapter for a product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://essentialshub.com/product/example-200ml/'),
+    html: productPage({ price: '25000', availability: 'InStock' }).replaceAll('teeka4.com', 'essentialshub.com'),
+  });
+
+  assert.equal(result.adapterKey, 'essentials-hub');
+  assert.equal(result.extraction.priceMinor, 25_000);
+});
+
+test('uses the Medplus adapter for a product page', () => {
+  const result = extractRetailerPage({
+    url: new URL('https://medplusnig.com/product/example-400ml/'),
+    html: productPage({ price: '29550', availability: 'InStock' }).replaceAll('teeka4.com', 'medplusnig.com'),
+  });
+
+  assert.equal(result.adapterKey, 'medplus');
+  assert.equal(result.extraction.priceMinor, 29_550);
+});

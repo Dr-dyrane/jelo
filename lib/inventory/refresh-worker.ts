@@ -16,6 +16,32 @@ const REQUEST_TIMEOUT_MS = 12_000;
 const MAX_RESPONSE_BYTES = 1_500_000;
 const MAX_ATTEMPTS = 5;
 
+// Woo Store API retailers: map hostname -> store origin for API calls.
+// These retailers expose /wp-json/wc/store/v1/products?slug=<slug> which returns
+// structured JSON with price, stock status, and currency — more reliable than
+// scraping HTML for Woo stores that may have caching or theme quirks.
+const WOO_API_HOSTS = new Map<string, string>([
+  ['buybetter.ng', 'https://buybetter.ng'],
+  ['peronabeauty.com', 'https://peronabeauty.com'],
+  ['deoset.com', 'https://deoset.com'],
+  ['teeka4.com', 'https://teeka4.com'],
+  ['rhemabeautyshop.com', 'https://rhemabeautyshop.com'],
+  ['tosnigeria.com', 'https://tosnigeria.com'],
+  ['thebeautyprismng.com', 'https://thebeautyprismng.com'],
+  ['sonavinebeauty.com', 'https://sonavinebeauty.com'],
+  ['kadimezessentials.com', 'https://kadimezessentials.com'],
+  ['luxbeautyng.com', 'https://www.luxbeautyng.com'],
+  ['dunescenter.com', 'https://dunescenter.com'],
+  ['sliquebeautylimited.com', 'https://sliquebeautylimited.com'],
+  ['beautybydaz.com', 'https://beautybydaz.com'],
+]);
+
+// Jumia blocks server-side fetch with Cloudflare 403. Skip it in the cron and
+// let manual re-verification handle those offers.
+const BLOCKED_HOSTS = new Set([
+  'jumia.com.ng',
+]);
+
 type RetailerObservation = RetailerExtraction & { adapterKey: string; responseUrl: string };
 
 export type InventoryRefreshResult = {
@@ -191,6 +217,117 @@ async function claimJob(options: InventoryRefreshWorkerOptions = {}): Promise<Cl
     join brands b on b.id = p.brand_id
   `;
   return job;
+}
+
+type WooStoreProduct = {
+  name?: string;
+  permalink?: string;
+  prices?: {
+    price?: string;
+    currency_code?: string;
+    currency_minor_unit?: number;
+  };
+  is_in_stock?: boolean;
+  stock_status?: string;
+  manage_stock?: boolean;
+  stock_quantity?: number | null;
+};
+
+function wooHostFromUrl(url: string): string | undefined {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return WOO_API_HOSTS.get(hostname);
+  } catch {
+    return undefined;
+  }
+}
+
+function isBlockedHost(url: string): boolean {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return BLOCKED_HOSTS.has(hostname);
+  } catch {
+    return false;
+  }
+}
+
+async function fetchWooStoreApi(url: string): Promise<RetailerObservation | undefined> {
+  const origin = wooHostFromUrl(url);
+  if (!origin) return undefined;
+
+  const parsedUrl = new URL(url);
+  // Extract the product slug from the URL path.
+  // Woo permalinks are /product/<slug>/ or /shop/<slug>/ — take the last path segment.
+  const segments = parsedUrl.pathname.split('/').filter(Boolean);
+  const slug = segments[segments.length - 1]?.replace(/\/+$/, '') ?? '';
+  if (!slug) return undefined;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    const apiUrl = `${origin}/wp-json/wc/store/v1/products?slug=${encodeURIComponent(slug)}`;
+    const response = await fetch(apiUrl, {
+      redirect: 'follow',
+      signal: controller.signal,
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'JeloCareInventoryVerifier/1.1 (+https://jelocare.com)',
+      },
+    });
+    if (!response.ok) return undefined;
+    const contentType = response.headers.get('content-type') ?? '';
+    if (!contentType.includes('application/json')) return undefined;
+    const products = await response.json() as WooStoreProduct[];
+    if (!Array.isArray(products) || products.length === 0) return undefined;
+
+    const product = products[0];
+    if (!product.prices?.price) return undefined;
+
+    const minorUnit = product.prices.currency_minor_unit ?? 2;
+    const rawPrice = Number(product.prices.price);
+    if (!Number.isFinite(rawPrice) || rawPrice <= 0) return undefined;
+
+    const currencyCode = (product.prices.currency_code ?? 'NGN').toUpperCase();
+    // Convert from minor units to whole Naira (or major units for other currencies).
+    // JeloCare stores NGN as whole Naira; other currencies as 2-decimal minor units.
+    const priceMinor = currencyCode === 'NGN'
+      ? Math.round(rawPrice / (10 ** minorUnit))
+      : Math.round(rawPrice / (10 ** Math.max(minorUnit - 2, 0)));
+
+    let inventoryStatus: InventoryStatus = 'unknown';
+    if (product.is_in_stock === false || product.stock_status === 'outofstock') {
+      inventoryStatus = 'out_of_stock';
+    } else if (product.stock_status === 'onbackorder' || (product.manage_stock && (product.stock_quantity ?? 0) <= 0)) {
+      inventoryStatus = 'out_of_stock';
+    } else if (product.manage_stock && (product.stock_quantity ?? 0) <= 5) {
+      inventoryStatus = 'low_stock';
+    } else if (product.is_in_stock === true || product.stock_status === 'instock') {
+      inventoryStatus = 'in_stock';
+    }
+
+    const evidence = [
+      'Woo Store API product',
+      'Woo Store API price',
+      `Woo Store API stock: ${inventoryStatus}`,
+    ];
+
+    const confidence = Math.min(100, 10 + 25 + 35 + 5 + 5);
+
+    return {
+      inventoryStatus,
+      priceMinor,
+      currencyCode,
+      productTitle: product.name,
+      evidence,
+      confidence,
+      adapterKey: 'woo-store-api',
+      responseUrl: url,
+    };
+  } catch {
+    return undefined;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
@@ -472,8 +609,25 @@ export async function processNextInventoryRefreshJob(options: {
   if (!canClaimInventoryRefreshJob(options.claimDeadlineAt)) return undefined;
   const job = await claimJob(options);
   if (!job) return undefined;
+
+  // Skip offers from hosts that block server-side fetch (e.g., Jumia/Cloudflare).
+  // These offers are refreshed manually and should not consume cron attempts.
+  if (isBlockedHost(job.url)) {
+    const settlement = await failJob(job, new Error('Retailer host blocks server-side fetch; manual verification required.'));
+    return {
+      jobId: job.job_id,
+      offerId: job.offer_id,
+      productSlug: job.product_slug,
+      status: settlement.status,
+      recoveredLease: job.recovered_lease,
+      error: settlement.error,
+    };
+  }
+
   try {
-    const observation = await fetchRetailerPage(job.url);
+    // Try the Woo Store API first for known Woo retailers — it's more reliable
+    // than HTML scraping and gives structured price/stock data directly.
+    const observation = await fetchWooStoreApi(job.url) ?? await fetchRetailerPage(job.url);
     assertRetailerResponseScope({
       requestedUrl: job.url,
       responseUrl: observation.responseUrl,
