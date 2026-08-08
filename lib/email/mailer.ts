@@ -108,6 +108,15 @@ export async function sendRetailerMagicLink(input: {
   return deliver(input.to, retailerMagicLinkEmail(input));
 }
 
+export async function sendAlertEmail(input: {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+}) {
+  return deliver(input.to, input);
+}
+
 // Used by the Neon Auth send.otp webhook (app/api/auth-hooks) to deliver the
 // operator sign-in code through JeloCare's own branded transport.
 export async function sendOperatorOtp(input: { to: string; code: string; type?: string }) {

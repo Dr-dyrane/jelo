@@ -1,4 +1,4 @@
-import type { InventoryRefreshRunStatus } from '@/lib/inventory/refresh-policy';
+import { sendAlertEmail, hasTransactionalEmailConfig } from '@/lib/email/mailer';
 
 type RefreshRunSummary = {
   queued: number;
@@ -33,6 +33,7 @@ type AlertPayload = {
 
 const BACKLOG_ALERT_THRESHOLD = 50;
 const FAILED_ALERT_THRESHOLD = 5;
+const ALERT_RECIPIENT = process.env.INVENTORY_ALERT_EMAIL ?? 'hello@jelocare.com';
 
 function shouldAlert(run: RefreshRunSummary, backlog: BacklogSummary): AlertPayload | undefined {
   if (run.failed >= FAILED_ALERT_THRESHOLD) {
@@ -71,6 +72,36 @@ function shouldAlert(run: RefreshRunSummary, backlog: BacklogSummary): AlertPayl
   return undefined;
 }
 
+function alertEmailHtml(alert: AlertPayload): string {
+  const rows = [
+    ['Event', alert.event],
+    ['Severity', alert.severity],
+    ['Message', alert.message],
+    ['Timestamp', alert.timestamp],
+  ];
+  if (alert.run) {
+    rows.push(
+      ['Processed', String(alert.run.processed)],
+      ['Completed', String(alert.run.completed)],
+      ['Failed', String(alert.run.failed)],
+      ['Retrying', String(alert.run.retrying)],
+      ['Discarded', String(alert.run.discarded)],
+      ['Stopped by deadline', String(alert.run.stoppedByDeadline)],
+    );
+  }
+  if (alert.backlog) {
+    rows.push(
+      ['Backlog — due', String(alert.backlog.due)],
+      ['Backlog — queued', String(alert.backlog.queued)],
+      ['Backlog — processing', String(alert.backlog.processing)],
+      ['Backlog — lease expired', String(alert.backlog.leaseExpired)],
+    );
+  }
+  return `<table style="border-collapse:collapse;font-family:monospace;font-size:14px">
+    ${rows.map(([label, value]) => `<tr><td style="padding:4px 12px 4px 0;color:#666">${label}</td><td style="padding:4px 0">${value}</td></tr>`).join('')}
+  </table>`;
+}
+
 export async function sendRefreshAlertIfNeeded(
   run: RefreshRunSummary,
   backlog: BacklogSummary,
@@ -78,24 +109,24 @@ export async function sendRefreshAlertIfNeeded(
   const alert = shouldAlert(run, backlog);
   if (!alert) return undefined;
 
-  const webhookUrl = process.env.INVENTORY_ALERT_WEBHOOK;
-  if (webhookUrl) {
+  console.warn(JSON.stringify(alert));
+
+  if (hasTransactionalEmailConfig()) {
     try {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(alert),
-        signal: AbortSignal.timeout(5_000),
+      await sendAlertEmail({
+        to: ALERT_RECIPIENT,
+        subject: `[JeloCare ${alert.severity.toUpperCase()}] ${alert.event}`,
+        text: `${alert.message}\n\n${JSON.stringify({ run: alert.run, backlog: alert.backlog }, null, 2)}`,
+        html: alertEmailHtml(alert),
       });
     } catch (error) {
       console.error(JSON.stringify({
-        event: 'inventory_alert_delivery_failed',
+        event: 'inventory_alert_email_failed',
         error: error instanceof Error ? error.message : String(error),
       }));
     }
   }
 
-  console.warn(JSON.stringify(alert));
   return alert;
 }
 

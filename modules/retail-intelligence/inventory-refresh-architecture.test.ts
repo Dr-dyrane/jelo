@@ -158,10 +158,12 @@ test('the cron supports a dry-run mode that skips fetching and writing', () => {
   assert.match(route, /inventory_refresh_cron_dry_run/);
 });
 
-test('the cron sends alerts when offers fail or the backlog grows', () => {
+test('the cron sends email alerts when offers fail or the backlog grows', () => {
   assert.match(route, /sendRefreshAlertIfNeeded/);
   const alerting = readFileSync(resolve(root, 'lib/inventory/refresh-alerting.ts'), 'utf8');
-  assert.match(alerting, /INVENTORY_ALERT_WEBHOOK/);
+  assert.match(alerting, /sendAlertEmail/);
+  assert.match(alerting, /INVENTORY_ALERT_EMAIL/);
+  assert.match(alerting, /hello@jelocare\.com/);
   assert.match(alerting, /inventory_refresh_failed_offers/);
   assert.match(alerting, /inventory_refresh_zero_completions/);
   assert.match(alerting, /inventory_refresh_backlog_growing/);
