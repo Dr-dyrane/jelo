@@ -6,6 +6,7 @@ import {
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
+import { HomeHero } from "@/components/home/home-hero";
 import { SafeEditorialImage } from "@/components/editorial/safe-editorial-image";
 import { ProductRail } from "@/components/products/product-grid";
 import { products as curatedCatalogue } from "@/data/catalogue";
@@ -218,51 +219,23 @@ export default async function HomePage() {
 
   return (
     <main className={styles.main}>
-      <section
-        className={`${styles.hero} ${editorialStyles.hero}`}
-        style={{
-          backgroundImage: `url("${heroAsset.blobUrl}"), url("${heroAsset.localPath}")`,
+      <HomeHero
+        heroImageUrl={heroAsset.blobUrl || heroAsset.localPath}
+        heroCategories={heroCategories}
+        classes={{
+          hero: `${styles.hero} ${editorialStyles.hero}`,
+          heroShade: `${styles.heroShade} ${editorialStyles.heroShade}`,
+          heroCopy: styles.heroCopy,
+          heroKicker: `${styles.heroKicker} ${editorialStyles.heroKicker}`,
+          heroDeck: `${styles.heroDeck} ${editorialStyles.heroDeck}`,
+          actions: styles.actions,
+          primary: `${styles.primary} ${editorialStyles.heroPrimary}`,
+          secondary: `${styles.secondary} ${editorialStyles.heroSecondary}`,
+          glassCard: styles.glassCard,
+          glassFeature: `${styles.glassFeature} ${editorialStyles.heroFeature}`,
+          heroMeta: `${styles.heroMeta} ${editorialStyles.heroMeta}`,
         }}
-      >
-        <div className={`${styles.heroShade} ${editorialStyles.heroShade}`} />
-        <div className={styles.heroCopy}>
-          <p className={`${styles.heroKicker} ${editorialStyles.heroKicker}`}>
-            JeloCare
-          </p>
-          <h1>Skin, beautifully understood.</h1>
-          <p className={`${styles.heroDeck} ${editorialStyles.heroDeck}`}>
-            Products. Prices. Clear context.
-          </p>
-          <div className={styles.actions}>
-            <Link
-              className={`${styles.primary} ${editorialStyles.heroPrimary}`}
-              href="/products"
-            >
-              Browse products
-            </Link>
-            <Link
-              className={`${styles.secondary} ${editorialStyles.heroSecondary}`}
-              href="/consult"
-            >
-              Ask JeloCare
-            </Link>
-          </div>
-        </div>
-
-        <div
-          className={`${styles.glassCard} ${styles.glassFeature} ${editorialStyles.heroFeature}`}
-        >
-          <span>JeloCare</span>
-          <strong>For every skin.</strong>
-          <small>Clear context</small>
-        </div>
-
-        <div className={`${styles.heroMeta} ${editorialStyles.heroMeta}`}>
-          {heroCategories.map((category) => (
-            <span key={category}>{category}</span>
-          ))}
-        </div>
-      </section>
+      />
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>

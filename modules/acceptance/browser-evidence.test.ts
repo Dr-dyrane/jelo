@@ -1,6 +1,6 @@
-import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import test from 'node:test';
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
 
 /**
  * Browser evidence acceptance contract.
@@ -17,17 +17,24 @@ import test from 'node:test';
 
 const root = process.cwd();
 
-test('home page renders the primary discovery entry points', () => {
-  const home = readFileSync(`${root}/app/(site)/page.tsx`, 'utf8');
-  assert.match(home, /Browse products/);
-  assert.match(home, /Ask JeloCare/);
+test("home page renders the primary discovery entry points", () => {
+  const home = readFileSync(`${root}/app/(site)/page.tsx`, "utf8");
+  const hero = readFileSync(`${root}/components/home/home-hero.tsx`, "utf8");
+  assert.match(hero, /Browse products/);
+  assert.match(hero, /Ask JeloCare/);
   assert.match(home, /listRecommendationEligibleProducts/);
 });
 
-test('products page renders the catalogue view through the extracted model', () => {
-  const page = readFileSync(`${root}/app/(site)/products/page.tsx`, 'utf8');
-  const model = readFileSync(`${root}/lib/catalogue/catalogue-page-model.ts`, 'utf8');
-  const merchandising = readFileSync(`${root}/components/products/catalogue-merchandising.tsx`, 'utf8');
+test("products page renders the catalogue view through the extracted model", () => {
+  const page = readFileSync(`${root}/app/(site)/products/page.tsx`, "utf8");
+  const model = readFileSync(
+    `${root}/lib/catalogue/catalogue-page-model.ts`,
+    "utf8",
+  );
+  const merchandising = readFileSync(
+    `${root}/components/products/catalogue-merchandising.tsx`,
+    "utf8",
+  );
 
   // Page delegates to the extracted model
   assert.match(page, /buildCataloguePageModel/);
@@ -46,20 +53,35 @@ test('products page renders the catalogue view through the extracted model', () 
   assert.match(merchandising, /export function CatalogueStories/);
 });
 
-test('product detail page exposes the quick panel with controlled dialog', () => {
-  const panel = readFileSync(`${root}/components/products/product-quick-panel.tsx`, 'utf8');
+test("product detail page exposes the quick panel with controlled dialog", () => {
+  const panel = readFileSync(
+    `${root}/components/products/product-quick-panel.tsx`,
+    "utf8",
+  );
   assert.match(panel, /useControlledDialog/);
   assert.match(panel, /open: boolean/);
   assert.match(panel, /onClose: \(\) => void/);
   assert.equal((panel.match(/<dialog\b/g) ?? []).length, 1);
 });
 
-test('Me portal delegates to extracted view components', () => {
-  const home = readFileSync(`${root}/components/me/home/me-home.tsx`, 'utf8');
-  const homeView = readFileSync(`${root}/components/me/home/home-view.tsx`, 'utf8');
-  const exploreView = readFileSync(`${root}/components/me/explore/explore-view.tsx`, 'utf8');
-  const routineView = readFileSync(`${root}/components/me/routine/routine-view.tsx`, 'utf8');
-  const consultView = readFileSync(`${root}/components/me/consult/consult-view.tsx`, 'utf8');
+test("Me portal delegates to extracted view components", () => {
+  const home = readFileSync(`${root}/components/me/home/me-home.tsx`, "utf8");
+  const homeView = readFileSync(
+    `${root}/components/me/home/home-view.tsx`,
+    "utf8",
+  );
+  const exploreView = readFileSync(
+    `${root}/components/me/explore/explore-view.tsx`,
+    "utf8",
+  );
+  const routineView = readFileSync(
+    `${root}/components/me/routine/routine-view.tsx`,
+    "utf8",
+  );
+  const consultView = readFileSync(
+    `${root}/components/me/consult/consult-view.tsx`,
+    "utf8",
+  );
 
   // MePortal imports the extracted views
   assert.match(home, /HomeView/);
@@ -74,12 +96,27 @@ test('Me portal delegates to extracted view components', () => {
   assert.match(consultView, /export function ConsultView/);
 });
 
-test('modal sheets share the controlled dialog controller', () => {
-  const hook = readFileSync(`${root}/components/ui/use-controlled-dialog.ts`, 'utf8');
-  const accountSheet = readFileSync(`${root}/components/me/shell/me-account-sheet.tsx`, 'utf8');
-  const contextSheet = readFileSync(`${root}/components/me/shell/me-context-sheet.tsx`, 'utf8');
-  const productPanel = readFileSync(`${root}/components/products/product-quick-panel.tsx`, 'utf8');
-  const exploreView = readFileSync(`${root}/components/me/explore/explore-view.tsx`, 'utf8');
+test("modal sheets share the controlled dialog controller", () => {
+  const hook = readFileSync(
+    `${root}/components/ui/use-controlled-dialog.ts`,
+    "utf8",
+  );
+  const accountSheet = readFileSync(
+    `${root}/components/me/shell/me-account-sheet.tsx`,
+    "utf8",
+  );
+  const contextSheet = readFileSync(
+    `${root}/components/me/shell/me-context-sheet.tsx`,
+    "utf8",
+  );
+  const productPanel = readFileSync(
+    `${root}/components/products/product-quick-panel.tsx`,
+    "utf8",
+  );
+  const exploreView = readFileSync(
+    `${root}/components/me/explore/explore-view.tsx`,
+    "utf8",
+  );
 
   // Shared hook exists and wraps useModalDialog
   assert.match(hook, /useModalDialog/);
@@ -92,20 +129,29 @@ test('modal sheets share the controlled dialog controller', () => {
   assert.match(exploreView, /useControlledDialog/);
 });
 
-test('consult page delegates to the ConsultExperience client component', () => {
-  const page = readFileSync(`${root}/app/(site)/consult/page.tsx`, 'utf8');
-  const experience = readFileSync(`${root}/components/consult/consult-experience.tsx`, 'utf8');
+test("consult page delegates to the ConsultExperience client component", () => {
+  const page = readFileSync(`${root}/app/(site)/consult/page.tsx`, "utf8");
+  const experience = readFileSync(
+    `${root}/components/consult/consult-experience.tsx`,
+    "utf8",
+  );
 
   assert.match(page, /ConsultExperience/);
   assert.match(experience, /'use client'/);
   assert.match(experience, /export function ConsultExperience/);
 });
 
-test('private-safe metrics do not log PII', () => {
+test("private-safe metrics do not log PII", () => {
   // Verify that no customer PII (email, display name, raw profile data)
   // is logged in any server-side module. This is a source-level contract
   // that ensures metrics are private-safe.
-  const customerAccess = readFileSync(`${root}/lib/customer/access.ts`, 'utf8');
-  assert.doesNotMatch(customerAccess, /console\.(log|info|warn|error)\(.*email/i);
-  assert.doesNotMatch(customerAccess, /console\.(log|info|warn|error)\(.*displayName/i);
+  const customerAccess = readFileSync(`${root}/lib/customer/access.ts`, "utf8");
+  assert.doesNotMatch(
+    customerAccess,
+    /console\.(log|info|warn|error)\(.*email/i,
+  );
+  assert.doesNotMatch(
+    customerAccess,
+    /console\.(log|info|warn|error)\(.*displayName/i,
+  );
 });
