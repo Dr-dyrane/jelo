@@ -1318,7 +1318,7 @@ test('the SheaMoisture shampoo binds official identity, two Nigerian prices and 
     ['BuyBetter', 'Perfect Trust Beauty'],
   );
   assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [12_685, 13_300]);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['in-stock', 'low-stock']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['out-of-stock', 'low-stock']);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
   assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
   assert.equal(
@@ -1333,7 +1333,7 @@ test('the SheaMoisture shampoo binds official identity, two Nigerian prices and 
   const { recordSha256, ...content } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T17:00:00Z'));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:40:20Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.deepEqual(decision.freshExactOffers.map(offer => offer.retailer), [

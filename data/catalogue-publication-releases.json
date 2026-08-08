@@ -28,30 +28,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
-      "dossierFingerprint": "4a894fb21741528a0423cba638f1acdbdc0f319d8de40c7905e6220ec4a0a438",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Hair",
-        "routineStep": "Cleanse",
-        "displayLine": "Clarifying shampoo · 13 oz",
-        "usage": "Apply to wet hair, gently massage from roots to ends, rinse thoroughly, then follow with conditioner.",
-        "manufacturerDirectionsUrl": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T16:48:20Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T16:48:30Z"
-      },
-      "releaseFingerprint": "577e97d0b251eba7d1b06ffd0d6b41b099f7116470f9501035a11b342305e62f"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
       "dossierFingerprint": "a471ac7bff98c703b36ec1692f19a2da32e65028aa85c245b0648c0877680860",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:35:40Z"
       },
       "releaseFingerprint": "e3a62f6d176bdedfb56d0ff2145456fd61aa58753299f05a1a2b1d0c126efea5"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+      "dossierFingerprint": "f8a8b5c495d3bf8e8aad28575f397b29ffa61878952c1fc381b38384e6d2b1c7",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Cleanse",
+        "displayLine": "Clarifying shampoo · 13 oz",
+        "usage": "Apply to wet hair, gently massage from roots to ends, rinse thoroughly, then follow with conditioner.",
+        "manufacturerDirectionsUrl": "https://www.sheamoisture.com/us/en/p/jamaican-black-castor-oil-strengthen-%26-restore-shampoo.html/00764302215837",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:40:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:40:40Z"
+      },
+      "releaseFingerprint": "2b15b83110a5ffddc58a88181f75f75c1d0ea6c10d7155ff88bde310d9a544c4"
     }
   ]
 }

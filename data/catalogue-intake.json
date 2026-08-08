@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T04:35:00Z",
+  "updatedAt": "2026-08-08T04:40:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -6928,27 +6928,27 @@
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
-            "observedAt": "2026-07-23T16:35:06Z",
+            "observedAt": "2026-08-08T04:39:37Z",
             "observedTitle": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml",
             "observedSize": "13 oz / 384 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "retailerSku": "764302215837",
             "priceNgn": 12685,
-            "stock": "in-stock",
+            "stock": "out-of-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
               "responseUrl": "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
-              "responseSha256": "8d08b93f47d5ab4399710f651a0109388b88d30086ef919f8d37320ae7afe45a",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "ee0a90cea35584e19c6195bdc36eb67cabe743b90f157e788ce4804099002424",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 10530,
-              "retrievedAt": "2026-07-23T16:35:06Z",
+              "responseByteSize": 531638,
+              "retrievedAt": "2026-08-08T04:39:37Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
-                "pageTitle": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml – Buybetter"
+                "pageTitle": "SheaMoisture Castor Shampoo | Shampoo | BuyBetter"
               },
               "fields": {
                 "gtin": {
@@ -6960,35 +6960,35 @@
                 },
                 "title": {
                   "value": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml",
-                  "locator": "Rendered accessibility heading level 1",
+                  "locator": "HTML product heading",
                   "sourceText": "SHEA MOISTURE -JAMAICAN Black Castor Oil (Strengthen and Restore) SHAMPOO 13 oz 384ml"
                 },
                 "size": {
                   "value": "13 oz / 384 ml",
-                  "locator": "Rendered accessibility product heading size suffix",
+                  "locator": "HTML product heading size suffix",
                   "sourceText": "13 oz 384ml"
                 },
                 "price": {
                   "value": 12685,
                   "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "₦12,685.00"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦12,685"
                 },
                 "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered accessibility stock count",
-                  "sourceText": "6 in stock"
+                  "value": "out-of-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Out of stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T16:41:00Z"
+              "reviewedAt": "2026-08-08T04:40:00Z"
             }
           },
           {
             "retailer": "Perfect Trust Beauty",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml",
-            "observedAt": "2026-07-23T16:35:06Z",
+            "observedAt": "2026-08-08T04:39:45Z",
             "observedTitle": "Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml",
             "observedSize": "384 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -6997,16 +6997,16 @@
             "stock": "low-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml",
               "responseUrl": "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml",
-              "responseSha256": "bc2caaf0641901d93edd444585f9342090443045a4ea0c353ac33fe975f8b35d",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "07219603ff5b081f11dd6de7dfb9e1801a11d559d3826717af9d6795382c51bb",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 15021,
-              "retrievedAt": "2026-07-23T16:35:06Z",
+              "responseByteSize": 1451094,
+              "retrievedAt": "2026-08-08T04:39:45Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Buy Original Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml | Best Online Prices in Nigeria"
               },
@@ -7020,28 +7020,28 @@
                 },
                 "title": {
                   "value": "Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml",
-                  "locator": "Rendered accessibility heading level 1",
+                  "locator": "HTML product heading",
                   "sourceText": "Jamaican Black Castor Oil Strengthen & Restore Shampoo, 384ml"
                 },
                 "size": {
                   "value": "384 ml",
-                  "locator": "Rendered accessibility product heading size suffix",
+                  "locator": "HTML product heading size suffix",
                   "sourceText": "384ml"
                 },
                 "price": {
                   "value": 13300,
                   "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
+                  "locator": "Rendered product price",
                   "sourceText": "₦13,300.00"
                 },
                 "stock": {
                   "value": "low-stock",
-                  "locator": "Rendered accessibility low-stock status",
+                  "locator": "Rendered availability status",
                   "sourceText": "Only 3 left"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T16:41:00Z"
+              "reviewedAt": "2026-08-08T04:40:00Z"
             }
           }
         ],
