@@ -1,16 +1,20 @@
-import postgres from 'postgres';
+import postgres from "postgres";
 import {
   APPLICATION_RUNTIME_ROLE,
   applicationDatabaseUrl,
   isProductionApplicationRuntime,
-} from '@/lib/database/runtime-database-config';
+} from "@/lib/database/runtime-database-config";
 import {
   canClaimInventoryRefreshJob,
   INVENTORY_REFRESH_LEASE_MS,
   type InventoryRefreshRunStatus,
-} from '@/lib/inventory/refresh-policy';
-import { extractRetailerPage, type InventoryStatus, type RetailerExtraction } from '@/modules/retail-intelligence/extraction';
-import { assertRetailerResponseScope } from '@/modules/retail-intelligence/response-scope';
+} from "@/lib/inventory/refresh-policy";
+import {
+  extractRetailerPage,
+  type InventoryStatus,
+  type RetailerExtraction,
+} from "@/modules/retail-intelligence/extraction";
+import { assertRetailerResponseScope } from "@/modules/retail-intelligence/response-scope";
 
 const REQUEST_TIMEOUT_MS = 12_000;
 const MAX_RESPONSE_BYTES = 1_500_000;
@@ -21,28 +25,29 @@ const MAX_ATTEMPTS = 5;
 // structured JSON with price, stock status, and currency — more reliable than
 // scraping HTML for Woo stores that may have caching or theme quirks.
 const WOO_API_HOSTS = new Map<string, string>([
-  ['buybetter.ng', 'https://buybetter.ng'],
-  ['peronabeauty.com', 'https://peronabeauty.com'],
-  ['deoset.com', 'https://deoset.com'],
-  ['teeka4.com', 'https://teeka4.com'],
-  ['rhemabeautyshop.com', 'https://rhemabeautyshop.com'],
-  ['tosnigeria.com', 'https://tosnigeria.com'],
-  ['thebeautyprismng.com', 'https://thebeautyprismng.com'],
-  ['sonavinebeauty.com', 'https://sonavinebeauty.com'],
-  ['kadimezessentials.com', 'https://kadimezessentials.com'],
-  ['luxbeautyng.com', 'https://www.luxbeautyng.com'],
-  ['dunescenter.com', 'https://dunescenter.com'],
-  ['sliquebeautylimited.com', 'https://sliquebeautylimited.com'],
-  ['beautybydaz.com', 'https://beautybydaz.com'],
+  ["buybetter.ng", "https://buybetter.ng"],
+  ["peronabeauty.com", "https://peronabeauty.com"],
+  ["deoset.com", "https://deoset.com"],
+  ["teeka4.com", "https://teeka4.com"],
+  ["rhemabeautyshop.com", "https://rhemabeautyshop.com"],
+  ["tosnigeria.com", "https://tosnigeria.com"],
+  ["thebeautyprismng.com", "https://thebeautyprismng.com"],
+  ["sonavinebeauty.com", "https://sonavinebeauty.com"],
+  ["kadimezessentials.com", "https://kadimezessentials.com"],
+  ["luxbeautyng.com", "https://www.luxbeautyng.com"],
+  ["dunescenter.com", "https://dunescenter.com"],
+  ["sliquebeautylimited.com", "https://sliquebeautylimited.com"],
+  ["beautybydaz.com", "https://beautybydaz.com"],
 ]);
 
 // Jumia blocks server-side fetch with Cloudflare 403. Skip it in the cron and
 // let manual re-verification handle those offers.
-const BLOCKED_HOSTS = new Set([
-  'jumia.com.ng',
-]);
+const BLOCKED_HOSTS = new Set(["jumia.com.ng"]);
 
-type RetailerObservation = RetailerExtraction & { adapterKey: string; responseUrl: string };
+type RetailerObservation = RetailerExtraction & {
+  adapterKey: string;
+  responseUrl: string;
+};
 
 export type InventoryRefreshResult = {
   jobId: string;
@@ -84,8 +89,10 @@ type ClaimSettlement = {
 };
 
 const VERIFIED_PRODUCT_TITLE_ALIASES: Record<string, string[]> = {
-  'anua-niacinamide-10-txa-4-serum': ['Niacinamide 10% + TXA 4% Serum'],
-  'eucerin-urearepair-plus-10-urea-body-lotion-250ml': ['UreaRepair PLUS 10% Urea Body Lotion'],
+  "anua-niacinamide-10-txa-4-serum": ["Niacinamide 10% + TXA 4% Serum"],
+  "eucerin-urearepair-plus-10-urea-body-lotion-250ml": [
+    "UreaRepair PLUS 10% Urea Body Lotion",
+  ],
 };
 
 let inventoryRefreshClient: ReturnType<typeof postgres> | undefined;
@@ -93,13 +100,17 @@ let inventoryRefreshClient: ReturnType<typeof postgres> | undefined;
 function getInventoryRefreshClient() {
   const connectionString = applicationDatabaseUrl(process.env);
   if (!connectionString) {
-    throw new Error(isProductionApplicationRuntime(process.env)
-      ? 'Runtime database access is unavailable.'
-      : 'DATABASE_URL or POSTGRES_URL is required for inventory refresh.');
+    throw new Error(
+      isProductionApplicationRuntime(process.env)
+        ? "Runtime database access is unavailable."
+        : "DATABASE_URL or POSTGRES_URL is required for inventory refresh.",
+    );
   }
   if (!inventoryRefreshClient) {
     inventoryRefreshClient = postgres(connectionString, {
-      ...(isProductionApplicationRuntime(process.env) ? { user: APPLICATION_RUNTIME_ROLE } : {}),
+      ...(isProductionApplicationRuntime(process.env)
+        ? { user: APPLICATION_RUNTIME_ROLE }
+        : {}),
       max: 5,
       idle_timeout: 20,
       connect_timeout: 10,
@@ -124,13 +135,17 @@ type InventoryRefreshWorkerOptions = {
 function normalizeMarketCode(marketCode: string | undefined) {
   if (marketCode == null) return undefined;
   const normalized = marketCode.toUpperCase();
-  if (!/^[A-Z]{2}$/.test(normalized)) throw new Error('Inventory refresh market must be a two-letter code.');
+  if (!/^[A-Z]{2}$/.test(normalized))
+    throw new Error("Inventory refresh market must be a two-letter code.");
   return normalized;
 }
 
-async function claimJob(options: InventoryRefreshWorkerOptions = {}): Promise<ClaimedJob | undefined> {
+async function claimJob(
+  options: InventoryRefreshWorkerOptions = {},
+): Promise<ClaimedJob | undefined> {
   const sql = getInventoryRefreshClient();
-  const claimDeadline = options.claimDeadlineAt == null ? null : new Date(options.claimDeadlineAt);
+  const claimDeadline =
+    options.claimDeadlineAt == null ? null : new Date(options.claimDeadlineAt);
   const marketCode = normalizeMarketCode(options.marketCode);
   const [job] = await sql<ClaimedJob[]>`
     with exhausted_candidate as (
@@ -251,15 +266,17 @@ function isBlockedHost(url: string): boolean {
   }
 }
 
-async function fetchWooStoreApi(url: string): Promise<RetailerObservation | undefined> {
+async function fetchWooStoreApi(
+  url: string,
+): Promise<RetailerObservation | undefined> {
   const origin = wooHostFromUrl(url);
   if (!origin) return undefined;
 
   const parsedUrl = new URL(url);
   // Extract the product slug from the URL path.
   // Woo permalinks are /product/<slug>/ or /shop/<slug>/ — take the last path segment.
-  const segments = parsedUrl.pathname.split('/').filter(Boolean);
-  const slug = segments[segments.length - 1]?.replace(/\/+$/, '') ?? '';
+  const segments = parsedUrl.pathname.split("/").filter(Boolean);
+  const slug = segments[segments.length - 1]?.replace(/\/+$/, "") ?? "";
   if (!slug) return undefined;
 
   const controller = new AbortController();
@@ -267,17 +284,17 @@ async function fetchWooStoreApi(url: string): Promise<RetailerObservation | unde
   try {
     const apiUrl = `${origin}/wp-json/wc/store/v1/products?slug=${encodeURIComponent(slug)}`;
     const response = await fetch(apiUrl, {
-      redirect: 'follow',
+      redirect: "follow",
       signal: controller.signal,
       headers: {
-        Accept: 'application/json',
-        'User-Agent': 'JeloCareInventoryVerifier/1.1 (+https://jelocare.com)',
+        Accept: "application/json",
+        "User-Agent": "JeloCareInventoryVerifier/1.1 (+https://jelocare.com)",
       },
     });
     if (!response.ok) return undefined;
-    const contentType = response.headers.get('content-type') ?? '';
-    if (!contentType.includes('application/json')) return undefined;
-    const products = await response.json() as WooStoreProduct[];
+    const contentType = response.headers.get("content-type") ?? "";
+    if (!contentType.includes("application/json")) return undefined;
+    const products = (await response.json()) as WooStoreProduct[];
     if (!Array.isArray(products) || products.length === 0) return undefined;
 
     const product = products[0];
@@ -287,27 +304,37 @@ async function fetchWooStoreApi(url: string): Promise<RetailerObservation | unde
     const rawPrice = Number(product.prices.price);
     if (!Number.isFinite(rawPrice) || rawPrice <= 0) return undefined;
 
-    const currencyCode = (product.prices.currency_code ?? 'NGN').toUpperCase();
+    const currencyCode = (product.prices.currency_code ?? "NGN").toUpperCase();
     // Convert from minor units to whole Naira (or major units for other currencies).
     // JeloCare stores NGN as whole Naira; other currencies as 2-decimal minor units.
-    const priceMinor = currencyCode === 'NGN'
-      ? Math.round(rawPrice / (10 ** minorUnit))
-      : Math.round(rawPrice / (10 ** Math.max(minorUnit - 2, 0)));
+    const priceMinor =
+      currencyCode === "NGN"
+        ? Math.round(rawPrice / 10 ** minorUnit)
+        : Math.round(rawPrice / 10 ** Math.max(minorUnit - 2, 0));
 
-    let inventoryStatus: InventoryStatus = 'unknown';
-    if (product.is_in_stock === false || product.stock_status === 'outofstock') {
-      inventoryStatus = 'out_of_stock';
-    } else if (product.stock_status === 'onbackorder' || (product.manage_stock && (product.stock_quantity ?? 0) <= 0)) {
-      inventoryStatus = 'out_of_stock';
+    let inventoryStatus: InventoryStatus = "unknown";
+    if (
+      product.is_in_stock === false ||
+      product.stock_status === "outofstock"
+    ) {
+      inventoryStatus = "out_of_stock";
+    } else if (
+      product.stock_status === "onbackorder" ||
+      (product.manage_stock && (product.stock_quantity ?? 0) <= 0)
+    ) {
+      inventoryStatus = "out_of_stock";
     } else if (product.manage_stock && (product.stock_quantity ?? 0) <= 5) {
-      inventoryStatus = 'low_stock';
-    } else if (product.is_in_stock === true || product.stock_status === 'instock') {
-      inventoryStatus = 'in_stock';
+      inventoryStatus = "low_stock";
+    } else if (
+      product.is_in_stock === true ||
+      product.stock_status === "instock"
+    ) {
+      inventoryStatus = "in_stock";
     }
 
     const evidence = [
-      'Woo Store API product',
-      'Woo Store API price',
+      "Woo Store API product",
+      "Woo Store API price",
       `Woo Store API stock: ${inventoryStatus}`,
     ];
 
@@ -320,7 +347,7 @@ async function fetchWooStoreApi(url: string): Promise<RetailerObservation | unde
       productTitle: product.name,
       evidence,
       confidence,
-      adapterKey: 'woo-store-api',
+      adapterKey: "woo-store-api",
       responseUrl: url,
     };
   } catch {
@@ -335,20 +362,26 @@ async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
     const response = await fetch(url, {
-      redirect: 'follow',
+      redirect: "follow",
       signal: controller.signal,
       headers: {
-        Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.1',
-        'User-Agent': 'JeloCareInventoryVerifier/1.1 (+https://jelocare.com)',
+        Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.1",
+        "User-Agent": "JeloCareInventoryVerifier/1.1 (+https://jelocare.com)",
       },
     });
-    if (!response.ok) throw new Error(`Retailer returned HTTP ${response.status}.`);
-    const contentType = response.headers.get('content-type') ?? '';
-    if (!contentType.includes('text/html')) throw new Error(`Expected HTML but received ${contentType || 'an unknown content type'}.`);
-    const declaredLength = Number(response.headers.get('content-length') ?? 0);
-    if (declaredLength > MAX_RESPONSE_BYTES) throw new Error('Retailer page is too large to inspect safely.');
+    if (!response.ok)
+      throw new Error(`Retailer returned HTTP ${response.status}.`);
+    const contentType = response.headers.get("content-type") ?? "";
+    if (!contentType.includes("text/html"))
+      throw new Error(
+        `Expected HTML but received ${contentType || "an unknown content type"}.`,
+      );
+    const declaredLength = Number(response.headers.get("content-length") ?? 0);
+    if (declaredLength > MAX_RESPONSE_BYTES)
+      throw new Error("Retailer page is too large to inspect safely.");
     const html = await response.text();
-    if (Buffer.byteLength(html, 'utf8') > MAX_RESPONSE_BYTES) throw new Error('Retailer page exceeded the inspection size limit.');
+    if (Buffer.byteLength(html, "utf8") > MAX_RESPONSE_BYTES)
+      throw new Error("Retailer page exceeded the inspection size limit.");
     const responseUrl = response.url || url;
     const result = extractRetailerPage({ url: new URL(responseUrl), html });
     return { ...result.extraction, adapterKey: result.adapterKey, responseUrl };
@@ -385,9 +418,10 @@ async function settleChangedCurrentClaim(
   job: ClaimedJob,
   claim: CurrentClaim,
 ): Promise<ClaimSettlement | undefined> {
-  const remainsEligible = claim.is_published
-    && claim.match_kind === 'exact'
-    && /^https:\/\//i.test(claim.current_url);
+  const remainsEligible =
+    claim.is_published &&
+    claim.match_kind === "exact" &&
+    /^https:\/\//i.test(claim.current_url);
 
   if (!remainsEligible) {
     await transaction`
@@ -402,8 +436,8 @@ async function settleChangedCurrentClaim(
         and attempt_count = ${job.attempt_count}
     `;
     return {
-      status: 'discarded',
-      error: 'Offer eligibility changed while the refresh was running.',
+      status: "discarded",
+      error: "Offer eligibility changed while the refresh was running.",
     };
   }
 
@@ -422,8 +456,8 @@ async function settleChangedCurrentClaim(
         and attempt_count = ${job.attempt_count}
     `;
     return {
-      status: 'retrying',
-      error: 'Offer URL changed while the refresh was running.',
+      status: "retrying",
+      error: "Offer URL changed while the refresh was running.",
     };
   }
 
@@ -442,8 +476,8 @@ async function settleChangedCurrentClaim(
         and attempt_count = ${job.attempt_count}
     `;
     return {
-      status: 'retrying',
-      error: 'Offer market changed while the refresh was running.',
+      status: "retrying",
+      error: "Offer market changed while the refresh was running.",
     };
   }
 
@@ -462,8 +496,8 @@ async function settleChangedCurrentClaim(
         and attempt_count = ${job.attempt_count}
     `;
     return {
-      status: 'retrying',
-      error: 'Offer changed while the refresh was running.',
+      status: "retrying",
+      error: "Offer changed while the refresh was running.",
     };
   }
 
@@ -475,32 +509,36 @@ async function completeJob(
   observation: RetailerObservation,
 ): Promise<ClaimSettlement> {
   const sql = getInventoryRefreshClient();
-  const available = observation.inventoryStatus === 'in_stock' || observation.inventoryStatus === 'low_stock';
+  const available =
+    observation.inventoryStatus === "in_stock" ||
+    observation.inventoryStatus === "low_stock";
 
   // Confidence-based validity: Woo API results (100% confidence) get 7 days,
   // high-confidence HTML extractions get 5 days, medium get 3 days, low get 1 day.
   // The Woo Store API adapter starts at 80 (10 + 25 + 35 + 5 + 5), so it lands
   // in the 5-day bucket — more generous than the old 7-day flat window for
   // HTML scrapes at 85%+ confidence, while still being conservative.
-  const validity = observation.inventoryStatus === 'unknown' || observation.confidence < 60
-    ? '1 day'
-    : observation.confidence < 85
-      ? '3 days'
-      : observation.adapterKey === 'woo-store-api'
-        ? '7 days'
-        : '5 days';
-  const verificationNote = observation.inventoryStatus === 'unknown'
-    ? 'No product-scoped stock evidence found on the retailer page.'
-    : observation.confidence < 60
-      ? 'Retailer-page extraction has low confidence.'
-      : null;
+  const validity =
+    observation.inventoryStatus === "unknown" || observation.confidence < 60
+      ? "1 day"
+      : observation.confidence < 85
+        ? "3 days"
+        : observation.adapterKey === "woo-store-api"
+          ? "7 days"
+          : "5 days";
+  const verificationNote =
+    observation.inventoryStatus === "unknown"
+      ? "No product-scoped stock evidence found on the retailer page."
+      : observation.confidence < 60
+        ? "Retailer-page extraction has low confidence."
+        : null;
 
-  return sql.begin(async transaction => {
+  return sql.begin(async (transaction) => {
     const claim = await lockCurrentClaim(transaction, job);
     if (!claim) {
       return {
-        status: 'discarded',
-        error: 'Inventory refresh claim was superseded before completion.',
+        status: "discarded",
+        error: "Inventory refresh claim was superseded before completion.",
       };
     }
 
@@ -538,7 +576,9 @@ async function completeJob(
       returning o.id
     `;
     if (updatedOffers.length !== 1) {
-      throw new Error('Published exact offer changed before its observation could be recorded.');
+      throw new Error(
+        "Published exact offer changed before its observation could be recorded.",
+      );
     }
 
     if (observation.priceMinor != null && observation.currencyCode) {
@@ -558,24 +598,31 @@ async function completeJob(
       returning id
     `;
     if (settledJobs.length !== 1) {
-      throw new Error('Inventory refresh claim changed before completion.');
+      throw new Error("Inventory refresh claim changed before completion.");
     }
 
-    return { status: 'completed' };
+    return { status: "completed" };
   });
 }
 
-async function failJob(job: ClaimedJob, error: unknown): Promise<ClaimSettlement> {
+async function failJob(
+  job: ClaimedJob,
+  error: unknown,
+): Promise<ClaimSettlement> {
   const sql = getInventoryRefreshClient();
   const message = error instanceof Error ? error.message : String(error);
   const terminal = job.attempt_count >= MAX_ATTEMPTS;
-  const backoffMinutes = Math.min(2 ** Math.max(job.attempt_count - 1, 0) * 5, 240);
-  return sql.begin(async transaction => {
+  const backoffMinutes = Math.min(
+    2 ** Math.max(job.attempt_count - 1, 0) * 5,
+    240,
+  );
+  return sql.begin(async (transaction) => {
     const claim = await lockCurrentClaim(transaction, job);
     if (!claim) {
       return {
-        status: 'discarded',
-        error: 'Inventory refresh claim was superseded before failure settlement.',
+        status: "discarded",
+        error:
+          "Inventory refresh claim was superseded before failure settlement.",
       };
     }
 
@@ -584,7 +631,7 @@ async function failJob(job: ClaimedJob, error: unknown): Promise<ClaimSettlement
 
     const settledJobs = await transaction<{ id: string }[]>`
       update inventory_refresh_jobs
-      set status = ${terminal ? 'failed' : 'queued'}::inventory_refresh_status,
+      set status = ${terminal ? "failed" : "queued"}::inventory_refresh_status,
           last_error = ${message.slice(0, 1000)},
           started_at = case when ${terminal} then started_at else null end,
           next_attempt_at = now() + (${backoffMinutes} * interval '1 minute'),
@@ -598,22 +645,24 @@ async function failJob(job: ClaimedJob, error: unknown): Promise<ClaimSettlement
     `;
     if (settledJobs.length !== 1) {
       return {
-        status: 'discarded',
-        error: 'Inventory refresh claim changed before failure settlement.',
+        status: "discarded",
+        error: "Inventory refresh claim changed before failure settlement.",
       };
     }
 
     return {
-      status: terminal ? 'failed' : 'retrying',
+      status: terminal ? "failed" : "retrying",
       error: message,
     };
   });
 }
 
-export async function processNextInventoryRefreshJob(options: {
-  claimDeadlineAt?: number;
-  marketCode?: string;
-} = {}): Promise<InventoryRefreshResult | undefined> {
+export async function processNextInventoryRefreshJob(
+  options: {
+    claimDeadlineAt?: number;
+    marketCode?: string;
+  } = {},
+): Promise<InventoryRefreshResult | undefined> {
   if (!canClaimInventoryRefreshJob(options.claimDeadlineAt)) return undefined;
   const job = await claimJob(options);
   if (!job) return undefined;
@@ -621,7 +670,12 @@ export async function processNextInventoryRefreshJob(options: {
   // Skip offers from hosts that block server-side fetch (e.g., Jumia/Cloudflare).
   // These offers are refreshed manually and should not consume cron attempts.
   if (isBlockedHost(job.url)) {
-    const settlement = await failJob(job, new Error('Retailer host blocks server-side fetch; manual verification required.'));
+    const settlement = await failJob(
+      job,
+      new Error(
+        "Retailer host blocks server-side fetch; manual verification required.",
+      ),
+    );
     return {
       jobId: job.job_id,
       offerId: job.offer_id,
@@ -635,7 +689,8 @@ export async function processNextInventoryRefreshJob(options: {
   try {
     // Try the Woo Store API first for known Woo retailers — it's more reliable
     // than HTML scraping and gives structured price/stock data directly.
-    const observation = await fetchWooStoreApi(job.url) ?? await fetchRetailerPage(job.url);
+    const observation =
+      (await fetchWooStoreApi(job.url)) ?? (await fetchRetailerPage(job.url));
     assertRetailerResponseScope({
       requestedUrl: job.url,
       responseUrl: observation.responseUrl,
@@ -655,15 +710,18 @@ export async function processNextInventoryRefreshJob(options: {
       productSlug: job.product_slug,
       status: settlement.status,
       recoveredLease: job.recovered_lease,
-      inventoryStatus: settlement.status === 'completed'
-        ? observation.inventoryStatus
-        : undefined,
-      priceMinor: settlement.status === 'completed'
-        ? observation.priceMinor ?? undefined
-        : undefined,
-      currencyCode: settlement.status === 'completed'
-        ? observation.currencyCode ?? undefined
-        : undefined,
+      inventoryStatus:
+        settlement.status === "completed"
+          ? observation.inventoryStatus
+          : undefined,
+      priceMinor:
+        settlement.status === "completed"
+          ? (observation.priceMinor ?? undefined)
+          : undefined,
+      currencyCode:
+        settlement.status === "completed"
+          ? (observation.currencyCode ?? undefined)
+          : undefined,
       error: settlement.error,
     };
   } catch (error) {
@@ -684,19 +742,33 @@ export async function processInventoryRefreshBatch(
   options: InventoryRefreshWorkerOptions = {},
 ) {
   const safeLimit = Math.min(Math.max(limit, 1), 100);
+  const concurrency = 5;
   const results: InventoryRefreshResult[] = [];
   let stoppedByDeadline = false;
-  for (let index = 0; index < safeLimit; index += 1) {
+  let processed = 0;
+
+  while (processed < safeLimit && !stoppedByDeadline) {
     if (!canClaimInventoryRefreshJob(options.claimDeadlineAt)) {
       stoppedByDeadline = true;
       break;
     }
-    const result = await processNextInventoryRefreshJob(options);
-    if (!result) {
-      stoppedByDeadline = !canClaimInventoryRefreshJob(options.claimDeadlineAt);
-      break;
+    const batchSize = Math.min(concurrency, safeLimit - processed);
+    const batch = await Promise.all(
+      Array.from({ length: batchSize }, () =>
+        processNextInventoryRefreshJob(options),
+      ),
+    );
+    for (const result of batch) {
+      if (!result) {
+        stoppedByDeadline = !canClaimInventoryRefreshJob(
+          options.claimDeadlineAt,
+        );
+        break;
+      }
+      results.push(result);
+      processed += 1;
     }
-    results.push(result);
+    if (batch.some((result) => !result)) break;
   }
   return { results, stoppedByDeadline };
 }

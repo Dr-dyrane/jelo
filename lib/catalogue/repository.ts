@@ -1,25 +1,26 @@
-import 'server-only';
+import "server-only";
 
-import { products as staticProducts } from '@/data/catalogue';
-import { canonicalBrandName } from '@/data/brand-canonical-names';
-import { getReviewedProductCare } from '@/data/product-care-review';
-import { publishedIntakeProducts } from '@/data/published-intake-products';
-import type { Offer, Product } from '@/data/products';
+import { unstable_cache } from "next/cache";
+import { products as staticProducts } from "@/data/catalogue";
+import { canonicalBrandName } from "@/data/brand-canonical-names";
+import { getReviewedProductCare } from "@/data/product-care-review";
+import { publishedIntakeProducts } from "@/data/published-intake-products";
+import type { Offer, Product } from "@/data/products";
 import {
   mergeDossierReleasedCatalogue,
   reconcilePublishedCatalogue,
-} from '@/lib/catalogue/publication-boundary';
+} from "@/lib/catalogue/publication-boundary";
 import {
   resolveCatalogueIdentityVersion,
   type CatalogueIdentityResolution,
   type CatalogueIdentityTransitionRecord,
   type CatalogueIdentityVersionRecord,
-} from '@/lib/catalogue/product-identity-resolver';
-import { getPostgresClient, hasPostgresConfig } from '@/lib/db/postgres';
+} from "@/lib/catalogue/product-identity-resolver";
+import { getPostgresClient, hasPostgresConfig } from "@/lib/db/postgres";
 import {
   materializePersistedOfferEvidence,
   type PersistedOfferEvidence,
-} from '@/modules/commerce/offer-evidence';
+} from "@/modules/commerce/offer-evidence";
 
 export type CatalogueRepository = {
   listPublished(): Promise<Product[]>;
@@ -33,12 +34,12 @@ type ProductRow = {
   brand: string;
   name: string;
   size: string;
-  category: Product['category'];
+  category: Product["category"];
   step: string;
   image: string | null;
   display_line: string;
   usage: string;
-  evidence: Product['evidence'];
+  evidence: Product["evidence"];
   sensitive_friendly: boolean;
   best_for: string[] | null;
   concerns: string[] | null;
@@ -49,7 +50,9 @@ type ProductRow = {
 
 function normalizeProductBrand(product: Product): Product {
   const canonical = canonicalBrandName(product.brand);
-  return canonical === product.brand ? product : { ...product, brand: canonical };
+  return canonical === product.brand
+    ? product
+    : { ...product, brand: canonical };
 }
 
 const staticRepository: CatalogueRepository = {
@@ -57,7 +60,7 @@ const staticRepository: CatalogueRepository = {
     return staticProducts.map(normalizeProductBrand);
   },
   async findBySlug(slug) {
-    const product = staticProducts.find(product => product.slug === slug);
+    const product = staticProducts.find((product) => product.slug === slug);
     return product ? normalizeProductBrand(product) : undefined;
   },
 };
@@ -70,7 +73,7 @@ function mapRow(row: ProductRow): Product {
     size: row.size,
     category: row.category,
     step: row.step,
-    image: row.image ?? '/product-placeholder.svg',
+    image: row.image ?? "/product-placeholder.svg",
     displayLine: row.display_line,
     bestFor: row.best_for ?? [],
     concerns: row.concerns ?? [],
@@ -79,7 +82,7 @@ function mapRow(row: ProductRow): Product {
     usage: row.usage,
     evidence: row.evidence,
     verifiedIngredientIds: row.ingredient_ids ?? [],
-    offers: (row.offers ?? []).map(persistedOffer => {
+    offers: (row.offers ?? []).map((persistedOffer) => {
       const {
         verificationMethod,
         lastVerifiedAt,
@@ -216,20 +219,47 @@ const neonRepository: CatalogueRepository = {
 };
 
 function shouldUseNeon() {
-  return process.env.CATALOGUE_SOURCE === 'neon' && hasPostgresConfig();
+  return process.env.CATALOGUE_SOURCE === "neon" && hasPostgresConfig();
 }
 
 export function getCatalogueRepository(): CatalogueRepository {
   return shouldUseNeon() ? neonRepository : staticRepository;
 }
 
-export async function listCatalogueProducts() {
-  if (!shouldUseNeon()) return staticRepository.listPublished();
+const listCatalogueProductsCached = unstable_cache(
+  async () => {
+    if (!shouldUseNeon()) return staticRepository.listPublished();
 
+    try {
+      return await neonRepository.listPublished();
+    } catch (error) {
+      console.error(
+        "Neon catalogue unavailable; using verified static fallback.",
+        error,
+      );
+      return staticRepository.listPublished();
+    }
+  },
+  ["catalogue-products"],
+  { revalidate: 300, tags: ["catalogue"] },
+);
+
+export async function listCatalogueProducts() {
+  // unstable_cache requires a Next.js request context; fall back to direct
+  // access in scripts and tests where the incremental cache is unavailable.
+  if (process.env.NEXT_RUNTIME) return listCatalogueProductsCached();
+  return listCatalogueProductsUncached();
+}
+
+async function listCatalogueProductsUncached() {
+  if (!shouldUseNeon()) return staticRepository.listPublished();
   try {
     return await neonRepository.listPublished();
   } catch (error) {
-    console.error('Neon catalogue unavailable; using verified static fallback.', error);
+    console.error(
+      "Neon catalogue unavailable; using verified static fallback.",
+      error,
+    );
     return staticRepository.listPublished();
   }
 }
@@ -241,16 +271,44 @@ export async function listCatalogueProducts() {
  */
 export async function listRecommendationEligibleProducts() {
   const products = await listCatalogueProducts();
-  return products.filter(product => getReviewedProductCare(product.slug)?.careState === 'supportive_eligible');
+  return products.filter(
+    (product) =>
+      getReviewedProductCare(product.slug)?.careState === "supportive_eligible",
+  );
 }
 
-export async function findCatalogueProduct(slug: string) {
-  if (!shouldUseNeon()) return staticRepository.findBySlug(slug);
+const findCatalogueProductCached = unstable_cache(
+  async (slug: string) => {
+    if (!shouldUseNeon()) return staticRepository.findBySlug(slug);
 
+    try {
+      return await neonRepository.findBySlug(slug);
+    } catch (error) {
+      console.error(
+        "Neon product lookup unavailable; using verified static fallback.",
+        error,
+      );
+      return staticRepository.findBySlug(slug);
+    }
+  },
+  ["catalogue-product"],
+  { revalidate: 300, tags: ["catalogue"] },
+);
+
+export async function findCatalogueProduct(slug: string) {
+  if (process.env.NEXT_RUNTIME) return findCatalogueProductCached(slug);
+  return findCatalogueProductUncached(slug);
+}
+
+async function findCatalogueProductUncached(slug: string) {
+  if (!shouldUseNeon()) return staticRepository.findBySlug(slug);
   try {
     return await neonRepository.findBySlug(slug);
   } catch (error) {
-    console.error('Neon product lookup unavailable; using verified static fallback.', error);
+    console.error(
+      "Neon product lookup unavailable; using verified static fallback.",
+      error,
+    );
     return staticRepository.findBySlug(slug);
   }
 }
@@ -269,7 +327,7 @@ export async function resolvePublicCatalogueIdentityVersion(
   identityVersionId: string,
 ): Promise<CatalogueIdentityResolution> {
   if (!hasPostgresConfig()) {
-    return { status: 'unresolvable', reason: 'repository-unavailable' };
+    return { status: "unresolvable", reason: "repository-unavailable" };
   }
 
   try {
@@ -308,14 +366,15 @@ export async function resolvePublicCatalogueIdentityVersion(
         ), '[]'::jsonb) as transitions
     `;
 
-    if (!graph) return { status: 'unresolvable', reason: 'repository-unavailable' };
+    if (!graph)
+      return { status: "unresolvable", reason: "repository-unavailable" };
     return resolveCatalogueIdentityVersion(
       identityVersionId,
       graph.records,
       graph.transitions,
     );
   } catch (error) {
-    console.error('Public catalogue identity repository unavailable.', error);
-    return { status: 'unresolvable', reason: 'repository-unavailable' };
+    console.error("Public catalogue identity repository unavailable.", error);
+    return { status: "unresolvable", reason: "repository-unavailable" };
   }
 }

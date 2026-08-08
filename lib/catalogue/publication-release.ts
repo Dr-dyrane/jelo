@@ -1,27 +1,29 @@
-import { createHash } from 'node:crypto';
-import { nigeriaRetailers } from '@/data/retailers';
-import type { Offer, Product } from '@/data/products';
-import type { CatalogueIntakeCandidate } from './intake-readiness';
+import { createHash } from "node:crypto";
+import { stableJson } from "@/lib/crypto/hashing";
+import { nigeriaRetailers } from "@/data/retailers";
+import type { Offer, Product } from "@/data/products";
+import type { CatalogueIntakeCandidate } from "./intake-readiness";
 import {
   catalogueCanonicalIdentifierKey,
   catalogueOfficialProductPackageKey,
   catalogueOfficialProductCrosswalkRouteClass,
   catalogueOfficialProductRoutePackageKey,
-} from './canonical-identity';
+} from "./canonical-identity";
 import {
   cataloguePublicationScope,
   verifyCataloguePublicationDossierManifest,
   verifyCataloguePublicationDossierManifestWithArtifacts,
   type CataloguePublicationDossier,
   type CataloguePublicationVerificationOptions,
-} from './publication-dossier';
+} from "./publication-dossier";
 
 export const cataloguePublicationReleaseSchemaVersion = 2 as const;
-export const cataloguePublicationReleaseExposure = 'public-catalogue' as const;
-export const cataloguePublicationReleaseApprovalScope = 'exact-dossier-presentation-publication' as const;
+export const cataloguePublicationReleaseExposure = "public-catalogue" as const;
+export const cataloguePublicationReleaseApprovalScope =
+  "exact-dossier-presentation-publication" as const;
 
 export type CataloguePublicationPresentation = {
-  category: Product['category'];
+  category: Product["category"];
   routineStep: string;
   displayLine: string;
   usage: string;
@@ -43,7 +45,7 @@ export type CataloguePublicationRelease = {
   releaseFingerprint: string;
   exposure: typeof cataloguePublicationReleaseExposure;
   publicationScope: typeof cataloguePublicationScope;
-  publicationStatus: 'published';
+  publicationStatus: "published";
   recommendationEligible: false;
   presentation: CataloguePublicationPresentation;
   publication: CataloguePublicationReleaseApproval;
@@ -57,25 +59,15 @@ export type CataloguePublicationReleaseManifest = {
 
 const hashPattern = /^[0-9a-f]{64}$/;
 
-function stableJson(value: unknown): string {
-  if (value === null || typeof value !== 'object') return JSON.stringify(value);
-  if (Array.isArray(value)) return `[${value.map(stableJson).join(',')}]`;
-  const record = value as Record<string, unknown>;
-  return `{${Object.keys(record)
-    .filter(key => record[key] !== undefined)
-    .sort()
-    .map(key => `${JSON.stringify(key)}:${stableJson(record[key])}`)
-    .join(',')}}`;
-}
-
 function fingerprint(value: unknown) {
-  return createHash('sha256')
+  return createHash("sha256")
     .update(`jelocare-catalogue-publication-release-v2\n${stableJson(value)}`)
-    .digest('hex');
+    .digest("hex");
 }
 
 function objectRecord(value: unknown, label: string): Record<string, unknown> {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label} must be an object.`);
+  if (!value || typeof value !== "object" || Array.isArray(value))
+    throw new Error(`${label} must be an object.`);
   return value as Record<string, unknown>;
 }
 
@@ -88,8 +80,12 @@ function parsedDate(value: string, label: string, asOf: number) {
 }
 
 function cleanText(value: string, label: string, min: number, max: number) {
-  const normalized = value.trim().replace(/\s+/g, ' ');
-  if (normalized.length < min || normalized.length > max || /[<>]/.test(normalized)) {
+  const normalized = value.trim().replace(/\s+/g, " ");
+  if (
+    normalized.length < min ||
+    normalized.length > max ||
+    /[<>]/.test(normalized)
+  ) {
     throw new Error(`${label} is invalid.`);
   }
   return normalized;
@@ -97,18 +93,22 @@ function cleanText(value: string, label: string, min: number, max: number) {
 
 function normalized(value: string) {
   return value
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
 
-function categoryForDossier(category: CataloguePublicationDossier['identity']['category']): Product['category'] {
-  if (category === 'Face care') return 'Face';
-  if (category === 'Hair & scalp') return 'Hair';
-  if (category === 'Body care') return 'Body';
-  throw new Error(`${category} has no approved public catalogue category mapping.`);
+function categoryForDossier(
+  category: CataloguePublicationDossier["identity"]["category"],
+): Product["category"] {
+  if (category === "Face care") return "Face";
+  if (category === "Hair & scalp") return "Hair";
+  if (category === "Body care") return "Body";
+  throw new Error(
+    `${category} has no approved public catalogue category mapping.`,
+  );
 }
 
 function normalizedPresentation(
@@ -117,7 +117,9 @@ function normalizedPresentation(
   asOf: number,
 ): CataloguePublicationPresentation {
   if (presentation.category !== categoryForDossier(dossier.identity.category)) {
-    throw new Error(`${dossier.candidateId} presentation category does not match its dossier.`);
+    throw new Error(
+      `${dossier.candidateId} presentation category does not match its dossier.`,
+    );
   }
   const directionsUrl = new URL(presentation.manufacturerDirectionsUrl);
   const allowedDirections = new Set([
@@ -125,27 +127,53 @@ function normalizedPresentation(
     dossier.care.manufacturerEvidenceUrl,
     ...dossier.care.evidenceUrls,
   ]);
-  if (directionsUrl.protocol !== 'https:' || !allowedDirections.has(directionsUrl.href)) {
-    throw new Error(`${dossier.candidateId} usage directions are not bound to reviewed manufacturer evidence.`);
+  if (
+    directionsUrl.protocol !== "https:" ||
+    !allowedDirections.has(directionsUrl.href)
+  ) {
+    throw new Error(
+      `${dossier.candidateId} usage directions are not bound to reviewed manufacturer evidence.`,
+    );
   }
   if (presentation.reviewer.trim().length < 2) {
     throw new Error(`${dossier.candidateId} presentation reviewer is missing.`);
   }
-  const reviewedAt = parsedDate(presentation.reviewedAt, `${dossier.candidateId} presentation review`, asOf);
+  const reviewedAt = parsedDate(
+    presentation.reviewedAt,
+    `${dossier.candidateId} presentation review`,
+    asOf,
+  );
   const dossierApprovedAt = parsedDate(
     dossier.approval.approvedAt,
     `${dossier.candidateId} dossier approval`,
     asOf,
   );
   if (reviewedAt < dossierApprovedAt) {
-    throw new Error(`${dossier.candidateId} presentation review predates its dossier approval.`);
+    throw new Error(
+      `${dossier.candidateId} presentation review predates its dossier approval.`,
+    );
   }
 
   return {
     category: presentation.category,
-    routineStep: cleanText(presentation.routineStep, `${dossier.candidateId} routine step`, 2, 40),
-    displayLine: cleanText(presentation.displayLine, `${dossier.candidateId} display line`, 3, 80),
-    usage: cleanText(presentation.usage, `${dossier.candidateId} usage`, 10, 500),
+    routineStep: cleanText(
+      presentation.routineStep,
+      `${dossier.candidateId} routine step`,
+      2,
+      40,
+    ),
+    displayLine: cleanText(
+      presentation.displayLine,
+      `${dossier.candidateId} display line`,
+      3,
+      80,
+    ),
+    usage: cleanText(
+      presentation.usage,
+      `${dossier.candidateId} usage`,
+      10,
+      500,
+    ),
     manufacturerDirectionsUrl: directionsUrl.href,
     reviewer: presentation.reviewer.trim(),
     reviewedAt: presentation.reviewedAt,
@@ -164,10 +192,20 @@ function createCataloguePublicationReleaseCore(
   if (publication.reviewer.trim().length < 2) {
     throw new Error(`${dossier.candidateId} publication reviewer is missing.`);
   }
-  const normalizedProductPresentation = normalizedPresentation(dossier, presentation, asOf);
-  const publishedAt = parsedDate(publication.publishedAt, `${dossier.candidateId} publication`, asOf);
+  const normalizedProductPresentation = normalizedPresentation(
+    dossier,
+    presentation,
+    asOf,
+  );
+  const publishedAt = parsedDate(
+    publication.publishedAt,
+    `${dossier.candidateId} publication`,
+    asOf,
+  );
   if (publishedAt < Date.parse(normalizedProductPresentation.reviewedAt)) {
-    throw new Error(`${dossier.candidateId} publication predates its presentation review.`);
+    throw new Error(
+      `${dossier.candidateId} publication predates its presentation review.`,
+    );
   }
   const payload = {
     schemaVersion: cataloguePublicationReleaseSchemaVersion,
@@ -175,7 +213,7 @@ function createCataloguePublicationReleaseCore(
     dossierFingerprint: dossier.dossierFingerprint,
     exposure: cataloguePublicationReleaseExposure,
     publicationScope: cataloguePublicationScope,
-    publicationStatus: 'published' as const,
+    publicationStatus: "published" as const,
     recommendationEligible: false as const,
     presentation: normalizedProductPresentation,
     publication: {
@@ -198,7 +236,12 @@ export function createCataloguePublicationRelease(
   publication: CataloguePublicationReleaseApproval,
   asOf = Date.now(),
 ): CataloguePublicationRelease {
-  return createCataloguePublicationReleaseCore(dossier, presentation, publication, asOf);
+  return createCataloguePublicationReleaseCore(
+    dossier,
+    presentation,
+    publication,
+    asOf,
+  );
 }
 
 /**
@@ -213,18 +256,21 @@ export async function createVerifiedCataloguePublicationRelease(
   options: CataloguePublicationVerificationOptions = {},
 ): Promise<CataloguePublicationRelease> {
   const asOf = options.asOf ?? Date.now();
-  const dossierReport = await verifyCataloguePublicationDossierManifestWithArtifacts(
-    [candidate],
-    {
-      schemaVersion: dossier.schemaVersion,
-      exposure: dossier.exposure,
-      dossiers: [dossier],
-    },
-    { ...options, asOf },
-  );
+  const dossierReport =
+    await verifyCataloguePublicationDossierManifestWithArtifacts(
+      [candidate],
+      {
+        schemaVersion: dossier.schemaVersion,
+        exposure: dossier.exposure,
+        dossiers: [dossier],
+      },
+      { ...options, asOf },
+    );
   const verifiedDossier = dossierReport.dossiers[0];
   if (!verifiedDossier || verifiedDossier.candidateId !== candidate.id) {
-    throw new Error(`${candidate.id} has no current verified publication dossier.`);
+    throw new Error(
+      `${candidate.id} has no current verified publication dossier.`,
+    );
   }
   return createCataloguePublicationReleaseCore(
     verifiedDossier,
@@ -235,22 +281,32 @@ export async function createVerifiedCataloguePublicationRelease(
 }
 
 function releaseInput(value: Record<string, unknown>, candidateId: string) {
-  const presentation = objectRecord(value.presentation, `${candidateId} presentation`);
-  const publication = objectRecord(value.publication, `${candidateId} publication`);
+  const presentation = objectRecord(
+    value.presentation,
+    `${candidateId} presentation`,
+  );
+  const publication = objectRecord(
+    value.publication,
+    `${candidateId} publication`,
+  );
   if (
-    (presentation.category !== 'Face' && presentation.category !== 'Hair' && presentation.category !== 'Body')
-    || typeof presentation.routineStep !== 'string'
-    || typeof presentation.displayLine !== 'string'
-    || typeof presentation.usage !== 'string'
-    || typeof presentation.manufacturerDirectionsUrl !== 'string'
-    || typeof presentation.reviewer !== 'string'
-    || typeof presentation.reviewedAt !== 'string'
-  ) throw new Error(`${candidateId} presentation metadata is invalid.`);
+    (presentation.category !== "Face" &&
+      presentation.category !== "Hair" &&
+      presentation.category !== "Body") ||
+    typeof presentation.routineStep !== "string" ||
+    typeof presentation.displayLine !== "string" ||
+    typeof presentation.usage !== "string" ||
+    typeof presentation.manufacturerDirectionsUrl !== "string" ||
+    typeof presentation.reviewer !== "string" ||
+    typeof presentation.reviewedAt !== "string"
+  )
+    throw new Error(`${candidateId} presentation metadata is invalid.`);
   if (
-    publication.scope !== cataloguePublicationReleaseApprovalScope
-    || typeof publication.reviewer !== 'string'
-    || typeof publication.publishedAt !== 'string'
-  ) throw new Error(`${candidateId} publication metadata is invalid.`);
+    publication.scope !== cataloguePublicationReleaseApprovalScope ||
+    typeof publication.reviewer !== "string" ||
+    typeof publication.publishedAt !== "string"
+  )
+    throw new Error(`${candidateId} publication metadata is invalid.`);
   return {
     presentation: presentation as CataloguePublicationPresentation,
     publication: publication as CataloguePublicationReleaseApproval,
@@ -258,32 +314,37 @@ function releaseInput(value: Record<string, unknown>, candidateId: string) {
 }
 
 function offerForDossier(
-  offer: CataloguePublicationDossier['nigeria']['exactOffers'][number],
+  offer: CataloguePublicationDossier["nigeria"]["exactOffers"][number],
 ): Offer {
-  const retailer = nigeriaRetailers.find(item => normalized(item.name) === normalized(offer.retailer));
-  if (!retailer) throw new Error(`${offer.retailer} is not in the reviewed Nigerian retailer registry.`);
+  const retailer = nigeriaRetailers.find(
+    (item) => normalized(item.name) === normalized(offer.retailer),
+  );
+  if (!retailer)
+    throw new Error(
+      `${offer.retailer} is not in the reviewed Nigerian retailer registry.`,
+    );
   return {
     retailer: retailer.name,
     url: offer.listingUrl,
     trust: retailer.trust,
-    available: offer.stock !== 'out-of-stock',
+    available: offer.stock !== "out-of-stock",
     priceNgn: offer.priceNgn,
     checkedAt: offer.observedAt,
-    match: 'exact',
+    match: "exact",
     listingEvidence: {
       observedAt: offer.observedAt,
       sourceUrl: offer.listingUrl,
-      basis: 'retailer-page',
+      basis: "retailer-page",
     },
     priceObservation: {
       observedAt: offer.observedAt,
       variant: offer.observedTitle,
       size: offer.observedSize,
       stock: offer.stock,
-      landedCost: 'unknown',
+      landedCost: "unknown",
     },
-    priceComparison: 'include',
-    location: ['NG'],
+    priceComparison: "include",
+    location: ["NG"],
   };
 }
 
@@ -291,12 +352,17 @@ export function materializeCataloguePublicationRelease(
   dossier: CataloguePublicationDossier,
   release: CataloguePublicationRelease,
 ): Product {
-  if (release.candidateId !== dossier.candidateId || release.dossierFingerprint !== dossier.dossierFingerprint) {
-    throw new Error(`${release.candidateId} release is not bound to its dossier.`);
+  if (
+    release.candidateId !== dossier.candidateId ||
+    release.dossierFingerprint !== dossier.dossierFingerprint
+  ) {
+    throw new Error(
+      `${release.candidateId} release is not bound to its dossier.`,
+    );
   }
   return {
     slug: dossier.candidateId,
-    ...(dossier.identity.canonicalIdentifier?.kind === 'manufacturer-sku'
+    ...(dossier.identity.canonicalIdentifier?.kind === "manufacturer-sku"
       ? { catalogueIdentity: { ...dossier.identity.canonicalIdentifier } }
       : {}),
     brand: dossier.identity.brand,
@@ -311,51 +377,73 @@ export function materializeCataloguePublicationRelease(
     skinTypes: [],
     sensitiveFriendly: false,
     usage: release.presentation.usage,
-    evidence: 'emerging',
+    evidence: "emerging",
     verifiedIngredientIds: [],
     offers: dossier.nigeria.exactOffers.map(offerForDossier),
   };
 }
 
 function verifyCataloguePublicationReleaseManifestCore(
-  dossierReport: Awaited<ReturnType<
-    typeof verifyCataloguePublicationDossierManifestWithArtifacts
-  >>,
+  dossierReport: Awaited<
+    ReturnType<typeof verifyCataloguePublicationDossierManifestWithArtifacts>
+  >,
   manifest: unknown,
   asOf = Date.now(),
 ) {
-  const source = objectRecord(manifest, 'Catalogue publication release manifest');
+  const source = objectRecord(
+    manifest,
+    "Catalogue publication release manifest",
+  );
   if (source.schemaVersion !== cataloguePublicationReleaseSchemaVersion) {
-    throw new Error('Unsupported catalogue publication release schema.');
+    throw new Error("Unsupported catalogue publication release schema.");
   }
   if (source.exposure !== cataloguePublicationReleaseExposure) {
-    throw new Error('Catalogue publication releases must use the public-catalogue exposure.');
+    throw new Error(
+      "Catalogue publication releases must use the public-catalogue exposure.",
+    );
   }
   if (!Array.isArray(source.releases)) {
-    throw new Error('Catalogue publication release manifest must contain a releases array.');
+    throw new Error(
+      "Catalogue publication release manifest must contain a releases array.",
+    );
   }
 
-  const dossierByCandidate = new Map(dossierReport.dossiers.map(dossier => [dossier.candidateId, dossier]));
+  const dossierByCandidate = new Map(
+    dossierReport.dossiers.map((dossier) => [dossier.candidateId, dossier]),
+  );
   const seenCandidates = new Set<string>();
   const seenFingerprints = new Set<string>();
   const seenCanonicalIdentifiers = new Set<string>();
   const seenOfficialProductCrosswalks = new Set<string>();
   const seenOfficialProductRoutePackages = new Map<
     string,
-    'manufacturer-sku' | 'official-route'
+    "manufacturer-sku" | "official-route"
   >();
   const releases = source.releases.map((value, index) => {
-    const stored = objectRecord(value, `Catalogue publication release ${index}`);
-    if (typeof stored.candidateId !== 'string' || !stored.candidateId) {
-      throw new Error(`Catalogue publication release ${index} has no candidate ID.`);
+    const stored = objectRecord(
+      value,
+      `Catalogue publication release ${index}`,
+    );
+    if (typeof stored.candidateId !== "string" || !stored.candidateId) {
+      throw new Error(
+        `Catalogue publication release ${index} has no candidate ID.`,
+      );
     }
     const candidateId = stored.candidateId;
-    if (seenCandidates.has(candidateId)) throw new Error(`Duplicate catalogue publication release: ${candidateId}`);
+    if (seenCandidates.has(candidateId))
+      throw new Error(
+        `Duplicate catalogue publication release: ${candidateId}`,
+      );
     seenCandidates.add(candidateId);
     const dossier = dossierByCandidate.get(candidateId);
-    if (!dossier) throw new Error(`${candidateId} has no current verified publication dossier.`);
+    if (!dossier)
+      throw new Error(
+        `${candidateId} has no current verified publication dossier.`,
+      );
     if (stored.dossierFingerprint !== dossier.dossierFingerprint) {
-      throw new Error(`${candidateId} release dossier fingerprint changed; publication is invalid.`);
+      throw new Error(
+        `${candidateId} release dossier fingerprint changed; publication is invalid.`,
+      );
     }
     const input = releaseInput(stored, candidateId);
     const expected = createCataloguePublicationReleaseCore(
@@ -364,60 +452,83 @@ function verifyCataloguePublicationReleaseManifestCore(
       input.publication,
       asOf,
     );
-    if (typeof stored.releaseFingerprint !== 'string' || !hashPattern.test(stored.releaseFingerprint)) {
+    if (
+      typeof stored.releaseFingerprint !== "string" ||
+      !hashPattern.test(stored.releaseFingerprint)
+    ) {
       throw new Error(`${candidateId} release fingerprint is invalid.`);
     }
     if (seenFingerprints.has(stored.releaseFingerprint)) {
-      throw new Error(`Duplicate catalogue publication release fingerprint: ${stored.releaseFingerprint}`);
+      throw new Error(
+        `Duplicate catalogue publication release fingerprint: ${stored.releaseFingerprint}`,
+      );
     }
     seenFingerprints.add(stored.releaseFingerprint);
     if (stableJson(stored) !== stableJson(expected)) {
-      throw new Error(`${candidateId} release content or fingerprint changed; publication is invalid.`);
+      throw new Error(
+        `${candidateId} release content or fingerprint changed; publication is invalid.`,
+      );
     }
-    const canonicalIdentifier = dossier.identity.canonicalIdentifier?.kind === 'manufacturer-sku'
-      ? dossier.identity.canonicalIdentifier
-      : {
-        kind: 'gtin' as const,
-        value: (() => {
-          if (!('gtin' in dossier.identity) || !dossier.identity.gtin) {
-            throw new Error(`${candidateId} dossier has no canonical identifier.`);
-          }
-          return dossier.identity.gtin;
-        })(),
-      };
+    const canonicalIdentifier =
+      dossier.identity.canonicalIdentifier?.kind === "manufacturer-sku"
+        ? dossier.identity.canonicalIdentifier
+        : {
+            kind: "gtin" as const,
+            value: (() => {
+              if (!("gtin" in dossier.identity) || !dossier.identity.gtin) {
+                throw new Error(
+                  `${candidateId} dossier has no canonical identifier.`,
+                );
+              }
+              return dossier.identity.gtin;
+            })(),
+          };
     const canonicalIdentifierKey = catalogueCanonicalIdentifierKey(
       dossier.identity.brand,
       canonicalIdentifier,
     );
     if (seenCanonicalIdentifiers.has(canonicalIdentifierKey)) {
-      throw new Error(`${candidateId} duplicates another released canonical identifier.`);
+      throw new Error(
+        `${candidateId} duplicates another released canonical identifier.`,
+      );
     }
     seenCanonicalIdentifiers.add(canonicalIdentifierKey);
-    const officialProductCrosswalk = 'officialProductCrosswalk' in dossier.identity
-      ? dossier.identity.officialProductCrosswalk
-      : undefined;
+    const officialProductCrosswalk =
+      "officialProductCrosswalk" in dossier.identity
+        ? dossier.identity.officialProductCrosswalk
+        : undefined;
     if (officialProductCrosswalk) {
-      const crosswalkKey = catalogueOfficialProductPackageKey(officialProductCrosswalk);
-      if (!crosswalkKey) throw new Error(`${candidateId} has an invalid official product crosswalk.`);
+      const crosswalkKey = catalogueOfficialProductPackageKey(
+        officialProductCrosswalk,
+      );
+      if (!crosswalkKey)
+        throw new Error(
+          `${candidateId} has an invalid official product crosswalk.`,
+        );
       if (seenOfficialProductCrosswalks.has(crosswalkKey)) {
-        throw new Error(`${candidateId} duplicates another released official product/package.`);
+        throw new Error(
+          `${candidateId} duplicates another released official product/package.`,
+        );
       }
       seenOfficialProductCrosswalks.add(crosswalkKey);
 
-      const routePackageKey =
-        catalogueOfficialProductRoutePackageKey(officialProductCrosswalk);
-      const routeClass =
-        catalogueOfficialProductCrosswalkRouteClass(officialProductCrosswalk);
+      const routePackageKey = catalogueOfficialProductRoutePackageKey(
+        officialProductCrosswalk,
+      );
+      const routeClass = catalogueOfficialProductCrosswalkRouteClass(
+        officialProductCrosswalk,
+      );
       if (!routePackageKey || !routeClass) {
-        throw new Error(`${candidateId} has an invalid official route/package.`);
+        throw new Error(
+          `${candidateId} has an invalid official route/package.`,
+        );
       }
-      const existingRouteClass = seenOfficialProductRoutePackages.get(routePackageKey);
+      const existingRouteClass =
+        seenOfficialProductRoutePackages.get(routePackageKey);
       if (
-        existingRouteClass
-        && (
-          existingRouteClass !== 'manufacturer-sku'
-          || routeClass !== 'manufacturer-sku'
-        )
+        existingRouteClass &&
+        (existingRouteClass !== "manufacturer-sku" ||
+          routeClass !== "manufacturer-sku")
       ) {
         throw new Error(
           `${candidateId} duplicates another released official route/package across identity routes.`,
@@ -433,7 +544,7 @@ function verifyCataloguePublicationReleaseManifestCore(
       schemaVersion: cataloguePublicationReleaseSchemaVersion,
       exposure: cataloguePublicationReleaseExposure,
       releaseCount: releases.length,
-      releases: releases.map(item => item.release),
+      releases: releases.map((item) => item.release),
     },
     bindings: releases,
   };
@@ -461,9 +572,9 @@ export function verifyCataloguePublicationReleaseManifest(
   );
   return {
     ...verified.report,
-    products: verified.bindings.map(({ dossier, release }) => (
-      materializeCataloguePublicationRelease(dossier, release)
-    )),
+    products: verified.bindings.map(({ dossier, release }) =>
+      materializeCataloguePublicationRelease(dossier, release),
+    ),
   };
 }
 
@@ -478,11 +589,12 @@ export async function verifyCataloguePublicationReleaseManifestWithArtifacts(
   options: CataloguePublicationVerificationOptions = {},
 ) {
   const asOf = options.asOf ?? Date.now();
-  const dossierReport = await verifyCataloguePublicationDossierManifestWithArtifacts(
-    candidates,
-    dossierManifest,
-    { ...options, asOf },
-  );
+  const dossierReport =
+    await verifyCataloguePublicationDossierManifestWithArtifacts(
+      candidates,
+      dossierManifest,
+      { ...options, asOf },
+    );
   const verified = verifyCataloguePublicationReleaseManifestCore(
     dossierReport,
     manifest,
@@ -490,8 +602,8 @@ export async function verifyCataloguePublicationReleaseManifestWithArtifacts(
   );
   return {
     ...verified.report,
-    products: verified.bindings.map(({ dossier, release }) => (
-      materializeCataloguePublicationRelease(dossier, release)
-    )),
+    products: verified.bindings.map(({ dossier, release }) =>
+      materializeCataloguePublicationRelease(dossier, release),
+    ),
   };
 }

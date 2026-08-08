@@ -1,14 +1,14 @@
-import 'server-only';
+import "server-only";
 
-import { createHmac } from 'node:crypto';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { createHmac } from "node:crypto";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 import {
   catalogueSearchRateLimitMaximum,
   catalogueSearchRateLimitWindow,
   catalogueSearchRateLimitWindowSeconds,
   catalogueSearchRetryAfterSeconds,
-} from './catalogue-search-rate-limit-policy';
+} from "./catalogue-search-rate-limit-policy";
 
 export type CatalogueSearchRateLimitDecision = {
   allowed: boolean;
@@ -25,7 +25,7 @@ function configuredLimiter() {
   const token = process.env.KV_REST_API_TOKEN;
 
   if (!url || !token) {
-    throw new Error('incomplete_redis_configuration');
+    throw new Error("incomplete_redis_configuration");
   }
 
   limiter = new Ratelimit({
@@ -35,24 +35,26 @@ function configuredLimiter() {
       catalogueSearchRateLimitWindow,
     ),
     analytics: false,
-    prefix: 'jelocare:catalogue-search',
+    prefix: "jelocare:catalogue-search",
   });
 
   return limiter;
 }
 
 function catalogueSearchNetworkKey(request: Request) {
-  const forwarded = request.headers.get('x-vercel-forwarded-for')
-    ?? request.headers.get('x-forwarded-for')
-    ?? request.headers.get('cf-connecting-ip')
-    ?? 'local';
-  const address = forwarded.split(',')[0]?.trim() || 'local';
-  const secret = process.env.CATALOGUE_SEARCH_RATE_LIMIT_SECRET
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL
-    ?? 'local-development-only';
+  const forwarded =
+    request.headers.get("x-vercel-forwarded-for") ??
+    request.headers.get("x-forwarded-for") ??
+    request.headers.get("cf-connecting-ip") ??
+    "local";
+  const address = forwarded.split(",")[0]?.trim() || "local";
+  const secret =
+    process.env.CATALOGUE_SEARCH_RATE_LIMIT_SECRET ??
+    process.env.DATABASE_URL ??
+    process.env.POSTGRES_URL ??
+    "local-development-only";
 
-  return createHmac('sha256', secret).update(address).digest('hex');
+  return createHmac("sha256", secret).update(address).digest("hex");
 }
 
 export async function catalogueSearchRateLimit(
@@ -63,14 +65,19 @@ export async function catalogueSearchRateLimit(
 
   if (!url && !token) {
     return {
-      allowed: true,
+      allowed: process.env.NODE_ENV !== "production",
       configured: false,
-      retryAfterSeconds: 0,
+      retryAfterSeconds:
+        process.env.NODE_ENV === "production"
+          ? catalogueSearchRateLimitWindowSeconds
+          : 0,
     };
   }
 
   try {
-    const result = await configuredLimiter().limit(catalogueSearchNetworkKey(request));
+    const result = await configuredLimiter().limit(
+      catalogueSearchNetworkKey(request),
+    );
 
     return {
       allowed: result.success,
@@ -80,7 +87,7 @@ export async function catalogueSearchRateLimit(
         : catalogueSearchRetryAfterSeconds(result.reset),
     };
   } catch {
-    console.error('[catalogue-search] Configured rate limiter is unavailable.');
+    console.error("[catalogue-search] Configured rate limiter is unavailable.");
 
     return {
       allowed: false,
