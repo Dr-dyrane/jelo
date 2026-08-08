@@ -4,373 +4,6 @@
   "dossiers": [
     {
       "schemaVersion": 8,
-      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
-      "candidateFingerprint": "d5cfa5375ed4d71bde558f7a75d7f51118426621633b2d7c36711bdc63c4b139",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "8809875270172",
-        "brand": "NINELESS",
-        "name": "Mela-Pro Rice & TXA Toner",
-        "variant": "Mela-Pro Rice & TXA Toner",
-        "size": "200 ml",
-        "packageVersion": "Original translucent bottle with orange cap",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-        "officialIdentity": {
-          "url": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-          "observedGtin": "8809875270172",
-          "observedVariant": "Mela-Pro Rice & TXA Toner",
-          "observedSize": "200 ml",
-          "observedPackageVersion": "Original translucent bottle with orange cap",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/nineless-mela-pro-rice-txa-toner-200ml.json",
-          "canonicalExtraction": {
-            "schemaVersion": 6,
-            "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
-            "sourceUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-            "responseUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-            "retrievedAt": "2026-07-23T08:55:00Z",
-            "fields": {
-              "gtin": {
-                "value": "8809875270172",
-                "locator": "identifierCorroborations[*].fields.gtin",
-                "sourceText": "EAN 8809875270172 is independently corroborated by Qudo Beauty and Shop Apotheke; the visible official page does not publish an identifier."
-              },
-              "variant": {
-                "value": "Mela-Pro Rice & TXA Toner",
-                "locator": "Rendered accessibility tree product heading",
-                "sourceText": "[MELA-PRO] Rice & TXA Toner 200ml – NINELESS"
-              },
-              "size": {
-                "value": "200 ml",
-                "locator": "Rendered accessibility tree product heading size",
-                "sourceText": "[MELA-PRO] Rice & TXA Toner 200ml"
-              },
-              "packageVersion": {
-                "value": "Original translucent bottle with orange cap",
-                "locator": "Official renewal comparison image, left-hand original package",
-                "sourceText": "The official renewal comparison shows the original translucent bottle with orange cap upgrading to a taller opaque bottle.",
-                "evidenceUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738"
-              }
-            },
-            "sourceResponseSha256": "f9a3d0b869a3064b4a84c61e3b1678ecab948bc3aa4070849fdc8986a870173e",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 6109,
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738",
-                "responseUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738",
-                "retrievedAt": "2026-07-23T08:57:13Z",
-                "responseSha256": "a56948626514c2296fbbf2b868ad93ccb7d6f8432286fa806a827c8a5133a3b0",
-                "responseMimeType": "image/png",
-                "responseByteSize": 264943
-              }
-            ],
-            "responseDigestScope": "rendered-accessibility-tree",
-            "method": "reviewed-browser-accessibility-identity-with-independent-ean-corroboration",
-            "browserCapture": {
-              "surface": "Codex in-app browser",
-              "documentReadyState": "complete",
-              "pageTitle": "[MELA-PRO] Rice & TXA Toner 200ml – NINELESS"
-            },
-            "identifierCorroborations": [
-              {
-                "sourceUrl": "https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
-                "responseUrl": "https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
-                "retrievedAt": "2026-07-23T08:53:00Z",
-                "fields": {
-                  "gtin": {
-                    "value": "8809875270172",
-                    "locator": "Rendered accessibility text labelled EAN",
-                    "sourceText": "EAN: 8809875270172"
-                  },
-                  "variant": {
-                    "value": "NINE LESS Mela Pro Rice & TXA Toner 200ml",
-                    "locator": "Rendered accessibility product heading",
-                    "sourceText": "NINE LESS – Mela Pro Rice & TXA Toner – 200ml"
-                  },
-                  "size": {
-                    "value": "200 ml",
-                    "locator": "Rendered accessibility product heading size",
-                    "sourceText": "NINE LESS – Mela Pro Rice & TXA Toner – 200ml"
-                  }
-                },
-                "sourceResponseSha256": "24d711cac8c2afe5965cd1a6d1ad61392e3a13f833657664bf10e2944902267e",
-                "sourceResponseMimeType": "text/html",
-                "sourceResponseByteSize": 11319,
-                "responseDigestScope": "rendered-accessibility-tree",
-                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
-                "browserCapture": {
-                  "surface": "Codex in-app browser",
-                  "documentReadyState": "complete",
-                  "pageTitle": "NINE LESS - Mela Pro Rice & TXA Toner - 200ml - Qudo Beauty"
-                },
-                "reviewer": "JeloCare catalogue evidence review",
-                "reviewedAt": "2026-07-23T08:59:00Z"
-              },
-              {
-                "sourceUrl": "https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm",
-                "responseUrl": "https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm",
-                "retrievedAt": "2026-07-23T08:54:00Z",
-                "fields": {
-                  "gtin": {
-                    "value": "8809875270172",
-                    "locator": "Rendered accessibility definition labelled EAN",
-                    "sourceText": "EAN 8809875270172"
-                  },
-                  "variant": {
-                    "value": "NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml",
-                    "locator": "Rendered accessibility product heading",
-                    "sourceText": "NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml"
-                  },
-                  "size": {
-                    "value": "200 ml",
-                    "locator": "Rendered accessibility product heading size",
-                    "sourceText": "NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml"
-                  }
-                },
-                "sourceResponseSha256": "2967a1ba22706dce3f1ad53d55d6d707962a23210becf7c8d3515fca250147f1",
-                "sourceResponseMimeType": "text/html",
-                "sourceResponseByteSize": 26488,
-                "responseDigestScope": "rendered-accessibility-tree",
-                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
-                "browserCapture": {
-                  "surface": "Codex in-app browser",
-                  "documentReadyState": "complete",
-                  "pageTitle": "NINE LESS Mela-Pro Rice & TXA Toner – aufhellend & Hautton ausgleichend 200 ml - Shop Apotheke"
-                },
-                "reviewer": "JeloCare catalogue evidence review",
-                "reviewedAt": "2026-07-23T08:59:00Z"
-              }
-            ],
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T08:59:00Z"
-          },
-          "snapshotSha256": "3f488b75ebd64df7f8441543e71094ffcd165291e28de85fe043c0afd7875a00",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 4668,
-          "retrievedAt": "2026-07-23T08:55:00Z"
-        },
-        "checkedAt": "2026-07-23T09:00:00Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
-          "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Original biphasic leave-on toner with rice seed water, tranexamic acid and niacinamide; the manufacturer has since renewed both formula and packaging",
-        "careTier": "targeted-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "This original bottle is a cosmetic toner. Evidence on topical tranexamic acid covers other formulations and does not validate this exact product as treatment for melasma or hyperpigmentation. The brand later changed both formula and pack, so current 82% rice-bran claims and the current ingredient list must not be applied to older Nigerian stock. Patch test, stop if persistent irritation develops, use daily sun protection, and seek clinical review for new, changing, symptomatic, or persistent pigmentation.",
-        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
-        "evidenceUrls": [
-          "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
-        ],
-        "reviewedAt": "2026-07-23T09:02:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "tier-a",
-        "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-        "exactOffers": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
-            "observedAt": "2026-07-23T09:14:00Z",
-            "observedTitle": "NINELESS MELA-PRO Rice And TXA Toner 200ml",
-            "observedSize": "200 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Original translucent bottle with orange cap",
-            "retailerSku": "8809875270172",
-            "priceNgn": 15500,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
-              "responseUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
-              "responseSha256": "5453bdb9e1a93440b62b9cd724e849f559051895dd46d05ab0a26790fd65ed7b",
-              "responseDigestScope": "decoded-response-body",
-              "responseMimeType": "text/html",
-              "responseByteSize": 804606,
-              "retrievedAt": "2026-07-23T09:14:00Z",
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "8809875270172",
-                  "locator": "Bound composite catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 8809875270172",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "NINELESS MELA-PRO Rice And TXA Toner 200ml",
-                  "locator": "HTML h1.product_title",
-                  "sourceText": "NINELESS MELA-PRO Rice And TXA Toner 200ml"
-                },
-                "size": {
-                  "value": "200 ml",
-                  "locator": "HTML h1.product_title size token",
-                  "sourceText": "NINELESS MELA-PRO Rice And TXA Toner 200ml"
-                },
-                "packageVersion": {
-                  "value": "Original translucent bottle with orange cap",
-                  "locator": "HTML primary product gallery image",
-                  "sourceText": "Original translucent bottle with orange cap shown in the primary product gallery"
-                },
-                "price": {
-                  "value": 15500,
-                  "currency": "NGN",
-                  "locator": "HTML p.price",
-                  "sourceText": "₦15,500.00 NG"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "HTML p.stock stock count",
-                  "sourceText": "6 in stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T09:15:00Z"
-            }
-          },
-          {
-            "retailer": "Muna Cosmetics",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
-            "observedAt": "2026-07-23T09:14:00Z",
-            "observedTitle": "Nineless Mela-Pro Rice & TXA Toner 200ml",
-            "observedSize": "200 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Original translucent bottle with orange cap",
-            "retailerSku": "MUNA-SC-N898393933",
-            "priceNgn": 19000,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
-              "listingUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
-              "responseUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
-              "responseSha256": "a13d0b9e5536e6f0d43337a8fa1cccbc877aee434a80bd3db900d4648d733b5c",
-              "responseDigestScope": "decoded-response-body",
-              "responseMimeType": "text/html",
-              "responseByteSize": 465765,
-              "retrievedAt": "2026-07-23T09:14:00Z",
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "8809875270172",
-                  "locator": "Bound composite catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 8809875270172",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Nineless Mela-Pro Rice & TXA Toner 200ml",
-                  "locator": "HTML h1.title.page-title",
-                  "sourceText": "Nineless Mela-Pro Rice & TXA Toner 200ml"
-                },
-                "size": {
-                  "value": "200 ml",
-                  "locator": "HTML h1.title.page-title size token",
-                  "sourceText": "Nineless Mela-Pro Rice & TXA Toner 200ml"
-                },
-                "packageVersion": {
-                  "value": "Original translucent bottle with orange cap",
-                  "locator": "HTML primary product gallery image",
-                  "sourceText": "Original translucent bottle with orange cap shown in the primary product gallery"
-                },
-                "price": {
-                  "value": 19000,
-                  "currency": "NGN",
-                  "locator": "HTML div.product-price and JSON-LD Offer",
-                  "sourceText": "₦19,000"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "HTML JSON-LD Offer availability",
-                  "sourceText": "Availability: In stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T09:15:00Z"
-            }
-          }
-        ],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/Nineless-rice-and-txa-toner-optimized.jpg?fit=500%2C500&quality=89&ssl=1",
-          "sha256": "f8834d71bf91efe4186e784e60528eab7942ca3cce53a8e5a3d33af35fc3f806",
-          "mimeType": "image/jpeg",
-          "byteSize": 8654,
-          "width": 500,
-          "height": 500,
-          "retrievedAt": "2026-07-23T08:57:12Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and Lanczos resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: product-mockup and precise-object-edit\nAsset type: JeloCare catalogue packshot source for background removal\nInput images: Image 1 is the exact Nigerian retail pack and primary whole-bottle identity reference; Image 2 is a close retailer view of the exact original label and bottle material; Image 3 is the official NINELESS renewal comparison proving the LEFT-HAND original package and distinguishing it from the renewed right-hand pack.\nPrimary request: preserve and recreate only the exact ORIGINAL pre-renewal NINELESS MELA-PRO Rice & TXA Toner 200 ml bottle shown in Images 1 and 2 and on the left of Image 3. One complete upright bottle, centered, perfectly front-facing, crisp Vogue-quality studio realism. Preserve the original package: short slim translucent frosted-milky cylindrical bottle with softly rounded shoulders and base, narrow bright-orange cylindrical cap, exact proportions and orange label layout.\nText (verbatim, where legible): \"NINE LESS\"; vertical \"MELA-PRO\"; \"RICE & TXA TONER\"; \"TARGETED MELANIN RICH SKIN\"; \"Rice Extract 72.49%\"; \"Tranexamic Acid 19,800ppm\"; \"Niacinamide 20,000ppm\"; \"Glutathione 1,000ppm\"; \"Sodium Hyaluronate 500ppm\"; \"200 ml / 6.76 fl.oz\".\nScene/backdrop: perfectly flat, uniform solid chroma-magenta #ff00ff for local background removal. No floor plane.\nComposition/framing: square 2000 x 2000; one fully visible bottle with generous even margin; product does not touch any edge.\nLighting/mood: premium soft studio light contained on the product only.\nConstraints: preserve the original translucent bottle and original label; no renewed tall opaque bottle; no 82% Rice Bran Water claim; no new formula label; no carton; no hands; no people; no props; no pedestal; no floor plane; no cast shadow; no contact shadow; no reflection; no glow; no duplicate; no detached text; no watermark. Background must have no gradient, texture, vignette, or lighting variation. Do not invent or alter package color, cap, size, label claims, or proportions.",
-          "inputs": [
-            {
-              "url": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/Nineless-rice-and-txa-toner-optimized.jpg?fit=500%2C500&quality=89&ssl=1",
-              "sha256": "f8834d71bf91efe4186e784e60528eab7942ca3cce53a8e5a3d33af35fc3f806"
-            },
-            {
-              "url": "https://munacosmetics.com/image/cache/catalog/Beautiful%20Skin/Utako%20Abuja/nineless-mela-pro-rice-txa-toner-200ml-1500x1500.jpg",
-              "sha256": "d02aef2126b8c014b23c6ba81d1a5ff9d8aa800d72ce76c1e1184ba3811cac15"
-            },
-            {
-              "url": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738",
-              "sha256": "a56948626514c2296fbbf2b868ad93ccb7d6f8432286fa806a827c8a5133a3b0"
-            }
-          ],
-          "outputSha256": "e0f7d446a0d85b5dde60d67a09c61ea35def172ca229ee811303f847abdcdcc4",
-          "generatedAt": "2026-07-23T09:09:46Z",
-          "recordSha256": "e46e08b00dee9ab06437cd7ef1939a5fb0d9f1a5dc7baade2ec5f6e1ac5f5944"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-rice-txa-toner-200ml/packshot-v1-e0f7d446a0d85b5d.png",
-        "sha256": "e0f7d446a0d85b5dde60d67a09c61ea35def172ca229ee811303f847abdcdcc4",
-        "mimeType": "image/png",
-        "byteSize": 496786,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-07-23T09:15:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-retail-rights-and-final-image",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-07-23T09:16:00Z"
-      },
-      "dossierFingerprint": "d18376dfcf715aca6768281eab9fdf519bb89cdb934af6335cccdd0b3577ecc0"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
       "candidateFingerprint": "6faa90caaa7787074d0599f882f17318c406b1683d101094ace0264fa852c1a8",
       "exposure": "private-only",
@@ -30370,6 +30003,383 @@
         "approvedAt": "2026-08-08T04:28:20Z"
       },
       "dossierFingerprint": "eb1eb1bf5980f8063417760513bbb6e3509e6230f1899edb50862bc1efc9a523"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+      "candidateFingerprint": "5eb8c634e1c1ec4a54ac4fc4d520e5185bd2191c87e24c4706b9e2b6e73a37f1",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "8809875270172",
+        "brand": "NINELESS",
+        "name": "Mela-Pro Rice & TXA Toner",
+        "variant": "Mela-Pro Rice & TXA Toner",
+        "size": "200 ml",
+        "packageVersion": "Original translucent bottle with orange cap",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+        "officialIdentity": {
+          "url": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+          "observedGtin": "8809875270172",
+          "observedVariant": "Mela-Pro Rice & TXA Toner",
+          "observedSize": "200 ml",
+          "observedPackageVersion": "Original translucent bottle with orange cap",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/nineless-mela-pro-rice-txa-toner-200ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 6,
+            "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+            "sourceUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+            "responseUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+            "retrievedAt": "2026-07-23T08:55:00Z",
+            "fields": {
+              "gtin": {
+                "value": "8809875270172",
+                "locator": "identifierCorroborations[*].fields.gtin",
+                "sourceText": "EAN 8809875270172 is independently corroborated by Qudo Beauty and Shop Apotheke; the visible official page does not publish an identifier."
+              },
+              "variant": {
+                "value": "Mela-Pro Rice & TXA Toner",
+                "locator": "Rendered accessibility tree product heading",
+                "sourceText": "[MELA-PRO] Rice & TXA Toner 200ml – NINELESS"
+              },
+              "size": {
+                "value": "200 ml",
+                "locator": "Rendered accessibility tree product heading size",
+                "sourceText": "[MELA-PRO] Rice & TXA Toner 200ml"
+              },
+              "packageVersion": {
+                "value": "Original translucent bottle with orange cap",
+                "locator": "Official renewal comparison image, left-hand original package",
+                "sourceText": "The official renewal comparison shows the original translucent bottle with orange cap upgrading to a taller opaque bottle.",
+                "evidenceUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738"
+              }
+            },
+            "sourceResponseSha256": "f9a3d0b869a3064b4a84c61e3b1678ecab948bc3aa4070849fdc8986a870173e",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 6109,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738",
+                "responseUrl": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738",
+                "retrievedAt": "2026-07-23T08:57:13Z",
+                "responseSha256": "a56948626514c2296fbbf2b868ad93ccb7d6f8432286fa806a827c8a5133a3b0",
+                "responseMimeType": "image/png",
+                "responseByteSize": 264943
+              }
+            ],
+            "responseDigestScope": "rendered-accessibility-tree",
+            "method": "reviewed-browser-accessibility-identity-with-independent-ean-corroboration",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "[MELA-PRO] Rice & TXA Toner 200ml – NINELESS"
+            },
+            "identifierCorroborations": [
+              {
+                "sourceUrl": "https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
+                "responseUrl": "https://qudobeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
+                "retrievedAt": "2026-07-23T08:53:00Z",
+                "fields": {
+                  "gtin": {
+                    "value": "8809875270172",
+                    "locator": "Rendered accessibility text labelled EAN",
+                    "sourceText": "EAN: 8809875270172"
+                  },
+                  "variant": {
+                    "value": "NINE LESS Mela Pro Rice & TXA Toner 200ml",
+                    "locator": "Rendered accessibility product heading",
+                    "sourceText": "NINE LESS – Mela Pro Rice & TXA Toner – 200ml"
+                  },
+                  "size": {
+                    "value": "200 ml",
+                    "locator": "Rendered accessibility product heading size",
+                    "sourceText": "NINE LESS – Mela Pro Rice & TXA Toner – 200ml"
+                  }
+                },
+                "sourceResponseSha256": "24d711cac8c2afe5965cd1a6d1ad61392e3a13f833657664bf10e2944902267e",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 11319,
+                "responseDigestScope": "rendered-accessibility-tree",
+                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "NINE LESS - Mela Pro Rice & TXA Toner - 200ml - Qudo Beauty"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-23T08:59:00Z"
+              },
+              {
+                "sourceUrl": "https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm",
+                "responseUrl": "https://www.shop-apotheke.com/beauty/upmU2WTME/nine-less-mela-pro-rice-txa-face-toner.htm",
+                "retrievedAt": "2026-07-23T08:54:00Z",
+                "fields": {
+                  "gtin": {
+                    "value": "8809875270172",
+                    "locator": "Rendered accessibility definition labelled EAN",
+                    "sourceText": "EAN 8809875270172"
+                  },
+                  "variant": {
+                    "value": "NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml",
+                    "locator": "Rendered accessibility product heading",
+                    "sourceText": "NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml"
+                  },
+                  "size": {
+                    "value": "200 ml",
+                    "locator": "Rendered accessibility product heading size",
+                    "sourceText": "NINE LESS Mela-Pro Rice & TXA Face Toner 200 ml"
+                  }
+                },
+                "sourceResponseSha256": "2967a1ba22706dce3f1ad53d55d6d707962a23210becf7c8d3515fca250147f1",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 26488,
+                "responseDigestScope": "rendered-accessibility-tree",
+                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "NINE LESS Mela-Pro Rice & TXA Toner – aufhellend & Hautton ausgleichend 200 ml - Shop Apotheke"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-23T08:59:00Z"
+              }
+            ],
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T08:59:00Z"
+          },
+          "snapshotSha256": "3f488b75ebd64df7f8441543e71094ffcd165291e28de85fe043c0afd7875a00",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 4668,
+          "retrievedAt": "2026-07-23T08:55:00Z"
+        },
+        "checkedAt": "2026-07-23T09:00:00Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
+          "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Original biphasic leave-on toner with rice seed water, tranexamic acid and niacinamide; the manufacturer has since renewed both formula and packaging",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "This original bottle is a cosmetic toner. Evidence on topical tranexamic acid covers other formulations and does not validate this exact product as treatment for melasma or hyperpigmentation. The brand later changed both formula and pack, so current 82% rice-bran claims and the current ingredient list must not be applied to older Nigerian stock. Patch test, stop if persistent irritation develops, use daily sun protection, and seek clinical review for new, changing, symptomatic, or persistent pigmentation.",
+        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-07-23T09:02:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
+            "observedAt": "2026-08-08T04:30:25Z",
+            "observedTitle": "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
+            "observedSize": "200 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Original translucent bottle with orange cap",
+            "retailerSku": "8809875270172",
+            "priceNgn": 15500,
+            "stock": "out-of-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
+              "responseUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
+              "responseSha256": "83ca3b12273852789f80e9721c9395cfeb148c3b18d6ae05fac161c2ee404772",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 530340,
+              "retrievedAt": "2026-08-08T04:30:25Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "NINELESS Rice TXA | Face Toner | BuyBetter"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809875270172",
+                  "locator": "Bound official Nineless catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 8809875270172",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "NINELESS -MELA-PRO Rice & TXA Toner 200ml"
+                },
+                "size": {
+                  "value": "200 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "200ml"
+                },
+                "packageVersion": {
+                  "value": "Original translucent bottle with orange cap",
+                  "locator": "Bound official Nineless catalogue identity snapshot",
+                  "sourceText": "Original translucent bottle with orange cap"
+                },
+                "price": {
+                  "value": 15500,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦15,500"
+                },
+                "stock": {
+                  "value": "out-of-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Out of stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:31:00Z"
+            }
+          },
+          {
+            "retailer": "Muna Cosmetics",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
+            "observedAt": "2026-08-08T04:30:35Z",
+            "observedTitle": "Nineless Mela-Pro Rice & TXA Toner 200ml",
+            "observedSize": "200 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Original translucent bottle with orange cap",
+            "retailerSku": "MUNA-SC-N898393933",
+            "priceNgn": 19000,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
+              "responseUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
+              "responseSha256": "3616b449a151a343bfdcec00823a5e0399cf59220d90f0a26eb0c6aa22d0f0cc",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 473074,
+              "retrievedAt": "2026-08-08T04:30:35Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Nineless Mela-Pro Rice & TXA Toner 200ml"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809875270172",
+                  "locator": "Bound official Nineless catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 8809875270172",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Nineless Mela-Pro Rice & TXA Toner 200ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "Nineless Mela-Pro Rice & TXA Toner 200ml"
+                },
+                "size": {
+                  "value": "200 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "200ml"
+                },
+                "packageVersion": {
+                  "value": "Original translucent bottle with orange cap",
+                  "locator": "Bound official Nineless catalogue identity snapshot",
+                  "sourceText": "Original translucent bottle with orange cap"
+                },
+                "price": {
+                  "value": 19000,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦19,000"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "available"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:31:00Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/Nineless-rice-and-txa-toner-optimized.jpg?fit=500%2C500&quality=89&ssl=1",
+          "sha256": "f8834d71bf91efe4186e784e60528eab7942ca3cce53a8e5a3d33af35fc3f806",
+          "mimeType": "image/jpeg",
+          "byteSize": 8654,
+          "width": 500,
+          "height": 500,
+          "retrievedAt": "2026-07-23T08:57:12Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and Lanczos resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: product-mockup and precise-object-edit\nAsset type: JeloCare catalogue packshot source for background removal\nInput images: Image 1 is the exact Nigerian retail pack and primary whole-bottle identity reference; Image 2 is a close retailer view of the exact original label and bottle material; Image 3 is the official NINELESS renewal comparison proving the LEFT-HAND original package and distinguishing it from the renewed right-hand pack.\nPrimary request: preserve and recreate only the exact ORIGINAL pre-renewal NINELESS MELA-PRO Rice & TXA Toner 200 ml bottle shown in Images 1 and 2 and on the left of Image 3. One complete upright bottle, centered, perfectly front-facing, crisp Vogue-quality studio realism. Preserve the original package: short slim translucent frosted-milky cylindrical bottle with softly rounded shoulders and base, narrow bright-orange cylindrical cap, exact proportions and orange label layout.\nText (verbatim, where legible): \"NINE LESS\"; vertical \"MELA-PRO\"; \"RICE & TXA TONER\"; \"TARGETED MELANIN RICH SKIN\"; \"Rice Extract 72.49%\"; \"Tranexamic Acid 19,800ppm\"; \"Niacinamide 20,000ppm\"; \"Glutathione 1,000ppm\"; \"Sodium Hyaluronate 500ppm\"; \"200 ml / 6.76 fl.oz\".\nScene/backdrop: perfectly flat, uniform solid chroma-magenta #ff00ff for local background removal. No floor plane.\nComposition/framing: square 2000 x 2000; one fully visible bottle with generous even margin; product does not touch any edge.\nLighting/mood: premium soft studio light contained on the product only.\nConstraints: preserve the original translucent bottle and original label; no renewed tall opaque bottle; no 82% Rice Bran Water claim; no new formula label; no carton; no hands; no people; no props; no pedestal; no floor plane; no cast shadow; no contact shadow; no reflection; no glow; no duplicate; no detached text; no watermark. Background must have no gradient, texture, vignette, or lighting variation. Do not invent or alter package color, cap, size, label claims, or proportions.",
+          "inputs": [
+            {
+              "url": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/Nineless-rice-and-txa-toner-optimized.jpg?fit=500%2C500&quality=89&ssl=1",
+              "sha256": "f8834d71bf91efe4186e784e60528eab7942ca3cce53a8e5a3d33af35fc3f806"
+            },
+            {
+              "url": "https://munacosmetics.com/image/cache/catalog/Beautiful%20Skin/Utako%20Abuja/nineless-mela-pro-rice-txa-toner-200ml-1500x1500.jpg",
+              "sha256": "d02aef2126b8c014b23c6ba81d1a5ff9d8aa800d72ce76c1e1184ba3811cac15"
+            },
+            {
+              "url": "https://ninelessshop.com/cdn/shop/files/0.Renewal_1024x1024@2x.png?v=1781858738",
+              "sha256": "a56948626514c2296fbbf2b868ad93ccb7d6f8432286fa806a827c8a5133a3b0"
+            }
+          ],
+          "outputSha256": "e0f7d446a0d85b5dde60d67a09c61ea35def172ca229ee811303f847abdcdcc4",
+          "generatedAt": "2026-07-23T09:09:46Z",
+          "recordSha256": "e46e08b00dee9ab06437cd7ef1939a5fb0d9f1a5dc7baade2ec5f6e1ac5f5944"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-mela-pro-rice-txa-toner-200ml/packshot-v1-e0f7d446a0d85b5d.png",
+        "sha256": "e0f7d446a0d85b5dde60d67a09c61ea35def172ca229ee811303f847abdcdcc4",
+        "mimeType": "image/png",
+        "byteSize": 496786,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-23T09:15:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T04:31:20Z"
+      },
+      "dossierFingerprint": "384e49fdce5660db472aaade53650c294a3306c1f9ca0a186a723329319030f9"
     }
   ]
 }

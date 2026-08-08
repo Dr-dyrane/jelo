@@ -4,30 +4,6 @@
   "releases": [
     {
       "schemaVersion": 2,
-      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
-      "dossierFingerprint": "d18376dfcf715aca6768281eab9fdf519bb89cdb934af6335cccdd0b3577ecc0",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Tone",
-        "displayLine": "Original rice-and-TXA toner.",
-        "usage": "Shake well, then apply after cleansing. Check your bottle—the formula has changed.",
-        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T09:17:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T09:18:00Z"
-      },
-      "releaseFingerprint": "3a01f72bf4cd29ab81338da2416d6048077e0e442ba94d37d0c24f5dacabe382"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
       "dossierFingerprint": "cd1c94013511383030d50933307a4f3d12a5ad50a369be52ef1187b7f63c81ab",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:28:40Z"
       },
       "releaseFingerprint": "9cd8f1fc6f46ee32cfb444492a47e9920daae0be0393bf379c73be14e14aba4f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+      "dossierFingerprint": "384e49fdce5660db472aaade53650c294a3306c1f9ca0a186a723329319030f9",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Tone",
+        "displayLine": "Original rice-and-TXA toner.",
+        "usage": "Shake well, then apply after cleansing. Check your bottle—the formula has changed.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/nineless-mela-pro-rice-txa-toner-200ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:31:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:31:40Z"
+      },
+      "releaseFingerprint": "aea623a009645c1594c8492b518b2a0131e56006a191a6af75ba4d19fa702966"
     }
   ]
 }

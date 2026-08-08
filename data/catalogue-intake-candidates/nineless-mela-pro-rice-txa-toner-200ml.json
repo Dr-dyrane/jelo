@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T15:18:00Z",
+  "updatedAt": "2026-08-08T04:31:00Z",
   "order": 14,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -194,68 +194,73 @@
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
-          "observedAt": "2026-07-23T09:14:00Z",
-          "observedTitle": "NINELESS MELA-PRO Rice And TXA Toner 200ml",
+          "observedAt": "2026-08-08T04:30:25Z",
+          "observedTitle": "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
           "observedSize": "200 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "observedPackageVersion": "Original translucent bottle with orange cap",
           "retailerSku": "8809875270172",
           "priceNgn": 15500,
-          "stock": "in-stock",
+          "stock": "out-of-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
             "responseUrl": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
-            "responseSha256": "5453bdb9e1a93440b62b9cd724e849f559051895dd46d05ab0a26790fd65ed7b",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "83ca3b12273852789f80e9721c9395cfeb148c3b18d6ae05fac161c2ee404772",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 804606,
-            "retrievedAt": "2026-07-23T09:14:00Z",
+            "responseByteSize": 530340,
+            "retrievedAt": "2026-08-08T04:30:25Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "NINELESS Rice TXA | Face Toner | BuyBetter"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "8809875270172",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Bound official Nineless catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 8809875270172",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "NINELESS MELA-PRO Rice And TXA Toner 200ml",
-                "locator": "HTML h1.product_title",
-                "sourceText": "NINELESS MELA-PRO Rice And TXA Toner 200ml"
+                "value": "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
+                "locator": "HTML product heading",
+                "sourceText": "NINELESS -MELA-PRO Rice & TXA Toner 200ml"
               },
               "size": {
                 "value": "200 ml",
-                "locator": "HTML h1.product_title size token",
-                "sourceText": "NINELESS MELA-PRO Rice And TXA Toner 200ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "200ml"
               },
               "packageVersion": {
                 "value": "Original translucent bottle with orange cap",
-                "locator": "HTML primary product gallery image",
-                "sourceText": "Original translucent bottle with orange cap shown in the primary product gallery"
+                "locator": "Bound official Nineless catalogue identity snapshot",
+                "sourceText": "Original translucent bottle with orange cap"
               },
               "price": {
                 "value": 15500,
                 "currency": "NGN",
-                "locator": "HTML p.price",
-                "sourceText": "₦15,500.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦15,500"
               },
               "stock": {
-                "value": "in-stock",
-                "locator": "HTML p.stock stock count",
-                "sourceText": "6 in stock"
+                "value": "out-of-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "Out of stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T09:15:00Z"
+            "reviewedAt": "2026-08-08T04:31:00Z"
           }
         },
         {
           "retailer": "Muna Cosmetics",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
-          "observedAt": "2026-07-23T09:14:00Z",
+          "observedAt": "2026-08-08T04:30:35Z",
           "observedTitle": "Nineless Mela-Pro Rice & TXA Toner 200ml",
           "observedSize": "200 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -265,51 +270,56 @@
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
             "responseUrl": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
-            "responseSha256": "a13d0b9e5536e6f0d43337a8fa1cccbc877aee434a80bd3db900d4648d733b5c",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "3616b449a151a343bfdcec00823a5e0399cf59220d90f0a26eb0c6aa22d0f0cc",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 465765,
-            "retrievedAt": "2026-07-23T09:14:00Z",
+            "responseByteSize": 473074,
+            "retrievedAt": "2026-08-08T04:30:35Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Nineless Mela-Pro Rice & TXA Toner 200ml"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "8809875270172",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Bound official Nineless catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 8809875270172",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Nineless Mela-Pro Rice & TXA Toner 200ml",
-                "locator": "HTML h1.title.page-title",
+                "locator": "HTML product heading",
                 "sourceText": "Nineless Mela-Pro Rice & TXA Toner 200ml"
               },
               "size": {
                 "value": "200 ml",
-                "locator": "HTML h1.title.page-title size token",
-                "sourceText": "Nineless Mela-Pro Rice & TXA Toner 200ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "200ml"
               },
               "packageVersion": {
                 "value": "Original translucent bottle with orange cap",
-                "locator": "HTML primary product gallery image",
-                "sourceText": "Original translucent bottle with orange cap shown in the primary product gallery"
+                "locator": "Bound official Nineless catalogue identity snapshot",
+                "sourceText": "Original translucent bottle with orange cap"
               },
               "price": {
                 "value": 19000,
                 "currency": "NGN",
-                "locator": "HTML div.product-price and JSON-LD Offer",
+                "locator": "Rendered product price",
                 "sourceText": "₦19,000"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "HTML JSON-LD Offer availability",
-                "sourceText": "Availability: In stock"
+                "locator": "Rendered availability status",
+                "sourceText": "available"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T09:15:00Z"
+            "reviewedAt": "2026-08-08T04:31:00Z"
           }
         }
       ],
