@@ -7,6 +7,11 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { HomeHero } from "@/components/home/home-hero";
+import { BreathingButton } from "@/components/motion/breathing-button";
+import { KenBurns } from "@/components/motion/ken-burns";
+import { Parallax } from "@/components/motion/parallax";
+import { Reveal } from "@/components/motion/reveal";
+import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { SafeEditorialImage } from "@/components/editorial/safe-editorial-image";
 import { ProductRail } from "@/components/products/product-grid";
 import { products as curatedCatalogue } from "@/data/catalogue";
@@ -78,7 +83,7 @@ function DiscoveryRail({
 
   return (
     <section className={styles.railSection} aria-label={ariaLabel}>
-      <div className={styles.sectionHeader}>
+      <Reveal className={styles.sectionHeader}>
         <div>
           <p className={styles.kicker}>{kicker}</p>
           <h2>{title}</h2>
@@ -86,7 +91,7 @@ function DiscoveryRail({
         <Link className="text-link" href={href}>
           {linkLabel} <ArrowRight size={16} aria-hidden="true" />
         </Link>
-      </div>
+      </Reveal>
       <ProductRail products={railProducts} />
     </section>
   );
@@ -111,38 +116,48 @@ function MarketTrendsTeaser({
             See all <ArrowRight size={14} aria-hidden="true" />
           </Link>
         </div>
-        <div className={styles.tickerGrid}>
+        <Stagger className={styles.tickerGrid} stagger={0.12}>
           {topDrop ? (
-            <Link href={`/share/${topDrop.slug}`} className={styles.tickerCard}>
-              <TrendingDown
-                size={14}
-                strokeWidth={1.5}
-                aria-hidden="true"
-                className={styles.iconDown}
-              />
-              <span className={styles.tickerBrand}>{topDrop.brand}</span>
-              <strong className={styles.tickerName}>{topDrop.name}</strong>
-              <span className={`${styles.tickerStat} ${styles.down}`}>
-                {topDrop.trendLabel}
-              </span>
-            </Link>
+            <StaggerItem>
+              <Link
+                href={`/share/${topDrop.slug}`}
+                className={styles.tickerCard}
+              >
+                <TrendingDown
+                  size={14}
+                  strokeWidth={1.5}
+                  aria-hidden="true"
+                  className={styles.iconDown}
+                />
+                <span className={styles.tickerBrand}>{topDrop.brand}</span>
+                <strong className={styles.tickerName}>{topDrop.name}</strong>
+                <span className={`${styles.tickerStat} ${styles.down}`}>
+                  {topDrop.trendLabel}
+                </span>
+              </Link>
+            </StaggerItem>
           ) : null}
           {topRise ? (
-            <Link href={`/share/${topRise.slug}`} className={styles.tickerCard}>
-              <TrendingUp
-                size={14}
-                strokeWidth={1.5}
-                aria-hidden="true"
-                className={styles.iconUp}
-              />
-              <span className={styles.tickerBrand}>{topRise.brand}</span>
-              <strong className={styles.tickerName}>{topRise.name}</strong>
-              <span className={`${styles.tickerStat} ${styles.up}`}>
-                {topRise.trendLabel}
-              </span>
-            </Link>
+            <StaggerItem>
+              <Link
+                href={`/share/${topRise.slug}`}
+                className={styles.tickerCard}
+              >
+                <TrendingUp
+                  size={14}
+                  strokeWidth={1.5}
+                  aria-hidden="true"
+                  className={styles.iconUp}
+                />
+                <span className={styles.tickerBrand}>{topRise.brand}</span>
+                <strong className={styles.tickerName}>{topRise.name}</strong>
+                <span className={`${styles.tickerStat} ${styles.up}`}>
+                  {topRise.trendLabel}
+                </span>
+              </Link>
+            </StaggerItem>
           ) : null}
-        </div>
+        </Stagger>
       </div>
     </section>
   );
@@ -238,7 +253,7 @@ export default async function HomePage() {
       />
 
       <section className={styles.section}>
-        <div className={styles.sectionHeader}>
+        <Reveal className={styles.sectionHeader}>
           <div>
             <p className={styles.kicker}>Find your chapter</p>
             <h2>Choose a concern.</h2>
@@ -246,39 +261,45 @@ export default async function HomePage() {
           <Link className="text-link" href="/concerns">
             View all concerns <ArrowRight size={16} aria-hidden="true" />
           </Link>
-        </div>
-        <div className={styles.categoryGrid}>
+        </Reveal>
+        <Stagger className={styles.categoryGrid} stagger={0.08}>
           {concernCards.map((card, index) => (
-            <Link className={styles.category} href={card.href} key={card.label}>
-              <small>0{index + 1}</small>
-              <SafeEditorialImage
-                asset={card.asset}
-                alt={card.asset.altText}
-                sizes="(max-width: 700px) 70vw, (max-width: 1000px) 30vw, 18vw"
-                loading={index === 0 ? "eager" : "lazy"}
-              />
-              <div>
-                <span>{card.label}</span>
-              </div>
-            </Link>
+            <StaggerItem key={card.label}>
+              <Link className={styles.category} href={card.href}>
+                <small>0{index + 1}</small>
+                <SafeEditorialImage
+                  asset={card.asset}
+                  alt={card.asset.altText}
+                  sizes="(max-width: 700px) 70vw, (max-width: 1000px) 30vw, 18vw"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+                <div>
+                  <span>{card.label}</span>
+                </div>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </section>
 
       <section
         className={`${styles.story} ${editorialStyles.story} editorial-story`}
       >
-        <div
+        <Parallax
           className={`${styles.storyVisual} ${editorialStyles.visual} editorial-story-visual`}
+          range={[-15, 15]}
         >
-          <SafeEditorialImage
-            asset={storyAsset}
-            alt={storyAsset.altText}
-            sizes="(max-width: 1000px) 92vw, 58vw"
-          />
-        </div>
-        <div
+          <KenBurns>
+            <SafeEditorialImage
+              asset={storyAsset}
+              alt={storyAsset.altText}
+              sizes="(max-width: 1000px) 92vw, 58vw"
+            />
+          </KenBurns>
+        </Parallax>
+        <Reveal
           className={`${styles.storyCopy} ${editorialStyles.copy} editorial-story-copy`}
+          direction="left"
         >
           <p className={styles.kicker}>Every skin</p>
           <h2>No one palette.</h2>
@@ -288,7 +309,7 @@ export default async function HomePage() {
           >
             Explore concerns
           </Link>
-        </div>
+        </Reveal>
       </section>
 
       <section className="discovery-intro">
@@ -376,13 +397,13 @@ export default async function HomePage() {
         products={keepBrowsing}
       />
 
-      <section className={styles.consult}>
+      <Reveal className={styles.consult} as="section">
         <p className={styles.kicker}>Personal guidance</p>
         <h2>Find your routine.</h2>
-        <Link className={styles.consultLink} href="/consult">
+        <BreathingButton className={styles.consultLink} href="/consult">
           Start
-        </Link>
-      </section>
+        </BreathingButton>
+      </Reveal>
     </main>
   );
 }
