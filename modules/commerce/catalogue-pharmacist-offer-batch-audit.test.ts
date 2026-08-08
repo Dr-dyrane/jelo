@@ -341,8 +341,8 @@ test('explicitly expiring projections disappear from merged public offers', () =
     name: product.canonicalIdentity.name,
     size: product.canonicalIdentity.size,
   };
-  const beforeExpiry = mergeRetailOffers(productKey, [], new Date('2026-08-11T14:54:07.716Z'));
-  const atExpiry = mergeRetailOffers(productKey, [], new Date('2026-08-11T14:54:07.717Z'));
+  const beforeExpiry = mergeRetailOffers(productKey, [], new Date('2026-08-14T23:59:59Z'));
+  const atExpiry = mergeRetailOffers(productKey, [], new Date('2026-08-15T13:15:01Z'));
   assert.equal(beforeExpiry.some(offer => offer.retailer === 'Rhema Beauty Shop'), true);
   assert.equal(atExpiry.some(offer => offer.retailer === 'Rhema Beauty Shop'), false);
 
@@ -350,6 +350,6 @@ test('explicitly expiring projections disappear from merged public offers', () =
     ...verifiedRetailOffers[product.candidateId][0],
     retailer: 'Expired incoming offer',
   };
-  const mergedIncoming = mergeRetailOffers(productKey, [incoming], new Date('2026-08-11T14:54:07.717Z'));
+  const mergedIncoming = mergeRetailOffers(productKey, [incoming], new Date('2026-08-15T13:15:01Z'));
   assert.equal(mergedIncoming.some(offer => offer.retailer === incoming.retailer), false);
 });

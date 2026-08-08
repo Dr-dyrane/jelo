@@ -18,7 +18,7 @@ import {
   observedMarketPrice,
 } from './offer-evidence';
 
-const now = new Date('2026-08-06T13:00:00Z');
+const now = new Date('2026-08-08T13:16:00Z');
 
 const comparableOffer = (overrides: Partial<Offer> = {}): Offer => ({
   retailer: 'Store',

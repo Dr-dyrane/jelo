@@ -55,7 +55,7 @@ test('verified Nigerian product matches carry price and check date', () => {
   const slique = product.offers.find(offer => offer.retailer === 'Slique Beauty');
   assert.deepEqual(
     { priceNgn: slique?.priceNgn, checkedAt: slique?.checkedAt, match: slique?.match, available: slique?.available },
-    { priceNgn: 3500, checkedAt: '2026-08-06T12:35:32Z', match: 'exact', available: true },
+    { priceNgn: 3500, checkedAt: '2026-08-08T13:15:00Z', match: 'exact', available: true },
   );
 });
 

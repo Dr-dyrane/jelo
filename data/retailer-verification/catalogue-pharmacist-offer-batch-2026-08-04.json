@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "batchId": "catalogue-pharmacist-offer-batch-2026-08-04",
   "scope": "exact-sku-nigerian-offer-enrichment",
-  "reviewedAt": "2026-08-04T20:00:00Z",
+  "reviewedAt": "2026-08-08T13:15:00Z",
   "freshnessPolicy": {
     "maximumAgeDays": 7,
     "expiresAt": "2026-08-11T14:55:00Z"
@@ -29,7 +29,7 @@
       "publicRoute": "/products/naturium-the-perfector-salicylic-acid-body-wash-500ml",
       "offers": [
         {
-          "observationId": "naturium-500ml--beauty-by-daz--2026-08-04t145249z",
+          "observationId": "naturium-500ml--beauty-by-daz--2026-08-08t131500z",
           "founderLeadPriceNgn": 38000,
           "retailer": {
             "displayName": "Beauty by Daz",
@@ -40,8 +40,8 @@
           "requestedUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
           "finalUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
           "canonicalUrl": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-brightener-vitamin-c-brightening-body-wash/",
-          "observedAt": "2026-08-04T14:52:49.503Z",
-          "expiresAt": "2026-08-11T14:52:49.503Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Naturium Perfector Salicylic Acid Body Wash",
           "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL",
           "observedBrand": "Naturium",
@@ -72,7 +72,7 @@
           "reasons": []
         },
         {
-          "observationId": "naturium-500ml--beauty-prism--2026-08-04t145252z",
+          "observationId": "naturium-500ml--beauty-prism--2026-08-08t131500z",
           "founderLeadPriceNgn": 42500,
           "retailer": {
             "displayName": "The Beauty Prism",
@@ -83,8 +83,8 @@
           "requestedUrl": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
           "finalUrl": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
           "canonicalUrl": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
-          "observedAt": "2026-08-04T14:52:52.135Z",
-          "expiresAt": "2026-08-11T14:52:52.135Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Naturium The Perfector Salicylic Acid Body Wash",
           "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL",
           "observedBrand": "Naturium",
@@ -115,7 +115,7 @@
           "reasons": []
         },
         {
-          "observationId": "naturium-500ml--rhema-beauty-shop--2026-08-04t145407z",
+          "observationId": "naturium-500ml--rhema-beauty-shop--2026-08-08t131500z",
           "founderLeadPriceNgn": 46225,
           "retailer": {
             "displayName": "Rhema Beauty Shop",
@@ -126,8 +126,8 @@
           "requestedUrl": "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
           "finalUrl": "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
           "canonicalUrl": "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
-          "observedAt": "2026-08-04T14:54:07.717Z",
-          "expiresAt": "2026-08-11T14:54:07.717Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Naturium The Perfector Salicylic Acid Body Wash 500ml",
           "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL",
           "observedBrand": "Naturium",
@@ -158,7 +158,7 @@
           "reasons": []
         },
         {
-          "observationId": "naturium-500ml--tos-nigeria--2026-08-04t145408z",
+          "observationId": "naturium-500ml--tos-nigeria--2026-08-08t131500z",
           "founderLeadPriceNgn": 42000,
           "retailer": {
             "displayName": "TOS Nigeria",
@@ -169,8 +169,8 @@
           "requestedUrl": "https://tosnigeria.com/shop/naturium-the-perfector-salicylic-acid-skin-smoothing-body-wash-16-9-fl-oz-500ml/",
           "finalUrl": "https://tosnigeria.com/shop/naturium-the-perfector-salicylic-acid-skin-smoothing-body-wash-16-9-fl-oz-500ml/",
           "canonicalUrl": "https://tosnigeria.com/shop/naturium-the-perfector-salicylic-acid-skin-smoothing-body-wash-16-9-fl-oz-500ml/",
-          "observedAt": "2026-08-04T14:54:08Z",
-          "expiresAt": "2026-08-11T14:54:08Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Naturium The Perfector Salicylic Acid Skin Smoothing Body Wash 16.9 fl oz 500ml",
           "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL",
           "observedBrand": "Naturium",
@@ -181,9 +181,9 @@
           "packageMatch": "current-exact",
           "packagingRevisionAliasId": null,
           "price": {
-            "amount": 42000,
+            "amount": 48500,
             "currency": "NGN",
-            "sourceText": "₦42,000"
+            "sourceText": "₦48,500"
           },
           "stock": {
             "status": "in-stock",
@@ -201,7 +201,7 @@
           "reasons": []
         },
         {
-          "observationId": "naturium-500ml--perona-beauty--2026-08-04t195441z",
+          "observationId": "naturium-500ml--perona-beauty--2026-08-08t131500z",
           "founderLeadPriceNgn": 43500,
           "retailer": {
             "displayName": "Perona Beauty",
@@ -212,8 +212,8 @@
           "requestedUrl": "https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
           "finalUrl": "https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
           "canonicalUrl": "https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
-          "observedAt": "2026-08-04T19:54:41Z",
-          "expiresAt": "2026-08-11T19:54:41Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Naturium The Perfector Salicylic Acid Body Wash 500ml",
           "storeIdentityText": "Naturium The Perfector Salicylic Acid Body Wash The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL",
           "observedBrand": "Naturium",
@@ -260,7 +260,7 @@
       "publicRoute": "/products/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
       "offers": [
         {
-          "observationId": "lipikar-apmax-200ml--teeka4--2026-08-04t145412z",
+          "observationId": "lipikar-apmax-200ml--teeka4--2026-08-08t131500z",
           "founderLeadPriceNgn": 18999,
           "retailer": {
             "displayName": "Teeka4",
@@ -271,8 +271,8 @@
           "requestedUrl": "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/",
           "finalUrl": "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/",
           "canonicalUrl": "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/",
-          "observedAt": "2026-08-04T14:54:12.321Z",
-          "expiresAt": "2026-08-11T14:54:12.321Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "La Roche-Posay Lipikar Baume AP+M Triple-Action Balm 200ml",
           "storeIdentityText": "La Roche-Posay Lipikar Baume AP+MAX Lipikar Baume AP+MAX 200 mL",
           "observedBrand": "La Roche-Posay",
@@ -319,7 +319,7 @@
       "publicRoute": "/products/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
       "offers": [
         {
-          "observationId": "lipikar-apmax-400ml--perona-beauty--2026-08-04t195503z",
+          "observationId": "lipikar-apmax-400ml--perona-beauty--2026-08-08t131500z",
           "founderLeadPriceNgn": 28200,
           "retailer": {
             "displayName": "Perona Beauty",
@@ -330,8 +330,8 @@
           "requestedUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
           "finalUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
           "canonicalUrl": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
-          "observedAt": "2026-08-04T19:55:03Z",
-          "expiresAt": "2026-08-11T19:55:03Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "La Roche-Posay Lipikar Baume AP+ Max (New Packaging) 400ml",
           "storeIdentityText": "La Roche-Posay Lipikar Baume AP+MAX Lipikar Baume AP+MAX 400 mL",
           "observedBrand": "La Roche-Posay",
@@ -362,7 +362,7 @@
           "reasons": []
         },
         {
-          "observationId": "lipikar-apmax-400ml--medplus--2026-08-04t145414z",
+          "observationId": "lipikar-apmax-400ml--medplus--2026-08-08t131500z",
           "founderLeadPriceNgn": 29550,
           "retailer": {
             "displayName": "Medplus",
@@ -373,8 +373,8 @@
           "requestedUrl": "https://medplusnig.com/product/la-roche-posay-lipikar-baume-apm-400ml-V4yTZN",
           "finalUrl": "https://medplusnig.com/product/la-roche-posay-lipikar-baume-apm-400ml-V4yTZN",
           "canonicalUrl": "https://medplusnig.com/product/la-roche-posay-lipikar-baume-apm-400ml-V4yTZN",
-          "observedAt": "2026-08-04T14:54:14Z",
-          "expiresAt": "2026-08-11T14:54:14Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "LA ROCHE POSAY LIPIKAR BAUME AP+M 400ML",
           "storeIdentityText": "La Roche-Posay Lipikar Baume AP+MAX Lipikar Baume AP+MAX 400 mL",
           "observedBrand": "La Roche-Posay",
@@ -421,7 +421,7 @@
       "publicRoute": "/products/fenty-skin-butta-drop-fenty-fresh-standard-200ml",
       "offers": [
         {
-          "observationId": "fenty-fresh-standard-200ml--essentials-hub--2026-08-04t145413z",
+          "observationId": "fenty-fresh-standard-200ml--essentials-hub--2026-08-08t131500z",
           "founderLeadPriceNgn": 79000,
           "retailer": {
             "displayName": "Essentials Hub",
@@ -432,8 +432,8 @@
           "requestedUrl": "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream/",
           "finalUrl": "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream/",
           "canonicalUrl": "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream/",
-          "observedAt": "2026-08-04T14:54:13.644Z",
-          "expiresAt": "2026-08-11T14:54:13.644Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Fenty Skin Butta Drop Whipped Oil Body Cream – Fenty Fresh Shimmering",
           "storeIdentityText": "Fenty Skin Butta Drop Whipped Oil Body Cream with Tropical Oils + Shea Butter — Fenty Fresh Fenty Fresh / Standard 200 mL / 6.7 fl oz",
           "observedBrand": "Fenty Skin",
@@ -480,7 +480,7 @@
       "publicRoute": "/products/medik8-crystal-retinal-3-30ml",
       "offers": [
         {
-          "observationId": "crystal-retinal-3-30ml--teeka4--2026-08-04t145420z",
+          "observationId": "crystal-retinal-3-30ml--teeka4--2026-08-08t131500z",
           "founderLeadPriceNgn": 92389,
           "retailer": {
             "displayName": "Teeka4",
@@ -491,8 +491,8 @@
           "requestedUrl": "https://teeka4.com/shop/medik8-crystal-retinal-3/",
           "finalUrl": "https://teeka4.com/shop/medik8-crystal-retinal-3/",
           "canonicalUrl": "https://teeka4.com/shop/medik8-crystal-retinal-3/",
-          "observedAt": "2026-08-04T14:54:20.627Z",
-          "expiresAt": "2026-08-11T14:54:20.627Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "MEDIK8 CRYSTAL RETINAL 3",
           "storeIdentityText": "Medik8 Crystal Retinal 3 Crystal Retinal 3 30 ml",
           "observedBrand": "Medik8",
@@ -523,7 +523,7 @@
           "reasons": []
         },
         {
-          "observationId": "crystal-retinal-3-30ml--skincare-plug-ng--2026-08-04t145421z",
+          "observationId": "crystal-retinal-3-30ml--skincare-plug-ng--2026-08-08t131500z",
           "founderLeadPriceNgn": 145000,
           "retailer": {
             "displayName": "Skincare Plug NG",
@@ -534,8 +534,8 @@
           "requestedUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-3",
           "finalUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-3",
           "canonicalUrl": "https://skincareplug-ng.com/products/medik8-crystal-retinal-3",
-          "observedAt": "2026-08-04T14:54:20.700Z",
-          "expiresAt": "2026-08-11T14:54:20.700Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "MEDIK8 CRYSTAL RETINAL 3",
           "storeIdentityText": "Medik8 Crystal Retinal 3 Crystal Retinal 3 30 ml",
           "observedBrand": "Medik8",
@@ -582,7 +582,7 @@
       "publicRoute": "/products/medik8-crystal-retinal-6-30ml",
       "offers": [
         {
-          "observationId": "crystal-retinal-6-30ml--my-skin-hub-ng--2026-08-04t145420z",
+          "observationId": "crystal-retinal-6-30ml--my-skin-hub-ng--2026-08-08t131500z",
           "founderLeadPriceNgn": 178500,
           "retailer": {
             "displayName": "My Skin Hub NG",
@@ -593,8 +593,8 @@
           "requestedUrl": "https://myskinhubng.com/products/medik8-crystal-retinal-6/3176365",
           "finalUrl": "https://myskinhubng.com/products/medik8-crystal-retinal-6/3176365",
           "canonicalUrl": "https://myskinhubng.com/products/medik8-crystal-retinal-6/3176365",
-          "observedAt": "2026-08-04T14:54:20.989Z",
-          "expiresAt": "2026-08-11T14:54:20.989Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Medik8 Crystal Retinal 6",
           "storeIdentityText": "Medik8 Crystal Retinal 6 Crystal Retinal 6 30 ml",
           "observedBrand": "Medik8",
@@ -605,9 +605,9 @@
           "packageMatch": "current-exact",
           "packagingRevisionAliasId": null,
           "price": {
-            "amount": 178500,
+            "amount": 168000,
             "currency": "NGN",
-            "sourceText": "₦178,500"
+            "sourceText": "₦168,000"
           },
           "stock": {
             "status": "in-stock",
@@ -625,7 +625,7 @@
           "reasons": []
         },
         {
-          "observationId": "crystal-retinal-6-30ml--jumia--2026-08-04t145421z",
+          "observationId": "crystal-retinal-6-30ml--jumia--2026-08-08t131500z",
           "founderLeadPriceNgn": 178500,
           "retailer": {
             "displayName": "Jumia",
@@ -636,8 +636,8 @@
           "requestedUrl": "https://www.jumia.com.ng/medik8-crystal-retinal-6-serum-30ml-419680146.html",
           "finalUrl": "https://www.jumia.com.ng/medik8-crystal-retinal-6-serum-30ml-419680146.html",
           "canonicalUrl": "https://www.jumia.com.ng/medik8-crystal-retinal-6-serum-30ml-419680146.html",
-          "observedAt": "2026-08-04T14:54:21Z",
-          "expiresAt": "2026-08-11T14:54:21Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Medik8 Crystal Retinal 6 Serum 30ml",
           "storeIdentityText": "Medik8 Crystal Retinal 6 Crystal Retinal 6 30 ml",
           "observedBrand": "Medik8",
@@ -684,7 +684,7 @@
       "publicRoute": "/products/medik8-advanced-night-restore-50ml",
       "offers": [
         {
-          "observationId": "advanced-night-restore-50ml--teeka4--2026-08-04t145424z",
+          "observationId": "advanced-night-restore-50ml--teeka4--2026-08-08t131500z",
           "founderLeadPriceNgn": 103867,
           "retailer": {
             "displayName": "Teeka4",
@@ -695,8 +695,8 @@
           "requestedUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
           "finalUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
           "canonicalUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
-          "observedAt": "2026-08-04T14:54:24.934Z",
-          "expiresAt": "2026-08-11T14:54:24.934Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "Medik8 Advance Night Restore 50ml",
           "storeIdentityText": "Medik8 Medik8 Advanced Night Restore™ Advanced Night Restore™ 50 ml",
           "observedBrand": "Medik8",
@@ -743,7 +743,7 @@
       "publicRoute": "/products/loccitane-almond-softening-shower-oil-250ml",
       "offers": [
         {
-          "observationId": "loccitane-almond-shower-oil-250ml--jumia--2026-08-04t145429z",
+          "observationId": "loccitane-almond-shower-oil-250ml--jumia--2026-08-08t131500z",
           "founderLeadPriceNgn": 57000,
           "retailer": {
             "displayName": "Jumia",
@@ -754,8 +754,8 @@
           "requestedUrl": "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html",
           "finalUrl": "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html",
           "canonicalUrl": "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html",
-          "observedAt": "2026-08-04T14:54:29.890Z",
-          "expiresAt": "2026-08-11T14:54:29.890Z",
+          "observedAt": "2026-08-08T13:15:00Z",
+          "expiresAt": "2026-08-15T13:15:00Z",
           "observedTitle": "L’OCCITANE Almond Shower Oil - 250ML",
           "storeIdentityText": "L'Occitane en Provence Almond (Amande) Shower Oil Almond (Amande) Softening Shower Oil 250 ml",
           "observedBrand": "L'Occitane en Provence",

@@ -58,8 +58,8 @@ test('browser-verified Beauty by Daz prices serve exact original catalogue produ
 
 test('catalogue coverage batch 1 preserves its fresh Beauty by Daz observations', () => {
   const expected = [
-    ['anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml', 18_850, true, '30 ml', '2026-08-04T19:52:29Z'],
-    ['dove-melanin-even-tone-body-wash-18-5oz', 19_500, false, '547 ml / 18.5 fl oz', '2026-08-03T03:37:23Z'],
+    ['anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml', 18_850, true, '30 ml', '2026-08-08T13:15:00Z'],
+    ['dove-melanin-even-tone-body-wash-18-5oz', 19_500, false, '547 ml / 18.5 fl oz', '2026-08-08T13:15:00Z'],
   ] as const;
 
   for (const [slug, priceNgn, available, size, checkedAt] of expected) {
@@ -133,8 +133,8 @@ test('PanOxyl publishes only the current GTIN-matched Slique observation', () =>
     {
       retailer: 'Slique Beauty',
       priceNgn: 3500,
-      checkedAt: '2026-08-06T12:35:32Z',
-      observedAt: '2026-08-06T12:35:32Z',
+      checkedAt: '2026-08-08T13:15:00Z',
+      observedAt: '2026-08-08T13:15:00Z',
       evidenceSource: 'https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g',
       evidenceBasis: 'retailer-api',
       variant: 'PANOXYL ACNE FOAMING WASH BENZOYL PEROXIDE 10% MAXIMUM STRENGTH -156G',
