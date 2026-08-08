@@ -653,7 +653,7 @@ test('the original NINELESS dropper stays bound to two independent EAN sources a
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:28:20Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.nigeriaMarketRoute, 'tier-a');
@@ -663,7 +663,7 @@ test('the original NINELESS dropper stays bound to two independent EAN sources a
   const mismatchedPackage = structuredClone(candidate);
   mismatchedPackage.nigeria.exactOffers[0].observedPackageVersion = 'Renewed opaque pump bottle';
   assert.equal(
-    evaluateCatalogueIntakeCandidate(mismatchedPackage, researchAsOf).freshExactOffers.length,
+    evaluateCatalogueIntakeCandidate(mismatchedPackage, Date.parse('2026-08-08T04:28:20Z')).freshExactOffers.length,
     1,
   );
 });
