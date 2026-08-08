@@ -148,30 +148,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "skin-by-zaron-vitamin-c-body-wash-650ml",
-      "dossierFingerprint": "a9929304ab79f58971256005ca6e32f537fcb8585cae77dcb1c316470c9621c9",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Cleanse",
-        "displayLine": "Vitamin C body wash · 650 ml",
-        "usage": "Lather with your hands or a sponge, massage gently over the body, rinse, then follow with body lotion.",
-        "manufacturerDirectionsUrl": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-28T14:24:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-28T14:25:00Z"
-      },
-      "releaseFingerprint": "15876b9c9c97b937cfe70195463e3ea0e778369e8ca76049725dd111c46204e9"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "dang-hydra-glow-sun-protection-gel-60ml",
       "dossierFingerprint": "57d2c25fc01fa1ec7b017ec6c6b4163f855da3927cda8299706839559aa12441",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T05:04:40Z"
       },
       "releaseFingerprint": "ab490df62a44a324bfbed9c6a2c8c3bdc7f4a153b6171aaccac0faa3d5aacf68"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "skin-by-zaron-vitamin-c-body-wash-650ml",
+      "dossierFingerprint": "135050dbf349842db38d95ff2569e5208ceeb8d15107ab5e9173b12eed39ce96",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Vitamin C body wash · 650 ml",
+        "usage": "Lather with your hands or a sponge, massage gently over the body, rinse, then follow with body lotion.",
+        "manufacturerDirectionsUrl": "https://www.zaroncosmetics.com/product/vitamin-c-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T05:12:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T05:12:10Z"
+      },
+      "releaseFingerprint": "287548c655f73b5b4330592ad31902aba23f250526ce30f1a36bf29de878511c"
     }
   ]
 }
