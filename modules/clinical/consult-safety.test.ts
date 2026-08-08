@@ -1019,7 +1019,7 @@ test('unrecognized descriptions ask for detail instead of assuming acne', async 
 
 test('Ask Jelo keeps health details in session memory by default', async () => {
   const source = await readFile(path.join(process.cwd(), 'components/consult/consult-experience.tsx'), 'utf8');
-  assert.match(source, /^'use client';/);
+  assert.match(source, /^["']use client["'];/);
   assert.doesNotMatch(source, /localStorage|sessionStorage|indexedDB/i);
   assert.doesNotMatch(source, /jelocare:consult|clinical-timeline/i);
   assert.match(source, /clientSchemaVersion:\s*2/);

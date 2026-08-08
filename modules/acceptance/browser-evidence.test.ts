@@ -137,7 +137,7 @@ test("consult page delegates to the ConsultExperience client component", () => {
   );
 
   assert.match(page, /ConsultExperience/);
-  assert.match(experience, /'use client'/);
+  assert.match(experience, /["']use client["'];?/);
   assert.match(experience, /export function ConsultExperience/);
 });
 

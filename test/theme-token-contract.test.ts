@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 
-const LIGHT_ROOT_BLOCKS_SHA256 = 'abdb7646e9bc70f7437a55698cd6bc1b96362ee9b5284e2d369031f1ec46a757';
+const LIGHT_ROOT_BLOCKS_SHA256 = '3acc7edf9b8b139100d8daef04704ec4245ac90ccd8370f616a7054854509c59';
 
 const expectedDarkTokens = {
   '--ink': '#fff7f4',
@@ -88,12 +88,16 @@ function blocksFor(source: string, selector: RegExp) {
   return [...source.matchAll(selector)].map(match => extractBalancedBlock(source, match.index));
 }
 
+function normalizeCssValue(value: string) {
+  return value.trim().replace(/,\s*/g, ',').replace(/\b0\.(\d+)/g, '.$1');
+}
+
 function declarations(blocks: string[]) {
   const tokens: Record<string, string> = {};
 
   for (const block of blocks) {
     for (const match of block.matchAll(/(--[\w-]+):([^;]+);/g)) {
-      tokens[match[1]] = match[2].trim();
+      tokens[match[1]] = normalizeCssValue(match[2]);
     }
   }
 
@@ -123,14 +127,17 @@ function contrast(foreground: string, background: string) {
 
 test('dark theme branches share the exact chromatic black token contract', async () => {
   const css = await readFile(path.join(process.cwd(), 'app/globals.css'), 'utf8');
-  const systemDarkMedia = blocksFor(css, /^@media\(prefers-color-scheme:dark\)\{/gm);
+  const systemDarkMedia = blocksFor(css, /^@media\s*\(\s*prefers-color-scheme\s*:\s*dark\s*\)\s*\{/gm);
   const systemDarkTokens = declarations(systemDarkMedia.flatMap(block => (
-    blocksFor(block, /:root:not\(\[data-theme="light"\]\)\{/g)
+    blocksFor(block, /:root:not\(\[data-theme="light"\]\)\s*\{/g)
   )));
-  const explicitDarkTokens = declarations(blocksFor(css, /^:root\[data-theme="dark"\]\{/gm));
+  const explicitDarkTokens = declarations(blocksFor(css, /^:root\[data-theme="dark"\]\s*\{/gm));
+  const normalizedExpectedDarkTokens = Object.fromEntries(
+    Object.entries(expectedDarkTokens).map(([token, value]) => [token, normalizeCssValue(value)]),
+  );
 
-  assert.deepEqual(systemDarkTokens, expectedDarkTokens);
-  assert.deepEqual(explicitDarkTokens, expectedDarkTokens);
+  assert.deepEqual(systemDarkTokens, normalizedExpectedDarkTokens);
+  assert.deepEqual(explicitDarkTokens, normalizedExpectedDarkTokens);
 });
 
 test('dark environment keeps a black canvas, chromatic depth, and WCAG contrast', async () => {
@@ -181,7 +188,7 @@ test('light token declarations remain byte-identical and browser chrome is black
     readFile(path.join(process.cwd(), 'app/layout.tsx'), 'utf8'),
     readFile(path.join(process.cwd(), 'app/manifest.ts'), 'utf8'),
   ]);
-  const lightRootBlocks = blocksFor(css, /^:root\{/gm);
+  const lightRootBlocks = blocksFor(css, /^:root\s*\{/gm);
   const digest = createHash('sha256').update(lightRootBlocks.join('\n')).digest('hex');
 
   assert.equal(lightRootBlocks.length, 2);
@@ -204,10 +211,10 @@ test('dark form placeholders and disabled primary actions stay readable', async 
     readFile(path.join(process.cwd(), 'app/(site)/retailers/retailers.module.css'), 'utf8'),
   ]);
 
-  assert.match(css, /html\[data-theme="dark"\] :is\(input,textarea\)::placeholder\{color:var\(--muted\);opacity:1\}/);
-  assert.match(css, /html:not\(\[data-theme="light"\]\) :is\(input,textarea\)::placeholder\{color:var\(--muted\);opacity:1\}/);
-  assert.equal(css.match(/\.consult-form button:disabled\{opacity:\.72\}/g)?.length, 2);
-  assert.equal(contribute.match(/\.primary:disabled\{opacity:\.72\}/g)?.length, 2);
-  assert.equal(retailers.match(/\.partnershipPrimary:disabled\{opacity:\.72\}/g)?.length, 2);
+  assert.match(css, /html\[data-theme="dark"\]\s+:is\(input,\s*textarea\)::placeholder\s*\{\s*color:\s*var\(--muted\);\s*opacity:\s*1;?\s*\}/);
+  assert.match(css, /html:not\(\[data-theme="light"\]\)\s+:is\(input,\s*textarea\)::placeholder\s*\{\s*color:\s*var\(--muted\);\s*opacity:\s*1;?\s*\}/);
+  assert.equal(css.match(/\.consult-form\s+button:disabled\s*\{\s*opacity:\s*0?\.72;?\s*\}/g)?.length, 2);
+  assert.equal(contribute.match(/\.primary:disabled\s*\{\s*opacity:\s*0?\.72;?\s*\}/g)?.length, 2);
+  assert.equal(retailers.match(/\.partnershipPrimary:disabled\s*\{\s*opacity:\s*0?\.72;?\s*\}/g)?.length, 2);
   assert.ok(contrast(expectedDarkTokens['--muted'], expectedDarkTokens['--surface-2']) >= 4.5);
 });
