@@ -1480,6 +1480,7 @@ test('the ANUA azelaic serum binds an official v4 identity capture, exact offers
   assert.equal(candidate.care.manufacturerEvidenceUrl, candidate.identity.officialProductUrl);
   assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
   assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['in-stock', 'out-of-stock']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [18_000, 16_999]);
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
     offer.observedGtin === undefined
     && offer.observedGtinBasis === 'exact-variant-and-size'
@@ -1491,7 +1492,7 @@ test('the ANUA azelaic serum binds an official v4 identity capture, exact offers
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-26T22:00:00Z'));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:58:20Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.nigeriaMarketRoute, 'tier-a');
   assert.equal(decision.freshExactOffers.length, 2);

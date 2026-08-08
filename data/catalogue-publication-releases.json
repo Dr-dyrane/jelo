@@ -124,30 +124,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
-      "dossierFingerprint": "9fbff126ef67ad1dd11f7add2de1134b9767e4f3e6765cdc25897396438eb465",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "10% azelaic acid · 30 ml",
-        "usage": "Start once or twice weekly with 1–2 drops. Build only as tolerated; use SPF 30+ by day.",
-        "manufacturerDirectionsUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-26T21:52:02Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-26T21:52:10Z"
-      },
-      "releaseFingerprint": "74d8804c6402107eaae068360baa29ed26b277eb961dc87f8f2452f1d3d6c23b"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
       "dossierFingerprint": "061eddd7aba49fdea2cc5d1ed289316ab1d4f33885c9a257ad2aa9d7ebe7add2",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:56:10Z"
       },
       "releaseFingerprint": "52d04d4f85239eb7bc6c721ab2c4eec10b515f709bec3d38822513f761690239"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "dossierFingerprint": "5fffdad5a8ae6fefd01ebcbeb96f823435d38127917c2d69bb3abcdc34d266b8",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "10% azelaic acid · 30 ml",
+        "usage": "Start once or twice weekly with 1–2 drops. Build only as tolerated; use SPF 30+ by day.",
+        "manufacturerDirectionsUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:58:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:58:40Z"
+      },
+      "releaseFingerprint": "119470c4a98fcd003931c03d54b5a95f87254b679ad8754c65c5b0ae4c32e5ee"
     }
   ]
 }

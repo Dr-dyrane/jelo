@@ -1429,274 +1429,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
-      "candidateFingerprint": "bca98449e2b603736855e6b92d2b07b22ae110ea9df3f16c7f2b20c5fad24ba4",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "8809640737190",
-        "brand": "ANUA",
-        "name": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
-        "variant": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
-        "size": "30 ml",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-        "officialIdentity": {
-          "url": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-          "observedGtin": "8809640737190",
-          "observedVariant": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
-          "observedSize": "30 ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml.json",
-          "canonicalExtraction": {
-            "schemaVersion": 4,
-            "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
-            "sourceUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-            "responseUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-            "retrievedAt": "2026-07-26T21:42:30Z",
-            "fields": {
-              "gtin": {
-                "value": "8809640737190",
-                "locator": "Rendered JSON-LD Offer.gtin13",
-                "sourceText": "Offer.gtin13: 8809640737190"
-              },
-              "variant": {
-                "value": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
-                "locator": "Rendered JSON-LD Product.name",
-                "sourceText": "Azelaic Acid 10 Hyaluron Redness Soothing Serum"
-              },
-              "size": {
-                "value": "30 ml",
-                "locator": "Rendered official product-size label",
-                "sourceText": "30 ml"
-              }
-            },
-            "sourceResponseSha256": "c5d9eb4309bc224a4b6519f4479d7a6437ae3fbbd3f855fed9815c002cb24ae8",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 200125,
-            "responseDigestScope": "rendered-dom-outerhtml",
-            "method": "reviewed-browser-dom-identity-field-extraction",
-            "browserCapture": {
-              "surface": "Codex in-app browser",
-              "documentReadyState": "complete",
-              "pageTitle": "Azelaic Acid 10 Hyaluron Redness Soothing Serum | Anua US"
-            },
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-26T21:43:00Z"
-          },
-          "snapshotSha256": "e9f8195e26186b5e9ae2fc07983743f4a29373aed6f6c560bfc462b784a33b22",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1212,
-          "retrievedAt": "2026-07-26T21:42:30Z"
-        },
-        "checkedAt": "2026-07-26T21:44:00Z",
-        "demandEvidenceUrls": [
-          "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
-          "https://teeka4.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Leave-on 10% azelaic-acid serum with hyaluronic acid and ANUA's soothing complex for redness-prone and blemish-prone skin",
-        "careTier": "targeted-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Cosmetic supportive care only; it does not diagnose or treat acne, rosacea, pigment disorders or another skin condition. Introduce gradually, avoid the eyes and already-irritated skin, stop if persistent irritation develops, and seek a pharmacist or clinician for severe, painful, scarring, widespread or changing symptoms.",
-        "manufacturerEvidenceUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
-        "evidenceUrls": [
-          "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-          "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
-        ],
-        "reviewedAt": "2026-07-26T21:45:00Z",
-        "reviewer": "JeloCare catalogue care review"
-      },
-      "nigeria": {
-        "marketRoute": "tier-a",
-        "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
-        "exactOffers": [
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
-            "observedAt": "2026-07-26T21:46:00Z",
-            "observedTitle": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml",
-            "observedSize": "30 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "retailerSku": "8809640737190",
-            "priceNgn": 18000,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
-              "responseUrl": "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
-              "responseSha256": "f028d1f0fa2ba7148e6e381a6111c027e7629b27f88cdfe21061fb9c1b536084",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 200092,
-              "retrievedAt": "2026-07-26T21:46:00Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml – BuyBetter"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "8809640737190",
-                  "locator": "Bound official ANUA catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 8809640737190",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml",
-                  "locator": "Rendered DOM product heading",
-                  "sourceText": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml"
-                },
-                "size": {
-                  "value": "30 ml",
-                  "locator": "Rendered DOM product heading size suffix",
-                  "sourceText": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml"
-                },
-                "price": {
-                  "value": 18000,
-                  "currency": "NGN",
-                  "locator": "Rendered DOM product price",
-                  "sourceText": "₦18,000.00 NG"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered DOM stock count",
-                  "sourceText": "28 in stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T21:47:00Z"
-            }
-          },
-          {
-            "retailer": "Teeka4",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://teeka4.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
-            "observedAt": "2026-07-26T21:46:30Z",
-            "observedTitle": "ANUA Azelaic Acid 10 Hyaluron Redness Soothing Serum 30ml",
-            "observedSize": "30 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "retailerSku": "TK-0086",
-            "priceNgn": 16300,
-            "stock": "out-of-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://teeka4.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
-              "responseUrl": "https://teeka4.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
-              "responseSha256": "2db1c2ac596e0cd7940c5f241bf60bd5ad5123a1d0f961e01fa8f898048ce978",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 200024,
-              "retrievedAt": "2026-07-26T21:46:30Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "ANUA Azelaic Acid 10 Hyaluron Redness Soothing Serum 30ml – Teeka4"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "8809640737190",
-                  "locator": "Bound official ANUA catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 8809640737190",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "ANUA Azelaic Acid 10 Hyaluron Redness Soothing Serum 30ml",
-                  "locator": "Rendered DOM product heading",
-                  "sourceText": "ANUA Azelaic Acid 10 Hyaluron Redness Soothing Serum 30ml"
-                },
-                "size": {
-                  "value": "30 ml",
-                  "locator": "Rendered DOM product heading size suffix",
-                  "sourceText": "ANUA Azelaic Acid 10 Hyaluron Redness Soothing Serum 30ml"
-                },
-                "price": {
-                  "value": 16300,
-                  "currency": "NGN",
-                  "locator": "Rendered DOM product price",
-                  "sourceText": "₦16,300"
-                },
-                "stock": {
-                  "value": "out-of-stock",
-                  "locator": "Rendered DOM availability status",
-                  "sourceText": "Out of stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-26T21:47:00Z"
-            }
-          }
-        ],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://anua.com/cdn/shop/files/anua-us-ampoule-serum-azelaic-acid-10-hyaluron-redness-soothing-serum-1239193732_2000x.jpg?v=1779177969",
-          "sha256": "6f8c0b91eaf29a00548768e5f2412ceec7c72f57db79b3b7795f2095d3b8e87f",
-          "mimeType": "image/jpeg",
-          "byteSize": 45918,
-          "width": 2000,
-          "height": 2000,
-          "retrievedAt": "2026-07-26T21:10:00Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for chroma-key removal\nInput images: the magenta-background packshot is the edit target; the official ANUA green marketing image is the identity and label spelling reference.\nPrimary request: preserve the magenta packshot exactly, but correct the thin green horizontal band text so it reads verbatim: \"AZELAIC ACID 10 + HYALURON\". Match the official spelling HYALURON exactly. Preserve the white Anua wordmark, large 10+, all black lower-label lines, bottle geometry, green glass, silver collar, white bulb, scale, lighting, position, and perfectly flat #ff00ff background.\nConstraints: change only the incorrect green-band lettering; do not change package proportions, colors, other text, layout, framing, lighting, background, or add/remove anything. One bottle only. No shadow, reflection, floor, props, watermark, or gradient.",
-          "inputs": [
-            {
-              "url": "https://anua.com/cdn/shop/files/anua-us-ampoule-serum-azelaic-acid-10-hyaluron-redness-soothing-serum-1239193732_2000x.jpg?v=1779177969",
-              "sha256": "6f8c0b91eaf29a00548768e5f2412ceec7c72f57db79b3b7795f2095d3b8e87f"
-            }
-          ],
-          "outputSha256": "a20069cb6878945db3b498a247f943d414a601fe31e3c3a74e3029e54ef4f8db",
-          "generatedAt": "2026-07-26T21:29:00.000Z",
-          "recordSha256": "108798bf75f7a6af763b8b63b90c0c8cbbf9b1eb0fd2b3cc2ac7999b83d56f99"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/packshot-v1-a20069cb6878945d.png",
-        "sha256": "a20069cb6878945db3b498a247f943d414a601fe31e3c3a74e3029e54ef4f8db",
-        "mimeType": "image/png",
-        "byteSize": 770606,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-07-26T21:48:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-retail-rights-and-final-image",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-07-26T21:51:52Z"
-      },
-      "dossierFingerprint": "9fbff126ef67ad1dd11f7add2de1134b9767e4f3e6765cdc25897396438eb465"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
       "candidateFingerprint": "6ac0ad017ce62fb866318d2d4ccd9b0f516ddaa8974529111fcd5e916e85fab9",
       "exposure": "private-only",
@@ -30404,6 +30136,274 @@
         "approvedAt": "2026-08-08T04:55:50Z"
       },
       "dossierFingerprint": "c1fecdf900032e24afbb093149c9e55cfc703599a3de4411c20cef704700c4c1"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "candidateFingerprint": "dfbc31d5c9c0f861b1ae68415b1f90d4a003e5fbf5a47cd0d1ab4feb14f034a2",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "8809640737190",
+        "brand": "ANUA",
+        "name": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
+        "variant": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
+        "size": "30 ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+        "officialIdentity": {
+          "url": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+          "observedGtin": "8809640737190",
+          "observedVariant": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
+          "observedSize": "30 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+            "sourceUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+            "responseUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+            "retrievedAt": "2026-07-26T21:42:30Z",
+            "fields": {
+              "gtin": {
+                "value": "8809640737190",
+                "locator": "Rendered JSON-LD Offer.gtin13",
+                "sourceText": "Offer.gtin13: 8809640737190"
+              },
+              "variant": {
+                "value": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
+                "locator": "Rendered JSON-LD Product.name",
+                "sourceText": "Azelaic Acid 10 Hyaluron Redness Soothing Serum"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Rendered official product-size label",
+                "sourceText": "30 ml"
+              }
+            },
+            "sourceResponseSha256": "c5d9eb4309bc224a4b6519f4479d7a6437ae3fbbd3f855fed9815c002cb24ae8",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 200125,
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Azelaic Acid 10 Hyaluron Redness Soothing Serum | Anua US"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-26T21:43:00Z"
+          },
+          "snapshotSha256": "e9f8195e26186b5e9ae2fc07983743f4a29373aed6f6c560bfc462b784a33b22",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1212,
+          "retrievedAt": "2026-07-26T21:42:30Z"
+        },
+        "checkedAt": "2026-07-26T21:44:00Z",
+        "demandEvidenceUrls": [
+          "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+          "https://teeka4.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on 10% azelaic-acid serum with hyaluronic acid and ANUA's soothing complex for redness-prone and blemish-prone skin",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic supportive care only; it does not diagnose or treat acne, rosacea, pigment disorders or another skin condition. Introduce gradually, avoid the eyes and already-irritated skin, stop if persistent irritation develops, and seek a pharmacist or clinician for severe, painful, scarring, widespread or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
+        "evidenceUrls": [
+          "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+          "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
+        ],
+        "reviewedAt": "2026-07-26T21:45:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum",
+        "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+            "observedAt": "2026-08-08T04:57:41Z",
+            "observedTitle": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml",
+            "observedSize": "30 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "8809640737190",
+            "priceNgn": 18000,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+              "responseUrl": "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+              "responseSha256": "0cc3543fe702100da698dabbf0075da71e9884b74fcfe6e0e8e71183c5df8e62",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 535082,
+              "retrievedAt": "2026-08-08T04:57:41Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Anua Azelaic Acid 10% | Face Serum | BuyBetter"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809640737190",
+                  "locator": "Bound official Anua catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 8809640737190",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "ANUA AZELAIC ACID 10% Hyaluron Redness Soothing Serum 30ml"
+                },
+                "size": {
+                  "value": "30 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "30ml"
+                },
+                "price": {
+                  "value": 18000,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦18,000"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:58:00Z"
+            }
+          },
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+            "observedAt": "2026-08-08T04:57:57Z",
+            "observedTitle": "Anua Azelaic Acid 10+ Hyaluron Redness Soothing Serum 30ml",
+            "observedSize": "30 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "TK-0086",
+            "priceNgn": 16999,
+            "stock": "out-of-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://teeka4.com/shop/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+              "responseUrl": "https://teeka4.com/shop/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+              "responseSha256": "6f860e5807ee20b6588780a61aeca4d2f2f6fecb1ea90b9fbd3180cd78f02c08",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 367120,
+              "retrievedAt": "2026-08-08T04:57:57Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy Original Anua Azelaic Acid 10+ Hyaluron Redness Soothing Serum 30ml in Nigeria | Teeka4"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809640737190",
+                  "locator": "Bound official Anua catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 8809640737190",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Anua Azelaic Acid 10+ Hyaluron Redness Soothing Serum 30ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "Anua Azelaic Acid 10+ Hyaluron Redness Soothing Serum 30ml"
+                },
+                "size": {
+                  "value": "30 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "30ml"
+                },
+                "price": {
+                  "value": 16999,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦16,999.00"
+                },
+                "stock": {
+                  "value": "out-of-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Out of Stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:58:00Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://anua.com/cdn/shop/files/anua-us-ampoule-serum-azelaic-acid-10-hyaluron-redness-soothing-serum-1239193732_2000x.jpg?v=1779177969",
+          "sha256": "6f8c0b91eaf29a00548768e5f2412ceec7c72f57db79b3b7795f2095d3b8e87f",
+          "mimeType": "image/jpeg",
+          "byteSize": 45918,
+          "width": 2000,
+          "height": 2000,
+          "retrievedAt": "2026-07-26T21:10:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for chroma-key removal\nInput images: the magenta-background packshot is the edit target; the official ANUA green marketing image is the identity and label spelling reference.\nPrimary request: preserve the magenta packshot exactly, but correct the thin green horizontal band text so it reads verbatim: \"AZELAIC ACID 10 + HYALURON\". Match the official spelling HYALURON exactly. Preserve the white Anua wordmark, large 10+, all black lower-label lines, bottle geometry, green glass, silver collar, white bulb, scale, lighting, position, and perfectly flat #ff00ff background.\nConstraints: change only the incorrect green-band lettering; do not change package proportions, colors, other text, layout, framing, lighting, background, or add/remove anything. One bottle only. No shadow, reflection, floor, props, watermark, or gradient.",
+          "inputs": [
+            {
+              "url": "https://anua.com/cdn/shop/files/anua-us-ampoule-serum-azelaic-acid-10-hyaluron-redness-soothing-serum-1239193732_2000x.jpg?v=1779177969",
+              "sha256": "6f8c0b91eaf29a00548768e5f2412ceec7c72f57db79b3b7795f2095d3b8e87f"
+            }
+          ],
+          "outputSha256": "a20069cb6878945db3b498a247f943d414a601fe31e3c3a74e3029e54ef4f8db",
+          "generatedAt": "2026-07-26T21:29:00.000Z",
+          "recordSha256": "108798bf75f7a6af763b8b63b90c0c8cbbf9b1eb0fd2b3cc2ac7999b83d56f99"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anua/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/packshot-v1-a20069cb6878945d.png",
+        "sha256": "a20069cb6878945db3b498a247f943d414a601fe31e3c3a74e3029e54ef4f8db",
+        "mimeType": "image/png",
+        "byteSize": 770606,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-26T21:48:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T04:58:20Z"
+      },
+      "dossierFingerprint": "5fffdad5a8ae6fefd01ebcbeb96f823435d38127917c2d69bb3abcdc34d266b8"
     }
   ]
 }
