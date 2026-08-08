@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T15:18:00Z",
+  "updatedAt": "2026-08-08T03:36:30Z",
   "order": 10,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -104,76 +104,69 @@
       "tierAIdentityEvidenceUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
       "exactOffers": [
         {
-          "retailer": "BuyBetter",
+          "retailer": "Care to Beauty",
           "retailerStatus": "directory-listed",
-          "listingUrl": "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
-          "observedAt": "2026-07-23T06:28:21.907Z",
-          "observedTitle": "GARNIER Vitamin C (Brightening) Day Cream 50ml",
+          "listingUrl": "https://www.caretobeauty.com/ng/garnier-bio-vitamin-c-brightening-day-cream-50ml/",
+          "observedAt": "2026-08-08T03:36:00Z",
+          "observedTitle": "Garnier Vitamin C Brightening Day Cream 50ml Nigeria Delivery",
           "observedSize": "50 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "retailerSku": "3600542453110",
-          "priceNgn": 12728,
+          "priceNgn": 17253.98,
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
-            "listingUrl": "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
-            "responseUrl": "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
-            "responseSha256": "900d39f8368545480844837a2c168b2151542207dc07e5c975d2c918b13a7ab1",
+            "listingUrl": "https://www.caretobeauty.com/ng/garnier-bio-vitamin-c-brightening-day-cream-50ml/",
+            "responseUrl": "https://www.caretobeauty.com/ng/garnier-bio-vitamin-c-brightening-day-cream-50ml/",
+            "responseSha256": "ca6e5067e49181e36148bdab3284c4eefa979397124dc2e9464f1abe451c620a",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200092,
-            "retrievedAt": "2026-07-23T06:28:21.907Z",
+            "responseByteSize": 380857,
+            "retrievedAt": "2026-08-08T03:36:00Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
-              "pageTitle": "GARNIER Vitamin C (Brightening) Day Cream 50ml – Buybetter"
+              "pageTitle": "Garnier Vitamin C Brightening Day Cream 50ml Nigeria"
             },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "3600542453110",
-                "locator": "Bound official Garnier 50 ml identity snapshot",
+                "locator": "Bound official Garnier catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 3600542453110",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "GARNIER Vitamin C (Brightening) Day Cream 50ml",
-                "locator": "Rendered DOM h1.product_title",
-                "sourceText": "GARNIER Vitamin C (Brightening) Day Cream 50ml"
+                "value": "Garnier Vitamin C Brightening Day Cream 50ml Nigeria Delivery",
+                "locator": "HTML product heading",
+                "sourceText": "Garnier Vitamin C Brightening Day Cream 50ml Nigeria Delivery"
               },
               "size": {
                 "value": "50 ml",
-                "locator": "Rendered DOM h1.product_title size suffix",
-                "sourceText": "GARNIER Vitamin C (Brightening) Day Cream 50ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "50ml"
               },
               "price": {
-                "value": 12728,
+                "value": 17253.98,
                 "currency": "NGN",
-                "locator": "Rendered DOM p.price",
-                "sourceText": "₦12,728.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦17,253.98"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Rendered DOM p.stock",
-                "sourceText": "47 IN STOCK"
-              },
-              "retailerIdentifier": {
-                "label": "SKU",
-                "value": "3600542453110",
-                "locator": "Rendered DOM .product_meta .sku",
-                "sourceText": "SKU 3600542453110"
+                "locator": "Rendered availability status",
+                "sourceText": "In stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T06:29:00Z"
+            "reviewedAt": "2026-08-08T03:36:30Z"
           }
         },
         {
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/garnier-vitamin-c-brightening-day-cream-50ml/",
-          "observedAt": "2026-07-23T06:28:22.388Z",
+          "observedAt": "2026-08-08T03:32:54Z",
           "observedTitle": "Garnier Vitamin C Brightening Day Cream 50Ml",
           "observedSize": "50 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -185,13 +178,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/garnier-vitamin-c-brightening-day-cream-50ml/",
             "responseUrl": "https://teeka4.com/shop/garnier-vitamin-c-brightening-day-cream-50ml/",
-            "responseSha256": "5a9dfd20294989bd8817629081acb8cc8b4b3667a161ee9d1cb22695834c870e",
+            "responseSha256": "c7208f0b8946d72425d20ed3abb8a979de2ed3531b6752f06e67f41fa013b4a0",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200024,
-            "retrievedAt": "2026-07-23T06:28:22.388Z",
+            "responseByteSize": 385186,
+            "retrievedAt": "2026-08-08T03:32:54Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Buy original Garnier Vitamin C Brightening Day Cream 50Ml in Lagos Nigeria"
             },
@@ -199,40 +192,34 @@
               "gtin": {
                 "label": "GTIN",
                 "value": "3600542453110",
-                "locator": "Bound official Garnier 50 ml identity snapshot",
+                "locator": "Bound official Garnier catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 3600542453110",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Garnier Vitamin C Brightening Day Cream 50Ml",
-                "locator": "Rendered DOM h1.product_title",
+                "locator": "HTML product heading",
                 "sourceText": "Garnier Vitamin C Brightening Day Cream 50Ml"
               },
               "size": {
                 "value": "50 ml",
-                "locator": "Rendered DOM h1.product_title size suffix",
-                "sourceText": "Garnier Vitamin C Brightening Day Cream 50Ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "50Ml"
               },
               "price": {
                 "value": 11833,
                 "currency": "NGN",
-                "locator": "Rendered DOM p.price",
+                "locator": "Rendered product price",
                 "sourceText": "₦11,833.00"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Rendered DOM p.stock",
+                "locator": "Rendered availability status",
                 "sourceText": "IN STOCK"
-              },
-              "retailerIdentifier": {
-                "label": "SKU",
-                "value": "TK-0471",
-                "locator": "Rendered DOM .product_meta .sku",
-                "sourceText": "TK-0471"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T06:29:00Z"
+            "reviewedAt": "2026-08-08T03:36:30Z"
           }
         }
       ],

@@ -907,9 +907,9 @@ test('the Garnier day cream binds its official GTIN to exact Nigerian offers and
   assert.equal(candidate.identity.officialEvidence?.observedSize, '50 ml');
   assert.equal(candidate.nigeria.tierAIdentityEvidenceUrl, candidate.identity.officialProductUrl);
   assert.equal(candidate.nigeria.exactOffers.length, 2);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [12_728, 11_833]);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku), ['3600542453110', 'TK-0471']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['Care to Beauty', 'Teeka4']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [17_253.98, 11_833]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku ?? null), [null, 'TK-0471']);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
   assert.equal(candidate.nigeria.exactOffers.every(offer => (
@@ -926,7 +926,7 @@ test('the Garnier day cream binds its official GTIN to exact Nigerian offers and
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T03:37:00Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);

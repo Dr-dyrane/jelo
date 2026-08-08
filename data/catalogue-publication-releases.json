@@ -148,30 +148,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
-      "dossierFingerprint": "d7850d3431c7a7cec3d22c534b0395ae72425c372e44aac09b63aa30ea0ddacd",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturize",
-        "displayLine": "Daily moisture with vitamin C.",
-        "usage": "Apply to a clean face in circular motions, spread evenly, and use daily.",
-        "manufacturerDirectionsUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T06:39:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T06:40:00Z"
-      },
-      "releaseFingerprint": "86b086c2362132b7434c1ec11276e62f872552ddcdb743fe77651452ed7044fa"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
       "dossierFingerprint": "6561e48988f3452cde60c0ce05650285491109beb48f645058bc98b308f257e4",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T03:29:20Z"
       },
       "releaseFingerprint": "49f0444c8f89b40c0bff8bcc01f7513cbdddbbb8c3d0fe94111e08de90584e1f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
+      "dossierFingerprint": "e1a0ce6f0629ef54b0be42a3cd6c52abad93073d5a40c1da59c7491d61c34332",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Daily moisture with vitamin C.",
+        "usage": "Apply to a clean face in circular motions, spread evenly, and use daily.",
+        "manufacturerDirectionsUrl": "https://www.garnier.co.uk/our-brands/skin-care/vitamin-c/vitamin-c-day-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T03:37:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T03:37:20Z"
+      },
+      "releaseFingerprint": "2affecfd258879ee3acd6602d19e55781a15adfa7e0ecbcedbd6edf70cbbb1e3"
     }
   ]
 }
