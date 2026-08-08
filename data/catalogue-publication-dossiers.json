@@ -1133,351 +1133,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "tresemme-keratin-smooth-weightless-conditioner-828ml",
-      "candidateFingerprint": "f4bfb42c50377ee602302309ab0386977ba3c3c1fb70aa793ff65de9d89eca3f",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "00022400011738",
-        "brand": "TRESemmé",
-        "name": "Keratin Smooth Weightless Conditioner",
-        "variant": "Keratin Smooth Weightless Conditioner",
-        "size": "28 fl oz / 828 ml",
-        "packageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-        "category": "Hair & scalp"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-        "officialIdentity": {
-          "url": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-          "observedGtin": "00022400011738",
-          "observedVariant": "Keratin Smooth Weightless Conditioner",
-          "observedSize": "28 fl oz / 828 ml",
-          "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/tresemme-keratin-smooth-weightless-conditioner-828ml.json",
-          "canonicalExtraction": {
-            "schemaVersion": 4,
-            "candidateId": "tresemme-keratin-smooth-weightless-conditioner-828ml",
-            "sourceUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-            "responseUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-            "retrievedAt": "2026-07-23T19:52:30Z",
-            "fields": {
-              "gtin": {
-                "value": "00022400011738",
-                "locator": "Official product route GTIN-14 suffix",
-                "sourceText": "Official product URL suffix 00022400011738"
-              },
-              "variant": {
-                "value": "Keratin Smooth Weightless Conditioner",
-                "locator": "Rendered official product heading",
-                "sourceText": "TRESemmé Keratin Smooth weightless Conditioner"
-              },
-              "size": {
-                "value": "28 fl oz / 828 ml",
-                "locator": "Rendered official 28 oz size and reviewed front-pack size line",
-                "sourceText": "28 fl oz / 828 ml; front pack 28 US FL OZ / 828 mL"
-              }
-            },
-            "sourceResponseSha256": "d80e70c604d8105d0e10535862f561d786866e3b95bdc06b49fd0e33dabda01e",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 200021,
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://assets.unileversolutions.com/v1/117668756.png",
-                "responseUrl": "https://assets.unileversolutions.com/v1/117668756.png",
-                "retrievedAt": "2026-07-23T19:52:00Z",
-                "responseSha256": "3c7cb662dd7bf6e0d777e4b4d6d2d153c4cc86e9fa29c305d904e8653aacaf97",
-                "responseMimeType": "image/png",
-                "responseByteSize": 1679816
-              }
-            ],
-            "responseDigestScope": "rendered-dom-outerhtml",
-            "method": "reviewed-browser-dom-identity-field-extraction",
-            "browserCapture": {
-              "surface": "Codex in-app browser",
-              "documentReadyState": "complete",
-              "pageTitle": "TRESemmé Keratin Smooth weightless Conditioner | TRESemmé US"
-            },
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T19:53:00Z"
-          },
-          "snapshotSha256": "1ee95a3cbc13f826b1684371593af20e0e010993d423d323eefebb1bd2b16767",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 1749,
-          "retrievedAt": "2026-07-23T19:52:30Z"
-        },
-        "checkedAt": "2026-07-23T19:53:15Z",
-        "demandEvidenceUrls": [
-          "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
-          "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
-          "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Rinse-off smoothing conditioner with cetearyl alcohol, dimethicone, ceramide NG, amino acids, hydrolyzed keratin and fragrance",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "Supports routine rinse-off conditioning, detangling and manageability for dry or frizz-prone hair. It does not diagnose or treat scalp disease, sudden hair loss or a breakage disorder. Protein- and fragrance-containing formulas may not suit everyone; avoid the eyes, rinse well, stop if irritation develops, and seek clinical advice for persistent scalp pain, inflammation, patchy loss or sudden shedding.",
-        "manufacturerEvidenceUrl": "https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
-        "evidenceUrls": [
-          "https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-          "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
-        ],
-        "reviewedAt": "2026-07-23T19:54:45Z",
-        "reviewer": "JeloCare catalogue care review"
-      },
-      "nigeria": {
-        "marketRoute": "tier-a",
-        "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-        "exactOffers": [
-          {
-            "retailer": "Beauty by Daz",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
-            "observedAt": "2026-07-23T19:54:00Z",
-            "observedTitle": "Tresemme Keratin Smooth Weightless Conditioner 828 ml",
-            "observedSize": "828 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-            "retailerSku": "TKSC",
-            "priceNgn": 7950,
-            "stock": "low-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-              "listingUrl": "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
-              "responseUrl": "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
-              "responseSha256": "3676a5396ad28b1032b0924f6422a44051147f84d04f53391fa0661889eeb194",
-              "responseDigestScope": "rendered-accessibility-tree",
-              "responseMimeType": "text/html",
-              "responseByteSize": 8602,
-              "retrievedAt": "2026-07-23T19:54:00Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Buy Tresemme Keratin Smooth Weightless Conditioner In Lagos"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "00022400011738",
-                  "locator": "Bound official TRESemmé catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 00022400011738",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Tresemme Keratin Smooth Weightless Conditioner 828 ml",
-                  "locator": "Rendered accessibility product heading",
-                  "sourceText": "Tresemme Keratin Smooth Weightless Conditioner 828 ml"
-                },
-                "size": {
-                  "value": "828 ml",
-                  "locator": "Rendered accessibility product title size",
-                  "sourceText": "828 ml"
-                },
-                "packageVersion": {
-                  "value": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-                  "locator": "Rendered listing image matched to the current official product package",
-                  "sourceText": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label"
-                },
-                "price": {
-                  "value": 7950,
-                  "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "₦7,950"
-                },
-                "stock": {
-                  "value": "low-stock",
-                  "locator": "Rendered accessibility stock status",
-                  "sourceText": "Only 2 left in stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T19:54:30Z"
-            }
-          },
-          {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
-            "observedAt": "2026-07-23T19:54:00Z",
-            "observedTitle": "TRESemme -Keratin SMOOTH (weightless) CONDITIONER 828ml",
-            "observedSize": "828 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-            "retailerSku": "022400011738",
-            "priceNgn": 9138,
-            "stock": "low-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
-              "responseUrl": "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
-              "responseSha256": "532d8ef44b2ee248bf749f17b7b58e4460be805887dcb2720eb6c4c4c5344241",
-              "responseDigestScope": "rendered-accessibility-tree",
-              "responseMimeType": "text/html",
-              "responseByteSize": 11813,
-              "retrievedAt": "2026-07-23T19:54:00Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "TRESemme -Keratin SMOOTH (weightless) CONDITIONER 828ml – Buybetter"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "00022400011738",
-                  "locator": "Bound official TRESemmé catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 00022400011738",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "TRESemme -Keratin SMOOTH (weightless) CONDITIONER 828ml",
-                  "locator": "Rendered accessibility product heading",
-                  "sourceText": "TRESemme -Keratin SMOOTH (weightless) CONDITIONER 828ml"
-                },
-                "size": {
-                  "value": "828 ml",
-                  "locator": "Rendered accessibility product title size",
-                  "sourceText": "828 ml"
-                },
-                "packageVersion": {
-                  "value": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-                  "locator": "Rendered listing image matched to the current official product package",
-                  "sourceText": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label"
-                },
-                "price": {
-                  "value": 9138,
-                  "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "₦9,138.00"
-                },
-                "stock": {
-                  "value": "low-stock",
-                  "locator": "Rendered accessibility stock status",
-                  "sourceText": "3 in stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T19:54:30Z"
-            }
-          },
-          {
-            "retailer": "Perfect Trust Beauty",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot",
-            "observedAt": "2026-07-23T19:54:00Z",
-            "observedTitle": "TRESemmé Keratin Smooth Weightless Conditioner - Frizz Control & Heat Protection (828ml)",
-            "observedSize": "828 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-            "priceNgn": 9900,
-            "stock": "low-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-              "listingUrl": "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot",
-              "responseUrl": "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot",
-              "responseSha256": "2a6ab8f7b8859ded70263e1b46d37c8a3c5aa56cf2ecf42893c09c552e666d1a",
-              "responseDigestScope": "rendered-accessibility-tree",
-              "responseMimeType": "text/html",
-              "responseByteSize": 14087,
-              "retrievedAt": "2026-07-23T19:54:00Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Buy Original Tresemme Conditioner Keratin Smooth 828ml | Best Online Prices in Nigeria"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "00022400011738",
-                  "locator": "Bound official TRESemmé catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 00022400011738",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "TRESemmé Keratin Smooth Weightless Conditioner - Frizz Control & Heat Protection (828ml)",
-                  "locator": "Rendered accessibility descriptive product heading",
-                  "sourceText": "TRESemmé Keratin Smooth Weightless Conditioner - Frizz Control & Heat Protection (828ml)"
-                },
-                "size": {
-                  "value": "828 ml",
-                  "locator": "Rendered accessibility product title size",
-                  "sourceText": "828 ml"
-                },
-                "packageVersion": {
-                  "value": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
-                  "locator": "Rendered listing image matched to the current official product package",
-                  "sourceText": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label"
-                },
-                "price": {
-                  "value": 9900,
-                  "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "₦9,900.00"
-                },
-                "stock": {
-                  "value": "low-stock",
-                  "locator": "Rendered accessibility stock status",
-                  "sourceText": "Only 1 left"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T19:54:30Z"
-            }
-          }
-        ],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "official-brand-media",
-        "evidenceUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
-        "sourceAsset": {
-          "url": "https://assets.unileversolutions.com/v1/117668756.png",
-          "sha256": "3c7cb662dd7bf6e0d777e4b4d6d2d153c4cc86e9fa29c305d904e8653aacaf97",
-          "mimeType": "image/png",
-          "byteSize": 1679816,
-          "width": 2880,
-          "height": 2880,
-          "retrievedAt": "2026-07-23T19:52:00Z"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/tresemme/tresemme-keratin-smooth-weightless-conditioner-828ml/packshot-v1-6804d9969ba6a1ba.png",
-        "sha256": "6804d9969ba6a1babe6717e86fdda0f9f5a47791d542a7e50223e27a4e9f268b",
-        "mimeType": "image/png",
-        "byteSize": 1112804,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "none",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-07-23T19:55:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-retail-rights-and-final-image",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-07-23T19:55:30Z"
-      },
-      "dossierFingerprint": "2102c6b8dd27792450a6a1a4d0625edf44f1d521d7b9850249857c0f090e4f5b"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "dove-skin-replenish-serum-body-wash-547ml",
       "candidateFingerprint": "4b5342ea27aea46bbaf22cdd34c2fbfd0771c56ae83614f5e6bbdc5d7a43ee4b",
       "exposure": "private-only",
@@ -30395,6 +30050,351 @@
         "approvedAt": "2026-08-08T04:40:20Z"
       },
       "dossierFingerprint": "f8a8b5c495d3bf8e8aad28575f397b29ffa61878952c1fc381b38384e6d2b1c7"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "tresemme-keratin-smooth-weightless-conditioner-828ml",
+      "candidateFingerprint": "9f7ad6ced1903f3af8f64aa135a366e5d9ca219a469fa6b1067a955cf3247273",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "00022400011738",
+        "brand": "TRESemmé",
+        "name": "Keratin Smooth Weightless Conditioner",
+        "variant": "Keratin Smooth Weightless Conditioner",
+        "size": "28 fl oz / 828 ml",
+        "packageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+        "category": "Hair & scalp"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+        "officialIdentity": {
+          "url": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+          "observedGtin": "00022400011738",
+          "observedVariant": "Keratin Smooth Weightless Conditioner",
+          "observedSize": "28 fl oz / 828 ml",
+          "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/tresemme-keratin-smooth-weightless-conditioner-828ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "tresemme-keratin-smooth-weightless-conditioner-828ml",
+            "sourceUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+            "responseUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+            "retrievedAt": "2026-07-23T19:52:30Z",
+            "fields": {
+              "gtin": {
+                "value": "00022400011738",
+                "locator": "Official product route GTIN-14 suffix",
+                "sourceText": "Official product URL suffix 00022400011738"
+              },
+              "variant": {
+                "value": "Keratin Smooth Weightless Conditioner",
+                "locator": "Rendered official product heading",
+                "sourceText": "TRESemmé Keratin Smooth weightless Conditioner"
+              },
+              "size": {
+                "value": "28 fl oz / 828 ml",
+                "locator": "Rendered official 28 oz size and reviewed front-pack size line",
+                "sourceText": "28 fl oz / 828 ml; front pack 28 US FL OZ / 828 mL"
+              }
+            },
+            "sourceResponseSha256": "d80e70c604d8105d0e10535862f561d786866e3b95bdc06b49fd0e33dabda01e",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 200021,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://assets.unileversolutions.com/v1/117668756.png",
+                "responseUrl": "https://assets.unileversolutions.com/v1/117668756.png",
+                "retrievedAt": "2026-07-23T19:52:00Z",
+                "responseSha256": "3c7cb662dd7bf6e0d777e4b4d6d2d153c4cc86e9fa29c305d904e8653aacaf97",
+                "responseMimeType": "image/png",
+                "responseByteSize": 1679816
+              }
+            ],
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "TRESemmé Keratin Smooth weightless Conditioner | TRESemmé US"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T19:53:00Z"
+          },
+          "snapshotSha256": "1ee95a3cbc13f826b1684371593af20e0e010993d423d323eefebb1bd2b16767",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1749,
+          "retrievedAt": "2026-07-23T19:52:30Z"
+        },
+        "checkedAt": "2026-07-23T19:53:15Z",
+        "demandEvidenceUrls": [
+          "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
+          "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
+          "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Rinse-off smoothing conditioner with cetearyl alcohol, dimethicone, ceramide NG, amino acids, hydrolyzed keratin and fragrance",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Supports routine rinse-off conditioning, detangling and manageability for dry or frizz-prone hair. It does not diagnose or treat scalp disease, sudden hair loss or a breakage disorder. Protein- and fragrance-containing formulas may not suit everyone; avoid the eyes, rinse well, stop if irritation develops, and seek clinical advice for persistent scalp pain, inflammation, patchy loss or sudden shedding.",
+        "manufacturerEvidenceUrl": "https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+        "evidenceUrls": [
+          "https://www.tresemme.com/ca/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+          "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
+        ],
+        "reviewedAt": "2026-07-23T19:54:45Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+        "exactOffers": [
+          {
+            "retailer": "Beauty by Daz",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
+            "observedAt": "2026-08-08T04:50:00Z",
+            "observedTitle": "Tresemme Keratin Smooth Weightless Conditioner 828 ml",
+            "observedSize": "828 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+            "retailerSku": "TKSC",
+            "priceNgn": 7950,
+            "stock": "out-of-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
+              "responseUrl": "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
+              "responseSha256": "6c8adec08df2277c621f58a6a87088b0d03eb2ba3c70a98aae5b4e39382d6d04",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 249876,
+              "retrievedAt": "2026-08-08T04:50:00Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy Tresemme Keratin Smooth Weightless Conditioner In Lagos"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "00022400011738",
+                  "locator": "Bound official TRESemmé catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 00022400011738",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Tresemme Keratin Smooth Weightless Conditioner 828 ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "Tresemme Keratin Smooth Weightless Conditioner 828 ml"
+                },
+                "size": {
+                  "value": "828 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "828 ml"
+                },
+                "packageVersion": {
+                  "value": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+                  "locator": "Bound official TRESemmé catalogue identity snapshot",
+                  "sourceText": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label"
+                },
+                "price": {
+                  "value": 7950,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦7,950.00"
+                },
+                "stock": {
+                  "value": "out-of-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "OUT OF STOCK"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:51:00Z"
+            }
+          },
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
+            "observedAt": "2026-08-08T04:50:12Z",
+            "observedTitle": "TRESemme -Keratin SMOOTH (weightless) CONDITIONER 828ml",
+            "observedSize": "828 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+            "retailerSku": "022400011738",
+            "priceNgn": 9138,
+            "stock": "out-of-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
+              "responseUrl": "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
+              "responseSha256": "8271a3556f8ad77772b7770f6d1beefc4e41eb4397dc0143ad48d0baadb58c25",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 531671,
+              "retrievedAt": "2026-08-08T04:50:12Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "TRESemmé Keratin Smooth | Conditioner | BuyBetter"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "00022400011738",
+                  "locator": "Bound official TRESemmé catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 00022400011738",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "TRESemme -Keratin SMOOTH (weightless) CONDITIONER 828ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "TRESemme -Keratin SMOOTH (weightless) CONDITIONER 828ml"
+                },
+                "size": {
+                  "value": "828 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "828ml"
+                },
+                "packageVersion": {
+                  "value": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+                  "locator": "Bound official TRESemmé catalogue identity snapshot",
+                  "sourceText": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label"
+                },
+                "price": {
+                  "value": 9138,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦9,138"
+                },
+                "stock": {
+                  "value": "out-of-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Out of stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:51:00Z"
+            }
+          },
+          {
+            "retailer": "Perfect Trust Beauty",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot",
+            "observedAt": "2026-08-08T04:50:32Z",
+            "observedTitle": "TRESemmé Keratin Smooth Weightless Conditioner - Frizz Control & Heat Protection (828ml)",
+            "observedSize": "828 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+            "priceNgn": 9900,
+            "stock": "low-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot",
+              "responseUrl": "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot",
+              "responseSha256": "b97b75c9c702f915033d14bdadaa182533377d5c09470fe6a7dfa491130be3f4",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 1402726,
+              "retrievedAt": "2026-08-08T04:50:32Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy Original Tresemme Conditioner Keratin Smooth 828ml | Best Online Prices in Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "00022400011738",
+                  "locator": "Bound official TRESemmé catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 00022400011738",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "TRESemmé Keratin Smooth Weightless Conditioner - Frizz Control & Heat Protection (828ml)",
+                  "locator": "HTML product subheading",
+                  "sourceText": "TRESemmé Keratin Smooth Weightless Conditioner - Frizz Control & Heat Protection (828ml)"
+                },
+                "size": {
+                  "value": "828 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "828ml"
+                },
+                "packageVersion": {
+                  "value": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label",
+                  "locator": "Bound official TRESemmé catalogue identity snapshot",
+                  "sourceText": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label"
+                },
+                "price": {
+                  "value": 9900,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦9,900.00"
+                },
+                "stock": {
+                  "value": "low-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Only 1 left"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T04:51:00Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "official-brand-media",
+        "evidenceUrl": "https://www.tresemme.com/us/en/p/tresemm%C3%A9-keratin-smooth-weightless-conditioner.html/00022400011738",
+        "sourceAsset": {
+          "url": "https://assets.unileversolutions.com/v1/117668756.png",
+          "sha256": "3c7cb662dd7bf6e0d777e4b4d6d2d153c4cc86e9fa29c305d904e8653aacaf97",
+          "mimeType": "image/png",
+          "byteSize": 1679816,
+          "width": 2880,
+          "height": 2880,
+          "retrievedAt": "2026-07-23T19:52:00Z"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/tresemme/tresemme-keratin-smooth-weightless-conditioner-828ml/packshot-v1-6804d9969ba6a1ba.png",
+        "sha256": "6804d9969ba6a1babe6717e86fdda0f9f5a47791d542a7e50223e27a4e9f268b",
+        "mimeType": "image/png",
+        "byteSize": 1112804,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "none",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-23T19:55:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T04:51:20Z"
+      },
+      "dossierFingerprint": "4408c1bbe5383ba6bcb2a1494ff8f00124d505cef5c0d18cf320ddaebcdd2eed"
     }
   ]
 }

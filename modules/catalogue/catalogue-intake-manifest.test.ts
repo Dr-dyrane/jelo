@@ -384,11 +384,12 @@ test('the TRESemmé conditioner binds its official GTIN, three Nigerian prices a
     ['Beauty by Daz', 'BuyBetter', 'Perfect Trust Beauty'],
   );
   assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [7950, 9138, 9900]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['out-of-stock', 'out-of-stock', 'low-stock']);
   assert.equal(candidate.asset.origin, 'official-brand-media');
   assert.equal(candidate.asset.publicImageSha256, '6804d9969ba6a1babe6717e86fdda0f9f5a47791d542a7e50223e27a4e9f268b');
   assert.equal(candidate.asset.backgroundTreatment, 'none');
   assert.equal(candidate.asset.presentationQuality, 'magazine-ready');
-  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T19:59:57Z'));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:51:20Z'));
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 3);
 });
