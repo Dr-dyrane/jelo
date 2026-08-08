@@ -820,30 +820,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
-      "dossierFingerprint": "89a771898129477fff9a5575025b387aa434000c00de2f8f4c4b77ed7e326689",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "2% vitamin C for daily radiance.",
-        "usage": "Apply 3–4 drops to clean, dry face and neck, then gently massage. Avoid the eyes.",
-        "manufacturerDirectionsUrl": "https://kikapuchetu.co.ke/cdn/shop/files/BEAUTY_FORMULAS_GLOWING_SERUM_BACK_24d2c1f1-8387-413e-acad-81b7d54f7522.jpg?v=1754460491&width=1080",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-27T00:59:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-27T01:00:00Z"
-      },
-      "releaseFingerprint": "8fd738004de04028cd0128c94077d3aa731e5c42e49a26eee2072650ec335655"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
       "dossierFingerprint": "b9cbba499bc79bd89e9e67efabc4a1be4caf344ef288793bcbe69f275853cfa4",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T02:05:30Z"
       },
       "releaseFingerprint": "afd6e5ebdab120bbb9f94eed3ebe97e3d7ea46cfe529df25d7307d05fc36f340"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+      "dossierFingerprint": "4d77d33a1aed342660dbdf20e0c5da8db11814d6c9d870b40b9d0ed2f7523a90",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "2% vitamin C for daily radiance.",
+        "usage": "Apply 3–4 drops to clean, dry face and neck, then gently massage. Avoid the eyes.",
+        "manufacturerDirectionsUrl": "https://kikapuchetu.co.ke/cdn/shop/files/BEAUTY_FORMULAS_GLOWING_SERUM_BACK_24d2c1f1-8387-413e-acad-81b7d54f7522.jpg?v=1754460491&width=1080",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T02:25:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T02:25:20Z"
+      },
+      "releaseFingerprint": "30c0124b993fb163de3b532c45925eac6f9faff7a044c2a1a72717d1ca715ffd"
     }
   ]
 }

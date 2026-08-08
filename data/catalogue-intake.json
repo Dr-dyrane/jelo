@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T02:02:38Z",
+  "updatedAt": "2026-08-08T02:23:45Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -12480,23 +12480,23 @@
             "retailer": "CSi Grocery",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/beauty-formulas-glowing-serum/",
-            "observedAt": "2026-07-27T00:18:00Z",
+            "observedAt": "2026-08-08T02:23:13Z",
             "observedTitle": "Beauty Formulas Glowing Serum 2% Vitamin C — 30ml",
             "observedSize": "30 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "retailerSku": "5012251013611",
             "priceNgn": 3300,
-            "stock": "in-stock",
+            "stock": "low-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/beauty-formulas-glowing-serum/",
               "responseUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/beauty-formulas-glowing-serum/",
-              "responseSha256": "afe6f76522d207665957a9779da45604077109e82de80def367f9ced26380264",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "b005c2af176f44d202d46d7df8b588e2e2a69c6ed51b6025914fc5ab2f79495c",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 438893,
-              "retrievedAt": "2026-07-27T00:18:00Z",
+              "responseByteSize": 491517,
+              "retrievedAt": "2026-08-08T02:23:13Z",
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -12519,23 +12519,28 @@
                   "value": 3300,
                   "currency": "NGN",
                   "locator": "WooCommerce product price",
-                  "sourceText": "₦3,300.00"
+                  "sourceText": "₦3,300"
                 },
                 "stock": {
-                  "value": "in-stock",
+                  "value": "low-stock",
                   "locator": "WooCommerce stock message",
-                  "sourceText": "In stock"
+                  "sourceText": "2 in stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-27T00:19:00Z"
+              "reviewedAt": "2026-08-08T02:23:45Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Buy Beauty Formulas Glowing Serum 2% Vitamin C — 30ml"
+              }
             }
           },
           {
             "retailer": "Beauty by Daz",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://beautybydaz.com/shop/face/beauty-formulas-glowing-serum-2-vitamin-c/",
-            "observedAt": "2026-07-27T00:18:00Z",
+            "observedAt": "2026-08-08T02:23:29Z",
             "observedTitle": "Beauty Formulas Glowing Serum 2% Vitamin C",
             "observedSize": "30 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -12544,14 +12549,14 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://beautybydaz.com/shop/face/beauty-formulas-glowing-serum-2-vitamin-c/",
               "responseUrl": "https://beautybydaz.com/shop/face/beauty-formulas-glowing-serum-2-vitamin-c/",
-              "responseSha256": "cffc97c9264d29d052f5e3032b0c0d03c27f8a43ce239e0d72466c90512ebceb",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "49810d24cef9eb291e5cbdf1228b25434ba8d2a352a0f75386a3dc20fe5972d4",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 303526,
-              "retrievedAt": "2026-07-27T00:18:00Z",
+              "responseByteSize": 287584,
+              "retrievedAt": "2026-08-08T02:23:29Z",
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -12568,29 +12573,34 @@
                 "size": {
                   "value": "30 ml",
                   "locator": "Reviewed primary gallery package-front size",
-                  "sourceText": "Primary package front shows 30ml"
+                  "sourceText": "Beauty Formulas Glowing Serum 2% Vitamin C"
                 },
                 "price": {
                   "value": 3999,
                   "currency": "NGN",
                   "locator": "WooCommerce product price",
-                  "sourceText": "₦3,999.00"
+                  "sourceText": "₦3,999"
                 },
                 "stock": {
                   "value": "in-stock",
                   "locator": "WooCommerce stock message",
-                  "sourceText": "In stock"
+                  "sourceText": "in stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-27T00:19:00Z"
+              "reviewedAt": "2026-08-08T02:23:45Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Shop Authentic Beauty Formulas Glowing Serum 2% Vitamin C | Beauty By Daz"
+              }
             }
           },
           {
             "retailer": "24Eleven",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://www.24eleven.ng/beauty-formulas-glowing-serum-2-vitamin-c-30ml",
-            "observedAt": "2026-07-27T00:18:00Z",
+            "observedAt": "2026-08-08T02:23:45Z",
             "observedTitle": "Beauty Formulas Glowing Serum 2% Vitamin C - 30ml",
             "observedSize": "30 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -12599,14 +12609,14 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://www.24eleven.ng/beauty-formulas-glowing-serum-2-vitamin-c-30ml",
               "responseUrl": "https://www.24eleven.ng/beauty-formulas-glowing-serum-2-vitamin-c-30ml",
-              "responseSha256": "41a49c732d6e9f5624063d3c023d7b17e63d8ed9c0bc0b773a4af256aa25e7a3",
-              "responseDigestScope": "decoded-response-body",
+              "responseSha256": "2c2c1bb809274a86aa4f08e3ea2a75352f789f48f2bffc9ff737e97749e4a636",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 45741,
-              "retrievedAt": "2026-07-27T00:18:00Z",
+              "responseByteSize": 81949,
+              "retrievedAt": "2026-08-08T02:23:45Z",
               "fields": {
                 "gtin": {
                   "label": "GTIN",
@@ -12634,11 +12644,16 @@
                 "stock": {
                   "value": "in-stock",
                   "locator": "Magento availability message",
-                  "sourceText": "Available"
+                  "sourceText": "available"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-27T00:19:00Z"
+              "reviewedAt": "2026-08-08T02:23:45Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Beauty Formulas Glowing Serum 2% Vitamin C - 30ml | 24eleven.ng - Best price in Nigeria"
+              }
             }
           }
         ],

@@ -126,7 +126,7 @@ test('the Beauty Formulas serum binds its exact formula, Nigerian prices and rev
     item.id === 'beauty-formulas-glowing-serum-2-vitamin-c-30ml'
   ));
   assert.ok(candidate);
-  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-27T01:00:00Z'));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T02:25:00Z'));
   assert.equal(candidate.identity.gtin, '5012251013611');
   assert.equal(candidate.care.status, 'reviewed');
   assert.match(candidate.care.formulaArchetype ?? '', /sodium ascorbyl phosphate/i);

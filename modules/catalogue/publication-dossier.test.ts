@@ -404,7 +404,7 @@ test('the checked-in publication manifest contains the verified neutral referenc
     dossier.candidateId === 'beauty-formulas-glowing-serum-2-vitamin-c-30ml'
   ));
   assert.ok(beautyFormulasDossier);
-  assert.equal(beautyFormulasDossier.nigeria.exactOffers.length, 3);
+  assert.equal(beautyFormulasDossier.nigeria.exactOffers.length, 2);
   const faceFactsDossier = result.dossiers.find(dossier => (
     dossier.candidateId === 'facefacts-ceramide-moisturising-gel-cream-50ml'
   ));
@@ -496,10 +496,10 @@ test('the checked-in publication manifest contains the verified neutral referenc
   assert.equal(result.dossiers[15].nigeria.marketRoute, 'tier-a');
   assert.deepEqual(result.dossiers[15].nigeria.exactOffers.map(offer => offer.priceNgn), [6_880, 7_300]);
   assert.equal(result.dossiers[15].rights.generationRecord?.outputSha256, result.dossiers[15].finalImage.sha256);
-  assert.equal(result.dossiers[127].candidateId, 'facefacts-ceramide-hydrating-gentle-cleanser-400ml');
-  assert.equal(result.dossiers[127].nigeria.marketRoute, 'tier-a');
-  assert.deepEqual(result.dossiers[127].nigeria.exactOffers.map(offer => offer.priceNgn), [6_950, 7_200, 7_300]);
-  assert.equal(result.dossiers[127].rights.generationRecord?.outputSha256, result.dossiers[127].finalImage.sha256);
+  assert.equal(result.dossiers[126].candidateId, 'facefacts-ceramide-hydrating-gentle-cleanser-400ml');
+  assert.equal(result.dossiers[126].nigeria.marketRoute, 'tier-a');
+  assert.deepEqual(result.dossiers[126].nigeria.exactOffers.map(offer => offer.priceNgn), [6_950, 7_200, 7_300]);
+  assert.equal(result.dossiers[126].rights.generationRecord?.outputSha256, result.dossiers[126].finalImage.sha256);
   assert.equal(result.dossiers[16].candidateId, 'facefacts-ceramide-foaming-cleanser-400ml');
   assert.equal(result.dossiers[16].nigeria.marketRoute, 'tier-a');
   assert.deepEqual(result.dossiers[16].nigeria.exactOffers.map(offer => offer.priceNgn), [6_450, 6_800]);
@@ -1018,7 +1018,7 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
     product.slug === 'beauty-formulas-glowing-serum-2-vitamin-c-30ml'
   ));
   assert.ok(beautyFormulasProduct);
-  assert.equal(beautyFormulasProduct.offers.length, 3);
+  assert.equal(beautyFormulasProduct.offers.length, 2);
   const faceFactsProduct = report.products.find(product => (
     product.slug === 'facefacts-ceramide-moisturising-gel-cream-50ml'
   ));
@@ -1151,15 +1151,15 @@ test('the checked-in release manifest explicitly publishes the verified neutral 
   assert.equal(report.products[15].offers[1].retailer, '24Eleven');
   assert.equal(report.products[15].offers[1].priceNgn, 7_300);
   assert.equal(report.products[15].offers[1].available, true);
-  assert.equal(report.products[127].slug, 'facefacts-ceramide-hydrating-gentle-cleanser-400ml');
-  assert.equal(report.products[127].category, 'Face');
-  assert.equal(report.products[127].step, 'Cleanse');
-  assert.equal(report.products[127].offers[0].retailer, 'Beauty by Daz');
-  assert.equal(report.products[127].offers[0].priceNgn, 6_950);
-  assert.equal(report.products[127].offers[1].retailer, 'Teeka4');
-  assert.equal(report.products[127].offers[1].priceNgn, 7_200);
-  assert.equal(report.products[127].offers[2].retailer, '24Eleven');
-  assert.equal(report.products[127].offers[2].priceNgn, 7_300);
+  assert.equal(report.products[126].slug, 'facefacts-ceramide-hydrating-gentle-cleanser-400ml');
+  assert.equal(report.products[126].category, 'Face');
+  assert.equal(report.products[126].step, 'Cleanse');
+  assert.equal(report.products[126].offers[0].retailer, 'Beauty by Daz');
+  assert.equal(report.products[126].offers[0].priceNgn, 6_950);
+  assert.equal(report.products[126].offers[1].retailer, 'Teeka4');
+  assert.equal(report.products[126].offers[1].priceNgn, 7_200);
+  assert.equal(report.products[126].offers[2].retailer, '24Eleven');
+  assert.equal(report.products[126].offers[2].priceNgn, 7_300);
   assert.equal(report.products[16].slug, 'facefacts-ceramide-foaming-cleanser-400ml');
   assert.equal(report.products[16].category, 'Face');
   assert.equal(report.products[16].step, 'Cleanse');
